@@ -55,6 +55,16 @@ footer{border-top:1px solid var(--line);color:var(--txt3);font-size:12.5px;text-
 .cats a{display:inline-block;margin:0 8px 8px 0;padding:6px 12px;border:1px solid var(--line);border-radius:8px;font-size:13px;color:var(--txt2)}
 .cats a:hover{color:var(--txt);border-color:rgba(90,209,255,.45)}
 .cats h2{font-size:17px;margin:22px 0 10px}
+.tcards{display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:10px;margin:6px 0 4px}
+.tcard{border:1px solid var(--line);border-radius:10px;padding:12px 14px;background:rgba(255,255,255,.02)}
+.tc-top{display:flex;justify-content:space-between;align-items:center;gap:8px}
+.tc-top b{font-size:14px;color:var(--txt)}
+.tc-top a{text-decoration:none}
+.tc-go{font-size:12px;color:var(--cyan);white-space:nowrap}
+.tc-d{margin:6px 0 0;font-size:12.5px;color:var(--txt3);line-height:1.5}
+.tc-lim{margin:6px 0 0;font-size:12px;color:var(--txt2)}
+.tnote{font-size:12px;color:var(--txt3);margin:8px 0 0}
+@media(max-width:640px){.tcards{grid-template-columns:1fr}.tc-top a{min-height:34px;display:inline-flex;align-items:center}}
 @media(max-width:640px){h1{font-size:22px}main{padding:20px 16px 40px}
 .related a,.tlinks a,.tool-link a,footer a,.sib a{min-height:36px;display:inline-flex;align-items:center}
 .list a{padding:14px 14px}
@@ -82,7 +92,7 @@ td a{display:inline-block;padding:8px 0}
 <p>生成端我统一 1080p、30fps，60fps 不会让口型更准，只让动作更顺，有些平台只出 25fps。口播 数字人 语速 定稿后再导音频，给 48kHz、16bit 的 WAV，别用 MP3 转，AAC 二次压缩会让起音晚几毫秒。发布端抖音、视频号、小红书都按竖屏 1080×1920、30fps、H.264、8 到 12Mbps 导，关键帧间隔 2 秒；字幕安全区左右各留 60 像素、底部留 300 像素，右下角点赞按钮会挡住字。数字人 口型 对不上 怎么调，验收用 0.5 倍速抽查每句的开口帧、闭唇音、收口帧，偏差超过 2 帧（约 67 毫秒）就把那句拆出来重生成，3 分钟片子抽 12 到 15 句，10 分钟过完。那支净水器片最后 3 处全在含型号的句子上，把 WM-3 改成“三号机型”后一次过。第一个坑，别用 24fps 生成再转 30fps，插帧会一顿一顿；第二个坑，“口型幅度”别拉满，100% 夸张得像配音，60% 到 70% 更像真人。</p>
 <h2>总结</h2>
 <p>口播 数字人 口型 的对齐顺序是：音频定稿、时间轴挪帧、语速压到每秒 5 字、多音字标读音，最后按 1080p、30fps 导出并抽 2 帧验收。顺序对了，嘴就不会抢拍。</p></article>
-  <div class="sec"><h2>文中提到的工具</h2><p class="tlinks"><a href="../tool/capcut/">剪映 →</a></p></div>
+  <div class="sec tcards-sec"><h2>文中提到的工具</h2><div class="tcards"><div class="tcard"><div class="tc-top"><a href="../tool/capcut/"><b>剪映</b></a><a class="tc-go" href="https://www.capcut.cn" target="_blank" rel="noopener nofollow">官网 →</a></div><p class="tc-d">自动字幕 + 文本剪辑，国内工作流顺手</p><p class="tc-lim">免费额度：基础剪辑功能免费，部分AI功能、素材和云空间需要开通会员，会…</p></div></div><p class="tnote">点工具名看详情（适用场景 / 免费额度 / 替代方案），需要直接用点「官网 →」。</p></div>
   <section class="related"><h2>同类教程</h2><ul><li><a href="video-19-kling-video-queue-slow.html">可灵 视频 排队 慢：错峰、降分辨率、批量提速</a></li><li><a href="video-20-video-subtitle-translation.html">视频 字幕 翻译：SRT 批量流程与术语统一</a></li><li><a href="video-21-video-compress-size.html">视频 压缩 体积：码率公式算出目标大小</a></li><li><a href="video-22-audio-denoise-voice.html">音频 降噪 人声：三类噪声和六个参数</a></li><li><a href="video-23-digital-human-live.html">数字人 直播 方案：形象、延迟、合规与成本</a></li></ul><p class="tool-link"><a href="../index.html">查看 视频音频 工具与其它教程 →</a> <a href="../t/params/">参数与配置 →</a> <a href="../t/howto/">新手上手教程 →</a></p></section>
   <footer>© 2026 星籁 Stellara · <a href="../privacy.html">隐私政策</a> · <a href="../sitemap.xml">站点地图</a></footer>
 </main>

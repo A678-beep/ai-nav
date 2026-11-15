@@ -55,6 +55,16 @@ footer{border-top:1px solid var(--line);color:var(--txt3);font-size:12.5px;text-
 .cats a{display:inline-block;margin:0 8px 8px 0;padding:6px 12px;border:1px solid var(--line);border-radius:8px;font-size:13px;color:var(--txt2)}
 .cats a:hover{color:var(--txt);border-color:rgba(90,209,255,.45)}
 .cats h2{font-size:17px;margin:22px 0 10px}
+.tcards{display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:10px;margin:6px 0 4px}
+.tcard{border:1px solid var(--line);border-radius:10px;padding:12px 14px;background:rgba(255,255,255,.02)}
+.tc-top{display:flex;justify-content:space-between;align-items:center;gap:8px}
+.tc-top b{font-size:14px;color:var(--txt)}
+.tc-top a{text-decoration:none}
+.tc-go{font-size:12px;color:var(--cyan);white-space:nowrap}
+.tc-d{margin:6px 0 0;font-size:12.5px;color:var(--txt3);line-height:1.5}
+.tc-lim{margin:6px 0 0;font-size:12px;color:var(--txt2)}
+.tnote{font-size:12px;color:var(--txt3);margin:8px 0 0}
+@media(max-width:640px){.tcards{grid-template-columns:1fr}.tc-top a{min-height:34px;display:inline-flex;align-items:center}}
 @media(max-width:640px){h1{font-size:22px}main{padding:20px 16px 40px}
 .related a,.tlinks a,.tool-link a,footer a,.sib a{min-height:36px;display:inline-flex;align-items:center}
 .list a{padding:14px 14px}
@@ -84,7 +94,7 @@ td a{display:inline-block;padding:8px 0}
 <p>完整步骤可以照抄：两张同源关键帧、首尾帧模式、1.6 加 5 秒 1080p、提示词只写运动、出片检查 2 秒处。三个人一天能产 10 条变装，比实拍一天 2 条快得多。可灵 1.6 图生视频 首尾帧 适合同一主体的小幅动作和转场，换场景的活还是交回实拍。</p>
 <h2>总结</h2>
 <p>可灵首尾帧转场本质是在两张图之间猜运动，图越同源、提示词越窄，猜得越准。可灵1.6图生视频参数记住 5 秒、1080p、35 灵感值三个数就够开跑。可灵 1.6 图生视频 首尾帧 我还会继续做，但只做变装、回头、推门这类一个动作能讲完的段落。</p></article>
-  <div class="sec"><h2>文中提到的工具</h2><p class="tlinks"><a href="../tool/kling/">可灵 AI →</a></p></div>
+  <div class="sec tcards-sec"><h2>文中提到的工具</h2><div class="tcards"><div class="tcard"><div class="tc-top"><a href="../tool/kling/"><b>可灵 AI</b></a><a class="tc-go" href="https://klingai.kuaishou.com" target="_blank" rel="noopener nofollow">官网 →</a></div><p class="tc-d">图生视频与图生图，国风插画质感突出</p><p class="tc-lim">免费额度：每日赠送免费灵感值，超出后需单独购买；会员按月订阅可解锁更多…</p></div></div><p class="tnote">点工具名看详情（适用场景 / 免费额度 / 替代方案），需要直接用点「官网 →」。</p></div>
   <section class="related"><h2>同类教程</h2><ul><li><a href="video-02-runway-gen-4-camera-control.html">Runway Gen-4 运镜 控制：锁死机位</a></li><li><a href="video-03-sora-storyboard-prompt.html">Sora 分镜 提示词：两秒处补一句就顺</a></li><li><a href="video-04-heygen-avatar-lip-sync.html">HeyGen 数字人 口型：中英混读别超过两成</a></li><li><a href="video-05-elevenlabs-chinese-emotion.html">ElevenLabs 中文 配音 情感：标签分行</a></li><li><a href="video-06-suno-v5-chinese-lyrics.html">Suno v5 中文 歌词 结构：副歌别超四句</a></li></ul><p class="tool-link"><a href="../index.html">查看 视频音频 工具与其它教程 →</a> <a href="../t/errors/">AI 报错解决 →</a> <a href="../t/pricing/">AI 工具价格 →</a></p></section>
   <footer>© 2026 星籁 Stellara · <a href="../privacy.html">隐私政策</a> · <a href="../sitemap.xml">站点地图</a></footer>
 </main>

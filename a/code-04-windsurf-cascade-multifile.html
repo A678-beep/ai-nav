@@ -55,6 +55,16 @@ footer{border-top:1px solid var(--line);color:var(--txt3);font-size:12.5px;text-
 .cats a{display:inline-block;margin:0 8px 8px 0;padding:6px 12px;border:1px solid var(--line);border-radius:8px;font-size:13px;color:var(--txt2)}
 .cats a:hover{color:var(--txt);border-color:rgba(90,209,255,.45)}
 .cats h2{font-size:17px;margin:22px 0 10px}
+.tcards{display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:10px;margin:6px 0 4px}
+.tcard{border:1px solid var(--line);border-radius:10px;padding:12px 14px;background:rgba(255,255,255,.02)}
+.tc-top{display:flex;justify-content:space-between;align-items:center;gap:8px}
+.tc-top b{font-size:14px;color:var(--txt)}
+.tc-top a{text-decoration:none}
+.tc-go{font-size:12px;color:var(--cyan);white-space:nowrap}
+.tc-d{margin:6px 0 0;font-size:12.5px;color:var(--txt3);line-height:1.5}
+.tc-lim{margin:6px 0 0;font-size:12px;color:var(--txt2)}
+.tnote{font-size:12px;color:var(--txt3);margin:8px 0 0}
+@media(max-width:640px){.tcards{grid-template-columns:1fr}.tc-top a{min-height:34px;display:inline-flex;align-items:center}}
 @media(max-width:640px){h1{font-size:22px}main{padding:20px 16px 40px}
 .related a,.tlinks a,.tool-link a,footer a,.sib a{min-height:36px;display:inline-flex;align-items:center}
 .list a{padding:14px 14px}
@@ -84,7 +94,7 @@ td a{display:inline-block;padding:8px 0}
 <p>三个坑补完：一是一次 @ 太多文件，上下文被截断后它猜错的概率集中在 import 路径上；二是 Accept all 会连样式一起改，先看 diff 再点；三是 checkpoint 只回滚工作区，不撤回终端里跑过的命令。复查 Windsurf Cascade 多文件 的改动时，我按依赖顺序排文件，最底层的先看，六个文件十分钟能过完。回头看，Windsurf Cascade 一次改多个文件 最容易翻车的地方不是业务代码，是 package.json 这种配置文件。再补一条：中文注释别写在 JSX 属性行内，会破坏格式化。</p>
 <h2>总结</h2>
 <p>Windsurf Cascade 多文件 的正确顺序是锁上下文、写约定、逐文件接受、预览后提交。六个文件来回折腾两次，第三次才一遍过，关键差别是提前约定四套命名规则，而不是把需求写得更长。Cascade 批量改文件 时，慢一点 review 比快一点重做划算。</p></article>
-  <div class="sec"><h2>文中提到的工具</h2><p class="tlinks"><a href="../tool/windsurf/">Windsurf →</a></p></div>
+  <div class="sec tcards-sec"><h2>文中提到的工具</h2><div class="tcards"><div class="tcard"><div class="tc-top"><a href="../tool/windsurf/"><b>Windsurf</b></a><a class="tc-go" href="https://windsurf.com" target="_blank" rel="noopener nofollow">官网 →</a></div><p class="tc-d">Cascade 多文件流程，自动跑测试较稳</p><p class="tc-lim">免费额度：提供免费额度，个人轻度使用够用；付费版按月订阅，团队版按席位…</p></div></div><p class="tnote">点工具名看详情（适用场景 / 免费额度 / 替代方案），需要直接用点「官网 →」。</p></div>
   <section class="related"><h2>同类教程</h2><ul><li><a href="code-05-tongyi-lingma-private-repo.html">通义灵码 私有仓库：企业版知识库200MB上限</a></li><li><a href="code-06-codeium-free-plan-compare.html">Codeium 免费版 对比：补全不限量卡在哪</a></li><li><a href="code-07-cline-auto-edit-safety.html">Cline 自动改代码 安全：只自动批准读文件</a></li><li><a href="code-08-continue-local-model-config.html">Continue 本地模型 配置：双模型分工</a></li><li><a href="code-09-openai-codex-cli-sandbox.html">OpenAI Codex CLI 沙箱：写工作区</a></li></ul><p class="tool-link"><a href="../index.html">查看 编程助手 工具与其它教程 →</a> <a href="../t/pricing/">AI 工具价格 →</a> <a href="../t/params/">参数与配置 →</a></p></section>
   <footer>© 2026 星籁 Stellara · <a href="../privacy.html">隐私政策</a> · <a href="../sitemap.xml">站点地图</a></footer>
 </main>

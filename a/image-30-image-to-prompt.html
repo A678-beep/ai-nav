@@ -55,6 +55,16 @@ footer{border-top:1px solid var(--line);color:var(--txt3);font-size:12.5px;text-
 .cats a{display:inline-block;margin:0 8px 8px 0;padding:6px 12px;border:1px solid var(--line);border-radius:8px;font-size:13px;color:var(--txt2)}
 .cats a:hover{color:var(--txt);border-color:rgba(90,209,255,.45)}
 .cats h2{font-size:17px;margin:22px 0 10px}
+.tcards{display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:10px;margin:6px 0 4px}
+.tcard{border:1px solid var(--line);border-radius:10px;padding:12px 14px;background:rgba(255,255,255,.02)}
+.tc-top{display:flex;justify-content:space-between;align-items:center;gap:8px}
+.tc-top b{font-size:14px;color:var(--txt)}
+.tc-top a{text-decoration:none}
+.tc-go{font-size:12px;color:var(--cyan);white-space:nowrap}
+.tc-d{margin:6px 0 0;font-size:12.5px;color:var(--txt3);line-height:1.5}
+.tc-lim{margin:6px 0 0;font-size:12px;color:var(--txt2)}
+.tnote{font-size:12px;color:var(--txt3);margin:8px 0 0}
+@media(max-width:640px){.tcards{grid-template-columns:1fr}.tc-top a{min-height:34px;display:inline-flex;align-items:center}}
 @media(max-width:640px){h1{font-size:22px}main{padding:20px 16px 40px}
 .related a,.tlinks a,.tool-link a,footer a,.sib a{min-height:36px;display:inline-flex;align-items:center}
 .list a{padding:14px 14px}
@@ -82,7 +92,7 @@ td a{display:inline-block;padding:8px 0}
 <p>第二轮把流程改成固定模板：CLIP Interrogator 拿风格段，我手写主体和构图，拼成 55 个词左右的英文提示词，加参考图 --iw 1.5 和固定种子。12 张图里一次过 9 张，单张返工从 8 分钟降到 2 分钟，第三轮把种子固定后 11/12 张结构稳定。这里有两个坑：一是反推结果会把原图的品牌 logo 和包装文字一起描述出来，直接出图会带侵权元素，得手动删掉；二是把 masterpiece、best quality、8k 当成精度补丁基本没用，SDXL 里这些词几乎不产生差异，还占掉前 75 个 token 的位置。另外反推的图如果是拼图或四宫格，工具只会描述其中一个格子，先裁开再反推。图片 反推 提示词 的精度上限，其实是你对画面的描述能力。</p>
 <h2>总结</h2>
 <p>现在这套流程写进了团队文档：先用 /describe 起稿，CLIP Interrogator 补风格，图生文 提示词 里的中文场景交给 Qwen2.5-VL，最后按四段模板改写成可复用版本，40 张图里 34 张客户一次通过。别指望反推结果直接商用，风格词 提取 完记得删品牌和艺术家名；参数写死到项目文档里，换模型时先小批试 4 张再全量。</p></article>
-  <div class="sec"><h2>文中提到的工具</h2><p class="tlinks"><a href="../tool/stable-diffusion/">Stable Diffusion →</a><a href="../tool/midjourney/">Midjourney →</a></p></div>
+  <div class="sec tcards-sec"><h2>文中提到的工具</h2><div class="tcards"><div class="tcard"><div class="tc-top"><a href="../tool/stable-diffusion/"><b>Stable Diffusion</b></a><a class="tc-go" href="https://stability.ai" target="_blank" rel="noopener nofollow">官网 →</a></div><p class="tc-d">本地开源，ControlNet/LoRA 生态最全</p><p class="tc-lim">免费额度：模型权重开源免费，但需自备显卡或租用云算力；第三方在线托管服…</p></div><div class="tcard"><div class="tc-top"><a href="../tool/midjourney/"><b>Midjourney</b></a><a class="tc-go" href="https://www.midjourney.com" target="_blank" rel="noopener nofollow">官网 →</a></div><p class="tc-d">v7 出图审美天花板，--cref 锁角色一致性</p><p class="tc-lim">免费额度：无免费额度；订阅约 10 美元/月起，高档位约 30 美元/…</p></div></div><p class="tnote">点工具名看详情（适用场景 / 免费额度 / 替代方案），需要直接用点「官网 →」。</p></div>
   <section class="related"><h2>同类教程</h2><ul><li><a href="image-31-batch-output-consistency.html">批量 出图 一致性：48 张图的参数表</a></li><li><a href="image-32-batch-watermark.html">批量 加 水印：1200 张图的脚本与防裁剪</a></li><li><a href="image-33-lossless-compress-formats.html">AVIF 压缩 实测：比 WebP 小还是大</a></li><li><a href="image-34-ecommerce-detail-long-image.html">电商 详情页 长图：分段尺寸与拼接流程</a></li><li><a href="image-35-product-model-swap-consistency.html">产品图 换模特 一致性：参考图与蒙版流程</a></li></ul><p class="tool-link"><a href="../index.html">查看 图像生成 工具与其它教程 →</a> <a href="../t/errors/">AI 报错解决 →</a> <a href="../t/params/">参数与配置 →</a></p></section>
   <footer>© 2026 星籁 Stellara · <a href="../privacy.html">隐私政策</a> · <a href="../sitemap.xml">站点地图</a></footer>
 </main>

@@ -55,6 +55,16 @@ footer{border-top:1px solid var(--line);color:var(--txt3);font-size:12.5px;text-
 .cats a{display:inline-block;margin:0 8px 8px 0;padding:6px 12px;border:1px solid var(--line);border-radius:8px;font-size:13px;color:var(--txt2)}
 .cats a:hover{color:var(--txt);border-color:rgba(90,209,255,.45)}
 .cats h2{font-size:17px;margin:22px 0 10px}
+.tcards{display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:10px;margin:6px 0 4px}
+.tcard{border:1px solid var(--line);border-radius:10px;padding:12px 14px;background:rgba(255,255,255,.02)}
+.tc-top{display:flex;justify-content:space-between;align-items:center;gap:8px}
+.tc-top b{font-size:14px;color:var(--txt)}
+.tc-top a{text-decoration:none}
+.tc-go{font-size:12px;color:var(--cyan);white-space:nowrap}
+.tc-d{margin:6px 0 0;font-size:12.5px;color:var(--txt3);line-height:1.5}
+.tc-lim{margin:6px 0 0;font-size:12px;color:var(--txt2)}
+.tnote{font-size:12px;color:var(--txt3);margin:8px 0 0}
+@media(max-width:640px){.tcards{grid-template-columns:1fr}.tc-top a{min-height:34px;display:inline-flex;align-items:center}}
 @media(max-width:640px){h1{font-size:22px}main{padding:20px 16px 40px}
 .related a,.tlinks a,.tool-link a,footer a,.sib a{min-height:36px;display:inline-flex;align-items:center}
 .list a{padding:14px 14px}
@@ -85,7 +95,7 @@ td a{display:inline-block;padding:8px 0}
 <p>成本算一遍：504 张综合 5.8 元一张，含 4090 租用 2 元一小时、两小时人工复检，外拍单张 120 元，交期从 7 天压到 2 天。坑还有两条：文件名丢了 SKU 映射，返工对表花 3 小时；原图和交付图混在一个目录，想复现参数时找不到底图。</p>
 <h2>总结</h2>
 <p>现在这套 电商 模特 图 批量 固定五步：定模特池、CSV 驱动出图、机筛硬伤、人工抽 20%、验收五项。返工率从 34% 降到 7%，单张从 120 元压到 5.8 元。模特 图 批量 出图 快慢已经不是问题，电商 模特 图 质检 做成清单，批量才真的省人。</p></article>
-  <div class="sec"><h2>文中提到的工具</h2><p class="tlinks"><a href="../tool/comfyui/">ComfyUI →</a></p></div>
+  <div class="sec tcards-sec"><h2>文中提到的工具</h2><div class="tcards"><div class="tcard"><div class="tc-top"><a href="../tool/comfyui/"><b>ComfyUI</b></a><a class="tc-go" href="https://www.comfy.org" target="_blank" rel="noopener nofollow">官网 →</a></div><p class="tc-d">节点式工作流，一次搭建反复复用</p><p class="tc-lim">免费额度：软件本身开源免费，但需自备显卡和模型文件；云端托管服务按算力…</p></div></div><p class="tnote">点工具名看详情（适用场景 / 免费额度 / 替代方案），需要直接用点「官网 →」。</p></div>
   <section class="related"><h2>同类教程</h2><ul><li><a href="image-49-ai-content-labeling.html">AI 生成 标识 规范：显式、隐式与平台落地</a></li><li><a href="image-50-batch-image-translation.html">图片 批量 翻译：OCR 到重排的四步流程</a></li><li><a href="image-51-menu-design-ai.html">菜单 设计 AI：尺寸、字体与价格排版</a></li><li><a href="image-52-real-estate-photo-enhance.html">房源 图 美化 参数：提亮多少就失真</a></li><li><a href="image-53-ecommerce-main-image-design.html">电商 主图 设计：尺寸、卖点与 A/B 测试</a></li></ul><p class="tool-link"><a href="../index.html">查看 图像生成 工具与其它教程 →</a> <a href="../t/pricing/">AI 工具价格 →</a> <a href="../t/params/">参数与配置 →</a></p></section>
   <footer>© 2026 星籁 Stellara · <a href="../privacy.html">隐私政策</a> · <a href="../sitemap.xml">站点地图</a></footer>
 </main>

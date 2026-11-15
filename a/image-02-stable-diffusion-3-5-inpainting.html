@@ -55,6 +55,16 @@ footer{border-top:1px solid var(--line);color:var(--txt3);font-size:12.5px;text-
 .cats a{display:inline-block;margin:0 8px 8px 0;padding:6px 12px;border:1px solid var(--line);border-radius:8px;font-size:13px;color:var(--txt2)}
 .cats a:hover{color:var(--txt);border-color:rgba(90,209,255,.45)}
 .cats h2{font-size:17px;margin:22px 0 10px}
+.tcards{display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:10px;margin:6px 0 4px}
+.tcard{border:1px solid var(--line);border-radius:10px;padding:12px 14px;background:rgba(255,255,255,.02)}
+.tc-top{display:flex;justify-content:space-between;align-items:center;gap:8px}
+.tc-top b{font-size:14px;color:var(--txt)}
+.tc-top a{text-decoration:none}
+.tc-go{font-size:12px;color:var(--cyan);white-space:nowrap}
+.tc-d{margin:6px 0 0;font-size:12.5px;color:var(--txt3);line-height:1.5}
+.tc-lim{margin:6px 0 0;font-size:12px;color:var(--txt2)}
+.tnote{font-size:12px;color:var(--txt3);margin:8px 0 0}
+@media(max-width:640px){.tcards{grid-template-columns:1fr}.tc-top a{min-height:34px;display:inline-flex;align-items:center}}
 @media(max-width:640px){h1{font-size:22px}main{padding:20px 16px 40px}
 .related a,.tlinks a,.tool-link a,footer a,.sib a{min-height:36px;display:inline-flex;align-items:center}
 .list a{padding:14px 14px}
@@ -87,7 +97,7 @@ td a{display:inline-block;padding:8px 0}
 <p>批量修图时我把 20 张排进队列，每张只换 seed 和左右手描述，蒙版与强度不动。有一次忘记换 seed，20 张修出 20 只一模一样的手，白跑一小时；从那以后我把 seed 写在提示词旁边的便签上，改完一张划掉一个。</p>
 <h2>总结</h2>
 <p>换手 0.5、改表情 0.35、换衣 0.6，蒙版羽化 8，步数 28，CFG 4.5，16GB 显存上 fp8，24GB 以上优先 bf16。蒙版多框一点过渡区，提示词用英文写左右手。这套Stable Diffusion 3.5 局部重绘流程慢一点，但省下的返工时间值回票价。</p></article>
-  <div class="sec"><h2>文中提到的工具</h2><p class="tlinks"><a href="../tool/stable-diffusion/">Stable Diffusion →</a><a href="../tool/comfyui/">ComfyUI →</a></p></div>
+  <div class="sec tcards-sec"><h2>文中提到的工具</h2><div class="tcards"><div class="tcard"><div class="tc-top"><a href="../tool/stable-diffusion/"><b>Stable Diffusion</b></a><a class="tc-go" href="https://stability.ai" target="_blank" rel="noopener nofollow">官网 →</a></div><p class="tc-d">本地开源，ControlNet/LoRA 生态最全</p><p class="tc-lim">免费额度：模型权重开源免费，但需自备显卡或租用云算力；第三方在线托管服…</p></div><div class="tcard"><div class="tc-top"><a href="../tool/comfyui/"><b>ComfyUI</b></a><a class="tc-go" href="https://www.comfy.org" target="_blank" rel="noopener nofollow">官网 →</a></div><p class="tc-d">节点式工作流，一次搭建反复复用</p><p class="tc-lim">免费额度：软件本身开源免费，但需自备显卡和模型文件；云端托管服务按算力…</p></div></div><p class="tnote">点工具名看详情（适用场景 / 免费额度 / 替代方案），需要直接用点「官网 →」。</p></div>
   <section class="related"><h2>同类教程</h2><ul><li><a href="image-03-flux1-dev-low-vram-quantization.html">Flux.1 dev 低显存 量化：三档取舍</a></li><li><a href="image-04-jimeng-ai-ecommerce-hero-image.html">即梦 AI 电商主图：白底出图六坑</a></li><li><a href="image-05-kling-image-to-image-chinese-style.html">可灵 图生图 国风插画：转绘强度 0.55 实测</a></li><li><a href="image-06-nano-banana-editing-prompts.html">Nano Banana 修图 提示词：四段模板</a></li><li><a href="image-07-comfyui-workflow-reuse.html">ComfyUI 工作流 复用：3 个子图</a></li></ul><p class="tool-link"><a href="../index.html">查看 图像生成 工具与其它教程 →</a> <a href="../t/errors/">AI 报错解决 →</a> <a href="../t/params/">参数与配置 →</a></p></section>
   <footer>© 2026 星籁 Stellara · <a href="../privacy.html">隐私政策</a> · <a href="../sitemap.xml">站点地图</a></footer>
 </main>

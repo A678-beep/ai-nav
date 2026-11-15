@@ -55,6 +55,16 @@ footer{border-top:1px solid var(--line);color:var(--txt3);font-size:12.5px;text-
 .cats a{display:inline-block;margin:0 8px 8px 0;padding:6px 12px;border:1px solid var(--line);border-radius:8px;font-size:13px;color:var(--txt2)}
 .cats a:hover{color:var(--txt);border-color:rgba(90,209,255,.45)}
 .cats h2{font-size:17px;margin:22px 0 10px}
+.tcards{display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:10px;margin:6px 0 4px}
+.tcard{border:1px solid var(--line);border-radius:10px;padding:12px 14px;background:rgba(255,255,255,.02)}
+.tc-top{display:flex;justify-content:space-between;align-items:center;gap:8px}
+.tc-top b{font-size:14px;color:var(--txt)}
+.tc-top a{text-decoration:none}
+.tc-go{font-size:12px;color:var(--cyan);white-space:nowrap}
+.tc-d{margin:6px 0 0;font-size:12.5px;color:var(--txt3);line-height:1.5}
+.tc-lim{margin:6px 0 0;font-size:12px;color:var(--txt2)}
+.tnote{font-size:12px;color:var(--txt3);margin:8px 0 0}
+@media(max-width:640px){.tcards{grid-template-columns:1fr}.tc-top a{min-height:34px;display:inline-flex;align-items:center}}
 @media(max-width:640px){h1{font-size:22px}main{padding:20px 16px 40px}
 .related a,.tlinks a,.tool-link a,footer a,.sib a{min-height:36px;display:inline-flex;align-items:center}
 .list a{padding:14px 14px}
@@ -82,7 +92,7 @@ td a{display:inline-block;padding:8px 0}
 <p>视频生成 积分 成本 最容易在失败上失控。即梦 API 只对调用成功计费，网页端会员按任务先扣积分，审核驳回和手动取消退不退写得含糊，预算按不退算。我按三条出一条的通过率做预算，单条可用成本是账面价三倍。视频生成 失败 扣积分 吗，看规则：写成功计费的平台重试只花时间，按次扣积分的重试就是真金白银。积分类型也是坑，每日免费积分当天 24 点清零，订阅积分周期末失效，充值积分能放两年，扣费顺序先免费、后订阅、再充值，所以试模型一律用免费积分。折扣还有期限，那波 4 折收回后同一条贵了 2.7 倍，报价单里模型折扣有效期单列一行，过期按原价重报。</p>
 <h2>总结</h2>
 <p>现在我报视频价，先按 视频生成 积分 成本 的公式算出单条账面价，再乘 3 的废片系数，最后核对分辨率和折扣有效期。视频生成 积分 怎么 换算，就是月费除以每月积分再乘单条积分；视频生成 失败 扣积分 吗，看平台写的是成功计费还是按任务扣。720p 定稿、1080p 留精品、免费积分只做实验，三句话写进流程，报价才不亏。</p></article>
-  <div class="sec"><h2>文中提到的工具</h2><p class="tlinks"><a href="../tool/runway/">Runway →</a><a href="../tool/jimeng/">即梦 AI →</a></p></div>
+  <div class="sec tcards-sec"><h2>文中提到的工具</h2><div class="tcards"><div class="tcard"><div class="tc-top"><a href="../tool/runway/"><b>Runway</b></a><a class="tc-go" href="https://runwayml.com" target="_blank" rel="noopener nofollow">官网 →</a></div><p class="tc-d">Gen-4 运镜控制与视频编辑工具链</p><p class="tc-lim">免费额度：免费账户每月有少量积分，付费按标准、专业等档位月付，积分用完…</p></div><div class="tcard"><div class="tc-top"><a href="../tool/jimeng/"><b>即梦 AI</b></a><a class="tc-go" href="https://jimeng.jianying.com" target="_blank" rel="noopener nofollow">官网 →</a></div><p class="tc-d">中文电商图、海报生成，免部署直接出图</p><p class="tc-lim">免费额度：每日提供免费积分额度，按次消耗且有上限；会员分档订阅，具体价…</p></div></div><p class="tnote">点工具名看详情（适用场景 / 免费额度 / 替代方案），需要直接用点「官网 →」。</p></div>
   <section class="related"><h2>同类教程</h2><ul><li><a href="video-33-short-video-cover-ab.html">短视频 封面 A/B 测试：样本量与平台工具</a></li><li><a href="video-34-video-to-gif.html">视频 转 GIF 参数：调色板、帧率与体积控制</a></li><li><a href="video-35-audio-voice-change.html">音频 变声：音高与共振峰怎么调才不假</a></li><li><a href="video-36-multilingual-subtitles.html">视频 多语言 字幕：6 语版本的时间轴与字体</a></li><li><a href="video-37-short-video-script-templates.html">短视频 脚本 模板：3 类分镜与时长分配</a></li></ul><p class="tool-link"><a href="../index.html">查看 视频音频 工具与其它教程 →</a> <a href="../t/errors/">AI 报错解决 →</a> <a href="../t/pricing/">AI 工具价格 →</a></p></section>
   <footer>© 2026 星籁 Stellara · <a href="../privacy.html">隐私政策</a> · <a href="../sitemap.xml">站点地图</a></footer>
 </main>

@@ -55,6 +55,16 @@ footer{border-top:1px solid var(--line);color:var(--txt3);font-size:12.5px;text-
 .cats a{display:inline-block;margin:0 8px 8px 0;padding:6px 12px;border:1px solid var(--line);border-radius:8px;font-size:13px;color:var(--txt2)}
 .cats a:hover{color:var(--txt);border-color:rgba(90,209,255,.45)}
 .cats h2{font-size:17px;margin:22px 0 10px}
+.tcards{display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:10px;margin:6px 0 4px}
+.tcard{border:1px solid var(--line);border-radius:10px;padding:12px 14px;background:rgba(255,255,255,.02)}
+.tc-top{display:flex;justify-content:space-between;align-items:center;gap:8px}
+.tc-top b{font-size:14px;color:var(--txt)}
+.tc-top a{text-decoration:none}
+.tc-go{font-size:12px;color:var(--cyan);white-space:nowrap}
+.tc-d{margin:6px 0 0;font-size:12.5px;color:var(--txt3);line-height:1.5}
+.tc-lim{margin:6px 0 0;font-size:12px;color:var(--txt2)}
+.tnote{font-size:12px;color:var(--txt3);margin:8px 0 0}
+@media(max-width:640px){.tcards{grid-template-columns:1fr}.tc-top a{min-height:34px;display:inline-flex;align-items:center}}
 @media(max-width:640px){h1{font-size:22px}main{padding:20px 16px 40px}
 .related a,.tlinks a,.tool-link a,footer a,.sib a{min-height:36px;display:inline-flex;align-items:center}
 .list a{padding:14px 14px}
@@ -83,7 +93,7 @@ td a{display:inline-block;padding:8px 0}
 <p>26 条素材统一 1080×1920，批量是 视频 去 背景 里最费时的部分。剪映里先做一条草稿，抠像、背景图、脚下阴影、片头片尾排好，右键复制草稿 26 次，逐条替换素材导出，一条 4 分钟，26 条约 1 小时 45 分。素材上百条就换 FFmpeg 循环，脚本读文件名输出到 out 目录，26 条 12 分钟跑完，代价是背景只能是固定图片或视频，动态阴影得另加。背景比人暗一档，否则观众先看背景；脚下补一层 15% 透明度的椭圆阴影，人才不飘。验收抽 3 条看四个点：发丝、指缝、领口、转身瞬间。案例：换完背景的 26 条，平均播放从 4200 涨到 11800，完播率 17% 到 26%。视频去背景用什么软件，绿幕素材剪映专业版就够，脚本批量交给 FFmpeg。避坑：批量导出混进一条 720p、文件名顺序和素材顺序错位、竖屏素材套了横屏背景，这三条我都踩过。</p>
 <h2>总结</h2>
 <p>视频 去 背景 的顺序别反：先看素材有没有绿幕，有就固定强度 55、阴影 18，没有再上智能抠像；拍的时候把人推离幕布 1.5 米，幕布压暗一档；批量用草稿复制或 FFmpeg 循环，最后抽 4 个点验收。视频去背景怎么操作，答案是把参数写成一张表；视频去背景用什么软件，先看你的素材是不是绿幕。</p></article>
-  <div class="sec"><h2>文中提到的工具</h2><p class="tlinks"><a href="../tool/capcut/">剪映 →</a></p></div>
+  <div class="sec tcards-sec"><h2>文中提到的工具</h2><div class="tcards"><div class="tcard"><div class="tc-top"><a href="../tool/capcut/"><b>剪映</b></a><a class="tc-go" href="https://www.capcut.cn" target="_blank" rel="noopener nofollow">官网 →</a></div><p class="tc-d">自动字幕 + 文本剪辑，国内工作流顺手</p><p class="tc-lim">免费额度：基础剪辑功能免费，部分AI功能、素材和云空间需要开通会员，会…</p></div></div><p class="tnote">点工具名看详情（适用场景 / 免费额度 / 替代方案），需要直接用点「官网 →」。</p></div>
   <section class="related"><h2>同类教程</h2><ul><li><a href="video-39-live-replay-editing.html">直播 回放 剪辑：2 小时回放怎么剪成短视频</a></li><li><a href="video-40-multi-platform-distribution.html">多平台 分发 格式：尺寸、码率与封面规范</a></li><li><a href="video-41-video-duration-strategy.html">视频 时长 策略：6 个平台的时长档选择</a></li><li><a href="video-42-audio-edit-denoise-chain.html">音频 剪辑 降噪链：顺序、增益与门限</a></li><li><a href="video-43-recording-to-transcript.html">录像 转 文字稿：时间戳与说话人怎么标</a></li></ul><p class="tool-link"><a href="../index.html">查看 视频音频 工具与其它教程 →</a> <a href="../t/params/">参数与配置 →</a> <a href="../t/howto/">新手上手教程 →</a></p></section>
   <footer>© 2026 星籁 Stellara · <a href="../privacy.html">隐私政策</a> · <a href="../sitemap.xml">站点地图</a></footer>
 </main>

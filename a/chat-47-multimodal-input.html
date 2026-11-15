@@ -55,6 +55,16 @@ footer{border-top:1px solid var(--line);color:var(--txt3);font-size:12.5px;text-
 .cats a{display:inline-block;margin:0 8px 8px 0;padding:6px 12px;border:1px solid var(--line);border-radius:8px;font-size:13px;color:var(--txt2)}
 .cats a:hover{color:var(--txt);border-color:rgba(90,209,255,.45)}
 .cats h2{font-size:17px;margin:22px 0 10px}
+.tcards{display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:10px;margin:6px 0 4px}
+.tcard{border:1px solid var(--line);border-radius:10px;padding:12px 14px;background:rgba(255,255,255,.02)}
+.tc-top{display:flex;justify-content:space-between;align-items:center;gap:8px}
+.tc-top b{font-size:14px;color:var(--txt)}
+.tc-top a{text-decoration:none}
+.tc-go{font-size:12px;color:var(--cyan);white-space:nowrap}
+.tc-d{margin:6px 0 0;font-size:12.5px;color:var(--txt3);line-height:1.5}
+.tc-lim{margin:6px 0 0;font-size:12px;color:var(--txt2)}
+.tnote{font-size:12px;color:var(--txt3);margin:8px 0 0}
+@media(max-width:640px){.tcards{grid-template-columns:1fr}.tc-top a{min-height:34px;display:inline-flex;align-items:center}}
 @media(max-width:640px){h1{font-size:22px}main{padding:20px 16px 40px}
 .related a,.tlinks a,.tool-link a,footer a,.sib a{min-height:36px;display:inline-flex;align-items:center}
 .list a{padding:14px 14px}
@@ -82,7 +92,7 @@ td a{display:inline-block;padding:8px 0}
 <p>三类材料放同一条消息，模型按上传顺序排，但不会主动说哪张是哪张。我固定写三句：第 1 到 6 张是现场照片，对应合同第 3 条；PDF 是合同，页码在右上角；录音是房东口述，时间点标在文字稿里。任务也拆成 1 出结论、2 列证据、3 标不确定项。6 张照片里有一张拍到了邻居门牌，写明“只看水渍，忽略门牌”后它不再拿门牌判断。多模态 输入 组合 的关键是给每份材料起名字，让回答能引用。这里还有条 对话 文件 上传 限制 值得记住：一条消息堆太多附件，后面的容易上传失败，分两条发更稳。</p>
 <h2>总结</h2>
 <p>多模态 输入 我记成三步：文件先转成模型认的格式，体积和页数按 token 预算砍，最后把每份材料的身份和任务写进同一句话。图片 文档 音频 组合 难在让模型知道哪份材料在第几步用；对话 文件 上传 限制 主要卡在页数、张数和单条体积。这些摸清后，一份合同加六张照片的活从返工三次变成一次过。</p></article>
-  <div class="sec"><h2>文中提到的工具</h2><p class="tlinks"><a href="../tool/claude/">Claude →</a></p></div>
+  <div class="sec tcards-sec"><h2>文中提到的工具</h2><div class="tcards"><div class="tcard"><div class="tc-top"><a href="../tool/claude/"><b>Claude</b></a><a class="tc-go" href="https://claude.ai" target="_blank" rel="noopener nofollow">官网 →</a></div><p class="tc-d">长文档与代码阅读强，200K 上下文适合合同、论文</p><p class="tc-lim">免费额度：免费版有每日用量限制；Claude Pro 约 20 美元/…</p></div></div><p class="tnote">点工具名看详情（适用场景 / 免费额度 / 替代方案），需要直接用点「官网 →」。</p></div>
   <section class="related"><h2>同类教程</h2><ul><li><a href="chat-48-long-context-usage.html">长上下文 用法：token 预算与中段召回</a></li><li><a href="chat-49-ai-voice-call.html">AI 语音 通话：延迟、打断与合规</a></li><li><a href="chat-50-ai-study-plan.html">AI 学习 计划：目标拆解到每日打卡</a></li><li><a href="chat-51-ai-search-comparison.html">AI 搜索 对比：五款工具引用与时效实测</a></li><li><a href="chat-52-ai-speaking-practice.html">AI 口语 陪练 21 天：场景纠错与发音打分</a></li></ul><p class="tool-link"><a href="../index.html">查看 对话AI 工具与其它教程 →</a> <a href="../t/errors/">AI 报错解决 →</a> <a href="../t/pricing/">AI 工具价格 →</a></p></section>
   <footer>© 2026 星籁 Stellara · <a href="../privacy.html">隐私政策</a> · <a href="../sitemap.xml">站点地图</a></footer>
 </main>

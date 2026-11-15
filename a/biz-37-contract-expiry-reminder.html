@@ -55,6 +55,16 @@ footer{border-top:1px solid var(--line);color:var(--txt3);font-size:12.5px;text-
 .cats a{display:inline-block;margin:0 8px 8px 0;padding:6px 12px;border:1px solid var(--line);border-radius:8px;font-size:13px;color:var(--txt2)}
 .cats a:hover{color:var(--txt);border-color:rgba(90,209,255,.45)}
 .cats h2{font-size:17px;margin:22px 0 10px}
+.tcards{display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:10px;margin:6px 0 4px}
+.tcard{border:1px solid var(--line);border-radius:10px;padding:12px 14px;background:rgba(255,255,255,.02)}
+.tc-top{display:flex;justify-content:space-between;align-items:center;gap:8px}
+.tc-top b{font-size:14px;color:var(--txt)}
+.tc-top a{text-decoration:none}
+.tc-go{font-size:12px;color:var(--cyan);white-space:nowrap}
+.tc-d{margin:6px 0 0;font-size:12.5px;color:var(--txt3);line-height:1.5}
+.tc-lim{margin:6px 0 0;font-size:12px;color:var(--txt2)}
+.tnote{font-size:12px;color:var(--txt3);margin:8px 0 0}
+@media(max-width:640px){.tcards{grid-template-columns:1fr}.tc-top a{min-height:34px;display:inline-flex;align-items:center}}
 @media(max-width:640px){h1{font-size:22px}main{padding:20px 16px 40px}
 .related a,.tlinks a,.tool-link a,footer a,.sib a{min-height:36px;display:inline-flex;align-items:center}
 .list a{padding:14px 14px}
@@ -82,7 +92,7 @@ td a{display:inline-block;padding:8px 0}
 <p>渠道别铺开，这套合同 到期 提醒 表格 只接一个主渠道。飞书多维表格的自动化每天 9 点扫一遍剩余天数小于提前期、状态生效中的记录，推到合同管理群，一条消息最多列 10 条。只推状态变化，续签、终止、作废由人到表里改状态，续约 提醒 随状态自动停。避坑一，提醒只发一个人，负责人一休假就断，群里至少留两个经办人。避坑二，续签后到期日没跟着改，第二年提醒直接消失，续签时强制更新到期日。避坑三，五六个渠道一起发，邮件、群、日历全响，一个月后没人点开，一个主渠道加一个升级渠道够用。每月 1 号复盘漏报数、误报率和平均处理时长。</p>
 <h2>总结</h2>
 <p>关键不在工具，在字段和日期口径。合同 台账 先定 12 个字段、到期日用公式算，合同 到期 提醒 挂在通知截止日而不是到期日，续约 提前 通知 期 照合同原文录，三条对上，286 份合同一个人管得过来。提醒做出来只是第一步，状态字段和维护人得跟着走，不然第二年就是一堆过期红点。</p></article>
-  <div class="sec"><h2>文中提到的工具</h2><p class="tlinks"><a href="../tool/feishu-bitable/">飞书多维表格 →</a></p></div>
+  <div class="sec tcards-sec"><h2>文中提到的工具</h2><div class="tcards"><div class="tcard"><div class="tc-top"><a href="../tool/feishu-bitable/"><b>飞书多维表格</b></a><a class="tc-go" href="https://www.feishu.cn/product/base" target="_blank" rel="noopener nofollow">官网 →</a></div><p class="tc-d">AI 字段做分类汇总，团队协作免费额度够用</p><p class="tc-lim">免费额度：基础功能免费，高级权限、自动化执行次数等随企业付费版本解锁，…</p></div></div><p class="tnote">点工具名看详情（适用场景 / 免费额度 / 替代方案），需要直接用点「官网 →」。</p></div>
   <section class="related"><h2>同类教程</h2><ul><li><a href="biz-38-inventory-alert-setup.html">库存 预警 设置：安全库存加三级阈值线</a></li><li><a href="biz-39-after-sales-ticket-automation.html">售后 工单 自动化：分派规则加 3 级 SLA</a></li><li><a href="biz-40-data-cleaning-spreadsheet.html">数据 清洗 表格：6 条规则和去重流程</a></li><li><a href="biz-41-customer-churn-warning.html">客户 流失 预警：5 个指标加三级挽回动作</a></li><li><a href="biz-42-ai-performance-metrics.html">绩效 指标 AI：三层指标树与周预警</a></li></ul><p class="tool-link"><a href="../index.html">查看 商业效率 工具与其它教程 →</a></p></section>
   <footer>© 2026 星籁 Stellara · <a href="../privacy.html">隐私政策</a> · <a href="../sitemap.xml">站点地图</a></footer>
 </main>

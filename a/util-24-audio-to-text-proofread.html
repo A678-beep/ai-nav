@@ -55,6 +55,16 @@ footer{border-top:1px solid var(--line);color:var(--txt3);font-size:12.5px;text-
 .cats a{display:inline-block;margin:0 8px 8px 0;padding:6px 12px;border:1px solid var(--line);border-radius:8px;font-size:13px;color:var(--txt2)}
 .cats a:hover{color:var(--txt);border-color:rgba(90,209,255,.45)}
 .cats h2{font-size:17px;margin:22px 0 10px}
+.tcards{display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:10px;margin:6px 0 4px}
+.tcard{border:1px solid var(--line);border-radius:10px;padding:12px 14px;background:rgba(255,255,255,.02)}
+.tc-top{display:flex;justify-content:space-between;align-items:center;gap:8px}
+.tc-top b{font-size:14px;color:var(--txt)}
+.tc-top a{text-decoration:none}
+.tc-go{font-size:12px;color:var(--cyan);white-space:nowrap}
+.tc-d{margin:6px 0 0;font-size:12.5px;color:var(--txt3);line-height:1.5}
+.tc-lim{margin:6px 0 0;font-size:12px;color:var(--txt2)}
+.tnote{font-size:12px;color:var(--txt3);margin:8px 0 0}
+@media(max-width:640px){.tcards{grid-template-columns:1fr}.tc-top a{min-height:34px;display:inline-flex;align-items:center}}
 @media(max-width:640px){h1{font-size:22px}main{padding:20px 16px 40px}
 .related a,.tlinks a,.tool-link a,footer a,.sib a{min-height:36px;display:inline-flex;align-items:center}
 .list a{padding:14px 14px}
@@ -82,7 +92,7 @@ td a{display:inline-block;padding:8px 0}
 <p>一场 90 分钟的稿子，我先跑三类检查：正则抓所有数字、金额、型号，和整理好的表格逐条对；术语表匹配专名，没命中的列进待确认；拼音同音比对，输出疑似词和出现位置。三份结果合成一张清单，一般 80 到 120 条，人只看清单，不重读全文。改完抽三段、每段 2 分钟回听，重点听否定词，一个「不」丢了意思能反过来。四场访谈排在一起跑，脚本二十分钟出全部清单，人工按清单走，半天能清完一轮。</p>
 <h2>总结</h2>
 <p>音频 转文字 校对 花时间的不是改错字，是找错字。按类型分、从历史改稿里攒热词、用脚本把候选位置筛出来，2.1 万字的稿子 40 分钟能到可交付状态。转写稿校对流程 的最后一步永远是回听，尤其否定词和数字；音频转文字热词表 也别贪多，三十条高频词比两百条泛词管用。</p></article>
-  <div class="sec"><h2>文中提到的工具</h2><p class="tlinks"><a href="../tool/whisper/">Whisper →</a></p></div>
+  <div class="sec tcards-sec"><h2>文中提到的工具</h2><div class="tcards"><div class="tcard"><div class="tc-top"><a href="../tool/whisper/"><b>Whisper</b></a><a class="tc-go" href="https://github.com/openai/whisper" target="_blank" rel="noopener nofollow">官网 →</a></div><p class="tc-d">开源转写，本地跑 16k 音频准确率稳</p><p class="tc-lim">免费额度：模型开源可免费本地运行，需要自备算力；调用官方接口转写则按音…</p></div></div><p class="tnote">点工具名看详情（适用场景 / 免费额度 / 替代方案），需要直接用点「官网 →」。</p></div>
   <section class="related"><h2>同类教程</h2><ul><li><a href="util-25-file-dedup-tools.html">文件 去重 工具：哈希、保留规则与批量清理</a></li><li><a href="util-26-clipboard-history-tools.html">剪贴板 历史 工具：容量、隐私与快捷键设置</a></li><li><a href="util-27-ai-free-quota-compare.html">AI 免费额度 对比：7 款工具够不够用</a></li><li><a href="util-28-batch-webpage-screenshot.html">网页 批量 截图：视口、等待策略与并发归档</a></li><li><a href="util-29-password-manager-tools.html">密码 管理 工具 选型：主密码、双因素与共享</a></li></ul><p class="tool-link"><a href="../index.html">查看 实用工具 工具与其它教程 →</a></p></section>
   <footer>© 2026 星籁 Stellara · <a href="../privacy.html">隐私政策</a> · <a href="../sitemap.xml">站点地图</a></footer>
 </main>

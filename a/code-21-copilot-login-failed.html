@@ -55,6 +55,16 @@ footer{border-top:1px solid var(--line);color:var(--txt3);font-size:12.5px;text-
 .cats a{display:inline-block;margin:0 8px 8px 0;padding:6px 12px;border:1px solid var(--line);border-radius:8px;font-size:13px;color:var(--txt2)}
 .cats a:hover{color:var(--txt);border-color:rgba(90,209,255,.45)}
 .cats h2{font-size:17px;margin:22px 0 10px}
+.tcards{display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:10px;margin:6px 0 4px}
+.tcard{border:1px solid var(--line);border-radius:10px;padding:12px 14px;background:rgba(255,255,255,.02)}
+.tc-top{display:flex;justify-content:space-between;align-items:center;gap:8px}
+.tc-top b{font-size:14px;color:var(--txt)}
+.tc-top a{text-decoration:none}
+.tc-go{font-size:12px;color:var(--cyan);white-space:nowrap}
+.tc-d{margin:6px 0 0;font-size:12.5px;color:var(--txt3);line-height:1.5}
+.tc-lim{margin:6px 0 0;font-size:12px;color:var(--txt2)}
+.tnote{font-size:12px;color:var(--txt3);margin:8px 0 0}
+@media(max-width:640px){.tcards{grid-template-columns:1fr}.tc-top a{min-height:34px;display:inline-flex;align-items:center}}
 @media(max-width:640px){h1{font-size:22px}main{padding:20px 16px 40px}
 .related a,.tlinks a,.tool-link a,footer a,.sib a{min-height:36px;display:inline-flex;align-items:center}
 .list a{padding:14px 14px}
@@ -82,7 +92,7 @@ td a{display:inline-block;padding:8px 0}
 <p>GitHub Copilot 授权 失败 的第二种情况在账号。先到 GitHub 账号设置里的 Copilot 订阅页看套餐，Copilot Free 每月 2000 次补全加 50 次对话，个人够用；学生和教师要在账号里做认证；组织成员要等管理员分配 seat。组织开了 SAML SSO 的，还得在设置的应用授权里给 GitHub for VS Code 授权，并对组织点 Grant，不做这一步授权能过、接口一律 403。企业管理员把 Copilot 的 IDE 使用关了，会直接提示被组织禁用，只能找管理员开，生效要等几分钟。插件本身也查：GitHub Copilot 和 Copilot Chat 两个扩展版本要一起升，VS Code 太旧会激活失败；左下角 Accounts 里如果登的是另一个 GitHub 账号，会出现有订阅却没权限的假象。我们同事那次 Copilot 无法 登录 卡了一下午，最后是组织 seat 没分，管理员勾选后五分钟恢复；这类 Copilot 插件 登录 失败 后台一眼看得出，前台只会转圈。</p>
 <h2>总结</h2>
 <p>现在我的顺序固定：先看输出面板，确认卡在网络、权限还是插件，再修代理和证书，然后核对订阅、SSO 和 seat，最后才重装扩展。Copilot 无法 登录 九成不是扩展坏了，是网络或权限没打通。</p></article>
-  <div class="sec"><h2>文中提到的工具</h2><p class="tlinks"><a href="../tool/github-copilot/">GitHub Copilot →</a></p></div>
+  <div class="sec tcards-sec"><h2>文中提到的工具</h2><div class="tcards"><div class="tcard"><div class="tc-top"><a href="../tool/github-copilot/"><b>GitHub Copilot</b></a><a class="tc-go" href="https://github.com/features/copilot" target="_blank" rel="noopener nofollow">官网 →</a></div><p class="tc-d">IDE 内联补全与单测生成，企业可用</p><p class="tc-lim">免费额度：学生和开源维护者可免费使用；个人版 10 美元/月，企业版按…</p></div></div><p class="tnote">点工具名看详情（适用场景 / 免费额度 / 替代方案），需要直接用点「官网 →」。</p></div>
   <section class="related"><h2>同类教程</h2><ul><li><a href="code-22-local-code-model.html">本地 代码 模型 推荐：7B 到 14B 实测</a></li><li><a href="code-23-api-doc-generation.html">接口 文档 自动 生成：OpenAPI 落地三步</a></li><li><a href="code-24-test-coverage-improve.html">单元测试 覆盖率 提升：四步补齐分支缺口</a></li><li><a href="code-25-code-comment-translate.html">代码 注释 翻译 中文：术语表与格式保留</a></li><li><a href="code-26-code-search-tools.html">代码 搜索 工具 对比：grep 到语义检索</a></li></ul><p class="tool-link"><a href="../index.html">查看 编程助手 工具与其它教程 →</a> <a href="../t/errors/">AI 报错解决 →</a> <a href="../t/pricing/">AI 工具价格 →</a></p></section>
   <footer>© 2026 星籁 Stellara · <a href="../privacy.html">隐私政策</a> · <a href="../sitemap.xml">站点地图</a></footer>
 </main>

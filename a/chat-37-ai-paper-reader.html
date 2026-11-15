@@ -55,6 +55,16 @@ footer{border-top:1px solid var(--line);color:var(--txt3);font-size:12.5px;text-
 .cats a{display:inline-block;margin:0 8px 8px 0;padding:6px 12px;border:1px solid var(--line);border-radius:8px;font-size:13px;color:var(--txt2)}
 .cats a:hover{color:var(--txt);border-color:rgba(90,209,255,.45)}
 .cats h2{font-size:17px;margin:22px 0 10px}
+.tcards{display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:10px;margin:6px 0 4px}
+.tcard{border:1px solid var(--line);border-radius:10px;padding:12px 14px;background:rgba(255,255,255,.02)}
+.tc-top{display:flex;justify-content:space-between;align-items:center;gap:8px}
+.tc-top b{font-size:14px;color:var(--txt)}
+.tc-top a{text-decoration:none}
+.tc-go{font-size:12px;color:var(--cyan);white-space:nowrap}
+.tc-d{margin:6px 0 0;font-size:12.5px;color:var(--txt3);line-height:1.5}
+.tc-lim{margin:6px 0 0;font-size:12px;color:var(--txt2)}
+.tnote{font-size:12px;color:var(--txt3);margin:8px 0 0}
+@media(max-width:640px){.tcards{grid-template-columns:1fr}.tc-top a{min-height:34px;display:inline-flex;align-items:center}}
 @media(max-width:640px){h1{font-size:22px}main{padding:20px 16px 40px}
 .related a,.tlinks a,.tool-link a,footer a,.sib a{min-height:36px;display:inline-flex;align-items:center}
 .list a{padding:14px 14px}
@@ -82,7 +92,7 @@ td a{display:inline-block;padding:8px 0}
 <p>复现 实验 步骤 我固定成六列表：数据集、划分方式、模型规模、关键超参、训练资源、评测指标。提示词必须加“附录优先于正文，没写明的标未知”。按这张表跑过一篇推荐系统论文：batch 4096、学习率 3e-4、warmup 2%、8 卡 A100 训 36 小时，我们只有 4 张 4090，按卡数把超参折半，指标差 0.4 个点。查了两天，问题不在超参，而在数据划分：论文按时间切分，我们用了随机切分。改完重跑，差距收窄到 0.1 个点。到这一步 AI 论文 阅读 流程 才算闭环，模型抽表省一小时，验证还得自己来。避坑：论文数字多是 3 到 5 个 seed 的平均，单次复现别对死数，先跑两次看方差。</p>
 <h2>总结</h2>
 <p>我的顺序是：先拆结构拿页码，再转公式核符号，最后拉复现表做验证。三个不要：不要通篇总结，不要信它转的公式，不要拿正文超参当全集。AI 论文 阅读 流程 省的是翻页和记笔记的时间，省不掉读实验细节；复现 实验 步骤 里“未知”越多，说明越该回原文。</p></article>
-  <div class="sec"><h2>文中提到的工具</h2><p class="tlinks"><a href="../tool/claude/">Claude →</a><a href="../tool/kimi/">Kimi →</a></p></div>
+  <div class="sec tcards-sec"><h2>文中提到的工具</h2><div class="tcards"><div class="tcard"><div class="tc-top"><a href="../tool/claude/"><b>Claude</b></a><a class="tc-go" href="https://claude.ai" target="_blank" rel="noopener nofollow">官网 →</a></div><p class="tc-d">长文档与代码阅读强，200K 上下文适合合同、论文</p><p class="tc-lim">免费额度：免费版有每日用量限制；Claude Pro 约 20 美元/…</p></div><div class="tcard"><div class="tc-top"><a href="../tool/kimi/"><b>Kimi</b></a><a class="tc-go" href="https://kimi.moonshot.cn" target="_blank" rel="noopener nofollow">官网 →</a></div><p class="tc-d">中文长文本总结，网页/文件一次读完整本</p><p class="tc-lim">免费额度：基础功能免费，但长文本和高峰时段有额度限制；会员与 API …</p></div></div><p class="tnote">点工具名看详情（适用场景 / 免费额度 / 替代方案），需要直接用点「官网 →」。</p></div>
   <section class="related"><h2>同类教程</h2><ul><li><a href="chat-38-ai-mock-interview.html">AI 模拟 面试 怎么练：题库、追问与复盘</a></li><li><a href="chat-39-ai-contract-clause-extraction.html">AI 合同 条款 提取：12 个字段与人工核对</a></li><li><a href="chat-40-multi-account-ai-management.html">团队多账号 AI 管理：权限、额度与合规</a></li><li><a href="chat-41-ai-hallucination-detection.html">AI 回答 幻觉 识别：三步核查加提示词</a></li><li><a href="chat-42-ai-citation-format.html">AI 引用 格式 规范：国标和 APA 对照</a></li></ul><p class="tool-link"><a href="../index.html">查看 对话AI 工具与其它教程 →</a> <a href="../t/howto/">新手上手教程 →</a></p></section>
   <footer>© 2026 星籁 Stellara · <a href="../privacy.html">隐私政策</a> · <a href="../sitemap.xml">站点地图</a></footer>
 </main>

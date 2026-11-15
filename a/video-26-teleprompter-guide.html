@@ -55,6 +55,16 @@ footer{border-top:1px solid var(--line);color:var(--txt3);font-size:12.5px;text-
 .cats a{display:inline-block;margin:0 8px 8px 0;padding:6px 12px;border:1px solid var(--line);border-radius:8px;font-size:13px;color:var(--txt2)}
 .cats a:hover{color:var(--txt);border-color:rgba(90,209,255,.45)}
 .cats h2{font-size:17px;margin:22px 0 10px}
+.tcards{display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:10px;margin:6px 0 4px}
+.tcard{border:1px solid var(--line);border-radius:10px;padding:12px 14px;background:rgba(255,255,255,.02)}
+.tc-top{display:flex;justify-content:space-between;align-items:center;gap:8px}
+.tc-top b{font-size:14px;color:var(--txt)}
+.tc-top a{text-decoration:none}
+.tc-go{font-size:12px;color:var(--cyan);white-space:nowrap}
+.tc-d{margin:6px 0 0;font-size:12.5px;color:var(--txt3);line-height:1.5}
+.tc-lim{margin:6px 0 0;font-size:12px;color:var(--txt2)}
+.tnote{font-size:12px;color:var(--txt3);margin:8px 0 0}
+@media(max-width:640px){.tcards{grid-template-columns:1fr}.tc-top a{min-height:34px;display:inline-flex;align-items:center}}
 @media(max-width:640px){h1{font-size:22px}main{padding:20px 16px 40px}
 .related a,.tlinks a,.tool-link a,footer a,.sib a{min-height:36px;display:inline-flex;align-items:center}
 .list a{padding:14px 14px}
@@ -85,7 +95,7 @@ td a{display:inline-block;padding:8px 0}
 <p>那 12 条家电口播：改配置前一条 30 分钟、NG 8 次，改完一条 12 分钟、NG 两次以内，12 条从 6 小时压到 2 个半小时。三个坑记着：字号开到 48 以上，一屏只剩两行，眼珠左右扫得比上下还多；开拍前开勿扰模式，一个来电就把 App 弹掉；整篇稿子照念，眼神是死的，现在我只提关键词。提词器滚动速度怎么调 每换一次机位都要重做。手机提词器哪个好用 我也不再纠结，固定用能悬浮窗的那款。</p>
 <h2>总结</h2>
 <p>口播 提词器 的选法就一条线：先定机位，再选自带、悬浮窗还是半透膜，然后按每秒 4 个字标定、按意群断句、把文字区贴到镜头边。12 条口播的账摆在这，配置对了拍摄时间砍一半。稿子只留提示词，别把自己变成读字幕的机器。</p></article>
-  <div class="sec"><h2>文中提到的工具</h2><p class="tlinks"><a href="../tool/capcut/">剪映 →</a></p></div>
+  <div class="sec tcards-sec"><h2>文中提到的工具</h2><div class="tcards"><div class="tcard"><div class="tc-top"><a href="../tool/capcut/"><b>剪映</b></a><a class="tc-go" href="https://www.capcut.cn" target="_blank" rel="noopener nofollow">官网 →</a></div><p class="tc-d">自动字幕 + 文本剪辑，国内工作流顺手</p><p class="tc-lim">免费额度：基础剪辑功能免费，部分AI功能、素材和云空间需要开通会员，会…</p></div></div><p class="tnote">点工具名看详情（适用场景 / 免费额度 / 替代方案），需要直接用点「官网 →」。</p></div>
   <section class="related"><h2>同类教程</h2><ul><li><a href="video-27-video-thumbnail-generation.html">视频 封面 生成：批量出 30 张按点击率挑</a></li><li><a href="video-28-batch-video-mixing.html">视频 批量 混剪：一天 60 条的流水线</a></li><li><a href="video-29-live-stream-clipping.html">直播 切片 剪辑：3 小时直播拆 40 条视频</a></li><li><a href="video-30-video-first-3-seconds.html">视频 开头 3 秒：6 种钩子与实测数据</a></li><li><a href="video-31-music-copyright-detection.html">音乐 版权 检测：先查相似度再查授权</a></li></ul><p class="tool-link"><a href="../index.html">查看 视频音频 工具与其它教程 →</a> <a href="../t/errors/">AI 报错解决 →</a> <a href="../t/params/">参数与配置 →</a></p></section>
   <footer>© 2026 星籁 Stellara · <a href="../privacy.html">隐私政策</a> · <a href="../sitemap.xml">站点地图</a></footer>
 </main>

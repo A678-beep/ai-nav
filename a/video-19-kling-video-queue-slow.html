@@ -55,6 +55,16 @@ footer{border-top:1px solid var(--line);color:var(--txt3);font-size:12.5px;text-
 .cats a{display:inline-block;margin:0 8px 8px 0;padding:6px 12px;border:1px solid var(--line);border-radius:8px;font-size:13px;color:var(--txt2)}
 .cats a:hover{color:var(--txt);border-color:rgba(90,209,255,.45)}
 .cats h2{font-size:17px;margin:22px 0 10px}
+.tcards{display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:10px;margin:6px 0 4px}
+.tcard{border:1px solid var(--line);border-radius:10px;padding:12px 14px;background:rgba(255,255,255,.02)}
+.tc-top{display:flex;justify-content:space-between;align-items:center;gap:8px}
+.tc-top b{font-size:14px;color:var(--txt)}
+.tc-top a{text-decoration:none}
+.tc-go{font-size:12px;color:var(--cyan);white-space:nowrap}
+.tc-d{margin:6px 0 0;font-size:12.5px;color:var(--txt3);line-height:1.5}
+.tc-lim{margin:6px 0 0;font-size:12px;color:var(--txt2)}
+.tnote{font-size:12px;color:var(--txt3);margin:8px 0 0}
+@media(max-width:640px){.tcards{grid-template-columns:1fr}.tc-top a{min-height:34px;display:inline-flex;align-items:center}}
 @media(max-width:640px){h1{font-size:22px}main{padding:20px 16px 40px}
 .related a,.tlinks a,.tool-link a,footer a,.sib a{min-height:36px;display:inline-flex;align-items:center}
 .list a{padding:14px 14px}
@@ -82,7 +92,7 @@ td a{display:inline-block;padding:8px 0}
 <p>避坑一，排队中的任务别删了重交，取消不退灵感值，重新提交排到队尾。避坑二，同一提示词连点三次不会加速，只会占住自己的任务位，等第一条出结果再决定要不要重抽。避坑三，会员灵感值按月发，月底剩的不累计，别攒着等大项目。另外内容审核不过的任务也扣值，提示词里别写具体品牌广告语，容易卡审核。可灵 视频 排队 慢 时我更愿意换首帧图，而不是往提示词里加形容词，首帧管用得多。可灵 排队 时间 多久 这个问题，实测凌晨三点提交最快，5 秒 1080p 六分钟内出片。可灵 灵感值 怎么省，记住预览用 720p、成片用 1080p 就够了。</p>
 <h2>总结</h2>
 <p>这单最后 30 条片两天交完，灵感值花 640，排队累计不到 2 小时。可灵 视频 排队 慢 不全是平台问题，时段、分辨率、提交节奏各占一份。三个数记牢：凌晨 1 点到 6 点、预览 720p、5 秒 1080p 扣 35。把生成排进下班后的空档，比盯着进度条刷新人省心。提示词按「产品-镜头号」编号，交完对着表格勾，漏镜头的返工比排队更费灵感值。</p></article>
-  <div class="sec"><h2>文中提到的工具</h2><p class="tlinks"><a href="../tool/kling/">可灵 AI →</a></p></div>
+  <div class="sec tcards-sec"><h2>文中提到的工具</h2><div class="tcards"><div class="tcard"><div class="tc-top"><a href="../tool/kling/"><b>可灵 AI</b></a><a class="tc-go" href="https://klingai.kuaishou.com" target="_blank" rel="noopener nofollow">官网 →</a></div><p class="tc-d">图生视频与图生图，国风插画质感突出</p><p class="tc-lim">免费额度：每日赠送免费灵感值，超出后需单独购买；会员按月订阅可解锁更多…</p></div></div><p class="tnote">点工具名看详情（适用场景 / 免费额度 / 替代方案），需要直接用点「官网 →」。</p></div>
   <section class="related"><h2>同类教程</h2><ul><li><a href="video-20-video-subtitle-translation.html">视频 字幕 翻译：SRT 批量流程与术语统一</a></li><li><a href="video-21-video-compress-size.html">视频 压缩 体积：码率公式算出目标大小</a></li><li><a href="video-22-audio-denoise-voice.html">音频 降噪 人声：三类噪声和六个参数</a></li><li><a href="video-23-digital-human-live.html">数字人 直播 方案：形象、延迟、合规与成本</a></li><li><a href="video-24-subtitle-burn-vs-soft.html">字幕 烧录 软字幕：先查平台再定方案</a></li></ul><p class="tool-link"><a href="../index.html">查看 视频音频 工具与其它教程 →</a> <a href="../t/errors/">AI 报错解决 →</a> <a href="../t/params/">参数与配置 →</a></p></section>
   <footer>© 2026 星籁 Stellara · <a href="../privacy.html">隐私政策</a> · <a href="../sitemap.xml">站点地图</a></footer>
 </main>

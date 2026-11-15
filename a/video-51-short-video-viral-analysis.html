@@ -55,6 +55,16 @@ footer{border-top:1px solid var(--line);color:var(--txt3);font-size:12.5px;text-
 .cats a{display:inline-block;margin:0 8px 8px 0;padding:6px 12px;border:1px solid var(--line);border-radius:8px;font-size:13px;color:var(--txt2)}
 .cats a:hover{color:var(--txt);border-color:rgba(90,209,255,.45)}
 .cats h2{font-size:17px;margin:22px 0 10px}
+.tcards{display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:10px;margin:6px 0 4px}
+.tcard{border:1px solid var(--line);border-radius:10px;padding:12px 14px;background:rgba(255,255,255,.02)}
+.tc-top{display:flex;justify-content:space-between;align-items:center;gap:8px}
+.tc-top b{font-size:14px;color:var(--txt)}
+.tc-top a{text-decoration:none}
+.tc-go{font-size:12px;color:var(--cyan);white-space:nowrap}
+.tc-d{margin:6px 0 0;font-size:12.5px;color:var(--txt3);line-height:1.5}
+.tc-lim{margin:6px 0 0;font-size:12px;color:var(--txt2)}
+.tnote{font-size:12px;color:var(--txt3);margin:8px 0 0}
+@media(max-width:640px){.tcards{grid-template-columns:1fr}.tc-top a{min-height:34px;display:inline-flex;align-items:center}}
 @media(max-width:640px){h1{font-size:22px}main{padding:20px 16px 40px}
 .related a,.tlinks a,.tool-link a,footer a,.sib a{min-height:36px;display:inline-flex;align-items:center}
 .list a{padding:14px 14px}
@@ -82,7 +92,7 @@ td a{display:inline-block;padding:8px 0}
 <p>同一天、同一时段发三个版本，标题封面不动，只改前 3 秒钩子，跑满 24 小时自然流量，看完播和 3 秒留存。宠物号把开场换成「猫砂盆 3 天不臭，我只换了 1 样东西」，3 秒留存 48% 到 67%，完播 21% 到 33%，播放 4,000 到 5.2 万。想加速可以投 dou+，100 元起投大概换 5,000 播放，但只用来验证钩子，不用来刷数据。至于短视频复盘怎么做，我的表只有七列：视频编号、钩子类型、3 秒留存、完播率、评论率、涨粉、结论；两周就能看出哪类钩子在自己账号上有效。避坑四：三版同时改钩子和时长，数据没法归因；只发一条就下结论，样本不够。</p>
 <h2>总结</h2>
 <p>短视频 爆款 分析 落到动作上就三句话：指标只盯四个，结构拆到秒，复现一次只改一个变量。爆款视频拆解方法抄的是顺序不是台词，短视频复盘怎么做，关键是让每条片子只回答一个问题。先把付费流量剔掉再看数据，结论才站得住。</p></article>
-  <div class="sec"><h2>文中提到的工具</h2><p class="tlinks"><a href="../tool/capcut/">剪映 →</a></p></div>
+  <div class="sec tcards-sec"><h2>文中提到的工具</h2><div class="tcards"><div class="tcard"><div class="tc-top"><a href="../tool/capcut/"><b>剪映</b></a><a class="tc-go" href="https://www.capcut.cn" target="_blank" rel="noopener nofollow">官网 →</a></div><p class="tc-d">自动字幕 + 文本剪辑，国内工作流顺手</p><p class="tc-lim">免费额度：基础剪辑功能免费，部分AI功能、素材和云空间需要开通会员，会…</p></div></div><p class="tnote">点工具名看详情（适用场景 / 免费额度 / 替代方案），需要直接用点「官网 →」。</p></div>
   <section class="related"><h2>同类教程</h2><ul><li><a href="video-52-ai-voiceover-multilingual.html">AI 配音 多语言：音色、时长对齐与字幕</a></li><li><a href="video-53-live-stream-review-ai.html">直播 复盘 AI：指标、话术与切片拆解</a></li><li><a href="video-01-kling-1-6-first-last-frame.html">可灵 1.6 图生视频 首尾帧：两张图接5秒转场</a></li><li><a href="video-02-runway-gen-4-camera-control.html">Runway Gen-4 运镜 控制：锁死机位</a></li><li><a href="video-03-sora-storyboard-prompt.html">Sora 分镜 提示词：两秒处补一句就顺</a></li></ul><p class="tool-link"><a href="../index.html">查看 视频音频 工具与其它教程 →</a> <a href="../t/howto/">新手上手教程 →</a></p></section>
   <footer>© 2026 星籁 Stellara · <a href="../privacy.html">隐私政策</a> · <a href="../sitemap.xml">站点地图</a></footer>
 </main>

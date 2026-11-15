@@ -55,6 +55,16 @@ footer{border-top:1px solid var(--line);color:var(--txt3);font-size:12.5px;text-
 .cats a{display:inline-block;margin:0 8px 8px 0;padding:6px 12px;border:1px solid var(--line);border-radius:8px;font-size:13px;color:var(--txt2)}
 .cats a:hover{color:var(--txt);border-color:rgba(90,209,255,.45)}
 .cats h2{font-size:17px;margin:22px 0 10px}
+.tcards{display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:10px;margin:6px 0 4px}
+.tcard{border:1px solid var(--line);border-radius:10px;padding:12px 14px;background:rgba(255,255,255,.02)}
+.tc-top{display:flex;justify-content:space-between;align-items:center;gap:8px}
+.tc-top b{font-size:14px;color:var(--txt)}
+.tc-top a{text-decoration:none}
+.tc-go{font-size:12px;color:var(--cyan);white-space:nowrap}
+.tc-d{margin:6px 0 0;font-size:12.5px;color:var(--txt3);line-height:1.5}
+.tc-lim{margin:6px 0 0;font-size:12px;color:var(--txt2)}
+.tnote{font-size:12px;color:var(--txt3);margin:8px 0 0}
+@media(max-width:640px){.tcards{grid-template-columns:1fr}.tc-top a{min-height:34px;display:inline-flex;align-items:center}}
 @media(max-width:640px){h1{font-size:22px}main{padding:20px 16px 40px}
 .related a,.tlinks a,.tool-link a,footer a,.sib a{min-height:36px;display:inline-flex;align-items:center}
 .list a{padding:14px 14px}
@@ -82,7 +92,7 @@ td a{display:inline-block;padding:8px 0}
 <p>放大不是免费的：官方说一次放大可能花掉生成初始图两倍的 GPU 分钟。我实测四张 1024 图连续放大，fast GPU 从 47 分钟掉到 38 分钟，平均一张两分多钟。第一个坑是 Creative 的重试，每次重放都扣分钟，别拿它当免费抽卡。第二个坑是拿 U1 到 U4 当放大按钮，下载回来还是 1024，很多人以为平台没生效。第三个坑是 HD 图放大，既然出图就是 2048 且不能再放大，想再大只能换工具，别在 Midjourney 里反复点。旧版本生成的图，放大选项可能不显示，用 /show 重新调出来再操作。写流程文档时我把这些写成硬规则：先看原图尺寸，再选算法，最后才点按钮，省下的都是 GPU 分钟。上周做第二版详情页，我提前按 4:3 出图，四张一次过，GPU 分钟只掉了 6 分钟。</p>
 <h2>总结</h2>
 <p>现在我做 Midjourney 图片放大只走固定顺序：按用途定比例，算好目标宽度，选 Subtle 保真，确认 2048 后再交付；只有插画类才用 Creative 试细节。想要 Midjourney 图片放大 4K 的话，记住官方只到 2048，多花的 GPU 分钟换不来像素。至于是不是用 Midjourney Upscale Subtle，看图上有没有文字和脸，有就选它，没有就按预算来。</p></article>
-  <div class="sec"><h2>文中提到的工具</h2><p class="tlinks"><a href="../tool/midjourney/">Midjourney →</a></p></div>
+  <div class="sec tcards-sec"><h2>文中提到的工具</h2><div class="tcards"><div class="tcard"><div class="tc-top"><a href="../tool/midjourney/"><b>Midjourney</b></a><a class="tc-go" href="https://www.midjourney.com" target="_blank" rel="noopener nofollow">官网 →</a></div><p class="tc-d">v7 出图审美天花板，--cref 锁角色一致性</p><p class="tc-lim">免费额度：无免费额度；订阅约 10 美元/月起，高档位约 30 美元/…</p></div></div><p class="tnote">点工具名看详情（适用场景 / 免费额度 / 替代方案），需要直接用点「官网 →」。</p></div>
   <section class="related"><h2>同类教程</h2><ul><li><a href="image-17-stable-diffusion-oom-error.html">Stable Diffusion 显存不足怎么办</a></li><li><a href="image-18-ecommerce-white-background.html">电商 白底图 AI：5 步出合规主图</a></li><li><a href="image-19-avatar-consistency.html">头像 生成 一致性：9 张表情包不换脸</a></li><li><a href="image-20-hand-deformity-fix.html">手部 畸形 修复：局部重绘与骨架约束</a></li><li><a href="image-21-background-removal-edges.html">图片 去背景 边缘：发丝、半透明、阴影怎么修</a></li></ul><p class="tool-link"><a href="../index.html">查看 图像生成 工具与其它教程 →</a> <a href="../t/pricing/">AI 工具价格 →</a> <a href="../t/params/">参数与配置 →</a></p></section>
   <footer>© 2026 星籁 Stellara · <a href="../privacy.html">隐私政策</a> · <a href="../sitemap.xml">站点地图</a></footer>
 </main>

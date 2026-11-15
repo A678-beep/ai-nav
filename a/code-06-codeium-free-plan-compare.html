@@ -55,6 +55,16 @@ footer{border-top:1px solid var(--line);color:var(--txt3);font-size:12.5px;text-
 .cats a{display:inline-block;margin:0 8px 8px 0;padding:6px 12px;border:1px solid var(--line);border-radius:8px;font-size:13px;color:var(--txt2)}
 .cats a:hover{color:var(--txt);border-color:rgba(90,209,255,.45)}
 .cats h2{font-size:17px;margin:22px 0 10px}
+.tcards{display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:10px;margin:6px 0 4px}
+.tcard{border:1px solid var(--line);border-radius:10px;padding:12px 14px;background:rgba(255,255,255,.02)}
+.tc-top{display:flex;justify-content:space-between;align-items:center;gap:8px}
+.tc-top b{font-size:14px;color:var(--txt)}
+.tc-top a{text-decoration:none}
+.tc-go{font-size:12px;color:var(--cyan);white-space:nowrap}
+.tc-d{margin:6px 0 0;font-size:12.5px;color:var(--txt3);line-height:1.5}
+.tc-lim{margin:6px 0 0;font-size:12px;color:var(--txt2)}
+.tnote{font-size:12px;color:var(--txt3);margin:8px 0 0}
+@media(max-width:640px){.tcards{grid-template-columns:1fr}.tc-top a{min-height:34px;display:inline-flex;align-items:center}}
 @media(max-width:640px){h1{font-size:22px}main{padding:20px 16px 40px}
 .related a,.tlinks a,.tool-link a,footer a,.sib a{min-height:36px;display:inline-flex;align-items:center}
 .list a{padding:14px 14px}
@@ -85,7 +95,7 @@ td a{display:inline-block;padding:8px 0}
 <p>另外别同时装 Codeium 和 Copilot，两个 Tab 建议会打架，肉眼很难判断哪条来自谁，按项目切换更省心。学生认证的 Copilot 免费，但用公司邮箱注册个人免费版属于违规，这条实习生最容易踩。如果你只做行间补全，Codeium 免费版够不够用 的答案基本是够；Codeium 和 Windsurf 区别 也没必要纠结，装哪个插件都能用。</p>
 <h2>总结</h2>
 <p>Codeium 免费版 和 Copilot、Cursor、Trae 的差别不在补全次数，而在 Chat 额度、数据条款和账号体系。把 Codeium 当成不限量的行间补全器，付费留给多文件改写，是我试过最省钱的组合，三天实验成本只有一顿午饭。</p></article>
-  <div class="sec"><h2>文中提到的工具</h2><p class="tlinks"><a href="../tool/windsurf/">Windsurf →</a><a href="../tool/cursor/">Cursor →</a><a href="../tool/tongyi-lingma/">通义灵码 →</a></p></div>
+  <div class="sec tcards-sec"><h2>文中提到的工具</h2><div class="tcards"><div class="tcard"><div class="tc-top"><a href="../tool/windsurf/"><b>Windsurf</b></a><a class="tc-go" href="https://windsurf.com" target="_blank" rel="noopener nofollow">官网 →</a></div><p class="tc-d">Cascade 多文件流程，自动跑测试较稳</p><p class="tc-lim">免费额度：提供免费额度，个人轻度使用够用；付费版按月订阅，团队版按席位…</p></div><div class="tcard"><div class="tc-top"><a href="../tool/cursor/"><b>Cursor</b></a><a class="tc-go" href="https://cursor.com" target="_blank" rel="noopener nofollow">官网 →</a></div><p class="tc-d">AI 原生编辑器，Tab 补全 + 多文件改写</p><p class="tc-lim">免费额度：免费版功能受限；Cursor Pro 20 美元/月，团队版…</p></div><div class="tcard"><div class="tc-top"><a href="../tool/tongyi-lingma/"><b>通义灵码</b></a><a class="tc-go" href="https://tongyi.aliyun.com/lingma" target="_blank" rel="noopener nofollow">官网 →</a></div><p class="tc-d">免费中文编程助手，支持私有仓库问答</p><p class="tc-lim">免费额度：个人版可免费使用，日常代码补全与问答够用；企业版按席位收费，…</p></div></div><p class="tnote">点工具名看详情（适用场景 / 免费额度 / 替代方案），需要直接用点「官网 →」。</p></div>
   <section class="related"><h2>同类教程</h2><ul><li><a href="code-07-cline-auto-edit-safety.html">Cline 自动改代码 安全：只自动批准读文件</a></li><li><a href="code-08-continue-local-model-config.html">Continue 本地模型 配置：双模型分工</a></li><li><a href="code-09-openai-codex-cli-sandbox.html">OpenAI Codex CLI 沙箱：写工作区</a></li><li><a href="code-10-trae-chinese-ide-review.html">Trae 中文 IDE 体验：免费积分够用吗</a></li><li><a href="code-11-aider-git-commit.html">Aider git 提交：自动提交该不该</a></li></ul><p class="tool-link"><a href="../index.html">查看 编程助手 工具与其它教程 →</a> <a href="../t/errors/">AI 报错解决 →</a> <a href="../t/pricing/">AI 工具价格 →</a></p></section>
   <footer>© 2026 星籁 Stellara · <a href="../privacy.html">隐私政策</a> · <a href="../sitemap.xml">站点地图</a></footer>
 </main>

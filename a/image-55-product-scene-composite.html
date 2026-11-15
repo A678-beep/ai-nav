@@ -55,6 +55,16 @@ footer{border-top:1px solid var(--line);color:var(--txt3);font-size:12.5px;text-
 .cats a{display:inline-block;margin:0 8px 8px 0;padding:6px 12px;border:1px solid var(--line);border-radius:8px;font-size:13px;color:var(--txt2)}
 .cats a:hover{color:var(--txt);border-color:rgba(90,209,255,.45)}
 .cats h2{font-size:17px;margin:22px 0 10px}
+.tcards{display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:10px;margin:6px 0 4px}
+.tcard{border:1px solid var(--line);border-radius:10px;padding:12px 14px;background:rgba(255,255,255,.02)}
+.tc-top{display:flex;justify-content:space-between;align-items:center;gap:8px}
+.tc-top b{font-size:14px;color:var(--txt)}
+.tc-top a{text-decoration:none}
+.tc-go{font-size:12px;color:var(--cyan);white-space:nowrap}
+.tc-d{margin:6px 0 0;font-size:12.5px;color:var(--txt3);line-height:1.5}
+.tc-lim{margin:6px 0 0;font-size:12px;color:var(--txt2)}
+.tnote{font-size:12px;color:var(--txt3);margin:8px 0 0}
+@media(max-width:640px){.tcards{grid-template-columns:1fr}.tc-top a{min-height:34px;display:inline-flex;align-items:center}}
 @media(max-width:640px){h1{font-size:22px}main{padding:20px 16px 40px}
 .related a,.tlinks a,.tool-link a,footer a,.sib a{min-height:36px;display:inline-flex;align-items:center}
 .list a{padding:14px 14px}
@@ -82,7 +92,7 @@ td a{display:inline-block;padding:8px 0}
 <p>三十张不能一张张做。我用 ComfyUI 搭了一条 电商 场景 图 批量 生成 的流程：白底图、场景图、蒙版三个输入，CSV 变量表一行一个 SKU 加场景文件名，一晚四十张。PS 也能做，母版存智能对象，变量表替换。质检三条：接触阴影落不落地、地平线差不超过两度、缩到两百像素宽主体还完整。那三十张上线两周，商品页加购率 3.6% 到 4.4%，退货原因写"与图不符"的从九单降到三单。避坑五：文件名对不上，A 商品配了 B 的厨房；避坑六：生成的场景自带假 logo 和文字，上架审核直接卡住。</p>
 <h2>总结</h2>
 <p>顺序是透视、光影、批量三关，每批先做三张样图给运营确认再放量。商品 图 场景 合成 省的是棚拍钱，赔的是返工时间；电商 场景 图 批量 生成 的瓶颈不在模型，在变量表对不对。商品 图 光影 匹配 那张参数卡我贴在显示器上，比记口诀管用。第一批退回的七张我留着当反面样本，放量前先对照一遍。</p></article>
-  <div class="sec"><h2>文中提到的工具</h2><p class="tlinks"><a href="../tool/comfyui/">ComfyUI →</a></p></div>
+  <div class="sec tcards-sec"><h2>文中提到的工具</h2><div class="tcards"><div class="tcard"><div class="tc-top"><a href="../tool/comfyui/"><b>ComfyUI</b></a><a class="tc-go" href="https://www.comfy.org" target="_blank" rel="noopener nofollow">官网 →</a></div><p class="tc-d">节点式工作流，一次搭建反复复用</p><p class="tc-lim">免费额度：软件本身开源免费，但需自备显卡和模型文件；云端托管服务按算力…</p></div></div><p class="tnote">点工具名看详情（适用场景 / 免费额度 / 替代方案），需要直接用点「官网 →」。</p></div>
   <section class="related"><h2>同类教程</h2><ul><li><a href="image-56-ai-composition-reference.html">AI 构图 参考：分镜、运镜与比例三件事</a></li><li><a href="image-01-midjourney-v7-character-consistency.html">Midjourney v7 角色一致性实战</a></li><li><a href="image-02-stable-diffusion-3-5-inpainting.html">Stable Diffusion 3.5局部重绘</a></li><li><a href="image-03-flux1-dev-low-vram-quantization.html">Flux.1 dev 低显存 量化：三档取舍</a></li><li><a href="image-04-jimeng-ai-ecommerce-hero-image.html">即梦 AI 电商主图：白底出图六坑</a></li></ul><p class="tool-link"><a href="../index.html">查看 图像生成 工具与其它教程 →</a> <a href="../t/errors/">AI 报错解决 →</a> <a href="../t/pricing/">AI 工具价格 →</a></p></section>
   <footer>© 2026 星籁 Stellara · <a href="../privacy.html">隐私政策</a> · <a href="../sitemap.xml">站点地图</a></footer>
 </main>

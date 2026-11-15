@@ -55,6 +55,16 @@ footer{border-top:1px solid var(--line);color:var(--txt3);font-size:12.5px;text-
 .cats a{display:inline-block;margin:0 8px 8px 0;padding:6px 12px;border:1px solid var(--line);border-radius:8px;font-size:13px;color:var(--txt2)}
 .cats a:hover{color:var(--txt);border-color:rgba(90,209,255,.45)}
 .cats h2{font-size:17px;margin:22px 0 10px}
+.tcards{display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:10px;margin:6px 0 4px}
+.tcard{border:1px solid var(--line);border-radius:10px;padding:12px 14px;background:rgba(255,255,255,.02)}
+.tc-top{display:flex;justify-content:space-between;align-items:center;gap:8px}
+.tc-top b{font-size:14px;color:var(--txt)}
+.tc-top a{text-decoration:none}
+.tc-go{font-size:12px;color:var(--cyan);white-space:nowrap}
+.tc-d{margin:6px 0 0;font-size:12.5px;color:var(--txt3);line-height:1.5}
+.tc-lim{margin:6px 0 0;font-size:12px;color:var(--txt2)}
+.tnote{font-size:12px;color:var(--txt3);margin:8px 0 0}
+@media(max-width:640px){.tcards{grid-template-columns:1fr}.tc-top a{min-height:34px;display:inline-flex;align-items:center}}
 @media(max-width:640px){h1{font-size:22px}main{padding:20px 16px 40px}
 .related a,.tlinks a,.tool-link a,footer a,.sib a{min-height:36px;display:inline-flex;align-items:center}
 .list a{padding:14px 14px}
@@ -82,7 +92,7 @@ td a{display:inline-block;padding:8px 0}
 <p>整片处理我用 Audition 做对轨和降噪，咔哒声交给 iZotope RX 的频谱修复，响度在 DaVinci Resolve 的 Fairlight 里归一化，粗剪用剪映专业版。这条 42 分钟访谈的实际动作：每段人声平均电平从 -21dBFS 统一到 -18dBFS，降噪两遍共 8dB，高通 90Hz，门限 -41dB，压缩增益衰减 4dB，导出前响度 -16 LUFS、真峰值 -1.2dBTP，全片处理 26 分钟。音频 剪辑 降噪链 排对之后，返工从第一版的三处变成零。避坑三条：降噪别一次拉 15dB 以上，齿音会发金属声；门限阈值设到 -30dB 会把句尾呼吸切碎，宁可多留一点底噪；在 mp3 上反复处理，每存一次掉一层高频细节，母版一律用 48kHz/24bit 的 wav。音频降噪链怎么排，本质是先修损坏、再降底噪、最后统一响度，顺序不能换。</p>
 <h2>总结</h2>
 <p>音频 剪辑 降噪链 我按一张清单走：对轨加 5 毫秒淡入淡出，增益统一到 -18dBFS，修完瞬态再降 6 到 8dB 噪，高通 90Hz，门限 -41dB 用扩展器，压缩只拿 3 到 5dB，最后归一化到 -16 LUFS、真峰值 -1dBTP。音频降噪链怎么排、降噪和压缩谁先做，这两件事定下来，参数才有意义；顺序错了，再贵的插件也只是把闷声修成另一种闷声。</p></article>
-  <div class="sec"><h2>文中提到的工具</h2><p class="tlinks"><a href="../tool/capcut/">剪映 →</a></p></div>
+  <div class="sec tcards-sec"><h2>文中提到的工具</h2><div class="tcards"><div class="tcard"><div class="tc-top"><a href="../tool/capcut/"><b>剪映</b></a><a class="tc-go" href="https://www.capcut.cn" target="_blank" rel="noopener nofollow">官网 →</a></div><p class="tc-d">自动字幕 + 文本剪辑，国内工作流顺手</p><p class="tc-lim">免费额度：基础剪辑功能免费，部分AI功能、素材和云空间需要开通会员，会…</p></div></div><p class="tnote">点工具名看详情（适用场景 / 免费额度 / 替代方案），需要直接用点「官网 →」。</p></div>
   <section class="related"><h2>同类教程</h2><ul><li><a href="video-43-recording-to-transcript.html">录像 转 文字稿：时间戳与说话人怎么标</a></li><li><a href="video-44-video-cover-update.html">视频 更新 封面：老视频二次流量的 3 步</a></li><li><a href="video-45-audio-to-podcast.html">音频 转 播客：长录音剪成节目分五步</a></li><li><a href="video-46-short-video-matrix.html">短视频 矩阵 批量：8 个号 40 条排期表</a></li><li><a href="video-47-auto-subtitle.html">视频 自动 字幕 全流程：识别、断句、样式三步</a></li></ul><p class="tool-link"><a href="../index.html">查看 视频音频 工具与其它教程 →</a> <a href="../t/pricing/">AI 工具价格 →</a> <a href="../t/params/">参数与配置 →</a></p></section>
   <footer>© 2026 星籁 Stellara · <a href="../privacy.html">隐私政策</a> · <a href="../sitemap.xml">站点地图</a></footer>
 </main>

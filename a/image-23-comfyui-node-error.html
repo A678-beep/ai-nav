@@ -55,6 +55,16 @@ footer{border-top:1px solid var(--line);color:var(--txt3);font-size:12.5px;text-
 .cats a{display:inline-block;margin:0 8px 8px 0;padding:6px 12px;border:1px solid var(--line);border-radius:8px;font-size:13px;color:var(--txt2)}
 .cats a:hover{color:var(--txt);border-color:rgba(90,209,255,.45)}
 .cats h2{font-size:17px;margin:22px 0 10px}
+.tcards{display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:10px;margin:6px 0 4px}
+.tcard{border:1px solid var(--line);border-radius:10px;padding:12px 14px;background:rgba(255,255,255,.02)}
+.tc-top{display:flex;justify-content:space-between;align-items:center;gap:8px}
+.tc-top b{font-size:14px;color:var(--txt)}
+.tc-top a{text-decoration:none}
+.tc-go{font-size:12px;color:var(--cyan);white-space:nowrap}
+.tc-d{margin:6px 0 0;font-size:12.5px;color:var(--txt3);line-height:1.5}
+.tc-lim{margin:6px 0 0;font-size:12px;color:var(--txt2)}
+.tnote{font-size:12px;color:var(--txt3);margin:8px 0 0}
+@media(max-width:640px){.tcards{grid-template-columns:1fr}.tc-top a{min-height:34px;display:inline-flex;align-items:center}}
 @media(max-width:640px){h1{font-size:22px}main{padding:20px 16px 40px}
 .related a,.tlinks a,.tool-link a,footer a,.sib a{min-height:36px;display:inline-flex;align-items:center}
 .list a{padding:14px 14px}
@@ -82,7 +92,7 @@ td a{display:inline-block;padding:8px 0}
 <p>前端验证失败的细节在浏览器里。F12 打开 Console 再点一次 Queue，Prompt outputs failed validation 后面会跟具体字段，最常见的是 Required input is missing: clip。我有一次界面只显示失败，Console 里写着 clip 缺失，回画布发现 CLIPTextEncode 上游的 CLIPSetLastLayer 没连线，补一根线 3 分钟出图，之前已经白试了 25 分钟。后端错误看启动终端：缺节点的 traceback、模型加载失败、显存栈都在那。启动时加 --verbose DEBUG 能多打不少行，用 bat 启动的把输出重定向到 log，事后回翻比凭记忆强。日志里先搜 Error，再搜节点的 class_type，两行通常挨着。还有种报错长得像随机数：mat1 and mat2 shapes cannot be multiplied (128x768 and 3072x768)，这是 SDXL 工作流挂了 SD1.5 的 LoRA，换 LoRA 就好。所以有人问 ComfyUI 报错 日志 在哪看，我的答案永远是两个地方，浏览器 Console 和启动终端。ComfyUI 节点 报错 排查到最后拼的是能不能在一行日志里认出类型，认出来就不用瞎试参数。</p>
 <h2>总结</h2>
 <p>固定顺序是：看红框类型、看模型下拉、对版本、看显存，最后才翻日志，五步一般 5 分钟出结论。ComfyUI 节点 报错 里真正难修的很少，多数是目录、版本、显存三件事放错位置；ComfyUI 缺少 模型 红框 也多半是路径和加载器的问题。</p></article>
-  <div class="sec"><h2>文中提到的工具</h2><p class="tlinks"><a href="../tool/comfyui/">ComfyUI →</a></p></div>
+  <div class="sec tcards-sec"><h2>文中提到的工具</h2><div class="tcards"><div class="tcard"><div class="tc-top"><a href="../tool/comfyui/"><b>ComfyUI</b></a><a class="tc-go" href="https://www.comfy.org" target="_blank" rel="noopener nofollow">官网 →</a></div><p class="tc-d">节点式工作流，一次搭建反复复用</p><p class="tc-lim">免费额度：软件本身开源免费，但需自备显卡和模型文件；云端托管服务按算力…</p></div></div><p class="tnote">点工具名看详情（适用场景 / 免费额度 / 替代方案），需要直接用点「官网 →」。</p></div>
   <section class="related"><h2>同类教程</h2><ul><li><a href="image-24-4k-upscale-vram.html">4K 放大 显存 占用实测：12G 卡分块参数</a></li><li><a href="image-25-old-photo-restoration.html">老照片 修复 上色 流程：模型参数与人脸保真</a></li><li><a href="image-26-ecommerce-model-swap.html">电商 模特 换装 流程：姿势保留与版权合规</a></li><li><a href="image-27-poster-chinese-font.html">海报 中文字体 不乱码：文字层与后期叠加</a></li><li><a href="image-28-batch-cutout-workflow.html">批量 抠图 工作流：1200 张图的自动化</a></li></ul><p class="tool-link"><a href="../index.html">查看 图像生成 工具与其它教程 →</a> <a href="../t/errors/">AI 报错解决 →</a> <a href="../t/params/">参数与配置 →</a></p></section>
   <footer>© 2026 星籁 Stellara · <a href="../privacy.html">隐私政策</a> · <a href="../sitemap.xml">站点地图</a></footer>
 </main>

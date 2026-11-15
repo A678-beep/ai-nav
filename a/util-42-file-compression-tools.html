@@ -55,6 +55,16 @@ footer{border-top:1px solid var(--line);color:var(--txt3);font-size:12.5px;text-
 .cats a{display:inline-block;margin:0 8px 8px 0;padding:6px 12px;border:1px solid var(--line);border-radius:8px;font-size:13px;color:var(--txt2)}
 .cats a:hover{color:var(--txt);border-color:rgba(90,209,255,.45)}
 .cats h2{font-size:17px;margin:22px 0 10px}
+.tcards{display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:10px;margin:6px 0 4px}
+.tcard{border:1px solid var(--line);border-radius:10px;padding:12px 14px;background:rgba(255,255,255,.02)}
+.tc-top{display:flex;justify-content:space-between;align-items:center;gap:8px}
+.tc-top b{font-size:14px;color:var(--txt)}
+.tc-top a{text-decoration:none}
+.tc-go{font-size:12px;color:var(--cyan);white-space:nowrap}
+.tc-d{margin:6px 0 0;font-size:12.5px;color:var(--txt3);line-height:1.5}
+.tc-lim{margin:6px 0 0;font-size:12px;color:var(--txt2)}
+.tnote{font-size:12px;color:var(--txt3);margin:8px 0 0}
+@media(max-width:640px){.tcards{grid-template-columns:1fr}.tc-top a{min-height:34px;display:inline-flex;align-items:center}}
 @media(max-width:640px){h1{font-size:22px}main{padding:20px 16px 40px}
 .related a,.tlinks a,.tool-link a,footer a,.sib a{min-height:36px;display:inline-flex;align-items:center}
 .list a{padding:14px 14px}
@@ -83,7 +93,7 @@ td a{display:inline-block;padding:8px 0}
 <h2>总结</h2>
 <p>文件 压缩 工具 的顺序是：先确认对方格式，再按限制定卷大小，最后按内容选档位。zip 保通用，7z 保体积；分卷压缩怎么设置 盯着接收上限，压缩率怎么提高 先删重复再选档。同样一套流程，12.6GB 素材跑 38 分钟，300MB 周报 5 分钟收工。</p></article>
   
-  <section class="related"><h2>同类教程</h2><ul><li><a href="util-43-phone-screen-mirroring.html">手机 投屏 工具 对比：3 个协议与延迟实测</a></li><li><a href="util-01-perplexity-academic-search.html">Perplexity 学术 检索：三个提问模板</a></li><li><a href="util-02-notebooklm-podcast.html">NotebookLM 播客 生成：中文双人对谈</a></li><li><a href="util-03-otter-meeting-transcript-cn.html">Otter 会议 转写 中文：说话人分离实测</a></li><li><a href="util-04-readwise-reader-summary.html">Readwise Reader 摘要：高亮回链</a></li></ul><p class="tool-link"><a href="../index.html">查看 实用工具 工具与其它教程 →</a> <a href="../t/errors/">AI 报错解决 →</a> <a href="../t/pricing/">AI 工具价格 →</a></p></section>
+  <section class="related"><h2>同类教程</h2><ul><li><a href="util-43-phone-screen-mirroring.html">手机 投屏 工具 对比：3 个协议与延迟实测</a></li><li><a href="util-44-ai-tool-annual-vs-monthly.html">AI 工具 年付还是月付：折扣、退款与风险</a></li><li><a href="util-01-perplexity-academic-search.html">Perplexity 学术 检索：三个提问模板</a></li><li><a href="util-02-notebooklm-podcast.html">NotebookLM 播客 生成：中文双人对谈</a></li><li><a href="util-03-otter-meeting-transcript-cn.html">Otter 会议 转写 中文：说话人分离实测</a></li></ul><p class="tool-link"><a href="../index.html">查看 实用工具 工具与其它教程 →</a> <a href="../t/errors/">AI 报错解决 →</a> <a href="../t/pricing/">AI 工具价格 →</a></p></section>
   <footer>© 2026 星籁 Stellara · <a href="../privacy.html">隐私政策</a> · <a href="../sitemap.xml">站点地图</a></footer>
 </main>
 </body>

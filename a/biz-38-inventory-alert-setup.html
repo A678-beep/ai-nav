@@ -55,6 +55,16 @@ footer{border-top:1px solid var(--line);color:var(--txt3);font-size:12.5px;text-
 .cats a{display:inline-block;margin:0 8px 8px 0;padding:6px 12px;border:1px solid var(--line);border-radius:8px;font-size:13px;color:var(--txt2)}
 .cats a:hover{color:var(--txt);border-color:rgba(90,209,255,.45)}
 .cats h2{font-size:17px;margin:22px 0 10px}
+.tcards{display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:10px;margin:6px 0 4px}
+.tcard{border:1px solid var(--line);border-radius:10px;padding:12px 14px;background:rgba(255,255,255,.02)}
+.tc-top{display:flex;justify-content:space-between;align-items:center;gap:8px}
+.tc-top b{font-size:14px;color:var(--txt)}
+.tc-top a{text-decoration:none}
+.tc-go{font-size:12px;color:var(--cyan);white-space:nowrap}
+.tc-d{margin:6px 0 0;font-size:12.5px;color:var(--txt3);line-height:1.5}
+.tc-lim{margin:6px 0 0;font-size:12px;color:var(--txt2)}
+.tnote{font-size:12px;color:var(--txt3);margin:8px 0 0}
+@media(max-width:640px){.tcards{grid-template-columns:1fr}.tc-top a{min-height:34px;display:inline-flex;align-items:center}}
 @media(max-width:640px){h1{font-size:22px}main{padding:20px 16px 40px}
 .related a,.tlinks a,.tool-link a,footer a,.sib a{min-height:36px;display:inline-flex;align-items:center}
 .list a{padding:14px 14px}
@@ -82,7 +92,7 @@ td a{display:inline-block;padding:8px 0}
 <p>阈值按可售 天数 分三级：黄色 21 天、橙色 14 天、红色 7 天，红色也等于跌破安全 库存。飞书多维表格的自动化每天 9 点跑一次，只推新增和升级的预警，别的静音。每条预警挂状态字段：待补货、已下单、不补货、新品观察，处理完改状态，提醒自动停。48 小时没处理升级给采购主管，每周一汇总一次。避坑一，在途库存没算进可用库存，我见过同一款纸尿裤重复下单三笔，压了 4.2 万。避坑二，大促前日均销量要乘 1.8 的系数重算阈值，否则红色预警到活动第二天才响。避坑三，预警只推给采购不推给运营，最后补货单和促销脱节。库存 预警 阈值 上线前拿 30 天历史数据回测一遍，天天报警的 SKU 先单独调，别一刀切全店改。每月复盘误报率、漏报数和缺货率，漏报指的是断了货却一条预警都没响。</p>
 <h2>总结</h2>
 <p>库存 预警 设置 的顺序别反：先统一口径，再用安全 库存 计算 方法 算出安全库存和补货 点，然后按可售 天数 分三级，最后收成一个渠道。520 个 SKU 里真正要精细管的只有 80 个 A 类，其余按品类聚合。跑满一个月看两个数：预警条数和漏报数，降下来才算配对了。</p></article>
-  <div class="sec"><h2>文中提到的工具</h2><p class="tlinks"><a href="../tool/feishu-bitable/">飞书多维表格 →</a></p></div>
+  <div class="sec tcards-sec"><h2>文中提到的工具</h2><div class="tcards"><div class="tcard"><div class="tc-top"><a href="../tool/feishu-bitable/"><b>飞书多维表格</b></a><a class="tc-go" href="https://www.feishu.cn/product/base" target="_blank" rel="noopener nofollow">官网 →</a></div><p class="tc-d">AI 字段做分类汇总，团队协作免费额度够用</p><p class="tc-lim">免费额度：基础功能免费，高级权限、自动化执行次数等随企业付费版本解锁，…</p></div></div><p class="tnote">点工具名看详情（适用场景 / 免费额度 / 替代方案），需要直接用点「官网 →」。</p></div>
   <section class="related"><h2>同类教程</h2><ul><li><a href="biz-39-after-sales-ticket-automation.html">售后 工单 自动化：分派规则加 3 级 SLA</a></li><li><a href="biz-40-data-cleaning-spreadsheet.html">数据 清洗 表格：6 条规则和去重流程</a></li><li><a href="biz-41-customer-churn-warning.html">客户 流失 预警：5 个指标加三级挽回动作</a></li><li><a href="biz-42-ai-performance-metrics.html">绩效 指标 AI：三层指标树与周预警</a></li><li><a href="biz-43-ai-lesson-prep.html">教育 备课 AI：教案、习题与分层全流程</a></li></ul><p class="tool-link"><a href="../index.html">查看 商业效率 工具与其它教程 →</a> <a href="../t/params/">参数与配置 →</a></p></section>
   <footer>© 2026 星籁 Stellara · <a href="../privacy.html">隐私政策</a> · <a href="../sitemap.xml">站点地图</a></footer>
 </main>

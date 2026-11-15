@@ -55,6 +55,16 @@ footer{border-top:1px solid var(--line);color:var(--txt3);font-size:12.5px;text-
 .cats a{display:inline-block;margin:0 8px 8px 0;padding:6px 12px;border:1px solid var(--line);border-radius:8px;font-size:13px;color:var(--txt2)}
 .cats a:hover{color:var(--txt);border-color:rgba(90,209,255,.45)}
 .cats h2{font-size:17px;margin:22px 0 10px}
+.tcards{display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:10px;margin:6px 0 4px}
+.tcard{border:1px solid var(--line);border-radius:10px;padding:12px 14px;background:rgba(255,255,255,.02)}
+.tc-top{display:flex;justify-content:space-between;align-items:center;gap:8px}
+.tc-top b{font-size:14px;color:var(--txt)}
+.tc-top a{text-decoration:none}
+.tc-go{font-size:12px;color:var(--cyan);white-space:nowrap}
+.tc-d{margin:6px 0 0;font-size:12.5px;color:var(--txt3);line-height:1.5}
+.tc-lim{margin:6px 0 0;font-size:12px;color:var(--txt2)}
+.tnote{font-size:12px;color:var(--txt3);margin:8px 0 0}
+@media(max-width:640px){.tcards{grid-template-columns:1fr}.tc-top a{min-height:34px;display:inline-flex;align-items:center}}
 @media(max-width:640px){h1{font-size:22px}main{padding:20px 16px 40px}
 .related a,.tlinks a,.tool-link a,footer a,.sib a{min-height:36px;display:inline-flex;align-items:center}
 .list a{padding:14px 14px}
@@ -82,7 +92,7 @@ td a{display:inline-block;padding:8px 0}
 <p>第四步放对目录。WebUI 和秋叶整合包放 models\Stable-diffusion，ComfyUI 放 models\checkpoints，VAE 进 models\vae，LoRA 进 models\loras，后缀保留 .safetensors，路径别带中文和空格；放好后在 WebUI 里点刷新模型列表才能看到。整合包的模型目录藏在启动器根目录的 models 文件夹里，不在 WebUI 子目录，找不到就直接搜文件夹。三个坑：一是全下在 C 盘，权重加几个 LoRA 轻松过 20GB，C 盘红了系统跟着卡；二是文件名改得只剩「模型v2最终版」，启动器认不出；三是 .ckpt 来自 pickle，来源不明的别加载，优先 safetensors。ComfyUI 想共用 WebUI 的模型目录，改 extra_model_paths.yaml 指过去，别复制两份浪费空间。</p>
 <h2>总结</h2>
 <p>我的固定流程是镜像换源、aria2 或 CLI 并发下载、-c 续传、SHA256 校验、按目录归位，五步走完一个 SDXL 不到十分钟。SD 模型 下载 太慢 怎么办，先看单线程速度，低于 1MB/s 就换源；SDXL 模型 下载 慢 多半是并发没开。下完别急着出图，校验和归位比下载本身更值得花时间。</p></article>
-  <div class="sec"><h2>文中提到的工具</h2><p class="tlinks"><a href="../tool/comfyui/">ComfyUI →</a></p></div>
+  <div class="sec tcards-sec"><h2>文中提到的工具</h2><div class="tcards"><div class="tcard"><div class="tc-top"><a href="../tool/comfyui/"><b>ComfyUI</b></a><a class="tc-go" href="https://www.comfy.org" target="_blank" rel="noopener nofollow">官网 →</a></div><p class="tc-d">节点式工作流，一次搭建反复复用</p><p class="tc-lim">免费额度：软件本身开源免费，但需自备显卡和模型文件；云端托管服务按算力…</p></div></div><p class="tnote">点工具名看详情（适用场景 / 免费额度 / 替代方案），需要直接用点「官网 →」。</p></div>
   <section class="related"><h2>同类教程</h2><ul><li><a href="image-23-comfyui-node-error.html">ComfyUI 节点 报错：红框、版本与显存</a></li><li><a href="image-24-4k-upscale-vram.html">4K 放大 显存 占用实测：12G 卡分块参数</a></li><li><a href="image-25-old-photo-restoration.html">老照片 修复 上色 流程：模型参数与人脸保真</a></li><li><a href="image-26-ecommerce-model-swap.html">电商 模特 换装 流程：姿势保留与版权合规</a></li><li><a href="image-27-poster-chinese-font.html">海报 中文字体 不乱码：文字层与后期叠加</a></li></ul><p class="tool-link"><a href="../index.html">查看 图像生成 工具与其它教程 →</a> <a href="../t/errors/">AI 报错解决 →</a> <a href="../t/params/">参数与配置 →</a></p></section>
   <footer>© 2026 星籁 Stellara · <a href="../privacy.html">隐私政策</a> · <a href="../sitemap.xml">站点地图</a></footer>
 </main>

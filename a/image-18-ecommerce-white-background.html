@@ -55,6 +55,16 @@ footer{border-top:1px solid var(--line);color:var(--txt3);font-size:12.5px;text-
 .cats a{display:inline-block;margin:0 8px 8px 0;padding:6px 12px;border:1px solid var(--line);border-radius:8px;font-size:13px;color:var(--txt2)}
 .cats a:hover{color:var(--txt);border-color:rgba(90,209,255,.45)}
 .cats h2{font-size:17px;margin:22px 0 10px}
+.tcards{display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:10px;margin:6px 0 4px}
+.tcard{border:1px solid var(--line);border-radius:10px;padding:12px 14px;background:rgba(255,255,255,.02)}
+.tc-top{display:flex;justify-content:space-between;align-items:center;gap:8px}
+.tc-top b{font-size:14px;color:var(--txt)}
+.tc-top a{text-decoration:none}
+.tc-go{font-size:12px;color:var(--cyan);white-space:nowrap}
+.tc-d{margin:6px 0 0;font-size:12.5px;color:var(--txt3);line-height:1.5}
+.tc-lim{margin:6px 0 0;font-size:12px;color:var(--txt2)}
+.tnote{font-size:12px;color:var(--txt3);margin:8px 0 0}
+@media(max-width:640px){.tcards{grid-template-columns:1fr}.tc-top a{min-height:34px;display:inline-flex;align-items:center}}
 @media(max-width:640px){h1{font-size:22px}main{padding:20px 16px 40px}
 .related a,.tlinks a,.tool-link a,footer a,.sib a{min-height:36px;display:inline-flex;align-items:center}
 .list a{padding:14px 14px}
@@ -83,7 +93,7 @@ td a{display:inline-block;padding:8px 0}
 <p>避坑两条：一是别让 AI 改商品，logo、接口、纹理必须和实物一致，平台抽检货不对板会下架；二是别在主图加促销字，多数类目首图禁文字，卖点留到第二张。白底图 抠图 边缘 还有个坑是白度，AI 生成的白常带 3 到 5 个灰阶，用曲线拉白会连商品高光一起过曝，重新生成更省事。阴影也别偷懒，光从左上打，影子就得朝右下，方向反了一眼就假。</p>
 <h2>总结</h2>
 <p>先对平台尺寸和白度，再按拍、抠、合成、补底、导出五步走，最后留 30 秒查 白底图 抠图 边缘。电商 白底图 AI 出图快，但合规判定是像素级的，白度和商品占比这两项别交给算法赌。</p></article>
-  <div class="sec"><h2>文中提到的工具</h2><p class="tlinks"><a href="../tool/jimeng/">即梦 AI →</a></p></div>
+  <div class="sec tcards-sec"><h2>文中提到的工具</h2><div class="tcards"><div class="tcard"><div class="tc-top"><a href="../tool/jimeng/"><b>即梦 AI</b></a><a class="tc-go" href="https://jimeng.jianying.com" target="_blank" rel="noopener nofollow">官网 →</a></div><p class="tc-d">中文电商图、海报生成，免部署直接出图</p><p class="tc-lim">免费额度：每日提供免费积分额度，按次消耗且有上限；会员分档订阅，具体价…</p></div></div><p class="tnote">点工具名看详情（适用场景 / 免费额度 / 替代方案），需要直接用点「官网 →」。</p></div>
   <section class="related"><h2>同类教程</h2><ul><li><a href="image-19-avatar-consistency.html">头像 生成 一致性：9 张表情包不换脸</a></li><li><a href="image-20-hand-deformity-fix.html">手部 畸形 修复：局部重绘与骨架约束</a></li><li><a href="image-21-background-removal-edges.html">图片 去背景 边缘：发丝、半透明、阴影怎么修</a></li><li><a href="image-22-sd-model-download-slow.html">SD 模型 下载 太慢：镜像加断点续传</a></li><li><a href="image-23-comfyui-node-error.html">ComfyUI 节点 报错：红框、版本与显存</a></li></ul><p class="tool-link"><a href="../index.html">查看 图像生成 工具与其它教程 →</a> <a href="../t/howto/">新手上手教程 →</a></p></section>
   <footer>© 2026 星籁 Stellara · <a href="../privacy.html">隐私政策</a> · <a href="../sitemap.xml">站点地图</a></footer>
 </main>

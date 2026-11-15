@@ -55,6 +55,16 @@ footer{border-top:1px solid var(--line);color:var(--txt3);font-size:12.5px;text-
 .cats a{display:inline-block;margin:0 8px 8px 0;padding:6px 12px;border:1px solid var(--line);border-radius:8px;font-size:13px;color:var(--txt2)}
 .cats a:hover{color:var(--txt);border-color:rgba(90,209,255,.45)}
 .cats h2{font-size:17px;margin:22px 0 10px}
+.tcards{display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:10px;margin:6px 0 4px}
+.tcard{border:1px solid var(--line);border-radius:10px;padding:12px 14px;background:rgba(255,255,255,.02)}
+.tc-top{display:flex;justify-content:space-between;align-items:center;gap:8px}
+.tc-top b{font-size:14px;color:var(--txt)}
+.tc-top a{text-decoration:none}
+.tc-go{font-size:12px;color:var(--cyan);white-space:nowrap}
+.tc-d{margin:6px 0 0;font-size:12.5px;color:var(--txt3);line-height:1.5}
+.tc-lim{margin:6px 0 0;font-size:12px;color:var(--txt2)}
+.tnote{font-size:12px;color:var(--txt3);margin:8px 0 0}
+@media(max-width:640px){.tcards{grid-template-columns:1fr}.tc-top a{min-height:34px;display:inline-flex;align-items:center}}
 @media(max-width:640px){h1{font-size:22px}main{padding:20px 16px 40px}
 .related a,.tlinks a,.tool-link a,footer a,.sib a{min-height:36px;display:inline-flex;align-items:center}
 .list a{padding:14px 14px}
@@ -82,7 +92,7 @@ td a{display:inline-block;padding:8px 0}
 <p>会议 记录 归档 之后，检索分三层。第一层文件名和目录，Everything 或 Finder 搜「代号加日期」，几秒出来。第二层元数据表，每条记录一行，含链接、参会人、录音路径，飞书多维表格或 Excel 都行。第三层全文和语义：云文档搜索够用，跨文档问「二期预算是谁拍的」才需要 AI，目录接进 Dify 或 Coze 建知识库，分块 500 到 800 字，一次召回 5 条。会议记录检索方法 的坑在权限：知识库继承文件夹权限，L3 的会一旦被索引，换个问法就答出来，接库前把密级做成过滤条件。避坑三，录音和转写稿不归档，半年后复核没有原声可对；避坑四，保留期到了直接删，审计时说不清。</p>
 <h2>总结</h2>
 <p>会议 记录 归档 没多少技术含量，顺序错了全是返工。模板定字段，命名定顺序，目录定层级，三层检索兜底。查决议从四十分钟到三十秒，审计材料当天齐。会议记录归档模板 和 会议记录命名规则 是地基，检索是上层；先上语义搜索，往往连文件名都搜不准。把模板和命名跑三个月，再谈接不接 AI。</p></article>
-  <div class="sec"><h2>文中提到的工具</h2><p class="tlinks"><a href="../tool/feishu-bitable/">飞书多维表格 →</a><a href="../tool/dify/">Dify →</a></p></div>
+  <div class="sec tcards-sec"><h2>文中提到的工具</h2><div class="tcards"><div class="tcard"><div class="tc-top"><a href="../tool/feishu-bitable/"><b>飞书多维表格</b></a><a class="tc-go" href="https://www.feishu.cn/product/base" target="_blank" rel="noopener nofollow">官网 →</a></div><p class="tc-d">AI 字段做分类汇总，团队协作免费额度够用</p><p class="tc-lim">免费额度：基础功能免费，高级权限、自动化执行次数等随企业付费版本解锁，…</p></div><div class="tcard"><div class="tc-top"><a href="../tool/dify/"><b>Dify</b></a><a class="tc-go" href="https://dify.ai" target="_blank" rel="noopener nofollow">官网 →</a></div><p class="tc-d">开源知识库问答，支持私有部署</p><p class="tc-lim">免费额度：开源社区版可自托管免费使用，云端版提供一定免费额度并按用量付…</p></div></div><p class="tnote">点工具名看详情（适用场景 / 免费额度 / 替代方案），需要直接用点「官网 →」。</p></div>
   <section class="related"><h2>同类教程</h2><ul><li><a href="biz-35-customer-segmentation.html">客户 分层 管理：4 个维度加 4 套动作</a></li><li><a href="biz-36-team-knowledge-base.html">团队 知识库 搭建：3 层目录加权限表</a></li><li><a href="biz-37-contract-expiry-reminder.html">合同 到期 提醒：12 个字段加三级提前期</a></li><li><a href="biz-38-inventory-alert-setup.html">库存 预警 设置：安全库存加三级阈值线</a></li><li><a href="biz-39-after-sales-ticket-automation.html">售后 工单 自动化：分派规则加 3 级 SLA</a></li></ul><p class="tool-link"><a href="../index.html">查看 商业效率 工具与其它教程 →</a> <a href="../t/errors/">AI 报错解决 →</a></p></section>
   <footer>© 2026 星籁 Stellara · <a href="../privacy.html">隐私政策</a> · <a href="../sitemap.xml">站点地图</a></footer>
 </main>

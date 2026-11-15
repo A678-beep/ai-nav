@@ -55,6 +55,16 @@ footer{border-top:1px solid var(--line);color:var(--txt3);font-size:12.5px;text-
 .cats a{display:inline-block;margin:0 8px 8px 0;padding:6px 12px;border:1px solid var(--line);border-radius:8px;font-size:13px;color:var(--txt2)}
 .cats a:hover{color:var(--txt);border-color:rgba(90,209,255,.45)}
 .cats h2{font-size:17px;margin:22px 0 10px}
+.tcards{display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:10px;margin:6px 0 4px}
+.tcard{border:1px solid var(--line);border-radius:10px;padding:12px 14px;background:rgba(255,255,255,.02)}
+.tc-top{display:flex;justify-content:space-between;align-items:center;gap:8px}
+.tc-top b{font-size:14px;color:var(--txt)}
+.tc-top a{text-decoration:none}
+.tc-go{font-size:12px;color:var(--cyan);white-space:nowrap}
+.tc-d{margin:6px 0 0;font-size:12.5px;color:var(--txt3);line-height:1.5}
+.tc-lim{margin:6px 0 0;font-size:12px;color:var(--txt2)}
+.tnote{font-size:12px;color:var(--txt3);margin:8px 0 0}
+@media(max-width:640px){.tcards{grid-template-columns:1fr}.tc-top a{min-height:34px;display:inline-flex;align-items:center}}
 @media(max-width:640px){h1{font-size:22px}main{padding:20px 16px 40px}
 .related a,.tlinks a,.tool-link a,footer a,.sib a{min-height:36px;display:inline-flex;align-items:center}
 .list a{padding:14px 14px}
@@ -82,8 +92,8 @@ td a{display:inline-block;padding:8px 0}
 <p>SOP 按生命周期写死：新客加好友 2 小时内发欢迎语和喂养指南，第 3 天问适口性，第 7 天给首单券；活跃层每周一次朋友圈互动、每月一次群内上新；观望层每两周一条内容，第 30 天补满减；沉睡层第 90 天一对一唤醒，不群发。排期用飞书多维表格，提前一天生成名单和文案，企业微信定时发送，AI 写 30 天内容日历。三个月数据：月 GMV 从 28 万到 41 万，群发回复率 3.8% 到 7.2%，沉睡唤醒率 8% 到 14%，两个运营写文案从每天 3 小时压到 40 分钟。坑五：SOP 按自然月排，沉睡客户会在同一天全收到群发，改成按加好友的相对天数；坑六：AI 生成的「调理肠胃」直接发，宠物食品这么写违规，出稿前过禁语表。</p>
 <h2>总结</h2>
 <p>私域 运营 AI 的顺序是：先让 AI 打 8 个标签、把 私域 用户 分层 分清楚，再按层生成话术、人工改第一句，最后用 SOP 把触达时间定死。AI 写 私域 话术 解决的是产能，分层和禁语这两道人工关卡不能省。先跑一个月，回复率和删好友率会告诉你哪层话术写错了。</p></article>
-  <div class="sec"><h2>文中提到的工具</h2><p class="tlinks"><a href="../tool/deepseek/">DeepSeek →</a><a href="../tool/feishu-bitable/">飞书多维表格 →</a></p></div>
-  <section class="related"><h2>同类教程</h2><ul><li><a href="biz-50-bid-document-generation.html">投标 文件 生成：把 60 页招标书拆成评分表</a></li><li><a href="biz-51-customer-visit-records.html">客户 拜访 记录：8 个字段与 3 步跟进分析</a></li><li><a href="biz-52-financial-reconciliation-ai.html">财务 对账 AI：清洗、差异定位与合规</a></li><li><a href="biz-53-employee-training-plan.html">员工 培训 计划：从需求调研到考核闭环</a></li><li><a href="biz-01-notion-ai-database-automation.html">Notion AI 数据库 自动化：4 步搭建</a></li></ul><p class="tool-link"><a href="../index.html">查看 商业效率 工具与其它教程 →</a> <a href="../t/errors/">AI 报错解决 →</a> <a href="../t/pricing/">AI 工具价格 →</a></p></section>
+  <div class="sec tcards-sec"><h2>文中提到的工具</h2><div class="tcards"><div class="tcard"><div class="tc-top"><a href="../tool/deepseek/"><b>DeepSeek</b></a><a class="tc-go" href="https://chat.deepseek.com" target="_blank" rel="noopener nofollow">官网 →</a></div><p class="tc-d">开源权重可本地部署，推理与中文表达均衡</p><p class="tc-lim">免费额度：网页版和 App 免费使用；API 按 token 计费，价…</p></div><div class="tcard"><div class="tc-top"><a href="../tool/feishu-bitable/"><b>飞书多维表格</b></a><a class="tc-go" href="https://www.feishu.cn/product/base" target="_blank" rel="noopener nofollow">官网 →</a></div><p class="tc-d">AI 字段做分类汇总，团队协作免费额度够用</p><p class="tc-lim">免费额度：基础功能免费，高级权限、自动化执行次数等随企业付费版本解锁，…</p></div></div><p class="tnote">点工具名看详情（适用场景 / 免费额度 / 替代方案），需要直接用点「官网 →」。</p></div>
+  <section class="related"><h2>同类教程</h2><ul><li><a href="biz-50-bid-document-generation.html">投标 文件 生成：把 60 页招标书拆成评分表</a></li><li><a href="biz-51-customer-visit-records.html">客户 拜访 记录：8 个字段与 3 步跟进分析</a></li><li><a href="biz-52-financial-reconciliation-ai.html">财务 对账 AI：清洗、差异定位与合规</a></li><li><a href="biz-53-employee-training-plan.html">员工 培训 计划：从需求调研到考核闭环</a></li><li><a href="biz-54-team-ai-tool-procurement.html">AI 工具 采购流程：需求清单、比价、合规</a></li></ul><p class="tool-link"><a href="../index.html">查看 商业效率 工具与其它教程 →</a> <a href="../t/errors/">AI 报错解决 →</a> <a href="../t/pricing/">AI 工具价格 →</a></p></section>
   <footer>© 2026 星籁 Stellara · <a href="../privacy.html">隐私政策</a> · <a href="../sitemap.xml">站点地图</a></footer>
 </main>
 </body>

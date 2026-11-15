@@ -55,6 +55,16 @@ footer{border-top:1px solid var(--line);color:var(--txt3);font-size:12.5px;text-
 .cats a{display:inline-block;margin:0 8px 8px 0;padding:6px 12px;border:1px solid var(--line);border-radius:8px;font-size:13px;color:var(--txt2)}
 .cats a:hover{color:var(--txt);border-color:rgba(90,209,255,.45)}
 .cats h2{font-size:17px;margin:22px 0 10px}
+.tcards{display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:10px;margin:6px 0 4px}
+.tcard{border:1px solid var(--line);border-radius:10px;padding:12px 14px;background:rgba(255,255,255,.02)}
+.tc-top{display:flex;justify-content:space-between;align-items:center;gap:8px}
+.tc-top b{font-size:14px;color:var(--txt)}
+.tc-top a{text-decoration:none}
+.tc-go{font-size:12px;color:var(--cyan);white-space:nowrap}
+.tc-d{margin:6px 0 0;font-size:12.5px;color:var(--txt3);line-height:1.5}
+.tc-lim{margin:6px 0 0;font-size:12px;color:var(--txt2)}
+.tnote{font-size:12px;color:var(--txt3);margin:8px 0 0}
+@media(max-width:640px){.tcards{grid-template-columns:1fr}.tc-top a{min-height:34px;display:inline-flex;align-items:center}}
 @media(max-width:640px){h1{font-size:22px}main{padding:20px 16px 40px}
 .related a,.tlinks a,.tool-link a,footer a,.sib a{min-height:36px;display:inline-flex;align-items:center}
 .list a{padding:14px 14px}
@@ -82,7 +92,7 @@ td a{display:inline-block;padding:8px 0}
 <p>合规三条线。第一条授权：剪别人的直播要先拿到主播书面授权，切片带货还要在平台开通切片授权，口头答应不算。第二条肖像和隐私：连麦观众的画面、手机号、微信名要打码。第三条是口播内容，直播里说“全网最低”“第一”这类话，切片必须剪掉或消音，字幕也别补上去。我见过一条切片因为保留“最便宜”三个字被下架，账号还扣了分。发布上 40 条分 7 天发，一个号一天最多 3 条，标题从口播里挑原话，封面 3 个模板轮换。直播切片授权怎么弄，最省事的是开播前把授权书和佣金比例定下来，别等剪完再谈。</p>
 <h2>总结</h2>
 <p>一场 2 小时 48 分的直播，转写 20 分钟、选段 1 小时、套模板 3 小时、发布 40 分钟，一天能出 40 条。第一次 25 条平均播放 3000，第二次平均 8000，3 条破 10 万。两条底线：授权没签完不动刀，绝对化用语先扫一遍再剪。直播切片怎么选段，前 3 秒留不住人，后面剪得再干净也没用；直播切片授权怎么弄，开播前谈，别事后补。流程跑顺，直播 切片 剪辑 才算能批量。</p></article>
-  <div class="sec"><h2>文中提到的工具</h2><p class="tlinks"><a href="../tool/whisper/">Whisper →</a><a href="../tool/capcut/">剪映 →</a></p></div>
+  <div class="sec tcards-sec"><h2>文中提到的工具</h2><div class="tcards"><div class="tcard"><div class="tc-top"><a href="../tool/whisper/"><b>Whisper</b></a><a class="tc-go" href="https://github.com/openai/whisper" target="_blank" rel="noopener nofollow">官网 →</a></div><p class="tc-d">开源转写，本地跑 16k 音频准确率稳</p><p class="tc-lim">免费额度：模型开源可免费本地运行，需要自备算力；调用官方接口转写则按音…</p></div><div class="tcard"><div class="tc-top"><a href="../tool/capcut/"><b>剪映</b></a><a class="tc-go" href="https://www.capcut.cn" target="_blank" rel="noopener nofollow">官网 →</a></div><p class="tc-d">自动字幕 + 文本剪辑，国内工作流顺手</p><p class="tc-lim">免费额度：基础剪辑功能免费，部分AI功能、素材和云空间需要开通会员，会…</p></div></div><p class="tnote">点工具名看详情（适用场景 / 免费额度 / 替代方案），需要直接用点「官网 →」。</p></div>
   <section class="related"><h2>同类教程</h2><ul><li><a href="video-30-video-first-3-seconds.html">视频 开头 3 秒：6 种钩子与实测数据</a></li><li><a href="video-31-music-copyright-detection.html">音乐 版权 检测：先查相似度再查授权</a></li><li><a href="video-32-video-generation-credit-cost.html">视频生成 积分 成本：单条报价怎么算</a></li><li><a href="video-33-short-video-cover-ab.html">短视频 封面 A/B 测试：样本量与平台工具</a></li><li><a href="video-34-video-to-gif.html">视频 转 GIF 参数：调色板、帧率与体积控制</a></li></ul><p class="tool-link"><a href="../index.html">查看 视频音频 工具与其它教程 →</a> <a href="../t/errors/">AI 报错解决 →</a> <a href="../t/pricing/">AI 工具价格 →</a></p></section>
   <footer>© 2026 星籁 Stellara · <a href="../privacy.html">隐私政策</a> · <a href="../sitemap.xml">站点地图</a></footer>
 </main>

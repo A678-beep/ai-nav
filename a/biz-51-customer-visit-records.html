@@ -55,6 +55,16 @@ footer{border-top:1px solid var(--line);color:var(--txt3);font-size:12.5px;text-
 .cats a{display:inline-block;margin:0 8px 8px 0;padding:6px 12px;border:1px solid var(--line);border-radius:8px;font-size:13px;color:var(--txt2)}
 .cats a:hover{color:var(--txt);border-color:rgba(90,209,255,.45)}
 .cats h2{font-size:17px;margin:22px 0 10px}
+.tcards{display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:10px;margin:6px 0 4px}
+.tcard{border:1px solid var(--line);border-radius:10px;padding:12px 14px;background:rgba(255,255,255,.02)}
+.tc-top{display:flex;justify-content:space-between;align-items:center;gap:8px}
+.tc-top b{font-size:14px;color:var(--txt)}
+.tc-top a{text-decoration:none}
+.tc-go{font-size:12px;color:var(--cyan);white-space:nowrap}
+.tc-d{margin:6px 0 0;font-size:12.5px;color:var(--txt3);line-height:1.5}
+.tc-lim{margin:6px 0 0;font-size:12px;color:var(--txt2)}
+.tnote{font-size:12px;color:var(--txt3);margin:8px 0 0}
+@media(max-width:640px){.tcards{grid-template-columns:1fr}.tc-top a{min-height:34px;display:inline-flex;align-items:center}}
 @media(max-width:640px){h1{font-size:22px}main{padding:20px 16px 40px}
 .related a,.tlinks a,.tool-link a,footer a,.sib a{min-height:36px;display:inline-flex;align-items:center}
 .list a{padding:14px 14px}
@@ -82,8 +92,8 @@ td a{display:inline-block;padding:8px 0}
 <p>T+1 当天发三行纪要：确认的需求、我方的动作、下次时间。T+7 回访一次，带一个对方没问但用得上的信息。报价或方案节点前 3 天打电话确认参会人。记录里的下次跟进日期同步进日历，到点弹提醒，别靠脑子。案例：一家包装厂客户拜访 5 次没推进，翻销售拜访记录表才发现决策人一次都没到场，第 6 次约上老板，当场定样。8 人团队每周 40 条记录，一个月就能看出哪个环节漏人。避坑五：把记录当 KPI 凑字数写小作文；客户明确说别再打电话还硬跟，容易收到投诉。</p>
 <h2>总结</h2>
 <p>客户 拜访 记录 做对了，就是把一次见面变成可查的资产：八字段保证信息不丢，单条、每周、每月三步分析把共性捞出来，T+1、T+7、节点前 3 天把承诺兑现。拜访记录怎么分析不用复杂，标签加排序就够了；销售拜访记录表也不必花哨，八个字段、24 小时内填完，比任何 CRM 都管用。</p></article>
-  <div class="sec"><h2>文中提到的工具</h2><p class="tlinks"><a href="../tool/feishu-bitable/">飞书多维表格 →</a></p></div>
-  <section class="related"><h2>同类教程</h2><ul><li><a href="biz-52-financial-reconciliation-ai.html">财务 对账 AI：清洗、差异定位与合规</a></li><li><a href="biz-53-employee-training-plan.html">员工 培训 计划：从需求调研到考核闭环</a></li><li><a href="biz-01-notion-ai-database-automation.html">Notion AI 数据库 自动化：4 步搭建</a></li><li><a href="biz-02-feishu-bitable-ai-field.html">飞书 多维表格 AI 字段：3 类工单</a></li><li><a href="biz-03-zapier-ai-automation-workflow.html">Zapier AI 自动化 流程：4 个触发器</a></li></ul><p class="tool-link"><a href="../index.html">查看 商业效率 工具与其它教程 →</a></p></section>
+  <div class="sec tcards-sec"><h2>文中提到的工具</h2><div class="tcards"><div class="tcard"><div class="tc-top"><a href="../tool/feishu-bitable/"><b>飞书多维表格</b></a><a class="tc-go" href="https://www.feishu.cn/product/base" target="_blank" rel="noopener nofollow">官网 →</a></div><p class="tc-d">AI 字段做分类汇总，团队协作免费额度够用</p><p class="tc-lim">免费额度：基础功能免费，高级权限、自动化执行次数等随企业付费版本解锁，…</p></div></div><p class="tnote">点工具名看详情（适用场景 / 免费额度 / 替代方案），需要直接用点「官网 →」。</p></div>
+  <section class="related"><h2>同类教程</h2><ul><li><a href="biz-52-financial-reconciliation-ai.html">财务 对账 AI：清洗、差异定位与合规</a></li><li><a href="biz-53-employee-training-plan.html">员工 培训 计划：从需求调研到考核闭环</a></li><li><a href="biz-54-team-ai-tool-procurement.html">AI 工具 采购流程：需求清单、比价、合规</a></li><li><a href="biz-01-notion-ai-database-automation.html">Notion AI 数据库 自动化：4 步搭建</a></li><li><a href="biz-02-feishu-bitable-ai-field.html">飞书 多维表格 AI 字段：3 类工单</a></li></ul><p class="tool-link"><a href="../index.html">查看 商业效率 工具与其它教程 →</a></p></section>
   <footer>© 2026 星籁 Stellara · <a href="../privacy.html">隐私政策</a> · <a href="../sitemap.xml">站点地图</a></footer>
 </main>
 </body>

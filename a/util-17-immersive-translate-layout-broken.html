@@ -55,6 +55,16 @@ footer{border-top:1px solid var(--line);color:var(--txt3);font-size:12.5px;text-
 .cats a{display:inline-block;margin:0 8px 8px 0;padding:6px 12px;border:1px solid var(--line);border-radius:8px;font-size:13px;color:var(--txt2)}
 .cats a:hover{color:var(--txt);border-color:rgba(90,209,255,.45)}
 .cats h2{font-size:17px;margin:22px 0 10px}
+.tcards{display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:10px;margin:6px 0 4px}
+.tcard{border:1px solid var(--line);border-radius:10px;padding:12px 14px;background:rgba(255,255,255,.02)}
+.tc-top{display:flex;justify-content:space-between;align-items:center;gap:8px}
+.tc-top b{font-size:14px;color:var(--txt)}
+.tc-top a{text-decoration:none}
+.tc-go{font-size:12px;color:var(--cyan);white-space:nowrap}
+.tc-d{margin:6px 0 0;font-size:12.5px;color:var(--txt3);line-height:1.5}
+.tc-lim{margin:6px 0 0;font-size:12px;color:var(--txt2)}
+.tnote{font-size:12px;color:var(--txt3);margin:8px 0 0}
+@media(max-width:640px){.tcards{grid-template-columns:1fr}.tc-top a{min-height:34px;display:inline-flex;align-items:center}}
 @media(max-width:640px){h1{font-size:22px}main{padding:20px 16px 40px}
 .related a,.tlinks a,.tool-link a,footer a,.sib a{min-height:36px;display:inline-flex;align-items:center}
 .list a{padding:14px 14px}
@@ -83,7 +93,7 @@ td a{display:inline-block;padding:8px 0}
 <p>PDF 又是另一套。免费版只接标准 PDF，扫描件和公式识别走 PDF Pro；纯文本识别对公式和表格本来就不准，公式页直接看原文。面板上三个开关值得动：带图模式影响阅读就关；重叠限制别关，关了上下两段会叠；译文被截断就把文本框拖大；小屏开间距紧凑。新版 BabelDOC 免费每月解析 1000 页、Pro 10000 页，整本 200 页的书分两次翻。先拿 30 页样本试，排版确认没问题再翻整本。</p>
 <h2>总结</h2>
 <p>排版乱九成是模式和容器打架：先切仅译文验证，再上五条 CSS，最后给表格和代码加排除规则。双语对照 排版 错位 这类问题，规则存一份，换站只改类名；原文 对照 模式 留给核对，业务页面一律仅译文。PDF 单独调，扫描件走 Pro 或先 OCR，30 页样本过了再翻整本。沉浸式翻译 网页 排版 乱 我一年踩了七八次，最后发现要改的往往不是插件，是站点那几个写死的 height。</p></article>
-  <div class="sec"><h2>文中提到的工具</h2><p class="tlinks"><a href="../tool/immersive-translate/">沉浸式翻译 →</a></p></div>
+  <div class="sec tcards-sec"><h2>文中提到的工具</h2><div class="tcards"><div class="tcard"><div class="tc-top"><a href="../tool/immersive-translate/"><b>沉浸式翻译</b></a><a class="tc-go" href="https://immersivetranslate.com" target="_blank" rel="noopener nofollow">官网 →</a></div><p class="tc-d">双语对照网页/PDF，论文阅读神器</p><p class="tc-lim">免费额度：基础功能免费，高级功能与专业版会员按月付费，常见还有年付套餐…</p></div></div><p class="tnote">点工具名看详情（适用场景 / 免费额度 / 替代方案），需要直接用点「官网 →」。</p></div>
   <section class="related"><h2>同类教程</h2><ul><li><a href="util-18-webpage-to-markdown.html">网页 转 markdown：剪藏正文图片三步</a></li><li><a href="util-19-pdf-merge-split.html">PDF 合并 拆分：486 页标书的批量处理流程</a></li><li><a href="util-20-batch-file-rename.html">文件 批量 重命名：正则、序列号和 5 个工具</a></li><li><a href="util-21-offline-translation-tools.html">离线 翻译 工具 选型：3 档模型体积与速度</a></li><li><a href="util-22-image-ocr-batch.html">图片 OCR 批量：5 种格式、8 并发与校对</a></li></ul><p class="tool-link"><a href="../index.html">查看 实用工具 工具与其它教程 →</a> <a href="../t/errors/">AI 报错解决 →</a> <a href="../t/pricing/">AI 工具价格 →</a></p></section>
   <footer>© 2026 星籁 Stellara · <a href="../privacy.html">隐私政策</a> · <a href="../sitemap.xml">站点地图</a></footer>
 </main>

@@ -55,6 +55,16 @@ footer{border-top:1px solid var(--line);color:var(--txt3);font-size:12.5px;text-
 .cats a{display:inline-block;margin:0 8px 8px 0;padding:6px 12px;border:1px solid var(--line);border-radius:8px;font-size:13px;color:var(--txt2)}
 .cats a:hover{color:var(--txt);border-color:rgba(90,209,255,.45)}
 .cats h2{font-size:17px;margin:22px 0 10px}
+.tcards{display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:10px;margin:6px 0 4px}
+.tcard{border:1px solid var(--line);border-radius:10px;padding:12px 14px;background:rgba(255,255,255,.02)}
+.tc-top{display:flex;justify-content:space-between;align-items:center;gap:8px}
+.tc-top b{font-size:14px;color:var(--txt)}
+.tc-top a{text-decoration:none}
+.tc-go{font-size:12px;color:var(--cyan);white-space:nowrap}
+.tc-d{margin:6px 0 0;font-size:12.5px;color:var(--txt3);line-height:1.5}
+.tc-lim{margin:6px 0 0;font-size:12px;color:var(--txt2)}
+.tnote{font-size:12px;color:var(--txt3);margin:8px 0 0}
+@media(max-width:640px){.tcards{grid-template-columns:1fr}.tc-top a{min-height:34px;display:inline-flex;align-items:center}}
 @media(max-width:640px){h1{font-size:22px}main{padding:20px 16px 40px}
 .related a,.tlinks a,.tool-link a,footer a,.sib a{min-height:36px;display:inline-flex;align-items:center}
 .list a{padding:14px 14px}
@@ -84,7 +94,7 @@ td a{display:inline-block;padding:8px 0}
 <p>分类列定稿后，用自动化每天 18:00 把「待处理 + 物流延迟」的行同步到客服系统，命中率稳定在 85% 左右。剩余 15% 靠人工复核列兜底，工单积压从每天 40 条降到 6 条。多维表格 AI 提取的订单号会带空格，回写前记得在字段里做一次 trim。</p>
 <h2>总结</h2>
 <p>飞书多维表格 AI 字段真正省时间的地方在批量清洗，不在替代人。三步配置：建分类列、建提取列、留复核列，再按 500 行分批重算。成本上 Lark Pro $12/人/月，比请一个数据标注兼职便宜太多。别把 AI 字段自动分类当质检用，它输出的是草稿，工单流转还得靠你自己定的规则。</p></article>
-  <div class="sec"><h2>文中提到的工具</h2><p class="tlinks"><a href="../tool/feishu-bitable/">飞书多维表格 →</a></p></div>
+  <div class="sec tcards-sec"><h2>文中提到的工具</h2><div class="tcards"><div class="tcard"><div class="tc-top"><a href="../tool/feishu-bitable/"><b>飞书多维表格</b></a><a class="tc-go" href="https://www.feishu.cn/product/base" target="_blank" rel="noopener nofollow">官网 →</a></div><p class="tc-d">AI 字段做分类汇总，团队协作免费额度够用</p><p class="tc-lim">免费额度：基础功能免费，高级权限、自动化执行次数等随企业付费版本解锁，…</p></div></div><p class="tnote">点工具名看详情（适用场景 / 免费额度 / 替代方案），需要直接用点「官网 →」。</p></div>
   <section class="related"><h2>同类教程</h2><ul><li><a href="biz-03-zapier-ai-automation-workflow.html">Zapier AI 自动化 流程：4 个触发器</a></li><li><a href="biz-04-n8n-self-hosted-workflow.html">n8n 自建 工作流：Docker 三步部署</a></li><li><a href="biz-05-coze-customer-service-bot.html">扣子 Coze 客服机器人：3 个意图够用</a></li><li><a href="biz-06-dify-knowledge-base-setup.html">Dify 知识库 搭建：3 个参数涨 40%</a></li><li><a href="biz-07-gamma-presentation.html">Gamma 演示文稿：20 页 8 分钟出稿</a></li></ul><p class="tool-link"><a href="../index.html">查看 商业效率 工具与其它教程 →</a> <a href="../t/errors/">AI 报错解决 →</a> <a href="../t/pricing/">AI 工具价格 →</a></p></section>
   <footer>© 2026 星籁 Stellara · <a href="../privacy.html">隐私政策</a> · <a href="../sitemap.xml">站点地图</a></footer>
 </main>

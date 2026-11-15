@@ -55,6 +55,16 @@ footer{border-top:1px solid var(--line);color:var(--txt3);font-size:12.5px;text-
 .cats a{display:inline-block;margin:0 8px 8px 0;padding:6px 12px;border:1px solid var(--line);border-radius:8px;font-size:13px;color:var(--txt2)}
 .cats a:hover{color:var(--txt);border-color:rgba(90,209,255,.45)}
 .cats h2{font-size:17px;margin:22px 0 10px}
+.tcards{display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:10px;margin:6px 0 4px}
+.tcard{border:1px solid var(--line);border-radius:10px;padding:12px 14px;background:rgba(255,255,255,.02)}
+.tc-top{display:flex;justify-content:space-between;align-items:center;gap:8px}
+.tc-top b{font-size:14px;color:var(--txt)}
+.tc-top a{text-decoration:none}
+.tc-go{font-size:12px;color:var(--cyan);white-space:nowrap}
+.tc-d{margin:6px 0 0;font-size:12.5px;color:var(--txt3);line-height:1.5}
+.tc-lim{margin:6px 0 0;font-size:12px;color:var(--txt2)}
+.tnote{font-size:12px;color:var(--txt3);margin:8px 0 0}
+@media(max-width:640px){.tcards{grid-template-columns:1fr}.tc-top a{min-height:34px;display:inline-flex;align-items:center}}
 @media(max-width:640px){h1{font-size:22px}main{padding:20px 16px 40px}
 .related a,.tlinks a,.tool-link a,footer a,.sib a{min-height:36px;display:inline-flex;align-items:center}
 .list a{padding:14px 14px}
@@ -82,7 +92,7 @@ td a{display:inline-block;padding:8px 0}
 <p>坑一是不报错但更慢：Windows 会偷偷用共享显存，任务管理器里显存满了速度掉到十分之一，看着没崩其实已经废了，所以占用超过 90% 就该降参数。坑二是关掉虚拟内存，--lowvram 会把部分权重放到内存，页面文件太小会直接崩，我把虚拟内存设成系统托管才稳。还有一个坑是 12G 卡盲目加 --lowvram，速度反而慢三倍；--xformers 和 torch 版本不匹配时，日志会写 xformers 不可用，装回匹配版本再跑。还有一个坑是 --no-half-vae，为了修黑图加它会多占显存，显存紧的时候反而直接 OOM。那次 3060 跑了 40 分钟、出到一半才崩，重启后按新参数重跑，9 分钟完成。有人问我 Stable Diffusion 显存不足怎么解决，我的答案就是这四步：读报错数字、改启动参数、降分辨率和插件、最后才考虑换卡。想彻底避开这类 SD 爆显存，先看 Tried to allocate 后面的数字，再决定砍分辨率还是砍插件，别一上来就换显卡。</p>
 <h2>总结</h2>
 <p>跑通之后我的固定配置是：3060 12G 上 --xformers --medvram，SDXL 1024 单图，ControlNet 只开一个，放大走分块。Stable Diffusion 显存不足多数时候不是硬件到头，而是让一次生成同时承担了太多任务。再遇到 SD 爆显存，先看 Tried to allocate 后面的数字，再决定砍分辨率还是砍插件，别一上来就换显卡。</p></article>
-  <div class="sec"><h2>文中提到的工具</h2><p class="tlinks"><a href="../tool/stable-diffusion/">Stable Diffusion →</a></p></div>
+  <div class="sec tcards-sec"><h2>文中提到的工具</h2><div class="tcards"><div class="tcard"><div class="tc-top"><a href="../tool/stable-diffusion/"><b>Stable Diffusion</b></a><a class="tc-go" href="https://stability.ai" target="_blank" rel="noopener nofollow">官网 →</a></div><p class="tc-d">本地开源，ControlNet/LoRA 生态最全</p><p class="tc-lim">免费额度：模型权重开源免费，但需自备显卡或租用云算力；第三方在线托管服…</p></div></div><p class="tnote">点工具名看详情（适用场景 / 免费额度 / 替代方案），需要直接用点「官网 →」。</p></div>
   <section class="related"><h2>同类教程</h2><ul><li><a href="image-18-ecommerce-white-background.html">电商 白底图 AI：5 步出合规主图</a></li><li><a href="image-19-avatar-consistency.html">头像 生成 一致性：9 张表情包不换脸</a></li><li><a href="image-20-hand-deformity-fix.html">手部 畸形 修复：局部重绘与骨架约束</a></li><li><a href="image-21-background-removal-edges.html">图片 去背景 边缘：发丝、半透明、阴影怎么修</a></li><li><a href="image-22-sd-model-download-slow.html">SD 模型 下载 太慢：镜像加断点续传</a></li></ul><p class="tool-link"><a href="../index.html">查看 图像生成 工具与其它教程 →</a> <a href="../t/errors/">AI 报错解决 →</a> <a href="../t/params/">参数与配置 →</a></p></section>
   <footer>© 2026 星籁 Stellara · <a href="../privacy.html">隐私政策</a> · <a href="../sitemap.xml">站点地图</a></footer>
 </main>

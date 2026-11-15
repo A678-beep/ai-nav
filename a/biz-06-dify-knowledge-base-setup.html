@@ -55,6 +55,16 @@ footer{border-top:1px solid var(--line);color:var(--txt3);font-size:12.5px;text-
 .cats a{display:inline-block;margin:0 8px 8px 0;padding:6px 12px;border:1px solid var(--line);border-radius:8px;font-size:13px;color:var(--txt2)}
 .cats a:hover{color:var(--txt);border-color:rgba(90,209,255,.45)}
 .cats h2{font-size:17px;margin:22px 0 10px}
+.tcards{display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:10px;margin:6px 0 4px}
+.tcard{border:1px solid var(--line);border-radius:10px;padding:12px 14px;background:rgba(255,255,255,.02)}
+.tc-top{display:flex;justify-content:space-between;align-items:center;gap:8px}
+.tc-top b{font-size:14px;color:var(--txt)}
+.tc-top a{text-decoration:none}
+.tc-go{font-size:12px;color:var(--cyan);white-space:nowrap}
+.tc-d{margin:6px 0 0;font-size:12.5px;color:var(--txt3);line-height:1.5}
+.tc-lim{margin:6px 0 0;font-size:12px;color:var(--txt2)}
+.tnote{font-size:12px;color:var(--txt3);margin:8px 0 0}
+@media(max-width:640px){.tcards{grid-template-columns:1fr}.tc-top a{min-height:34px;display:inline-flex;align-items:center}}
 @media(max-width:640px){h1{font-size:22px}main{padding:20px 16px 40px}
 .related a,.tlinks a,.tool-link a,footer a,.sib a{min-height:36px;display:inline-flex;align-items:center}
 .list a{padding:14px 14px}
@@ -85,7 +95,7 @@ td a{display:inline-block;padding:8px 0}
 <p>Dify 知识库命中率低的时候先看文档解析结果，别急着换模型，七成问题出在解析层。测试集要包含「我不知道」「你们领导是谁」这类越界问题，看它会不会编。Dify 切片参数不是越细越好，200 字以下切出来的片段语义不完整，回答容易断章取义；我试过 300 字，条款类问答准确率掉到六成。另外 Dify 知识库命中率高的前提是问题改写，用户问「年假怎么算」和文档里的「带薪年休假」不是一个词，开启查询改写能补一部分。</p>
 <h2>总结</h2>
 <p>两个月运行数据：日均提问 60 次，命中回答 76%，未命中的四分之一是「我的情况算不算」，本来就该转人工。Dify 知识库搭建的收益在自助率，不在炫技。三步走完：洗文档、定切片、建索引，再花一周测 100 个问题，命中率就稳了。</p></article>
-  <div class="sec"><h2>文中提到的工具</h2><p class="tlinks"><a href="../tool/dify/">Dify →</a></p></div>
+  <div class="sec tcards-sec"><h2>文中提到的工具</h2><div class="tcards"><div class="tcard"><div class="tc-top"><a href="../tool/dify/"><b>Dify</b></a><a class="tc-go" href="https://dify.ai" target="_blank" rel="noopener nofollow">官网 →</a></div><p class="tc-d">开源知识库问答，支持私有部署</p><p class="tc-lim">免费额度：开源社区版可自托管免费使用，云端版提供一定免费额度并按用量付…</p></div></div><p class="tnote">点工具名看详情（适用场景 / 免费额度 / 替代方案），需要直接用点「官网 →」。</p></div>
   <section class="related"><h2>同类教程</h2><ul><li><a href="biz-07-gamma-presentation.html">Gamma 演示文稿：20 页 8 分钟出稿</a></li><li><a href="biz-08-excel-copilot-formula.html">Excel Copilot 公式：4 句提问</a></li><li><a href="biz-09-survey-ai-analysis.html">问卷 AI 分析：300 份 2 小时出结论</a></li><li><a href="biz-10-contract-ai-review-risk.html">合同 AI 审查 风险：5 条红线标完</a></li><li><a href="biz-11-recruiting-jd-generation.html">招聘 JD 生成：1 份岗位 3 版文案</a></li></ul><p class="tool-link"><a href="../index.html">查看 商业效率 工具与其它教程 →</a> <a href="../t/pricing/">AI 工具价格 →</a> <a href="../t/params/">参数与配置 →</a></p></section>
   <footer>© 2026 星籁 Stellara · <a href="../privacy.html">隐私政策</a> · <a href="../sitemap.xml">站点地图</a></footer>
 </main>

@@ -55,6 +55,16 @@ footer{border-top:1px solid var(--line);color:var(--txt3);font-size:12.5px;text-
 .cats a{display:inline-block;margin:0 8px 8px 0;padding:6px 12px;border:1px solid var(--line);border-radius:8px;font-size:13px;color:var(--txt2)}
 .cats a:hover{color:var(--txt);border-color:rgba(90,209,255,.45)}
 .cats h2{font-size:17px;margin:22px 0 10px}
+.tcards{display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:10px;margin:6px 0 4px}
+.tcard{border:1px solid var(--line);border-radius:10px;padding:12px 14px;background:rgba(255,255,255,.02)}
+.tc-top{display:flex;justify-content:space-between;align-items:center;gap:8px}
+.tc-top b{font-size:14px;color:var(--txt)}
+.tc-top a{text-decoration:none}
+.tc-go{font-size:12px;color:var(--cyan);white-space:nowrap}
+.tc-d{margin:6px 0 0;font-size:12.5px;color:var(--txt3);line-height:1.5}
+.tc-lim{margin:6px 0 0;font-size:12px;color:var(--txt2)}
+.tnote{font-size:12px;color:var(--txt3);margin:8px 0 0}
+@media(max-width:640px){.tcards{grid-template-columns:1fr}.tc-top a{min-height:34px;display:inline-flex;align-items:center}}
 @media(max-width:640px){h1{font-size:22px}main{padding:20px 16px 40px}
 .related a,.tlinks a,.tool-link a,footer a,.sib a{min-height:36px;display:inline-flex;align-items:center}
 .list a{padding:14px 14px}
@@ -82,7 +92,7 @@ td a{display:inline-block;padding:8px 0}
 <p>避坑一：人脸别盲目开人脸增强，老人和侧脸会被磨成塑料。避坑二：JPG 输入先转 PNG，反复压缩的伪影会被放大成噪点。避坑三：4 倍不是越大越好，超过原图 8 倍属于凭空编细节，印刷按 300dpi 反推尺寸。避坑四：Real-ESRGAN 显存占用 在 6G 卡上跑 4 倍 4K 图会中断，先切 512 的块再拼。避坑五：模型权重文件要单独下载，默认只有 x4plus 一个。避坑六：输出目录别放中文路径，个别版本会报编码错误。把 4 倍输出再缩到 2 倍尺寸用，细节也比原图直接放大好。Real-ESRGAN 图片 放大 我一般先用两张对比，选完模型再批量。</p>
 <h2>总结</h2>
 <p>Real-ESRGAN 图片 放大 的效果七成取决于模型和输入质量，参数只是兜底。Real-ESRGAN 模型选择 比调参数重要，产品图选 UltraSharp，插画选 anime_6B，显存不够就切 512 的块。800×600 到 3200×2400 只要 6 秒，比外包重绘便宜太多。但别指望它救回一张已经糊掉的原片。</p></article>
-  <div class="sec"><h2>文中提到的工具</h2><p class="tlinks"><a href="../tool/real-esrgan/">Real-ESRGAN →</a></p></div>
+  <div class="sec tcards-sec"><h2>文中提到的工具</h2><div class="tcards"><div class="tcard"><div class="tc-top"><a href="../tool/real-esrgan/"><b>Real-ESRGAN</b></a><a class="tc-go" href="https://github.com/xinntao/Real-ESRGAN" target="_blank" rel="noopener nofollow">官网 →</a></div><p class="tc-d">开源图片放大，4 倍无损放大</p><p class="tc-lim">免费额度：开源代码可免费使用，本地部署无额外费用但要自备显卡；也可使用…</p></div></div><p class="tnote">点工具名看详情（适用场景 / 免费额度 / 替代方案），需要直接用点「官网 →」。</p></div>
   <section class="related"><h2>同类教程</h2><ul><li><a href="util-09-ai-video-watermark-removal.html">视频 去水印 AI：逐帧跟踪与镜头修复实测</a></li><li><a href="util-10-local-pdf-qa.html">本地 PDF 问答：7B 模型离线建库全流程</a></li><li><a href="util-11-offline-speech-to-text.html">离线 语音转文字：Whisper 模型选型与显存</a></li><li><a href="util-12-ai-detection-rewrite.html">AI 检测 降重：人工改写与句式拆分</a></li><li><a href="util-13-ai-flowchart-generator.html">AI 流程图 生成：代码导出可编辑矢量图</a></li></ul><p class="tool-link"><a href="../index.html">查看 实用工具 工具与其它教程 →</a> <a href="../t/errors/">AI 报错解决 →</a> <a href="../t/pricing/">AI 工具价格 →</a></p></section>
   <footer>© 2026 星籁 Stellara · <a href="../privacy.html">隐私政策</a> · <a href="../sitemap.xml">站点地图</a></footer>
 </main>

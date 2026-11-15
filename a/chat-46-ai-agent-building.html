@@ -55,6 +55,16 @@ footer{border-top:1px solid var(--line);color:var(--txt3);font-size:12.5px;text-
 .cats a{display:inline-block;margin:0 8px 8px 0;padding:6px 12px;border:1px solid var(--line);border-radius:8px;font-size:13px;color:var(--txt2)}
 .cats a:hover{color:var(--txt);border-color:rgba(90,209,255,.45)}
 .cats h2{font-size:17px;margin:22px 0 10px}
+.tcards{display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:10px;margin:6px 0 4px}
+.tcard{border:1px solid var(--line);border-radius:10px;padding:12px 14px;background:rgba(255,255,255,.02)}
+.tc-top{display:flex;justify-content:space-between;align-items:center;gap:8px}
+.tc-top b{font-size:14px;color:var(--txt)}
+.tc-top a{text-decoration:none}
+.tc-go{font-size:12px;color:var(--cyan);white-space:nowrap}
+.tc-d{margin:6px 0 0;font-size:12.5px;color:var(--txt3);line-height:1.5}
+.tc-lim{margin:6px 0 0;font-size:12px;color:var(--txt2)}
+.tnote{font-size:12px;color:var(--txt3);margin:8px 0 0}
+@media(max-width:640px){.tcards{grid-template-columns:1fr}.tc-top a{min-height:34px;display:inline-flex;align-items:center}}
 @media(max-width:640px){h1{font-size:22px}main{padding:20px 16px 40px}
 .related a,.tlinks a,.tool-link a,footer a,.sib a{min-height:36px;display:inline-flex;align-items:center}
 .list a{padding:14px 14px}
@@ -82,7 +92,7 @@ td a{display:inline-block;padding:8px 0}
 <p>评测集 300 条真实工单、5 类意图，只看三个指标：解决率、平均步数、误操作率。第一版没评测直接全量放，第三天就把仅退款执行成退货退款被投诉。之后每步记工具名、参数、返回、token、耗时，投诉时按单号回放整条链路。灰度先放 10% 流量跑一周，人工抽检 20%，只盯两处：金额地址有没有动错、承诺时效有没有说错。权限也收：Agent 只能读订单和物流，退款写操作走审批队列，超过 500 元转人工。还有一条，上下文超过 3 万 token 它开始忘约束，历史消息要压成工具结果摘要。评测集每类意图至少 40 条，比例和线上一致，别拿 100 条简单咨询糊弄自己。</p>
 <h2>总结</h2>
 <p>AI Agent 搭建 步骤 落到纸上四行：一类意图一个 Agent、工具不超过 7 个、失败分三层、评测集先跑。Agent 工具 调用 报错 的样本别删，攒起来就是回归集，我攒到 400 条后每改一次提示词都先跑一遍。AI Agent 搭建 省下的不是写代码的时间，是每天三个人盯工单的时间。工具描述和失败样本这两样留好，换人接手也能跑。</p></article>
-  <div class="sec"><h2>文中提到的工具</h2><p class="tlinks"><a href="../tool/dify/">Dify →</a></p></div>
+  <div class="sec tcards-sec"><h2>文中提到的工具</h2><div class="tcards"><div class="tcard"><div class="tc-top"><a href="../tool/dify/"><b>Dify</b></a><a class="tc-go" href="https://dify.ai" target="_blank" rel="noopener nofollow">官网 →</a></div><p class="tc-d">开源知识库问答，支持私有部署</p><p class="tc-lim">免费额度：开源社区版可自托管免费使用，云端版提供一定免费额度并按用量付…</p></div></div><p class="tnote">点工具名看详情（适用场景 / 免费额度 / 替代方案），需要直接用点「官网 →」。</p></div>
   <section class="related"><h2>同类教程</h2><ul><li><a href="chat-47-multimodal-input.html">多模态 输入：图片、文档、音频的格式与限制</a></li><li><a href="chat-48-long-context-usage.html">长上下文 用法：token 预算与中段召回</a></li><li><a href="chat-49-ai-voice-call.html">AI 语音 通话：延迟、打断与合规</a></li><li><a href="chat-50-ai-study-plan.html">AI 学习 计划：目标拆解到每日打卡</a></li><li><a href="chat-51-ai-search-comparison.html">AI 搜索 对比：五款工具引用与时效实测</a></li></ul><p class="tool-link"><a href="../index.html">查看 对话AI 工具与其它教程 →</a> <a href="../t/errors/">AI 报错解决 →</a> <a href="../t/pricing/">AI 工具价格 →</a></p></section>
   <footer>© 2026 星籁 Stellara · <a href="../privacy.html">隐私政策</a> · <a href="../sitemap.xml">站点地图</a></footer>
 </main>

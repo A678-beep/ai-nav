@@ -55,6 +55,16 @@ footer{border-top:1px solid var(--line);color:var(--txt3);font-size:12.5px;text-
 .cats a{display:inline-block;margin:0 8px 8px 0;padding:6px 12px;border:1px solid var(--line);border-radius:8px;font-size:13px;color:var(--txt2)}
 .cats a:hover{color:var(--txt);border-color:rgba(90,209,255,.45)}
 .cats h2{font-size:17px;margin:22px 0 10px}
+.tcards{display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:10px;margin:6px 0 4px}
+.tcard{border:1px solid var(--line);border-radius:10px;padding:12px 14px;background:rgba(255,255,255,.02)}
+.tc-top{display:flex;justify-content:space-between;align-items:center;gap:8px}
+.tc-top b{font-size:14px;color:var(--txt)}
+.tc-top a{text-decoration:none}
+.tc-go{font-size:12px;color:var(--cyan);white-space:nowrap}
+.tc-d{margin:6px 0 0;font-size:12.5px;color:var(--txt3);line-height:1.5}
+.tc-lim{margin:6px 0 0;font-size:12px;color:var(--txt2)}
+.tnote{font-size:12px;color:var(--txt3);margin:8px 0 0}
+@media(max-width:640px){.tcards{grid-template-columns:1fr}.tc-top a{min-height:34px;display:inline-flex;align-items:center}}
 @media(max-width:640px){h1{font-size:22px}main{padding:20px 16px 40px}
 .related a,.tlinks a,.tool-link a,footer a,.sib a{min-height:36px;display:inline-flex;align-items:center}
 .list a{padding:14px 14px}
@@ -82,7 +92,7 @@ td a{display:inline-block;padding:8px 0}
 <p>上色用 DeOldify，Stable 版比 Artistic 版稳，render_factor 从 21 起试，8 寸扫描件给 32 左右，输出约 1536 像素再 2 倍放大。老照片 上色 偏色 大多出在肤色：亚洲人像会整片发黄发红，我在 PS 里把肤色通道饱和降 10% 到 15%，曲线提亮中间调，再把彩色层透明度降到 85%，底下垫 10% 原黑白图保结构。顺序必须记住：修复分辨率、上色、局部调色、最后轻锐化；先上色再修脸一定出色块。两个坑：上色后强锐化会出现红边，尤其衣领和头发；打印前先打 6 寸小样，10 寸 300dpi 要 3000×2400 像素，尺寸不够会糊。那张全家福外套第一次上成紫色，问了家里人才知道是藏青，这种细节只能问人。手机屏幕看颜色偏艳，打印前在显示器上校一遍色，我吃过偏绿的亏。</p>
 <h2>总结</h2>
 <p>现在流程固定五步：扫描存档、PS 清底子、CodeFormer 修脸、DeOldify 上色、PS 调色输出。4 小时里模型只占 20 分钟，剩下全在修补和确认颜色。老照片 修复 上色 没有一键版本，老照片 修复 模型 推荐 也只是起点；人脸保真靠 w=0.7，老照片 上色 偏色 靠叠回原图压住一半，剩下的问活着的长辈。</p></article>
-  <div class="sec"><h2>文中提到的工具</h2><p class="tlinks"><a href="../tool/real-esrgan/">Real-ESRGAN →</a><a href="../tool/dify/">Dify →</a></p></div>
+  <div class="sec tcards-sec"><h2>文中提到的工具</h2><div class="tcards"><div class="tcard"><div class="tc-top"><a href="../tool/real-esrgan/"><b>Real-ESRGAN</b></a><a class="tc-go" href="https://github.com/xinntao/Real-ESRGAN" target="_blank" rel="noopener nofollow">官网 →</a></div><p class="tc-d">开源图片放大，4 倍无损放大</p><p class="tc-lim">免费额度：开源代码可免费使用，本地部署无额外费用但要自备显卡；也可使用…</p></div><div class="tcard"><div class="tc-top"><a href="../tool/dify/"><b>Dify</b></a><a class="tc-go" href="https://dify.ai" target="_blank" rel="noopener nofollow">官网 →</a></div><p class="tc-d">开源知识库问答，支持私有部署</p><p class="tc-lim">免费额度：开源社区版可自托管免费使用，云端版提供一定免费额度并按用量付…</p></div></div><p class="tnote">点工具名看详情（适用场景 / 免费额度 / 替代方案），需要直接用点「官网 →」。</p></div>
   <section class="related"><h2>同类教程</h2><ul><li><a href="image-26-ecommerce-model-swap.html">电商 模特 换装 流程：姿势保留与版权合规</a></li><li><a href="image-27-poster-chinese-font.html">海报 中文字体 不乱码：文字层与后期叠加</a></li><li><a href="image-28-batch-cutout-workflow.html">批量 抠图 工作流：1200 张图的自动化</a></li><li><a href="image-29-lossless-image-compress.html">图片 压缩 无损 实测：格式选择与体积对比</a></li><li><a href="image-30-image-to-prompt.html">图片 反推 提示词：从出图到可复用模板</a></li></ul><p class="tool-link"><a href="../index.html">查看 图像生成 工具与其它教程 →</a> <a href="../t/errors/">AI 报错解决 →</a> <a href="../t/pricing/">AI 工具价格 →</a></p></section>
   <footer>© 2026 星籁 Stellara · <a href="../privacy.html">隐私政策</a> · <a href="../sitemap.xml">站点地图</a></footer>
 </main>
