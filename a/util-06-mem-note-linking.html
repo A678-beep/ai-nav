@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Mem 笔记 关联：300 条旧笔记怎么串起来 · 星籁 AI 工具导航</title>
+<meta name="description" content="我在 Mem 里存了 300 多条零散笔记，关键词搜索经常搜不到要的东西，直到用关联面板按语义翻出三年前的一条会议记录。Mem 笔记 关联 靠的不是文件夹，而是向量相似度，写法跟传统笔记软件完全反过来，这篇讲怎么让它自己">
+<meta name="keywords" content="Mem 笔记 关联, 向量检索, 笔记管理, Mem 笔记检索, Mem 自动关联">
+<meta name="robots" content="index,follow">
+<link rel="canonical" href="https://A678-beep.github.io/ai-nav/a/util-06-mem-note-linking.html">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Mem 笔记 关联：300 条旧笔记怎么串起来">
+<meta property="og:description" content="我在 Mem 里存了 300 多条零散笔记，关键词搜索经常搜不到要的东西，直到用关联面板按语义翻出三年前的一条会议记录。Mem 笔记 关联 靠的不是文件夹，而是向量相似度，写法跟传统笔记软件完全反过来，这篇讲怎么让它自己">
+<meta property="og:url" content="https://A678-beep.github.io/ai-nav/a/util-06-mem-note-linking.html">
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "Article", "headline": "Mem 笔记 关联：300 条旧笔记怎么串起来", "inLanguage": "zh-CN", "datePublished": "2026-11-15", "author": {"@type": "Organization", "name": "星籁 Stellara"}, "publisher": {"@type": "Organization", "name": "星籁 Stellara"}, "mainEntityOfPage": "https://A678-beep.github.io/ai-nav/a/util-06-mem-note-linking.html", "keywords": "Mem 笔记 关联, 向量检索, 笔记管理, Mem 笔记检索, Mem 自动关联"}</script>
+<style>
+:root{--bg:#080b12;--panel:#111827;--line:#1f2937;--txt:#e6edf7;--txt2:#9aa8bd;--txt3:#6b7a90;--cyan:#5ad1ff;--violet:#a78bfa}
+*{box-sizing:border-box}body{margin:0;background:radial-gradient(900px 500px at 82% -8%,rgba(90,209,255,.16),transparent 60%),var(--bg);color:var(--txt);font-family:"Microsoft YaHei","PingFang SC",system-ui,sans-serif;line-height:1.8}
+a{color:inherit;text-decoration:none}
+.top{position:sticky;top:0;backdrop-filter:blur(12px);background:rgba(8,11,18,.85);border-bottom:1px solid var(--line)}
+.top-in{max-width:900px;margin:0 auto;padding:12px 20px;display:flex;align-items:center;gap:10px}
+.logo{display:flex;align-items:center;gap:9px;font-weight:800}
+.logo .mark{width:30px;height:30px;border-radius:9px;background:linear-gradient(135deg,var(--cyan),var(--violet));display:grid;place-items:center;color:#04121c;font-weight:900}
+.top-in .back{margin-left:auto;color:var(--txt2);font-size:13px}
+main{max-width:900px;margin:0 auto;padding:28px 20px 60px}
+h1{font-size:28px;line-height:1.4;margin:8px 0 10px}
+.meta{color:var(--txt3);font-size:12.5px;margin-bottom:22px;display:flex;gap:8px;flex-wrap:wrap}
+.content{font-size:15.5px;color:#cfd9e6}
+.content h2{font-size:20px;color:var(--txt);margin:28px 0 10px}
+.content h3{font-size:17px;color:var(--txt);margin:22px 0 8px}
+.content p{margin:12px 0}
+.content li{margin:6px 0}
+.content code{background:rgba(120,180,255,.12);padding:1px 6px;border-radius:5px;font-family:Consolas,monospace;font-size:13px}
+.content pre{background:#0a1018;border:1px solid var(--line);border-radius:10px;padding:12px;overflow:auto}
+.content blockquote{border-left:3px solid var(--cyan);padding:4px 14px;color:var(--txt2);margin:16px 0}
+.ad-slot{margin:26px 0;min-height:100px;border:1px dashed rgba(120,140,170,.35);border-radius:12px;display:flex;align-items:center;justify-content:center;color:var(--txt3);font-size:12px;text-align:center;background:rgba(17,24,39,.55)}
+.ad-slot small{display:block;font-size:10.5px;opacity:.7}
+.bread{color:var(--txt3);font-size:12.5px;margin-bottom:6px}
+.bread a{color:var(--cyan)}
+footer{border-top:1px solid var(--line);color:var(--txt3);font-size:12.5px;text-align:center;padding:20px}
+@media(max-width:640px){h1{font-size:22px}main{padding:20px 16px 40px}}
+</style>
+</head>
+<body>
+<header class="top"><div class="top-in">
+  <a class="logo" href="../index.html"><span class="mark">✦</span>星籁 AI 导航</a>
+  <a class="back" href="../index.html">← 返回首页</a>
+</div></header>
+<main>
+  <div class="bread"><a href="../index.html">首页</a> / <a href="../index.html#/articles">实用工具</a></div>
+  <h1>Mem 笔记 关联：300 条旧笔记怎么串起来</h1>
+  <div class="meta"><span>实用工具</span><span>·</span><span>Mem 笔记 关联, 向量检索, 笔记管理, Mem 笔记检索, Mem 自动关联</span></div>
+  <article class="content"><p>我在 Mem 里存了 300 多条零散笔记，关键词搜索经常搜不到要的东西，直到用关联面板按语义翻出三年前的一条会议记录。Mem 笔记 关联 靠的不是文件夹，而是向量相似度，写法跟传统笔记软件完全反过来，这篇讲怎么让它自己找上门。</p>
+<h2>先决定笔记的颗粒度</h2>
+<p>Mem 的自动关联吃的是单条笔记的语义，一条只放一个观点，超过 300 字就拆成两条。导入旧笔记走 Markdown，标题写成完整句子，比如客户 A 更在意交付周期，比只写客户 A 更容易被匹配到。我实测 300 条笔记首次索引约 10 分钟，索引没跑完时关联面板是空的，别急着判断没效果。每天的日记也建议拆成待办、决策、观察三类，不然后面检索全是流水账。同一个项目的前缀统一，用项目名开头，向量命中会更稳。另一个经验是给每条笔记补一句为什么记录，这句解释的信息量最大。Mem 自动关联 只看语义相似度，不看你把笔记放在哪个目录下。</p>
+<h2>Mem 笔记 关联 怎么触发</h2>
+<div class="ad-slot" data-ad="article-mid"><div>广告位（文章中部）<small>AdSense / 广告联盟代码插入点 · 建议 728×90 / 移动端 320×100</small></div><!-- 在这里粘贴广告代码 --></div>
+<p>写新笔记时右侧会自动浮出相关笔记和推荐标签，先看 3 条推荐里有没有命中旧记录，再决定要不要补标签。用命令面板输入 /ask 可以直接问上次讨论定价是在哪条笔记，它会给出答案和来源笔记，响应约 3 秒。问题要带上下文，问定价不如问 B 客户对年付折扣的顾虑，命中率能差一倍。标签别建太细，三层以内就够，Mem 笔记检索 主要靠语义，标签只是辅助。中文笔记里混几个英文专有名词，命中率还能再提一点。Mem 自动关联 的推荐只在写作当下出现，过去后再难复现，看到有用的直接点收藏。</p>
+<h2>五个容易踩的坑</h2>
+<p>避坑一：Mem 的问答会引用过期笔记，重要结论必须点开来源看日期。避坑二：免费额度有限，笔记过千条后同步排队明显，批量导入放在晚上。避坑三：客户隐私整段贴进去等于交给向量索引，敏感内容改成代号。避坑四：自动关联的结果按时间衰减，旧笔记容易被埋下去，重要的手动置顶。避坑五：多设备同时编辑同一条会覆盖，手机上只读不写。</p>
+<h2>总结</h2>
+<p>Mem 笔记 关联 解决的是记了但找不到的老毛病，前提是颗粒度够小、标题写成完整句子。300 条笔记索引 10 分钟之后，找一个旧结论从 5 分钟缩到 10 秒。每周花 10 分钟清理标签，比事后翻记录省事得多。搜索结果默认按相关度排，时间久的笔记靠前，找旧结论时把时间范围缩小。Mem 笔记检索 的上限取决于你写得多具体，先跑通 50 条再谈全量迁移。</p></article>
+  <footer>© 2026 星籁 Stellara · <a href="../privacy.html">隐私政策</a> · <a href="../sitemap.xml">站点地图</a></footer>
+</main>
+</body>
+</html>
