@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>前端 页面 生成：提示词、组件和验收三步 · 星籁</title>
+<meta name="description" content="上周接了个后台权限配置页，两张 Figma 稿，排期两天。用 AI 生成前端页面，我 40 分钟拿到第一版，贴进项目就翻车：颜色写死成 #1890ff、组件切得比米粒还碎、接口字段名靠猜。前端 页面 生成 快不快看模型，">
+<meta name="keywords" content="前端 页面 生成, 页面 生成 提示词, 组件 拆分, 页面 验收, 前端 页面 生成 提示词, AI 生成 前端页面 怎么验收">
+<meta name="robots" content="index,follow">
+
+<link rel="canonical" href="https://a678-beep.github.io/ai-nav/a/code-44-frontend-page-generation.html">
+<meta property="og:type" content="article">
+<meta property="og:title" content="前端 页面 生成：提示词、组件和验收三步">
+<meta property="og:description" content="上周接了个后台权限配置页，两张 Figma 稿，排期两天。用 AI 生成前端页面，我 40 分钟拿到第一版，贴进项目就翻车：颜色写死成 #1890ff、组件切得比米粒还碎、接口字段名靠猜。前端 页面 生成 快不快看模型，">
+<meta property="og:url" content="https://a678-beep.github.io/ai-nav/a/code-44-frontend-page-generation.html">
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "Article", "headline": "前端 页面 生成：提示词、组件和验收三步", "inLanguage": "zh-CN", "datePublished": "2026-11-15", "author": {"@type": "Organization", "name": "星籁 Stellara"}, "publisher": {"@type": "Organization", "name": "星籁 Stellara"}, "mainEntityOfPage": "https://a678-beep.github.io/ai-nav/a/code-44-frontend-page-generation.html", "articleSection": "编程助手", "wordCount": 803, "dateModified": "2026-11-15", "keywords": "前端 页面 生成, 页面 生成 提示词, 组件 拆分, 页面 验收, 前端 页面 生成 提示词, AI 生成 前端页面 怎么验收"}</script>
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "首页", "item": "https://a678-beep.github.io/ai-nav/"}, {"@type": "ListItem", "position": 2, "name": "编程助手", "item": "https://a678-beep.github.io/ai-nav/#/articles"}, {"@type": "ListItem", "position": 3, "name": "前端 页面 生成：提示词、组件和验收三步", "item": "https://a678-beep.github.io/ai-nav/a/code-44-frontend-page-generation.html"}]}</script>
+<style>
+:root{--bg:#080b12;--panel:#111827;--line:#1f2937;--txt:#e6edf7;--txt2:#9aa8bd;--txt3:#6b7a90;--cyan:#5ad1ff;--violet:#a78bfa}
+*{box-sizing:border-box}body{margin:0;background:radial-gradient(900px 500px at 82% -8%,rgba(90,209,255,.16),transparent 60%),var(--bg);color:var(--txt);font-family:"Microsoft YaHei","PingFang SC",system-ui,sans-serif;line-height:1.8}
+a{color:inherit;text-decoration:none}
+.top{position:sticky;top:0;backdrop-filter:blur(12px);background:rgba(8,11,18,.85);border-bottom:1px solid var(--line)}
+.top-in{max-width:900px;margin:0 auto;padding:12px 20px;display:flex;align-items:center;gap:10px}
+.logo{display:flex;align-items:center;gap:9px;font-weight:800}
+.logo .mark{width:30px;height:30px;border-radius:9px;background:linear-gradient(135deg,var(--cyan),var(--violet));display:grid;place-items:center;color:#04121c;font-weight:900}
+.top-in .back{margin-left:auto;color:var(--txt2);font-size:13px}
+main{max-width:900px;margin:0 auto;padding:28px 20px 60px}
+h1{font-size:28px;line-height:1.4;margin:8px 0 10px}
+.meta{color:var(--txt3);font-size:12.5px;margin-bottom:22px;display:flex;gap:8px;flex-wrap:wrap}
+.content{font-size:15.5px;color:#cfd9e6}
+.content h2{font-size:20px;color:var(--txt);margin:28px 0 10px}
+.content h3{font-size:17px;color:var(--txt);margin:22px 0 8px}
+.content p{margin:12px 0}
+.content li{margin:6px 0}
+.content code{background:rgba(120,180,255,.12);padding:1px 6px;border-radius:5px;font-family:Consolas,monospace;font-size:13px}
+.content pre{background:#0a1018;border:1px solid var(--line);border-radius:10px;padding:12px;overflow:auto}
+.content blockquote{border-left:3px solid var(--cyan);padding:4px 14px;color:var(--txt2);margin:16px 0}
+.ad-slot{margin:26px 0;min-height:100px;border:1px dashed rgba(120,140,170,.35);border-radius:12px;display:flex;align-items:center;justify-content:center;color:var(--txt3);font-size:12px;text-align:center;background:rgba(17,24,39,.55)}
+.ad-slot small{display:block;font-size:10.5px;opacity:.7}
+.bread{color:var(--txt3);font-size:12.5px;margin-bottom:6px}
+.bread a{color:var(--cyan)}
+footer{border-top:1px solid var(--line);color:var(--txt3);font-size:12.5px;text-align:center;padding:20px}
+.related{margin:34px 0 10px;border-top:1px solid var(--line);padding-top:18px}.related h2{font-size:16px;color:var(--txt);margin:0 0 10px}.related ul{list-style:none;padding:0;margin:0}.related li{margin:8px 0}.related a{color:var(--cyan);font-size:14px}
+.tool-link{margin:14px 0 0}
+.tlinks a{display:inline-block;margin:0 8px 8px 0;padding:6px 12px;border:1px solid rgba(90,209,255,.25);border-radius:8px;font-size:13px;color:var(--cyan);background:rgba(90,209,255,.06)}
+.tlinks a:hover{background:rgba(90,209,255,.15)}
+.sec{margin:26px 0}
+.sec h2{font-size:17px;color:var(--txt);margin:0 0 10px}
+.tool-link a{display:inline-block;font-size:13px;color:var(--txt2);border:1px solid var(--line);border-radius:8px;padding:7px 12px}
+.tool-link a:hover{color:var(--txt);border-color:rgba(90,209,255,.45)}
+.top-in .back{padding:6px 0}
+.bread a{display:inline-block;padding:6px 0}
+.sec li a{display:inline-block;padding:5px 0}
+.sib a{padding:8px 12px}
+.cats a{display:inline-block;margin:0 8px 8px 0;padding:6px 12px;border:1px solid var(--line);border-radius:8px;font-size:13px;color:var(--txt2)}
+.cats a:hover{color:var(--txt);border-color:rgba(90,209,255,.45)}
+.cats h2{font-size:17px;margin:22px 0 10px}
+@media(max-width:640px){h1{font-size:22px}main{padding:20px 16px 40px}
+.related a,.tlinks a,.tool-link a,footer a,.sib a{min-height:36px;display:inline-flex;align-items:center}
+.list a{padding:14px 14px}
+td a{display:inline-block;padding:8px 0}
+.note a{display:inline-block;padding:7px 0}
+}
+</style>
+</head>
+<body>
+<header class="top"><div class="top-in">
+  <a class="logo" href="../index.html"><span class="mark">✦</span>星籁 AI 导航</a>
+  <a class="back" href="../index.html">← 返回首页</a>
+</div></header>
+<main>
+  <div class="bread"><a href="../index.html">首页</a> / <a href="../code/index.html">编程助手</a></div>
+  <h1>前端 页面 生成：提示词、组件和验收三步</h1>
+  <div class="meta"><span>编程助手</span><span>·</span><span>更新于 2026-11-15</span><span>·</span><span>前端 页面 生成, 页面 生成 提示词, 组件 拆分, 页面 验收, 前端 页面 生成 提示词, AI 生成 前端页面 怎么验收</span></div>
+  <article class="content"><p>上周接了个后台权限配置页，两张 Figma 稿，排期两天。用 AI 生成前端页面，我 40 分钟拿到第一版，贴进项目就翻车：颜色写死成 #1890ff、组件切得比米粒还碎、接口字段名靠猜。前端 页面 生成 快不快看模型，能不能用看你把需求拆到多细。</p>
+<h2>提示词写满 400 字，别只丢一句“帮我写个页面”</h2>
+<p>我的模板四段：技术栈写死（React 18.2、TypeScript 5.4、Ant Design 5.12、CSS Modules）；页面结构列全（搜索栏、表格、分页、抽屉表单）；状态补齐（loading、空数据、接口 500、无权限）；禁止项单独一段（不加新依赖、不写死颜色、mock 数据放 mock.ts、文案走常量）。前端 页面 生成 提示词 里最值钱的就是禁止项，不写它一定给你内联样式和随机色值。提示词里再给一两个真实字段名（比如 permCode、roleId），比写“按接口来”强，模型会照着编字段。附一张手绘线框图比纯文字稳，我做过 10 次对比，结构偏差从 4 次降到 1 次。一个坑：别一个提示词要 5 个页面，第 3 个开始复用错组件、样式串味，单页单轮。</p>
+<h2>先让它出组件树，再逐组件写代码</h2>
+<div class="ad-slot" data-ad="article-mid"><div>广告位（文章中部）<small>AdSense / 广告联盟代码插入点 · 建议 728×90 / 移动端 320×100</small></div><!-- 在这里粘贴广告代码 --></div>
+<p>第二轮只要组件树：Page → FilterBar → DataTable → EditDrawer → StatusTag，每个标清楚哪些用项目里现成的（src/components/Table、Form），哪些新建。审完树再逐组件生成，拆完先跑一遍类型检查，单组件阶段改类型比整页拼完再查省一半时间，单文件超过 200 行就打回拆；我见过一次生成 600 行的 index.tsx，改一个字段翻了 3 分钟。命名跟项目走，样式只用 CSS 变量，新颜色必须来自设计 token。AI 生成前端组件 最容易丢的是复用约束，前端 页面 生成 提示词 里得点名现有组件路径。</p>
+<h2>验收只看四个硬指标</h2>
+<p>AI 生成 前端页面 怎么验收，我的清单：tsc --noEmit 零报错、ESLint 零 warning、接口字段和 openapi 生成的类型对得上、首屏 3 秒内可交互且 console 无红色报错。再加一条人工点验：空数据、超长文本、无权限三个状态各点一遍，别只看正常流程。案例是权限配置页，AI 版 380 行、6 个组件，我改了 40 分钟：3 处硬编码颜色、2 处接口字段名错、1 处空状态没写；提测后发现 2 个 bug，手写版当时是 1 个。两个坑：别让 AI 重写项目已有的 Button 和 Table，重复组件半年后没人敢删；也别接受它自造的请求函数，统一走项目的 request 封装。验收结果写进 PR 模板，谁改的页面谁补清单，提测前少一轮返工。</p>
+<h2>总结</h2>
+<p>三步走：提示词 400 字写死技术栈和禁止项，组件树先审后写，四指标验收。适合列表、表单、详情、配置这类中后台页面，不适合动画多、强拖拽、实时协作的页面，三类我都试过，改的时间比自己写还长。AI 生成 前端页面 怎么验收 这件事，核心是把它当一个手艺一般的新人：交得快，但每个边界状态都得你自己点一遍。三个数记住：提示词 400 字、单文件 200 行、验收 40 分钟。</p></article>
+  
+  <section class="related"><h2>同类教程</h2><ul><li><a href="code-01-cursor-tab-settings.html">Cursor Tab 补全 设置：五个开关的取舍</a></li><li><a href="code-02-claude-code-cli-refactor.html">Claude Code CLI 重构：四步顺序</a></li><li><a href="code-03-github-copilot-unit-tests.html">GitHub Copilot 单元测试：三步法</a></li><li><a href="code-04-windsurf-cascade-multifile.html">Windsurf Cascade 多文件：先验收</a></li><li><a href="code-05-tongyi-lingma-private-repo.html">通义灵码 私有仓库：企业版知识库200MB上限</a></li></ul><p class="tool-link"><a href="../index.html">查看 编程助手 工具与其它教程 →</a> <a href="../t/errors/">AI 报错解决 →</a> <a href="../t/params/">参数与配置 →</a></p></section>
+  <footer>© 2026 星籁 Stellara · <a href="../privacy.html">隐私政策</a> · <a href="../sitemap.xml">站点地图</a></footer>
+</main>
+</body>
+</html>

@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>推理模型 选型：先看任务再看思考成本 · 星籁</title>
+<meta name="description" content="上个月对一张跨境对账单，普通对话模型连试三次都回“建议逐条核对”，换成推理模型后 46 秒给出一张差异溯源表，追到两笔汇率换算错误。可同一周把它接进工单分类，单条延迟从 1.1 秒涨到 9 秒，3000 单一天多烧 40">
+<meta name="keywords" content="推理模型 选型, 推理模型 成本, 思考链 延迟, o3 和 R1 对比, 什么时候该用推理模型, 推理模型 成本 对比">
+<meta name="robots" content="index,follow">
+
+<link rel="canonical" href="https://a678-beep.github.io/ai-nav/a/chat-45-reasoning-model-selection.html">
+<meta property="og:type" content="article">
+<meta property="og:title" content="推理模型 选型：先看任务再看思考成本">
+<meta property="og:description" content="上个月对一张跨境对账单，普通对话模型连试三次都回“建议逐条核对”，换成推理模型后 46 秒给出一张差异溯源表，追到两笔汇率换算错误。可同一周把它接进工单分类，单条延迟从 1.1 秒涨到 9 秒，3000 单一天多烧 40">
+<meta property="og:url" content="https://a678-beep.github.io/ai-nav/a/chat-45-reasoning-model-selection.html">
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "Article", "headline": "推理模型 选型：先看任务再看思考成本", "inLanguage": "zh-CN", "datePublished": "2026-11-15", "author": {"@type": "Organization", "name": "星籁 Stellara"}, "publisher": {"@type": "Organization", "name": "星籁 Stellara"}, "mainEntityOfPage": "https://a678-beep.github.io/ai-nav/a/chat-45-reasoning-model-selection.html", "articleSection": "对话AI", "wordCount": 844, "dateModified": "2026-11-15", "keywords": "推理模型 选型, 推理模型 成本, 思考链 延迟, o3 和 R1 对比, 什么时候该用推理模型, 推理模型 成本 对比"}</script>
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "首页", "item": "https://a678-beep.github.io/ai-nav/"}, {"@type": "ListItem", "position": 2, "name": "对话AI", "item": "https://a678-beep.github.io/ai-nav/#/articles"}, {"@type": "ListItem", "position": 3, "name": "推理模型 选型：先看任务再看思考成本", "item": "https://a678-beep.github.io/ai-nav/a/chat-45-reasoning-model-selection.html"}]}</script>
+<style>
+:root{--bg:#080b12;--panel:#111827;--line:#1f2937;--txt:#e6edf7;--txt2:#9aa8bd;--txt3:#6b7a90;--cyan:#5ad1ff;--violet:#a78bfa}
+*{box-sizing:border-box}body{margin:0;background:radial-gradient(900px 500px at 82% -8%,rgba(90,209,255,.16),transparent 60%),var(--bg);color:var(--txt);font-family:"Microsoft YaHei","PingFang SC",system-ui,sans-serif;line-height:1.8}
+a{color:inherit;text-decoration:none}
+.top{position:sticky;top:0;backdrop-filter:blur(12px);background:rgba(8,11,18,.85);border-bottom:1px solid var(--line)}
+.top-in{max-width:900px;margin:0 auto;padding:12px 20px;display:flex;align-items:center;gap:10px}
+.logo{display:flex;align-items:center;gap:9px;font-weight:800}
+.logo .mark{width:30px;height:30px;border-radius:9px;background:linear-gradient(135deg,var(--cyan),var(--violet));display:grid;place-items:center;color:#04121c;font-weight:900}
+.top-in .back{margin-left:auto;color:var(--txt2);font-size:13px}
+main{max-width:900px;margin:0 auto;padding:28px 20px 60px}
+h1{font-size:28px;line-height:1.4;margin:8px 0 10px}
+.meta{color:var(--txt3);font-size:12.5px;margin-bottom:22px;display:flex;gap:8px;flex-wrap:wrap}
+.content{font-size:15.5px;color:#cfd9e6}
+.content h2{font-size:20px;color:var(--txt);margin:28px 0 10px}
+.content h3{font-size:17px;color:var(--txt);margin:22px 0 8px}
+.content p{margin:12px 0}
+.content li{margin:6px 0}
+.content code{background:rgba(120,180,255,.12);padding:1px 6px;border-radius:5px;font-family:Consolas,monospace;font-size:13px}
+.content pre{background:#0a1018;border:1px solid var(--line);border-radius:10px;padding:12px;overflow:auto}
+.content blockquote{border-left:3px solid var(--cyan);padding:4px 14px;color:var(--txt2);margin:16px 0}
+.ad-slot{margin:26px 0;min-height:100px;border:1px dashed rgba(120,140,170,.35);border-radius:12px;display:flex;align-items:center;justify-content:center;color:var(--txt3);font-size:12px;text-align:center;background:rgba(17,24,39,.55)}
+.ad-slot small{display:block;font-size:10.5px;opacity:.7}
+.bread{color:var(--txt3);font-size:12.5px;margin-bottom:6px}
+.bread a{color:var(--cyan)}
+footer{border-top:1px solid var(--line);color:var(--txt3);font-size:12.5px;text-align:center;padding:20px}
+.related{margin:34px 0 10px;border-top:1px solid var(--line);padding-top:18px}.related h2{font-size:16px;color:var(--txt);margin:0 0 10px}.related ul{list-style:none;padding:0;margin:0}.related li{margin:8px 0}.related a{color:var(--cyan);font-size:14px}
+.tool-link{margin:14px 0 0}
+.tlinks a{display:inline-block;margin:0 8px 8px 0;padding:6px 12px;border:1px solid rgba(90,209,255,.25);border-radius:8px;font-size:13px;color:var(--cyan);background:rgba(90,209,255,.06)}
+.tlinks a:hover{background:rgba(90,209,255,.15)}
+.sec{margin:26px 0}
+.sec h2{font-size:17px;color:var(--txt);margin:0 0 10px}
+.tool-link a{display:inline-block;font-size:13px;color:var(--txt2);border:1px solid var(--line);border-radius:8px;padding:7px 12px}
+.tool-link a:hover{color:var(--txt);border-color:rgba(90,209,255,.45)}
+.top-in .back{padding:6px 0}
+.bread a{display:inline-block;padding:6px 0}
+.sec li a{display:inline-block;padding:5px 0}
+.sib a{padding:8px 12px}
+.cats a{display:inline-block;margin:0 8px 8px 0;padding:6px 12px;border:1px solid var(--line);border-radius:8px;font-size:13px;color:var(--txt2)}
+.cats a:hover{color:var(--txt);border-color:rgba(90,209,255,.45)}
+.cats h2{font-size:17px;margin:22px 0 10px}
+@media(max-width:640px){h1{font-size:22px}main{padding:20px 16px 40px}
+.related a,.tlinks a,.tool-link a,footer a,.sib a{min-height:36px;display:inline-flex;align-items:center}
+.list a{padding:14px 14px}
+td a{display:inline-block;padding:8px 0}
+.note a{display:inline-block;padding:7px 0}
+}
+</style>
+</head>
+<body>
+<header class="top"><div class="top-in">
+  <a class="logo" href="../index.html"><span class="mark">✦</span>星籁 AI 导航</a>
+  <a class="back" href="../index.html">← 返回首页</a>
+</div></header>
+<main>
+  <div class="bread"><a href="../index.html">首页</a> / <a href="../chat/index.html">对话AI</a></div>
+  <h1>推理模型 选型：先看任务再看思考成本</h1>
+  <div class="meta"><span>对话AI</span><span>·</span><span>更新于 2026-11-15</span><span>·</span><span>推理模型 选型, 推理模型 成本, 思考链 延迟, o3 和 R1 对比, 什么时候该用推理模型, 推理模型 成本 对比</span></div>
+  <article class="content"><p>上个月对一张跨境对账单，普通对话模型连试三次都回“建议逐条核对”，换成推理模型后 46 秒给出一张差异溯源表，追到两笔汇率换算错误。可同一周把它接进工单分类，单条延迟从 1.1 秒涨到 9 秒，3000 单一天多烧 40 多元。推理模型 选型 的关键不在谁最强，而在哪些活值得等它想。</p>
+<h2>三类任务值得等，其余别碰</h2>
+<p>我的 推理模型 选型 判断表只有三行：多步计算（对账、报价拆解、税费倒推），中间结果要回代验算；根因排查（报错日志、数据对不上），得顺着链条一步步排除；约束规划（排期、套餐组合、权限矩阵），条件超过 5 个还互相牵制。这三类活的错法很一致：直接给结论、不给推导，错在第二步后面全错。反过来的活别用：分类打标、字段抽取、文案润色、简单问答。我拿 400 条工单分类比过，推理模型和普通模型的 F1 只差 1.8 个点，延迟差 6 倍，没理由上贵的。什么时候该用推理模型，就看任务里有没有“验证”环节，没有就别用。</p>
+<h2>成本贵在思考 token，不在单价</h2>
+<div class="ad-slot" data-ad="article-mid"><div>广告位（文章中部）<small>AdSense / 广告联盟代码插入点 · 建议 728×90 / 移动端 320×100</small></div><!-- 在这里粘贴广告代码 --></div>
+<p>按输出计费：o3 输出 8 美元/百万 token，DeepSeek-R1 约 2.2 美元/百万 token，看单价只差 4 倍。真花起来不是这个数。一单复杂的对账排查，思考链 1200 token、答案 300 token，成本是普通模型同题的 4 到 5 倍，日处理 3000 单就到 40 多元。推理模型 成本 对比 必须把思考 token 和答案 token 合起来算，只比单价会漏掉七成开销。延迟同理：普通模型 p95 1.8 秒，推理档位 medium 到 18 秒、high 到 34 秒，客服系统里超过 10 秒就有人刷新页面。还有一个坑，思考预算拉满不划算，Gemini 2.5 Pro 的思考预算拉到 32768，简单问题也会烧掉大半，延迟 40 秒以上，我实测准确率只多 2 个点。</p>
+<h2>混合路由：15% 走推理的账</h2>
+<p>最终方案是分流，不是全换。规则两条：命中“对账”“报错”“为什么”这类词，或单条输入超过 800 字，走推理；其余走普通。灰度一周，推理占比 14.7%，效果和全量推理差 1.3 个点。日 2 万次请求，全走推理约 210 元/天、p95 31 秒；混合路由 42 元/天、p95 3.4 秒。抽样 100 条人工验收：复杂题推理组通过率 91%、普通组 74%，简单题两组 96% 和 94%，几乎没差。两个不要：别把 R1 的 reasoning_content 直接回给用户，前端会露出大段草稿；别用推理模型做 JSON 抽取，思考占掉输出额度后格式通过率从 96% 掉到 88%。推理模型 成本 对比 做到这一步，结论才站得住，推理模型 选型 也从选哪个变成哪个请求走哪条路。</p>
+<h2>总结</h2>
+<p>顺序是：先按任务分三行，再按 token 算成功任务成本，最后用路由切比例。三个阈值记着：单条延迟容忍 10 秒以内，别上 high 档；思考 token 超过答案 4 倍时，先问值不值；推理占比 15% 上下，账最好算。什么时候该用推理模型 我误判过一次，把周报润色也切了过去，等 20 秒换来一段更啰嗦的话，第二天就改回普通模型。推理模型 选型 做到最后，就是一张按请求分流的表。</p></article>
+  <div class="sec"><h2>文中提到的工具</h2><p class="tlinks"><a href="../tool/deepseek/">DeepSeek →</a></p></div>
+  <section class="related"><h2>同类教程</h2><ul><li><a href="chat-01-chatgpt-4o-voice-english-speaking.html">ChatGPT 4o 语音对话 练英语口语实测</a></li><li><a href="chat-02-claude-37-sonnet-long-document-summary.html">Claude 3.7 Sonnet 长文档总结法</a></li><li><a href="chat-03-deepseek-r1-local-deployment-vram.html">DeepSeek R1 本地部署 显存要求实录</a></li><li><a href="chat-04-kimi-long-text-contract-review.html">Kimi 长文本 合同审查实操与模板</a></li><li><a href="chat-05-doubao-voice-clone-cs-scripts.html">豆包 语音克隆 客服话术 4 个细节</a></li></ul><p class="tool-link"><a href="../index.html">查看 对话AI 工具与其它教程 →</a> <a href="../t/errors/">AI 报错解决 →</a> <a href="../t/pricing/">AI 工具价格 →</a></p></section>
+  <footer>© 2026 星籁 Stellara · <a href="../privacy.html">隐私政策</a> · <a href="../sitemap.xml">站点地图</a></footer>
+</main>
+</body>
+</html>
