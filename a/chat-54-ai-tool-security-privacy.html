@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>AI 工具 隐私：四类风险和六个开关 · 星籁</title>
+<meta name="description" content="上个月帮一家 28 人的外贸公司做 AI 工具 审计，运营把 186 家客户的公司名、联系人和报价单贴进网页版对话框，行政把导出的聊天记录扔进共享盘。我花 11 天把 8 个工具过了一遍，关掉 6 个默认开关，停掉 3 ">
+<meta name="keywords" content="AI 工具 隐私, AI 数据 安全, 数据 出境, 隐私 设置, AI 工具 数据 泄露, AI 对话 隐私 怎么 保护">
+<meta name="robots" content="index,follow">
+
+<link rel="canonical" href="https://a678-beep.github.io/ai-nav/a/chat-54-ai-tool-security-privacy.html">
+<meta property="og:type" content="article">
+<meta property="og:title" content="AI 工具 隐私：四类风险和六个开关">
+<meta property="og:description" content="上个月帮一家 28 人的外贸公司做 AI 工具 审计，运营把 186 家客户的公司名、联系人和报价单贴进网页版对话框，行政把导出的聊天记录扔进共享盘。我花 11 天把 8 个工具过了一遍，关掉 6 个默认开关，停掉 3 ">
+<meta property="og:url" content="https://a678-beep.github.io/ai-nav/a/chat-54-ai-tool-security-privacy.html">
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "Article", "headline": "AI 工具 隐私：四类风险和六个开关", "inLanguage": "zh-CN", "datePublished": "2026-11-15", "author": {"@type": "Organization", "name": "星籁 Stellara"}, "publisher": {"@type": "Organization", "name": "星籁 Stellara"}, "mainEntityOfPage": "https://a678-beep.github.io/ai-nav/a/chat-54-ai-tool-security-privacy.html", "articleSection": "对话AI", "wordCount": 831, "dateModified": "2026-11-15", "keywords": "AI 工具 隐私, AI 数据 安全, 数据 出境, 隐私 设置, AI 工具 数据 泄露, AI 对话 隐私 怎么 保护"}</script>
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "首页", "item": "https://a678-beep.github.io/ai-nav/"}, {"@type": "ListItem", "position": 2, "name": "对话AI", "item": "https://a678-beep.github.io/ai-nav/#/articles"}, {"@type": "ListItem", "position": 3, "name": "AI 工具 隐私：四类风险和六个开关", "item": "https://a678-beep.github.io/ai-nav/a/chat-54-ai-tool-security-privacy.html"}]}</script>
+<style>
+:root{--bg:#080b12;--panel:#111827;--line:#1f2937;--txt:#e6edf7;--txt2:#9aa8bd;--txt3:#6b7a90;--cyan:#5ad1ff;--violet:#a78bfa}
+*{box-sizing:border-box}body{margin:0;background:radial-gradient(900px 500px at 82% -8%,rgba(90,209,255,.16),transparent 60%),var(--bg);color:var(--txt);font-family:"Microsoft YaHei","PingFang SC",system-ui,sans-serif;line-height:1.8}
+a{color:inherit;text-decoration:none}
+.top{position:sticky;top:0;backdrop-filter:blur(12px);background:rgba(8,11,18,.85);border-bottom:1px solid var(--line)}
+.top-in{max-width:900px;margin:0 auto;padding:12px 20px;display:flex;align-items:center;gap:10px}
+.logo{display:flex;align-items:center;gap:9px;font-weight:800}
+.logo .mark{width:30px;height:30px;border-radius:9px;background:linear-gradient(135deg,var(--cyan),var(--violet));display:grid;place-items:center;color:#04121c;font-weight:900}
+.top-in .back{margin-left:auto;color:var(--txt2);font-size:13px}
+main{max-width:900px;margin:0 auto;padding:28px 20px 60px}
+h1{font-size:28px;line-height:1.4;margin:8px 0 10px}
+.meta{color:var(--txt3);font-size:12.5px;margin-bottom:22px;display:flex;gap:8px;flex-wrap:wrap}
+.content{font-size:15.5px;color:#cfd9e6}
+.content h2{font-size:20px;color:var(--txt);margin:28px 0 10px}
+.content h3{font-size:17px;color:var(--txt);margin:22px 0 8px}
+.content p{margin:12px 0}
+.content li{margin:6px 0}
+.content code{background:rgba(120,180,255,.12);padding:1px 6px;border-radius:5px;font-family:Consolas,monospace;font-size:13px}
+.content pre{background:#0a1018;border:1px solid var(--line);border-radius:10px;padding:12px;overflow:auto}
+.content blockquote{border-left:3px solid var(--cyan);padding:4px 14px;color:var(--txt2);margin:16px 0}
+.ad-slot{margin:26px 0;min-height:100px;border:1px dashed rgba(120,140,170,.35);border-radius:12px;display:flex;align-items:center;justify-content:center;color:var(--txt3);font-size:12px;text-align:center;background:rgba(17,24,39,.55)}
+.ad-slot small{display:block;font-size:10.5px;opacity:.7}
+.bread{color:var(--txt3);font-size:12.5px;margin-bottom:6px}
+.bread a{color:var(--cyan)}
+footer{border-top:1px solid var(--line);color:var(--txt3);font-size:12.5px;text-align:center;padding:20px}
+.related{margin:34px 0 10px;border-top:1px solid var(--line);padding-top:18px}.related h2{font-size:16px;color:var(--txt);margin:0 0 10px}.related ul{list-style:none;padding:0;margin:0}.related li{margin:8px 0}.related a{color:var(--cyan);font-size:14px}
+.tool-link{margin:14px 0 0}
+.tlinks a{display:inline-block;margin:0 8px 8px 0;padding:6px 12px;border:1px solid rgba(90,209,255,.25);border-radius:8px;font-size:13px;color:var(--cyan);background:rgba(90,209,255,.06)}
+.tlinks a:hover{background:rgba(90,209,255,.15)}
+.sec{margin:26px 0}
+.sec h2{font-size:17px;color:var(--txt);margin:0 0 10px}
+.tool-link a{display:inline-block;font-size:13px;color:var(--txt2);border:1px solid var(--line);border-radius:8px;padding:7px 12px}
+.tool-link a:hover{color:var(--txt);border-color:rgba(90,209,255,.45)}
+.top-in .back{padding:6px 0}
+.bread a{display:inline-block;padding:6px 0}
+.sec li a{display:inline-block;padding:5px 0}
+.sib a{padding:8px 12px}
+.cats a{display:inline-block;margin:0 8px 8px 0;padding:6px 12px;border:1px solid var(--line);border-radius:8px;font-size:13px;color:var(--txt2)}
+.cats a:hover{color:var(--txt);border-color:rgba(90,209,255,.45)}
+.cats h2{font-size:17px;margin:22px 0 10px}
+.tcards{display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:10px;margin:6px 0 4px}
+.tcard{border:1px solid var(--line);border-radius:10px;padding:12px 14px;background:rgba(255,255,255,.02)}
+.tc-top{display:flex;justify-content:space-between;align-items:center;gap:8px}
+.tc-top b{font-size:14px;color:var(--txt)}
+.tc-top a{text-decoration:none}
+.tc-go{font-size:12px;color:var(--cyan);white-space:nowrap}
+.tc-d{margin:6px 0 0;font-size:12.5px;color:var(--txt3);line-height:1.5}
+.tc-lim{margin:6px 0 0;font-size:12px;color:var(--txt2)}
+.tnote{font-size:12px;color:var(--txt3);margin:8px 0 0}
+@media(max-width:640px){.tcards{grid-template-columns:1fr}.tc-top a{min-height:34px;display:inline-flex;align-items:center}}
+@media(max-width:640px){h1{font-size:22px}main{padding:20px 16px 40px}
+.related a,.tlinks a,.tool-link a,footer a,.sib a{min-height:36px;display:inline-flex;align-items:center}
+.list a{padding:14px 14px}
+td a{display:inline-block;padding:8px 0}
+.note a{display:inline-block;padding:7px 0}
+}
+</style>
+</head>
+<body>
+<header class="top"><div class="top-in">
+  <a class="logo" href="../index.html"><span class="mark">✦</span>星籁 AI 导航</a>
+  <a class="back" href="../index.html">← 返回首页</a>
+</div></header>
+<main>
+  <div class="bread"><a href="../index.html">首页</a> / <a href="../chat/index.html">对话AI</a></div>
+  <h1>AI 工具 隐私：四类风险和六个开关</h1>
+  <div class="meta"><span>对话AI</span><span>·</span><span>更新于 2026-11-15</span><span>·</span><span>AI 工具 隐私, AI 数据 安全, 数据 出境, 隐私 设置, AI 工具 数据 泄露, AI 对话 隐私 怎么 保护</span></div>
+  <article class="content"><p>上个月帮一家 28 人的外贸公司做 AI 工具 审计，运营把 186 家客户的公司名、联系人和报价单贴进网页版对话框，行政把导出的聊天记录扔进共享盘。我花 11 天把 8 个工具过了一遍，关掉 6 个默认开关，停掉 3 个套壳站账号，只留 4 个签了数据处理协议的工具。AI 工具 隐私 九成不是被黑客偷走的，是自己点开的。</p>
+<h2>风险分四类，先对号入座</h2>
+<p>训练、留存、扩展、套壳，四类风险分开查。训练类是免费档默认拿对话改进模型，ChatGPT 关“为所有人改进模型”，Claude 关“帮助改进 Claude”，Gemini 应用活动默认开启。留存类是 API 默认保留 30 天做监控，企业版能谈零留存，网页版删对话，备份未必同步清。扩展类最隐蔽，3 个插件申请读取所有网站数据，其中一个把标题发回服务器。套壳站没处查数据去向，2 个低价中转账号我直接停用。四类查完，AI 工具 数据 泄露 的主因是没人管默认设置。</p>
+<h2>六个开关，按顺序过</h2>
+<div class="ad-slot" data-ad="article-mid"><div>广告位（文章中部）<small>AdSense / 广告联盟代码插入点 · 建议 728×90 / 移动端 320×100</small></div><!-- 在这里粘贴广告代码 --></div>
+<p>训练开关先关，网页版两个改进模型选项都关，敏感问题用临时对话，不留历史。接着是自动删除，Gemini 应用活动设 3 个月，ChatGPT 历史按条清。分享链接要清，公开分享等于发到网上，我清掉 7 条旧链接。浏览器扩展只留一个白名单插件，其余全禁。微信和飞书小程序版 AI 会留两份记录，手机端用完清缓存。最后是账号回收，离职 3 天内停登录，SSO 权限跟着撤。AI 对话 隐私 怎么 保护，顺序是先关默认、再清存量、最后管设备。避坑一：无痕模式不等于不上传，请求照发；避坑二：只删对话不删导出文件，下载目录里还有全文。</p>
+<h2>合规落到三份文件</h2>
+<p>企业场景准备三份文件：数据处理协议、使用规范、数据分类分级表。协议里问四句话：数据留多久、是否用于训练、服务器在哪、能否删除，答不上来就换。规范写禁止清单：身份证号、银行卡、未公开报价、客户名单不进公网模型；必须用时先脱敏，手机号换 138****0000。分级表分公开、内部、敏感三级，只有公开级能贴网页版。《个人信息保护法》要求告知同意，敏感信息单独同意；境内模型按 2023 年 8 月施行的《生成式人工智能服务管理暂行办法》备案。那家公司签了 2 份协议，2 个跨境工具只处理公开资料，三个月后敏感内容贴入从每周 17 次降到 2 次。AI 工具 隐私 拼的是制度，不是哪个模型更安全。</p>
+<h2>总结</h2>
+<p>顺序是：先给数据分级，列清不能出内网的内容；再关训练和留存开关，清掉历史分享；敏感内容脱敏，或换本地模型、企业 API；最后把规范落到纸面。开关只是及格线，AI 工具 数据 泄露 大多是自己递出去的。AI 对话 隐私 怎么 保护 靠习惯；AI 工具 隐私 靠每次粘贴前想一秒。</p></article>
+  <div class="sec tcards-sec"><h2>文中提到的工具</h2><div class="tcards"><div class="tcard"><div class="tc-top"><a href="../tool/chatgpt/"><b>ChatGPT</b></a><a class="tc-go" href="https://chatgpt.com" target="_blank" rel="noopener nofollow">官网 →</a></div><p class="tc-d">GPT-5 通用对话，语音模式练口语、看图解题都稳</p><p class="tc-lim">免费额度：免费版有次数限制；ChatGPT Plus 约 20 美元/…</p></div><div class="tcard"><div class="tc-top"><a href="../tool/claude/"><b>Claude</b></a><a class="tc-go" href="https://claude.ai" target="_blank" rel="noopener nofollow">官网 →</a></div><p class="tc-d">长文档与代码阅读强，200K 上下文适合合同、论文</p><p class="tc-lim">免费额度：免费版有每日用量限制；Claude Pro 约 20 美元/…</p></div></div><p class="tnote">点工具名看详情（适用场景 / 免费额度 / 替代方案），需要直接用点「官网 →」。</p></div>
+  <section class="related"><h2>同类教程</h2><ul><li><a href="chat-01-chatgpt-4o-voice-english-speaking.html">ChatGPT 4o 语音对话 练英语口语实测</a></li><li><a href="chat-02-claude-37-sonnet-long-document-summary.html">Claude 3.7 Sonnet 长文档总结法</a></li><li><a href="chat-03-deepseek-r1-local-deployment-vram.html">DeepSeek R1 本地部署 显存要求实录</a></li><li><a href="chat-04-kimi-long-text-contract-review.html">Kimi 长文本 合同审查实操与模板</a></li><li><a href="chat-05-doubao-voice-clone-cs-scripts.html">豆包 语音克隆 客服话术 4 个细节</a></li></ul><p class="tool-link"><a href="../index.html">查看 对话AI 工具与其它教程 →</a> <a href="../t/pricing/">AI 工具价格 →</a> <a href="../t/params/">参数与配置 →</a></p></section>
+  <footer>© 2026 星籁 Stellara · <a href="../privacy.html">隐私政策</a> · <a href="../sitemap.xml">站点地图</a></footer>
+</main>
+</body>
+</html>
