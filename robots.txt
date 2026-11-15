@@ -1,4 +1,4 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://A678-beep.github.io/ai-nav/sitemap.xml
+Sitemap: https://a678-beep.github.io/ai-nav/sitemap.xml
