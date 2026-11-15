@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>AI Agent 搭建：工具、拆解与失败处理 · 星籁</title>
+<meta name="description" content="电商售后那套 Agent 是去年接的活：每天 800 单退款和补发咨询，三个人盯到晚上八点。第一版两周上线，自动解决率 41%，还出过一次重复退款，一天 7 单。AI Agent 搭建 不是换个更聪明的模型，是把模糊的活">
+<meta name="keywords" content="AI Agent 搭建, Agent 工具 调用, 任务 拆解, 失败 重试, AI Agent 搭建 步骤, Agent 工具 调用 报错">
+<meta name="robots" content="index,follow">
+
+<link rel="canonical" href="https://a678-beep.github.io/ai-nav/a/chat-46-ai-agent-building.html">
+<meta property="og:type" content="article">
+<meta property="og:title" content="AI Agent 搭建：工具、拆解与失败处理">
+<meta property="og:description" content="电商售后那套 Agent 是去年接的活：每天 800 单退款和补发咨询，三个人盯到晚上八点。第一版两周上线，自动解决率 41%，还出过一次重复退款，一天 7 单。AI Agent 搭建 不是换个更聪明的模型，是把模糊的活">
+<meta property="og:url" content="https://a678-beep.github.io/ai-nav/a/chat-46-ai-agent-building.html">
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "Article", "headline": "AI Agent 搭建：工具、拆解与失败处理", "inLanguage": "zh-CN", "datePublished": "2026-11-15", "author": {"@type": "Organization", "name": "星籁 Stellara"}, "publisher": {"@type": "Organization", "name": "星籁 Stellara"}, "mainEntityOfPage": "https://a678-beep.github.io/ai-nav/a/chat-46-ai-agent-building.html", "articleSection": "对话AI", "wordCount": 812, "dateModified": "2026-11-15", "keywords": "AI Agent 搭建, Agent 工具 调用, 任务 拆解, 失败 重试, AI Agent 搭建 步骤, Agent 工具 调用 报错"}</script>
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "首页", "item": "https://a678-beep.github.io/ai-nav/"}, {"@type": "ListItem", "position": 2, "name": "对话AI", "item": "https://a678-beep.github.io/ai-nav/#/articles"}, {"@type": "ListItem", "position": 3, "name": "AI Agent 搭建：工具、拆解与失败处理", "item": "https://a678-beep.github.io/ai-nav/a/chat-46-ai-agent-building.html"}]}</script>
+<style>
+:root{--bg:#080b12;--panel:#111827;--line:#1f2937;--txt:#e6edf7;--txt2:#9aa8bd;--txt3:#6b7a90;--cyan:#5ad1ff;--violet:#a78bfa}
+*{box-sizing:border-box}body{margin:0;background:radial-gradient(900px 500px at 82% -8%,rgba(90,209,255,.16),transparent 60%),var(--bg);color:var(--txt);font-family:"Microsoft YaHei","PingFang SC",system-ui,sans-serif;line-height:1.8}
+a{color:inherit;text-decoration:none}
+.top{position:sticky;top:0;backdrop-filter:blur(12px);background:rgba(8,11,18,.85);border-bottom:1px solid var(--line)}
+.top-in{max-width:900px;margin:0 auto;padding:12px 20px;display:flex;align-items:center;gap:10px}
+.logo{display:flex;align-items:center;gap:9px;font-weight:800}
+.logo .mark{width:30px;height:30px;border-radius:9px;background:linear-gradient(135deg,var(--cyan),var(--violet));display:grid;place-items:center;color:#04121c;font-weight:900}
+.top-in .back{margin-left:auto;color:var(--txt2);font-size:13px}
+main{max-width:900px;margin:0 auto;padding:28px 20px 60px}
+h1{font-size:28px;line-height:1.4;margin:8px 0 10px}
+.meta{color:var(--txt3);font-size:12.5px;margin-bottom:22px;display:flex;gap:8px;flex-wrap:wrap}
+.content{font-size:15.5px;color:#cfd9e6}
+.content h2{font-size:20px;color:var(--txt);margin:28px 0 10px}
+.content h3{font-size:17px;color:var(--txt);margin:22px 0 8px}
+.content p{margin:12px 0}
+.content li{margin:6px 0}
+.content code{background:rgba(120,180,255,.12);padding:1px 6px;border-radius:5px;font-family:Consolas,monospace;font-size:13px}
+.content pre{background:#0a1018;border:1px solid var(--line);border-radius:10px;padding:12px;overflow:auto}
+.content blockquote{border-left:3px solid var(--cyan);padding:4px 14px;color:var(--txt2);margin:16px 0}
+.ad-slot{margin:26px 0;min-height:100px;border:1px dashed rgba(120,140,170,.35);border-radius:12px;display:flex;align-items:center;justify-content:center;color:var(--txt3);font-size:12px;text-align:center;background:rgba(17,24,39,.55)}
+.ad-slot small{display:block;font-size:10.5px;opacity:.7}
+.bread{color:var(--txt3);font-size:12.5px;margin-bottom:6px}
+.bread a{color:var(--cyan)}
+footer{border-top:1px solid var(--line);color:var(--txt3);font-size:12.5px;text-align:center;padding:20px}
+.related{margin:34px 0 10px;border-top:1px solid var(--line);padding-top:18px}.related h2{font-size:16px;color:var(--txt);margin:0 0 10px}.related ul{list-style:none;padding:0;margin:0}.related li{margin:8px 0}.related a{color:var(--cyan);font-size:14px}
+.tool-link{margin:14px 0 0}
+.tlinks a{display:inline-block;margin:0 8px 8px 0;padding:6px 12px;border:1px solid rgba(90,209,255,.25);border-radius:8px;font-size:13px;color:var(--cyan);background:rgba(90,209,255,.06)}
+.tlinks a:hover{background:rgba(90,209,255,.15)}
+.sec{margin:26px 0}
+.sec h2{font-size:17px;color:var(--txt);margin:0 0 10px}
+.tool-link a{display:inline-block;font-size:13px;color:var(--txt2);border:1px solid var(--line);border-radius:8px;padding:7px 12px}
+.tool-link a:hover{color:var(--txt);border-color:rgba(90,209,255,.45)}
+.top-in .back{padding:6px 0}
+.bread a{display:inline-block;padding:6px 0}
+.sec li a{display:inline-block;padding:5px 0}
+.sib a{padding:8px 12px}
+.cats a{display:inline-block;margin:0 8px 8px 0;padding:6px 12px;border:1px solid var(--line);border-radius:8px;font-size:13px;color:var(--txt2)}
+.cats a:hover{color:var(--txt);border-color:rgba(90,209,255,.45)}
+.cats h2{font-size:17px;margin:22px 0 10px}
+@media(max-width:640px){h1{font-size:22px}main{padding:20px 16px 40px}
+.related a,.tlinks a,.tool-link a,footer a,.sib a{min-height:36px;display:inline-flex;align-items:center}
+.list a{padding:14px 14px}
+td a{display:inline-block;padding:8px 0}
+.note a{display:inline-block;padding:7px 0}
+}
+</style>
+</head>
+<body>
+<header class="top"><div class="top-in">
+  <a class="logo" href="../index.html"><span class="mark">✦</span>星籁 AI 导航</a>
+  <a class="back" href="../index.html">← 返回首页</a>
+</div></header>
+<main>
+  <div class="bread"><a href="../index.html">首页</a> / <a href="../chat/index.html">对话AI</a></div>
+  <h1>AI Agent 搭建：工具、拆解与失败处理</h1>
+  <div class="meta"><span>对话AI</span><span>·</span><span>更新于 2026-11-15</span><span>·</span><span>AI Agent 搭建, Agent 工具 调用, 任务 拆解, 失败 重试, AI Agent 搭建 步骤, Agent 工具 调用 报错</span></div>
+  <article class="content"><p>电商售后那套 Agent 是去年接的活：每天 800 单退款和补发咨询，三个人盯到晚上八点。第一版两周上线，自动解决率 41%，还出过一次重复退款，一天 7 单。AI Agent 搭建 不是换个更聪明的模型，是把模糊的活拆成机器能验证的步骤。</p>
+<h2>边界与工具：一类意图一个 Agent</h2>
+<p>AI Agent 搭建 步骤 我按四段走：定意图、配工具、写状态机、压失败率。先划边界，一个 Agent 只接一类意图；售后拆成退款、补发、催发货三条路由。工具最多给 7 个，超过之后选择准确率从 92% 掉到 78%，这是 300 条工单量出来的。每个工具描述写 80 到 150 字，必须带不适用场景，比如“补发申请：商品已发出且用户要求重寄，不适用于仅退款”。参数用枚举，别让模型自由填金额和单号。要可视化就用 Dify 或 Coze，一周能搭完；要接内部状态机和幂等逻辑，用 LangGraph 写循环更可控。MCP 能复用内部工具，代价是返回全进上下文，日志接口先做截断。</p>
+<h2>失败处理：三层分治，别让模型猜</h2>
+<div class="ad-slot" data-ad="article-mid"><div>广告位（文章中部）<small>AdSense / 广告联盟代码插入点 · 建议 728×90 / 移动端 320×100</small></div><!-- 在这里粘贴广告代码 --></div>
+<p>Agent 工具 调用 报错 分三种。参数错最好办：JSON Schema 校验加报错原文回填，最多重试 2 次，temperature 压到 0.1，我这 63% 的参数错第二次就改对。业务失败不重试，换路径：退款接口回“已超售后期”就走补发或转人工，硬重试只会耗死工单。状态不明最危险，超时 60 秒或断网时模型不知道请求成没成，写操作必须带幂等键，先查后写。再补两条：连续 3 次同一工具同一参数就强制中断，总步数上限设 8，超了转人工。改完跑 120 条失败样本回归，重复退款 7 单降到 0，平均步数 9 降到 4.2，自动解决率 41% 到 68%，每单成本约 0.08 元。</p>
+<h2>上线前先跑评测集，再灰度</h2>
+<p>评测集 300 条真实工单、5 类意图，只看三个指标：解决率、平均步数、误操作率。第一版没评测直接全量放，第三天就把仅退款执行成退货退款被投诉。之后每步记工具名、参数、返回、token、耗时，投诉时按单号回放整条链路。灰度先放 10% 流量跑一周，人工抽检 20%，只盯两处：金额地址有没有动错、承诺时效有没有说错。权限也收：Agent 只能读订单和物流，退款写操作走审批队列，超过 500 元转人工。还有一条，上下文超过 3 万 token 它开始忘约束，历史消息要压成工具结果摘要。评测集每类意图至少 40 条，比例和线上一致，别拿 100 条简单咨询糊弄自己。</p>
+<h2>总结</h2>
+<p>AI Agent 搭建 步骤 落到纸上四行：一类意图一个 Agent、工具不超过 7 个、失败分三层、评测集先跑。Agent 工具 调用 报错 的样本别删，攒起来就是回归集，我攒到 400 条后每改一次提示词都先跑一遍。AI Agent 搭建 省下的不是写代码的时间，是每天三个人盯工单的时间。工具描述和失败样本这两样留好，换人接手也能跑。</p></article>
+  <div class="sec"><h2>文中提到的工具</h2><p class="tlinks"><a href="../tool/dify/">Dify →</a></p></div>
+  <section class="related"><h2>同类教程</h2><ul><li><a href="chat-01-chatgpt-4o-voice-english-speaking.html">ChatGPT 4o 语音对话 练英语口语实测</a></li><li><a href="chat-02-claude-37-sonnet-long-document-summary.html">Claude 3.7 Sonnet 长文档总结法</a></li><li><a href="chat-03-deepseek-r1-local-deployment-vram.html">DeepSeek R1 本地部署 显存要求实录</a></li><li><a href="chat-04-kimi-long-text-contract-review.html">Kimi 长文本 合同审查实操与模板</a></li><li><a href="chat-05-doubao-voice-clone-cs-scripts.html">豆包 语音克隆 客服话术 4 个细节</a></li></ul><p class="tool-link"><a href="../index.html">查看 对话AI 工具与其它教程 →</a> <a href="../t/errors/">AI 报错解决 →</a> <a href="../t/pricing/">AI 工具价格 →</a></p></section>
+  <footer>© 2026 星籁 Stellara · <a href="../privacy.html">隐私政策</a> · <a href="../sitemap.xml">站点地图</a></footer>
+</main>
+</body>
+</html>
