@@ -7,12 +7,14 @@
 <meta name="description" content="一段 2 小时 13 分的采访录音，我用 faster-whisper 的 large-v3 跑完用了 19 分钟，全程没联网。代价是 3G 的模型文件和 8G 显存，下面把选型和参数摊开，都是重复验证过三次以上的结论。">
 <meta name="keywords" content="离线 语音转文字, Whisper, 本地转写, faster-whisper 转写, Whisper 中文标点">
 <meta name="robots" content="index,follow">
-<link rel="canonical" href="https://A678-beep.github.io/ai-nav/a/util-11-offline-speech-to-text.html">
+
+<link rel="canonical" href="https://a678-beep.github.io/ai-nav/a/util-11-offline-speech-to-text.html">
 <meta property="og:type" content="article">
 <meta property="og:title" content="离线 语音转文字：Whisper 模型选型与显存">
 <meta property="og:description" content="一段 2 小时 13 分的采访录音，我用 faster-whisper 的 large-v3 跑完用了 19 分钟，全程没联网。代价是 3G 的模型文件和 8G 显存，下面把选型和参数摊开，都是重复验证过三次以上的结论。">
-<meta property="og:url" content="https://A678-beep.github.io/ai-nav/a/util-11-offline-speech-to-text.html">
-<script type="application/ld+json">{"@context": "https://schema.org", "@type": "Article", "headline": "离线 语音转文字：Whisper 模型选型与显存", "inLanguage": "zh-CN", "datePublished": "2026-11-15", "author": {"@type": "Organization", "name": "星籁 Stellara"}, "publisher": {"@type": "Organization", "name": "星籁 Stellara"}, "mainEntityOfPage": "https://A678-beep.github.io/ai-nav/a/util-11-offline-speech-to-text.html", "keywords": "离线 语音转文字, Whisper, 本地转写, faster-whisper 转写, Whisper 中文标点"}</script>
+<meta property="og:url" content="https://a678-beep.github.io/ai-nav/a/util-11-offline-speech-to-text.html">
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "Article", "headline": "离线 语音转文字：Whisper 模型选型与显存", "inLanguage": "zh-CN", "datePublished": "2026-11-15", "author": {"@type": "Organization", "name": "星籁 Stellara"}, "publisher": {"@type": "Organization", "name": "星籁 Stellara"}, "mainEntityOfPage": "https://a678-beep.github.io/ai-nav/a/util-11-offline-speech-to-text.html", "keywords": "离线 语音转文字, Whisper, 本地转写, faster-whisper 转写, Whisper 中文标点"}</script>
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "首页", "item": "https://a678-beep.github.io/ai-nav/"}, {"@type": "ListItem", "position": 2, "name": "实用工具", "item": "https://a678-beep.github.io/ai-nav/#/articles"}, {"@type": "ListItem", "position": 3, "name": "离线 语音转文字：Whisper 模型选型与显存", "item": "https://a678-beep.github.io/ai-nav/a/util-11-offline-speech-to-text.html"}]}</script>
 <style>
 :root{--bg:#080b12;--panel:#111827;--line:#1f2937;--txt:#e6edf7;--txt2:#9aa8bd;--txt3:#6b7a90;--cyan:#5ad1ff;--violet:#a78bfa}
 *{box-sizing:border-box}body{margin:0;background:radial-gradient(900px 500px at 82% -8%,rgba(90,209,255,.16),transparent 60%),var(--bg);color:var(--txt);font-family:"Microsoft YaHei","PingFang SC",system-ui,sans-serif;line-height:1.8}
@@ -38,6 +40,7 @@ h1{font-size:28px;line-height:1.4;margin:8px 0 10px}
 .bread{color:var(--txt3);font-size:12.5px;margin-bottom:6px}
 .bread a{color:var(--cyan)}
 footer{border-top:1px solid var(--line);color:var(--txt3);font-size:12.5px;text-align:center;padding:20px}
+.related{margin:34px 0 10px;border-top:1px solid var(--line);padding-top:18px}.related h2{font-size:16px;color:var(--txt);margin:0 0 10px}.related ul{list-style:none;padding:0;margin:0}.related li{margin:8px 0}.related a{color:var(--cyan);font-size:14px}
 @media(max-width:640px){h1{font-size:22px}main{padding:20px 16px 40px}}
 </style>
 </head>
@@ -60,6 +63,7 @@ footer{border-top:1px solid var(--line);color:var(--txt3);font-size:12.5px;text-
 <p>避坑一：模型文件 3G 是硬门槛，第一次运行卡在下载别以为是死机。避坑二：中英混说时 language 固定 zh，英文词会被音译成汉字，专有名词事后替换。避坑三：显存不足会静默降级到 CPU，速度掉 5 倍以上，任务管理器里看着像卡住。避坑四：离线 语音转文字 不处理背景音乐，带 BGM 的录音先做人声分离。避坑五：Whisper 中文标点 在问句上常漏问号，导出后搜索替换一遍。避坑六：默认模型缓存在用户目录，C 盘小的先改缓存路径。模型放 SSD 上加载快一倍，机械硬盘第一次加载要 40 秒；第一次跑 large-v3 会额外下载 1G 的配置，别断网。批量转 10 个文件写个循环脚本，晚上挂着跑，第二天收 SRT；Whisper 中文标点 在连续口语里会把逗号全吃掉，导出后按 8 到 12 字补回来。字幕帧率要和剪映工程一致，25 帧和 30 帧混用会错位。</p>
 <h2>总结</h2>
 <p>离线 语音转文字 的稳定组合是 faster-whisper 加 large-v3 加固定中文提示词，2 小时 13 分录音 19 分钟出稿。隐私敏感的场景值这个时间，模型选大不选小。标点靠提示词，说话人分离另外想办法。faster-whisper 转写 长音频记得开 VAD，省时又省显存。第一次搭建先用 10 分钟音频跑通全流程，再上长录音；输出目录统一放 D 盘，C 盘空间不够会中途失败。</p></article>
+  <section class="related"><h2>同类教程</h2><ul><li><a href="util-01-perplexity-academic-search.html">Perplexity 学术 检索：三个提问模板</a></li><li><a href="util-02-notebooklm-podcast.html">NotebookLM 播客 生成：中文双人对谈</a></li><li><a href="util-03-otter-meeting-transcript-cn.html">Otter 会议 转写 中文：说话人分离实测</a></li></ul></section>
   <footer>© 2026 星籁 Stellara · <a href="../privacy.html">隐私政策</a> · <a href="../sitemap.xml">站点地图</a></footer>
 </main>
 </body>
