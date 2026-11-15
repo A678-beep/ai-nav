@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>单元测试 生成 AI：覆盖率、边界与评审 · 星籁</title>
+<meta name="description" content="618 前给退款结算服务补测试，6 个类 900 多行，接手时行覆盖 51%。我先跑了一遍 单元测试 生成 AI 的流程，两轮生成 206 个用例，首轮 41 个红：29 个是测试自己写错，9 个是真 bug，3 个是环">
+<meta name="keywords" content="单元测试 生成 AI, AI 写测试, 覆盖率 校验, 边界 用例, 测试 评审, AI 生成 单元测试 漏测, 单元测试 边界 用例">
+<meta name="robots" content="index,follow">
+
+<link rel="canonical" href="https://a678-beep.github.io/ai-nav/a/code-48-unit-test-generation-ai.html">
+<meta property="og:type" content="article">
+<meta property="og:title" content="单元测试 生成 AI：覆盖率、边界与评审">
+<meta property="og:description" content="618 前给退款结算服务补测试，6 个类 900 多行，接手时行覆盖 51%。我先跑了一遍 单元测试 生成 AI 的流程，两轮生成 206 个用例，首轮 41 个红：29 个是测试自己写错，9 个是真 bug，3 个是环">
+<meta property="og:url" content="https://a678-beep.github.io/ai-nav/a/code-48-unit-test-generation-ai.html">
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "Article", "headline": "单元测试 生成 AI：覆盖率、边界与评审", "inLanguage": "zh-CN", "datePublished": "2026-11-15", "author": {"@type": "Organization", "name": "星籁 Stellara"}, "publisher": {"@type": "Organization", "name": "星籁 Stellara"}, "mainEntityOfPage": "https://a678-beep.github.io/ai-nav/a/code-48-unit-test-generation-ai.html", "articleSection": "编程助手", "wordCount": 805, "dateModified": "2026-11-15", "keywords": "单元测试 生成 AI, AI 写测试, 覆盖率 校验, 边界 用例, 测试 评审, AI 生成 单元测试 漏测, 单元测试 边界 用例"}</script>
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "首页", "item": "https://a678-beep.github.io/ai-nav/"}, {"@type": "ListItem", "position": 2, "name": "编程助手", "item": "https://a678-beep.github.io/ai-nav/#/articles"}, {"@type": "ListItem", "position": 3, "name": "单元测试 生成 AI：覆盖率、边界与评审", "item": "https://a678-beep.github.io/ai-nav/a/code-48-unit-test-generation-ai.html"}]}</script>
+<style>
+:root{--bg:#080b12;--panel:#111827;--line:#1f2937;--txt:#e6edf7;--txt2:#9aa8bd;--txt3:#6b7a90;--cyan:#5ad1ff;--violet:#a78bfa}
+*{box-sizing:border-box}body{margin:0;background:radial-gradient(900px 500px at 82% -8%,rgba(90,209,255,.16),transparent 60%),var(--bg);color:var(--txt);font-family:"Microsoft YaHei","PingFang SC",system-ui,sans-serif;line-height:1.8}
+a{color:inherit;text-decoration:none}
+.top{position:sticky;top:0;backdrop-filter:blur(12px);background:rgba(8,11,18,.85);border-bottom:1px solid var(--line)}
+.top-in{max-width:900px;margin:0 auto;padding:12px 20px;display:flex;align-items:center;gap:10px}
+.logo{display:flex;align-items:center;gap:9px;font-weight:800}
+.logo .mark{width:30px;height:30px;border-radius:9px;background:linear-gradient(135deg,var(--cyan),var(--violet));display:grid;place-items:center;color:#04121c;font-weight:900}
+.top-in .back{margin-left:auto;color:var(--txt2);font-size:13px}
+main{max-width:900px;margin:0 auto;padding:28px 20px 60px}
+h1{font-size:28px;line-height:1.4;margin:8px 0 10px}
+.meta{color:var(--txt3);font-size:12.5px;margin-bottom:22px;display:flex;gap:8px;flex-wrap:wrap}
+.content{font-size:15.5px;color:#cfd9e6}
+.content h2{font-size:20px;color:var(--txt);margin:28px 0 10px}
+.content h3{font-size:17px;color:var(--txt);margin:22px 0 8px}
+.content p{margin:12px 0}
+.content li{margin:6px 0}
+.content code{background:rgba(120,180,255,.12);padding:1px 6px;border-radius:5px;font-family:Consolas,monospace;font-size:13px}
+.content pre{background:#0a1018;border:1px solid var(--line);border-radius:10px;padding:12px;overflow:auto}
+.content blockquote{border-left:3px solid var(--cyan);padding:4px 14px;color:var(--txt2);margin:16px 0}
+.ad-slot{margin:26px 0;min-height:100px;border:1px dashed rgba(120,140,170,.35);border-radius:12px;display:flex;align-items:center;justify-content:center;color:var(--txt3);font-size:12px;text-align:center;background:rgba(17,24,39,.55)}
+.ad-slot small{display:block;font-size:10.5px;opacity:.7}
+.bread{color:var(--txt3);font-size:12.5px;margin-bottom:6px}
+.bread a{color:var(--cyan)}
+footer{border-top:1px solid var(--line);color:var(--txt3);font-size:12.5px;text-align:center;padding:20px}
+.related{margin:34px 0 10px;border-top:1px solid var(--line);padding-top:18px}.related h2{font-size:16px;color:var(--txt);margin:0 0 10px}.related ul{list-style:none;padding:0;margin:0}.related li{margin:8px 0}.related a{color:var(--cyan);font-size:14px}
+.tool-link{margin:14px 0 0}
+.tlinks a{display:inline-block;margin:0 8px 8px 0;padding:6px 12px;border:1px solid rgba(90,209,255,.25);border-radius:8px;font-size:13px;color:var(--cyan);background:rgba(90,209,255,.06)}
+.tlinks a:hover{background:rgba(90,209,255,.15)}
+.sec{margin:26px 0}
+.sec h2{font-size:17px;color:var(--txt);margin:0 0 10px}
+.tool-link a{display:inline-block;font-size:13px;color:var(--txt2);border:1px solid var(--line);border-radius:8px;padding:7px 12px}
+.tool-link a:hover{color:var(--txt);border-color:rgba(90,209,255,.45)}
+.top-in .back{padding:6px 0}
+.bread a{display:inline-block;padding:6px 0}
+.sec li a{display:inline-block;padding:5px 0}
+.sib a{padding:8px 12px}
+.cats a{display:inline-block;margin:0 8px 8px 0;padding:6px 12px;border:1px solid var(--line);border-radius:8px;font-size:13px;color:var(--txt2)}
+.cats a:hover{color:var(--txt);border-color:rgba(90,209,255,.45)}
+.cats h2{font-size:17px;margin:22px 0 10px}
+@media(max-width:640px){h1{font-size:22px}main{padding:20px 16px 40px}
+.related a,.tlinks a,.tool-link a,footer a,.sib a{min-height:36px;display:inline-flex;align-items:center}
+.list a{padding:14px 14px}
+td a{display:inline-block;padding:8px 0}
+.note a{display:inline-block;padding:7px 0}
+}
+</style>
+</head>
+<body>
+<header class="top"><div class="top-in">
+  <a class="logo" href="../index.html"><span class="mark">✦</span>星籁 AI 导航</a>
+  <a class="back" href="../index.html">← 返回首页</a>
+</div></header>
+<main>
+  <div class="bread"><a href="../index.html">首页</a> / <a href="../code/index.html">编程助手</a></div>
+  <h1>单元测试 生成 AI：覆盖率、边界与评审</h1>
+  <div class="meta"><span>编程助手</span><span>·</span><span>更新于 2026-11-15</span><span>·</span><span>单元测试 生成 AI, AI 写测试, 覆盖率 校验, 边界 用例, 测试 评审, AI 生成 单元测试 漏测, 单元测试 边界 用例</span></div>
+  <article class="content"><p>618 前给退款结算服务补测试，6 个类 900 多行，接手时行覆盖 51%。我先跑了一遍 单元测试 生成 AI 的流程，两轮生成 206 个用例，首轮 41 个红：29 个是测试自己写错，9 个是真 bug，3 个是环境问题。最终 198 个用例进 CI，行覆盖 83%、分支 76%，演练里 3 个历史 bug 全部回放成功。</p>
+<h2>第一步：喂对上下文，单类单喂</h2>
+<p>单元测试 生成 AI 的第一步不是写提示词，是准备输入：类全文、接口契约、现有两个测试样例、3 个历史故障单，再加 JaCoCo 的缺口报告。单次只喂一个类，控制在 400 行以内，包名和工具类一起贴，否则它自己编。提示词固定 JUnit 5 加 Mockito 加 AssertJ，要求每个方法给正常、边界、异常三组，断言必须写具体值，金额用 BigDecimal 比较。再贴一段现有测试当样板，命名风格和 mock 写法能对齐，省两轮返工。避坑一：把整个仓库塞进去，生成结果里全是虚构的 Util 类，token 还翻四倍；避坑二：让它直接覆盖现有测试文件，老用例被冲掉一半。</p>
+<h2>第二步：盯着分支和边界</h2>
+<div class="ad-slot" data-ad="article-mid"><div>广告位（文章中部）<small>AdSense / 广告联盟代码插入点 · 建议 728×90 / 移动端 320×100</small></div><!-- 在这里粘贴广告代码 --></div>
+<p>单元测试 生成 AI 的产出先看分支覆盖，不看行覆盖。边界表我按业务列：金额 0、0.01、299.99、300、300.01，退款上限、券叠加 3 张、闰年 2 月 29 日、跨时区零点。AI 生成 单元测试 漏测 集中在三类：循环的最后一轮、异常分支只断言抛异常、重复提交的并发场景。金额类边界差 0.01 元就会漏，边界表单独存成一份 Markdown，生成前整段贴进去，比口头描述省事，也方便评审对照。我们行覆盖 83% 时 PIT 变异得分只有 41%，说明断言太弱，补了一轮具体值断言才到 68%。CI 里设两道门槛：JaCoCo 分支不低于 70%，PIT 不低于 60%，不达标不准合。避坑三：用行覆盖截图交差，数字好看但拦不住 bug。</p>
+<h2>第三步：人工评审清单</h2>
+<p>评审按清单走，一个类 30 分钟：断言是不是具体值、一个用例是不是只测一个行为、mock 有没有把被测类也 mock 掉、边界 ±1 有没有成对出现、测试有没有依赖当前时间和随机数。按这五条删掉 34 个弱断言和重复用例，再用 26 个边界用例补回，最后把评审意见回灌给模型跑一轮，AI 生成 单元测试 漏测 的分支就补上了。单元测试 边界 用例 补完后，把 3 个历史故障当回归样例跑：新测试集检出 3 个，旧测试集 0 个。单元测试 边界 用例 的价值不在数量，在于每个用例都能说出为什么选这个边界。避坑四：测试里写 LocalDate.now()，跨月第一天必红；避坑五：flaky 用例直接 @Disabled，比不写更危险。</p>
+<h2>总结</h2>
+<p>流程三步：喂对上下文、按分支和边界生成、人工评审加变异校验。单元测试 生成 AI 省的是敲代码的时间，省不了判断“这个断言有没有意义”。覆盖率从 51% 到 83%、变异得分 41% 到 68%，靠的是评审那 30 分钟，不是生成按钮。评审清单半年更新一次。</p></article>
+  
+  <section class="related"><h2>同类教程</h2><ul><li><a href="code-01-cursor-tab-settings.html">Cursor Tab 补全 设置：五个开关的取舍</a></li><li><a href="code-02-claude-code-cli-refactor.html">Claude Code CLI 重构：四步顺序</a></li><li><a href="code-03-github-copilot-unit-tests.html">GitHub Copilot 单元测试：三步法</a></li><li><a href="code-04-windsurf-cascade-multifile.html">Windsurf Cascade 多文件：先验收</a></li><li><a href="code-05-tongyi-lingma-private-repo.html">通义灵码 私有仓库：企业版知识库200MB上限</a></li></ul><p class="tool-link"><a href="../index.html">查看 编程助手 工具与其它教程 →</a> <a href="../t/errors/">AI 报错解决 →</a> <a href="../t/params/">参数与配置 →</a></p></section>
+  <footer>© 2026 星籁 Stellara · <a href="../privacy.html">隐私政策</a> · <a href="../sitemap.xml">站点地图</a></footer>
+</main>
+</body>
+</html>
