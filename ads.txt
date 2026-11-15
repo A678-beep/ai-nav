@@ -1,0 +1,2 @@
+# 申请 AdSense 后取消下面一行的注释并填入你的发布商 ID
+# google.com, pub-你的发布商ID, DIRECT, f08c47fec0942fa0
