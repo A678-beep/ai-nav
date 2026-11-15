@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Sourcegraph Cody 代码搜索 技巧 · 星籁 AI 工具导航</title>
+<meta name="description" content="排查一个支付回调重复执行的 bug，本地 grep 只能搜一个仓库，而我们拆了 40 个微服务、约 800 万行代码，光定位回调入口就花了半天。后来改用 Sourcegraph Cody 代码搜索，同样一句查询，三十秒内">
+<meta name="keywords" content="Sourcegraph Cody, Cody 代码搜索, Sourcegraph 搜索语法, Sourcegraph Cody 代码搜索 技巧, Cody 搜索私有仓库">
+<meta name="robots" content="index,follow">
+<link rel="canonical" href="https://A678-beep.github.io/ai-nav/a/code-13-sourcegraph-cody-code-search.html">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Sourcegraph Cody 代码搜索 技巧">
+<meta property="og:description" content="排查一个支付回调重复执行的 bug，本地 grep 只能搜一个仓库，而我们拆了 40 个微服务、约 800 万行代码，光定位回调入口就花了半天。后来改用 Sourcegraph Cody 代码搜索，同样一句查询，三十秒内">
+<meta property="og:url" content="https://A678-beep.github.io/ai-nav/a/code-13-sourcegraph-cody-code-search.html">
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "Article", "headline": "Sourcegraph Cody 代码搜索 技巧", "inLanguage": "zh-CN", "datePublished": "2026-11-15", "author": {"@type": "Organization", "name": "星籁 Stellara"}, "publisher": {"@type": "Organization", "name": "星籁 Stellara"}, "mainEntityOfPage": "https://A678-beep.github.io/ai-nav/a/code-13-sourcegraph-cody-code-search.html", "keywords": "Sourcegraph Cody, Cody 代码搜索, Sourcegraph 搜索语法, Sourcegraph Cody 代码搜索 技巧, Cody 搜索私有仓库"}</script>
+<style>
+:root{--bg:#080b12;--panel:#111827;--line:#1f2937;--txt:#e6edf7;--txt2:#9aa8bd;--txt3:#6b7a90;--cyan:#5ad1ff;--violet:#a78bfa}
+*{box-sizing:border-box}body{margin:0;background:radial-gradient(900px 500px at 82% -8%,rgba(90,209,255,.16),transparent 60%),var(--bg);color:var(--txt);font-family:"Microsoft YaHei","PingFang SC",system-ui,sans-serif;line-height:1.8}
+a{color:inherit;text-decoration:none}
+.top{position:sticky;top:0;backdrop-filter:blur(12px);background:rgba(8,11,18,.85);border-bottom:1px solid var(--line)}
+.top-in{max-width:900px;margin:0 auto;padding:12px 20px;display:flex;align-items:center;gap:10px}
+.logo{display:flex;align-items:center;gap:9px;font-weight:800}
+.logo .mark{width:30px;height:30px;border-radius:9px;background:linear-gradient(135deg,var(--cyan),var(--violet));display:grid;place-items:center;color:#04121c;font-weight:900}
+.top-in .back{margin-left:auto;color:var(--txt2);font-size:13px}
+main{max-width:900px;margin:0 auto;padding:28px 20px 60px}
+h1{font-size:28px;line-height:1.4;margin:8px 0 10px}
+.meta{color:var(--txt3);font-size:12.5px;margin-bottom:22px;display:flex;gap:8px;flex-wrap:wrap}
+.content{font-size:15.5px;color:#cfd9e6}
+.content h2{font-size:20px;color:var(--txt);margin:28px 0 10px}
+.content h3{font-size:17px;color:var(--txt);margin:22px 0 8px}
+.content p{margin:12px 0}
+.content li{margin:6px 0}
+.content code{background:rgba(120,180,255,.12);padding:1px 6px;border-radius:5px;font-family:Consolas,monospace;font-size:13px}
+.content pre{background:#0a1018;border:1px solid var(--line);border-radius:10px;padding:12px;overflow:auto}
+.content blockquote{border-left:3px solid var(--cyan);padding:4px 14px;color:var(--txt2);margin:16px 0}
+.ad-slot{margin:26px 0;min-height:100px;border:1px dashed rgba(120,140,170,.35);border-radius:12px;display:flex;align-items:center;justify-content:center;color:var(--txt3);font-size:12px;text-align:center;background:rgba(17,24,39,.55)}
+.ad-slot small{display:block;font-size:10.5px;opacity:.7}
+.bread{color:var(--txt3);font-size:12.5px;margin-bottom:6px}
+.bread a{color:var(--cyan)}
+footer{border-top:1px solid var(--line);color:var(--txt3);font-size:12.5px;text-align:center;padding:20px}
+@media(max-width:640px){h1{font-size:22px}main{padding:20px 16px 40px}}
+</style>
+</head>
+<body>
+<header class="top"><div class="top-in">
+  <a class="logo" href="../index.html"><span class="mark">✦</span>星籁 AI 导航</a>
+  <a class="back" href="../index.html">← 返回首页</a>
+</div></header>
+<main>
+  <div class="bread"><a href="../index.html">首页</a> / <a href="../index.html#/articles">编程助手</a></div>
+  <h1>Sourcegraph Cody 代码搜索 技巧</h1>
+  <div class="meta"><span>编程助手</span><span>·</span><span>Sourcegraph Cody, Cody 代码搜索, Sourcegraph 搜索语法, Sourcegraph Cody 代码搜索 技巧, Cody 搜索私有仓库</span></div>
+  <article class="content"><p>排查一个支付回调重复执行的 bug，本地 grep 只能搜一个仓库，而我们拆了 40 个微服务、约 800 万行代码，光定位回调入口就花了半天。后来改用 Sourcegraph Cody 代码搜索，同样一句查询，三十秒内定位到 3 个仓库、7 处调用。这篇把过滤器的顺序和语法写清楚。</p>
+<h2>三组过滤器的正确顺序</h2>
+<p>Sourcegraph 搜索框支持 <code>repo:</code>、<code>file:</code>、<code>lang:</code>、<code>type:</code> 这些过滤器，关键是顺序：先用 <code>repo:</code> 圈定仓库范围，再叠 <code>file:</code> 或 <code>lang:</code> 收窄文件类型，最后才是正文关键字。比如找支付回调入口：<code>repo:^github\.com/org/pay-.*$ file:\.(java|kt)$ lang:java 回调</code>。反过来先写正文关键字，引擎会全量扫一遍再过滤，慢十倍不止。</p>
+<p>正则要包在斜杠里，比如 <code>/callback[a-z]*Handler/</code>，比纯文本模糊匹配准得多。查历史改动用 <code>type:diff</code> 加 <code>after:2026-01-01</code>，能直接看到谁在哪次提交里改了这段逻辑。<code>select:repo</code> 只返回仓库名，统计影响面时很好用，<code>count:1000</code> 可以把默认结果上限拉满。<code>repo:has.file(go.mod)</code> 这类谓词能把范围缩到有依赖清单的仓库，我常和 <code>lang:</code> 一起用。</p>
+<p>Cody 代码搜索 还会读你当前打开文件的上下文，问“这个接口还有哪些调用方”时，命中率比纯搜索高。</p>
+<div class="ad-slot" data-ad="article-mid"><div>广告位（文章中部）<small>AdSense / 广告联盟代码插入点 · 建议 728×90 / 移动端 320×100</small></div><!-- 在这里粘贴广告代码 --></div>
+<h2>结果怎么读、权限怎么算</h2>
+<p>搜私有仓库的前提是账号在团队实例里有对应权限，Sourcegraph 会继承 GitLab 的访问控制，没权限的仓库搜不出来，也看不到片段。自建实例的索引不是实时的，新提交到可搜大约 5 分钟延迟，急查新代码就加 <code>type:diff</code> 限定最近提交。Cody 搜索私有仓库 时，跨仓库的结果建议先看仓库列表，再逐仓库点进去核对，别直接照抄片段。</p>
+<p>Sourcegraph Cody 代码搜索 技巧 里最实用的一条是组合搜索：把 <code>repo:</code> 的范围存成收藏，下次换关键字只改正文，省掉重复输入。Cody 聊天框里可以让它先搜再答，问“payCallback 在哪些仓库被调用”时，先搜索再让模型总结，比直接问准。</p>
+<h2>三个坑</h2>
+<p>一是正则写太宽会触发慢查询，单次搜索超过 10 秒会被掐断，报超时不是没结果。二是索引延迟容易误判“代码没搜到”，先确认最近提交时间。三是权限没配好会搜出空结果，别急着怀疑语法。</p>
+<p>另外要提醒：Cody 的免费版和专业版已于 2025 年 7 月 23 日下线，现在个人能用的是企业版或换别的工具，别再照旧教程去开通。Sourcegraph Cody 代码搜索 技巧 里，Cody 搜索私有仓库 前先确认实例地址和账号，否则搜出来是空的。自建实例的索引维护成本也要算进去，40 个仓库每天增量索引大约占用一台 8 核机器。四是搜索结果只展示命中的几行，别拿片段当完整上下文，点进文件再看 30 行，这三条我每周都会碰到一次。习惯之后，搜索比 grep 快的不是一点半点。</p>
+<h2>总结</h2>
+<p>Sourcegraph Cody 代码搜索 的核心是三组过滤器的顺序：repo 圈范围、file/lang 收类型、内容最后写。把常用查询存成收藏，配合 type:diff 查历史，比 grep 快一个量级。</p></article>
+  <footer>© 2026 星籁 Stellara · <a href="../privacy.html">隐私政策</a> · <a href="../sitemap.xml">站点地图</a></footer>
+</main>
+</body>
+</html>
