@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Flux.1 dev 低显存 量化：三档取舍 · 星籁 AI 工具导航</title>
+<meta name="description" content="宿舍那台 4060 只有 8GB 显存，第一次加载 Flux.1 dev 原版直接黑屏。后来把模型换成GGUF的 Q4_K_S，再把 T5 文本编码器单独换成 fp8 版，才在 ComfyUI 里跑起来。这套Flux.1">
+<meta name="keywords" content="Flux.1 dev 低显存 量化, GGUF, T5 编码器, Flux.1 dev 8G 显存怎么跑, Flux GGUF 量化版本怎么选">
+<meta name="robots" content="index,follow">
+<link rel="canonical" href="https://A678-beep.github.io/ai-nav/a/image-03-flux1-dev-low-vram-quantization.html">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Flux.1 dev 低显存 量化：三档取舍">
+<meta property="og:description" content="宿舍那台 4060 只有 8GB 显存，第一次加载 Flux.1 dev 原版直接黑屏。后来把模型换成GGUF的 Q4_K_S，再把 T5 文本编码器单独换成 fp8 版，才在 ComfyUI 里跑起来。这套Flux.1">
+<meta property="og:url" content="https://A678-beep.github.io/ai-nav/a/image-03-flux1-dev-low-vram-quantization.html">
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "Article", "headline": "Flux.1 dev 低显存 量化：三档取舍", "inLanguage": "zh-CN", "datePublished": "2026-11-15", "author": {"@type": "Organization", "name": "星籁 Stellara"}, "publisher": {"@type": "Organization", "name": "星籁 Stellara"}, "mainEntityOfPage": "https://A678-beep.github.io/ai-nav/a/image-03-flux1-dev-low-vram-quantization.html", "keywords": "Flux.1 dev 低显存 量化, GGUF, T5 编码器, Flux.1 dev 8G 显存怎么跑, Flux GGUF 量化版本怎么选"}</script>
+<style>
+:root{--bg:#080b12;--panel:#111827;--line:#1f2937;--txt:#e6edf7;--txt2:#9aa8bd;--txt3:#6b7a90;--cyan:#5ad1ff;--violet:#a78bfa}
+*{box-sizing:border-box}body{margin:0;background:radial-gradient(900px 500px at 82% -8%,rgba(90,209,255,.16),transparent 60%),var(--bg);color:var(--txt);font-family:"Microsoft YaHei","PingFang SC",system-ui,sans-serif;line-height:1.8}
+a{color:inherit;text-decoration:none}
+.top{position:sticky;top:0;backdrop-filter:blur(12px);background:rgba(8,11,18,.85);border-bottom:1px solid var(--line)}
+.top-in{max-width:900px;margin:0 auto;padding:12px 20px;display:flex;align-items:center;gap:10px}
+.logo{display:flex;align-items:center;gap:9px;font-weight:800}
+.logo .mark{width:30px;height:30px;border-radius:9px;background:linear-gradient(135deg,var(--cyan),var(--violet));display:grid;place-items:center;color:#04121c;font-weight:900}
+.top-in .back{margin-left:auto;color:var(--txt2);font-size:13px}
+main{max-width:900px;margin:0 auto;padding:28px 20px 60px}
+h1{font-size:28px;line-height:1.4;margin:8px 0 10px}
+.meta{color:var(--txt3);font-size:12.5px;margin-bottom:22px;display:flex;gap:8px;flex-wrap:wrap}
+.content{font-size:15.5px;color:#cfd9e6}
+.content h2{font-size:20px;color:var(--txt);margin:28px 0 10px}
+.content h3{font-size:17px;color:var(--txt);margin:22px 0 8px}
+.content p{margin:12px 0}
+.content li{margin:6px 0}
+.content code{background:rgba(120,180,255,.12);padding:1px 6px;border-radius:5px;font-family:Consolas,monospace;font-size:13px}
+.content pre{background:#0a1018;border:1px solid var(--line);border-radius:10px;padding:12px;overflow:auto}
+.content blockquote{border-left:3px solid var(--cyan);padding:4px 14px;color:var(--txt2);margin:16px 0}
+.ad-slot{margin:26px 0;min-height:100px;border:1px dashed rgba(120,140,170,.35);border-radius:12px;display:flex;align-items:center;justify-content:center;color:var(--txt3);font-size:12px;text-align:center;background:rgba(17,24,39,.55)}
+.ad-slot small{display:block;font-size:10.5px;opacity:.7}
+.bread{color:var(--txt3);font-size:12.5px;margin-bottom:6px}
+.bread a{color:var(--cyan)}
+footer{border-top:1px solid var(--line);color:var(--txt3);font-size:12.5px;text-align:center;padding:20px}
+@media(max-width:640px){h1{font-size:22px}main{padding:20px 16px 40px}}
+</style>
+</head>
+<body>
+<header class="top"><div class="top-in">
+  <a class="logo" href="../index.html"><span class="mark">✦</span>星籁 AI 导航</a>
+  <a class="back" href="../index.html">← 返回首页</a>
+</div></header>
+<main>
+  <div class="bread"><a href="../index.html">首页</a> / <a href="../index.html#/articles">图像生成</a></div>
+  <h1>Flux.1 dev 低显存 量化：三档取舍</h1>
+  <div class="meta"><span>图像生成</span><span>·</span><span>Flux.1 dev 低显存 量化, GGUF, T5 编码器, Flux.1 dev 8G 显存怎么跑, Flux GGUF 量化版本怎么选</span></div>
+  <article class="content"><p>宿舍那台 4060 只有 8GB 显存，第一次加载 Flux.1 dev 原版直接黑屏。后来把模型换成GGUF的 Q4_K_S，再把 T5 文本编码器单独换成 fp8 版，才在 ComfyUI 里跑起来。这套Flux.1 dev 低显存 量化方案我用了三个月，1024×1024 单张 35~50 秒，峰值显存 7.6GB。</p>
+<h2>三档量化怎么选</h2>
+<p>Q4_K_S 约 6.8GB，是 8GB 卡唯一稳的选择，画质损失最小但手指和细毛发容易糊，配 20 步、guidance 3.5、euler 加 sgm_uniform 刚好。Q5_K_M 约 8.2GB，12GB 卡跑得动，细节好一档，出图慢 6 秒左右。Q8_0 和 fp8 要 12GB 以上，16GB 卡能让编码器和 UNet 常驻，省掉反复加载的等待。</p>
+<p>三档我用同一段提示词各跑 10 张，Q4 和 Q8 的肉眼差别主要在远景，人物特写几乎一致。所以Flux GGUF 量化版本怎么选，先看显存余量，再看你要不要放大局部。</p>
+<p>除了主模型，VAE 也别忽略。Flux 的 ae.safetensors 只有 300MB 左右，但 fp16 版解码 1024 图会多吃 1.2GB 显存，换 fp8 VAE 能再挤出一点余量。T5 编码器和 VAE 都换成 fp8 之后，8GB 卡才有余量开 2 张批处理。</p>
+<p>Flux.1 dev 8G 显存怎么跑在老卡上还有一招：把分辨率降到 768 出底图，再用一点五倍放大模型拉到 1152，整体比 1024 直出慢 10 秒，但不会爆显存。</p>
+<h2>显存账与避坑</h2>
+<div class="ad-slot" data-ad="article-mid"><div>广告位（文章中部）<small>AdSense / 广告联盟代码插入点 · 建议 728×90 / 移动端 320×100</small></div><!-- 在这里粘贴广告代码 --></div>
+<p>Flux 的显存大头不是 UNet 而是 T5-XXL，原版 fp16 要 9GB 以上，必须换 t5xxl_fp8 或GGUF版，否则 8GB 卡永远卡在加载那一步。坑有三个：一是打开 --lowvram 后出图从 40 秒涨到 2 分钟，8GB 卡宁可用 Q4 也别开；二是 Q2_K 看着能跑，人脸直接塌成塑料，别为省 2GB 牺牲成品率；三是 ComfyUI 的GGUF加载节点没装会报 Node not found，先补 Unet Loader GGUF再谈出图。</p>
+<p>另外T5 编码器别和 UNet 同时塞满显存，我习惯先加载编码器出提示词向量，再切换主模型，峰值能压到 7.6GB。</p>
+<h2>速度和画质的折中</h2>
+<p>同一提示词，Q4 单张 35 秒、Q5 42 秒、fp8 38 秒（12GB 卡），但 Q4 在 8GB 卡上是唯一不爆显存的。Flux.1 dev 8G 显存怎么跑的答案就是 Q4_K_S 加 fp8 文本编码器、1024 分辨率单张出，别开批处理。</p>
+<p>我现在 8GB 卡用 Q4 出草稿，重要图借 12GB 卡跑 Q5，两套参数在 ComfyUI 里存成模板。Quant 版本升级时先跑 3 张对比再换，不然容易在交付前夜发现画质掉了一档，Flux.1 dev 低显存 量化的坑大多出在临时换模型上。</p>
+<p>Flux GGUF 量化版本怎么选时别只看文件名，Q4_K_S 和 Q4_K_M 的差别在关键层保留精度，后者大 0.4GB 但手指更稳，8GB 卡关掉其他程序可以优先试 K_M。</p>
+<p>换模型后记得清 ComfyUI 的缓存，不然旧工作流会继续引用上一版权重。我踩过这个坑：以为换了 Q5，出图还是 Q4 的画质，查了半天是节点缓存没刷新。</p>
+<p>跑稳之后我把常用参数写成了批处理脚本，出图前先打印当前显存占用，超过 7.2GB 就把批处理改成 1。T5 编码器换成 fp8 之后，提示词超过 200 字时显存还会涨 0.3GB，写长提示词前先删掉重复描述。</p>
+<h2>总结</h2>
+<p>8GB 卡：Q4_K_S 加 t5xxl_fp8、guidance 3.5、20 步，单张 35 秒；12GB 卡换 Q5_K_M。别开 lowvram，别碰 Q2。显存不够本质是分辨率问题，1024 顶不住就先出 768 再放大，这套Flux.1 dev 低显存 量化组合够日常商用。</p></article>
+  <footer>© 2026 星籁 Stellara · <a href="../privacy.html">隐私政策</a> · <a href="../sitemap.xml">站点地图</a></footer>
+</main>
+</body>
+</html>
