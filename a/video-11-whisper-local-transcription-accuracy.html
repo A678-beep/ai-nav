@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Whisper 本地 转写 准确率：四个开关 · 星籁 AI 工具导航</title>
+<meta name="description" content="8 小时的访谈录音，我用 faster-whisper 的 large-v3 在本地转，第一遍 WER 测出来 13%，改完四个参数之后压到 8%，标点也正常了。Whisper 本地 转写 准确率 这件事，模型选对只占一">
+<meta name="keywords" content="Whisper 本地 转写 准确率, faster-whisper, large-v3, Whisper本地转写, Whisper准确率优化">
+<meta name="robots" content="index,follow">
+<link rel="canonical" href="https://A678-beep.github.io/ai-nav/a/video-11-whisper-local-transcription-accuracy.html">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Whisper 本地 转写 准确率：四个开关">
+<meta property="og:description" content="8 小时的访谈录音，我用 faster-whisper 的 large-v3 在本地转，第一遍 WER 测出来 13%，改完四个参数之后压到 8%，标点也正常了。Whisper 本地 转写 准确率 这件事，模型选对只占一">
+<meta property="og:url" content="https://A678-beep.github.io/ai-nav/a/video-11-whisper-local-transcription-accuracy.html">
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "Article", "headline": "Whisper 本地 转写 准确率：四个开关", "inLanguage": "zh-CN", "datePublished": "2026-11-15", "author": {"@type": "Organization", "name": "星籁 Stellara"}, "publisher": {"@type": "Organization", "name": "星籁 Stellara"}, "mainEntityOfPage": "https://A678-beep.github.io/ai-nav/a/video-11-whisper-local-transcription-accuracy.html", "keywords": "Whisper 本地 转写 准确率, faster-whisper, large-v3, Whisper本地转写, Whisper准确率优化"}</script>
+<style>
+:root{--bg:#080b12;--panel:#111827;--line:#1f2937;--txt:#e6edf7;--txt2:#9aa8bd;--txt3:#6b7a90;--cyan:#5ad1ff;--violet:#a78bfa}
+*{box-sizing:border-box}body{margin:0;background:radial-gradient(900px 500px at 82% -8%,rgba(90,209,255,.16),transparent 60%),var(--bg);color:var(--txt);font-family:"Microsoft YaHei","PingFang SC",system-ui,sans-serif;line-height:1.8}
+a{color:inherit;text-decoration:none}
+.top{position:sticky;top:0;backdrop-filter:blur(12px);background:rgba(8,11,18,.85);border-bottom:1px solid var(--line)}
+.top-in{max-width:900px;margin:0 auto;padding:12px 20px;display:flex;align-items:center;gap:10px}
+.logo{display:flex;align-items:center;gap:9px;font-weight:800}
+.logo .mark{width:30px;height:30px;border-radius:9px;background:linear-gradient(135deg,var(--cyan),var(--violet));display:grid;place-items:center;color:#04121c;font-weight:900}
+.top-in .back{margin-left:auto;color:var(--txt2);font-size:13px}
+main{max-width:900px;margin:0 auto;padding:28px 20px 60px}
+h1{font-size:28px;line-height:1.4;margin:8px 0 10px}
+.meta{color:var(--txt3);font-size:12.5px;margin-bottom:22px;display:flex;gap:8px;flex-wrap:wrap}
+.content{font-size:15.5px;color:#cfd9e6}
+.content h2{font-size:20px;color:var(--txt);margin:28px 0 10px}
+.content h3{font-size:17px;color:var(--txt);margin:22px 0 8px}
+.content p{margin:12px 0}
+.content li{margin:6px 0}
+.content code{background:rgba(120,180,255,.12);padding:1px 6px;border-radius:5px;font-family:Consolas,monospace;font-size:13px}
+.content pre{background:#0a1018;border:1px solid var(--line);border-radius:10px;padding:12px;overflow:auto}
+.content blockquote{border-left:3px solid var(--cyan);padding:4px 14px;color:var(--txt2);margin:16px 0}
+.ad-slot{margin:26px 0;min-height:100px;border:1px dashed rgba(120,140,170,.35);border-radius:12px;display:flex;align-items:center;justify-content:center;color:var(--txt3);font-size:12px;text-align:center;background:rgba(17,24,39,.55)}
+.ad-slot small{display:block;font-size:10.5px;opacity:.7}
+.bread{color:var(--txt3);font-size:12.5px;margin-bottom:6px}
+.bread a{color:var(--cyan)}
+footer{border-top:1px solid var(--line);color:var(--txt3);font-size:12.5px;text-align:center;padding:20px}
+@media(max-width:640px){h1{font-size:22px}main{padding:20px 16px 40px}}
+</style>
+</head>
+<body>
+<header class="top"><div class="top-in">
+  <a class="logo" href="../index.html"><span class="mark">✦</span>星籁 AI 导航</a>
+  <a class="back" href="../index.html">← 返回首页</a>
+</div></header>
+<main>
+  <div class="bread"><a href="../index.html">首页</a> / <a href="../index.html#/articles">视频音频</a></div>
+  <h1>Whisper 本地 转写 准确率：四个开关</h1>
+  <div class="meta"><span>视频音频</span><span>·</span><span>Whisper 本地 转写 准确率, faster-whisper, large-v3, Whisper本地转写, Whisper准确率优化</span></div>
+  <article class="content"><p>8 小时的访谈录音，我用 faster-whisper 的 large-v3 在本地转，第一遍 WER 测出来 13%，改完四个参数之后压到 8%，标点也正常了。Whisper 本地 转写 准确率 这件事，模型选对只占一半，另一半在解码参数和 VAD 上。这篇把我测过的数字摊开讲。</p>
+<h2>环境和模型先固定</h2>
+<p>显卡 3060 12GB，faster-whisper 用 int8 量化，large-v3 模型只吃 4.5GB 显存，一小时音频 4 分钟转完；不量化的话显存要 10GB 左右，速度慢一倍。模型文件 2.9GB，下载放本地目录，断网也能跑，这点比在线转写省心。</p>
+<p>第一版用的是默认参数，中文输出没有标点，人名全错，WER 13%。这属于正常水平，中文视频场景本来就比朗读难，多人抢话、电话录音还会更高。</p>
+<p>选模型也有经验：中文内容优先 large-v3，别用 large-v3-turbo，turbo 快三倍但中文 WER 会高 2 到 3 个百分点，访谈类素材不划算。转写前先把音频转成 16kHz 单声道 wav，用 ffmpeg 一条命令就能转，采样率不对也会掉准确率。</p>
+<h2>四个开关</h2>
+<div class="ad-slot" data-ad="article-mid"><div>广告位（文章中部）<small>AdSense / 广告联盟代码插入点 · 建议 728×90 / 移动端 320×100</small></div><!-- 在这里粘贴广告代码 --></div>
+<p>一是 language 写死 zh，别让它自动检测，自动检测会把夹英文的段落判成日语。二是 vad_filter 开 True，并把 min_silence_duration_ms 调到 500，不然一段话中间换气就被切成两句。三是 initial_prompt 只放 20 个字以内的热词，比如人名、产品名，写太长模型会反复念提示词。四是 condition_on_previous_text 设 False，长音频里它能减少越错越离谱的连锁。</p>
+<p>beam_size 我给 5，再高收益不明显。Whisper本地转写 跑完先看 srt 的时间轴，超过 15 秒一句的要手动切，播放器会跟不上。Whisper准确率优化 我还做过一组对照：同一段 10 分钟音频，繁体输出的 WER 比简体高 1 个百分点，所以输出后统一转简体再校对。</p>
+<p>批量跑的时候我会写个小脚本遍历目录，输出同名 srt 和 txt 两份，txt 统一转简体再交给编辑。Whisper 本地 转写 准确率 的提升有一半来自前期音频处理，噪声大的素材先过一遍降噪再喂模型，比反复调参数有效。</p>
+<h2>两个坑是 VAD 和幻觉</h2>
+<p>第一个坑，VAD 切得太狠会把句首的“那”、句尾的“吧”削掉，听起来像吞字，min_silence 别低于 300 毫秒。第二个坑，静音段落容易触发幻觉，模型会自己编一句“请订阅频道”，长音频里必须过滤掉。</p>
+<p>校对时我把 WER 高的段落单独标出来重听，问题一般集中在电话录音和多人抢话的地方。热词表建议每个月维护一次，新项目的人名、型号变化很快。</p>
+<p>最后提醒一句，8 小时音频别一次性喂进去，切成 30 分钟一段跑，内存和显存都稳，哪段出错也好重跑。</p>
+<h2>总结</h2>
+<p>Whisper 本地 转写 准确率 不是玄学：模型、量化、VAD、热词四件事定完，中文日常对话能稳定在 8% 左右。Whisper本地转写 加 Whisper准确率优化 这套组合，8 小时访谈一晚上能出初稿。剩下的错字还得人过一遍，机器到 8% 基本就到头了。</p></article>
+  <footer>© 2026 星籁 Stellara · <a href="../privacy.html">隐私政策</a> · <a href="../sitemap.xml">站点地图</a></footer>
+</main>
+</body>
+</html>
