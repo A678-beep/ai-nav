@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>接口 文档 同步：OpenAPI 双闸校验 · 星籁</title>
+<meta name="description" content="上周前端在联调群里问我：文档里 idempotencyKey 还是必填吗？我打开 Redoc 才发现，文档停在上个迭代，代码里这个字段三个月前就改成可选了。回头统计，11 个仓库、312 个接口，有 27 个的文档和实际">
+<meta name="keywords" content="接口 文档 同步, OpenAPI 3.0, oasdiff, CI 校验, 接口 文档 一致性 校验, OpenAPI 版本 管理">
+<meta name="robots" content="index,follow">
+
+<link rel="canonical" href="https://a678-beep.github.io/ai-nav/a/code-43-api-doc-sync.html">
+<meta property="og:type" content="article">
+<meta property="og:title" content="接口 文档 同步：OpenAPI 双闸校验">
+<meta property="og:description" content="上周前端在联调群里问我：文档里 idempotencyKey 还是必填吗？我打开 Redoc 才发现，文档停在上个迭代，代码里这个字段三个月前就改成可选了。回头统计，11 个仓库、312 个接口，有 27 个的文档和实际">
+<meta property="og:url" content="https://a678-beep.github.io/ai-nav/a/code-43-api-doc-sync.html">
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "Article", "headline": "接口 文档 同步：OpenAPI 双闸校验", "inLanguage": "zh-CN", "datePublished": "2026-11-15", "author": {"@type": "Organization", "name": "星籁 Stellara"}, "publisher": {"@type": "Organization", "name": "星籁 Stellara"}, "mainEntityOfPage": "https://a678-beep.github.io/ai-nav/a/code-43-api-doc-sync.html", "articleSection": "编程助手", "wordCount": 812, "dateModified": "2026-11-15", "keywords": "接口 文档 同步, OpenAPI 3.0, oasdiff, CI 校验, 接口 文档 一致性 校验, OpenAPI 版本 管理"}</script>
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "首页", "item": "https://a678-beep.github.io/ai-nav/"}, {"@type": "ListItem", "position": 2, "name": "编程助手", "item": "https://a678-beep.github.io/ai-nav/#/articles"}, {"@type": "ListItem", "position": 3, "name": "接口 文档 同步：OpenAPI 双闸校验", "item": "https://a678-beep.github.io/ai-nav/a/code-43-api-doc-sync.html"}]}</script>
+<style>
+:root{--bg:#080b12;--panel:#111827;--line:#1f2937;--txt:#e6edf7;--txt2:#9aa8bd;--txt3:#6b7a90;--cyan:#5ad1ff;--violet:#a78bfa}
+*{box-sizing:border-box}body{margin:0;background:radial-gradient(900px 500px at 82% -8%,rgba(90,209,255,.16),transparent 60%),var(--bg);color:var(--txt);font-family:"Microsoft YaHei","PingFang SC",system-ui,sans-serif;line-height:1.8}
+a{color:inherit;text-decoration:none}
+.top{position:sticky;top:0;backdrop-filter:blur(12px);background:rgba(8,11,18,.85);border-bottom:1px solid var(--line)}
+.top-in{max-width:900px;margin:0 auto;padding:12px 20px;display:flex;align-items:center;gap:10px}
+.logo{display:flex;align-items:center;gap:9px;font-weight:800}
+.logo .mark{width:30px;height:30px;border-radius:9px;background:linear-gradient(135deg,var(--cyan),var(--violet));display:grid;place-items:center;color:#04121c;font-weight:900}
+.top-in .back{margin-left:auto;color:var(--txt2);font-size:13px}
+main{max-width:900px;margin:0 auto;padding:28px 20px 60px}
+h1{font-size:28px;line-height:1.4;margin:8px 0 10px}
+.meta{color:var(--txt3);font-size:12.5px;margin-bottom:22px;display:flex;gap:8px;flex-wrap:wrap}
+.content{font-size:15.5px;color:#cfd9e6}
+.content h2{font-size:20px;color:var(--txt);margin:28px 0 10px}
+.content h3{font-size:17px;color:var(--txt);margin:22px 0 8px}
+.content p{margin:12px 0}
+.content li{margin:6px 0}
+.content code{background:rgba(120,180,255,.12);padding:1px 6px;border-radius:5px;font-family:Consolas,monospace;font-size:13px}
+.content pre{background:#0a1018;border:1px solid var(--line);border-radius:10px;padding:12px;overflow:auto}
+.content blockquote{border-left:3px solid var(--cyan);padding:4px 14px;color:var(--txt2);margin:16px 0}
+.ad-slot{margin:26px 0;min-height:100px;border:1px dashed rgba(120,140,170,.35);border-radius:12px;display:flex;align-items:center;justify-content:center;color:var(--txt3);font-size:12px;text-align:center;background:rgba(17,24,39,.55)}
+.ad-slot small{display:block;font-size:10.5px;opacity:.7}
+.bread{color:var(--txt3);font-size:12.5px;margin-bottom:6px}
+.bread a{color:var(--cyan)}
+footer{border-top:1px solid var(--line);color:var(--txt3);font-size:12.5px;text-align:center;padding:20px}
+.related{margin:34px 0 10px;border-top:1px solid var(--line);padding-top:18px}.related h2{font-size:16px;color:var(--txt);margin:0 0 10px}.related ul{list-style:none;padding:0;margin:0}.related li{margin:8px 0}.related a{color:var(--cyan);font-size:14px}
+.tool-link{margin:14px 0 0}
+.tlinks a{display:inline-block;margin:0 8px 8px 0;padding:6px 12px;border:1px solid rgba(90,209,255,.25);border-radius:8px;font-size:13px;color:var(--cyan);background:rgba(90,209,255,.06)}
+.tlinks a:hover{background:rgba(90,209,255,.15)}
+.sec{margin:26px 0}
+.sec h2{font-size:17px;color:var(--txt);margin:0 0 10px}
+.tool-link a{display:inline-block;font-size:13px;color:var(--txt2);border:1px solid var(--line);border-radius:8px;padding:7px 12px}
+.tool-link a:hover{color:var(--txt);border-color:rgba(90,209,255,.45)}
+.top-in .back{padding:6px 0}
+.bread a{display:inline-block;padding:6px 0}
+.sec li a{display:inline-block;padding:5px 0}
+.sib a{padding:8px 12px}
+.cats a{display:inline-block;margin:0 8px 8px 0;padding:6px 12px;border:1px solid var(--line);border-radius:8px;font-size:13px;color:var(--txt2)}
+.cats a:hover{color:var(--txt);border-color:rgba(90,209,255,.45)}
+.cats h2{font-size:17px;margin:22px 0 10px}
+@media(max-width:640px){h1{font-size:22px}main{padding:20px 16px 40px}
+.related a,.tlinks a,.tool-link a,footer a,.sib a{min-height:36px;display:inline-flex;align-items:center}
+.list a{padding:14px 14px}
+td a{display:inline-block;padding:8px 0}
+.note a{display:inline-block;padding:7px 0}
+}
+</style>
+</head>
+<body>
+<header class="top"><div class="top-in">
+  <a class="logo" href="../index.html"><span class="mark">✦</span>星籁 AI 导航</a>
+  <a class="back" href="../index.html">← 返回首页</a>
+</div></header>
+<main>
+  <div class="bread"><a href="../index.html">首页</a> / <a href="../code/index.html">编程助手</a></div>
+  <h1>接口 文档 同步：OpenAPI 双闸校验</h1>
+  <div class="meta"><span>编程助手</span><span>·</span><span>更新于 2026-11-15</span><span>·</span><span>接口 文档 同步, OpenAPI 3.0, oasdiff, CI 校验, 接口 文档 一致性 校验, OpenAPI 版本 管理</span></div>
+  <article class="content"><p>上周前端在联调群里问我：文档里 idempotencyKey 还是必填吗？我打开 Redoc 才发现，文档停在上个迭代，代码里这个字段三个月前就改成可选了。回头统计，11 个仓库、312 个接口，有 27 个的文档和实际响应对不上，最老的一处停在去年十月。之后我把接口 文档 同步 交给机器：人只改一处，其余由生成器和流水线守着。</p>
+<h2>先定唯一源头：spec 提交进仓库</h2>
+<p>两种流派都试过，最后选代码先行：所有服务统一导出 OpenAPI 3.0，Spring Boot 3.2 配 springdoc 2.3.0，描述写在注解里；Python 用 FastAPI 自带的 /openapi.json；Go 用 swag init。构建时 make doc 把 spec 导出到 docs/openapi/ 下按服务拆分并提交，前端 SDK、Mock、Redoc 页面都从这份文件长出来，wiki 上的手写文档一律停更。</p>
+<p>参数只改三处：servers 从 127.0.0.1:8080 换成 ${API_HOST} 由 CI 注入；字段必填以 Bean Validation 为准，@Schema 的 requiredMode 只做展示；securitySchemes 收进公共组件，避免每个接口重复写。坑有两个：绕过生成器直接改 json，下次导出被覆盖，diff 里还看不出来；中文 description 里的全角引号会让 Redoc 锚点错位。pre-commit 加一条检查：docs/openapi 有变更但 controller 目录没变更就拦下。这步做完，接口 文档 同步 才算有了地基。</p>
+<h2>CI 两道闸：生成比对与破坏性检测</h2>
+<div class="ad-slot" data-ad="article-mid"><div>广告位（文章中部）<small>AdSense / 广告联盟代码插入点 · 建议 728×90 / 移动端 320×100</small></div><!-- 在这里粘贴广告代码 --></div>
+<p>第一道闸最短：CI 跑 make doc，再 git diff --exit-code docs/openapi。退出码非 0 就失败，说明有人改了注释没导出，或者手改了 spec。11 个仓库串行跑 40 秒，比人工 review 靠谱得多。</p>
+<p>第二道用 oasdiff breaking 对比主干 spec，删字段、改类型、枚举收紧、必填新增都会退出 1 阻止合并，上线半年拦下 9 次，其中 4 次前端已经按旧 spec 发了版。redocly lint 顺手查 operationId 重复、缺 4xx 响应、示例用了真实手机号，自定义规则开 6 条，跑一遍 12 秒。预发再加一层：schemathesis 拿 spec 对 47 个接口跑属性测试，500 响应也会被 schema 校验拎出来，三个月抓到 3 个文档没写的 500 分支。这套 CI 校验 和 接口 文档 一致性 校验 能挡住漂移，但挡不住业务含义写错，那部分还得人看。</p>
+<h2>版本按 tag 走，弃用提前两个迭代</h2>
+<p>文档不跟分支，跟 git tag：镜像 v2.4.0 对应 docs/openapi/v2.4.0/，Redoc 后台按 tag 出快照页，线上保留最近 6 个版本，前端切版本不用再问后端。这是 OpenAPI 版本 管理 的底线，比“文档永远最新”实用。</p>
+<p>弃用走三件套：响应头加 Deprecation 和 Sunset，spec 里标 deprecated: true，changelog 写清替代接口和下线日。结算接口从公告到下线留了 63 天，openapi-generator 生成的 SDK 会在编译期打警告，前端提前一个迭代迁完。机制上线三个月，文档不一致工单从 43 起降到 6 起，平均修复从 4 天压到 8 小时；新增接口的文档耗时从 5 天变成 0。两个坑：文档发布挂在部署之后，服务回滚了页面还是新的；版本入口写 latest，CDN 缓存能让你干等 24 小时。</p>
+<h2>总结</h2>
+<p>现在固定四件事：spec 单一源头、CI 生成比对、oasdiff 破坏性检测、tag 加 Sunset 弃用。接口 文档 同步 的目标不是文档好看，是文档对不上时代码合不进去。等 接口 文档 一致性 校验 变成合并请求里的固定一步，OpenAPI 版本 管理 才有讨论的意义。</p></article>
+  
+  <section class="related"><h2>同类教程</h2><ul><li><a href="code-01-cursor-tab-settings.html">Cursor Tab 补全 设置：五个开关的取舍</a></li><li><a href="code-02-claude-code-cli-refactor.html">Claude Code CLI 重构：四步顺序</a></li><li><a href="code-03-github-copilot-unit-tests.html">GitHub Copilot 单元测试：三步法</a></li><li><a href="code-04-windsurf-cascade-multifile.html">Windsurf Cascade 多文件：先验收</a></li><li><a href="code-05-tongyi-lingma-private-repo.html">通义灵码 私有仓库：企业版知识库200MB上限</a></li></ul><p class="tool-link"><a href="../index.html">查看 编程助手 工具与其它教程 →</a> <a href="../t/errors/">AI 报错解决 →</a> <a href="../t/params/">参数与配置 →</a></p></section>
+  <footer>© 2026 星籁 Stellara · <a href="../privacy.html">隐私政策</a> · <a href="../sitemap.xml">站点地图</a></footer>
+</main>
+</body>
+</html>

@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>音频 剪辑 降噪链：顺序、增益与门限 · 星籁</title>
+<meta name="description" content="上周接了一条 42 分钟的访谈播客，客户说人声像隔着一层塑料布。回听素材：底噪稳在 -39dB，剪辑师先上压缩再降噪，压缩器把底噪抬起来，降噪又削掉齿音，越修越闷。我按 音频 剪辑 降噪链 重排了一遍，底噪落到 -56d">
+<meta name="keywords" content="音频 剪辑 降噪链, 降噪链顺序, 音频增益, 噪声门参数, 音频降噪链怎么排, 降噪和压缩谁先做">
+<meta name="robots" content="index,follow">
+
+<link rel="canonical" href="https://a678-beep.github.io/ai-nav/a/video-42-audio-edit-denoise-chain.html">
+<meta property="og:type" content="article">
+<meta property="og:title" content="音频 剪辑 降噪链：顺序、增益与门限">
+<meta property="og:description" content="上周接了一条 42 分钟的访谈播客，客户说人声像隔着一层塑料布。回听素材：底噪稳在 -39dB，剪辑师先上压缩再降噪，压缩器把底噪抬起来，降噪又削掉齿音，越修越闷。我按 音频 剪辑 降噪链 重排了一遍，底噪落到 -56d">
+<meta property="og:url" content="https://a678-beep.github.io/ai-nav/a/video-42-audio-edit-denoise-chain.html">
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "Article", "headline": "音频 剪辑 降噪链：顺序、增益与门限", "inLanguage": "zh-CN", "datePublished": "2026-11-15", "author": {"@type": "Organization", "name": "星籁 Stellara"}, "publisher": {"@type": "Organization", "name": "星籁 Stellara"}, "mainEntityOfPage": "https://a678-beep.github.io/ai-nav/a/video-42-audio-edit-denoise-chain.html", "articleSection": "视频音频", "wordCount": 842, "dateModified": "2026-11-15", "keywords": "音频 剪辑 降噪链, 降噪链顺序, 音频增益, 噪声门参数, 音频降噪链怎么排, 降噪和压缩谁先做"}</script>
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "首页", "item": "https://a678-beep.github.io/ai-nav/"}, {"@type": "ListItem", "position": 2, "name": "视频音频", "item": "https://a678-beep.github.io/ai-nav/#/articles"}, {"@type": "ListItem", "position": 3, "name": "音频 剪辑 降噪链：顺序、增益与门限", "item": "https://a678-beep.github.io/ai-nav/a/video-42-audio-edit-denoise-chain.html"}]}</script>
+<style>
+:root{--bg:#080b12;--panel:#111827;--line:#1f2937;--txt:#e6edf7;--txt2:#9aa8bd;--txt3:#6b7a90;--cyan:#5ad1ff;--violet:#a78bfa}
+*{box-sizing:border-box}body{margin:0;background:radial-gradient(900px 500px at 82% -8%,rgba(90,209,255,.16),transparent 60%),var(--bg);color:var(--txt);font-family:"Microsoft YaHei","PingFang SC",system-ui,sans-serif;line-height:1.8}
+a{color:inherit;text-decoration:none}
+.top{position:sticky;top:0;backdrop-filter:blur(12px);background:rgba(8,11,18,.85);border-bottom:1px solid var(--line)}
+.top-in{max-width:900px;margin:0 auto;padding:12px 20px;display:flex;align-items:center;gap:10px}
+.logo{display:flex;align-items:center;gap:9px;font-weight:800}
+.logo .mark{width:30px;height:30px;border-radius:9px;background:linear-gradient(135deg,var(--cyan),var(--violet));display:grid;place-items:center;color:#04121c;font-weight:900}
+.top-in .back{margin-left:auto;color:var(--txt2);font-size:13px}
+main{max-width:900px;margin:0 auto;padding:28px 20px 60px}
+h1{font-size:28px;line-height:1.4;margin:8px 0 10px}
+.meta{color:var(--txt3);font-size:12.5px;margin-bottom:22px;display:flex;gap:8px;flex-wrap:wrap}
+.content{font-size:15.5px;color:#cfd9e6}
+.content h2{font-size:20px;color:var(--txt);margin:28px 0 10px}
+.content h3{font-size:17px;color:var(--txt);margin:22px 0 8px}
+.content p{margin:12px 0}
+.content li{margin:6px 0}
+.content code{background:rgba(120,180,255,.12);padding:1px 6px;border-radius:5px;font-family:Consolas,monospace;font-size:13px}
+.content pre{background:#0a1018;border:1px solid var(--line);border-radius:10px;padding:12px;overflow:auto}
+.content blockquote{border-left:3px solid var(--cyan);padding:4px 14px;color:var(--txt2);margin:16px 0}
+.ad-slot{margin:26px 0;min-height:100px;border:1px dashed rgba(120,140,170,.35);border-radius:12px;display:flex;align-items:center;justify-content:center;color:var(--txt3);font-size:12px;text-align:center;background:rgba(17,24,39,.55)}
+.ad-slot small{display:block;font-size:10.5px;opacity:.7}
+.bread{color:var(--txt3);font-size:12.5px;margin-bottom:6px}
+.bread a{color:var(--cyan)}
+footer{border-top:1px solid var(--line);color:var(--txt3);font-size:12.5px;text-align:center;padding:20px}
+.related{margin:34px 0 10px;border-top:1px solid var(--line);padding-top:18px}.related h2{font-size:16px;color:var(--txt);margin:0 0 10px}.related ul{list-style:none;padding:0;margin:0}.related li{margin:8px 0}.related a{color:var(--cyan);font-size:14px}
+.tool-link{margin:14px 0 0}
+.tlinks a{display:inline-block;margin:0 8px 8px 0;padding:6px 12px;border:1px solid rgba(90,209,255,.25);border-radius:8px;font-size:13px;color:var(--cyan);background:rgba(90,209,255,.06)}
+.tlinks a:hover{background:rgba(90,209,255,.15)}
+.sec{margin:26px 0}
+.sec h2{font-size:17px;color:var(--txt);margin:0 0 10px}
+.tool-link a{display:inline-block;font-size:13px;color:var(--txt2);border:1px solid var(--line);border-radius:8px;padding:7px 12px}
+.tool-link a:hover{color:var(--txt);border-color:rgba(90,209,255,.45)}
+.top-in .back{padding:6px 0}
+.bread a{display:inline-block;padding:6px 0}
+.sec li a{display:inline-block;padding:5px 0}
+.sib a{padding:8px 12px}
+.cats a{display:inline-block;margin:0 8px 8px 0;padding:6px 12px;border:1px solid var(--line);border-radius:8px;font-size:13px;color:var(--txt2)}
+.cats a:hover{color:var(--txt);border-color:rgba(90,209,255,.45)}
+.cats h2{font-size:17px;margin:22px 0 10px}
+@media(max-width:640px){h1{font-size:22px}main{padding:20px 16px 40px}
+.related a,.tlinks a,.tool-link a,footer a,.sib a{min-height:36px;display:inline-flex;align-items:center}
+.list a{padding:14px 14px}
+td a{display:inline-block;padding:8px 0}
+.note a{display:inline-block;padding:7px 0}
+}
+</style>
+</head>
+<body>
+<header class="top"><div class="top-in">
+  <a class="logo" href="../index.html"><span class="mark">✦</span>星籁 AI 导航</a>
+  <a class="back" href="../index.html">← 返回首页</a>
+</div></header>
+<main>
+  <div class="bread"><a href="../index.html">首页</a> / <a href="../video/index.html">视频音频</a></div>
+  <h1>音频 剪辑 降噪链：顺序、增益与门限</h1>
+  <div class="meta"><span>视频音频</span><span>·</span><span>更新于 2026-11-15</span><span>·</span><span>音频 剪辑 降噪链, 降噪链顺序, 音频增益, 噪声门参数, 音频降噪链怎么排, 降噪和压缩谁先做</span></div>
+  <article class="content"><p>上周接了一条 42 分钟的访谈播客，客户说人声像隔着一层塑料布。回听素材：底噪稳在 -39dB，剪辑师先上压缩再降噪，压缩器把底噪抬起来，降噪又削掉齿音，越修越闷。我按 音频 剪辑 降噪链 重排了一遍，底噪落到 -56dB，整片响度从 -19.5 LUFS 拉到 -16 LUFS，客户复听一次过稿。</p>
+<h2>一、顺序：先修、再降、后动态、最后响度</h2>
+<p>降噪链的顺序比参数重要。我固定五段：剪切对轨、统一增益、修瞬态、降噪、动态与响度。第一步对轨时每个剪口加 5 毫秒淡入淡出，避免爆音；第二步统一增益，把每段人声的平均电平压到 -18dBFS，峰值不超过 -6dBFS，不统一就进链，后面所有阈值都会失效；第三步修键盘、翻页、爆音这类瞬态，能用频谱重画就重画，降噪救不了瞬态；第四步降噪，轻降 6 到 8dB；第五步才是门限、EQ、压缩和响度归一化，归一化永远放最后。两个硬规则：降噪必须在压缩之前，降噪和压缩谁先做，答案永远是降噪在前，不然压缩器抬起来的底噪要多削 3 到 6dB 才干净；门限放在降噪之后，底噪已经低了，阈值也能跟着往下压，呼吸感小很多。</p>
+<h2>二、参数：增益 -18dBFS，门限 -41dB，响度 -16 LUFS</h2>
+<div class="ad-slot" data-ad="article-mid"><div>广告位（文章中部）<small>AdSense / 广告联盟代码插入点 · 建议 728×90 / 移动端 320×100</small></div><!-- 在这里粘贴广告代码 --></div>
+<p>增益链路我按三步走：先把平均电平对齐到 -18dBFS，再给降噪留 -6dBFS 的峰值余量，降噪后如果整体掉了 2dB，用补偿增益补回来，但别超过 +3dB。门限用扩展器，阈值 -41dB，比降噪后的底噪高 3dB，衰减设 -15dB 而不是静音，启动 3 毫秒、保持 120 毫秒、释放 200 毫秒，片头片尾留 0.3 秒自然底噪，别剪出绝对安静。压缩 3:1、阈值 -18dB、启动 10 毫秒、释放 100 毫秒，增益衰减控制在 3 到 5dB。最后做响度归一化：播客和口播按 -16 LUFS，抖音、B 站、YouTube 按 -14 LUFS，真峰值卡在 -1dBTP。用 Youlean Loudness Meter 免费版看整体积分响度，别靠耳朵猜。</p>
+<h2>三、案例：42 分钟访谈从 -39dB 到 -56dB</h2>
+<p>整片处理我用 Audition 做对轨和降噪，咔哒声交给 iZotope RX 的频谱修复，响度在 DaVinci Resolve 的 Fairlight 里归一化，粗剪用剪映专业版。这条 42 分钟访谈的实际动作：每段人声平均电平从 -21dBFS 统一到 -18dBFS，降噪两遍共 8dB，高通 90Hz，门限 -41dB，压缩增益衰减 4dB，导出前响度 -16 LUFS、真峰值 -1.2dBTP，全片处理 26 分钟。音频 剪辑 降噪链 排对之后，返工从第一版的三处变成零。避坑三条：降噪别一次拉 15dB 以上，齿音会发金属声；门限阈值设到 -30dB 会把句尾呼吸切碎，宁可多留一点底噪；在 mp3 上反复处理，每存一次掉一层高频细节，母版一律用 48kHz/24bit 的 wav。音频降噪链怎么排，本质是先修损坏、再降底噪、最后统一响度，顺序不能换。</p>
+<h2>总结</h2>
+<p>音频 剪辑 降噪链 我按一张清单走：对轨加 5 毫秒淡入淡出，增益统一到 -18dBFS，修完瞬态再降 6 到 8dB 噪，高通 90Hz，门限 -41dB 用扩展器，压缩只拿 3 到 5dB，最后归一化到 -16 LUFS、真峰值 -1dBTP。音频降噪链怎么排、降噪和压缩谁先做，这两件事定下来，参数才有意义；顺序错了，再贵的插件也只是把闷声修成另一种闷声。</p></article>
+  <div class="sec"><h2>文中提到的工具</h2><p class="tlinks"><a href="../tool/capcut/">剪映 →</a></p></div>
+  <section class="related"><h2>同类教程</h2><ul><li><a href="video-01-kling-1-6-first-last-frame.html">可灵 1.6 图生视频 首尾帧：两张图接5秒转场</a></li><li><a href="video-02-runway-gen-4-camera-control.html">Runway Gen-4 运镜 控制：锁死机位</a></li><li><a href="video-03-sora-storyboard-prompt.html">Sora 分镜 提示词：两秒处补一句就顺</a></li><li><a href="video-04-heygen-avatar-lip-sync.html">HeyGen 数字人 口型：中英混读别超过两成</a></li><li><a href="video-05-elevenlabs-chinese-emotion.html">ElevenLabs 中文 配音 情感：标签分行</a></li></ul><p class="tool-link"><a href="../index.html">查看 视频音频 工具与其它教程 →</a> <a href="../t/pricing/">AI 工具价格 →</a> <a href="../t/params/">参数与配置 →</a></p></section>
+  <footer>© 2026 星籁 Stellara · <a href="../privacy.html">隐私政策</a> · <a href="../sitemap.xml">站点地图</a></footer>
+</main>
+</body>
+</html>
