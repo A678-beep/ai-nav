@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>本地 PDF 问答：7B 模型离线建库全流程 · 星籁 AI 工具导航</title>
+<meta name="description" content="公司内网的合同和研报不能传云端，我搭了一套本地 PDF 问答 环境：180 份 PDF 灌进本地知识库，用 Ollama 跑 7B 模型，问这份合同违约金怎么算能定位到第 12 页。整套装完 40 分钟，机器是 16G ">
+<meta name="keywords" content="本地 PDF 问答, 本地知识库, Ollama, Ollama 本地部署, PDF 扫描件 OCR">
+<meta name="robots" content="index,follow">
+<link rel="canonical" href="https://A678-beep.github.io/ai-nav/a/util-10-local-pdf-qa.html">
+<meta property="og:type" content="article">
+<meta property="og:title" content="本地 PDF 问答：7B 模型离线建库全流程">
+<meta property="og:description" content="公司内网的合同和研报不能传云端，我搭了一套本地 PDF 问答 环境：180 份 PDF 灌进本地知识库，用 Ollama 跑 7B 模型，问这份合同违约金怎么算能定位到第 12 页。整套装完 40 分钟，机器是 16G ">
+<meta property="og:url" content="https://A678-beep.github.io/ai-nav/a/util-10-local-pdf-qa.html">
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "Article", "headline": "本地 PDF 问答：7B 模型离线建库全流程", "inLanguage": "zh-CN", "datePublished": "2026-11-15", "author": {"@type": "Organization", "name": "星籁 Stellara"}, "publisher": {"@type": "Organization", "name": "星籁 Stellara"}, "mainEntityOfPage": "https://A678-beep.github.io/ai-nav/a/util-10-local-pdf-qa.html", "keywords": "本地 PDF 问答, 本地知识库, Ollama, Ollama 本地部署, PDF 扫描件 OCR"}</script>
+<style>
+:root{--bg:#080b12;--panel:#111827;--line:#1f2937;--txt:#e6edf7;--txt2:#9aa8bd;--txt3:#6b7a90;--cyan:#5ad1ff;--violet:#a78bfa}
+*{box-sizing:border-box}body{margin:0;background:radial-gradient(900px 500px at 82% -8%,rgba(90,209,255,.16),transparent 60%),var(--bg);color:var(--txt);font-family:"Microsoft YaHei","PingFang SC",system-ui,sans-serif;line-height:1.8}
+a{color:inherit;text-decoration:none}
+.top{position:sticky;top:0;backdrop-filter:blur(12px);background:rgba(8,11,18,.85);border-bottom:1px solid var(--line)}
+.top-in{max-width:900px;margin:0 auto;padding:12px 20px;display:flex;align-items:center;gap:10px}
+.logo{display:flex;align-items:center;gap:9px;font-weight:800}
+.logo .mark{width:30px;height:30px;border-radius:9px;background:linear-gradient(135deg,var(--cyan),var(--violet));display:grid;place-items:center;color:#04121c;font-weight:900}
+.top-in .back{margin-left:auto;color:var(--txt2);font-size:13px}
+main{max-width:900px;margin:0 auto;padding:28px 20px 60px}
+h1{font-size:28px;line-height:1.4;margin:8px 0 10px}
+.meta{color:var(--txt3);font-size:12.5px;margin-bottom:22px;display:flex;gap:8px;flex-wrap:wrap}
+.content{font-size:15.5px;color:#cfd9e6}
+.content h2{font-size:20px;color:var(--txt);margin:28px 0 10px}
+.content h3{font-size:17px;color:var(--txt);margin:22px 0 8px}
+.content p{margin:12px 0}
+.content li{margin:6px 0}
+.content code{background:rgba(120,180,255,.12);padding:1px 6px;border-radius:5px;font-family:Consolas,monospace;font-size:13px}
+.content pre{background:#0a1018;border:1px solid var(--line);border-radius:10px;padding:12px;overflow:auto}
+.content blockquote{border-left:3px solid var(--cyan);padding:4px 14px;color:var(--txt2);margin:16px 0}
+.ad-slot{margin:26px 0;min-height:100px;border:1px dashed rgba(120,140,170,.35);border-radius:12px;display:flex;align-items:center;justify-content:center;color:var(--txt3);font-size:12px;text-align:center;background:rgba(17,24,39,.55)}
+.ad-slot small{display:block;font-size:10.5px;opacity:.7}
+.bread{color:var(--txt3);font-size:12.5px;margin-bottom:6px}
+.bread a{color:var(--cyan)}
+footer{border-top:1px solid var(--line);color:var(--txt3);font-size:12.5px;text-align:center;padding:20px}
+@media(max-width:640px){h1{font-size:22px}main{padding:20px 16px 40px}}
+</style>
+</head>
+<body>
+<header class="top"><div class="top-in">
+  <a class="logo" href="../index.html"><span class="mark">✦</span>星籁 AI 导航</a>
+  <a class="back" href="../index.html">← 返回首页</a>
+</div></header>
+<main>
+  <div class="bread"><a href="../index.html">首页</a> / <a href="../index.html#/articles">实用工具</a></div>
+  <h1>本地 PDF 问答：7B 模型离线建库全流程</h1>
+  <div class="meta"><span>实用工具</span><span>·</span><span>本地 PDF 问答, 本地知识库, Ollama, Ollama 本地部署, PDF 扫描件 OCR</span></div>
+  <article class="content"><p>公司内网的合同和研报不能传云端，我搭了一套本地 PDF 问答 环境：180 份 PDF 灌进本地知识库，用 Ollama 跑 7B 模型，问这份合同违约金怎么算能定位到第 12 页。整套装完 40 分钟，机器是 16G 内存加 8G 显存的台式机。</p>
+<h2>装什么、占多大</h2>
+<p>Ollama 拉 qwen2.5:7b-instruct，模型文件约 4.7G，8G 显存刚好跑满；再装 AnythingLLM 桌面版，把大模型指向 Ollama，向量模型用内置的 nomic-embed-text，约 274MB。Ollama 本地部署 的坑在下载，几个 G 的文件走公司网要十几分钟。PDF 直接拖进工作区，切块设 1000 字符、重叠 200，180 份 PDF 建库约 12 分钟。全程断网也能问，数据不出机器。8G 显存是及格线，16G 内存是底线，再低会频繁换页。AnythingLLM 个人用桌面版就够，团队版要另配数据库，多花两小时。向量模型换 bge-m3 中文检索更准，显存多占 1G 左右。</p>
+<h2>问法与准确率</h2>
+<div class="ad-slot" data-ad="article-mid"><div>广告位（文章中部）<small>AdSense / 广告联盟代码插入点 · 建议 728×90 / 移动端 320×100</small></div><!-- 在这里粘贴广告代码 --></div>
+<p>问题要带指向，2023 年那份采购合同的违约金比例是多少，比单问违约金命中率高得多。每个回答会附 3 到 5 个引用片段，点开核对页码，答错时多数是检索片段不对而不是模型胡说。我测了 60 个问题：合同条款类答对 52 个，跨文档对比类只对 31 个，因为它只检索片段、不做全表汇总。单问耗时 6 到 10 秒，长文档首问 20 秒左右。PDF 扫描件 OCR 质量直接决定上限，先跑一轮 OCR 再入库。本地 PDF 问答 更适合查条款、查定义，不适合让模型做统计。跨文档对比类我先让它列文档清单再逐个问，正确率能提到 45 个左右。上周查一份 2022 年的框架协议，7 秒给出条款原文，同事手动找了 40 分钟。</p>
+<h2>五个避坑点</h2>
+<p>避坑一：扫描版 PDF 没有文字层，不 OCR 就是空文档，问什么都说找不到。避坑二：7B 模型中文长文档容易答非所问，把切块降到 800 字符、召回调到 5 会好一些。避坑三：14B 模型要 16G 显存，8G 卡硬上会爆，别信教程说能跑。避坑四：Ollama 本地部署 的模型更新会重置对话，重要问答结果单独存档。避坑五：PDF 扫描件 OCR 出来的错字会被检索放大，专有名词最好建一个纠正词表。避坑六：回答里的页码是切块位置不是 PDF 页码，核对时按内容搜更快。切块 800 字符的召回率比 1000 好一点，代价是建库慢两分钟；索引没跑完时强行提问会一直转圈。涉密等级高的文件单独建工作区，别和普通资料混在一起；Ollama 本地部署 完先在 11434 端口做连通确认，不然后面报错找不到原因。</p>
+<h2>总结</h2>
+<p>本地 PDF 问答 的性价比在于数据不出机器，代价是准确率和速度不如云端。8G 显存跑 7B、180 份 PDF 12 分钟建库、单问 6 到 10 秒，日常查条款够用。扫描件先 OCR，复杂汇总还是手动做。机器低于这个配置，别硬上 14B。如果只是偶尔查几份文件，用云端工具更省事；本地方案适合天天查、资料还敏感的人。</p></article>
+  <footer>© 2026 星籁 Stellara · <a href="../privacy.html">隐私政策</a> · <a href="../sitemap.xml">站点地图</a></footer>
+</main>
+</body>
+</html>
