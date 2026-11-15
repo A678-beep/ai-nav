@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>SQL 优化 AI：执行计划、索引与改写 · 星籁</title>
+<meta name="description" content="上季度接一个 SaaS 后台，客户列表页翻到第 500 页要 11 秒，DBA 的第一反应是加机器。我把 3 天慢日志、两张表结构、执行计划整理成三段贴给模型，两轮锁定 3 条慢查询：一条深分页、一条缺索引、一条统计信息">
+<meta name="keywords" content="SQL 优化 AI, 慢查询 定位, 执行计划 解读, 索引 优化, SQL 改写, 慢 SQL 如何 定位, 执行计划 解读 方法">
+<meta name="robots" content="index,follow">
+
+<link rel="canonical" href="https://a678-beep.github.io/ai-nav/a/code-49-sql-optimization-ai.html">
+<meta property="og:type" content="article">
+<meta property="og:title" content="SQL 优化 AI：执行计划、索引与改写">
+<meta property="og:description" content="上季度接一个 SaaS 后台，客户列表页翻到第 500 页要 11 秒，DBA 的第一反应是加机器。我把 3 天慢日志、两张表结构、执行计划整理成三段贴给模型，两轮锁定 3 条慢查询：一条深分页、一条缺索引、一条统计信息">
+<meta property="og:url" content="https://a678-beep.github.io/ai-nav/a/code-49-sql-optimization-ai.html">
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "Article", "headline": "SQL 优化 AI：执行计划、索引与改写", "inLanguage": "zh-CN", "datePublished": "2026-11-15", "author": {"@type": "Organization", "name": "星籁 Stellara"}, "publisher": {"@type": "Organization", "name": "星籁 Stellara"}, "mainEntityOfPage": "https://a678-beep.github.io/ai-nav/a/code-49-sql-optimization-ai.html", "articleSection": "编程助手", "wordCount": 806, "dateModified": "2026-11-15", "keywords": "SQL 优化 AI, 慢查询 定位, 执行计划 解读, 索引 优化, SQL 改写, 慢 SQL 如何 定位, 执行计划 解读 方法"}</script>
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "首页", "item": "https://a678-beep.github.io/ai-nav/"}, {"@type": "ListItem", "position": 2, "name": "编程助手", "item": "https://a678-beep.github.io/ai-nav/#/articles"}, {"@type": "ListItem", "position": 3, "name": "SQL 优化 AI：执行计划、索引与改写", "item": "https://a678-beep.github.io/ai-nav/a/code-49-sql-optimization-ai.html"}]}</script>
+<style>
+:root{--bg:#080b12;--panel:#111827;--line:#1f2937;--txt:#e6edf7;--txt2:#9aa8bd;--txt3:#6b7a90;--cyan:#5ad1ff;--violet:#a78bfa}
+*{box-sizing:border-box}body{margin:0;background:radial-gradient(900px 500px at 82% -8%,rgba(90,209,255,.16),transparent 60%),var(--bg);color:var(--txt);font-family:"Microsoft YaHei","PingFang SC",system-ui,sans-serif;line-height:1.8}
+a{color:inherit;text-decoration:none}
+.top{position:sticky;top:0;backdrop-filter:blur(12px);background:rgba(8,11,18,.85);border-bottom:1px solid var(--line)}
+.top-in{max-width:900px;margin:0 auto;padding:12px 20px;display:flex;align-items:center;gap:10px}
+.logo{display:flex;align-items:center;gap:9px;font-weight:800}
+.logo .mark{width:30px;height:30px;border-radius:9px;background:linear-gradient(135deg,var(--cyan),var(--violet));display:grid;place-items:center;color:#04121c;font-weight:900}
+.top-in .back{margin-left:auto;color:var(--txt2);font-size:13px}
+main{max-width:900px;margin:0 auto;padding:28px 20px 60px}
+h1{font-size:28px;line-height:1.4;margin:8px 0 10px}
+.meta{color:var(--txt3);font-size:12.5px;margin-bottom:22px;display:flex;gap:8px;flex-wrap:wrap}
+.content{font-size:15.5px;color:#cfd9e6}
+.content h2{font-size:20px;color:var(--txt);margin:28px 0 10px}
+.content h3{font-size:17px;color:var(--txt);margin:22px 0 8px}
+.content p{margin:12px 0}
+.content li{margin:6px 0}
+.content code{background:rgba(120,180,255,.12);padding:1px 6px;border-radius:5px;font-family:Consolas,monospace;font-size:13px}
+.content pre{background:#0a1018;border:1px solid var(--line);border-radius:10px;padding:12px;overflow:auto}
+.content blockquote{border-left:3px solid var(--cyan);padding:4px 14px;color:var(--txt2);margin:16px 0}
+.ad-slot{margin:26px 0;min-height:100px;border:1px dashed rgba(120,140,170,.35);border-radius:12px;display:flex;align-items:center;justify-content:center;color:var(--txt3);font-size:12px;text-align:center;background:rgba(17,24,39,.55)}
+.ad-slot small{display:block;font-size:10.5px;opacity:.7}
+.bread{color:var(--txt3);font-size:12.5px;margin-bottom:6px}
+.bread a{color:var(--cyan)}
+footer{border-top:1px solid var(--line);color:var(--txt3);font-size:12.5px;text-align:center;padding:20px}
+.related{margin:34px 0 10px;border-top:1px solid var(--line);padding-top:18px}.related h2{font-size:16px;color:var(--txt);margin:0 0 10px}.related ul{list-style:none;padding:0;margin:0}.related li{margin:8px 0}.related a{color:var(--cyan);font-size:14px}
+.tool-link{margin:14px 0 0}
+.tlinks a{display:inline-block;margin:0 8px 8px 0;padding:6px 12px;border:1px solid rgba(90,209,255,.25);border-radius:8px;font-size:13px;color:var(--cyan);background:rgba(90,209,255,.06)}
+.tlinks a:hover{background:rgba(90,209,255,.15)}
+.sec{margin:26px 0}
+.sec h2{font-size:17px;color:var(--txt);margin:0 0 10px}
+.tool-link a{display:inline-block;font-size:13px;color:var(--txt2);border:1px solid var(--line);border-radius:8px;padding:7px 12px}
+.tool-link a:hover{color:var(--txt);border-color:rgba(90,209,255,.45)}
+.top-in .back{padding:6px 0}
+.bread a{display:inline-block;padding:6px 0}
+.sec li a{display:inline-block;padding:5px 0}
+.sib a{padding:8px 12px}
+.cats a{display:inline-block;margin:0 8px 8px 0;padding:6px 12px;border:1px solid var(--line);border-radius:8px;font-size:13px;color:var(--txt2)}
+.cats a:hover{color:var(--txt);border-color:rgba(90,209,255,.45)}
+.cats h2{font-size:17px;margin:22px 0 10px}
+@media(max-width:640px){h1{font-size:22px}main{padding:20px 16px 40px}
+.related a,.tlinks a,.tool-link a,footer a,.sib a{min-height:36px;display:inline-flex;align-items:center}
+.list a{padding:14px 14px}
+td a{display:inline-block;padding:8px 0}
+.note a{display:inline-block;padding:7px 0}
+}
+</style>
+</head>
+<body>
+<header class="top"><div class="top-in">
+  <a class="logo" href="../index.html"><span class="mark">✦</span>星籁 AI 导航</a>
+  <a class="back" href="../index.html">← 返回首页</a>
+</div></header>
+<main>
+  <div class="bread"><a href="../index.html">首页</a> / <a href="../code/index.html">编程助手</a></div>
+  <h1>SQL 优化 AI：执行计划、索引与改写</h1>
+  <div class="meta"><span>编程助手</span><span>·</span><span>更新于 2026-11-15</span><span>·</span><span>SQL 优化 AI, 慢查询 定位, 执行计划 解读, 索引 优化, SQL 改写, 慢 SQL 如何 定位, 执行计划 解读 方法</span></div>
+  <article class="content"><p>上季度接一个 SaaS 后台，客户列表页翻到第 500 页要 11 秒，DBA 的第一反应是加机器。我把 3 天慢日志、两张表结构、执行计划整理成三段贴给模型，两轮锁定 3 条慢查询：一条深分页、一条缺索引、一条统计信息过期。改完 P99 从 3.8 秒到 210 毫秒，实例规格没动。SQL 优化 AI 有用的前提，是你把执行计划原样摊开给它看，而不是只发一句“这条查询很慢”。</p>
+<h2>先排优先级：慢日志按总耗时聚合</h2>
+<p>慢日志开 long_query_time=1，跑 3 天，用 pt-query-digest 聚合出 2.1 万条记录、380 条不同 SQL。让模型按总耗时占比乘频次排序，而不是只看单条最慢：单条 8 秒一天跑 2 次的，优先级低于单条 400 毫秒一天跑 5 万次的。前 3 条占 68% 总耗时，修这 3 条就够。按 SQL 指纹分组时注意参数化，别把 500 个不同参数当成 500 条语句。喂料固定五块：慢日志摘要、SHOW CREATE TABLE、SHOW INDEX、EXPLAIN 输出、数据分布（status 只有 4 个枚举值）。避坑一：只发慢查询不发表结构，模型会假设字段都有索引，建议全是空话；避坑二：把 200MB 原始慢日志整段贴上，上下文被截断，它只看到最后几条。慢 SQL 如何 定位 的答案在聚合，不在单条。</p>
+<h2>执行计划看三列，加实际行数</h2>
+<div class="ad-slot" data-ad="article-mid"><div>广告位（文章中部）<small>AdSense / 广告联盟代码插入点 · 建议 728×90 / 移动端 320×100</small></div><!-- 在这里粘贴广告代码 --></div>
+<p>执行计划 解读 方法 就三步：type 是不是 ALL 或 index，rows 是不是接近表行数，Extra 有没有 Using temporary 和 Using filesort。MySQL 8.0.18 起用 EXPLAIN ANALYZE 看 actual rows 和 loops，估算和实测差 5 倍以上，统计信息八成过期，先 ANALYZE TABLE。统计信息过期那条，EXPLAIN 估 8 万行、实测 120 万行，ANALYZE 后从 1.1 秒到 240 毫秒。案例：一条 type=ALL、rows=940 万、filtered=10%、Extra 是 Using temporary 加 Using filesort 的查询，模型第一版建议给 created_at 建单列索引，可 status 只有 4 个值，选择度不够；改成联合索引 (status, created_at) 后 type 变 range、rows 降到 8 万，3.9 秒到 380 毫秒。第二处是 order_items 缺 (order_id) 索引，换成覆盖索引 (order_id, sku_id, qty)，回表消失，到 90 毫秒。避坑三：让它用 FORCE INDEX 硬顶，指标好看，换个月份就崩；避坑四：不看写放大，这张订单表写入 TPS 从 1200 掉到 980。SQL 优化 AI 给的索引要先在从库验证，别直接上主库。</p>
+<h2>改写只做四类，行数必须核对</h2>
+<p>我让模型只做四类改写，每类标风险：深分页改延迟关联，先查 id 再回表，LIMIT 500000,20 从 3.9 秒到 210 毫秒；大 IN 列表拆 UNION ALL 或写临时表；SELECT 全字段收窄到 8 个字段；相关子查询改派生表加窗口函数。每条改写都要重跑 EXPLAIN 对照 rows，再用 COUNT 核对行数。模型把 LEFT JOIN 改成 INNER JOIN 的那种“优化”我遇到两次，报表少了 300 多行，数字对不上比慢更严重。改写也别动业务语义：OR 拆 UNION 时漏掉去重，同一订单会被统计两次。索引最后收一次：3 个索引里删掉 1 个重复前缀的，净增 2 个。</p>
+<h2>总结</h2>
+<p>闭环四步：慢日志聚合排优先级、执行计划取证、索引或改写、核对行数和写放大。慢查询从每天 2100 条降到 60 条，P99 3.8 秒到 210 毫秒，实例规格没加。SQL 优化 AI 只是加速器：慢 SQL 如何 定位 靠日志排序，执行计划 解读 方法 靠 type、rows、Extra 三列，这两步人得自己会，它给的建议才敢上线。</p></article>
+  
+  <section class="related"><h2>同类教程</h2><ul><li><a href="code-01-cursor-tab-settings.html">Cursor Tab 补全 设置：五个开关的取舍</a></li><li><a href="code-02-claude-code-cli-refactor.html">Claude Code CLI 重构：四步顺序</a></li><li><a href="code-03-github-copilot-unit-tests.html">GitHub Copilot 单元测试：三步法</a></li><li><a href="code-04-windsurf-cascade-multifile.html">Windsurf Cascade 多文件：先验收</a></li><li><a href="code-05-tongyi-lingma-private-repo.html">通义灵码 私有仓库：企业版知识库200MB上限</a></li></ul><p class="tool-link"><a href="../index.html">查看 编程助手 工具与其它教程 →</a> <a href="../t/params/">参数与配置 →</a></p></section>
+  <footer>© 2026 星籁 Stellara · <a href="../privacy.html">隐私政策</a> · <a href="../sitemap.xml">站点地图</a></footer>
+</main>
+</body>
+</html>
