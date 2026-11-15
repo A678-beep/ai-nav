@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>长上下文 用法：token 预算与中段召回 · 星籁</title>
+<meta name="description" content="公司复盘一次线上事故，材料是 180 页事故报告、42 页工单和 12 段会议纪要，转成文字约 30 万汉字。我一次性塞进 100 万 token 窗口的模型，问三件事：时间线、责任划分、改进项。前两个答得干净，第三个把">
+<meta name="keywords" content="长上下文 用法, 长上下文 分块, 注意力衰减, token 预算, 长上下文 怎么用, 长文档 分块 策略">
+<meta name="robots" content="index,follow">
+
+<link rel="canonical" href="https://a678-beep.github.io/ai-nav/a/chat-48-long-context-usage.html">
+<meta property="og:type" content="article">
+<meta property="og:title" content="长上下文 用法：token 预算与中段召回">
+<meta property="og:description" content="公司复盘一次线上事故，材料是 180 页事故报告、42 页工单和 12 段会议纪要，转成文字约 30 万汉字。我一次性塞进 100 万 token 窗口的模型，问三件事：时间线、责任划分、改进项。前两个答得干净，第三个把">
+<meta property="og:url" content="https://a678-beep.github.io/ai-nav/a/chat-48-long-context-usage.html">
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "Article", "headline": "长上下文 用法：token 预算与中段召回", "inLanguage": "zh-CN", "datePublished": "2026-11-15", "author": {"@type": "Organization", "name": "星籁 Stellara"}, "publisher": {"@type": "Organization", "name": "星籁 Stellara"}, "mainEntityOfPage": "https://a678-beep.github.io/ai-nav/a/chat-48-long-context-usage.html", "articleSection": "对话AI", "wordCount": 802, "dateModified": "2026-11-15", "keywords": "长上下文 用法, 长上下文 分块, 注意力衰减, token 预算, 长上下文 怎么用, 长文档 分块 策略"}</script>
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "首页", "item": "https://a678-beep.github.io/ai-nav/"}, {"@type": "ListItem", "position": 2, "name": "对话AI", "item": "https://a678-beep.github.io/ai-nav/#/articles"}, {"@type": "ListItem", "position": 3, "name": "长上下文 用法：token 预算与中段召回", "item": "https://a678-beep.github.io/ai-nav/a/chat-48-long-context-usage.html"}]}</script>
+<style>
+:root{--bg:#080b12;--panel:#111827;--line:#1f2937;--txt:#e6edf7;--txt2:#9aa8bd;--txt3:#6b7a90;--cyan:#5ad1ff;--violet:#a78bfa}
+*{box-sizing:border-box}body{margin:0;background:radial-gradient(900px 500px at 82% -8%,rgba(90,209,255,.16),transparent 60%),var(--bg);color:var(--txt);font-family:"Microsoft YaHei","PingFang SC",system-ui,sans-serif;line-height:1.8}
+a{color:inherit;text-decoration:none}
+.top{position:sticky;top:0;backdrop-filter:blur(12px);background:rgba(8,11,18,.85);border-bottom:1px solid var(--line)}
+.top-in{max-width:900px;margin:0 auto;padding:12px 20px;display:flex;align-items:center;gap:10px}
+.logo{display:flex;align-items:center;gap:9px;font-weight:800}
+.logo .mark{width:30px;height:30px;border-radius:9px;background:linear-gradient(135deg,var(--cyan),var(--violet));display:grid;place-items:center;color:#04121c;font-weight:900}
+.top-in .back{margin-left:auto;color:var(--txt2);font-size:13px}
+main{max-width:900px;margin:0 auto;padding:28px 20px 60px}
+h1{font-size:28px;line-height:1.4;margin:8px 0 10px}
+.meta{color:var(--txt3);font-size:12.5px;margin-bottom:22px;display:flex;gap:8px;flex-wrap:wrap}
+.content{font-size:15.5px;color:#cfd9e6}
+.content h2{font-size:20px;color:var(--txt);margin:28px 0 10px}
+.content h3{font-size:17px;color:var(--txt);margin:22px 0 8px}
+.content p{margin:12px 0}
+.content li{margin:6px 0}
+.content code{background:rgba(120,180,255,.12);padding:1px 6px;border-radius:5px;font-family:Consolas,monospace;font-size:13px}
+.content pre{background:#0a1018;border:1px solid var(--line);border-radius:10px;padding:12px;overflow:auto}
+.content blockquote{border-left:3px solid var(--cyan);padding:4px 14px;color:var(--txt2);margin:16px 0}
+.ad-slot{margin:26px 0;min-height:100px;border:1px dashed rgba(120,140,170,.35);border-radius:12px;display:flex;align-items:center;justify-content:center;color:var(--txt3);font-size:12px;text-align:center;background:rgba(17,24,39,.55)}
+.ad-slot small{display:block;font-size:10.5px;opacity:.7}
+.bread{color:var(--txt3);font-size:12.5px;margin-bottom:6px}
+.bread a{color:var(--cyan)}
+footer{border-top:1px solid var(--line);color:var(--txt3);font-size:12.5px;text-align:center;padding:20px}
+.related{margin:34px 0 10px;border-top:1px solid var(--line);padding-top:18px}.related h2{font-size:16px;color:var(--txt);margin:0 0 10px}.related ul{list-style:none;padding:0;margin:0}.related li{margin:8px 0}.related a{color:var(--cyan);font-size:14px}
+.tool-link{margin:14px 0 0}
+.tlinks a{display:inline-block;margin:0 8px 8px 0;padding:6px 12px;border:1px solid rgba(90,209,255,.25);border-radius:8px;font-size:13px;color:var(--cyan);background:rgba(90,209,255,.06)}
+.tlinks a:hover{background:rgba(90,209,255,.15)}
+.sec{margin:26px 0}
+.sec h2{font-size:17px;color:var(--txt);margin:0 0 10px}
+.tool-link a{display:inline-block;font-size:13px;color:var(--txt2);border:1px solid var(--line);border-radius:8px;padding:7px 12px}
+.tool-link a:hover{color:var(--txt);border-color:rgba(90,209,255,.45)}
+.top-in .back{padding:6px 0}
+.bread a{display:inline-block;padding:6px 0}
+.sec li a{display:inline-block;padding:5px 0}
+.sib a{padding:8px 12px}
+.cats a{display:inline-block;margin:0 8px 8px 0;padding:6px 12px;border:1px solid var(--line);border-radius:8px;font-size:13px;color:var(--txt2)}
+.cats a:hover{color:var(--txt);border-color:rgba(90,209,255,.45)}
+.cats h2{font-size:17px;margin:22px 0 10px}
+@media(max-width:640px){h1{font-size:22px}main{padding:20px 16px 40px}
+.related a,.tlinks a,.tool-link a,footer a,.sib a{min-height:36px;display:inline-flex;align-items:center}
+.list a{padding:14px 14px}
+td a{display:inline-block;padding:8px 0}
+.note a{display:inline-block;padding:7px 0}
+}
+</style>
+</head>
+<body>
+<header class="top"><div class="top-in">
+  <a class="logo" href="../index.html"><span class="mark">✦</span>星籁 AI 导航</a>
+  <a class="back" href="../index.html">← 返回首页</a>
+</div></header>
+<main>
+  <div class="bread"><a href="../index.html">首页</a> / <a href="../chat/index.html">对话AI</a></div>
+  <h1>长上下文 用法：token 预算与中段召回</h1>
+  <div class="meta"><span>对话AI</span><span>·</span><span>更新于 2026-11-15</span><span>·</span><span>长上下文 用法, 长上下文 分块, 注意力衰减, token 预算, 长上下文 怎么用, 长文档 分块 策略</span></div>
+  <article class="content"><p>公司复盘一次线上事故，材料是 180 页事故报告、42 页工单和 12 段会议纪要，转成文字约 30 万汉字。我一次性塞进 100 万 token 窗口的模型，问三件事：时间线、责任划分、改进项。前两个答得干净，第三个把 4 个截止日期张冠李戴，还漏掉一条。这才发现 长上下文 用法 的关键不在窗口大小，在预算、切法和位置。</p>
+<h2>先算预算，再决定塞多少</h2>
+<p>长上下文 用法 的第一步是算预算：中文按 1 个汉字 0.6 到 0.75 个 token 估，30 万汉字约 20 万 token，扫描件 OCR 后图表还会翻倍。窗口再大也要留三块：输出预留 32k、系统提示 4k、多轮历史按每轮 6k 算。我的做法是单次任务占有效窗口六成，128K 窗口塞 7 万 token 文档、留 8k 输出和三轮追问，剩下一成当冗余。标称 100 万不等于能用 100 万。避坑一：按页数估 token 必翻车，一页纯文字和满页表格差三倍；避坑二：忘了输出预留，模型写到一半开始复述前文。</p>
+<h2>分块按语义切，不按字数切</h2>
+<div class="ad-slot" data-ad="article-mid"><div>广告位（文章中部）<small>AdSense / 广告联盟代码插入点 · 建议 728×90 / 移动端 320×100</small></div><!-- 在这里粘贴广告代码 --></div>
+<p>全塞进去贵，切块又容易丢信息，我的折中是混合走：先让模型只读各章标题和首段，建一张 38 块的目录索引，每块标关键词和页码，写成一行一块，38 块一张表不到 1500 token，每次先把整张表带上，让它先选块再回答；提问时按索引取 3 到 5 块拼成一次请求，单次输入从 20 万 token 降到 2 万 token，成本只剩十分之一。切点严格落在章节边界，跨块的表格单独复制成一段附在块尾，重叠留 200 字就够，重叠太多模型会来回引用同一段。长文档 分块 策略 里最值钱的一条是给每块起名字，回答时才能指回原文。</p>
+<h2>注意力衰减：关键信息放头尾</h2>
+<p>长上下文 怎么用 才不踩衰减？我把一段关键日期放在全篇 35% 的位置，约 10 万 token 处，连问五次只答对两次；把它复制到开头和结尾各一份，五次全对。经验是上三成和下三成召回最稳，中段要二次点名：问之前先让模型复述任务和要找的字段，回答后要求标注出处块号，再抽两块原文核对。一次只问一个子问题，五个问题分五轮，命中率明显比一锅端高。长上下文 用法 的最后一条是别把它当记忆，跨轮次仍要贴任务卡。避坑三：整份 PDF 直接截图贴进去，token 比文字层贵三倍，小字还识别不准。</p>
+<h2>总结</h2>
+<p>长上下文 用法 落到操作是四步：估 token 建预算、按章节切块建索引、关键信息头尾各放一份、每轮只问一个子问题并核对出处。100 万窗口的模型不是保险箱，30 万字材料按这个流程重跑，改进项的错误从 4 处降到 0。长文档 分块 策略 和 长上下文 怎么用 说到底是同一件事：让模型每次只处理它看得清的那一段。</p></article>
+  
+  <section class="related"><h2>同类教程</h2><ul><li><a href="chat-01-chatgpt-4o-voice-english-speaking.html">ChatGPT 4o 语音对话 练英语口语实测</a></li><li><a href="chat-02-claude-37-sonnet-long-document-summary.html">Claude 3.7 Sonnet 长文档总结法</a></li><li><a href="chat-03-deepseek-r1-local-deployment-vram.html">DeepSeek R1 本地部署 显存要求实录</a></li><li><a href="chat-04-kimi-long-text-contract-review.html">Kimi 长文本 合同审查实操与模板</a></li><li><a href="chat-05-doubao-voice-clone-cs-scripts.html">豆包 语音克隆 客服话术 4 个细节</a></li></ul><p class="tool-link"><a href="../index.html">查看 对话AI 工具与其它教程 →</a> <a href="../t/errors/">AI 报错解决 →</a> <a href="../t/pricing/">AI 工具价格 →</a></p></section>
+  <footer>© 2026 星籁 Stellara · <a href="../privacy.html">隐私政策</a> · <a href="../sitemap.xml">站点地图</a></footer>
+</main>
+</body>
+</html>
