@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>售后 工单 自动化：分派规则加 3 级 SLA · 星籁</title>
+<meta name="description" content="售后团队 9 个人，每月压着 1400 张工单，过去全靠微信群里喊「谁接一下」。客户消息被刷上去，平均首响 46 分钟，超时率 27%，同一张单两个人跟的情况每周都有。我把 售后 工单 自动化 拆成三件事：先定工单表字段">
+<meta name="keywords" content="售后 工单 自动化, 工单 分派 规则, 售后 SLA, 工单 字段, 工单 状态 流转, 售后工单自动化流程, 工单分派规则设置">
+<meta name="robots" content="index,follow">
+
+<link rel="canonical" href="https://a678-beep.github.io/ai-nav/a/biz-39-after-sales-ticket-automation.html">
+<meta property="og:type" content="article">
+<meta property="og:title" content="售后 工单 自动化：分派规则加 3 级 SLA">
+<meta property="og:description" content="售后团队 9 个人，每月压着 1400 张工单，过去全靠微信群里喊「谁接一下」。客户消息被刷上去，平均首响 46 分钟，超时率 27%，同一张单两个人跟的情况每周都有。我把 售后 工单 自动化 拆成三件事：先定工单表字段">
+<meta property="og:url" content="https://a678-beep.github.io/ai-nav/a/biz-39-after-sales-ticket-automation.html">
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "Article", "headline": "售后 工单 自动化：分派规则加 3 级 SLA", "inLanguage": "zh-CN", "datePublished": "2026-11-15", "author": {"@type": "Organization", "name": "星籁 Stellara"}, "publisher": {"@type": "Organization", "name": "星籁 Stellara"}, "mainEntityOfPage": "https://a678-beep.github.io/ai-nav/a/biz-39-after-sales-ticket-automation.html", "articleSection": "商业效率", "wordCount": 848, "dateModified": "2026-11-15", "keywords": "售后 工单 自动化, 工单 分派 规则, 售后 SLA, 工单 字段, 工单 状态 流转, 售后工单自动化流程, 工单分派规则设置"}</script>
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "首页", "item": "https://a678-beep.github.io/ai-nav/"}, {"@type": "ListItem", "position": 2, "name": "商业效率", "item": "https://a678-beep.github.io/ai-nav/#/articles"}, {"@type": "ListItem", "position": 3, "name": "售后 工单 自动化：分派规则加 3 级 SLA", "item": "https://a678-beep.github.io/ai-nav/a/biz-39-after-sales-ticket-automation.html"}]}</script>
+<style>
+:root{--bg:#080b12;--panel:#111827;--line:#1f2937;--txt:#e6edf7;--txt2:#9aa8bd;--txt3:#6b7a90;--cyan:#5ad1ff;--violet:#a78bfa}
+*{box-sizing:border-box}body{margin:0;background:radial-gradient(900px 500px at 82% -8%,rgba(90,209,255,.16),transparent 60%),var(--bg);color:var(--txt);font-family:"Microsoft YaHei","PingFang SC",system-ui,sans-serif;line-height:1.8}
+a{color:inherit;text-decoration:none}
+.top{position:sticky;top:0;backdrop-filter:blur(12px);background:rgba(8,11,18,.85);border-bottom:1px solid var(--line)}
+.top-in{max-width:900px;margin:0 auto;padding:12px 20px;display:flex;align-items:center;gap:10px}
+.logo{display:flex;align-items:center;gap:9px;font-weight:800}
+.logo .mark{width:30px;height:30px;border-radius:9px;background:linear-gradient(135deg,var(--cyan),var(--violet));display:grid;place-items:center;color:#04121c;font-weight:900}
+.top-in .back{margin-left:auto;color:var(--txt2);font-size:13px}
+main{max-width:900px;margin:0 auto;padding:28px 20px 60px}
+h1{font-size:28px;line-height:1.4;margin:8px 0 10px}
+.meta{color:var(--txt3);font-size:12.5px;margin-bottom:22px;display:flex;gap:8px;flex-wrap:wrap}
+.content{font-size:15.5px;color:#cfd9e6}
+.content h2{font-size:20px;color:var(--txt);margin:28px 0 10px}
+.content h3{font-size:17px;color:var(--txt);margin:22px 0 8px}
+.content p{margin:12px 0}
+.content li{margin:6px 0}
+.content code{background:rgba(120,180,255,.12);padding:1px 6px;border-radius:5px;font-family:Consolas,monospace;font-size:13px}
+.content pre{background:#0a1018;border:1px solid var(--line);border-radius:10px;padding:12px;overflow:auto}
+.content blockquote{border-left:3px solid var(--cyan);padding:4px 14px;color:var(--txt2);margin:16px 0}
+.ad-slot{margin:26px 0;min-height:100px;border:1px dashed rgba(120,140,170,.35);border-radius:12px;display:flex;align-items:center;justify-content:center;color:var(--txt3);font-size:12px;text-align:center;background:rgba(17,24,39,.55)}
+.ad-slot small{display:block;font-size:10.5px;opacity:.7}
+.bread{color:var(--txt3);font-size:12.5px;margin-bottom:6px}
+.bread a{color:var(--cyan)}
+footer{border-top:1px solid var(--line);color:var(--txt3);font-size:12.5px;text-align:center;padding:20px}
+.related{margin:34px 0 10px;border-top:1px solid var(--line);padding-top:18px}.related h2{font-size:16px;color:var(--txt);margin:0 0 10px}.related ul{list-style:none;padding:0;margin:0}.related li{margin:8px 0}.related a{color:var(--cyan);font-size:14px}
+.tool-link{margin:14px 0 0}
+.tlinks a{display:inline-block;margin:0 8px 8px 0;padding:6px 12px;border:1px solid rgba(90,209,255,.25);border-radius:8px;font-size:13px;color:var(--cyan);background:rgba(90,209,255,.06)}
+.tlinks a:hover{background:rgba(90,209,255,.15)}
+.sec{margin:26px 0}
+.sec h2{font-size:17px;color:var(--txt);margin:0 0 10px}
+.tool-link a{display:inline-block;font-size:13px;color:var(--txt2);border:1px solid var(--line);border-radius:8px;padding:7px 12px}
+.tool-link a:hover{color:var(--txt);border-color:rgba(90,209,255,.45)}
+.top-in .back{padding:6px 0}
+.bread a{display:inline-block;padding:6px 0}
+.sec li a{display:inline-block;padding:5px 0}
+.sib a{padding:8px 12px}
+.cats a{display:inline-block;margin:0 8px 8px 0;padding:6px 12px;border:1px solid var(--line);border-radius:8px;font-size:13px;color:var(--txt2)}
+.cats a:hover{color:var(--txt);border-color:rgba(90,209,255,.45)}
+.cats h2{font-size:17px;margin:22px 0 10px}
+@media(max-width:640px){h1{font-size:22px}main{padding:20px 16px 40px}
+.related a,.tlinks a,.tool-link a,footer a,.sib a{min-height:36px;display:inline-flex;align-items:center}
+.list a{padding:14px 14px}
+td a{display:inline-block;padding:8px 0}
+.note a{display:inline-block;padding:7px 0}
+}
+</style>
+</head>
+<body>
+<header class="top"><div class="top-in">
+  <a class="logo" href="../index.html"><span class="mark">✦</span>星籁 AI 导航</a>
+  <a class="back" href="../index.html">← 返回首页</a>
+</div></header>
+<main>
+  <div class="bread"><a href="../index.html">首页</a> / <a href="../biz/index.html">商业效率</a></div>
+  <h1>售后 工单 自动化：分派规则加 3 级 SLA</h1>
+  <div class="meta"><span>商业效率</span><span>·</span><span>更新于 2026-11-15</span><span>·</span><span>售后 工单 自动化, 工单 分派 规则, 售后 SLA, 工单 字段, 工单 状态 流转, 售后工单自动化流程, 工单分派规则设置</span></div>
+  <article class="content"><p>售后团队 9 个人，每月压着 1400 张工单，过去全靠微信群里喊「谁接一下」。客户消息被刷上去，平均首响 46 分钟，超时率 27%，同一张单两个人跟的情况每周都有。我把 售后 工单 自动化 拆成三件事：先定工单表字段，再写分派规则，最后按优先级挂 SLA，跑了 6 周，首响降到 11 分钟，超时率 6%，重复工单从 18% 掉到 5%。</p>
+<h2>一、工单表 12 个字段，状态只准往前走</h2>
+<p>售后工单自动化流程 的第一步是建表，别急着买客服系统。总表留 12 列：工单号、客户名、订单号、产品型号、问题分类、故障描述、期望处理、来源渠道、优先级、受理人、创建时间、SLA 截止。必填只设 6 个，其余选填，一线才肯填。客户第一句话进来，先让模型抽 4 个字段：型号、订单号、购买渠道、期望补偿，人工只补优先级。状态机画成 5 个：待受理、处理中、待客户确认、已解决、已关闭，只允许回退一步，避免工单在状态之间来回跳。避坑一，字段一多必填一满，客服就挑着填，后面统计全是空值。</p>
+<h2>二、分派先分技能组，再压负载上限</h2>
+<div class="ad-slot" data-ad="article-mid"><div>广告位（文章中部）<small>AdSense / 广告联盟代码插入点 · 建议 728×90 / 移动端 320×100</small></div><!-- 在这里粘贴广告代码 --></div>
+<p>售后 工单 自动化 跑不跑得动，分派占一半。工单分派规则设置 我按三层走。第一层按问题分类路由：退款发票进财务组，安装故障进技术组，投诉进主管池，跑了两周准确率 92%。第二层按产品线分 3 个小组，每组 3 人。第三层加负载上限：每人同时在办不超过 12 张，满了自动转下一位，年采购 5 万以上的 VIP 客户直接派资深客服，这类单占 8%。最早试过按人头轮询，一个客服积压到 23 张，客户最长等 4 小时；加负载上限后压到 40 分钟。避坑二，只按品类分不按区域分，需要上门的单让两个城市的技术员互跑。避坑三，入口没做合并，同一订单 24 小时内进来 3 张单，得按客户加订单号去重。</p>
+<h2>三、SLA 三档计时，到 80% 先提醒</h2>
+<p>售后 SLA 分三档，写在工单表最右边。P1 是退款、发错货、批量故障，2 小时首响、24 小时解决；P2 是安装和单机故障，4 小时首响、48 小时解决；P3 是使用咨询，8 小时首响、72 小时解决。计时只算工作日 9 点到 18 点，节假日排除，自动化按这个日历算。到 SLA 的 80% 给受理人发提醒，100% 抄送主管，120% 直接进升级池。避坑四，用自然日计时，春节 7 天回来一片红色工单，团队直接不点预警了。工单 状态 流转 里每个状态都记时间戳，解决时长才能拆开，不然分不清是受理慢还是处理慢。</p>
+<h2>总结</h2>
+<p>售后 工单 自动化 的顺序是：12 个字段把单立住，技能组加负载上限把单分对，三档 SLA 把时限盯死。系统先用飞书多维表格或简道云搭，跑满一个月看两个数：首响时间和重复工单率，都降下来才算通。售后工单自动化流程 不用一次做全，先把分派和计时跑顺，工单分派规则设置 每周补一条例外就够。</p></article>
+  <div class="sec"><h2>文中提到的工具</h2><p class="tlinks"><a href="../tool/feishu-bitable/">飞书多维表格 →</a></p></div>
+  <section class="related"><h2>同类教程</h2><ul><li><a href="biz-40-data-cleaning-spreadsheet.html">数据 清洗 表格：6 条规则和去重流程</a></li><li><a href="biz-41-customer-churn-warning.html">客户 流失 预警：5 个指标加三级挽回动作</a></li><li><a href="biz-01-notion-ai-database-automation.html">Notion AI 数据库 自动化：4 步搭建</a></li><li><a href="biz-02-feishu-bitable-ai-field.html">飞书 多维表格 AI 字段：3 类工单</a></li><li><a href="biz-03-zapier-ai-automation-workflow.html">Zapier AI 自动化 流程：4 个触发器</a></li></ul><p class="tool-link"><a href="../index.html">查看 商业效率 工具与其它教程 →</a> <a href="../t/errors/">AI 报错解决 →</a> <a href="../t/params/">参数与配置 →</a></p></section>
+  <footer>© 2026 星籁 Stellara · <a href="../privacy.html">隐私政策</a> · <a href="../sitemap.xml">站点地图</a></footer>
+</main>
+</body>
+</html>

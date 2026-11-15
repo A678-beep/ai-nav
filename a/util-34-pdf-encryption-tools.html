@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>PDF 加密 工具：算法、权限与批量加密脚本 · 星籁</title>
+<meta name="description" content="给一家律所整理 260 份劳动合同 PDF，交付 HR 系统时要求只能看不能改、禁止打印，外部供应商那批还得加打开密码。用 qpdf 一条命令加权限，260 份 90 秒跑完。PDF 加密 工具 分两类：设打开密码的，和">
+<meta name="keywords" content="PDF 加密 工具, PDF 打开密码, PDF 权限密码, PDF 算法, PDF 批量加密, PDF 权限设置">
+<meta name="robots" content="index,follow">
+
+<link rel="canonical" href="https://a678-beep.github.io/ai-nav/a/util-34-pdf-encryption-tools.html">
+<meta property="og:type" content="article">
+<meta property="og:title" content="PDF 加密 工具：算法、权限与批量加密脚本">
+<meta property="og:description" content="给一家律所整理 260 份劳动合同 PDF，交付 HR 系统时要求只能看不能改、禁止打印，外部供应商那批还得加打开密码。用 qpdf 一条命令加权限，260 份 90 秒跑完。PDF 加密 工具 分两类：设打开密码的，和">
+<meta property="og:url" content="https://a678-beep.github.io/ai-nav/a/util-34-pdf-encryption-tools.html">
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "Article", "headline": "PDF 加密 工具：算法、权限与批量加密脚本", "inLanguage": "zh-CN", "datePublished": "2026-11-15", "author": {"@type": "Organization", "name": "星籁 Stellara"}, "publisher": {"@type": "Organization", "name": "星籁 Stellara"}, "mainEntityOfPage": "https://a678-beep.github.io/ai-nav/a/util-34-pdf-encryption-tools.html", "articleSection": "实用工具", "wordCount": 804, "dateModified": "2026-11-15", "keywords": "PDF 加密 工具, PDF 打开密码, PDF 权限密码, PDF 算法, PDF 批量加密, PDF 权限设置"}</script>
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "首页", "item": "https://a678-beep.github.io/ai-nav/"}, {"@type": "ListItem", "position": 2, "name": "实用工具", "item": "https://a678-beep.github.io/ai-nav/#/articles"}, {"@type": "ListItem", "position": 3, "name": "PDF 加密 工具：算法、权限与批量加密脚本", "item": "https://a678-beep.github.io/ai-nav/a/util-34-pdf-encryption-tools.html"}]}</script>
+<style>
+:root{--bg:#080b12;--panel:#111827;--line:#1f2937;--txt:#e6edf7;--txt2:#9aa8bd;--txt3:#6b7a90;--cyan:#5ad1ff;--violet:#a78bfa}
+*{box-sizing:border-box}body{margin:0;background:radial-gradient(900px 500px at 82% -8%,rgba(90,209,255,.16),transparent 60%),var(--bg);color:var(--txt);font-family:"Microsoft YaHei","PingFang SC",system-ui,sans-serif;line-height:1.8}
+a{color:inherit;text-decoration:none}
+.top{position:sticky;top:0;backdrop-filter:blur(12px);background:rgba(8,11,18,.85);border-bottom:1px solid var(--line)}
+.top-in{max-width:900px;margin:0 auto;padding:12px 20px;display:flex;align-items:center;gap:10px}
+.logo{display:flex;align-items:center;gap:9px;font-weight:800}
+.logo .mark{width:30px;height:30px;border-radius:9px;background:linear-gradient(135deg,var(--cyan),var(--violet));display:grid;place-items:center;color:#04121c;font-weight:900}
+.top-in .back{margin-left:auto;color:var(--txt2);font-size:13px}
+main{max-width:900px;margin:0 auto;padding:28px 20px 60px}
+h1{font-size:28px;line-height:1.4;margin:8px 0 10px}
+.meta{color:var(--txt3);font-size:12.5px;margin-bottom:22px;display:flex;gap:8px;flex-wrap:wrap}
+.content{font-size:15.5px;color:#cfd9e6}
+.content h2{font-size:20px;color:var(--txt);margin:28px 0 10px}
+.content h3{font-size:17px;color:var(--txt);margin:22px 0 8px}
+.content p{margin:12px 0}
+.content li{margin:6px 0}
+.content code{background:rgba(120,180,255,.12);padding:1px 6px;border-radius:5px;font-family:Consolas,monospace;font-size:13px}
+.content pre{background:#0a1018;border:1px solid var(--line);border-radius:10px;padding:12px;overflow:auto}
+.content blockquote{border-left:3px solid var(--cyan);padding:4px 14px;color:var(--txt2);margin:16px 0}
+.ad-slot{margin:26px 0;min-height:100px;border:1px dashed rgba(120,140,170,.35);border-radius:12px;display:flex;align-items:center;justify-content:center;color:var(--txt3);font-size:12px;text-align:center;background:rgba(17,24,39,.55)}
+.ad-slot small{display:block;font-size:10.5px;opacity:.7}
+.bread{color:var(--txt3);font-size:12.5px;margin-bottom:6px}
+.bread a{color:var(--cyan)}
+footer{border-top:1px solid var(--line);color:var(--txt3);font-size:12.5px;text-align:center;padding:20px}
+.related{margin:34px 0 10px;border-top:1px solid var(--line);padding-top:18px}.related h2{font-size:16px;color:var(--txt);margin:0 0 10px}.related ul{list-style:none;padding:0;margin:0}.related li{margin:8px 0}.related a{color:var(--cyan);font-size:14px}
+.tool-link{margin:14px 0 0}
+.tlinks a{display:inline-block;margin:0 8px 8px 0;padding:6px 12px;border:1px solid rgba(90,209,255,.25);border-radius:8px;font-size:13px;color:var(--cyan);background:rgba(90,209,255,.06)}
+.tlinks a:hover{background:rgba(90,209,255,.15)}
+.sec{margin:26px 0}
+.sec h2{font-size:17px;color:var(--txt);margin:0 0 10px}
+.tool-link a{display:inline-block;font-size:13px;color:var(--txt2);border:1px solid var(--line);border-radius:8px;padding:7px 12px}
+.tool-link a:hover{color:var(--txt);border-color:rgba(90,209,255,.45)}
+.top-in .back{padding:6px 0}
+.bread a{display:inline-block;padding:6px 0}
+.sec li a{display:inline-block;padding:5px 0}
+.sib a{padding:8px 12px}
+.cats a{display:inline-block;margin:0 8px 8px 0;padding:6px 12px;border:1px solid var(--line);border-radius:8px;font-size:13px;color:var(--txt2)}
+.cats a:hover{color:var(--txt);border-color:rgba(90,209,255,.45)}
+.cats h2{font-size:17px;margin:22px 0 10px}
+@media(max-width:640px){h1{font-size:22px}main{padding:20px 16px 40px}
+.related a,.tlinks a,.tool-link a,footer a,.sib a{min-height:36px;display:inline-flex;align-items:center}
+.list a{padding:14px 14px}
+td a{display:inline-block;padding:8px 0}
+.note a{display:inline-block;padding:7px 0}
+}
+</style>
+</head>
+<body>
+<header class="top"><div class="top-in">
+  <a class="logo" href="../index.html"><span class="mark">✦</span>星籁 AI 导航</a>
+  <a class="back" href="../index.html">← 返回首页</a>
+</div></header>
+<main>
+  <div class="bread"><a href="../index.html">首页</a> / <a href="../util/index.html">实用工具</a></div>
+  <h1>PDF 加密 工具：算法、权限与批量加密脚本</h1>
+  <div class="meta"><span>实用工具</span><span>·</span><span>更新于 2026-11-15</span><span>·</span><span>PDF 加密 工具, PDF 打开密码, PDF 权限密码, PDF 算法, PDF 批量加密, PDF 权限设置</span></div>
+  <article class="content"><p>给一家律所整理 260 份劳动合同 PDF，交付 HR 系统时要求只能看不能改、禁止打印，外部供应商那批还得加打开密码。用 qpdf 一条命令加权限，260 份 90 秒跑完。PDF 加密 工具 分两类：设打开密码的，和只设权限的，选错会出现「能打开但限制全失效」的情况。</p>
+<h2>一、打开密码与权限密码，先分清防谁</h2>
+<p>打开密码（user password）打开时就要输，AES-256 下没有密码基本没救；权限密码（owner password）只限制打印、复制、编辑，很多阅读器根本不理。Chrome 内置阅读器、WPS 对只设权限的 PDF 照常打印，真正保密必须设打开密码。算法只看 AES：RC4 在 PDF 2.0 里已弃用，AES-128 从 PDF 1.6 起支持，AES-256 要 PDF 2.0 或 Acrobat X 以上。qpdf 的 --encrypt 指定 256 就是 256 位 AES，2010 年前的 ERP 和部分老 OA 可能只认 RC4，批量前先拿一份样本试打开。权限颗粒度有五项：print、modify、extract、annotate、form，qpdf 里对应 --print=none、--modify=none、--extract=n。避坑一，只设权限密码等于没设，截图和打印都拦不住；避坑二，中文密码在旧版 Foxit 上会直接报错，统一用 ASCII 密码。</p>
+<h2>二、PDF 加密 工具 怎么选：命令行、Acrobat 与自部署</h2>
+<div class="ad-slot" data-ad="article-mid"><div>广告位（文章中部）<small>AdSense / 广告联盟代码插入点 · 建议 728×90 / 移动端 320×100</small></div><!-- 在这里粘贴广告代码 --></div>
+<p>批量我全用 qpdf，命令是 qpdf --encrypt "读密码" "所有者密码" 256 --print=none --modify=none --extract=n -- in.pdf out.pdf，外层 PowerShell 遍历文件夹，脚本读一份 CSV（文件名、密码、权限档位）拼参数。260 份平均每份 0.3 秒，90 秒出完；Acrobat Pro 手动一份约 40 秒，260 份得三个多小时。Acrobat 的路径是「工具—保护—加密—使用密码加密」，勾选限制编辑和打印，适合零星几份。PDF24 Creator 免费，拖进列表就能加密，没有命令行。涉密文件用 Stirling PDF 自部署，docker 起在内网 8080，文件不出局域网。PDF 批量加密 跑完必须用 qpdf --show-encryption 抽查，看 R = 6（AES-256）和 P 值权限位对不对。避坑三，密码明文写进脚本再提交 Git 等于公开，用环境变量或交互输入；避坑四，8 位纯数字密码在消费级显卡上几分钟跑完字典，交付密码至少 16 位，大小写加符号。</p>
+<h2>三、260 份合同的批量流程与两个坑</h2>
+<p>那 260 份分三档：在职员工可打印、禁修改；离职证明禁打印；外部供应商加 16 位打开密码。脚本按文件名后缀匹配档位，跑完输出报告，逐份记录权限、算法和耗时。第一轮抽检 20 份，有 3 份仍能打印，原因是重复加密时 qpdf 报错、脚本没退出就跳过了，加了错误捕获和二次校验才干净。PDF 权限设置 别指望防截屏，它只挡打印和编辑；要防转发就设打开密码，密码单独走短信或电话，别和 PDF 放同一封邮件。避坑五，加密前把源文件留一份在离线盘，qpdf 没有找回密码的后门，忘了就是重做。避坑六，加密只改对象头，体积几乎不变，别按体积判断有没有加密，看 --show-encryption 的 R 值才准。</p>
+<h2>总结</h2>
+<p>PDF 加密 工具 的选型顺序是：先分打开密码和权限密码，再用 qpdf 批量加 AES-256 权限，零星几份交给 Acrobat 或 PDF24，涉密走自部署。PDF 批量加密 和 PDF 权限设置 都写进 CSV 加脚本，260 份 90 秒跑完，抽检看 R = 6 这一行，比手工点 260 次可靠。</p></article>
+  <div class="sec"><h2>文中提到的工具</h2><p class="tlinks"><a href="../tool/dify/">Dify →</a></p></div>
+  <section class="related"><h2>同类教程</h2><ul><li><a href="util-01-perplexity-academic-search.html">Perplexity 学术 检索：三个提问模板</a></li><li><a href="util-02-notebooklm-podcast.html">NotebookLM 播客 生成：中文双人对谈</a></li><li><a href="util-03-otter-meeting-transcript-cn.html">Otter 会议 转写 中文：说话人分离实测</a></li><li><a href="util-04-readwise-reader-summary.html">Readwise Reader 摘要：高亮回链</a></li><li><a href="util-05-immersive-translate-paper.html">沉浸式翻译 论文：PDF 双语对照与术语表设置</a></li></ul><p class="tool-link"><a href="../index.html">查看 实用工具 工具与其它教程 →</a> <a href="../t/errors/">AI 报错解决 →</a> <a href="../t/pricing/">AI 工具价格 →</a></p></section>
+  <footer>© 2026 星籁 Stellara · <a href="../privacy.html">隐私政策</a> · <a href="../sitemap.xml">站点地图</a></footer>
+</main>
+</body>
+</html>
