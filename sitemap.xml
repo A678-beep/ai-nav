@@ -175,6 +175,7 @@
   <url><loc>https://a678-beep.github.io/ai-nav/a/chat-41-ai-hallucination-detection.html</loc><lastmod>2026-11-15</lastmod><changefreq>monthly</changefreq><priority>0.7</priority></url>
   <url><loc>https://a678-beep.github.io/ai-nav/a/chat-42-ai-citation-format.html</loc><lastmod>2026-11-15</lastmod><changefreq>monthly</changefreq><priority>0.7</priority></url>
   <url><loc>https://a678-beep.github.io/ai-nav/a/chat-43-prompt-injection-defense.html</loc><lastmod>2026-11-15</lastmod><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://a678-beep.github.io/ai-nav/a/chat-44-llm-knowledge-cutoff.html</loc><lastmod>2026-11-15</lastmod><changefreq>monthly</changefreq><priority>0.7</priority></url>
   <url><loc>https://a678-beep.github.io/ai-nav/a/code-01-cursor-tab-settings.html</loc><lastmod>2026-11-15</lastmod><changefreq>monthly</changefreq><priority>0.7</priority></url>
   <url><loc>https://a678-beep.github.io/ai-nav/a/code-02-claude-code-cli-refactor.html</loc><lastmod>2026-11-15</lastmod><changefreq>monthly</changefreq><priority>0.7</priority></url>
   <url><loc>https://a678-beep.github.io/ai-nav/a/code-03-github-copilot-unit-tests.html</loc><lastmod>2026-11-15</lastmod><changefreq>monthly</changefreq><priority>0.7</priority></url>
@@ -216,6 +217,7 @@
   <url><loc>https://a678-beep.github.io/ai-nav/a/code-39-code-comment-standards.html</loc><lastmod>2026-11-15</lastmod><changefreq>monthly</changefreq><priority>0.7</priority></url>
   <url><loc>https://a678-beep.github.io/ai-nav/a/code-40-ai-sql-validation.html</loc><lastmod>2026-11-15</lastmod><changefreq>monthly</changefreq><priority>0.7</priority></url>
   <url><loc>https://a678-beep.github.io/ai-nav/a/code-41-unit-test-assertions.html</loc><lastmod>2026-11-15</lastmod><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://a678-beep.github.io/ai-nav/a/code-42-reduce-code-complexity.html</loc><lastmod>2026-11-15</lastmod><changefreq>monthly</changefreq><priority>0.7</priority></url>
   <url><loc>https://a678-beep.github.io/ai-nav/a/image-01-midjourney-v7-character-consistency.html</loc><lastmod>2026-11-15</lastmod><changefreq>monthly</changefreq><priority>0.7</priority></url>
   <url><loc>https://a678-beep.github.io/ai-nav/a/image-02-stable-diffusion-3-5-inpainting.html</loc><lastmod>2026-11-15</lastmod><changefreq>monthly</changefreq><priority>0.7</priority></url>
   <url><loc>https://a678-beep.github.io/ai-nav/a/image-03-flux1-dev-low-vram-quantization.html</loc><lastmod>2026-11-15</lastmod><changefreq>monthly</changefreq><priority>0.7</priority></url>
@@ -262,6 +264,7 @@
   <url><loc>https://a678-beep.github.io/ai-nav/a/image-44-product-white-background-batch.html</loc><lastmod>2026-11-15</lastmod><changefreq>monthly</changefreq><priority>0.7</priority></url>
   <url><loc>https://a678-beep.github.io/ai-nav/a/image-45-id-photo-generation.html</loc><lastmod>2026-11-15</lastmod><changefreq>monthly</changefreq><priority>0.7</priority></url>
   <url><loc>https://a678-beep.github.io/ai-nav/a/image-46-ai-image-upscale-4k.html</loc><lastmod>2026-11-15</lastmod><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://a678-beep.github.io/ai-nav/a/image-47-cover-image-size-spec.html</loc><lastmod>2026-11-15</lastmod><changefreq>monthly</changefreq><priority>0.7</priority></url>
   <url><loc>https://a678-beep.github.io/ai-nav/a/util-01-perplexity-academic-search.html</loc><lastmod>2026-11-15</lastmod><changefreq>monthly</changefreq><priority>0.7</priority></url>
   <url><loc>https://a678-beep.github.io/ai-nav/a/util-02-notebooklm-podcast.html</loc><lastmod>2026-11-15</lastmod><changefreq>monthly</changefreq><priority>0.7</priority></url>
   <url><loc>https://a678-beep.github.io/ai-nav/a/util-03-otter-meeting-transcript-cn.html</loc><lastmod>2026-11-15</lastmod><changefreq>monthly</changefreq><priority>0.7</priority></url>
@@ -334,6 +337,7 @@
   <url><loc>https://a678-beep.github.io/ai-nav/a/video-38-video-background-removal.html</loc><lastmod>2026-11-15</lastmod><changefreq>monthly</changefreq><priority>0.7</priority></url>
   <url><loc>https://a678-beep.github.io/ai-nav/a/video-39-live-replay-editing.html</loc><lastmod>2026-11-15</lastmod><changefreq>monthly</changefreq><priority>0.7</priority></url>
   <url><loc>https://a678-beep.github.io/ai-nav/a/video-40-multi-platform-distribution.html</loc><lastmod>2026-11-15</lastmod><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://a678-beep.github.io/ai-nav/a/video-41-video-duration-strategy.html</loc><lastmod>2026-11-15</lastmod><changefreq>monthly</changefreq><priority>0.7</priority></url>
   <url><loc>https://a678-beep.github.io/ai-nav/a/write-01-xiaohongshu-viral-title-prompts.html</loc><lastmod>2026-11-15</lastmod><changefreq>monthly</changefreq><priority>0.7</priority></url>
   <url><loc>https://a678-beep.github.io/ai-nav/a/write-02-wechat-longform-outline.html</loc><lastmod>2026-11-15</lastmod><changefreq>monthly</changefreq><priority>0.7</priority></url>
   <url><loc>https://a678-beep.github.io/ai-nav/a/write-03-zhihu-answer-structure.html</loc><lastmod>2026-11-15</lastmod><changefreq>monthly</changefreq><priority>0.7</priority></url>
@@ -375,4 +379,5 @@
   <url><loc>https://a678-beep.github.io/ai-nav/a/write-39-business-email-templates.html</loc><lastmod>2026-11-15</lastmod><changefreq>monthly</changefreq><priority>0.7</priority></url>
   <url><loc>https://a678-beep.github.io/ai-nav/a/write-40-wechat-title-test.html</loc><lastmod>2026-11-15</lastmod><changefreq>monthly</changefreq><priority>0.7</priority></url>
   <url><loc>https://a678-beep.github.io/ai-nav/a/write-41-product-manual-writing.html</loc><lastmod>2026-11-15</lastmod><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://a678-beep.github.io/ai-nav/a/write-42-zhihu-answer-structure.html</loc><lastmod>2026-11-15</lastmod><changefreq>monthly</changefreq><priority>0.7</priority></url>
 </urlset>
