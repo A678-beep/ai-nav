@@ -7,12 +7,14 @@
 <meta name="description" content="给甲方讲审批流程，Visio 画了 40 分钟，对方一句这里要加个驳回就全乱。后来我改成先让模型输出 Mermaid 代码，再导进 Draw.io 微调，改一版 5 分钟。AI 流程图 生成 的价值在初稿，不在终稿。 #">
 <meta name="keywords" content="AI 流程图 生成, Mermaid, 流程图, Mermaid 流程图代码, Draw.io 导入 Mermaid">
 <meta name="robots" content="index,follow">
-<link rel="canonical" href="https://A678-beep.github.io/ai-nav/a/util-13-ai-flowchart-generator.html">
+
+<link rel="canonical" href="https://a678-beep.github.io/ai-nav/a/util-13-ai-flowchart-generator.html">
 <meta property="og:type" content="article">
 <meta property="og:title" content="AI 流程图 生成：代码导出可编辑矢量图">
 <meta property="og:description" content="给甲方讲审批流程，Visio 画了 40 分钟，对方一句这里要加个驳回就全乱。后来我改成先让模型输出 Mermaid 代码，再导进 Draw.io 微调，改一版 5 分钟。AI 流程图 生成 的价值在初稿，不在终稿。 #">
-<meta property="og:url" content="https://A678-beep.github.io/ai-nav/a/util-13-ai-flowchart-generator.html">
-<script type="application/ld+json">{"@context": "https://schema.org", "@type": "Article", "headline": "AI 流程图 生成：代码导出可编辑矢量图", "inLanguage": "zh-CN", "datePublished": "2026-11-15", "author": {"@type": "Organization", "name": "星籁 Stellara"}, "publisher": {"@type": "Organization", "name": "星籁 Stellara"}, "mainEntityOfPage": "https://A678-beep.github.io/ai-nav/a/util-13-ai-flowchart-generator.html", "keywords": "AI 流程图 生成, Mermaid, 流程图, Mermaid 流程图代码, Draw.io 导入 Mermaid"}</script>
+<meta property="og:url" content="https://a678-beep.github.io/ai-nav/a/util-13-ai-flowchart-generator.html">
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "Article", "headline": "AI 流程图 生成：代码导出可编辑矢量图", "inLanguage": "zh-CN", "datePublished": "2026-11-15", "author": {"@type": "Organization", "name": "星籁 Stellara"}, "publisher": {"@type": "Organization", "name": "星籁 Stellara"}, "mainEntityOfPage": "https://a678-beep.github.io/ai-nav/a/util-13-ai-flowchart-generator.html", "keywords": "AI 流程图 生成, Mermaid, 流程图, Mermaid 流程图代码, Draw.io 导入 Mermaid"}</script>
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "首页", "item": "https://a678-beep.github.io/ai-nav/"}, {"@type": "ListItem", "position": 2, "name": "实用工具", "item": "https://a678-beep.github.io/ai-nav/#/articles"}, {"@type": "ListItem", "position": 3, "name": "AI 流程图 生成：代码导出可编辑矢量图", "item": "https://a678-beep.github.io/ai-nav/a/util-13-ai-flowchart-generator.html"}]}</script>
 <style>
 :root{--bg:#080b12;--panel:#111827;--line:#1f2937;--txt:#e6edf7;--txt2:#9aa8bd;--txt3:#6b7a90;--cyan:#5ad1ff;--violet:#a78bfa}
 *{box-sizing:border-box}body{margin:0;background:radial-gradient(900px 500px at 82% -8%,rgba(90,209,255,.16),transparent 60%),var(--bg);color:var(--txt);font-family:"Microsoft YaHei","PingFang SC",system-ui,sans-serif;line-height:1.8}
@@ -38,6 +40,7 @@ h1{font-size:28px;line-height:1.4;margin:8px 0 10px}
 .bread{color:var(--txt3);font-size:12.5px;margin-bottom:6px}
 .bread a{color:var(--cyan)}
 footer{border-top:1px solid var(--line);color:var(--txt3);font-size:12.5px;text-align:center;padding:20px}
+.related{margin:34px 0 10px;border-top:1px solid var(--line);padding-top:18px}.related h2{font-size:16px;color:var(--txt);margin:0 0 10px}.related ul{list-style:none;padding:0;margin:0}.related li{margin:8px 0}.related a{color:var(--cyan);font-size:14px}
 @media(max-width:640px){h1{font-size:22px}main{padding:20px 16px 40px}}
 </style>
 </head>
@@ -60,6 +63,7 @@ footer{border-top:1px solid var(--line);color:var(--txt3);font-size:12.5px;text-
 <p>避坑一：模型会漏掉异常分支，驳回、超时、撤单这三条线必须自己补。避坑二：节点名太长会把框撑变形，超过 12 个字拆成两行加换行符。避坑三：Mermaid 版本不一时中文渲染效果对不上，本地固定一个版本。避坑四：AI 流程图 生成 出来的箭头方向常常反了，判断框的出口要一个个对。避坑五：Draw.io 导入 Mermaid 后字体是默认值，导出前统一改，不然甲方看到的是乱码字。避坑六：模型生成的判定框经常和下一个节点直连，少一层驳回，要逐个点开确认。流程图发给甲方前自己用手机看一遍，小屏上字小于 10 号就要拆图。同样的流程第二版把 9 个框合并成 7 个，甲方一次通过。</p>
 <h2>总结</h2>
 <p>AI 流程图 生成 的性价比在初稿，5 分钟出骨架，补分支和调排版还得自己来。提示词写清角色、节点和连线规则，导出 SVG 保持可编辑。Mermaid 流程图代码 存档之后改十版也不怕，改代码比挪框快。泳道复杂就回手绘，别硬套。</p></article>
+  <section class="related"><h2>同类教程</h2><ul><li><a href="util-01-perplexity-academic-search.html">Perplexity 学术 检索：三个提问模板</a></li><li><a href="util-02-notebooklm-podcast.html">NotebookLM 播客 生成：中文双人对谈</a></li><li><a href="util-03-otter-meeting-transcript-cn.html">Otter 会议 转写 中文：说话人分离实测</a></li></ul></section>
   <footer>© 2026 星籁 Stellara · <a href="../privacy.html">隐私政策</a> · <a href="../sitemap.xml">站点地图</a></footer>
 </main>
 </body>
