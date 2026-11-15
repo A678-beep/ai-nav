@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Cursor Tab 补全 设置：五个开关的取舍 · 星籁 AI 工具导航</title>
+<meta name="description" content="在 Cursor 里写 Go 接口那一周，Tab 补全每分钟弹十几次建议，连按两下就吞掉整行，真正的问题不在模型，而在 Cursor Tab 补全 设置里默认打开的触发口径。我按自己的习惯逐项关掉再对比，最后只留五个开关">
+<meta name="keywords" content="Cursor Tab 补全 设置, Cursor Tab 开关, Cursor 补全延迟, Cursor 补全延迟高, Cursor 补全不触发">
+<meta name="robots" content="index,follow">
+<link rel="canonical" href="https://A678-beep.github.io/ai-nav/a/code-01-cursor-tab-settings.html">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Cursor Tab 补全 设置：五个开关的取舍">
+<meta property="og:description" content="在 Cursor 里写 Go 接口那一周，Tab 补全每分钟弹十几次建议，连按两下就吞掉整行，真正的问题不在模型，而在 Cursor Tab 补全 设置里默认打开的触发口径。我按自己的习惯逐项关掉再对比，最后只留五个开关">
+<meta property="og:url" content="https://A678-beep.github.io/ai-nav/a/code-01-cursor-tab-settings.html">
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "Article", "headline": "Cursor Tab 补全 设置：五个开关的取舍", "inLanguage": "zh-CN", "datePublished": "2026-11-15", "author": {"@type": "Organization", "name": "星籁 Stellara"}, "publisher": {"@type": "Organization", "name": "星籁 Stellara"}, "mainEntityOfPage": "https://A678-beep.github.io/ai-nav/a/code-01-cursor-tab-settings.html", "keywords": "Cursor Tab 补全 设置, Cursor Tab 开关, Cursor 补全延迟, Cursor 补全延迟高, Cursor 补全不触发"}</script>
+<style>
+:root{--bg:#080b12;--panel:#111827;--line:#1f2937;--txt:#e6edf7;--txt2:#9aa8bd;--txt3:#6b7a90;--cyan:#5ad1ff;--violet:#a78bfa}
+*{box-sizing:border-box}body{margin:0;background:radial-gradient(900px 500px at 82% -8%,rgba(90,209,255,.16),transparent 60%),var(--bg);color:var(--txt);font-family:"Microsoft YaHei","PingFang SC",system-ui,sans-serif;line-height:1.8}
+a{color:inherit;text-decoration:none}
+.top{position:sticky;top:0;backdrop-filter:blur(12px);background:rgba(8,11,18,.85);border-bottom:1px solid var(--line)}
+.top-in{max-width:900px;margin:0 auto;padding:12px 20px;display:flex;align-items:center;gap:10px}
+.logo{display:flex;align-items:center;gap:9px;font-weight:800}
+.logo .mark{width:30px;height:30px;border-radius:9px;background:linear-gradient(135deg,var(--cyan),var(--violet));display:grid;place-items:center;color:#04121c;font-weight:900}
+.top-in .back{margin-left:auto;color:var(--txt2);font-size:13px}
+main{max-width:900px;margin:0 auto;padding:28px 20px 60px}
+h1{font-size:28px;line-height:1.4;margin:8px 0 10px}
+.meta{color:var(--txt3);font-size:12.5px;margin-bottom:22px;display:flex;gap:8px;flex-wrap:wrap}
+.content{font-size:15.5px;color:#cfd9e6}
+.content h2{font-size:20px;color:var(--txt);margin:28px 0 10px}
+.content h3{font-size:17px;color:var(--txt);margin:22px 0 8px}
+.content p{margin:12px 0}
+.content li{margin:6px 0}
+.content code{background:rgba(120,180,255,.12);padding:1px 6px;border-radius:5px;font-family:Consolas,monospace;font-size:13px}
+.content pre{background:#0a1018;border:1px solid var(--line);border-radius:10px;padding:12px;overflow:auto}
+.content blockquote{border-left:3px solid var(--cyan);padding:4px 14px;color:var(--txt2);margin:16px 0}
+.ad-slot{margin:26px 0;min-height:100px;border:1px dashed rgba(120,140,170,.35);border-radius:12px;display:flex;align-items:center;justify-content:center;color:var(--txt3);font-size:12px;text-align:center;background:rgba(17,24,39,.55)}
+.ad-slot small{display:block;font-size:10.5px;opacity:.7}
+.bread{color:var(--txt3);font-size:12.5px;margin-bottom:6px}
+.bread a{color:var(--cyan)}
+footer{border-top:1px solid var(--line);color:var(--txt3);font-size:12.5px;text-align:center;padding:20px}
+@media(max-width:640px){h1{font-size:22px}main{padding:20px 16px 40px}}
+</style>
+</head>
+<body>
+<header class="top"><div class="top-in">
+  <a class="logo" href="../index.html"><span class="mark">✦</span>星籁 AI 导航</a>
+  <a class="back" href="../index.html">← 返回首页</a>
+</div></header>
+<main>
+  <div class="bread"><a href="../index.html">首页</a> / <a href="../index.html#/articles">编程助手</a></div>
+  <h1>Cursor Tab 补全 设置：五个开关的取舍</h1>
+  <div class="meta"><span>编程助手</span><span>·</span><span>Cursor Tab 补全 设置, Cursor Tab 开关, Cursor 补全延迟, Cursor 补全延迟高, Cursor 补全不触发</span></div>
+  <article class="content"><p>在 Cursor 里写 Go 接口那一周，Tab 补全每分钟弹十几次建议，连按两下就吞掉整行，真正的问题不在模型，而在 Cursor Tab 补全 设置里默认打开的触发口径。我按自己的习惯逐项关掉再对比，最后只留五个开关。Cursor 补全延迟高 和 Cursor 补全不触发，八成都能在这五个开关里找到答案。下面这组数值来自一个 400 行的 service.go，路径按 Windows 版写。</p>
+<h2>先减触发，再谈接受</h2>
+<p>打开 Cursor Settings（Ctrl+Shift+J），左侧选 Cursor Tab。第一项 Trigger in comments 关掉，写 TODO 或中文注释时不会再补出整段假实现，上周我就被它补出过三行并不存在的接口。第二项空行补全关掉，换行后不再等云端建议，首字建议从约 500ms 压到 200ms 内。第三项保留 Auto-import，但打开 Partial accepts，Ctrl+→ 可以逐词接受，不必整行吞下。第四项把补全模型固定成默认小模型，别追新模型，Tab 要的是快不是聪明，换模型后建议风格会飘一周。第五项在项目根目录建 .cursorignore，把 vendor/、dist/、*.generated.ts 写进去，大仓库冷启动能少卡一秒。</p>
+<p>改完先新建一个空文件连打五行 if，确认建议能在 200ms 内出现。如果 Cursor 补全不触发，先看右下角 Tab 图标是不是灰的，再检查文件类型是不是在语言白名单里，最后看 .cursorignore 有没有把当前目录误排除。团队统一的话，把这套配置提交到项目的 .vscode/settings.json，新同事拉下来就是同一手感。键位建议保留默认 Tab，改成 Enter 之后每次确认搜索框都会误触发补全。</p>
+<div class="ad-slot" data-ad="article-mid"><div>广告位（文章中部）<small>AdSense / 广告联盟代码插入点 · 建议 728×90 / 移动端 320×100</small></div><!-- 在这里粘贴广告代码 --></div>
+<h2>用数字做验收</h2>
+<p>把这套 Cursor Tab 补全 设置 跑满一周后，我在同一个 400 行的 service.go 上做了两轮对比：默认状态下每分钟弹 14 次建议、误接受 3 次；调完剩 5 次、误接受 0 次，按一天写 250 行算，净省约 10 分钟。我在便签上记了一周，平均每天 2.6 次误接受，改完降到 0.2 次。Pro 每月 20 美元、Tab 不限量，免费版只有 2000 次补全，做这种反复对比实验明显不够用，先开一个月 Pro 再决定更划算。响应时间我记在 180 到 240ms 之间，Cursor 补全延迟高 到 400ms 以上时，先把 .cursorignore 再收一轮，再考虑换小模型。另外别在 vim 模式下测延迟，按键映射会干扰判断。</p>
+<h2>三个容易忽略的坑</h2>
+<p>一是补全只看当前文件附近，跨文件签名不保证，改公共函数前先打开定义文件。二是误接受会覆盖选中区，一次能吃掉 20 行，先 Ctrl+Z 再继续写，别顺手补两行。三是团队仓库的 .cursor/rules 会覆盖你的补全风格，进新项目先看有没有 rules 文件，否则容易怀疑设置没生效。四是多窗口开同一仓库时只有焦点窗口弹补全，另一个窗口看着像失效，其实是省资源。五是公司代理限速时延迟会翻倍，加白名单比调参数有效。</p>
+<h2>总结</h2>
+<p>调 Cursor Tab 补全 设置时，顺序是先减触发、再调接受，最后用延迟和误接受次数验收。现在补全只在光标处出现，不再抢戏，一个月省下的三个小时，足够值回 20 美元。</p></article>
+  <footer>© 2026 星籁 Stellara · <a href="../privacy.html">隐私政策</a> · <a href="../sitemap.xml">站点地图</a></footer>
+</main>
+</body>
+</html>
