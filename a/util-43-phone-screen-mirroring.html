@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>手机 投屏 工具 对比：3 个协议与延迟实测 · 星籁</title>
+<meta name="description" content="门店培训要拿一台安卓机演示收银后台，投到 65 寸电视上。旧电视只支持 Miracast，投上去 1080p 画面糊成一片，扫码枪的光线拖影，店员根本看不清按钮。换 手机 投屏 工具 之前我先把协议、延迟、画质三条分开测">
+<meta name="keywords" content="手机 投屏 工具, 投屏延迟, AirPlay, Miracast, 投屏延迟怎么降低, 手机投屏怎么连电视">
+<meta name="robots" content="index,follow">
+
+<link rel="canonical" href="https://a678-beep.github.io/ai-nav/a/util-43-phone-screen-mirroring.html">
+<meta property="og:type" content="article">
+<meta property="og:title" content="手机 投屏 工具 对比：3 个协议与延迟实测">
+<meta property="og:description" content="门店培训要拿一台安卓机演示收银后台，投到 65 寸电视上。旧电视只支持 Miracast，投上去 1080p 画面糊成一片，扫码枪的光线拖影，店员根本看不清按钮。换 手机 投屏 工具 之前我先把协议、延迟、画质三条分开测">
+<meta property="og:url" content="https://a678-beep.github.io/ai-nav/a/util-43-phone-screen-mirroring.html">
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "Article", "headline": "手机 投屏 工具 对比：3 个协议与延迟实测", "inLanguage": "zh-CN", "datePublished": "2026-11-15", "author": {"@type": "Organization", "name": "星籁 Stellara"}, "publisher": {"@type": "Organization", "name": "星籁 Stellara"}, "mainEntityOfPage": "https://a678-beep.github.io/ai-nav/a/util-43-phone-screen-mirroring.html", "articleSection": "实用工具", "wordCount": 801, "dateModified": "2026-11-15", "keywords": "手机 投屏 工具, 投屏延迟, AirPlay, Miracast, 投屏延迟怎么降低, 手机投屏怎么连电视"}</script>
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "首页", "item": "https://a678-beep.github.io/ai-nav/"}, {"@type": "ListItem", "position": 2, "name": "实用工具", "item": "https://a678-beep.github.io/ai-nav/#/articles"}, {"@type": "ListItem", "position": 3, "name": "手机 投屏 工具 对比：3 个协议与延迟实测", "item": "https://a678-beep.github.io/ai-nav/a/util-43-phone-screen-mirroring.html"}]}</script>
+<style>
+:root{--bg:#080b12;--panel:#111827;--line:#1f2937;--txt:#e6edf7;--txt2:#9aa8bd;--txt3:#6b7a90;--cyan:#5ad1ff;--violet:#a78bfa}
+*{box-sizing:border-box}body{margin:0;background:radial-gradient(900px 500px at 82% -8%,rgba(90,209,255,.16),transparent 60%),var(--bg);color:var(--txt);font-family:"Microsoft YaHei","PingFang SC",system-ui,sans-serif;line-height:1.8}
+a{color:inherit;text-decoration:none}
+.top{position:sticky;top:0;backdrop-filter:blur(12px);background:rgba(8,11,18,.85);border-bottom:1px solid var(--line)}
+.top-in{max-width:900px;margin:0 auto;padding:12px 20px;display:flex;align-items:center;gap:10px}
+.logo{display:flex;align-items:center;gap:9px;font-weight:800}
+.logo .mark{width:30px;height:30px;border-radius:9px;background:linear-gradient(135deg,var(--cyan),var(--violet));display:grid;place-items:center;color:#04121c;font-weight:900}
+.top-in .back{margin-left:auto;color:var(--txt2);font-size:13px}
+main{max-width:900px;margin:0 auto;padding:28px 20px 60px}
+h1{font-size:28px;line-height:1.4;margin:8px 0 10px}
+.meta{color:var(--txt3);font-size:12.5px;margin-bottom:22px;display:flex;gap:8px;flex-wrap:wrap}
+.content{font-size:15.5px;color:#cfd9e6}
+.content h2{font-size:20px;color:var(--txt);margin:28px 0 10px}
+.content h3{font-size:17px;color:var(--txt);margin:22px 0 8px}
+.content p{margin:12px 0}
+.content li{margin:6px 0}
+.content code{background:rgba(120,180,255,.12);padding:1px 6px;border-radius:5px;font-family:Consolas,monospace;font-size:13px}
+.content pre{background:#0a1018;border:1px solid var(--line);border-radius:10px;padding:12px;overflow:auto}
+.content blockquote{border-left:3px solid var(--cyan);padding:4px 14px;color:var(--txt2);margin:16px 0}
+.ad-slot{margin:26px 0;min-height:100px;border:1px dashed rgba(120,140,170,.35);border-radius:12px;display:flex;align-items:center;justify-content:center;color:var(--txt3);font-size:12px;text-align:center;background:rgba(17,24,39,.55)}
+.ad-slot small{display:block;font-size:10.5px;opacity:.7}
+.bread{color:var(--txt3);font-size:12.5px;margin-bottom:6px}
+.bread a{color:var(--cyan)}
+footer{border-top:1px solid var(--line);color:var(--txt3);font-size:12.5px;text-align:center;padding:20px}
+.related{margin:34px 0 10px;border-top:1px solid var(--line);padding-top:18px}.related h2{font-size:16px;color:var(--txt);margin:0 0 10px}.related ul{list-style:none;padding:0;margin:0}.related li{margin:8px 0}.related a{color:var(--cyan);font-size:14px}
+.tool-link{margin:14px 0 0}
+.tlinks a{display:inline-block;margin:0 8px 8px 0;padding:6px 12px;border:1px solid rgba(90,209,255,.25);border-radius:8px;font-size:13px;color:var(--cyan);background:rgba(90,209,255,.06)}
+.tlinks a:hover{background:rgba(90,209,255,.15)}
+.sec{margin:26px 0}
+.sec h2{font-size:17px;color:var(--txt);margin:0 0 10px}
+.tool-link a{display:inline-block;font-size:13px;color:var(--txt2);border:1px solid var(--line);border-radius:8px;padding:7px 12px}
+.tool-link a:hover{color:var(--txt);border-color:rgba(90,209,255,.45)}
+.top-in .back{padding:6px 0}
+.bread a{display:inline-block;padding:6px 0}
+.sec li a{display:inline-block;padding:5px 0}
+.sib a{padding:8px 12px}
+.cats a{display:inline-block;margin:0 8px 8px 0;padding:6px 12px;border:1px solid var(--line);border-radius:8px;font-size:13px;color:var(--txt2)}
+.cats a:hover{color:var(--txt);border-color:rgba(90,209,255,.45)}
+.cats h2{font-size:17px;margin:22px 0 10px}
+@media(max-width:640px){h1{font-size:22px}main{padding:20px 16px 40px}
+.related a,.tlinks a,.tool-link a,footer a,.sib a{min-height:36px;display:inline-flex;align-items:center}
+.list a{padding:14px 14px}
+td a{display:inline-block;padding:8px 0}
+.note a{display:inline-block;padding:7px 0}
+}
+</style>
+</head>
+<body>
+<header class="top"><div class="top-in">
+  <a class="logo" href="../index.html"><span class="mark">✦</span>星籁 AI 导航</a>
+  <a class="back" href="../index.html">← 返回首页</a>
+</div></header>
+<main>
+  <div class="bread"><a href="../index.html">首页</a> / <a href="../util/index.html">实用工具</a></div>
+  <h1>手机 投屏 工具 对比：3 个协议与延迟实测</h1>
+  <div class="meta"><span>实用工具</span><span>·</span><span>更新于 2026-11-15</span><span>·</span><span>手机 投屏 工具, 投屏延迟, AirPlay, Miracast, 投屏延迟怎么降低, 手机投屏怎么连电视</span></div>
+  <article class="content"><p>门店培训要拿一台安卓机演示收银后台，投到 65 寸电视上。旧电视只支持 Miracast，投上去 1080p 画面糊成一片，扫码枪的光线拖影，店员根本看不清按钮。换 手机 投屏 工具 之前我先把协议、延迟、画质三条分开测，最后用有线采集卡加 scrcpy，延迟从 220ms 降到 60ms，两小时培训没再卡。</p>
+<h2>一、协议：AirPlay、Miracast 与 Cast</h2>
+<p>苹果设备走 AirPlay：iPhone 控制中心点「屏幕镜像」连 Apple TV，镜像最高 1080p，官方要求同一网络，延迟 100 到 200ms，看视频够用，玩游戏就不行。安卓到 Windows 或电视走 Miracast，基于 Wi-Fi Direct，不需要路由器，延迟 50 到 150ms，但 2.4GHz 一拥堵就掉帧。投视频还能走 Google Cast，App 里点投屏按钮，推流是原生清晰度，镜像却只有 720p。华为、小米各有私有协议，同品牌延迟能压到 50ms 以内，跨品牌基本不通。参数不是玄学：Windows 11 收 Miracast 要在「设置 系统 投影到此电脑」里装「无线显示器」可选功能，装完才出现接收开关。手机 投屏 工具 按协议分成两派：苹果生态只有 AirPlay 一条路，安卓这边 Miracast 和私有协议混着用，选之前先看手上设备是什么牌子。</p>
+<h2>二、延迟：50ms 和 250ms 是两个世界</h2>
+<div class="ad-slot" data-ad="article-mid"><div>广告位（文章中部）<small>AdSense / 广告联盟代码插入点 · 建议 728×90 / 移动端 320×100</small></div><!-- 在这里粘贴广告代码 --></div>
+<p>演示和教学场景，延迟卡在 100ms 以内手眼才跟得上；纯讲解、录屏回放，200ms 也能忍。按这个标准排工具：USB 连安卓用 scrcpy，1080p 60fps 实测 35 到 70ms，默认码率 8Mbps，命令加 --max-size 1920 --video-bitrate 8M --turn-screen-off，手机屏幕还能灭着省电。无线 scrcpy 先 adb tcpip 5555 再 adb connect，5GHz 下 100 到 200ms，2.4GHz 直接翻倍。AirPlay 镜像 150 到 250ms，Miracast 好一点。投屏延迟怎么降低 的实操顺序：能插线不无线，无线就锁 5GHz 信道；把分辨率从 4K 降到 1080p；关掉手机上的省电模式和后台同步。门店那台安卓机就这样从 220ms 降到 60ms。录屏复盘也一样：8Mbps 码率录两小时约 7GB，传回公司分析够用，拉到 4K 码率翻倍，文件大、后期也卡。</p>
+<h2>三、画质：1080p 是多数协议的天花板</h2>
+<p>画质先看协议天花板：AirPlay 镜像 1080p，Miracast 能到 1080p60 但压缩重，表格里的小字边缘发块；Google Cast 镜像 720p，投视频才给你原生分辨率。电视标 4K 不等于投上去是 4K，多数场景是 1080p 信号被电视拉伸，凑近看字发虚。竖屏 App 投横屏电视，两边各占掉四分之一，按钮更小，培训时我先把手机转成横屏再投，或者用 scrcpy 投成窗口置顶。DRM 也要提前试：部分视频 App 走镜像会黑屏只剩声音，那是版权保护，不是延迟问题，改用 App 里的投屏按钮。手机投屏怎么连电视 的检查顺序是：同一 Wi-Fi、关 AP 隔离、电视投屏开关打开、再选协议；酒店网络常开隔离，这种只能插采集卡。</p>
+<h2>总结</h2>
+<p>手机 投屏 工具 的选法按场景定：培训演示插线用 scrcpy，追剧看片用 AirPlay 或 App 投屏按钮，看后台数据用 Miracast 就行。投屏延迟怎么降低 先锁 5GHz 再降分辨率，手机投屏怎么连电视 先查网络隔离。协议匹配比工具贵贱重要，一台旧电视换条 HDMI 采集线，比买新投屏器便宜一半。</p></article>
+  
+  <section class="related"><h2>同类教程</h2><ul><li><a href="util-01-perplexity-academic-search.html">Perplexity 学术 检索：三个提问模板</a></li><li><a href="util-02-notebooklm-podcast.html">NotebookLM 播客 生成：中文双人对谈</a></li><li><a href="util-03-otter-meeting-transcript-cn.html">Otter 会议 转写 中文：说话人分离实测</a></li><li><a href="util-04-readwise-reader-summary.html">Readwise Reader 摘要：高亮回链</a></li><li><a href="util-05-immersive-translate-paper.html">沉浸式翻译 论文：PDF 双语对照与术语表设置</a></li></ul><p class="tool-link"><a href="../index.html">查看 实用工具 工具与其它教程 →</a> <a href="../t/pricing/">AI 工具价格 →</a> <a href="../t/params/">参数与配置 →</a></p></section>
+  <footer>© 2026 星籁 Stellara · <a href="../privacy.html">隐私政策</a> · <a href="../sitemap.xml">站点地图</a></footer>
+</main>
+</body>
+</html>

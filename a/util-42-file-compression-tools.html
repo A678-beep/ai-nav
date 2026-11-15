@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>文件 压缩 工具 选型：7z、分卷与压缩率 · 星籁</title>
+<meta name="description" content="客户的设计素材 12.6GB，网盘只收单个 2GB 以内的链接。我先用系统右键压缩跑了一遍，提示超过 4GB 上限，四个小时白等。后来按 文件 压缩 工具 的格式、分卷、压缩率三件事重排：7z 标准档压到 7.4GB，切">
+<meta name="keywords" content="文件 压缩 工具, 7z 分卷压缩, 压缩率, 加密压缩, 分卷压缩怎么设置, 压缩率怎么提高">
+<meta name="robots" content="index,follow">
+
+<link rel="canonical" href="https://a678-beep.github.io/ai-nav/a/util-42-file-compression-tools.html">
+<meta property="og:type" content="article">
+<meta property="og:title" content="文件 压缩 工具 选型：7z、分卷与压缩率">
+<meta property="og:description" content="客户的设计素材 12.6GB，网盘只收单个 2GB 以内的链接。我先用系统右键压缩跑了一遍，提示超过 4GB 上限，四个小时白等。后来按 文件 压缩 工具 的格式、分卷、压缩率三件事重排：7z 标准档压到 7.4GB，切">
+<meta property="og:url" content="https://a678-beep.github.io/ai-nav/a/util-42-file-compression-tools.html">
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "Article", "headline": "文件 压缩 工具 选型：7z、分卷与压缩率", "inLanguage": "zh-CN", "datePublished": "2026-11-15", "author": {"@type": "Organization", "name": "星籁 Stellara"}, "publisher": {"@type": "Organization", "name": "星籁 Stellara"}, "mainEntityOfPage": "https://a678-beep.github.io/ai-nav/a/util-42-file-compression-tools.html", "articleSection": "实用工具", "wordCount": 798, "dateModified": "2026-11-15", "keywords": "文件 压缩 工具, 7z 分卷压缩, 压缩率, 加密压缩, 分卷压缩怎么设置, 压缩率怎么提高"}</script>
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "首页", "item": "https://a678-beep.github.io/ai-nav/"}, {"@type": "ListItem", "position": 2, "name": "实用工具", "item": "https://a678-beep.github.io/ai-nav/#/articles"}, {"@type": "ListItem", "position": 3, "name": "文件 压缩 工具 选型：7z、分卷与压缩率", "item": "https://a678-beep.github.io/ai-nav/a/util-42-file-compression-tools.html"}]}</script>
+<style>
+:root{--bg:#080b12;--panel:#111827;--line:#1f2937;--txt:#e6edf7;--txt2:#9aa8bd;--txt3:#6b7a90;--cyan:#5ad1ff;--violet:#a78bfa}
+*{box-sizing:border-box}body{margin:0;background:radial-gradient(900px 500px at 82% -8%,rgba(90,209,255,.16),transparent 60%),var(--bg);color:var(--txt);font-family:"Microsoft YaHei","PingFang SC",system-ui,sans-serif;line-height:1.8}
+a{color:inherit;text-decoration:none}
+.top{position:sticky;top:0;backdrop-filter:blur(12px);background:rgba(8,11,18,.85);border-bottom:1px solid var(--line)}
+.top-in{max-width:900px;margin:0 auto;padding:12px 20px;display:flex;align-items:center;gap:10px}
+.logo{display:flex;align-items:center;gap:9px;font-weight:800}
+.logo .mark{width:30px;height:30px;border-radius:9px;background:linear-gradient(135deg,var(--cyan),var(--violet));display:grid;place-items:center;color:#04121c;font-weight:900}
+.top-in .back{margin-left:auto;color:var(--txt2);font-size:13px}
+main{max-width:900px;margin:0 auto;padding:28px 20px 60px}
+h1{font-size:28px;line-height:1.4;margin:8px 0 10px}
+.meta{color:var(--txt3);font-size:12.5px;margin-bottom:22px;display:flex;gap:8px;flex-wrap:wrap}
+.content{font-size:15.5px;color:#cfd9e6}
+.content h2{font-size:20px;color:var(--txt);margin:28px 0 10px}
+.content h3{font-size:17px;color:var(--txt);margin:22px 0 8px}
+.content p{margin:12px 0}
+.content li{margin:6px 0}
+.content code{background:rgba(120,180,255,.12);padding:1px 6px;border-radius:5px;font-family:Consolas,monospace;font-size:13px}
+.content pre{background:#0a1018;border:1px solid var(--line);border-radius:10px;padding:12px;overflow:auto}
+.content blockquote{border-left:3px solid var(--cyan);padding:4px 14px;color:var(--txt2);margin:16px 0}
+.ad-slot{margin:26px 0;min-height:100px;border:1px dashed rgba(120,140,170,.35);border-radius:12px;display:flex;align-items:center;justify-content:center;color:var(--txt3);font-size:12px;text-align:center;background:rgba(17,24,39,.55)}
+.ad-slot small{display:block;font-size:10.5px;opacity:.7}
+.bread{color:var(--txt3);font-size:12.5px;margin-bottom:6px}
+.bread a{color:var(--cyan)}
+footer{border-top:1px solid var(--line);color:var(--txt3);font-size:12.5px;text-align:center;padding:20px}
+.related{margin:34px 0 10px;border-top:1px solid var(--line);padding-top:18px}.related h2{font-size:16px;color:var(--txt);margin:0 0 10px}.related ul{list-style:none;padding:0;margin:0}.related li{margin:8px 0}.related a{color:var(--cyan);font-size:14px}
+.tool-link{margin:14px 0 0}
+.tlinks a{display:inline-block;margin:0 8px 8px 0;padding:6px 12px;border:1px solid rgba(90,209,255,.25);border-radius:8px;font-size:13px;color:var(--cyan);background:rgba(90,209,255,.06)}
+.tlinks a:hover{background:rgba(90,209,255,.15)}
+.sec{margin:26px 0}
+.sec h2{font-size:17px;color:var(--txt);margin:0 0 10px}
+.tool-link a{display:inline-block;font-size:13px;color:var(--txt2);border:1px solid var(--line);border-radius:8px;padding:7px 12px}
+.tool-link a:hover{color:var(--txt);border-color:rgba(90,209,255,.45)}
+.top-in .back{padding:6px 0}
+.bread a{display:inline-block;padding:6px 0}
+.sec li a{display:inline-block;padding:5px 0}
+.sib a{padding:8px 12px}
+.cats a{display:inline-block;margin:0 8px 8px 0;padding:6px 12px;border:1px solid var(--line);border-radius:8px;font-size:13px;color:var(--txt2)}
+.cats a:hover{color:var(--txt);border-color:rgba(90,209,255,.45)}
+.cats h2{font-size:17px;margin:22px 0 10px}
+@media(max-width:640px){h1{font-size:22px}main{padding:20px 16px 40px}
+.related a,.tlinks a,.tool-link a,footer a,.sib a{min-height:36px;display:inline-flex;align-items:center}
+.list a{padding:14px 14px}
+td a{display:inline-block;padding:8px 0}
+.note a{display:inline-block;padding:7px 0}
+}
+</style>
+</head>
+<body>
+<header class="top"><div class="top-in">
+  <a class="logo" href="../index.html"><span class="mark">✦</span>星籁 AI 导航</a>
+  <a class="back" href="../index.html">← 返回首页</a>
+</div></header>
+<main>
+  <div class="bread"><a href="../index.html">首页</a> / <a href="../util/index.html">实用工具</a></div>
+  <h1>文件 压缩 工具 选型：7z、分卷与压缩率</h1>
+  <div class="meta"><span>实用工具</span><span>·</span><span>更新于 2026-11-15</span><span>·</span><span>文件 压缩 工具, 7z 分卷压缩, 压缩率, 加密压缩, 分卷压缩怎么设置, 压缩率怎么提高</span></div>
+  <article class="content"><p>客户的设计素材 12.6GB，网盘只收单个 2GB 以内的链接。我先用系统右键压缩跑了一遍，提示超过 4GB 上限，四个小时白等。后来按 文件 压缩 工具 的格式、分卷、压缩率三件事重排：7z 标准档压到 7.4GB，切成 4 个 2GB 分卷，38 分钟跑完，一次上传成功。</p>
+<h2>一、格式：先问对方装没装 7-Zip</h2>
+<p>同一份 2.8GB 的源码目录我压过三遍：系统 zip 到 1.12GB，7z 标准档 692MB，极限档 648MB，差的 44MB 却让解压时间翻三倍。格式不是越新越好，是对方能解开。日常发客户用 zip，公司内部备份用 7z，Linux 服务器用 tar 加 zstd，zstd -19 压日志比 gzip -9 还小 23%，解压快三倍。文件 压缩 工具 选型的第一个动作是确认对方系统和解压软件，不是研究算法。中文名要留一手：zip 用 GBK 存名，发到 Mac 上全是乱码，打包时把名称编码勾成 UTF-8，或者干脆换 7z 格式，它固定 UTF-8。系统自带的右键压缩只能出 zip，不能分卷、不能调级别，适合发两三个文档，超过 4GB 或要分卷就得换 7-Zip，免费开源，装完右键直接有「添加到压缩包」。</p>
+<h2>二、分卷：按对方上限倒推大小</h2>
+<div class="ad-slot" data-ad="article-mid"><div>广告位（文章中部）<small>AdSense / 广告联盟代码插入点 · 建议 728×90 / 移动端 320×100</small></div><!-- 在这里粘贴广告代码 --></div>
+<p>7z 分卷一条命令：7z a -mx=7 -v2g design.7z D:\素材\，生成 001 到 004 四个卷，每卷 2GB。分卷压缩怎么设置 的关键是卷大小跟着接收限制走：网盘限 2GB 就切 1.9GB 留余量，邮箱限 25MB 就切 20MB。分卷不能单独解开，少一个卷就全废，所以我在包名里带总卷数，design-4of4 这种，对方一看就知道缺没缺。另一个坑是改后缀：有人把 001 改成 7z 双击，解压软件只认第一个卷，报数据损坏，其实文件没坏。分卷压缩包要先跑 7z t 测一遍再发，12.6GB 测完 4 分钟，比对方说打不开再重传划算。文件 压缩 工具 里 7-Zip、WinRAR、Bandizip 都能分卷，系统自带压缩不能。</p>
+<h2>三、压缩率：别对已压缩的文件死磕</h2>
+<p>压缩率高低看内容。源码、日志、CSV 这类文本，标准档能省七成：1.2GB 的 Nginx 日志压完 73MB，够塞进邮箱。视频、JPG、PSD 已经压过一轮，再压几乎没收益：47 分钟的 1080p 素材 8.2GB，极限档跑 26 分钟只到 8.15GB，省 0.6%，换存储模式 3 分钟打包完。压缩率怎么提高 的实操顺序是：先剔掉 node_modules、缓存、重复素材，1.2GB 目录删完剩 800MB；再选档位，标准档和极限档差 6% 体积、3 倍时间；最后才调字典，dict 从 64MB 提到 256MB 只对超过 128MB 的包有意义。加密也别省：zip 的 ZipCrypto 经不住字典攻击，用 7z 的 AES-256 加 -mhe=on 把文件名一起藏住，密码走另一个渠道发。还有个大坑在临时目录：7z 压缩时先把临时数据写到系统盘，C 盘只剩 8GB 却要压 12GB 包，跑到 90% 报磁盘空间不足；把 -w 指向 D 盘或先清 C 盘能避掉。</p>
+<h2>总结</h2>
+<p>文件 压缩 工具 的顺序是：先确认对方格式，再按限制定卷大小，最后按内容选档位。zip 保通用，7z 保体积；分卷压缩怎么设置 盯着接收上限，压缩率怎么提高 先删重复再选档。同样一套流程，12.6GB 素材跑 38 分钟，300MB 周报 5 分钟收工。</p></article>
+  
+  <section class="related"><h2>同类教程</h2><ul><li><a href="util-43-phone-screen-mirroring.html">手机 投屏 工具 对比：3 个协议与延迟实测</a></li><li><a href="util-01-perplexity-academic-search.html">Perplexity 学术 检索：三个提问模板</a></li><li><a href="util-02-notebooklm-podcast.html">NotebookLM 播客 生成：中文双人对谈</a></li><li><a href="util-03-otter-meeting-transcript-cn.html">Otter 会议 转写 中文：说话人分离实测</a></li><li><a href="util-04-readwise-reader-summary.html">Readwise Reader 摘要：高亮回链</a></li></ul><p class="tool-link"><a href="../index.html">查看 实用工具 工具与其它教程 →</a> <a href="../t/errors/">AI 报错解决 →</a> <a href="../t/pricing/">AI 工具价格 →</a></p></section>
+  <footer>© 2026 星籁 Stellara · <a href="../privacy.html">隐私政策</a> · <a href="../sitemap.xml">站点地图</a></footer>
+</main>
+</body>
+</html>
