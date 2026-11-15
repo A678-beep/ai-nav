@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>通义千问 Qwen3 函数调用调试笔记 · 星籁 AI 工具导航</title>
+<meta name="description" content="上周我用通义千问 Qwen3 做一个小助手，功能只有两个：查天气、查快递。第一版死活不触发函数调用，模型在思考块里自问自答，接口返回里一个工具调用都没有。折腾两天后跑通，发现坑全在 JSON Schema 和思考模式上，">
+<meta name="keywords" content="通义千问 Qwen3, 函数调用, 工具调用, Qwen3 函数调用, 工具调用 JSON Schema">
+<meta name="robots" content="index,follow">
+<link rel="canonical" href="https://A678-beep.github.io/ai-nav/a/chat-06-qwen3-function-calling.html">
+<meta property="og:type" content="article">
+<meta property="og:title" content="通义千问 Qwen3 函数调用调试笔记">
+<meta property="og:description" content="上周我用通义千问 Qwen3 做一个小助手，功能只有两个：查天气、查快递。第一版死活不触发函数调用，模型在思考块里自问自答，接口返回里一个工具调用都没有。折腾两天后跑通，发现坑全在 JSON Schema 和思考模式上，">
+<meta property="og:url" content="https://A678-beep.github.io/ai-nav/a/chat-06-qwen3-function-calling.html">
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "Article", "headline": "通义千问 Qwen3 函数调用调试笔记", "inLanguage": "zh-CN", "datePublished": "2026-11-15", "author": {"@type": "Organization", "name": "星籁 Stellara"}, "publisher": {"@type": "Organization", "name": "星籁 Stellara"}, "mainEntityOfPage": "https://A678-beep.github.io/ai-nav/a/chat-06-qwen3-function-calling.html", "keywords": "通义千问 Qwen3, 函数调用, 工具调用, Qwen3 函数调用, 工具调用 JSON Schema"}</script>
+<style>
+:root{--bg:#080b12;--panel:#111827;--line:#1f2937;--txt:#e6edf7;--txt2:#9aa8bd;--txt3:#6b7a90;--cyan:#5ad1ff;--violet:#a78bfa}
+*{box-sizing:border-box}body{margin:0;background:radial-gradient(900px 500px at 82% -8%,rgba(90,209,255,.16),transparent 60%),var(--bg);color:var(--txt);font-family:"Microsoft YaHei","PingFang SC",system-ui,sans-serif;line-height:1.8}
+a{color:inherit;text-decoration:none}
+.top{position:sticky;top:0;backdrop-filter:blur(12px);background:rgba(8,11,18,.85);border-bottom:1px solid var(--line)}
+.top-in{max-width:900px;margin:0 auto;padding:12px 20px;display:flex;align-items:center;gap:10px}
+.logo{display:flex;align-items:center;gap:9px;font-weight:800}
+.logo .mark{width:30px;height:30px;border-radius:9px;background:linear-gradient(135deg,var(--cyan),var(--violet));display:grid;place-items:center;color:#04121c;font-weight:900}
+.top-in .back{margin-left:auto;color:var(--txt2);font-size:13px}
+main{max-width:900px;margin:0 auto;padding:28px 20px 60px}
+h1{font-size:28px;line-height:1.4;margin:8px 0 10px}
+.meta{color:var(--txt3);font-size:12.5px;margin-bottom:22px;display:flex;gap:8px;flex-wrap:wrap}
+.content{font-size:15.5px;color:#cfd9e6}
+.content h2{font-size:20px;color:var(--txt);margin:28px 0 10px}
+.content h3{font-size:17px;color:var(--txt);margin:22px 0 8px}
+.content p{margin:12px 0}
+.content li{margin:6px 0}
+.content code{background:rgba(120,180,255,.12);padding:1px 6px;border-radius:5px;font-family:Consolas,monospace;font-size:13px}
+.content pre{background:#0a1018;border:1px solid var(--line);border-radius:10px;padding:12px;overflow:auto}
+.content blockquote{border-left:3px solid var(--cyan);padding:4px 14px;color:var(--txt2);margin:16px 0}
+.ad-slot{margin:26px 0;min-height:100px;border:1px dashed rgba(120,140,170,.35);border-radius:12px;display:flex;align-items:center;justify-content:center;color:var(--txt3);font-size:12px;text-align:center;background:rgba(17,24,39,.55)}
+.ad-slot small{display:block;font-size:10.5px;opacity:.7}
+.bread{color:var(--txt3);font-size:12.5px;margin-bottom:6px}
+.bread a{color:var(--cyan)}
+footer{border-top:1px solid var(--line);color:var(--txt3);font-size:12.5px;text-align:center;padding:20px}
+@media(max-width:640px){h1{font-size:22px}main{padding:20px 16px 40px}}
+</style>
+</head>
+<body>
+<header class="top"><div class="top-in">
+  <a class="logo" href="../index.html"><span class="mark">✦</span>星籁 AI 导航</a>
+  <a class="back" href="../index.html">← 返回首页</a>
+</div></header>
+<main>
+  <div class="bread"><a href="../index.html">首页</a> / <a href="../index.html#/articles">对话AI</a></div>
+  <h1>通义千问 Qwen3 函数调用调试笔记</h1>
+  <div class="meta"><span>对话AI</span><span>·</span><span>通义千问 Qwen3, 函数调用, 工具调用, Qwen3 函数调用, 工具调用 JSON Schema</span></div>
+  <article class="content"><p>上周我用通义千问 Qwen3 做一个小助手，功能只有两个：查天气、查快递。第一版死活不触发函数调用，模型在思考块里自问自答，接口返回里一个工具调用都没有。折腾两天后跑通，发现坑全在 JSON Schema 和思考模式上，跟模型能力关系不大。这篇记录 Qwen3 函数调用调通的全过程，按顺序照做能少走两天弯路。</p>
+<h2>先关掉思考模式再调工具</h2>
+<p>Qwen3 是混合思考模型，开思考时它会在推理段里预演一遍调用流程，真正返回的工具调用反而被吞掉。我的做法是三步：第一步用非思考模式跑通链路，请求里传 enable_thinking 为 false 或降低思考预算；第二步温度先设 0.6，工具调用场景别用 1.0 那种发散参数；第三步给每个工具写清楚三行描述，说明什么时候用、参数从哪来、返回什么。链路通了再开思考模式，只用于复杂查询。二十次测试里，非思考模式触发率 95%，开思考模式反而掉到 70%。Qwen3 函数调用的第一课不是写提示词，是把思考关掉，把 JSON 结构写对。</p>
+<h2>JSON Schema 的三处易错点</h2>
+<div class="ad-slot" data-ad="article-mid"><div>广告位（文章中部）<small>AdSense / 广告联盟代码插入点 · 建议 728×90 / 移动端 320×100</small></div><!-- 在这里粘贴广告代码 --></div>
+<p>工具调用 JSON Schema 里最容易翻车的是参数。一是 required 不写全，模型会把日期和城市名瞎填，我漏写 required 后它连续三次传了空字符串，接口直接 400。二是枚举不给全，城市参数只写 description 不写 enum，它返回杭州余杭区这种带区县的名字，我的接口只认杭州，匹配失败。三是嵌套对象层级太深，两层以上它就开始漏字段，我现在把参数拍平成一层。并行调用也要注意：一次问天气加快递时，第二个调用的参数会丢，解决方法是让模型分两轮调用，别贪快。每次改完 Schema，先拿三个固定问题回归测试，别等上线才发现参数错位。</p>
+<h2>三个坑</h2>
+<p>一是流式返回下工具调用参数是分片下发的，按 index 拼接再解析，直接对每片做 JSON 解析必然报错。二是回传工具结果必须用工具角色，混进用户消息里模型会当成新问题重新回答。三是超时要设，我给的十秒偏短，查快递接口偶尔超过十二秒，现在改成二十秒加三次重试。另外 Qwen3-235B 效果最好，但日常测试用 8B 版本更快，调 Schema 阶段没必要烧大模型。工具调用 JSON Schema 的规范各家略有差异，换模型前先对照一遍文档，别把旧 Schema 直接搬过去。</p>
+<h2>总结</h2>
+<p>通义千问 Qwen3 函数调用难的不是模型，是参数定义和调试顺序：先关思考模式跑通链路，再补 required 和枚举，最后处理流式和重试。这套顺序反了，很容易误判成模型不会用工具。调通后把 Schema 和回归问题存成文件，下次换模型直接复用，省一半时间。</p></article>
+  <footer>© 2026 星籁 Stellara · <a href="../privacy.html">隐私政策</a> · <a href="../sitemap.xml">站点地图</a></footer>
+</main>
+</body>
+</html>
