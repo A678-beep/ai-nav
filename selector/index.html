@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>AI 工具选择器：3 步选出最适合你的工具 · 星籁 AI 导航</title>
+<meta name="description" content="不知道用哪个 AI 工具？选用途、定预算、挑偏好，3 步给出推荐，附官网入口和实测教程。">
+<meta name="robots" content="index,follow">
+<link rel="canonical" href="https://a678-beep.github.io/ai-nav/selector/">
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "WebPage", "name": "AI 工具选择器", "inLanguage": "zh-CN", "url": "https://a678-beep.github.io/ai-nav/selector/", "description": "按用途、预算、偏好三步选出适合你的 AI 工具"}</script>
+<style>
+:root{--bg:#080b12;--panel:#111827;--line:#1f2937;--txt:#e6edf7;--txt2:#9aa8bd;--txt3:#6b7a90;--cyan:#5ad1ff;--violet:#a78bfa}
+*{box-sizing:border-box}body{margin:0;background:radial-gradient(900px 500px at 82% -8%,rgba(90,209,255,.16),transparent 60%),var(--bg);color:var(--txt);font-family:"Microsoft YaHei","PingFang SC",system-ui,sans-serif;line-height:1.8}
+a{color:inherit;text-decoration:none}
+.top{position:sticky;top:0;backdrop-filter:blur(12px);background:rgba(8,11,18,.85);border-bottom:1px solid var(--line)}
+.top-in{max-width:900px;margin:0 auto;padding:12px 20px;display:flex;align-items:center;gap:10px}
+.logo{display:flex;align-items:center;gap:9px;font-weight:800}
+.logo .mark{width:30px;height:30px;border-radius:9px;background:linear-gradient(135deg,var(--cyan),var(--violet));display:grid;place-items:center;color:#04121c;font-weight:900}
+.top-in .back{margin-left:auto;color:var(--txt2);font-size:13px}
+main{max-width:900px;margin:0 auto;padding:28px 20px 60px}
+h1{font-size:28px;line-height:1.4;margin:8px 0 10px}
+.meta{color:var(--txt3);font-size:12.5px;margin-bottom:22px;display:flex;gap:8px;flex-wrap:wrap}
+.content{font-size:15.5px;color:#cfd9e6}
+.content h2{font-size:20px;color:var(--txt);margin:28px 0 10px}
+.content h3{font-size:17px;color:var(--txt);margin:22px 0 8px}
+.content p{margin:12px 0}
+.content li{margin:6px 0}
+.content code{background:rgba(120,180,255,.12);padding:1px 6px;border-radius:5px;font-family:Consolas,monospace;font-size:13px}
+.content pre{background:#0a1018;border:1px solid var(--line);border-radius:10px;padding:12px;overflow:auto}
+.content blockquote{border-left:3px solid var(--cyan);padding:4px 14px;color:var(--txt2);margin:16px 0}
+.ad-slot{margin:26px 0;min-height:100px;border:1px dashed rgba(120,140,170,.35);border-radius:12px;display:flex;align-items:center;justify-content:center;color:var(--txt3);font-size:12px;text-align:center;background:rgba(17,24,39,.55)}
+.ad-slot small{display:block;font-size:10.5px;opacity:.7}
+.bread{color:var(--txt3);font-size:12.5px;margin-bottom:6px}
+.bread a{color:var(--cyan)}
+footer{border-top:1px solid var(--line);color:var(--txt3);font-size:12.5px;text-align:center;padding:20px}
+.related{margin:34px 0 10px;border-top:1px solid var(--line);padding-top:18px}.related h2{font-size:16px;color:var(--txt);margin:0 0 10px}.related ul{list-style:none;padding:0;margin:0}.related li{margin:8px 0}.related a{color:var(--cyan);font-size:14px}
+.tool-link{margin:14px 0 0}
+.tlinks a{display:inline-block;margin:0 8px 8px 0;padding:6px 12px;border:1px solid rgba(90,209,255,.25);border-radius:8px;font-size:13px;color:var(--cyan);background:rgba(90,209,255,.06)}
+.tlinks a:hover{background:rgba(90,209,255,.15)}
+.sec{margin:26px 0}
+.sec h2{font-size:17px;color:var(--txt);margin:0 0 10px}
+.tool-link a{display:inline-block;font-size:13px;color:var(--txt2);border:1px solid var(--line);border-radius:8px;padding:7px 12px}
+.tool-link a:hover{color:var(--txt);border-color:rgba(90,209,255,.45)}
+.top-in .back{padding:6px 0}
+.bread a{display:inline-block;padding:6px 0}
+.sec li a{display:inline-block;padding:5px 0}
+.sib a{padding:8px 12px}
+.cats a{display:inline-block;margin:0 8px 8px 0;padding:6px 12px;border:1px solid var(--line);border-radius:8px;font-size:13px;color:var(--txt2)}
+.cats a:hover{color:var(--txt);border-color:rgba(90,209,255,.45)}
+.cats h2{font-size:17px;margin:22px 0 10px}
+@media(max-width:640px){h1{font-size:22px}main{padding:20px 16px 40px}
+.related a,.tlinks a,.tool-link a,footer a,.sib a{min-height:36px;display:inline-flex;align-items:center}
+.list a{padding:14px 14px}
+td a{display:inline-block;padding:8px 0}
+.note a{display:inline-block;padding:7px 0}
+}
+
+.form{display:flex;gap:12px;flex-wrap:wrap;margin:20px 0 10px}
+.field{flex:1;min-width:180px}
+.field label{display:block;font-size:12.5px;color:var(--txt3);margin-bottom:6px}
+select{width:100%;padding:11px 12px;border-radius:10px;border:1px solid var(--line);background:#0f151f;color:var(--txt);font-size:14px}
+.res{margin:22px 0}
+.card{border:1px solid var(--line);border-radius:14px;padding:16px 18px;margin:0 0 12px;background:rgba(17,24,39,.6)}
+.card h3{margin:0 0 6px;font-size:17px}
+.card h3 a{color:var(--txt)}
+.card p{margin:0 0 8px;font-size:13.5px;color:var(--txt2)}
+.badge{display:inline-block;font-size:11.5px;color:var(--cyan);border:1px solid rgba(90,209,255,.3);border-radius:6px;padding:1px 7px;margin:0 6px 6px 0}
+.acts a{font-size:13px;color:var(--cyan);margin-right:14px}
+.hint{font-size:12.5px;color:var(--txt3)}
+</style>
+</head>
+<body>
+<header class="top"><div class="top-in">
+  <a class="logo" href="../index.html"><span class="mark">✦</span>星籁 AI 导航</a>
+  <a class="back" href="../index.html">← 回首页</a>
+</div></header>
+<main>
+  <div class="bread"><a href="../index.html">首页</a> / 选择器</div>
+  <h1>AI 工具选择器</h1>
+  <p style="color:var(--txt3);font-size:13px">3 个问题，从 42 款工具里选出 3 个最合适的</p>
+  <div class="form">
+    <div class="field"><label>你想解决什么</label>
+      <select id="q-cat">
+        <option value="chat">聊天 / 问答</option>
+        <option value="write">写文案 / 写作</option>
+        <option value="image">画图 / 修图</option>
+        <option value="video">视频 / 音频</option>
+        <option value="code">写代码 / 调试</option>
+        <option value="biz">办公 / 自动化</option>
+        <option value="util">查资料 / 工具</option>
+      </select></div>
+    <div class="field"><label>预算</label>
+      <select id="q-budget">
+        <option value="free">只用免费</option>
+        <option value="freemium" selected>有免费额度就行</option>
+        <option value="any">不设限</option>
+      </select></div>
+    <div class="field"><label>更看重</label>
+      <select id="q-pref">
+        <option value="effect">效果优先</option>
+        <option value="easy">上手优先</option>
+        <option value="local">可本地部署</option>
+      </select></div>
+  </div>
+  <p class="hint">选完自动刷新推荐 · 不确定就保持默认</p>
+  <div class="res" id="res"></div>
+  <p class="hint">想按分类浏览？<a href="../tools/" style="color:var(--cyan)">全部工具 →</a> · <a href="../pricing/" style="color:var(--cyan)">价格对比 →</a></p>
+</main>
+<script>
+var DATA = [{"slug":"chatgpt","n":"ChatGPT","c":"chat","d":"GPT-5 通用对话，语音模式练口语、看图解题都稳","free":true,"local":false,"e":5,"u":5},{"slug":"claude","n":"Claude","c":"chat","d":"长文档与代码阅读强，200K 上下文适合合同、论文","free":true,"local":false,"e":5,"u":4},{"slug":"deepseek","n":"DeepSeek","c":"chat","d":"开源权重可本地部署，推理与中文表达均衡","free":true,"local":false,"e":4,"u":4},{"slug":"kimi","n":"Kimi","c":"chat","d":"中文长文本总结，网页/文件一次读完整本","free":true,"local":false,"e":4,"u":4},{"slug":"doubao","n":"豆包","c":"chat","d":"字节系对话与语音，中文口语化程度高","free":true,"local":false,"e":3,"u":5},{"slug":"qwen","n":"通义千问","c":"chat","d":"阿里 Qwen 系列，函数调用与文档解析好用","free":true,"local":false,"e":3,"u":4},{"slug":"midjourney","n":"Midjourney","c":"image","d":"v7 出图审美天花板，--cref 锁角色一致性","free":false,"local":false,"e":5,"u":3},{"slug":"stable-diffusion","n":"Stable Diffusion","c":"image","d":"本地开源，ControlNet/LoRA 生态最全","free":true,"local":true,"e":4,"u":2},{"slug":"flux","n":"Flux.1","c":"image","d":"开源模型，dev 版 12B，量化后可跑 8G 显存","free":true,"local":true,"e":4,"u":2},{"slug":"jimeng","n":"即梦 AI","c":"image","d":"中文电商图、海报生成，免部署直接出图","free":true,"local":false,"e":4,"u":4},{"slug":"kling","n":"可灵 AI","c":"image","d":"图生视频与图生图，国风插画质感突出","free":true,"local":false,"e":4,"u":4},{"slug":"comfyui","n":"ComfyUI","c":"image","d":"节点式工作流，一次搭建反复复用","free":true,"local":true,"e":4,"u":1},{"slug":"cursor","n":"Cursor","c":"code","d":"AI 原生编辑器，Tab 补全 + 多文件改写","free":true,"local":false,"e":5,"u":4},{"slug":"claude-code","n":"Claude Code","c":"code","d":"命令行 agent，能读整个仓库并提交 PR","free":false,"local":false,"e":5,"u":3},{"slug":"github-copilot","n":"GitHub Copilot","c":"code","d":"IDE 内联补全与单测生成，企业可用","free":true,"local":false,"e":4,"u":5},{"slug":"windsurf","n":"Windsurf","c":"code","d":"Cascade 多文件流程，自动跑测试较稳","free":true,"local":false,"e":4,"u":3},{"slug":"tongyi-lingma","n":"通义灵码","c":"code","d":"免费中文编程助手，支持私有仓库问答","free":true,"local":false,"e":3,"u":5},{"slug":"aider","n":"Aider","c":"code","d":"开源 CLI，改完自动 git commit，审阅友好","free":true,"local":true,"e":4,"u":2},{"slug":"doubao-writer","n":"小红书文案助手","c":"write","d":"按平台规则生成标题正文，规避违禁词","free":true,"local":false,"e":3,"u":5},{"slug":"notion-ai","n":"Notion AI","c":"write","d":"与笔记库联动，长文大纲与续写顺手","free":false,"local":false,"e":4,"u":4},{"slug":"grammarly","n":"Grammarly","c":"write","d":"英文邮件与论文润色，语气可调","free":true,"local":false,"e":4,"u":5},{"slug":"xiezuocat","n":"秘塔写作猫","c":"write","d":"中文错别字与语病检查，公文场景友好","free":true,"local":false,"e":3,"u":5},{"slug":"copy-ai","n":"Copy.ai","c":"write","d":"电商五点描述、广告语批量生成","free":true,"local":false,"e":3,"u":4},{"slug":"jasper","n":"Jasper","c":"write","d":"品牌语气库，团队协作写营销文案","free":true,"local":false,"e":3,"u":3},{"slug":"kling-video","n":"可灵 AI","c":"video","d":"图生视频首尾帧控制，5s/10s 可选","free":true,"local":false,"e":4,"u":3},{"slug":"runway","n":"Runway","c":"video","d":"Gen-4 运镜控制与视频编辑工具链","free":true,"local":false,"e":5,"u":3},{"slug":"heygen","n":"HeyGen","c":"video","d":"数字人口型对齐，多语言播报","free":true,"local":false,"e":4,"u":4},{"slug":"elevenlabs","n":"ElevenLabs","c":"video","d":"多语言配音，情感与停顿可调","free":true,"local":false,"e":5,"u":3},{"slug":"suno","n":"Suno","c":"video","d":"歌词生成整首歌，v5 中文咬字进步明显","free":true,"local":false,"e":4,"u":4},{"slug":"capcut","n":"剪映","c":"video","d":"自动字幕 + 文本剪辑，国内工作流顺手","free":true,"local":false,"e":4,"u":5},{"slug":"feishu-bitable","n":"飞书多维表格","c":"biz","d":"AI 字段做分类汇总，团队协作免费额度够用","free":true,"local":false,"e":4,"u":4},{"slug":"notion","n":"Notion","c":"biz","d":"数据库 + AI 自动化，做轻量 CRM","free":true,"local":false,"e":4,"u":4},{"slug":"n8n","n":"n8n","c":"biz","d":"开源自建自动化，可接本地模型","free":true,"local":true,"e":4,"u":2},{"slug":"coze","n":"扣子 Coze","c":"biz","d":"拖拽搭客服机器人，可发布到微信/飞书","free":true,"local":false,"e":4,"u":4},{"slug":"dify","n":"Dify","c":"biz","d":"开源知识库问答，支持私有部署","free":true,"local":true,"e":4,"u":3},{"slug":"gamma","n":"Gamma","c":"biz","d":"一句话生成演示文稿，导出 PPT/PDF","free":true,"local":false,"e":3,"u":5},{"slug":"perplexity","n":"Perplexity","c":"util","d":"带引用的联网检索，学术查证省时间","free":true,"local":false,"e":4,"u":5},{"slug":"notebooklm","n":"NotebookLM","c":"util","d":"上传资料生成播客与问答，支持中文","free":true,"local":false,"e":3,"u":4},{"slug":"immersive-translate","n":"沉浸式翻译","c":"util","d":"双语对照网页/PDF，论文阅读神器","free":true,"local":false,"e":4,"u":5},{"slug":"otter","n":"Otter.ai","c":"util","d":"会议实时转写与摘要，英文准确率高","free":true,"local":false,"e":4,"u":4},{"slug":"whisper","n":"Whisper","c":"util","d":"开源转写，本地跑 16k 音频准确率稳","free":true,"local":true,"e":4,"u":2},{"slug":"real-esrgan","n":"Real-ESRGAN","c":"util","d":"开源图片放大，4 倍无损放大","free":true,"local":true,"e":4,"u":3}];
+function pick(){
+  var cat=document.getElementById('q-cat').value;
+  var bud=document.getElementById('q-budget').value;
+  var pref=document.getElementById('q-pref').value;
+  var list=DATA.filter(function(t){ return t.c===cat; });
+  if(bud==='free') list=list.filter(function(t){ return t.free; });
+  if(pref==='local') { var l=list.filter(function(t){ return t.local; }); if(l.length) list=l; }
+  list.sort(function(a,b){
+    if(pref==='easy') return b.u-a.u || b.e-a.e;
+    return b.e-a.e || b.u-a.u;
+  });
+  var top=list.slice(0,3);
+  if(!top.length){
+    document.getElementById('res').innerHTML='<p class="hint">这个组合暂时没有匹配，放宽预算试试。</p>';
+    return;
+  }
+  document.getElementById('res').innerHTML=top.map(function(t){
+    return '<div class="card"><h3><a href="../tool/'+t.slug+'/">'+t.n+'</a></h3>'+
+      '<p>'+t.d+'</p>'+
+      '<span class="badge">效果 '+t.e+'/5</span><span class="badge">上手 '+t.u+'/5</span>'+
+      '<span class="badge">'+(t.free?'有免费额度':'需付费')+'</span>'+
+      (t.local?'<span class="badge">可本地部署</span>':'')+
+      '<div class="acts"><a href="../tool/'+t.slug+'/">看详情与教程 →</a></div></div>';
+  }).join('');
+}
+['q-cat','q-budget','q-pref'].forEach(function(id){ document.getElementById(id).addEventListener('change',pick); });
+pick();
+</script>
+</body>
+</html>

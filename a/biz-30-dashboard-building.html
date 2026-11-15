@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>数据 看板 搭建：先定 9 个指标再选图 · 星籁</title>
+<meta name="description" content="给 8 人电商团队搭第一版看板时，我按「能取到什么都放上」堆了 27 个图表，周会没人打开，运营说找不到自己要的数。第二版砍到 9 个指标、首屏 5 个指标卡加 4 张图，用飞书多维表格仪表盘搭了 4 小时，之前外包报价">
+<meta name="keywords" content="数据 看板 搭建, 指标 口径 卡, 看板 图表 选择, 看板 更新 频率, 数据 看板 怎么 搭, 看板 指标 怎么 定">
+<meta name="robots" content="index,follow">
+
+<link rel="canonical" href="https://a678-beep.github.io/ai-nav/a/biz-30-dashboard-building.html">
+<meta property="og:type" content="article">
+<meta property="og:title" content="数据 看板 搭建：先定 9 个指标再选图">
+<meta property="og:description" content="给 8 人电商团队搭第一版看板时，我按「能取到什么都放上」堆了 27 个图表，周会没人打开，运营说找不到自己要的数。第二版砍到 9 个指标、首屏 5 个指标卡加 4 张图，用飞书多维表格仪表盘搭了 4 小时，之前外包报价">
+<meta property="og:url" content="https://a678-beep.github.io/ai-nav/a/biz-30-dashboard-building.html">
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "Article", "headline": "数据 看板 搭建：先定 9 个指标再选图", "inLanguage": "zh-CN", "datePublished": "2026-11-15", "author": {"@type": "Organization", "name": "星籁 Stellara"}, "publisher": {"@type": "Organization", "name": "星籁 Stellara"}, "mainEntityOfPage": "https://a678-beep.github.io/ai-nav/a/biz-30-dashboard-building.html", "articleSection": "商业效率", "wordCount": 848, "dateModified": "2026-11-15", "keywords": "数据 看板 搭建, 指标 口径 卡, 看板 图表 选择, 看板 更新 频率, 数据 看板 怎么 搭, 看板 指标 怎么 定"}</script>
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "首页", "item": "https://a678-beep.github.io/ai-nav/"}, {"@type": "ListItem", "position": 2, "name": "商业效率", "item": "https://a678-beep.github.io/ai-nav/#/articles"}, {"@type": "ListItem", "position": 3, "name": "数据 看板 搭建：先定 9 个指标再选图", "item": "https://a678-beep.github.io/ai-nav/a/biz-30-dashboard-building.html"}]}</script>
+<style>
+:root{--bg:#080b12;--panel:#111827;--line:#1f2937;--txt:#e6edf7;--txt2:#9aa8bd;--txt3:#6b7a90;--cyan:#5ad1ff;--violet:#a78bfa}
+*{box-sizing:border-box}body{margin:0;background:radial-gradient(900px 500px at 82% -8%,rgba(90,209,255,.16),transparent 60%),var(--bg);color:var(--txt);font-family:"Microsoft YaHei","PingFang SC",system-ui,sans-serif;line-height:1.8}
+a{color:inherit;text-decoration:none}
+.top{position:sticky;top:0;backdrop-filter:blur(12px);background:rgba(8,11,18,.85);border-bottom:1px solid var(--line)}
+.top-in{max-width:900px;margin:0 auto;padding:12px 20px;display:flex;align-items:center;gap:10px}
+.logo{display:flex;align-items:center;gap:9px;font-weight:800}
+.logo .mark{width:30px;height:30px;border-radius:9px;background:linear-gradient(135deg,var(--cyan),var(--violet));display:grid;place-items:center;color:#04121c;font-weight:900}
+.top-in .back{margin-left:auto;color:var(--txt2);font-size:13px}
+main{max-width:900px;margin:0 auto;padding:28px 20px 60px}
+h1{font-size:28px;line-height:1.4;margin:8px 0 10px}
+.meta{color:var(--txt3);font-size:12.5px;margin-bottom:22px;display:flex;gap:8px;flex-wrap:wrap}
+.content{font-size:15.5px;color:#cfd9e6}
+.content h2{font-size:20px;color:var(--txt);margin:28px 0 10px}
+.content h3{font-size:17px;color:var(--txt);margin:22px 0 8px}
+.content p{margin:12px 0}
+.content li{margin:6px 0}
+.content code{background:rgba(120,180,255,.12);padding:1px 6px;border-radius:5px;font-family:Consolas,monospace;font-size:13px}
+.content pre{background:#0a1018;border:1px solid var(--line);border-radius:10px;padding:12px;overflow:auto}
+.content blockquote{border-left:3px solid var(--cyan);padding:4px 14px;color:var(--txt2);margin:16px 0}
+.ad-slot{margin:26px 0;min-height:100px;border:1px dashed rgba(120,140,170,.35);border-radius:12px;display:flex;align-items:center;justify-content:center;color:var(--txt3);font-size:12px;text-align:center;background:rgba(17,24,39,.55)}
+.ad-slot small{display:block;font-size:10.5px;opacity:.7}
+.bread{color:var(--txt3);font-size:12.5px;margin-bottom:6px}
+.bread a{color:var(--cyan)}
+footer{border-top:1px solid var(--line);color:var(--txt3);font-size:12.5px;text-align:center;padding:20px}
+.related{margin:34px 0 10px;border-top:1px solid var(--line);padding-top:18px}.related h2{font-size:16px;color:var(--txt);margin:0 0 10px}.related ul{list-style:none;padding:0;margin:0}.related li{margin:8px 0}.related a{color:var(--cyan);font-size:14px}
+.tool-link{margin:14px 0 0}
+.tlinks a{display:inline-block;margin:0 8px 8px 0;padding:6px 12px;border:1px solid rgba(90,209,255,.25);border-radius:8px;font-size:13px;color:var(--cyan);background:rgba(90,209,255,.06)}
+.tlinks a:hover{background:rgba(90,209,255,.15)}
+.sec{margin:26px 0}
+.sec h2{font-size:17px;color:var(--txt);margin:0 0 10px}
+.tool-link a{display:inline-block;font-size:13px;color:var(--txt2);border:1px solid var(--line);border-radius:8px;padding:7px 12px}
+.tool-link a:hover{color:var(--txt);border-color:rgba(90,209,255,.45)}
+.top-in .back{padding:6px 0}
+.bread a{display:inline-block;padding:6px 0}
+.sec li a{display:inline-block;padding:5px 0}
+.sib a{padding:8px 12px}
+.cats a{display:inline-block;margin:0 8px 8px 0;padding:6px 12px;border:1px solid var(--line);border-radius:8px;font-size:13px;color:var(--txt2)}
+.cats a:hover{color:var(--txt);border-color:rgba(90,209,255,.45)}
+.cats h2{font-size:17px;margin:22px 0 10px}
+@media(max-width:640px){h1{font-size:22px}main{padding:20px 16px 40px}
+.related a,.tlinks a,.tool-link a,footer a,.sib a{min-height:36px;display:inline-flex;align-items:center}
+.list a{padding:14px 14px}
+td a{display:inline-block;padding:8px 0}
+.note a{display:inline-block;padding:7px 0}
+}
+</style>
+</head>
+<body>
+<header class="top"><div class="top-in">
+  <a class="logo" href="../index.html"><span class="mark">✦</span>星籁 AI 导航</a>
+  <a class="back" href="../index.html">← 返回首页</a>
+</div></header>
+<main>
+  <div class="bread"><a href="../index.html">首页</a> / <a href="../biz/index.html">商业效率</a></div>
+  <h1>数据 看板 搭建：先定 9 个指标再选图</h1>
+  <div class="meta"><span>商业效率</span><span>·</span><span>更新于 2026-11-15</span><span>·</span><span>数据 看板 搭建, 指标 口径 卡, 看板 图表 选择, 看板 更新 频率, 数据 看板 怎么 搭, 看板 指标 怎么 定</span></div>
+  <article class="content"><p>给 8 人电商团队搭第一版看板时，我按「能取到什么都放上」堆了 27 个图表，周会没人打开，运营说找不到自己要的数。第二版砍到 9 个指标、首屏 5 个指标卡加 4 张图，用飞书多维表格仪表盘搭了 4 小时，之前外包报价 2 万、工期 3 周。数据 看板 搭建 的顺序是先定口径、再定图表、最后定更新频率，反着做一定返工。</p>
+<h2>一、每个指标先写一张口径卡</h2>
+<p>口径卡固定六项：名称、公式、统计范围、时间口径、数据来源、负责人。GMV 要写清含不含退款和运费，新客按首次支付算不按首次访问，转化率是支付人数除以商品访客数，退款率是退款订单除以支付订单。第一版 27 个指标里 11 个没人看，4 个口径和财务对不上，GMV 差了 6%。砍到 9 个：GMV、支付订单、客单价、退款率、新客占比、加购率、支付转化率、库存周转天数、履约时长，首屏只留 5 个。避坑：口径没定就画图，两个部门各算一版，会前 40 分钟全花在对账上。数据 看板 怎么 搭，第一步永远是这张卡。</p>
+<h2>二、图表跟着问题走，不跟着好看走</h2>
+<div class="ad-slot" data-ad="article-mid"><div>广告位（文章中部）<small>AdSense / 广告联盟代码插入点 · 建议 728×90 / 移动端 320×100</small></div><!-- 在这里粘贴广告代码 --></div>
+<p>趋势用折线，近 30 天和近 12 周各一条；对比用柱状；构成用堆叠柱或百分比条形，分类不超过 5 个；分布用直方图，两个变量的关系用散点；转化链路用漏斗；单值和排名分别用指标卡和横向条形。一页只回答一个问题，首屏放 GMV 折线、渠道柱状、退款率卡片和商品 Top10 条形，四个组件封顶，整板不超过 15 个。避坑一，双 Y 轴把 GMV 和转化率叠一起，看着同涨同跌，其实量纲不同；拆成两张单轴才发现所谓转化率下滑是 GMV 口径改了。避坑二，饼图超过 6 类、3D 图和 5 种以上配色，业务方只看颜色不看数。看板 指标 怎么 定 完，图表只是把结论摆出来。</p>
+<h2>三、更新频率按决策节奏定，加一条时间戳</h2>
+<p>三档分开：实时看板只放总额和异常数，分钟级刷新，维护最贵；日更看板按 T+1，前一晚 2:00 抽数、6:00 前同步完；周更看板跟周会，周一 9:00 前刷新；月更看板按财务结账 T+3。飞书多维表格仪表盘跟底表联动，底表用自动化每天 6:00 同步一次；数据超过 10 万行就换 Metabase 自托管或 Power BI Desktop，Excel 单表 1,048,576 行撑不住。避坑三，同步失败没有告警：有一次 6:00 同步失败，周会用了上周数字，被老板当场抓出来。加了「最后更新时间」卡片和失败告警到群，三个月没再出事故。数据 看板 搭建 最容易漏的就是这条时间戳，看板 更新 频率 比决策节奏快一档就够。</p>
+<h2>总结</h2>
+<p>数据 看板 搭建 就三步：指标写口径卡，按问题选图表，定更新频率并加时间戳。首屏 5 个组件、整板不超过 15 个，超了往分页放。数据 看板 怎么 搭 不必一上来就买 BI，表格够用先用表格，行数顶不住再换数据库。看板 指标 怎么 定 的答案在决策里，不在数据里。</p></article>
+  <div class="sec"><h2>文中提到的工具</h2><p class="tlinks"><a href="../tool/feishu-bitable/">飞书多维表格 →</a></p></div>
+  <section class="related"><h2>同类教程</h2><ul><li><a href="biz-31-team-subscription-worth.html">团队版 AI 订阅值不值：10 人团队账单实录</a></li><li><a href="biz-32-client-followup-automation.html">客户 回访 自动化：3 个触发点与话术模板</a></li><li><a href="biz-33-quote-negotiation-scripts.html">报价 谈判 话术：锚点、让步阶梯与异议拆解</a></li><li><a href="biz-34-meeting-record-archive.html">会议 记录 归档：模板、命名与检索体系</a></li><li><a href="biz-35-customer-segmentation.html">客户 分层 管理：4 个维度加 4 套动作</a></li></ul><p class="tool-link"><a href="../index.html">查看 商业效率 工具与其它教程 →</a> <a href="../t/errors/">AI 报错解决 →</a> <a href="../t/pricing/">AI 工具价格 →</a></p></section>
+  <footer>© 2026 星籁 Stellara · <a href="../privacy.html">隐私政策</a> · <a href="../sitemap.xml">站点地图</a></footer>
+</main>
+</body>
+</html>

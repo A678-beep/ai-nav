@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>性能 分析 AI：火焰图、指标与优化验证 · 星籁</title>
+<meta name="description" content="大促前一周，详情页接口 p99 从 420ms 涨到 1.8s，机器 CPU 只有 55%，监控上看不出毛病。我先用火焰图采两轮，把采样结果和指标一起交给模型做假设排序，40 分钟定位到序列化重复和连接池等待，改完 p9">
+<meta name="keywords" content="性能 分析 AI, 火焰图, 性能 指标, 优化 验证, 接口 性能 分析, 火焰图 分析 方法">
+<meta name="robots" content="index,follow">
+
+<link rel="canonical" href="https://a678-beep.github.io/ai-nav/a/code-36-performance-analysis-ai.html">
+<meta property="og:type" content="article">
+<meta property="og:title" content="性能 分析 AI：火焰图、指标与优化验证">
+<meta property="og:description" content="大促前一周，详情页接口 p99 从 420ms 涨到 1.8s，机器 CPU 只有 55%，监控上看不出毛病。我先用火焰图采两轮，把采样结果和指标一起交给模型做假设排序，40 分钟定位到序列化重复和连接池等待，改完 p9">
+<meta property="og:url" content="https://a678-beep.github.io/ai-nav/a/code-36-performance-analysis-ai.html">
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "Article", "headline": "性能 分析 AI：火焰图、指标与优化验证", "inLanguage": "zh-CN", "datePublished": "2026-11-15", "author": {"@type": "Organization", "name": "星籁 Stellara"}, "publisher": {"@type": "Organization", "name": "星籁 Stellara"}, "mainEntityOfPage": "https://a678-beep.github.io/ai-nav/a/code-36-performance-analysis-ai.html", "articleSection": "编程助手", "wordCount": 808, "dateModified": "2026-11-15", "keywords": "性能 分析 AI, 火焰图, 性能 指标, 优化 验证, 接口 性能 分析, 火焰图 分析 方法"}</script>
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "首页", "item": "https://a678-beep.github.io/ai-nav/"}, {"@type": "ListItem", "position": 2, "name": "编程助手", "item": "https://a678-beep.github.io/ai-nav/#/articles"}, {"@type": "ListItem", "position": 3, "name": "性能 分析 AI：火焰图、指标与优化验证", "item": "https://a678-beep.github.io/ai-nav/a/code-36-performance-analysis-ai.html"}]}</script>
+<style>
+:root{--bg:#080b12;--panel:#111827;--line:#1f2937;--txt:#e6edf7;--txt2:#9aa8bd;--txt3:#6b7a90;--cyan:#5ad1ff;--violet:#a78bfa}
+*{box-sizing:border-box}body{margin:0;background:radial-gradient(900px 500px at 82% -8%,rgba(90,209,255,.16),transparent 60%),var(--bg);color:var(--txt);font-family:"Microsoft YaHei","PingFang SC",system-ui,sans-serif;line-height:1.8}
+a{color:inherit;text-decoration:none}
+.top{position:sticky;top:0;backdrop-filter:blur(12px);background:rgba(8,11,18,.85);border-bottom:1px solid var(--line)}
+.top-in{max-width:900px;margin:0 auto;padding:12px 20px;display:flex;align-items:center;gap:10px}
+.logo{display:flex;align-items:center;gap:9px;font-weight:800}
+.logo .mark{width:30px;height:30px;border-radius:9px;background:linear-gradient(135deg,var(--cyan),var(--violet));display:grid;place-items:center;color:#04121c;font-weight:900}
+.top-in .back{margin-left:auto;color:var(--txt2);font-size:13px}
+main{max-width:900px;margin:0 auto;padding:28px 20px 60px}
+h1{font-size:28px;line-height:1.4;margin:8px 0 10px}
+.meta{color:var(--txt3);font-size:12.5px;margin-bottom:22px;display:flex;gap:8px;flex-wrap:wrap}
+.content{font-size:15.5px;color:#cfd9e6}
+.content h2{font-size:20px;color:var(--txt);margin:28px 0 10px}
+.content h3{font-size:17px;color:var(--txt);margin:22px 0 8px}
+.content p{margin:12px 0}
+.content li{margin:6px 0}
+.content code{background:rgba(120,180,255,.12);padding:1px 6px;border-radius:5px;font-family:Consolas,monospace;font-size:13px}
+.content pre{background:#0a1018;border:1px solid var(--line);border-radius:10px;padding:12px;overflow:auto}
+.content blockquote{border-left:3px solid var(--cyan);padding:4px 14px;color:var(--txt2);margin:16px 0}
+.ad-slot{margin:26px 0;min-height:100px;border:1px dashed rgba(120,140,170,.35);border-radius:12px;display:flex;align-items:center;justify-content:center;color:var(--txt3);font-size:12px;text-align:center;background:rgba(17,24,39,.55)}
+.ad-slot small{display:block;font-size:10.5px;opacity:.7}
+.bread{color:var(--txt3);font-size:12.5px;margin-bottom:6px}
+.bread a{color:var(--cyan)}
+footer{border-top:1px solid var(--line);color:var(--txt3);font-size:12.5px;text-align:center;padding:20px}
+.related{margin:34px 0 10px;border-top:1px solid var(--line);padding-top:18px}.related h2{font-size:16px;color:var(--txt);margin:0 0 10px}.related ul{list-style:none;padding:0;margin:0}.related li{margin:8px 0}.related a{color:var(--cyan);font-size:14px}
+.tool-link{margin:14px 0 0}
+.tlinks a{display:inline-block;margin:0 8px 8px 0;padding:6px 12px;border:1px solid rgba(90,209,255,.25);border-radius:8px;font-size:13px;color:var(--cyan);background:rgba(90,209,255,.06)}
+.tlinks a:hover{background:rgba(90,209,255,.15)}
+.sec{margin:26px 0}
+.sec h2{font-size:17px;color:var(--txt);margin:0 0 10px}
+.tool-link a{display:inline-block;font-size:13px;color:var(--txt2);border:1px solid var(--line);border-radius:8px;padding:7px 12px}
+.tool-link a:hover{color:var(--txt);border-color:rgba(90,209,255,.45)}
+.top-in .back{padding:6px 0}
+.bread a{display:inline-block;padding:6px 0}
+.sec li a{display:inline-block;padding:5px 0}
+.sib a{padding:8px 12px}
+.cats a{display:inline-block;margin:0 8px 8px 0;padding:6px 12px;border:1px solid var(--line);border-radius:8px;font-size:13px;color:var(--txt2)}
+.cats a:hover{color:var(--txt);border-color:rgba(90,209,255,.45)}
+.cats h2{font-size:17px;margin:22px 0 10px}
+@media(max-width:640px){h1{font-size:22px}main{padding:20px 16px 40px}
+.related a,.tlinks a,.tool-link a,footer a,.sib a{min-height:36px;display:inline-flex;align-items:center}
+.list a{padding:14px 14px}
+td a{display:inline-block;padding:8px 0}
+.note a{display:inline-block;padding:7px 0}
+}
+</style>
+</head>
+<body>
+<header class="top"><div class="top-in">
+  <a class="logo" href="../index.html"><span class="mark">✦</span>星籁 AI 导航</a>
+  <a class="back" href="../index.html">← 返回首页</a>
+</div></header>
+<main>
+  <div class="bread"><a href="../index.html">首页</a> / <a href="../code/index.html">编程助手</a></div>
+  <h1>性能 分析 AI：火焰图、指标与优化验证</h1>
+  <div class="meta"><span>编程助手</span><span>·</span><span>更新于 2026-11-15</span><span>·</span><span>性能 分析 AI, 火焰图, 性能 指标, 优化 验证, 接口 性能 分析, 火焰图 分析 方法</span></div>
+  <article class="content"><p>大促前一周，详情页接口 p99 从 420ms 涨到 1.8s，机器 CPU 只有 55%，监控上看不出毛病。我先用火焰图采两轮，把采样结果和指标一起交给模型做假设排序，40 分钟定位到序列化重复和连接池等待，改完 p99 回到 310ms。性能 分析 AI 不是让模型猜代码，是先给它看得懂的数据。</p>
+<h2>指标先对齐，别拿平均值开刀</h2>
+<p>接口 性能 分析 的第一步是选对指标：p50 好看没用，用户撞的是 p99；接口 QPS 2.3 万、错误率 0.1%、CPU 55%、GC 停顿每秒 12 次，五个数先拉齐再问模型。机器规格也要一起给：8 核 16G 和 32 核 64G 的瓶颈点完全不同。火焰图和指标要成对给：只给火焰图，模型分不清 CPU 忙还是等锁；只给指标，它只会建议加机器。我固定给三张表：5 分钟粒度的 p95/p99 曲线、Top 10 慢接口、JVM 的 GC 与线程池状态。口径要写清，延迟是网关侧还是应用侧，差 30ms 的采集层会让结论反过来。避坑：压测环境和服务共用一套监控，优化前后的数根本不可比。</p>
+<h2>火焰图要采对，AI 才有得看</h2>
+<div class="ad-slot" data-ad="article-mid"><div>广告位（文章中部）<small>AdSense / 广告联盟代码插入点 · 建议 728×90 / 移动端 320×100</small></div><!-- 在这里粘贴广告代码 --></div>
+<p>火焰图 分析 方法 我固定成三步。一，用 async-profiler 采 CPU：-e cpu -d 60，60 秒约 2.1 万样本，输出 HTML；怀疑等 IO 再补一轮 -e wall。二，把热点按前 5 层栈聚合成文本，每行写占比、类名、方法名，40 行就够。栈再长模型就抓不住重点，超过 60 行我会先砍掉框架层。三，连同指标一起贴给模型，让它按假设、证据、验证方式、预期收益四列输出。那次栈里 38% 在对象序列化、22% 在 socketRead、15% 在同步日志，模型排第一的假设是序列化重复做了三次，和压测里 CPU 高、IO 低对得上。避坑一：栈里混进框架代理类名，模型会对着 GeneratedMethodAccessor 胡说，聚合时先过滤；避坑二：只采 10 秒太短，偶发尖峰采不到，至少 60 秒。</p>
+<h2>优化验证：前后各三轮，灰度 24 小时</h2>
+<p>模型给的方案不直接上线。先列改动清单：DTO 字段从 84 个减到 23 个、序列化结果进 Redis 缓存 10 分钟、日志改异步队列 8192、连接池上限 50 调到 80，每项一个开关。开关放配置中心，压测时能一键回退；改一项压一轮，别一次全上。验证固定做法：wrk2 压测 200 并发、5 分钟一轮、前后各 3 轮取中位数，p99 从 1.82 秒降到 0.34 秒，CPU 从 76% 降到 48%，MySQL 查询量从每秒 9 千降到 3.2 千。压完灰度 10% 流量跑 24 小时，错误率和 GC 没恶化才全量。性能 分析 AI 的结论只是候选，验证还得自己压。避坑：缓存键漏了权限字段，灰度当天出现过串号；加缓存前先想清楚失效时间，省下的延迟会以数据不一致的形式还回来。</p>
+<h2>总结</h2>
+<p>顺序是定指标、采火焰图、聚合栈、要假设、逐项验证。接口 性能 分析 靠三张表加一次 60 秒采样，火焰图 分析 方法 靠过滤代理类和多采两轮。性能 分析 AI 省的是翻代码和画图的时间，省不掉压测和灰度；数据对不齐时，先补采样时间再问模型。</p></article>
+  
+  <section class="related"><h2>同类教程</h2><ul><li><a href="code-37-mock-data-generation.html">Mock 数据 生成 规则：字段、关联与脱敏</a></li><li><a href="code-38-code-to-pseudocode.html">代码 转 伪代码：1.2 万行老系统的读法</a></li><li><a href="code-39-code-comment-standards.html">代码 注释 规范：四类注释写法与 AI 检查</a></li><li><a href="code-40-ai-sql-validation.html">AI 生成 SQL 校验：执行计划与权限红线</a></li><li><a href="code-01-cursor-tab-settings.html">Cursor Tab 补全 设置：五个开关的取舍</a></li></ul><p class="tool-link"><a href="../index.html">查看 编程助手 工具与其它教程 →</a> <a href="../t/errors/">AI 报错解决 →</a> <a href="../t/params/">参数与配置 →</a></p></section>
+  <footer>© 2026 星籁 Stellara · <a href="../privacy.html">隐私政策</a> · <a href="../sitemap.xml">站点地图</a></footer>
+</main>
+</body>
+</html>

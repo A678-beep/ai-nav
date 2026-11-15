@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>大模型 选型 评测：40 道题跑出加权分 · 星籁</title>
+<meta name="description" content="采购评审拖了两周，我拿 LMArena 榜单和参数表比了三天，选了个排名靠前的 Claude Sonnet 4.5 接客服工单，上线两周 JSON 格式错 6%，客服每天手工补两百多条。贵和强都不是选型依据。后来我把 大">
+<meta name="keywords" content="大模型 选型 评测, 评测 维度, 测试集 设计, 单任务 成本, 大模型 评测 怎么做, 模型 选型 成本 对比">
+<meta name="robots" content="index,follow">
+
+<link rel="canonical" href="https://a678-beep.github.io/ai-nav/a/chat-35-llm-model-selection-review.html">
+<meta property="og:type" content="article">
+<meta property="og:title" content="大模型 选型 评测：40 道题跑出加权分">
+<meta property="og:description" content="采购评审拖了两周，我拿 LMArena 榜单和参数表比了三天，选了个排名靠前的 Claude Sonnet 4.5 接客服工单，上线两周 JSON 格式错 6%，客服每天手工补两百多条。贵和强都不是选型依据。后来我把 大">
+<meta property="og:url" content="https://a678-beep.github.io/ai-nav/a/chat-35-llm-model-selection-review.html">
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "Article", "headline": "大模型 选型 评测：40 道题跑出加权分", "inLanguage": "zh-CN", "datePublished": "2026-11-15", "author": {"@type": "Organization", "name": "星籁 Stellara"}, "publisher": {"@type": "Organization", "name": "星籁 Stellara"}, "mainEntityOfPage": "https://a678-beep.github.io/ai-nav/a/chat-35-llm-model-selection-review.html", "articleSection": "对话AI", "wordCount": 835, "dateModified": "2026-11-15", "keywords": "大模型 选型 评测, 评测 维度, 测试集 设计, 单任务 成本, 大模型 评测 怎么做, 模型 选型 成本 对比"}</script>
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "首页", "item": "https://a678-beep.github.io/ai-nav/"}, {"@type": "ListItem", "position": 2, "name": "对话AI", "item": "https://a678-beep.github.io/ai-nav/#/articles"}, {"@type": "ListItem", "position": 3, "name": "大模型 选型 评测：40 道题跑出加权分", "item": "https://a678-beep.github.io/ai-nav/a/chat-35-llm-model-selection-review.html"}]}</script>
+<style>
+:root{--bg:#080b12;--panel:#111827;--line:#1f2937;--txt:#e6edf7;--txt2:#9aa8bd;--txt3:#6b7a90;--cyan:#5ad1ff;--violet:#a78bfa}
+*{box-sizing:border-box}body{margin:0;background:radial-gradient(900px 500px at 82% -8%,rgba(90,209,255,.16),transparent 60%),var(--bg);color:var(--txt);font-family:"Microsoft YaHei","PingFang SC",system-ui,sans-serif;line-height:1.8}
+a{color:inherit;text-decoration:none}
+.top{position:sticky;top:0;backdrop-filter:blur(12px);background:rgba(8,11,18,.85);border-bottom:1px solid var(--line)}
+.top-in{max-width:900px;margin:0 auto;padding:12px 20px;display:flex;align-items:center;gap:10px}
+.logo{display:flex;align-items:center;gap:9px;font-weight:800}
+.logo .mark{width:30px;height:30px;border-radius:9px;background:linear-gradient(135deg,var(--cyan),var(--violet));display:grid;place-items:center;color:#04121c;font-weight:900}
+.top-in .back{margin-left:auto;color:var(--txt2);font-size:13px}
+main{max-width:900px;margin:0 auto;padding:28px 20px 60px}
+h1{font-size:28px;line-height:1.4;margin:8px 0 10px}
+.meta{color:var(--txt3);font-size:12.5px;margin-bottom:22px;display:flex;gap:8px;flex-wrap:wrap}
+.content{font-size:15.5px;color:#cfd9e6}
+.content h2{font-size:20px;color:var(--txt);margin:28px 0 10px}
+.content h3{font-size:17px;color:var(--txt);margin:22px 0 8px}
+.content p{margin:12px 0}
+.content li{margin:6px 0}
+.content code{background:rgba(120,180,255,.12);padding:1px 6px;border-radius:5px;font-family:Consolas,monospace;font-size:13px}
+.content pre{background:#0a1018;border:1px solid var(--line);border-radius:10px;padding:12px;overflow:auto}
+.content blockquote{border-left:3px solid var(--cyan);padding:4px 14px;color:var(--txt2);margin:16px 0}
+.ad-slot{margin:26px 0;min-height:100px;border:1px dashed rgba(120,140,170,.35);border-radius:12px;display:flex;align-items:center;justify-content:center;color:var(--txt3);font-size:12px;text-align:center;background:rgba(17,24,39,.55)}
+.ad-slot small{display:block;font-size:10.5px;opacity:.7}
+.bread{color:var(--txt3);font-size:12.5px;margin-bottom:6px}
+.bread a{color:var(--cyan)}
+footer{border-top:1px solid var(--line);color:var(--txt3);font-size:12.5px;text-align:center;padding:20px}
+.related{margin:34px 0 10px;border-top:1px solid var(--line);padding-top:18px}.related h2{font-size:16px;color:var(--txt);margin:0 0 10px}.related ul{list-style:none;padding:0;margin:0}.related li{margin:8px 0}.related a{color:var(--cyan);font-size:14px}
+.tool-link{margin:14px 0 0}
+.tlinks a{display:inline-block;margin:0 8px 8px 0;padding:6px 12px;border:1px solid rgba(90,209,255,.25);border-radius:8px;font-size:13px;color:var(--cyan);background:rgba(90,209,255,.06)}
+.tlinks a:hover{background:rgba(90,209,255,.15)}
+.sec{margin:26px 0}
+.sec h2{font-size:17px;color:var(--txt);margin:0 0 10px}
+.tool-link a{display:inline-block;font-size:13px;color:var(--txt2);border:1px solid var(--line);border-radius:8px;padding:7px 12px}
+.tool-link a:hover{color:var(--txt);border-color:rgba(90,209,255,.45)}
+.top-in .back{padding:6px 0}
+.bread a{display:inline-block;padding:6px 0}
+.sec li a{display:inline-block;padding:5px 0}
+.sib a{padding:8px 12px}
+.cats a{display:inline-block;margin:0 8px 8px 0;padding:6px 12px;border:1px solid var(--line);border-radius:8px;font-size:13px;color:var(--txt2)}
+.cats a:hover{color:var(--txt);border-color:rgba(90,209,255,.45)}
+.cats h2{font-size:17px;margin:22px 0 10px}
+@media(max-width:640px){h1{font-size:22px}main{padding:20px 16px 40px}
+.related a,.tlinks a,.tool-link a,footer a,.sib a{min-height:36px;display:inline-flex;align-items:center}
+.list a{padding:14px 14px}
+td a{display:inline-block;padding:8px 0}
+.note a{display:inline-block;padding:7px 0}
+}
+</style>
+</head>
+<body>
+<header class="top"><div class="top-in">
+  <a class="logo" href="../index.html"><span class="mark">✦</span>星籁 AI 导航</a>
+  <a class="back" href="../index.html">← 返回首页</a>
+</div></header>
+<main>
+  <div class="bread"><a href="../index.html">首页</a> / <a href="../chat/index.html">对话AI</a></div>
+  <h1>大模型 选型 评测：40 道题跑出加权分</h1>
+  <div class="meta"><span>对话AI</span><span>·</span><span>更新于 2026-11-15</span><span>·</span><span>大模型 选型 评测, 评测 维度, 测试集 设计, 单任务 成本, 大模型 评测 怎么做, 模型 选型 成本 对比</span></div>
+  <article class="content"><p>采购评审拖了两周，我拿 LMArena 榜单和参数表比了三天，选了个排名靠前的 Claude Sonnet 4.5 接客服工单，上线两周 JSON 格式错 6%，客服每天手工补两百多条。贵和强都不是选型依据。后来我把 大模型 选型 评测 做成一套能复现的流程：从线上日志捞 40 道题、五个维度加权、每题跑三次、成本按成功任务折算，四个模型跑一周出结论，和榜单差了三个名次。</p>
+<h2>测试集：40 道题从线上日志里捞</h2>
+<p>大模型 评测 怎么做，我第一版也抄公开榜单的题，可这些题早被喂进训练数据，分差不到 3 分，测不出业务差异。题库改成从线上真实请求里捞：导 500 条脱敏工单，按业务分层定 40 题——分类 15 题、回复草稿 10 题、边界输入 8 题（空字段、超长、矛盾条件）、拒答 4 题、超长上下文 3 题。每题只写三样：原始输入、期望结果、判分标准。分类题只判一级标签，草稿题列出必须出现的 5 个要点，超长题给 3 个散落段落看能不能召回。温度统一 0.3，每题每模型跑 3 次，480 次调用四十分钟、花不到 5 元。两条避坑：题目别用自己调过的提示词，等于开卷；其中 10 题固定不换，跨月对比才有基线。</p>
+<h2>五维加权，别只看质量分</h2>
+<div class="ad-slot" data-ad="article-mid"><div>广告位（文章中部）<small>AdSense / 广告联盟代码插入点 · 建议 728×90 / 移动端 320×100</small></div><!-- 在这里粘贴广告代码 --></div>
+<p>评分表五个维度，权重跟着业务定：质量 40、格式遵循 20、稳定性 15、延迟 10、成本 15。质量靠双人盲评打 1 到 5 分，评前先对齐标准，两人分歧超过 1 分拉第三人，我第一轮一致性只有 0.62，重标后到 0.78。格式遵循看一次通过率：要求输出 8 个字段的 JSON，字段名、字段类型、中文标点都算，这里 Claude 只有 82%，deepseek-flash 有 96%。稳定性取三次里最差的一次，别用平均，我遇到过平均 4.2、三次里一次直接截断的。延迟看 p95，平均 2.1 秒、p95 到 7 秒的模型客服体感很差。这套 大模型 选型 评测 的评分口径先说好再跑，跑完再改权重，谁都能把结论改成自己想要的。模型 选型 成本 对比 也在这层统一：全部折成每 1000 个成功任务，重试和格式失败都算进去。</p>
+<h2>案例：差 8 分，成本差二十倍</h2>
+<p>把 大模型 选型 评测 落进工单场景，四个模型加权后：deepseek-flash 87、Kimi K2 83、GPT-5.1 80、Claude Sonnet 4.5 79。Claude 质量最高 37/40，但格式 16/20、成本 5/15；deepseek-flash 质量只有 31，格式 19、成本 15，靠后两项翻上来。单任务成本按输入 1500 token、输出 300 token 折算：deepseek-flash 约 0.0027 元，Kimi K2 约 0.0179 元，Claude 约 0.0648 元，差二十多倍。月度 12 万单，全用 Claude 是 7776 元，改成 85% 走 deepseek-flash、15% 复杂单回落 Claude，混合成本约 1442 元，格式失败率从 6% 降到 1.2%。</p>
+<h2>总结</h2>
+<p>现在固定四步：捞 40 道真实题、五个维度加权、每题三次加盲评、按成功任务算成本。分差 10 分以内按成本和格式通过率定，别迷信最强。两个不要：不要用单次输出下结论，不要让同一个模型既答题又当裁判。大模型 评测 怎么做，说到底就是把自己的业务拆成能判分的题；模型 选型 成本 对比 做完，采购会上没人再问为什么不用最贵的那个。</p></article>
+  <div class="sec"><h2>文中提到的工具</h2><p class="tlinks"><a href="../tool/deepseek/">DeepSeek →</a><a href="../tool/claude/">Claude →</a><a href="../tool/kimi/">Kimi →</a></p></div>
+  <section class="related"><h2>同类教程</h2><ul><li><a href="chat-36-ai-meeting-assistant.html">AI 会议 助手 选型：四条硬指标和落地流程</a></li><li><a href="chat-37-ai-paper-reader.html">AI 论文 阅读 流程：从拆结构到复现</a></li><li><a href="chat-38-ai-mock-interview.html">AI 模拟 面试 怎么练：题库、追问与复盘</a></li><li><a href="chat-39-ai-contract-clause-extraction.html">AI 合同 条款 提取：12 个字段与人工核对</a></li><li><a href="chat-40-multi-account-ai-management.html">团队多账号 AI 管理：权限、额度与合规</a></li></ul><p class="tool-link"><a href="../index.html">查看 对话AI 工具与其它教程 →</a> <a href="../t/errors/">AI 报错解决 →</a> <a href="../t/pricing/">AI 工具价格 →</a></p></section>
+  <footer>© 2026 星籁 Stellara · <a href="../privacy.html">隐私政策</a> · <a href="../sitemap.xml">站点地图</a></footer>
+</main>
+</body>
+</html>

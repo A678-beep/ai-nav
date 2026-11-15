@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>商业效率 工具与教程（38 篇）· 星籁 AI 工具导航</title>
+<meta name="description" content="商业效率类工具的价值是替人干重复活：审批、对账、客服质检、周报汇总。这些教程按&quot;配好一次、长期跑&quot;的思路写，含字段设计、权限和成本。">
+<meta name="keywords" content="商业效率,AI 工具,商业效率教程">
+<meta name="robots" content="index,follow">
+<link rel="canonical" href="https://a678-beep.github.io/ai-nav/biz/">
+<meta property="og:type" content="website">
+<meta property="og:title" content="商业效率 工具与教程">
+<meta property="og:url" content="https://a678-beep.github.io/ai-nav/biz/">
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "CollectionPage", "name": "商业效率 工具与教程", "inLanguage": "zh-CN", "url": "https://a678-beep.github.io/ai-nav/biz/", "isPartOf": {"@type": "WebSite", "name": "星籁 AI 工具导航", "url": "https://a678-beep.github.io/ai-nav/"}, "hasPart": [{"@type": "Article", "headline": "Notion AI 数据库 自动化：4 步搭建", "url": "https://a678-beep.github.io/ai-nav/a/biz-01-notion-ai-database-automation.html"}, {"@type": "Article", "headline": "飞书 多维表格 AI 字段：3 类工单", "url": "https://a678-beep.github.io/ai-nav/a/biz-02-feishu-bitable-ai-field.html"}, {"@type": "Article", "headline": "Zapier AI 自动化 流程：4 个触发器", "url": "https://a678-beep.github.io/ai-nav/a/biz-03-zapier-ai-automation-workflow.html"}, {"@type": "Article", "headline": "n8n 自建 工作流：Docker 三步部署", "url": "https://a678-beep.github.io/ai-nav/a/biz-04-n8n-self-hosted-workflow.html"}, {"@type": "Article", "headline": "扣子 Coze 客服机器人：3 个意图够用", "url": "https://a678-beep.github.io/ai-nav/a/biz-05-coze-customer-service-bot.html"}, {"@type": "Article", "headline": "Dify 知识库 搭建：3 个参数涨 40%", "url": "https://a678-beep.github.io/ai-nav/a/biz-06-dify-knowledge-base-setup.html"}, {"@type": "Article", "headline": "Gamma 演示文稿：20 页 8 分钟出稿", "url": "https://a678-beep.github.io/ai-nav/a/biz-07-gamma-presentation.html"}, {"@type": "Article", "headline": "Excel Copilot 公式：4 句提问", "url": "https://a678-beep.github.io/ai-nav/a/biz-08-excel-copilot-formula.html"}, {"@type": "Article", "headline": "问卷 AI 分析：300 份 2 小时出结论", "url": "https://a678-beep.github.io/ai-nav/a/biz-09-survey-ai-analysis.html"}, {"@type": "Article", "headline": "合同 AI 审查 风险：5 条红线标完", "url": "https://a678-beep.github.io/ai-nav/a/biz-10-contract-ai-review-risk.html"}]}</script>
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "首页", "item": "https://a678-beep.github.io/ai-nav/"}, {"@type": "ListItem", "position": 2, "name": "商业效率", "item": "https://a678-beep.github.io/ai-nav/biz/"}]}</script>
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "FAQPage", "inLanguage": "zh-CN", "mainEntity": [{"@type": "Question", "name": "自动化工具选 Zapier 还是 n8n？", "acceptedAnswer": {"@type": "Answer", "text": "预算敏感、要自建选 n8n（开源免费）；不想运维、要现成集成选 Zapier（按任务计费）。"}}, {"@type": "Question", "name": "AI 客服能直接代替人工吗？", "acceptedAnswer": {"@type": "Answer", "text": "常见问题可挡 60%-80%，复杂售后和投诉仍要转人工；建议做意图分流而不是全量替代。"}}, {"@type": "Question", "name": "公司知识库怎么接 AI？", "acceptedAnswer": {"@type": "Answer", "text": "先把文档清洗、分块、建向量库，再接问答；分块大小和检索 Top-K 是效果关键。"}}]}</script>
+<style>
+:root{--bg:#080b12;--panel:#111827;--line:#1f2937;--txt:#e6edf7;--txt2:#9aa8bd;--txt3:#6b7a90;--cyan:#5ad1ff;--violet:#a78bfa}
+*{box-sizing:border-box}body{margin:0;background:radial-gradient(900px 500px at 82% -8%,rgba(90,209,255,.16),transparent 60%),var(--bg);color:var(--txt);font-family:"Microsoft YaHei","PingFang SC",system-ui,sans-serif;line-height:1.8}
+a{color:inherit;text-decoration:none}
+.top{position:sticky;top:0;backdrop-filter:blur(12px);background:rgba(8,11,18,.85);border-bottom:1px solid var(--line)}
+.top-in{max-width:900px;margin:0 auto;padding:12px 20px;display:flex;align-items:center;gap:10px}
+.logo{display:flex;align-items:center;gap:9px;font-weight:800}
+.logo .mark{width:30px;height:30px;border-radius:9px;background:linear-gradient(135deg,var(--cyan),var(--violet));display:grid;place-items:center;color:#04121c;font-weight:900}
+.top-in .back{margin-left:auto;color:var(--txt2);font-size:13px}
+main{max-width:900px;margin:0 auto;padding:28px 20px 60px}
+h1{font-size:28px;line-height:1.4;margin:8px 0 10px}
+.meta{color:var(--txt3);font-size:12.5px;margin-bottom:22px;display:flex;gap:8px;flex-wrap:wrap}
+.content{font-size:15.5px;color:#cfd9e6}
+.content h2{font-size:20px;color:var(--txt);margin:28px 0 10px}
+.content h3{font-size:17px;color:var(--txt);margin:22px 0 8px}
+.content p{margin:12px 0}
+.content li{margin:6px 0}
+.content code{background:rgba(120,180,255,.12);padding:1px 6px;border-radius:5px;font-family:Consolas,monospace;font-size:13px}
+.content pre{background:#0a1018;border:1px solid var(--line);border-radius:10px;padding:12px;overflow:auto}
+.content blockquote{border-left:3px solid var(--cyan);padding:4px 14px;color:var(--txt2);margin:16px 0}
+.ad-slot{margin:26px 0;min-height:100px;border:1px dashed rgba(120,140,170,.35);border-radius:12px;display:flex;align-items:center;justify-content:center;color:var(--txt3);font-size:12px;text-align:center;background:rgba(17,24,39,.55)}
+.ad-slot small{display:block;font-size:10.5px;opacity:.7}
+.bread{color:var(--txt3);font-size:12.5px;margin-bottom:6px}
+.bread a{color:var(--cyan)}
+footer{border-top:1px solid var(--line);color:var(--txt3);font-size:12.5px;text-align:center;padding:20px}
+.related{margin:34px 0 10px;border-top:1px solid var(--line);padding-top:18px}.related h2{font-size:16px;color:var(--txt);margin:0 0 10px}.related ul{list-style:none;padding:0;margin:0}.related li{margin:8px 0}.related a{color:var(--cyan);font-size:14px}
+.tool-link{margin:14px 0 0}
+.tlinks a{display:inline-block;margin:0 8px 8px 0;padding:6px 12px;border:1px solid rgba(90,209,255,.25);border-radius:8px;font-size:13px;color:var(--cyan);background:rgba(90,209,255,.06)}
+.tlinks a:hover{background:rgba(90,209,255,.15)}
+.sec{margin:26px 0}
+.sec h2{font-size:17px;color:var(--txt);margin:0 0 10px}
+.tool-link a{display:inline-block;font-size:13px;color:var(--txt2);border:1px solid var(--line);border-radius:8px;padding:7px 12px}
+.tool-link a:hover{color:var(--txt);border-color:rgba(90,209,255,.45)}
+.top-in .back{padding:6px 0}
+.bread a{display:inline-block;padding:6px 0}
+.sec li a{display:inline-block;padding:5px 0}
+.sib a{padding:8px 12px}
+.cats a{display:inline-block;margin:0 8px 8px 0;padding:6px 12px;border:1px solid var(--line);border-radius:8px;font-size:13px;color:var(--txt2)}
+.cats a:hover{color:var(--txt);border-color:rgba(90,209,255,.45)}
+.cats h2{font-size:17px;margin:22px 0 10px}
+@media(max-width:640px){h1{font-size:22px}main{padding:20px 16px 40px}
+.related a,.tlinks a,.tool-link a,footer a,.sib a{min-height:36px;display:inline-flex;align-items:center}
+.list a{padding:14px 14px}
+td a{display:inline-block;padding:8px 0}
+.note a{display:inline-block;padding:7px 0}
+}
+
+.list{list-style:none;padding:0;margin:22px 0}
+.list li{margin:0 0 10px}
+.list a{display:block;padding:14px 16px;border:1px solid var(--line);border-radius:12px;background:rgba(17,24,39,.55);transition:.2s}
+.list a:hover{border-color:rgba(90,209,255,.45);transform:translateY(-2px)}
+.list b{display:block;font-size:15px;color:var(--txt);margin-bottom:5px}
+.list span{display:block;font-size:12.5px;color:var(--txt3);line-height:1.7}
+</style>
+</head>
+<body>
+<header class="top"><div class="top-in">
+  <a class="logo" href="../index.html"><span class="mark">✦</span>星籁 AI 导航</a>
+  <a class="back" href="../index.html">← 回首页</a>
+</div></header>
+<main>
+  <div class="bread"><a href="../index.html">首页</a> / 商业效率</div>
+  <h1>商业效率：38 篇实测教程</h1>
+  <p class="content" style="color:#cfd9e6;font-size:15px">商业效率类工具的价值是替人干重复活：审批、对账、客服质检、周报汇总。这些教程按"配好一次、长期跑"的思路写，含字段设计、权限和成本。</p>
+  <h2 style="font-size:18px;margin:26px 0 6px">先试这三个</h2>
+  <p style="color:var(--txt3);font-size:13px;margin:0 0 8px">按效果与上手难度排序，新手可以从这里开始</p>
+  <ul class="list"><li><a href="../tool/feishu-bitable/"><b>飞书多维表格</b><span>效果 4/5 · 上手 4/5 · 有免费额度</span></a></li><li><a href="../tool/notion/"><b>Notion</b><span>效果 4/5 · 上手 4/5 · 有免费额度</span></a></li><li><a href="../tool/coze/"><b>扣子 Coze</b><span>效果 4/5 · 上手 4/5 · 有免费额度</span></a></li></ul>
+  <h2 style="font-size:18px;margin:26px 0 6px">本类工具</h2>
+  <ul class="list"><li><a href="../tool/feishu-bitable/"><b>飞书多维表格</b><span>AI 字段做分类汇总，团队协作免费额度够用</span></a></li><li><a href="../tool/notion/"><b>Notion</b><span>数据库 + AI 自动化，做轻量 CRM</span></a></li><li><a href="../tool/n8n/"><b>n8n</b><span>开源自建自动化，可接本地模型</span></a></li><li><a href="../tool/coze/"><b>扣子 Coze</b><span>拖拽搭客服机器人，可发布到微信/飞书</span></a></li><li><a href="../tool/dify/"><b>Dify</b><span>开源知识库问答，支持私有部署</span></a></li><li><a href="../tool/gamma/"><b>Gamma</b><span>一句话生成演示文稿，导出 PPT/PDF</span></a></li></ul>
+  <h2 style="font-size:18px;margin:26px 0 6px">全部教程</h2>
+  <ul class="list"><li><a href="../a/biz-01-notion-ai-database-automation.html"><b>01. Notion AI 数据库 自动化：4 步搭建</b><span>团队周报以前靠群里接龙，我统计一轮要 40 分钟，还经常漏人。后来把周报搬进 Notion 数据库，用 AI 属性写摘要，再挂三条自动化，现在每…</span></a></li><li><a href="../a/biz-02-feishu-bitable-ai-field.html"><b>02. 飞书 多维表格 AI 字段：3 类工单</b><span>客服组每天把工单备注粘进表格再人工打标签，两个运营一上午就没了。我把客服系统导出的表接进飞书多维表格，用 AI 字段做分类和提取，结果再推回工单…</span></a></li><li><a href="../a/biz-03-zapier-ai-automation-workflow.html"><b>03. Zapier AI 自动化 流程：4 个触发器</b><span>市场部每周从官网、展会、公众号收到约 200 条线索，以前两个实习生拿 Excel 去重、查公司域名、按行业打标签，一周六个小时。现在我把表单接…</span></a></li><li><a href="../a/biz-04-n8n-self-hosted-workflow.html"><b>04. n8n 自建 工作流：Docker 三步部署</b><span>内容组每周要盯 20 个竞品博客和公众号，人工摘录进飞书表格，一个人一周 5 小时。我用 Docker 在 2 核 2G 的 VPS 上自建 n…</span></a></li><li><a href="../a/biz-05-coze-customer-service-bot.html"><b>05. 扣子 Coze 客服机器人：3 个意图够用</b><span>去年大促前，我把店铺售前咨询接进扣子 Coze 的客服机器人：产品参数、库存价格、发货时效三个意图，知识库放 120 页产品文档，答不上来转人工…</span></a></li><li><a href="../a/biz-06-dify-knowledge-base-setup.html"><b>06. Dify 知识库 搭建：3 个参数涨 40%</b><span>新员工入职先私聊 HR 问年假、报销、社保，一天三十多条，HR 一半时间在复读制度。我把 200 份制度文档搬进自建 Dify，做成内部问答页，…</span></a></li><li><a href="../a/biz-07-gamma-presentation.html"><b>07. Gamma 演示文稿：20 页 8 分钟出稿</b><span>咨询公司的分析师一周要交两份 deck，以前从空白页搭 20 页要 6 小时。现在我用 Gamma 演示文稿功能，把三页大纲粘进去，8 分钟出初…</span></a></li><li><a href="../a/biz-08-excel-copilot-formula.html"><b>08. Excel Copilot 公式：4 句提问</b><span>财务月结有 12 个 sheet，多条件汇总靠三层 IF 嵌套，改一个口径要重算半小时，还得找写公式的老同事。公司上了 Microsoft 36…</span></a></li><li><a href="../a/biz-09-survey-ai-analysis.html"><b>09. 问卷 AI 分析：300 份 2 小时出结论</b><span>教育机构每季度收 300 份家长问卷，其中 87 条是开放题，以前人工编码要一整天，还容易前后标准不一。现在用 ChatGPT Plus（$20…</span></a></li><li><a href="../a/biz-10-contract-ai-review-risk.html"><b>10. 合同 AI 审查 风险：5 条红线标完</b><span>采购合同每月 20 份，平均 8 页，法务逐份看到 40 分钟，旺季直接卡住。我把合同 AI 审查做成初筛：固定 5 类红线条款，模型逐段标出位…</span></a></li><li><a href="../a/biz-11-recruiting-jd-generation.html"><b>11. 招聘 JD 生成：1 份岗位 3 版文案</b><span>小公司 HR 一个人管 10 个岗位，写 JD 要跟业务对需求、改渠道版本、还得防着违规词，以前一个月 4 小时全耗在这。现在用 ChatGPT…</span></a></li><li><a href="../a/biz-12-ecommerce-customer-service-scripts.html"><b>12. 电商 客服 话术库：40 条场景降差评</b><span>女装店铺日咨询 800 条，3 个客服轮班，同一个问题三种答法，客户体验飘忽。我把高频场景整理成 40 条话术，用 ChatGPT Plus（$…</span></a></li><li><a href="../a/biz-13-meeting-minutes-auto-distribution.html"><b>13. 会议纪要 自动 分发：3 步配置 5 分钟到位</b><span>每周 9 场会，以前行政整理录音、写纪要、一个个发待办，一场 2 小时，还经常漏人。现在用飞书妙记录音转写加自动化：录音转文字、AI 按模板生成…</span></a></li><li><a href="../a/biz-14-financial-report-analysis.html"><b>14. 财务报表 解读：3 张表 12 个指标讲清</b><span>月度经营分析会前，财务要把三张表拆成 12 个指标，写一页给老板的解读，以前 3 小时。现在用 Excel Copilot（$30/人/月）算指…</span></a></li><li><a href="../a/biz-15-feishu-bitable-permission.html"><b>15. 飞书 多维表格 权限：高级权限 3 个角色配置</b><span>销售表放进 30 人团队，第一周就出事：有人把全量客户名单导出去带走了。原因很简单，共享链接设成了「获得链接的人可编辑」，而飞书 多维表格 权限…</span></a></li><li><a href="../a/biz-16-invoice-ocr-entry.html"><b>16. 发票 OCR 录入：8 个字段和 3 步验真</b><span>公司每月 300 多张发票，销售报销和采购进项混着来，以前两个人手工录要 2 天，还老录错金额。现在用阿里云 OCR 的发票识别接口批量出表，再…</span></a></li><li><a href="../a/biz-17-customer-service-quality-check.html"><b>17. 客服 质检 AI 怎么定抽样比例和扣分项</b><span>我们客服团队 12 个人，一个月 6.8 万条会话。以前质检组两个人，每人每天抽 10 条，一个月 400 条，覆盖率 0.6%，问题基本靠投诉…</span></a></li><li><a href="../a/biz-18-weekly-report-automation.html"><b>18. 周报 自动 生成：4 个数据源 30 分钟出稿</b><span>每周五下午我都在做同一件事：从任务看板、销售表、客服工单和网站后台各抄一遍数字，拼成周报再发群和邮件。四张表来回切，最快一个半小时，数字对不上还…</span></a></li><li><a href="../a/biz-19-n8n-node-error-troubleshoot.html"><b>19. n8n 节点 报错 排查：5 类常见错误与重试</b><span>周三早上 8 点，日报那条工作流没出数。我打开左侧的 Executions，列表里一条红色 Failed，点进去红的是 HTTP Request…</span></a></li><li><a href="../a/biz-20-dify-retrieval-inaccurate.html"><b>20. Dify 知识库 检索 不准：先改分块再重排</b><span>客服机器人上线第三天，用户问「退货谁承担运费」，它引用了开票流程那一页，还答得特别自信。我打开 Dify 知识库的召回测试，输入同样的问题，前四…</span></a></li><li><a href="../a/biz-21-invoice-batch-verification.html"><b>21. 发票 批量 查验：386 张票一条流水线</b><span>季度末进项票一多，最怕把假票和重复票一起付出去。上季度我们收了 386 张，专票、数电票、行程单混着来，两个人对着查验平台填了一整天还漏了重复票…</span></a></li><li><a href="../a/biz-22-contract-clause-compare.html"><b>22. 合同 条款 对比：AI 标出两版差异清单</b><span>供应商回稿常比模板多两页。上周一份 SaaS 采购合同，我方 v1 是 32 页，回稿 34 页，Word 自带“比较”跑出 61 处修订，24…</span></a></li><li><a href="../a/biz-23-cs-script-knowledge-base.html"><b>23. 客服 话术 知识库：三级分类加每周更新</b><span>母婴店 6 个客服，日咨询 1200 条，话术散在三个 Excel、两个微信群和客服记忆里。同一个退换货问题，新人翻十分钟，老客服两分钟。我花三…</span></a></li><li><a href="../a/biz-24-approval-automation.html"><b>24. 审批 流程 自动化：4 个节点与条件分支</b><span>公司 240 人，报销和采购一直走微信群加 Excel：单据截图发群里，财务手工登记，平均一单 3.2 天走完，月底对账天天吵。四月把 7 类审…</span></a></li><li><a href="../a/biz-25-quote-generation.html"><b>25. 报价单 自动 生成：模板变量、公式与审批联动</b><span>去年帮一家 15 人工业配件贸易公司理报价。4 个销售每天出 22 份，全用 Word 模板手改单价，一份 12 分钟。有个销售把 620 元的…</span></a></li><li><a href="../a/biz-26-resume-batch-parsing.html"><b>26. 简历 批量 解析：1200 份 40 分钟入库</b><span>校招季收了 1200 份简历，PDF、Word、招聘网站导出的网页、手机拍的图片混在一起。三个人对着 Excel 抄了两天，手机号抄错 9 个，…</span></a></li><li><a href="../a/biz-27-sales-lead-cleaning.html"><b>27. 销售 线索 清洗：8 个字段和 5 分制意向评分</b><span>去年帮一家卖工业泵的公司收拾线索：官网表单、展会扫回来的名片照片、采购群里的 Excel，一共 2000 条。四个销售用三天去重、查公司、打标签…</span></a></li><li><a href="../a/biz-28-ai-inventory-forecast.html"><b>28. 库存 预测 AI：表格建 30 天补货模型实战</b><span>320 个 SKU 的宠物用品店，去年双十一缺货率 11%，仓库同时压着 43 万的货，两头堵。今年用飞书多维表格存数据，配一个 AI 写的脚本…</span></a></li><li><a href="../a/biz-29-training-courseware.html"><b>29. 培训 课件 生成：四段拆解从大纲到案例</b><span>每月给 40 个门店员工做一场 2 小时新品课，以前从写大纲到做完课件要 6 小时，最烦的是讲稿写到一半发现练习和考核对不上。现在用 ChatG…</span></a></li><li><a href="../a/biz-30-dashboard-building.html"><b>30. 数据 看板 搭建：先定 9 个指标再选图</b><span>给 8 人电商团队搭第一版看板时，我按「能取到什么都放上」堆了 27 个图表，周会没人打开，运营说找不到自己要的数。第二版砍到 9 个指标、首屏…</span></a></li><li><a href="../a/biz-31-team-subscription-worth.html"><b>31. 团队版 AI 订阅值不值：10 人团队账单实录</b><span>去年 10 月公司把 10 个人的个人版换成团队版，年付每人每月 25 美元，一年 3000 美元，折合两万一千多人民币。三个月后拉后台数据：月…</span></a></li><li><a href="../a/biz-32-client-followup-automation.html"><b>32. 客户 回访 自动化：3 个触发点与话术模板</b><span>去年 11 月接手一家企业培训公司的售后流程：420 家签约客户，3 个人管，续费率 62%。到期前一个月才想起打电话，接通率不到一半，续不续全…</span></a></li><li><a href="../a/biz-33-quote-negotiation-scripts.html"><b>33. 报价 谈判 话术：锚点、让步阶梯与异议拆解</b><span>去年第四季度帮一家做企业内训的公司改销售话术，6 个销售手里 43 个在谈单子，报价单一发出去，客户第一句就是「太贵了」，销售要么直接打九折，要…</span></a></li><li><a href="../a/biz-34-meeting-record-archive.html"><b>34. 会议 记录 归档：模板、命名与检索体系</b><span>去年帮一家两百六十人的公司收拾会议记录，纪要在三个飞书群和两个网盘里。销售总监查「东岸项目为什么砍掉二期」的决议，行政翻了四十分钟没找到。之后我…</span></a></li><li><a href="../a/biz-35-customer-segmentation.html"><b>35. 客户 分层 管理：4 个维度加 4 套动作</b><span>去年接手一家母婴用品经销商的数据：760 个客户，2 个业务员平均撒网，高价值的没人跟，一年没下单的还占着人力。做了客户 分层 管理 之后，3 …</span></a></li><li><a href="../a/biz-36-team-knowledge-base.html"><b>36. 团队 知识库 搭建：3 层目录加权限表</b><span>20 人的服务团队，资料散在 3 个微信群、2 个 Excel 和离职同事的电脑里。新人问报销流程，老员工要翻聊天记录截图，来回 10 分钟。我…</span></a></li><li><a href="../a/biz-37-contract-expiry-reminder.html"><b>37. 合同 到期 提醒：12 个字段加三级提前期</b><span>公司 286 份合同原来只靠一张 Excel 合同 台账，到期日靠手填，月底才翻一遍。去年吃了两次亏：三份自动 续约的云服务合同没人管，悄悄续了…</span></a></li><li><a href="../a/biz-38-inventory-alert-setup.html"><b>38. 库存 预警 设置：安全库存加三级阈值线</b><span>母婴店 520 个 SKU，过去预警靠人盯表，群里每天推 120 条「库存不足」，三个月后没人点开。真正该补的奶粉反而漏报，旺季断了 11 次货…</span></a></li></ul>
+  <h2 style="font-size:18px;margin:30px 0 8px">常见问题</h2>
+  <h2>自动化工具选 Zapier 还是 n8n？</h2><p>预算敏感、要自建选 n8n（开源免费）；不想运维、要现成集成选 Zapier（按任务计费）。</p><h2>AI 客服能直接代替人工吗？</h2><p>常见问题可挡 60%-80%，复杂售后和投诉仍要转人工；建议做意图分流而不是全量替代。</p><h2>公司知识库怎么接 AI？</h2><p>先把文档清洗、分块、建向量库，再接问答；分块大小和检索 Top-K 是效果关键。</p>
+  <p style="font-size:13px;color:var(--txt3)">共 38 篇 · <a href="../sitemap.xml">站点地图</a> · <a href="../privacy.html">隐私政策</a></p>
+</main>
+</body>
+</html>

@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>报价单 自动 生成：模板变量、公式与审批联动 · 星籁</title>
+<meta name="description" content="去年帮一家 15 人工业配件贸易公司理报价。4 个销售每天出 22 份，全用 Word 模板手改单价，一份 12 分钟。有个销售把 620 元的单价填成 260 元，客户下单 200 件，一单亏了 7 万多。后来用多维表">
+<meta name="keywords" content="报价单 自动 生成, 报价单模板, 报价单公式, 飞书多维表格, 报价单模板变量替换, 报价单审批联动">
+<meta name="robots" content="index,follow">
+
+<link rel="canonical" href="https://a678-beep.github.io/ai-nav/a/biz-25-quote-generation.html">
+<meta property="og:type" content="article">
+<meta property="og:title" content="报价单 自动 生成：模板变量、公式与审批联动">
+<meta property="og:description" content="去年帮一家 15 人工业配件贸易公司理报价。4 个销售每天出 22 份，全用 Word 模板手改单价，一份 12 分钟。有个销售把 620 元的单价填成 260 元，客户下单 200 件，一单亏了 7 万多。后来用多维表">
+<meta property="og:url" content="https://a678-beep.github.io/ai-nav/a/biz-25-quote-generation.html">
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "Article", "headline": "报价单 自动 生成：模板变量、公式与审批联动", "inLanguage": "zh-CN", "datePublished": "2026-11-15", "author": {"@type": "Organization", "name": "星籁 Stellara"}, "publisher": {"@type": "Organization", "name": "星籁 Stellara"}, "mainEntityOfPage": "https://a678-beep.github.io/ai-nav/a/biz-25-quote-generation.html", "articleSection": "商业效率", "wordCount": 848, "dateModified": "2026-11-15", "keywords": "报价单 自动 生成, 报价单模板, 报价单公式, 飞书多维表格, 报价单模板变量替换, 报价单审批联动"}</script>
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "首页", "item": "https://a678-beep.github.io/ai-nav/"}, {"@type": "ListItem", "position": 2, "name": "商业效率", "item": "https://a678-beep.github.io/ai-nav/#/articles"}, {"@type": "ListItem", "position": 3, "name": "报价单 自动 生成：模板变量、公式与审批联动", "item": "https://a678-beep.github.io/ai-nav/a/biz-25-quote-generation.html"}]}</script>
+<style>
+:root{--bg:#080b12;--panel:#111827;--line:#1f2937;--txt:#e6edf7;--txt2:#9aa8bd;--txt3:#6b7a90;--cyan:#5ad1ff;--violet:#a78bfa}
+*{box-sizing:border-box}body{margin:0;background:radial-gradient(900px 500px at 82% -8%,rgba(90,209,255,.16),transparent 60%),var(--bg);color:var(--txt);font-family:"Microsoft YaHei","PingFang SC",system-ui,sans-serif;line-height:1.8}
+a{color:inherit;text-decoration:none}
+.top{position:sticky;top:0;backdrop-filter:blur(12px);background:rgba(8,11,18,.85);border-bottom:1px solid var(--line)}
+.top-in{max-width:900px;margin:0 auto;padding:12px 20px;display:flex;align-items:center;gap:10px}
+.logo{display:flex;align-items:center;gap:9px;font-weight:800}
+.logo .mark{width:30px;height:30px;border-radius:9px;background:linear-gradient(135deg,var(--cyan),var(--violet));display:grid;place-items:center;color:#04121c;font-weight:900}
+.top-in .back{margin-left:auto;color:var(--txt2);font-size:13px}
+main{max-width:900px;margin:0 auto;padding:28px 20px 60px}
+h1{font-size:28px;line-height:1.4;margin:8px 0 10px}
+.meta{color:var(--txt3);font-size:12.5px;margin-bottom:22px;display:flex;gap:8px;flex-wrap:wrap}
+.content{font-size:15.5px;color:#cfd9e6}
+.content h2{font-size:20px;color:var(--txt);margin:28px 0 10px}
+.content h3{font-size:17px;color:var(--txt);margin:22px 0 8px}
+.content p{margin:12px 0}
+.content li{margin:6px 0}
+.content code{background:rgba(120,180,255,.12);padding:1px 6px;border-radius:5px;font-family:Consolas,monospace;font-size:13px}
+.content pre{background:#0a1018;border:1px solid var(--line);border-radius:10px;padding:12px;overflow:auto}
+.content blockquote{border-left:3px solid var(--cyan);padding:4px 14px;color:var(--txt2);margin:16px 0}
+.ad-slot{margin:26px 0;min-height:100px;border:1px dashed rgba(120,140,170,.35);border-radius:12px;display:flex;align-items:center;justify-content:center;color:var(--txt3);font-size:12px;text-align:center;background:rgba(17,24,39,.55)}
+.ad-slot small{display:block;font-size:10.5px;opacity:.7}
+.bread{color:var(--txt3);font-size:12.5px;margin-bottom:6px}
+.bread a{color:var(--cyan)}
+footer{border-top:1px solid var(--line);color:var(--txt3);font-size:12.5px;text-align:center;padding:20px}
+.related{margin:34px 0 10px;border-top:1px solid var(--line);padding-top:18px}.related h2{font-size:16px;color:var(--txt);margin:0 0 10px}.related ul{list-style:none;padding:0;margin:0}.related li{margin:8px 0}.related a{color:var(--cyan);font-size:14px}
+.tool-link{margin:14px 0 0}
+.tlinks a{display:inline-block;margin:0 8px 8px 0;padding:6px 12px;border:1px solid rgba(90,209,255,.25);border-radius:8px;font-size:13px;color:var(--cyan);background:rgba(90,209,255,.06)}
+.tlinks a:hover{background:rgba(90,209,255,.15)}
+.sec{margin:26px 0}
+.sec h2{font-size:17px;color:var(--txt);margin:0 0 10px}
+.tool-link a{display:inline-block;font-size:13px;color:var(--txt2);border:1px solid var(--line);border-radius:8px;padding:7px 12px}
+.tool-link a:hover{color:var(--txt);border-color:rgba(90,209,255,.45)}
+.top-in .back{padding:6px 0}
+.bread a{display:inline-block;padding:6px 0}
+.sec li a{display:inline-block;padding:5px 0}
+.sib a{padding:8px 12px}
+.cats a{display:inline-block;margin:0 8px 8px 0;padding:6px 12px;border:1px solid var(--line);border-radius:8px;font-size:13px;color:var(--txt2)}
+.cats a:hover{color:var(--txt);border-color:rgba(90,209,255,.45)}
+.cats h2{font-size:17px;margin:22px 0 10px}
+@media(max-width:640px){h1{font-size:22px}main{padding:20px 16px 40px}
+.related a,.tlinks a,.tool-link a,footer a,.sib a{min-height:36px;display:inline-flex;align-items:center}
+.list a{padding:14px 14px}
+td a{display:inline-block;padding:8px 0}
+.note a{display:inline-block;padding:7px 0}
+}
+</style>
+</head>
+<body>
+<header class="top"><div class="top-in">
+  <a class="logo" href="../index.html"><span class="mark">✦</span>星籁 AI 导航</a>
+  <a class="back" href="../index.html">← 返回首页</a>
+</div></header>
+<main>
+  <div class="bread"><a href="../index.html">首页</a> / <a href="../biz/index.html">商业效率</a></div>
+  <h1>报价单 自动 生成：模板变量、公式与审批联动</h1>
+  <div class="meta"><span>商业效率</span><span>·</span><span>更新于 2026-11-15</span><span>·</span><span>报价单 自动 生成, 报价单模板, 报价单公式, 飞书多维表格, 报价单模板变量替换, 报价单审批联动</span></div>
+  <article class="content"><p>去年帮一家 15 人工业配件贸易公司理报价。4 个销售每天出 22 份，全用 Word 模板手改单价，一份 12 分钟。有个销售把 620 元的单价填成 260 元，客户下单 200 件，一单亏了 7 万多。后来用多维表格加简道云把报价单 自动 生成 搭起来，一份 3 分半出 PDF，价格错误归零。</p>
+<h2>一、模板变量：字段先同名</h2>
+<p>第一步，建产品库表：型号、底价、阶梯价、税率四列。第二步，建报价单明细表，产品列用关联字段选，选完带出底价。第三步，模板里只放变量：{{客户名称}}、{{数量}}、{{单价}}、{{合计}}，用 Word 邮件合并接 Excel 数据源，或用简道云打印模板绑定字段。</p>
+<p>避坑一，变量名必须和字段名一字不差，「{{客户名称 }}」多一个空格就替换成空白，客户收到的报价单开头是空的。避坑二，变量只放明细区，标题和公司信息写死，否则每行明细重复一遍标题。报价单模板变量替换 跑通后，22 份报价单从改 22 次模板变成点 22 次生成。</p>
+<h2>二、公式：价格在表里算完</h2>
+<div class="ad-slot" data-ad="article-mid"><div>广告位（文章中部）<small>AdSense / 广告联盟代码插入点 · 建议 728×90 / 移动端 320×100</small></div><!-- 在这里粘贴广告代码 --></div>
+<p>小计用 ROUND(数量*单价,2)，含税价用 ROUND(未税价*(1+税率),2)，阶梯折扣用 IF(数量&gt;=100,0.92,IF(数量&gt;=50,0.95,1))，毛利率用 (单价-底价)/单价。公式全写进多维表格的公式字段，打印模板只引用结果，公式错了 PDF 上看不出，客户会看出来。</p>
+<p>报价单 自动 生成 最容易错在钱上。浮点数算 0.1+0.2 得到 0.30000000000000004，金额一律 ROUND 到两位；阶梯价边界写 &gt;=100 还是 &gt;100，差一个字就少赚一档折扣；税率别写死 13%，服务类按 6% 算，做成下拉选择。报价单模板变量替换 之后抽查三份：最低、最高、带折扣各一份，拿计算器按一遍。</p>
+<h2>三、审批联动：只拦越线的单</h2>
+<p>规则三条：折扣低于 92 折或毛利低于 18%，进销售主管审批；金额超 5 万或折扣低于 85 折，加总经理；普通单子只一个审批人，24 小时没批自动提醒。审批通过回写「已通过」并锁定单价；有效期 7 天，到期标灰重报。</p>
+<p>简道云用流程表单加条件分支，条件选折扣和金额字段，打印模板挂在审批通过之后。飞书多维表格自己不能直接发起飞书审批，得用飞书集成平台搭流程，按月或按次收费，我们只拿它当产品库。报价单审批联动 的坑在回写：审批通过更新记录又触发自动化，成死循环，加一个「回写完成」勾选字段过滤。</p>
+<p>三个月的数据：484 份报价单，平均 3 分半一份，每月省下 68 小时；进审批的只占 8%，其中 11 份被主管要求调价；客户确认时间从半天缩到 2 小时。算价、审批、留痕塞进同一条流水线，才是这套流程的价值。</p>
+<h2>总结</h2>
+<p>报价单 自动 生成 分三层：字段先统一，模板只放变量；金额税率折扣在公式字段算完；折扣、毛利、金额三条线决定谁审批，通过后锁价留痕。15 人公司跑三个月，报价从 12 分钟压到 3 分半。报价单审批联动 别照抄阈值，把自己的底价和授权写进去。</p></article>
+  <div class="sec"><h2>文中提到的工具</h2><p class="tlinks"><a href="../tool/feishu-bitable/">飞书多维表格 →</a></p></div>
+  <section class="related"><h2>同类教程</h2><ul><li><a href="biz-26-resume-batch-parsing.html">简历 批量 解析：1200 份 40 分钟入库</a></li><li><a href="biz-27-sales-lead-cleaning.html">销售 线索 清洗：8 个字段和 5 分制意向评分</a></li><li><a href="biz-28-ai-inventory-forecast.html">库存 预测 AI：表格建 30 天补货模型实战</a></li><li><a href="biz-29-training-courseware.html">培训 课件 生成：四段拆解从大纲到案例</a></li><li><a href="biz-30-dashboard-building.html">数据 看板 搭建：先定 9 个指标再选图</a></li></ul><p class="tool-link"><a href="../index.html">查看 商业效率 工具与其它教程 →</a> <a href="../t/pricing/">AI 工具价格 →</a></p></section>
+  <footer>© 2026 星籁 Stellara · <a href="../privacy.html">隐私政策</a> · <a href="../sitemap.xml">站点地图</a></footer>
+</main>
+</body>
+</html>

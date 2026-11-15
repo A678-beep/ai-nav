@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>大模型 API 成本核算：按业务量算清每月账单 · 星籁</title>
+<meta name="description" content="「老板问，这个 AI 客服一个月烧多少钱？」我第一版按每次一分五拍了个 90 元/月的数，月底账单 168 元，差 87%。不是单价看错，是业务量估错：轮次会累加、长会话会落进更贵的档、重试也在计费。后来我把 大模型 A">
+<meta name="keywords" content="大模型 API 成本, API 成本核算, token 预估, 阶梯计价, 大模型 API 成本怎么算, API 成本怎么估算">
+<meta name="robots" content="index,follow">
+
+<link rel="canonical" href="https://a678-beep.github.io/ai-nav/a/chat-34-llm-api-cost-calculation.html">
+<meta property="og:type" content="article">
+<meta property="og:title" content="大模型 API 成本核算：按业务量算清每月账单">
+<meta property="og:description" content="「老板问，这个 AI 客服一个月烧多少钱？」我第一版按每次一分五拍了个 90 元/月的数，月底账单 168 元，差 87%。不是单价看错，是业务量估错：轮次会累加、长会话会落进更贵的档、重试也在计费。后来我把 大模型 A">
+<meta property="og:url" content="https://a678-beep.github.io/ai-nav/a/chat-34-llm-api-cost-calculation.html">
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "Article", "headline": "大模型 API 成本核算：按业务量算清每月账单", "inLanguage": "zh-CN", "datePublished": "2026-11-15", "author": {"@type": "Organization", "name": "星籁 Stellara"}, "publisher": {"@type": "Organization", "name": "星籁 Stellara"}, "mainEntityOfPage": "https://a678-beep.github.io/ai-nav/a/chat-34-llm-api-cost-calculation.html", "articleSection": "对话AI", "wordCount": 849, "dateModified": "2026-11-15", "keywords": "大模型 API 成本, API 成本核算, token 预估, 阶梯计价, 大模型 API 成本怎么算, API 成本怎么估算"}</script>
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "首页", "item": "https://a678-beep.github.io/ai-nav/"}, {"@type": "ListItem", "position": 2, "name": "对话AI", "item": "https://a678-beep.github.io/ai-nav/#/articles"}, {"@type": "ListItem", "position": 3, "name": "大模型 API 成本核算：按业务量算清每月账单", "item": "https://a678-beep.github.io/ai-nav/a/chat-34-llm-api-cost-calculation.html"}]}</script>
+<style>
+:root{--bg:#080b12;--panel:#111827;--line:#1f2937;--txt:#e6edf7;--txt2:#9aa8bd;--txt3:#6b7a90;--cyan:#5ad1ff;--violet:#a78bfa}
+*{box-sizing:border-box}body{margin:0;background:radial-gradient(900px 500px at 82% -8%,rgba(90,209,255,.16),transparent 60%),var(--bg);color:var(--txt);font-family:"Microsoft YaHei","PingFang SC",system-ui,sans-serif;line-height:1.8}
+a{color:inherit;text-decoration:none}
+.top{position:sticky;top:0;backdrop-filter:blur(12px);background:rgba(8,11,18,.85);border-bottom:1px solid var(--line)}
+.top-in{max-width:900px;margin:0 auto;padding:12px 20px;display:flex;align-items:center;gap:10px}
+.logo{display:flex;align-items:center;gap:9px;font-weight:800}
+.logo .mark{width:30px;height:30px;border-radius:9px;background:linear-gradient(135deg,var(--cyan),var(--violet));display:grid;place-items:center;color:#04121c;font-weight:900}
+.top-in .back{margin-left:auto;color:var(--txt2);font-size:13px}
+main{max-width:900px;margin:0 auto;padding:28px 20px 60px}
+h1{font-size:28px;line-height:1.4;margin:8px 0 10px}
+.meta{color:var(--txt3);font-size:12.5px;margin-bottom:22px;display:flex;gap:8px;flex-wrap:wrap}
+.content{font-size:15.5px;color:#cfd9e6}
+.content h2{font-size:20px;color:var(--txt);margin:28px 0 10px}
+.content h3{font-size:17px;color:var(--txt);margin:22px 0 8px}
+.content p{margin:12px 0}
+.content li{margin:6px 0}
+.content code{background:rgba(120,180,255,.12);padding:1px 6px;border-radius:5px;font-family:Consolas,monospace;font-size:13px}
+.content pre{background:#0a1018;border:1px solid var(--line);border-radius:10px;padding:12px;overflow:auto}
+.content blockquote{border-left:3px solid var(--cyan);padding:4px 14px;color:var(--txt2);margin:16px 0}
+.ad-slot{margin:26px 0;min-height:100px;border:1px dashed rgba(120,140,170,.35);border-radius:12px;display:flex;align-items:center;justify-content:center;color:var(--txt3);font-size:12px;text-align:center;background:rgba(17,24,39,.55)}
+.ad-slot small{display:block;font-size:10.5px;opacity:.7}
+.bread{color:var(--txt3);font-size:12.5px;margin-bottom:6px}
+.bread a{color:var(--cyan)}
+footer{border-top:1px solid var(--line);color:var(--txt3);font-size:12.5px;text-align:center;padding:20px}
+.related{margin:34px 0 10px;border-top:1px solid var(--line);padding-top:18px}.related h2{font-size:16px;color:var(--txt);margin:0 0 10px}.related ul{list-style:none;padding:0;margin:0}.related li{margin:8px 0}.related a{color:var(--cyan);font-size:14px}
+.tool-link{margin:14px 0 0}
+.tlinks a{display:inline-block;margin:0 8px 8px 0;padding:6px 12px;border:1px solid rgba(90,209,255,.25);border-radius:8px;font-size:13px;color:var(--cyan);background:rgba(90,209,255,.06)}
+.tlinks a:hover{background:rgba(90,209,255,.15)}
+.sec{margin:26px 0}
+.sec h2{font-size:17px;color:var(--txt);margin:0 0 10px}
+.tool-link a{display:inline-block;font-size:13px;color:var(--txt2);border:1px solid var(--line);border-radius:8px;padding:7px 12px}
+.tool-link a:hover{color:var(--txt);border-color:rgba(90,209,255,.45)}
+.top-in .back{padding:6px 0}
+.bread a{display:inline-block;padding:6px 0}
+.sec li a{display:inline-block;padding:5px 0}
+.sib a{padding:8px 12px}
+.cats a{display:inline-block;margin:0 8px 8px 0;padding:6px 12px;border:1px solid var(--line);border-radius:8px;font-size:13px;color:var(--txt2)}
+.cats a:hover{color:var(--txt);border-color:rgba(90,209,255,.45)}
+.cats h2{font-size:17px;margin:22px 0 10px}
+@media(max-width:640px){h1{font-size:22px}main{padding:20px 16px 40px}
+.related a,.tlinks a,.tool-link a,footer a,.sib a{min-height:36px;display:inline-flex;align-items:center}
+.list a{padding:14px 14px}
+td a{display:inline-block;padding:8px 0}
+.note a{display:inline-block;padding:7px 0}
+}
+</style>
+</head>
+<body>
+<header class="top"><div class="top-in">
+  <a class="logo" href="../index.html"><span class="mark">✦</span>星籁 AI 导航</a>
+  <a class="back" href="../index.html">← 返回首页</a>
+</div></header>
+<main>
+  <div class="bread"><a href="../index.html">首页</a> / <a href="../chat/index.html">对话AI</a></div>
+  <h1>大模型 API 成本核算：按业务量算清每月账单</h1>
+  <div class="meta"><span>对话AI</span><span>·</span><span>更新于 2026-11-15</span><span>·</span><span>大模型 API 成本, API 成本核算, token 预估, 阶梯计价, 大模型 API 成本怎么算, API 成本怎么估算</span></div>
+  <article class="content"><p>「老板问，这个 AI 客服一个月烧多少钱？」我第一版按每次一分五拍了个 90 元/月的数，月底账单 168 元，差 87%。不是单价看错，是业务量估错：轮次会累加、长会话会落进更贵的档、重试也在计费。后来我把 大模型 API 成本 拆成三步算——数请求量、量真实 token、按长度套价，误差压到 6%。</p>
+<h2>第一步：请求量按轮次累加</h2>
+<p>别拿「用户数×每天次数」当业务量。日活 300 的客服机器人，人均 4 次会话、每次 6 轮，一天不是 1200 次请求，而是 7200 次。更麻烦的是 token：第 1 轮只发 800 token，第 6 轮要把前 5 轮历史带上，单次输入接近 4800 token。按增量乘以轮次估，一个会话的输入约 1.7 万 token，不是 800 乘 6 的 4800。再补两类常漏的量：接口超时重发、函数调用多走一轮，都单独计费，我的记录里重试占请求量 7%。</p>
+<p>token 也别用字数乘固定系数。我把线上 200 条真实请求导出来，看接口返回的 usage 字段，中文客服语料平均 1 字 0.8 个 token，换另一个分词器的模型是 1.15 个，差四成。API 成本怎么估算，第一步就是把这四个数写纸上：日均请求、单次输入、单次输出、重试率。</p>
+<h2>第二步：阶梯价按单次请求落档</h2>
+<div class="ad-slot" data-ad="article-mid"><div>广告位（文章中部）<small>AdSense / 广告联盟代码插入点 · 建议 728×90 / 移动端 320×100</small></div><!-- 在这里粘贴广告代码 --></div>
+<p>多数平台按单次请求的输入长度分档，常见 0-32K、32K-128K、128K 以上三档，后两档输入单价约是第一档的 3 倍和 6 倍。反直觉的坑在这：阶梯按一次请求判，不按月总量打折。我把一份 60K 的合同拆成两次 30K 的请求，两段都落在最便宜那档，同样的 token 数账单少四成；把两段合并发给模型，全量按 3 倍价算。</p>
+<p>缓存是第二根杠杆。主流接口的缓存读价是原输入价的 0.1 到 0.5 倍，写入加价约 1.25 倍，只对固定前缀划算。system 提示、输出格式、工具定义放最前面，时间戳和订单号往后挪。客服机器人固定 system 2.4K token，命中率从 0 提到 82% 后，每千次请求的输入费从 4.8 元降到 1.3 元。</p>
+<h2>第三步：拿一个月的账本对一遍</h2>
+<p>电商客服摘要的实测：日均 200 次，每次输入 8000 token（其中 2.4K 走缓存），输出 600 token。按未命中 2 元/百万、命中 0.2 元、输出 8 元算，一天 3.3 元、月 99 元。账单实际 168 元，多出的 69 元全在长会话：9% 的请求输入超 32K，落进 3 倍档，吃掉了四成费用。我按长度重新分桶，再乘 1.07 的重试系数，算出 179 元，误差 6%。</p>
+<p>两个避坑。一是限流重试要算账：并发超了接口返回 429，脚本自动重试三次，账单多 15%。二是报价别用裸成本：我按 179 元测算，对外报 230 元，留 30% 余量，再注明超出按 usage 结算。大模型 API 成本怎么算，对一次账单比估十次都准。</p>
+<h2>总结</h2>
+<p>现在固定成一张表：日均请求数（含重试）、单次输入输出 token（取线上样本中位数）、输入按长度分桶乘阶梯价、命中部分乘缓存价，最后加 30% 余量。每月对一次 usage 和账单，误差超过 20% 先查长会话占比和缓存前缀。大模型 API 成本怎么算，答案不是套单价，而是把自己业务量拆到「次」和「轮」。API 成本怎么估算 做一遍实测，就不会再想拍脑袋了。</p></article>
+  
+  <section class="related"><h2>同类教程</h2><ul><li><a href="chat-35-llm-model-selection-review.html">大模型 选型 评测：40 道题跑出加权分</a></li><li><a href="chat-36-ai-meeting-assistant.html">AI 会议 助手 选型：四条硬指标和落地流程</a></li><li><a href="chat-37-ai-paper-reader.html">AI 论文 阅读 流程：从拆结构到复现</a></li><li><a href="chat-38-ai-mock-interview.html">AI 模拟 面试 怎么练：题库、追问与复盘</a></li><li><a href="chat-39-ai-contract-clause-extraction.html">AI 合同 条款 提取：12 个字段与人工核对</a></li></ul><p class="tool-link"><a href="../index.html">查看 对话AI 工具与其它教程 →</a> <a href="../t/errors/">AI 报错解决 →</a> <a href="../t/pricing/">AI 工具价格 →</a></p></section>
+  <footer>© 2026 星籁 Stellara · <a href="../privacy.html">隐私政策</a> · <a href="../sitemap.xml">站点地图</a></footer>
+</main>
+</body>
+</html>

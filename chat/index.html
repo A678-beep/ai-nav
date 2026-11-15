@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>对话AI 工具与教程（41 篇）· 星籁 AI 工具导航</title>
+<meta name="description" content="对话类 AI 已经从聊天玩具变成工作台：总结长文档、审合同、练口语、抓会议纪要，真正省时间的是把提示词和场景固定下来。这里的 20 篇教程都从一个具体活儿出发，给出按钮位置、参数和踩过的坑，照着做就能复现。">
+<meta name="keywords" content="对话AI,AI 工具,对话AI教程">
+<meta name="robots" content="index,follow">
+<link rel="canonical" href="https://a678-beep.github.io/ai-nav/chat/">
+<meta property="og:type" content="website">
+<meta property="og:title" content="对话AI 工具与教程">
+<meta property="og:url" content="https://a678-beep.github.io/ai-nav/chat/">
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "CollectionPage", "name": "对话AI 工具与教程", "inLanguage": "zh-CN", "url": "https://a678-beep.github.io/ai-nav/chat/", "isPartOf": {"@type": "WebSite", "name": "星籁 AI 工具导航", "url": "https://a678-beep.github.io/ai-nav/"}, "hasPart": [{"@type": "Article", "headline": "ChatGPT 4o 语音对话 练英语口语实测", "url": "https://a678-beep.github.io/ai-nav/a/chat-01-chatgpt-4o-voice-english-speaking.html"}, {"@type": "Article", "headline": "Claude 3.7 Sonnet 长文档总结法", "url": "https://a678-beep.github.io/ai-nav/a/chat-02-claude-37-sonnet-long-document-summary.html"}, {"@type": "Article", "headline": "DeepSeek R1 本地部署 显存要求实录", "url": "https://a678-beep.github.io/ai-nav/a/chat-03-deepseek-r1-local-deployment-vram.html"}, {"@type": "Article", "headline": "Kimi 长文本 合同审查实操与模板", "url": "https://a678-beep.github.io/ai-nav/a/chat-04-kimi-long-text-contract-review.html"}, {"@type": "Article", "headline": "豆包 语音克隆 客服话术 4 个细节", "url": "https://a678-beep.github.io/ai-nav/a/chat-05-doubao-voice-clone-cs-scripts.html"}, {"@type": "Article", "headline": "通义千问 Qwen3 函数调用调试笔记", "url": "https://a678-beep.github.io/ai-nav/a/chat-06-qwen3-function-calling.html"}, {"@type": "Article", "headline": "Gemini 2.5 视频理解 会议录像实测", "url": "https://a678-beep.github.io/ai-nav/a/chat-07-gemini-25-video-meeting-recording.html"}, {"@type": "Article", "headline": "腾讯元宝 微信文件 总结流水线", "url": "https://a678-beep.github.io/ai-nav/a/chat-08-yuanbao-wechat-file-summary.html"}, {"@type": "Article", "headline": "Grok 3 实时搜索实测复盘", "url": "https://a678-beep.github.io/ai-nav/a/chat-09-grok-3-realtime-search.html"}, {"@type": "Article", "headline": "智谱 GLM-4 智能体 搭建 4 步配置", "url": "https://a678-beep.github.io/ai-nav/a/chat-10-glm4-agent-builder.html"}]}</script>
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "首页", "item": "https://a678-beep.github.io/ai-nav/"}, {"@type": "ListItem", "position": 2, "name": "对话AI", "item": "https://a678-beep.github.io/ai-nav/chat/"}]}</script>
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "FAQPage", "inLanguage": "zh-CN", "mainEntity": [{"@type": "Question", "name": "免费的对话 AI 够用吗？", "acceptedAnswer": {"@type": "Answer", "text": "日常问答、翻译、总结基本够用；长文档、复杂推理和语音对话通常要付费档，免费版多有限次。"}}, {"@type": "Question", "name": "长文档总结用哪个模型？", "acceptedAnswer": {"@type": "Answer", "text": "看输入长度：20 万字以内 128K 上下文够用，整本书或代码库再考虑 200K-1M 窗口，但超长输入单价会翻倍。"}}, {"@type": "Question", "name": "对话 AI 会记错前面说过的内容吗？", "acceptedAnswer": {"@type": "Answer", "text": "会。超出上下文窗口的内容会被截断，重要设定建议每次对话开头重申，或拆成多个会话。"}}]}</script>
+<style>
+:root{--bg:#080b12;--panel:#111827;--line:#1f2937;--txt:#e6edf7;--txt2:#9aa8bd;--txt3:#6b7a90;--cyan:#5ad1ff;--violet:#a78bfa}
+*{box-sizing:border-box}body{margin:0;background:radial-gradient(900px 500px at 82% -8%,rgba(90,209,255,.16),transparent 60%),var(--bg);color:var(--txt);font-family:"Microsoft YaHei","PingFang SC",system-ui,sans-serif;line-height:1.8}
+a{color:inherit;text-decoration:none}
+.top{position:sticky;top:0;backdrop-filter:blur(12px);background:rgba(8,11,18,.85);border-bottom:1px solid var(--line)}
+.top-in{max-width:900px;margin:0 auto;padding:12px 20px;display:flex;align-items:center;gap:10px}
+.logo{display:flex;align-items:center;gap:9px;font-weight:800}
+.logo .mark{width:30px;height:30px;border-radius:9px;background:linear-gradient(135deg,var(--cyan),var(--violet));display:grid;place-items:center;color:#04121c;font-weight:900}
+.top-in .back{margin-left:auto;color:var(--txt2);font-size:13px}
+main{max-width:900px;margin:0 auto;padding:28px 20px 60px}
+h1{font-size:28px;line-height:1.4;margin:8px 0 10px}
+.meta{color:var(--txt3);font-size:12.5px;margin-bottom:22px;display:flex;gap:8px;flex-wrap:wrap}
+.content{font-size:15.5px;color:#cfd9e6}
+.content h2{font-size:20px;color:var(--txt);margin:28px 0 10px}
+.content h3{font-size:17px;color:var(--txt);margin:22px 0 8px}
+.content p{margin:12px 0}
+.content li{margin:6px 0}
+.content code{background:rgba(120,180,255,.12);padding:1px 6px;border-radius:5px;font-family:Consolas,monospace;font-size:13px}
+.content pre{background:#0a1018;border:1px solid var(--line);border-radius:10px;padding:12px;overflow:auto}
+.content blockquote{border-left:3px solid var(--cyan);padding:4px 14px;color:var(--txt2);margin:16px 0}
+.ad-slot{margin:26px 0;min-height:100px;border:1px dashed rgba(120,140,170,.35);border-radius:12px;display:flex;align-items:center;justify-content:center;color:var(--txt3);font-size:12px;text-align:center;background:rgba(17,24,39,.55)}
+.ad-slot small{display:block;font-size:10.5px;opacity:.7}
+.bread{color:var(--txt3);font-size:12.5px;margin-bottom:6px}
+.bread a{color:var(--cyan)}
+footer{border-top:1px solid var(--line);color:var(--txt3);font-size:12.5px;text-align:center;padding:20px}
+.related{margin:34px 0 10px;border-top:1px solid var(--line);padding-top:18px}.related h2{font-size:16px;color:var(--txt);margin:0 0 10px}.related ul{list-style:none;padding:0;margin:0}.related li{margin:8px 0}.related a{color:var(--cyan);font-size:14px}
+.tool-link{margin:14px 0 0}
+.tlinks a{display:inline-block;margin:0 8px 8px 0;padding:6px 12px;border:1px solid rgba(90,209,255,.25);border-radius:8px;font-size:13px;color:var(--cyan);background:rgba(90,209,255,.06)}
+.tlinks a:hover{background:rgba(90,209,255,.15)}
+.sec{margin:26px 0}
+.sec h2{font-size:17px;color:var(--txt);margin:0 0 10px}
+.tool-link a{display:inline-block;font-size:13px;color:var(--txt2);border:1px solid var(--line);border-radius:8px;padding:7px 12px}
+.tool-link a:hover{color:var(--txt);border-color:rgba(90,209,255,.45)}
+.top-in .back{padding:6px 0}
+.bread a{display:inline-block;padding:6px 0}
+.sec li a{display:inline-block;padding:5px 0}
+.sib a{padding:8px 12px}
+.cats a{display:inline-block;margin:0 8px 8px 0;padding:6px 12px;border:1px solid var(--line);border-radius:8px;font-size:13px;color:var(--txt2)}
+.cats a:hover{color:var(--txt);border-color:rgba(90,209,255,.45)}
+.cats h2{font-size:17px;margin:22px 0 10px}
+@media(max-width:640px){h1{font-size:22px}main{padding:20px 16px 40px}
+.related a,.tlinks a,.tool-link a,footer a,.sib a{min-height:36px;display:inline-flex;align-items:center}
+.list a{padding:14px 14px}
+td a{display:inline-block;padding:8px 0}
+.note a{display:inline-block;padding:7px 0}
+}
+
+.list{list-style:none;padding:0;margin:22px 0}
+.list li{margin:0 0 10px}
+.list a{display:block;padding:14px 16px;border:1px solid var(--line);border-radius:12px;background:rgba(17,24,39,.55);transition:.2s}
+.list a:hover{border-color:rgba(90,209,255,.45);transform:translateY(-2px)}
+.list b{display:block;font-size:15px;color:var(--txt);margin-bottom:5px}
+.list span{display:block;font-size:12.5px;color:var(--txt3);line-height:1.7}
+</style>
+</head>
+<body>
+<header class="top"><div class="top-in">
+  <a class="logo" href="../index.html"><span class="mark">✦</span>星籁 AI 导航</a>
+  <a class="back" href="../index.html">← 回首页</a>
+</div></header>
+<main>
+  <div class="bread"><a href="../index.html">首页</a> / 对话AI</div>
+  <h1>对话AI：41 篇实测教程</h1>
+  <p class="content" style="color:#cfd9e6;font-size:15px">对话类 AI 已经从聊天玩具变成工作台：总结长文档、审合同、练口语、抓会议纪要，真正省时间的是把提示词和场景固定下来。这里的 20 篇教程都从一个具体活儿出发，给出按钮位置、参数和踩过的坑，照着做就能复现。</p>
+  <h2 style="font-size:18px;margin:26px 0 6px">先试这三个</h2>
+  <p style="color:var(--txt3);font-size:13px;margin:0 0 8px">按效果与上手难度排序，新手可以从这里开始</p>
+  <ul class="list"><li><a href="../tool/chatgpt/"><b>ChatGPT</b><span>效果 5/5 · 上手 5/5 · 有免费额度</span></a></li><li><a href="../tool/claude/"><b>Claude</b><span>效果 5/5 · 上手 4/5 · 有免费额度</span></a></li><li><a href="../tool/deepseek/"><b>DeepSeek</b><span>效果 4/5 · 上手 4/5 · 有免费额度</span></a></li></ul>
+  <h2 style="font-size:18px;margin:26px 0 6px">本类工具</h2>
+  <ul class="list"><li><a href="../tool/chatgpt/"><b>ChatGPT</b><span>GPT-5 通用对话，语音模式练口语、看图解题都稳</span></a></li><li><a href="../tool/claude/"><b>Claude</b><span>长文档与代码阅读强，200K 上下文适合合同、论文</span></a></li><li><a href="../tool/deepseek/"><b>DeepSeek</b><span>开源权重可本地部署，推理与中文表达均衡</span></a></li><li><a href="../tool/kimi/"><b>Kimi</b><span>中文长文本总结，网页/文件一次读完整本</span></a></li><li><a href="../tool/doubao/"><b>豆包</b><span>字节系对话与语音，中文口语化程度高</span></a></li><li><a href="../tool/qwen/"><b>通义千问</b><span>阿里 Qwen 系列，函数调用与文档解析好用</span></a></li></ul>
+  <h2 style="font-size:18px;margin:26px 0 6px">全部教程</h2>
+  <ul class="list"><li><a href="../a/chat-01-chatgpt-4o-voice-english-speaking.html"><b>01. ChatGPT 4o 语音对话 练英语口语实测</b><span>我拿 ChatGPT 4o 语音对话练英语口语，起因是出差点咖啡时卡在 no foam 上。三个月里每天 20 分钟、连续 15 天算一轮，手机…</span></a></li><li><a href="../a/chat-02-claude-37-sonnet-long-document-summary.html"><b>02. Claude 3.7 Sonnet 长文档总结法</b><span>我上周要在一份 300 页的融资材料里找风险点，材料是 120 页投资协议加 180 页附件，用 Claude 3.7 Sonnet 做长文档总…</span></a></li><li><a href="../a/chat-03-deepseek-r1-local-deployment-vram.html"><b>03. DeepSeek R1 本地部署 显存要求实录</b><span>我在一台 4060 Ti 16G 加 32G 内存的机器上折腾 DeepSeek R1 本地部署，前后试了 7B、14B、32B 三个规格，结论…</span></a></li><li><a href="../a/chat-04-kimi-long-text-contract-review.html"><b>04. Kimi 长文本 合同审查实操与模板</b><span>我帮朋友看过一份 60 页的采购合同，配套还有报价单和验收标准两份附件，用 Kimi 长文本做合同审查，从上传到出第一版 Kimi 合同风险清单…</span></a></li><li><a href="../a/chat-05-doubao-voice-clone-cs-scripts.html"><b>05. 豆包 语音克隆 客服话术 4 个细节</b><span>客服组去年想把常见问题做成口播视频，真人一条一条录要两天，我改用豆包语音克隆，三十秒素材加二十条话术，一个下午出了十八条成片。音色不像本人，但足…</span></a></li><li><a href="../a/chat-06-qwen3-function-calling.html"><b>06. 通义千问 Qwen3 函数调用调试笔记</b><span>上周我用通义千问 Qwen3 做一个小助手，功能只有两个：查天气、查快递。第一版死活不触发函数调用，模型在思考块里自问自答，接口返回里一个工具调…</span></a></li><li><a href="../a/chat-07-gemini-25-video-meeting-recording.html"><b>07. Gemini 2.5 视频理解 会议录像实测</b><span>上周的周会录了九十分钟，我懒得回看，把录像丢给 Gemini 2.5 做视频理解，七分钟后拿到一份带时间戳的纪要，待办事项七条，其中三条我自己都…</span></a></li><li><a href="../a/chat-08-yuanbao-wechat-file-summary.html"><b>08. 腾讯元宝 微信文件 总结流水线</b><span>我们项目群每周 20 多份文件：报价单、排期表、验收单、截图，翻起来头疼。我试着让腾讯元宝读微信文件，做一条从群文件到周报的流水线，现在每周一花…</span></a></li><li><a href="../a/chat-09-grok-3-realtime-search.html"><b>09. Grok 3 实时搜索实测复盘</b><span>做科技号最怕两件事：错过了当天的消息，把旧闻当新闻发。上个月我开始用 Grok 3 做实时搜索，盯二十四小时内的科技动态，每天两轮，一轮十分钟，…</span></a></li><li><a href="../a/chat-10-glm4-agent-builder.html"><b>10. 智谱 GLM-4 智能体 搭建 4 步配置</b><span>每周写周报要翻三个表格，我索性用智谱 GLM-4 智能体搭了一个周报助手：把数据表丢进知识库，选好模型和工具，发一句本周数据就出稿。第一次搭花了…</span></a></li><li><a href="../a/chat-11-ernie-official-document-writing.html"><b>11. 文心一言 公文写作 模板 3 轮改法</b><span>单位让我写一份一千五百字的会议通知，以前要磨一下午，这次用文心一言公文写作模板，四十分钟出稿加改三遍。公文比一般文案难在格式和文种，模型写得再顺…</span></a></li><li><a href="../a/chat-12-mistral-lechat-french-translation.html"><b>12. Mistral Le Chat 法语翻译避坑</b><span>我们和法国供应商的邮件以前靠同事翻，一周二十封，每封三百字左右，慢且不统一。换成 Mistral Le Chat 做法语翻译后，一天能处理完，但…</span></a></li><li><a href="../a/chat-13-poe-multi-model-cost-comparison.html"><b>13. Poe 多模型 成本对比 6000 点实测</b><span>做 Poe 多模型成本对比之前，我算过一笔账：每月 20 美元，给 6000 点计算额度，十来个模型随便切。用了两个月我发现，真正烧钱的不是模型…</span></a></li><li><a href="../a/chat-14-characterai-character-card-writing.html"><b>14. Character.AI 角色卡 写作实操</b><span>我给连载小说里的配角建了一张角色卡，用 Character.AI 角色扮演先试戏，十轮对话下来人设没崩，还帮我想出两句台词。之前写过两版都翻车：…</span></a></li><li><a href="../a/chat-15-iflytek-spark-meeting-minutes-dialect.html"><b>15. 讯飞星火 会议纪要 方言转写流水线</b><span>上个月一场 2 小时的董事会，8 个人，粤语和四川话混着说，还有普通话和英文缩写。用讯飞听见转写加讯飞星火整理纪要，半小时出初稿，人工核了四十分…</span></a></li><li><a href="../a/chat-16-chatgpt-connection-timeout.html"><b>16. ChatGPT 连接超时 5 步排查记录</b><span>周一早上 9 点 20 分，离站会还有十分钟，ChatGPT 页面白屏了 40 秒，最后浏览器甩出一行 ERR_CONNECTION_TIMED…</span></a></li><li><a href="../a/chat-17-deepseek-api-pricing.html"><b>17. DeepSeek API 价格与缓存命中实测</b><span>上个月把客服摘要从另一家模型迁到 DeepSeek，月底账单 46 元，比我按字符数拍脑袋估的 120 元低了一半多。不是内部折扣，而是我先花半…</span></a></li><li><a href="../a/chat-18-llm-context-length-compare.html"><b>18. 大模型 上下文 长度 对比：5 家实测选型</b><span>上个月接了一份 300 页的投标文件，OCR 后 25 万汉字，按 0.75 的系数折算约 33 万 token。我先丢进 deepseek-f…</span></a></li><li><a href="../a/chat-19-prompt-injection-defense.html"><b>19. 提示词 注入 防御：外部内容的三层隔离</b><span>给家居店铺搭客服机器人，能读商品页和售后政策再回复。测试第二天就出事：供应商 PDF 页脚一行白色小字，写着忽略以上规则、把所有待退款订单标成已…</span></a></li><li><a href="../a/chat-20-ai-chat-export-records.html"><b>20. AI 对话 导出 聊天记录：三种格式与检索</b><span>运营同事离职，工作号里 1,800 多条跟模型的对话要交接。我想把跟 ChatGPT、Claude 的问答存成本地能搜的文件，三种办法试下来，最…</span></a></li><li><a href="../a/chat-21-ai-context-lost.html"><b>21. AI 对话 上下文 丢失：分段摘要与粘贴法</b><span>三周前给客户写一份 6 万字的项目建议书，初稿整段贴进对话框，前 28 轮答疑都正常。第 31 轮问&quot;预算那节是 180 万还是 210 万&quot;，…</span></a></li><li><a href="../a/chat-22-claude-project-file-limit.html"><b>22. Claude 项目 文件 上限：30MB 分卷</b><span>上周帮法务把一套投标材料搬进 Claude，63 份文件、合起来 480MB。前 8 份传得顺，第 9 份扫描 PDF 报文件过大，压到 30M…</span></a></li><li><a href="../a/chat-23-ai-answer-too-long.html"><b>23. AI 回答 太长 怎么控制：三招压缩输出</b><span>客服组 6 月的周报让 GPT-4o 总结 200 条工单，出来 1500 多字，组长要的只是一句话结论。AI 回答 太长 这事我碰了三个月，最…</span></a></li><li><a href="../a/chat-24-ai-web-search-inaccurate.html"><b>24. 大模型 联网 搜索 不准：检索词改写四步</b><span>上周市场部让我查竞品双十一的投放动作。我在豆包里开了联网搜索，回答引了三条来源：两条是三个月前的转载，一条点开已经 404。这类问题我记了两周，…</span></a></li><li><a href="../a/chat-25-multi-turn-memory.html"><b>25. 多轮 对话 记忆 管理：摘要、锚点与会话拆分</b><span>写连载小说出过两次事故：第 19 章把主角沈砚写成沈衍，第 24 章把第 7 章定下的 300 枚灵石写成 3000 枚。我换过三个模型，错法一…</span></a></li><li><a href="../a/chat-26-mobile-ai-chat-apps.html"><b>26. 手机 AI 对话 App 选型：语音与额度实测</b><span>组里 12 个人要统一装一个手机端对话工具，我把五款挨个装进 iPhone 13 和一台安卓机，地铁 4G 下各聊了 20 轮。手机 AI 对话…</span></a></li><li><a href="../a/chat-27-prompt-version-management.html"><b>27. 提示词 版本 管理：团队落地 3 个动作</b><span>团队 6 个人维护 40 多条客服和文案提示词，全躺在飞书文档里，文件名从 v1 到 v2、final、final2、最终版。上周线上话术效果掉…</span></a></li><li><a href="../a/chat-28-model-switch-workflow.html"><b>28. 模型 切换 工作流：5 个模型的分工与校验</b><span>一份 8600 字的行业月报要在 5 个模型之间来回切。最早我图省事，同一段提示词丢给每个模型，再把顺眼的段落拼起来，结果两个模型给的行业规模差…</span></a></li><li><a href="../a/chat-29-ai-roleplay-customer-service.html"><b>29. AI 角色 扮演 客服：新人培训四步对练</b><span>去年大促前招了 6 个新客服，原本老带新坐旁边听三天再上号，首月投诉率 2.3%，两个新人被骂到想走。今年换了个办法：让 AI 角色 扮演 客服…</span></a></li><li><a href="../a/chat-30-ai-voice-input.html"><b>30. AI 对话 语音 输入：长句标点与方言实测</b><span>每天通勤开车四十分钟，手不离方向盘，打字问模型太费劲，我改成按住说话再把转写结果发出去。三周录了 612 条语音，安静办公室识别率 96%，打开…</span></a></li><li><a href="../a/chat-31-prompt-debugging.html"><b>31. 提示词 调试 方法：变量隔离与对比测试</b><span>上周客服组说模型突然爱用「亲」开头，二十条回复十九条带语气词。翻记录才发现同事把 few-shot 示例从三条加到了六条。靠感觉改 prompt…</span></a></li><li><a href="../a/chat-32-ai-answer-citations.html"><b>32. AI 回答 引用 来源：四步让答案可核查</b><span>上个月给市场部写行业报告，四十页塞了 38 条数据和出处。交付前我逐条点开，11 条对不上：3 条页面打不开，5 条正文里翻不到那个数字，3 条…</span></a></li><li><a href="../a/chat-33-multilingual-customer-service-ai.html"><b>33. 多语言 客服 AI：语言检测、术语库与转人工</b><span>去年 11 月接了个东南亚独立站，印尼语、泰语、越南语咨询占到 42%，8 个客服里只有 2 个能读印尼语。第一版偷懒，把中文话术整段丢给翻译 …</span></a></li><li><a href="../a/chat-34-llm-api-cost-calculation.html"><b>34. 大模型 API 成本核算：按业务量算清每月账单</b><span>「老板问，这个 AI 客服一个月烧多少钱？」我第一版按每次一分五拍了个 90 元/月的数，月底账单 168 元，差 87%。不是单价看错，是业务…</span></a></li><li><a href="../a/chat-35-llm-model-selection-review.html"><b>35. 大模型 选型 评测：40 道题跑出加权分</b><span>采购评审拖了两周，我拿 LMArena 榜单和参数表比了三天，选了个排名靠前的 Claude Sonnet 4.5 接客服工单，上线两周 JSO…</span></a></li><li><a href="../a/chat-36-ai-meeting-assistant.html"><b>36. AI 会议 助手 选型：四条硬指标和落地流程</b><span>公司每周 12 场会，行政两个人轮流记纪要，还是漏。我拿三个月把通义听悟、飞书妙记、腾讯会议 AI 小助手、讯飞听见和 Otter.ai 都试了…</span></a></li><li><a href="../a/chat-37-ai-paper-reader.html"><b>37. AI 论文 阅读 流程：从拆结构到复现</b><span>组会前一晚，导师丢来一篇 23 页的会议论文和 4 篇引用文献，要求第二天讲清怎么复现、哪一步会翻车。以前我打印批注到凌晨两点，重点还漏；现在固…</span></a></li><li><a href="../a/chat-38-ai-mock-interview.html"><b>38. AI 模拟 面试 怎么练：题库、追问与复盘</b><span>三月底投了 26 份简历，收到 4 个面试，第一场技术面 40 分钟就哑火：项目里 QPS 翻十倍那段，我只答了“加了缓存”，面试官追问两句取舍…</span></a></li><li><a href="../a/chat-39-ai-contract-clause-extraction.html"><b>39. AI 合同 条款 提取：12 个字段与人工核对</b><span>上个月接了一批采购合同的整理活，38 份，每份 9 页左右，客户要一张能直接进台账的表：合同编号、双方主体、金额、付款节点、违约金、到期日，一共…</span></a></li><li><a href="../a/chat-40-multi-account-ai-management.html"><b>40. 团队多账号 AI 管理：权限、额度与合规</b><span>九个人的内容团队，半年里账号从 2 个滚到 11 个：三个 ChatGPT Plus、两个 Claude Pro、五把散在同事手里的 API k…</span></a></li><li><a href="../a/chat-41-ai-hallucination-detection.html"><b>41. AI 回答 幻觉 识别：三步核查加提示词</b><span>帮投标部核一份 12 页技术方案，46 个数据点挑出 12 处对不上：3 个标准号查无此文件，5 个日期和官网公告差了一年，4 个数字在原文里根…</span></a></li></ul>
+  <h2 style="font-size:18px;margin:30px 0 8px">常见问题</h2>
+  <h2>免费的对话 AI 够用吗？</h2><p>日常问答、翻译、总结基本够用；长文档、复杂推理和语音对话通常要付费档，免费版多有限次。</p><h2>长文档总结用哪个模型？</h2><p>看输入长度：20 万字以内 128K 上下文够用，整本书或代码库再考虑 200K-1M 窗口，但超长输入单价会翻倍。</p><h2>对话 AI 会记错前面说过的内容吗？</h2><p>会。超出上下文窗口的内容会被截断，重要设定建议每次对话开头重申，或拆成多个会话。</p>
+  <p style="font-size:13px;color:var(--txt3)">共 41 篇 · <a href="../sitemap.xml">站点地图</a> · <a href="../privacy.html">隐私政策</a></p>
+</main>
+</body>
+</html>

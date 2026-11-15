@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<title>Notion AI 数据库 自动化：4 步搭建 · 星籁 AI 工具导航</title>
+<title>Notion AI 数据库 自动化：4 步搭建 · 星籁</title>
 <meta name="description" content="团队周报以前靠群里接龙，我统计一轮要 40 分钟，还经常漏人。后来把周报搬进 Notion 数据库，用 AI 属性写摘要，再挂三条自动化，现在每周省下 3 小时。整套跑在 Business 版上，$20/人/月，六人小组">
 <meta name="keywords" content="Notion AI 数据库自动化, 数据库自动化, Notion AI, Notion 自动填摘要, Notion 数据库自动更新">
 <meta name="robots" content="index,follow">
@@ -13,7 +13,7 @@
 <meta property="og:title" content="Notion AI 数据库 自动化：4 步搭建">
 <meta property="og:description" content="团队周报以前靠群里接龙，我统计一轮要 40 分钟，还经常漏人。后来把周报搬进 Notion 数据库，用 AI 属性写摘要，再挂三条自动化，现在每周省下 3 小时。整套跑在 Business 版上，$20/人/月，六人小组">
 <meta property="og:url" content="https://a678-beep.github.io/ai-nav/a/biz-01-notion-ai-database-automation.html">
-<script type="application/ld+json">{"@context": "https://schema.org", "@type": "Article", "headline": "Notion AI 数据库 自动化：4 步搭建", "inLanguage": "zh-CN", "datePublished": "2026-11-15", "author": {"@type": "Organization", "name": "星籁 Stellara"}, "publisher": {"@type": "Organization", "name": "星籁 Stellara"}, "mainEntityOfPage": "https://a678-beep.github.io/ai-nav/a/biz-01-notion-ai-database-automation.html", "keywords": "Notion AI 数据库自动化, 数据库自动化, Notion AI, Notion 自动填摘要, Notion 数据库自动更新"}</script>
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "Article", "headline": "Notion AI 数据库 自动化：4 步搭建", "inLanguage": "zh-CN", "datePublished": "2026-11-15", "author": {"@type": "Organization", "name": "星籁 Stellara"}, "publisher": {"@type": "Organization", "name": "星籁 Stellara"}, "mainEntityOfPage": "https://a678-beep.github.io/ai-nav/a/biz-01-notion-ai-database-automation.html", "articleSection": "商业效率", "wordCount": 834, "dateModified": "2026-11-15", "keywords": "Notion AI 数据库自动化, 数据库自动化, Notion AI, Notion 自动填摘要, Notion 数据库自动更新"}</script>
 <script type="application/ld+json">{"@context": "https://schema.org", "@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "首页", "item": "https://a678-beep.github.io/ai-nav/"}, {"@type": "ListItem", "position": 2, "name": "商业效率", "item": "https://a678-beep.github.io/ai-nav/#/articles"}, {"@type": "ListItem", "position": 3, "name": "Notion AI 数据库 自动化：4 步搭建", "item": "https://a678-beep.github.io/ai-nav/a/biz-01-notion-ai-database-automation.html"}]}</script>
 <style>
 :root{--bg:#080b12;--panel:#111827;--line:#1f2937;--txt:#e6edf7;--txt2:#9aa8bd;--txt3:#6b7a90;--cyan:#5ad1ff;--violet:#a78bfa}
@@ -41,7 +41,26 @@ h1{font-size:28px;line-height:1.4;margin:8px 0 10px}
 .bread a{color:var(--cyan)}
 footer{border-top:1px solid var(--line);color:var(--txt3);font-size:12.5px;text-align:center;padding:20px}
 .related{margin:34px 0 10px;border-top:1px solid var(--line);padding-top:18px}.related h2{font-size:16px;color:var(--txt);margin:0 0 10px}.related ul{list-style:none;padding:0;margin:0}.related li{margin:8px 0}.related a{color:var(--cyan);font-size:14px}
-@media(max-width:640px){h1{font-size:22px}main{padding:20px 16px 40px}}
+.tool-link{margin:14px 0 0}
+.tlinks a{display:inline-block;margin:0 8px 8px 0;padding:6px 12px;border:1px solid rgba(90,209,255,.25);border-radius:8px;font-size:13px;color:var(--cyan);background:rgba(90,209,255,.06)}
+.tlinks a:hover{background:rgba(90,209,255,.15)}
+.sec{margin:26px 0}
+.sec h2{font-size:17px;color:var(--txt);margin:0 0 10px}
+.tool-link a{display:inline-block;font-size:13px;color:var(--txt2);border:1px solid var(--line);border-radius:8px;padding:7px 12px}
+.tool-link a:hover{color:var(--txt);border-color:rgba(90,209,255,.45)}
+.top-in .back{padding:6px 0}
+.bread a{display:inline-block;padding:6px 0}
+.sec li a{display:inline-block;padding:5px 0}
+.sib a{padding:8px 12px}
+.cats a{display:inline-block;margin:0 8px 8px 0;padding:6px 12px;border:1px solid var(--line);border-radius:8px;font-size:13px;color:var(--txt2)}
+.cats a:hover{color:var(--txt);border-color:rgba(90,209,255,.45)}
+.cats h2{font-size:17px;margin:22px 0 10px}
+@media(max-width:640px){h1{font-size:22px}main{padding:20px 16px 40px}
+.related a,.tlinks a,.tool-link a,footer a,.sib a{min-height:36px;display:inline-flex;align-items:center}
+.list a{padding:14px 14px}
+td a{display:inline-block;padding:8px 0}
+.note a{display:inline-block;padding:7px 0}
+}
 </style>
 </head>
 <body>
@@ -50,9 +69,9 @@ footer{border-top:1px solid var(--line);color:var(--txt3);font-size:12.5px;text-
   <a class="back" href="../index.html">← 返回首页</a>
 </div></header>
 <main>
-  <div class="bread"><a href="../index.html">首页</a> / <a href="../index.html#/articles">商业效率</a></div>
+  <div class="bread"><a href="../index.html">首页</a> / <a href="../biz/index.html">商业效率</a></div>
   <h1>Notion AI 数据库 自动化：4 步搭建</h1>
-  <div class="meta"><span>商业效率</span><span>·</span><span>Notion AI 数据库自动化, 数据库自动化, Notion AI, Notion 自动填摘要, Notion 数据库自动更新</span></div>
+  <div class="meta"><span>商业效率</span><span>·</span><span>更新于 2026-11-15</span><span>·</span><span>Notion AI 数据库自动化, 数据库自动化, Notion AI, Notion 自动填摘要, Notion 数据库自动更新</span></div>
   <article class="content"><p>团队周报以前靠群里接龙，我统计一轮要 40 分钟，还经常漏人。后来把周报搬进 Notion 数据库，用 AI 属性写摘要，再挂三条自动化，现在每周省下 3 小时。整套跑在 Business 版上，$20/人/月，六人小组的额度够用。跑顺之前我踩过两个坑：AI 摘要会把客户报价一起抄进公开视图，批量导入的触发器也会静默失败。所以这套 Notion AI 数据库自动化，重点根本不在 AI。</p>
 <h2>一、字段先拆到机器能填</h2>
 <p>新建 Table 视图的数据库，第一轮只留五列：任务名（Text）、负责人（Person）、本周进展（Text）、风险（Select：高/中/低）、AI 摘要（AI Autofill）。只有第三列需要人写，其余都能自动产出。AI 属性的 Prompt 我固定成一句：用 40 字内概括进展，只写结果和数字，不加评价。这一步定完，Notion 自动填摘要就能稳定跑到九成可用，剩下那一成靠人工改，不要指望全自动。</p>
@@ -65,7 +84,8 @@ footer{border-top:1px solid var(--line);color:var(--txt3);font-size:12.5px;text-
 <p>我留了一个「已审核」Checkbox，AI 摘要生成后默认不打勾，只有打勾的行才进周报汇总视图。这样 AI 漏数字时能当场发现，不会在会上被问住。视图筛选设成：已审核 = 勾选 且 风险 = 高，每周一先看这十几行。另外让 Notion 数据库自动更新负责人字段，人员离职时只改一处 Relation，不用翻十张表。</p>
 <h2>总结</h2>
 <p>复刻就四步：建表拆字段、写 AI Prompt、用 Formula 兜规则、挂三条自动化。真正的收益不是订阅价，而是每周省下的 3 小时，加上出错后能追溯到具体单元格。Notion AI 数据库自动化的上限取决于字段设计，不是模型；每两周把 Prompt 和公式检查一遍，比换工具管用。Notion 自动填摘要只适合结构化字段，别指望它替你判断优先级。把这套 Notion 数据库自动更新流程跑满一个月，再决定要不要加人。</p></article>
-  <section class="related"><h2>同类教程</h2><ul><li><a href="biz-02-feishu-bitable-ai-field.html">飞书 多维表格 AI 字段：3 类工单</a></li><li><a href="biz-03-zapier-ai-automation-workflow.html">Zapier AI 自动化 流程：4 个触发器</a></li><li><a href="biz-04-n8n-self-hosted-workflow.html">n8n 自建 工作流：Docker 三步部署</a></li></ul></section>
+  <div class="sec"><h2>文中提到的工具</h2><p class="tlinks"><a href="../tool/notion-ai/">Notion AI →</a></p></div>
+  <section class="related"><h2>同类教程</h2><ul><li><a href="biz-02-feishu-bitable-ai-field.html">飞书 多维表格 AI 字段：3 类工单</a></li><li><a href="biz-03-zapier-ai-automation-workflow.html">Zapier AI 自动化 流程：4 个触发器</a></li><li><a href="biz-04-n8n-self-hosted-workflow.html">n8n 自建 工作流：Docker 三步部署</a></li><li><a href="biz-05-coze-customer-service-bot.html">扣子 Coze 客服机器人：3 个意图够用</a></li><li><a href="biz-06-dify-knowledge-base-setup.html">Dify 知识库 搭建：3 个参数涨 40%</a></li></ul><p class="tool-link"><a href="../index.html">查看 商业效率 工具与其它教程 →</a> <a href="../t/errors/">AI 报错解决 →</a> <a href="../t/pricing/">AI 工具价格 →</a></p></section>
   <footer>© 2026 星籁 Stellara · <a href="../privacy.html">隐私政策</a> · <a href="../sitemap.xml">站点地图</a></footer>
 </main>
 </body>

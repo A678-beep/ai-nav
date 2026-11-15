@@ -13,7 +13,7 @@
 <meta property="og:title" content="腾讯元宝 微信文件 总结流水线">
 <meta property="og:description" content="我们项目群每周 20 多份文件：报价单、排期表、验收单、截图，翻起来头疼。我试着让腾讯元宝读微信文件，做一条从群文件到周报的流水线，现在每周一花十分钟出稿，比之前让助理汇总省了两个小时。这条流水线的关键不在模型多强，而在">
 <meta property="og:url" content="https://a678-beep.github.io/ai-nav/a/chat-08-yuanbao-wechat-file-summary.html">
-<script type="application/ld+json">{"@context": "https://schema.org", "@type": "Article", "headline": "腾讯元宝 微信文件 总结流水线", "inLanguage": "zh-CN", "datePublished": "2026-11-15", "author": {"@type": "Organization", "name": "星籁 Stellara"}, "publisher": {"@type": "Organization", "name": "星籁 Stellara"}, "mainEntityOfPage": "https://a678-beep.github.io/ai-nav/a/chat-08-yuanbao-wechat-file-summary.html", "keywords": "腾讯元宝, 微信文件, 文件总结, 元宝总结微信文件, 微信文件周报"}</script>
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "Article", "headline": "腾讯元宝 微信文件 总结流水线", "inLanguage": "zh-CN", "datePublished": "2026-11-15", "author": {"@type": "Organization", "name": "星籁 Stellara"}, "publisher": {"@type": "Organization", "name": "星籁 Stellara"}, "mainEntityOfPage": "https://a678-beep.github.io/ai-nav/a/chat-08-yuanbao-wechat-file-summary.html", "articleSection": "对话AI", "wordCount": 789, "dateModified": "2026-11-15", "keywords": "腾讯元宝, 微信文件, 文件总结, 元宝总结微信文件, 微信文件周报"}</script>
 <script type="application/ld+json">{"@context": "https://schema.org", "@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "首页", "item": "https://a678-beep.github.io/ai-nav/"}, {"@type": "ListItem", "position": 2, "name": "对话AI", "item": "https://a678-beep.github.io/ai-nav/#/articles"}, {"@type": "ListItem", "position": 3, "name": "腾讯元宝 微信文件 总结流水线", "item": "https://a678-beep.github.io/ai-nav/a/chat-08-yuanbao-wechat-file-summary.html"}]}</script>
 <style>
 :root{--bg:#080b12;--panel:#111827;--line:#1f2937;--txt:#e6edf7;--txt2:#9aa8bd;--txt3:#6b7a90;--cyan:#5ad1ff;--violet:#a78bfa}
@@ -41,7 +41,26 @@ h1{font-size:28px;line-height:1.4;margin:8px 0 10px}
 .bread a{color:var(--cyan)}
 footer{border-top:1px solid var(--line);color:var(--txt3);font-size:12.5px;text-align:center;padding:20px}
 .related{margin:34px 0 10px;border-top:1px solid var(--line);padding-top:18px}.related h2{font-size:16px;color:var(--txt);margin:0 0 10px}.related ul{list-style:none;padding:0;margin:0}.related li{margin:8px 0}.related a{color:var(--cyan);font-size:14px}
-@media(max-width:640px){h1{font-size:22px}main{padding:20px 16px 40px}}
+.tool-link{margin:14px 0 0}
+.tlinks a{display:inline-block;margin:0 8px 8px 0;padding:6px 12px;border:1px solid rgba(90,209,255,.25);border-radius:8px;font-size:13px;color:var(--cyan);background:rgba(90,209,255,.06)}
+.tlinks a:hover{background:rgba(90,209,255,.15)}
+.sec{margin:26px 0}
+.sec h2{font-size:17px;color:var(--txt);margin:0 0 10px}
+.tool-link a{display:inline-block;font-size:13px;color:var(--txt2);border:1px solid var(--line);border-radius:8px;padding:7px 12px}
+.tool-link a:hover{color:var(--txt);border-color:rgba(90,209,255,.45)}
+.top-in .back{padding:6px 0}
+.bread a{display:inline-block;padding:6px 0}
+.sec li a{display:inline-block;padding:5px 0}
+.sib a{padding:8px 12px}
+.cats a{display:inline-block;margin:0 8px 8px 0;padding:6px 12px;border:1px solid var(--line);border-radius:8px;font-size:13px;color:var(--txt2)}
+.cats a:hover{color:var(--txt);border-color:rgba(90,209,255,.45)}
+.cats h2{font-size:17px;margin:22px 0 10px}
+@media(max-width:640px){h1{font-size:22px}main{padding:20px 16px 40px}
+.related a,.tlinks a,.tool-link a,footer a,.sib a{min-height:36px;display:inline-flex;align-items:center}
+.list a{padding:14px 14px}
+td a{display:inline-block;padding:8px 0}
+.note a{display:inline-block;padding:7px 0}
+}
 </style>
 </head>
 <body>
@@ -50,9 +69,9 @@ footer{border-top:1px solid var(--line);color:var(--txt3);font-size:12.5px;text-
   <a class="back" href="../index.html">← 返回首页</a>
 </div></header>
 <main>
-  <div class="bread"><a href="../index.html">首页</a> / <a href="../index.html#/articles">对话AI</a></div>
+  <div class="bread"><a href="../index.html">首页</a> / <a href="../chat/index.html">对话AI</a></div>
   <h1>腾讯元宝 微信文件 总结流水线</h1>
-  <div class="meta"><span>对话AI</span><span>·</span><span>腾讯元宝, 微信文件, 文件总结, 元宝总结微信文件, 微信文件周报</span></div>
+  <div class="meta"><span>对话AI</span><span>·</span><span>更新于 2026-11-15</span><span>·</span><span>腾讯元宝, 微信文件, 文件总结, 元宝总结微信文件, 微信文件周报</span></div>
   <article class="content"><p>我们项目群每周 20 多份文件：报价单、排期表、验收单、截图，翻起来头疼。我试着让腾讯元宝读微信文件，做一条从群文件到周报的流水线，现在每周一花十分钟出稿，比之前让助理汇总省了两个小时。这条流水线的关键不在模型多强，而在上传和追问的方式。</p>
 <h2>从微信直接送进去</h2>
 <p>第一步在群里找到文件，长按后选用其他应用打开，列表里直接有元宝；也可以先进元宝 App，选上传文件，再从微信聊天记录里挑。第二步一次别塞太多，我一般按部门分三批，每批六到八份，单份控制在几十兆以内，超过百兆的文件先压缩。第三步第一句话就给任务：请阅读这些文件，按项目、进度、金额、风险四列输出，金额只写数字不换算。第三步很关键，不说清列名，它会写成散文。第四步追问缺口：哪份文件没提到验收时间，单独列出来，我拿这个去催人。这套元宝总结微信文件的做法，比让每个人交周报省事得多。</p>
@@ -63,7 +82,8 @@ footer{border-top:1px solid var(--line);color:var(--txt3);font-size:12.5px;text-
 <p>一是微信聊天里的文件有过期时间，群里超过一周的文件可能已经打不开，先存到手机再传。二是别把合同原件和身份证照片传上去，公开产品不能当保险柜。三是数字类问题它只总结不计算，金额合计要自己按一遍。四是同一份文件改了两版，它分不清哪个是最新，文件名里带上日期和版本号能省很多事。另外文件总结的准确率跟前置分类有关，先按部门分好再传，比全部堆一起强。</p>
 <h2>总结</h2>
 <p>腾讯元宝总结微信文件的定位是信息搬运：把二十份散文件压成三段周报和一张缺口清单。流水线固定成三步：分批上传、四列输出、追问缺口，最后人工核金额。它能省汇总时间，不能替你判断项目好坏。想把微信文件周报做顺，先把群文件按周归档，别等到周一才翻聊天记录。</p></article>
-  <section class="related"><h2>同类教程</h2><ul><li><a href="chat-01-chatgpt-4o-voice-english-speaking.html">ChatGPT 4o 语音对话 练英语口语实测</a></li><li><a href="chat-02-claude-37-sonnet-long-document-summary.html">Claude 3.7 Sonnet 长文档总结法</a></li><li><a href="chat-03-deepseek-r1-local-deployment-vram.html">DeepSeek R1 本地部署 显存要求实录</a></li></ul></section>
+  
+  <section class="related"><h2>同类教程</h2><ul><li><a href="chat-09-grok-3-realtime-search.html">Grok 3 实时搜索实测复盘</a></li><li><a href="chat-10-glm4-agent-builder.html">智谱 GLM-4 智能体 搭建 4 步配置</a></li><li><a href="chat-11-ernie-official-document-writing.html">文心一言 公文写作 模板 3 轮改法</a></li><li><a href="chat-12-mistral-lechat-french-translation.html">Mistral Le Chat 法语翻译避坑</a></li><li><a href="chat-13-poe-multi-model-cost-comparison.html">Poe 多模型 成本对比 6000 点实测</a></li></ul><p class="tool-link"><a href="../index.html">查看 对话AI 工具与其它教程 →</a> <a href="../t/errors/">AI 报错解决 →</a></p></section>
   <footer>© 2026 星籁 Stellara · <a href="../privacy.html">隐私政策</a> · <a href="../sitemap.xml">站点地图</a></footer>
 </main>
 </body>

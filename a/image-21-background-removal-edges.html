@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>图片 去背景 边缘：发丝、半透明、阴影怎么修 · 星籁</title>
+<meta name="description" content="上周帮一个香水品牌返工 40 张详情图，自动抠图跑完第一遍，瓶子边上一圈灰，模特发梢断成锯齿。客户只说“看着脏”，没给标准。我把 图片 去背景 边缘 拆成发丝、半透明、阴影三类分开处理，两天后过审 37 张，剩下 3 张">
+<meta name="keywords" content="图片 去背景 边缘, 抠图边缘处理, 发丝抠图, 边缘羽化参数, 抠图 发丝 边缘, 半透明 抠图 白边">
+<meta name="robots" content="index,follow">
+
+<link rel="canonical" href="https://a678-beep.github.io/ai-nav/a/image-21-background-removal-edges.html">
+<meta property="og:type" content="article">
+<meta property="og:title" content="图片 去背景 边缘：发丝、半透明、阴影怎么修">
+<meta property="og:description" content="上周帮一个香水品牌返工 40 张详情图，自动抠图跑完第一遍，瓶子边上一圈灰，模特发梢断成锯齿。客户只说“看着脏”，没给标准。我把 图片 去背景 边缘 拆成发丝、半透明、阴影三类分开处理，两天后过审 37 张，剩下 3 张">
+<meta property="og:url" content="https://a678-beep.github.io/ai-nav/a/image-21-background-removal-edges.html">
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "Article", "headline": "图片 去背景 边缘：发丝、半透明、阴影怎么修", "inLanguage": "zh-CN", "datePublished": "2026-11-15", "author": {"@type": "Organization", "name": "星籁 Stellara"}, "publisher": {"@type": "Organization", "name": "星籁 Stellara"}, "mainEntityOfPage": "https://a678-beep.github.io/ai-nav/a/image-21-background-removal-edges.html", "articleSection": "图像生成", "wordCount": 841, "dateModified": "2026-11-15", "keywords": "图片 去背景 边缘, 抠图边缘处理, 发丝抠图, 边缘羽化参数, 抠图 发丝 边缘, 半透明 抠图 白边"}</script>
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "首页", "item": "https://a678-beep.github.io/ai-nav/"}, {"@type": "ListItem", "position": 2, "name": "图像生成", "item": "https://a678-beep.github.io/ai-nav/#/articles"}, {"@type": "ListItem", "position": 3, "name": "图片 去背景 边缘：发丝、半透明、阴影怎么修", "item": "https://a678-beep.github.io/ai-nav/a/image-21-background-removal-edges.html"}]}</script>
+<style>
+:root{--bg:#080b12;--panel:#111827;--line:#1f2937;--txt:#e6edf7;--txt2:#9aa8bd;--txt3:#6b7a90;--cyan:#5ad1ff;--violet:#a78bfa}
+*{box-sizing:border-box}body{margin:0;background:radial-gradient(900px 500px at 82% -8%,rgba(90,209,255,.16),transparent 60%),var(--bg);color:var(--txt);font-family:"Microsoft YaHei","PingFang SC",system-ui,sans-serif;line-height:1.8}
+a{color:inherit;text-decoration:none}
+.top{position:sticky;top:0;backdrop-filter:blur(12px);background:rgba(8,11,18,.85);border-bottom:1px solid var(--line)}
+.top-in{max-width:900px;margin:0 auto;padding:12px 20px;display:flex;align-items:center;gap:10px}
+.logo{display:flex;align-items:center;gap:9px;font-weight:800}
+.logo .mark{width:30px;height:30px;border-radius:9px;background:linear-gradient(135deg,var(--cyan),var(--violet));display:grid;place-items:center;color:#04121c;font-weight:900}
+.top-in .back{margin-left:auto;color:var(--txt2);font-size:13px}
+main{max-width:900px;margin:0 auto;padding:28px 20px 60px}
+h1{font-size:28px;line-height:1.4;margin:8px 0 10px}
+.meta{color:var(--txt3);font-size:12.5px;margin-bottom:22px;display:flex;gap:8px;flex-wrap:wrap}
+.content{font-size:15.5px;color:#cfd9e6}
+.content h2{font-size:20px;color:var(--txt);margin:28px 0 10px}
+.content h3{font-size:17px;color:var(--txt);margin:22px 0 8px}
+.content p{margin:12px 0}
+.content li{margin:6px 0}
+.content code{background:rgba(120,180,255,.12);padding:1px 6px;border-radius:5px;font-family:Consolas,monospace;font-size:13px}
+.content pre{background:#0a1018;border:1px solid var(--line);border-radius:10px;padding:12px;overflow:auto}
+.content blockquote{border-left:3px solid var(--cyan);padding:4px 14px;color:var(--txt2);margin:16px 0}
+.ad-slot{margin:26px 0;min-height:100px;border:1px dashed rgba(120,140,170,.35);border-radius:12px;display:flex;align-items:center;justify-content:center;color:var(--txt3);font-size:12px;text-align:center;background:rgba(17,24,39,.55)}
+.ad-slot small{display:block;font-size:10.5px;opacity:.7}
+.bread{color:var(--txt3);font-size:12.5px;margin-bottom:6px}
+.bread a{color:var(--cyan)}
+footer{border-top:1px solid var(--line);color:var(--txt3);font-size:12.5px;text-align:center;padding:20px}
+.related{margin:34px 0 10px;border-top:1px solid var(--line);padding-top:18px}.related h2{font-size:16px;color:var(--txt);margin:0 0 10px}.related ul{list-style:none;padding:0;margin:0}.related li{margin:8px 0}.related a{color:var(--cyan);font-size:14px}
+.tool-link{margin:14px 0 0}
+.tlinks a{display:inline-block;margin:0 8px 8px 0;padding:6px 12px;border:1px solid rgba(90,209,255,.25);border-radius:8px;font-size:13px;color:var(--cyan);background:rgba(90,209,255,.06)}
+.tlinks a:hover{background:rgba(90,209,255,.15)}
+.sec{margin:26px 0}
+.sec h2{font-size:17px;color:var(--txt);margin:0 0 10px}
+.tool-link a{display:inline-block;font-size:13px;color:var(--txt2);border:1px solid var(--line);border-radius:8px;padding:7px 12px}
+.tool-link a:hover{color:var(--txt);border-color:rgba(90,209,255,.45)}
+.top-in .back{padding:6px 0}
+.bread a{display:inline-block;padding:6px 0}
+.sec li a{display:inline-block;padding:5px 0}
+.sib a{padding:8px 12px}
+.cats a{display:inline-block;margin:0 8px 8px 0;padding:6px 12px;border:1px solid var(--line);border-radius:8px;font-size:13px;color:var(--txt2)}
+.cats a:hover{color:var(--txt);border-color:rgba(90,209,255,.45)}
+.cats h2{font-size:17px;margin:22px 0 10px}
+@media(max-width:640px){h1{font-size:22px}main{padding:20px 16px 40px}
+.related a,.tlinks a,.tool-link a,footer a,.sib a{min-height:36px;display:inline-flex;align-items:center}
+.list a{padding:14px 14px}
+td a{display:inline-block;padding:8px 0}
+.note a{display:inline-block;padding:7px 0}
+}
+</style>
+</head>
+<body>
+<header class="top"><div class="top-in">
+  <a class="logo" href="../index.html"><span class="mark">✦</span>星籁 AI 导航</a>
+  <a class="back" href="../index.html">← 返回首页</a>
+</div></header>
+<main>
+  <div class="bread"><a href="../index.html">首页</a> / <a href="../image/index.html">图像生成</a></div>
+  <h1>图片 去背景 边缘：发丝、半透明、阴影怎么修</h1>
+  <div class="meta"><span>图像生成</span><span>·</span><span>更新于 2026-11-15</span><span>·</span><span>图片 去背景 边缘, 抠图边缘处理, 发丝抠图, 边缘羽化参数, 抠图 发丝 边缘, 半透明 抠图 白边</span></div>
+  <article class="content"><p>上周帮一个香水品牌返工 40 张详情图，自动抠图跑完第一遍，瓶子边上一圈灰，模特发梢断成锯齿。客户只说“看着脏”，没给标准。我把 图片 去背景 边缘 拆成发丝、半透明、阴影三类分开处理，两天后过审 37 张，剩下 3 张是玻璃瓶。这篇写我用的参数和验收办法。</p>
+<h2>三类边缘，三种抠法</h2>
+<p>发丝最吃分辨率：1 到 2 像素宽的发丝，自动抠图会整根吃掉。我的做法是进 Photoshop 的“选择并遮住”，边缘检测半径 2 像素、打开智能半径、平滑 3，再用调整边缘画笔沿头发外沿刷 2 到 3 毫米，最后勾“净化颜色”；刷太宽会把背景色带进来，发丝反而发灰。半透明最难，玻璃杯、薄纱、烟雾不能拉成纯黑白蒙版，要保留 30% 到 50% 的灰阶，我复制通道做差值，蒙版里半透明区域只压到中灰。阴影不要全抠掉，商品底部的接触阴影留 15% 到 25% 的黑，再叠一层浅灰渐变，不然商品像飘在桌面上。三类参数完全不同：硬边半径 0.5 像素，发丝 2 像素，半透明不收缩只羽化。抠图 发丝 边缘 这段我一律放大到 400% 手动补。</p>
+<h2>参数、白边和原图门槛</h2>
+<div class="ad-slot" data-ad="article-mid"><div>广告位（文章中部）<small>AdSense / 广告联盟代码插入点 · 建议 728×90 / 移动端 320×100</small></div><!-- 在这里粘贴广告代码 --></div>
+<p>原图长边至少 2000 像素，1600 像素以下先放大 2 倍再抠，否则发丝信息不够。图片 去背景 边缘 的参数我固定一组：半径 1.5 到 2 像素、平滑 2 到 3、羽化 0.3 到 0.5 像素、对比度 10% 到 15%、移动边缘 -5% 到 -10%，负值收缩能压掉白边；收缩超过 2 像素会啃掉轮廓，玻璃杯口会凹进去。已经出白边的图，蒙版再收缩 1 像素、羽化 0.3 像素，或用“图层-修边-去边”1 像素。中间过程只存 PSD 和 PNG-24，JPG 每存一次白边多 1 到 2 个灰阶。remove.bg 免费版只给约 0.25 兆像素的预览图，下载原图要积分，40 张的批量活不如录个 PS 动作跑批处理。半透明 抠图 白边 我交给通道法，自动工具在这类材质上十张错八张。</p>
+<h2>验收就三步</h2>
+<p>先在 100%、200%、400% 三个比例各看一遍，再换纯白和深灰两个背景各看一次，最后切灰度模式看边缘亮度有没有骤变。硬标准是轮廓外 1 像素内不能出现比背景深 10 个灰阶以上的边，发丝保留 80% 以上长度，半透明区域不能有硬白块。每张 30 秒，40 张 20 分钟能过完。香水瓶那 12 张第一版退了 9 张，原因都是瓶底阴影被一起抠掉；改成收缩 1 像素、羽化 0.4 像素、单独补接触阴影后一次过。第一个坑，别用整体羽化 3 像素糊弄所有边，缩略图能骗过去，放大像贴纸；第二个坑，藤编、蕾丝这类镂空自动抠会把孔填死，得手动补。</p>
+<h2>总结</h2>
+<p>图片 去背景 边缘 没有万能参数，先按发丝、半透明、阴影分三类，再分别调半径和羽化，最后用三个放大倍数加两个背景验收。我的顺序是放大原图、收缩 1 像素压白边、补阴影，40 张两天返工完。抠图 发丝 边缘 和 半透明 抠图 白边 最吃手工，别指望一键全自动。</p></article>
+  
+  <section class="related"><h2>同类教程</h2><ul><li><a href="image-22-sd-model-download-slow.html">SD 模型 下载 太慢：镜像加断点续传</a></li><li><a href="image-23-comfyui-node-error.html">ComfyUI 节点 报错：红框、版本与显存</a></li><li><a href="image-24-4k-upscale-vram.html">4K 放大 显存 占用实测：12G 卡分块参数</a></li><li><a href="image-25-old-photo-restoration.html">老照片 修复 上色 流程：模型参数与人脸保真</a></li><li><a href="image-26-ecommerce-model-swap.html">电商 模特 换装 流程：姿势保留与版权合规</a></li></ul><p class="tool-link"><a href="../index.html">查看 图像生成 工具与其它教程 →</a> <a href="../t/pricing/">AI 工具价格 →</a> <a href="../t/params/">参数与配置 →</a></p></section>
+  <footer>© 2026 星籁 Stellara · <a href="../privacy.html">隐私政策</a> · <a href="../sitemap.xml">站点地图</a></footer>
+</main>
+</body>
+</html>

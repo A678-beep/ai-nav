@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>视频 去 背景：3 个抠像参数与绿幕批量换背景 · 星籁</title>
+<meta name="description" content="上个月接了个服装客户，26 条 30 秒的绿幕素材，要换到 3 个门店背景上。第一次用剪映智能抠像导出，26 条全被退回：头发和领口一圈锯齿，边上还带绿光。第二次改拍素材、固定一套参数、写脚本批量跑，26 条约 3 小时">
+<meta name="keywords" content="视频 去 背景, 视频换背景, 绿幕抠像, 抠像参数, 批量抠像, 视频去背景怎么操作, 视频去背景用什么软件">
+<meta name="robots" content="index,follow">
+
+<link rel="canonical" href="https://a678-beep.github.io/ai-nav/a/video-38-video-background-removal.html">
+<meta property="og:type" content="article">
+<meta property="og:title" content="视频 去 背景：3 个抠像参数与绿幕批量换背景">
+<meta property="og:description" content="上个月接了个服装客户，26 条 30 秒的绿幕素材，要换到 3 个门店背景上。第一次用剪映智能抠像导出，26 条全被退回：头发和领口一圈锯齿，边上还带绿光。第二次改拍素材、固定一套参数、写脚本批量跑，26 条约 3 小时">
+<meta property="og:url" content="https://a678-beep.github.io/ai-nav/a/video-38-video-background-removal.html">
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "Article", "headline": "视频 去 背景：3 个抠像参数与绿幕批量换背景", "inLanguage": "zh-CN", "datePublished": "2026-11-15", "author": {"@type": "Organization", "name": "星籁 Stellara"}, "publisher": {"@type": "Organization", "name": "星籁 Stellara"}, "mainEntityOfPage": "https://a678-beep.github.io/ai-nav/a/video-38-video-background-removal.html", "articleSection": "视频音频", "wordCount": 847, "dateModified": "2026-11-15", "keywords": "视频 去 背景, 视频换背景, 绿幕抠像, 抠像参数, 批量抠像, 视频去背景怎么操作, 视频去背景用什么软件"}</script>
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "首页", "item": "https://a678-beep.github.io/ai-nav/"}, {"@type": "ListItem", "position": 2, "name": "视频音频", "item": "https://a678-beep.github.io/ai-nav/#/articles"}, {"@type": "ListItem", "position": 3, "name": "视频 去 背景：3 个抠像参数与绿幕批量换背景", "item": "https://a678-beep.github.io/ai-nav/a/video-38-video-background-removal.html"}]}</script>
+<style>
+:root{--bg:#080b12;--panel:#111827;--line:#1f2937;--txt:#e6edf7;--txt2:#9aa8bd;--txt3:#6b7a90;--cyan:#5ad1ff;--violet:#a78bfa}
+*{box-sizing:border-box}body{margin:0;background:radial-gradient(900px 500px at 82% -8%,rgba(90,209,255,.16),transparent 60%),var(--bg);color:var(--txt);font-family:"Microsoft YaHei","PingFang SC",system-ui,sans-serif;line-height:1.8}
+a{color:inherit;text-decoration:none}
+.top{position:sticky;top:0;backdrop-filter:blur(12px);background:rgba(8,11,18,.85);border-bottom:1px solid var(--line)}
+.top-in{max-width:900px;margin:0 auto;padding:12px 20px;display:flex;align-items:center;gap:10px}
+.logo{display:flex;align-items:center;gap:9px;font-weight:800}
+.logo .mark{width:30px;height:30px;border-radius:9px;background:linear-gradient(135deg,var(--cyan),var(--violet));display:grid;place-items:center;color:#04121c;font-weight:900}
+.top-in .back{margin-left:auto;color:var(--txt2);font-size:13px}
+main{max-width:900px;margin:0 auto;padding:28px 20px 60px}
+h1{font-size:28px;line-height:1.4;margin:8px 0 10px}
+.meta{color:var(--txt3);font-size:12.5px;margin-bottom:22px;display:flex;gap:8px;flex-wrap:wrap}
+.content{font-size:15.5px;color:#cfd9e6}
+.content h2{font-size:20px;color:var(--txt);margin:28px 0 10px}
+.content h3{font-size:17px;color:var(--txt);margin:22px 0 8px}
+.content p{margin:12px 0}
+.content li{margin:6px 0}
+.content code{background:rgba(120,180,255,.12);padding:1px 6px;border-radius:5px;font-family:Consolas,monospace;font-size:13px}
+.content pre{background:#0a1018;border:1px solid var(--line);border-radius:10px;padding:12px;overflow:auto}
+.content blockquote{border-left:3px solid var(--cyan);padding:4px 14px;color:var(--txt2);margin:16px 0}
+.ad-slot{margin:26px 0;min-height:100px;border:1px dashed rgba(120,140,170,.35);border-radius:12px;display:flex;align-items:center;justify-content:center;color:var(--txt3);font-size:12px;text-align:center;background:rgba(17,24,39,.55)}
+.ad-slot small{display:block;font-size:10.5px;opacity:.7}
+.bread{color:var(--txt3);font-size:12.5px;margin-bottom:6px}
+.bread a{color:var(--cyan)}
+footer{border-top:1px solid var(--line);color:var(--txt3);font-size:12.5px;text-align:center;padding:20px}
+.related{margin:34px 0 10px;border-top:1px solid var(--line);padding-top:18px}.related h2{font-size:16px;color:var(--txt);margin:0 0 10px}.related ul{list-style:none;padding:0;margin:0}.related li{margin:8px 0}.related a{color:var(--cyan);font-size:14px}
+.tool-link{margin:14px 0 0}
+.tlinks a{display:inline-block;margin:0 8px 8px 0;padding:6px 12px;border:1px solid rgba(90,209,255,.25);border-radius:8px;font-size:13px;color:var(--cyan);background:rgba(90,209,255,.06)}
+.tlinks a:hover{background:rgba(90,209,255,.15)}
+.sec{margin:26px 0}
+.sec h2{font-size:17px;color:var(--txt);margin:0 0 10px}
+.tool-link a{display:inline-block;font-size:13px;color:var(--txt2);border:1px solid var(--line);border-radius:8px;padding:7px 12px}
+.tool-link a:hover{color:var(--txt);border-color:rgba(90,209,255,.45)}
+.top-in .back{padding:6px 0}
+.bread a{display:inline-block;padding:6px 0}
+.sec li a{display:inline-block;padding:5px 0}
+.sib a{padding:8px 12px}
+.cats a{display:inline-block;margin:0 8px 8px 0;padding:6px 12px;border:1px solid var(--line);border-radius:8px;font-size:13px;color:var(--txt2)}
+.cats a:hover{color:var(--txt);border-color:rgba(90,209,255,.45)}
+.cats h2{font-size:17px;margin:22px 0 10px}
+@media(max-width:640px){h1{font-size:22px}main{padding:20px 16px 40px}
+.related a,.tlinks a,.tool-link a,footer a,.sib a{min-height:36px;display:inline-flex;align-items:center}
+.list a{padding:14px 14px}
+td a{display:inline-block;padding:8px 0}
+.note a{display:inline-block;padding:7px 0}
+}
+</style>
+</head>
+<body>
+<header class="top"><div class="top-in">
+  <a class="logo" href="../index.html"><span class="mark">✦</span>星籁 AI 导航</a>
+  <a class="back" href="../index.html">← 返回首页</a>
+</div></header>
+<main>
+  <div class="bread"><a href="../index.html">首页</a> / <a href="../video/index.html">视频音频</a></div>
+  <h1>视频 去 背景：3 个抠像参数与绿幕批量换背景</h1>
+  <div class="meta"><span>视频音频</span><span>·</span><span>更新于 2026-11-15</span><span>·</span><span>视频 去 背景, 视频换背景, 绿幕抠像, 抠像参数, 批量抠像, 视频去背景怎么操作, 视频去背景用什么软件</span></div>
+  <article class="content"><p>上个月接了个服装客户，26 条 30 秒的绿幕素材，要换到 3 个门店背景上。第一次用剪映智能抠像导出，26 条全被退回：头发和领口一圈锯齿，边上还带绿光。第二次改拍素材、固定一套参数、写脚本批量跑，26 条约 3 小时出完，零返工。视频 去 背景 这活，素材占七成，参数占三成。</p>
+<h2>一、先定路线：色度抠图还是智能抠像</h2>
+<p>有绿幕就走色度抠图，没有才用智能抠像。剪映专业版抠像面板里两种都有：智能抠像一键出人像，适合固定机位、头发不飘的镜头；色度抠图要用吸管取幕布颜色，强度我固定在 55，阴影 15 到 20。强度拉到 100，袖子边缘会被吃掉；阴影超过 30，深色衣服会被当成绿幕抠掉。视频去背景怎么操作，第一步不是点按钮，是看素材：头发面积大、穿浅色衣服、画面里有透明杯子，智能抠像会闪，得换色度抠图。没有绿幕又要抠头发，我用 DaVinci Resolve 的 Magic Mask，一条 30 秒素材跑 2 到 3 分钟，比剪映慢，发丝保得住。</p>
+<h2>二、绿幕和参数：拍摄时先把活干完</h2>
+<div class="ad-slot" data-ad="article-mid"><div>广告位（文章中部）<small>AdSense / 广告联盟代码插入点 · 建议 728×90 / 移动端 320×100</small></div><!-- 在这里粘贴广告代码 --></div>
+<p>绿幕 3 米宽 4 米高，人离幕布至少 1.5 米，站近了幕布上全是影子。两盏 200W 柔光灯 45 度打人，幕布单独一盏灯打匀，幕布亮度比人低半档到一档。手机拍 4K 30fps 8bit 够用，能拍 4:2:2 10bit 更好。光圈别开大，f/2.8 景深太浅，人一动边缘就糊，衣服避开绿色。</p>
+<p>参数固定一套：FFmpeg 的 chromakey 相似度 0.10、混合 0.05，再挂 despill 压绿边，命令是 ffmpeg -i in.mp4 -vf "chromakey=0x00b140:0.10:0.05,despill=type=green" -c:v libx264 -crf 18。相似度上到 0.2，脸会透；压到 0.05 以下，绿边去不干净。坑：素材先压一遍再抠，绿边全变成压缩噪声，怎么调都是毛边，原始素材留 4:2:2 中间片最稳。</p>
+<h2>三、批量换背景：模板、脚本和验收</h2>
+<p>26 条素材统一 1080×1920，批量是 视频 去 背景 里最费时的部分。剪映里先做一条草稿，抠像、背景图、脚下阴影、片头片尾排好，右键复制草稿 26 次，逐条替换素材导出，一条 4 分钟，26 条约 1 小时 45 分。素材上百条就换 FFmpeg 循环，脚本读文件名输出到 out 目录，26 条 12 分钟跑完，代价是背景只能是固定图片或视频，动态阴影得另加。背景比人暗一档，否则观众先看背景；脚下补一层 15% 透明度的椭圆阴影，人才不飘。验收抽 3 条看四个点：发丝、指缝、领口、转身瞬间。案例：换完背景的 26 条，平均播放从 4200 涨到 11800，完播率 17% 到 26%。视频去背景用什么软件，绿幕素材剪映专业版就够，脚本批量交给 FFmpeg。避坑：批量导出混进一条 720p、文件名顺序和素材顺序错位、竖屏素材套了横屏背景，这三条我都踩过。</p>
+<h2>总结</h2>
+<p>视频 去 背景 的顺序别反：先看素材有没有绿幕，有就固定强度 55、阴影 18，没有再上智能抠像；拍的时候把人推离幕布 1.5 米，幕布压暗一档；批量用草稿复制或 FFmpeg 循环，最后抽 4 个点验收。视频去背景怎么操作，答案是把参数写成一张表；视频去背景用什么软件，先看你的素材是不是绿幕。</p></article>
+  <div class="sec"><h2>文中提到的工具</h2><p class="tlinks"><a href="../tool/capcut/">剪映 →</a></p></div>
+  <section class="related"><h2>同类教程</h2><ul><li><a href="video-39-live-replay-editing.html">直播 回放 剪辑：2 小时回放怎么剪成短视频</a></li><li><a href="video-40-multi-platform-distribution.html">多平台 分发 格式：尺寸、码率与封面规范</a></li><li><a href="video-01-kling-1-6-first-last-frame.html">可灵 1.6 图生视频 首尾帧：两张图接5秒转场</a></li><li><a href="video-02-runway-gen-4-camera-control.html">Runway Gen-4 运镜 控制：锁死机位</a></li><li><a href="video-03-sora-storyboard-prompt.html">Sora 分镜 提示词：两秒处补一句就顺</a></li></ul><p class="tool-link"><a href="../index.html">查看 视频音频 工具与其它教程 →</a> <a href="../t/params/">参数与配置 →</a> <a href="../t/howto/">新手上手教程 →</a></p></section>
+  <footer>© 2026 星籁 Stellara · <a href="../privacy.html">隐私政策</a> · <a href="../sitemap.xml">站点地图</a></footer>
+</main>
+</body>
+</html>

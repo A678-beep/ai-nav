@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<title>Cursor Tab 补全 设置：五个开关的取舍 · 星籁 AI 工具导航</title>
+<title>Cursor Tab 补全 设置：五个开关的取舍 · 星籁</title>
 <meta name="description" content="在 Cursor 里写 Go 接口那一周，Tab 补全每分钟弹十几次建议，连按两下就吞掉整行，真正的问题不在模型，而在 Cursor Tab 补全 设置里默认打开的触发口径。我按自己的习惯逐项关掉再对比，最后只留五个开关">
 <meta name="keywords" content="Cursor Tab 补全 设置, Cursor Tab 开关, Cursor 补全延迟, Cursor 补全延迟高, Cursor 补全不触发">
 <meta name="robots" content="index,follow">
@@ -13,7 +13,7 @@
 <meta property="og:title" content="Cursor Tab 补全 设置：五个开关的取舍">
 <meta property="og:description" content="在 Cursor 里写 Go 接口那一周，Tab 补全每分钟弹十几次建议，连按两下就吞掉整行，真正的问题不在模型，而在 Cursor Tab 补全 设置里默认打开的触发口径。我按自己的习惯逐项关掉再对比，最后只留五个开关">
 <meta property="og:url" content="https://a678-beep.github.io/ai-nav/a/code-01-cursor-tab-settings.html">
-<script type="application/ld+json">{"@context": "https://schema.org", "@type": "Article", "headline": "Cursor Tab 补全 设置：五个开关的取舍", "inLanguage": "zh-CN", "datePublished": "2026-11-15", "author": {"@type": "Organization", "name": "星籁 Stellara"}, "publisher": {"@type": "Organization", "name": "星籁 Stellara"}, "mainEntityOfPage": "https://a678-beep.github.io/ai-nav/a/code-01-cursor-tab-settings.html", "keywords": "Cursor Tab 补全 设置, Cursor Tab 开关, Cursor 补全延迟, Cursor 补全延迟高, Cursor 补全不触发"}</script>
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "Article", "headline": "Cursor Tab 补全 设置：五个开关的取舍", "inLanguage": "zh-CN", "datePublished": "2026-11-15", "author": {"@type": "Organization", "name": "星籁 Stellara"}, "publisher": {"@type": "Organization", "name": "星籁 Stellara"}, "mainEntityOfPage": "https://a678-beep.github.io/ai-nav/a/code-01-cursor-tab-settings.html", "articleSection": "编程助手", "wordCount": 823, "dateModified": "2026-11-15", "keywords": "Cursor Tab 补全 设置, Cursor Tab 开关, Cursor 补全延迟, Cursor 补全延迟高, Cursor 补全不触发"}</script>
 <script type="application/ld+json">{"@context": "https://schema.org", "@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "首页", "item": "https://a678-beep.github.io/ai-nav/"}, {"@type": "ListItem", "position": 2, "name": "编程助手", "item": "https://a678-beep.github.io/ai-nav/#/articles"}, {"@type": "ListItem", "position": 3, "name": "Cursor Tab 补全 设置：五个开关的取舍", "item": "https://a678-beep.github.io/ai-nav/a/code-01-cursor-tab-settings.html"}]}</script>
 <style>
 :root{--bg:#080b12;--panel:#111827;--line:#1f2937;--txt:#e6edf7;--txt2:#9aa8bd;--txt3:#6b7a90;--cyan:#5ad1ff;--violet:#a78bfa}
@@ -41,7 +41,26 @@ h1{font-size:28px;line-height:1.4;margin:8px 0 10px}
 .bread a{color:var(--cyan)}
 footer{border-top:1px solid var(--line);color:var(--txt3);font-size:12.5px;text-align:center;padding:20px}
 .related{margin:34px 0 10px;border-top:1px solid var(--line);padding-top:18px}.related h2{font-size:16px;color:var(--txt);margin:0 0 10px}.related ul{list-style:none;padding:0;margin:0}.related li{margin:8px 0}.related a{color:var(--cyan);font-size:14px}
-@media(max-width:640px){h1{font-size:22px}main{padding:20px 16px 40px}}
+.tool-link{margin:14px 0 0}
+.tlinks a{display:inline-block;margin:0 8px 8px 0;padding:6px 12px;border:1px solid rgba(90,209,255,.25);border-radius:8px;font-size:13px;color:var(--cyan);background:rgba(90,209,255,.06)}
+.tlinks a:hover{background:rgba(90,209,255,.15)}
+.sec{margin:26px 0}
+.sec h2{font-size:17px;color:var(--txt);margin:0 0 10px}
+.tool-link a{display:inline-block;font-size:13px;color:var(--txt2);border:1px solid var(--line);border-radius:8px;padding:7px 12px}
+.tool-link a:hover{color:var(--txt);border-color:rgba(90,209,255,.45)}
+.top-in .back{padding:6px 0}
+.bread a{display:inline-block;padding:6px 0}
+.sec li a{display:inline-block;padding:5px 0}
+.sib a{padding:8px 12px}
+.cats a{display:inline-block;margin:0 8px 8px 0;padding:6px 12px;border:1px solid var(--line);border-radius:8px;font-size:13px;color:var(--txt2)}
+.cats a:hover{color:var(--txt);border-color:rgba(90,209,255,.45)}
+.cats h2{font-size:17px;margin:22px 0 10px}
+@media(max-width:640px){h1{font-size:22px}main{padding:20px 16px 40px}
+.related a,.tlinks a,.tool-link a,footer a,.sib a{min-height:36px;display:inline-flex;align-items:center}
+.list a{padding:14px 14px}
+td a{display:inline-block;padding:8px 0}
+.note a{display:inline-block;padding:7px 0}
+}
 </style>
 </head>
 <body>
@@ -50,9 +69,9 @@ footer{border-top:1px solid var(--line);color:var(--txt3);font-size:12.5px;text-
   <a class="back" href="../index.html">← 返回首页</a>
 </div></header>
 <main>
-  <div class="bread"><a href="../index.html">首页</a> / <a href="../index.html#/articles">编程助手</a></div>
+  <div class="bread"><a href="../index.html">首页</a> / <a href="../code/index.html">编程助手</a></div>
   <h1>Cursor Tab 补全 设置：五个开关的取舍</h1>
-  <div class="meta"><span>编程助手</span><span>·</span><span>Cursor Tab 补全 设置, Cursor Tab 开关, Cursor 补全延迟, Cursor 补全延迟高, Cursor 补全不触发</span></div>
+  <div class="meta"><span>编程助手</span><span>·</span><span>更新于 2026-11-15</span><span>·</span><span>Cursor Tab 补全 设置, Cursor Tab 开关, Cursor 补全延迟, Cursor 补全延迟高, Cursor 补全不触发</span></div>
   <article class="content"><p>在 Cursor 里写 Go 接口那一周，Tab 补全每分钟弹十几次建议，连按两下就吞掉整行，真正的问题不在模型，而在 Cursor Tab 补全 设置里默认打开的触发口径。我按自己的习惯逐项关掉再对比，最后只留五个开关。Cursor 补全延迟高 和 Cursor 补全不触发，八成都能在这五个开关里找到答案。下面这组数值来自一个 400 行的 service.go，路径按 Windows 版写。</p>
 <h2>先减触发，再谈接受</h2>
 <p>打开 Cursor Settings（Ctrl+Shift+J），左侧选 Cursor Tab。第一项 Trigger in comments 关掉，写 TODO 或中文注释时不会再补出整段假实现，上周我就被它补出过三行并不存在的接口。第二项空行补全关掉，换行后不再等云端建议，首字建议从约 500ms 压到 200ms 内。第三项保留 Auto-import，但打开 Partial accepts，Ctrl+→ 可以逐词接受，不必整行吞下。第四项把补全模型固定成默认小模型，别追新模型，Tab 要的是快不是聪明，换模型后建议风格会飘一周。第五项在项目根目录建 .cursorignore，把 vendor/、dist/、*.generated.ts 写进去，大仓库冷启动能少卡一秒。</p>
@@ -64,7 +83,8 @@ footer{border-top:1px solid var(--line);color:var(--txt3);font-size:12.5px;text-
 <p>一是补全只看当前文件附近，跨文件签名不保证，改公共函数前先打开定义文件。二是误接受会覆盖选中区，一次能吃掉 20 行，先 Ctrl+Z 再继续写，别顺手补两行。三是团队仓库的 .cursor/rules 会覆盖你的补全风格，进新项目先看有没有 rules 文件，否则容易怀疑设置没生效。四是多窗口开同一仓库时只有焦点窗口弹补全，另一个窗口看着像失效，其实是省资源。五是公司代理限速时延迟会翻倍，加白名单比调参数有效。</p>
 <h2>总结</h2>
 <p>调 Cursor Tab 补全 设置时，顺序是先减触发、再调接受，最后用延迟和误接受次数验收。现在补全只在光标处出现，不再抢戏，一个月省下的三个小时，足够值回 20 美元。</p></article>
-  <section class="related"><h2>同类教程</h2><ul><li><a href="code-02-claude-code-cli-refactor.html">Claude Code CLI 重构：四步顺序</a></li><li><a href="code-03-github-copilot-unit-tests.html">GitHub Copilot 单元测试：三步法</a></li><li><a href="code-04-windsurf-cascade-multifile.html">Windsurf Cascade 多文件：先验收</a></li></ul></section>
+  <div class="sec"><h2>文中提到的工具</h2><p class="tlinks"><a href="../tool/cursor/">Cursor →</a></p></div>
+  <section class="related"><h2>同类教程</h2><ul><li><a href="code-02-claude-code-cli-refactor.html">Claude Code CLI 重构：四步顺序</a></li><li><a href="code-03-github-copilot-unit-tests.html">GitHub Copilot 单元测试：三步法</a></li><li><a href="code-04-windsurf-cascade-multifile.html">Windsurf Cascade 多文件：先验收</a></li><li><a href="code-05-tongyi-lingma-private-repo.html">通义灵码 私有仓库：企业版知识库200MB上限</a></li><li><a href="code-06-codeium-free-plan-compare.html">Codeium 免费版 对比：补全不限量卡在哪</a></li></ul><p class="tool-link"><a href="../index.html">查看 编程助手 工具与其它教程 →</a> <a href="../t/pricing/">AI 工具价格 →</a> <a href="../t/params/">参数与配置 →</a></p></section>
   <footer>© 2026 星籁 Stellara · <a href="../privacy.html">隐私政策</a> · <a href="../sitemap.xml">站点地图</a></footer>
 </main>
 </body>

@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>AI 代码 审查：PR 流程与误报处理 · 星籁</title>
+<meta name="description" content="团队四个人，两周一个 release，PR 平均 420 行改动，人工 review 要排到第二天。我们用的是 GitHub 私有仓，CodeRabbit 走 GitHub App，Copilot Business 一人">
+<meta name="keywords" content="AI 代码 审查, 代码审查 机器人, 误报率, CodeRabbit, AI 代码审查 误报, 代码审查 机器人 配置">
+<meta name="robots" content="index,follow">
+
+<link rel="canonical" href="https://a678-beep.github.io/ai-nav/a/code-17-ai-code-review.html">
+<meta property="og:type" content="article">
+<meta property="og:title" content="AI 代码 审查：PR 流程与误报处理">
+<meta property="og:description" content="团队四个人，两周一个 release，PR 平均 420 行改动，人工 review 要排到第二天。我们用的是 GitHub 私有仓，CodeRabbit 走 GitHub App，Copilot Business 一人">
+<meta property="og:url" content="https://a678-beep.github.io/ai-nav/a/code-17-ai-code-review.html">
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "Article", "headline": "AI 代码 审查：PR 流程与误报处理", "inLanguage": "zh-CN", "datePublished": "2026-11-15", "author": {"@type": "Organization", "name": "星籁 Stellara"}, "publisher": {"@type": "Organization", "name": "星籁 Stellara"}, "mainEntityOfPage": "https://a678-beep.github.io/ai-nav/a/code-17-ai-code-review.html", "articleSection": "编程助手", "wordCount": 809, "dateModified": "2026-11-15", "keywords": "AI 代码 审查, 代码审查 机器人, 误报率, CodeRabbit, AI 代码审查 误报, 代码审查 机器人 配置"}</script>
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "首页", "item": "https://a678-beep.github.io/ai-nav/"}, {"@type": "ListItem", "position": 2, "name": "编程助手", "item": "https://a678-beep.github.io/ai-nav/#/articles"}, {"@type": "ListItem", "position": 3, "name": "AI 代码 审查：PR 流程与误报处理", "item": "https://a678-beep.github.io/ai-nav/a/code-17-ai-code-review.html"}]}</script>
+<style>
+:root{--bg:#080b12;--panel:#111827;--line:#1f2937;--txt:#e6edf7;--txt2:#9aa8bd;--txt3:#6b7a90;--cyan:#5ad1ff;--violet:#a78bfa}
+*{box-sizing:border-box}body{margin:0;background:radial-gradient(900px 500px at 82% -8%,rgba(90,209,255,.16),transparent 60%),var(--bg);color:var(--txt);font-family:"Microsoft YaHei","PingFang SC",system-ui,sans-serif;line-height:1.8}
+a{color:inherit;text-decoration:none}
+.top{position:sticky;top:0;backdrop-filter:blur(12px);background:rgba(8,11,18,.85);border-bottom:1px solid var(--line)}
+.top-in{max-width:900px;margin:0 auto;padding:12px 20px;display:flex;align-items:center;gap:10px}
+.logo{display:flex;align-items:center;gap:9px;font-weight:800}
+.logo .mark{width:30px;height:30px;border-radius:9px;background:linear-gradient(135deg,var(--cyan),var(--violet));display:grid;place-items:center;color:#04121c;font-weight:900}
+.top-in .back{margin-left:auto;color:var(--txt2);font-size:13px}
+main{max-width:900px;margin:0 auto;padding:28px 20px 60px}
+h1{font-size:28px;line-height:1.4;margin:8px 0 10px}
+.meta{color:var(--txt3);font-size:12.5px;margin-bottom:22px;display:flex;gap:8px;flex-wrap:wrap}
+.content{font-size:15.5px;color:#cfd9e6}
+.content h2{font-size:20px;color:var(--txt);margin:28px 0 10px}
+.content h3{font-size:17px;color:var(--txt);margin:22px 0 8px}
+.content p{margin:12px 0}
+.content li{margin:6px 0}
+.content code{background:rgba(120,180,255,.12);padding:1px 6px;border-radius:5px;font-family:Consolas,monospace;font-size:13px}
+.content pre{background:#0a1018;border:1px solid var(--line);border-radius:10px;padding:12px;overflow:auto}
+.content blockquote{border-left:3px solid var(--cyan);padding:4px 14px;color:var(--txt2);margin:16px 0}
+.ad-slot{margin:26px 0;min-height:100px;border:1px dashed rgba(120,140,170,.35);border-radius:12px;display:flex;align-items:center;justify-content:center;color:var(--txt3);font-size:12px;text-align:center;background:rgba(17,24,39,.55)}
+.ad-slot small{display:block;font-size:10.5px;opacity:.7}
+.bread{color:var(--txt3);font-size:12.5px;margin-bottom:6px}
+.bread a{color:var(--cyan)}
+footer{border-top:1px solid var(--line);color:var(--txt3);font-size:12.5px;text-align:center;padding:20px}
+.related{margin:34px 0 10px;border-top:1px solid var(--line);padding-top:18px}.related h2{font-size:16px;color:var(--txt);margin:0 0 10px}.related ul{list-style:none;padding:0;margin:0}.related li{margin:8px 0}.related a{color:var(--cyan);font-size:14px}
+.tool-link{margin:14px 0 0}
+.tlinks a{display:inline-block;margin:0 8px 8px 0;padding:6px 12px;border:1px solid rgba(90,209,255,.25);border-radius:8px;font-size:13px;color:var(--cyan);background:rgba(90,209,255,.06)}
+.tlinks a:hover{background:rgba(90,209,255,.15)}
+.sec{margin:26px 0}
+.sec h2{font-size:17px;color:var(--txt);margin:0 0 10px}
+.tool-link a{display:inline-block;font-size:13px;color:var(--txt2);border:1px solid var(--line);border-radius:8px;padding:7px 12px}
+.tool-link a:hover{color:var(--txt);border-color:rgba(90,209,255,.45)}
+.top-in .back{padding:6px 0}
+.bread a{display:inline-block;padding:6px 0}
+.sec li a{display:inline-block;padding:5px 0}
+.sib a{padding:8px 12px}
+.cats a{display:inline-block;margin:0 8px 8px 0;padding:6px 12px;border:1px solid var(--line);border-radius:8px;font-size:13px;color:var(--txt2)}
+.cats a:hover{color:var(--txt);border-color:rgba(90,209,255,.45)}
+.cats h2{font-size:17px;margin:22px 0 10px}
+@media(max-width:640px){h1{font-size:22px}main{padding:20px 16px 40px}
+.related a,.tlinks a,.tool-link a,footer a,.sib a{min-height:36px;display:inline-flex;align-items:center}
+.list a{padding:14px 14px}
+td a{display:inline-block;padding:8px 0}
+.note a{display:inline-block;padding:7px 0}
+}
+</style>
+</head>
+<body>
+<header class="top"><div class="top-in">
+  <a class="logo" href="../index.html"><span class="mark">✦</span>星籁 AI 导航</a>
+  <a class="back" href="../index.html">← 返回首页</a>
+</div></header>
+<main>
+  <div class="bread"><a href="../index.html">首页</a> / <a href="../code/index.html">编程助手</a></div>
+  <h1>AI 代码 审查：PR 流程与误报处理</h1>
+  <div class="meta"><span>编程助手</span><span>·</span><span>更新于 2026-11-15</span><span>·</span><span>AI 代码 审查, 代码审查 机器人, 误报率, CodeRabbit, AI 代码审查 误报, 代码审查 机器人 配置</span></div>
+  <article class="content"><p>团队四个人，两周一个 release，PR 平均 420 行改动，人工 review 要排到第二天。我们用的是 GitHub 私有仓，CodeRabbit 走 GitHub App，Copilot Business 一人一月 19 美元，加起来比请一个兼职 review 便宜。上了双审之后，首轮平均报 6 条意见，合并前能拦下 2 个真问题。这篇写 AI 代码 审查 怎么接进 PR 流程、误报怎么压下去，配置可以直接抄。</p>
+<h2>PR 流程改四个动作</h2>
+<p>第一，PR 先开成 draft，等机器人跑完首轮再叫人，CodeRabbit 一般 1 到 3 分钟出评论，draft 阶段不打扰同事。第二，AI 意见分三级：必须改、建议改、风格类，前两级作者处理，风格类交给 ruff 和 eslint。第三，人工只看 AI 标红的和业务逻辑，review 时间从 40 分钟压到 15 分钟。第四，合并前用 Copilot 做第二轮，两个模型交叉，召回率比单跑高。PR 描述里我固定写三行：改了什么、影响哪个接口、怎么验证，机器人读完描述再拆 diff，误报会少一截。仓库 Settings 里的 Rules 进 Rulesets，勾选 Automatically request Copilot code review 即可；CodeRabbit 在根目录建 .coderabbit.yaml：language 设 zh-CN，reviews.profile 设 chill，auto_review 打开、drafts 关掉，path_filters 排除 **/*.lock、dist/<b>、</b>/*.sql，tools.ruff.enabled 设 true。这套 AI 代码 审查 流程跑了两周，评论噪音少了一半。</p>
+<h2>误报怎么处理</h2>
+<div class="ad-slot" data-ad="article-mid"><div>广告位（文章中部）<small>AdSense / 广告联盟代码插入点 · 建议 728×90 / 移动端 320×100</small></div><!-- 在这里粘贴广告代码 --></div>
+<p>AI 代码审查 误报 这块，首月 47 条评论里 12 条无效，占 26%，分三类。第一类是不懂业务，比如把已参数化的 SQL 报成注入，改法是在 path_instructions 里写清这个目录的参数来源。第二类是重复报，同一文件同一行被三条意见覆盖，用 path_filters 挡掉生成代码和迁移脚本。第三类是纯风格，chill 档加 formatter 之后基本消失。测试文件也单独交代一句：断言风格和 mock 方式写进指令，能再砍掉一部分噪音。动作固定成两句：确认无效就回 @coderabbitai resolve 关掉，拿不准的先留着；每条误报记进 ai-false-positive 标签的 issue。代码审查 机器人 配置 里最值钱的就是排除目录和指令文件，调完一个月，误报率从 26% 降到 9%。</p>
+<h2>三个坑</h2>
+<p>一是大 PR 别指望 AI。一次超过 600 行，评论能刷到 40 多条，关键问题反被淹，我现在超过 400 行就拆。二是别让机器人替人签字，分支保护里的 required approval 只能给人，安全、支付、权限三类改动必须人工过。三是 AI 代码审查 误报 不沉淀，团队两周后就会集体无视评论，变成墙纸；每月花半小时把高频误报写进 instructions，比换工具管用。上线顺序也有讲究，先让机器人在只读模式跑两周，统计清楚误报再开自动评论，团队接受度完全不同。另外私有仓先确认代码会不会被拿去训练，企业版可以关数据留存，走不通就换能自托管的 Qodo Merge。</p>
+<h2>总结</h2>
+<p>AI 代码 审查 的收益不在多抓几个 bug，在把 PR 等待时间从一天压到两小时，人只审红线和业务。流程是 draft 先跑、人工后审、合并前交叉二轮；误报靠配置和台账压到一成以下。机器人负责找可疑点，人负责判断能不能上线。代码审查 机器人 配置 改三处就够：语言、档位、排除目录。</p></article>
+  
+  <section class="related"><h2>同类教程</h2><ul><li><a href="code-18-legacy-refactor-ai.html">老项目 重构 AI：先补测试再拆批次</a></li><li><a href="code-19-sql-generation-optimize.html">SQL 生成 优化：EXPLAIN 与索引实战</a></li><li><a href="code-20-cursor-index-stuck.html">Cursor 索引 卡住：先查目录再重建</a></li><li><a href="code-21-copilot-login-failed.html">Copilot 无法 登录：代理与账号权限</a></li><li><a href="code-22-local-code-model.html">本地 代码 模型 推荐：7B 到 14B 实测</a></li></ul><p class="tool-link"><a href="../index.html">查看 编程助手 工具与其它教程 →</a> <a href="../t/errors/">AI 报错解决 →</a> <a href="../t/pricing/">AI 工具价格 →</a></p></section>
+  <footer>© 2026 星籁 Stellara · <a href="../privacy.html">隐私政策</a> · <a href="../sitemap.xml">站点地图</a></footer>
+</main>
+</body>
+</html>

@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>代码 迁移 语言：Java 转 Go 四步法 · 星籁</title>
+<meta name="description" content="去年把一个 8600 行的 Java 订单服务转成 Go，一共 10 个模块。第一版我直接让 AI 逐文件翻译，编译能过，上线当天就出事：金额按 long 存分，Go 那边有人随手改成 float64，对账差 0.03 ">
+<meta name="keywords" content="代码 迁移 语言, 语义 差异, 黄金 测试, 灰度 上线, 跨语言 代码 迁移, 代码 迁移 测试 方案">
+<meta name="robots" content="index,follow">
+
+<link rel="canonical" href="https://a678-beep.github.io/ai-nav/a/code-29-code-migration-language.html">
+<meta property="og:type" content="article">
+<meta property="og:title" content="代码 迁移 语言：Java 转 Go 四步法">
+<meta property="og:description" content="去年把一个 8600 行的 Java 订单服务转成 Go，一共 10 个模块。第一版我直接让 AI 逐文件翻译，编译能过，上线当天就出事：金额按 long 存分，Go 那边有人随手改成 float64，对账差 0.03 ">
+<meta property="og:url" content="https://a678-beep.github.io/ai-nav/a/code-29-code-migration-language.html">
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "Article", "headline": "代码 迁移 语言：Java 转 Go 四步法", "inLanguage": "zh-CN", "datePublished": "2026-11-15", "author": {"@type": "Organization", "name": "星籁 Stellara"}, "publisher": {"@type": "Organization", "name": "星籁 Stellara"}, "mainEntityOfPage": "https://a678-beep.github.io/ai-nav/a/code-29-code-migration-language.html", "articleSection": "编程助手", "wordCount": 838, "dateModified": "2026-11-15", "keywords": "代码 迁移 语言, 语义 差异, 黄金 测试, 灰度 上线, 跨语言 代码 迁移, 代码 迁移 测试 方案"}</script>
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "首页", "item": "https://a678-beep.github.io/ai-nav/"}, {"@type": "ListItem", "position": 2, "name": "编程助手", "item": "https://a678-beep.github.io/ai-nav/#/articles"}, {"@type": "ListItem", "position": 3, "name": "代码 迁移 语言：Java 转 Go 四步法", "item": "https://a678-beep.github.io/ai-nav/a/code-29-code-migration-language.html"}]}</script>
+<style>
+:root{--bg:#080b12;--panel:#111827;--line:#1f2937;--txt:#e6edf7;--txt2:#9aa8bd;--txt3:#6b7a90;--cyan:#5ad1ff;--violet:#a78bfa}
+*{box-sizing:border-box}body{margin:0;background:radial-gradient(900px 500px at 82% -8%,rgba(90,209,255,.16),transparent 60%),var(--bg);color:var(--txt);font-family:"Microsoft YaHei","PingFang SC",system-ui,sans-serif;line-height:1.8}
+a{color:inherit;text-decoration:none}
+.top{position:sticky;top:0;backdrop-filter:blur(12px);background:rgba(8,11,18,.85);border-bottom:1px solid var(--line)}
+.top-in{max-width:900px;margin:0 auto;padding:12px 20px;display:flex;align-items:center;gap:10px}
+.logo{display:flex;align-items:center;gap:9px;font-weight:800}
+.logo .mark{width:30px;height:30px;border-radius:9px;background:linear-gradient(135deg,var(--cyan),var(--violet));display:grid;place-items:center;color:#04121c;font-weight:900}
+.top-in .back{margin-left:auto;color:var(--txt2);font-size:13px}
+main{max-width:900px;margin:0 auto;padding:28px 20px 60px}
+h1{font-size:28px;line-height:1.4;margin:8px 0 10px}
+.meta{color:var(--txt3);font-size:12.5px;margin-bottom:22px;display:flex;gap:8px;flex-wrap:wrap}
+.content{font-size:15.5px;color:#cfd9e6}
+.content h2{font-size:20px;color:var(--txt);margin:28px 0 10px}
+.content h3{font-size:17px;color:var(--txt);margin:22px 0 8px}
+.content p{margin:12px 0}
+.content li{margin:6px 0}
+.content code{background:rgba(120,180,255,.12);padding:1px 6px;border-radius:5px;font-family:Consolas,monospace;font-size:13px}
+.content pre{background:#0a1018;border:1px solid var(--line);border-radius:10px;padding:12px;overflow:auto}
+.content blockquote{border-left:3px solid var(--cyan);padding:4px 14px;color:var(--txt2);margin:16px 0}
+.ad-slot{margin:26px 0;min-height:100px;border:1px dashed rgba(120,140,170,.35);border-radius:12px;display:flex;align-items:center;justify-content:center;color:var(--txt3);font-size:12px;text-align:center;background:rgba(17,24,39,.55)}
+.ad-slot small{display:block;font-size:10.5px;opacity:.7}
+.bread{color:var(--txt3);font-size:12.5px;margin-bottom:6px}
+.bread a{color:var(--cyan)}
+footer{border-top:1px solid var(--line);color:var(--txt3);font-size:12.5px;text-align:center;padding:20px}
+.related{margin:34px 0 10px;border-top:1px solid var(--line);padding-top:18px}.related h2{font-size:16px;color:var(--txt);margin:0 0 10px}.related ul{list-style:none;padding:0;margin:0}.related li{margin:8px 0}.related a{color:var(--cyan);font-size:14px}
+.tool-link{margin:14px 0 0}
+.tlinks a{display:inline-block;margin:0 8px 8px 0;padding:6px 12px;border:1px solid rgba(90,209,255,.25);border-radius:8px;font-size:13px;color:var(--cyan);background:rgba(90,209,255,.06)}
+.tlinks a:hover{background:rgba(90,209,255,.15)}
+.sec{margin:26px 0}
+.sec h2{font-size:17px;color:var(--txt);margin:0 0 10px}
+.tool-link a{display:inline-block;font-size:13px;color:var(--txt2);border:1px solid var(--line);border-radius:8px;padding:7px 12px}
+.tool-link a:hover{color:var(--txt);border-color:rgba(90,209,255,.45)}
+.top-in .back{padding:6px 0}
+.bread a{display:inline-block;padding:6px 0}
+.sec li a{display:inline-block;padding:5px 0}
+.sib a{padding:8px 12px}
+.cats a{display:inline-block;margin:0 8px 8px 0;padding:6px 12px;border:1px solid var(--line);border-radius:8px;font-size:13px;color:var(--txt2)}
+.cats a:hover{color:var(--txt);border-color:rgba(90,209,255,.45)}
+.cats h2{font-size:17px;margin:22px 0 10px}
+@media(max-width:640px){h1{font-size:22px}main{padding:20px 16px 40px}
+.related a,.tlinks a,.tool-link a,footer a,.sib a{min-height:36px;display:inline-flex;align-items:center}
+.list a{padding:14px 14px}
+td a{display:inline-block;padding:8px 0}
+.note a{display:inline-block;padding:7px 0}
+}
+</style>
+</head>
+<body>
+<header class="top"><div class="top-in">
+  <a class="logo" href="../index.html"><span class="mark">✦</span>星籁 AI 导航</a>
+  <a class="back" href="../index.html">← 返回首页</a>
+</div></header>
+<main>
+  <div class="bread"><a href="../index.html">首页</a> / <a href="../code/index.html">编程助手</a></div>
+  <h1>代码 迁移 语言：Java 转 Go 四步法</h1>
+  <div class="meta"><span>编程助手</span><span>·</span><span>更新于 2026-11-15</span><span>·</span><span>代码 迁移 语言, 语义 差异, 黄金 测试, 灰度 上线, 跨语言 代码 迁移, 代码 迁移 测试 方案</span></div>
+  <article class="content"><p>去年把一个 8600 行的 Java 订单服务转成 Go，一共 10 个模块。第一版我直接让 AI 逐文件翻译，编译能过，上线当天就出事：金额按 long 存分，Go 那边有人随手改成 float64，对账差 0.03 元；一个 UTF-16 字符长度判断改成 len(bytes)，中文地址截断成乱码。代码 迁移 语言 难的不是语法，是两套语言对空值、长度、时间、金额的默认假设不同。后来我把流程改成四步，分 7 批迁完，灰度两周，返工压到 3 处。</p>
+<h2>先跑黄金测试，把行为冻下来</h2>
+<p>动代码前先给老的 Java 服务拍快照。我从线上日志脱敏导出 800 条真实请求，覆盖 36 个接口，连请求带响应存成 JSON，再用 Go 写一个对照测试：同一批请求分别打老 Java 服务和迁移中的 Go 服务，比较响应字段、状态码、耗时量级。第一批只迁 3 个纯计算函数，800 条全过才往下走。这比普通单测省事，不比内部实现，只比对外行为，老代码的怪习惯也能一起继承，比如金额四舍五入用截断、错误码 2001 的文案带句号。避坑：快照里的时间戳和自增 ID 要先归一化，否则每次对比都 diff 一片红。</p>
+<h2>分批迁：一张语义差异对照表</h2>
+<div class="ad-slot" data-ad="article-mid"><div>广告位（文章中部）<small>AdSense / 广告联盟代码插入点 · 建议 728×90 / 移动端 320×100</small></div><!-- 在这里粘贴广告代码 --></div>
+<p>迁移按依赖从里往外，7 批、每批 3 到 5 个文件、diff 控制在 400 行内，当天能回滚。每批开工前先填语义差异表，我列了 8 条必查：空值、金额、字符长度、时间、除零、整数溢出、集合排序稳定性、JSON 字段大小写。跨语言 代码 迁移 里最常翻车的是静默差异：Go 的 nil map 写入会 panic，Java 的 HashMap 不会；Go 的 int 在 64 位机器上是 64 位，Java int 固定 32 位，同样的位运算结果会变；Java 的 UTF-16 字符数按 char 算，Go 的 len 按字节算，中文一个顶三个。表填完再让 AI 按表翻译，返工少一半。</p>
+<h2>AI 干什么、人守什么</h2>
+<p>AI 适合干三段活：逐函数翻译、补 Go 的 error 返回、写对照测试的胶水代码。我给的提示词固定三句：只改指定文件、保持函数签名和错误码不变、拿不准的语义停下写 TODO 别猜。人守四条线：金额、时间、权限、日志埋点，这四处 AI 十有八九会顺手简化。每批完成跑三重校验：800 条对照测试、20 条边界用例、随机 200 条 fuzz 请求对拍。代码 迁移 测试 方案 里最省事的其实是第四批之后，Go 服务已经能承接三个接口，直接切 5% 灰度流量，真流量比测试用例更会挑毛病。代码 迁移 语言 的顺序千万别倒过来先迁核心链路，从纯函数和数据转换开始最稳。</p>
+<h2>总结</h2>
+<p>四步是：黄金测试冻行为、语义差异表、按批迁移、灰度对拍。代码 迁移 语言 能不能成，不取决于 AI 翻译多快，取决于对照测试盖住多少真实请求。跨语言 代码 迁移 的两个教训：别一次翻完所有模块，别把 AI 写的不确定代码直接上线。灰度 5% 到 50% 再到 100%，两周后老服务下线，那 8600 行省了大约六成机械翻译时间。代码 迁移 测试 方案 提前写好，比事后补对拍省三倍时间。</p></article>
+  
+  <section class="related"><h2>同类教程</h2><ul><li><a href="code-30-ai-regex-test.html">AI 生成 正则 测试：边界用例先跑一遍</a></li><li><a href="code-31-code-review-checklist.html">代码 评审 清单：分级检查项与执行流程</a></li><li><a href="code-32-database-design-ai.html">数据库 设计 AI：范式、索引和评审清单</a></li><li><a href="code-33-log-analysis-ai.html">日志 分析 AI：先聚合再让模型定位故障</a></li><li><a href="code-34-ai-crawler-compliance.html">AI 写 爬虫 合规：三条线加一张检查表</a></li></ul><p class="tool-link"><a href="../index.html">查看 编程助手 工具与其它教程 →</a> <a href="../t/errors/">AI 报错解决 →</a> <a href="../t/compare/">工具对比与选型 →</a></p></section>
+  <footer>© 2026 星籁 Stellara · <a href="../privacy.html">隐私政策</a> · <a href="../sitemap.xml">站点地图</a></footer>
+</main>
+</body>
+</html>

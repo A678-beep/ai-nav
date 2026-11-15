@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>视频 字幕 翻译：SRT 批量流程与术语统一 · 星籁</title>
+<meta name="description" content="上个月一套 12 集的跨境电商课程要上英文版，2,340 条 SRT 字幕。第一版直接丢给翻译工具，回来少了 37 条，时间码被重排，第三集的退款和第七集的退货翻成了同一个词。返工两天后我固定了一套流程：先拆结构">
+<meta name="keywords" content="视频 字幕 翻译, SRT 字幕, 字幕术语表, 字幕时间轴, 字幕批量翻译, 字幕时间轴对齐">
+<meta name="robots" content="index,follow">
+
+<link rel="canonical" href="https://a678-beep.github.io/ai-nav/a/video-20-video-subtitle-translation.html">
+<meta property="og:type" content="article">
+<meta property="og:title" content="视频 字幕 翻译：SRT 批量流程与术语统一">
+<meta property="og:description" content="上个月一套 12 集的跨境电商课程要上英文版，2,340 条 SRT 字幕。第一版直接丢给翻译工具，回来少了 37 条，时间码被重排，第三集的退款和第七集的退货翻成了同一个词。返工两天后我固定了一套流程：先拆结构">
+<meta property="og:url" content="https://a678-beep.github.io/ai-nav/a/video-20-video-subtitle-translation.html">
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "Article", "headline": "视频 字幕 翻译：SRT 批量流程与术语统一", "inLanguage": "zh-CN", "datePublished": "2026-11-15", "author": {"@type": "Organization", "name": "星籁 Stellara"}, "publisher": {"@type": "Organization", "name": "星籁 Stellara"}, "mainEntityOfPage": "https://a678-beep.github.io/ai-nav/a/video-20-video-subtitle-translation.html", "articleSection": "视频音频", "wordCount": 820, "dateModified": "2026-11-15", "keywords": "视频 字幕 翻译, SRT 字幕, 字幕术语表, 字幕时间轴, 字幕批量翻译, 字幕时间轴对齐"}</script>
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "首页", "item": "https://a678-beep.github.io/ai-nav/"}, {"@type": "ListItem", "position": 2, "name": "视频音频", "item": "https://a678-beep.github.io/ai-nav/#/articles"}, {"@type": "ListItem", "position": 3, "name": "视频 字幕 翻译：SRT 批量流程与术语统一", "item": "https://a678-beep.github.io/ai-nav/a/video-20-video-subtitle-translation.html"}]}</script>
+<style>
+:root{--bg:#080b12;--panel:#111827;--line:#1f2937;--txt:#e6edf7;--txt2:#9aa8bd;--txt3:#6b7a90;--cyan:#5ad1ff;--violet:#a78bfa}
+*{box-sizing:border-box}body{margin:0;background:radial-gradient(900px 500px at 82% -8%,rgba(90,209,255,.16),transparent 60%),var(--bg);color:var(--txt);font-family:"Microsoft YaHei","PingFang SC",system-ui,sans-serif;line-height:1.8}
+a{color:inherit;text-decoration:none}
+.top{position:sticky;top:0;backdrop-filter:blur(12px);background:rgba(8,11,18,.85);border-bottom:1px solid var(--line)}
+.top-in{max-width:900px;margin:0 auto;padding:12px 20px;display:flex;align-items:center;gap:10px}
+.logo{display:flex;align-items:center;gap:9px;font-weight:800}
+.logo .mark{width:30px;height:30px;border-radius:9px;background:linear-gradient(135deg,var(--cyan),var(--violet));display:grid;place-items:center;color:#04121c;font-weight:900}
+.top-in .back{margin-left:auto;color:var(--txt2);font-size:13px}
+main{max-width:900px;margin:0 auto;padding:28px 20px 60px}
+h1{font-size:28px;line-height:1.4;margin:8px 0 10px}
+.meta{color:var(--txt3);font-size:12.5px;margin-bottom:22px;display:flex;gap:8px;flex-wrap:wrap}
+.content{font-size:15.5px;color:#cfd9e6}
+.content h2{font-size:20px;color:var(--txt);margin:28px 0 10px}
+.content h3{font-size:17px;color:var(--txt);margin:22px 0 8px}
+.content p{margin:12px 0}
+.content li{margin:6px 0}
+.content code{background:rgba(120,180,255,.12);padding:1px 6px;border-radius:5px;font-family:Consolas,monospace;font-size:13px}
+.content pre{background:#0a1018;border:1px solid var(--line);border-radius:10px;padding:12px;overflow:auto}
+.content blockquote{border-left:3px solid var(--cyan);padding:4px 14px;color:var(--txt2);margin:16px 0}
+.ad-slot{margin:26px 0;min-height:100px;border:1px dashed rgba(120,140,170,.35);border-radius:12px;display:flex;align-items:center;justify-content:center;color:var(--txt3);font-size:12px;text-align:center;background:rgba(17,24,39,.55)}
+.ad-slot small{display:block;font-size:10.5px;opacity:.7}
+.bread{color:var(--txt3);font-size:12.5px;margin-bottom:6px}
+.bread a{color:var(--cyan)}
+footer{border-top:1px solid var(--line);color:var(--txt3);font-size:12.5px;text-align:center;padding:20px}
+.related{margin:34px 0 10px;border-top:1px solid var(--line);padding-top:18px}.related h2{font-size:16px;color:var(--txt);margin:0 0 10px}.related ul{list-style:none;padding:0;margin:0}.related li{margin:8px 0}.related a{color:var(--cyan);font-size:14px}
+.tool-link{margin:14px 0 0}
+.tlinks a{display:inline-block;margin:0 8px 8px 0;padding:6px 12px;border:1px solid rgba(90,209,255,.25);border-radius:8px;font-size:13px;color:var(--cyan);background:rgba(90,209,255,.06)}
+.tlinks a:hover{background:rgba(90,209,255,.15)}
+.sec{margin:26px 0}
+.sec h2{font-size:17px;color:var(--txt);margin:0 0 10px}
+.tool-link a{display:inline-block;font-size:13px;color:var(--txt2);border:1px solid var(--line);border-radius:8px;padding:7px 12px}
+.tool-link a:hover{color:var(--txt);border-color:rgba(90,209,255,.45)}
+.top-in .back{padding:6px 0}
+.bread a{display:inline-block;padding:6px 0}
+.sec li a{display:inline-block;padding:5px 0}
+.sib a{padding:8px 12px}
+.cats a{display:inline-block;margin:0 8px 8px 0;padding:6px 12px;border:1px solid var(--line);border-radius:8px;font-size:13px;color:var(--txt2)}
+.cats a:hover{color:var(--txt);border-color:rgba(90,209,255,.45)}
+.cats h2{font-size:17px;margin:22px 0 10px}
+@media(max-width:640px){h1{font-size:22px}main{padding:20px 16px 40px}
+.related a,.tlinks a,.tool-link a,footer a,.sib a{min-height:36px;display:inline-flex;align-items:center}
+.list a{padding:14px 14px}
+td a{display:inline-block;padding:8px 0}
+.note a{display:inline-block;padding:7px 0}
+}
+</style>
+</head>
+<body>
+<header class="top"><div class="top-in">
+  <a class="logo" href="../index.html"><span class="mark">✦</span>星籁 AI 导航</a>
+  <a class="back" href="../index.html">← 返回首页</a>
+</div></header>
+<main>
+  <div class="bread"><a href="../index.html">首页</a> / <a href="../video/index.html">视频音频</a></div>
+  <h1>视频 字幕 翻译：SRT 批量流程与术语统一</h1>
+  <div class="meta"><span>视频音频</span><span>·</span><span>更新于 2026-11-15</span><span>·</span><span>视频 字幕 翻译, SRT 字幕, 字幕术语表, 字幕时间轴, 字幕批量翻译, 字幕时间轴对齐</span></div>
+  <article class="content"><p>上个月一套 12 集的跨境电商课程要上英文版，2,340 条 SRT 字幕。第一版直接丢给翻译工具，回来少了 37 条，时间码被重排，第三集的"退款"和第七集的"退货"翻成了同一个词。返工两天后我固定了一套流程：先拆结构、再锁术语、最后对时间轴。视频 字幕 翻译 的功夫，大部分不在翻译本身。</p>
+<h2>SRT 先拆成行，再批量翻译</h2>
+<p>SRT 每条由序号、时间码、文本三部分组成，时间码精确到毫秒。我写了个 40 行的 Python 脚本，按空行切开，提取序号和时间码，只把文本塞进 JSON，一条给一个 id，全片拆成 47 批。每批 50 条送出去翻，回来先比对条数，少一条就重跑那批，这是字幕批量翻译最要紧的一步，条数对上了，时间码才不用动。脚本里加一条断言，条数不等就报错重跑，比人工核对快一个量级。</p>
+<p>走 DeepL API 的话，免费额度每月 50 万字符，这套课原文约 4.2 万字符，一个月翻十套都够。翻译前把字幕里的斜体标签抽出来单独存，翻完再贴回去，别让翻译器当正文吃掉。一次 50 条、每条不超过 80 字，模型不容易漏行。</p>
+<h2>术语表决定成败</h2>
+<div class="ad-slot" data-ad="article-mid"><div>广告位（文章中部）<small>AdSense / 广告联盟代码插入点 · 建议 728×90 / 移动端 320×100</small></div><!-- 在这里粘贴广告代码 --></div>
+<p>第二遍我把出场最多的 38 个词做成术语表，整理了 40 分钟：产品名不译，退货固定 return，退款固定 refund，海外仓固定 overseas warehouse。DeepL 有术语表功能可以直接挂，走模型就把这 38 条塞进系统提示词，要求术语表优先。视频 字幕 翻译 里最贵的错误是前后不一致，观众看到两种说法会以为在讲两件事。</p>
+<p>第一版术语错误 41 处，挂表后降到 3 处，剩下的是英文动词形式变化。品牌名、型号、人名一律不译，宁可加括号注原文。这套 12 集里"清关"出现了 63 次，套上术语表后 63 处全对。</p>
+<h2>时间轴对齐与验收</h2>
+<p>翻译会让字幕变长或变短，英文一般比中文长三成，字幕批量翻译之后必须重排：每行不超过 42 个字符、最多两行、阅读速度 20 字符每秒，这是 Netflix 英文规范，我照它验收。超过两行就拆成两条字幕，两条之间留 2 帧间隔，不够 1 秒的短句并到上一条。拆行别把英文短语拆开，冠词和它修饰的词要留在同一行。</p>
+<p>字幕时间轴对齐的坑在帧率：25 帧字幕套在 23.976 帧的片子上，每 10 分钟差约 24 秒，片尾能错一整句。用 Subtitle Edit 的更改帧率整体换算，再抽查每集开头、结尾和三次转场。导出前跑脚本查重叠、空行、超长行，2,340 条查完不到 1 分钟。视频 字幕 翻译 的返工，八成出在这三处。</p>
+<h2>总结</h2>
+<p>视频 字幕 翻译 的流程是：拆 SRT 保条数、锁 38 个术语、按 20 字符每秒重排时间轴。做字幕批量翻译，一批 50 条比一次两百条稳，漏条能立刻发现；字幕时间轴对齐先换算帧率，再抽查关键句。这套 12 集从拿到 SRT 到交片 1.5 天，最后只改了 3 处术语。</p></article>
+  
+  <section class="related"><h2>同类教程</h2><ul><li><a href="video-21-video-compress-size.html">视频 压缩 体积：码率公式算出目标大小</a></li><li><a href="video-22-audio-denoise-voice.html">音频 降噪 人声：三类噪声和六个参数</a></li><li><a href="video-23-digital-human-live.html">数字人 直播 方案：形象、延迟、合规与成本</a></li><li><a href="video-24-subtitle-burn-vs-soft.html">字幕 烧录 软字幕：先查平台再定方案</a></li><li><a href="video-25-ai-music-commercial-rights.html">音乐 生成 版权 商用：先查授权再发布</a></li></ul><p class="tool-link"><a href="../index.html">查看 视频音频 工具与其它教程 →</a> <a href="../t/errors/">AI 报错解决 →</a> <a href="../t/pricing/">AI 工具价格 →</a></p></section>
+  <footer>© 2026 星籁 Stellara · <a href="../privacy.html">隐私政策</a> · <a href="../sitemap.xml">站点地图</a></footer>
+</main>
+</body>
+</html>

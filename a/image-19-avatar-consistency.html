@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>头像 生成 一致性：9 张表情包不换脸 · 星籁</title>
+<meta name="description" content="给虚拟主播做 9 张聊天头像，开心、无语、生气、开播提醒各一套，客户只给 3 张手机自拍。第一轮用图生图只换表情，9 张出来像 9 个人，下巴都不在一个长度。返工后改成固定参考图加固定 seed，9 张里 8 张一次过，">
+<meta name="keywords" content="头像 生成 一致性, IP-Adapter FaceID, 角色参考参数, 头像 一致性 怎么调, 一张照片 生成 多张头像">
+<meta name="robots" content="index,follow">
+
+<link rel="canonical" href="https://a678-beep.github.io/ai-nav/a/image-19-avatar-consistency.html">
+<meta property="og:type" content="article">
+<meta property="og:title" content="头像 生成 一致性：9 张表情包不换脸">
+<meta property="og:description" content="给虚拟主播做 9 张聊天头像，开心、无语、生气、开播提醒各一套，客户只给 3 张手机自拍。第一轮用图生图只换表情，9 张出来像 9 个人，下巴都不在一个长度。返工后改成固定参考图加固定 seed，9 张里 8 张一次过，">
+<meta property="og:url" content="https://a678-beep.github.io/ai-nav/a/image-19-avatar-consistency.html">
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "Article", "headline": "头像 生成 一致性：9 张表情包不换脸", "inLanguage": "zh-CN", "datePublished": "2026-11-15", "author": {"@type": "Organization", "name": "星籁 Stellara"}, "publisher": {"@type": "Organization", "name": "星籁 Stellara"}, "mainEntityOfPage": "https://a678-beep.github.io/ai-nav/a/image-19-avatar-consistency.html", "articleSection": "图像生成", "wordCount": 826, "dateModified": "2026-11-15", "keywords": "头像 生成 一致性, IP-Adapter FaceID, 角色参考参数, 头像 一致性 怎么调, 一张照片 生成 多张头像"}</script>
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "首页", "item": "https://a678-beep.github.io/ai-nav/"}, {"@type": "ListItem", "position": 2, "name": "图像生成", "item": "https://a678-beep.github.io/ai-nav/#/articles"}, {"@type": "ListItem", "position": 3, "name": "头像 生成 一致性：9 张表情包不换脸", "item": "https://a678-beep.github.io/ai-nav/a/image-19-avatar-consistency.html"}]}</script>
+<style>
+:root{--bg:#080b12;--panel:#111827;--line:#1f2937;--txt:#e6edf7;--txt2:#9aa8bd;--txt3:#6b7a90;--cyan:#5ad1ff;--violet:#a78bfa}
+*{box-sizing:border-box}body{margin:0;background:radial-gradient(900px 500px at 82% -8%,rgba(90,209,255,.16),transparent 60%),var(--bg);color:var(--txt);font-family:"Microsoft YaHei","PingFang SC",system-ui,sans-serif;line-height:1.8}
+a{color:inherit;text-decoration:none}
+.top{position:sticky;top:0;backdrop-filter:blur(12px);background:rgba(8,11,18,.85);border-bottom:1px solid var(--line)}
+.top-in{max-width:900px;margin:0 auto;padding:12px 20px;display:flex;align-items:center;gap:10px}
+.logo{display:flex;align-items:center;gap:9px;font-weight:800}
+.logo .mark{width:30px;height:30px;border-radius:9px;background:linear-gradient(135deg,var(--cyan),var(--violet));display:grid;place-items:center;color:#04121c;font-weight:900}
+.top-in .back{margin-left:auto;color:var(--txt2);font-size:13px}
+main{max-width:900px;margin:0 auto;padding:28px 20px 60px}
+h1{font-size:28px;line-height:1.4;margin:8px 0 10px}
+.meta{color:var(--txt3);font-size:12.5px;margin-bottom:22px;display:flex;gap:8px;flex-wrap:wrap}
+.content{font-size:15.5px;color:#cfd9e6}
+.content h2{font-size:20px;color:var(--txt);margin:28px 0 10px}
+.content h3{font-size:17px;color:var(--txt);margin:22px 0 8px}
+.content p{margin:12px 0}
+.content li{margin:6px 0}
+.content code{background:rgba(120,180,255,.12);padding:1px 6px;border-radius:5px;font-family:Consolas,monospace;font-size:13px}
+.content pre{background:#0a1018;border:1px solid var(--line);border-radius:10px;padding:12px;overflow:auto}
+.content blockquote{border-left:3px solid var(--cyan);padding:4px 14px;color:var(--txt2);margin:16px 0}
+.ad-slot{margin:26px 0;min-height:100px;border:1px dashed rgba(120,140,170,.35);border-radius:12px;display:flex;align-items:center;justify-content:center;color:var(--txt3);font-size:12px;text-align:center;background:rgba(17,24,39,.55)}
+.ad-slot small{display:block;font-size:10.5px;opacity:.7}
+.bread{color:var(--txt3);font-size:12.5px;margin-bottom:6px}
+.bread a{color:var(--cyan)}
+footer{border-top:1px solid var(--line);color:var(--txt3);font-size:12.5px;text-align:center;padding:20px}
+.related{margin:34px 0 10px;border-top:1px solid var(--line);padding-top:18px}.related h2{font-size:16px;color:var(--txt);margin:0 0 10px}.related ul{list-style:none;padding:0;margin:0}.related li{margin:8px 0}.related a{color:var(--cyan);font-size:14px}
+.tool-link{margin:14px 0 0}
+.tlinks a{display:inline-block;margin:0 8px 8px 0;padding:6px 12px;border:1px solid rgba(90,209,255,.25);border-radius:8px;font-size:13px;color:var(--cyan);background:rgba(90,209,255,.06)}
+.tlinks a:hover{background:rgba(90,209,255,.15)}
+.sec{margin:26px 0}
+.sec h2{font-size:17px;color:var(--txt);margin:0 0 10px}
+.tool-link a{display:inline-block;font-size:13px;color:var(--txt2);border:1px solid var(--line);border-radius:8px;padding:7px 12px}
+.tool-link a:hover{color:var(--txt);border-color:rgba(90,209,255,.45)}
+.top-in .back{padding:6px 0}
+.bread a{display:inline-block;padding:6px 0}
+.sec li a{display:inline-block;padding:5px 0}
+.sib a{padding:8px 12px}
+.cats a{display:inline-block;margin:0 8px 8px 0;padding:6px 12px;border:1px solid var(--line);border-radius:8px;font-size:13px;color:var(--txt2)}
+.cats a:hover{color:var(--txt);border-color:rgba(90,209,255,.45)}
+.cats h2{font-size:17px;margin:22px 0 10px}
+@media(max-width:640px){h1{font-size:22px}main{padding:20px 16px 40px}
+.related a,.tlinks a,.tool-link a,footer a,.sib a{min-height:36px;display:inline-flex;align-items:center}
+.list a{padding:14px 14px}
+td a{display:inline-block;padding:8px 0}
+.note a{display:inline-block;padding:7px 0}
+}
+</style>
+</head>
+<body>
+<header class="top"><div class="top-in">
+  <a class="logo" href="../index.html"><span class="mark">✦</span>星籁 AI 导航</a>
+  <a class="back" href="../index.html">← 返回首页</a>
+</div></header>
+<main>
+  <div class="bread"><a href="../index.html">首页</a> / <a href="../image/index.html">图像生成</a></div>
+  <h1>头像 生成 一致性：9 张表情包不换脸</h1>
+  <div class="meta"><span>图像生成</span><span>·</span><span>更新于 2026-11-15</span><span>·</span><span>头像 生成 一致性, IP-Adapter FaceID, 角色参考参数, 头像 一致性 怎么调, 一张照片 生成 多张头像</span></div>
+  <article class="content"><p>给虚拟主播做 9 张聊天头像，开心、无语、生气、开播提醒各一套，客户只给 3 张手机自拍。第一轮用图生图只换表情，9 张出来像 9 个人，下巴都不在一个长度。返工后改成固定参考图加固定 seed，9 张里 8 张一次过，这篇把头像 生成 一致性的参数记下来。</p>
+<h2>参考图三张就够</h2>
+<p>参考图只要 3 张：正脸、四分之三侧脸、半身，统一裁成 1024×1024，原相机直出，不磨皮。有人以为越多越好，我塞过 8 张，模型反而把五官平均成路人的脸，相似度掉一截。留 1 张侧脸是给耳朵和鼻梁立体信息，不然侧脸表情会糊成平面。</p>
+<p>服装和配饰先定死：同一件黑 T 恤、同一副耳环，9 张里只在最后 2 张换造型。参考图混进不同发色、眼镜，模型会随机组合，出图突然多副眼镜。这是头像 一致性 怎么调 的第一步，素材不统一，后面参数全白调。一张照片 生成 多张头像 也能跑，但单张只够撑 2 到 3 个角度，表情一夸张就崩，真想批量做至少补张侧脸。</p>
+<h2>参数和 seed 怎么锁</h2>
+<div class="ad-slot" data-ad="article-mid"><div>广告位（文章中部）<small>AdSense / 广告联盟代码插入点 · 建议 728×90 / 移动端 320×100</small></div><!-- 在这里粘贴广告代码 --></div>
+<p>SDXL 路线我用 IP-Adapter FaceID Plus v2，权重 0.65。太高会把表情锁死，0.8 时 9 张全是同一个微笑，嘴型动不了；太低到 0.4 又认不出人。采样器 DPM++ 2M Karras，步数 28，CFG 5.5，出图 832×832。seed 固定成 12345，提示词只改表情词，镜头、光线、背景都不动，改得越少脸越稳。</p>
+<p>想更稳就训个轻量 LoRA：12 张自拍，dim 16、alpha 8、学习率 1e-4、900 步，权重从 0.6 起试。过拟合的典型表现是表情做不出来，嘴角永远停在训练集的弧度，降到 0.5 或减 200 步就能松。把权重开到 1.0 头像会僵成证件照。习惯 Midjourney 的话，--oref 挂 3 张参考图、--ow 700、固定 --seed，能过 7 张，但大笑这类大表情还是容易漂。seed 只锁噪声和构图，锁不住脸。</p>
+<h2>验收和四个坑</h2>
+<p>验收盯 5 个锚点：眉形、眼距、鼻头、痣、耳环，9 张拼九宫格扫过去，一张不对就单独重跑，不整组返工。规格统一 1:1、1080×1080 PNG，脸中心留在画面 45% 高度，圆形裁切不会切到下巴。想更客观，用 InsightFace 算两张脸余弦相似度，0.6 以上算同一人，低于 0.5 重跑。</p>
+<p>坑一：让模型大笑、闭眼、吐舌一起上，脸部结构最容易崩，先做微笑和挑眉。坑二：第 7 张开始漂移，一把出 9 张后三张常变路人，改成每 3 张一组、重新挂参考图。坑三：美颜图丢掉痣和下颌线，出图跟着变圆。坑四：背景别用纯白，和参考图白底撞色，抠图会把发丝啃掉一圈。头像 生成 一致性 的最后一条是每批只动一个变量，换权重、seed、参考图别同时上。</p>
+<h2>总结</h2>
+<p>3 张原相机参考图、统一服装、IP-Adapter 0.65 或轻量 LoRA 0.6、固定 seed、每 3 张一组，9 张头像 40 分钟能出 8 张可用的。头像 生成 一致性 没有魔法参数，先保证素材是同一个人才有后面的稳定；头像 一致性 怎么调 绕不开这一点；一张照片 生成 多张头像 能做，但别省侧脸那一张，省下的时间都会在返工里还回去。</p></article>
+  <div class="sec"><h2>文中提到的工具</h2><p class="tlinks"><a href="../tool/midjourney/">Midjourney →</a></p></div>
+  <section class="related"><h2>同类教程</h2><ul><li><a href="image-20-hand-deformity-fix.html">手部 畸形 修复：局部重绘与骨架约束</a></li><li><a href="image-21-background-removal-edges.html">图片 去背景 边缘：发丝、半透明、阴影怎么修</a></li><li><a href="image-22-sd-model-download-slow.html">SD 模型 下载 太慢：镜像加断点续传</a></li><li><a href="image-23-comfyui-node-error.html">ComfyUI 节点 报错：红框、版本与显存</a></li><li><a href="image-24-4k-upscale-vram.html">4K 放大 显存 占用实测：12G 卡分块参数</a></li></ul><p class="tool-link"><a href="../index.html">查看 图像生成 工具与其它教程 →</a> <a href="../t/params/">参数与配置 →</a></p></section>
+  <footer>© 2026 星籁 Stellara · <a href="../privacy.html">隐私政策</a> · <a href="../sitemap.xml">站点地图</a></footer>
+</main>
+</body>
+</html>

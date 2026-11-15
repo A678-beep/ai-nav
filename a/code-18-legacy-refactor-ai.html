@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>老项目 重构 AI：先补测试再拆批次 · 星籁</title>
+<meta name="description" content="去年接了个 2011 年的后台系统，PHP 5.6 加 jQuery，2.3 万行，一行测试都没有，要升到 8.2 并拆前后端。我先让 AI 重写一个模块，它把三处隐藏的促销规则当死代码删了，测试环境没人发现，上线当天少">
+<meta name="keywords" content="老项目 重构 AI, 遗留代码 重构, 特征测试, 遗留代码 怎么重构, 老项目 重构 测试先行">
+<meta name="robots" content="index,follow">
+
+<link rel="canonical" href="https://a678-beep.github.io/ai-nav/a/code-18-legacy-refactor-ai.html">
+<meta property="og:type" content="article">
+<meta property="og:title" content="老项目 重构 AI：先补测试再拆批次">
+<meta property="og:description" content="去年接了个 2011 年的后台系统，PHP 5.6 加 jQuery，2.3 万行，一行测试都没有，要升到 8.2 并拆前后端。我先让 AI 重写一个模块，它把三处隐藏的促销规则当死代码删了，测试环境没人发现，上线当天少">
+<meta property="og:url" content="https://a678-beep.github.io/ai-nav/a/code-18-legacy-refactor-ai.html">
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "Article", "headline": "老项目 重构 AI：先补测试再拆批次", "inLanguage": "zh-CN", "datePublished": "2026-11-15", "author": {"@type": "Organization", "name": "星籁 Stellara"}, "publisher": {"@type": "Organization", "name": "星籁 Stellara"}, "mainEntityOfPage": "https://a678-beep.github.io/ai-nav/a/code-18-legacy-refactor-ai.html", "articleSection": "编程助手", "wordCount": 842, "dateModified": "2026-11-15", "keywords": "老项目 重构 AI, 遗留代码 重构, 特征测试, 遗留代码 怎么重构, 老项目 重构 测试先行"}</script>
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "首页", "item": "https://a678-beep.github.io/ai-nav/"}, {"@type": "ListItem", "position": 2, "name": "编程助手", "item": "https://a678-beep.github.io/ai-nav/#/articles"}, {"@type": "ListItem", "position": 3, "name": "老项目 重构 AI：先补测试再拆批次", "item": "https://a678-beep.github.io/ai-nav/a/code-18-legacy-refactor-ai.html"}]}</script>
+<style>
+:root{--bg:#080b12;--panel:#111827;--line:#1f2937;--txt:#e6edf7;--txt2:#9aa8bd;--txt3:#6b7a90;--cyan:#5ad1ff;--violet:#a78bfa}
+*{box-sizing:border-box}body{margin:0;background:radial-gradient(900px 500px at 82% -8%,rgba(90,209,255,.16),transparent 60%),var(--bg);color:var(--txt);font-family:"Microsoft YaHei","PingFang SC",system-ui,sans-serif;line-height:1.8}
+a{color:inherit;text-decoration:none}
+.top{position:sticky;top:0;backdrop-filter:blur(12px);background:rgba(8,11,18,.85);border-bottom:1px solid var(--line)}
+.top-in{max-width:900px;margin:0 auto;padding:12px 20px;display:flex;align-items:center;gap:10px}
+.logo{display:flex;align-items:center;gap:9px;font-weight:800}
+.logo .mark{width:30px;height:30px;border-radius:9px;background:linear-gradient(135deg,var(--cyan),var(--violet));display:grid;place-items:center;color:#04121c;font-weight:900}
+.top-in .back{margin-left:auto;color:var(--txt2);font-size:13px}
+main{max-width:900px;margin:0 auto;padding:28px 20px 60px}
+h1{font-size:28px;line-height:1.4;margin:8px 0 10px}
+.meta{color:var(--txt3);font-size:12.5px;margin-bottom:22px;display:flex;gap:8px;flex-wrap:wrap}
+.content{font-size:15.5px;color:#cfd9e6}
+.content h2{font-size:20px;color:var(--txt);margin:28px 0 10px}
+.content h3{font-size:17px;color:var(--txt);margin:22px 0 8px}
+.content p{margin:12px 0}
+.content li{margin:6px 0}
+.content code{background:rgba(120,180,255,.12);padding:1px 6px;border-radius:5px;font-family:Consolas,monospace;font-size:13px}
+.content pre{background:#0a1018;border:1px solid var(--line);border-radius:10px;padding:12px;overflow:auto}
+.content blockquote{border-left:3px solid var(--cyan);padding:4px 14px;color:var(--txt2);margin:16px 0}
+.ad-slot{margin:26px 0;min-height:100px;border:1px dashed rgba(120,140,170,.35);border-radius:12px;display:flex;align-items:center;justify-content:center;color:var(--txt3);font-size:12px;text-align:center;background:rgba(17,24,39,.55)}
+.ad-slot small{display:block;font-size:10.5px;opacity:.7}
+.bread{color:var(--txt3);font-size:12.5px;margin-bottom:6px}
+.bread a{color:var(--cyan)}
+footer{border-top:1px solid var(--line);color:var(--txt3);font-size:12.5px;text-align:center;padding:20px}
+.related{margin:34px 0 10px;border-top:1px solid var(--line);padding-top:18px}.related h2{font-size:16px;color:var(--txt);margin:0 0 10px}.related ul{list-style:none;padding:0;margin:0}.related li{margin:8px 0}.related a{color:var(--cyan);font-size:14px}
+.tool-link{margin:14px 0 0}
+.tlinks a{display:inline-block;margin:0 8px 8px 0;padding:6px 12px;border:1px solid rgba(90,209,255,.25);border-radius:8px;font-size:13px;color:var(--cyan);background:rgba(90,209,255,.06)}
+.tlinks a:hover{background:rgba(90,209,255,.15)}
+.sec{margin:26px 0}
+.sec h2{font-size:17px;color:var(--txt);margin:0 0 10px}
+.tool-link a{display:inline-block;font-size:13px;color:var(--txt2);border:1px solid var(--line);border-radius:8px;padding:7px 12px}
+.tool-link a:hover{color:var(--txt);border-color:rgba(90,209,255,.45)}
+.top-in .back{padding:6px 0}
+.bread a{display:inline-block;padding:6px 0}
+.sec li a{display:inline-block;padding:5px 0}
+.sib a{padding:8px 12px}
+.cats a{display:inline-block;margin:0 8px 8px 0;padding:6px 12px;border:1px solid var(--line);border-radius:8px;font-size:13px;color:var(--txt2)}
+.cats a:hover{color:var(--txt);border-color:rgba(90,209,255,.45)}
+.cats h2{font-size:17px;margin:22px 0 10px}
+@media(max-width:640px){h1{font-size:22px}main{padding:20px 16px 40px}
+.related a,.tlinks a,.tool-link a,footer a,.sib a{min-height:36px;display:inline-flex;align-items:center}
+.list a{padding:14px 14px}
+td a{display:inline-block;padding:8px 0}
+.note a{display:inline-block;padding:7px 0}
+}
+</style>
+</head>
+<body>
+<header class="top"><div class="top-in">
+  <a class="logo" href="../index.html"><span class="mark">✦</span>星籁 AI 导航</a>
+  <a class="back" href="../index.html">← 返回首页</a>
+</div></header>
+<main>
+  <div class="bread"><a href="../index.html">首页</a> / <a href="../code/index.html">编程助手</a></div>
+  <h1>老项目 重构 AI：先补测试再拆批次</h1>
+  <div class="meta"><span>编程助手</span><span>·</span><span>更新于 2026-11-15</span><span>·</span><span>老项目 重构 AI, 遗留代码 重构, 特征测试, 遗留代码 怎么重构, 老项目 重构 测试先行</span></div>
+  <article class="content"><p>去年接了个 2011 年的后台系统，PHP 5.6 加 jQuery，2.3 万行，一行测试都没有，要升到 8.2 并拆前后端。我先让 AI 重写一个模块，它把三处隐藏的促销规则当死代码删了，测试环境没人发现，上线当天少送两百多份赠品。翻车后我换了流程，老项目 重构 AI 的第一条规矩是先给现状拍照片，再动刀。</p>
+<h2>先补测试再改代码</h2>
+<p>测试先行的做法是特征测试：不动业务，只把现有行为冻下来。我挑了 12 个核心接口，从只读库导了 200 条脱敏请求和响应，存成 JSON 快照，让 AI 生成 PHPUnit 回放用例，跑通后逐条人工确认断言。第一版覆盖 0，两周后行覆盖到 58%，12 个核心接口 80%，后面每批改造都拿它当安全网。</p>
+<p>快照记录的是现状，不是理想。老代码里金额四舍五入用截断，我一开始让 AI 顺手改成标准四舍五入，对账直接差 0.01 元，后来把截断写进断言才算冻住。老项目 重构 测试先行 是先接受它的怪，再决定哪批改。这些测试大部分是 AI 写的，但断言必须人看，我让它在测试类头部注释写清保护哪段业务。</p>
+<h2>分批改，每批能回滚</h2>
+<div class="ad-slot" data-ad="article-mid"><div>广告位（文章中部）<small>AdSense / 广告联盟代码插入点 · 建议 728×90 / 移动端 320×100</small></div><!-- 在这里粘贴广告代码 --></div>
+<p>老项目 重构 AI 的分批原则是从外往里拆，一共 11 批：第一批把入口文件的 SQL 抽成数据访问层，第二批清 include 链，第三批换模板引擎，中间穿插两次数据库双写。每批控制在 5 个文件、400 行 diff 内，当天能回滚，改完跑回放测试再提 PR。AI 工具我用 Aider，配 --test-cmd 和 --auto-test，它每改一次就自己跑测试；量大的批次换 Claude Code 的 plan mode 先出计划。</p>
+<p>第 7 批最险：用户表加了新列，老代码还按位置取字段。我先让 AI 加双写，读路径保留旧逻辑，观察两周流量和错误率没变，才切新路径。这种先加后删的节奏，比一次重写 2 万行靠谱，AI 上下文也装不下整个仓库。</p>
+<h2>四个风险点</h2>
+<p>第一是编码。老库是 GBK，AI 默认生成 UTF-8，中文用户名在日志里变成问号，我加了转换层才压住。第二是时区。老代码 date() 取本地时间，重构后换 Carbon 默认 UTC，凌晨订单日期错 8 小时，对账多出 30 多笔。第三是浮点。老代码用 float 算金额，迁到 Decimal 后分位不一致，我写了一批金额快照才对齐。第四是 AI 删代码手太快，它常把没人调用的方法判成无用，我挂两个月日志，才敢确认哪些真能删。</p>
+<p>遗留代码 怎么重构 说到底是控制爆炸半径，不是追求代码多漂亮。AI 读得快、写得多，但它不知道哪行 if 是三年前大促临时加的，这层判断得留在人手里。每批改造前让它列回滚清单，比事后救火便宜。</p>
+<h2>总结</h2>
+<p>我的顺序是：特征测试冻现状、按依赖拆 11 批、每批 5 个文件能回滚、编码时区金额逐项验。老项目 重构 AI 能省六成机械活，剩下四成是业务判断。遗留代码 怎么重构 没有捷径，老项目 重构 测试先行 是唯一能让人敢提交的办法。</p></article>
+  <div class="sec"><h2>文中提到的工具</h2><p class="tlinks"><a href="../tool/claude-code/">Claude Code →</a><a href="../tool/aider/">Aider →</a></p></div>
+  <section class="related"><h2>同类教程</h2><ul><li><a href="code-19-sql-generation-optimize.html">SQL 生成 优化：EXPLAIN 与索引实战</a></li><li><a href="code-20-cursor-index-stuck.html">Cursor 索引 卡住：先查目录再重建</a></li><li><a href="code-21-copilot-login-failed.html">Copilot 无法 登录：代理与账号权限</a></li><li><a href="code-22-local-code-model.html">本地 代码 模型 推荐：7B 到 14B 实测</a></li><li><a href="code-23-api-doc-generation.html">接口 文档 自动 生成：OpenAPI 落地三步</a></li></ul><p class="tool-link"><a href="../index.html">查看 编程助手 工具与其它教程 →</a> <a href="../t/pricing/">AI 工具价格 →</a> <a href="../t/params/">参数与配置 →</a></p></section>
+  <footer>© 2026 星籁 Stellara · <a href="../privacy.html">隐私政策</a> · <a href="../sitemap.xml">站点地图</a></footer>
+</main>
+</body>
+</html>

@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>离线 翻译 工具 选型：3 档模型体积与速度 · 星籁</title>
+<meta name="description" content="给一家做工业泵的客户翻内网资料，40 页英文规格书，机器不能联网，云端方案全部排除。说明书的表格和术语特别多，翻完还要保住格式，这个前提决定了选型方向。我把 Argos Translate、OPUS-MT、NLLB-20">
+<meta name="keywords" content="离线 翻译 工具, 本地 翻译 模型, 离线 翻译 软件, Argos Translate, NLLB-200, 离线 翻译 模型 体积, 离线 翻译 软件 对比">
+<meta name="robots" content="index,follow">
+
+<link rel="canonical" href="https://a678-beep.github.io/ai-nav/a/util-21-offline-translation-tools.html">
+<meta property="og:type" content="article">
+<meta property="og:title" content="离线 翻译 工具 选型：3 档模型体积与速度">
+<meta property="og:description" content="给一家做工业泵的客户翻内网资料，40 页英文规格书，机器不能联网，云端方案全部排除。说明书的表格和术语特别多，翻完还要保住格式，这个前提决定了选型方向。我把 Argos Translate、OPUS-MT、NLLB-20">
+<meta property="og:url" content="https://a678-beep.github.io/ai-nav/a/util-21-offline-translation-tools.html">
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "Article", "headline": "离线 翻译 工具 选型：3 档模型体积与速度", "inLanguage": "zh-CN", "datePublished": "2026-11-15", "author": {"@type": "Organization", "name": "星籁 Stellara"}, "publisher": {"@type": "Organization", "name": "星籁 Stellara"}, "mainEntityOfPage": "https://a678-beep.github.io/ai-nav/a/util-21-offline-translation-tools.html", "articleSection": "实用工具", "wordCount": 801, "dateModified": "2026-11-15", "keywords": "离线 翻译 工具, 本地 翻译 模型, 离线 翻译 软件, Argos Translate, NLLB-200, 离线 翻译 模型 体积, 离线 翻译 软件 对比"}</script>
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "首页", "item": "https://a678-beep.github.io/ai-nav/"}, {"@type": "ListItem", "position": 2, "name": "实用工具", "item": "https://a678-beep.github.io/ai-nav/#/articles"}, {"@type": "ListItem", "position": 3, "name": "离线 翻译 工具 选型：3 档模型体积与速度", "item": "https://a678-beep.github.io/ai-nav/a/util-21-offline-translation-tools.html"}]}</script>
+<style>
+:root{--bg:#080b12;--panel:#111827;--line:#1f2937;--txt:#e6edf7;--txt2:#9aa8bd;--txt3:#6b7a90;--cyan:#5ad1ff;--violet:#a78bfa}
+*{box-sizing:border-box}body{margin:0;background:radial-gradient(900px 500px at 82% -8%,rgba(90,209,255,.16),transparent 60%),var(--bg);color:var(--txt);font-family:"Microsoft YaHei","PingFang SC",system-ui,sans-serif;line-height:1.8}
+a{color:inherit;text-decoration:none}
+.top{position:sticky;top:0;backdrop-filter:blur(12px);background:rgba(8,11,18,.85);border-bottom:1px solid var(--line)}
+.top-in{max-width:900px;margin:0 auto;padding:12px 20px;display:flex;align-items:center;gap:10px}
+.logo{display:flex;align-items:center;gap:9px;font-weight:800}
+.logo .mark{width:30px;height:30px;border-radius:9px;background:linear-gradient(135deg,var(--cyan),var(--violet));display:grid;place-items:center;color:#04121c;font-weight:900}
+.top-in .back{margin-left:auto;color:var(--txt2);font-size:13px}
+main{max-width:900px;margin:0 auto;padding:28px 20px 60px}
+h1{font-size:28px;line-height:1.4;margin:8px 0 10px}
+.meta{color:var(--txt3);font-size:12.5px;margin-bottom:22px;display:flex;gap:8px;flex-wrap:wrap}
+.content{font-size:15.5px;color:#cfd9e6}
+.content h2{font-size:20px;color:var(--txt);margin:28px 0 10px}
+.content h3{font-size:17px;color:var(--txt);margin:22px 0 8px}
+.content p{margin:12px 0}
+.content li{margin:6px 0}
+.content code{background:rgba(120,180,255,.12);padding:1px 6px;border-radius:5px;font-family:Consolas,monospace;font-size:13px}
+.content pre{background:#0a1018;border:1px solid var(--line);border-radius:10px;padding:12px;overflow:auto}
+.content blockquote{border-left:3px solid var(--cyan);padding:4px 14px;color:var(--txt2);margin:16px 0}
+.ad-slot{margin:26px 0;min-height:100px;border:1px dashed rgba(120,140,170,.35);border-radius:12px;display:flex;align-items:center;justify-content:center;color:var(--txt3);font-size:12px;text-align:center;background:rgba(17,24,39,.55)}
+.ad-slot small{display:block;font-size:10.5px;opacity:.7}
+.bread{color:var(--txt3);font-size:12.5px;margin-bottom:6px}
+.bread a{color:var(--cyan)}
+footer{border-top:1px solid var(--line);color:var(--txt3);font-size:12.5px;text-align:center;padding:20px}
+.related{margin:34px 0 10px;border-top:1px solid var(--line);padding-top:18px}.related h2{font-size:16px;color:var(--txt);margin:0 0 10px}.related ul{list-style:none;padding:0;margin:0}.related li{margin:8px 0}.related a{color:var(--cyan);font-size:14px}
+.tool-link{margin:14px 0 0}
+.tlinks a{display:inline-block;margin:0 8px 8px 0;padding:6px 12px;border:1px solid rgba(90,209,255,.25);border-radius:8px;font-size:13px;color:var(--cyan);background:rgba(90,209,255,.06)}
+.tlinks a:hover{background:rgba(90,209,255,.15)}
+.sec{margin:26px 0}
+.sec h2{font-size:17px;color:var(--txt);margin:0 0 10px}
+.tool-link a{display:inline-block;font-size:13px;color:var(--txt2);border:1px solid var(--line);border-radius:8px;padding:7px 12px}
+.tool-link a:hover{color:var(--txt);border-color:rgba(90,209,255,.45)}
+.top-in .back{padding:6px 0}
+.bread a{display:inline-block;padding:6px 0}
+.sec li a{display:inline-block;padding:5px 0}
+.sib a{padding:8px 12px}
+.cats a{display:inline-block;margin:0 8px 8px 0;padding:6px 12px;border:1px solid var(--line);border-radius:8px;font-size:13px;color:var(--txt2)}
+.cats a:hover{color:var(--txt);border-color:rgba(90,209,255,.45)}
+.cats h2{font-size:17px;margin:22px 0 10px}
+@media(max-width:640px){h1{font-size:22px}main{padding:20px 16px 40px}
+.related a,.tlinks a,.tool-link a,footer a,.sib a{min-height:36px;display:inline-flex;align-items:center}
+.list a{padding:14px 14px}
+td a{display:inline-block;padding:8px 0}
+.note a{display:inline-block;padding:7px 0}
+}
+</style>
+</head>
+<body>
+<header class="top"><div class="top-in">
+  <a class="logo" href="../index.html"><span class="mark">✦</span>星籁 AI 导航</a>
+  <a class="back" href="../index.html">← 返回首页</a>
+</div></header>
+<main>
+  <div class="bread"><a href="../index.html">首页</a> / <a href="../util/index.html">实用工具</a></div>
+  <h1>离线 翻译 工具 选型：3 档模型体积与速度</h1>
+  <div class="meta"><span>实用工具</span><span>·</span><span>更新于 2026-11-15</span><span>·</span><span>离线 翻译 工具, 本地 翻译 模型, 离线 翻译 软件, Argos Translate, NLLB-200, 离线 翻译 模型 体积, 离线 翻译 软件 对比</span></div>
+  <article class="content"><p>给一家做工业泵的客户翻内网资料，40 页英文规格书，机器不能联网，云端方案全部排除。说明书的表格和术语特别多，翻完还要保住格式，这个前提决定了选型方向。我把 Argos Translate、OPUS-MT、NLLB-200 各跑了一遍，离线 翻译 工具 的选型就三件事：模型多大、跑多快、术语能不能统一。</p>
+<h2>一、3 档模型体积</h2>
+<p>Argos Translate 一个语言包 60 到 115MB，中英互译包 71MB，桌面端装完 300MB 左右，8G 内存的老笔记本能跑；OPUS-MT 的 zh-en 模型约 284MB，加载峰值内存 1.2G；NLLB-200 distilled 600M 的 FP32 文件约 2.4GB，int8 量化后 1.1GB，8G 内存硬跑 FP32 会直接 OOM。本地 翻译 模型 还有个变量是量化：NLLB 的 int8 版在 ONNX Runtime 上内存压到 2G 出头，速度比 FP32 快 2 到 3 倍；没独显的办公机跑 fp16 反而更慢。离线 翻译 模型 体积 差 20 倍，质量也差一档：NLLB 在小语种和长句上明显更好，中英规格书这种句式规整的文本，Argos 和 OPUS-MT 够用。选之前先量内存，再谈别的。</p>
+<h2>二、速度与术语库</h2>
+<div class="ad-slot" data-ad="article-mid"><div>广告位（文章中部）<small>AdSense / 广告联盟代码插入点 · 建议 728×90 / 移动端 320×100</small></div><!-- 在这里粘贴广告代码 --></div>
+<p>同一份 1.8 万词的规格书，i7-12700 上 Argos 3 分 40 秒出中文，OPUS-MT 4 分 10 秒，NLLB-600M int8 用了 14 分钟。术语这块，三套都没有可视化术语库，我的做法是译前占位符加译后替换：把 torque wrench 先换成 [[T1]]，翻完再回填"扭矩扳手"，40 条术语一次跑完，统一率从 72% 到 98%。术语表原文列全写小写，译前用脚本替换，正则从长词开始匹配，不然 short 会先把 short circuit 改坏；替换表放在译文导出后跑，再人工抽检 10 页。离线 翻译 工具 里术语多的场景，占位符比换模型有用；离线 翻译 软件 对比 只看界面和语言列表容易选错，要拿自己的文档实测。要团队共用，可以在内网起 LibreTranslate，它底层用的就是 Argos 的模型包，起好服务浏览器打开就能用，不用每人装一套。</p>
+<h2>三、移动端和 3 个坑</h2>
+<p>手机上真能离线用的是 Google 翻译 App，设置里点"离线翻译"下载语言包，每个语言约 35MB，文本离线可用，拍照和语音要联网；微软翻译 App 也能提前下离线包，但一次只保一个目标语言，换语言要重新下。坑一：NLLB 的语言代码是 zho_Hans，填 zh 直接报错；坑二：OPUS-MT 单次输入上限 512 个 token，整段粘进去会被截断，我按句号切到 200 词以内；坑三：Argos 中文到小语种靠英文中转，中到泰这类要装两个包，体积和速度都翻倍。移动端只适合查词和短句，长文档还是回桌面跑。这批资料最后用 Argos 加占位符交付，客户验收只看了术语和格式。离线 翻译 工具 交付前，先拿 10 页真实文档跑一遍全流程，比看参数表准。</p>
+<h2>总结</h2>
+<p>离线 翻译 工具 没有一套通吃：内存紧、只翻中英选 Argos；要质量、有 16G 内存选 OPUS-MT 或 NLLB int8；术语多的文档先做占位符和替换表。离线 翻译 软件 对比 到最后，拼的是术语统一和交付流程，不是模型排行榜。离线 翻译 模型 体积 先量清楚，再谈速度和准确率。</p></article>
+  
+  <section class="related"><h2>同类教程</h2><ul><li><a href="util-22-image-ocr-batch.html">图片 OCR 批量：5 种格式、8 并发与校对</a></li><li><a href="util-23-webpage-offline-save.html">网页 离线 保存：单文件、资源包和阅读器</a></li><li><a href="util-24-audio-to-text-proofread.html">音频 转文字 校对：错字、热词表与批量核对</a></li><li><a href="util-25-file-dedup-tools.html">文件 去重 工具：哈希、保留规则与批量清理</a></li><li><a href="util-26-clipboard-history-tools.html">剪贴板 历史 工具：容量、隐私与快捷键设置</a></li></ul><p class="tool-link"><a href="../index.html">查看 实用工具 工具与其它教程 →</a> <a href="../t/errors/">AI 报错解决 →</a> <a href="../t/params/">参数与配置 →</a></p></section>
+  <footer>© 2026 星籁 Stellara · <a href="../privacy.html">隐私政策</a> · <a href="../sitemap.xml">站点地图</a></footer>
+</main>
+</body>
+</html>

@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<title>Sourcegraph Cody 代码搜索 技巧 · 星籁 AI 工具导航</title>
+<title>Sourcegraph Cody 代码搜索 技巧 · 星籁</title>
 <meta name="description" content="排查一个支付回调重复执行的 bug，本地 grep 只能搜一个仓库，而我们拆了 40 个微服务、约 800 万行代码，光定位回调入口就花了半天。后来改用 Sourcegraph Cody 代码搜索，同样一句查询，三十秒内">
 <meta name="keywords" content="Sourcegraph Cody, Cody 代码搜索, Sourcegraph 搜索语法, Sourcegraph Cody 代码搜索 技巧, Cody 搜索私有仓库">
 <meta name="robots" content="index,follow">
@@ -13,7 +13,7 @@
 <meta property="og:title" content="Sourcegraph Cody 代码搜索 技巧">
 <meta property="og:description" content="排查一个支付回调重复执行的 bug，本地 grep 只能搜一个仓库，而我们拆了 40 个微服务、约 800 万行代码，光定位回调入口就花了半天。后来改用 Sourcegraph Cody 代码搜索，同样一句查询，三十秒内">
 <meta property="og:url" content="https://a678-beep.github.io/ai-nav/a/code-13-sourcegraph-cody-code-search.html">
-<script type="application/ld+json">{"@context": "https://schema.org", "@type": "Article", "headline": "Sourcegraph Cody 代码搜索 技巧", "inLanguage": "zh-CN", "datePublished": "2026-11-15", "author": {"@type": "Organization", "name": "星籁 Stellara"}, "publisher": {"@type": "Organization", "name": "星籁 Stellara"}, "mainEntityOfPage": "https://a678-beep.github.io/ai-nav/a/code-13-sourcegraph-cody-code-search.html", "keywords": "Sourcegraph Cody, Cody 代码搜索, Sourcegraph 搜索语法, Sourcegraph Cody 代码搜索 技巧, Cody 搜索私有仓库"}</script>
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "Article", "headline": "Sourcegraph Cody 代码搜索 技巧", "inLanguage": "zh-CN", "datePublished": "2026-11-15", "author": {"@type": "Organization", "name": "星籁 Stellara"}, "publisher": {"@type": "Organization", "name": "星籁 Stellara"}, "mainEntityOfPage": "https://a678-beep.github.io/ai-nav/a/code-13-sourcegraph-cody-code-search.html", "articleSection": "编程助手", "wordCount": 819, "dateModified": "2026-11-15", "keywords": "Sourcegraph Cody, Cody 代码搜索, Sourcegraph 搜索语法, Sourcegraph Cody 代码搜索 技巧, Cody 搜索私有仓库"}</script>
 <script type="application/ld+json">{"@context": "https://schema.org", "@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "首页", "item": "https://a678-beep.github.io/ai-nav/"}, {"@type": "ListItem", "position": 2, "name": "编程助手", "item": "https://a678-beep.github.io/ai-nav/#/articles"}, {"@type": "ListItem", "position": 3, "name": "Sourcegraph Cody 代码搜索 技巧", "item": "https://a678-beep.github.io/ai-nav/a/code-13-sourcegraph-cody-code-search.html"}]}</script>
 <style>
 :root{--bg:#080b12;--panel:#111827;--line:#1f2937;--txt:#e6edf7;--txt2:#9aa8bd;--txt3:#6b7a90;--cyan:#5ad1ff;--violet:#a78bfa}
@@ -41,7 +41,26 @@ h1{font-size:28px;line-height:1.4;margin:8px 0 10px}
 .bread a{color:var(--cyan)}
 footer{border-top:1px solid var(--line);color:var(--txt3);font-size:12.5px;text-align:center;padding:20px}
 .related{margin:34px 0 10px;border-top:1px solid var(--line);padding-top:18px}.related h2{font-size:16px;color:var(--txt);margin:0 0 10px}.related ul{list-style:none;padding:0;margin:0}.related li{margin:8px 0}.related a{color:var(--cyan);font-size:14px}
-@media(max-width:640px){h1{font-size:22px}main{padding:20px 16px 40px}}
+.tool-link{margin:14px 0 0}
+.tlinks a{display:inline-block;margin:0 8px 8px 0;padding:6px 12px;border:1px solid rgba(90,209,255,.25);border-radius:8px;font-size:13px;color:var(--cyan);background:rgba(90,209,255,.06)}
+.tlinks a:hover{background:rgba(90,209,255,.15)}
+.sec{margin:26px 0}
+.sec h2{font-size:17px;color:var(--txt);margin:0 0 10px}
+.tool-link a{display:inline-block;font-size:13px;color:var(--txt2);border:1px solid var(--line);border-radius:8px;padding:7px 12px}
+.tool-link a:hover{color:var(--txt);border-color:rgba(90,209,255,.45)}
+.top-in .back{padding:6px 0}
+.bread a{display:inline-block;padding:6px 0}
+.sec li a{display:inline-block;padding:5px 0}
+.sib a{padding:8px 12px}
+.cats a{display:inline-block;margin:0 8px 8px 0;padding:6px 12px;border:1px solid var(--line);border-radius:8px;font-size:13px;color:var(--txt2)}
+.cats a:hover{color:var(--txt);border-color:rgba(90,209,255,.45)}
+.cats h2{font-size:17px;margin:22px 0 10px}
+@media(max-width:640px){h1{font-size:22px}main{padding:20px 16px 40px}
+.related a,.tlinks a,.tool-link a,footer a,.sib a{min-height:36px;display:inline-flex;align-items:center}
+.list a{padding:14px 14px}
+td a{display:inline-block;padding:8px 0}
+.note a{display:inline-block;padding:7px 0}
+}
 </style>
 </head>
 <body>
@@ -50,9 +69,9 @@ footer{border-top:1px solid var(--line);color:var(--txt3);font-size:12.5px;text-
   <a class="back" href="../index.html">← 返回首页</a>
 </div></header>
 <main>
-  <div class="bread"><a href="../index.html">首页</a> / <a href="../index.html#/articles">编程助手</a></div>
+  <div class="bread"><a href="../index.html">首页</a> / <a href="../code/index.html">编程助手</a></div>
   <h1>Sourcegraph Cody 代码搜索 技巧</h1>
-  <div class="meta"><span>编程助手</span><span>·</span><span>Sourcegraph Cody, Cody 代码搜索, Sourcegraph 搜索语法, Sourcegraph Cody 代码搜索 技巧, Cody 搜索私有仓库</span></div>
+  <div class="meta"><span>编程助手</span><span>·</span><span>更新于 2026-11-15</span><span>·</span><span>Sourcegraph Cody, Cody 代码搜索, Sourcegraph 搜索语法, Sourcegraph Cody 代码搜索 技巧, Cody 搜索私有仓库</span></div>
   <article class="content"><p>排查一个支付回调重复执行的 bug，本地 grep 只能搜一个仓库，而我们拆了 40 个微服务、约 800 万行代码，光定位回调入口就花了半天。后来改用 Sourcegraph Cody 代码搜索，同样一句查询，三十秒内定位到 3 个仓库、7 处调用。这篇把过滤器的顺序和语法写清楚。</p>
 <h2>三组过滤器的正确顺序</h2>
 <p>Sourcegraph 搜索框支持 <code>repo:</code>、<code>file:</code>、<code>lang:</code>、<code>type:</code> 这些过滤器，关键是顺序：先用 <code>repo:</code> 圈定仓库范围，再叠 <code>file:</code> 或 <code>lang:</code> 收窄文件类型，最后才是正文关键字。比如找支付回调入口：<code>repo:^github\.com/org/pay-.*$ file:\.(java|kt)$ lang:java 回调</code>。反过来先写正文关键字，引擎会全量扫一遍再过滤，慢十倍不止。</p>
@@ -67,7 +86,8 @@ footer{border-top:1px solid var(--line);color:var(--txt3);font-size:12.5px;text-
 <p>另外要提醒：Cody 的免费版和专业版已于 2025 年 7 月 23 日下线，现在个人能用的是企业版或换别的工具，别再照旧教程去开通。Sourcegraph Cody 代码搜索 技巧 里，Cody 搜索私有仓库 前先确认实例地址和账号，否则搜出来是空的。自建实例的索引维护成本也要算进去，40 个仓库每天增量索引大约占用一台 8 核机器。四是搜索结果只展示命中的几行，别拿片段当完整上下文，点进文件再看 30 行，这三条我每周都会碰到一次。习惯之后，搜索比 grep 快的不是一点半点。</p>
 <h2>总结</h2>
 <p>Sourcegraph Cody 代码搜索 的核心是三组过滤器的顺序：repo 圈范围、file/lang 收类型、内容最后写。把常用查询存成收藏，配合 type:diff 查历史，比 grep 快一个量级。</p></article>
-  <section class="related"><h2>同类教程</h2><ul><li><a href="code-01-cursor-tab-settings.html">Cursor Tab 补全 设置：五个开关的取舍</a></li><li><a href="code-02-claude-code-cli-refactor.html">Claude Code CLI 重构：四步顺序</a></li><li><a href="code-03-github-copilot-unit-tests.html">GitHub Copilot 单元测试：三步法</a></li></ul></section>
+  
+  <section class="related"><h2>同类教程</h2><ul><li><a href="code-14-doubao-marscode-api-debug.html">豆包 MarsCode 接口调试：四步定位502</a></li><li><a href="code-15-cursor-chinese-garbled.html">Cursor 中文乱码：3 步改回 UTF-8</a></li><li><a href="code-16-lingma-unit-test.html">通义灵码 单元测试：3 步生成可跑用例</a></li><li><a href="code-17-ai-code-review.html">AI 代码 审查：PR 流程与误报处理</a></li><li><a href="code-18-legacy-refactor-ai.html">老项目 重构 AI：先补测试再拆批次</a></li></ul><p class="tool-link"><a href="../index.html">查看 编程助手 工具与其它教程 →</a> <a href="../t/errors/">AI 报错解决 →</a> <a href="../t/pricing/">AI 工具价格 →</a></p></section>
   <footer>© 2026 星籁 Stellara · <a href="../privacy.html">隐私政策</a> · <a href="../sitemap.xml">站点地图</a></footer>
 </main>
 </body>

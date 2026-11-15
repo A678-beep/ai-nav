@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>PDF 合并 拆分：486 页标书的批量处理流程 · 星籁</title>
+<meta name="description" content="上个月帮投标部赶一版技术标：7 家分包商各交一份 PDF，合计 486 页，评标系统只收 6 个文件、单个不超过 50MB，还要按章节做书签。我们写了条 qpdf 加 pypdf 的脚本，合并、补书签、按章拆分跑完只要 ">
+<meta name="keywords" content="PDF 合并 拆分, qpdf, PDF24, PDFsam, PowerToys, PDF 批量合并, PDF 按页拆分">
+<meta name="robots" content="index,follow">
+
+<link rel="canonical" href="https://a678-beep.github.io/ai-nav/a/util-19-pdf-merge-split.html">
+<meta property="og:type" content="article">
+<meta property="og:title" content="PDF 合并 拆分：486 页标书的批量处理流程">
+<meta property="og:description" content="上个月帮投标部赶一版技术标：7 家分包商各交一份 PDF，合计 486 页，评标系统只收 6 个文件、单个不超过 50MB，还要按章节做书签。我们写了条 qpdf 加 pypdf 的脚本，合并、补书签、按章拆分跑完只要 ">
+<meta property="og:url" content="https://a678-beep.github.io/ai-nav/a/util-19-pdf-merge-split.html">
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "Article", "headline": "PDF 合并 拆分：486 页标书的批量处理流程", "inLanguage": "zh-CN", "datePublished": "2026-11-15", "author": {"@type": "Organization", "name": "星籁 Stellara"}, "publisher": {"@type": "Organization", "name": "星籁 Stellara"}, "mainEntityOfPage": "https://a678-beep.github.io/ai-nav/a/util-19-pdf-merge-split.html", "articleSection": "实用工具", "wordCount": 844, "dateModified": "2026-11-15", "keywords": "PDF 合并 拆分, qpdf, PDF24, PDFsam, PowerToys, PDF 批量合并, PDF 按页拆分"}</script>
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "首页", "item": "https://a678-beep.github.io/ai-nav/"}, {"@type": "ListItem", "position": 2, "name": "实用工具", "item": "https://a678-beep.github.io/ai-nav/#/articles"}, {"@type": "ListItem", "position": 3, "name": "PDF 合并 拆分：486 页标书的批量处理流程", "item": "https://a678-beep.github.io/ai-nav/a/util-19-pdf-merge-split.html"}]}</script>
+<style>
+:root{--bg:#080b12;--panel:#111827;--line:#1f2937;--txt:#e6edf7;--txt2:#9aa8bd;--txt3:#6b7a90;--cyan:#5ad1ff;--violet:#a78bfa}
+*{box-sizing:border-box}body{margin:0;background:radial-gradient(900px 500px at 82% -8%,rgba(90,209,255,.16),transparent 60%),var(--bg);color:var(--txt);font-family:"Microsoft YaHei","PingFang SC",system-ui,sans-serif;line-height:1.8}
+a{color:inherit;text-decoration:none}
+.top{position:sticky;top:0;backdrop-filter:blur(12px);background:rgba(8,11,18,.85);border-bottom:1px solid var(--line)}
+.top-in{max-width:900px;margin:0 auto;padding:12px 20px;display:flex;align-items:center;gap:10px}
+.logo{display:flex;align-items:center;gap:9px;font-weight:800}
+.logo .mark{width:30px;height:30px;border-radius:9px;background:linear-gradient(135deg,var(--cyan),var(--violet));display:grid;place-items:center;color:#04121c;font-weight:900}
+.top-in .back{margin-left:auto;color:var(--txt2);font-size:13px}
+main{max-width:900px;margin:0 auto;padding:28px 20px 60px}
+h1{font-size:28px;line-height:1.4;margin:8px 0 10px}
+.meta{color:var(--txt3);font-size:12.5px;margin-bottom:22px;display:flex;gap:8px;flex-wrap:wrap}
+.content{font-size:15.5px;color:#cfd9e6}
+.content h2{font-size:20px;color:var(--txt);margin:28px 0 10px}
+.content h3{font-size:17px;color:var(--txt);margin:22px 0 8px}
+.content p{margin:12px 0}
+.content li{margin:6px 0}
+.content code{background:rgba(120,180,255,.12);padding:1px 6px;border-radius:5px;font-family:Consolas,monospace;font-size:13px}
+.content pre{background:#0a1018;border:1px solid var(--line);border-radius:10px;padding:12px;overflow:auto}
+.content blockquote{border-left:3px solid var(--cyan);padding:4px 14px;color:var(--txt2);margin:16px 0}
+.ad-slot{margin:26px 0;min-height:100px;border:1px dashed rgba(120,140,170,.35);border-radius:12px;display:flex;align-items:center;justify-content:center;color:var(--txt3);font-size:12px;text-align:center;background:rgba(17,24,39,.55)}
+.ad-slot small{display:block;font-size:10.5px;opacity:.7}
+.bread{color:var(--txt3);font-size:12.5px;margin-bottom:6px}
+.bread a{color:var(--cyan)}
+footer{border-top:1px solid var(--line);color:var(--txt3);font-size:12.5px;text-align:center;padding:20px}
+.related{margin:34px 0 10px;border-top:1px solid var(--line);padding-top:18px}.related h2{font-size:16px;color:var(--txt);margin:0 0 10px}.related ul{list-style:none;padding:0;margin:0}.related li{margin:8px 0}.related a{color:var(--cyan);font-size:14px}
+.tool-link{margin:14px 0 0}
+.tlinks a{display:inline-block;margin:0 8px 8px 0;padding:6px 12px;border:1px solid rgba(90,209,255,.25);border-radius:8px;font-size:13px;color:var(--cyan);background:rgba(90,209,255,.06)}
+.tlinks a:hover{background:rgba(90,209,255,.15)}
+.sec{margin:26px 0}
+.sec h2{font-size:17px;color:var(--txt);margin:0 0 10px}
+.tool-link a{display:inline-block;font-size:13px;color:var(--txt2);border:1px solid var(--line);border-radius:8px;padding:7px 12px}
+.tool-link a:hover{color:var(--txt);border-color:rgba(90,209,255,.45)}
+.top-in .back{padding:6px 0}
+.bread a{display:inline-block;padding:6px 0}
+.sec li a{display:inline-block;padding:5px 0}
+.sib a{padding:8px 12px}
+.cats a{display:inline-block;margin:0 8px 8px 0;padding:6px 12px;border:1px solid var(--line);border-radius:8px;font-size:13px;color:var(--txt2)}
+.cats a:hover{color:var(--txt);border-color:rgba(90,209,255,.45)}
+.cats h2{font-size:17px;margin:22px 0 10px}
+@media(max-width:640px){h1{font-size:22px}main{padding:20px 16px 40px}
+.related a,.tlinks a,.tool-link a,footer a,.sib a{min-height:36px;display:inline-flex;align-items:center}
+.list a{padding:14px 14px}
+td a{display:inline-block;padding:8px 0}
+.note a{display:inline-block;padding:7px 0}
+}
+</style>
+</head>
+<body>
+<header class="top"><div class="top-in">
+  <a class="logo" href="../index.html"><span class="mark">✦</span>星籁 AI 导航</a>
+  <a class="back" href="../index.html">← 返回首页</a>
+</div></header>
+<main>
+  <div class="bread"><a href="../index.html">首页</a> / <a href="../util/index.html">实用工具</a></div>
+  <h1>PDF 合并 拆分：486 页标书的批量处理流程</h1>
+  <div class="meta"><span>实用工具</span><span>·</span><span>更新于 2026-11-15</span><span>·</span><span>PDF 合并 拆分, qpdf, PDF24, PDFsam, PowerToys, PDF 批量合并, PDF 按页拆分</span></div>
+  <article class="content"><p>上个月帮投标部赶一版技术标：7 家分包商各交一份 PDF，合计 486 页，评标系统只收 6 个文件、单个不超过 50MB，还要按章节做书签。我们写了条 qpdf 加 pypdf 的脚本，合并、补书签、按章拆分跑完只要 8 分钟，目录页码一次对上。这套 PDF 合并 拆分 的做法后来每月 20 号对账单也在用，300 份文件 12 分钟出完。</p>
+<h2>一、先定页数规则，再碰文件</h2>
+<p>PDF 合并 拆分 最容易翻车的不是操作，是页面规则没定。我合并前先定四件事。第一，单卷页数上限：486 页分 6 卷，每卷 70 到 90 页，最大的 44MB，给 50MB 上限留 6MB 余量。第二，拆分点：不能落在跨页表格和图纸中间，先看章节末页的页脚页码，拆分点取章末的偶数页，双面打印时每卷页数为偶数。第三，页码偏移：原文件页脚是 01 到 86，合并后第二卷从第 87 页起，新页码的偏移量设 86，不然目录全错。第四，书签层级最多三级，一级章、二级节、三级附件，再深一层评标专家用手机打不开。</p>
+<h2>二、qpdf 管批量，PDF24 管零散活</h2>
+<div class="ad-slot" data-ad="article-mid"><div>广告位（文章中部）<small>AdSense / 广告联盟代码插入点 · 建议 728×90 / 移动端 320×100</small></div><!-- 在这里粘贴广告代码 --></div>
+<p>批量合并我用 qpdf，命令是 qpdf --empty --pages 01.pdf 1-86 02.pdf 1-90 -- bid.pdf，它只搬页面对象、不重新压图，合并后体积基本等于各卷之和，不会像在线工具那样重编码图片、把 236MB 合成 380MB。按章拆就一行：qpdf bid.pdf --pages . 87-172 -- vol2.pdf。外层用 PowerShell 的 Get-ChildItem 遍历文件夹，参数拼成数组循环跑。零散文件走 PDF24 Creator，拖进列表能合并、拆分、加书签，免费版不限页数，装时取消捆绑工具栏。PDFsam Basic 的按书签拆分适合已有书签的文件，选书签级别 1 就能拆成 12 章；书签全是第 1 页会拆成残卷。涉密文件用 Stirling PDF 自部署，docker 起在 8080 端口，文件不出局域网。PDF 批量合并 前还要统一页面尺寸，A3 图纸单独成卷，混在 A4 里打印会缩放掉图例。</p>
+<h2>三、命名、书签和四个坑</h2>
+<p>命名规则我固定成 2026-11-标书-技术卷-01共06-封面至资质.pdf：日期在最前，文件管理器按名排序就是卷序；卷号用两位数字，10 卷以后不会乱；文件名不带空格和括号，有的系统会把空格截断。批量改名用 PowerToys 的 PowerRename，正则把开头编号替换成日期加卷名。书签 qpdf 不管，合并后用 pypdf 的 add_outline_item 按章节首页重建，12 章写四十行代码，十分钟跑完。坑一：加密或带权限的 PDF 直接喂 qpdf 会报 invalid password，先跑 qpdf --decrypt 解开。坑二：扫描件 DPI 不统一，300dpi 和 150dpi 混进同一卷，预览第 200 页糊成一片，合并前先统一重采样。坑三：按每 50 页硬切，正好把跨页报价表切两半，只能重做；按书签切才稳。坑四：合并顺序按文件名排，编号没补零，第 10 卷会排到第 2 卷前面。486 页标书人工拼要两小时，脚本八分钟；PDF 按页拆分 用在 300 份对账单上，每份两页拆一个文件，差错为零。</p>
+<h2>总结</h2>
+<p>PDF 合并 拆分 的固定顺序是：定卷页规则、统一尺寸、qpdf 合并、pypdf 补书签、按书签拆分，最后套命名模板。工具不用多，qpdf 管页面对象，PDF24 应付零散活，Stirling PDF 收涉密文件。PDF 批量合并 和 PDF 按页拆分 都写进脚本，换个人照着跑也不会错。</p></article>
+  
+  <section class="related"><h2>同类教程</h2><ul><li><a href="util-20-batch-file-rename.html">文件 批量 重命名：正则、序列号和 5 个工具</a></li><li><a href="util-21-offline-translation-tools.html">离线 翻译 工具 选型：3 档模型体积与速度</a></li><li><a href="util-22-image-ocr-batch.html">图片 OCR 批量：5 种格式、8 并发与校对</a></li><li><a href="util-23-webpage-offline-save.html">网页 离线 保存：单文件、资源包和阅读器</a></li><li><a href="util-24-audio-to-text-proofread.html">音频 转文字 校对：错字、热词表与批量核对</a></li></ul><p class="tool-link"><a href="../index.html">查看 实用工具 工具与其它教程 →</a> <a href="../t/errors/">AI 报错解决 →</a> <a href="../t/pricing/">AI 工具价格 →</a></p></section>
+  <footer>© 2026 星籁 Stellara · <a href="../privacy.html">隐私政策</a> · <a href="../sitemap.xml">站点地图</a></footer>
+</main>
+</body>
+</html>

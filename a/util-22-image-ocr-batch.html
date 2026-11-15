@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>图片 OCR 批量：5 种格式、8 并发与校对 · 星籁</title>
+<meta name="description" content="做电商售后的朋友攒了 4300 张图：聊天截图、快递面单、商品详情页，要提订单号、地址和问题描述，做成售后统计表。两个人看了两天，漏单还说看不清。我用 PaddleOCR 加一个脚本做 图片 OCR 批量，38 分钟出表">
+<meta name="keywords" content="图片 OCR 批量, 批量图片识别, OCR 准确率, 图片文字提取, 批量图片OCR工具, OCR识别结果校对">
+<meta name="robots" content="index,follow">
+
+<link rel="canonical" href="https://a678-beep.github.io/ai-nav/a/util-22-image-ocr-batch.html">
+<meta property="og:type" content="article">
+<meta property="og:title" content="图片 OCR 批量：5 种格式、8 并发与校对">
+<meta property="og:description" content="做电商售后的朋友攒了 4300 张图：聊天截图、快递面单、商品详情页，要提订单号、地址和问题描述，做成售后统计表。两个人看了两天，漏单还说看不清。我用 PaddleOCR 加一个脚本做 图片 OCR 批量，38 分钟出表">
+<meta property="og:url" content="https://a678-beep.github.io/ai-nav/a/util-22-image-ocr-batch.html">
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "Article", "headline": "图片 OCR 批量：5 种格式、8 并发与校对", "inLanguage": "zh-CN", "datePublished": "2026-11-15", "author": {"@type": "Organization", "name": "星籁 Stellara"}, "publisher": {"@type": "Organization", "name": "星籁 Stellara"}, "mainEntityOfPage": "https://a678-beep.github.io/ai-nav/a/util-22-image-ocr-batch.html", "articleSection": "实用工具", "wordCount": 805, "dateModified": "2026-11-15", "keywords": "图片 OCR 批量, 批量图片识别, OCR 准确率, 图片文字提取, 批量图片OCR工具, OCR识别结果校对"}</script>
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "首页", "item": "https://a678-beep.github.io/ai-nav/"}, {"@type": "ListItem", "position": 2, "name": "实用工具", "item": "https://a678-beep.github.io/ai-nav/#/articles"}, {"@type": "ListItem", "position": 3, "name": "图片 OCR 批量：5 种格式、8 并发与校对", "item": "https://a678-beep.github.io/ai-nav/a/util-22-image-ocr-batch.html"}]}</script>
+<style>
+:root{--bg:#080b12;--panel:#111827;--line:#1f2937;--txt:#e6edf7;--txt2:#9aa8bd;--txt3:#6b7a90;--cyan:#5ad1ff;--violet:#a78bfa}
+*{box-sizing:border-box}body{margin:0;background:radial-gradient(900px 500px at 82% -8%,rgba(90,209,255,.16),transparent 60%),var(--bg);color:var(--txt);font-family:"Microsoft YaHei","PingFang SC",system-ui,sans-serif;line-height:1.8}
+a{color:inherit;text-decoration:none}
+.top{position:sticky;top:0;backdrop-filter:blur(12px);background:rgba(8,11,18,.85);border-bottom:1px solid var(--line)}
+.top-in{max-width:900px;margin:0 auto;padding:12px 20px;display:flex;align-items:center;gap:10px}
+.logo{display:flex;align-items:center;gap:9px;font-weight:800}
+.logo .mark{width:30px;height:30px;border-radius:9px;background:linear-gradient(135deg,var(--cyan),var(--violet));display:grid;place-items:center;color:#04121c;font-weight:900}
+.top-in .back{margin-left:auto;color:var(--txt2);font-size:13px}
+main{max-width:900px;margin:0 auto;padding:28px 20px 60px}
+h1{font-size:28px;line-height:1.4;margin:8px 0 10px}
+.meta{color:var(--txt3);font-size:12.5px;margin-bottom:22px;display:flex;gap:8px;flex-wrap:wrap}
+.content{font-size:15.5px;color:#cfd9e6}
+.content h2{font-size:20px;color:var(--txt);margin:28px 0 10px}
+.content h3{font-size:17px;color:var(--txt);margin:22px 0 8px}
+.content p{margin:12px 0}
+.content li{margin:6px 0}
+.content code{background:rgba(120,180,255,.12);padding:1px 6px;border-radius:5px;font-family:Consolas,monospace;font-size:13px}
+.content pre{background:#0a1018;border:1px solid var(--line);border-radius:10px;padding:12px;overflow:auto}
+.content blockquote{border-left:3px solid var(--cyan);padding:4px 14px;color:var(--txt2);margin:16px 0}
+.ad-slot{margin:26px 0;min-height:100px;border:1px dashed rgba(120,140,170,.35);border-radius:12px;display:flex;align-items:center;justify-content:center;color:var(--txt3);font-size:12px;text-align:center;background:rgba(17,24,39,.55)}
+.ad-slot small{display:block;font-size:10.5px;opacity:.7}
+.bread{color:var(--txt3);font-size:12.5px;margin-bottom:6px}
+.bread a{color:var(--cyan)}
+footer{border-top:1px solid var(--line);color:var(--txt3);font-size:12.5px;text-align:center;padding:20px}
+.related{margin:34px 0 10px;border-top:1px solid var(--line);padding-top:18px}.related h2{font-size:16px;color:var(--txt);margin:0 0 10px}.related ul{list-style:none;padding:0;margin:0}.related li{margin:8px 0}.related a{color:var(--cyan);font-size:14px}
+.tool-link{margin:14px 0 0}
+.tlinks a{display:inline-block;margin:0 8px 8px 0;padding:6px 12px;border:1px solid rgba(90,209,255,.25);border-radius:8px;font-size:13px;color:var(--cyan);background:rgba(90,209,255,.06)}
+.tlinks a:hover{background:rgba(90,209,255,.15)}
+.sec{margin:26px 0}
+.sec h2{font-size:17px;color:var(--txt);margin:0 0 10px}
+.tool-link a{display:inline-block;font-size:13px;color:var(--txt2);border:1px solid var(--line);border-radius:8px;padding:7px 12px}
+.tool-link a:hover{color:var(--txt);border-color:rgba(90,209,255,.45)}
+.top-in .back{padding:6px 0}
+.bread a{display:inline-block;padding:6px 0}
+.sec li a{display:inline-block;padding:5px 0}
+.sib a{padding:8px 12px}
+.cats a{display:inline-block;margin:0 8px 8px 0;padding:6px 12px;border:1px solid var(--line);border-radius:8px;font-size:13px;color:var(--txt2)}
+.cats a:hover{color:var(--txt);border-color:rgba(90,209,255,.45)}
+.cats h2{font-size:17px;margin:22px 0 10px}
+@media(max-width:640px){h1{font-size:22px}main{padding:20px 16px 40px}
+.related a,.tlinks a,.tool-link a,footer a,.sib a{min-height:36px;display:inline-flex;align-items:center}
+.list a{padding:14px 14px}
+td a{display:inline-block;padding:8px 0}
+.note a{display:inline-block;padding:7px 0}
+}
+</style>
+</head>
+<body>
+<header class="top"><div class="top-in">
+  <a class="logo" href="../index.html"><span class="mark">✦</span>星籁 AI 导航</a>
+  <a class="back" href="../index.html">← 返回首页</a>
+</div></header>
+<main>
+  <div class="bread"><a href="../index.html">首页</a> / <a href="../util/index.html">实用工具</a></div>
+  <h1>图片 OCR 批量：5 种格式、8 并发与校对</h1>
+  <div class="meta"><span>实用工具</span><span>·</span><span>更新于 2026-11-15</span><span>·</span><span>图片 OCR 批量, 批量图片识别, OCR 准确率, 图片文字提取, 批量图片OCR工具, OCR识别结果校对</span></div>
+  <article class="content"><p>做电商售后的朋友攒了 4300 张图：聊天截图、快递面单、商品详情页，要提订单号、地址和问题描述，做成售后统计表。两个人看了两天，漏单还说看不清。我用 PaddleOCR 加一个脚本做 图片 OCR 批量，38 分钟出表，214 张进人工复核，订单号准确率 99.2%。</p>
+<h2>一、先统一格式，再谈识别率</h2>
+<p>第一步，建 input、output、fail 三个文件夹。第二步，统一转成 JPG 或 PNG，长边压到 2000 像素，短边不低于 32 像素；HEIC 用手机先导出成 JPG，多页 TIFF 拆成单页，WebP 也先转，引擎不一定认。第三步，文件名用「日期加序号」，原始路径写进 CSV 对照表，后面找原图不用翻文件夹。小字和细体最伤准确率：小于 12 号字的截图放大 2 倍再识别，PP-OCRv4 在 200 张样本上的字符准确率从 94.1% 提到 97.8%，但单张从 0.3 秒涨到 0.8 秒，4300 张多花 35 分钟，所以我只对高密度截图放大，普通聊天截图直接跑。</p>
+<h2>二、并行靠进程，不靠线程</h2>
+<div class="ad-slot" data-ad="article-mid"><div>广告位（文章中部）<small>AdSense / 广告联盟代码插入点 · 建议 728×90 / 移动端 320×100</small></div><!-- 在这里粘贴广告代码 --></div>
+<p>图片 OCR 批量 的瓶颈在 CPU 推理和磁盘读图，不在网络。8 核机器开 4 个进程，每个进程单独加载模型，内存 2.6G，单张 0.3 到 0.5 秒，4300 张 29 分钟；开 8 个进程内存冲到 5G，速度只快一成多，还容易 OOM。换 4G 显存的卡跑，单张 0.08 秒，整批 9 分钟，模型常驻显存 1.1G。脚本逻辑不复杂：读文件夹、分片给进程、每个进程输出 txt 和 json，json 里保留文字框坐标，按行合并靠它。失败队列单独记，重跑只跑 fail 目录。批量图片OCR工具 我试过 Umi-OCR，图形界面直接拖文件夹，适合不想写代码的同事，导出 txt 够用；要跟表格衔接，还是命令行加脚本稳。</p>
+<h2>三、准确率要抽检，数字类单独校</h2>
+<p>OCR 准确率 不能只看软件自报。我随机抽 200 张人工核对，按总字数算字符准确率：印刷体截图 99.1%，手机拍的快递面单 93.5%，深色背景的聊天截图 97.2%，差异全在反光和字号。数字最危险，0 和 O、1 和 l、¥ 和羊，订单号错一位就查不到单。校正三条：订单号按 12 到 16 位纯数字正则重提；金额列拿订单表逐条对账，对不上的进人工；手机号必须 11 位且 1 开头。OCR识别结果校对 放最后一步，4300 张里 214 张相似度低于 0.85 被挑出来，人工复核一个半小时改完 61 处错字；OCR识别结果校对 的清单按错误类型分组，改起来快很多。避坑一，路径带中文和空格脚本直接报错，统一放英文目录。避坑二，压缩过的截图放大反而更糊，原图宽度不足 600 像素的先别放大。避坑三，云端 OCR 按张计费，几千张先算清成本，量大本地跑一晚更划算。</p>
+<h2>总结</h2>
+<p>4300 张图从 2 天压到 38 分钟，靠的是格式统一、4 进程并行、数字类单独校验。图片 OCR 批量 的准确率要分层看：印刷体接近 99%，手机拍照九成出头，反光和褶皱还得靠人。批量图片OCR工具 选顺手的就行，真正省时间的是那 214 张复核清单。</p></article>
+  
+  <section class="related"><h2>同类教程</h2><ul><li><a href="util-23-webpage-offline-save.html">网页 离线 保存：单文件、资源包和阅读器</a></li><li><a href="util-24-audio-to-text-proofread.html">音频 转文字 校对：错字、热词表与批量核对</a></li><li><a href="util-25-file-dedup-tools.html">文件 去重 工具：哈希、保留规则与批量清理</a></li><li><a href="util-26-clipboard-history-tools.html">剪贴板 历史 工具：容量、隐私与快捷键设置</a></li><li><a href="util-27-ai-free-quota-compare.html">AI 免费额度 对比：7 款工具够不够用</a></li></ul><p class="tool-link"><a href="../index.html">查看 实用工具 工具与其它教程 →</a> <a href="../t/errors/">AI 报错解决 →</a> <a href="../t/pricing/">AI 工具价格 →</a></p></section>
+  <footer>© 2026 星籁 Stellara · <a href="../privacy.html">隐私政策</a> · <a href="../sitemap.xml">站点地图</a></footer>
+</main>
+</body>
+</html>

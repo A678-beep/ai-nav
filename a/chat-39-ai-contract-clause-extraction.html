@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>AI 合同 条款 提取：12 个字段与人工核对 · 星籁</title>
+<meta name="description" content="上个月接了一批采购合同的整理活，38 份，每份 9 页左右，客户要一张能直接进台账的表：合同编号、双方主体、金额、付款节点、违约金、到期日，一共 12 个字段。第一版我逐份复制粘贴，一份 22 分钟，38 份熬到晚上十点">
+<meta name="keywords" content="AI 合同 条款 提取, 合同 关键 字段, 条款 提取 提示词, 合同 核对 流程, 合同 条款 提取 模板, 合同 关键 字段 核对">
+<meta name="robots" content="index,follow">
+
+<link rel="canonical" href="https://a678-beep.github.io/ai-nav/a/chat-39-ai-contract-clause-extraction.html">
+<meta property="og:type" content="article">
+<meta property="og:title" content="AI 合同 条款 提取：12 个字段与人工核对">
+<meta property="og:description" content="上个月接了一批采购合同的整理活，38 份，每份 9 页左右，客户要一张能直接进台账的表：合同编号、双方主体、金额、付款节点、违约金、到期日，一共 12 个字段。第一版我逐份复制粘贴，一份 22 分钟，38 份熬到晚上十点">
+<meta property="og:url" content="https://a678-beep.github.io/ai-nav/a/chat-39-ai-contract-clause-extraction.html">
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "Article", "headline": "AI 合同 条款 提取：12 个字段与人工核对", "inLanguage": "zh-CN", "datePublished": "2026-11-15", "author": {"@type": "Organization", "name": "星籁 Stellara"}, "publisher": {"@type": "Organization", "name": "星籁 Stellara"}, "mainEntityOfPage": "https://a678-beep.github.io/ai-nav/a/chat-39-ai-contract-clause-extraction.html", "articleSection": "对话AI", "wordCount": 837, "dateModified": "2026-11-15", "keywords": "AI 合同 条款 提取, 合同 关键 字段, 条款 提取 提示词, 合同 核对 流程, 合同 条款 提取 模板, 合同 关键 字段 核对"}</script>
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "首页", "item": "https://a678-beep.github.io/ai-nav/"}, {"@type": "ListItem", "position": 2, "name": "对话AI", "item": "https://a678-beep.github.io/ai-nav/#/articles"}, {"@type": "ListItem", "position": 3, "name": "AI 合同 条款 提取：12 个字段与人工核对", "item": "https://a678-beep.github.io/ai-nav/a/chat-39-ai-contract-clause-extraction.html"}]}</script>
+<style>
+:root{--bg:#080b12;--panel:#111827;--line:#1f2937;--txt:#e6edf7;--txt2:#9aa8bd;--txt3:#6b7a90;--cyan:#5ad1ff;--violet:#a78bfa}
+*{box-sizing:border-box}body{margin:0;background:radial-gradient(900px 500px at 82% -8%,rgba(90,209,255,.16),transparent 60%),var(--bg);color:var(--txt);font-family:"Microsoft YaHei","PingFang SC",system-ui,sans-serif;line-height:1.8}
+a{color:inherit;text-decoration:none}
+.top{position:sticky;top:0;backdrop-filter:blur(12px);background:rgba(8,11,18,.85);border-bottom:1px solid var(--line)}
+.top-in{max-width:900px;margin:0 auto;padding:12px 20px;display:flex;align-items:center;gap:10px}
+.logo{display:flex;align-items:center;gap:9px;font-weight:800}
+.logo .mark{width:30px;height:30px;border-radius:9px;background:linear-gradient(135deg,var(--cyan),var(--violet));display:grid;place-items:center;color:#04121c;font-weight:900}
+.top-in .back{margin-left:auto;color:var(--txt2);font-size:13px}
+main{max-width:900px;margin:0 auto;padding:28px 20px 60px}
+h1{font-size:28px;line-height:1.4;margin:8px 0 10px}
+.meta{color:var(--txt3);font-size:12.5px;margin-bottom:22px;display:flex;gap:8px;flex-wrap:wrap}
+.content{font-size:15.5px;color:#cfd9e6}
+.content h2{font-size:20px;color:var(--txt);margin:28px 0 10px}
+.content h3{font-size:17px;color:var(--txt);margin:22px 0 8px}
+.content p{margin:12px 0}
+.content li{margin:6px 0}
+.content code{background:rgba(120,180,255,.12);padding:1px 6px;border-radius:5px;font-family:Consolas,monospace;font-size:13px}
+.content pre{background:#0a1018;border:1px solid var(--line);border-radius:10px;padding:12px;overflow:auto}
+.content blockquote{border-left:3px solid var(--cyan);padding:4px 14px;color:var(--txt2);margin:16px 0}
+.ad-slot{margin:26px 0;min-height:100px;border:1px dashed rgba(120,140,170,.35);border-radius:12px;display:flex;align-items:center;justify-content:center;color:var(--txt3);font-size:12px;text-align:center;background:rgba(17,24,39,.55)}
+.ad-slot small{display:block;font-size:10.5px;opacity:.7}
+.bread{color:var(--txt3);font-size:12.5px;margin-bottom:6px}
+.bread a{color:var(--cyan)}
+footer{border-top:1px solid var(--line);color:var(--txt3);font-size:12.5px;text-align:center;padding:20px}
+.related{margin:34px 0 10px;border-top:1px solid var(--line);padding-top:18px}.related h2{font-size:16px;color:var(--txt);margin:0 0 10px}.related ul{list-style:none;padding:0;margin:0}.related li{margin:8px 0}.related a{color:var(--cyan);font-size:14px}
+.tool-link{margin:14px 0 0}
+.tlinks a{display:inline-block;margin:0 8px 8px 0;padding:6px 12px;border:1px solid rgba(90,209,255,.25);border-radius:8px;font-size:13px;color:var(--cyan);background:rgba(90,209,255,.06)}
+.tlinks a:hover{background:rgba(90,209,255,.15)}
+.sec{margin:26px 0}
+.sec h2{font-size:17px;color:var(--txt);margin:0 0 10px}
+.tool-link a{display:inline-block;font-size:13px;color:var(--txt2);border:1px solid var(--line);border-radius:8px;padding:7px 12px}
+.tool-link a:hover{color:var(--txt);border-color:rgba(90,209,255,.45)}
+.top-in .back{padding:6px 0}
+.bread a{display:inline-block;padding:6px 0}
+.sec li a{display:inline-block;padding:5px 0}
+.sib a{padding:8px 12px}
+.cats a{display:inline-block;margin:0 8px 8px 0;padding:6px 12px;border:1px solid var(--line);border-radius:8px;font-size:13px;color:var(--txt2)}
+.cats a:hover{color:var(--txt);border-color:rgba(90,209,255,.45)}
+.cats h2{font-size:17px;margin:22px 0 10px}
+@media(max-width:640px){h1{font-size:22px}main{padding:20px 16px 40px}
+.related a,.tlinks a,.tool-link a,footer a,.sib a{min-height:36px;display:inline-flex;align-items:center}
+.list a{padding:14px 14px}
+td a{display:inline-block;padding:8px 0}
+.note a{display:inline-block;padding:7px 0}
+}
+</style>
+</head>
+<body>
+<header class="top"><div class="top-in">
+  <a class="logo" href="../index.html"><span class="mark">✦</span>星籁 AI 导航</a>
+  <a class="back" href="../index.html">← 返回首页</a>
+</div></header>
+<main>
+  <div class="bread"><a href="../index.html">首页</a> / <a href="../chat/index.html">对话AI</a></div>
+  <h1>AI 合同 条款 提取：12 个字段与人工核对</h1>
+  <div class="meta"><span>对话AI</span><span>·</span><span>更新于 2026-11-15</span><span>·</span><span>AI 合同 条款 提取, 合同 关键 字段, 条款 提取 提示词, 合同 核对 流程, 合同 条款 提取 模板, 合同 关键 字段 核对</span></div>
+  <article class="content"><p>上个月接了一批采购合同的整理活，38 份，每份 9 页左右，客户要一张能直接进台账的表：合同编号、双方主体、金额、付款节点、违约金、到期日，一共 12 个字段。第一版我逐份复制粘贴，一份 22 分钟，38 份熬到晚上十点。后来改成 AI 合同 条款 提取，单份 90 秒出表，人工核对 6 分钟，一天收工还多出两小时。</p>
+<h2>字段：12 项一张表，六列输出</h2>
+<p>字段表固定 12 项：合同编号、甲方、乙方、签署日期、生效日期、含税金额、不含税金额、付款节点、验收标准、违约金比例与上限、争议管辖地、到期与解除条件。输出统一六列：字段、值、原文摘录、页码、状态、风险提示。提示词写死三条：只提取不总结；每个值带原句和页码；找不到填缺失，不许推测。温度调到 0.1，输出 Markdown 表格，单份不超过 25 页、2 万字。字段定死后，AI 合同 条款 提取 才有稳定输出。避坑一：让它总结合同要点，它会把相邻两款缝成一条，账期和金额最容易串；避坑二：金额先定含税口径，两种税率并存时它会自己合并。</p>
+<h2>提示词：三段写，长合同切段喂</h2>
+<div class="ad-slot" data-ad="article-mid"><div>广告位（文章中部）<small>AdSense / 广告联盟代码插入点 · 建议 728×90 / 移动端 320×100</small></div><!-- 在这里粘贴广告代码 --></div>
+<p>我的 AI 合同 条款 提取 提示词 分三段。第一段定角色，只做字段搬运，不给法律意见。第二段列字段定义，付款节点写成比例加天数加触发条件，缺一项标模糊。第三段定输出规则。30 页以上的合同按定义、付款、交付验收、违约保密、争议解除切五段，附件单独传一轮，每段 8000 字以内。案例：一份 28 页框架协议 1.6 万字一次贴，模型漏了附件二里的验收标准，切段并补传附件后拿了回来。避坑：扫描件先跑 OCR，双栏 PDF 直接复制会串行；手写补充条款识别率低，一律人工看。这套 合同 条款 提取 模板 存成文档，换合同类型只改字段定义。</p>
+<h2>核对：三类数字回原文，清单留档</h2>
+<p>复核只盯三类：金额、日期、比例，100% 回原文对；其余字段每份抽 20% 复看。后来累计 60 份跑下来，字段总体准确率 91%，错得最多的是把验收后 30 日内付款写成 30 日内，起算点丢了；还有一份把年化 24% 的违约金写成 24 天。合同 关键 字段 核对 我做成清单：每份勾六个关键字段，勾不齐的不进台账。避坑：模型顺手写的法律意见不能用，它只提取事实；敏感合同走私有化部署或关掉训练开关，全文不出内网。这套 合同 关键 字段 核对 清单跑顺后，同供应商的合同直接对比上一版，复核能再省一半时间。</p>
+<h2>总结</h2>
+<p>AI 合同 条款 提取 的顺序是先定 12 个字段和六列输出，提示词按三段写、长合同切段，最后盯三类数字回原文。合同 条款 提取 模板 和 合同 关键 字段 核对 清单 各留一份，下次换品类只改字段定义。工具替掉的是复制粘贴，签字前的判断还得人来做。</p></article>
+  
+  <section class="related"><h2>同类教程</h2><ul><li><a href="chat-40-multi-account-ai-management.html">团队多账号 AI 管理：权限、额度与合规</a></li><li><a href="chat-41-ai-hallucination-detection.html">AI 回答 幻觉 识别：三步核查加提示词</a></li><li><a href="chat-01-chatgpt-4o-voice-english-speaking.html">ChatGPT 4o 语音对话 练英语口语实测</a></li><li><a href="chat-02-claude-37-sonnet-long-document-summary.html">Claude 3.7 Sonnet 长文档总结法</a></li><li><a href="chat-03-deepseek-r1-local-deployment-vram.html">DeepSeek R1 本地部署 显存要求实录</a></li></ul><p class="tool-link"><a href="../index.html">查看 对话AI 工具与其它教程 →</a> <a href="../t/compare/">工具对比与选型 →</a></p></section>
+  <footer>© 2026 星籁 Stellara · <a href="../privacy.html">隐私政策</a> · <a href="../sitemap.xml">站点地图</a></footer>
+</main>
+</body>
+</html>

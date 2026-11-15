@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>团队 知识库 搭建：3 层目录加权限表 · 星籁</title>
+<meta name="description" content="20 人的服务团队，资料散在 3 个微信群、2 个 Excel 和离职同事的电脑里。新人问报销流程，老员工要翻聊天记录截图，来回 10 分钟。我用 4 周把 470 篇文档收成一套团队 知识库 搭建方案：3 层目录、4 ">
+<meta name="keywords" content="团队 知识库 搭建, 知识库 权限, 知识库 检索, 知识库 维护, 知识库目录结构, 知识库权限设置">
+<meta name="robots" content="index,follow">
+
+<link rel="canonical" href="https://a678-beep.github.io/ai-nav/a/biz-36-team-knowledge-base.html">
+<meta property="og:type" content="article">
+<meta property="og:title" content="团队 知识库 搭建：3 层目录加权限表">
+<meta property="og:description" content="20 人的服务团队，资料散在 3 个微信群、2 个 Excel 和离职同事的电脑里。新人问报销流程，老员工要翻聊天记录截图，来回 10 分钟。我用 4 周把 470 篇文档收成一套团队 知识库 搭建方案：3 层目录、4 ">
+<meta property="og:url" content="https://a678-beep.github.io/ai-nav/a/biz-36-team-knowledge-base.html">
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "Article", "headline": "团队 知识库 搭建：3 层目录加权限表", "inLanguage": "zh-CN", "datePublished": "2026-11-15", "author": {"@type": "Organization", "name": "星籁 Stellara"}, "publisher": {"@type": "Organization", "name": "星籁 Stellara"}, "mainEntityOfPage": "https://a678-beep.github.io/ai-nav/a/biz-36-team-knowledge-base.html", "articleSection": "商业效率", "wordCount": 839, "dateModified": "2026-11-15", "keywords": "团队 知识库 搭建, 知识库 权限, 知识库 检索, 知识库 维护, 知识库目录结构, 知识库权限设置"}</script>
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "首页", "item": "https://a678-beep.github.io/ai-nav/"}, {"@type": "ListItem", "position": 2, "name": "商业效率", "item": "https://a678-beep.github.io/ai-nav/#/articles"}, {"@type": "ListItem", "position": 3, "name": "团队 知识库 搭建：3 层目录加权限表", "item": "https://a678-beep.github.io/ai-nav/a/biz-36-team-knowledge-base.html"}]}</script>
+<style>
+:root{--bg:#080b12;--panel:#111827;--line:#1f2937;--txt:#e6edf7;--txt2:#9aa8bd;--txt3:#6b7a90;--cyan:#5ad1ff;--violet:#a78bfa}
+*{box-sizing:border-box}body{margin:0;background:radial-gradient(900px 500px at 82% -8%,rgba(90,209,255,.16),transparent 60%),var(--bg);color:var(--txt);font-family:"Microsoft YaHei","PingFang SC",system-ui,sans-serif;line-height:1.8}
+a{color:inherit;text-decoration:none}
+.top{position:sticky;top:0;backdrop-filter:blur(12px);background:rgba(8,11,18,.85);border-bottom:1px solid var(--line)}
+.top-in{max-width:900px;margin:0 auto;padding:12px 20px;display:flex;align-items:center;gap:10px}
+.logo{display:flex;align-items:center;gap:9px;font-weight:800}
+.logo .mark{width:30px;height:30px;border-radius:9px;background:linear-gradient(135deg,var(--cyan),var(--violet));display:grid;place-items:center;color:#04121c;font-weight:900}
+.top-in .back{margin-left:auto;color:var(--txt2);font-size:13px}
+main{max-width:900px;margin:0 auto;padding:28px 20px 60px}
+h1{font-size:28px;line-height:1.4;margin:8px 0 10px}
+.meta{color:var(--txt3);font-size:12.5px;margin-bottom:22px;display:flex;gap:8px;flex-wrap:wrap}
+.content{font-size:15.5px;color:#cfd9e6}
+.content h2{font-size:20px;color:var(--txt);margin:28px 0 10px}
+.content h3{font-size:17px;color:var(--txt);margin:22px 0 8px}
+.content p{margin:12px 0}
+.content li{margin:6px 0}
+.content code{background:rgba(120,180,255,.12);padding:1px 6px;border-radius:5px;font-family:Consolas,monospace;font-size:13px}
+.content pre{background:#0a1018;border:1px solid var(--line);border-radius:10px;padding:12px;overflow:auto}
+.content blockquote{border-left:3px solid var(--cyan);padding:4px 14px;color:var(--txt2);margin:16px 0}
+.ad-slot{margin:26px 0;min-height:100px;border:1px dashed rgba(120,140,170,.35);border-radius:12px;display:flex;align-items:center;justify-content:center;color:var(--txt3);font-size:12px;text-align:center;background:rgba(17,24,39,.55)}
+.ad-slot small{display:block;font-size:10.5px;opacity:.7}
+.bread{color:var(--txt3);font-size:12.5px;margin-bottom:6px}
+.bread a{color:var(--cyan)}
+footer{border-top:1px solid var(--line);color:var(--txt3);font-size:12.5px;text-align:center;padding:20px}
+.related{margin:34px 0 10px;border-top:1px solid var(--line);padding-top:18px}.related h2{font-size:16px;color:var(--txt);margin:0 0 10px}.related ul{list-style:none;padding:0;margin:0}.related li{margin:8px 0}.related a{color:var(--cyan);font-size:14px}
+.tool-link{margin:14px 0 0}
+.tlinks a{display:inline-block;margin:0 8px 8px 0;padding:6px 12px;border:1px solid rgba(90,209,255,.25);border-radius:8px;font-size:13px;color:var(--cyan);background:rgba(90,209,255,.06)}
+.tlinks a:hover{background:rgba(90,209,255,.15)}
+.sec{margin:26px 0}
+.sec h2{font-size:17px;color:var(--txt);margin:0 0 10px}
+.tool-link a{display:inline-block;font-size:13px;color:var(--txt2);border:1px solid var(--line);border-radius:8px;padding:7px 12px}
+.tool-link a:hover{color:var(--txt);border-color:rgba(90,209,255,.45)}
+.top-in .back{padding:6px 0}
+.bread a{display:inline-block;padding:6px 0}
+.sec li a{display:inline-block;padding:5px 0}
+.sib a{padding:8px 12px}
+.cats a{display:inline-block;margin:0 8px 8px 0;padding:6px 12px;border:1px solid var(--line);border-radius:8px;font-size:13px;color:var(--txt2)}
+.cats a:hover{color:var(--txt);border-color:rgba(90,209,255,.45)}
+.cats h2{font-size:17px;margin:22px 0 10px}
+@media(max-width:640px){h1{font-size:22px}main{padding:20px 16px 40px}
+.related a,.tlinks a,.tool-link a,footer a,.sib a{min-height:36px;display:inline-flex;align-items:center}
+.list a{padding:14px 14px}
+td a{display:inline-block;padding:8px 0}
+.note a{display:inline-block;padding:7px 0}
+}
+</style>
+</head>
+<body>
+<header class="top"><div class="top-in">
+  <a class="logo" href="../index.html"><span class="mark">✦</span>星籁 AI 导航</a>
+  <a class="back" href="../index.html">← 返回首页</a>
+</div></header>
+<main>
+  <div class="bread"><a href="../index.html">首页</a> / <a href="../biz/index.html">商业效率</a></div>
+  <h1>团队 知识库 搭建：3 层目录加权限表</h1>
+  <div class="meta"><span>商业效率</span><span>·</span><span>更新于 2026-11-15</span><span>·</span><span>团队 知识库 搭建, 知识库 权限, 知识库 检索, 知识库 维护, 知识库目录结构, 知识库权限设置</span></div>
+  <article class="content"><p>20 人的服务团队，资料散在 3 个微信群、2 个 Excel 和离职同事的电脑里。新人问报销流程，老员工要翻聊天记录截图，来回 10 分钟。我用 4 周把 470 篇文档收成一套团队 知识库 搭建方案：3 层目录、4 类角色、首页导航。上线两个月，新人上手从 2 天缩到半天，每周重复提问从 40 条降到 12 条。</p>
+<h2>一、目录按任务分，不按部门分</h2>
+<p>团队 知识库 搭建 第一步不是选工具，是定目录。第一层按「任务」分 5 个空间：新人上手、日常执行、疑难处理、制度查询、对外材料。第二层是岗位场景，日常执行下再分销售、客服、交付、财务。第三层只放文档类型：SOP、模板、案例、FAQ。文档标题统一成「场景 + 动作 + 对象」，像「报价单 填写 三步」，搜索才命中。每篇挂 8 个字段：编号、负责人、适用岗位、更新时间、版本、关键词别名、密级、关联流程。知识库目录结构 先定三层，再搬最近 30 天被问最多的 20 篇，别一次全倒。</p>
+<h2>二、权限按密级给，编辑权收缩</h2>
+<div class="ad-slot" data-ad="article-mid"><div>广告位（文章中部）<small>AdSense / 广告联盟代码插入点 · 建议 728×90 / 移动端 320×100</small></div><!-- 在这里粘贴广告代码 --></div>
+<p>权限分 4 类角色：管理员 2 人、每个空间 1 到 2 个编辑者、全员只读、外部协作用单独页面。密级分公开、内部、机密，薪酬、合同、客户名单只进机密空间，不参与搜索。分享链接默认关掉公开访问，只给具名成员。知识库权限设置 我踩过坑：初期给全员编辑权，第二个月 3 份报价单被误改，客户对账对不上。改成编辑者制后改动自动留版本记录，谁改的、改了什么都能查。知识库权限设置 的原则是默认最小可见，飞书知识库和 Notion 都支持空间级加页面级权限，选团队已经在用的那套，别为它单开账号。</p>
+<h2>三、检索先让人找得到，维护按周期跑</h2>
+<p>首页放 5 个高频入口和一个搜索框，置顶 20 篇高频文档。每篇补 3 到 5 个关键词别名，员工说「垫付」能搜到「报销」，「退货」能搜到「售后」。上线前拿 50 个真实问题测，首条命中率只有 46%，补完标题和别名后到 87%。客服组照这个法子整理 36 条 FAQ，新客服培训从 3 周压到 9 天。维护按三个周期：每周五补新文档，每月 1 号清 90 天零访问和失效流程，每季度复核 5 篇高频文档。避坑一，只建不维护，半年后四成文档过期，员工搜到旧模板反而更慢。避坑二，标题起成「新建文档 (3)」，搜不到也分不清版本。避坑三，会议纪要、草稿和正式文档混放，检索结果一半是噪音。知识库目录结构 三个月后会走歪，每月清理时把错位文档归位。</p>
+<h2>总结</h2>
+<p>团队 知识库 搭建 的顺序别反：先定三层目录和 8 个字段，再按密级配 4 类角色，最后拿 50 个问题调检索，维护节奏第一天就排进日历。工具用团队已经在用的那套，省掉迁移成本。跑满一个月看两个数：搜索零结果率和文档平均年龄，降下来，知识库才算活起来。</p></article>
+  <div class="sec"><h2>文中提到的工具</h2><p class="tlinks"><a href="../tool/notion-ai/">Notion AI →</a></p></div>
+  <section class="related"><h2>同类教程</h2><ul><li><a href="biz-37-contract-expiry-reminder.html">合同 到期 提醒：12 个字段加三级提前期</a></li><li><a href="biz-38-inventory-alert-setup.html">库存 预警 设置：安全库存加三级阈值线</a></li><li><a href="biz-01-notion-ai-database-automation.html">Notion AI 数据库 自动化：4 步搭建</a></li><li><a href="biz-02-feishu-bitable-ai-field.html">飞书 多维表格 AI 字段：3 类工单</a></li><li><a href="biz-03-zapier-ai-automation-workflow.html">Zapier AI 自动化 流程：4 个触发器</a></li></ul><p class="tool-link"><a href="../index.html">查看 商业效率 工具与其它教程 →</a> <a href="../t/pricing/">AI 工具价格 →</a> <a href="../t/params/">参数与配置 →</a></p></section>
+  <footer>© 2026 星籁 Stellara · <a href="../privacy.html">隐私政策</a> · <a href="../sitemap.xml">站点地图</a></footer>
+</main>
+</body>
+</html>

@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<title>Mem 笔记 关联：300 条旧笔记怎么串起来 · 星籁 AI 工具导航</title>
+<title>Mem 笔记 关联：300 条旧笔记怎么串起来 · 星籁</title>
 <meta name="description" content="我在 Mem 里存了 300 多条零散笔记，关键词搜索经常搜不到要的东西，直到用关联面板按语义翻出三年前的一条会议记录。Mem 笔记 关联 靠的不是文件夹，而是向量相似度，写法跟传统笔记软件完全反过来，这篇讲怎么让它自己">
 <meta name="keywords" content="Mem 笔记 关联, 向量检索, 笔记管理, Mem 笔记检索, Mem 自动关联">
 <meta name="robots" content="index,follow">
@@ -13,7 +13,7 @@
 <meta property="og:title" content="Mem 笔记 关联：300 条旧笔记怎么串起来">
 <meta property="og:description" content="我在 Mem 里存了 300 多条零散笔记，关键词搜索经常搜不到要的东西，直到用关联面板按语义翻出三年前的一条会议记录。Mem 笔记 关联 靠的不是文件夹，而是向量相似度，写法跟传统笔记软件完全反过来，这篇讲怎么让它自己">
 <meta property="og:url" content="https://a678-beep.github.io/ai-nav/a/util-06-mem-note-linking.html">
-<script type="application/ld+json">{"@context": "https://schema.org", "@type": "Article", "headline": "Mem 笔记 关联：300 条旧笔记怎么串起来", "inLanguage": "zh-CN", "datePublished": "2026-11-15", "author": {"@type": "Organization", "name": "星籁 Stellara"}, "publisher": {"@type": "Organization", "name": "星籁 Stellara"}, "mainEntityOfPage": "https://a678-beep.github.io/ai-nav/a/util-06-mem-note-linking.html", "keywords": "Mem 笔记 关联, 向量检索, 笔记管理, Mem 笔记检索, Mem 自动关联"}</script>
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "Article", "headline": "Mem 笔记 关联：300 条旧笔记怎么串起来", "inLanguage": "zh-CN", "datePublished": "2026-11-15", "author": {"@type": "Organization", "name": "星籁 Stellara"}, "publisher": {"@type": "Organization", "name": "星籁 Stellara"}, "mainEntityOfPage": "https://a678-beep.github.io/ai-nav/a/util-06-mem-note-linking.html", "articleSection": "实用工具", "wordCount": 787, "dateModified": "2026-11-15", "keywords": "Mem 笔记 关联, 向量检索, 笔记管理, Mem 笔记检索, Mem 自动关联"}</script>
 <script type="application/ld+json">{"@context": "https://schema.org", "@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "首页", "item": "https://a678-beep.github.io/ai-nav/"}, {"@type": "ListItem", "position": 2, "name": "实用工具", "item": "https://a678-beep.github.io/ai-nav/#/articles"}, {"@type": "ListItem", "position": 3, "name": "Mem 笔记 关联：300 条旧笔记怎么串起来", "item": "https://a678-beep.github.io/ai-nav/a/util-06-mem-note-linking.html"}]}</script>
 <style>
 :root{--bg:#080b12;--panel:#111827;--line:#1f2937;--txt:#e6edf7;--txt2:#9aa8bd;--txt3:#6b7a90;--cyan:#5ad1ff;--violet:#a78bfa}
@@ -41,7 +41,26 @@ h1{font-size:28px;line-height:1.4;margin:8px 0 10px}
 .bread a{color:var(--cyan)}
 footer{border-top:1px solid var(--line);color:var(--txt3);font-size:12.5px;text-align:center;padding:20px}
 .related{margin:34px 0 10px;border-top:1px solid var(--line);padding-top:18px}.related h2{font-size:16px;color:var(--txt);margin:0 0 10px}.related ul{list-style:none;padding:0;margin:0}.related li{margin:8px 0}.related a{color:var(--cyan);font-size:14px}
-@media(max-width:640px){h1{font-size:22px}main{padding:20px 16px 40px}}
+.tool-link{margin:14px 0 0}
+.tlinks a{display:inline-block;margin:0 8px 8px 0;padding:6px 12px;border:1px solid rgba(90,209,255,.25);border-radius:8px;font-size:13px;color:var(--cyan);background:rgba(90,209,255,.06)}
+.tlinks a:hover{background:rgba(90,209,255,.15)}
+.sec{margin:26px 0}
+.sec h2{font-size:17px;color:var(--txt);margin:0 0 10px}
+.tool-link a{display:inline-block;font-size:13px;color:var(--txt2);border:1px solid var(--line);border-radius:8px;padding:7px 12px}
+.tool-link a:hover{color:var(--txt);border-color:rgba(90,209,255,.45)}
+.top-in .back{padding:6px 0}
+.bread a{display:inline-block;padding:6px 0}
+.sec li a{display:inline-block;padding:5px 0}
+.sib a{padding:8px 12px}
+.cats a{display:inline-block;margin:0 8px 8px 0;padding:6px 12px;border:1px solid var(--line);border-radius:8px;font-size:13px;color:var(--txt2)}
+.cats a:hover{color:var(--txt);border-color:rgba(90,209,255,.45)}
+.cats h2{font-size:17px;margin:22px 0 10px}
+@media(max-width:640px){h1{font-size:22px}main{padding:20px 16px 40px}
+.related a,.tlinks a,.tool-link a,footer a,.sib a{min-height:36px;display:inline-flex;align-items:center}
+.list a{padding:14px 14px}
+td a{display:inline-block;padding:8px 0}
+.note a{display:inline-block;padding:7px 0}
+}
 </style>
 </head>
 <body>
@@ -50,9 +69,9 @@ footer{border-top:1px solid var(--line);color:var(--txt3);font-size:12.5px;text-
   <a class="back" href="../index.html">← 返回首页</a>
 </div></header>
 <main>
-  <div class="bread"><a href="../index.html">首页</a> / <a href="../index.html#/articles">实用工具</a></div>
+  <div class="bread"><a href="../index.html">首页</a> / <a href="../util/index.html">实用工具</a></div>
   <h1>Mem 笔记 关联：300 条旧笔记怎么串起来</h1>
-  <div class="meta"><span>实用工具</span><span>·</span><span>Mem 笔记 关联, 向量检索, 笔记管理, Mem 笔记检索, Mem 自动关联</span></div>
+  <div class="meta"><span>实用工具</span><span>·</span><span>更新于 2026-11-15</span><span>·</span><span>Mem 笔记 关联, 向量检索, 笔记管理, Mem 笔记检索, Mem 自动关联</span></div>
   <article class="content"><p>我在 Mem 里存了 300 多条零散笔记，关键词搜索经常搜不到要的东西，直到用关联面板按语义翻出三年前的一条会议记录。Mem 笔记 关联 靠的不是文件夹，而是向量相似度，写法跟传统笔记软件完全反过来，这篇讲怎么让它自己找上门。</p>
 <h2>先决定笔记的颗粒度</h2>
 <p>Mem 的自动关联吃的是单条笔记的语义，一条只放一个观点，超过 300 字就拆成两条。导入旧笔记走 Markdown，标题写成完整句子，比如客户 A 更在意交付周期，比只写客户 A 更容易被匹配到。我实测 300 条笔记首次索引约 10 分钟，索引没跑完时关联面板是空的，别急着判断没效果。每天的日记也建议拆成待办、决策、观察三类，不然后面检索全是流水账。同一个项目的前缀统一，用项目名开头，向量命中会更稳。另一个经验是给每条笔记补一句为什么记录，这句解释的信息量最大。Mem 自动关联 只看语义相似度，不看你把笔记放在哪个目录下。</p>
@@ -63,7 +82,8 @@ footer{border-top:1px solid var(--line);color:var(--txt3);font-size:12.5px;text-
 <p>避坑一：Mem 的问答会引用过期笔记，重要结论必须点开来源看日期。避坑二：免费额度有限，笔记过千条后同步排队明显，批量导入放在晚上。避坑三：客户隐私整段贴进去等于交给向量索引，敏感内容改成代号。避坑四：自动关联的结果按时间衰减，旧笔记容易被埋下去，重要的手动置顶。避坑五：多设备同时编辑同一条会覆盖，手机上只读不写。</p>
 <h2>总结</h2>
 <p>Mem 笔记 关联 解决的是记了但找不到的老毛病，前提是颗粒度够小、标题写成完整句子。300 条笔记索引 10 分钟之后，找一个旧结论从 5 分钟缩到 10 秒。每周花 10 分钟清理标签，比事后翻记录省事得多。搜索结果默认按相关度排，时间久的笔记靠前，找旧结论时把时间范围缩小。Mem 笔记检索 的上限取决于你写得多具体，先跑通 50 条再谈全量迁移。</p></article>
-  <section class="related"><h2>同类教程</h2><ul><li><a href="util-01-perplexity-academic-search.html">Perplexity 学术 检索：三个提问模板</a></li><li><a href="util-02-notebooklm-podcast.html">NotebookLM 播客 生成：中文双人对谈</a></li><li><a href="util-03-otter-meeting-transcript-cn.html">Otter 会议 转写 中文：说话人分离实测</a></li></ul></section>
+  
+  <section class="related"><h2>同类教程</h2><ul><li><a href="util-07-suno-lyrics-check.html">Suno 歌词 检测：违禁词与版权风险实测清单</a></li><li><a href="util-08-real-esrgan-upscale.html">Real-ESRGAN 图片 放大：显存与耗时</a></li><li><a href="util-09-ai-video-watermark-removal.html">视频 去水印 AI：逐帧跟踪与镜头修复实测</a></li><li><a href="util-10-local-pdf-qa.html">本地 PDF 问答：7B 模型离线建库全流程</a></li><li><a href="util-11-offline-speech-to-text.html">离线 语音转文字：Whisper 模型选型与显存</a></li></ul><p class="tool-link"><a href="../index.html">查看 实用工具 工具与其它教程 →</a> <a href="../t/pricing/">AI 工具价格 →</a> <a href="../t/params/">参数与配置 →</a></p></section>
   <footer>© 2026 星籁 Stellara · <a href="../privacy.html">隐私政策</a> · <a href="../sitemap.xml">站点地图</a></footer>
 </main>
 </body>

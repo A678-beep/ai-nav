@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<title>本地 PDF 问答：7B 模型离线建库全流程 · 星籁 AI 工具导航</title>
+<title>本地 PDF 问答：7B 模型离线建库全流程 · 星籁</title>
 <meta name="description" content="公司内网的合同和研报不能传云端，我搭了一套本地 PDF 问答 环境：180 份 PDF 灌进本地知识库，用 Ollama 跑 7B 模型，问这份合同违约金怎么算能定位到第 12 页。整套装完 40 分钟，机器是 16G ">
 <meta name="keywords" content="本地 PDF 问答, 本地知识库, Ollama, Ollama 本地部署, PDF 扫描件 OCR">
 <meta name="robots" content="index,follow">
@@ -13,7 +13,7 @@
 <meta property="og:title" content="本地 PDF 问答：7B 模型离线建库全流程">
 <meta property="og:description" content="公司内网的合同和研报不能传云端，我搭了一套本地 PDF 问答 环境：180 份 PDF 灌进本地知识库，用 Ollama 跑 7B 模型，问这份合同违约金怎么算能定位到第 12 页。整套装完 40 分钟，机器是 16G ">
 <meta property="og:url" content="https://a678-beep.github.io/ai-nav/a/util-10-local-pdf-qa.html">
-<script type="application/ld+json">{"@context": "https://schema.org", "@type": "Article", "headline": "本地 PDF 问答：7B 模型离线建库全流程", "inLanguage": "zh-CN", "datePublished": "2026-11-15", "author": {"@type": "Organization", "name": "星籁 Stellara"}, "publisher": {"@type": "Organization", "name": "星籁 Stellara"}, "mainEntityOfPage": "https://a678-beep.github.io/ai-nav/a/util-10-local-pdf-qa.html", "keywords": "本地 PDF 问答, 本地知识库, Ollama, Ollama 本地部署, PDF 扫描件 OCR"}</script>
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "Article", "headline": "本地 PDF 问答：7B 模型离线建库全流程", "inLanguage": "zh-CN", "datePublished": "2026-11-15", "author": {"@type": "Organization", "name": "星籁 Stellara"}, "publisher": {"@type": "Organization", "name": "星籁 Stellara"}, "mainEntityOfPage": "https://a678-beep.github.io/ai-nav/a/util-10-local-pdf-qa.html", "articleSection": "实用工具", "wordCount": 805, "dateModified": "2026-11-15", "keywords": "本地 PDF 问答, 本地知识库, Ollama, Ollama 本地部署, PDF 扫描件 OCR"}</script>
 <script type="application/ld+json">{"@context": "https://schema.org", "@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "首页", "item": "https://a678-beep.github.io/ai-nav/"}, {"@type": "ListItem", "position": 2, "name": "实用工具", "item": "https://a678-beep.github.io/ai-nav/#/articles"}, {"@type": "ListItem", "position": 3, "name": "本地 PDF 问答：7B 模型离线建库全流程", "item": "https://a678-beep.github.io/ai-nav/a/util-10-local-pdf-qa.html"}]}</script>
 <style>
 :root{--bg:#080b12;--panel:#111827;--line:#1f2937;--txt:#e6edf7;--txt2:#9aa8bd;--txt3:#6b7a90;--cyan:#5ad1ff;--violet:#a78bfa}
@@ -41,7 +41,26 @@ h1{font-size:28px;line-height:1.4;margin:8px 0 10px}
 .bread a{color:var(--cyan)}
 footer{border-top:1px solid var(--line);color:var(--txt3);font-size:12.5px;text-align:center;padding:20px}
 .related{margin:34px 0 10px;border-top:1px solid var(--line);padding-top:18px}.related h2{font-size:16px;color:var(--txt);margin:0 0 10px}.related ul{list-style:none;padding:0;margin:0}.related li{margin:8px 0}.related a{color:var(--cyan);font-size:14px}
-@media(max-width:640px){h1{font-size:22px}main{padding:20px 16px 40px}}
+.tool-link{margin:14px 0 0}
+.tlinks a{display:inline-block;margin:0 8px 8px 0;padding:6px 12px;border:1px solid rgba(90,209,255,.25);border-radius:8px;font-size:13px;color:var(--cyan);background:rgba(90,209,255,.06)}
+.tlinks a:hover{background:rgba(90,209,255,.15)}
+.sec{margin:26px 0}
+.sec h2{font-size:17px;color:var(--txt);margin:0 0 10px}
+.tool-link a{display:inline-block;font-size:13px;color:var(--txt2);border:1px solid var(--line);border-radius:8px;padding:7px 12px}
+.tool-link a:hover{color:var(--txt);border-color:rgba(90,209,255,.45)}
+.top-in .back{padding:6px 0}
+.bread a{display:inline-block;padding:6px 0}
+.sec li a{display:inline-block;padding:5px 0}
+.sib a{padding:8px 12px}
+.cats a{display:inline-block;margin:0 8px 8px 0;padding:6px 12px;border:1px solid var(--line);border-radius:8px;font-size:13px;color:var(--txt2)}
+.cats a:hover{color:var(--txt);border-color:rgba(90,209,255,.45)}
+.cats h2{font-size:17px;margin:22px 0 10px}
+@media(max-width:640px){h1{font-size:22px}main{padding:20px 16px 40px}
+.related a,.tlinks a,.tool-link a,footer a,.sib a{min-height:36px;display:inline-flex;align-items:center}
+.list a{padding:14px 14px}
+td a{display:inline-block;padding:8px 0}
+.note a{display:inline-block;padding:7px 0}
+}
 </style>
 </head>
 <body>
@@ -50,9 +69,9 @@ footer{border-top:1px solid var(--line);color:var(--txt3);font-size:12.5px;text-
   <a class="back" href="../index.html">← 返回首页</a>
 </div></header>
 <main>
-  <div class="bread"><a href="../index.html">首页</a> / <a href="../index.html#/articles">实用工具</a></div>
+  <div class="bread"><a href="../index.html">首页</a> / <a href="../util/index.html">实用工具</a></div>
   <h1>本地 PDF 问答：7B 模型离线建库全流程</h1>
-  <div class="meta"><span>实用工具</span><span>·</span><span>本地 PDF 问答, 本地知识库, Ollama, Ollama 本地部署, PDF 扫描件 OCR</span></div>
+  <div class="meta"><span>实用工具</span><span>·</span><span>更新于 2026-11-15</span><span>·</span><span>本地 PDF 问答, 本地知识库, Ollama, Ollama 本地部署, PDF 扫描件 OCR</span></div>
   <article class="content"><p>公司内网的合同和研报不能传云端，我搭了一套本地 PDF 问答 环境：180 份 PDF 灌进本地知识库，用 Ollama 跑 7B 模型，问这份合同违约金怎么算能定位到第 12 页。整套装完 40 分钟，机器是 16G 内存加 8G 显存的台式机。</p>
 <h2>装什么、占多大</h2>
 <p>Ollama 拉 qwen2.5:7b-instruct，模型文件约 4.7G，8G 显存刚好跑满；再装 AnythingLLM 桌面版，把大模型指向 Ollama，向量模型用内置的 nomic-embed-text，约 274MB。Ollama 本地部署 的坑在下载，几个 G 的文件走公司网要十几分钟。PDF 直接拖进工作区，切块设 1000 字符、重叠 200，180 份 PDF 建库约 12 分钟。全程断网也能问，数据不出机器。8G 显存是及格线，16G 内存是底线，再低会频繁换页。AnythingLLM 个人用桌面版就够，团队版要另配数据库，多花两小时。向量模型换 bge-m3 中文检索更准，显存多占 1G 左右。</p>
@@ -63,7 +82,8 @@ footer{border-top:1px solid var(--line);color:var(--txt3);font-size:12.5px;text-
 <p>避坑一：扫描版 PDF 没有文字层，不 OCR 就是空文档，问什么都说找不到。避坑二：7B 模型中文长文档容易答非所问，把切块降到 800 字符、召回调到 5 会好一些。避坑三：14B 模型要 16G 显存，8G 卡硬上会爆，别信教程说能跑。避坑四：Ollama 本地部署 的模型更新会重置对话，重要问答结果单独存档。避坑五：PDF 扫描件 OCR 出来的错字会被检索放大，专有名词最好建一个纠正词表。避坑六：回答里的页码是切块位置不是 PDF 页码，核对时按内容搜更快。切块 800 字符的召回率比 1000 好一点，代价是建库慢两分钟；索引没跑完时强行提问会一直转圈。涉密等级高的文件单独建工作区，别和普通资料混在一起；Ollama 本地部署 完先在 11434 端口做连通确认，不然后面报错找不到原因。</p>
 <h2>总结</h2>
 <p>本地 PDF 问答 的性价比在于数据不出机器，代价是准确率和速度不如云端。8G 显存跑 7B、180 份 PDF 12 分钟建库、单问 6 到 10 秒，日常查条款够用。扫描件先 OCR，复杂汇总还是手动做。机器低于这个配置，别硬上 14B。如果只是偶尔查几份文件，用云端工具更省事；本地方案适合天天查、资料还敏感的人。</p></article>
-  <section class="related"><h2>同类教程</h2><ul><li><a href="util-01-perplexity-academic-search.html">Perplexity 学术 检索：三个提问模板</a></li><li><a href="util-02-notebooklm-podcast.html">NotebookLM 播客 生成：中文双人对谈</a></li><li><a href="util-03-otter-meeting-transcript-cn.html">Otter 会议 转写 中文：说话人分离实测</a></li></ul></section>
+  
+  <section class="related"><h2>同类教程</h2><ul><li><a href="util-11-offline-speech-to-text.html">离线 语音转文字：Whisper 模型选型与显存</a></li><li><a href="util-12-ai-detection-rewrite.html">AI 检测 降重：人工改写与句式拆分</a></li><li><a href="util-13-ai-flowchart-generator.html">AI 流程图 生成：代码导出可编辑矢量图</a></li><li><a href="util-14-immersive-translate-glossary.html">沉浸式翻译 术语库：35 条术语统一译名</a></li><li><a href="util-15-pdf-scan-ocr.html">PDF 扫描 识别：给扫描件加可搜索文字层</a></li></ul><p class="tool-link"><a href="../index.html">查看 实用工具 工具与其它教程 →</a> <a href="../t/errors/">AI 报错解决 →</a> <a href="../t/params/">参数与配置 →</a></p></section>
   <footer>© 2026 星籁 Stellara · <a href="../privacy.html">隐私政策</a> · <a href="../sitemap.xml">站点地图</a></footer>
 </main>
 </body>

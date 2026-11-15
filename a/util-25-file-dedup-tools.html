@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>文件 去重 工具：哈希、保留规则与批量清理 · 星籁</title>
+<meta name="description" content="帮朋友收拾一台用了八年的素材机，4TB 机械盘加 2TB 移动硬盘，一共 186 万个文件。扫完他自己都不信：完全重复的文件 41 万个，合计 312GB，够再买半块盘。文件 去重 工具 不是点一下全删，顺序错一次，唯一">
+<meta name="keywords" content="文件 去重 工具, 重复文件检测, 哈希去重, 重复文件清理, 重复文件检测工具, 文件去重保留规则">
+<meta name="robots" content="index,follow">
+
+<link rel="canonical" href="https://a678-beep.github.io/ai-nav/a/util-25-file-dedup-tools.html">
+<meta property="og:type" content="article">
+<meta property="og:title" content="文件 去重 工具：哈希、保留规则与批量清理">
+<meta property="og:description" content="帮朋友收拾一台用了八年的素材机，4TB 机械盘加 2TB 移动硬盘，一共 186 万个文件。扫完他自己都不信：完全重复的文件 41 万个，合计 312GB，够再买半块盘。文件 去重 工具 不是点一下全删，顺序错一次，唯一">
+<meta property="og:url" content="https://a678-beep.github.io/ai-nav/a/util-25-file-dedup-tools.html">
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "Article", "headline": "文件 去重 工具：哈希、保留规则与批量清理", "inLanguage": "zh-CN", "datePublished": "2026-11-15", "author": {"@type": "Organization", "name": "星籁 Stellara"}, "publisher": {"@type": "Organization", "name": "星籁 Stellara"}, "mainEntityOfPage": "https://a678-beep.github.io/ai-nav/a/util-25-file-dedup-tools.html", "articleSection": "实用工具", "wordCount": 829, "dateModified": "2026-11-15", "keywords": "文件 去重 工具, 重复文件检测, 哈希去重, 重复文件清理, 重复文件检测工具, 文件去重保留规则"}</script>
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "首页", "item": "https://a678-beep.github.io/ai-nav/"}, {"@type": "ListItem", "position": 2, "name": "实用工具", "item": "https://a678-beep.github.io/ai-nav/#/articles"}, {"@type": "ListItem", "position": 3, "name": "文件 去重 工具：哈希、保留规则与批量清理", "item": "https://a678-beep.github.io/ai-nav/a/util-25-file-dedup-tools.html"}]}</script>
+<style>
+:root{--bg:#080b12;--panel:#111827;--line:#1f2937;--txt:#e6edf7;--txt2:#9aa8bd;--txt3:#6b7a90;--cyan:#5ad1ff;--violet:#a78bfa}
+*{box-sizing:border-box}body{margin:0;background:radial-gradient(900px 500px at 82% -8%,rgba(90,209,255,.16),transparent 60%),var(--bg);color:var(--txt);font-family:"Microsoft YaHei","PingFang SC",system-ui,sans-serif;line-height:1.8}
+a{color:inherit;text-decoration:none}
+.top{position:sticky;top:0;backdrop-filter:blur(12px);background:rgba(8,11,18,.85);border-bottom:1px solid var(--line)}
+.top-in{max-width:900px;margin:0 auto;padding:12px 20px;display:flex;align-items:center;gap:10px}
+.logo{display:flex;align-items:center;gap:9px;font-weight:800}
+.logo .mark{width:30px;height:30px;border-radius:9px;background:linear-gradient(135deg,var(--cyan),var(--violet));display:grid;place-items:center;color:#04121c;font-weight:900}
+.top-in .back{margin-left:auto;color:var(--txt2);font-size:13px}
+main{max-width:900px;margin:0 auto;padding:28px 20px 60px}
+h1{font-size:28px;line-height:1.4;margin:8px 0 10px}
+.meta{color:var(--txt3);font-size:12.5px;margin-bottom:22px;display:flex;gap:8px;flex-wrap:wrap}
+.content{font-size:15.5px;color:#cfd9e6}
+.content h2{font-size:20px;color:var(--txt);margin:28px 0 10px}
+.content h3{font-size:17px;color:var(--txt);margin:22px 0 8px}
+.content p{margin:12px 0}
+.content li{margin:6px 0}
+.content code{background:rgba(120,180,255,.12);padding:1px 6px;border-radius:5px;font-family:Consolas,monospace;font-size:13px}
+.content pre{background:#0a1018;border:1px solid var(--line);border-radius:10px;padding:12px;overflow:auto}
+.content blockquote{border-left:3px solid var(--cyan);padding:4px 14px;color:var(--txt2);margin:16px 0}
+.ad-slot{margin:26px 0;min-height:100px;border:1px dashed rgba(120,140,170,.35);border-radius:12px;display:flex;align-items:center;justify-content:center;color:var(--txt3);font-size:12px;text-align:center;background:rgba(17,24,39,.55)}
+.ad-slot small{display:block;font-size:10.5px;opacity:.7}
+.bread{color:var(--txt3);font-size:12.5px;margin-bottom:6px}
+.bread a{color:var(--cyan)}
+footer{border-top:1px solid var(--line);color:var(--txt3);font-size:12.5px;text-align:center;padding:20px}
+.related{margin:34px 0 10px;border-top:1px solid var(--line);padding-top:18px}.related h2{font-size:16px;color:var(--txt);margin:0 0 10px}.related ul{list-style:none;padding:0;margin:0}.related li{margin:8px 0}.related a{color:var(--cyan);font-size:14px}
+.tool-link{margin:14px 0 0}
+.tlinks a{display:inline-block;margin:0 8px 8px 0;padding:6px 12px;border:1px solid rgba(90,209,255,.25);border-radius:8px;font-size:13px;color:var(--cyan);background:rgba(90,209,255,.06)}
+.tlinks a:hover{background:rgba(90,209,255,.15)}
+.sec{margin:26px 0}
+.sec h2{font-size:17px;color:var(--txt);margin:0 0 10px}
+.tool-link a{display:inline-block;font-size:13px;color:var(--txt2);border:1px solid var(--line);border-radius:8px;padding:7px 12px}
+.tool-link a:hover{color:var(--txt);border-color:rgba(90,209,255,.45)}
+.top-in .back{padding:6px 0}
+.bread a{display:inline-block;padding:6px 0}
+.sec li a{display:inline-block;padding:5px 0}
+.sib a{padding:8px 12px}
+.cats a{display:inline-block;margin:0 8px 8px 0;padding:6px 12px;border:1px solid var(--line);border-radius:8px;font-size:13px;color:var(--txt2)}
+.cats a:hover{color:var(--txt);border-color:rgba(90,209,255,.45)}
+.cats h2{font-size:17px;margin:22px 0 10px}
+@media(max-width:640px){h1{font-size:22px}main{padding:20px 16px 40px}
+.related a,.tlinks a,.tool-link a,footer a,.sib a{min-height:36px;display:inline-flex;align-items:center}
+.list a{padding:14px 14px}
+td a{display:inline-block;padding:8px 0}
+.note a{display:inline-block;padding:7px 0}
+}
+</style>
+</head>
+<body>
+<header class="top"><div class="top-in">
+  <a class="logo" href="../index.html"><span class="mark">✦</span>星籁 AI 导航</a>
+  <a class="back" href="../index.html">← 返回首页</a>
+</div></header>
+<main>
+  <div class="bread"><a href="../index.html">首页</a> / <a href="../util/index.html">实用工具</a></div>
+  <h1>文件 去重 工具：哈希、保留规则与批量清理</h1>
+  <div class="meta"><span>实用工具</span><span>·</span><span>更新于 2026-11-15</span><span>·</span><span>文件 去重 工具, 重复文件检测, 哈希去重, 重复文件清理, 重复文件检测工具, 文件去重保留规则</span></div>
+  <article class="content"><p>帮朋友收拾一台用了八年的素材机，4TB 机械盘加 2TB 移动硬盘，一共 186 万个文件。扫完他自己都不信：完全重复的文件 41 万个，合计 312GB，够再买半块盘。文件 去重 工具 不是点一下全删，顺序错一次，唯一那份就没了，我按三层哈希、四条保留规则、先移后删走完，一个有效文件没丢。</p>
+<h2>一、哈希分三层，别一上来就算全量</h2>
+<p>直接给 186 万文件算全量哈希，机械盘实测读速 160MB/s，跑到天亮也跑不完。实际做法是三层：第一层比大小，121 万个文件的大小是独一份，直接排除；第二层对剩余文件读头尾各 4KB 和中段 4KB，只剩 29 万个；第三层才对这些算全文件哈希，合计 480GB，一个多小时出结果，整轮两小时出头。顺序反了，七个小时都不一定够。哈希选 blake3 或 xxhash，比 md5 快两三倍，本地整理没有防篡改需求，不必上 sha256。命令行 rmlint 默认就是这种大小加首尾字节的快速模式，结果不放心再加 -P 做逐字节比对，代价是时间翻几倍。</p>
+<h2>二、工具：桌面看结果，命令行管批量</h2>
+<div class="ad-slot" data-ad="article-mid"><div>广告位（文章中部）<small>AdSense / 广告联盟代码插入点 · 建议 728×90 / 移动端 320×100</small></div><!-- 在这里粘贴广告代码 --></div>
+<p>重复文件检测工具 里，我给普通同事装 Czkawka，Rust 写的，扫 186 万个文件的元数据四分钟，结果按哈希分好组，删之前能展开核对、能导出清单。dupeGuru 的强项是图片和音乐，图片模式按画面内容和颜色做模糊匹配，同一张照片被压过两次、EXIF 不一样也认得出，整理手机相册比全文件哈希实用。要接脚本上 fclones 或 rmlint，能导出 JSON，也能把重复的那份换成硬链接。群晖的 Btrfs 去重只对共享文件夹生效，Windows Server 按卷开，开了以后写入变慢，个人电脑上别指望。文件 去重 工具 选型看两件事：能不能导出待删清单、能不能排除目录。</p>
+<h2>三、保留规则先写死，删除先移后删</h2>
+<p>文件去重保留规则 我定四条：保留路径最深的一份，它旁边有工程文件能对上；照片留原始尺寸和拍摄时间，微信压缩版、缩略图优先清；同名不同内容的永不自动删，交人工判断；系统目录、云同步目录、Git 仓库、在用的项目目录整目录排除。删除不点删除，先移到「待删」文件夹放两周，没软件报错再清空。云同步目录最险，这台删了那台跟着删，回收站不一定够用。硬链接也容易误判，两个路径指同一份数据，删一个不释放空间，看着腾了 300G 实际一点没少，要用 TreeSize 看物理占用。这轮 41 万个重复里删掉 38 万个，留 3 万个走人工，腾出 296GB。</p>
+<h2>总结</h2>
+<p>文件 去重 工具 省的不是点删除的时间，是判断哪份能删的时间。三层哈希把七小时压到两小时，保留规则先定死，删除统一先移后删。重复文件检测工具 挑顺手的就行，真正防丢的是那份排除清单；文件去重保留规则 写得越细，按确定键的时候越不慌。</p></article>
+  
+  <section class="related"><h2>同类教程</h2><ul><li><a href="util-26-clipboard-history-tools.html">剪贴板 历史 工具：容量、隐私与快捷键设置</a></li><li><a href="util-27-ai-free-quota-compare.html">AI 免费额度 对比：7 款工具够不够用</a></li><li><a href="util-28-batch-webpage-screenshot.html">网页 批量 截图：视口、等待策略与并发归档</a></li><li><a href="util-29-password-manager-tools.html">密码 管理 工具 选型：主密码、双因素与共享</a></li><li><a href="util-30-local-search-tools.html">本地 搜索 工具 选型：索引、格式与速度实测</a></li></ul><p class="tool-link"><a href="../index.html">查看 实用工具 工具与其它教程 →</a> <a href="../t/errors/">AI 报错解决 →</a> <a href="../t/compare/">工具对比与选型 →</a></p></section>
+  <footer>© 2026 星籁 Stellara · <a href="../privacy.html">隐私政策</a> · <a href="../sitemap.xml">站点地图</a></footer>
+</main>
+</body>
+</html>

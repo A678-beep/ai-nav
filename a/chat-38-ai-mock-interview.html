@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>AI 模拟 面试 怎么练：题库、追问与复盘 · 星籁</title>
+<meta name="description" content="三月底投了 26 份简历，收到 4 个面试，第一场技术面 40 分钟就哑火：项目里 QPS 翻十倍那段，我只答了“加了缓存”，面试官追问两句取舍，我接不下去。找同事模拟要凑时间，我改用 AI 练，两周面完 4 场，3 场">
+<meta name="keywords" content="AI 模拟 面试, 岗位 题库, 面试 追问, 面试 复盘, AI 模拟 面试 流程, 面试 复盘 模板">
+<meta name="robots" content="index,follow">
+
+<link rel="canonical" href="https://a678-beep.github.io/ai-nav/a/chat-38-ai-mock-interview.html">
+<meta property="og:type" content="article">
+<meta property="og:title" content="AI 模拟 面试 怎么练：题库、追问与复盘">
+<meta property="og:description" content="三月底投了 26 份简历，收到 4 个面试，第一场技术面 40 分钟就哑火：项目里 QPS 翻十倍那段，我只答了“加了缓存”，面试官追问两句取舍，我接不下去。找同事模拟要凑时间，我改用 AI 练，两周面完 4 场，3 场">
+<meta property="og:url" content="https://a678-beep.github.io/ai-nav/a/chat-38-ai-mock-interview.html">
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "Article", "headline": "AI 模拟 面试 怎么练：题库、追问与复盘", "inLanguage": "zh-CN", "datePublished": "2026-11-15", "author": {"@type": "Organization", "name": "星籁 Stellara"}, "publisher": {"@type": "Organization", "name": "星籁 Stellara"}, "mainEntityOfPage": "https://a678-beep.github.io/ai-nav/a/chat-38-ai-mock-interview.html", "articleSection": "对话AI", "wordCount": 841, "dateModified": "2026-11-15", "keywords": "AI 模拟 面试, 岗位 题库, 面试 追问, 面试 复盘, AI 模拟 面试 流程, 面试 复盘 模板"}</script>
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "首页", "item": "https://a678-beep.github.io/ai-nav/"}, {"@type": "ListItem", "position": 2, "name": "对话AI", "item": "https://a678-beep.github.io/ai-nav/#/articles"}, {"@type": "ListItem", "position": 3, "name": "AI 模拟 面试 怎么练：题库、追问与复盘", "item": "https://a678-beep.github.io/ai-nav/a/chat-38-ai-mock-interview.html"}]}</script>
+<style>
+:root{--bg:#080b12;--panel:#111827;--line:#1f2937;--txt:#e6edf7;--txt2:#9aa8bd;--txt3:#6b7a90;--cyan:#5ad1ff;--violet:#a78bfa}
+*{box-sizing:border-box}body{margin:0;background:radial-gradient(900px 500px at 82% -8%,rgba(90,209,255,.16),transparent 60%),var(--bg);color:var(--txt);font-family:"Microsoft YaHei","PingFang SC",system-ui,sans-serif;line-height:1.8}
+a{color:inherit;text-decoration:none}
+.top{position:sticky;top:0;backdrop-filter:blur(12px);background:rgba(8,11,18,.85);border-bottom:1px solid var(--line)}
+.top-in{max-width:900px;margin:0 auto;padding:12px 20px;display:flex;align-items:center;gap:10px}
+.logo{display:flex;align-items:center;gap:9px;font-weight:800}
+.logo .mark{width:30px;height:30px;border-radius:9px;background:linear-gradient(135deg,var(--cyan),var(--violet));display:grid;place-items:center;color:#04121c;font-weight:900}
+.top-in .back{margin-left:auto;color:var(--txt2);font-size:13px}
+main{max-width:900px;margin:0 auto;padding:28px 20px 60px}
+h1{font-size:28px;line-height:1.4;margin:8px 0 10px}
+.meta{color:var(--txt3);font-size:12.5px;margin-bottom:22px;display:flex;gap:8px;flex-wrap:wrap}
+.content{font-size:15.5px;color:#cfd9e6}
+.content h2{font-size:20px;color:var(--txt);margin:28px 0 10px}
+.content h3{font-size:17px;color:var(--txt);margin:22px 0 8px}
+.content p{margin:12px 0}
+.content li{margin:6px 0}
+.content code{background:rgba(120,180,255,.12);padding:1px 6px;border-radius:5px;font-family:Consolas,monospace;font-size:13px}
+.content pre{background:#0a1018;border:1px solid var(--line);border-radius:10px;padding:12px;overflow:auto}
+.content blockquote{border-left:3px solid var(--cyan);padding:4px 14px;color:var(--txt2);margin:16px 0}
+.ad-slot{margin:26px 0;min-height:100px;border:1px dashed rgba(120,140,170,.35);border-radius:12px;display:flex;align-items:center;justify-content:center;color:var(--txt3);font-size:12px;text-align:center;background:rgba(17,24,39,.55)}
+.ad-slot small{display:block;font-size:10.5px;opacity:.7}
+.bread{color:var(--txt3);font-size:12.5px;margin-bottom:6px}
+.bread a{color:var(--cyan)}
+footer{border-top:1px solid var(--line);color:var(--txt3);font-size:12.5px;text-align:center;padding:20px}
+.related{margin:34px 0 10px;border-top:1px solid var(--line);padding-top:18px}.related h2{font-size:16px;color:var(--txt);margin:0 0 10px}.related ul{list-style:none;padding:0;margin:0}.related li{margin:8px 0}.related a{color:var(--cyan);font-size:14px}
+.tool-link{margin:14px 0 0}
+.tlinks a{display:inline-block;margin:0 8px 8px 0;padding:6px 12px;border:1px solid rgba(90,209,255,.25);border-radius:8px;font-size:13px;color:var(--cyan);background:rgba(90,209,255,.06)}
+.tlinks a:hover{background:rgba(90,209,255,.15)}
+.sec{margin:26px 0}
+.sec h2{font-size:17px;color:var(--txt);margin:0 0 10px}
+.tool-link a{display:inline-block;font-size:13px;color:var(--txt2);border:1px solid var(--line);border-radius:8px;padding:7px 12px}
+.tool-link a:hover{color:var(--txt);border-color:rgba(90,209,255,.45)}
+.top-in .back{padding:6px 0}
+.bread a{display:inline-block;padding:6px 0}
+.sec li a{display:inline-block;padding:5px 0}
+.sib a{padding:8px 12px}
+.cats a{display:inline-block;margin:0 8px 8px 0;padding:6px 12px;border:1px solid var(--line);border-radius:8px;font-size:13px;color:var(--txt2)}
+.cats a:hover{color:var(--txt);border-color:rgba(90,209,255,.45)}
+.cats h2{font-size:17px;margin:22px 0 10px}
+@media(max-width:640px){h1{font-size:22px}main{padding:20px 16px 40px}
+.related a,.tlinks a,.tool-link a,footer a,.sib a{min-height:36px;display:inline-flex;align-items:center}
+.list a{padding:14px 14px}
+td a{display:inline-block;padding:8px 0}
+.note a{display:inline-block;padding:7px 0}
+}
+</style>
+</head>
+<body>
+<header class="top"><div class="top-in">
+  <a class="logo" href="../index.html"><span class="mark">✦</span>星籁 AI 导航</a>
+  <a class="back" href="../index.html">← 返回首页</a>
+</div></header>
+<main>
+  <div class="bread"><a href="../index.html">首页</a> / <a href="../chat/index.html">对话AI</a></div>
+  <h1>AI 模拟 面试 怎么练：题库、追问与复盘</h1>
+  <div class="meta"><span>对话AI</span><span>·</span><span>更新于 2026-11-15</span><span>·</span><span>AI 模拟 面试, 岗位 题库, 面试 追问, 面试 复盘, AI 模拟 面试 流程, 面试 复盘 模板</span></div>
+  <article class="content"><p>三月底投了 26 份简历，收到 4 个面试，第一场技术面 40 分钟就哑火：项目里 QPS 翻十倍那段，我只答了“加了缓存”，面试官追问两句取舍，我接不下去。找同事模拟要凑时间，我改用 AI 练，两周面完 4 场，3 场进二面。AI 模拟 面试 的价值不是给标准答案，而是有人肯按同一道题连环追问。</p>
+<h2>题库：按 JD 出 30 道，再砍到 12 道</h2>
+<p>第一步是从招聘页复制 JD 原文，连同简历里的项目段落一起给模型，让它按项目深挖四成、技术基础四成、行为面两成的比例出 30 道题，每题写清考察点和三层追问方向。提示词里限定：只能引用 JD 原句和简历里的技术名词，不许出“你怎么看加班”这类通用题。30 道我会删掉一半多，留下 12 道最可能被问的，做成表格。避坑一：模型默认参考答案太模板，要求每题必须写出具体数字和取舍理由，写不出就打回；避坑二：一道题的背景别超过 300 字，给多了它会自己编项目。AI 模拟 面试 流程 的第一步是把题压到能背下来，不是越多越好。</p>
+<h2>追问：两层连环问，练到不卡壳</h2>
+<div class="ad-slot" data-ad="article-mid"><div>广告位（文章中部）<small>AdSense / 广告联盟代码插入点 · 建议 728×90 / 移动端 320×100</small></div><!-- 在这里粘贴广告代码 --></div>
+<p>追问才是 AI 模拟 面试 的关键。我让模型扮演面试官，规则写死三条：每题至少追两层、不许换题、追的问题必须针对我答案里的数字和边界。练习直接开语音通话，一轮 25 分钟答 8 题。有题是“订单量从 2 千涨到 2 万怎么扛”，我第一次答“加机器”，被追问成本翻几倍时卡住；练到第三遍，才把分库分表、缓存击穿、限流阈值 8000 串成一条线。避坑一：模型太客气，答错也说“很好”，提示词里要求每题给 1 到 10 分，低于 6 分直接指出错在哪；避坑二：聊过 20 轮它会忘设定，每 8 题新开一轮，把错题摘要贴回去。</p>
+<h2>复盘：一张四列表，改三条高频缺口</h2>
+<p>每练完一段，我把录音转成文字，10 分钟音频用飞书妙记转写约 1 分钟。然后套 面试 复盘 模板：左列问题，中列我答到的点，右列面试官会追的缺口，最后一列补丁答案。四场复盘下来，高频缺口前三是项目数据说不清口径、方案没有取舍、反问只问薪资。模板里给每条缺口标出现次数，出现 3 次以上才值得改。案例：同一道缓存题，第一版复盘只写“答得不好”，第三版才具体到“没说缓存击穿时降级到本地缓存 30 秒”，改完第四场同题答满。避坑：转写稿别整段丢给模型总结，它会美化你的表达，只让它标缺口。</p>
+<h2>总结</h2>
+<p>我的顺序是：按 JD 建 12 道题的库，用语音追问练到不卡壳，最后照 面试 复盘 模板 改三条高频缺口。AI 模拟 面试 流程 跑熟后，一场练 25 分钟顶自己瞎想两小时；复盘模板比刷新题值钱，同一个坑不踩第二次就够了。别指望模型替你答，把它当成不会累也不给你面子的面试官。</p></article>
+  
+  <section class="related"><h2>同类教程</h2><ul><li><a href="chat-39-ai-contract-clause-extraction.html">AI 合同 条款 提取：12 个字段与人工核对</a></li><li><a href="chat-40-multi-account-ai-management.html">团队多账号 AI 管理：权限、额度与合规</a></li><li><a href="chat-41-ai-hallucination-detection.html">AI 回答 幻觉 识别：三步核查加提示词</a></li><li><a href="chat-01-chatgpt-4o-voice-english-speaking.html">ChatGPT 4o 语音对话 练英语口语实测</a></li><li><a href="chat-02-claude-37-sonnet-long-document-summary.html">Claude 3.7 Sonnet 长文档总结法</a></li></ul><p class="tool-link"><a href="../index.html">查看 对话AI 工具与其它教程 →</a> <a href="../t/errors/">AI 报错解决 →</a> <a href="../t/pricing/">AI 工具价格 →</a></p></section>
+  <footer>© 2026 星籁 Stellara · <a href="../privacy.html">隐私政策</a> · <a href="../sitemap.xml">站点地图</a></footer>
+</main>
+</body>
+</html>

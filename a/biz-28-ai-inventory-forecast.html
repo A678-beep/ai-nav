@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>库存 预测 AI：表格建 30 天补货模型实战 · 星籁</title>
+<meta name="description" content="320 个 SKU 的宠物用品店，去年双十一缺货率 11%，仓库同时压着 43 万的货，两头堵。今年用飞书多维表格存数据，配一个 AI 写的脚本跑 30 天预测，三个月后缺货率 4%，库存周转天数从 68 降到 52。库">
+<meta name="keywords" content="库存 预测 AI, 库存 预测 方法, 补货 模型, 需求 预测, 库存 预测 表格, 安全 库存 计算 公式">
+<meta name="robots" content="index,follow">
+
+<link rel="canonical" href="https://a678-beep.github.io/ai-nav/a/biz-28-ai-inventory-forecast.html">
+<meta property="og:type" content="article">
+<meta property="og:title" content="库存 预测 AI：表格建 30 天补货模型实战">
+<meta property="og:description" content="320 个 SKU 的宠物用品店，去年双十一缺货率 11%，仓库同时压着 43 万的货，两头堵。今年用飞书多维表格存数据，配一个 AI 写的脚本跑 30 天预测，三个月后缺货率 4%，库存周转天数从 68 降到 52。库">
+<meta property="og:url" content="https://a678-beep.github.io/ai-nav/a/biz-28-ai-inventory-forecast.html">
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "Article", "headline": "库存 预测 AI：表格建 30 天补货模型实战", "inLanguage": "zh-CN", "datePublished": "2026-11-15", "author": {"@type": "Organization", "name": "星籁 Stellara"}, "publisher": {"@type": "Organization", "name": "星籁 Stellara"}, "mainEntityOfPage": "https://a678-beep.github.io/ai-nav/a/biz-28-ai-inventory-forecast.html", "articleSection": "商业效率", "wordCount": 824, "dateModified": "2026-11-15", "keywords": "库存 预测 AI, 库存 预测 方法, 补货 模型, 需求 预测, 库存 预测 表格, 安全 库存 计算 公式"}</script>
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "首页", "item": "https://a678-beep.github.io/ai-nav/"}, {"@type": "ListItem", "position": 2, "name": "商业效率", "item": "https://a678-beep.github.io/ai-nav/#/articles"}, {"@type": "ListItem", "position": 3, "name": "库存 预测 AI：表格建 30 天补货模型实战", "item": "https://a678-beep.github.io/ai-nav/a/biz-28-ai-inventory-forecast.html"}]}</script>
+<style>
+:root{--bg:#080b12;--panel:#111827;--line:#1f2937;--txt:#e6edf7;--txt2:#9aa8bd;--txt3:#6b7a90;--cyan:#5ad1ff;--violet:#a78bfa}
+*{box-sizing:border-box}body{margin:0;background:radial-gradient(900px 500px at 82% -8%,rgba(90,209,255,.16),transparent 60%),var(--bg);color:var(--txt);font-family:"Microsoft YaHei","PingFang SC",system-ui,sans-serif;line-height:1.8}
+a{color:inherit;text-decoration:none}
+.top{position:sticky;top:0;backdrop-filter:blur(12px);background:rgba(8,11,18,.85);border-bottom:1px solid var(--line)}
+.top-in{max-width:900px;margin:0 auto;padding:12px 20px;display:flex;align-items:center;gap:10px}
+.logo{display:flex;align-items:center;gap:9px;font-weight:800}
+.logo .mark{width:30px;height:30px;border-radius:9px;background:linear-gradient(135deg,var(--cyan),var(--violet));display:grid;place-items:center;color:#04121c;font-weight:900}
+.top-in .back{margin-left:auto;color:var(--txt2);font-size:13px}
+main{max-width:900px;margin:0 auto;padding:28px 20px 60px}
+h1{font-size:28px;line-height:1.4;margin:8px 0 10px}
+.meta{color:var(--txt3);font-size:12.5px;margin-bottom:22px;display:flex;gap:8px;flex-wrap:wrap}
+.content{font-size:15.5px;color:#cfd9e6}
+.content h2{font-size:20px;color:var(--txt);margin:28px 0 10px}
+.content h3{font-size:17px;color:var(--txt);margin:22px 0 8px}
+.content p{margin:12px 0}
+.content li{margin:6px 0}
+.content code{background:rgba(120,180,255,.12);padding:1px 6px;border-radius:5px;font-family:Consolas,monospace;font-size:13px}
+.content pre{background:#0a1018;border:1px solid var(--line);border-radius:10px;padding:12px;overflow:auto}
+.content blockquote{border-left:3px solid var(--cyan);padding:4px 14px;color:var(--txt2);margin:16px 0}
+.ad-slot{margin:26px 0;min-height:100px;border:1px dashed rgba(120,140,170,.35);border-radius:12px;display:flex;align-items:center;justify-content:center;color:var(--txt3);font-size:12px;text-align:center;background:rgba(17,24,39,.55)}
+.ad-slot small{display:block;font-size:10.5px;opacity:.7}
+.bread{color:var(--txt3);font-size:12.5px;margin-bottom:6px}
+.bread a{color:var(--cyan)}
+footer{border-top:1px solid var(--line);color:var(--txt3);font-size:12.5px;text-align:center;padding:20px}
+.related{margin:34px 0 10px;border-top:1px solid var(--line);padding-top:18px}.related h2{font-size:16px;color:var(--txt);margin:0 0 10px}.related ul{list-style:none;padding:0;margin:0}.related li{margin:8px 0}.related a{color:var(--cyan);font-size:14px}
+.tool-link{margin:14px 0 0}
+.tlinks a{display:inline-block;margin:0 8px 8px 0;padding:6px 12px;border:1px solid rgba(90,209,255,.25);border-radius:8px;font-size:13px;color:var(--cyan);background:rgba(90,209,255,.06)}
+.tlinks a:hover{background:rgba(90,209,255,.15)}
+.sec{margin:26px 0}
+.sec h2{font-size:17px;color:var(--txt);margin:0 0 10px}
+.tool-link a{display:inline-block;font-size:13px;color:var(--txt2);border:1px solid var(--line);border-radius:8px;padding:7px 12px}
+.tool-link a:hover{color:var(--txt);border-color:rgba(90,209,255,.45)}
+.top-in .back{padding:6px 0}
+.bread a{display:inline-block;padding:6px 0}
+.sec li a{display:inline-block;padding:5px 0}
+.sib a{padding:8px 12px}
+.cats a{display:inline-block;margin:0 8px 8px 0;padding:6px 12px;border:1px solid var(--line);border-radius:8px;font-size:13px;color:var(--txt2)}
+.cats a:hover{color:var(--txt);border-color:rgba(90,209,255,.45)}
+.cats h2{font-size:17px;margin:22px 0 10px}
+@media(max-width:640px){h1{font-size:22px}main{padding:20px 16px 40px}
+.related a,.tlinks a,.tool-link a,footer a,.sib a{min-height:36px;display:inline-flex;align-items:center}
+.list a{padding:14px 14px}
+td a{display:inline-block;padding:8px 0}
+.note a{display:inline-block;padding:7px 0}
+}
+</style>
+</head>
+<body>
+<header class="top"><div class="top-in">
+  <a class="logo" href="../index.html"><span class="mark">✦</span>星籁 AI 导航</a>
+  <a class="back" href="../index.html">← 返回首页</a>
+</div></header>
+<main>
+  <div class="bread"><a href="../index.html">首页</a> / <a href="../biz/index.html">商业效率</a></div>
+  <h1>库存 预测 AI：表格建 30 天补货模型实战</h1>
+  <div class="meta"><span>商业效率</span><span>·</span><span>更新于 2026-11-15</span><span>·</span><span>库存 预测 AI, 库存 预测 方法, 补货 模型, 需求 预测, 库存 预测 表格, 安全 库存 计算 公式</span></div>
+  <article class="content"><p>320 个 SKU 的宠物用品店，去年双十一缺货率 11%，仓库同时压着 43 万的货，两头堵。今年用飞书多维表格存数据，配一个 AI 写的脚本跑 30 天预测，三个月后缺货率 4%，库存周转天数从 68 降到 52。库存 预测 AI 不是让模型猜明天卖几件，是把历史数据、安全库存、补货点串成一条每周跑得完的流程。</p>
+<h2>一、先凑齐字段再谈模型</h2>
+<p>表里固定 10 列：SKU 编码、日期、销量、退货量、期末库存、在途库存、促销标记、节假日标记、采购提前期、MOQ。历史至少 24 个月，只有 12 个月季节性学不准。粒度选周，320 个 SKU 每天跑噪声太大，周汇总反而稳。两处修正必须先做：缺货那几天销量记空白而不是 0，按前后 4 周同星期均值补；赠品和刷单订单从销量里剔掉，退货次日扣减。库存 预测 表格 里最常见的脏数据是 SKU 编码，同一个商品三种写法，跑出来的结果全是错的，先花一天统一成商品 ID，别用名称。</p>
+<h2>二、模型选择与误差指标</h2>
+<div class="ad-slot" data-ad="article-mid"><div>广告位（文章中部）<small>AdSense / 广告联盟代码插入点 · 建议 728×90 / 移动端 320×100</small></div><!-- 在这里粘贴广告代码 --></div>
+<p>库存 预测 AI 不用一上来就上大模型。A 类 46 个 SKU 占销售额 70%，逐条跑 Excel 的 FORECAST.ETS，季节性设 52、置信区间 95%；B 类按品类做 4 周移动平均；C 类量小，用品类周均值加固定安全库存。AI 的位置是写脚本和解释异常，不是替你判断数据：把字段说明贴给 ChatGPT 或 DeepSeek，让它生成 pandas 清洗和预测代码，跑完把误差表贴回去问哪几个 SKU 偏得离谱。误差看三个数：wMAPE、Bias、误差分布。目标 A 类 wMAPE 25%、整体 35% 以内，Bias 卡在正负 10%。补货点用公式：安全库存 = 1.65 × 日需求标准差 × √提前期，补货点 = 日均需求 × 提前期 + 安全库存。提前期 7 天、日均 20 件、标准差 6 件，安全库存 1.65×6×2.65 约 26 件，补货点 166 件。这个 安全 库存 计算 公式 比拍脑袋稳，前提是标准差按同期数据算，别拿全年平均糊弄。</p>
+<h2>三、每周跑一次和三条坑</h2>
+<p>现在每周一早上跑：上周实际对预测、Bias、缺货 SKU 数、A 类偏差前五。三个月数据是缺货率 11% 到 4%、周转 68 天到 52 天、压货 43 万到 29 万、A 类 wMAPE 38% 到 19%。大促前两周把服务水平从 95% 提到 97.5%，z 值从 1.65 换 2.05，安全库存整体抬高约 24%，结束后两周调回。三条坑：一是别每天重训，周更足够，天天改参数只会把预测改乱；二是 MAPE 在低销量 SKU 上会爆，分母太小，改看 wMAPE 或 MASE；三是节假日日历要按中国法定假日加调休手工标，模型默认按周末不营业的判断，春节和双十一错得最贵。库存 预测 表格 也好、脚本也好，都只负责算，补货单还得人审，见过模型把新品预测成 0，漏单比错单贵。</p>
+<h2>总结</h2>
+<p>库存 预测 AI 的落地顺序：先修数据，再选模型，最后算补货点。320 个 SKU 里真正要精细预测的只有 A 类 46 个，其余按品类聚合就够。每周花一小时对误差，比换更贵的模型值。库存 预测 表格 字段定死，安全 库存 计算 公式 别手工改，这条链才稳。</p></article>
+  <div class="sec"><h2>文中提到的工具</h2><p class="tlinks"><a href="../tool/deepseek/">DeepSeek →</a><a href="../tool/chatgpt/">ChatGPT →</a><a href="../tool/feishu-bitable/">飞书多维表格 →</a></p></div>
+  <section class="related"><h2>同类教程</h2><ul><li><a href="biz-29-training-courseware.html">培训 课件 生成：四段拆解从大纲到案例</a></li><li><a href="biz-30-dashboard-building.html">数据 看板 搭建：先定 9 个指标再选图</a></li><li><a href="biz-31-team-subscription-worth.html">团队版 AI 订阅值不值：10 人团队账单实录</a></li><li><a href="biz-32-client-followup-automation.html">客户 回访 自动化：3 个触发点与话术模板</a></li><li><a href="biz-33-quote-negotiation-scripts.html">报价 谈判 话术：锚点、让步阶梯与异议拆解</a></li></ul><p class="tool-link"><a href="../index.html">查看 商业效率 工具与其它教程 →</a> <a href="../t/errors/">AI 报错解决 →</a> <a href="../t/pricing/">AI 工具价格 →</a></p></section>
+  <footer>© 2026 星籁 Stellara · <a href="../privacy.html">隐私政策</a> · <a href="../sitemap.xml">站点地图</a></footer>
+</main>
+</body>
+</html>

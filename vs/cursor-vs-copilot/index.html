@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Cursor vs GitHub Copilot：怎么选（价格与适用场景对比）· 星籁 AI 导航</title>
+<meta name="description" content="要整库理解、多文件改写和 agent 工作流，Cursor 更强；只要 IDE 内补全、企业合规与便宜，Copilot 够用。">
+<meta name="robots" content="index,follow">
+<link rel="canonical" href="https://a678-beep.github.io/ai-nav/vs/cursor-vs-copilot/">
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "Article", "headline": "Cursor vs GitHub Copilot：怎么选", "inLanguage": "zh-CN", "mainEntityOfPage": "https://a678-beep.github.io/ai-nav/vs/cursor-vs-copilot/"}</script>
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "FAQPage", "inLanguage": "zh-CN", "mainEntity": [{"@type": "Question", "name": "Cursor 和 GitHub Copilot 哪个更好？", "acceptedAnswer": {"@type": "Answer", "text": "要整库理解、多文件改写和 agent 工作流，Cursor 更强；只要 IDE 内补全、企业合规与便宜，Copilot 够用。"}}, {"@type": "Question", "name": "Cursor 和 GitHub Copilot 价格差多少？", "acceptedAnswer": {"@type": "Answer", "text": "按当前公开信息：免费版功能受限；Cursor Pro 20 美元/月，团队版按人计费，具体以官网为准。；学生和开源维护者可免费使用；个人版 10 美元/月，企业版按席位计费，以官网为准。。具体以官网为准。"}}]}</script>
+<style>
+:root{--bg:#080b12;--panel:#111827;--line:#1f2937;--txt:#e6edf7;--txt2:#9aa8bd;--txt3:#6b7a90;--cyan:#5ad1ff;--violet:#a78bfa}
+*{box-sizing:border-box}body{margin:0;background:radial-gradient(900px 500px at 82% -8%,rgba(90,209,255,.16),transparent 60%),var(--bg);color:var(--txt);font-family:"Microsoft YaHei","PingFang SC",system-ui,sans-serif;line-height:1.8}
+a{color:inherit;text-decoration:none}
+.top{position:sticky;top:0;backdrop-filter:blur(12px);background:rgba(8,11,18,.85);border-bottom:1px solid var(--line)}
+.top-in{max-width:900px;margin:0 auto;padding:12px 20px;display:flex;align-items:center;gap:10px}
+.logo{display:flex;align-items:center;gap:9px;font-weight:800}
+.logo .mark{width:30px;height:30px;border-radius:9px;background:linear-gradient(135deg,var(--cyan),var(--violet));display:grid;place-items:center;color:#04121c;font-weight:900}
+.top-in .back{margin-left:auto;color:var(--txt2);font-size:13px}
+main{max-width:900px;margin:0 auto;padding:28px 20px 60px}
+h1{font-size:28px;line-height:1.4;margin:8px 0 10px}
+.meta{color:var(--txt3);font-size:12.5px;margin-bottom:22px;display:flex;gap:8px;flex-wrap:wrap}
+.content{font-size:15.5px;color:#cfd9e6}
+.content h2{font-size:20px;color:var(--txt);margin:28px 0 10px}
+.content h3{font-size:17px;color:var(--txt);margin:22px 0 8px}
+.content p{margin:12px 0}
+.content li{margin:6px 0}
+.content code{background:rgba(120,180,255,.12);padding:1px 6px;border-radius:5px;font-family:Consolas,monospace;font-size:13px}
+.content pre{background:#0a1018;border:1px solid var(--line);border-radius:10px;padding:12px;overflow:auto}
+.content blockquote{border-left:3px solid var(--cyan);padding:4px 14px;color:var(--txt2);margin:16px 0}
+.ad-slot{margin:26px 0;min-height:100px;border:1px dashed rgba(120,140,170,.35);border-radius:12px;display:flex;align-items:center;justify-content:center;color:var(--txt3);font-size:12px;text-align:center;background:rgba(17,24,39,.55)}
+.ad-slot small{display:block;font-size:10.5px;opacity:.7}
+.bread{color:var(--txt3);font-size:12.5px;margin-bottom:6px}
+.bread a{color:var(--cyan)}
+footer{border-top:1px solid var(--line);color:var(--txt3);font-size:12.5px;text-align:center;padding:20px}
+.related{margin:34px 0 10px;border-top:1px solid var(--line);padding-top:18px}.related h2{font-size:16px;color:var(--txt);margin:0 0 10px}.related ul{list-style:none;padding:0;margin:0}.related li{margin:8px 0}.related a{color:var(--cyan);font-size:14px}
+.tool-link{margin:14px 0 0}
+.tlinks a{display:inline-block;margin:0 8px 8px 0;padding:6px 12px;border:1px solid rgba(90,209,255,.25);border-radius:8px;font-size:13px;color:var(--cyan);background:rgba(90,209,255,.06)}
+.tlinks a:hover{background:rgba(90,209,255,.15)}
+.sec{margin:26px 0}
+.sec h2{font-size:17px;color:var(--txt);margin:0 0 10px}
+.tool-link a{display:inline-block;font-size:13px;color:var(--txt2);border:1px solid var(--line);border-radius:8px;padding:7px 12px}
+.tool-link a:hover{color:var(--txt);border-color:rgba(90,209,255,.45)}
+.top-in .back{padding:6px 0}
+.bread a{display:inline-block;padding:6px 0}
+.sec li a{display:inline-block;padding:5px 0}
+.sib a{padding:8px 12px}
+.cats a{display:inline-block;margin:0 8px 8px 0;padding:6px 12px;border:1px solid var(--line);border-radius:8px;font-size:13px;color:var(--txt2)}
+.cats a:hover{color:var(--txt);border-color:rgba(90,209,255,.45)}
+.cats h2{font-size:17px;margin:22px 0 10px}
+@media(max-width:640px){h1{font-size:22px}main{padding:20px 16px 40px}
+.related a,.tlinks a,.tool-link a,footer a,.sib a{min-height:36px;display:inline-flex;align-items:center}
+.list a{padding:14px 14px}
+td a{display:inline-block;padding:8px 0}
+.note a{display:inline-block;padding:7px 0}
+}
+
+table{width:100%;border-collapse:collapse;margin:18px 0;font-size:13.5px}
+th,td{border-bottom:1px solid var(--line);padding:10px 8px;vertical-align:top;text-align:left}
+th{color:var(--txt2);font-size:12.5px;background:rgba(255,255,255,.03)}
+td:first-child{color:var(--txt3);white-space:nowrap}
+.sec ul{margin:0;padding-left:20px}.sec li{margin:7px 0;font-size:14px}.sec li a{color:var(--cyan)}
+.others a{display:inline-block;margin:0 8px 8px 0;padding:6px 12px;border:1px solid var(--line);border-radius:8px;font-size:13px;color:var(--txt2)}
+.others a:hover{color:var(--txt);border-color:rgba(90,209,255,.45)}
+</style>
+</head>
+<body>
+<header class="top"><div class="top-in">
+  <a class="logo" href="../../index.html"><span class="mark">✦</span>星籁 AI 导航</a>
+  <a class="back" href="../../index.html">← 回首页</a>
+</div></header>
+<main>
+  <div class="bread"><a href="../../index.html">首页</a> / <a href="../../vs/">工具对比</a> / Cursor vs GitHub Copilot</div>
+  <h1>Cursor vs GitHub Copilot：怎么选</h1>
+  <p style="font-size:15px;color:var(--txt)">要整库理解、多文件改写和 agent 工作流，Cursor 更强；只要 IDE 内补全、企业合规与便宜，Copilot 够用。</p>
+  <table>
+    <tr><th>维度</th><th><a href="../../tool/cursor/" style="color:var(--cyan)">Cursor</a></th><th><a href="../../tool/github-copilot/" style="color:var(--cyan)">GitHub Copilot</a></th></tr>
+    <tr><td>定位</td><td>集成 AI 的代码编辑器，支持整库理解改写</td><td>GitHub 官方 AI 编程助手，补全与问答</td></tr><tr><td>免费额度</td><td>免费版功能受限；Cursor Pro 20 美元/月，团队版按人计费，具体以官网为准。</td><td>学生和开源维护者可免费使用；个人版 10 美元/月，企业版按席位计费，以官网为准。</td></tr><tr><td>适合</td><td>需要在真实项目里跨文件改代码的开发者，适合重构、补测试和快速读懂陌生代码库，兼做日常编辑。</td><td>日常在 VS Code 或 JetBrains 里写代码的开发者，适合补全重复代码、生成单测和解释片段。</td></tr>
+  </table>
+  <div class="sec"><h2>什么时候别选它</h2><p><b>不选 Cursor：</b>公司强制要求合规审计、或者只需轻量补全，Cursor 的订阅和本地索引不一定过审。</p><p><b>不选 GitHub Copilot：</b>要做整库重构、跨文件改写和 agent 流程，Copilot 的单文件补全模式撑不住。</p></div>
+  <div class="sec"><h2>本站相关教程</h2><ul><li><a href="../../a/code-01-cursor-tab-settings.html">Cursor Tab 补全 设置：五个开关的取舍</a></li><li><a href="../../a/code-03-github-copilot-unit-tests.html">GitHub Copilot 单元测试：三步法</a></li><li><a href="../../a/code-06-codeium-free-plan-compare.html">Codeium 免费版 对比：补全不限量卡在哪</a></li><li><a href="../../a/code-15-cursor-chinese-garbled.html">Cursor 中文乱码：3 步改回 UTF-8</a></li><li><a href="../../a/code-20-cursor-index-stuck.html">Cursor 索引 卡住：先查目录再重建</a></li><li><a href="../../a/code-21-copilot-login-failed.html">Copilot 无法 登录：代理与账号权限</a></li></ul></div>
+  <p style="font-size:13.5px;color:var(--txt2)">想先看价格？<a href="../../pricing/" style="color:var(--cyan)">42 款工具的价格对比 →</a>　｜　<a href="../../tool/cursor/" style="color:var(--cyan)">Cursor 详情</a>　<a href="../../tool/github-copilot/" style="color:var(--cyan)">GitHub Copilot 详情</a></p>
+  <h2>Cursor 和 GitHub Copilot 哪个更好？</h2><p>要整库理解、多文件改写和 agent 工作流，Cursor 更强；只要 IDE 内补全、企业合规与便宜，Copilot 够用。</p><h2>Cursor 和 GitHub Copilot 价格差多少？</h2><p>按当前公开信息：免费版功能受限；Cursor Pro 20 美元/月，团队版按人计费，具体以官网为准。；学生和开源维护者可免费使用；个人版 10 美元/月，企业版按席位计费，以官网为准。。具体以官网为准。</p>
+  <div class="sec others"><h2>其它对比</h2></div>
+  <p style="font-size:13px;color:var(--txt3)"><a href="../../vs/">全部对比 →</a> · <a href="../../sitemap.xml">站点地图</a></p>
+</main>
+</body>
+</html>

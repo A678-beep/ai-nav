@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>数据库 设计 AI：范式、索引和评审清单 · 星籁</title>
+<meta name="description" content="上季度接了个社区团购的库存系统，14 张表让 AI 先出初稿。DDL 语法全对，但金额用了 float、状态用 varchar(10)、手机号没唯一索引，还有一张表把商品名冗余进订单明细。DBA 一眼看出四个坑。之后我把">
+<meta name="keywords" content="数据库 设计 AI, 表结构 评审, 三范式, 索引 设计, 数据库 范式 检查, 联合索引 最左前缀">
+<meta name="robots" content="index,follow">
+
+<link rel="canonical" href="https://a678-beep.github.io/ai-nav/a/code-32-database-design-ai.html">
+<meta property="og:type" content="article">
+<meta property="og:title" content="数据库 设计 AI：范式、索引和评审清单">
+<meta property="og:description" content="上季度接了个社区团购的库存系统，14 张表让 AI 先出初稿。DDL 语法全对，但金额用了 float、状态用 varchar(10)、手机号没唯一索引，还有一张表把商品名冗余进订单明细。DBA 一眼看出四个坑。之后我把">
+<meta property="og:url" content="https://a678-beep.github.io/ai-nav/a/code-32-database-design-ai.html">
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "Article", "headline": "数据库 设计 AI：范式、索引和评审清单", "inLanguage": "zh-CN", "datePublished": "2026-11-15", "author": {"@type": "Organization", "name": "星籁 Stellara"}, "publisher": {"@type": "Organization", "name": "星籁 Stellara"}, "mainEntityOfPage": "https://a678-beep.github.io/ai-nav/a/code-32-database-design-ai.html", "articleSection": "编程助手", "wordCount": 849, "dateModified": "2026-11-15", "keywords": "数据库 设计 AI, 表结构 评审, 三范式, 索引 设计, 数据库 范式 检查, 联合索引 最左前缀"}</script>
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "首页", "item": "https://a678-beep.github.io/ai-nav/"}, {"@type": "ListItem", "position": 2, "name": "编程助手", "item": "https://a678-beep.github.io/ai-nav/#/articles"}, {"@type": "ListItem", "position": 3, "name": "数据库 设计 AI：范式、索引和评审清单", "item": "https://a678-beep.github.io/ai-nav/a/code-32-database-design-ai.html"}]}</script>
+<style>
+:root{--bg:#080b12;--panel:#111827;--line:#1f2937;--txt:#e6edf7;--txt2:#9aa8bd;--txt3:#6b7a90;--cyan:#5ad1ff;--violet:#a78bfa}
+*{box-sizing:border-box}body{margin:0;background:radial-gradient(900px 500px at 82% -8%,rgba(90,209,255,.16),transparent 60%),var(--bg);color:var(--txt);font-family:"Microsoft YaHei","PingFang SC",system-ui,sans-serif;line-height:1.8}
+a{color:inherit;text-decoration:none}
+.top{position:sticky;top:0;backdrop-filter:blur(12px);background:rgba(8,11,18,.85);border-bottom:1px solid var(--line)}
+.top-in{max-width:900px;margin:0 auto;padding:12px 20px;display:flex;align-items:center;gap:10px}
+.logo{display:flex;align-items:center;gap:9px;font-weight:800}
+.logo .mark{width:30px;height:30px;border-radius:9px;background:linear-gradient(135deg,var(--cyan),var(--violet));display:grid;place-items:center;color:#04121c;font-weight:900}
+.top-in .back{margin-left:auto;color:var(--txt2);font-size:13px}
+main{max-width:900px;margin:0 auto;padding:28px 20px 60px}
+h1{font-size:28px;line-height:1.4;margin:8px 0 10px}
+.meta{color:var(--txt3);font-size:12.5px;margin-bottom:22px;display:flex;gap:8px;flex-wrap:wrap}
+.content{font-size:15.5px;color:#cfd9e6}
+.content h2{font-size:20px;color:var(--txt);margin:28px 0 10px}
+.content h3{font-size:17px;color:var(--txt);margin:22px 0 8px}
+.content p{margin:12px 0}
+.content li{margin:6px 0}
+.content code{background:rgba(120,180,255,.12);padding:1px 6px;border-radius:5px;font-family:Consolas,monospace;font-size:13px}
+.content pre{background:#0a1018;border:1px solid var(--line);border-radius:10px;padding:12px;overflow:auto}
+.content blockquote{border-left:3px solid var(--cyan);padding:4px 14px;color:var(--txt2);margin:16px 0}
+.ad-slot{margin:26px 0;min-height:100px;border:1px dashed rgba(120,140,170,.35);border-radius:12px;display:flex;align-items:center;justify-content:center;color:var(--txt3);font-size:12px;text-align:center;background:rgba(17,24,39,.55)}
+.ad-slot small{display:block;font-size:10.5px;opacity:.7}
+.bread{color:var(--txt3);font-size:12.5px;margin-bottom:6px}
+.bread a{color:var(--cyan)}
+footer{border-top:1px solid var(--line);color:var(--txt3);font-size:12.5px;text-align:center;padding:20px}
+.related{margin:34px 0 10px;border-top:1px solid var(--line);padding-top:18px}.related h2{font-size:16px;color:var(--txt);margin:0 0 10px}.related ul{list-style:none;padding:0;margin:0}.related li{margin:8px 0}.related a{color:var(--cyan);font-size:14px}
+.tool-link{margin:14px 0 0}
+.tlinks a{display:inline-block;margin:0 8px 8px 0;padding:6px 12px;border:1px solid rgba(90,209,255,.25);border-radius:8px;font-size:13px;color:var(--cyan);background:rgba(90,209,255,.06)}
+.tlinks a:hover{background:rgba(90,209,255,.15)}
+.sec{margin:26px 0}
+.sec h2{font-size:17px;color:var(--txt);margin:0 0 10px}
+.tool-link a{display:inline-block;font-size:13px;color:var(--txt2);border:1px solid var(--line);border-radius:8px;padding:7px 12px}
+.tool-link a:hover{color:var(--txt);border-color:rgba(90,209,255,.45)}
+.top-in .back{padding:6px 0}
+.bread a{display:inline-block;padding:6px 0}
+.sec li a{display:inline-block;padding:5px 0}
+.sib a{padding:8px 12px}
+.cats a{display:inline-block;margin:0 8px 8px 0;padding:6px 12px;border:1px solid var(--line);border-radius:8px;font-size:13px;color:var(--txt2)}
+.cats a:hover{color:var(--txt);border-color:rgba(90,209,255,.45)}
+.cats h2{font-size:17px;margin:22px 0 10px}
+@media(max-width:640px){h1{font-size:22px}main{padding:20px 16px 40px}
+.related a,.tlinks a,.tool-link a,footer a,.sib a{min-height:36px;display:inline-flex;align-items:center}
+.list a{padding:14px 14px}
+td a{display:inline-block;padding:8px 0}
+.note a{display:inline-block;padding:7px 0}
+}
+</style>
+</head>
+<body>
+<header class="top"><div class="top-in">
+  <a class="logo" href="../index.html"><span class="mark">✦</span>星籁 AI 导航</a>
+  <a class="back" href="../index.html">← 返回首页</a>
+</div></header>
+<main>
+  <div class="bread"><a href="../index.html">首页</a> / <a href="../code/index.html">编程助手</a></div>
+  <h1>数据库 设计 AI：范式、索引和评审清单</h1>
+  <div class="meta"><span>编程助手</span><span>·</span><span>更新于 2026-11-15</span><span>·</span><span>数据库 设计 AI, 表结构 评审, 三范式, 索引 设计, 数据库 范式 检查, 联合索引 最左前缀</span></div>
+  <article class="content"><p>上季度接了个社区团购的库存系统，14 张表让 AI 先出初稿。DDL 语法全对，但金额用了 float、状态用 varchar(10)、手机号没唯一索引，还有一张表把商品名冗余进订单明细。DBA 一眼看出四个坑。之后我把 数据库 设计 AI 的流程固定成四步：给业务上下文、让模型出实体和 DDL、逐条做范式检查、用 EXPLAIN 验索引。这套流程跑完，订单表 87 万行查询从 1.2 秒压到 38 毫秒。</p>
+<h2>先给业务上下文，别只丢一句建表</h2>
+<p>数据库 设计 AI 的第一步不是建表，是把业务讲清楚。直接说“帮我设计订单表”，模型只会给教科书结构。我固定给四段信息：谁写谁读、读写比、一年数据量、硬约束。比如“自提点订单每天 2400 单，读写约 8 比 2，一年 87 万行，金额精确到分，退款保留三年”。提示词要求它先输出实体关系表，列主键、业务唯一键、读写比，再给 MySQL 8.0 的 CREATE TABLE，字段注释写中文。这版提问把实体从 18 张压到 14 张，合并两张一对一表，拆开一个塞满 JSON 的配置表。避坑一：别让模型顺手加 timestamps 和软删除字段，日志表根本不需要 updated_at。</p>
+<h2>三范式逐条问，反范式只放在汇总表</h2>
+<div class="ad-slot" data-ad="article-mid"><div>广告位（文章中部）<small>AdSense / 广告联盟代码插入点 · 建议 728×90 / 移动端 320×100</small></div><!-- 在这里粘贴广告代码 --></div>
+<p>数据库 范式 检查 我固定问三句：有没有非主属性只依赖部分主键（2NF）、有没有字段依赖别的表的非主键字段（3NF）、有没有把多值塞进一个字段（1NF）。初稿把商品名和单价冗余进订单明细，报表不用 join 确实快，但商品改名后历史订单显示新名字，我加了 product_name_snapshot，确认收货时冻结。金额改 decimal(10,2)，手机号 varchar(20) 加唯一索引，状态用 tinyint 并在数据字典列枚举。反范式是 数据库 设计 AI 里最容易被带偏的一步，我只开给日汇总表，源表保持三范式。这套 数据库 范式 检查 跑下来，14 张表改出 6 处，比上线改表便宜得多。</p>
+<h2>索引设计看读写比，评审清单八条</h2>
+<p>索引 设计 不能只问“加什么索引”，先给读写比：这张表 8 比 2，加索引会拖慢写入。联合索引 最左前缀 我让模型自己解释：按 store_id、status、created_at 过滤就建这三列，区分度高的列放前，范围列放最后。它初稿给每个 where 字段建单列索引，87 万行表上 9 个索引，写入从 1200 TPS 掉到 700，砍到 3 个联合索引后回到 1100。EXPLAIN 在从库验证：type 从 ALL 变 ref，rows 从 87 万降到 412，测前先 ANALYZE TABLE。表结构 评审 清单八条：主键、业务唯一键、金额类型、时间类型、字符集 utf8mb4、索引数量、外键策略、软删除。评审由后端和 DBA 各过一遍，模型只当出稿人。避坑二：别信它建议的深分页优化方案，也别在写多表上堆索引。</p>
+<h2>总结</h2>
+<p>数据库 设计 AI 的顺序别颠倒：业务上下文、实体和 DDL、数据库 范式 检查、索引设计与 EXPLAIN 验证、评审清单八条。两个不要：不要拿 AI 的 DDL 直接建表，不要让模型替你决定哪里反范式。联合索引 最左前缀 和 索引 设计 这两块，模型能讲原理，顺序和读写比得你给。订单表返工三轮后，87 万行查询稳定在 38 毫秒。</p></article>
+  
+  <section class="related"><h2>同类教程</h2><ul><li><a href="code-33-log-analysis-ai.html">日志 分析 AI：先聚合再让模型定位故障</a></li><li><a href="code-34-ai-crawler-compliance.html">AI 写 爬虫 合规：三条线加一张检查表</a></li><li><a href="code-35-dependency-upgrade-ai.html">依赖 升级 AI：破坏性变更与分批回归</a></li><li><a href="code-36-performance-analysis-ai.html">性能 分析 AI：火焰图、指标与优化验证</a></li><li><a href="code-37-mock-data-generation.html">Mock 数据 生成 规则：字段、关联与脱敏</a></li></ul><p class="tool-link"><a href="../index.html">查看 编程助手 工具与其它教程 →</a> <a href="../t/pricing/">AI 工具价格 →</a> <a href="../t/params/">参数与配置 →</a></p></section>
+  <footer>© 2026 星籁 Stellara · <a href="../privacy.html">隐私政策</a> · <a href="../sitemap.xml">站点地图</a></footer>
+</main>
+</body>
+</html>

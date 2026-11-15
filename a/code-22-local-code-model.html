@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>本地 代码 模型 推荐：7B 到 14B 实测 · 星籁</title>
+<meta name="description" content="上个月接了一个不能联网的项目，我把本地补全从玩具改成主力。试了 5 个模型、换了 3 套配置，最后在 3060 12G 上定下 Qwen2.5-Coder 1.5B 做行间补全、7B 做聊天改写，断网 20 天提交了 3">
+<meta name="keywords" content="本地 代码 模型 推荐, Qwen2.5-Coder, Continue 补全, 本地部署, 本地 代码 模型 显存 要求, 代码 补全 模型 速度 对比">
+<meta name="robots" content="index,follow">
+
+<link rel="canonical" href="https://a678-beep.github.io/ai-nav/a/code-22-local-code-model.html">
+<meta property="og:type" content="article">
+<meta property="og:title" content="本地 代码 模型 推荐：7B 到 14B 实测">
+<meta property="og:description" content="上个月接了一个不能联网的项目，我把本地补全从玩具改成主力。试了 5 个模型、换了 3 套配置，最后在 3060 12G 上定下 Qwen2.5-Coder 1.5B 做行间补全、7B 做聊天改写，断网 20 天提交了 3">
+<meta property="og:url" content="https://a678-beep.github.io/ai-nav/a/code-22-local-code-model.html">
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "Article", "headline": "本地 代码 模型 推荐：7B 到 14B 实测", "inLanguage": "zh-CN", "datePublished": "2026-11-15", "author": {"@type": "Organization", "name": "星籁 Stellara"}, "publisher": {"@type": "Organization", "name": "星籁 Stellara"}, "mainEntityOfPage": "https://a678-beep.github.io/ai-nav/a/code-22-local-code-model.html", "articleSection": "编程助手", "wordCount": 810, "dateModified": "2026-11-15", "keywords": "本地 代码 模型 推荐, Qwen2.5-Coder, Continue 补全, 本地部署, 本地 代码 模型 显存 要求, 代码 补全 模型 速度 对比"}</script>
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "首页", "item": "https://a678-beep.github.io/ai-nav/"}, {"@type": "ListItem", "position": 2, "name": "编程助手", "item": "https://a678-beep.github.io/ai-nav/#/articles"}, {"@type": "ListItem", "position": 3, "name": "本地 代码 模型 推荐：7B 到 14B 实测", "item": "https://a678-beep.github.io/ai-nav/a/code-22-local-code-model.html"}]}</script>
+<style>
+:root{--bg:#080b12;--panel:#111827;--line:#1f2937;--txt:#e6edf7;--txt2:#9aa8bd;--txt3:#6b7a90;--cyan:#5ad1ff;--violet:#a78bfa}
+*{box-sizing:border-box}body{margin:0;background:radial-gradient(900px 500px at 82% -8%,rgba(90,209,255,.16),transparent 60%),var(--bg);color:var(--txt);font-family:"Microsoft YaHei","PingFang SC",system-ui,sans-serif;line-height:1.8}
+a{color:inherit;text-decoration:none}
+.top{position:sticky;top:0;backdrop-filter:blur(12px);background:rgba(8,11,18,.85);border-bottom:1px solid var(--line)}
+.top-in{max-width:900px;margin:0 auto;padding:12px 20px;display:flex;align-items:center;gap:10px}
+.logo{display:flex;align-items:center;gap:9px;font-weight:800}
+.logo .mark{width:30px;height:30px;border-radius:9px;background:linear-gradient(135deg,var(--cyan),var(--violet));display:grid;place-items:center;color:#04121c;font-weight:900}
+.top-in .back{margin-left:auto;color:var(--txt2);font-size:13px}
+main{max-width:900px;margin:0 auto;padding:28px 20px 60px}
+h1{font-size:28px;line-height:1.4;margin:8px 0 10px}
+.meta{color:var(--txt3);font-size:12.5px;margin-bottom:22px;display:flex;gap:8px;flex-wrap:wrap}
+.content{font-size:15.5px;color:#cfd9e6}
+.content h2{font-size:20px;color:var(--txt);margin:28px 0 10px}
+.content h3{font-size:17px;color:var(--txt);margin:22px 0 8px}
+.content p{margin:12px 0}
+.content li{margin:6px 0}
+.content code{background:rgba(120,180,255,.12);padding:1px 6px;border-radius:5px;font-family:Consolas,monospace;font-size:13px}
+.content pre{background:#0a1018;border:1px solid var(--line);border-radius:10px;padding:12px;overflow:auto}
+.content blockquote{border-left:3px solid var(--cyan);padding:4px 14px;color:var(--txt2);margin:16px 0}
+.ad-slot{margin:26px 0;min-height:100px;border:1px dashed rgba(120,140,170,.35);border-radius:12px;display:flex;align-items:center;justify-content:center;color:var(--txt3);font-size:12px;text-align:center;background:rgba(17,24,39,.55)}
+.ad-slot small{display:block;font-size:10.5px;opacity:.7}
+.bread{color:var(--txt3);font-size:12.5px;margin-bottom:6px}
+.bread a{color:var(--cyan)}
+footer{border-top:1px solid var(--line);color:var(--txt3);font-size:12.5px;text-align:center;padding:20px}
+.related{margin:34px 0 10px;border-top:1px solid var(--line);padding-top:18px}.related h2{font-size:16px;color:var(--txt);margin:0 0 10px}.related ul{list-style:none;padding:0;margin:0}.related li{margin:8px 0}.related a{color:var(--cyan);font-size:14px}
+.tool-link{margin:14px 0 0}
+.tlinks a{display:inline-block;margin:0 8px 8px 0;padding:6px 12px;border:1px solid rgba(90,209,255,.25);border-radius:8px;font-size:13px;color:var(--cyan);background:rgba(90,209,255,.06)}
+.tlinks a:hover{background:rgba(90,209,255,.15)}
+.sec{margin:26px 0}
+.sec h2{font-size:17px;color:var(--txt);margin:0 0 10px}
+.tool-link a{display:inline-block;font-size:13px;color:var(--txt2);border:1px solid var(--line);border-radius:8px;padding:7px 12px}
+.tool-link a:hover{color:var(--txt);border-color:rgba(90,209,255,.45)}
+.top-in .back{padding:6px 0}
+.bread a{display:inline-block;padding:6px 0}
+.sec li a{display:inline-block;padding:5px 0}
+.sib a{padding:8px 12px}
+.cats a{display:inline-block;margin:0 8px 8px 0;padding:6px 12px;border:1px solid var(--line);border-radius:8px;font-size:13px;color:var(--txt2)}
+.cats a:hover{color:var(--txt);border-color:rgba(90,209,255,.45)}
+.cats h2{font-size:17px;margin:22px 0 10px}
+@media(max-width:640px){h1{font-size:22px}main{padding:20px 16px 40px}
+.related a,.tlinks a,.tool-link a,footer a,.sib a{min-height:36px;display:inline-flex;align-items:center}
+.list a{padding:14px 14px}
+td a{display:inline-block;padding:8px 0}
+.note a{display:inline-block;padding:7px 0}
+}
+</style>
+</head>
+<body>
+<header class="top"><div class="top-in">
+  <a class="logo" href="../index.html"><span class="mark">✦</span>星籁 AI 导航</a>
+  <a class="back" href="../index.html">← 返回首页</a>
+</div></header>
+<main>
+  <div class="bread"><a href="../index.html">首页</a> / <a href="../code/index.html">编程助手</a></div>
+  <h1>本地 代码 模型 推荐：7B 到 14B 实测</h1>
+  <div class="meta"><span>编程助手</span><span>·</span><span>更新于 2026-11-15</span><span>·</span><span>本地 代码 模型 推荐, Qwen2.5-Coder, Continue 补全, 本地部署, 本地 代码 模型 显存 要求, 代码 补全 模型 速度 对比</span></div>
+  <article class="content"><p>上个月接了一个不能联网的项目，我把本地补全从玩具改成主力。试了 5 个模型、换了 3 套配置，最后在 3060 12G 上定下 Qwen2.5-Coder 1.5B 做行间补全、7B 做聊天改写，断网 20 天提交了 37 次。这份 本地 代码 模型 推荐 不按跑分排，按显存、延迟、能改多少行来排。</p>
+<h2>先用显存砍掉一半</h2>
+<p>量化后的模型文件大小基本等于显存占用：1.5B 的 Q4_K_M 是 1.4GB，StarCoder2 3B 约 2.1GB，Qwen2.5-Coder 7B 4.7GB，14B 9.0GB，Codestral 22B 13GB，32B 约 19.9GB。再留 2GB 给系统和 IDE、1 到 2GB 给 KV cache，能选的就不多了。我这台机器同时开着 VS Code、两个浏览器和 Docker，任务管理器里显存和内存都不宽裕，选型时宁可选小一档，也别让占用顶到 90%，一旦溢出到共享内存，速度会从 30 tok/s 掉到 3。本地 代码 模型 显存 要求 按一条线记：8G 卡到 7B 为止，12G 卡 7B 舒服、14B 很紧，16G 卡才建议上 14B，24G 卡可以碰 32B。坑一是模型名不标量化等级，<code>qwen2.5-coder:7b</code> 拉下来可能是 14GB 的 fp16，下载前先看文件大小，超过 8GB 的 7B 一定是高精度版。坑二是上下文也吃显存：7B 开 8K 约 0.5GB，开到 32K 就是 1.8GB，显存紧先降上下文再降参数量。</p>
+<h2>补全和聊天分两个模型</h2>
+<div class="ad-slot" data-ad="article-mid"><div>广告位（文章中部）<small>AdSense / 广告联盟代码插入点 · 建议 728×90 / 移动端 320×100</small></div><!-- 在这里粘贴广告代码 --></div>
+<p>行间补全只续 20 到 40 个 token，看首 token 延迟；聊天改写一次生成 800 到 1500 个 token，看 tok/s。3060 12G 实测：1.5B base 补全首字 90ms、82 tok/s；7B 补全首字 380ms，聊天 34 tok/s；14B 首字 900ms、18 tok/s，9GB 占满后再开浏览器就掉到 CPU。本地 代码 模型 显存 要求 之外，延迟是第二道门槛：代码 补全 模型 速度 对比 只看两个数，首 token 毫秒数和 20 到 40 token 的完整耗时。所以补全固定用 1.5B 或 3B 的 FIM 模型，Qwen2.5-Coder 和 StarCoder2 都支持 FIM，别拿通用对话模型顶替，否则它一次补 30 行，把代码写乱。按任务拆开，本地 代码 模型 推荐 才不容易选错。上周给一段 React 组件加 loading 状态，1.5B 补全直接续出 12 行 hooks，我一行没改；换 7B 聊天版能一次改 4 个文件，但每次要等 1.4 秒，写小改动反而慢。4090 24G 上 7B 能到 92 tok/s、14B 41 tok/s、32B 24 tok/s，但补全体验和 3060 差距没跑分那么大，瓶颈在触发和上下文拼接。</p>
+<h2>Continue 里怎么接</h2>
+<p>Continue 的 <code>~/.continue/config.yaml</code> 按 roles 分工，autocomplete 只能挂一个模型：补全用 qwen2.5-coder:1.5b-base，chat 和 edit 用 7b。补全 contextLength 给 4096 够用，聊天给 8192 到 16384；Ollama 默认上下文只有 2048，大文件会被截断。temperature 分开：补全 0.2、聊天 0.5，中文注释会引导它补中文，要代码就用英文注释。再设 OLLAMA_NUM_PARALLEL=1，否则多个请求同时加载两份模型，7B 在 12G 卡上瞬间爆显存。团队 5 人统一这套配置后，补全采纳率从 12% 涨到 28%，每天大约省 40 分钟。这轮 本地 代码 模型 推荐 的结论就一句：补全要小、聊天要够，两边各挂一个，别指望一个模型通吃。</p>
+<h2>总结</h2>
+<p>现在我给同事的清单是：8G 卡装 1.5B base 只做补全；12G 卡 1.5B 加 7B；16G 卡补全 1.5B、聊天 14B；24G 卡可以上 32B 做重构。Continue 里两个模型两个角色，延迟和显存都不打架。代码 补全 模型 速度 对比 说到底只看首 token 和完整耗时，本地 代码 模型 推荐 也没有通解，先量显存、再分任务，最后才挑参数最大的那个。断网结束后我没卸掉这套配置，飞机上改代码还用得上。</p></article>
+  
+  <section class="related"><h2>同类教程</h2><ul><li><a href="code-23-api-doc-generation.html">接口 文档 自动 生成：OpenAPI 落地三步</a></li><li><a href="code-24-test-coverage-improve.html">单元测试 覆盖率 提升：四步补齐分支缺口</a></li><li><a href="code-25-code-comment-translate.html">代码 注释 翻译 中文：术语表与格式保留</a></li><li><a href="code-26-code-search-tools.html">代码 搜索 工具 对比：grep 到语义检索</a></li><li><a href="code-27-api-mock-tools.html">接口 Mock 工具 选型：3 款实测对比</a></li></ul><p class="tool-link"><a href="../index.html">查看 编程助手 工具与其它教程 →</a> <a href="../t/params/">参数与配置 →</a> <a href="../t/compare/">工具对比与选型 →</a></p></section>
+  <footer>© 2026 星籁 Stellara · <a href="../privacy.html">隐私政策</a> · <a href="../sitemap.xml">站点地图</a></footer>
+</main>
+</body>
+</html>

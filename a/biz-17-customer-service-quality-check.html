@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>客服 质检 AI 怎么定抽样比例和扣分项 · 星籁</title>
+<meta name="description" content="我们客服团队 12 个人，一个月 6.8 万条会话。以前质检组两个人，每人每天抽 10 条，一个月 400 条，覆盖率 0.6%，问题基本靠投诉才发现。去年把客服 质检 AI 接进流程：全量过一遍，再人工复核 AI 标出">
+<meta name="keywords" content="客服 质检 AI, AI 客服质检, 会话质检 提示词, 客服质检 报表, 客服质检抽样比例, 客服质检评分标准">
+<meta name="robots" content="index,follow">
+
+<link rel="canonical" href="https://a678-beep.github.io/ai-nav/a/biz-17-customer-service-quality-check.html">
+<meta property="og:type" content="article">
+<meta property="og:title" content="客服 质检 AI 怎么定抽样比例和扣分项">
+<meta property="og:description" content="我们客服团队 12 个人，一个月 6.8 万条会话。以前质检组两个人，每人每天抽 10 条，一个月 400 条，覆盖率 0.6%，问题基本靠投诉才发现。去年把客服 质检 AI 接进流程：全量过一遍，再人工复核 AI 标出">
+<meta property="og:url" content="https://a678-beep.github.io/ai-nav/a/biz-17-customer-service-quality-check.html">
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "Article", "headline": "客服 质检 AI 怎么定抽样比例和扣分项", "inLanguage": "zh-CN", "datePublished": "2026-11-15", "author": {"@type": "Organization", "name": "星籁 Stellara"}, "publisher": {"@type": "Organization", "name": "星籁 Stellara"}, "mainEntityOfPage": "https://a678-beep.github.io/ai-nav/a/biz-17-customer-service-quality-check.html", "articleSection": "商业效率", "wordCount": 840, "dateModified": "2026-11-15", "keywords": "客服 质检 AI, AI 客服质检, 会话质检 提示词, 客服质检 报表, 客服质检抽样比例, 客服质检评分标准"}</script>
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "首页", "item": "https://a678-beep.github.io/ai-nav/"}, {"@type": "ListItem", "position": 2, "name": "商业效率", "item": "https://a678-beep.github.io/ai-nav/#/articles"}, {"@type": "ListItem", "position": 3, "name": "客服 质检 AI 怎么定抽样比例和扣分项", "item": "https://a678-beep.github.io/ai-nav/a/biz-17-customer-service-quality-check.html"}]}</script>
+<style>
+:root{--bg:#080b12;--panel:#111827;--line:#1f2937;--txt:#e6edf7;--txt2:#9aa8bd;--txt3:#6b7a90;--cyan:#5ad1ff;--violet:#a78bfa}
+*{box-sizing:border-box}body{margin:0;background:radial-gradient(900px 500px at 82% -8%,rgba(90,209,255,.16),transparent 60%),var(--bg);color:var(--txt);font-family:"Microsoft YaHei","PingFang SC",system-ui,sans-serif;line-height:1.8}
+a{color:inherit;text-decoration:none}
+.top{position:sticky;top:0;backdrop-filter:blur(12px);background:rgba(8,11,18,.85);border-bottom:1px solid var(--line)}
+.top-in{max-width:900px;margin:0 auto;padding:12px 20px;display:flex;align-items:center;gap:10px}
+.logo{display:flex;align-items:center;gap:9px;font-weight:800}
+.logo .mark{width:30px;height:30px;border-radius:9px;background:linear-gradient(135deg,var(--cyan),var(--violet));display:grid;place-items:center;color:#04121c;font-weight:900}
+.top-in .back{margin-left:auto;color:var(--txt2);font-size:13px}
+main{max-width:900px;margin:0 auto;padding:28px 20px 60px}
+h1{font-size:28px;line-height:1.4;margin:8px 0 10px}
+.meta{color:var(--txt3);font-size:12.5px;margin-bottom:22px;display:flex;gap:8px;flex-wrap:wrap}
+.content{font-size:15.5px;color:#cfd9e6}
+.content h2{font-size:20px;color:var(--txt);margin:28px 0 10px}
+.content h3{font-size:17px;color:var(--txt);margin:22px 0 8px}
+.content p{margin:12px 0}
+.content li{margin:6px 0}
+.content code{background:rgba(120,180,255,.12);padding:1px 6px;border-radius:5px;font-family:Consolas,monospace;font-size:13px}
+.content pre{background:#0a1018;border:1px solid var(--line);border-radius:10px;padding:12px;overflow:auto}
+.content blockquote{border-left:3px solid var(--cyan);padding:4px 14px;color:var(--txt2);margin:16px 0}
+.ad-slot{margin:26px 0;min-height:100px;border:1px dashed rgba(120,140,170,.35);border-radius:12px;display:flex;align-items:center;justify-content:center;color:var(--txt3);font-size:12px;text-align:center;background:rgba(17,24,39,.55)}
+.ad-slot small{display:block;font-size:10.5px;opacity:.7}
+.bread{color:var(--txt3);font-size:12.5px;margin-bottom:6px}
+.bread a{color:var(--cyan)}
+footer{border-top:1px solid var(--line);color:var(--txt3);font-size:12.5px;text-align:center;padding:20px}
+.related{margin:34px 0 10px;border-top:1px solid var(--line);padding-top:18px}.related h2{font-size:16px;color:var(--txt);margin:0 0 10px}.related ul{list-style:none;padding:0;margin:0}.related li{margin:8px 0}.related a{color:var(--cyan);font-size:14px}
+.tool-link{margin:14px 0 0}
+.tlinks a{display:inline-block;margin:0 8px 8px 0;padding:6px 12px;border:1px solid rgba(90,209,255,.25);border-radius:8px;font-size:13px;color:var(--cyan);background:rgba(90,209,255,.06)}
+.tlinks a:hover{background:rgba(90,209,255,.15)}
+.sec{margin:26px 0}
+.sec h2{font-size:17px;color:var(--txt);margin:0 0 10px}
+.tool-link a{display:inline-block;font-size:13px;color:var(--txt2);border:1px solid var(--line);border-radius:8px;padding:7px 12px}
+.tool-link a:hover{color:var(--txt);border-color:rgba(90,209,255,.45)}
+.top-in .back{padding:6px 0}
+.bread a{display:inline-block;padding:6px 0}
+.sec li a{display:inline-block;padding:5px 0}
+.sib a{padding:8px 12px}
+.cats a{display:inline-block;margin:0 8px 8px 0;padding:6px 12px;border:1px solid var(--line);border-radius:8px;font-size:13px;color:var(--txt2)}
+.cats a:hover{color:var(--txt);border-color:rgba(90,209,255,.45)}
+.cats h2{font-size:17px;margin:22px 0 10px}
+@media(max-width:640px){h1{font-size:22px}main{padding:20px 16px 40px}
+.related a,.tlinks a,.tool-link a,footer a,.sib a{min-height:36px;display:inline-flex;align-items:center}
+.list a{padding:14px 14px}
+td a{display:inline-block;padding:8px 0}
+.note a{display:inline-block;padding:7px 0}
+}
+</style>
+</head>
+<body>
+<header class="top"><div class="top-in">
+  <a class="logo" href="../index.html"><span class="mark">✦</span>星籁 AI 导航</a>
+  <a class="back" href="../index.html">← 返回首页</a>
+</div></header>
+<main>
+  <div class="bread"><a href="../index.html">首页</a> / <a href="../biz/index.html">商业效率</a></div>
+  <h1>客服 质检 AI 怎么定抽样比例和扣分项</h1>
+  <div class="meta"><span>商业效率</span><span>·</span><span>更新于 2026-11-15</span><span>·</span><span>客服 质检 AI, AI 客服质检, 会话质检 提示词, 客服质检 报表, 客服质检抽样比例, 客服质检评分标准</span></div>
+  <article class="content"><p>我们客服团队 12 个人，一个月 6.8 万条会话。以前质检组两个人，每人每天抽 10 条，一个月 400 条，覆盖率 0.6%，问题基本靠投诉才发现。去年把客服 质检 AI 接进流程：全量过一遍，再人工复核 AI 标出来的。第一个月 AI 标记 1460 条，复核确认 1120 条，问题率 1.6%，以前靠抽检根本碰不到。</p>
+<h2>一、质检项和评分标准先定死</h2>
+<p>客服质检评分标准我定 100 分、六项：信息准确 30 分、承诺边界 25 分、需求确认 15 分、情绪共情 10 分、开场规范 10 分、结束跟进 10 分。每项只判三档：满分、扣一半、零分。红线单独列：辱骂客户、承诺赔偿或时效超出授权、泄露其他客户信息，命中直接 0 分并转人工。响应时长、报工号这类客观项不交给模型，从系统日志用公式算，30 秒内满分、超过 90 秒扣 10 分；模型只判主观项，误判少一半。</p>
+<h2>二、抽样比例分层，人工只复核 400 条</h2>
+<div class="ad-slot" data-ad="article-mid"><div>广告位（文章中部）<small>AdSense / 广告联盟代码插入点 · 建议 728×90 / 移动端 320×100</small></div><!-- 在这里粘贴广告代码 --></div>
+<p>客服质检抽样比例分三层。第一层全量：投诉、退款、差评、超长会话、敏感词会话 100% 进质检，占 18% 左右。第二层分层抽样：新客服入职 3 个月内抽 30%，老客服抽 5%，大促月提到 10%。第三层人工复核：每月固定 400 条，300 条从 AI 标红里抽，100 条从 AI 判满分的白样本里随机抽，估漏判率。400 是按 95% 置信度、±5% 误差算的，月会话 6.8 万时最少要 384 条。前六周累计复核 2400 条，AI 和人工一致率 83%，补了 12 条示例话术进提示词，第二个月到 91%。客服 质检 AI 全量跑一个月 200 元出头，不到质检员月薪的 5%。</p>
+<h2>三、提示词和报表长什么样</h2>
+<p>会话质检 提示词我固定成一段：</p>
+<pre><code>你是电商客服质检员，按六项打分（满分 100）：
+信息准确 30、承诺边界 25、需求确认 15、情绪共情 10、开场 10、结束 10。
+只输出 JSON：总分、各项得分、问题列表（项、扣分、原文引用不超过 30 字）、是否红线。
+客户已投诉或要求退款而客服未先安抚，情绪项 0 分；
+客服承诺包退、当天发、赔偿，但知识库无对应条款，承诺项 0 分并标红线；
+证据不足的项给满分并标注待人工，禁止猜测。</code></pre>
+<p>客服质检 报表放飞书多维表格，一周一张，字段固定：会话 ID、客服、AI 总分、扣分项、是否红线、复核结论、复核人。每周只看四个数：均分、红线数、扣分项分布、AI 与人工一致率。一致率低于 85% 就改提示词，别急着挂绩效。第一个月扣分项分布里「结束跟进」占 41%，补了结束语模板后降到 19%。两个坑：会话超过 50 轮只喂前 6 轮和后 6 轮，省略中间会让模型误判需求没确认；手机号、地址送模型前先打码。</p>
+<h2>总结</h2>
+<p>客服 质检 AI 的价值不是替代质检员，是把 0.6% 的覆盖率拉到 100%，再让人工从 400 条复核里做判断。客服质检评分标准定死六项和红线、客服质检抽样比例按 30% 和 5% 分层、每周 400 条人工复核兜底，三件事做完质检才算跑起来。一致率稳定在 90% 以上再谈绩效，早了只会让客服觉得机器在挑刺。</p></article>
+  <div class="sec"><h2>文中提到的工具</h2><p class="tlinks"><a href="../tool/feishu-bitable/">飞书多维表格 →</a></p></div>
+  <section class="related"><h2>同类教程</h2><ul><li><a href="biz-18-weekly-report-automation.html">周报 自动 生成：4 个数据源 30 分钟出稿</a></li><li><a href="biz-19-n8n-node-error-troubleshoot.html">n8n 节点 报错 排查：5 类常见错误与重试</a></li><li><a href="biz-20-dify-retrieval-inaccurate.html">Dify 知识库 检索 不准：先改分块再重排</a></li><li><a href="biz-21-invoice-batch-verification.html">发票 批量 查验：386 张票一条流水线</a></li><li><a href="biz-22-contract-clause-compare.html">合同 条款 对比：AI 标出两版差异清单</a></li></ul><p class="tool-link"><a href="../index.html">查看 商业效率 工具与其它教程 →</a> <a href="../t/compare/">工具对比与选型 →</a></p></section>
+  <footer>© 2026 星籁 Stellara · <a href="../privacy.html">隐私政策</a> · <a href="../sitemap.xml">站点地图</a></footer>
+</main>
+</body>
+</html>

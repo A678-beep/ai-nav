@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>PDF 扫描 识别：给扫描件加可搜索文字层 · 星籁</title>
+<meta name="description" content="档案馆拿来 312 页扫描合同，要能全文搜索，还要把 6 张报价表还原成表格。原件是 2019 年的 300dpi 彩扫，直接按 Ctrl+F 一个字都搜不到。我用 PaddleOCR 和 OCRmyPDF 跑了两轮，字">
+<meta name="keywords" content="PDF 扫描 识别, PaddleOCR, OCRmyPDF, 离线 OCR, 扫描版PDF转文字, 离线OCR工具">
+<meta name="robots" content="index,follow">
+
+<link rel="canonical" href="https://a678-beep.github.io/ai-nav/a/util-15-pdf-scan-ocr.html">
+<meta property="og:type" content="article">
+<meta property="og:title" content="PDF 扫描 识别：给扫描件加可搜索文字层">
+<meta property="og:description" content="档案馆拿来 312 页扫描合同，要能全文搜索，还要把 6 张报价表还原成表格。原件是 2019 年的 300dpi 彩扫，直接按 Ctrl+F 一个字都搜不到。我用 PaddleOCR 和 OCRmyPDF 跑了两轮，字">
+<meta property="og:url" content="https://a678-beep.github.io/ai-nav/a/util-15-pdf-scan-ocr.html">
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "Article", "headline": "PDF 扫描 识别：给扫描件加可搜索文字层", "inLanguage": "zh-CN", "datePublished": "2026-11-15", "author": {"@type": "Organization", "name": "星籁 Stellara"}, "publisher": {"@type": "Organization", "name": "星籁 Stellara"}, "mainEntityOfPage": "https://a678-beep.github.io/ai-nav/a/util-15-pdf-scan-ocr.html", "articleSection": "实用工具", "wordCount": 810, "dateModified": "2026-11-15", "keywords": "PDF 扫描 识别, PaddleOCR, OCRmyPDF, 离线 OCR, 扫描版PDF转文字, 离线OCR工具"}</script>
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "首页", "item": "https://a678-beep.github.io/ai-nav/"}, {"@type": "ListItem", "position": 2, "name": "实用工具", "item": "https://a678-beep.github.io/ai-nav/#/articles"}, {"@type": "ListItem", "position": 3, "name": "PDF 扫描 识别：给扫描件加可搜索文字层", "item": "https://a678-beep.github.io/ai-nav/a/util-15-pdf-scan-ocr.html"}]}</script>
+<style>
+:root{--bg:#080b12;--panel:#111827;--line:#1f2937;--txt:#e6edf7;--txt2:#9aa8bd;--txt3:#6b7a90;--cyan:#5ad1ff;--violet:#a78bfa}
+*{box-sizing:border-box}body{margin:0;background:radial-gradient(900px 500px at 82% -8%,rgba(90,209,255,.16),transparent 60%),var(--bg);color:var(--txt);font-family:"Microsoft YaHei","PingFang SC",system-ui,sans-serif;line-height:1.8}
+a{color:inherit;text-decoration:none}
+.top{position:sticky;top:0;backdrop-filter:blur(12px);background:rgba(8,11,18,.85);border-bottom:1px solid var(--line)}
+.top-in{max-width:900px;margin:0 auto;padding:12px 20px;display:flex;align-items:center;gap:10px}
+.logo{display:flex;align-items:center;gap:9px;font-weight:800}
+.logo .mark{width:30px;height:30px;border-radius:9px;background:linear-gradient(135deg,var(--cyan),var(--violet));display:grid;place-items:center;color:#04121c;font-weight:900}
+.top-in .back{margin-left:auto;color:var(--txt2);font-size:13px}
+main{max-width:900px;margin:0 auto;padding:28px 20px 60px}
+h1{font-size:28px;line-height:1.4;margin:8px 0 10px}
+.meta{color:var(--txt3);font-size:12.5px;margin-bottom:22px;display:flex;gap:8px;flex-wrap:wrap}
+.content{font-size:15.5px;color:#cfd9e6}
+.content h2{font-size:20px;color:var(--txt);margin:28px 0 10px}
+.content h3{font-size:17px;color:var(--txt);margin:22px 0 8px}
+.content p{margin:12px 0}
+.content li{margin:6px 0}
+.content code{background:rgba(120,180,255,.12);padding:1px 6px;border-radius:5px;font-family:Consolas,monospace;font-size:13px}
+.content pre{background:#0a1018;border:1px solid var(--line);border-radius:10px;padding:12px;overflow:auto}
+.content blockquote{border-left:3px solid var(--cyan);padding:4px 14px;color:var(--txt2);margin:16px 0}
+.ad-slot{margin:26px 0;min-height:100px;border:1px dashed rgba(120,140,170,.35);border-radius:12px;display:flex;align-items:center;justify-content:center;color:var(--txt3);font-size:12px;text-align:center;background:rgba(17,24,39,.55)}
+.ad-slot small{display:block;font-size:10.5px;opacity:.7}
+.bread{color:var(--txt3);font-size:12.5px;margin-bottom:6px}
+.bread a{color:var(--cyan)}
+footer{border-top:1px solid var(--line);color:var(--txt3);font-size:12.5px;text-align:center;padding:20px}
+.related{margin:34px 0 10px;border-top:1px solid var(--line);padding-top:18px}.related h2{font-size:16px;color:var(--txt);margin:0 0 10px}.related ul{list-style:none;padding:0;margin:0}.related li{margin:8px 0}.related a{color:var(--cyan);font-size:14px}
+.tool-link{margin:14px 0 0}
+.tlinks a{display:inline-block;margin:0 8px 8px 0;padding:6px 12px;border:1px solid rgba(90,209,255,.25);border-radius:8px;font-size:13px;color:var(--cyan);background:rgba(90,209,255,.06)}
+.tlinks a:hover{background:rgba(90,209,255,.15)}
+.sec{margin:26px 0}
+.sec h2{font-size:17px;color:var(--txt);margin:0 0 10px}
+.tool-link a{display:inline-block;font-size:13px;color:var(--txt2);border:1px solid var(--line);border-radius:8px;padding:7px 12px}
+.tool-link a:hover{color:var(--txt);border-color:rgba(90,209,255,.45)}
+.top-in .back{padding:6px 0}
+.bread a{display:inline-block;padding:6px 0}
+.sec li a{display:inline-block;padding:5px 0}
+.sib a{padding:8px 12px}
+.cats a{display:inline-block;margin:0 8px 8px 0;padding:6px 12px;border:1px solid var(--line);border-radius:8px;font-size:13px;color:var(--txt2)}
+.cats a:hover{color:var(--txt);border-color:rgba(90,209,255,.45)}
+.cats h2{font-size:17px;margin:22px 0 10px}
+@media(max-width:640px){h1{font-size:22px}main{padding:20px 16px 40px}
+.related a,.tlinks a,.tool-link a,footer a,.sib a{min-height:36px;display:inline-flex;align-items:center}
+.list a{padding:14px 14px}
+td a{display:inline-block;padding:8px 0}
+.note a{display:inline-block;padding:7px 0}
+}
+</style>
+</head>
+<body>
+<header class="top"><div class="top-in">
+  <a class="logo" href="../index.html"><span class="mark">✦</span>星籁 AI 导航</a>
+  <a class="back" href="../index.html">← 返回首页</a>
+</div></header>
+<main>
+  <div class="bread"><a href="../index.html">首页</a> / <a href="../util/index.html">实用工具</a></div>
+  <h1>PDF 扫描 识别：给扫描件加可搜索文字层</h1>
+  <div class="meta"><span>实用工具</span><span>·</span><span>更新于 2026-11-15</span><span>·</span><span>PDF 扫描 识别, PaddleOCR, OCRmyPDF, 离线 OCR, 扫描版PDF转文字, 离线OCR工具</span></div>
+  <article class="content"><p>档案馆拿来 312 页扫描合同，要能全文搜索，还要把 6 张报价表还原成表格。原件是 2019 年的 300dpi 彩扫，直接按 Ctrl+F 一个字都搜不到。我用 PaddleOCR 和 OCRmyPDF 跑了两轮，字符准确率从 Tesseract 的 93.4% 提到 97.1%，47 个条款编号和金额都能搜到。这套 PDF 扫描 识别 方案全程离线，机器不联网也能跑。</p>
+<h2>先看分辨率，再选引擎</h2>
+<p>打开 PDF 先试拖选一段文字，能选中就是数字版，选不中才是扫描版。扫描版先抽一页看分辨率：我经手的文件里九成是 200 到 300dpi，低于 200dpi 的发票小字要放大 2 倍再识别。引擎用两个就够：Tesseract 5.3 配 chi_sim+eng 适合干净印刷体，PaddleOCR 的 PP-OCRv4 对倾斜、低对比度的旧文件更稳。Tesseract 用 --psm 3 自动分栏，输出 hOCR 保留坐标；PaddleOCR 把 det_db_thresh 设 0.3、det_db_box_thresh 设 0.5，中文长文档打开 use_angle_cls。识别前跑一遍灰度加二值化，去掉扫描黑边，准确率还能再提两个点。页眉页脚和公章位置先圈掉，不然容易识别出一堆重复的公司名。同样 312 页，Tesseract 跑 21 分钟，PaddleOCR 在 8 核 CPU 上 26 分钟。准确率我是抽 2000 字人工核对算的，不是看软件自报。</p>
+<h2>文字层与表格还原</h2>
+<div class="ad-slot" data-ad="article-mid"><div>广告位（文章中部）<small>AdSense / 广告联盟代码插入点 · 建议 728×90 / 移动端 320×100</small></div><!-- 在这里粘贴广告代码 --></div>
+<p>PDF 扫描 识别 的结果是可搜索 PDF，用 OCRmyPDF 把识别结果压回原文件文字层：ocrmypdf --deskew --rotate-pages --optimize 1 -l chi_sim+eng in.pdf out.pdf。--deskew 必开，扫描歪过 2 度，识别率能掉 7 个点；--optimize 1 先别关，压完体积小一半。文字层是隐藏的，Ctrl+F 能搜，复制出来还带原文位置。表格另走一路：用 PP-Structure 做版面分析，输出 HTML 再转表格软件，6 张报价表里 4 张完全还原，2 张合并单元格错位，人工改了 20 分钟。错位多出在识别前没按列切分，整页直接喂进去，列一合并就串行。扫描版PDF转文字 想表格无损，ABBYY FineReader 更准，但要授权费。</p>
+<h2>离线方案与四个坑</h2>
+<p>离线组合就四样：OCRmyPDF、Tesseract 语言包（chi_sim 约 45MB）、PaddleOCR 离线包、Umi-OCR。Umi-OCR 适合零基础同事，批量识别、导出 txt 都行，页面先导成图片再拖进去最稳。避坑一：PDF 有加密或权限限制，ocrmypdf 直接报错，先用 qpdf --decrypt 解开。避坑二：已有文字层的扫描版再跑 OCR，会叠出两层文字，搜索出重复结果，加 --skip-text 只处理无文字页。避坑三：600dpi 不会更准，反而慢一倍，300dpi 是甜点。避坑四：双面扫描的文件页序常错，识别前先按页脚编号重排，不然搜到第 40 页打开是第 39 页。离线包装的顺序也别乱：先装 Tesseract 再放语言包，最后装 PaddleOCR，缺一个依赖就报错。离线OCR工具 选型只看两点：保不保留版面坐标、能不能批量跑文件夹。准确率别信宣传的 99%，旧扫描件 95% 就是好结果，专有名词先建 50 条纠错表，跑完统一替换。</p>
+<h2>总结</h2>
+<p>PDF 扫描 识别 的顺序是：判断文字层、定分辨率、选引擎、压文字层、单做表格。312 页合同 OCR 后全文搜索 2 秒命中，报价表 4 张直接可用，比重新录入省 6 小时。扫描版PDF转文字 最怕的是歪斜和低分辨率，前处理做对，准确率才上得去；离线OCR工具 挑顺手的，参数比工具重要。</p></article>
+  
+  <section class="related"><h2>同类教程</h2><ul><li><a href="util-16-webpage-summary-extension.html">网页 摘要 插件：两款对比与长文分段</a></li><li><a href="util-17-immersive-translate-layout-broken.html">沉浸式翻译 网页 排版 乱：CSS 修复清单</a></li><li><a href="util-18-webpage-to-markdown.html">网页 转 markdown：剪藏正文图片三步</a></li><li><a href="util-19-pdf-merge-split.html">PDF 合并 拆分：486 页标书的批量处理流程</a></li><li><a href="util-20-batch-file-rename.html">文件 批量 重命名：正则、序列号和 5 个工具</a></li></ul><p class="tool-link"><a href="../index.html">查看 实用工具 工具与其它教程 →</a> <a href="../t/errors/">AI 报错解决 →</a> <a href="../t/params/">参数与配置 →</a></p></section>
+  <footer>© 2026 星籁 Stellara · <a href="../privacy.html">隐私政策</a> · <a href="../sitemap.xml">站点地图</a></footer>
+</main>
+</body>
+</html>

@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<title>Poe 多模型 成本对比 6000 点实测 · 星籁 AI 工具导航</title>
+<title>Poe 多模型 成本对比 6000 点实测 · 星籁</title>
 <meta name="description" content="做 Poe 多模型成本对比之前，我算过一笔账：每月 20 美元，给 6000 点计算额度，十来个模型随便切。用了两个月我发现，真正烧钱的不是模型多，而是拿贵模型干粗活。同一篇三千字文档总结，用不同模型跑，Poe 点数消耗">
 <meta name="keywords" content="Poe 多模型, 成本对比, 订阅点数, Poe 点数消耗, Poe 模型选择">
 <meta name="robots" content="index,follow">
@@ -13,7 +13,7 @@
 <meta property="og:title" content="Poe 多模型 成本对比 6000 点实测">
 <meta property="og:description" content="做 Poe 多模型成本对比之前，我算过一笔账：每月 20 美元，给 6000 点计算额度，十来个模型随便切。用了两个月我发现，真正烧钱的不是模型多，而是拿贵模型干粗活。同一篇三千字文档总结，用不同模型跑，Poe 点数消耗">
 <meta property="og:url" content="https://a678-beep.github.io/ai-nav/a/chat-13-poe-multi-model-cost-comparison.html">
-<script type="application/ld+json">{"@context": "https://schema.org", "@type": "Article", "headline": "Poe 多模型 成本对比 6000 点实测", "inLanguage": "zh-CN", "datePublished": "2026-11-15", "author": {"@type": "Organization", "name": "星籁 Stellara"}, "publisher": {"@type": "Organization", "name": "星籁 Stellara"}, "mainEntityOfPage": "https://a678-beep.github.io/ai-nav/a/chat-13-poe-multi-model-cost-comparison.html", "keywords": "Poe 多模型, 成本对比, 订阅点数, Poe 点数消耗, Poe 模型选择"}</script>
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "Article", "headline": "Poe 多模型 成本对比 6000 点实测", "inLanguage": "zh-CN", "datePublished": "2026-11-15", "author": {"@type": "Organization", "name": "星籁 Stellara"}, "publisher": {"@type": "Organization", "name": "星籁 Stellara"}, "mainEntityOfPage": "https://a678-beep.github.io/ai-nav/a/chat-13-poe-multi-model-cost-comparison.html", "articleSection": "对话AI", "wordCount": 797, "dateModified": "2026-11-15", "keywords": "Poe 多模型, 成本对比, 订阅点数, Poe 点数消耗, Poe 模型选择"}</script>
 <script type="application/ld+json">{"@context": "https://schema.org", "@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "首页", "item": "https://a678-beep.github.io/ai-nav/"}, {"@type": "ListItem", "position": 2, "name": "对话AI", "item": "https://a678-beep.github.io/ai-nav/#/articles"}, {"@type": "ListItem", "position": 3, "name": "Poe 多模型 成本对比 6000 点实测", "item": "https://a678-beep.github.io/ai-nav/a/chat-13-poe-multi-model-cost-comparison.html"}]}</script>
 <style>
 :root{--bg:#080b12;--panel:#111827;--line:#1f2937;--txt:#e6edf7;--txt2:#9aa8bd;--txt3:#6b7a90;--cyan:#5ad1ff;--violet:#a78bfa}
@@ -41,7 +41,26 @@ h1{font-size:28px;line-height:1.4;margin:8px 0 10px}
 .bread a{color:var(--cyan)}
 footer{border-top:1px solid var(--line);color:var(--txt3);font-size:12.5px;text-align:center;padding:20px}
 .related{margin:34px 0 10px;border-top:1px solid var(--line);padding-top:18px}.related h2{font-size:16px;color:var(--txt);margin:0 0 10px}.related ul{list-style:none;padding:0;margin:0}.related li{margin:8px 0}.related a{color:var(--cyan);font-size:14px}
-@media(max-width:640px){h1{font-size:22px}main{padding:20px 16px 40px}}
+.tool-link{margin:14px 0 0}
+.tlinks a{display:inline-block;margin:0 8px 8px 0;padding:6px 12px;border:1px solid rgba(90,209,255,.25);border-radius:8px;font-size:13px;color:var(--cyan);background:rgba(90,209,255,.06)}
+.tlinks a:hover{background:rgba(90,209,255,.15)}
+.sec{margin:26px 0}
+.sec h2{font-size:17px;color:var(--txt);margin:0 0 10px}
+.tool-link a{display:inline-block;font-size:13px;color:var(--txt2);border:1px solid var(--line);border-radius:8px;padding:7px 12px}
+.tool-link a:hover{color:var(--txt);border-color:rgba(90,209,255,.45)}
+.top-in .back{padding:6px 0}
+.bread a{display:inline-block;padding:6px 0}
+.sec li a{display:inline-block;padding:5px 0}
+.sib a{padding:8px 12px}
+.cats a{display:inline-block;margin:0 8px 8px 0;padding:6px 12px;border:1px solid var(--line);border-radius:8px;font-size:13px;color:var(--txt2)}
+.cats a:hover{color:var(--txt);border-color:rgba(90,209,255,.45)}
+.cats h2{font-size:17px;margin:22px 0 10px}
+@media(max-width:640px){h1{font-size:22px}main{padding:20px 16px 40px}
+.related a,.tlinks a,.tool-link a,footer a,.sib a{min-height:36px;display:inline-flex;align-items:center}
+.list a{padding:14px 14px}
+td a{display:inline-block;padding:8px 0}
+.note a{display:inline-block;padding:7px 0}
+}
 </style>
 </head>
 <body>
@@ -50,9 +69,9 @@ footer{border-top:1px solid var(--line);color:var(--txt3);font-size:12.5px;text-
   <a class="back" href="../index.html">← 返回首页</a>
 </div></header>
 <main>
-  <div class="bread"><a href="../index.html">首页</a> / <a href="../index.html#/articles">对话AI</a></div>
+  <div class="bread"><a href="../index.html">首页</a> / <a href="../chat/index.html">对话AI</a></div>
   <h1>Poe 多模型 成本对比 6000 点实测</h1>
-  <div class="meta"><span>对话AI</span><span>·</span><span>Poe 多模型, 成本对比, 订阅点数, Poe 点数消耗, Poe 模型选择</span></div>
+  <div class="meta"><span>对话AI</span><span>·</span><span>更新于 2026-11-15</span><span>·</span><span>Poe 多模型, 成本对比, 订阅点数, Poe 点数消耗, Poe 模型选择</span></div>
   <article class="content"><p>做 Poe 多模型成本对比之前，我算过一笔账：每月 20 美元，给 6000 点计算额度，十来个模型随便切。用了两个月我发现，真正烧钱的不是模型多，而是拿贵模型干粗活。同一篇三千字文档总结，用不同模型跑，Poe 点数消耗能差五倍，这个差距不摸清楚，六千点半个月就见底。</p>
 <h2>同一篇总结的消耗对比</h2>
 <p>我拿一篇三千字的行业报告做测试，固定提示词，只换模型。第一档是旗舰模型，单次总结大约吃掉一百点，订阅点数按每月六千点算，一个月只能跑六十次左右，平均一天两次。第二档是轻量模型，同样任务二三十点，一个月能跑两百多次。第三档是免费额度里的小模型，几乎不耗点数，但长文会截断，读到后面就开始编。结论很简单：粗读用轻量，精读用旗舰。每周五篇精读加二十篇粗读，点数刚好够用。Poe 点数消耗的关键变量不是字数，是模型单价和对话轮数，先把这两个数摸清再订阅。</p>
@@ -63,7 +82,8 @@ footer{border-top:1px solid var(--line);color:var(--txt3);font-size:12.5px;text-
 <p>一是点数不累计，月底清零，别指望攒着下个月用，重要任务当月跑完。二是不同模型定价不透明，同一个名字下面还可能分版本，Poe 模型选择前先看一眼单次提示，别默认点最上面的。三是取消订阅后剩余点数作废，年付便宜但一次付清，试错成本更高。另外别拿旗舰模型做格式整理和翻译这种机械活，同样的结果轻量模型能省四五倍点数。免费档每天给的点数更少，拿来试模型可以，别当主力。</p>
 <h2>总结</h2>
 <p>Poe 多模型成本对比的核心结论是分层用模型：机械任务用轻量，推理和长文用旗舰，一周按五加二十的比例分配，六千点刚好。先摸清 Poe 点数消耗，再谈值不值，订阅这件事最怕的是用贵模型堆量。Poe 模型选择没有标准答案，按你每周的精读篇数倒推，比看别人评测靠谱。订阅前先跑一周测试，把每篇的点数记下来，再决定开不开年付。</p></article>
-  <section class="related"><h2>同类教程</h2><ul><li><a href="chat-01-chatgpt-4o-voice-english-speaking.html">ChatGPT 4o 语音对话 练英语口语实测</a></li><li><a href="chat-02-claude-37-sonnet-long-document-summary.html">Claude 3.7 Sonnet 长文档总结法</a></li><li><a href="chat-03-deepseek-r1-local-deployment-vram.html">DeepSeek R1 本地部署 显存要求实录</a></li></ul></section>
+  
+  <section class="related"><h2>同类教程</h2><ul><li><a href="chat-14-characterai-character-card-writing.html">Character.AI 角色卡 写作实操</a></li><li><a href="chat-15-iflytek-spark-meeting-minutes-dialect.html">讯飞星火 会议纪要 方言转写流水线</a></li><li><a href="chat-16-chatgpt-connection-timeout.html">ChatGPT 连接超时 5 步排查记录</a></li><li><a href="chat-17-deepseek-api-pricing.html">DeepSeek API 价格与缓存命中实测</a></li><li><a href="chat-18-llm-context-length-compare.html">大模型 上下文 长度 对比：5 家实测选型</a></li></ul><p class="tool-link"><a href="../index.html">查看 对话AI 工具与其它教程 →</a> <a href="../t/pricing/">AI 工具价格 →</a> <a href="../t/params/">参数与配置 →</a></p></section>
   <footer>© 2026 星籁 Stellara · <a href="../privacy.html">隐私政策</a> · <a href="../sitemap.xml">站点地图</a></footer>
 </main>
 </body>

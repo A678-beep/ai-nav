@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>沉浸式翻译 网页 排版 乱：CSS 修复清单 · 星籁</title>
+<meta name="description" content="上个月帮同事看一个行情站，插件一开双语，三列卡片掉成两列，右侧目录被顶到页顶，表格里的数字挤成一竖排。不是插件坏了，是译文把容器撑高了。沉浸式翻译 网页 排版 乱 我按三层处理：先换显示模式，再补 CSS，最后单独调 P">
+<meta name="keywords" content="沉浸式翻译 网页 排版 乱, 沉浸式翻译 自定义 CSS, 双语对照, PDF 翻译, 双语对照 排版 错位, 原文 对照 模式">
+<meta name="robots" content="index,follow">
+
+<link rel="canonical" href="https://a678-beep.github.io/ai-nav/a/util-17-immersive-translate-layout-broken.html">
+<meta property="og:type" content="article">
+<meta property="og:title" content="沉浸式翻译 网页 排版 乱：CSS 修复清单">
+<meta property="og:description" content="上个月帮同事看一个行情站，插件一开双语，三列卡片掉成两列，右侧目录被顶到页顶，表格里的数字挤成一竖排。不是插件坏了，是译文把容器撑高了。沉浸式翻译 网页 排版 乱 我按三层处理：先换显示模式，再补 CSS，最后单独调 P">
+<meta property="og:url" content="https://a678-beep.github.io/ai-nav/a/util-17-immersive-translate-layout-broken.html">
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "Article", "headline": "沉浸式翻译 网页 排版 乱：CSS 修复清单", "inLanguage": "zh-CN", "datePublished": "2026-11-15", "author": {"@type": "Organization", "name": "星籁 Stellara"}, "publisher": {"@type": "Organization", "name": "星籁 Stellara"}, "mainEntityOfPage": "https://a678-beep.github.io/ai-nav/a/util-17-immersive-translate-layout-broken.html", "articleSection": "实用工具", "wordCount": 842, "dateModified": "2026-11-15", "keywords": "沉浸式翻译 网页 排版 乱, 沉浸式翻译 自定义 CSS, 双语对照, PDF 翻译, 双语对照 排版 错位, 原文 对照 模式"}</script>
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "首页", "item": "https://a678-beep.github.io/ai-nav/"}, {"@type": "ListItem", "position": 2, "name": "实用工具", "item": "https://a678-beep.github.io/ai-nav/#/articles"}, {"@type": "ListItem", "position": 3, "name": "沉浸式翻译 网页 排版 乱：CSS 修复清单", "item": "https://a678-beep.github.io/ai-nav/a/util-17-immersive-translate-layout-broken.html"}]}</script>
+<style>
+:root{--bg:#080b12;--panel:#111827;--line:#1f2937;--txt:#e6edf7;--txt2:#9aa8bd;--txt3:#6b7a90;--cyan:#5ad1ff;--violet:#a78bfa}
+*{box-sizing:border-box}body{margin:0;background:radial-gradient(900px 500px at 82% -8%,rgba(90,209,255,.16),transparent 60%),var(--bg);color:var(--txt);font-family:"Microsoft YaHei","PingFang SC",system-ui,sans-serif;line-height:1.8}
+a{color:inherit;text-decoration:none}
+.top{position:sticky;top:0;backdrop-filter:blur(12px);background:rgba(8,11,18,.85);border-bottom:1px solid var(--line)}
+.top-in{max-width:900px;margin:0 auto;padding:12px 20px;display:flex;align-items:center;gap:10px}
+.logo{display:flex;align-items:center;gap:9px;font-weight:800}
+.logo .mark{width:30px;height:30px;border-radius:9px;background:linear-gradient(135deg,var(--cyan),var(--violet));display:grid;place-items:center;color:#04121c;font-weight:900}
+.top-in .back{margin-left:auto;color:var(--txt2);font-size:13px}
+main{max-width:900px;margin:0 auto;padding:28px 20px 60px}
+h1{font-size:28px;line-height:1.4;margin:8px 0 10px}
+.meta{color:var(--txt3);font-size:12.5px;margin-bottom:22px;display:flex;gap:8px;flex-wrap:wrap}
+.content{font-size:15.5px;color:#cfd9e6}
+.content h2{font-size:20px;color:var(--txt);margin:28px 0 10px}
+.content h3{font-size:17px;color:var(--txt);margin:22px 0 8px}
+.content p{margin:12px 0}
+.content li{margin:6px 0}
+.content code{background:rgba(120,180,255,.12);padding:1px 6px;border-radius:5px;font-family:Consolas,monospace;font-size:13px}
+.content pre{background:#0a1018;border:1px solid var(--line);border-radius:10px;padding:12px;overflow:auto}
+.content blockquote{border-left:3px solid var(--cyan);padding:4px 14px;color:var(--txt2);margin:16px 0}
+.ad-slot{margin:26px 0;min-height:100px;border:1px dashed rgba(120,140,170,.35);border-radius:12px;display:flex;align-items:center;justify-content:center;color:var(--txt3);font-size:12px;text-align:center;background:rgba(17,24,39,.55)}
+.ad-slot small{display:block;font-size:10.5px;opacity:.7}
+.bread{color:var(--txt3);font-size:12.5px;margin-bottom:6px}
+.bread a{color:var(--cyan)}
+footer{border-top:1px solid var(--line);color:var(--txt3);font-size:12.5px;text-align:center;padding:20px}
+.related{margin:34px 0 10px;border-top:1px solid var(--line);padding-top:18px}.related h2{font-size:16px;color:var(--txt);margin:0 0 10px}.related ul{list-style:none;padding:0;margin:0}.related li{margin:8px 0}.related a{color:var(--cyan);font-size:14px}
+.tool-link{margin:14px 0 0}
+.tlinks a{display:inline-block;margin:0 8px 8px 0;padding:6px 12px;border:1px solid rgba(90,209,255,.25);border-radius:8px;font-size:13px;color:var(--cyan);background:rgba(90,209,255,.06)}
+.tlinks a:hover{background:rgba(90,209,255,.15)}
+.sec{margin:26px 0}
+.sec h2{font-size:17px;color:var(--txt);margin:0 0 10px}
+.tool-link a{display:inline-block;font-size:13px;color:var(--txt2);border:1px solid var(--line);border-radius:8px;padding:7px 12px}
+.tool-link a:hover{color:var(--txt);border-color:rgba(90,209,255,.45)}
+.top-in .back{padding:6px 0}
+.bread a{display:inline-block;padding:6px 0}
+.sec li a{display:inline-block;padding:5px 0}
+.sib a{padding:8px 12px}
+.cats a{display:inline-block;margin:0 8px 8px 0;padding:6px 12px;border:1px solid var(--line);border-radius:8px;font-size:13px;color:var(--txt2)}
+.cats a:hover{color:var(--txt);border-color:rgba(90,209,255,.45)}
+.cats h2{font-size:17px;margin:22px 0 10px}
+@media(max-width:640px){h1{font-size:22px}main{padding:20px 16px 40px}
+.related a,.tlinks a,.tool-link a,footer a,.sib a{min-height:36px;display:inline-flex;align-items:center}
+.list a{padding:14px 14px}
+td a{display:inline-block;padding:8px 0}
+.note a{display:inline-block;padding:7px 0}
+}
+</style>
+</head>
+<body>
+<header class="top"><div class="top-in">
+  <a class="logo" href="../index.html"><span class="mark">✦</span>星籁 AI 导航</a>
+  <a class="back" href="../index.html">← 返回首页</a>
+</div></header>
+<main>
+  <div class="bread"><a href="../index.html">首页</a> / <a href="../util/index.html">实用工具</a></div>
+  <h1>沉浸式翻译 网页 排版 乱：CSS 修复清单</h1>
+  <div class="meta"><span>实用工具</span><span>·</span><span>更新于 2026-11-15</span><span>·</span><span>沉浸式翻译 网页 排版 乱, 沉浸式翻译 自定义 CSS, 双语对照, PDF 翻译, 双语对照 排版 错位, 原文 对照 模式</span></div>
+  <article class="content"><p>上个月帮同事看一个行情站，插件一开双语，三列卡片掉成两列，右侧目录被顶到页顶，表格里的数字挤成一竖排。不是插件坏了，是译文把容器撑高了。沉浸式翻译 网页 排版 乱 我按三层处理：先换显示模式，再补 CSS，最后单独调 PDF，前后试过 20 多个站，九成在前两步就能解决。</p>
+<h2>一、先切模式，别急着改 CSS</h2>
+<p>双语对照 排版 错位 的根源就一条：译文接在原文段落下面，高度直接翻倍，写死高度或用 flex 的容器立刻裂开。先点扩展图标，在翻译按钮左边的切换按钮切到仅译文，页面高度回原样，问题当场消失，代价是核对原文要再切回来。我的规矩：读长文用双语对照，看后台、卡片列表、表格一律仅译文，PDF 另算。原文 对照 模式 在窄屏上还有毛病，一段 80 字的译文换 6 行，列表项对不齐，窗口拉到 1440 宽以上才勉强够。切完要刷新重翻，没刷新就以为设置无效。</p>
+<h2>二、五条 CSS 规则，先存成一份</h2>
+<div class="ad-slot" data-ad="article-mid"><div>广告位（文章中部）<small>AdSense / 广告联盟代码插入点 · 建议 728×90 / 移动端 320×100</small></div><!-- 在这里粘贴广告代码 --></div>
+<p>沉浸式翻译 网页 排版 乱 的修法，常驻的 CSS 就五条，写进开发者设置里的用户配置（injectedCss），刷新就生效。一是 .immersive-translate-target-wrapper { display: block !important; }，让插件插进来的双语段落按块级占行；二是 .card、.post、article { height: auto !important; max-height: none !important; overflow: visible !important; }，放开写死的高度；三是 .list、.grid { flex-wrap: wrap !important; align-items: flex-start !important; }，卡片恢复换行；四是 pre、code { white-space: pre !important; overflow-x: auto !important; }，代码块不折行；五是 img、video { flex-shrink: 0 !important; max-width: 100% !important; }，图片不被译文挤扁。只修单个站就写进那条规则的 globalStyles。仍不生效大概率是 Shadow DOM 或 iframe，CSS 进不去，只能退回仅译文。</p>
+<h2>三、表格排除和 PDF 设置</h2>
+<p>表格最容易翻车：一格插进译文，列宽全乱。在开发者设置里加一条规则，用 excludeSelectors.add 写成 ["table", "pre", "nav", "header"]，这些区域不翻，正文照常；直接写 excludeSelectors 会覆盖插件默认规则，用 .add 才安全。行情站那次的数字：38 张卡片、每张 120px，双语后撑到 210px，1280 宽的屏幕上三列掉两列，右侧目录被顶走。处理顺序是先切仅译文把列数拉回来，再粘第一、第三条 CSS，最后排除 .data-table，全程 12 分钟，换到下一个博客只改了两个类名。</p>
+<p>PDF 又是另一套。免费版只接标准 PDF，扫描件和公式识别走 PDF Pro；纯文本识别对公式和表格本来就不准，公式页直接看原文。面板上三个开关值得动：带图模式影响阅读就关；重叠限制别关，关了上下两段会叠；译文被截断就把文本框拖大；小屏开间距紧凑。新版 BabelDOC 免费每月解析 1000 页、Pro 10000 页，整本 200 页的书分两次翻。先拿 30 页样本试，排版确认没问题再翻整本。</p>
+<h2>总结</h2>
+<p>排版乱九成是模式和容器打架：先切仅译文验证，再上五条 CSS，最后给表格和代码加排除规则。双语对照 排版 错位 这类问题，规则存一份，换站只改类名；原文 对照 模式 留给核对，业务页面一律仅译文。PDF 单独调，扫描件走 Pro 或先 OCR，30 页样本过了再翻整本。沉浸式翻译 网页 排版 乱 我一年踩了七八次，最后发现要改的往往不是插件，是站点那几个写死的 height。</p></article>
+  <div class="sec"><h2>文中提到的工具</h2><p class="tlinks"><a href="../tool/immersive-translate/">沉浸式翻译 →</a></p></div>
+  <section class="related"><h2>同类教程</h2><ul><li><a href="util-18-webpage-to-markdown.html">网页 转 markdown：剪藏正文图片三步</a></li><li><a href="util-19-pdf-merge-split.html">PDF 合并 拆分：486 页标书的批量处理流程</a></li><li><a href="util-20-batch-file-rename.html">文件 批量 重命名：正则、序列号和 5 个工具</a></li><li><a href="util-21-offline-translation-tools.html">离线 翻译 工具 选型：3 档模型体积与速度</a></li><li><a href="util-22-image-ocr-batch.html">图片 OCR 批量：5 种格式、8 并发与校对</a></li></ul><p class="tool-link"><a href="../index.html">查看 实用工具 工具与其它教程 →</a> <a href="../t/errors/">AI 报错解决 →</a> <a href="../t/pricing/">AI 工具价格 →</a></p></section>
+  <footer>© 2026 星籁 Stellara · <a href="../privacy.html">隐私政策</a> · <a href="../sitemap.xml">站点地图</a></footer>
+</main>
+</body>
+</html>

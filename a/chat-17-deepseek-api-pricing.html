@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>DeepSeek API 价格与缓存命中实测 · 星籁</title>
+<meta name="description" content="上个月把客服摘要从另一家模型迁到 DeepSeek，月底账单 46 元，比我按字符数拍脑袋估的 120 元低了一半多。不是内部折扣，而是我先花半小时把 2026 年这版 DeepSeek API 价格拆成三行，又把调用挪">
+<meta name="keywords" content="DeepSeek API 价格, DeepSeek 缓存命中, DeepSeek 计费, DeepSeek 缓存命中怎么算, DeepSeek 空闲时段价格">
+<meta name="robots" content="index,follow">
+
+<link rel="canonical" href="https://a678-beep.github.io/ai-nav/a/chat-17-deepseek-api-pricing.html">
+<meta property="og:type" content="article">
+<meta property="og:title" content="DeepSeek API 价格与缓存命中实测">
+<meta property="og:description" content="上个月把客服摘要从另一家模型迁到 DeepSeek，月底账单 46 元，比我按字符数拍脑袋估的 120 元低了一半多。不是内部折扣，而是我先花半小时把 2026 年这版 DeepSeek API 价格拆成三行，又把调用挪">
+<meta property="og:url" content="https://a678-beep.github.io/ai-nav/a/chat-17-deepseek-api-pricing.html">
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "Article", "headline": "DeepSeek API 价格与缓存命中实测", "inLanguage": "zh-CN", "datePublished": "2026-11-15", "author": {"@type": "Organization", "name": "星籁 Stellara"}, "publisher": {"@type": "Organization", "name": "星籁 Stellara"}, "mainEntityOfPage": "https://a678-beep.github.io/ai-nav/a/chat-17-deepseek-api-pricing.html", "articleSection": "对话AI", "wordCount": 846, "dateModified": "2026-11-15", "keywords": "DeepSeek API 价格, DeepSeek 缓存命中, DeepSeek 计费, DeepSeek 缓存命中怎么算, DeepSeek 空闲时段价格"}</script>
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "首页", "item": "https://a678-beep.github.io/ai-nav/"}, {"@type": "ListItem", "position": 2, "name": "对话AI", "item": "https://a678-beep.github.io/ai-nav/#/articles"}, {"@type": "ListItem", "position": 3, "name": "DeepSeek API 价格与缓存命中实测", "item": "https://a678-beep.github.io/ai-nav/a/chat-17-deepseek-api-pricing.html"}]}</script>
+<style>
+:root{--bg:#080b12;--panel:#111827;--line:#1f2937;--txt:#e6edf7;--txt2:#9aa8bd;--txt3:#6b7a90;--cyan:#5ad1ff;--violet:#a78bfa}
+*{box-sizing:border-box}body{margin:0;background:radial-gradient(900px 500px at 82% -8%,rgba(90,209,255,.16),transparent 60%),var(--bg);color:var(--txt);font-family:"Microsoft YaHei","PingFang SC",system-ui,sans-serif;line-height:1.8}
+a{color:inherit;text-decoration:none}
+.top{position:sticky;top:0;backdrop-filter:blur(12px);background:rgba(8,11,18,.85);border-bottom:1px solid var(--line)}
+.top-in{max-width:900px;margin:0 auto;padding:12px 20px;display:flex;align-items:center;gap:10px}
+.logo{display:flex;align-items:center;gap:9px;font-weight:800}
+.logo .mark{width:30px;height:30px;border-radius:9px;background:linear-gradient(135deg,var(--cyan),var(--violet));display:grid;place-items:center;color:#04121c;font-weight:900}
+.top-in .back{margin-left:auto;color:var(--txt2);font-size:13px}
+main{max-width:900px;margin:0 auto;padding:28px 20px 60px}
+h1{font-size:28px;line-height:1.4;margin:8px 0 10px}
+.meta{color:var(--txt3);font-size:12.5px;margin-bottom:22px;display:flex;gap:8px;flex-wrap:wrap}
+.content{font-size:15.5px;color:#cfd9e6}
+.content h2{font-size:20px;color:var(--txt);margin:28px 0 10px}
+.content h3{font-size:17px;color:var(--txt);margin:22px 0 8px}
+.content p{margin:12px 0}
+.content li{margin:6px 0}
+.content code{background:rgba(120,180,255,.12);padding:1px 6px;border-radius:5px;font-family:Consolas,monospace;font-size:13px}
+.content pre{background:#0a1018;border:1px solid var(--line);border-radius:10px;padding:12px;overflow:auto}
+.content blockquote{border-left:3px solid var(--cyan);padding:4px 14px;color:var(--txt2);margin:16px 0}
+.ad-slot{margin:26px 0;min-height:100px;border:1px dashed rgba(120,140,170,.35);border-radius:12px;display:flex;align-items:center;justify-content:center;color:var(--txt3);font-size:12px;text-align:center;background:rgba(17,24,39,.55)}
+.ad-slot small{display:block;font-size:10.5px;opacity:.7}
+.bread{color:var(--txt3);font-size:12.5px;margin-bottom:6px}
+.bread a{color:var(--cyan)}
+footer{border-top:1px solid var(--line);color:var(--txt3);font-size:12.5px;text-align:center;padding:20px}
+.related{margin:34px 0 10px;border-top:1px solid var(--line);padding-top:18px}.related h2{font-size:16px;color:var(--txt);margin:0 0 10px}.related ul{list-style:none;padding:0;margin:0}.related li{margin:8px 0}.related a{color:var(--cyan);font-size:14px}
+.tool-link{margin:14px 0 0}
+.tlinks a{display:inline-block;margin:0 8px 8px 0;padding:6px 12px;border:1px solid rgba(90,209,255,.25);border-radius:8px;font-size:13px;color:var(--cyan);background:rgba(90,209,255,.06)}
+.tlinks a:hover{background:rgba(90,209,255,.15)}
+.sec{margin:26px 0}
+.sec h2{font-size:17px;color:var(--txt);margin:0 0 10px}
+.tool-link a{display:inline-block;font-size:13px;color:var(--txt2);border:1px solid var(--line);border-radius:8px;padding:7px 12px}
+.tool-link a:hover{color:var(--txt);border-color:rgba(90,209,255,.45)}
+.top-in .back{padding:6px 0}
+.bread a{display:inline-block;padding:6px 0}
+.sec li a{display:inline-block;padding:5px 0}
+.sib a{padding:8px 12px}
+.cats a{display:inline-block;margin:0 8px 8px 0;padding:6px 12px;border:1px solid var(--line);border-radius:8px;font-size:13px;color:var(--txt2)}
+.cats a:hover{color:var(--txt);border-color:rgba(90,209,255,.45)}
+.cats h2{font-size:17px;margin:22px 0 10px}
+@media(max-width:640px){h1{font-size:22px}main{padding:20px 16px 40px}
+.related a,.tlinks a,.tool-link a,footer a,.sib a{min-height:36px;display:inline-flex;align-items:center}
+.list a{padding:14px 14px}
+td a{display:inline-block;padding:8px 0}
+.note a{display:inline-block;padding:7px 0}
+}
+</style>
+</head>
+<body>
+<header class="top"><div class="top-in">
+  <a class="logo" href="../index.html"><span class="mark">✦</span>星籁 AI 导航</a>
+  <a class="back" href="../index.html">← 返回首页</a>
+</div></header>
+<main>
+  <div class="bread"><a href="../index.html">首页</a> / <a href="../chat/index.html">对话AI</a></div>
+  <h1>DeepSeek API 价格与缓存命中实测</h1>
+  <div class="meta"><span>对话AI</span><span>·</span><span>更新于 2026-11-15</span><span>·</span><span>DeepSeek API 价格, DeepSeek 缓存命中, DeepSeek 计费, DeepSeek 缓存命中怎么算, DeepSeek 空闲时段价格</span></div>
+  <article class="content"><p>上个月把客服摘要从另一家模型迁到 DeepSeek，月底账单 46 元，比我按字符数拍脑袋估的 120 元低了一半多。不是内部折扣，而是我先花半小时把 2026 年这版 DeepSeek API 价格拆成三行，又把调用挪进空闲时段。下面是对账方法，也包括缓存命中率归零的坑。</p>
+<h2>三行价格表，先看输出</h2>
+<p>现在的模型只有 deepseek-flash 和 deepseek-v4-pro 两个，价格按百万 tokens 计。以 flash 为例：输入缓存命中 0.02 元，未命中 1 元，输出 4 元；高峰时段全部翻倍，分别是 0.04 元、2 元、8 元。v4-pro 更贵，空闲时段是 0.15 元、4.5 元、13.5 元。记住两个倍数：输出是未命中输入的 4 倍，缓存命中只有未命中的五十分之一。所以省钱第一顺位是提高命中率，第二顺位才是压输出。pro 的未命中输入是 flash 的 4.5 倍，翻译、摘要这类活直接用 pro 就是多花钱。DeepSeek 空闲时段价格只有高峰的一半：高峰是北京时间周一至周五的 9:00-12:00 和 14:00-18:00，法定节假日不算，其余时间包括周末全天都半价。我有个每天 200 次的日报机器人，每次输入 8000 tokens、命中率八成、输出 800 tokens，输入命中 1.28M×0.04=0.05 元、未命中 0.32M×2=0.64 元、输出 0.16M×8=1.28 元，一天约 1.97 元；全挪到空闲时段约 1 元，一个月差 30 元。</p>
+<h2>让缓存命中的三个写法</h2>
+<div class="ad-slot" data-ad="article-mid"><div>广告位（文章中部）<small>AdSense / 广告联盟代码插入点 · 建议 728×90 / 移动端 320×100</small></div><!-- 在这里粘贴广告代码 --></div>
+<p>缓存按前缀匹配，请求开头的字节完全一样才有机会命中。第一，把固定的系统提示、输出格式、工具说明全部放在最前面，时间戳、用户名、随机 ID 挪到后面。第二，多轮对话别每次重拼 system，历史消息原样带上，中间别插新内容。第三，用接口返回的 usage.prompt_cache_hit_tokens 和 prompt_cache_miss_tokens 对账，别自己猜命中率。我第一版把日期写在最前面，命中率一直是 0，账单是现在的 50 倍，改完前缀当周就降下来了。缓存没有官方承诺的固定有效期，隔天同一前缀不一定命中，别把它写进对外报价。</p>
+<h2>账单里的两个坑</h2>
+<p>坑一是 token 之外的费用。联网搜索和网页抓取是 5 元每千次，文件解析与 OCR 是 1.5 元每千页，TTS 3 元每万字符、ASR 0.78 元每小时，这些都不在 DeepSeek API 价格的 token 项里。我第一版每轮都开联网，单次两三分，一千次五块，比模型费还贵。坑二是模型名，旧代码里的 deepseek-chat 已进弃用名单，要换成 deepseek-flash，哪天接口切走就得报错。另外思考模式默认开启，推理 token 计入输出，做摘要时关掉能省三到五成；余额和并发限制也看一眼，flash 是 2500、pro 是 500，超了报 429。同事问我 DeepSeek 缓存命中怎么算，我让他先把 usage 里两组数抄出来，再对照 DeepSeek API 价格表。</p>
+<h2>总结</h2>
+<p>现在我估算 DeepSeek API 价格只用一条公式：输入命中量×0.02 加输入未命中量×1 加输出量×4，flash 按 DeepSeek 空闲时段价格直接套，高峰翻倍。对账时打开 usage 字段，把命中、未命中、输出分开看，再核对搜索和解析的附加费用。DeepSeek 缓存命中怎么算，就是这两组 token 分开乘单价，别用一个平均价糊过去。先把前缀缓存做对，再排空闲时段，最后才考虑换模型；命中率归零那次让我交了 50 倍学费。</p></article>
+  <div class="sec"><h2>文中提到的工具</h2><p class="tlinks"><a href="../tool/deepseek/">DeepSeek →</a></p></div>
+  <section class="related"><h2>同类教程</h2><ul><li><a href="chat-18-llm-context-length-compare.html">大模型 上下文 长度 对比：5 家实测选型</a></li><li><a href="chat-19-prompt-injection-defense.html">提示词 注入 防御：外部内容的三层隔离</a></li><li><a href="chat-20-ai-chat-export-records.html">AI 对话 导出 聊天记录：三种格式与检索</a></li><li><a href="chat-21-ai-context-lost.html">AI 对话 上下文 丢失：分段摘要与粘贴法</a></li><li><a href="chat-22-claude-project-file-limit.html">Claude 项目 文件 上限：30MB 分卷</a></li></ul><p class="tool-link"><a href="../index.html">查看 对话AI 工具与其它教程 →</a> <a href="../t/errors/">AI 报错解决 →</a> <a href="../t/pricing/">AI 工具价格 →</a></p></section>
+  <footer>© 2026 星籁 Stellara · <a href="../privacy.html">隐私政策</a> · <a href="../sitemap.xml">站点地图</a></footer>
+</main>
+</body>
+</html>

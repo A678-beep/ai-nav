@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>ChatGPT 连接超时 5 步排查记录 · 星籁</title>
+<meta name="description" content="周一早上 9 点 20 分，离站会还有十分钟，ChatGPT 页面白屏了 40 秒，最后浏览器甩出一行 ERR_CONNECTION_TIMED_OUT。同一个代理节点，同事的电脑能正常对话。我先花五分钟看服务状态，再按">
+<meta name="keywords" content="ChatGPT 连接超时, ChatGPT 打不开, 网络排查, ChatGPT 打不开怎么排查, ChatGPT 一直转圈">
+<meta name="robots" content="index,follow">
+
+<link rel="canonical" href="https://a678-beep.github.io/ai-nav/a/chat-16-chatgpt-connection-timeout.html">
+<meta property="og:type" content="article">
+<meta property="og:title" content="ChatGPT 连接超时 5 步排查记录">
+<meta property="og:description" content="周一早上 9 点 20 分，离站会还有十分钟，ChatGPT 页面白屏了 40 秒，最后浏览器甩出一行 ERR_CONNECTION_TIMED_OUT。同一个代理节点，同事的电脑能正常对话。我先花五分钟看服务状态，再按">
+<meta property="og:url" content="https://a678-beep.github.io/ai-nav/a/chat-16-chatgpt-connection-timeout.html">
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "Article", "headline": "ChatGPT 连接超时 5 步排查记录", "inLanguage": "zh-CN", "datePublished": "2026-11-15", "author": {"@type": "Organization", "name": "星籁 Stellara"}, "publisher": {"@type": "Organization", "name": "星籁 Stellara"}, "mainEntityOfPage": "https://a678-beep.github.io/ai-nav/a/chat-16-chatgpt-connection-timeout.html", "articleSection": "对话AI", "wordCount": 845, "dateModified": "2026-11-15", "keywords": "ChatGPT 连接超时, ChatGPT 打不开, 网络排查, ChatGPT 打不开怎么排查, ChatGPT 一直转圈"}</script>
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "首页", "item": "https://a678-beep.github.io/ai-nav/"}, {"@type": "ListItem", "position": 2, "name": "对话AI", "item": "https://a678-beep.github.io/ai-nav/#/articles"}, {"@type": "ListItem", "position": 3, "name": "ChatGPT 连接超时 5 步排查记录", "item": "https://a678-beep.github.io/ai-nav/a/chat-16-chatgpt-connection-timeout.html"}]}</script>
+<style>
+:root{--bg:#080b12;--panel:#111827;--line:#1f2937;--txt:#e6edf7;--txt2:#9aa8bd;--txt3:#6b7a90;--cyan:#5ad1ff;--violet:#a78bfa}
+*{box-sizing:border-box}body{margin:0;background:radial-gradient(900px 500px at 82% -8%,rgba(90,209,255,.16),transparent 60%),var(--bg);color:var(--txt);font-family:"Microsoft YaHei","PingFang SC",system-ui,sans-serif;line-height:1.8}
+a{color:inherit;text-decoration:none}
+.top{position:sticky;top:0;backdrop-filter:blur(12px);background:rgba(8,11,18,.85);border-bottom:1px solid var(--line)}
+.top-in{max-width:900px;margin:0 auto;padding:12px 20px;display:flex;align-items:center;gap:10px}
+.logo{display:flex;align-items:center;gap:9px;font-weight:800}
+.logo .mark{width:30px;height:30px;border-radius:9px;background:linear-gradient(135deg,var(--cyan),var(--violet));display:grid;place-items:center;color:#04121c;font-weight:900}
+.top-in .back{margin-left:auto;color:var(--txt2);font-size:13px}
+main{max-width:900px;margin:0 auto;padding:28px 20px 60px}
+h1{font-size:28px;line-height:1.4;margin:8px 0 10px}
+.meta{color:var(--txt3);font-size:12.5px;margin-bottom:22px;display:flex;gap:8px;flex-wrap:wrap}
+.content{font-size:15.5px;color:#cfd9e6}
+.content h2{font-size:20px;color:var(--txt);margin:28px 0 10px}
+.content h3{font-size:17px;color:var(--txt);margin:22px 0 8px}
+.content p{margin:12px 0}
+.content li{margin:6px 0}
+.content code{background:rgba(120,180,255,.12);padding:1px 6px;border-radius:5px;font-family:Consolas,monospace;font-size:13px}
+.content pre{background:#0a1018;border:1px solid var(--line);border-radius:10px;padding:12px;overflow:auto}
+.content blockquote{border-left:3px solid var(--cyan);padding:4px 14px;color:var(--txt2);margin:16px 0}
+.ad-slot{margin:26px 0;min-height:100px;border:1px dashed rgba(120,140,170,.35);border-radius:12px;display:flex;align-items:center;justify-content:center;color:var(--txt3);font-size:12px;text-align:center;background:rgba(17,24,39,.55)}
+.ad-slot small{display:block;font-size:10.5px;opacity:.7}
+.bread{color:var(--txt3);font-size:12.5px;margin-bottom:6px}
+.bread a{color:var(--cyan)}
+footer{border-top:1px solid var(--line);color:var(--txt3);font-size:12.5px;text-align:center;padding:20px}
+.related{margin:34px 0 10px;border-top:1px solid var(--line);padding-top:18px}.related h2{font-size:16px;color:var(--txt);margin:0 0 10px}.related ul{list-style:none;padding:0;margin:0}.related li{margin:8px 0}.related a{color:var(--cyan);font-size:14px}
+.tool-link{margin:14px 0 0}
+.tlinks a{display:inline-block;margin:0 8px 8px 0;padding:6px 12px;border:1px solid rgba(90,209,255,.25);border-radius:8px;font-size:13px;color:var(--cyan);background:rgba(90,209,255,.06)}
+.tlinks a:hover{background:rgba(90,209,255,.15)}
+.sec{margin:26px 0}
+.sec h2{font-size:17px;color:var(--txt);margin:0 0 10px}
+.tool-link a{display:inline-block;font-size:13px;color:var(--txt2);border:1px solid var(--line);border-radius:8px;padding:7px 12px}
+.tool-link a:hover{color:var(--txt);border-color:rgba(90,209,255,.45)}
+.top-in .back{padding:6px 0}
+.bread a{display:inline-block;padding:6px 0}
+.sec li a{display:inline-block;padding:5px 0}
+.sib a{padding:8px 12px}
+.cats a{display:inline-block;margin:0 8px 8px 0;padding:6px 12px;border:1px solid var(--line);border-radius:8px;font-size:13px;color:var(--txt2)}
+.cats a:hover{color:var(--txt);border-color:rgba(90,209,255,.45)}
+.cats h2{font-size:17px;margin:22px 0 10px}
+@media(max-width:640px){h1{font-size:22px}main{padding:20px 16px 40px}
+.related a,.tlinks a,.tool-link a,footer a,.sib a{min-height:36px;display:inline-flex;align-items:center}
+.list a{padding:14px 14px}
+td a{display:inline-block;padding:8px 0}
+.note a{display:inline-block;padding:7px 0}
+}
+</style>
+</head>
+<body>
+<header class="top"><div class="top-in">
+  <a class="logo" href="../index.html"><span class="mark">✦</span>星籁 AI 导航</a>
+  <a class="back" href="../index.html">← 返回首页</a>
+</div></header>
+<main>
+  <div class="bread"><a href="../index.html">首页</a> / <a href="../chat/index.html">对话AI</a></div>
+  <h1>ChatGPT 连接超时 5 步排查记录</h1>
+  <div class="meta"><span>对话AI</span><span>·</span><span>更新于 2026-11-15</span><span>·</span><span>ChatGPT 连接超时, ChatGPT 打不开, 网络排查, ChatGPT 打不开怎么排查, ChatGPT 一直转圈</span></div>
+  <article class="content"><p>周一早上 9 点 20 分，离站会还有十分钟，ChatGPT 页面白屏了 40 秒，最后浏览器甩出一行 ERR_CONNECTION_TIMED_OUT。同一个代理节点，同事的电脑能正常对话。我先花五分钟看服务状态，再按报错码分层排查，前后 50 分钟才定位到家里宽带的 IPv6。那次 ChatGPT 连接超时的排查顺序我记了下来，五个步骤，每一步都能复现。</p>
+<h2>第一步：先看报错码，别急着换节点</h2>
+<p>打开浏览器 F12 的 Network 面板，刷新页面，看第一条 chatgpt.com 文档请求的状态。如果它长时间 pending，最后标红 net::ERR_CONNECTION_TIMED_OUT，说明本机到目标服务器连 TCP 都没建起来；如果返回 1020 或 524，那是 Cloudflare 风控或回源超时，方向完全不同。接着在 PowerShell 里跑 Test-NetConnection chatgpt.com -Port 443，TcpTestSucceeded 显示 False 就是 TCP 不通；再想确认握手，用 openssl s_client -connect chatgpt.com:443 -servername chatgpt.com，卡在 CONNECTED 之后没有证书链，就是 TLS 被中间设备拦。最后用手机热点复测一次，热点能开，问题就在本地网络或代理。这一步能砍掉一半无效操作，也是我处理 ChatGPT 连接超时最先做的事。</p>
+<h2>第二步：代理、DNS、IPv6 逐个确认</h2>
+<div class="ad-slot" data-ad="article-mid"><div>广告位（文章中部）<small>AdSense / 广告联盟代码插入点 · 建议 728×90 / 移动端 320×100</small></div><!-- 在这里粘贴广告代码 --></div>
+<p>先确认流量真的进了代理：打开任意查 IP 的页面看出口地址，v2rayN 默认本地 SOCKS 是 10808、HTTP 是 10809，端口被改过就按实际填。系统代理模式只接管遵守系统代理的软件，浏览器插件会绕过，必要时切 TUN 模式。分流规则要同时覆盖 chatgpt.com、auth.openai.com、oaistatic.com、oaiusercontent.com 四个域名，漏掉登录域名就会出现首页能开、ChatGPT 一直转圈的情况。DNS 交给代理做，本地运营商解析经常把地址污染成不可达 IP，用 nslookup chatgpt.com 1.1.1.1 对比一下就能看出来。IPv6 是最隐蔽的：解析返回 AAAA 地址、线路却不通，浏览器会先等二十多秒再回退。我在网卡属性里取消勾选 Internet 协议版本 6(TCP/IPv6)，首字节时间从 21 秒掉到 1.3 秒。</p>
+<h2>第三步：复测与两个真实坑</h2>
+<p>上个月公司内网也出过一次：网关做 TLS 解密，网页报 ERR_CONNECTION_RESET，换成热点正常，最后是 IT 放行了相关域名。另一个坑是刷新，Cloudflare 那边我连续刷新十几次后直接返回 Error 1020 Access denied，换节点等半小时才恢复，所以同一页面刷新不要超过五次。页面能开、消息发不出去是另一种情况，属于长连接被中途断开，这时候重点看节点丢包，别去改浏览器缓存。想搞清楚 ChatGPT 打不开怎么排查，记住顺序就行：状态页、报错码、命令行分层、代理与 DNS、热点复测。最后两个提醒：系统时间误差超过五分钟会让 TLS 校验失败，打开自动设置时间并手动同步一次；别用 hosts 硬写 IP，CDN 调度一变，表现就是能打开首页、每条消息都超时。</p>
+<h2>总结</h2>
+<p>跑完这一轮，我的结论是：ChatGPT 连接超时九成出在本地链路，顺序千万别反。先看 status.openai.com 确认服务端没事，再用 F12 和命令行把 DNS、TCP、TLS 三层分开，最后才动代理设置。ChatGPT 一直转圈时尤其要克制刷新，等三十秒比连点十次有用。按这套流程走，后来再遇到同样的 ChatGPT 连接超时，我平均十分钟内能定位；ChatGPT 打不开怎么排查这个问题，也基本能当场给同事一个答案。</p></article>
+  <div class="sec"><h2>文中提到的工具</h2><p class="tlinks"><a href="../tool/chatgpt/">ChatGPT →</a></p></div>
+  <section class="related"><h2>同类教程</h2><ul><li><a href="chat-17-deepseek-api-pricing.html">DeepSeek API 价格与缓存命中实测</a></li><li><a href="chat-18-llm-context-length-compare.html">大模型 上下文 长度 对比：5 家实测选型</a></li><li><a href="chat-19-prompt-injection-defense.html">提示词 注入 防御：外部内容的三层隔离</a></li><li><a href="chat-20-ai-chat-export-records.html">AI 对话 导出 聊天记录：三种格式与检索</a></li><li><a href="chat-21-ai-context-lost.html">AI 对话 上下文 丢失：分段摘要与粘贴法</a></li></ul><p class="tool-link"><a href="../index.html">查看 对话AI 工具与其它教程 →</a> <a href="../t/errors/">AI 报错解决 →</a> <a href="../t/params/">参数与配置 →</a></p></section>
+  <footer>© 2026 星籁 Stellara · <a href="../privacy.html">隐私政策</a> · <a href="../sitemap.xml">站点地图</a></footer>
+</main>
+</body>
+</html>

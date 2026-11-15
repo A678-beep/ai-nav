@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>视频 转 GIF 参数：调色板、帧率与体积控制 · 星籁</title>
+<meta name="description" content="客户要做产品动图放公众号，我把 5 秒 1080p 的演示片直接导成 GIF，18.6MB，发出去加载半天，细节还糊成一团。后来固定了一套参数：宽 480、帧率 12、两遍调色板，同一条片子压到 2.1MB，手机上看几乎">
+<meta name="keywords" content="视频 转 GIF, GIF 调色板, GIF 帧率, GIF 体积压缩, GIF 调色板, GIF 体积压缩">
+<meta name="robots" content="index,follow">
+
+<link rel="canonical" href="https://a678-beep.github.io/ai-nav/a/video-34-video-to-gif.html">
+<meta property="og:type" content="article">
+<meta property="og:title" content="视频 转 GIF 参数：调色板、帧率与体积控制">
+<meta property="og:description" content="客户要做产品动图放公众号，我把 5 秒 1080p 的演示片直接导成 GIF，18.6MB，发出去加载半天，细节还糊成一团。后来固定了一套参数：宽 480、帧率 12、两遍调色板，同一条片子压到 2.1MB，手机上看几乎">
+<meta property="og:url" content="https://a678-beep.github.io/ai-nav/a/video-34-video-to-gif.html">
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "Article", "headline": "视频 转 GIF 参数：调色板、帧率与体积控制", "inLanguage": "zh-CN", "datePublished": "2026-11-15", "author": {"@type": "Organization", "name": "星籁 Stellara"}, "publisher": {"@type": "Organization", "name": "星籁 Stellara"}, "mainEntityOfPage": "https://a678-beep.github.io/ai-nav/a/video-34-video-to-gif.html", "articleSection": "视频音频", "wordCount": 814, "dateModified": "2026-11-15", "keywords": "视频 转 GIF, GIF 调色板, GIF 帧率, GIF 体积压缩, GIF 调色板, GIF 体积压缩"}</script>
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "首页", "item": "https://a678-beep.github.io/ai-nav/"}, {"@type": "ListItem", "position": 2, "name": "视频音频", "item": "https://a678-beep.github.io/ai-nav/#/articles"}, {"@type": "ListItem", "position": 3, "name": "视频 转 GIF 参数：调色板、帧率与体积控制", "item": "https://a678-beep.github.io/ai-nav/a/video-34-video-to-gif.html"}]}</script>
+<style>
+:root{--bg:#080b12;--panel:#111827;--line:#1f2937;--txt:#e6edf7;--txt2:#9aa8bd;--txt3:#6b7a90;--cyan:#5ad1ff;--violet:#a78bfa}
+*{box-sizing:border-box}body{margin:0;background:radial-gradient(900px 500px at 82% -8%,rgba(90,209,255,.16),transparent 60%),var(--bg);color:var(--txt);font-family:"Microsoft YaHei","PingFang SC",system-ui,sans-serif;line-height:1.8}
+a{color:inherit;text-decoration:none}
+.top{position:sticky;top:0;backdrop-filter:blur(12px);background:rgba(8,11,18,.85);border-bottom:1px solid var(--line)}
+.top-in{max-width:900px;margin:0 auto;padding:12px 20px;display:flex;align-items:center;gap:10px}
+.logo{display:flex;align-items:center;gap:9px;font-weight:800}
+.logo .mark{width:30px;height:30px;border-radius:9px;background:linear-gradient(135deg,var(--cyan),var(--violet));display:grid;place-items:center;color:#04121c;font-weight:900}
+.top-in .back{margin-left:auto;color:var(--txt2);font-size:13px}
+main{max-width:900px;margin:0 auto;padding:28px 20px 60px}
+h1{font-size:28px;line-height:1.4;margin:8px 0 10px}
+.meta{color:var(--txt3);font-size:12.5px;margin-bottom:22px;display:flex;gap:8px;flex-wrap:wrap}
+.content{font-size:15.5px;color:#cfd9e6}
+.content h2{font-size:20px;color:var(--txt);margin:28px 0 10px}
+.content h3{font-size:17px;color:var(--txt);margin:22px 0 8px}
+.content p{margin:12px 0}
+.content li{margin:6px 0}
+.content code{background:rgba(120,180,255,.12);padding:1px 6px;border-radius:5px;font-family:Consolas,monospace;font-size:13px}
+.content pre{background:#0a1018;border:1px solid var(--line);border-radius:10px;padding:12px;overflow:auto}
+.content blockquote{border-left:3px solid var(--cyan);padding:4px 14px;color:var(--txt2);margin:16px 0}
+.ad-slot{margin:26px 0;min-height:100px;border:1px dashed rgba(120,140,170,.35);border-radius:12px;display:flex;align-items:center;justify-content:center;color:var(--txt3);font-size:12px;text-align:center;background:rgba(17,24,39,.55)}
+.ad-slot small{display:block;font-size:10.5px;opacity:.7}
+.bread{color:var(--txt3);font-size:12.5px;margin-bottom:6px}
+.bread a{color:var(--cyan)}
+footer{border-top:1px solid var(--line);color:var(--txt3);font-size:12.5px;text-align:center;padding:20px}
+.related{margin:34px 0 10px;border-top:1px solid var(--line);padding-top:18px}.related h2{font-size:16px;color:var(--txt);margin:0 0 10px}.related ul{list-style:none;padding:0;margin:0}.related li{margin:8px 0}.related a{color:var(--cyan);font-size:14px}
+.tool-link{margin:14px 0 0}
+.tlinks a{display:inline-block;margin:0 8px 8px 0;padding:6px 12px;border:1px solid rgba(90,209,255,.25);border-radius:8px;font-size:13px;color:var(--cyan);background:rgba(90,209,255,.06)}
+.tlinks a:hover{background:rgba(90,209,255,.15)}
+.sec{margin:26px 0}
+.sec h2{font-size:17px;color:var(--txt);margin:0 0 10px}
+.tool-link a{display:inline-block;font-size:13px;color:var(--txt2);border:1px solid var(--line);border-radius:8px;padding:7px 12px}
+.tool-link a:hover{color:var(--txt);border-color:rgba(90,209,255,.45)}
+.top-in .back{padding:6px 0}
+.bread a{display:inline-block;padding:6px 0}
+.sec li a{display:inline-block;padding:5px 0}
+.sib a{padding:8px 12px}
+.cats a{display:inline-block;margin:0 8px 8px 0;padding:6px 12px;border:1px solid var(--line);border-radius:8px;font-size:13px;color:var(--txt2)}
+.cats a:hover{color:var(--txt);border-color:rgba(90,209,255,.45)}
+.cats h2{font-size:17px;margin:22px 0 10px}
+@media(max-width:640px){h1{font-size:22px}main{padding:20px 16px 40px}
+.related a,.tlinks a,.tool-link a,footer a,.sib a{min-height:36px;display:inline-flex;align-items:center}
+.list a{padding:14px 14px}
+td a{display:inline-block;padding:8px 0}
+.note a{display:inline-block;padding:7px 0}
+}
+</style>
+</head>
+<body>
+<header class="top"><div class="top-in">
+  <a class="logo" href="../index.html"><span class="mark">✦</span>星籁 AI 导航</a>
+  <a class="back" href="../index.html">← 返回首页</a>
+</div></header>
+<main>
+  <div class="bread"><a href="../index.html">首页</a> / <a href="../video/index.html">视频音频</a></div>
+  <h1>视频 转 GIF 参数：调色板、帧率与体积控制</h1>
+  <div class="meta"><span>视频音频</span><span>·</span><span>更新于 2026-11-15</span><span>·</span><span>视频 转 GIF, GIF 调色板, GIF 帧率, GIF 体积压缩, GIF 调色板, GIF 体积压缩</span></div>
+  <article class="content"><p>客户要做产品动图放公众号，我把 5 秒 1080p 的演示片直接导成 GIF，18.6MB，发出去加载半天，细节还糊成一团。后来固定了一套参数：宽 480、帧率 12、两遍调色板，同一条片子压到 2.1MB，手机上看几乎看不出差别。视频 转 GIF 八成的体积花在尺寸、帧率和调色板上，不在剪掉的那半秒。</p>
+<h2>一、尺寸和帧率先砍下来</h2>
+<p>视频 转 GIF 的第一步永远是缩尺寸。GIF 只有 256 色调色板，也不支持半透明，宽度超过 640 基本白给：手机屏幕就那么大，多出来的像素只增加体积。我固定宽 480 到 640，帧率 10 到 15，时长 2 到 4 秒，超过 4 秒的动图很少有人看完。拿 1080p60 的源片算，scale=480、fps=12、3 秒就是 36 帧，比原片每秒 60 帧少八成。帧率从 30 降到 12，体积大约掉六成；再降到 8 会明显卡顿，尤其是镜头横移的产品演示。避坑：别用录屏软件的默认导出，它会把每秒 30 帧全留住；剪辑点首尾留同一帧，否则循环播放时会跳一下。</p>
+<h2>二、GIF 调色板用两遍法</h2>
+<div class="ad-slot" data-ad="article-mid"><div>广告位（文章中部）<small>AdSense / 广告联盟代码插入点 · 建议 728×90 / 移动端 320×100</small></div><!-- 在这里粘贴广告代码 --></div>
+<p>GIF 调色板 是画质命门。直接用一条命令出 GIF 只用一个内置调色板，实拍素材容易发灰；两遍法是先分析全片再上色。第一遍生成调色板：ffmpeg -i in.mp4 -vf "fps=12,scale=480:-1:flags=lanczos,palettegen=stats_mode=diff" palette.png；第二遍套调色板：ffmpeg -i in.mp4 -i palette.png -lavfi "fps=12,scale=480:-1:flags=lanczos[x];[x][1:v]paletteuse=dither=bayer:bayer_scale=3" out.gif。stats_mode=diff 让调色板优先照顾相邻帧的差异，镜头有运动的片子用它更稳；静态展示可以换 stats_mode=full。调色板默认 256 色，纯色多的 UI 动效设 max_colors=128 还能再省一成多。dither 选 bayer 体积小，sierra2_4a 过渡更平滑但文件会大两到三成。同一组素材，两遍法比内置单遍小 35% 左右。避坑：两遍的 fps 和 scale 必须完全一致，改了一处就要重新生成调色板，否则画面发花。</p>
+<h2>三、工具与体积验收</h2>
+<p>视频 转 GIF 的工具不在多，在参数能不能控。ffmpeg 参数最全、能批量，缺点是要记；gifski 画质更好，-r 12 控帧率、-W 480 限宽、-Q 90 控质量，--fast 快 50% 但画质差一成、体积更大，它把帧率当播放速度解释，所以先用 ffmpeg 抽好每秒 12 帧的 PNG 序列再交给它，否则容易变成慢放。剪映能直接导出 GIF，帧率和尺寸都能选，但调色板不可控，实拍片容易发灰；Photoshop 导出适合 UI 动效，不适合实拍。体积验收看三处：微信表情开放平台要求 240×240、512KB 以内；公众号正文的 GIF 我压在 2MB 以内，超过就明显卡；聊天里发不出去时先减帧再缩尺寸。GIF 体积压缩 的最后一步是换容器，同样内容做成动图 WebP 只要 900KB 左右，但兼容性不如 GIF，看平台支持再决定。透明背景的 GIF 只有全透明和全不透明两档，边缘会出锯齿，需要半透明就换 APNG 或 WebP。</p>
+<h2>总结</h2>
+<p>视频 转 GIF 的参数顺序是：先砍宽到 480、帧率锁 12、时长卡 4 秒，再用两遍法生成 GIF 调色板，最后按 2MB 验收。那条 18.6MB 的演示片照这套压到 2.1MB，公众号加载不卡，产品细节还看得清。GIF 体积压缩 别在最后一步拼命删帧，前面尺寸和调色板选对，后面根本不用大改。</p></article>
+  <div class="sec"><h2>文中提到的工具</h2><p class="tlinks"><a href="../tool/capcut/">剪映 →</a></p></div>
+  <section class="related"><h2>同类教程</h2><ul><li><a href="video-35-audio-voice-change.html">音频 变声：音高与共振峰怎么调才不假</a></li><li><a href="video-36-multilingual-subtitles.html">视频 多语言 字幕：6 语版本的时间轴与字体</a></li><li><a href="video-37-short-video-script-templates.html">短视频 脚本 模板：3 类分镜与时长分配</a></li><li><a href="video-38-video-background-removal.html">视频 去 背景：3 个抠像参数与绿幕批量换背景</a></li><li><a href="video-39-live-replay-editing.html">直播 回放 剪辑：2 小时回放怎么剪成短视频</a></li></ul><p class="tool-link"><a href="../index.html">查看 视频音频 工具与其它教程 →</a> <a href="../t/params/">参数与配置 →</a></p></section>
+  <footer>© 2026 星籁 Stellara · <a href="../privacy.html">隐私政策</a> · <a href="../sitemap.xml">站点地图</a></footer>
+</main>
+</body>
+</html>

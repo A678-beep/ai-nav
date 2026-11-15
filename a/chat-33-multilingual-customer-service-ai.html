@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>多语言 客服 AI：语言检测、术语库与转人工 · 星籁</title>
+<meta name="description" content="去年 11 月接了个东南亚独立站，印尼语、泰语、越南语咨询占到 42%，8 个客服里只有 2 个能读印尼语。第一版偷懒，把中文话术整段丢给翻译 API 再回给客户，“7 天无理由退换”被翻成“7 天不退货”，第一周就吵了">
+<meta name="keywords" content="多语言 客服 AI, 语言 检测, 术语库 设置, 转人工 阈值, 客服 机器人 搭建, 多语言 客服 机器人 搭建, 客服 AI 转人工 规则">
+<meta name="robots" content="index,follow">
+
+<link rel="canonical" href="https://a678-beep.github.io/ai-nav/a/chat-33-multilingual-customer-service-ai.html">
+<meta property="og:type" content="article">
+<meta property="og:title" content="多语言 客服 AI：语言检测、术语库与转人工">
+<meta property="og:description" content="去年 11 月接了个东南亚独立站，印尼语、泰语、越南语咨询占到 42%，8 个客服里只有 2 个能读印尼语。第一版偷懒，把中文话术整段丢给翻译 API 再回给客户，“7 天无理由退换”被翻成“7 天不退货”，第一周就吵了">
+<meta property="og:url" content="https://a678-beep.github.io/ai-nav/a/chat-33-multilingual-customer-service-ai.html">
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "Article", "headline": "多语言 客服 AI：语言检测、术语库与转人工", "inLanguage": "zh-CN", "datePublished": "2026-11-15", "author": {"@type": "Organization", "name": "星籁 Stellara"}, "publisher": {"@type": "Organization", "name": "星籁 Stellara"}, "mainEntityOfPage": "https://a678-beep.github.io/ai-nav/a/chat-33-multilingual-customer-service-ai.html", "articleSection": "对话AI", "wordCount": 843, "dateModified": "2026-11-15", "keywords": "多语言 客服 AI, 语言 检测, 术语库 设置, 转人工 阈值, 客服 机器人 搭建, 多语言 客服 机器人 搭建, 客服 AI 转人工 规则"}</script>
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "首页", "item": "https://a678-beep.github.io/ai-nav/"}, {"@type": "ListItem", "position": 2, "name": "对话AI", "item": "https://a678-beep.github.io/ai-nav/#/articles"}, {"@type": "ListItem", "position": 3, "name": "多语言 客服 AI：语言检测、术语库与转人工", "item": "https://a678-beep.github.io/ai-nav/a/chat-33-multilingual-customer-service-ai.html"}]}</script>
+<style>
+:root{--bg:#080b12;--panel:#111827;--line:#1f2937;--txt:#e6edf7;--txt2:#9aa8bd;--txt3:#6b7a90;--cyan:#5ad1ff;--violet:#a78bfa}
+*{box-sizing:border-box}body{margin:0;background:radial-gradient(900px 500px at 82% -8%,rgba(90,209,255,.16),transparent 60%),var(--bg);color:var(--txt);font-family:"Microsoft YaHei","PingFang SC",system-ui,sans-serif;line-height:1.8}
+a{color:inherit;text-decoration:none}
+.top{position:sticky;top:0;backdrop-filter:blur(12px);background:rgba(8,11,18,.85);border-bottom:1px solid var(--line)}
+.top-in{max-width:900px;margin:0 auto;padding:12px 20px;display:flex;align-items:center;gap:10px}
+.logo{display:flex;align-items:center;gap:9px;font-weight:800}
+.logo .mark{width:30px;height:30px;border-radius:9px;background:linear-gradient(135deg,var(--cyan),var(--violet));display:grid;place-items:center;color:#04121c;font-weight:900}
+.top-in .back{margin-left:auto;color:var(--txt2);font-size:13px}
+main{max-width:900px;margin:0 auto;padding:28px 20px 60px}
+h1{font-size:28px;line-height:1.4;margin:8px 0 10px}
+.meta{color:var(--txt3);font-size:12.5px;margin-bottom:22px;display:flex;gap:8px;flex-wrap:wrap}
+.content{font-size:15.5px;color:#cfd9e6}
+.content h2{font-size:20px;color:var(--txt);margin:28px 0 10px}
+.content h3{font-size:17px;color:var(--txt);margin:22px 0 8px}
+.content p{margin:12px 0}
+.content li{margin:6px 0}
+.content code{background:rgba(120,180,255,.12);padding:1px 6px;border-radius:5px;font-family:Consolas,monospace;font-size:13px}
+.content pre{background:#0a1018;border:1px solid var(--line);border-radius:10px;padding:12px;overflow:auto}
+.content blockquote{border-left:3px solid var(--cyan);padding:4px 14px;color:var(--txt2);margin:16px 0}
+.ad-slot{margin:26px 0;min-height:100px;border:1px dashed rgba(120,140,170,.35);border-radius:12px;display:flex;align-items:center;justify-content:center;color:var(--txt3);font-size:12px;text-align:center;background:rgba(17,24,39,.55)}
+.ad-slot small{display:block;font-size:10.5px;opacity:.7}
+.bread{color:var(--txt3);font-size:12.5px;margin-bottom:6px}
+.bread a{color:var(--cyan)}
+footer{border-top:1px solid var(--line);color:var(--txt3);font-size:12.5px;text-align:center;padding:20px}
+.related{margin:34px 0 10px;border-top:1px solid var(--line);padding-top:18px}.related h2{font-size:16px;color:var(--txt);margin:0 0 10px}.related ul{list-style:none;padding:0;margin:0}.related li{margin:8px 0}.related a{color:var(--cyan);font-size:14px}
+.tool-link{margin:14px 0 0}
+.tlinks a{display:inline-block;margin:0 8px 8px 0;padding:6px 12px;border:1px solid rgba(90,209,255,.25);border-radius:8px;font-size:13px;color:var(--cyan);background:rgba(90,209,255,.06)}
+.tlinks a:hover{background:rgba(90,209,255,.15)}
+.sec{margin:26px 0}
+.sec h2{font-size:17px;color:var(--txt);margin:0 0 10px}
+.tool-link a{display:inline-block;font-size:13px;color:var(--txt2);border:1px solid var(--line);border-radius:8px;padding:7px 12px}
+.tool-link a:hover{color:var(--txt);border-color:rgba(90,209,255,.45)}
+.top-in .back{padding:6px 0}
+.bread a{display:inline-block;padding:6px 0}
+.sec li a{display:inline-block;padding:5px 0}
+.sib a{padding:8px 12px}
+.cats a{display:inline-block;margin:0 8px 8px 0;padding:6px 12px;border:1px solid var(--line);border-radius:8px;font-size:13px;color:var(--txt2)}
+.cats a:hover{color:var(--txt);border-color:rgba(90,209,255,.45)}
+.cats h2{font-size:17px;margin:22px 0 10px}
+@media(max-width:640px){h1{font-size:22px}main{padding:20px 16px 40px}
+.related a,.tlinks a,.tool-link a,footer a,.sib a{min-height:36px;display:inline-flex;align-items:center}
+.list a{padding:14px 14px}
+td a{display:inline-block;padding:8px 0}
+.note a{display:inline-block;padding:7px 0}
+}
+</style>
+</head>
+<body>
+<header class="top"><div class="top-in">
+  <a class="logo" href="../index.html"><span class="mark">✦</span>星籁 AI 导航</a>
+  <a class="back" href="../index.html">← 返回首页</a>
+</div></header>
+<main>
+  <div class="bread"><a href="../index.html">首页</a> / <a href="../chat/index.html">对话AI</a></div>
+  <h1>多语言 客服 AI：语言检测、术语库与转人工</h1>
+  <div class="meta"><span>对话AI</span><span>·</span><span>更新于 2026-11-15</span><span>·</span><span>多语言 客服 AI, 语言 检测, 术语库 设置, 转人工 阈值, 客服 机器人 搭建, 多语言 客服 机器人 搭建, 客服 AI 转人工 规则</span></div>
+  <article class="content"><p>去年 11 月接了个东南亚独立站，印尼语、泰语、越南语咨询占到 42%，8 个客服里只有 2 个能读印尼语。第一版偷懒，把中文话术整段丢给翻译 API 再回给客户，“7 天无理由退换”被翻成“7 天不退货”，第一周就吵了 3 单。返工后把 多语言 客服 AI 按语言检测、术语表、转人工三层重做，首次解决率从 61% 到 78%，平均首响从 4 分 12 秒压到 19 秒。</p>
+<h2>语言检测看整条会话，不看单句</h2>
+<p>检测别交给大模型自己猜。我固定两段：先用 fastText 的 lid.176 离线模型扫，176 种语言、模型文件 917KB，单条 1 毫秒内出结果；再用 DeepL API 翻译，拿响应里的 detected_source_language 对一遍，不一致就标人工复核。单句检测踩过坑：客户发 OK、555（泰语里是哈哈哈），短句置信度普遍虚高。改成合并会话前 3 条、总字符不到 15 不判、置信度低于 0.8 回退到用户历史语言加国家，1200 条抽样误判从 63 条降到 9 条。多语言 客服 AI 的第一步，是把语言标签做成变量塞进提示词，回复语言、称呼、日期格式都跟着它走。</p>
+<h2>术语表锁死 SKU 和售后高频词</h2>
+<div class="ad-slot" data-ad="article-mid"><div>广告位（文章中部）<small>AdSense / 广告联盟代码插入点 · 建议 728×90 / 移动端 320×100</small></div><!-- 在这里粘贴广告代码 --></div>
+<p>翻译 API 只保证句子通顺，不保证商品名对。我用 DeepL 的 glossary 在翻译前生效，Google Cloud Translation v3 的 glossary 兜底，从 86 条起，锁 SKU、型号、尺码、颜色、物流时效：退货 returns、换货 exchange、补发 reship；颜色“藕粉”直译成 lotus root pink，改成 dusty pink 才对。术语表加到 210 条后，术语类投诉从每周 14 单降到 3 单；超过 300 条就维护不动，优先级开始打架。避坑一：一张表别跨产品线共用，A 线的 S1 是型号，B 线的 S1 是套餐。避坑二：提示词写清“只用下表译法，没收录的保留原文”，比让模型自由发挥稳。多语言 客服 机器人 搭建 里，术语表是唯一能沉淀的资产。</p>
+<h2>转人工四条线，宁可早转</h2>
+<p>多语言 客服 AI 的兜底是转人工。客服 AI 转人工 规则 我设四条：命中投诉、律师、退款、差评直接转；同一问题追问 2 次没解决就转；意图置信度低于 0.6 或情绪分低于 -0.5 转；改地址、改账号、金额超 500 美元这类高危操作也转。转过去必须带上下文包：语言、意图、订单号、200 字摘要、建议话术，这套规则上线后人工首响从 3 分钟降到 25 秒。避坑一：阈值别随手放松，我从 0.6 调到 0.45 想多接一点，人工量涨了 52%，第二天改回来。避坑二：别让机器人承诺时效和赔付。印尼客户发来“barang rusak”（货损），机器人连答错两轮，第三轮转人工才发现是物流磕碰，补了 15 美元券。WhatsApp 过了 24 小时窗口只能用模板消息，转人工按东南亚时区排班。</p>
+<h2>总结</h2>
+<p>多语言 客服 AI 能不能顶用，看四件事：会话级语言检测、翻译前生效的术语表、四条转人工线、带上下文包的转接。两个不要：不要让模型自己猜语言，不要让机器人承诺时效和赔付。这套 多语言 客服 机器人 搭建 跑三个月，8 个客服接下了 5 种语言的量；客服 AI 转人工 规则 那四条线一次也没大改，旺季只把金额阈值从 500 降到 300。</p></article>
+  
+  <section class="related"><h2>同类教程</h2><ul><li><a href="chat-34-llm-api-cost-calculation.html">大模型 API 成本核算：按业务量算清每月账单</a></li><li><a href="chat-35-llm-model-selection-review.html">大模型 选型 评测：40 道题跑出加权分</a></li><li><a href="chat-36-ai-meeting-assistant.html">AI 会议 助手 选型：四条硬指标和落地流程</a></li><li><a href="chat-37-ai-paper-reader.html">AI 论文 阅读 流程：从拆结构到复现</a></li><li><a href="chat-38-ai-mock-interview.html">AI 模拟 面试 怎么练：题库、追问与复盘</a></li></ul><p class="tool-link"><a href="../index.html">查看 对话AI 工具与其它教程 →</a> <a href="../t/params/">参数与配置 →</a></p></section>
+  <footer>© 2026 星籁 Stellara · <a href="../privacy.html">隐私政策</a> · <a href="../sitemap.xml">站点地图</a></footer>
+</main>
+</body>
+</html>

@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>n8n 节点 报错 排查：5 类常见错误与重试 · 星籁</title>
+<meta name="description" content="周三早上 8 点，日报那条工作流没出数。我打开左侧的 Executions，列表里一条红色 Failed，点进去红的是 HTTP Request 节点，返回 429。整条链路 18 个节点，每天抓 42 个源，前一周其实">
+<meta name="keywords" content="n8n 节点 报错 排查, n8n 报错 日志, n8n 表达式, 重试策略, n8n 报错 日志 查看, n8n 表达式 报错">
+<meta name="robots" content="index,follow">
+
+<link rel="canonical" href="https://a678-beep.github.io/ai-nav/a/biz-19-n8n-node-error-troubleshoot.html">
+<meta property="og:type" content="article">
+<meta property="og:title" content="n8n 节点 报错 排查：5 类常见错误与重试">
+<meta property="og:description" content="周三早上 8 点，日报那条工作流没出数。我打开左侧的 Executions，列表里一条红色 Failed，点进去红的是 HTTP Request 节点，返回 429。整条链路 18 个节点，每天抓 42 个源，前一周其实">
+<meta property="og:url" content="https://a678-beep.github.io/ai-nav/a/biz-19-n8n-node-error-troubleshoot.html">
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "Article", "headline": "n8n 节点 报错 排查：5 类常见错误与重试", "inLanguage": "zh-CN", "datePublished": "2026-11-15", "author": {"@type": "Organization", "name": "星籁 Stellara"}, "publisher": {"@type": "Organization", "name": "星籁 Stellara"}, "mainEntityOfPage": "https://a678-beep.github.io/ai-nav/a/biz-19-n8n-node-error-troubleshoot.html", "articleSection": "商业效率", "wordCount": 817, "dateModified": "2026-11-15", "keywords": "n8n 节点 报错 排查, n8n 报错 日志, n8n 表达式, 重试策略, n8n 报错 日志 查看, n8n 表达式 报错"}</script>
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "首页", "item": "https://a678-beep.github.io/ai-nav/"}, {"@type": "ListItem", "position": 2, "name": "商业效率", "item": "https://a678-beep.github.io/ai-nav/#/articles"}, {"@type": "ListItem", "position": 3, "name": "n8n 节点 报错 排查：5 类常见错误与重试", "item": "https://a678-beep.github.io/ai-nav/a/biz-19-n8n-node-error-troubleshoot.html"}]}</script>
+<style>
+:root{--bg:#080b12;--panel:#111827;--line:#1f2937;--txt:#e6edf7;--txt2:#9aa8bd;--txt3:#6b7a90;--cyan:#5ad1ff;--violet:#a78bfa}
+*{box-sizing:border-box}body{margin:0;background:radial-gradient(900px 500px at 82% -8%,rgba(90,209,255,.16),transparent 60%),var(--bg);color:var(--txt);font-family:"Microsoft YaHei","PingFang SC",system-ui,sans-serif;line-height:1.8}
+a{color:inherit;text-decoration:none}
+.top{position:sticky;top:0;backdrop-filter:blur(12px);background:rgba(8,11,18,.85);border-bottom:1px solid var(--line)}
+.top-in{max-width:900px;margin:0 auto;padding:12px 20px;display:flex;align-items:center;gap:10px}
+.logo{display:flex;align-items:center;gap:9px;font-weight:800}
+.logo .mark{width:30px;height:30px;border-radius:9px;background:linear-gradient(135deg,var(--cyan),var(--violet));display:grid;place-items:center;color:#04121c;font-weight:900}
+.top-in .back{margin-left:auto;color:var(--txt2);font-size:13px}
+main{max-width:900px;margin:0 auto;padding:28px 20px 60px}
+h1{font-size:28px;line-height:1.4;margin:8px 0 10px}
+.meta{color:var(--txt3);font-size:12.5px;margin-bottom:22px;display:flex;gap:8px;flex-wrap:wrap}
+.content{font-size:15.5px;color:#cfd9e6}
+.content h2{font-size:20px;color:var(--txt);margin:28px 0 10px}
+.content h3{font-size:17px;color:var(--txt);margin:22px 0 8px}
+.content p{margin:12px 0}
+.content li{margin:6px 0}
+.content code{background:rgba(120,180,255,.12);padding:1px 6px;border-radius:5px;font-family:Consolas,monospace;font-size:13px}
+.content pre{background:#0a1018;border:1px solid var(--line);border-radius:10px;padding:12px;overflow:auto}
+.content blockquote{border-left:3px solid var(--cyan);padding:4px 14px;color:var(--txt2);margin:16px 0}
+.ad-slot{margin:26px 0;min-height:100px;border:1px dashed rgba(120,140,170,.35);border-radius:12px;display:flex;align-items:center;justify-content:center;color:var(--txt3);font-size:12px;text-align:center;background:rgba(17,24,39,.55)}
+.ad-slot small{display:block;font-size:10.5px;opacity:.7}
+.bread{color:var(--txt3);font-size:12.5px;margin-bottom:6px}
+.bread a{color:var(--cyan)}
+footer{border-top:1px solid var(--line);color:var(--txt3);font-size:12.5px;text-align:center;padding:20px}
+.related{margin:34px 0 10px;border-top:1px solid var(--line);padding-top:18px}.related h2{font-size:16px;color:var(--txt);margin:0 0 10px}.related ul{list-style:none;padding:0;margin:0}.related li{margin:8px 0}.related a{color:var(--cyan);font-size:14px}
+.tool-link{margin:14px 0 0}
+.tlinks a{display:inline-block;margin:0 8px 8px 0;padding:6px 12px;border:1px solid rgba(90,209,255,.25);border-radius:8px;font-size:13px;color:var(--cyan);background:rgba(90,209,255,.06)}
+.tlinks a:hover{background:rgba(90,209,255,.15)}
+.sec{margin:26px 0}
+.sec h2{font-size:17px;color:var(--txt);margin:0 0 10px}
+.tool-link a{display:inline-block;font-size:13px;color:var(--txt2);border:1px solid var(--line);border-radius:8px;padding:7px 12px}
+.tool-link a:hover{color:var(--txt);border-color:rgba(90,209,255,.45)}
+.top-in .back{padding:6px 0}
+.bread a{display:inline-block;padding:6px 0}
+.sec li a{display:inline-block;padding:5px 0}
+.sib a{padding:8px 12px}
+.cats a{display:inline-block;margin:0 8px 8px 0;padding:6px 12px;border:1px solid var(--line);border-radius:8px;font-size:13px;color:var(--txt2)}
+.cats a:hover{color:var(--txt);border-color:rgba(90,209,255,.45)}
+.cats h2{font-size:17px;margin:22px 0 10px}
+@media(max-width:640px){h1{font-size:22px}main{padding:20px 16px 40px}
+.related a,.tlinks a,.tool-link a,footer a,.sib a{min-height:36px;display:inline-flex;align-items:center}
+.list a{padding:14px 14px}
+td a{display:inline-block;padding:8px 0}
+.note a{display:inline-block;padding:7px 0}
+}
+</style>
+</head>
+<body>
+<header class="top"><div class="top-in">
+  <a class="logo" href="../index.html"><span class="mark">✦</span>星籁 AI 导航</a>
+  <a class="back" href="../index.html">← 返回首页</a>
+</div></header>
+<main>
+  <div class="bread"><a href="../index.html">首页</a> / <a href="../biz/index.html">商业效率</a></div>
+  <h1>n8n 节点 报错 排查：5 类常见错误与重试</h1>
+  <div class="meta"><span>商业效率</span><span>·</span><span>更新于 2026-11-15</span><span>·</span><span>n8n 节点 报错 排查, n8n 报错 日志, n8n 表达式, 重试策略, n8n 报错 日志 查看, n8n 表达式 报错</span></div>
+  <article class="content"><p>周三早上 8 点，日报那条工作流没出数。我打开左侧的 Executions，列表里一条红色 Failed，点进去红的是 HTTP Request 节点，返回 429。整条链路 18 个节点，每天抓 42 个源，前一周其实已经失败 17 次，只是没人翻执行记录。n8n 节点 报错 排查 我不靠猜，固定看三处：执行记录里哪个节点红、该节点的 INPUT 和 OUTPUT、错误码对应哪一种改法。</p>
+<h2>一、五类错误先对号入座</h2>
+<p>高频的就五类。第一类 401 和 403，凭据过期或权限不够，HTTP Request 返回体里 message 写得很直白，401 换 token，403 去授权页补 scope。第二类 429，请求太密被限流，先看响应头 Retry-After 写了几秒，再决定等多久。第三类 ECONNREFUSED、ETIMEDOUT、EAI_AGAIN，分别是对方服务没起、端口写错、域名解析失败，在本机用 curl 验一遍再回来看节点。第四类最坑：接口返回的其实是登录页 HTML，Response Format 却选了 JSON，报错 Unexpected token &lt; in JSON at position 0，改成 Text，或者先加个 IF 判断标题。第五类 5xx 是上游自己的问题，重试基本没用，跳过并写一行到异常表；返回 400 先怀疑请求体字段和类型对不上，报错原文里的 field 名拿去搜节点配置，比看堆栈快。</p>
+<h2>二、表达式和日志：把错误锁死在一个节点</h2>
+<div class="ad-slot" data-ad="article-mid"><div>广告位（文章中部）<small>AdSense / 广告联盟代码插入点 · 建议 728×90 / 移动端 320×100</small></div><!-- 在这里粘贴广告代码 --></div>
+<p>不少报错不在接口，在表达式。字段名带空格得用方括号，{{ $json["access token"] }} 比点号稳；取任意上游节点用 {{ $('HTTP Request').item.json.data }}，旧写法 $node["HTTP Request"].json.data 也能跑，但字段一深常报 Cannot read properties of undefined (reading 'data')，九成是那条分支没数据，不是语法错。Set 节点里另一类坑：字段类型选了字符串，表达式返回数字，看着能跑，下游一比较就错分支。</p>
+<p>n8n 报错 日志 查看 分界面和容器两层：界面在 Executions 里筛 Failed，点红节点切 INPUT 和 OUTPUT；容器用 docker logs n8n --tail 200，自建版把 N8N_LOG_LEVEL 设成 debug 再复现一次。执行记录按天清理，把 EXECUTIONS_DATA_MAX_AGE 调到 720 小时，事后翻旧账才翻得到。n8n 表达式 报错 还有一类是类型：文本框只收字符串，表达式却返回对象，看着像报错，其实接一个 JSON.stringify 就过。n8n 表达式 报错 里最难认的是空数组，$json.data[0].id 取不到就整条断，加个 IF 兜住。</p>
+<h2>三、重试策略和一条真实案例</h2>
+<p>把 On Error 从 Stop Workflow 改成 Continue (using error output)，读操作再开 Retry On Fail：Max Tries 填 5，Wait Between Tries 填 3000 毫秒。HTTP Request 的 Batching 里 Batch Size 填 5、Batch Interval 填 1000，42 个源不再一把怼过去。写操作别这么配，POST 建单、发消息一重试就重复提交，只能走 error output 挂补偿分支。重试也不是越多越好：Max Tries 超过 5 意义不大，Wait Between Tries 低于 1000 毫秒等于没退避。</p>
+<p>n8n 节点 报错 排查 落到这条 429 上：18 个节点、每天跑 1 次、第三个 HTTP Request 失败，一周 17 次。改完重试和分批，一周降到 1 次，剩下那次是对方封 IP，换成 2 个 key 轮换后归零。再在 Settings 里接一条 Error Workflow，用 Error Trigger 把 {{ $json.execution.error.message }} 推到群里，5 分钟内能知道，不用等业务方来问为什么没数据。</p>
+<h2>总结</h2>
+<p>n8n 节点 报错 排查 的顺序固定下来就三步：Executions 筛失败、点开红节点看输入输出、对错误码改 On Error 和重试。时间八成花在没看入参就动手改。重试只给读操作，写操作走补偿；n8n 报错 日志 查看 时把 EXECUTIONS_DATA_MAX_AGE 调大；告警接上，别等数据断了一天再回头查。</p></article>
+  <div class="sec"><h2>文中提到的工具</h2><p class="tlinks"><a href="../tool/n8n/">n8n →</a></p></div>
+  <section class="related"><h2>同类教程</h2><ul><li><a href="biz-20-dify-retrieval-inaccurate.html">Dify 知识库 检索 不准：先改分块再重排</a></li><li><a href="biz-21-invoice-batch-verification.html">发票 批量 查验：386 张票一条流水线</a></li><li><a href="biz-22-contract-clause-compare.html">合同 条款 对比：AI 标出两版差异清单</a></li><li><a href="biz-23-cs-script-knowledge-base.html">客服 话术 知识库：三级分类加每周更新</a></li><li><a href="biz-24-approval-automation.html">审批 流程 自动化：4 个节点与条件分支</a></li></ul><p class="tool-link"><a href="../index.html">查看 商业效率 工具与其它教程 →</a> <a href="../t/errors/">AI 报错解决 →</a> <a href="../t/params/">参数与配置 →</a></p></section>
+  <footer>© 2026 星籁 Stellara · <a href="../privacy.html">隐私政策</a> · <a href="../sitemap.xml">站点地图</a></footer>
+</main>
+</body>
+</html>
