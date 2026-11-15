@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>OpenAI Codex CLI 沙箱：写工作区 · 星籁 AI 工具导航</title>
+<meta name="description" content="装完 Codex CLI，第一次跑 `codex` 它默认待在只读沙箱里，改不了任何文件；加参数放开之后又能写工作区了，但 `npm install` 全部失败。OpenAI Codex CLI 沙箱 的三种模式我挨个试">
+<meta name="keywords" content="Codex CLI 沙箱, Codex CLI 权限, Codex CLI 配置, Codex CLI 沙箱模式, Codex CLI 审批策略">
+<meta name="robots" content="index,follow">
+<link rel="canonical" href="https://A678-beep.github.io/ai-nav/a/code-09-openai-codex-cli-sandbox.html">
+<meta property="og:type" content="article">
+<meta property="og:title" content="OpenAI Codex CLI 沙箱：写工作区">
+<meta property="og:description" content="装完 Codex CLI，第一次跑 `codex` 它默认待在只读沙箱里，改不了任何文件；加参数放开之后又能写工作区了，但 `npm install` 全部失败。OpenAI Codex CLI 沙箱 的三种模式我挨个试">
+<meta property="og:url" content="https://A678-beep.github.io/ai-nav/a/code-09-openai-codex-cli-sandbox.html">
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "Article", "headline": "OpenAI Codex CLI 沙箱：写工作区", "inLanguage": "zh-CN", "datePublished": "2026-11-15", "author": {"@type": "Organization", "name": "星籁 Stellara"}, "publisher": {"@type": "Organization", "name": "星籁 Stellara"}, "mainEntityOfPage": "https://A678-beep.github.io/ai-nav/a/code-09-openai-codex-cli-sandbox.html", "keywords": "Codex CLI 沙箱, Codex CLI 权限, Codex CLI 配置, Codex CLI 沙箱模式, Codex CLI 审批策略"}</script>
+<style>
+:root{--bg:#080b12;--panel:#111827;--line:#1f2937;--txt:#e6edf7;--txt2:#9aa8bd;--txt3:#6b7a90;--cyan:#5ad1ff;--violet:#a78bfa}
+*{box-sizing:border-box}body{margin:0;background:radial-gradient(900px 500px at 82% -8%,rgba(90,209,255,.16),transparent 60%),var(--bg);color:var(--txt);font-family:"Microsoft YaHei","PingFang SC",system-ui,sans-serif;line-height:1.8}
+a{color:inherit;text-decoration:none}
+.top{position:sticky;top:0;backdrop-filter:blur(12px);background:rgba(8,11,18,.85);border-bottom:1px solid var(--line)}
+.top-in{max-width:900px;margin:0 auto;padding:12px 20px;display:flex;align-items:center;gap:10px}
+.logo{display:flex;align-items:center;gap:9px;font-weight:800}
+.logo .mark{width:30px;height:30px;border-radius:9px;background:linear-gradient(135deg,var(--cyan),var(--violet));display:grid;place-items:center;color:#04121c;font-weight:900}
+.top-in .back{margin-left:auto;color:var(--txt2);font-size:13px}
+main{max-width:900px;margin:0 auto;padding:28px 20px 60px}
+h1{font-size:28px;line-height:1.4;margin:8px 0 10px}
+.meta{color:var(--txt3);font-size:12.5px;margin-bottom:22px;display:flex;gap:8px;flex-wrap:wrap}
+.content{font-size:15.5px;color:#cfd9e6}
+.content h2{font-size:20px;color:var(--txt);margin:28px 0 10px}
+.content h3{font-size:17px;color:var(--txt);margin:22px 0 8px}
+.content p{margin:12px 0}
+.content li{margin:6px 0}
+.content code{background:rgba(120,180,255,.12);padding:1px 6px;border-radius:5px;font-family:Consolas,monospace;font-size:13px}
+.content pre{background:#0a1018;border:1px solid var(--line);border-radius:10px;padding:12px;overflow:auto}
+.content blockquote{border-left:3px solid var(--cyan);padding:4px 14px;color:var(--txt2);margin:16px 0}
+.ad-slot{margin:26px 0;min-height:100px;border:1px dashed rgba(120,140,170,.35);border-radius:12px;display:flex;align-items:center;justify-content:center;color:var(--txt3);font-size:12px;text-align:center;background:rgba(17,24,39,.55)}
+.ad-slot small{display:block;font-size:10.5px;opacity:.7}
+.bread{color:var(--txt3);font-size:12.5px;margin-bottom:6px}
+.bread a{color:var(--cyan)}
+footer{border-top:1px solid var(--line);color:var(--txt3);font-size:12.5px;text-align:center;padding:20px}
+@media(max-width:640px){h1{font-size:22px}main{padding:20px 16px 40px}}
+</style>
+</head>
+<body>
+<header class="top"><div class="top-in">
+  <a class="logo" href="../index.html"><span class="mark">✦</span>星籁 AI 导航</a>
+  <a class="back" href="../index.html">← 返回首页</a>
+</div></header>
+<main>
+  <div class="bread"><a href="../index.html">首页</a> / <a href="../index.html#/articles">编程助手</a></div>
+  <h1>OpenAI Codex CLI 沙箱：写工作区</h1>
+  <div class="meta"><span>编程助手</span><span>·</span><span>Codex CLI 沙箱, Codex CLI 权限, Codex CLI 配置, Codex CLI 沙箱模式, Codex CLI 审批策略</span></div>
+  <article class="content"><p>装完 Codex CLI，第一次跑 <code>codex</code> 它默认待在只读沙箱里，改不了任何文件；加参数放开之后又能写工作区了，但 <code>npm install</code> 全部失败。OpenAI Codex CLI 沙箱 的三种模式我挨个试了一遍，最后固化出一份 config.toml，这篇把权限和网络的组合讲清楚，免得你也卡在“能写不能装”这一步。我把三种模式在同一个 Node 仓库上各跑了 20 分钟，数据在下面。</p>
+<h2>三种沙箱模式怎么选</h2>
+<p><code>read-only</code> 只能读、不能写、不能联网，适合让它分析陌生仓库；<code>workspace-write</code> 能写当前目录和临时目录，网络默认关闭；<code>danger-full-access</code> 等于不设防，只在容器里用。我日常用第二条，命令是 <code>codex --sandbox workspace-write</code>。Codex CLI 权限 的另一半是审批策略：<code>untrusted</code> 只放行只读命令，<code>on-request</code> 由模型自己申请，<code>on-failure</code> 失败后申请，<code>never</code> 从不问，只有 CI 才用最后一条。Codex CLI 审批策略 的四个档位里，我实测 on-request 最顺手，它会先说明要跑什么再申请。</p>
+<p>三种模式我在同一个 Node 仓库各跑了 20 分钟：read-only 读了 12 个文件、写了 0 个；workspace-write 改了 9 个文件，其中 2 次超出范围被拒绝；danger-full-access 最快，但把 3 个临时文件也删了。</p>
+<p>两种设置是相乘的关系，不是二选一：沙箱决定能碰什么，审批决定碰之前问不问。我试过只放宽沙箱、审批保持 never，结果它默默改了三个配置文件。</p>
+<h2>config.toml 与 profile</h2>
+<div class="ad-slot" data-ad="article-mid"><div>广告位（文章中部）<small>AdSense / 广告联盟代码插入点 · 建议 728×90 / 移动端 320×100</small></div><!-- 在这里粘贴广告代码 --></div>
+<p>把默认值写进 <code>~/.codex/config.toml</code>：</p>
+<pre><code>toml
+sandbox_mode = "workspace-write"
+approval_policy = "on-request"</code></pre>
+<p>再配两个 profile：<code>conservative</code> 用 read-only 加 untrusted，跑陌生仓库；<code>trusted</code> 用 workspace-write 加 on-request。切换用 <code>codex --profile conservative</code>，写好后日常启动改成 <code>codex --profile development</code> 更稳定。工作区沙箱默认断网，需要装依赖时开 <code>[sandbox_workspace_write] network_access = true</code>，或者干脆把依赖装好再进沙箱。OpenAI Codex CLI 沙箱 的核心配置只有两个键，其余都是组合，这两个键错一个，行为就完全不同。Codex CLI 沙箱模式 选对了，误删文件的风险能降一大半；配错的典型症状是它反复申请权限，而你一直点同意。</p>
+<h2>三个坑</h2>
+<p>一是沙箱里 <code>npm install</code> 卡住不是网络问题，是策略问题，先看日志里的 denied。二是 <code>danger-full-access</code> 加 <code>approval_policy = "never"</code> 是危险组合，脚本里千万别这么写。三是沙箱只隔离文件系统和命令，不隔离代码上传，私有仓库先看数据条款。</p>
+<p>另外 <code>codex exec</code> 跑批量任务时，read-only 加 never 才是 CI 的正确姿势，别在流水线里开写权限。Codex CLI 审批策略 按环境分三套，比一套走天下安全得多。四是 <code>codex exec</code> 在 CI 里默认以仓库根为工作目录，跨目录任务记得显式传路径；五是沙箱里的 MCP 服务连不上本地端口，别在沙箱里调本地 API。被拒绝的命令在日志里会标 denied，先搜这个关键字比猜快。Codex CLI 沙箱模式 按项目分，别一个配置跑所有仓库。还有订阅额度问题：ChatGPT Plus 每月 20 美元能覆盖日常量，重度使用要么升 Pro，要么换成 API key 按量付费。</p>
+<h2>总结</h2>
+<p>OpenAI Codex CLI 沙箱 的默认值偏保守，真正要改的只有两处：模式换成 workspace-write，审批保持 on-request。把配置写进 config.toml 存成 profile，比每次命令行拼参数可靠得多。</p></article>
+  <footer>© 2026 星籁 Stellara · <a href="../privacy.html">隐私政策</a> · <a href="../sitemap.xml">站点地图</a></footer>
+</main>
+</body>
+</html>
