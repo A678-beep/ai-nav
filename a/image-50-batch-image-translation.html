@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>图片 批量 翻译：OCR 到重排的四步流程 · 星籁</title>
+<meta name="description" content="帮朋友做跨境店，260 张主图要同时上英文站和越南站。翻译公司报价 12 元一张、五天交付，我算了下自己做：PaddleOCR 提字、翻译接口过一遍、Photoshop 脚本回填。第一天卡在排版，译文不是宽出来就是挤成一">
+<meta name="keywords" content="图片 批量 翻译, OCR 文字 识别, 电商 主图, 译文 排版, 图片 内 文字 识别 翻译, 电商 主图 多语言 排版">
+<meta name="robots" content="index,follow">
+
+<link rel="canonical" href="https://a678-beep.github.io/ai-nav/a/image-50-batch-image-translation.html">
+<meta property="og:type" content="article">
+<meta property="og:title" content="图片 批量 翻译：OCR 到重排的四步流程">
+<meta property="og:description" content="帮朋友做跨境店，260 张主图要同时上英文站和越南站。翻译公司报价 12 元一张、五天交付，我算了下自己做：PaddleOCR 提字、翻译接口过一遍、Photoshop 脚本回填。第一天卡在排版，译文不是宽出来就是挤成一">
+<meta property="og:url" content="https://a678-beep.github.io/ai-nav/a/image-50-batch-image-translation.html">
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "Article", "headline": "图片 批量 翻译：OCR 到重排的四步流程", "inLanguage": "zh-CN", "datePublished": "2026-11-15", "author": {"@type": "Organization", "name": "星籁 Stellara"}, "publisher": {"@type": "Organization", "name": "星籁 Stellara"}, "mainEntityOfPage": "https://a678-beep.github.io/ai-nav/a/image-50-batch-image-translation.html", "articleSection": "图像生成", "wordCount": 796, "dateModified": "2026-11-15", "keywords": "图片 批量 翻译, OCR 文字 识别, 电商 主图, 译文 排版, 图片 内 文字 识别 翻译, 电商 主图 多语言 排版"}</script>
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "首页", "item": "https://a678-beep.github.io/ai-nav/"}, {"@type": "ListItem", "position": 2, "name": "图像生成", "item": "https://a678-beep.github.io/ai-nav/#/articles"}, {"@type": "ListItem", "position": 3, "name": "图片 批量 翻译：OCR 到重排的四步流程", "item": "https://a678-beep.github.io/ai-nav/a/image-50-batch-image-translation.html"}]}</script>
+<style>
+:root{--bg:#080b12;--panel:#111827;--line:#1f2937;--txt:#e6edf7;--txt2:#9aa8bd;--txt3:#6b7a90;--cyan:#5ad1ff;--violet:#a78bfa}
+*{box-sizing:border-box}body{margin:0;background:radial-gradient(900px 500px at 82% -8%,rgba(90,209,255,.16),transparent 60%),var(--bg);color:var(--txt);font-family:"Microsoft YaHei","PingFang SC",system-ui,sans-serif;line-height:1.8}
+a{color:inherit;text-decoration:none}
+.top{position:sticky;top:0;backdrop-filter:blur(12px);background:rgba(8,11,18,.85);border-bottom:1px solid var(--line)}
+.top-in{max-width:900px;margin:0 auto;padding:12px 20px;display:flex;align-items:center;gap:10px}
+.logo{display:flex;align-items:center;gap:9px;font-weight:800}
+.logo .mark{width:30px;height:30px;border-radius:9px;background:linear-gradient(135deg,var(--cyan),var(--violet));display:grid;place-items:center;color:#04121c;font-weight:900}
+.top-in .back{margin-left:auto;color:var(--txt2);font-size:13px}
+main{max-width:900px;margin:0 auto;padding:28px 20px 60px}
+h1{font-size:28px;line-height:1.4;margin:8px 0 10px}
+.meta{color:var(--txt3);font-size:12.5px;margin-bottom:22px;display:flex;gap:8px;flex-wrap:wrap}
+.content{font-size:15.5px;color:#cfd9e6}
+.content h2{font-size:20px;color:var(--txt);margin:28px 0 10px}
+.content h3{font-size:17px;color:var(--txt);margin:22px 0 8px}
+.content p{margin:12px 0}
+.content li{margin:6px 0}
+.content code{background:rgba(120,180,255,.12);padding:1px 6px;border-radius:5px;font-family:Consolas,monospace;font-size:13px}
+.content pre{background:#0a1018;border:1px solid var(--line);border-radius:10px;padding:12px;overflow:auto}
+.content blockquote{border-left:3px solid var(--cyan);padding:4px 14px;color:var(--txt2);margin:16px 0}
+.ad-slot{margin:26px 0;min-height:100px;border:1px dashed rgba(120,140,170,.35);border-radius:12px;display:flex;align-items:center;justify-content:center;color:var(--txt3);font-size:12px;text-align:center;background:rgba(17,24,39,.55)}
+.ad-slot small{display:block;font-size:10.5px;opacity:.7}
+.bread{color:var(--txt3);font-size:12.5px;margin-bottom:6px}
+.bread a{color:var(--cyan)}
+footer{border-top:1px solid var(--line);color:var(--txt3);font-size:12.5px;text-align:center;padding:20px}
+.related{margin:34px 0 10px;border-top:1px solid var(--line);padding-top:18px}.related h2{font-size:16px;color:var(--txt);margin:0 0 10px}.related ul{list-style:none;padding:0;margin:0}.related li{margin:8px 0}.related a{color:var(--cyan);font-size:14px}
+.tool-link{margin:14px 0 0}
+.tlinks a{display:inline-block;margin:0 8px 8px 0;padding:6px 12px;border:1px solid rgba(90,209,255,.25);border-radius:8px;font-size:13px;color:var(--cyan);background:rgba(90,209,255,.06)}
+.tlinks a:hover{background:rgba(90,209,255,.15)}
+.sec{margin:26px 0}
+.sec h2{font-size:17px;color:var(--txt);margin:0 0 10px}
+.tool-link a{display:inline-block;font-size:13px;color:var(--txt2);border:1px solid var(--line);border-radius:8px;padding:7px 12px}
+.tool-link a:hover{color:var(--txt);border-color:rgba(90,209,255,.45)}
+.top-in .back{padding:6px 0}
+.bread a{display:inline-block;padding:6px 0}
+.sec li a{display:inline-block;padding:5px 0}
+.sib a{padding:8px 12px}
+.cats a{display:inline-block;margin:0 8px 8px 0;padding:6px 12px;border:1px solid var(--line);border-radius:8px;font-size:13px;color:var(--txt2)}
+.cats a:hover{color:var(--txt);border-color:rgba(90,209,255,.45)}
+.cats h2{font-size:17px;margin:22px 0 10px}
+@media(max-width:640px){h1{font-size:22px}main{padding:20px 16px 40px}
+.related a,.tlinks a,.tool-link a,footer a,.sib a{min-height:36px;display:inline-flex;align-items:center}
+.list a{padding:14px 14px}
+td a{display:inline-block;padding:8px 0}
+.note a{display:inline-block;padding:7px 0}
+}
+</style>
+</head>
+<body>
+<header class="top"><div class="top-in">
+  <a class="logo" href="../index.html"><span class="mark">✦</span>星籁 AI 导航</a>
+  <a class="back" href="../index.html">← 返回首页</a>
+</div></header>
+<main>
+  <div class="bread"><a href="../index.html">首页</a> / <a href="../image/index.html">图像生成</a></div>
+  <h1>图片 批量 翻译：OCR 到重排的四步流程</h1>
+  <div class="meta"><span>图像生成</span><span>·</span><span>更新于 2026-11-15</span><span>·</span><span>图片 批量 翻译, OCR 文字 识别, 电商 主图, 译文 排版, 图片 内 文字 识别 翻译, 电商 主图 多语言 排版</span></div>
+  <article class="content"><p>帮朋友做跨境店，260 张主图要同时上英文站和越南站。翻译公司报价 12 元一张、五天交付，我算了下自己做：PaddleOCR 提字、翻译接口过一遍、Photoshop 脚本回填。第一天卡在排版，译文不是宽出来就是挤成一团，第二天才顺。图片 批量 翻译 的活，翻译只占三成，剩下全是识别和重排。</p>
+<h2>OCR 先过一遍，置信度低的打回</h2>
+<p>工具按场景选：印刷体主图用 PaddleOCR 本地跑 PP-OCRv4 服务器模型，显卡上单张 0.3 秒，260 张四分钟出结果；描边字、渐变底、竖排用百度或腾讯云 OCR 的高精度接口，一张几分钱。流程三步：1 整批跑识别，2 导出文字框坐标和置信度，3 置信度低于 0.9 的单独挑出来人工核对。260 张里 38 张被打回，全是白字描边和红底黄字，机器把“买一送一”认成“买一送－”。翻译前先建不译词表：品牌名、型号、尺码、数字和单位锁死，别让接口把 SKU 翻成拼音。图片 内 文字 识别 翻译 最容易翻车的是标点和小字，导出后放大到 200% 看一眼。</p>
+<h2>译文长出来一截，字号按语言重算</h2>
+<div class="ad-slot" data-ad="article-mid"><div>广告位（文章中部）<small>AdSense / 广告联盟代码插入点 · 建议 728×90 / 移动端 320×100</small></div><!-- 在这里粘贴广告代码 --></div>
+<p>图片 批量 翻译 真正费时间的是排版。中文 8 个字的卖点，英文通常要 18 到 20 个字符，宽度大约是原来的 1.3 到 1.5 倍，越南语的声调符号还要再宽一点，德语最夸张能到 1.8 倍。我量了 40 张主图：原来 48 像素的字号，英文版降到 38 才能放进同一块色块。处理三步：字号先降 20%，换窄体 Inter 或 Roboto Condensed，仍放不下就拆两行、行高 1.4 倍。重排用 PSD 文字层加 Photoshop 变量（图像、变量、数据组），CSV 一行一张图；或者 Python 加 PIL 按 OCR 坐标画字。避坑一：英文全大写会撑破按钮；避坑二：越南语要用 Noto Sans 这类支持拉丁扩展的字体，中文黑体缺声调符号。电商 主图 多语言 排版 的验收标准是手机 100% 尺寸不糊、留足 40 像素安全边距。</p>
+<h2>批量跑 200 张一轮，抽检一成</h2>
+<p>目录按语言分：input、output/en、output/vi；输出命名 SKU_语言_序号，比如 A1023_en_01.png，别让系统自动编号。一轮跑 200 张，跑完抽 10% 放大到 100% 看，重点查数字、单位、换行和错位。第一轮 260 张出 23 张问题：14 张译文超出画布，6 张字号太小，3 张不译词被翻。导出用 PNG-24，别在 JPEG 上反复存。PS 动作录制能覆盖八成重复操作，剩下的用脚本。图片 批量 翻译 的批量不是一次点完，是一批一验收。避坑三：原图另存别覆盖；平台主图要 1000 见方，译文贴边会被裁；二维码和联系方式别翻进图里，平台按违规处理。</p>
+<h2>总结</h2>
+<p>图片 批量 翻译 按四步走：OCR 出字卡置信度、术语表锁不译词、按语言重算字号和换行、批量导出后抽检一成。图片 内 文字 识别 翻译 拼的是识别质量，电商 主图 多语言 排版 拼的是耐心。260 张两个语言 520 张图，两个人两天干完，接口费不到五十块。</p></article>
+  
+  <section class="related"><h2>同类教程</h2><ul><li><a href="image-01-midjourney-v7-character-consistency.html">Midjourney v7 角色一致性实战</a></li><li><a href="image-02-stable-diffusion-3-5-inpainting.html">Stable Diffusion 3.5局部重绘</a></li><li><a href="image-03-flux1-dev-low-vram-quantization.html">Flux.1 dev 低显存 量化：三档取舍</a></li><li><a href="image-04-jimeng-ai-ecommerce-hero-image.html">即梦 AI 电商主图：白底出图六坑</a></li><li><a href="image-05-kling-image-to-image-chinese-style.html">可灵 图生图 国风插画：转绘强度 0.55 实测</a></li></ul><p class="tool-link"><a href="../index.html">查看 图像生成 工具与其它教程 →</a></p></section>
+  <footer>© 2026 星籁 Stellara · <a href="../privacy.html">隐私政策</a> · <a href="../sitemap.xml">站点地图</a></footer>
+</main>
+</body>
+</html>
