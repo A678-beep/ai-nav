@@ -126,6 +126,9 @@ footer .links{display:flex;gap:16px;flex-wrap:wrap;margin-bottom:10px}
 
 
 
+
+<meta name="copyright" content="© 2026 星籁 AI 工具导航 xinglaiai.com 版权所有，未经许可禁止镜像、采集与商业转载">
+
 <!-- adsense-head:start -->
 <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-8687289780561043"
      crossorigin="anonymous"></script>
@@ -148,7 +151,7 @@ footer .links{display:flex;gap:16px;flex-wrap:wrap;margin-bottom:10px}
       <a href="chat/index.html">对话AI</a><a href="image/index.html">图像生成</a><a href="code/index.html">编程助手</a><a href="write/index.html">写作文案</a><a href="video/index.html">视频音频</a><a href="biz/index.html">商业效率</a><a href="util/index.html">实用工具</a>
       <a href="t/errors/index.html">报错解决</a><a href="t/pricing/index.html">价格</a><a href="t/params/index.html">参数</a><a href="t/compare/index.html">对比</a><a href="t/howto/index.html">上手</a><a href="pricing/index.html">价格对比</a><a href="glossary/index.html">术语表</a><a href="prompts/index.html">提示词库</a><a href="selector/index.html">工具选择器</a><a href="vs/index.html">工具对比</a><a href="faq/index.html">常见问题</a><a href="privacy.html">隐私政策</a><a href="sitemap.xml">站点地图</a>
     </div>
-    <div>© <span id="year"></span> 星籁 Stellara · 本站内容为实测整理，工具价格与功能以官方页面为准。</div>
+    <div>© <span id="year"></span> 星籁 AI 工具导航 · xinglaiai.com 版权所有 · 未经书面许可，禁止镜像、采集与商业转载 · 工具价格与功能以官方页面为准。</div>
   </div>
 </footer>
 
@@ -340,25 +343,40 @@ function viewAbout(){
   return `
   <section class="hero">
     <div class="eyebrow">ABOUT</div>
-    <h1>这个站点是怎么做的</h1>
-    <p class="lead">单文件 HTML，无后端、无外部依赖，双击即可打开；文章数据可直接改 JS 数组，也能在页面里批量导入 Markdown。</p>
+    <h1>关于星籁 AI 工具导航</h1>
+    <p class="lead">一个由个人长期维护的 AI 工具评测与教程站：只收录实际用过、愿意继续用的工具，每篇教程都写明参数、步骤和踩过的坑。</p>
   </section>
   <div class="panel">
-    <h3>结构</h3>
+    <h3>我们做什么</h3>
     <ul>
-      <li>工具数据在 <code>TOOLS</code> 数组：分类 c / 名称 n / 简介 d / 链接 u，复制一行就能加新工具。</li>
-      <li>文章数据在 <code>ARTICLES</code> 数组：id、title、category、keywords、tags、content（Markdown 原文）。</li>
-      <li>导入的文章存进浏览器 localStorage，换电脑不跟随；要长期保存请写回 <code>ARTICLES</code>。</li>
+      <li><b>人工实测</b>：每款工具至少实际使用两周，记录真实价格、免费额度、限制条件，不做官网文案搬运。</li>
+      <li><b>只留可用</b>：不追求"大而全"，同一个用途尽量只留 1~3 款，避免选择困难。</li>
+      <li><b>教程可复现</b>：每篇都给出操作步骤、参数取值和常见失败原因，读者照着做能得到同样结果。</li>
     </ul>
-    <h3>广告位</h3>
+    <h3>内容标准</h3>
     <ul>
-      <li>只在文章中部渲染，顶部/底部/侧边栏都没有广告容器。</li>
-      <li>接 AdSense：把 <code>adSlot()</code> 里的占位 div 换成你的 <code>&lt;ins class="adsbygoogle"&gt;</code> 并加脚本即可。</li>
+      <li>价格、额度、功能均以实测当时为准，并注明查证时间；工具官方调整后会更新文章。</li>
+      <li>不写"最强""神器"这类无信息量结论，尽量给出对比数据和适用边界。</li>
+      <li>站点内容持续更新，目前收录 42 款工具、375 篇教程，每周新增。</li>
     </ul>
-    <h3>SEO</h3>
+    <h3>版权声明</h3>
     <ul>
-      <li>已内置 title / description / keywords / canonical / OG / JSON-LD。</li>
-      <li>文章页标题随内容变化（document.title），便于搜索引擎按文章收录。</li>
+      <li>本站所有文章、评测数据、页面设计均由 <b>星籁 AI 工具导航（xinglaiai.com）</b> 原创整理，版权归本站所有。</li>
+      <li><b>未经书面许可，禁止整站镜像、批量采集、洗稿改写、以及任何形式的商业转载。</b></li>
+      <li>如需引用单篇文章，请保留原文链接与来源标注；合作请通过下方联系方式沟通。</li>
+      <li>文中提及的第三方工具名称与商标归各自所有者，本站仅作介绍与评测。</li>
+    </ul>
+    <h3>免责声明</h3>
+    <ul>
+      <li>工具的价格、功能、政策随时可能调整，最终以官方页面为准。</li>
+      <li>本站内容为使用经验分享，不构成任何购买建议或收益承诺。</li>
+      <li>外部链接指向第三方网站，其内容与服务由该网站负责。</li>
+    </ul>
+    <h3>广告与商业合作</h3>
+    <ul>
+      <li>本站通过页面广告与工具推广获得收入，用于维持服务器与内容更新。</li>
+      <li>广告不影响评测结论：推荐与否只看实际体验，不接受付费改评价。</li>
+      <li>商务合作、内容授权、纠错反馈，可通过站点页脚联系方式或邮件联系。</li>
     </ul>
   </div>`;
 }
