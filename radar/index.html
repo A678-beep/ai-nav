@@ -1,0 +1,64 @@
+<!doctype html><html lang="zh-CN"><head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>AI 工具雷达 · 每天更新的顶级模型与工具 · 星籁 AI 工具导航</title>
+<meta name="description" content="每天整理全球最顶级的 AI 模型与工具：GPT-5.1、Claude Opus 4.5、Gemini 3、Sora 2、Veo 3.1、Cursor 等，附适用场景与价格。">
+<meta name="keywords" content="AI工具雷达,AI模型更新,顶级AI工具,GPT-5.1,Claude Opus,Gemini 3,Sora 2,Veo 3.1,Cursor">
+<link rel="canonical" href="https://a678-beep.github.io/ai-nav/radar/">
+<meta property="og:title" content="AI 工具雷达 · 每天更新的顶级模型与工具">
+<meta property="og:description" content="每天整理全球最顶级的 AI 模型与工具，附适用场景与价格。">
+<style>
+:root{--bg:#070a10;--panel:#0f1622;--line:rgba(148,163,184,.14);--txt:#e8eef8;--txt2:#9fb0c7;--txt3:#6b7c94;--cyan:#38bdf8;--violet:#8b5cf6}
+*{box-sizing:border-box}
+body{margin:0;font:15px/1.7 -apple-system,"Segoe UI",Roboto,"Microsoft YaHei",sans-serif;color:var(--txt);
+background:radial-gradient(900px 480px at 78% -10%,rgba(56,189,248,.10),transparent 60%),radial-gradient(700px 400px at 10% 5%,rgba(139,92,246,.10),transparent 60%),linear-gradient(180deg,#070a10,#0a0f18);background-attachment:fixed;min-height:100vh}
+a{color:inherit;text-decoration:none}
+.wrap{max-width:1080px;margin:0 auto;padding:0 22px 60px}
+.top{position:sticky;top:0;z-index:10;backdrop-filter:blur(18px);background:rgba(7,10,16,.75);border-bottom:1px solid var(--line)}
+.top-in{max-width:1080px;margin:0 auto;height:60px;display:flex;align-items:center;gap:16px;padding:0 22px}
+.brand{font-weight:800;font-size:15px;display:flex;align-items:center;gap:9px}
+.logo{width:30px;height:30px;border-radius:9px;background:linear-gradient(135deg,#38bdf8,#8b5cf6);display:grid;place-items:center;font-size:15px;color:#04121c;font-weight:900}
+nav a{color:var(--txt2);font-size:13.5px;padding:7px 11px;border-radius:9px}
+nav a:hover{color:#fff;background:rgba(148,163,184,.1)}
+nav{margin-left:auto;display:flex;gap:2px;flex-wrap:wrap}
+.hero{padding:56px 0 28px;text-align:center}
+.eyebrow{display:inline-flex;gap:8px;font-size:11.5px;letter-spacing:.2em;color:#7dd3fc;border:1px solid rgba(56,189,248,.28);background:rgba(56,189,248,.07);padding:6px 14px;border-radius:999px;margin-bottom:18px}
+h1{font-size:clamp(30px,4.2vw,46px);line-height:1.2;margin:0 0 14px;letter-spacing:-.02em}
+h1 span{background:linear-gradient(120deg,#7dd3fc,#a78bfa);-webkit-background-clip:text;background-clip:text;color:transparent}
+.lead{color:var(--txt2);max-width:640px;margin:0 auto;font-size:16px}
+.stat{display:flex;justify-content:center;gap:26px;margin-top:26px;flex-wrap:wrap}
+.stat div{text-align:center}
+.stat b{display:block;font-size:24px;color:#fff}
+.stat span{font-size:12px;color:var(--txt3)}
+.sec{margin:40px 0 14px;display:flex;align-items:center;gap:10px}
+.sec h2{font-size:20px;margin:0;display:flex;align-items:center;gap:9px}
+.sec h2:before{content:"";width:4px;height:18px;border-radius:2px;background:linear-gradient(180deg,var(--cyan),var(--violet))}
+.sec .day{margin-left:auto;font-size:12.5px;color:var(--txt3)}
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(310px,1fr));gap:14px}
+.card{background:linear-gradient(180deg,rgba(20,28,43,.85),rgba(12,18,28,.85));border:1px solid var(--line);border-radius:16px;padding:18px;transition:.2s}
+.card:hover{transform:translateY(-3px);border-color:rgba(56,189,248,.4)}
+.card .hd{display:flex;align-items:center;gap:9px;margin-bottom:8px}
+.card .nm{font-weight:700;font-size:15.5px}
+.tag{font-size:11px;padding:2px 8px;border-radius:999px;border:1px solid var(--line);color:var(--txt3)}
+.tag.hot{color:#fca5a5;border-color:rgba(248,113,113,.4);background:rgba(248,113,113,.08)}
+.cat{font-size:11.5px;color:#7dd3fc;background:rgba(56,189,248,.08);border:1px solid rgba(56,189,248,.25);padding:2px 8px;border-radius:999px}
+.card p{margin:0;color:var(--txt2);font-size:13.5px}
+.card .pr{display:block;margin-top:10px;font-size:12px;color:var(--txt3);border-top:1px dashed var(--line);padding-top:9px}
+.note{margin-top:34px;color:var(--txt3);font-size:13px;text-align:center;line-height:1.9}
+.btn{display:inline-block;margin-top:22px;background:linear-gradient(135deg,#38bdf8,#6366f1);color:#04121c;font-weight:700;padding:12px 22px;border-radius:12px}
+footer{border-top:1px solid var(--line);margin-top:40px;padding:26px 22px;text-align:center;color:var(--txt3);font-size:12.5px}
+@media(max-width:640px){.stat{gap:16px}.card{padding:15px}.wrap{padding:0 16px 48px}.top-in{padding:0 14px;gap:8px}nav a{font-size:12.5px;padding:6px 8px}}
+</style></head><body>
+<div class="top"><div class="top-in"><a class="brand" href="/ai-nav/"><span class="logo">✦</span>星籁 AI 导航</a>
+<nav><a href="/ai-nav/">工具库</a><a href="/ai-nav/articles">教程</a><a href="/ai-nav/pricing/">价格</a><a href="/ai-nav/radar/">工具雷达</a></nav></div></div>
+<div class="wrap">
+<div class="hero"><div class="eyebrow">DAILY AI RADAR</div>
+<h1>每天更新的<span>AI 工具雷达</span></h1>
+<p class="lead">只收集真正能用、值得花时间学的顶级模型与工具，写清适用场景和价格，帮你少走弯路。</p>
+<div class="stat"><div><b>16</b><span>今日精选</span></div><div><b>3</b><span>模型 / 生成 / 工具</span></div><div><b>每日</b><span>更新频率</span></div></div></div>
+<div class="sec"><h2>模型（5）</h2><span class="day">更新于 2026-11-16</span></div><div class="grid"><div class="card"><div class="hd"><span class="nm">GPT-5.1 / ChatGPT</span><span class="cat">对话</span><span class="tag hot">热门</span></div><p>复杂推理与工具调用的默认选择，语音模式适合口语练习</p><span class="pr">免费额度 + Plus $20/月</span></div><div class="card"><div class="hd"><span class="nm">Claude Opus 4.5</span><span class="cat">长文/代码</span><span class="tag hot">热门</span></div><p>20 万上下文，长合同、论文、大型代码库阅读最稳</p><span class="pr">Pro $20/月</span></div><div class="card"><div class="hd"><span class="nm">Gemini 3 Pro</span><span class="cat">多模态</span><span class="tag hot">热门</span></div><p>图像/视频/文档原生多模态，Google 生态打通</p><span class="pr">免费 + AI Pro 订阅</span></div><div class="card"><div class="hd"><span class="nm">DeepSeek V4</span><span class="cat">中文/代码</span><span class="tag">模型</span></div><p>开源可本地部署，中文表达与代码能力强，API 便宜</p><span class="pr">开源免费 / API 低价</span></div><div class="card"><div class="hd"><span class="nm">Kimi K2</span><span class="cat">长文</span><span class="tag">模型</span></div><p>中文长文本总结，网页/文件一次读完整本</p><span class="pr">免费额度充足</span></div></div><div class="sec"><h2>生成（5）</h2><span class="day">更新于 2026-11-16</span></div><div class="grid"><div class="card"><div class="hd"><span class="nm">Sora 2</span><span class="cat">视频</span><span class="tag hot">热门</span></div><p>文生视频带音效，短视频分镜素材首选</p><span class="pr">ChatGPT Plus 内含</span></div><div class="card"><div class="hd"><span class="nm">Veo 3.1</span><span class="cat">视频</span><span class="tag hot">热门</span></div><p>电影质感镜头语言，广告片/预告片场景</p><span class="pr">Gemini 订阅内</span></div><div class="card"><div class="hd"><span class="nm">Midjourney v7</span><span class="cat">图像</span><span class="tag">生成</span></div><p>审美最强，电商主图/封面图出片率高</p><span class="pr">$10/月起</span></div><div class="card"><div class="hd"><span class="nm">Flux 1.1 Pro</span><span class="cat">图像</span><span class="tag">生成</span></div><p>开源生态最全，ControlNet/LoRA 可控性强</p><span class="pr">按张计费</span></div><div class="card"><div class="hd"><span class="nm">Runway Gen-4</span><span class="cat">视频</span><span class="tag">生成</span></div><p>镜头一致性最好的视频工具之一，适合品牌片</p><span class="pr">$15/月起</span></div></div><div class="sec"><h2>工具（6）</h2><span class="day">更新于 2026-11-16</span></div><div class="grid"><div class="card"><div class="hd"><span class="nm">Cursor</span><span class="cat">编程</span><span class="tag hot">热门</span></div><p>AI 原生 IDE，整库理解 + 多文件重构，团队常用</p><span class="pr">免费 + $20/月</span></div><div class="card"><div class="hd"><span class="nm">v0 / Bolt</span><span class="cat">前端</span><span class="tag">工具</span></div><p>一句话生成可部署前端页面，原型验证极快</p><span class="pr">免费额度</span></div><div class="card"><div class="hd"><span class="nm">Perplexity</span><span class="cat">搜索</span><span class="tag">工具</span></div><p>带来源的 AI 搜索，做资料核对比直接问模型可靠</p><span class="pr">免费 + Pro $20/月</span></div><div class="card"><div class="hd"><span class="nm">ElevenLabs</span><span class="cat">音频</span><span class="tag">工具</span></div><p>配音/克隆音色，短视频口播与有声内容首选</p><span class="pr">免费额度 + $5/月起</span></div><div class="card"><div class="hd"><span class="nm">Suno v5</span><span class="cat">音乐</span><span class="tag">工具</span></div><p>几分钟出一首完整带唱歌曲，短视频 BGM 神器</p><span class="pr">免费额度 + $10/月</span></div><div class="card"><div class="hd"><span class="nm">NotebookLM</span><span class="cat">学习</span><span class="tag">工具</span></div><p>文档转播客/思维导图，考研、行业报告速读</p><span class="pr">免费</span></div></div>
+<p class="note">数据每天更新一次 · 价格为官方公开信息，以官网为准 · 收录标准：真实可用、有明确适用场景、社区口碑稳定</p>
+<a class="btn" href="/ai-nav/">进入工具库 →</a>
+</div>
+<footer>© 2026 星籁 AI 工具导航 · xinglaiai.com 版权所有 · 未经许可禁止镜像/采集/商业转载</footer>
+<script>try{localStorage.setItem('radar_seen','2026-11-16')}catch(e){}</script>
+</body></html>
