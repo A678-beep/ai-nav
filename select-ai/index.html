@@ -1,0 +1,164 @@
+<!doctype html><html lang="zh-CN"><head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>AI 智能选型助手 · 一句话找到该用的 AI 工具 · 星籁 AI 导航</title>
+<meta name="description" content="输入一句话需求，自动生成 AI 工具组合方案：推荐工具、执行步骤、验收标准与备选方案，不花冤枉钱。">
+<meta name="keywords" content="AI选工具,AI工具推荐,AI方案生成,AI工具组合,AI智能选型">
+<link rel="canonical" href="https://a678-beep.github.io/ai-nav/select-ai/">
+<style>
+:root{--bg:#070a10;--panel:#0f1622;--line:rgba(148,163,184,.14);--txt:#e8eef8;--txt2:#9fb0c7;--txt3:#6b7c94;--cyan:#38bdf8;--violet:#8b5cf6;--lime:#34d399}
+*{box-sizing:border-box}
+body{margin:0;font:15px/1.7 -apple-system,"Segoe UI",Roboto,"Microsoft YaHei",sans-serif;color:var(--txt);
+background:radial-gradient(900px 480px at 78% -10%,rgba(56,189,248,.10),transparent 60%),radial-gradient(700px 400px at 10% 5%,rgba(139,92,246,.10),transparent 60%),linear-gradient(180deg,#070a10,#0a0f18);background-attachment:fixed;min-height:100vh}
+a{color:inherit;text-decoration:none}
+.wrap{max-width:920px;margin:0 auto;padding:0 22px 70px}
+.top{position:sticky;top:0;z-index:10;backdrop-filter:blur(18px);background:rgba(7,10,16,.78);border-bottom:1px solid var(--line)}
+.top-in{max-width:920px;margin:0 auto;height:60px;display:flex;align-items:center;gap:14px;padding:0 22px}
+.brand{font-weight:800;font-size:15px;display:flex;align-items:center;gap:9px}
+.logo{width:30px;height:30px;border-radius:9px;background:linear-gradient(135deg,#38bdf8,#8b5cf6);display:grid;place-items:center;font-size:15px;color:#04121c;font-weight:900}
+nav{margin-left:auto;display:flex;gap:2px;flex-wrap:wrap}
+nav a{color:var(--txt2);font-size:13.5px;padding:7px 11px;border-radius:9px}
+nav a:hover{color:#fff;background:rgba(148,163,184,.1)}
+.hero{padding:52px 0 10px;text-align:center}
+.eyebrow{display:inline-block;font-size:11.5px;letter-spacing:.2em;color:#7dd3fc;border:1px solid rgba(56,189,248,.28);background:rgba(56,189,248,.07);padding:6px 14px;border-radius:999px;margin-bottom:16px}
+h1{font-size:clamp(28px,4vw,42px);margin:0 0 12px;letter-spacing:-.02em;line-height:1.22}
+h1 span{background:linear-gradient(120deg,#7dd3fc,#a78bfa);-webkit-background-clip:text;background-clip:text;color:transparent}
+.lead{color:var(--txt2);max-width:600px;margin:0 auto 26px;font-size:15.5px}
+.box{background:linear-gradient(180deg,rgba(20,28,43,.9),rgba(12,18,28,.9));border:1px solid var(--line);border-radius:18px;padding:18px;box-shadow:0 24px 60px -24px rgba(2,8,20,.9)}
+textarea{width:100%;min-height:92px;resize:vertical;background:rgba(9,14,24,.9);border:1px solid var(--line);border-radius:12px;color:var(--txt);font-size:15px;padding:14px;outline:none;font-family:inherit}
+textarea:focus{border-color:rgba(56,189,248,.5);box-shadow:0 0 0 4px rgba(56,189,248,.1)}
+.row{display:flex;gap:10px;align-items:center;margin-top:12px;flex-wrap:wrap}
+.btn{background:linear-gradient(135deg,#38bdf8,#6366f1);color:#04121c;font-weight:800;border:0;border-radius:12px;padding:12px 24px;font-size:15px;cursor:pointer}
+.btn:disabled{opacity:.6;cursor:progress}
+.chips{display:flex;gap:8px;flex-wrap:wrap;margin-top:14px}
+.chips button{background:rgba(15,22,34,.8);border:1px solid var(--line);color:var(--txt2);border-radius:999px;padding:8px 14px;font-size:13px;cursor:pointer}
+.chips button:hover{border-color:rgba(56,189,248,.45);color:#dff3ff}
+.steps{display:flex;gap:8px;margin:22px 0 4px;flex-wrap:wrap}
+.step{flex:1;min-width:100px;text-align:center;font-size:12.5px;color:var(--txt3);border:1px solid var(--line);border-radius:10px;padding:8px 6px;background:rgba(15,22,34,.6)}
+.step.on{color:#dff3ff;border-color:rgba(56,189,248,.5);background:rgba(56,189,248,.1)}
+.step.done{color:#86efac;border-color:rgba(52,211,153,.35)}
+.out{margin-top:18px;display:none}
+.card{background:linear-gradient(180deg,rgba(20,28,43,.9),rgba(12,18,28,.9));border:1px solid var(--line);border-radius:16px;padding:18px;margin-top:14px}
+.card h3{margin:0 0 10px;font-size:16.5px;display:flex;align-items:center;gap:8px}
+.card h3:before{content:"";width:4px;height:16px;border-radius:2px;background:linear-gradient(180deg,#38bdf8,#8b5cf6)}
+.tool{display:flex;gap:10px;align-items:flex-start;padding:11px 0;border-bottom:1px dashed var(--line)}
+.tool:last-child{border-bottom:0}
+.tool b{font-size:14.5px}
+.tool p{margin:3px 0 0;font-size:13px;color:var(--txt2)}
+.cat{font-size:11px;color:#7dd3fc;border:1px solid rgba(56,189,248,.25);background:rgba(56,189,248,.08);padding:1px 7px;border-radius:999px;margin-left:8px}
+ol,ul{margin:6px 0 0;padding-left:22px;color:var(--txt2)}
+li{margin:5px 0}
+.check{color:#86efac;font-size:13px}
+.warn{color:#fbbf24;font-size:13px}
+.foot{margin-top:26px;text-align:center;color:var(--txt3);font-size:12.5px}
+footer{border-top:1px solid var(--line);margin-top:44px;padding:24px 22px;text-align:center;color:var(--txt3);font-size:12.5px}
+@media(max-width:640px){.wrap{padding:0 16px 54px}.top-in{padding:0 14px}nav a{font-size:12.5px;padding:6px 8px}h1{font-size:26px}.steps .step{min-width:88px;font-size:11.5px}}
+</style></head><body>
+<div class="top"><div class="top-in"><a class="brand" href="/ai-nav/"><span class="logo">✦</span>星籁 AI 导航</a>
+<nav><a href="/ai-nav/">工具库</a><a href="/ai-nav/radar/">工具雷达</a><a href="/ai-nav/pricing/">价格</a><a href="/ai-nav/select-ai/">智能选型</a></nav></div></div>
+<div class="wrap">
+<div class="hero"><div class="eyebrow">PLAN · EXECUTE · VERIFY</div>
+<h1>一句话，找到<span>该用的 AI 工具</span></h1>
+<p class="lead">说出你要做的事，自动给出「工具组合 + 执行步骤 + 验收标准 + 备选方案」，不花冤枉钱。</p></div>
+<div class="box">
+<textarea id="q" placeholder="例如：我要给淘宝店做 20 张商品主图，预算有限，需要能商用"></textarea>
+<div class="steps" id="steps"><div class="step on" data-s="0">① 拆解需求</div><div class="step" data-s="1">② 匹配工具</div><div class="step" data-s="2">③ 生成步骤</div><div class="step" data-s="3">④ 校验风险</div></div>
+<div class="row"><button class="btn" id="go">生成方案</button><span style="color:var(--txt3);font-size:12.5px">无需注册 · 结果可复制</span></div>
+<div class="chips" id="chips"></div>
+</div>
+<div class="out" id="out"></div>
+<p class="foot">方案由站内实测数据匹配生成，价格与功能以各工具官网为准。</p>
+</div>
+<footer>© 2026 星籁 AI 工具导航 · xinglaiai.com 版权所有 · 未经许可禁止镜像/采集/商业转载</footer>
+<script>
+var TOOLS={
+ chat:{name:"ChatGPT",cat:"对话",desc:"通用理解与改写，中文表达稳",url:"https://chatgpt.com",price:"免费额度 + Plus"},
+ doubao:{name:"豆包",cat:"对话",desc:"字节出品，中文口语化好，免费额度足",url:"https://www.doubao.com",price:"免费"},
+ claude:{name:"Claude",cat:"长文",desc:"长文档与代码阅读强，200K 上下文",url:"https://claude.ai",price:"Pro $20/月"},
+ kimi:{name:"Kimi",cat:"长文",desc:"中文长文本总结，网页/文件一次读完整本",url:"https://kimi.moonshot.cn",price:"免费"},
+ deepseek:{name:"DeepSeek",cat:"中文/代码",desc:"开源可本地部署，API 便宜",url:"https://www.deepseek.com",price:"免费 / API 低价"},
+ midjourney:{name:"Midjourney",cat:"图像",desc:"审美最强，电商主图出片率高",url:"https://www.midjourney.com",price:"$10/月起"},
+ jimeng:{name:"即梦 AI",cat:"图像/视频",desc:"国产，免费额度，适合电商与短视频",url:"https://jimeng.jianying.com",price:"免费额度"},
+ comfy:{name:"ComfyUI",cat:"图像",desc:"本地工作流，批量出图成本最低",url:"https://github.com/comfyanonymous/ComfyUI",price:"开源免费"},
+ kling:{name:"可灵 AI",cat:"视频",desc:"图生视频稳定，短视频素材首选",url:"https://klingai.kuaishou.com",price:"免费额度"},
+ sora:{name:"Sora 2",cat:"视频",desc:"文生视频带音效，分镜素材",url:"https://sora.com",price:"Plus 内含"},
+ jianying:{name:"剪映",cat:"视频剪辑",desc:"自动字幕 + 模板，成片快",url:"https://www.capcut.cn",price:"免费"},
+ cursor:{name:"Cursor",cat:"编程",desc:"AI 原生 IDE，多文件重构",url:"https://cursor.com",price:"免费 + $20/月"},
+ v0:{name:"v0 / Bolt",cat:"前端",desc:"一句话生成可部署页面",url:"https://v0.dev",price:"免费额度"},
+ notebook:{name:"NotebookLM",cat:"学习",desc:"文档转播客/脑图，速读报告",url:"https://notebooklm.google.com",price:"免费"},
+ eleven:{name:"ElevenLabs",cat:"音频",desc:"配音与音色克隆",url:"https://elevenlabs.io",price:"$5/月起"},
+ suno:{name:"Suno",cat:"音乐",desc:"几分钟生成带唱歌曲",url:"https://suno.com",price:"免费额度"},
+ perplexity:{name:"Perplexity",cat:"搜索",desc:"带来源的 AI 搜索，核对外部信息",url:"https://www.perplexity.ai",price:"免费 + Pro"}
+};
+var TASKS=[
+ {k:["主图","商品图","电商","产品图","抠图","海报","配图","封面"],tools:["jimeng","midjourney","comfy"],why:"商品图先要免费出量、再要审美兜底、最后批量降本",steps:["先用即梦/可灵免费额度试 5 张，确定风格方向","风格确定后用 Midjourney 出 3~5 张高质量主图","需要 20 张以上批量时，用 ComfyUI 本地跑（无按张费用）"],checks:["确认平台图片尺寸要求（如淘宝主图 800×800、≤3MB）","确认商用授权范围，AI 图避免出现真实人脸/品牌标识"],alt:"预算极低且只做 5 张以内：只用即梦免费额度即可，不必订阅 Midjourney"},
+ {k:["写","文案","公众号","小红书","推文","软文","标题","种草"],tools:["doubao","chatgpt","claude"],why:"中文口吻、结构、长文改稿分别用最合适的模型",steps:["用豆包出 3 个不同风格的初稿（免费、中文顺）","用 ChatGPT 做结构与标题优化，补数据和案例","长文/品牌稿用 Claude 通读改写，统一语气"],checks:["按平台字数限制压缩（小红书正文 ≤1000 字）","删除模型常用的空话（如“总而言之”“在当今”）","所有数据标明来源或改为经验描述"],alt:"只写短文案且预算为 0：豆包 + ChatGPT 免费额度就够了"},
+ {k:["视频","短视频","口播","剪辑","vlog","分镜"],tools:["kling","jianying","sora"],why:"素材生成、成片剪辑、高阶分镜分层解决",steps:["用可灵/即梦生成 3~5 段 5 秒素材","剪映自动字幕 + 模板套剪，先出 1 条样片","需要高质量镜头再上 Sora 2 / Veo"],checks:["竖版 1080×1920、前 3 秒有钩子","BGM 与口播音量平衡（口播 -12dB 左右）","平台查重：同一素材不要连续发"],alt:"纯口播不露脸：可灵素材 + 剪映数字人即可，成本更低"},
+ {k:["代码","编程","程序","bug","重构","前端","后端","接口"],tools:["cursor","claude","deepseek"],why:"编辑器内改代码、长上下文整体理解、低价 API 批量",steps:["Cursor 里先让 AI 解释现状并列出改动点","大范围重构用 Claude 通读多个文件后给补丁","批量/脚本任务用 DeepSeek API，成本最低"],checks:["每步改动后跑测试或本地验证","不让 AI 直接改生产配置和密钥","保留 git 提交，便于回滚"],alt:"只是写小脚本：DeepSeek 网页版免费就够"},
+ {k:["PPT","文档","报告","方案","总结","会议"],tools:["kimi","notebook","doubao"],why:"先摘要、再结构化、最后润色",steps:["把资料丢给 Kimi 做要点摘要（支持长文档）","NotebookLM 生成播客/脑图，快速理清逻辑","豆包按模板扩写成正式文档，人工润色"],checks:["数字与结论回查原始资料","避免 AI 编造引用来源","对外文档做一次人工通读"],alt:"只需一页纸摘要：Kimi 单工具即可"},
+ {k:["英语","口语","翻译","外语","雅思","练习"],tools:["chatgpt","doubao","deepseek"],why:"语音对话练口语、翻译校对、低成本陪练",steps:["ChatGPT 语音模式做场景对话（纠错+打分）","豆包陪练日常口语，免费额度多","DeepSeek 做翻译与语法校对"],checks:["每天固定 15 分钟，录音回听","把错误记在本子上，第二天复练","翻译稿人工核对专有名词"],alt:"只要翻译：DeepSeek 免费版即可"},
+ {k:["数据","分析","Excel","表格","报表","爬虫"],tools:["chatgpt","deepseek","kimi"],why:"数据处理、脚本生成、结论归纳",steps:["把表结构/前几行数据给 ChatGPT，让它写公式或脚本","DeepSeek 生成 Python 处理脚本并解释","Kimi 汇总分析结论成一页报告"],checks:["原始数据先备份","每条结论核对对应数字","敏感数据脱敏后再上传"],alt:"只是 Excel 公式：豆包/ChatGPT 免费版即可"},
+ {k:["客服","知识库","问答","机器人","自动化","工作流"],tools:["doubao","kimi","deepseek"],why:"用现有免费模型搭最小可用问答，再考虑平台化",steps:["用 Kimi 读产品文档，生成问答对","豆包做客服话术演练与兜底回复","需要自动化时用 DeepSeek API 接工作流"],checks:["设置兜底话术与转人工规则","每月抽查 20 条回复准确率","个人数据不投喂第三方"],alt:"不需要自己搭：直接用平台自带客服机器人"}
+];
+function render(q,idx,task){
+ var parsed=task?task.k.filter(function(k){return q.indexOf(k)>=0}):[];
+ var html='<div class="card"><h3>① 需求拆解</h3><p style="color:var(--txt2);margin:0">你要做的事：<b style="color:#e8eef8">'+q+'</b></p>';
+ html+=parsed.length?'<p style="color:var(--txt3);font-size:13px;margin:8px 0 0">识别到的关键点：'+parsed.map(function(p){return '「'+p+'」'}).join(' ')+'</p>':'';
+ html+='</div>';
+ if(task){
+  html+='<div class="card"><h3>② 推荐工具组合</h3>';
+  task.tools.forEach(function(id,i){var t=TOOLS[id];html+='<div class="tool"><div><b>'+(i+1)+'. '+t.name+'</b><span class="cat">'+t.cat+'</span><p>'+t.desc+' · '+t.price+'</p></div></div>';});
+  html+='<p style="color:var(--txt3);font-size:13px;margin:10px 0 0">选择逻辑：'+task.why+'</p></div>';
+  html+='<div class="card"><h3>③ 执行步骤</h3><ol>'+task.steps.map(function(s){return '<li>'+s+'</li>'}).join('')+'</ol></div>';
+  html+='<div class="card"><h3>④ 校验与避坑</h3><ul>'+task.checks.map(function(s){return '<li class="check">'+s+'</li>'}).join('')+'</ul><p class="warn" style="margin-top:10px">备选方案：'+task.alt+'</p></div>';
+  html+='<div class="card"><h3>方案可复制</h3><textarea style="min-height:120px">'+'【AI工具方案】'+q+'\n工具：'+task.tools.map(function(id){return TOOLS[id].name}).join(' / ')+'\n步骤：'+task.steps.join('；')+'</textarea></div>';
+ } else {
+  html+='<div class="card"><h3>② 没匹配到现成方案</h3><p style="color:var(--txt2)">换个说法试试，或直接看 <a href="/ai-nav/" style="color:#7dd3fc">42 款工具库</a>／<a href="/ai-nav/articles" style="color:#7dd3fc">375 篇教程</a>。</p></div>';
+ }
+ return html;
+}
+function match(q){
+ for(var i=0;i<TASKS.length;i++){for(var j=0;j<TASKS[i].k.length;j++){if(q.indexOf(TASKS[i].k[j])>=0)return TASKS[i];}}
+ return null;
+}
+var qEl=document.getElementById('q'),out=document.getElementById('out'),steps=[].slice.call(document.querySelectorAll('.step'));
+document.getElementById('chips').innerHTML=['给淘宝店做20张商品主图','写小红书文案并优化标题','做一条1分钟口播短视频','用AI重构一个前端组件','把资料整理成一页PPT','练一个月英语口语'].map(function(t){return '<button>'+t+'</button>'}).join('');
+document.getElementById('chips').addEventListener('click',function(e){if(e.target.tagName==='BUTTON'){qEl.value=e.target.textContent;go();}});
+function setStep(n){steps.forEach(function(s,i){s.className='step'+(i<n?' done':(i===n?' on':''))});}
+var busy=false;
+async function aiPlan(q){
+ try{
+  var r=await fetch('/ai-nav/api/plan',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({q:q})});
+  if(!r.ok) return null; var d=await r.json(); return (d&&d.ok)?d:null;
+ }catch(e){ return null; }
+}
+function renderAI(q,d){
+ var h='<div class="card"><h3>① 需求拆解</h3><p style="color:var(--txt2);margin:0">'+(d.understanding||q)+'</p></div>';
+ h+='<div class="card"><h3>② 推荐工具组合</h3>';
+ (d.tools||[]).forEach(function(t,i){h+='<div class="tool"><div><b>'+(i+1)+'. '+t.name+'</b><span class="cat">'+(t.cat||'工具')+'</span><p>'+t.why+' · '+(t.price||'以官网为准')+'</p></div></div>'});
+ h+='</div><div class="card"><h3>③ 执行步骤</h3><ol>'+(d.steps||[]).map(function(x){return '<li>'+x+'</li>'}).join('')+'</ol></div>';
+ h+='<div class="card"><h3>④ 校验与避坑</h3><ul>'+(d.checks||[]).map(function(x){return '<li class="check">'+x+'</li>'}).join('')+'</ul>'+(d.fallback?'<p class="warn">备选方案：'+d.fallback+'</p>':'')+'</div>';
+ h+='<p class="foot">本方案由 AI 三 Agent 实时生成 · 价格以官网为准</p>';
+ return h;
+}
+async function go(){
+ if(busy)return; var q=(qEl.value||'').trim(); if(!q){qEl.focus();return;}
+ busy=true; document.getElementById('go').disabled=true; out.style.display='none';
+ setStep(0);
+ var task=match(q),i=0;
+ var ai=await aiPlan(q);
+ if(ai){ setStep(4); out.innerHTML=renderAI(q,ai); out.style.display='block';
+   out.scrollIntoView({behavior:'smooth',block:'start'}); busy=false;
+   document.getElementById('go').disabled=false; return; }
+ var timer=setInterval(function(){
+   i++;
+   if(i<4){setStep(i);return;}
+   clearInterval(timer);setStep(4);
+   out.innerHTML=render(q,0,task);out.style.display='block';
+   out.scrollIntoView({behavior:'smooth',block:'start'});
+   busy=false;document.getElementById('go').disabled=false;
+ },520);
+}
+document.getElementById('go').addEventListener('click',go);
+qEl.addEventListener('keydown',function(e){if((e.ctrlKey||e.metaKey)&&e.key==='Enter')go();});
+</script>
+</body></html>
