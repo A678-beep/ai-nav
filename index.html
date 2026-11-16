@@ -3,20 +3,20 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<title>星籁 AI 工具导航 · 42 款实测工具 + 100 篇细分教程</title>
-<meta name="description" content="按 7 大分类整理 42 款常用 AI 工具，附 100 篇细分场景教程：对话、绘图、编程、写作、视频音频、商业效率与实用工具，每篇都有可执行的参数与避坑点。">
+<title>星籁 AI 工具导航 · 42 个实测 AI 工具 + 370 篇实操教程</title>
+<meta name="description" content="按 7 大分类整理 42 个常用 AI 工具，配 370 篇细分场景教程：对话、绘图、编程、写作、视频音频、商业效率与实用工具，每篇都有可执行的参数与避坑点。">
 <meta name="keywords" content="AI工具导航,AI工具分类,AI绘画教程,AI编程助手,AI写作工具,AI视频生成,AI效率工具,AI工具实测">
 <meta name="author" content="星籁 Stellara">
 <meta name="robots" content="index,follow">
 <link rel="canonical" href="https://a678-beep.github.io/ai-nav/">
 <meta property="og:type" content="website">
-<meta property="og:title" content="星籁 AI 工具导航 · 42 款实测工具 + 100 篇细分教程">
-<meta property="og:description" content="7 大分类 42 款 AI 工具，100 篇按细分场景写的实操教程，带参数、带避坑。">
+<meta property="og:title" content="星籁 AI 工具导航 · 42 个实测 AI 工具 + 370 篇实操教程">
+<meta property="og:description" content="7 大分类 42 个 AI 工具，370 篇按细分场景写的实操教程，带参数、带避坑。">
 <meta property="og:locale" content="zh_CN">
 <meta name="twitter:card" content="summary_large_image">
 <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>✦</text></svg>">
 <script type="application/ld+json">
-{"@context":"https://schema.org","@type":"WebSite","name":"星籁 AI 工具导航","description":"7 大分类 42 款 AI 工具与 100 篇细分教程","inLanguage":"zh-CN"}
+{"@context":"https://schema.org","@type":"WebSite","name":"星籁 AI 工具导航","description":"7 大分类 42 个 AI 工具与 370 篇细分教程","inLanguage":"zh-CN"}
 </script>
 <script type="application/ld+json">
 {"@context":"https://schema.org","@type":"Organization","name":"星籁 Stellara","url":"https://a678-beep.github.io/ai-nav/","description":"实测型 AI 工具导航与教程站点"}
@@ -222,7 +222,7 @@ function viewTools(){
   return `
   <section class="hero">
     <div class="eyebrow">AI TOOL DIRECTORY</div>
-    <h1>把 <span>42 款 AI 工具</span>按真实用途摆好，<br>再配 ${allArticles().length} 篇能照着做的教程</h1>
+    <h1>42 个 AI 工具，<br>按<span>你真正要办的事</span>分好了</h1>
     <p class="lead">不堆"大全"，只留实测过、愿意再打开的。每个分类 6 款，点开即用；每篇教程都带参数、步骤和踩过的坑。</p>
     <div class="stats">
       <div class="stat"><b>42</b>工具卡片</div>
@@ -261,7 +261,7 @@ function viewArticles(){
   return `
   <section class="hero">
     <div class="eyebrow">TUTORIALS · 100</div>
-    <h1>100 篇<span>细分场景教程</span></h1>
+    <h1>370 篇<span>细分场景教程</span></h1>
     <p class="lead">每篇只解决一个具体问题：参数怎么填、哪一步会翻车、用什么数字验收。点开即读，无需登录。</p>
   </section>
   <div class="latest"><span class="lb">最新更新</span>${allArticles().slice().sort((a,b)=>(b.mtime||0)-(a.mtime||0)).slice(0,6).map(a=>`<a href="a/${esc(a.id)}.html">${esc(a.title)}</a>`).join("")}</div>
