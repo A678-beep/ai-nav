@@ -469,6 +469,35 @@ details[open].music summary:after{content:"收起 ▴"}
 .tpl-nudge button:hover{border-color:rgba(56,189,248,.5);color:#e6f6ff}
 @media (max-width:1099px){#tplGrid{max-height:none;overflow:visible}}
 </style>
+
+<style>
+/* WB_TWO_SCROLL: 宽屏工作台——左右两栏各自独立滚动（类剪映），页面整体不超屏 */
+@media (min-width:1100px){
+  .wrap{height:calc(100vh - 60px);overflow:hidden;display:grid;
+        grid-template-columns:minmax(0,1fr) minmax(0,1.05fr);
+        grid-template-rows:auto auto minmax(0,1fr) auto;
+        column-gap:20px;row-gap:14px;align-items:stretch}
+  .wrap>.hero{grid-row:1;grid-column:1 / -1}
+  .wrap>.flow{grid-row:2;grid-column:1 / -1}
+  .wrap>.static-note{grid-row:1;grid-column:1 / -1;display:none}
+  .wrap>.colL{grid-row:3;grid-column:1}
+  .wrap>.colR{grid-row:3;grid-column:2}
+  .wrap>.colL,.wrap>.colR{overflow-y:auto;min-height:0;padding-right:8px;
+        scrollbar-width:thin;scrollbar-color:rgba(56,189,248,.5) transparent;overscroll-behavior:contain}
+  .wrap>.colL::-webkit-scrollbar,.wrap>.colR::-webkit-scrollbar{width:8px}
+  .wrap>.colL::-webkit-scrollbar-thumb,.wrap>.colR::-webkit-scrollbar-thumb{background:linear-gradient(180deg,rgba(56,189,248,.65),rgba(139,92,246,.65));border-radius:8px}
+  .wrap>.colL::-webkit-scrollbar-track,.wrap>.colR::-webkit-scrollbar-track{background:rgba(255,255,255,.04);border-radius:8px}
+  .wrap>footer{grid-row:4;grid-column:1 / -1;margin-top:6px}
+  #tplGrid{max-height:min(600px,60vh)}
+}
+@media (min-width:1500px){
+  .wrap{column-gap:24px;padding:0 40px 20px}
+}
+@media (max-width:1099px){
+  .wrap{height:auto;display:block;overflow:visible}
+  .wrap>.colL,.wrap>.colR{overflow:visible;height:auto;padding-right:0}
+}
+</style>
 </head><body>
 <div class="top"><div class="top-in">
  <a class="brand" href="/ai-nav/"><span class="logo">星</span>星籁 AI <span class="brand-sub">商家工作台</span></a>
