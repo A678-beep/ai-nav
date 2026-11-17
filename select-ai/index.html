@@ -162,5 +162,19 @@ async function go(){
 document.getElementById('go').addEventListener('click',go);
 qEl.addEventListener('keydown',function(e){if((e.ctrlKey||e.metaKey)&&e.key==='Enter')go();});
 </script>
-<script defer src="../assets/auth.js"></script>
+<script defer src="../assets/auth.js"></script><style id="WB_WIDE_UNIFY">
+/* WB_WIDE_UNIFY：满屏工作台（仅 ≥1180px 生效，移动端维持原样） */
+@media (min-width:1180px){
+  .wrap{max-width:none;padding-left:32px;padding-right:32px}
+  .top-in{max-width:none;padding-left:32px;padding-right:32px}
+  .hero{max-width:1240px;margin-left:auto;margin-right:auto}
+  .hero .lead{max-width:72ch}
+  .box textarea{min-height:112px}
+  .box .chips{justify-content:center}
+  #out[style*="block"]{display:grid !important;grid-template-columns:repeat(2,minmax(0,1fr));gap:16px;align-items:start}
+  #out[style*="block"] .card{margin-top:0}
+  #out[style*="block"] > .card:first-child{grid-column:1/-1}
+  footer{padding-left:32px;padding-right:32px}
+}
+</style>
 </body></html>

@@ -259,6 +259,59 @@ footer.site a:hover{color:#fff;border-color:rgba(148,163,184,.4)}
 @media (max-width:1179px){
   .posts-grid{display:block}
 }
+
+/* AI 经营智能体 */
+.agent-toggle{width:100%;margin-top:8px;display:flex;align-items:center;justify-content:space-between;gap:8px}
+.agent-arrow{font-size:11px;transition:transform .2s}
+.agent-toggle[aria-expanded="true"] .agent-arrow{transform:rotate(180deg)}
+#sec-agent{scroll-margin-top:84px}
+.agent-tabs{display:flex;gap:6px;overflow-x:auto;margin:12px 0 10px;padding-bottom:5px;scrollbar-width:thin}
+.agent-tab{flex:0 0 auto;border:1px solid var(--line);background:rgba(255,255,255,.03);color:var(--txt2);border-radius:999px;padding:7px 13px;font-size:13px;cursor:pointer;white-space:nowrap;font-family:inherit}
+.agent-tab.on{color:#04121a;background:linear-gradient(135deg,var(--cyan),var(--lime));border-color:transparent;font-weight:700}
+.agent-panel[hidden],#agentBody[hidden]{display:none!important}
+.agent-form{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px 12px;margin:4px 0 10px}
+.agent-form .fg{min-width:0}
+.agent-form .fl{margin:0 0 5px;display:block;font-size:12px;color:var(--txt3)}
+.agent-out{margin-top:12px}
+.agent-res{border:1px solid var(--line);border-radius:14px;padding:12px 14px;background:rgba(255,255,255,.025);margin-bottom:10px}
+.agent-res-head{display:flex;align-items:center;justify-content:space-between;gap:8px;flex-wrap:wrap;margin-bottom:8px}
+.agent-res-head h4{margin:0;font-size:14px;color:var(--txt);line-height:1.4}
+.agent-kw{display:flex;flex-wrap:wrap;gap:6px}
+.agent-chip{display:inline-block;border:1px solid var(--line);border-radius:999px;padding:3px 9px;font-size:12px;color:var(--txt2);background:rgba(255,255,255,.03);line-height:1.5;overflow-wrap:anywhere}
+.agent-list{margin:6px 0 0 18px;padding:0;font-size:13px;color:var(--txt2);line-height:1.8}
+.agent-list li{margin:2px 0}
+.agent-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:10px}
+.agent-pkg{border:1px solid var(--line);border-radius:12px;padding:12px;background:rgba(0,0,0,.12);min-width:0}
+.agent-pkg h5{margin:0 0 4px;font-size:14px;color:var(--txt);line-height:1.5}
+.agent-price{display:flex;align-items:baseline;gap:8px;margin:6px 0 8px;flex-wrap:wrap}
+.agent-price b{font-size:22px;color:var(--lime);line-height:1}
+.agent-price s{font-size:12px;color:var(--txt3)}
+.agent-mini{font-size:12px;color:var(--txt2);line-height:1.75;overflow-wrap:anywhere}
+.agent-md{font-size:13px;color:var(--txt2);line-height:1.8;max-width:100%;overflow-wrap:anywhere}
+.agent-md h1{font-size:17px;color:var(--txt);margin:4px 0 8px;line-height:1.4}
+.agent-md h2{font-size:15px;color:var(--txt);margin:14px 0 6px;line-height:1.4}
+.agent-md p{margin:6px 0}
+.agent-md table{width:100%;border-collapse:collapse;margin:8px 0;font-size:12px;table-layout:auto}
+.agent-md th,.agent-md td{border:1px solid var(--line);padding:5px 7px;text-align:left;overflow-wrap:anywhere}
+.agent-md th{color:var(--txt);background:rgba(255,255,255,.04)}
+.agent-md ul,.agent-md ol{margin:6px 0 6px 18px;padding:0}
+.agent-md blockquote{margin:8px 0;padding:6px 10px;border-left:3px solid var(--line);color:var(--txt3)}
+.agent-md code{background:rgba(255,255,255,.06);border-radius:4px;padding:1px 4px;font-size:12px}
+.agent-notice{display:flex;gap:8px;flex-wrap:wrap;margin-top:8px;font-size:11.5px;color:var(--txt3)}
+.agent-badge{display:inline-block;border-radius:999px;padding:2px 8px;font-size:11px;border:1px solid var(--line);color:var(--txt2);white-space:nowrap}
+.agent-badge.hot{color:#ff8b8b;border-color:rgba(255,90,90,.4);background:rgba(255,90,90,.08)}
+.agent-badge.ok{color:var(--lime);border-color:rgba(180,255,80,.35);background:rgba(180,255,80,.07)}
+.agent-reply{border:1px solid var(--line);border-radius:12px;padding:10px 12px;margin-bottom:8px;background:rgba(0,0,0,.1)}
+.agent-reply .rt{font-size:13px;color:var(--txt);line-height:1.8;white-space:pre-wrap;overflow-wrap:anywhere}
+.agent-reply .rh{display:flex;align-items:center;justify-content:space-between;gap:8px;margin-bottom:6px;flex-wrap:wrap}
+@media (max-width:640px){
+  .agent-form{grid-template-columns:1fr}
+  .agent-tabs{flex-wrap:wrap;overflow-x:visible;padding-bottom:0}
+  .agent-tab{flex:1 1 auto;text-align:center;padding:7px 9px;font-size:12px}
+  .agent-grid{grid-template-columns:1fr}
+  .agent-price b{font-size:20px}
+  .agent-res{padding:10px 11px}
+}
 </style>
 </head>
 <body>
@@ -427,9 +480,75 @@ footer.site a:hover{color:#fff;border-color:rgba(148,163,184,.4)}
         <div id="playbookOut"><div class="empty">选择行业后自动加载打法。</div></div>
       </section>
 
+      <!-- AI 经营智能体 -->
+      <section class="card glow" id="sec-agent">
+        <div class="sec-h"><span class="sec-no">8</span><h2>🤖 AI 经营智能体</h2><span class="tag" id="agentTag">P1 · 5 项</span></div>
+        <p class="sec-sub">同城关键词作战计划、流量高峰发布时间、团购套餐、评论/私信回复、经营周报。AI 只出初稿，人工核对价格与资质后再发布；接口未就绪时显示「功能准备中」，不影响页面其它功能。</p>
+        <button type="button" class="btn ghost agent-toggle" id="agentToggle" aria-expanded="false" aria-controls="agentBody">展开 5 个智能体工具 <span class="agent-arrow">▾</span></button>
+        <div id="agentBody" hidden>
+          <div class="agent-tabs" role="tablist" aria-label="AI 经营智能体工具">
+            <button type="button" class="agent-tab on" data-atab="kw" role="tab" aria-selected="true">关键词计划</button>
+            <button type="button" class="agent-tab" data-atab="schedule" role="tab" aria-selected="false">发布时间</button>
+            <button type="button" class="agent-tab" data-atab="package" role="tab" aria-selected="false">团购方案</button>
+            <button type="button" class="agent-tab" data-atab="review" role="tab" aria-selected="false">评论回复</button>
+            <button type="button" class="agent-tab" data-atab="report" role="tab" aria-selected="false">经营周报</button>
+          </div>
+
+          <div class="agent-panel" data-apanel="kw">
+            <div class="agent-form">
+              <div class="fg"><label class="fl" for="agKwIndustry">行业</label><input class="inp" id="agKwIndustry" maxlength="30" placeholder="如：家政保洁"></div>
+              <div class="fg"><label class="fl" for="agKwCity">城市</label><input class="inp" id="agKwCity" maxlength="20" placeholder="如：北京"></div>
+              <div class="fg"><label class="fl" for="agKwDistricts">区县（逗号分隔）</label><input class="inp" id="agKwDistricts" maxlength="60" placeholder="如：通州,朝阳"></div>
+              <div class="fg"><label class="fl" for="agKwServices">服务/项目（可选）</label><input class="inp" id="agKwServices" maxlength="80" placeholder="如：保洁,开荒"></div>
+            </div>
+            <div class="row"><button type="button" class="btn" id="agKwRun">生成关键词作战计划</button><span class="hint">核心词 + 长尾 + 口语 + 同城词 + 5 条选题 + 平台侧重</span></div>
+            <div id="agKwOut" class="agent-out"></div>
+          </div>
+
+          <div class="agent-panel" data-apanel="schedule" hidden>
+            <div class="agent-form">
+              <div class="fg"><label class="fl" for="agSchedIndustry">行业</label><input class="inp" id="agSchedIndustry" maxlength="30" placeholder="如：餐饮"></div>
+              <div class="fg"><label class="fl" for="agSchedPlatforms">平台（逗号分隔，可留空）</label><input class="inp" id="agSchedPlatforms" maxlength="60" placeholder="如：抖音,小红书,美团"></div>
+            </div>
+            <div class="row"><button type="button" class="btn" id="agSchedRun">生成发布时段建议</button><span class="hint">按平台给出星期、时段和理由，附一周排期</span></div>
+            <div id="agSchedOut" class="agent-out"></div>
+          </div>
+
+          <div class="agent-panel" data-apanel="package" hidden>
+            <div class="agent-form">
+              <div class="fg"><label class="fl" for="agPkgIndustry">行业</label><input class="inp" id="agPkgIndustry" maxlength="30" placeholder="如：美业"></div>
+              <div class="fg"><label class="fl" for="agPkgCity">城市</label><input class="inp" id="agPkgCity" maxlength="20" placeholder="如：北京"></div>
+              <div class="fg"><label class="fl" for="agPkgPrice">团购价区间（可选）</label><input class="inp" id="agPkgPrice" maxlength="20" placeholder="如：99-399"></div>
+              <div class="fg"><label class="fl" for="agPkgGoal">经营目标</label><select id="agPkgGoal"><option>拉新</option><option>引流</option><option>复购</option><option>去库存</option></select></div>
+            </div>
+            <div class="row"><button type="button" class="btn" id="agPkgRun">生成团购套餐方案</button><span class="hint">含原价/团购价/内容/卖点/平台适配/上架提醒</span></div>
+            <div id="agPkgOut" class="agent-out"></div>
+          </div>
+
+          <div class="agent-panel" data-apanel="review" hidden>
+            <div class="agent-form">
+              <div class="fg"><label class="fl" for="agRvIndustry">行业</label><input class="inp" id="agRvIndustry" maxlength="30" placeholder="如：餐饮"></div>
+              <div class="fg"><label class="fl" for="agRvSentiment">评价情绪</label><select id="agRvSentiment"><option value="negative" selected>差评 / 投诉</option><option value="neutral">中评 / 一般</option><option value="positive">好评 / 表扬</option></select></div>
+              <div class="fg" style="grid-column:1/-1"><label class="fl" for="agRvText">评论 / 私信原文</label><textarea id="agRvText" maxlength="800" placeholder="例如：等了2小时还没人理，服务员态度也很敷衍。"></textarea></div>
+              <div class="fg"><label class="fl" for="agRvTone">回复语气</label><input class="inp" id="agRvTone" maxlength="20" placeholder="专业真诚"></div>
+              <div class="fg"><label class="fl" for="agRvBiz">门店信息（可选）</label><input class="inp" id="agRvBiz" maxlength="120" placeholder="如：通州万达店，营业到 22:00"></div>
+            </div>
+            <div class="row"><button type="button" class="btn" id="agRvRun">生成 3 条合规回复</button><span class="hint">差评：共情→不辩解→补偿选项→邀请私聊</span></div>
+            <div id="agRvOut" class="agent-out"></div>
+          </div>
+
+          <div class="agent-panel" data-apanel="report" hidden>
+            <div class="notice safe" style="margin:6px 0"><span class="n-ico">📊</span><div>周报自动读取当前工作区的线索与触达事件；<b>暂无数据时返回示例周报 + 上手步骤</b>，不会报错。</div></div>
+            <input type="hidden" id="agReportWs">
+            <div class="row"><button type="button" class="btn" id="agReportRun">生成本周经营周报</button><span class="hint">Markdown 正文 + 亮点 + 下周行动</span></div>
+            <div id="agReportOut" class="agent-out"></div>
+          </div>
+        </div>
+      </section>
+
       <!-- 合规提示 -->
       <section class="card legal" id="sec-compliance">
-        <div class="sec-h"><span class="sec-no">8</span><h2>合规提示</h2><span class="tag">必读</span></div>
+        <div class="sec-h"><span class="sec-no">9</span><h2>合规提示</h2><span class="tag">必读</span></div>
         <p class="sec-sub">以下红线不做突破，出现争议时以本页约定为准。</p>
         <div class="legal-list">
           <div class="legal-item"><i>✅</i><div><b>只采集公开信息</b><br>仅整理用户主动公开的评论、评价与分类信息；不抓取私信、不破解验证、不使用爬虫绕过平台限制。</div></div>
@@ -1608,6 +1727,340 @@ footer.site a:hover{color:#fff;border-color:rgba(148,163,184,.4)}
     }).catch(function () {});
   }
 
+  /* ---------------- AI 经营智能体 ---------------- */
+  var AGENT = { copy: {}, seq: 0 };
+
+  function agentVal(id) { var el = $(id); return el ? String(el.value || '').trim() : ''; }
+  function agentList(v) {
+    return String(v || '').split(/[,，、\s]+/).map(function (x) { return x.trim(); }).filter(Boolean);
+  }
+  function agentBadge(r) {
+    return '<span class="agent-badge ' + (r.generated_by === 'deepseek' ? 'ok' : '') + '">' +
+      (r.generated_by === 'deepseek' ? '在线 AI' : '模板兜底') + '</span>';
+  }
+  function agentCopyBtn(text, label) {
+    var k = 'c' + (++AGENT.seq);
+    AGENT.copy[k] = String(text || '');
+    return '<button type="button" class="btn line sm" data-acopy="' + k + '">' + esc(label || '复制') + '</button>';
+  }
+  function agentNotice(r) {
+    return '<div class="agent-notice"><span class="agent-badge">AI 生成</span><span>' +
+      esc(r.ai_notice || '内容由 AI 辅助生成，请人工核对后发布。') + '</span></div>';
+  }
+  function agentChips(arr, map) {
+    return (arr || []).map(function (x) {
+      return '<span class="agent-chip">' + esc(map ? map(x) : x) + '</span>';
+    }).join('');
+  }
+  function agentRiskBadge(level) {
+    var cls = level === 'high' ? 'hot' : (level === 'low' ? 'ok' : '');
+    var txt = level === 'high' ? '高风险' : (level === 'medium' ? '中风险' : '低风险');
+    return '<span class="agent-badge ' + cls + '">' + txt + '</span>';
+  }
+
+  function agentRun(btnId, outId, path, body, render, label) {
+    var btn = $(btnId), out = $(outId);
+    if (!btn || !out) return;
+    var old = btn.textContent;
+    btn.disabled = true; btn.textContent = '生成中…';
+    out.innerHTML = '<div class="overlay-skel"><span class="spin"></span>AI 正在生成' + esc(label || '内容') + '…（通常 3-15 秒）</div>';
+    api(path, { method: 'POST', body: body, timeout: 60000 }).then(function (r) {
+      btn.disabled = false; btn.textContent = old;
+      if (!r) { out.innerHTML = '<div class="notice warn"><span class="n-ico">⚠️</span><div>没有收到返回，请稍后重试。</div></div>'; return; }
+      if (r.pending || r.error === 'not_found') { out.innerHTML = pendingNote('AI 经营智能体'); return; }
+      if (!r.ok) {
+        out.innerHTML = '<div class="notice warn"><span class="n-ico">⚠️</span><div><b>生成失败</b>：' +
+          esc(r.hint || r.error || '未知错误') + '</div></div>';
+        return;
+      }
+      try { out.innerHTML = render(r); markApi('ok'); }
+      catch (e) { out.innerHTML = '<div class="notice warn"><span class="n-ico">⚠️</span><div>结果渲染失败，请重试。</div></div>'; }
+    }).catch(function () {
+      btn.disabled = false; btn.textContent = old;
+      out.innerHTML = '<div class="notice warn"><span class="n-ico">⚠️</span><div>网络异常，请稍后重试（不影响页面其它功能）。</div></div>';
+    });
+  }
+
+  /* 关键词 */
+  function agentKwText(r) {
+    var p = r.plan || {}, L = [];
+    L.push('【同城关键词作战计划】' + (r.industry || '') + ' · ' + (r.city || '') + ' ' + ((r.districts || []).join('/') || ''));
+    L.push('核心词：');
+    (p.core || []).forEach(function (x) { L.push('- ' + x.kw + '（' + x.intent + ' / 热度 ' + x.volume_hint + '）'); });
+    L.push('长尾词：' + (p.longtail || []).join('、'));
+    L.push('口语词：' + (p.colloquial || []).join('、'));
+    L.push('同城词：' + (p.region || []).join('、'));
+    L.push('内容选题：');
+    (p.content_ideas || []).forEach(function (x, i) { L.push((i + 1) + '. ' + x); });
+    L.push('平台侧重：');
+    (p.platform_focus || []).forEach(function (x) { L.push('- ' + x.platform + '：' + x.reason); });
+    return L.join('\n');
+  }
+  function agentRenderKw(r) {
+    var p = r.plan || {};
+    var core = (p.core || []).map(function (x) {
+      return '<div class="agent-pkg"><div style="font-weight:700;font-size:13.5px">' + esc(x.kw) + '</div>' +
+        '<div class="agent-mini">意图：' + esc(x.intent) + ' · 热度：' + esc(x.volume_hint) + '</div></div>';
+    }).join('');
+    var ideas = (p.content_ideas || []).map(function (x) { return '<li>' + esc(x) + '</li>'; }).join('');
+    var focus = (p.platform_focus || []).map(function (x) {
+      return '<li><b>' + esc(x.platform) + '</b>：' + esc(x.reason) + '</li>';
+    }).join('');
+    return '<div class="agent-res"><div class="agent-res-head"><h4>同城关键词作战计划</h4>' +
+      '<div>' + agentCopyBtn(agentKwText(r), '复制整份计划') + '</div></div>' +
+      '<div class="agent-mini">' + esc(r.industry || '') + ' · ' + esc(r.city || '') + ' ' +
+      esc((r.districts || []).join(' / ') || '全市') + ' · ' + agentBadge(r) + '</div>' +
+      '<div style="margin-top:10px"><b style="font-size:13px">核心词（' + (p.core || []).length + '）</b>' +
+      '<div class="agent-grid" style="margin-top:6px">' + core + '</div></div>' +
+      '<div style="margin-top:12px"><b style="font-size:13px">长尾词</b><div class="agent-kw" style="margin-top:6px">' + agentChips(p.longtail) + '</div></div>' +
+      '<div style="margin-top:12px"><b style="font-size:13px">口语词</b><div class="agent-kw" style="margin-top:6px">' + agentChips(p.colloquial) + '</div></div>' +
+      '<div style="margin-top:12px"><b style="font-size:13px">同城词</b><div class="agent-kw" style="margin-top:6px">' + agentChips(p.region) + '</div></div>' +
+      '<div style="margin-top:12px"><b style="font-size:13px">内容选题</b><ol class="agent-list">' + ideas + '</ol></div>' +
+      '<div style="margin-top:12px"><b style="font-size:13px">平台侧重</b><ul class="agent-list">' + focus + '</ul></div>' +
+      agentNotice(r) + '</div>';
+  }
+  function agentRunKw() {
+    var body = {
+      industry: agentVal('agKwIndustry') || currentIndustry(),
+      city: agentVal('agKwCity'),
+      districts: agentList(agentVal('agKwDistricts')),
+      services: agentList(agentVal('agKwServices'))
+    };
+    agentRun('agKwRun', 'agKwOut', '/agent/keywords', body, agentRenderKw, '同城关键词作战计划');
+  }
+
+  /* 发布时间 */
+  function agentSchedText(r) {
+    var L = ['【流量高峰发布建议】' + (r.industry || '')];
+    (r.slots || []).forEach(function (s) {
+      L.push('- ' + s.platform + '｜' + s.day + '｜' + (s.times || []).join(' / ') + '｜' + s.reason);
+    });
+    L.push('一周排期：');
+    (r.weekly_plan || []).forEach(function (x) { L.push('- ' + x); });
+    L.push('执行提醒：');
+    (r.tips || []).forEach(function (x) { L.push('- ' + x); });
+    return L.join('\n');
+  }
+  function agentRenderSched(r) {
+    var slots = (r.slots || []).map(function (s) {
+      return '<div class="agent-pkg"><div style="display:flex;justify-content:space-between;gap:8px;flex-wrap:wrap;align-items:center">' +
+        '<h5 style="margin:0">' + esc(s.platform) + '</h5><span class="agent-badge">' + esc(s.day) + '</span></div>' +
+        '<div class="agent-kw" style="margin:8px 0">' + agentChips(s.times) + '</div>' +
+        '<div class="agent-mini">' + esc(s.reason) + '</div></div>';
+    }).join('');
+    var weekly = (r.weekly_plan || []).map(function (x) { return '<li>' + esc(x) + '</li>'; }).join('');
+    var tips = (r.tips || []).map(function (x) { return '<li>' + esc(x) + '</li>'; }).join('');
+    return '<div class="agent-res"><div class="agent-res-head"><h4>流量高峰发布建议</h4>' +
+      '<div>' + agentCopyBtn(agentSchedText(r), '复制整份建议') + '</div></div>' +
+      '<div class="agent-mini">' + esc(r.industry || '') + ' · ' + (r.slots || []).length + ' 个平台时段 · ' + agentBadge(r) + '</div>' +
+      '<div class="agent-grid" style="margin-top:10px">' + slots + '</div>' +
+      '<div style="margin-top:12px"><b style="font-size:13px">一周排期</b><ol class="agent-list">' + weekly + '</ol></div>' +
+      '<div style="margin-top:12px"><b style="font-size:13px">执行提醒</b><ul class="agent-list">' + tips + '</ul></div>' +
+      agentNotice(r) + '</div>';
+  }
+  function agentRunSched() {
+    agentRun('agSchedRun', 'agSchedOut', '/agent/schedule', {
+      industry: agentVal('agSchedIndustry') || currentIndustry(),
+      platforms: agentList(agentVal('agSchedPlatforms'))
+    }, agentRenderSched, '发布时段建议');
+  }
+
+  /* 团购套餐 */
+  function agentPkgText(r) {
+    var L = ['【团购套餐方案】' + (r.industry || '') + ' · ' + (r.city || '')];
+    (r.packages || []).forEach(function (p) {
+      L.push('▸ ' + p.name + '：原价 ¥' + p.original_price + ' → 团购 ¥' + p.group_price);
+      L.push('  包含：' + (p.contents || []).join('；'));
+      L.push('  卖点：' + (p.selling_points || []).join('；'));
+      L.push('  适配平台：' + (p.platform_fit || []).join('、'));
+      L.push('  上架提醒：' + p.launch_tips);
+    });
+    L.push('合规提醒：');
+    (r.risk_notes || []).forEach(function (x) { L.push('- ' + x); });
+    return L.join('\n');
+  }
+  function agentRenderPkg(r) {
+    var pkgs = (r.packages || []).map(function (p) {
+      var contents = (p.contents || []).map(function (x) { return esc(x); }).join(' · ');
+      var points = (p.selling_points || []).map(function (x) { return '<li>' + esc(x) + '</li>'; }).join('');
+      return '<div class="agent-pkg"><h5>' + esc(p.name) + '</h5>' +
+        '<div class="agent-price"><b>¥' + esc(p.group_price) + '</b><s>原价 ¥' + esc(p.original_price) + '</s></div>' +
+        '<div class="agent-mini"><b>包含：</b>' + contents + '</div>' +
+        '<div class="agent-mini" style="margin-top:6px"><b>卖点：</b><ul class="agent-list">' + points + '</ul></div>' +
+        '<div class="agent-kw" style="margin-top:8px">' + agentChips(p.platform_fit) + '</div>' +
+        '<div class="agent-mini" style="margin-top:8px"><b>上架提醒：</b>' + esc(p.launch_tips) + '</div></div>';
+    }).join('');
+    var risks = (r.risk_notes || []).map(function (x) { return '<li>' + esc(x) + '</li>'; }).join('');
+    return '<div class="agent-res"><div class="agent-res-head"><h4>团购套餐方案</h4>' +
+      '<div>' + agentCopyBtn(agentPkgText(r), '复制套餐方案') + '</div></div>' +
+      '<div class="agent-mini">' + esc(r.industry || '') + ' · ' + esc(r.city || '') + ' · 目标：' + esc(r.goal || '') +
+      ' · ' + agentBadge(r) + '</div>' +
+      '<div class="agent-grid" style="margin-top:10px">' + pkgs + '</div>' +
+      '<div class="notice warn" style="margin-top:10px"><span class="n-ico">⚠️</span><div><b>合规提醒</b><ul class="agent-list">' + risks + '</ul></div></div>' +
+      agentNotice(r) + '</div>';
+  }
+  function agentRunPkg() {
+    agentRun('agPkgRun', 'agPkgOut', '/agent/package', {
+      industry: agentVal('agPkgIndustry') || currentIndustry(),
+      city: agentVal('agPkgCity') || S.config.city,
+      price_range: agentVal('agPkgPrice'),
+      goal: agentVal('agPkgGoal') || '拉新'
+    }, agentRenderPkg, '团购套餐方案');
+  }
+
+  /* 评论回复 */
+  function agentRvText(r) { return (r.replies || []).map(function (x) { return '【' + x.style + '】' + x.text; }).join('\n\n'); }
+  function agentRenderRv(r) {
+    var replies = (r.replies || []).map(function (x) {
+      return '<div class="agent-reply"><div class="rh"><span class="agent-badge">' + esc(x.style) + '</span>' +
+        agentCopyBtn(x.text, '复制这条') + '</div><div class="rt">' + esc(x.text) + '</div></div>';
+    }).join('');
+    var c = r.compliance || {};
+    var hits = (c.hits || []).map(function (h) { return '<li>' + esc(h.word) + '（' + esc(h.category) + '）：' + esc(h.suggestion) + '</li>'; }).join('');
+    var cbox = c.pass === false
+      ? '<div class="notice warn"><span class="n-ico">⚠️</span><div><b>检测到高风险话术</b><ul class="agent-list">' + hits + '</ul></div></div>'
+      : '<div class="notice safe"><span class="n-ico">✅</span><div><b>合规检查通过</b>：未发现索要好评、返现换评、删评、绝对化/疗效用语。已检查 ' + esc(c.checked || 3) + ' 条回复。</div></div>';
+    return '<div class="agent-res"><div class="agent-res-head"><h4>评论 / 私信回复草稿</h4>' +
+      '<div>' + agentCopyBtn(agentRvText(r), '复制全部回复') + '</div></div>' +
+      '<div class="agent-mini">' + esc(r.industry || '') + ' · ' +
+      esc({ negative: '差评 / 投诉', neutral: '中评 / 一般', positive: '好评 / 表扬' }[r.sentiment] || r.sentiment || '') +
+      ' · ' + agentRiskBadge(r.risk_level) +
+      (r.escalate ? ' <span class="agent-badge hot">建议升级店长</span>' : '') + ' · ' + agentBadge(r) + '</div>' +
+      (r.escalate_reason ? '<div class="agent-mini" style="margin-top:4px">升级原因：' + esc(r.escalate_reason) + '</div>' : '') +
+      '<div style="margin-top:10px">' + replies + '</div>' + cbox + agentNotice(r) + '</div>';
+  }
+  function agentRunRv() {
+    var text = agentVal('agRvText');
+    if (!text) { toast('先粘贴需要回复的评论或私信'); if ($('agRvText')) $('agRvText').focus(); return; }
+    agentRun('agRvRun', 'agRvOut', '/agent/review-reply', {
+      industry: agentVal('agRvIndustry') || currentIndustry(),
+      review_text: text,
+      sentiment: agentVal('agRvSentiment') || 'negative',
+      tone: agentVal('agRvTone') || '专业真诚',
+      business_info: agentVal('agRvBiz')
+    }, agentRenderRv, '3 条合规回复');
+  }
+
+  /* 周报 */
+  function agentMd(md) {
+    var lines = String(md || '').replace(/\r/g, '').split('\n');
+    var out = [], inUl = false, inOl = false, table = [];
+    function closeList() {
+      if (inUl) { out.push('</ul>'); inUl = false; }
+      if (inOl) { out.push('</ol>'); inOl = false; }
+    }
+    function inline(s) {
+      return esc(s).replace(/\*\*([^*]+)\*\*/g, '<b>$1</b>').replace(/`([^`]+)`/g, '<code>$1</code>');
+    }
+    function flushTable() {
+      if (!table.length) return;
+      var rows = [], i;
+      for (i = 0; i < table.length; i++) {
+        var t = table[i].trim();
+        if (!t) continue;
+        if (/^\|?\s*:?-{2,}/.test(t.replace(/\|/g, ' '))) continue;
+        var cells = t.replace(/^\||\|$/g, '').split('|');
+        rows.push(cells.map(function (c) { return c.trim(); }));
+      }
+      table = [];
+      if (!rows.length) return;
+      var html = '<table>';
+      rows.forEach(function (row, ri) {
+        html += '<tr>';
+        row.forEach(function (cell) {
+          var tag = ri === 0 ? 'th' : 'td';
+          html += '<' + tag + '>' + inline(cell) + '</' + tag + '>';
+        });
+        html += '</tr>';
+      });
+      out.push(html + '</table>');
+    }
+    lines.forEach(function (line) {
+      if (/^\s*\|/.test(line)) { closeList(); table.push(line); return; }
+      flushTable();
+      if (!line.trim()) { closeList(); return; }
+      var m;
+      if ((m = /^###?\s+(.*)$/.exec(line))) { closeList(); out.push('<h2>' + inline(m[1]) + '</h2>'); return; }
+      if ((m = /^#\s+(.*)$/.exec(line))) { closeList(); out.push('<h1>' + inline(m[1]) + '</h1>'); return; }
+      if ((m = /^>\s?(.*)$/.exec(line))) { closeList(); out.push('<blockquote>' + inline(m[1]) + '</blockquote>'); return; }
+      if ((m = /^[-*]\s+(.*)$/.exec(line))) {
+        if (inOl) { out.push('</ol>'); inOl = false; }
+        if (!inUl) { out.push('<ul>'); inUl = true; }
+        out.push('<li>' + inline(m[1]) + '</li>'); return;
+      }
+      if ((m = /^\d+\.\s+(.*)$/.exec(line))) {
+        if (inUl) { out.push('</ul>'); inUl = false; }
+        if (!inOl) { out.push('<ol>'); inOl = true; }
+        out.push('<li>' + inline(m[1]) + '</li>'); return;
+      }
+      closeList(); out.push('<p>' + inline(line) + '</p>');
+    });
+    flushTable(); closeList();
+    return out.join('');
+  }
+  function agentRenderReport(r) {
+    var hs = (r.highlights || []).map(function (x) { return '<li>' + esc(x) + '</li>'; }).join('');
+    var ac = (r.actions || []).map(function (x) { return '<li>' + esc(x) + '</li>'; }).join('');
+    return '<div class="agent-res"><div class="agent-res-head"><h4>经营周报' + (r.sample ? '（示例）' : '') + '</h4>' +
+      '<div>' + agentCopyBtn(r.report_md || '', '复制 Markdown') + '</div></div>' +
+      '<div class="agent-mini">工作区：' + esc(r.workspace_id || 'default') + ' · ' + agentBadge(r) +
+      (r.sample ? ' <span class="agent-badge">暂无数据 · 示例+引导</span>' : '') + '</div>' +
+      '<div class="agent-md" style="margin-top:10px">' + agentMd(r.report_md) + '</div>' +
+      '<div style="margin-top:12px"><b style="font-size:13px">本周亮点</b><ul class="agent-list">' + hs + '</ul></div>' +
+      '<div style="margin-top:12px"><b style="font-size:13px">下周行动</b><ol class="agent-list">' + ac + '</ol></div>' +
+      agentNotice(r) + '</div>';
+  }
+  function agentRunReport() {
+    agentRun('agReportRun', 'agReportOut', '/agent/weekly-report', { workspace_id: wsId() }, agentRenderReport, '经营周报');
+  }
+
+  function agentPrefill() {
+    var c = S.config || {}, ind = currentIndustry();
+    var map = [
+      ['agKwIndustry', ind], ['agKwCity', c.city || ''], ['agKwDistricts', (c.districts || []).join(',')],
+      ['agSchedIndustry', ind], ['agSchedPlatforms', (c.platforms || []).join(',')],
+      ['agPkgIndustry', ind], ['agPkgCity', c.city || ''],
+      ['agRvIndustry', ind], ['agReportWs', wsId()]
+    ];
+    map.forEach(function (p) {
+      var el = $(p[0]);
+      if (el && !el.value && p[1]) el.value = p[1];
+    });
+  }
+  function agentSwitch(name) {
+    Array.prototype.forEach.call(document.querySelectorAll('.agent-tab'), function (t) {
+      var on = t.getAttribute('data-atab') === name;
+      t.classList.toggle('on', on);
+      t.setAttribute('aria-selected', on ? 'true' : 'false');
+    });
+    Array.prototype.forEach.call(document.querySelectorAll('.agent-panel'), function (p) {
+      p.hidden = p.getAttribute('data-apanel') !== name;
+    });
+  }
+  function bindAgent() {
+    var toggle = $('agentToggle'), body = $('agentBody');
+    if (!toggle || !body) return;
+    toggle.addEventListener('click', function () {
+      var open = body.hidden;
+      body.hidden = !open;
+      toggle.setAttribute('aria-expanded', open ? 'true' : 'false');
+      toggle.innerHTML = (open ? '收起 5 个智能体工具' : '展开 5 个智能体工具') + ' <span class="agent-arrow">▾</span>';
+      if (open) agentPrefill();
+    });
+    Array.prototype.forEach.call(document.querySelectorAll('.agent-tab'), function (tab) {
+      tab.addEventListener('click', function () { agentSwitch(tab.getAttribute('data-atab')); });
+    });
+    if ($('agKwRun')) $('agKwRun').addEventListener('click', agentRunKw);
+    if ($('agSchedRun')) $('agSchedRun').addEventListener('click', agentRunSched);
+    if ($('agPkgRun')) $('agPkgRun').addEventListener('click', agentRunPkg);
+    if ($('agRvRun')) $('agRvRun').addEventListener('click', agentRunRv);
+    if ($('agReportRun')) $('agReportRun').addEventListener('click', agentRunReport);
+    body.addEventListener('click', function (e) {
+      var b = e.target.closest ? e.target.closest('[data-acopy]') : null;
+      if (b) copyText(AGENT.copy[b.getAttribute('data-acopy')] || '');
+    });
+  }
+
   /* ---------------- 启动 ---------------- */
   function init() {
     $('year').textContent = new Date().getFullYear();
@@ -1620,6 +2073,8 @@ footer.site a:hover{color:#fff;border-color:rgba(148,163,184,.4)}
     renderScripts({ scripts: scriptVariants(null, 'high'), compliance: complianceCheck(''), cadence: { daily_limit: 30, interval_min: 30 } }, false);
     renderCadence({ daily_limit: 30, interval_min: 30 });
     bind();
+    bindAgent();
+    agentPrefill();
     markApi('checking');
     api('/industries').then(function (r) {
       if (r && r.ok) {

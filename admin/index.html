@@ -665,6 +665,18 @@ table.data td.actions .btn{margin-right:5px}
     if (u) { state.user = u; if (XLAuth.isAdmin(u) && state.gate === 'denied') { showShell(); loadAll(); } }
   });
 })();
-</script>
+</script><style id="WB_WIDE_UNIFY">
+/* WB_WIDE_UNIFY：满屏工作台（仅 ≥1180px 生效，移动端维持原样） */
+@media (min-width:1180px){
+  .wrap{max-width:none;padding-left:32px;padding-right:32px}
+  .admin-head{padding-top:36px}
+  .stat-grid{gap:16px}
+  .stat-card{padding:19px 20px}
+  .admin-grid{grid-template-columns:minmax(0,1fr);gap:16px;align-items:start}
+  .bars{grid-template-columns:repeat(3,minmax(0,1fr));column-gap:36px;row-gap:16px}
+  .plan-editor{gap:18px}
+  .site-foot .wrap{max-width:none}
+}
+</style>
 </body>
 </html>

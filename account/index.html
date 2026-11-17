@@ -376,6 +376,19 @@
   // 已登录时点登录页，tab 顶部给个提示
   document.addEventListener('auth:change', function () { renderLogged(); });
 })();
-</script>
+</script><style id="WB_WIDE_UNIFY">
+/* WB_WIDE_UNIFY：满屏工作台（仅 ≥1180px 生效，移动端维持原样） */
+@media (min-width:1180px){
+  .wrap{max-width:none;padding-left:32px;padding-right:32px}
+  .auth-grid{grid-template-columns:minmax(0,1fr) minmax(420px,540px);gap:56px;justify-content:space-between;align-items:center;padding:56px 0 40px}
+  .hero-side .big{font-size:clamp(38px,3.4vw,50px);max-width:760px}
+  .hero-side p.lead{max-width:56ch}
+  .perks{grid-template-columns:1fr 1fr;max-width:none;gap:12px}
+  .perk{padding:14px 16px}
+  .trust{gap:36px;margin-top:30px}
+  .form-card{width:100%;max-width:540px;justify-self:end;padding:30px}
+  .site-foot .wrap{max-width:none}
+}
+</style>
 </body>
 </html>

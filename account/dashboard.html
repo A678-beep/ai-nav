@@ -536,6 +536,18 @@ table.data td .oid{font-size:11.5px;color:var(--txt2);font-family:ui-monospace,C
     if (!XLAuth.token()) redirectLogin();
   });
 })();
-</script>
+</script><style id="WB_WIDE_UNIFY">
+/* WB_WIDE_UNIFY：满屏工作台（仅 ≥1180px 生效，移动端维持原样） */
+@media (min-width:1180px){
+  .wrap{max-width:none;padding-left:32px;padding-right:32px}
+  .plan-strip{grid-template-columns:1.2fr 1fr auto;gap:32px;padding:26px 30px}
+  .plan-meta{gap:40px}
+  .dash-grid{grid-template-columns:minmax(0,1fr) minmax(380px,430px);gap:22px}
+  .site-foot .wrap{max-width:none}
+}
+@media (min-width:1360px){
+  .quota-list{grid-template-columns:1fr 1fr;column-gap:36px}
+}
+</style>
 </body>
 </html>

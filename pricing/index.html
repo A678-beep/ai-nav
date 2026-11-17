@@ -481,6 +481,21 @@
   // 登录态刷新后重渲染当前套餐
   document.addEventListener('auth:change', function () { renderCurrentBar(); });
 })();
-</script>
+</script><style id="WB_WIDE_UNIFY">
+/* WB_WIDE_UNIFY：满屏工作台（仅 ≥1180px 生效，移动端维持原样） */
+@media (min-width:1180px){
+  .wrap{max-width:none;padding-left:32px;padding-right:32px}
+  .topbar .wrap{max-width:none}
+  .pricing-hero{padding-top:60px}
+  .pricing-hero p{max-width:72ch}
+  .plans{gap:20px}
+  .plan{padding:26px 22px 20px}
+  .current-bar{max-width:none}
+  .notes{gap:20px}
+  .faq-list{grid-template-columns:repeat(2,minmax(0,1fr));gap:12px;align-items:start}
+  .pay-strip{max-width:1100px;margin-left:auto;margin-right:auto}
+  .site-foot .wrap{max-width:none}
+}
+</style>
 </body>
 </html>
