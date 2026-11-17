@@ -228,7 +228,7 @@ document.addEventListener('click',function(e){ if(e.target && e.target.id==='aiP
 var sbData=null, sbPrompt='', sbBusy=false, sbDragFrom=-1;
 function escHtml(s){return String(s==null?'':s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');}
 function sbTotal(){var t=0;(sbData&&sbData.scenes||[]).forEach(function(s){t+=Number(s.dur)||0;});return t;}
-function sbThumb(c){return (c&&(c.thumb||c.url))||'';}
+function sbThumb(c){return (c&&(c.thumb_raw||c.thumb||c.url))||'';}
 function sbParams(){
  var q=(document.getElementById('q').value||'').trim();
  return {prompt:q,duration:parseInt(document.getElementById('dur').value,10)||60,
@@ -241,7 +241,7 @@ function sbCardHTML(s,i){
   var on=pick?((pick.id&&c.id)?pick.id===c.id:pick.url===c.url):(k===0);
   var tag=(c.tags||'')+' · '+(c.source||'');
   return '<button type="button" class="sb-clip'+(on?' on':'')+'" data-k="'+k+'" title="'+escHtml(tag)+'">'
-   +(sbThumb(c)?('<img loading="lazy" src="'+escHtml(sbThumb(c))+'" alt="素材预览">'):'')
+   +(sbThumb(c)?('<img loading="lazy" src="'+escHtml(sbThumb(c))+'" data-proxy="'+escHtml(c.thumb||'')+'" onerror="if(this.dataset.proxy){this.onerror=null;this.src=this.dataset.proxy;}" alt="素材预览">'):'')
    +'<b>'+(c.source==='mixkit'?'Mixkit':(c.source==='generated'?'兜底':'Pixabay'))+'</b>'
    +(c.match_score>0?('<i>★'+c.match_score+'</i>'):'')
    +'</button>';
