@@ -523,6 +523,27 @@ details[open].music summary:after{content:"收起 ▴"}
   .wrap>.hero h1{font-size:26px}
 }
 </style>
+<style>
+/* AI_COPYWRITE: 三个入口 AI 写稿按钮 + 极限词提示 + 结果区 AI 优化 */
+.btn-ai{background:linear-gradient(135deg,rgba(139,92,246,.30),rgba(56,189,248,.22));border:1px solid rgba(167,139,250,.55);color:#ede9fe;border-radius:14px;padding:0 18px;min-height:56px;font-size:15px;font-weight:800;cursor:pointer;white-space:nowrap;flex:0 0 auto;letter-spacing:.01em}
+.btn-ai:hover{filter:brightness(1.08);border-color:rgba(196,181,253,.8)}
+.btn-ai:active{transform:translateY(1px)}
+.btn-ai:disabled{opacity:.62;cursor:progress}
+.btn-ai.small{min-height:44px;padding:0 14px;font-size:13px;border-radius:10px}
+.copywarn{margin-top:8px;padding:10px 12px;font-size:12.5px;line-height:1.55}
+.copywarn b{font-size:13px;margin-bottom:2px}
+.copywarn ul{margin:4px 0 0;padding-left:18px}
+.copywarn li{margin:2px 0}
+.copywarn .cwsrc{color:#fbbf24;opacity:.85;font-size:11.5px}
+.script-head{display:flex;align-items:center;gap:10px;flex-wrap:wrap}
+.script-head h3{margin-right:auto}
+#aiPolishWarn{margin-top:8px;padding:10px 12px}
+@media(max-width:760px){
+ .btn-ai{flex:1 1 100%;min-height:50px}
+ .q-actions .btn-ai{flex:1 1 100%}
+ .script-head h3{font-size:14px}
+}
+</style>
 </head><body>
 <div class="top"><div class="top-in">
  <a class="brand" href="/ai-nav/"><span class="logo">星</span>星籁 AI <span class="brand-sub">商家工作台</span></a>
@@ -555,7 +576,7 @@ details[open].music summary:after{content:"收起 ▴"}
  </header>
 
  <div class="flow" aria-label="使用流程">
-  <button type="button" class="flow-item" data-goto="secTpl"><b>1</b><span>选行业模板<i>6 个行业，先选一个</i></span></button>
+  <button type="button" class="flow-item" data-goto="secTpl"><b>1</b><span>选行业模板<i>24 个行业，先选一个</i></span></button>
   <button type="button" class="flow-item" data-goto="secUpload"><b>2</b><span>传门店素材<i>没有就跳过，系统自动配</i></span></button>
   <button type="button" class="flow-item on" data-goto="secPrompt"><b>3</b><span>写一句话并生成<i>等 1~2 分钟出片</i></span></button>
  </div>
@@ -574,6 +595,7 @@ details[open].music summary:after{content:"收起 ▴"}
    <div class="q-meta"><span id="bizPromptCount">0 / 300</span><span>不会写？点下面的例子，改成你的店 →</span></div>
   </div>
   <div class="q-actions">
+   <button type="button" class="btn-ai" id="bizAiBtn">✨ AI 帮我写</button>
    <button type="button" class="btn-mic" id="bizMicBtn">🎤 说话输入</button>
    <button type="button" class="btn-main" id="bizGenBtn">🎬 生成商家视频</button>
   </div>
@@ -646,8 +668,9 @@ details[open].music summary:after{content:"收起 ▴"}
     <div class="vwrap"><video id="bizVideo" controls playsinline preload="metadata"></video><span class="vbadge">9:16 竖屏 · 无水印</span></div>
     <div class="result-info">
      <div class="badges" id="bizBadges"></div>
-     <h3>口播文案</h3>
+     <div class="script-head"><h3>口播文案</h3><button type="button" class="btn-ai small" id="aiPolishBtn">✨ AI 优化文案</button></div>
      <div class="script" id="bizScript"></div>
+     <div id="aiPolishWarn" class="warnbox" hidden></div>
      <details class="lic"><summary>商用授权说明</summary><div class="lic-body" id="bizLicense"></div></details>
      <details class="scenes"><summary>镜头脚本（<span id="sceneCount">0</span> 个镜头）</summary><div class="scenes-body" id="bizScenes"></div></details>
     </div>
@@ -762,6 +785,7 @@ details[open].music summary:after{content:"收起 ▴"}
      </label>
      <label>人声 <input type="range" id="freeVoiceVol" min="0" max="100" value="100"><span id="freeVoiceVolVal">100</span>%</label>
      <label>配乐 <input type="range" id="freeBgmVol" min="0" max="100" value="90"><span id="freeBgmVolVal">90</span>%</label>
+     <button type="button" class="btn-ai" id="freeAiBtn">✨ AI 帮我写</button>
      <button type="button" class="btn-main small" id="freeGo">🎬 开始生成</button>
     </div>
     <div id="freeOut" style="margin-top:12px"></div>
@@ -778,6 +802,7 @@ details[open].music summary:after{content:"收起 ▴"}
     <label>总时长 <select id="advDur"><option value="15">15 秒</option><option value="20">20 秒</option><option value="30" selected>30 秒</option><option value="45">45 秒</option><option value="60">60 秒</option></select></label>
     <label>人声 <input type="range" id="advVoiceVol" min="0" max="100" value="100"><span id="advVoiceVolVal">100</span>%</label>
     <label>配乐 <input type="range" id="advBgmVol" min="0" max="100" value="90"><span id="advBgmVolVal">90</span>%</label>
+    <button type="button" class="btn-ai" id="advAiBtn">✨ AI 帮我写</button>
     <button type="button" class="btn-line" id="advSbBtn">🎬 生成分镜</button>
    </div>
    <input type="file" id="advFile" accept="image/*" hidden>
@@ -797,7 +822,7 @@ details[open].music summary:after{content:"收起 ▴"}
   <p>这个页面帮商家把「一句话 + 几张素材」变成能直接发的竖屏短视频。全程不需要剪辑基础。</p>
   <h4>3 步就能出片</h4>
   <ol>
-   <li><b>选模板</b>：门店开业 / 餐饮菜品 / 汽修洗车 / 家政 / 美业 / 教培，6 选 1。</li>
+   <li><b>选模板</b>：门店开业 / 餐饮菜品 / 汽修洗车 / 家政 / 美业 / 教培，24 个行业选 1。</li>
    <li><b>传素材</b>：传 1~3 张门店照或视频。没有就跳过，系统自动配可商用素材。</li>
    <li><b>写一句话</b>：把优惠、地址、时间说清楚，点「🎬 生成商家视频」。</li>
   </ol>
@@ -1119,14 +1144,32 @@ function staticBlock(){
 function guardStatic(){if(STATIC_SITE){staticBlock();return true;}return false;}
 
 /* ================= 模板 ================= */
-var TPL_EMOJI={store_open:'🏬',restaurant:'🍲',auto_care:'🚗',housekeeping:'🧹',beauty:'💅',education:'🎓'};
+var TPL_EMOJI={"store_open":"🏬","restaurant":"🍲","auto_care":"🚗","housekeeping":"🧹","beauty":"💅","education":"🎓","fitness":"🏋️","pet-care":"🐾","hotel-stay":"🏨","coffee-tea":"☕","fashion-store":"👗","baby-care":"🍼","dental":"🦷","photo-studio":"📸","renovation":"🛠️","moving-clean":"🧹","car-beauty":"🚙","ktv-bar":"🎤","bookstore":"📚","flower-bakery":"💐","fresh-fruit":"🍓","driving-school":"🚘","maternity":"🤱","pharmacy-optical":"💊"};
 var TPL_FALLBACK=[
- {id:'store_open',name:'门店开业引流',industry:'零售 / 餐饮 / 生活服务 / 新店',description:'开业活动、到店优惠、限时折扣，3 秒抓人，适合发朋友圈/抖音/美团。',default_duration:20,bgm:{style:'轻快',label:'轻快节奏（鼓点清晰）'}},
- {id:'restaurant',name:'餐饮菜品宣传',industry:'餐饮 / 烧烤 / 小吃 / 面馆',description:'招牌菜特写、热气腾腾的镜头，突出食欲和性价比，适合新菜和套餐。',default_duration:15,bgm:{style:'温馨',label:'温馨舒缓（钢琴/吉他）'}},
- {id:'auto_care',name:'汽修洗车',industry:'洗车 / 修车 / 保养 / 贴膜 / 轮胎',description:'专业流程与效率，突出服务和效果对比，适合洗车套餐、保养团购。',default_duration:20,bgm:{style:'动感',label:'动感电子（节奏强）'}},
- {id:'housekeeping',name:'家政服务',industry:'保洁 / 家电清洗 / 搬家 / 月嫂',description:'干净、省心、细节可见，突出服务流程和客户好评，适合保洁/家电清洗。',default_duration:20,bgm:{style:'温馨',label:'温馨舒缓（钢琴/吉他）'}},
- {id:'beauty',name:'美业门店',industry:'美发 / 美甲 / 美容 / 皮肤管理 / 医美',description:'高级感、项目效果、店内环境，突出到店体验，适合新客体验和项目种草。',default_duration:20,bgm:{style:'大气',label:'大气氛围（弦乐/铺底）'}},
- {id:'education',name:'教培招生',industry:'K12 / 艺术培训 / 职教 / 成人教育',description:'师资、课程、环境、优惠，突出教学成果和报名福利，适合招生季。',default_duration:30,bgm:{style:'大气',label:'大气氛围（弦乐/铺底）'}}
+ {"id":"store_open","name":"门店开业引流","industry":"零售 / 餐饮 / 生活服务门店","description":"开业酬宾、到店礼、限时折扣，节奏明快，3 秒抓人，适合发朋友圈/抖音拉客到店。","default_duration":20,"bgm":{"style":"轻快","label":"轻快流行（尤克里里/拍手）"}},
+ {"id":"restaurant","name":"餐饮菜品宣传","industry":"餐厅 / 火锅 / 烧烤 / 小吃 / 咖啡","description":"招牌菜特写、锅气与食欲感，突出食材新鲜和性价比，适合新菜上市、套餐团购。","default_duration":15,"bgm":{"style":"温馨","label":"温馨钢琴（舒缓铺底）"}},
+ {"id":"auto_care","name":"汽修洗车","industry":"洗车 / 保养 / 维修 / 贴膜 / 轮胎","description":"专业、透明、效率，突出工序与效果对比，适合洗车套餐、保养团购、维修引流。","default_duration":20,"bgm":{"style":"动感","label":"动感电子（鼓点强）"}},
+ {"id":"housekeeping","name":"家政服务","industry":"保洁 / 家电清洗 / 收纳 / 月嫂育儿","description":"干净、省心、细节可见，突出服务流程和客户好评，适合保洁套餐、开荒、家电清洗。","default_duration":20,"bgm":{"style":"温馨","label":"温馨钢琴（舒缓铺底）"}},
+ {"id":"beauty","name":"美业门店","industry":"美容 / 美发 / 美甲 / 皮肤管理 / 医美","description":"高级感、项目效果与服务环境，突出技术与体验，适合新客体验、项目种草、预约到店。","default_duration":20,"bgm":{"style":"大气","label":"大气弦乐（低沉推进）"}},
+ {"id":"education","name":"教培招生","industry":"K12 / 素质培训 / 职教 / 成人教育","description":"师资、课程、试听与名额，突出教学成果和服务保障，适合招生季、体验课、公开课。","default_duration":30,"bgm":{"style":"大气","label":"大气弦乐（低沉推进）"}},
+ {"id":"fitness","name":"健身房 / 瑜伽馆","industry":"健身房 / 瑜伽 / 普拉提 / 私教","description":"器械、团课、教练和环境，突出体验课与塑形效果，适合新店、私教和团课促销。","default_duration":20,"bgm":{"style":"动感","label":"动感电子（鼓点强）"}},
+ {"id":"pet-care","name":"宠物店 / 宠物医院","industry":"宠物洗护 / 美容 / 寄养 / 诊疗","description":"洗护、美容、寄养和诊疗，突出专业与安心，适合新店、节前洗护、疫苗体检活动。","default_duration":15,"bgm":{"style":"温馨","label":"温馨钢琴（舒缓铺底）"}},
+ {"id":"hotel-stay","name":"酒店 / 民宿","industry":"酒店 / 民宿 / 公寓 / 度假","description":"房型、景观、早餐和位置，突出住得舒服与出片，适合新店开业、周末房、亲子房。","default_duration":20,"bgm":{"style":"温馨","label":"温馨钢琴（舒缓铺底）"}},
+ {"id":"coffee-tea","name":"咖啡 / 奶茶店","industry":"咖啡 / 奶茶 / 果茶 / 甜品","description":"出杯特写、原料和店内氛围，突出好喝与出片，适合新店、季节新品、第二杯活动。","default_duration":15,"bgm":{"style":"轻快","label":"轻快流行（尤克里里/拍手）"}},
+ {"id":"fashion-store","name":"服装店 / 鞋包","industry":"女装 / 男装 / 童装 / 鞋包 / 配饰","description":"版型、面料、搭配和上新，突出上身效果，适合换季上新、清仓和会员日活动。","default_duration":20,"bgm":{"style":"轻快","label":"轻快流行（尤克里里/拍手）"}},
+ {"id":"baby-care","name":"母婴店 / 母婴用品","industry":"母婴店 / 奶粉 / 纸尿裤 / 玩具 / 婴儿车","description":"品牌、材质和试用体验，突出安心与专业，适合新店、会员日、换季用品。","default_duration":20,"bgm":{"style":"温馨","label":"温馨钢琴（舒缓铺底）"}},
+ {"id":"dental","name":"牙科 / 口腔诊所","industry":"口腔 / 洗牙 / 正畸 / 种植 / 儿牙","description":"医生、设备和诊疗环境，突出舒适与透明，适合洗牙、检查、正畸咨询活动。","default_duration":20,"bgm":{"style":"温馨","label":"温馨钢琴（舒缓铺底）"}},
+ {"id":"photo-studio","name":"摄影写真 / 婚纱","industry":"写真 / 婚纱 / 全家福 / 证件照 / 跟拍","description":"风格、妆造、服装和场景，突出成片质感，适合档期预约、节日套餐、毕业季。","default_duration":20,"bgm":{"style":"温馨","label":"温馨钢琴（舒缓铺底）"}},
+ {"id":"renovation","name":"装修建材 / 全屋定制","industry":"装修 / 全屋定制 / 建材 / 橱柜 / 软装","description":"板材、工艺、案例和报价透明，突出省心，适合整装套餐、定制柜、旧房翻新。","default_duration":30,"bgm":{"style":"大气","label":"大气弦乐（低沉推进）"}},
+ {"id":"moving-clean","name":"搬家 / 开荒保洁 / 除甲醛","industry":"搬家 / 保洁 / 家电清洗 / 除甲醛 / 收纳","description":"准时、流程、工具和明码标价，突出省心，适合开荒保洁、搬家套餐、除醛服务。","default_duration":20,"bgm":{"style":"轻快","label":"轻快流行（尤克里里/拍手）"}},
+ {"id":"car-beauty","name":"汽车美容 / 贴膜","industry":"洗美 / 打蜡 / 镀晶 / 贴膜 / 改装","description":"施工环境、膜材和效果对比，突出专业与质保，适合新车贴膜、改色、精洗套餐。","default_duration":20,"bgm":{"style":"动感","label":"动感电子（鼓点强）"}},
+ {"id":"ktv-bar","name":"KTV / 酒吧 / 剧本杀","industry":"KTV / 清吧 / 酒吧 / 剧本杀 / 桌游","description":"环境、音响、包厢和玩法，突出氛围与聚会体验，适合新店、套餐、主题场。","default_duration":20,"bgm":{"style":"动感","label":"动感电子（鼓点强）"}},
+ {"id":"bookstore","name":"书店 / 文具","industry":"书店 / 文具 / 文创 / 咖啡阅读","description":"选品、环境、活动和文具，突出安静好逛，适合新店、读书会、开学季。","default_duration":20,"bgm":{"style":"温馨","label":"温馨钢琴（舒缓铺底）"}},
+ {"id":"flower-bakery","name":"花店 / 烘焙甜品","industry":"花店 / 鲜花 / 蛋糕 / 烘焙 / 甜品","description":"花材、现做、款式和配送，突出仪式感，适合节日预订、生日蛋糕、开业花篮。","default_duration":15,"bgm":{"style":"温馨","label":"温馨钢琴（舒缓铺底）"}},
+ {"id":"fresh-fruit","name":"水果生鲜店","industry":"水果 / 生鲜 / 蔬菜 / 社区团购","description":"产地、新鲜度和试吃，突出当日到货，适合新店、应季水果、社区团购。","default_duration":15,"bgm":{"style":"轻快","label":"轻快流行（尤克里里/拍手）"}},
+ {"id":"driving-school","name":"驾校 / 二手车","industry":"驾校 / 陪练 / 二手车 / 汽车销售","description":"教练、班型、车况和试驾，突出省心透明，适合招生季、二手车专场。","default_duration":30,"bgm":{"style":"大气","label":"大气弦乐（低沉推进）"}},
+ {"id":"maternity","name":"月子中心 / 月嫂","industry":"月子中心 / 月嫂 / 产后修复 / 育婴","description":"护理团队、餐食、环境和服务，突出安心专业，适合预约参观、产前咨询。","default_duration":30,"bgm":{"style":"温馨","label":"温馨钢琴（舒缓铺底）"}},
+ {"id":"pharmacy-optical","name":"药店 / 眼镜店","industry":"药店 / 眼镜 / 验光 / 视力健康","description":"验光、镜片、药师咨询和店内环境，突出专业与便利，适合配镜、体检、换季。","default_duration":20,"bgm":{"style":"温馨","label":"温馨钢琴（舒缓铺底）"}}
 ];
 function findTpl(id){for(var i=0;i<STATE.templates.length;i++){if(STATE.templates[i].id===id)return STATE.templates[i];}return null;}
 function renderTpl(){
@@ -1575,7 +1618,10 @@ function renderLicense(d){
  var note=d.license_note||{};
  var parts=[];
  if(note.text)parts.push('<p>'+esc(note.text)+'</p>');
- if(note.items&&note.items.length){parts.push('<p>'+note.items.map(esc).join('；')+'</p>');}
+ if(note.items&&note.items.length){parts.push('<p>'+note.items.map(function(it){
+  if(it&&typeof it==='object'){var t=it.type||'',n=it.note||'';return esc(t?(n?t+'：'+n:t):n);}
+  return esc(it);
+ }).join('；')+'</p>');}
  if(note.source)parts.push('<p>素材：'+esc(note.source)+'</p>');
  if(note.bgm)parts.push('<p>配乐：'+esc(note.bgm)+'</p>');
  if(note.voice)parts.push('<p>配音：'+esc(note.voice)+'</p>');
@@ -2354,6 +2400,7 @@ function restoreProject(pid,cb){
  });
 }
 window.STUDIO_BGM_INFO=function(){return (STATE.bgm&&STATE.bgm.src)?{id:STATE.bgm.id,name:STATE.bgm.name,src:STATE.bgm.src}:null;};
+window.STUDIO_APPLY_POLISH=function(text){if(!text)return false;if(STATE.d)STATE.d.script=text;var sc=$('bizScript');if(sc)sc.textContent=text;return true;};
 if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',init);else init();
 })();
 </script>
@@ -2677,6 +2724,110 @@ if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',
     setTotal();
     var mo=new MutationObserver(setTotal); mo.observe(grid,{childList:true});
   });
+})();
+</script>
+<script>
+/* AI_COPYWRITE: 三入口 AI 写稿 + 结果区 AI 优化（独立 IIFE，不依赖主脚本作用域） */
+(function(){
+'use strict';
+var $=function(id){return document.getElementById(id);};
+function esc(s){return String(s==null?'':s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;').replace(/'/g,'&#39;');}
+function staticSite(){return (/\.github\.io$/i.test(location.hostname))||location.protocol==='file:'||location.hostname==='';}
+function toast(msg,type){
+ var t=$('toast');if(!t)return;
+ t.textContent=msg;t.className='toast show'+(type?' '+type:'');t.hidden=false;
+ clearTimeout(t._tm);t._tm=setTimeout(function(){t.className='toast'+(type?' '+type:'');t.hidden=true;},3600);
+}
+async function api(url,body,ms){
+ var ctrl=(typeof AbortController!=='undefined')?new AbortController():null;
+ var timer=setTimeout(function(){if(ctrl)ctrl.abort();},ms||60000);
+ var opt={method:'POST',cache:'no-store',headers:{'Content-Type':'application/json'},body:JSON.stringify(body||{})};
+ if(ctrl)opt.signal=ctrl.signal;
+ try{
+  var r=await fetch(url,opt);
+  var d=null;try{d=await r.json();}catch(e){}
+  if(!r.ok||!d||d.ok===false){var e1=new Error((d&&(d.hint||d.error))||('服务暂不可用（HTTP '+r.status+'）'));e1.status=r.status;throw e1;}
+  return d;
+ }catch(e){
+  if(e&&e.name==='AbortError')throw new Error('等太久了，请再点一次');
+  if(e&&e.status)throw e;
+  throw new Error((e&&e.message)||'网络连接失败，请稍后重试');
+ }finally{clearTimeout(timer);}
+}
+function boxFor(ta,id){
+ var b=$(id);if(b)return b;
+ b=document.createElement('div');b.id=id;b.className='warnbox copywarn';b.hidden=true;
+ var host=(ta.closest&&ta.closest('.qbox'))||ta;
+ if(host&&host.parentNode)host.parentNode.insertBefore(b,host.nextSibling);
+ return b;
+}
+function showHits(d,box){
+ var hits=(d&&d.compliance&&d.compliance.hits)||[];
+ if(!hits.length){box.hidden=true;box.innerHTML='';return;}
+ var rows=hits.map(function(h){
+  var src=h.source==='seed'?'你的输入':'生成文案';
+  return '<li><b>'+esc(h.word||'')+'</b> → '+esc(h.suggest||'建议换个说法')+' <span class="cwsrc">（'+src+'）</span></li>';
+ });
+ box.innerHTML='<b>⚠️ 检测到极限词，发布前建议替换：</b><ul>'+rows.join('')+'</ul>';
+ box.hidden=false;
+}
+function selectedTpl(){
+ var c=document.querySelector('#tplGrid .tpl-card.on');if(!c)return null;
+ var n=c.querySelector('.tpl-name'),desc=c.querySelector('.tpl-desc');
+ return {id:c.getAttribute('data-tpl')||'',name:n?n.textContent:'',desc:desc?desc.textContent:''};
+}
+function bind(btnId,taId,warnId,opts){
+ var btn=$(btnId),ta=$(taId);if(!btn||!ta)return;
+ var box=boxFor(ta,warnId);
+ btn.addEventListener('click',async function(){
+  if(staticSite()){toast('全球静态站没有 AI 写稿服务，请用国内站 xinglaiai.com','warn');return;}
+  var seed=(ta.value||'').trim();
+  if(!seed&&opts.seed)seed=opts.seed();
+  if(!seed)seed=(ta.getAttribute('placeholder')||'').replace(/^例如[:：]\s*/,'');
+  var body={seed:seed,entry:opts.entry,duration:opts.duration(),style:opts.style()};
+  if(opts.templateId){var tid=opts.templateId();if(tid)body.template_id=tid;}
+  var old=btn.textContent;btn.disabled=true;btn.textContent='AI 写稿中…';box.hidden=true;
+  try{
+   var d=await api('/ai-nav/api/copywrite',body,60000);
+   if(!d||!d.ok||!d.text)throw new Error((d&&(d.hint||d.error))||'AI 没写出文案，请再点一次');
+   ta.value=d.text;
+   try{ta.dispatchEvent(new Event('input',{bubbles:true}));}catch(e){}
+   showHits(d,box);
+   toast('已生成，可直接修改','ok');
+   ta.focus();try{ta.setSelectionRange(ta.value.length,ta.value.length);}catch(e){}
+  }catch(e){
+   toast((e&&e.message)||'AI 写稿失败，请稍后重试','bad');
+  }finally{
+   btn.disabled=false;btn.textContent=old;
+  }
+ });
+}
+function durOfChips(){var c=document.querySelector('#durChips .on');return c?(parseInt(c.getAttribute('data-dur'),10)||20):20;}
+function valOf(id,def){var e=$(id);return e?(parseInt(e.value,10)||def):def;}
+function freeMode(){var m=document.querySelector('#freeModes button.on');return m?m.getAttribute('data-fm'):'auto';}
+bind('bizAiBtn','bizPrompt','bizCopyWarn',{entry:'biz',duration:durOfChips,style:function(){return '自然口播';},
+ seed:function(){var t=selectedTpl();return t?(t.name+'：'+t.desc):'';},
+ templateId:function(){var t=selectedTpl();return t?t.id:'';}});
+bind('freeAiBtn','freePrompt','freeCopyWarn',{entry:'free',duration:function(){return valOf('freeDur',60);},style:freeMode});
+bind('advAiBtn','advPrompt','advCopyWarn',{entry:'advanced',duration:function(){return valOf('advDur',30);},style:function(){return 'storyboard';}});
+var pb=$('aiPolishBtn');
+if(pb)pb.addEventListener('click',async function(){
+ var sc=$('bizScript'),pw=$('aiPolishWarn');
+ var text=sc?(sc.textContent||'').trim():'';
+ if(!text){toast('先生成一条视频，再来优化文案','warn');return;}
+ var old=pb.textContent;pb.disabled=true;pb.textContent='AI 优化中…';if(pw)pw.hidden=true;
+ try{
+  var d=await api('/ai-nav/api/polish',{script:text,prompt:'短视频口播，口语化、按镜头分句、保留原意'},60000);
+  if(!d||!d.ok||!d.script)throw new Error((d&&(d.hint||d.error))||'优化失败，请再试一次');
+  if(window.STUDIO_APPLY_POLISH)window.STUDIO_APPLY_POLISH(d.script);
+  else if(sc)sc.textContent=d.script;
+  toast('文案已优化，可直接使用','ok');
+ }catch(e){
+  toast((e&&e.message)||'优化失败，请稍后重试','bad');
+ }finally{
+  pb.disabled=false;pb.textContent=old;
+ }
+});
 })();
 </script>
 </body></html>
