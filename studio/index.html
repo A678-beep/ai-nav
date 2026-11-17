@@ -595,7 +595,7 @@ details[open].music summary:after{content:"收起 ▴"}
    <div class="q-meta"><span id="bizPromptCount">0 / 300</span><span>不会写？点下面的例子，改成你的店 →</span></div>
   </div>
   <div class="q-actions">
-   <button type="button" class="btn-ai" id="bizAiBtn">✨ AI 帮我写</button>
+   <button type="button" class="btn-ai" id="bizAiBtn">✨ AI 改写</button>
    <button type="button" class="btn-mic" id="bizMicBtn">🎤 说话输入</button>
    <button type="button" class="btn-main" id="bizGenBtn">🎬 生成商家视频</button>
   </div>
@@ -785,7 +785,7 @@ details[open].music summary:after{content:"收起 ▴"}
      </label>
      <label>人声 <input type="range" id="freeVoiceVol" min="0" max="100" value="100"><span id="freeVoiceVolVal">100</span>%</label>
      <label>配乐 <input type="range" id="freeBgmVol" min="0" max="100" value="90"><span id="freeBgmVolVal">90</span>%</label>
-     <button type="button" class="btn-ai" id="freeAiBtn">✨ AI 帮我写</button>
+     <button type="button" class="btn-ai" id="freeAiBtn">✨ AI 改写</button>
      <button type="button" class="btn-main small" id="freeGo">🎬 开始生成</button>
     </div>
     <div id="freeOut" style="margin-top:12px"></div>
@@ -802,7 +802,7 @@ details[open].music summary:after{content:"收起 ▴"}
     <label>总时长 <select id="advDur"><option value="15">15 秒</option><option value="20">20 秒</option><option value="30" selected>30 秒</option><option value="45">45 秒</option><option value="60">60 秒</option></select></label>
     <label>人声 <input type="range" id="advVoiceVol" min="0" max="100" value="100"><span id="advVoiceVolVal">100</span>%</label>
     <label>配乐 <input type="range" id="advBgmVol" min="0" max="100" value="90"><span id="advBgmVolVal">90</span>%</label>
-    <button type="button" class="btn-ai" id="advAiBtn">✨ AI 帮我写</button>
+    <button type="button" class="btn-ai" id="advAiBtn">✨ AI 改写</button>
     <button type="button" class="btn-line" id="advSbBtn">🎬 生成分镜</button>
    </div>
    <input type="file" id="advFile" accept="image/*" hidden>
@@ -2781,19 +2781,21 @@ function bind(btnId,taId,warnId,opts){
  var box=boxFor(ta,warnId);
  btn.addEventListener('click',async function(){
   if(staticSite()){toast('全球静态站没有 AI 写稿服务，请用国内站 xinglaiai.com','warn');return;}
-  var seed=(ta.value||'').trim();
+  var existing=(ta.value||'').trim();
+  var mode=existing?'rewrite':'generate';
+  var seed=existing;
   if(!seed&&opts.seed)seed=opts.seed();
   if(!seed)seed=(ta.getAttribute('placeholder')||'').replace(/^例如[:：]\s*/,'');
-  var body={seed:seed,entry:opts.entry,duration:opts.duration(),style:opts.style()};
+  var body={seed:seed,entry:opts.entry,duration:opts.duration(),style:opts.style(),mode:mode};
   if(opts.templateId){var tid=opts.templateId();if(tid)body.template_id=tid;}
-  var old=btn.textContent;btn.disabled=true;btn.textContent='AI 写稿中…';box.hidden=true;
+  var old=btn.textContent;btn.disabled=true;btn.textContent=(mode==='rewrite'?'AI 改写中…':'AI 写稿中…');box.hidden=true;
   try{
    var d=await api('/ai-nav/api/copywrite',body,60000);
    if(!d||!d.ok||!d.text)throw new Error((d&&(d.hint||d.error))||'AI 没写出文案，请再点一次');
    ta.value=d.text;
    try{ta.dispatchEvent(new Event('input',{bubbles:true}));}catch(e){}
    showHits(d,box);
-   toast('已生成，可直接修改','ok');
+   toast(mode==='rewrite'?'已改写，可直接修改':'已生成，可直接修改','ok');
    ta.focus();try{ta.setSelectionRange(ta.value.length,ta.value.length);}catch(e){}
   }catch(e){
    toast((e&&e.message)||'AI 写稿失败，请稍后重试','bad');
