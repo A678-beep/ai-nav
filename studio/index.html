@@ -573,7 +573,39 @@ body.elder nav a,body.elder .elder-btn{font-size:15px}
   </div>
  </details>
 
- <!-- ================= 高级模式（原分镜编辑器） ================= -->
+   <!-- ================= 自由创作（原素材剪辑） ================= -->
+  <details class="sec" id="freeSec">
+   <summary><span class="sec-ico">🎬</span><span><b>自由创作（原素材剪辑）</b><i>不用行业模板？这里直接一句话出片：实拍素材剪辑 / 文字视频 / 音频，最长 5 分钟</i></span></summary>
+   <div style="padding:14px 18px 20px">
+    <p class="sec-sub">和上面的商家模板是两套独立流程，互不影响：商家模板走 9:16 行业风格；这里走自由创作，可选 30 秒到 5 分钟。</p>
+    <textarea id="freePrompt" class="biz-q" style="min-height:84px;font-size:14.5px;padding:12px" placeholder="例如：做一条 3 分钟的北京秋天城市漫步 vlog，女声温柔，轻音乐，实拍素材成片"></textarea>
+    <div class="adv-row" style="margin-top:10px">
+     <label>模式
+      <span id="freeModes" style="display:inline-flex;gap:6px;flex-wrap:wrap">
+       <button type="button" class="btn-line on" data-fm="auto">自动判断</button>
+       <button type="button" class="btn-line" data-fm="audio">音频 MP3</button>
+       <button type="button" class="btn-line" data-fm="video">文字视频</button>
+       <button type="button" class="btn-line" data-fm="footage">实拍成片</button>
+      </span>
+     </label>
+     <label>时长
+      <select id="freeDur">
+       <option value="30">30 秒</option>
+       <option value="60" selected>60 秒</option>
+       <option value="120">2 分钟</option>
+       <option value="180">3 分钟</option>
+       <option value="300">5 分钟</option>
+      </select>
+     </label>
+     <label>人声 <input type="range" id="freeVoiceVol" min="0" max="100" value="100"><span id="freeVoiceVolVal">100</span>%</label>
+     <label>配乐 <input type="range" id="freeBgmVol" min="0" max="100" value="90"><span id="freeBgmVolVal">90</span>%</label>
+     <button type="button" class="btn-main small" id="freeGo">🎬 开始生成</button>
+    </div>
+    <div id="freeOut" style="margin-top:12px"></div>
+   </div>
+  </details>
+
+<!-- ================= 高级模式（原分镜编辑器） ================= -->
  <details class="sec adv" id="advSec">
   <summary><span class="sec-ico">🛠️</span><span><b>高级模式</b><i>原分镜编辑器：逐句一镜，改文案 / 时长 / 音量后再出片</i></span></summary>
   <div class="adv-body">
