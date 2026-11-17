@@ -1,0 +1,141 @@
+<!doctype html><html lang="zh-CN"><head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>AI 出行导航 · 一句话规划多任务顺路路线 · 星籁 AI</title>
+<meta name="description" content="输入一句话描述今天要做的事，AI 自动规划多任务顺路最优路线：总里程、到达时间、每站停留建议，附实时路线地图。">
+<meta name="keywords" content="多任务顺路规划,AI出行导航,路线优化,顺路取快递,办事路线规划">
+<link rel="canonical" href="https://a678-beep.github.io/ai-nav/travel/">
+<style>
+:root{--bg:#070a10;--panel:#0f1622;--line:rgba(148,163,184,.14);--txt:#e8eef8;--txt2:#9fb0c7;--txt3:#6b7c94;--cyan:#38bdf8;--violet:#8b5cf6;--lime:#34d399}
+*{box-sizing:border-box}
+body{margin:0;font:15px/1.7 -apple-system,"Segoe UI",Roboto,"Microsoft YaHei",sans-serif;color:var(--txt);background:radial-gradient(900px 480px at 78% -10%,rgba(56,189,248,.10),transparent 60%),radial-gradient(700px 400px at 10% 5%,rgba(139,92,246,.10),transparent 60%),linear-gradient(180deg,#070a10,#0a0f18);background-attachment:fixed;min-height:100vh}
+a{color:inherit;text-decoration:none}
+.wrap{max-width:1000px;margin:0 auto;padding:0 22px 70px}
+.top{position:sticky;top:0;z-index:10;backdrop-filter:blur(18px);background:rgba(7,10,16,.78);border-bottom:1px solid var(--line)}
+.top-in{max-width:1000px;margin:0 auto;height:60px;display:flex;align-items:center;gap:14px;padding:0 22px}
+.brand{font-weight:800;font-size:15px;display:flex;align-items:center;gap:9px}
+.logo{width:30px;height:30px;border-radius:9px;background:linear-gradient(135deg,#38bdf8,#8b5cf6);display:grid;place-items:center;font-size:15px;color:#04121c;font-weight:900}
+nav{margin-left:auto;display:flex;gap:2px;flex-wrap:wrap}
+nav a{color:var(--txt2);font-size:13.5px;padding:7px 11px;border-radius:9px}
+nav a:hover{color:#fff;background:rgba(148,163,184,.1)}
+.hero{padding:46px 0 6px;text-align:center}
+.eyebrow{display:inline-block;font-size:11.5px;letter-spacing:.2em;color:#7dd3fc;border:1px solid rgba(56,189,248,.28);background:rgba(56,189,248,.07);padding:6px 14px;border-radius:999px;margin-bottom:16px}
+h1{font-size:clamp(27px,3.8vw,40px);margin:0 0 12px;letter-spacing:-.02em;line-height:1.22}
+h1 span{background:linear-gradient(120deg,#7dd3fc,#a78bfa);-webkit-background-clip:text;background-clip:text;color:transparent}
+.lead{color:var(--txt2);max-width:640px;margin:0 auto 22px;font-size:15px}
+.box,.card{background:linear-gradient(180deg,rgba(20,28,43,.9),rgba(12,18,28,.9));border:1px solid var(--line);border-radius:18px;padding:18px;box-shadow:0 24px 60px -24px rgba(2,8,20,.9)}
+.grid2{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+label{display:block;font-size:12.5px;color:var(--txt3);margin:10px 0 5px}
+input,textarea,select{width:100%;background:rgba(9,14,24,.9);border:1px solid var(--line);border-radius:11px;color:var(--txt);font-size:14.5px;padding:11px 13px;outline:none;font-family:inherit}
+input:focus,textarea:focus{border-color:rgba(56,189,248,.5);box-shadow:0 0 0 4px rgba(56,189,248,.1)}
+textarea{min-height:88px;resize:vertical}
+.row{display:flex;gap:10px;align-items:center;margin-top:14px;flex-wrap:wrap}
+.btn{background:linear-gradient(135deg,#38bdf8,#6366f1);color:#04121c;font-weight:800;border:0;border-radius:12px;padding:12px 26px;font-size:15px;cursor:pointer}
+.btn:disabled{opacity:.6;cursor:progress}
+.modes{display:flex;gap:6px;background:rgba(9,14,24,.8);border:1px solid var(--line);border-radius:11px;padding:4px}
+.modes button{background:transparent;border:0;color:var(--txt2);padding:7px 13px;border-radius:8px;font-size:13px;cursor:pointer}
+.modes button.on{background:rgba(56,189,248,.16);color:#dff3ff}
+.out{margin-top:18px;display:none}
+.card h3{margin:0 0 10px;font-size:16.5px;display:flex;align-items:center;gap:8px}
+.card h3:before{content:"";width:4px;height:16px;border-radius:2px;background:linear-gradient(180deg,#38bdf8,#8b5cf6)}
+#mapImg{width:100%;border-radius:14px;display:block;background:#0a1120;min-height:180px}
+.stats{display:flex;gap:10px;flex-wrap:wrap;margin-top:12px}
+.stats div{flex:1;min-width:110px;border:1px solid var(--line);border-radius:12px;padding:10px 14px;background:rgba(9,14,24,.6)}
+.stats b{display:block;font-size:20px;color:#fff}
+.stats span{font-size:12px;color:var(--txt3)}
+.stops{list-style:none;padding:0;margin:12px 0 0}
+.stops li{display:flex;gap:12px;align-items:flex-start;padding:12px 0;border-bottom:1px dashed var(--line);cursor:grab}
+.stops li:last-child{border:0}
+.stops .no{width:26px;height:26px;border-radius:8px;background:rgba(56,189,248,.16);border:1px solid rgba(56,189,248,.4);color:#cfe9ff;font-weight:800;font-size:13px;display:grid;place-items:center;flex:0 0 auto}
+.stops .nm{font-weight:700}
+.stops .ad{font-size:12.5px;color:var(--txt3)}
+.stops .tm{font-size:12.5px;color:#7dd3fc;margin-top:2px}
+.stops .st{font-size:12px;color:var(--txt3)}
+.note{margin-top:12px;font-size:12.5px;color:var(--txt3);line-height:1.9}
+.err{color:#fca5a5}
+.foot{margin-top:24px;text-align:center;color:var(--txt3);font-size:12.5px}
+footer{border-top:1px solid var(--line);margin-top:44px;padding:24px 22px;text-align:center;color:var(--txt3);font-size:12.5px}
+.hint{font-size:12.5px;color:var(--txt3);margin-top:8px}
+@media(max-width:760px){.wrap{padding:0 16px 54px}.top-in{padding:0 14px}nav a{font-size:12.5px;padding:6px 8px}h1{font-size:25px}.grid2{grid-template-columns:1fr}}
+</style></head><body>
+<div class="top"><div class="top-in"><a class="brand" href="/ai-nav/"><span class="logo">✦</span>星籁 AI 导航</a>
+<nav><a href="/ai-nav/">AI 导航</a><a href="/ai-nav/travel/">出行导航</a><a href="/ai-nav/studio/">AI 创作工坊</a><a href="/ai-nav/select-ai/">智能选型</a></nav></div></div>
+<div class="wrap">
+<div class="hero"><div class="eyebrow">ROUTE · OPTIMIZE · SCHEDULE</div>
+<h1>一句话，把<span>今天要做的事</span>排成最优路线</h1>
+<p class="lead">自动识别地点、估算停留时间、计算顺路顺序，给出总里程、每站到达时间和路线地图。</p></div>
+<div class="box">
+<div class="grid2">
+<div><label>起点</label><input id="start" placeholder="例如：宋庄（小区名/公司名均可）"></div>
+<div><label>终点（可选）</label><input id="end" placeholder="例如：中兴和园"></div>
+</div>
+<label>途经任务（一行一个，最多 6 个）</label>
+<textarea id="stops" placeholder="工商银行取钱
+顺丰快递取件
+洗车"></textarea>
+<div class="grid2">
+<div><label>城市</label><input id="city" value="北京"></div>
+<div><label>出发时间</label><input id="depart" value="14:00" placeholder="14:00"></div>
+</div>
+<div class="row">
+<div class="modes" id="modes"><button data-m="fast" class="on">最快</button><button data-m="fuel">省钱</button><button data-m="safe">少走高速</button></div>
+<button class="btn" id="go">开始规划</button>
+<span class="hint">各地或小区名可能重名，建议带上区名</span>
+</div>
+</div>
+<div class="out" id="out"></div>
+</div>
+<footer>© 2026 星籁 AI 工具导航 · xinglaiai.com 版权所有 · 未经许可禁止镜像/采集/商业转载</footer>
+<script>
+var mode='fast',busy=false,lastData=null;
+document.getElementById('modes').addEventListener('click',function(e){if(e.target.tagName!=='BUTTON')return;mode=e.target.dataset.m;[].forEach.call(this.children,function(b){b.className=b===e.target?'on':''});});
+function esc(s){return String(s||'').replace(/</g,'&lt;').replace(/>/g,'&gt;');}
+function readStops(){return document.getElementById('stops').value.split('\n').map(function(s){return s.trim()}).filter(Boolean).slice(0,6);}
+async function plan(optimize){
+ if(busy)return; busy=true;
+ var go=document.getElementById('go');go.disabled=true;
+ var payload={city:document.getElementById('city').value.trim(),start:document.getElementById('start').value.trim(),
+  stops:readStops(),end:document.getElementById('end').value.trim(),depart:document.getElementById('depart').value.trim(),
+  mode:mode,optimize:optimize!==false};
+ if(!payload.start||!payload.stops.length){alert('请填写起点和至少一个途经任务');busy=false;go.disabled=false;return;}
+ try{
+  var r=await fetch('/ai-nav/api/travel',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(payload)});
+  var d=await r.json();
+  if(!d.ok){document.getElementById('out').style.display='block';document.getElementById('out').innerHTML='<div class="card"><h3>规划失败</h3><p class="err">'+esc(d.hint||d.error)+'</p></div>';busy=false;go.disabled=false;return;}
+  lastData=d;render(d);
+ }catch(e){
+  document.getElementById('out').style.display='block';document.getElementById('out').innerHTML='<div class="card"><h3>网络异常</h3><p class="err">'+esc(e.message)+'</p></div>';
+ }
+ busy=false;go.disabled=false;
+}
+function render(d){
+ var h='<div class="card"><h3>路线方案</h3>';
+ h+='<img id="mapImg" src="'+d.map_url+'" alt="路线地图" loading="lazy">';
+ h+='<div class="stats"><div><b>'+d.total_km+' km</b><span>总里程</span></div><div><b>'+d.total_min+' 分钟</b><span>纯驾驶时间</span></div><div><b>'+d.timeline.length+' 站</b><span>途经点</span></div></div>';
+ h+='<h3 style="margin-top:22px">时间轴（可拖动调整顺序）</h3><ul class="stops" id="stopList">';
+ d.timeline.forEach(function(t,i){
+  h+='<li draggable="true" data-i="'+i+'"><div class="no">'+(i+1)+'</div><div><div class="nm">'+esc(t.name)+'</div><div class="ad">'+esc(t.addr)+'</div><div class="tm">预计 '+t.arrive+' 到达'+(t.stay_min?' · 停留约 '+t.stay_min+' 分钟':'')+'</div></div></li>';
+ });
+ h+='</ul><div class="note">'+d.notes.map(function(n){return '· '+esc(n)}).join('<br>')+'</div>';
+ h+='<div class="row"><button class="btn" id="recalc">按当前顺序重算</button></div></div>';
+ document.getElementById('out').innerHTML=h;document.getElementById('out').style.display='block';
+ bindDrag();document.getElementById('recalc').onclick=function(){reorderAndPlan();};
+}
+function bindDrag(){
+ var list=document.getElementById('stopList');if(!list)return;
+ var src=null;
+ list.querySelectorAll('li').forEach(function(li){
+  li.addEventListener('dragstart',function(){src=li;});
+  li.addEventListener('dragover',function(e){e.preventDefault();});
+  li.addEventListener('drop',function(e){e.preventDefault();if(!src||src===li)return;list.insertBefore(src, li.nextSibling);});
+  li.addEventListener('dragend',function(){src=null;});
+ });
+}
+function reorderAndPlan(){
+ var list=document.getElementById('stopList');if(!list)return;
+ var names=[];list.querySelectorAll('li .nm').forEach(function(n){names.push(n.textContent);});
+ document.getElementById('stops').value=names.join('\n');
+ plan(false);
+}
+document.getElementById('go').onclick=function(){plan(true);};
+</script>
+</body></html>
