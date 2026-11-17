@@ -386,6 +386,57 @@ body.elder nav a,body.elder .elder-btn{font-size:15px}
  nav a{font-size:12px;padding:8px 4px}
  .elder-btn{padding:0 9px}
 }
+
+/* ===== 商品广告片 L1 ===== */
+.pad-body{padding:14px 18px 20px;min-width:0}
+.pad-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:12px}
+.pad-span2{grid-column:1/-1}
+.pad-field{display:flex;flex-direction:column;gap:6px;font-size:12.5px;color:var(--txt2);min-width:0}
+.pad-field input[type=text],.pad-field input[type=tel],.pad-field select{min-height:46px;width:100%;min-width:0;background:rgba(7,12,21,.92);border:1px solid var(--line);border-radius:11px;color:var(--txt);padding:0 12px;font-size:14px;outline:none;font-family:inherit}
+.pad-field input:focus,.pad-field select:focus{border-color:rgba(56,189,248,.55)}
+.pad-hint{font-size:11.5px;color:var(--txt3);font-weight:400}
+.pad-up{display:flex;align-items:center;gap:12px;flex-wrap:wrap;background:rgba(9,14,24,.6);border:1px dashed rgba(148,163,184,.25);border-radius:12px;padding:10px;min-height:84px}
+.pad-thumb{width:86px;height:86px;border-radius:10px;object-fit:cover;background:#0a1120;border:1px solid var(--line);flex:0 0 auto}
+.pad-up-txt{font-size:12.5px;color:var(--txt3);line-height:1.6;min-width:0;overflow-wrap:anywhere;flex:1 1 160px}
+.pad-up-txt b{color:var(--txt2)}
+.pad-actions{display:flex;gap:10px;flex-wrap:wrap;align-items:center;margin-top:14px}
+.pad-actions .btn-main{flex:1 1 260px}
+.pad-status{margin-top:12px;font-size:13px;color:var(--txt2);line-height:1.6;overflow-wrap:anywhere;min-height:0}
+.pad-status.bad{color:#fda4af}
+.pad-status.ok{color:#86efac}
+.pad-bar{height:6px;border-radius:99px;background:rgba(148,163,184,.15);overflow:hidden;margin-top:10px;display:none}
+.pad-bar i{display:block;height:100%;width:0;background:linear-gradient(90deg,#22d3ee,#8b5cf6);transition:width .3s}
+.pad-result{margin-top:16px;display:none}
+.pad-result-in{display:grid;grid-template-columns:minmax(0,300px) minmax(0,1fr);gap:16px;align-items:start}
+.pad-phone{width:100%;max-width:300px;aspect-ratio:9/16;border-radius:16px;background:#000;border:1px solid var(--line);display:block}
+.pad-meta{min-width:0}
+.pad-meta h3{margin:0 0 6px;font-size:17px}
+.pad-meta p{margin:4px 0;font-size:12.5px;color:var(--txt2);line-height:1.6;overflow-wrap:anywhere}
+.pad-tags{display:flex;gap:6px;flex-wrap:wrap;margin-top:8px}
+.pad-tags span{font-size:11px;color:#bae6fd;background:rgba(56,189,248,.08);border:1px solid rgba(56,189,248,.25);border-radius:999px;padding:2px 8px}
+.pad-btns{display:flex;gap:8px;flex-wrap:wrap;margin-top:10px}
+.pad-btns .btn-main.small{flex:0 0 auto;text-decoration:none;display:inline-flex;align-items:center}
+.pad-copy{width:100%;min-height:92px;margin-top:10px;background:rgba(7,12,21,.92);border:1px solid var(--line);border-radius:10px;color:var(--txt2);font-size:12px;padding:8px 10px;resize:vertical;font-family:inherit}
+.pad-note{margin-top:10px;font-size:11.5px;color:var(--txt3);line-height:1.7;overflow-wrap:anywhere}
+.pad-err{margin-top:10px;border:1px solid rgba(251,113,133,.35);background:rgba(251,113,133,.08);border-radius:10px;padding:8px 12px;font-size:12.5px;color:#fecdd3;display:none;line-height:1.6}
+#padSec summary{cursor:pointer;list-style:none;display:flex;align-items:flex-start;gap:12px}
+#padSec summary::-webkit-details-marker{display:none}
+#padSec summary>span:last-child{min-width:0}
+#padSec summary b{display:block;font-size:19px;color:var(--txt);line-height:1.45}
+#padSec summary i{display:block;font-style:normal;font-size:12.5px;color:var(--txt3);font-weight:400;margin-top:2px;line-height:1.55}
+#padSec summary:after{content:"展开 ▾";margin-left:auto;font-size:12px;color:#7dd3fc;white-space:nowrap;flex:0 0 auto;padding-top:4px}
+#padSec[open] summary:after{content:"收起 ▴"}
+.pad-body{border-top:1px dashed rgba(148,163,184,.14);margin-top:14px;padding-top:14px}
+@media(max-width:640px){
+ .pad-grid{grid-template-columns:1fr}
+ .pad-result-in{grid-template-columns:1fr}
+ .pad-phone{max-width:100%;max-height:72vh;margin:0 auto}
+ .pad-body{padding:12px 4px 10px}
+ .pad-actions .btn-main{flex:1 1 100%}
+ .pad-up{gap:9px}
+ .pad-thumb{width:72px;height:72px}
+}
+
 </style>
 
 <style>
@@ -793,6 +844,49 @@ details[open].music summary:after{content:"收起 ▴"}
     <div id="freeOut" style="margin-top:12px"></div>
    </div>
   </details>
+
+
+<!-- ================= 商品广告片 L1（PAD-SECTION-L1） ================= -->
+<details class="sec" id="padSec">
+ <summary><span class="sec-ico">🎬</span><span><b>商品广告片（0 成本）</b><i>1 张产品图 + 3 个卖点 → 15/20/30 秒 9:16 广告片：多角度运镜 / 卖点大字 / 配音 / BGM / 片尾电话</i></span></summary>
+ <div class="pad-body">
+  <p class="sec-sub">只用一张产品图，本地 FFmpeg 渲染，<b style="color:#7dd3fc">每条 0 token 成本</b>。首次约 60~90 秒，生成时别关页面。</p>
+  <div class="pad-grid">
+   <div class="pad-field pad-span2">产品图
+    <div class="pad-up">
+     <img class="pad-thumb" id="padThumb" alt="产品图预览" hidden>
+     <div class="pad-up-txt" id="padUpTxt"><b>点「选择图片」上传</b><br>建议 1:1 或 3:4，白底/实拍都行，≤20MB</div>
+     <input type="file" id="padFile" accept="image/jpeg,image/png,image/webp" style="display:none">
+     <button type="button" class="btn-line" id="padPick">选择图片</button>
+    </div>
+   </div>
+   <label class="pad-field">店名 <input type="text" id="padStore" maxlength="30" placeholder="例如：声浪数码旗舰店" autocomplete="organization"></label>
+   <label class="pad-field">电话（可选） <input type="tel" id="padPhone" maxlength="20" placeholder="会大字展示在片尾" autocomplete="tel"></label>
+   <label class="pad-field pad-span2">卖点 1 <input type="text" id="padSp1" maxlength="36" placeholder="例如：主动降噪，通勤更安静"></label>
+   <label class="pad-field pad-span2">卖点 2 <input type="text" id="padSp2" maxlength="36" placeholder="例如：40 小时长续航"></label>
+   <label class="pad-field pad-span2">卖点 3 <input type="text" id="padSp3" maxlength="36" placeholder="例如：轻至 240g，久戴不累"></label>
+   <label class="pad-field">时长
+    <select id="padDur"><option value="15">15 秒</option><option value="20" selected>20 秒</option><option value="30">30 秒</option></select>
+   </label>
+   <label class="pad-field">配乐
+    <select id="padMood">
+     <option value="">自动（按卖点判断）</option>
+     <option value="轻快">轻快</option><option value="温暖">温暖</option>
+     <option value="科技">科技</option><option value="舒缓">舒缓</option><option value="大气">大气</option>
+    </select>
+   </label>
+   <label class="pad-field pad-span2">片尾文案（可选） <input type="text" id="padCta" maxlength="40" placeholder="到店出示本视频，享专属优惠"></label>
+  </div>
+  <div class="pad-actions">
+   <button type="button" class="btn-main" id="padGo">🎬 生成商品广告片（0 元）</button>
+  </div>
+  <div class="pad-bar" id="padBar"><i></i></div>
+  <div class="pad-status" id="padStatus" role="status" aria-live="polite"></div>
+  <div class="pad-err" id="padErr" role="alert"></div>
+  <div class="pad-result" id="padResult"></div>
+  <p class="pad-note">成片规格 1080×1920 / 30fps / H.264 + AAC，带配音与配乐；配音由 Edge TTS 合成，BGM 来自可商用曲库；成片保留 14 天，请及时下载。</p>
+ </div>
+</details>
 
 <!-- ================= 高级模式（原分镜编辑器） ================= -->
  <details class="sec adv" id="advSec">
@@ -2841,5 +2935,179 @@ if(pb)pb.addEventListener('click',async function(){
 });
 })();
 </script>
+
+<script>
+/* ===== 商品广告片 L1（自包含，不改动原有 studio 脚本） ===== */
+(function(){
+ 'use strict';
+ var $=function(id){return document.getElementById(id);};
+ var API='/ai-nav/api';
+ var PAD={url:'',name:'',busy:false,file:null,timer:null};
+ var LS_KEY='studio_pad_form_v1';
+ function e(s){return String(s==null?'':s).replace(/[&<>"']/g,function(c){return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c];});}
+ function fmtBytes(n){n=Number(n)||0;if(n<1024)return n+' B';if(n<1048576)return (n/1024).toFixed(1)+' KB';return (n/1048576).toFixed(1)+' MB';}
+ function status(msg,type){var el=$('padStatus');if(!el)return;el.className='pad-status'+(type?(' '+type):'');el.textContent=msg||'';}
+ function err(msg){var el=$('padErr');if(!el)return;if(!msg){el.style.display='none';el.textContent='';return;}el.style.display='block';el.textContent=msg;}
+ function bar(p){var b=$('padBar');if(!b)return;b.style.display=(p==null?'none':'block');if(p!=null){var i=b.querySelector('i');if(i)i.style.width=Math.max(0,Math.min(100,p))+'%';}}
+ function elapsedTxt(t0){var s=Math.round((Date.now()-t0)/1000);return s<60?(s+' 秒'):(Math.floor(s/60)+' 分 '+(s%60)+' 秒');}
+ function saveForm(){
+  try{localStorage.setItem(LS_KEY,JSON.stringify({store:($('padStore')||{}).value||'',phone:($('padPhone')||{}).value||'',cta:($('padCta')||{}).value||'',dur:($('padDur')||{}).value||'20',mood:($('padMood')||{}).value||'',sp:[($('padSp1')||{}).value||'',($('padSp2')||{}).value||'',($('padSp3')||{}).value||'']}));}catch(x){}
+ }
+ function loadForm(){
+  var d=null;try{d=JSON.parse(localStorage.getItem(LS_KEY)||'null');}catch(x){}
+  if(!d)return;
+  if($('padStore'))$('padStore').value=d.store||'';
+  if($('padPhone'))$('padPhone').value=d.phone||'';
+  if($('padCta'))$('padCta').value=d.cta||'';
+  if($('padDur')&&d.dur)$('padDur').value=d.dur;
+  if($('padMood')&&d.mood!=null)$('padMood').value=d.mood;
+  if(d.sp&&d.sp.length===3){if($('padSp1'))$('padSp1').value=d.sp[0]||'';if($('padSp2'))$('padSp2').value=d.sp[1]||'';if($('padSp3'))$('padSp3').value=d.sp[2]||'';}
+ }
+ function upload(file){
+  return new Promise(function(resolve,reject){
+   var fd=new FormData();fd.append('file',file);
+   var xhr=new XMLHttpRequest();xhr.open('POST',API+'/upload',true);xhr.timeout=180000;
+   xhr.upload.onprogress=function(ev){if(ev.lengthComputable)bar(Math.round(ev.loaded/ev.total*90));};
+   xhr.onload=function(){
+    var d=null;try{d=JSON.parse(xhr.responseText||'{}');}catch(x){}
+    if(xhr.status>=200&&xhr.status<300&&d&&d.ok&&d.url){bar(100);resolve(d);}
+    else{reject(new Error((d&&(d.hint||d.error))||('上传失败（HTTP '+xhr.status+'）')));}
+   };
+   xhr.onerror=function(){reject(new Error('网络中断，上传失败'));};
+   xhr.ontimeout=function(){reject(new Error('上传超时，请换小一点的图'));};
+   xhr.send(fd);
+  });
+ }
+ function pickFile(file){
+  if(!file)return;
+  if(!/^image\/(jpeg|png|webp)$/i.test(file.type||'')){err('只支持 jpg / png / webp 图片');return;}
+  if(file.size>20*1024*1024){err('图片超过 20MB，请压缩后再传');return;}
+  err('');PAD.file=file;PAD.url='';
+  var th=$('padThumb');
+  try{th.src=URL.createObjectURL(file);th.hidden=false;}catch(x){}
+  $('padUpTxt').innerHTML='<b>'+e(file.name)+'</b><br>上传中…';
+  status('正在上传产品图…');
+  upload(file).then(function(d){
+   PAD.url=d.url;PAD.name=d.name||file.name;
+   $('padUpTxt').innerHTML='<b>'+e(PAD.name)+'</b><br>已上传 · '+fmtBytes(d.size||file.size)+' · 可生成';
+   status('产品图已就绪，填好卖点就能生成。','ok');bar(null);
+  }).catch(function(x){
+   PAD.url='';$('padUpTxt').innerHTML='<b>上传失败</b><br>'+e(x.message||'请重试');
+   status('',null);bar(null);err((x&&x.message)||'上传失败');
+  });
+ }
+ function request(url,body,ms){
+  var ctl=typeof AbortController!=='undefined'?new AbortController():null;
+  var timer=setTimeout(function(){if(ctl)ctl.abort();},ms);
+  return fetch(url,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(body),signal:ctl?ctl.signal:undefined})
+   .then(function(r){
+    return r.text().then(function(txt){
+     clearTimeout(timer);
+     var d=null;try{d=JSON.parse(txt||'{}');}catch(x){}
+     if(r.status===404){var er=new Error('功能准备中：后端服务还没更新，请稍后再试');er.code='not_ready';throw er;}
+     if(!r.ok){var er2=new Error((d&&(d.hint||d.error))||('服务返回异常（HTTP '+r.status+'）'));er2.code=(d&&d.error)||'';throw er2;}
+     if(!d||d.ok===false){var er3=new Error((d&&(d.hint||d.error))||'生成失败');er3.code=(d&&d.error)||'';throw er3;}
+     return d;
+    });
+   },function(x){
+    clearTimeout(timer);
+    if(x&&x.name==='AbortError'){var er=new Error('生成超时（超过 10 分钟），请稍后重试');er.code='timeout';throw er;}
+    throw new Error('网络中断，生成失败');
+   });
+ }
+ function copyText(text,btn){
+  function done(ok){if(btn){var old=btn.textContent;btn.textContent=ok?'✅ 已复制':'❌ 复制失败';setTimeout(function(){btn.textContent=old;},1600);}status(ok?'文案已复制，可直接发抖音/小红书。':'复制失败，请手动全选复制。',ok?'ok':'bad');}
+  if(navigator.clipboard&&navigator.clipboard.writeText){
+   navigator.clipboard.writeText(text).then(function(){done(true);},function(){done(fallbackCopy(text));});
+  }else{done(fallbackCopy(text));}
+ }
+ function fallbackCopy(text){
+  try{var ta=document.createElement('textarea');ta.value=text;ta.style.position='fixed';ta.style.left='-9999px';document.body.appendChild(ta);ta.select();var ok=document.execCommand('copy');document.body.removeChild(ta);return ok;}catch(x){return false;}
+ }
+ function renderResult(d){
+  var st=$('padResult');if(!st)return;
+  var video=(d.video_url||'')+(d.video_url&&d.video_url.indexOf('?')<0?('?v='+Date.now()):'');
+  var store=($('padStore')||{}).value||'';
+  var phone=($('padPhone')||{}).value||'';
+  var sp=[($('padSp1')||{}).value||'',($('padSp2')||{}).value||'',($('padSp3')||{}).value||''].filter(Boolean);
+  var copy='【'+store+'】商品广告片'+(phone?('｜电话 '+phone):'')+'\n'+sp.map(function(x){return '✅ '+x;}).join('\n')+'\n成片：'+location.origin+d.video_url+'\n（1080×1920 · '+d.duration+' 秒 · 本地渲染 0 元）';
+  var chips=(d.scenes||[]).map(function(s){return '<span>'+e(s.label)+' · '+e(s.duration)+'s</span>';}).join('');
+  st.innerHTML='<div class="pad-result-in">'
+   +'<video class="pad-phone" id="padVideo" controls playsinline preload="metadata" poster="'+e(d.poster_url||'')+'" src="'+e(video)+'"></video>'
+   +'<div class="pad-meta"><h3>✅ 成片好了</h3>'
+   +'<p>时长 '+e(d.duration)+' 秒 · '+e(d.size.w)+'×'+e(d.size.h)+' · '+e(d.size.fps)+'fps · '+fmtBytes(d.bytes)+' · 渲染 '+e(d.elapsed)+' 秒</p>'
+   +'<p>配音 '+e(d.voice.ok)+'/'+e(d.voice.total)+' 句 · BGM：'+e(d.music?(d.music.name+'（'+d.music.mood+'）'):'无')+' · '+e(d.cost_hint||'¥0（本地渲染）')+'</p>'
+   +'<div class="pad-tags">'+chips+'</div>'
+   +'<div class="pad-btns"><a class="btn-main small" href="'+e(d.video_url)+'" download="'+(e(store||'商品广告片'))+'.mp4">⬇ 下载 MP4</a>'
+   +'<button type="button" class="btn-line" id="padCopy">📋 复制文案</button>'
+   +'<a class="btn-line" href="'+e(d.video_url)+'" target="_blank" rel="noopener" style="display:inline-flex;align-items:center;text-decoration:none">新窗口打开</a></div>'
+   +'<textarea class="pad-copy" id="padCopyText" readonly>'+e(copy)+'</textarea>'
+   +'<p class="pad-note">'+e(d.license_note||'')+'</p>'
+   +'</div></div>';
+  st.style.display='block';
+  var btn=$('padCopy');
+  if(btn)btn.addEventListener('click',function(){copyText(copy,btn);});
+  try{st.scrollIntoView({behavior:'smooth',block:'nearest'});}catch(x){}
+ }
+ function go(){
+  if(PAD.busy)return;
+  err('');
+  if(!PAD.url){err('先上传一张产品图。');return;}
+  var store=(($('padStore')||{}).value||'').trim();
+  if(!store){err('请填写店名。');$('padStore').focus();return;}
+  var sp=[($('padSp1')||{}).value||'',($('padSp2')||{}).value||'',($('padSp3')||{}).value||''].map(function(x){return x.trim();}).filter(Boolean);
+  if(!sp.length){err('至少填 1 个卖点，3 个效果最好。');$('padSp1').focus();return;}
+  var body={image_url:PAD.url,selling_points:sp,store_name:store,duration:parseInt(($('padDur')||{}).value||'20',10)};
+  var phone=(($('padPhone')||{}).value||'').trim();
+  var cta=(($('padCta')||{}).value||'').trim();
+  var mood=(($('padMood')||{}).value||'').trim();
+  if(phone)body.phone=phone;
+  if(cta)body.cta_text=cta;
+  if(mood)body.music_mood=mood;
+  PAD.busy=true;saveForm();
+  var btn=$('padGo');var old=btn.textContent;btn.disabled=true;btn.textContent='⏳ 正在渲染…';
+  var t0=Date.now();bar(8);
+  status('正在渲染 1080×1920 广告片… '+elapsedTxt(t0)+'（约 60~90 秒，别关页面）');
+  clearInterval(PAD.timer);
+  PAD.timer=setInterval(function(){
+   var p=Math.min(92,8+Math.round((Date.now()-t0)/90000*80));
+   bar(p);status('正在渲染 1080×1920 广告片… '+elapsedTxt(t0)+'（约 60~90 秒，别关页面）');
+  },1000);
+  request(API+'/ad/product',body,620000).then(function(d){
+   clearInterval(PAD.timer);bar(100);
+   status('出片完成：'+d.duration+' 秒 · '+fmtBytes(d.bytes)+' · 用时 '+elapsedTxt(t0),'ok');
+   setTimeout(function(){bar(null);},800);
+   renderResult(d);
+  }).catch(function(x){
+   clearInterval(PAD.timer);bar(null);
+   var msg=(x&&x.message)||'生成失败，请稍后再试';
+   if(x&&x.code==='busy')msg='正在给其他商家出片，请 30 秒后再试。';
+   if(x&&x.code==='not_ready')msg='功能准备中：后端服务还没更新，稍后再试。';
+   status(msg,'bad');err(msg);
+  }).then(function(){
+   PAD.busy=false;btn.disabled=false;btn.textContent=old;
+  });
+ }
+ function init(){
+  loadForm();
+  var f=$('padFile'),pick=$('padPick');
+  if(pick&&f)pick.addEventListener('click',function(){f.click();});
+  if(f)f.addEventListener('change',function(){if(f.files&&f.files[0])pickFile(f.files[0]);});
+  var up=$('padUpTxt');
+  if(up)up.addEventListener('click',function(){if(f)f.click();});
+  if($('padGo'))$('padGo').addEventListener('click',go);
+  ['padStore','padPhone','padCta','padDur','padMood','padSp1','padSp2','padSp3'].forEach(function(id){var el=$(id);if(el)el.addEventListener('change',saveForm);});
+  // 拖拽上传
+  var box=document.querySelector('#padSec .pad-up');
+  if(box){
+   box.addEventListener('dragover',function(ev){ev.preventDefault();box.style.borderColor='rgba(56,189,248,.6)';});
+   box.addEventListener('dragleave',function(){box.style.borderColor='';});
+   box.addEventListener('drop',function(ev){ev.preventDefault();box.style.borderColor='';if(ev.dataTransfer&&ev.dataTransfer.files&&ev.dataTransfer.files[0])pickFile(ev.dataTransfer.files[0]);});
+  }
+ }
+ if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',init);else init();
+})();
+</script>
+
 <script defer src="../assets/auth.js"></script>
 </body></html>
