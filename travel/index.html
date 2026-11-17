@@ -433,7 +433,7 @@ function loadMem(){
  });
 }
 function saveMem(){
- if(!S.mem)return Promise.resolve();
+ if(!S.mem||!hasConsent())return Promise.resolve(false);
  clearTimeout(_saveTm);
  return dbPut('memory',S.mem).then(function(){return true});
 }
@@ -872,7 +872,7 @@ function afterPlan(d){
  var changed=calibrate(false);if(changed.length)toast('已按历史校准：'+changed[0]);
 }
 function saveHistory(d){
- if(!S.mem)return;
+ if(!S.mem||!hasConsent())return;
  var m=S.mem;
  m.history.unshift({time:Date.now(),text:S.lastText||'AI 秘书规划',total_km:d.total_km,total_min:d.total_min,feasible:!!d.feasible,
   tasks:(S.tasks||[]).map(function(t){return {type:t.type,duration_min:t.duration_min,name:(t.poi&&t.poi.name)||t.place_hint}})});
