@@ -222,6 +222,7 @@
   function monthly(p) {
     if (p.price_month != null) return num(p.price_month);
     if (p.price != null) return num(p.price);
+    if (p.price_cny != null) return num(p.price_cny);
     return num(p.price_cents) / 100;
   }
   function yearly(p) {
@@ -233,9 +234,12 @@
     var m = monthly(p), y = p.price_year_original != null ? num(p.price_year_original) : m * 12;
     if (y > m * 100) y = y / 100;
     return y;
-  }
-  function quotaOf(p, key) {
+  }  function quotaOf(p, key) {
     if (p.quotas && p.quotas[key] != null) return num(p.quotas[key], 0);
+    if (p.limits) {
+      var lk = key === 'copywrite' ? 'rewrite' : key;
+      if (p.limits[lk] != null) return num(p.limits[lk], 0);
+    }
     var m = { video: 'video_quota', lead: 'lead_quota', copywrite: 'rewrite_quota', aivideo: 'aivideo_quota' };
     if (p[m[key]] != null) return num(p[m[key]], 0);
     var f = FALLBACK.filter(function (x) { return x.id === p.id; })[0];
@@ -343,7 +347,16 @@
     if (Array.isArray(list) && list.length) {
       PLANS = list.map(function (p) {
         var f = FALLBACK.filter(function (x) { return x.id === p.id; })[0] || {};
-        return Object.assign({}, f, p, { quotas: Object.assign({}, f.quotas, p.quotas || {}) });
+        var q = Object.assign({}, f.quotas, p.quotas || {});
+        if (p.limits) {
+          if (p.limits.video != null) q.video = p.limits.video;
+          if (p.limits.lead != null) q.lead = p.limits.lead;
+          if (p.limits.leads != null) q.lead = p.limits.leads;
+          if (p.limits.rewrite != null) q.copywrite = p.limits.rewrite;
+          if (p.limits.copywrite != null) q.copywrite = p.limits.copywrite;
+          if (p.limits.aivideo != null) q.aivideo = p.limits.aivideo;
+        }
+        return Object.assign({}, f, p, { quotas: q });
       });
       // 保持四档顺序
       PLANS.sort(function (a, b) { return (planIndex[a.id] == null ? 9 : planIndex[a.id]) - (planIndex[b.id] == null ? 9 : planIndex[b.id]); });

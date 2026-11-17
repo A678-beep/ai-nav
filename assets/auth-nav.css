@@ -1,0 +1,37 @@
+/* 星籁 AI · 全站顶栏登录态 / 轻提示（只含导航相关样式，不污染子应用原有样式） */
+.auth-slot{
+  --auth-cyan:#38bdf8;--auth-violet:#8b5cf6;--auth-lime:#34d399;--auth-red:#f87171;
+  --auth-line:rgba(148,163,184,.18);--auth-line2:rgba(148,163,184,.3);--auth-txt:#e6edf7;--auth-txt2:#9fb0c7;--auth-txt3:#6b7c93;
+  position:relative;display:inline-flex;align-items:center;margin-left:6px;flex:0 0 auto;z-index:50
+}
+.auth-link{display:inline-flex;align-items:center;gap:6px;min-height:38px;padding:0 14px;border-radius:10px;
+  border:1px solid rgba(56,189,248,.38);background:rgba(56,189,248,.1);color:#bae6fd;font-size:13.5px;font-weight:600;
+  white-space:nowrap;transition:.18s;cursor:pointer;text-decoration:none;box-shadow:none;line-height:1.2;font-family:inherit}
+.auth-link:hover{border-color:rgba(56,189,248,.7);background:rgba(56,189,248,.17);box-shadow:0 0 22px rgba(56,189,248,.22);color:#e0f2fe}
+.auth-me{border-color:rgba(139,92,246,.42);background:rgba(139,92,246,.12);color:#ddd6fe}
+.auth-me:hover{border-color:rgba(139,92,246,.75);background:rgba(139,92,246,.2);box-shadow:0 0 22px rgba(139,92,246,.22);color:#ede9fe}
+.auth-dot{width:7px;height:7px;border-radius:50%;background:var(--auth-lime,#34d399);box-shadow:0 0 8px #34d399;flex:0 0 auto}
+.auth-menu{position:absolute;right:0;top:calc(100% + 9px);z-index:120;min-width:190px;padding:7px;border-radius:13px;
+  background:rgba(12,19,30,.98);border:1px solid var(--auth-line2);box-shadow:0 18px 46px rgba(0,0,0,.55);backdrop-filter:blur(14px);
+  opacity:0;transform:translateY(-5px);pointer-events:none;transition:.16s}
+.auth-menu.on{opacity:1;transform:none;pointer-events:auto}
+.auth-menu .who{padding:8px 11px 9px;border-bottom:1px solid var(--auth-line);margin-bottom:5px;font-size:12px;color:var(--auth-txt3);line-height:1.45}
+.auth-menu .who b{display:block;color:var(--auth-txt);font-size:13.5px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.auth-menu a,.auth-menu button{display:flex;align-items:center;gap:8px;width:100%;min-height:40px;padding:0 11px;border-radius:8px;
+  border:0;background:none;color:var(--auth-txt2);font-size:13.5px;text-align:left;cursor:pointer;white-space:nowrap;text-decoration:none;font-family:inherit;font-weight:500}
+.auth-menu a:hover,.auth-menu button:hover{background:rgba(56,189,248,.1);color:var(--auth-cyan);box-shadow:none}
+.auth-menu .danger:hover{background:rgba(248,113,113,.12);color:var(--auth-red)}
+.toast-box{position:fixed;left:50%;bottom:26px;transform:translateX(-50%);z-index:9999;display:flex;flex-direction:column;gap:9px;align-items:center;pointer-events:none;width:calc(100% - 32px);max-width:430px;
+  --toast-bg:rgba(12,19,30,.97);--toast-line:rgba(148,163,184,.3)}
+.toast{padding:11px 17px;border-radius:11px;background:var(--toast-bg);border:1px solid var(--toast-line);color:#e6edf7;font-size:13.5px;
+  box-shadow:0 14px 40px rgba(0,0,0,.55);animation:xl-tin .22s ease;max-width:100%;line-height:1.5}
+.toast.good{border-color:rgba(52,211,153,.5);color:#a7f3d0}
+.toast.bad{border-color:rgba(248,113,113,.5);color:#fecaca}
+.toast.warn{border-color:rgba(251,191,36,.5);color:#fde68a}
+@keyframes xl-tin{from{opacity:0;transform:translateY(9px)}to{opacity:1;transform:none}}
+@media(max-width:760px){
+  .auth-slot{margin-left:2px}
+  .auth-link{min-height:44px;padding:0 12px;font-size:12.5px}
+  .auth-menu{position:fixed;right:10px;top:58px}
+  .auth-menu a,.auth-menu button{min-height:44px}
+}

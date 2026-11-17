@@ -567,6 +567,8 @@ footer.site a:hover{color:#fff;border-color:rgba(148,163,184,.4)}
   function demoBadge() { return S.apiState === 'ok' ? '' : '<span class="badge demo">示例数据</span>'; }
 
   function wsId() {
+    var au = (window.XLAuth && window.XLAuth.token()) ? window.XLAuth.user() : null;
+    if (au && au.workspace_id) return au.workspace_id;
     if (S.workspace) return S.workspace;
     var id = '';
     try { id = localStorage.getItem('leadgen_ws') || ''; } catch (e) {}
@@ -586,6 +588,7 @@ footer.site a:hover{color:#fff;border-color:rgba(148,163,184,.4)}
     if (ctrl) timer = setTimeout(function () { try { ctrl.abort(); } catch (e) {} }, opt.timeout || 18000);
     var init = { method: opt.method || 'GET', headers: {} };
     if (opt.body) { init.body = JSON.stringify(opt.body); init.headers['Content-Type'] = 'application/json'; }
+    try { var _tk = window.XLAuth && window.XLAuth.token(); if (_tk) init.headers['Authorization'] = 'Bearer ' + _tk; } catch (e) {}
     if (ctrl) init.signal = ctrl.signal;
     return fetch(API + path, init).then(function (r) {
       if (timer) clearTimeout(timer);

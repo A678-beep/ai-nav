@@ -1,0 +1,541 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>个人中心 · 星籁 AI 商家中心</title>
+<meta name="description" content="星籁 AI 个人中心：查看当前套餐、本月视频/线索/AI 改写额度、订单记录，修改店名行业城市和登录密码。">
+<meta name="robots" content="noindex,follow">
+<link rel="canonical" href="https://xinglaiai.com/ai-nav/account/dashboard.html">
+<link rel="stylesheet" href="../assets/auth.css">
+<style>
+.dash-head{display:flex;align-items:flex-end;justify-content:space-between;gap:18px;padding:34px 0 20px;flex-wrap:wrap}
+.dash-head h1{font-size:30px;letter-spacing:-.025em;margin:0 0 6px}
+.dash-head p{margin:0;color:var(--txt3);font-size:12.5px}
+.dash-actions{display:flex;gap:9px;flex-wrap:wrap}
+.dash-actions .btn{min-height:44px}
+.notice{display:none;margin:0 0 16px;padding:11px 14px;border-radius:10px;border:1px solid rgba(251,191,36,.34);background:rgba(251,191,36,.08);color:#fde68a;font-size:12.5px;line-height:1.6}
+.notice.on{display:block}
+.plan-strip{position:relative;overflow:hidden;display:grid;grid-template-columns:1.15fr 1fr auto;gap:22px;align-items:center;padding:22px 24px;border-radius:18px;min-width:0;
+  border:1px solid rgba(56,189,248,.26);background:linear-gradient(120deg,rgba(56,189,248,.11),rgba(139,92,246,.09) 50%,rgba(15,22,34,.9));box-shadow:0 12px 44px rgba(56,189,248,.07)}
+.plan-strip::after{content:"";position:absolute;right:-40px;top:-60px;width:230px;height:230px;border-radius:50%;background:radial-gradient(circle,rgba(56,189,248,.16),transparent 70%);pointer-events:none}
+.plan-strip h2{font-size:26px;margin:5px 0 6px;letter-spacing:-.025em;display:flex;align-items:center;gap:9px;flex-wrap:wrap}
+.plan-strip .sub{font-size:12px;color:var(--txt2);margin:0;line-height:1.6}
+.plan-meta{display:flex;gap:26px;flex-wrap:wrap}
+.plan-meta div{font-size:11.5px;color:var(--txt3)}
+.plan-meta b{display:block;font-size:14px;color:var(--txt);margin-top:2px;font-variant-numeric:tabular-nums}
+.plan-strip .cta{position:relative;z-index:1}
+.dash-grid{display:grid;grid-template-columns:minmax(0,1fr) 372px;gap:18px;margin-top:18px;align-items:start}
+.col{display:grid;grid-template-columns:minmax(0,1fr);gap:18px;min-width:0}
+.quota-list{display:grid;gap:17px}
+.qrow{min-width:0}
+.qhead{display:flex;justify-content:space-between;align-items:baseline;gap:10px;margin-bottom:7px}
+.qhead .qn{font-size:13.5px;font-weight:600;display:flex;align-items:center;gap:7px}
+.qhead .qn em{font-style:normal;font-size:10.5px;color:var(--txt3);border:1px solid var(--line);border-radius:5px;padding:1px 5px}
+.qhead .qv{font-size:12px;color:var(--txt2);font-variant-numeric:tabular-nums;white-space:nowrap}
+.qhead .qv b{color:var(--cyan);font-size:15px}
+.qfoot{display:flex;justify-content:space-between;gap:10px;font-size:11px;color:var(--txt3);margin-top:6px}
+.qfoot .warn{color:var(--amber)}
+.quota-tip{display:flex;align-items:center;justify-content:space-between;gap:12px;margin-top:18px;padding:12px 14px;border-radius:11px;border:1px dashed var(--line2);background:rgba(255,255,255,.02);font-size:12px;color:var(--txt2);flex-wrap:wrap}
+.quota-tip a{color:var(--cyan);font-weight:600;white-space:nowrap}
+table.data td .oid{font-size:11.5px;color:var(--txt2);font-family:ui-monospace,Consolas,monospace;white-space:nowrap}
+.orders-head{display:flex;align-items:center;justify-content:space-between;gap:10px;margin-bottom:13px;flex-wrap:wrap}
+.orders-head h2{margin:0;font-size:17px}
+.orders-head .rhs{display:flex;gap:8px;align-items:center}
+.account-row{display:flex;align-items:center;justify-content:space-between;gap:10px;padding:9px 0;border-bottom:1px dashed rgba(148,163,184,.12);font-size:12.5px}
+.account-row:last-of-type{border-bottom:0}
+.account-row span{color:var(--txt3)}
+.account-row b{color:var(--txt);font-weight:600;text-align:right;word-break:break-all}
+.side-col .card{padding:19px}
+.side-col h2{font-size:16px;margin:0 0 14px}
+.side-col .field{margin-bottom:13px}
+.side-col .input,.side-col .select{min-height:43px;font-size:13.5px}
+.side-col .btn{min-height:44px}
+.sec-title{display:flex;align-items:center;gap:9px;margin:0 0 14px}
+.sec-title h2{margin:0;font-size:17px}
+.sec-title .badge{margin-left:auto}
+@media(max-width:980px){
+  .dash-grid{grid-template-columns:minmax(0,1fr)}
+  .plan-strip{grid-template-columns:1fr;gap:14px;padding:19px}
+  .plan-meta{gap:20px}
+  .plan-strip .cta{justify-self:start}
+}
+@media(max-width:600px){
+  .dash-head{padding:24px 0 15px;align-items:flex-start}
+  .dash-head h1{font-size:24px}
+  .dash-actions{width:100%}
+  .dash-actions .btn{flex:1}
+  .plan-strip h2{font-size:22px}
+  .plan-meta{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+  .side-col .card{padding:16px}
+}
+</style>
+</head>
+<body>
+<div class="topbar">
+  <div class="wrap">
+    <a class="brand" href="../index.html"><span class="mark">✦</span><span>星籁 AI<small>商家中心</small></span></a>
+    <nav>
+      <a href="../index.html">AI 导航</a>
+      <a href="../studio/">AI 创作工坊</a>
+      <a href="../leadgen/">AI 获客</a>
+      <a href="../pricing/index.html">套餐定价</a>
+      <a class="on" href="./dashboard.html">个人中心</a>
+    </nav>
+    <a class="back" href="../index.html">← 返回首页</a>
+  </div>
+</div>
+
+<main class="wrap auth-page">
+  <div class="dash-head">
+    <div>
+      <div class="eyebrow" style="margin-bottom:10px">MERCHANT CENTER</div>
+      <h1 id="hello">你好，商家</h1>
+      <p id="subline">正在读取账号信息…</p>
+    </div>
+    <div class="dash-actions">
+      <a class="btn btn-primary" href="../pricing/index.html" id="upgradeBtn">升级套餐</a>
+      <button class="btn btn-danger" id="logoutBtn" type="button">退出登录</button>
+    </div>
+  </div>
+
+  <div class="notice" id="offlineTip">账号服务暂时不可用，当前显示的是本机缓存信息；额度与订单可能不是最新，请稍后刷新。</div>
+
+  <section class="plan-strip" aria-label="当前套餐">
+    <div>
+      <span class="badge cyan">当前套餐</span>
+      <h2 id="planName">体验版 <span class="badge lime" id="planState">生效中</span></h2>
+      <p class="sub" id="planSub">每月 1 日重置额度 · 不自动续费</p>
+    </div>
+    <div class="plan-meta">
+      <div>到期时间<b id="planExpire">—</b></div>
+      <div>账单周期<b id="planPeriod">—</b></div>
+      <div>工作区<b id="planWs">—</b></div>
+    </div>
+    <div class="cta"><a class="btn btn-sm" href="../pricing/index.html">查看套餐对比 →</a></div>
+  </section>
+
+  <div class="dash-grid">
+    <div class="col">
+      <section class="card" aria-labelledby="quotaTitle">
+        <div class="card-title" style="margin-bottom:16px">
+          <h2 id="quotaTitle">本月额度使用</h2>
+          <span class="badge" id="quotaBadge">加载中…</span>
+        </div>
+        <div class="quota-list" id="quotaList">
+          <div class="qrow"><div class="skeleton" style="height:13px;width:40%;margin-bottom:9px"></div><div class="skeleton" style="height:8px"></div></div>
+          <div class="qrow"><div class="skeleton" style="height:13px;width:40%;margin-bottom:9px"></div><div class="skeleton" style="height:8px"></div></div>
+          <div class="qrow"><div class="skeleton" style="height:13px;width:40%;margin-bottom:9px"></div><div class="skeleton" style="height:8px"></div></div>
+        </div>
+        <div class="quota-tip">
+          <span id="quotaHint">额度按自然月重置，未用完不结转；失败任务不扣额度。</span>
+          <a href="../pricing/index.html">额度不够？升级套餐 →</a>
+        </div>
+      </section>
+
+      <section class="card" id="orders" style="scroll-margin-top:84px" aria-labelledby="ordersTitle">
+        <div class="orders-head">
+          <h2 id="ordersTitle">订单记录</h2>
+          <div class="rhs">
+            <span class="badge" id="orderCount">—</span>
+            <button class="btn btn-sm" type="button" id="refreshOrders">刷新</button>
+          </div>
+        </div>
+        <div class="table-wrap">
+          <table class="data">
+            <thead><tr><th>订单号</th><th>套餐</th><th>月数</th><th>金额</th><th>状态</th><th>时间</th></tr></thead>
+            <tbody id="orderBody"><tr><td colspan="6" class="empty">正在加载订单…</td></tr></tbody>
+          </table>
+        </div>
+        <p class="tiny" style="margin:11px 0 0">未付款订单不会自动扣款；提交后联系客服确认收款，管理员在后台开通。发票与退款规则见 <a href="../pricing/index.html" style="color:var(--cyan)">套餐页说明</a>。</p>
+      </section>
+    </div>
+
+    <aside class="col side-col">
+      <section class="card" aria-labelledby="accountTitle">
+        <div class="sec-title"><h2 id="accountTitle">账号信息</h2><span class="badge" id="roleBadge">商家</span></div>
+        <div class="account-row"><span>登录账号</span><b id="acctEmail">—</b></div>
+        <div class="err" id="profileErr"></div>
+        <div class="okmsg" id="profileOk"></div>
+        <form id="profileForm" novalidate>
+          <div class="field"><label for="pfShop">店名</label><input class="input" id="pfShop" autocomplete="organization" placeholder="店铺名称"></div>
+          <div class="field"><label for="pfIndustry">行业</label>
+            <select class="select" id="pfIndustry"><option value="">选择行业</option></select>
+          </div>
+          <div class="field"><label for="pfCity">城市</label><input class="input" id="pfCity" list="cityList2" placeholder="例如 北京"></div>
+          <datalist id="cityList2"><option>北京</option><option>上海</option><option>广州</option><option>深圳</option><option>杭州</option><option>成都</option><option>重庆</option><option>武汉</option><option>西安</option><option>南京</option><option>苏州</option><option>天津</option><option>长沙</option><option>郑州</option><option>青岛</option><option>厦门</option></datalist>
+          <button class="btn btn-primary btn-block" id="saveProfile" type="submit">保存资料</button>
+        </form>
+      </section>
+
+      <section class="card" aria-labelledby="pwTitle">
+        <div class="sec-title"><h2 id="pwTitle">修改密码</h2></div>
+        <div class="err" id="pwErr"></div>
+        <div class="okmsg" id="pwOk"></div>
+        <form id="pwForm" novalidate>
+          <div class="field"><label for="pwOld">当前密码</label><input class="input" id="pwOld" type="password" autocomplete="current-password" placeholder="输入现在的密码"></div>
+          <div class="field"><label for="pwNew">新密码</label><input class="input" id="pwNew" type="password" autocomplete="new-password" placeholder="至少 8 位">
+            <div class="pwbar" id="pwbar"><i></i></div><div class="pwtext" id="pwtext">至少 8 位，建议字母 + 数字</div>
+          </div>
+          <div class="field"><label for="pwNew2">确认新密码</label><input class="input" id="pwNew2" type="password" autocomplete="new-password" placeholder="再输一次"></div>
+          <button class="btn btn-block" id="savePw" type="submit">更新密码</button>
+        </form>
+        <p class="tiny" style="margin:11px 0 0">忘记当前密码？退出后用管理员手机号登录后台重置，或联系站长。</p>
+      </section>
+
+      <section class="card" id="adminCard" style="display:none">
+        <div class="sec-title"><h2>管理员入口</h2></div>
+        <p class="tiny" style="margin:0 0 12px">当前账号有管理员权限，可查看商家、订单、营收统计与套餐配置。</p>
+        <a class="btn btn-block" href="../admin/index.html">进入管理后台 →</a>
+      </section>
+    </aside>
+  </div>
+</main>
+
+<footer class="site-foot">
+  <div class="wrap">
+    <a href="../index.html">首页</a><a href="../pricing/index.html">套餐定价</a><a href="../studio/">AI 创作工坊</a><a href="../leadgen/">AI 获客</a><a href="../privacy.html">隐私政策</a><a href="../sitemap.xml">站点地图</a>
+    <div style="margin-top:8px">© 2026 星籁 AI 工具导航 · xinglaiai.com · 账号与额度问题请联系站长</div>
+  </div>
+</footer>
+
+<script src="../assets/auth.js"></script>
+<script>
+(function () {
+  'use strict';
+  var $ = function (s, r) { return (r || document).querySelector(s); };
+  var state = { user: XLAuth.user(), usage: null, orders: [], offline: false };
+
+  if (!XLAuth.requireAuth()) return;
+
+  function p2(n) { return n < 10 ? '0' + n : '' + n; }
+  function esc(s) { return XLAuth.esc(s); }
+  function planName(u) { return (u && (u.plan_name || XLAuth.planName(u.plan))) || '体验版'; }
+  function showNotice(on) { $('#offlineTip').classList.toggle('on', !!on); }
+  function errText(e) {
+    if (!e) return '操作失败，请稍后再试';
+    if (e.code === 'NOT_READY') return '功能准备中：该接口还没上线，请联系客服处理';
+    if (e.code === 'NETWORK') return '网络异常，请检查网络后再试';
+    if (e.status === 401) return '登录已失效，请重新登录';
+    return e.message || '操作失败，请稍后再试';
+  }
+  function redirectLogin() {
+    location.replace(XLAuth.rootUrl('account/index.html') + '?next=' + encodeURIComponent(location.pathname + location.search));
+  }
+  function handleAuthErr(e) {
+    if (e && (e.status === 401 || e.code === 'token_invalid' || e.code === 'token_expired')) {
+      try { localStorage.removeItem('xl_token'); sessionStorage.removeItem('xl_token'); } catch (x) {}
+      redirectLogin();
+      return true;
+    }
+    return false;
+  }
+
+  /* ---------- 顶部与当前套餐 ---------- */
+  function paintUser() {
+    var u = state.user;
+    if (!u) return;
+    var name = u.business_name || u.name || u.account || '商家';
+    $('#hello').textContent = '你好，' + name;
+    $('#subline').textContent = (u.account || u.phone || u.email || '') + ' · 工作区 ' + (u.workspace_id || '默认') + ' · 登录有效期 7 天';
+    document.title = name + ' · 个人中心 · 星籁 AI';
+    $('#acctEmail').textContent = u.account || u.phone || u.email || '—';
+    $('#pfShop').value = u.business_name || u.name || '';
+    $('#pfCity').value = u.city || '';
+    setIndustry(u.industry || '');
+    $('#roleBadge').textContent = XLAuth.isAdmin(u) ? '管理员' : '商家';
+    if (XLAuth.isAdmin(u)) $('#adminCard').style.display = '';
+    $('#planName').innerHTML = esc(planName(u)) + ' <span class="badge lime" id="planState">生效中</span>';
+    var exp = u.plan_expire_at || (u.plan_expire_at_ts ? XLAuth.fmtDate(u.plan_expire_at_ts) : '');
+    var days = null;
+    if (u.plan_expire_at_ts) days = Math.ceil((u.plan_expire_at_ts * 1000 - Date.now()) / 86400000);
+    var stateEl = $('#planState');
+    if (u.plan === 'free' || !exp) {
+      $('#planExpire').textContent = '长期有效';
+      $('#planSub').textContent = '体验版额度每月 1 日重置 · 不自动续费';
+      stateEl.className = 'badge lime'; stateEl.textContent = '体验中';
+    } else {
+      $('#planExpire').textContent = XLAuth.fmtDate(exp) + (days != null ? '（剩 ' + Math.max(0, days) + ' 天）' : '');
+      $('#planSub').textContent = '到期后自动回到体验版额度 · 不自动扣费';
+      if (days != null && days < 0) { stateEl.className = 'badge red'; stateEl.textContent = '已到期'; }
+      else if (days != null && days <= 7) { stateEl.className = 'badge amber'; stateEl.textContent = '即将到期'; }
+      else { stateEl.className = 'badge lime'; stateEl.textContent = '生效中'; }
+    }
+    $('#planWs').textContent = u.workspace_id || 'default';
+  }
+
+  function setIndustry(v) {
+    var sel = $('#pfIndustry');
+    if (!v) { sel.value = ''; return; }
+    var found = false;
+    for (var i = 0; i < sel.options.length; i++) if (sel.options[i].value === v) { found = true; break; }
+    if (!found) {
+      var o = document.createElement('option'); o.value = v; o.textContent = v; sel.appendChild(o);
+    }
+    sel.value = v;
+  }
+
+  /* ---------- 额度 ---------- */
+  function normalizeUsage(raw) {
+    raw = raw || {};
+    if (raw.quotas) { if (!raw.period && raw.month) raw.period = raw.month; return raw; }
+    var out = { period: raw.period || raw.month || '', plan: raw.plan, plan_name: raw.plan_name,
+      quotas: {}, usage: { videos: 0, leads: 0, rewrites: 0, aivideos: 0 }, limits: {} };
+    var map = [
+      ['video', 'video', 'videos', 'videos'],
+      ['lead', 'leads', 'leads', 'leads'],
+      ['copywrite', 'rewrite', 'rewrites', 'rewrites'],
+      ['aivideo', 'aivideo', 'aivideos', 'aivideos']
+    ];
+    map.forEach(function (m) {
+      var src = raw[m[1]] || raw[m[0]] || {};
+      var used = src.used != null ? Number(src.used) : (raw.usage && raw.usage[m[2]] != null ? Number(raw.usage[m[2]]) : 0);
+      var limit = src.limit != null ? Number(src.limit) : -1;
+      out.usage[m[2]] = used;
+      if (src.limit != null || src.used != null) {
+        out.quotas[m[0]] = { limit: limit, used: used, remaining: limit < 0 ? -1 : Math.max(0, limit - used), unlimited: limit < 0 };
+        out.limits[m[3]] = limit;
+      }
+    });
+    return out;
+  }
+  function renderUsage() {
+    var d = normalizeUsage(state.usage);
+    var quotas = d.quotas || {};
+    var plain = d.usage || {};
+    var period = d.period || '';
+    $('#quotaBadge').textContent = period ? period.replace('-', ' 年 ') + ' 月' : '本月';
+    var rows = [
+      { key: 'video', name: '视频', unit: '条', usageKey: 'videos', limitKey: 'videos' },
+      { key: 'lead', name: '线索', unit: '条', usageKey: 'leads', limitKey: 'leads' },
+      { key: 'copywrite', name: 'AI 改写', unit: '次', usageKey: 'rewrites', limitKey: 'rewrites' },
+      { key: 'aivideo', name: 'AI 视频', unit: '条', usageKey: 'aivideos', limitKey: 'aivideos' }
+    ];
+    var html = rows.map(function (r) {
+      var q = quotas[r.key] || {};
+      var used = q.used != null ? Number(q.used) : Number(plain[r.usageKey] || 0);
+      var limit = q.limit != null ? Number(q.limit) : (d.limits ? Number(d.limits[r.limitKey]) : null);
+      if (limit == null || isNaN(limit)) limit = 0;
+      var unlimited = q.unlimited === true || limit < 0;
+      var remaining = q.remaining != null ? Number(q.remaining) : Math.max(0, limit - used);
+      var pct = unlimited ? 100 : (limit > 0 ? Math.min(100, Math.round(used / limit * 100)) : 0);
+      var val = unlimited ? used + ' <b>/ 不限</b>' : (limit === 0 ? '本档不含' : used + ' <b>/ ' + limit + '</b> ' + r.unit);
+      var foot = unlimited ? '不限额度，放心用' : (limit === 0 ? '升级套餐后开放' : '剩余 ' + remaining + ' ' + r.unit);
+      var hot = !unlimited && limit > 0 && pct >= 80;
+      return '<div class="qrow">' +
+        '<div class="qhead"><span class="qn">' + r.name + (r.key === 'copywrite' ? ' <em>文案</em>' : '') + '</span><span class="qv">' + val + '</span></div>' +
+        '<div class="meter' + (hot ? ' hot' : '') + '"><i style="width:' + pct + '%' + (unlimited ? ';opacity:.45' : '') + '"></i></div>' +
+        '<div class="qfoot"><span>' + (unlimited ? '不限额度' : (limit === 0 ? '当前套餐不含' : '已用 ' + pct + '%')) + '</span><span class="' + (hot ? 'warn' : '') + '">' + foot + '</span></div>' +
+        '</div>';
+    }).join('');
+    $('#quotaList').innerHTML = html;
+    var vq = quotas.video || {};
+    var vLimit = vq.limit != null ? Number(vq.limit) : (d.limits ? Number(d.limits.videos) : 0);
+    var vUsed = vq.used != null ? Number(vq.used) : Number(plain.videos || 0);
+    if (vLimit > 0 && vUsed >= vLimit) {
+      $('#quotaHint').innerHTML = '本月视频额度已用完。可升级套餐立即增加额度，或等下月 1 日重置。';
+      $('#quotaHint').style.color = 'var(--amber)';
+    } else {
+      $('#quotaHint').textContent = '额度按自然月重置，未用完不结转；失败任务不扣额度。';
+      $('#quotaHint').style.color = '';
+    }
+    if (d.plan_name || d.plan) {
+      $('#planPeriod').textContent = period || (d.plan_name || XLAuth.planName(d.plan));
+    }
+  }
+
+  /* ---------- 订单 ---------- */
+  function statusBadge(s) {
+    var m = {
+      pending: ['amber', '待处理'], active: ['lime', '已开通'], rejected: ['red', '已拒绝'],
+      cancelled: ['', '已取消'], paid: ['lime', '已付款']
+    };
+    var x = m[s] || ['', s || '未知'];
+    return '<span class="badge ' + x[0] + '">' + esc(x[1]) + '</span>';
+  }
+  function renderOrders() {
+    var body = $('#orderBody');
+    var list = state.orders || [];
+    $('#orderCount').textContent = list.length ? list.length + ' 笔订单' : '暂无订单';
+    if (!list.length) {
+      body.innerHTML = '<tr><td colspan="6" class="empty">还没有订单。升级套餐后在这里查看开通进度 → <a href="../pricing/index.html" style="color:var(--cyan)">去看看套餐</a></td></tr>';
+      return;
+    }
+    list.sort(function (a, b) { return (Number(b.created_at_ts) || 0) - (Number(a.created_at_ts) || 0) || String(b.created_at || '').localeCompare(String(a.created_at || '')); });
+    body.innerHTML = list.map(function (o) {
+      var amt = XLAuth.money(o.amount_cents, o.amount);
+      var hint = o.status === 'pending' ? '<div style="font-size:10.5px;color:var(--txt3);margin-top:3px">等待客服确认收款</div>' : '';
+      return '<tr>' +
+        '<td><span class="oid">' + esc(o.order_no || ('#' + o.id)) + '</span></td>' +
+        '<td>' + esc(o.plan_name || XLAuth.planName(o.plan_id)) + '</td>' +
+        '<td>' + esc(o.months || 1) + ' 个月</td>' +
+        '<td class="mono">¥' + amt + (Number(o.discount_cents) > 0 ? '<div style="font-size:10px;color:var(--lime)">已省 ¥' + XLAuth.money(o.discount_cents) + '</div>' : '') + '</td>' +
+        '<td>' + statusBadge(o.status) + hint + '</td>' +
+        '<td class="mono" style="font-size:11.5px;color:var(--txt2)">' + esc(XLAuth.fmtDateTime(o.created_at || o.created_at_ts)) + '</td>' +
+      '</tr>';
+    }).join('');
+  }
+
+  /* ---------- 加载 ---------- */
+  function loadMe() {
+    return XLAuth.api('/auth/me', { timeout: 15000 }).then(function (d) {
+      if (d.user) { state.user = d.user; XLAuth.setUser(d.user); }
+      if (d.usage) state.usage = d.usage;
+      state.offline = false;
+      paintUser();
+      return d;
+    }).catch(function (e) {
+      if (handleAuthErr(e)) return;
+      state.offline = true;
+      if (e.code === 'NOT_READY') {
+        state.usage = null;
+      }
+    });
+  }
+  function loadUsage() {
+    return XLAuth.api('/usage', { timeout: 15000 }).then(function (d) {
+      state.usage = d;
+      renderUsage();
+    }).catch(function (e) {
+      if (handleAuthErr(e)) return;
+      renderUsage();
+    });
+  }
+  function loadOrders() {
+    var body = $('#orderBody');
+    if (!state.orders.length) body.innerHTML = '<tr><td colspan="6" class="empty">正在加载订单…</td></tr>';
+    return XLAuth.api('/orders', { timeout: 15000 }).then(function (d) {
+      state.orders = d.orders || d.list || [];
+      renderOrders();
+    }).catch(function (e) {
+      if (handleAuthErr(e)) return;
+      body.innerHTML = '<tr><td colspan="6" class="empty">' + esc(errText(e)) + '</td></tr>';
+      $('#orderCount').textContent = '加载失败';
+    });
+  }
+
+  paintUser();
+  if (state.user) {
+    $('#planPeriod').textContent = XLAuth.fmtDate(new Date());
+  }
+  renderUsage();
+  loadMe().then(function () {
+    showNotice(state.offline);
+    if (state.offline) XLAuth.toast('账号服务暂时不可用，显示缓存信息', 'warn', 3200);
+    return loadUsage();
+  });
+  loadOrders();
+
+  $('#refreshOrders').addEventListener('click', function () {
+    var b = this; b.disabled = true; b.textContent = '刷新中…';
+    loadOrders().then(function () { b.disabled = false; b.textContent = '刷新'; });
+  });
+
+  /* ---------- 行业 / 资料 ---------- */
+  var FALLBACK_IND = ['餐饮', '美业', '家政', '汽修', '教培', '本地生活', '零售', '其他'];
+  function fillIndustries(list) {
+    list = (list || []).filter(Boolean);
+    if (!list.length) list = FALLBACK_IND;
+    var sel = $('#pfIndustry'), cur = state.user && state.user.industry || '';
+    sel.innerHTML = '<option value="">选择行业</option>' + list.map(function (x) {
+      var n = typeof x === 'string' ? x : (x.name || x.id || '');
+      return n ? '<option value="' + esc(n) + '">' + esc(n) + '</option>' : '';
+    }).join('') + '<option value="__custom">其他（联系客服补充）</option>';
+    if (cur) setIndustry(cur);
+  }
+  fillIndustries(FALLBACK_IND);
+  XLAuth.api('/leadgen/industries', { auth: false, timeout: 10000 }).then(function (d) {
+    var l = d.industries || d.list || [];
+    if (Array.isArray(l) && l.length) fillIndustries(l);
+  }).catch(function () {});
+  $('#pfIndustry').addEventListener('change', function () {
+    if (this.value === '__custom') {
+      this.value = '';
+      XLAuth.toast('自定义行业请联系客服补充，先选一个相近行业即可', 'warn', 3600);
+    }
+  });
+
+  function profileErr(msg) {
+    var el = $('#profileErr');
+    el.textContent = msg; el.classList.toggle('on', !!msg);
+    if (msg) { el.scrollIntoView({ block: 'nearest', behavior: 'smooth' }); }
+  }
+  $('#profileForm').addEventListener('submit', function (ev) {
+    ev.preventDefault();
+    profileErr('');
+    var shop = $('#pfShop').value.trim(), industry = $('#pfIndustry').value, city = $('#pfCity').value.trim();
+    if (!shop) return profileErr('店名不能为空');
+    var btn = $('#saveProfile'); btn.disabled = true; var old = btn.textContent; btn.textContent = '保存中…';
+    XLAuth.api('/auth/profile', { method: 'POST', body: { business_name: shop, industry: industry, city: city }, timeout: 15000 })
+      .then(function (d) {
+        btn.disabled = false; btn.textContent = old;
+        if (d.user) { state.user = d.user; XLAuth.setUser(d.user); paintUser(); }
+        else { state.user = Object.assign({}, state.user, { business_name: shop, industry: industry, city: city }); XLAuth.setUser(state.user); paintUser(); }
+        $('#profileOk').textContent = '资料已保存'; $('#profileOk').classList.add('on');
+        setTimeout(function () { $('#profileOk').classList.remove('on'); }, 2600);
+        XLAuth.toast('资料已保存', 'good');
+      })
+      .catch(function (e) {
+        btn.disabled = false; btn.textContent = old;
+        if (handleAuthErr(e)) return;
+        profileErr('保存失败：' + errText(e));
+      });
+  });
+
+  /* ---------- 改密 ---------- */
+  function pwErr(msg) {
+    var el = $('#pwErr'); el.textContent = msg; el.classList.toggle('on', !!msg);
+  }
+  $('#pwNew').addEventListener('input', function () {
+    var v = this.value, s = 0;
+    if (v.length >= 8) s++;
+    if (v.length >= 12) s++;
+    if (/[a-zA-Z]/.test(v) && /\d/.test(v)) s++;
+    if (/[^a-zA-Z0-9]/.test(v)) s++;
+    if (v.length && v.length < 8) s = 1;
+    $('#pwbar').className = 'pwbar s' + s;
+    $('#pwbar').querySelector('i').style.width = ['0%', '25%', '50%', '75%', '100%'][s];
+    $('#pwtext').textContent = '密码强度：' + (!v ? '至少 8 位' : s <= 1 ? '偏弱' : s === 2 ? '中等' : s === 3 ? '较强' : '很强');
+  });
+  $('#pwForm').addEventListener('submit', function (ev) {
+    ev.preventDefault(); pwErr('');
+    var oldp = $('#pwOld').value, np = $('#pwNew').value, np2 = $('#pwNew2').value;
+    if (!oldp) return pwErr('请输入当前密码');
+    if (!np || np.length < 8) return pwErr('新密码至少 8 位');
+    if (np !== np2) return pwErr('两次输入的新密码不一致');
+    if (np === oldp) return pwErr('新密码不能和旧密码一样');
+    var btn = $('#savePw'); btn.disabled = true; var t = btn.textContent; btn.textContent = '更新中…';
+    XLAuth.api('/auth/change_password', { method: 'POST', body: { old_password: oldp, new_password: np }, timeout: 15000 })
+      .then(function (d) {
+        btn.disabled = false; btn.textContent = t;
+        if (d && d.token) XLAuth.setToken(d.token);
+        if (d && d.user) { state.user = d.user; XLAuth.setUser(d.user); paintUser(); }
+        $('#pwOld').value = ''; $('#pwNew').value = ''; $('#pwNew2').value = '';
+        $('#pwOk').textContent = '密码已更新，下次登录请用新密码'; $('#pwOk').classList.add('on');
+        setTimeout(function () { $('#pwOk').classList.remove('on'); }, 3600);
+        XLAuth.toast('密码已更新', 'good');
+      })
+      .catch(function (e) {
+        btn.disabled = false; btn.textContent = t;
+        if (handleAuthErr(e)) return;
+        pwErr('修改失败：' + errText(e));
+      });
+  });
+
+  /* ---------- 退出 ---------- */
+  $('#logoutBtn').addEventListener('click', function () {
+    if (window.confirm('确定退出登录吗？退出后需要重新输入账号密码。')) XLAuth.logout();
+  });
+
+  XLAuth.onChange(function (u) {
+    if (!XLAuth.token()) { redirectLogin(); return; }
+    if (u) { state.user = u; paintUser(); }
+  });
+
+  document.addEventListener('auth:change', function () {
+    if (!XLAuth.token()) redirectLogin();
+  });
+})();
+</script>
+</body>
+</html>
