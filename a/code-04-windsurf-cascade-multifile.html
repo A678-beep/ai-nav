@@ -13,7 +13,7 @@
 <meta property="og:title" content="Windsurf Cascade 多文件：先验收">
 <meta property="og:description" content="上周给一个 React 项目换状态管理，六个文件要一起动。我先在 Windsurf Cascade 多文件 模式下试了一次：入口文件、目标 API 和三个命名约定都写清楚了，Cascade 三分钟给出六份 diff，但全">
 <meta property="og:url" content="https://xinglaiai.com/ai-nav/a/code-04-windsurf-cascade-multifile.html">
-<script type="application/ld+json">{"@context": "https://schema.org", "@type": "Article", "headline": "Windsurf Cascade 多文件：先验收", "inLanguage": "zh-CN", "datePublished": "2026-11-17", "author": {"@type": "Organization", "name": "星籁 Stellara"}, "publisher": {"@type": "Organization", "name": "星籁 Stellara"}, "mainEntityOfPage": "https://xinglaiai.com/ai-nav/a/code-04-windsurf-cascade-multifile.html", "articleSection": "编程助手", "wordCount": 824, "dateModified": "2026-11-17", "keywords": "Windsurf Cascade 多文件, Cascade 批量改文件, Windsurf 多文件编辑, Windsurf Cascade 一次改多个文件, Cascade 全量接受风险"}</script>
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "Article", "headline": "Windsurf Cascade 多文件：先验收", "inLanguage": "zh-CN", "datePublished": "2026-11-18", "author": {"@type": "Organization", "name": "星籁 Stellara"}, "publisher": {"@type": "Organization", "name": "星籁 Stellara"}, "mainEntityOfPage": "https://xinglaiai.com/ai-nav/a/code-04-windsurf-cascade-multifile.html", "articleSection": "编程助手", "wordCount": 824, "dateModified": "2026-11-18", "keywords": "Windsurf Cascade 多文件, Cascade 批量改文件, Windsurf 多文件编辑, Windsurf Cascade 一次改多个文件, Cascade 全量接受风险"}</script>
 <script type="application/ld+json">{"@context": "https://schema.org", "@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "首页", "item": "https://xinglaiai.com/ai-nav/"}, {"@type": "ListItem", "position": 2, "name": "编程助手", "item": "https://xinglaiai.com/ai-nav/#/articles"}, {"@type": "ListItem", "position": 3, "name": "Windsurf Cascade 多文件：先验收", "item": "https://xinglaiai.com/ai-nav/a/code-04-windsurf-cascade-multifile.html"}]}</script>
 <style>
 :root{--bg:#080b12;--panel:#111827;--line:#1f2937;--txt:#e6edf7;--txt2:#9aa8bd;--txt3:#6b7a90;--cyan:#5ad1ff;--violet:#a78bfa}
@@ -280,6 +280,19 @@ article.content p{letter-spacing:.01em}
   .hero h1{font-size:25px;padding:0 10px}
   .hero .lead{padding:0 12px}
 }
+
+/* WB_WIDE_UNIFY 满屏工作台（仅 ≥1180px 生效，移动端维持原样） */
+@media (min-width:1180px){
+  .top-in{max-width:none;padding-left:32px;padding-right:32px}
+  body>main{max-width:none;padding:0 32px 56px}
+  body>main > .bread,
+  body>main > h1,
+  body>main > .meta,
+  body>main > article.content{max-width:820px;margin-left:auto;margin-right:auto}
+  body>main > .sec.tcards-sec,
+  body>main > .related{max-width:1080px;margin-left:auto;margin-right:auto}
+  body>main > .related ul{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));column-gap:28px}
+}
 </style>
 <link rel="stylesheet" href="../assets/auth-nav.css">
 </head>
@@ -349,19 +362,5 @@ article.content p{letter-spacing:.01em}
 
 </main>
 <script defer src="../assets/auth.js"></script>
-<style id="WB_WIDE_UNIFY">
-/* WB_WIDE_UNIFY：满屏工作台（仅 ≥1180px 生效，移动端维持原样） */
-@media (min-width:1180px){
-  .top-in{max-width:none;padding-left:32px;padding-right:32px}
-  body>main{max-width:none;padding:0 32px 56px}
-  body>main > .bread,
-  body>main > h1,
-  body>main > .meta,
-  body>main > article.content{max-width:820px;margin-left:auto;margin-right:auto}
-  body>main > .sec.tcards-sec,
-  body>main > .related{max-width:1080px;margin-left:auto;margin-right:auto}
-  body>main > .related ul{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));column-gap:28px}
-}
-</style>
 </body>
 </html>

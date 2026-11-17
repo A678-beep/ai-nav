@@ -13,7 +13,7 @@
 <meta property="og:title" content="PDF 扫描 识别：给扫描件加可搜索文字层">
 <meta property="og:description" content="档案馆拿来 312 页扫描合同，要能全文搜索，还要把 6 张报价表还原成表格。原件是 2019 年的 300dpi 彩扫，直接按 Ctrl+F 一个字都搜不到。我用 PaddleOCR 和 OCRmyPDF 跑了两轮，字">
 <meta property="og:url" content="https://xinglaiai.com/ai-nav/a/util-15-pdf-scan-ocr.html">
-<script type="application/ld+json">{"@context": "https://schema.org", "@type": "Article", "headline": "PDF 扫描 识别：给扫描件加可搜索文字层", "inLanguage": "zh-CN", "datePublished": "2026-11-17", "author": {"@type": "Organization", "name": "星籁 Stellara"}, "publisher": {"@type": "Organization", "name": "星籁 Stellara"}, "mainEntityOfPage": "https://xinglaiai.com/ai-nav/a/util-15-pdf-scan-ocr.html", "articleSection": "实用工具", "wordCount": 810, "dateModified": "2026-11-17", "keywords": "PDF 扫描 识别, PaddleOCR, OCRmyPDF, 离线 OCR, 扫描版PDF转文字, 离线OCR工具"}</script>
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "Article", "headline": "PDF 扫描 识别：给扫描件加可搜索文字层", "inLanguage": "zh-CN", "datePublished": "2026-11-18", "author": {"@type": "Organization", "name": "星籁 Stellara"}, "publisher": {"@type": "Organization", "name": "星籁 Stellara"}, "mainEntityOfPage": "https://xinglaiai.com/ai-nav/a/util-15-pdf-scan-ocr.html", "articleSection": "实用工具", "wordCount": 810, "dateModified": "2026-11-18", "keywords": "PDF 扫描 识别, PaddleOCR, OCRmyPDF, 离线 OCR, 扫描版PDF转文字, 离线OCR工具"}</script>
 <script type="application/ld+json">{"@context": "https://schema.org", "@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "首页", "item": "https://xinglaiai.com/ai-nav/"}, {"@type": "ListItem", "position": 2, "name": "实用工具", "item": "https://xinglaiai.com/ai-nav/#/articles"}, {"@type": "ListItem", "position": 3, "name": "PDF 扫描 识别：给扫描件加可搜索文字层", "item": "https://xinglaiai.com/ai-nav/a/util-15-pdf-scan-ocr.html"}]}</script>
 <style>
 :root{--bg:#080b12;--panel:#111827;--line:#1f2937;--txt:#e6edf7;--txt2:#9aa8bd;--txt3:#6b7a90;--cyan:#5ad1ff;--violet:#a78bfa}
@@ -280,6 +280,19 @@ article.content p{letter-spacing:.01em}
   .hero h1{font-size:25px;padding:0 10px}
   .hero .lead{padding:0 12px}
 }
+
+/* WB_WIDE_UNIFY 满屏工作台（仅 ≥1180px 生效，移动端维持原样） */
+@media (min-width:1180px){
+  .top-in{max-width:none;padding-left:32px;padding-right:32px}
+  body>main{max-width:none;padding:0 32px 56px}
+  body>main > .bread,
+  body>main > h1,
+  body>main > .meta,
+  body>main > article.content{max-width:820px;margin-left:auto;margin-right:auto}
+  body>main > .sec.tcards-sec,
+  body>main > .related{max-width:1080px;margin-left:auto;margin-right:auto}
+  body>main > .related ul{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));column-gap:28px}
+}
 </style>
 <link rel="stylesheet" href="../assets/auth-nav.css">
 </head>
@@ -347,19 +360,5 @@ article.content p{letter-spacing:.01em}
 
 </main>
 <script defer src="../assets/auth.js"></script>
-<style id="WB_WIDE_UNIFY">
-/* WB_WIDE_UNIFY：满屏工作台（仅 ≥1180px 生效，移动端维持原样） */
-@media (min-width:1180px){
-  .top-in{max-width:none;padding-left:32px;padding-right:32px}
-  body>main{max-width:none;padding:0 32px 56px}
-  body>main > .bread,
-  body>main > h1,
-  body>main > .meta,
-  body>main > article.content{max-width:820px;margin-left:auto;margin-right:auto}
-  body>main > .sec.tcards-sec,
-  body>main > .related{max-width:1080px;margin-left:auto;margin-right:auto}
-  body>main > .related ul{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));column-gap:28px}
-}
-</style>
 </body>
 </html>

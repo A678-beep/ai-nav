@@ -13,7 +13,7 @@
 <meta property="og:title" content="Cursor 中文乱码：3 步改回 UTF-8">
 <meta property="og:description" content="接手一个 2019 年的 Vue 项目，用 Cursor 打开 .js 文件，注释全是锟斤拷锟斤拷，字符串里的中文变成一串问号。更麻烦的是让 Agent 改一个函数，它读进去再写回来，原本只是显示乱码的几行变成了真正的乱">
 <meta property="og:url" content="https://xinglaiai.com/ai-nav/a/code-15-cursor-chinese-garbled.html">
-<script type="application/ld+json">{"@context": "https://schema.org", "@type": "Article", "headline": "Cursor 中文乱码：3 步改回 UTF-8", "inLanguage": "zh-CN", "datePublished": "2026-11-17", "author": {"@type": "Organization", "name": "星籁 Stellara"}, "publisher": {"@type": "Organization", "name": "星籁 Stellara"}, "mainEntityOfPage": "https://xinglaiai.com/ai-nav/a/code-15-cursor-chinese-garbled.html", "articleSection": "编程助手", "wordCount": 811, "dateModified": "2026-11-17", "keywords": "Cursor 中文乱码, 文件编码, UTF-8, Cursor 中文乱码怎么解决, Cursor 终端乱码"}</script>
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "Article", "headline": "Cursor 中文乱码：3 步改回 UTF-8", "inLanguage": "zh-CN", "datePublished": "2026-11-18", "author": {"@type": "Organization", "name": "星籁 Stellara"}, "publisher": {"@type": "Organization", "name": "星籁 Stellara"}, "mainEntityOfPage": "https://xinglaiai.com/ai-nav/a/code-15-cursor-chinese-garbled.html", "articleSection": "编程助手", "wordCount": 811, "dateModified": "2026-11-18", "keywords": "Cursor 中文乱码, 文件编码, UTF-8, Cursor 中文乱码怎么解决, Cursor 终端乱码"}</script>
 <script type="application/ld+json">{"@context": "https://schema.org", "@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "首页", "item": "https://xinglaiai.com/ai-nav/"}, {"@type": "ListItem", "position": 2, "name": "编程助手", "item": "https://xinglaiai.com/ai-nav/#/articles"}, {"@type": "ListItem", "position": 3, "name": "Cursor 中文乱码：3 步改回 UTF-8", "item": "https://xinglaiai.com/ai-nav/a/code-15-cursor-chinese-garbled.html"}]}</script>
 <style>
 :root{--bg:#080b12;--panel:#111827;--line:#1f2937;--txt:#e6edf7;--txt2:#9aa8bd;--txt3:#6b7a90;--cyan:#5ad1ff;--violet:#a78bfa}
@@ -280,6 +280,19 @@ article.content p{letter-spacing:.01em}
   .hero h1{font-size:25px;padding:0 10px}
   .hero .lead{padding:0 12px}
 }
+
+/* WB_WIDE_UNIFY 满屏工作台（仅 ≥1180px 生效，移动端维持原样） */
+@media (min-width:1180px){
+  .top-in{max-width:none;padding-left:32px;padding-right:32px}
+  body>main{max-width:none;padding:0 32px 56px}
+  body>main > .bread,
+  body>main > h1,
+  body>main > .meta,
+  body>main > article.content{max-width:820px;margin-left:auto;margin-right:auto}
+  body>main > .sec.tcards-sec,
+  body>main > .related{max-width:1080px;margin-left:auto;margin-right:auto}
+  body>main > .related ul{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));column-gap:28px}
+}
 </style>
 <link rel="stylesheet" href="../assets/auth-nav.css">
 </head>
@@ -347,19 +360,5 @@ article.content p{letter-spacing:.01em}
 
 </main>
 <script defer src="../assets/auth.js"></script>
-<style id="WB_WIDE_UNIFY">
-/* WB_WIDE_UNIFY：满屏工作台（仅 ≥1180px 生效，移动端维持原样） */
-@media (min-width:1180px){
-  .top-in{max-width:none;padding-left:32px;padding-right:32px}
-  body>main{max-width:none;padding:0 32px 56px}
-  body>main > .bread,
-  body>main > h1,
-  body>main > .meta,
-  body>main > article.content{max-width:820px;margin-left:auto;margin-right:auto}
-  body>main > .sec.tcards-sec,
-  body>main > .related{max-width:1080px;margin-left:auto;margin-right:auto}
-  body>main > .related ul{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));column-gap:28px}
-}
-</style>
 </body>
 </html>

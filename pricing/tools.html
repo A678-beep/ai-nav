@@ -283,6 +283,16 @@ td a{color:var(--cyan)}
 .filters{margin:16px 0 6px;display:flex;gap:8px;flex-wrap:wrap}
 .fbtn{padding:10px 16px;min-height:42px;display:inline-flex;align-items:center;border-radius:8px;border:1px solid var(--line);background:rgba(255,255,255,.03);color:var(--txt2);font-size:13px;cursor:pointer}
 .fbtn.on{color:var(--cyan);border-color:rgba(90,209,255,.45);background:rgba(90,209,255,.1)}
+/* WB_WIDE_UNIFY 满屏工作台（仅 ≥1180px 生效，移动端维持原样） */
+@media (min-width:1180px){
+  .top-in{max-width:none;padding-left:32px;padding-right:32px}
+  body>main{max-width:none;padding-left:32px;padding-right:32px}
+  #ptable{font-size:14.5px}
+  #ptable th,#ptable td{padding:11px 14px}
+  #ptable th:first-child,#ptable td:first-child{padding-left:16px}
+  main > p.note{max-width:88ch}
+  main > h2{margin-top:34px}
+}
 </style>
 <link rel="stylesheet" href="../assets/auth-nav.css">
 </head>
@@ -326,18 +336,6 @@ document.querySelectorAll('.fbtn').forEach(function(b){
   });
 });
 </script>
-<script defer src="../assets/auth.js"></script><style id="WB_WIDE_UNIFY">
-/* WB_WIDE_UNIFY：满屏工作台（仅 ≥1180px 生效，移动端维持原样） */
-@media (min-width:1180px){
-  .top-in{max-width:none;padding-left:32px;padding-right:32px}
-  body>main{max-width:none;padding-left:32px;padding-right:32px}
-  #ptable{font-size:14.5px}
-  #ptable th,#ptable td{padding:11px 14px}
-  #ptable th:first-child,#ptable td:first-child{padding-left:16px}
-  main > p.note{max-width:88ch}
-  main > h2{margin-top:34px}
-}
-@media (max-width:760px){.fbtn{min-height:44px}}
-</style>
+<script defer src="../assets/auth.js"></script>
 </body>
 </html>

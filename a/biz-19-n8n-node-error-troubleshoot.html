@@ -13,7 +13,7 @@
 <meta property="og:title" content="n8n 节点 报错 排查：5 类常见错误与重试">
 <meta property="og:description" content="周三早上 8 点，日报那条工作流没出数。我打开左侧的 Executions，列表里一条红色 Failed，点进去红的是 HTTP Request 节点，返回 429。整条链路 18 个节点，每天抓 42 个源，前一周其实">
 <meta property="og:url" content="https://xinglaiai.com/ai-nav/a/biz-19-n8n-node-error-troubleshoot.html">
-<script type="application/ld+json">{"@context": "https://schema.org", "@type": "Article", "headline": "n8n 节点 报错 排查：5 类常见错误与重试", "inLanguage": "zh-CN", "datePublished": "2026-11-17", "author": {"@type": "Organization", "name": "星籁 Stellara"}, "publisher": {"@type": "Organization", "name": "星籁 Stellara"}, "mainEntityOfPage": "https://xinglaiai.com/ai-nav/a/biz-19-n8n-node-error-troubleshoot.html", "articleSection": "商业效率", "wordCount": 817, "dateModified": "2026-11-17", "keywords": "n8n 节点 报错 排查, n8n 报错 日志, n8n 表达式, 重试策略, n8n 报错 日志 查看, n8n 表达式 报错"}</script>
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "Article", "headline": "n8n 节点 报错 排查：5 类常见错误与重试", "inLanguage": "zh-CN", "datePublished": "2026-11-18", "author": {"@type": "Organization", "name": "星籁 Stellara"}, "publisher": {"@type": "Organization", "name": "星籁 Stellara"}, "mainEntityOfPage": "https://xinglaiai.com/ai-nav/a/biz-19-n8n-node-error-troubleshoot.html", "articleSection": "商业效率", "wordCount": 817, "dateModified": "2026-11-18", "keywords": "n8n 节点 报错 排查, n8n 报错 日志, n8n 表达式, 重试策略, n8n 报错 日志 查看, n8n 表达式 报错"}</script>
 <script type="application/ld+json">{"@context": "https://schema.org", "@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "首页", "item": "https://xinglaiai.com/ai-nav/"}, {"@type": "ListItem", "position": 2, "name": "商业效率", "item": "https://xinglaiai.com/ai-nav/#/articles"}, {"@type": "ListItem", "position": 3, "name": "n8n 节点 报错 排查：5 类常见错误与重试", "item": "https://xinglaiai.com/ai-nav/a/biz-19-n8n-node-error-troubleshoot.html"}]}</script>
 <style>
 :root{--bg:#080b12;--panel:#111827;--line:#1f2937;--txt:#e6edf7;--txt2:#9aa8bd;--txt3:#6b7a90;--cyan:#5ad1ff;--violet:#a78bfa}
@@ -280,6 +280,19 @@ article.content p{letter-spacing:.01em}
   .hero h1{font-size:25px;padding:0 10px}
   .hero .lead{padding:0 12px}
 }
+
+/* WB_WIDE_UNIFY 满屏工作台（仅 ≥1180px 生效，移动端维持原样） */
+@media (min-width:1180px){
+  .top-in{max-width:none;padding-left:32px;padding-right:32px}
+  body>main{max-width:none;padding:0 32px 56px}
+  body>main > .bread,
+  body>main > h1,
+  body>main > .meta,
+  body>main > article.content{max-width:820px;margin-left:auto;margin-right:auto}
+  body>main > .sec.tcards-sec,
+  body>main > .related{max-width:1080px;margin-left:auto;margin-right:auto}
+  body>main > .related ul{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));column-gap:28px}
+}
 </style>
 <link rel="stylesheet" href="../assets/auth-nav.css">
 </head>
@@ -349,19 +362,5 @@ article.content p{letter-spacing:.01em}
 
 </main>
 <script defer src="../assets/auth.js"></script>
-<style id="WB_WIDE_UNIFY">
-/* WB_WIDE_UNIFY：满屏工作台（仅 ≥1180px 生效，移动端维持原样） */
-@media (min-width:1180px){
-  .top-in{max-width:none;padding-left:32px;padding-right:32px}
-  body>main{max-width:none;padding:0 32px 56px}
-  body>main > .bread,
-  body>main > h1,
-  body>main > .meta,
-  body>main > article.content{max-width:820px;margin-left:auto;margin-right:auto}
-  body>main > .sec.tcards-sec,
-  body>main > .related{max-width:1080px;margin-left:auto;margin-right:auto}
-  body>main > .related ul{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));column-gap:28px}
-}
-</style>
 </body>
 </html>
