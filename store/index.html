@@ -150,6 +150,16 @@
   .need{margin-top:7px;height:44px;font-size:14px;background:#fbf9f4}
   .lead-fine{margin-top:6px;font-size:10.5px;color:#a19a8e;line-height:1.5;display:flex;gap:6px;align-items:center}
   .lead-fine .lock{flex:0 0 auto}
+  .lead-captcha{display:flex;align-items:center;gap:8px;margin-top:7px}
+  .captcha-q{font-size:13px;color:var(--ink);font-weight:650;white-space:nowrap}
+  .captcha-input{flex:1;height:44px;font-size:15px;background:#fbf9f4}
+  .captcha-refresh{flex:0 0 44px;width:44px;height:44px;border:1px solid #dcd6ca;border-radius:11px;background:#fff;font-size:17px;color:var(--muted);line-height:1}
+  .hours-table{margin-top:9px;border:1px solid #ece7dc;border-radius:11px;overflow:hidden;font-size:12.5px}
+  .hours-row{display:flex;justify-content:space-between;gap:10px;padding:6px 10px;border-bottom:1px solid #f2eee5}
+  .hours-row:last-child{border-bottom:0}
+  .hours-row.today{background:#f1f7f4;font-weight:650}
+  .hours-day{color:var(--muted);flex:0 0 42px}
+  .hours-time{text-align:right;overflow-wrap:anywhere}
   .lead-success{display:none;align-items:center;gap:11px;padding:9px 2px;min-height:64px}
   .lead-success .ok-ico{flex:0 0 40px;width:40px;height:40px;border-radius:50%;background:#e7f6ef;color:var(--ok);
     display:flex;align-items:center;justify-content:center;font-size:20px;font-weight:800}
@@ -265,6 +275,7 @@
         <div class="info-body">
           <div class="info-label">营业时间</div>
           <div class="info-value" id="hoursText">以商家实际营业时间为准</div>
+          <div class="hours-table" id="hoursTable" hidden></div>
         </div>
       </div>
       <div class="info-row">
@@ -301,6 +312,12 @@
       </div>
       <input class="lead-input need" id="leadNeed" type="text" maxlength="200"
              placeholder="想咨询什么？（选填，如：保洁 3 小时）" aria-label="需求（选填）">
+      <div class="lead-captcha">
+        <span class="captcha-q" id="captchaQuestion" aria-live="polite">验证码加载中…</span>
+        <input class="lead-input captcha-input" id="leadCaptchaAnswer" type="text" inputmode="numeric"
+               maxlength="3" placeholder="请输入答案" autocomplete="off" aria-label="数学验证码答案">
+        <button class="captcha-refresh" id="captchaRefresh" type="button" aria-label="换一道验证码" title="换一题">↻</button>
+      </div>
       <div class="lead-fine"><span class="lock" aria-hidden="true">🔒</span><span>仅用于商家联系你，不会公开展示；提交即表示同意商家致电</span></div>
     </form>
     <div class="lead-success" id="leadSuccess">
@@ -343,6 +360,7 @@
     ? '/ai-nav/api' : 'https://xinglaiai.com/ai-nav/api';
   var PAGE_URL = 'https://xinglaiai.com/ai-nav/store/?slug=' + encodeURIComponent(slug);
   var data = null;
+  var captchaToken = '';
   var toastTimer = null;
 
   function show(el) { el.hidden = false; if (el.classList) el.classList.add('show'); }
@@ -399,6 +417,7 @@
   }
 
   function isOpenNow(hours) {
+    if (hours && typeof hours === 'object') return null;
     var m = String(hours || '').match(/(\d{1,2})\s*[:：]\s*(\d{2})\s*[-–—~至]\s*(\d{1,2})\s*[:：]\s*(\d{2})/);
     if (!m) return null;
     var now = new Date();
@@ -408,6 +427,54 @@
     if (start === end) return true;
     if (end > start) return cur >= start && cur < end;
     return cur >= start || cur < end; // 跨夜营业
+  }
+
+  var DAY_ORDER = ['mon', 'tue', 'wed', 'thu', 'fri', 'sat', 'sun'];
+  var DAY_CN = { mon: '周一', tue: '周二', wed: '周三', thu: '周四', fri: '周五', sat: '周六', sun: '周日' };
+
+  function loadCaptcha() {
+    captchaToken = '';
+    $('captchaQuestion').textContent = '验证码加载中…';
+    $('leadCaptchaAnswer').value = '';
+    if (!slug) return;
+    fetch(API + '/store/' + encodeURIComponent(slug) + '/captcha', { cache: 'no-store' })
+      .then(function (r) { return r.json().catch(function () { return {}; }); })
+      .then(function (d) {
+        if (!d || !d.ok || !d.token) throw new Error('captcha');
+        captchaToken = d.token;
+        $('captchaQuestion').textContent = d.question || '验证码';
+      })
+      .catch(function () {
+        $('captchaQuestion').textContent = '验证码加载失败，点 ↻ 重试';
+      });
+  }
+
+  function renderHours(d) {
+    var table = $('hoursTable');
+    table.textContent = '';
+    var hours = d.hours;
+    if (!hours || typeof hours !== 'object') { table.hidden = true; return; }
+    var today = (d.today && d.today.day) || '';
+    DAY_ORDER.forEach(function (key) {
+      var slots = hours[key];
+      var row = document.createElement('div');
+      row.className = 'hours-row' + (key === today ? ' today' : '');
+      var day = document.createElement('span');
+      day.className = 'hours-day';
+      day.textContent = DAY_CN[key];
+      var tm = document.createElement('span');
+      tm.className = 'hours-time';
+      if (!Array.isArray(slots) || !slots.length) {
+        tm.textContent = '休息';
+      } else {
+        tm.textContent = slots.map(function (s) { return s[0] + '-' + s[1]; }).join('、');
+      }
+      row.appendChild(day);
+      row.appendChild(tm);
+      table.appendChild(row);
+    });
+    table.hidden = false;
+    $('hoursText').textContent = d.hours_text || '—';
   }
 
   function mapUrls(d) {
@@ -435,7 +502,7 @@
     if (d.industry) items.push({ text: d.industry, cls: 'local' });
     if (d.city) items.push({ text: d.city, cls: '' });
     if (d.hours) {
-      var op = isOpenNow(d.hours);
+      var op = (d.today && typeof d.today.open === 'boolean') ? d.today.open : isOpenNow(d.hours);
       if (op !== null) items.push({ text: op ? '营业中' : '已打烊', cls: 'local' });
     }
     items.forEach(function (it) {
@@ -558,7 +625,8 @@
     if (maps.amap) nav.href = maps.amap;
     else nav.href = 'https://uri.amap.com/search?keyword=' + encodeURIComponent(addr || '附近商家') + '&src=xinglaiai';
 
-    $('hoursText').textContent = d.hours || '以商家实际营业时间为准';
+    $('hoursText').textContent = d.hours_text || d.hours || '以商家实际营业时间为准';
+    renderHours(d);
     $('phoneText').textContent = d.phone || '请在线留资';
     $('phoneText').style.cursor = d.phone ? 'pointer' : '';
     if (d.phone) {
@@ -576,12 +644,19 @@
       $('wechatRow').hidden = true;
       $('wxId').textContent = '商家暂未填写微信号';
     }
-    var op = isOpenNow(d.hours);
+    var op = (d.today && typeof d.today.open === 'boolean') ? d.today.open : isOpenNow(d.hours);
+    var todaySlots = ((d.today && d.today.slots) || []).map(function (s) { return s[0] + '-' + s[1]; }).join('、');
     var dot = $('openDot');
     var txt = $('openText');
-    if (op === true) { dot.classList.add('open'); txt.textContent = '现在营业中 · ' + d.hours; }
-    else if (op === false) { dot.classList.add('closed'); txt.textContent = '当前已打烊 · ' + d.hours; }
-    else { txt.textContent = d.hours ? '营业时间 ' + d.hours : '营业时间以商家为准'; }
+    if (op === true) {
+      dot.classList.add('open');
+      txt.textContent = (d.today && d.today.label ? d.today.label : '现在营业中') + (todaySlots ? ' · ' + todaySlots : '');
+    } else if (op === false) {
+      dot.classList.add('closed');
+      txt.textContent = (d.today && d.today.label ? d.today.label : '当前已打烊') + (todaySlots ? ' · ' + todaySlots : '');
+    } else {
+      txt.textContent = (d.hours_text || d.hours) ? '营业时间 ' + (d.hours_text || d.hours) : '营业时间以商家为准';
+    }
   }
 
   function renderSeo(d) {
@@ -614,7 +689,7 @@
         addressCountry: 'CN'
       }
     };
-    if (d.hours) ld.openingHours = d.hours;
+    if (d.hours) ld.openingHours = d.hours_text || d.hours;
     if (d.industry) ld.knowsAbout = d.industry;
     var old = document.getElementById('ldjson');
     if (old) old.remove();
@@ -647,6 +722,7 @@
     });
     $('wxCall').href = d.phone ? telHref(d.phone) : 'https://xinglaiai.com/ai-nav/';
     $('leadBar').classList.add('show');
+    loadCaptcha();
     $('loadingView').style.display = 'none';
     $('app').classList.add('show');
     document.body.classList.add('loaded');
@@ -696,10 +772,21 @@
     var old = btn.textContent;
     btn.textContent = '提交中';
     var need = $('leadNeed').value.trim();
+    var captchaAnswer = $('leadCaptchaAnswer').value.replace(/\D/g, '');
+    if (!captchaToken) {
+      toast('验证码未加载，请点 ↻ 重新获取');
+      return;
+    }
+    if (!captchaAnswer) {
+      toast('请填写数学验证码答案');
+      $('leadCaptchaAnswer').focus();
+      return;
+    }
     fetch(API + '/store/' + encodeURIComponent(slug) + '/lead', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
-      body: JSON.stringify({ phone: phone, need: need, source: 'store_page' })
+      body: JSON.stringify({ phone: phone, need: need, source: 'store_page',
+        captcha_token: captchaToken, captcha_answer: captchaAnswer })
     }).then(function (r) {
       return r.json().catch(function () { return {}; }).then(function (j) { return { status: r.status, body: j }; });
     }).then(function (res) {
@@ -714,6 +801,12 @@
       }
       if (res.status === 429) {
         toast((res.body && res.body.hint) || '提交太频繁，请稍后再试');
+        return;
+      }
+      if (res.status === 400 && res.body && res.body.error === 'CAPTCHA_FAIL') {
+        toast((res.body && res.body.hint) || '验证码错误，请重新验证');
+        loadCaptcha();
+        $('leadCaptchaAnswer').focus();
         return;
       }
       toast((res.body && res.body.hint) || '提交失败，请稍后重试或直接拨打电话');
@@ -752,7 +845,12 @@
     $('leadSuccess').style.display = 'none';
     $('leadForm').style.display = 'block';
     $('leadPhone').value = '';
+    loadCaptcha();
     $('leadPhone').focus();
+  });
+  $('captchaRefresh').addEventListener('click', loadCaptcha);
+  $('leadCaptchaAnswer').addEventListener('input', function () {
+    this.value = this.value.replace(/\D/g, '').slice(0, 3);
   });
   $('wechatBtn').addEventListener('click', function () {
     if (!data) return;

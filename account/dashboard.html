@@ -88,6 +88,26 @@ table.data td .oid{font-size:11.5px;color:var(--txt2);font-family:ui-monospace,C
 .mini{min-height:44px;padding:0 13px;border-radius:9px;border:1px solid rgba(56,189,248,.38);
   background:rgba(56,189,248,.08);color:#bae6fd;font-size:12px;font-weight:700;cursor:pointer}
 .mini:hover{background:rgba(56,189,248,.15)}
+.badge.bell{border:1px solid rgba(251,191,36,.5);background:rgba(251,191,36,.13);color:#fcd34d;cursor:pointer;font-size:12px;padding:5px 10px;border-radius:999px;line-height:1.2}
+.badge.bell:hover{background:rgba(251,191,36,.22)}
+.hours-edit{border:1px solid var(--line);border-radius:11px;overflow:hidden;background:rgba(6,10,17,.36)}
+.he-row{display:grid;grid-template-columns:44px minmax(0,1fr) 10px minmax(0,1fr) 64px;gap:7px;align-items:center;padding:6px 9px;border-bottom:1px solid rgba(148,163,184,.12)}
+.he-row:last-child{border-bottom:0}
+.he-day{font-size:12px;color:var(--txt2)}
+.he-row .input{min-height:38px;font-size:12.5px;padding:0 8px}
+.he-sep{color:var(--txt3);text-align:center;font-size:12px}
+.he-closed{display:flex;align-items:center;gap:4px;font-size:11.5px;color:var(--txt3);white-space:nowrap}
+.he-closed input{width:16px;height:16px;accent-color:#34d399}
+.he-row.is-closed .he-time{opacity:.35;pointer-events:none}
+.photo-edit-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(96px,1fr));gap:8px;min-height:0}
+.photo-edit{position:relative;border:1px solid var(--line);border-radius:10px;overflow:hidden;aspect-ratio:4/3;background:rgba(255,255,255,.03);cursor:grab}
+.photo-edit.dragging{opacity:.4}
+.photo-edit img{width:100%;height:100%;object-fit:cover;display:block}
+.photo-edit .pd{position:absolute;top:4px;right:4px;width:28px;height:28px;border-radius:50%;border:0;background:rgba(8,12,20,.72);color:#fff;font-size:16px;line-height:1;cursor:pointer}
+.photo-edit .num{position:absolute;left:5px;bottom:4px;font-size:10.5px;color:#fff;background:rgba(8,12,20,.6);border-radius:6px;padding:1px 5px}
+.photo-actions{display:flex;align-items:center;gap:9px;margin-top:9px;flex-wrap:wrap}
+.photo-actions .tiny{color:var(--txt3)}
+.photo-actions .mini{margin-left:0}
 .svc-edit{display:grid;grid-template-columns:minmax(0,1.3fr) minmax(0,.7fr) 42px;gap:8px;margin-bottom:8px;align-items:center}
 .svc-edit .svc-desc{grid-column:1/-1}
 .svc-edit .input{min-height:44px;font-size:13px}
@@ -195,6 +215,7 @@ table.data td .oid{font-size:11.5px;color:var(--txt2);font-family:ui-monospace,C
         <p class="tiny">生成一个公开商家主页：服务价格、电话、地址、优惠一张页面全展示。顾客扫码或点链接即可拨号、导航、留电话，线索自动进入 <a href="../leadgen/" style="color:var(--cyan)">AI 获客</a>。</p>
       </div>
       <div class="store-head-actions">
+        <button class="badge bell" id="storeUnread" type="button" hidden>🔔 新留资 0 条</button>
         <a class="btn btn-sm" id="storeOpen" href="#" target="_blank" rel="noopener" hidden>预览公开页</a>
         <button class="btn btn-sm" id="storeCopy" type="button" hidden>复制链接</button>
         <button class="btn btn-sm" id="storeQrToggle" type="button" hidden>二维码</button>
@@ -212,7 +233,10 @@ table.data td .oid{font-size:11.5px;color:var(--txt2);font-family:ui-monospace,C
           <div class="field"><label for="stCity">城市 / 区</label><input class="input" id="stCity" maxlength="30" placeholder="例如：北京通州"></div>
           <div class="field"><label for="stPhone">联系电话 <i>*</i></label><input class="input" id="stPhone" maxlength="30" inputmode="tel" placeholder="手机号或座机"></div>
           <div class="field"><label for="stWechat">微信号（选填）</label><input class="input" id="stWechat" maxlength="40" placeholder="顾客点击「加微信」时展示"></div>
-          <div class="field"><label for="stHours">营业时间</label><input class="input" id="stHours" maxlength="60" placeholder="例如：09:00-21:00 周一至周日"></div>
+          <div class="field field-wide"><label>营业时间</label>
+            <div class="hours-edit" id="stHoursEditor"></div>
+            <p class="tiny" style="margin:4px 0 0">按天设置，勾选「休息」表示当天不营业；公开页按服务器时间显示「今日营业中 / 已打烊」和完整时间表。</p>
+          </div>
           <div class="field field-wide"><label for="stAddress">门店地址</label><input class="input" id="stAddress" maxlength="120" placeholder="例如：北京市通州区梨园镇云景东路 88 号"></div>
           <div class="field field-wide"><label for="stPromotions">优惠活动（选填）</label><textarea class="input" id="stPromotions" rows="2" maxlength="300" placeholder="例如：新客首单立减 30 元；到店出示本页送一次玻璃清洁"></textarea></div>
         </div>
@@ -220,9 +244,13 @@ table.data td .oid{font-size:11.5px;color:var(--txt2);font-family:ui-monospace,C
         <div class="store-subhead"><b>服务与价格</b><span>展示在公开页，最多 20 项</span><button class="mini" id="stAddSvc" type="button">+ 添加服务</button></div>
         <div id="stServices"></div>
 
-        <div class="store-subhead"><b>门店照片</b><span>每行一个图片链接，最多 12 张</span></div>
-        <textarea class="input" id="stPhotos" rows="3" placeholder="https://xinglaiai.com/ai-nav/studio/files/xxx.jpg
-（建议 4:3 横图；没有可留空）"></textarea>
+        <div class="store-subhead"><b>门店照片</b><span>最多 9 张，可拖拽排序；jpg / png / webp，单张 ≤100MB</span></div>
+        <div class="photo-edit-grid" id="stPhotoGrid"></div>
+        <div class="photo-actions">
+          <button class="mini" id="stPhotoAdd" type="button">+ 上传门店照片</button>
+          <input type="file" id="stPhotoFile" accept="image/jpeg,image/png,image/webp" multiple hidden>
+          <span class="tiny" id="stPhotoHint">上传后自动保存到本站；拖动缩略图排序，点 × 删除</span>
+        </div>
 
         <div class="store-subhead"><b>页面短链（选填）</b><span>小写字母 / 数字 / -，3-40 位</span></div>
         <div class="slug-row"><span class="slug-pre">/ai-nav/store/?slug=</span><input class="input" id="stSlug" maxlength="40" placeholder="留空自动生成，例如 jingjie-tongzhou"></div>
@@ -666,7 +694,9 @@ table.data td .oid{font-size:11.5px;color:var(--txt2);font-family:ui-monospace,C
   });
 
   /* ---------- 我的承接页 ---------- */
-  var STORE = { profile: null, base: String(XLAuth.apiBase || '').replace(/\/+$/, '') };
+  var STORE = { profile: null, base: String(XLAuth.apiBase || '').replace(/\/+$/, ''), photos: [], unread: 0 };
+  var STORE_DAYS = [['mon', '周一'], ['tue', '周二'], ['wed', '周三'], ['thu', '周四'], ['fri', '周五'], ['sat', '周六'], ['sun', '周日']];
+  var HOUR_RE = /^([01]\d|2[0-3]):([0-5]\d)$/;
 
   function storeErr(msg) {
     var el = $('#storeErr');
@@ -723,6 +753,7 @@ table.data td .oid{font-size:11.5px;color:var(--txt2);font-family:ui-monospace,C
     $('#storeIntroPreview').textContent = '';
     $('#storeState').className = 'badge';
     $('#storeState').textContent = '未创建';
+    setUnread(0);
   }
   function paintStoreProfile(p) {
     STORE.profile = p || null;
@@ -743,6 +774,191 @@ table.data td .oid{font-size:11.5px;color:var(--txt2);font-family:ui-monospace,C
     }
     if (p.updated_at) $('#stUpdated').textContent = '上次保存：' + XLAuth.fmtDateTime(p.updated_at);
   }
+  function parseLegacyHours(s) {
+    var m = String(s || '').match(/(\d{1,2}):(\d{2})\s*[-–—~至]\s*(\d{1,2}):(\d{2})/);
+    if (!m) return null;
+    function pad(v) { return ('0' + v).slice(-2); }
+    return [pad(m[1]) + ':' + m[2], pad(m[3]) + ':' + m[4]];
+  }
+  function buildHoursEditor(hours) {
+    var box = $('#stHoursEditor');
+    box.innerHTML = '';
+    var obj = (hours && typeof hours === 'object') ? hours : null;
+    var legacy = typeof hours === 'string' ? parseLegacyHours(hours) : null;
+    STORE_DAYS.forEach(function (item) {
+      var day = item[0];
+      var slots = (obj && Array.isArray(obj[day])) ? obj[day] : null;
+      var slot = (slots && slots[0]) ? slots[0] : (legacy || ['09:00', '18:00']);
+      var closed = obj ? !(slots && slots.length) : false;
+      var row = document.createElement('div');
+      row.className = 'he-row' + (closed ? ' is-closed' : '');
+      row.setAttribute('data-day', day);
+      var label = document.createElement('span');
+      label.className = 'he-day';
+      label.textContent = item[1];
+      var start = document.createElement('input');
+      start.type = 'time';
+      start.className = 'input he-time he-start';
+      start.value = slot[0] || '09:00';
+      var sep = document.createElement('span');
+      sep.className = 'he-sep';
+      sep.textContent = '-';
+      var end = document.createElement('input');
+      end.type = 'time';
+      end.className = 'input he-time he-end';
+      end.value = slot[1] || '18:00';
+      var lab = document.createElement('label');
+      lab.className = 'he-closed';
+      var cb = document.createElement('input');
+      cb.type = 'checkbox';
+      cb.className = 'he-closed-cb';
+      cb.checked = closed;
+      lab.appendChild(cb);
+      lab.appendChild(document.createTextNode('休息'));
+      row.appendChild(label);
+      row.appendChild(start);
+      row.appendChild(sep);
+      row.appendChild(end);
+      row.appendChild(lab);
+      box.appendChild(row);
+      cb.addEventListener('change', function () { row.classList.toggle('is-closed', cb.checked); });
+    });
+  }
+  function collectHours() {
+    var out = {};
+    var bad = '';
+    var rows = document.querySelectorAll('#stHoursEditor .he-row');
+    for (var i = 0; i < rows.length; i++) {
+      var day = rows[i].getAttribute('data-day');
+      var cb = rows[i].querySelector('.he-closed-cb');
+      if (cb && cb.checked) { out[day] = []; continue; }
+      var s = rows[i].querySelector('.he-start').value;
+      var e = rows[i].querySelector('.he-end').value;
+      if (!HOUR_RE.test(s) || !HOUR_RE.test(e) || s >= e) {
+        bad = STORE_DAYS[i][1] + '营业时间无效：请用 24 小时制，且开始时间早于结束时间';
+        break;
+      }
+      out[day] = [[s, e]];
+    }
+    return { hours: out, bad: bad };
+  }
+  function renderPhotoEditor() {
+    var grid = $('#stPhotoGrid');
+    grid.innerHTML = '';
+    STORE.photos.forEach(function (url, i) {
+      var cell = document.createElement('div');
+      cell.className = 'photo-edit';
+      cell.draggable = true;
+      cell.setAttribute('data-index', i);
+      var img = document.createElement('img');
+      img.src = url;
+      img.alt = '门店照片 ' + (i + 1);
+      img.loading = 'lazy';
+      var num = document.createElement('span');
+      num.className = 'num';
+      num.textContent = (i + 1) + ' / 9';
+      var del = document.createElement('button');
+      del.type = 'button';
+      del.className = 'pd';
+      del.title = '删除这张照片';
+      del.setAttribute('aria-label', '删除第 ' + (i + 1) + ' 张照片');
+      del.textContent = '×';
+      del.addEventListener('click', function (ev) {
+        ev.stopPropagation();
+        STORE.photos.splice(i, 1);
+        renderPhotoEditor();
+      });
+      cell.appendChild(img);
+      cell.appendChild(num);
+      cell.appendChild(del);
+      cell.addEventListener('dragstart', function (ev) {
+        ev.dataTransfer.setData('text/plain', String(i));
+        cell.classList.add('dragging');
+      });
+      cell.addEventListener('dragend', function () { cell.classList.remove('dragging'); });
+      cell.addEventListener('dragover', function (ev) { ev.preventDefault(); });
+      cell.addEventListener('drop', function (ev) {
+        ev.preventDefault();
+        var from = parseInt(ev.dataTransfer.getData('text/plain'), 10);
+        if (isNaN(from) || from === i) return;
+        var item = STORE.photos.splice(from, 1)[0];
+        STORE.photos.splice(i, 0, item);
+        renderPhotoEditor();
+      });
+      grid.appendChild(cell);
+    });
+  }
+  function uploadOnePhoto(file) {
+    return new Promise(function (resolve, reject) {
+      if (!/^image\/(jpeg|png|webp)$/i.test(file.type)) { reject(new Error('仅支持 jpg / png / webp')); return; }
+      if (file.size > 100 * 1024 * 1024) { reject(new Error('单张不能超过 100MB')); return; }
+      var fd = new FormData();
+      fd.append('file', file, file.name || 'store-photo.jpg');
+      fetch(STORE.base + '/upload', {
+        method: 'POST',
+        headers: { 'Authorization': 'Bearer ' + XLAuth.token() },
+        body: fd
+      }).then(function (r) {
+        return r.json().catch(function () { return {}; }).then(function (j) { return { status: r.status, body: j }; });
+      }).then(function (res) {
+        if (res.status !== 200 || !res.body || !res.body.ok || !res.body.url) {
+          reject(new Error((res.body && res.body.hint) || '上传失败'));
+          return;
+        }
+        resolve(res.body.url);
+      }).catch(reject);
+    });
+  }
+  function handlePhotoFiles(files) {
+    var list = Array.prototype.slice.call(files || []);
+    if (!list.length) return;
+    var room = 9 - STORE.photos.length;
+    if (room <= 0) { XLAuth.toast('最多 9 张，请先删除多余的再上传', 'warn'); return; }
+    if (list.length > room) {
+      XLAuth.toast('最多还能上传 ' + room + ' 张，已取前 ' + room + ' 张', 'warn');
+      list = list.slice(0, room);
+    }
+    var hint = $('#stPhotoHint');
+    var done = 0;
+    var chain = Promise.resolve();
+    list.forEach(function (f) {
+      chain = chain.then(function () {
+        return uploadOnePhoto(f).then(function (url) {
+          done++;
+          STORE.photos.push(url);
+          renderPhotoEditor();
+          hint.textContent = '正在上传 ' + done + '/' + list.length + '…';
+        });
+      });
+    });
+    chain.then(function () {
+      hint.textContent = '已上传 ' + done + ' 张；点「保存并上线」后公开页生效';
+      XLAuth.toast('照片已上传，记得保存并上线', 'good');
+    }).catch(function (e) {
+      hint.textContent = '上传失败，请重试';
+      XLAuth.toast('照片上传失败：' + (e && e.message ? e.message : '请重试'), 'bad');
+    });
+  }
+  function setUnread(n) {
+    STORE.unread = Math.max(0, n || 0);
+    var btn = $('#storeUnread');
+    if (!STORE.unread) {
+      btn.hidden = true;
+      btn.textContent = '🔔 新留资 0 条';
+      return;
+    }
+    btn.hidden = false;
+    btn.textContent = '🔔 新留资 ' + STORE.unread + ' 条';
+  }
+  function markStoreLeadsSeen() {
+    if (!STORE.unread) return;
+    XLAuth.api('/store/leads/seen', { method: 'POST', body: {}, timeout: 15000 }).then(function () {
+      setUnread(0);
+      XLAuth.toast('已标记全部留资为已读', 'good');
+    }).catch(function (e) {
+      if (!handleAuthErr(e)) XLAuth.toast('标记已读失败，请稍后重试', 'warn');
+    });
+  }
   function fillStoreForm(p) {
     p = p || {};
     $('#stName').value = p.name || '';
@@ -750,10 +966,11 @@ table.data td .oid{font-size:11.5px;color:var(--txt2);font-family:ui-monospace,C
     $('#stCity').value = p.city || '';
     $('#stPhone').value = p.phone || '';
     $('#stWechat').value = p.wechat || '';
-    $('#stHours').value = p.hours || '';
+    buildHoursEditor(p.hours);
     $('#stAddress').value = p.address || '';
     $('#stPromotions').value = p.promotions || '';
-    $('#stPhotos').value = (p.photos || []).join('\n');
+    STORE.photos = (p.photos || []).slice(0, 9);
+    renderPhotoEditor();
     $('#stServices').innerHTML = '';
     var list = p.services || [];
     if (list.length) list.forEach(addSvcRow);
@@ -776,23 +993,22 @@ table.data td .oid{font-size:11.5px;color:var(--txt2);font-family:ui-monospace,C
   function loadStoreLeads() {
     var box = $('#storeLeads');
     box.textContent = '加载中…';
-    XLAuth.api('/leadgen/leads?limit=50', { timeout: 15000 }).then(function (d) {
-      var list = (d.leads || []).filter(function (l) {
-        return l.source === 'store_page' || l.platform === '商家承接页';
-      }).slice(0, 6);
+    XLAuth.api('/store/leads?limit=50', { timeout: 15000 }).then(function (d) {
+      var list = (d && d.leads) || [];
+      setUnread(d && d.unread);
       if (!list.length) {
         box.innerHTML = '<div class="store-empty">还没有承接页留资。把公开页链接发到抖音、美团或朋友圈，顾客提交电话后会出现在这里。</div>';
         return;
       }
       box.innerHTML = list.map(function (l) {
-        var phone = String(l.phone || l.contact_hint || '').replace(/[^\d+\-]/g, '');
+        var phone = String(l.phone || '').replace(/[^\d+\-]/g, '');
         var name = esc(l.nickname || '顾客');
         var need = l.need ? '<div class="sl-need">需求：' + esc(l.need) + '</div>' : '';
         var tel = phone ? '<div class="sl-phone">📞 <a href="tel:' + esc(phone) + '" style="color:var(--txt2)">' + esc(phone) + '</a></div>' : '';
         return '<div class="store-lead">' +
           '<div class="sl-top"><b>' + name + '</b><span class="badge lime">高意向</span></div>' +
           tel + need +
-          '<div class="sl-time">' + esc(XLAuth.fmtDateTime(l.time || l.created_at || l.published_at)) + ' · 商家承接页</div>' +
+          '<div class="sl-time">' + esc(XLAuth.fmtDateTime(l.created_at)) + ' · 商家承接页</div>' +
         '</div>';
       }).join('');
     }).catch(function (e) {
@@ -815,6 +1031,7 @@ table.data td .oid{font-size:11.5px;color:var(--txt2);font-family:ui-monospace,C
         resetStoreLink();
         $('#stUpdated').textContent = '保存后立即生成公开页和二维码';
       }
+      setUnread(d && d.unread);
       loadStoreLeads();
     }).catch(function (e) {
       if (handleAuthErr(e)) return;
@@ -870,6 +1087,17 @@ table.data td .oid{font-size:11.5px;color:var(--txt2);font-family:ui-monospace,C
     }
     addSvcRow();
   });
+  $('#storeUnread').addEventListener('click', function () {
+    markStoreLeadsSeen();
+    var panel = document.querySelector('.store-leads');
+    if (panel && panel.scrollIntoView) panel.scrollIntoView({ behavior: 'smooth', block: 'center' });
+    loadStoreLeads();
+  });
+  $('#stPhotoAdd').addEventListener('click', function () { $('#stPhotoFile').click(); });
+  $('#stPhotoFile').addEventListener('change', function () {
+    handlePhotoFiles(this.files);
+    this.value = '';
+  });
   $('#stServices').addEventListener('click', function (e) {
     var btn = e.target.closest ? e.target.closest('.svc-del') : null;
     if (!btn) return;
@@ -891,13 +1119,9 @@ table.data td .oid{font-size:11.5px;color:var(--txt2);font-family:ui-monospace,C
     if (!phone) return storeErr('请填写联系电话');
     var services = collectStoreServices();
     if (!services.length) return storeErr('至少填写一项服务（名称必填）');
-    var photos = $('#stPhotos').value.split(/[\n,]+/).map(function (x) { return x.trim(); }).filter(Boolean);
-    if (photos.length > 12) return storeErr('照片最多 12 张');
-    for (var i = 0; i < photos.length; i++) {
-      if (!/^https?:\/\//i.test(photos[i]) && photos[i].indexOf('/ai-nav/') !== 0) {
-        return storeErr('第 ' + (i + 1) + ' 张照片链接无效，请填写 http(s) 开头的图片地址');
-      }
-    }
+    if (STORE.photos.length > 9) return storeErr('门店照片最多 9 张，请先删除多余的');
+    var hs = collectHours();
+    if (hs.bad) return storeErr(hs.bad);
     var slug = $('#stSlug').value.trim().toLowerCase();
     if (slug && !/^[a-z0-9][a-z0-9-]{2,39}$/.test(slug)) return storeErr('页面短链只能用小写字母、数字和 -，3-40 位');
     var body = {
@@ -907,9 +1131,9 @@ table.data td .oid{font-size:11.5px;color:var(--txt2);font-family:ui-monospace,C
       address: $('#stAddress').value.trim(),
       phone: phone,
       wechat: $('#stWechat').value.trim(),
-      hours: $('#stHours').value.trim(),
+      hours: hs.hours,
       services: services,
-      photos: photos,
+      photos: STORE.photos.slice(),
       promotions: $('#stPromotions').value.trim(),
       slug: slug
     };
