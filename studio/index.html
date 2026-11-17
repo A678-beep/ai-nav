@@ -167,7 +167,7 @@ function render(d){
  h+='<div class="row"><button class="btn" id="regen">用改后文案重新生成</button><button class="btn" id="aiPolish" style="background:rgba(139,92,246,.2);border:1px solid rgba(139,92,246,.5);color:#e9d5ff">✨ AI 优化文案</button><span class="hint">改文案后时长会按新文案重新计算</span></div></div>';
  return h;
 }
-function copyScript(){var el=document.getElementById('scriptEdit');var t=el?el.value:'';if(!t){alert('没有可复制的文案');return;}if(navigator.clipboard){navigator.clipboard.writeText(t).then(function(){alert('已复制文案');});}else{el.select();document.execCommand('copy');alert('已复制文案');}}
+function copyScript(){var el=document.getElementById('scriptEdit');var t=el?el.value:'';if(!t){alert('没有可复制的文案');return;}function fb(){try{el.focus();el.select();document.execCommand('copy');alert('已复制文案');}catch(e){alert('复制失败，请手动长按选择文案复制');}}if(navigator.clipboard&&navigator.clipboard.writeText){navigator.clipboard.writeText(t).then(function(){alert('已复制文案');},function(){fb();});}else{fb();}}
 async function doGen(body){
  busy=true;document.getElementById('go').disabled=true;
  var outEl=document.getElementById('out');
@@ -329,7 +329,7 @@ async function genStoryboard(){
  }finally{clearInterval(iv);sbBusy=false;btn.disabled=false;btn.textContent='🎬 生成分镜';}
 }
 function sbRender(){
- if(!sbData||sbBusy)return;
+ if(!sbData||sbBusy||busy)return;
  var p=sbParams();
  var scenes=sbData.scenes.map(function(s,i){
   var o={index:i+1,text:s.text,kw:s.kw,dur:Number(s.dur)||0,clips:s.clips};
