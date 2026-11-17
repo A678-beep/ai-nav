@@ -176,5 +176,14 @@ qEl.addEventListener('keydown',function(e){if((e.ctrlKey||e.metaKey)&&e.key==='E
   #out[style*="block"] > .card:first-child{grid-column:1/-1}
   footer{padding-left:32px;padding-right:32px}
 }
+@media (max-width:760px){.chips button{min-height:44px}}
+@media (max-width:640px){
+  .top-in{flex-wrap:nowrap;gap:8px;padding:0 12px}
+  .brand{flex:0 0 auto;white-space:nowrap;font-size:14px;gap:6px}
+  .auth-slot{flex:0 0 auto;margin-left:0}
+  nav{flex:1 1 auto;min-width:0;margin-left:0;flex-wrap:nowrap;justify-content:flex-start;overflow-x:auto;overflow-y:hidden;scrollbar-width:none}
+  nav::-webkit-scrollbar{display:none}
+  nav a{white-space:nowrap;flex:0 0 auto;font-size:12.5px;padding:6px 8px;min-height:40px;display:inline-flex;align-items:center}
+}
 </style>
 </body></html>
