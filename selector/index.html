@@ -6,8 +6,8 @@
 <title>AI 工具选择器：3 步选出最适合你的工具 · 星籁 AI 导航</title>
 <meta name="description" content="不知道用哪个 AI 工具？选用途、定预算、挑偏好，3 步给出推荐，附官网入口和实测教程。">
 <meta name="robots" content="index,follow">
-<link rel="canonical" href="https://a678-beep.github.io/ai-nav/selector/">
-<script type="application/ld+json">{"@context": "https://schema.org", "@type": "WebPage", "name": "AI 工具选择器", "inLanguage": "zh-CN", "url": "https://a678-beep.github.io/ai-nav/selector/", "description": "按用途、预算、偏好三步选出适合你的 AI 工具"}</script>
+<link rel="canonical" href="https://xinglaiai.com/ai-nav/selector/">
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "WebPage", "name": "AI 工具选择器", "inLanguage": "zh-CN", "url": "https://xinglaiai.com/ai-nav/selector/", "description": "按用途、预算、偏好三步选出适合你的 AI 工具"}</script>
 <style>
 :root{--bg:#080b12;--panel:#111827;--line:#1f2937;--txt:#e6edf7;--txt2:#9aa8bd;--txt3:#6b7a90;--cyan:#5ad1ff;--violet:#a78bfa}
 *{box-sizing:border-box}body{margin:0;background:radial-gradient(900px 500px at 82% -8%,rgba(90,209,255,.16),transparent 60%),var(--bg);color:var(--txt);font-family:"Microsoft YaHei","PingFang SC",system-ui,sans-serif;line-height:1.8}
@@ -287,6 +287,7 @@ select{width:100%;padding:11px 12px;border-radius:10px;border:1px solid var(--li
 .acts a{font-size:13px;color:var(--cyan);margin-right:14px}
 .hint{font-size:12.5px;color:var(--txt3)}
 </style>
+<link rel="stylesheet" href="../assets/auth-nav.css">
 </head>
 <body>
 <header class="top"><div class="top-in">
@@ -324,7 +325,7 @@ select{width:100%;padding:11px 12px;border-radius:10px;border:1px solid var(--li
   </div>
   <p class="hint">选完自动刷新推荐 · 不确定就保持默认</p>
   <div class="res" id="res"></div>
-  <p class="hint">想按分类浏览？<a href="../tools/" style="color:var(--cyan)">全部工具 →</a> · <a href="../pricing/" style="color:var(--cyan)">价格对比 →</a></p>
+  <p class="hint">想按分类浏览？<a href="../tools/" style="color:var(--cyan)">全部工具 →</a> · <a href="../pricing/tools.html" style="color:var(--cyan)">价格对比 →</a></p>
 </main>
 <script>
 var DATA = [{"slug":"chatgpt","n":"ChatGPT","c":"chat","d":"GPT-5 通用对话，语音模式练口语、看图解题都稳","free":true,"local":false,"e":5,"u":5},{"slug":"claude","n":"Claude","c":"chat","d":"长文档与代码阅读强，200K 上下文适合合同、论文","free":true,"local":false,"e":5,"u":4},{"slug":"deepseek","n":"DeepSeek","c":"chat","d":"开源权重可本地部署，推理与中文表达均衡","free":true,"local":false,"e":4,"u":4},{"slug":"kimi","n":"Kimi","c":"chat","d":"中文长文本总结，网页/文件一次读完整本","free":true,"local":false,"e":4,"u":4},{"slug":"doubao","n":"豆包","c":"chat","d":"字节系对话与语音，中文口语化程度高","free":true,"local":false,"e":3,"u":5},{"slug":"qwen","n":"通义千问","c":"chat","d":"阿里 Qwen 系列，函数调用与文档解析好用","free":true,"local":false,"e":3,"u":4},{"slug":"midjourney","n":"Midjourney","c":"image","d":"v7 出图审美天花板，--cref 锁角色一致性","free":false,"local":false,"e":5,"u":3},{"slug":"stable-diffusion","n":"Stable Diffusion","c":"image","d":"本地开源，ControlNet/LoRA 生态最全","free":true,"local":true,"e":4,"u":2},{"slug":"flux","n":"Flux.1","c":"image","d":"开源模型，dev 版 12B，量化后可跑 8G 显存","free":true,"local":true,"e":4,"u":2},{"slug":"jimeng","n":"即梦 AI","c":"image","d":"中文电商图、海报生成，免部署直接出图","free":true,"local":false,"e":4,"u":4},{"slug":"kling","n":"可灵 AI","c":"image","d":"图生视频与图生图，国风插画质感突出","free":true,"local":false,"e":4,"u":4},{"slug":"comfyui","n":"ComfyUI","c":"image","d":"节点式工作流，一次搭建反复复用","free":true,"local":true,"e":4,"u":1},{"slug":"cursor","n":"Cursor","c":"code","d":"AI 原生编辑器，Tab 补全 + 多文件改写","free":true,"local":false,"e":5,"u":4},{"slug":"claude-code","n":"Claude Code","c":"code","d":"命令行 agent，能读整个仓库并提交 PR","free":false,"local":false,"e":5,"u":3},{"slug":"github-copilot","n":"GitHub Copilot","c":"code","d":"IDE 内联补全与单测生成，企业可用","free":true,"local":false,"e":4,"u":5},{"slug":"windsurf","n":"Windsurf","c":"code","d":"Cascade 多文件流程，自动跑测试较稳","free":true,"local":false,"e":4,"u":3},{"slug":"tongyi-lingma","n":"通义灵码","c":"code","d":"免费中文编程助手，支持私有仓库问答","free":true,"local":false,"e":3,"u":5},{"slug":"aider","n":"Aider","c":"code","d":"开源 CLI，改完自动 git commit，审阅友好","free":true,"local":true,"e":4,"u":2},{"slug":"doubao-writer","n":"小红书文案助手","c":"write","d":"按平台规则生成标题正文，规避违禁词","free":true,"local":false,"e":3,"u":5},{"slug":"notion-ai","n":"Notion AI","c":"write","d":"与笔记库联动，长文大纲与续写顺手","free":false,"local":false,"e":4,"u":4},{"slug":"grammarly","n":"Grammarly","c":"write","d":"英文邮件与论文润色，语气可调","free":true,"local":false,"e":4,"u":5},{"slug":"xiezuocat","n":"秘塔写作猫","c":"write","d":"中文错别字与语病检查，公文场景友好","free":true,"local":false,"e":3,"u":5},{"slug":"copy-ai","n":"Copy.ai","c":"write","d":"电商五点描述、广告语批量生成","free":true,"local":false,"e":3,"u":4},{"slug":"jasper","n":"Jasper","c":"write","d":"品牌语气库，团队协作写营销文案","free":true,"local":false,"e":3,"u":3},{"slug":"kling-video","n":"可灵 AI","c":"video","d":"图生视频首尾帧控制，5s/10s 可选","free":true,"local":false,"e":4,"u":3},{"slug":"runway","n":"Runway","c":"video","d":"Gen-4 运镜控制与视频编辑工具链","free":true,"local":false,"e":5,"u":3},{"slug":"heygen","n":"HeyGen","c":"video","d":"数字人口型对齐，多语言播报","free":true,"local":false,"e":4,"u":4},{"slug":"elevenlabs","n":"ElevenLabs","c":"video","d":"多语言配音，情感与停顿可调","free":true,"local":false,"e":5,"u":3},{"slug":"suno","n":"Suno","c":"video","d":"歌词生成整首歌，v5 中文咬字进步明显","free":true,"local":false,"e":4,"u":4},{"slug":"capcut","n":"剪映","c":"video","d":"自动字幕 + 文本剪辑，国内工作流顺手","free":true,"local":false,"e":4,"u":5},{"slug":"feishu-bitable","n":"飞书多维表格","c":"biz","d":"AI 字段做分类汇总，团队协作免费额度够用","free":true,"local":false,"e":4,"u":4},{"slug":"notion","n":"Notion","c":"biz","d":"数据库 + AI 自动化，做轻量 CRM","free":true,"local":false,"e":4,"u":4},{"slug":"n8n","n":"n8n","c":"biz","d":"开源自建自动化，可接本地模型","free":true,"local":true,"e":4,"u":2},{"slug":"coze","n":"扣子 Coze","c":"biz","d":"拖拽搭客服机器人，可发布到微信/飞书","free":true,"local":false,"e":4,"u":4},{"slug":"dify","n":"Dify","c":"biz","d":"开源知识库问答，支持私有部署","free":true,"local":true,"e":4,"u":3},{"slug":"gamma","n":"Gamma","c":"biz","d":"一句话生成演示文稿，导出 PPT/PDF","free":true,"local":false,"e":3,"u":5},{"slug":"perplexity","n":"Perplexity","c":"util","d":"带引用的联网检索，学术查证省时间","free":true,"local":false,"e":4,"u":5},{"slug":"notebooklm","n":"NotebookLM","c":"util","d":"上传资料生成播客与问答，支持中文","free":true,"local":false,"e":3,"u":4},{"slug":"immersive-translate","n":"沉浸式翻译","c":"util","d":"双语对照网页/PDF，论文阅读神器","free":true,"local":false,"e":4,"u":5},{"slug":"otter","n":"Otter.ai","c":"util","d":"会议实时转写与摘要，英文准确率高","free":true,"local":false,"e":4,"u":4},{"slug":"whisper","n":"Whisper","c":"util","d":"开源转写，本地跑 16k 音频准确率稳","free":true,"local":true,"e":4,"u":2},{"slug":"real-esrgan","n":"Real-ESRGAN","c":"util","d":"开源图片放大，4 倍无损放大","free":true,"local":true,"e":4,"u":3}];
@@ -356,5 +357,6 @@ function pick(){
 ['q-cat','q-budget','q-pref'].forEach(function(id){ document.getElementById(id).addEventListener('change',pick); });
 pick();
 </script>
+<script defer src="../assets/auth.js"></script>
 </body>
 </html>

@@ -8,7 +8,7 @@
 <meta name="keywords" content="AI工具导航,AI工具分类,AI绘画教程,AI编程助手,AI写作工具,AI视频生成,AI效率工具,AI工具实测">
 <meta name="author" content="星籁 Stellara">
 <meta name="robots" content="index,follow">
-<link rel="canonical" href="https://a678-beep.github.io/ai-nav/">
+<link rel="canonical" href="https://xinglaiai.com/ai-nav/">
 <meta property="og:type" content="website">
 <meta property="og:title" content="星籁 AI 工具导航 · 42 个实测 AI 工具 + 370 篇实操教程">
 <meta property="og:description" content="7 大分类 42 个 AI 工具，370 篇按细分场景写的实操教程，带参数、带避坑。">
@@ -347,6 +347,7 @@ article.content p{letter-spacing:.01em}
 <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-8687289780561043"
      crossorigin="anonymous"></script>
 <!-- adsense-head:end -->
+<link rel="stylesheet" href="assets/auth.css">
 </head>
 <body>
 <header class="top">
@@ -363,7 +364,7 @@ article.content p{letter-spacing:.01em}
     <div class="links">
       <a href="#/tools">工具库</a><a href="#/articles">全部教程</a><a href="radar/">工具雷达</a><a href="select-ai/">智能选型</a><a href="studio/">AI 创作工坊</a><a href="leadgen/">AI 获客</a><a href="travel/">出行导航</a><a href="#/about">关于</a>
       <a href="chat/index.html">对话AI</a><a href="image/index.html">图像生成</a><a href="code/index.html">编程助手</a><a href="write/index.html">写作文案</a><a href="video/index.html">视频音频</a><a href="biz/index.html">商业效率</a><a href="util/index.html">实用工具</a>
-      <a href="t/errors/index.html">报错解决</a><a href="t/pricing/index.html">价格</a><a href="t/params/index.html">参数</a><a href="t/compare/index.html">对比</a><a href="t/howto/index.html">上手</a><a href="pricing/index.html">价格对比</a><a href="glossary/index.html">术语表</a><a href="prompts/index.html">提示词库</a><a href="selector/index.html">工具选择器</a><a href="vs/index.html">工具对比</a><a href="faq/index.html">常见问题</a><a href="privacy.html">隐私政策</a><a href="sitemap.xml">站点地图</a>
+      <a href="t/errors/index.html">报错解决</a><a href="t/pricing/index.html">价格</a><a href="t/params/index.html">参数</a><a href="t/compare/index.html">对比</a><a href="t/howto/index.html">上手</a><a href="pricing/index.html">套餐定价</a><a href="pricing/tools.html">价格对比</a><a href="glossary/index.html">术语表</a><a href="prompts/index.html">提示词库</a><a href="selector/index.html">工具选择器</a><a href="vs/index.html">工具对比</a><a href="faq/index.html">常见问题</a><a href="privacy.html">隐私政策</a><a href="sitemap.xml">站点地图</a>
     </div>
     <div>© <span id="year"></span> 星籁 AI 工具导航 · xinglaiai.com 版权所有 · 未经书面许可，禁止镜像、采集与商业转载 · 工具价格与功能以官方页面为准。</div>
   </div>
@@ -429,7 +430,7 @@ function md(src){
 const state = {view:'tools', cat:'all', q:'', artCat:'all', artId:null};
 function nav(){
   const items = [['tools','AI 导航']];
-  const ext = [['studio/','AI 创作工坊'],['leadgen/','AI 获客'],['travel/','出行导航'],['select-ai/','智能选型'],['radar/','工具雷达'],['articles','教程文章']];
+  const ext = [['studio/','AI 创作工坊'],['leadgen/','AI 获客'],['travel/','出行导航'],['select-ai/','智能选型'],['radar/','工具雷达'],['pricing/','套餐定价'],['articles','教程文章']];
   const tail = [['about','说明']];
   $('#nav').innerHTML =
     items.map(([k,n])=>`<button data-go="${k}" class="${state.view===k?'on':''}">${n}</button>`).join('') +
@@ -717,5 +718,6 @@ render();
   setTimeout(buildTOC,900);
 })();
 </script>
+<script defer src="assets/auth.js"></script>
 </body>
 </html>

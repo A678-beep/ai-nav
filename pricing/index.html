@@ -3,327 +3,471 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<title>AI 工具价格对比：42 款工具的免费额度与订阅费用 · 星籁 AI 导航</title>
-<meta name="description" content="42 款 AI 工具的收费方式一览：哪些有免费额度、订阅多少钱、按量计费怎么算。表格可直接对照，价格以官网为准。">
+<title>套餐定价：体验 ¥0 起，专业版含 100 条视频 · 星籁 AI</title>
+<meta name="description" content="星籁 AI 商家套餐：体验版 ¥0、基础版 ¥99、专业版 ¥299、旗舰版 ¥699。视频/线索/AI 改写额度一目了然，年付省 2 个月，支持人工开通。">
 <meta name="robots" content="index,follow">
-<link rel="canonical" href="https://a678-beep.github.io/ai-nav/pricing/">
-<script type="application/ld+json">{"@context": "https://schema.org", "@type": "FAQPage", "inLanguage": "zh-CN", "mainEntity": [{"@type": "Question", "name": "AI 工具一般怎么收费？", "acceptedAnswer": {"@type": "Answer", "text": "三种模式：订阅制（月付/年付）、按量计费（API 按 token 或次数）、免费额度+付费解锁。先用免费额度跑通一次完整流程再考虑订阅。"}}, {"@type": "Question", "name": "免费额度够用吗？", "acceptedAnswer": {"@type": "Answer", "text": "个人轻度使用大多够：对话类通常有每日条数限制，图像/视频类按积分算，写作类限制字数。商用或批量任务基本都需要付费档。"}}, {"@type": "Question", "name": "年付比月付便宜多少？", "acceptedAnswer": {"@type": "Answer", "text": "常见 8 折到 6 折，但新工具改价频繁，建议先用月付确认能长期用，再考虑年付。"}}]}</script>
+<link rel="canonical" href="https://xinglaiai.com/ai-nav/pricing/">
+<link rel="stylesheet" href="../assets/auth.css">
 <style>
-:root{--bg:#080b12;--panel:#111827;--line:#1f2937;--txt:#e6edf7;--txt2:#9aa8bd;--txt3:#6b7a90;--cyan:#5ad1ff;--violet:#a78bfa}
-*{box-sizing:border-box}body{margin:0;background:radial-gradient(900px 500px at 82% -8%,rgba(90,209,255,.16),transparent 60%),var(--bg);color:var(--txt);font-family:"Microsoft YaHei","PingFang SC",system-ui,sans-serif;line-height:1.8}
-a{color:inherit;text-decoration:none}
-.top{position:sticky;top:0;backdrop-filter:blur(12px);background:rgba(8,11,18,.85);border-bottom:1px solid var(--line)}
-.top-in{max-width:900px;margin:0 auto;padding:12px 20px;display:flex;align-items:center;gap:10px}
-.logo{display:flex;align-items:center;gap:9px;font-weight:800}
-.logo .mark{width:30px;height:30px;border-radius:9px;background:linear-gradient(135deg,var(--cyan),var(--violet));display:grid;place-items:center;color:#04121c;font-weight:900}
-.top-in .nav-leadgen{margin-left:auto;color:var(--txt2);font-size:13px;padding:5px 10px;border:1px solid var(--line);border-radius:8px;white-space:nowrap}
-.top-in .nav-leadgen:hover{color:var(--txt);border-color:rgba(90,209,255,.45)}
-.top-in .back{margin-left:8px;color:var(--txt2);font-size:13px}
-main{max-width:900px;margin:0 auto;padding:28px 20px 60px}
-h1{font-size:28px;line-height:1.4;margin:8px 0 10px}
-.meta{color:var(--txt3);font-size:12.5px;margin-bottom:22px;display:flex;gap:8px;flex-wrap:wrap}
-.content{font-size:15.5px;color:#cfd9e6}
-.content h2{font-size:20px;color:var(--txt);margin:28px 0 10px}
-.content h3{font-size:17px;color:var(--txt);margin:22px 0 8px}
-.content p{margin:12px 0}
-.content li{margin:6px 0}
-.content code{background:rgba(120,180,255,.12);padding:1px 6px;border-radius:5px;font-family:Consolas,monospace;font-size:13px}
-.content pre{background:#0a1018;border:1px solid var(--line);border-radius:10px;padding:12px;overflow:auto}
-.content blockquote{border-left:3px solid var(--cyan);padding:4px 14px;color:var(--txt2);margin:16px 0}
-.ad-slot{margin:26px 0;min-height:100px;border:1px dashed rgba(120,140,170,.35);border-radius:12px;display:flex;align-items:center;justify-content:center;color:var(--txt3);font-size:12px;text-align:center;background:rgba(17,24,39,.55)}
-.ad-slot small{display:block;font-size:10.5px;opacity:.7}
-.bread{color:var(--txt3);font-size:12.5px;margin-bottom:6px}
-.bread a{color:var(--cyan)}
-footer{border-top:1px solid var(--line);color:var(--txt3);font-size:12.5px;text-align:center;padding:20px}
-.related{margin:34px 0 10px;border-top:1px solid var(--line);padding-top:18px}.related h2{font-size:16px;color:var(--txt);margin:0 0 10px}.related ul{list-style:none;padding:0;margin:0}.related li{margin:8px 0}.related a{color:var(--cyan);font-size:14px}
-.tool-link{margin:14px 0 0}
-.tlinks a{display:inline-block;margin:0 8px 8px 0;padding:6px 12px;border:1px solid rgba(90,209,255,.25);border-radius:8px;font-size:13px;color:var(--cyan);background:rgba(90,209,255,.06)}
-.tlinks a:hover{background:rgba(90,209,255,.15)}
-.sec{margin:26px 0}
-.sec h2{font-size:17px;color:var(--txt);margin:0 0 10px}
-.tool-link a{display:inline-block;font-size:13px;color:var(--txt2);border:1px solid var(--line);border-radius:8px;padding:7px 12px}
-.tool-link a:hover{color:var(--txt);border-color:rgba(90,209,255,.45)}
-.top-in .back{padding:6px 0}
-.bread a{display:inline-block;padding:6px 0}
-.sec li a{display:inline-block;padding:5px 0}
-.sib a{padding:8px 12px}
-.cats a{display:inline-block;margin:0 8px 8px 0;padding:6px 12px;border:1px solid var(--line);border-radius:8px;font-size:13px;color:var(--txt2)}
-.cats a:hover{color:var(--txt);border-color:rgba(90,209,255,.45)}
-.cats h2{font-size:17px;margin:22px 0 10px}
-.tcards{display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:10px;margin:6px 0 4px}
-.tcard{border:1px solid var(--line);border-radius:10px;padding:12px 14px;background:rgba(255,255,255,.02)}
-.tc-top{display:flex;justify-content:space-between;align-items:center;gap:8px}
-.tc-top b{font-size:14px;color:var(--txt)}
-.tc-top a{text-decoration:none}
-.tc-go{font-size:12px;color:var(--cyan);white-space:nowrap}
-.tc-d{margin:6px 0 0;font-size:12.5px;color:var(--txt3);line-height:1.5}
-.tc-lim{margin:6px 0 0;font-size:12px;color:var(--txt2)}
-.tnote{font-size:12px;color:var(--txt3);margin:8px 0 0}
-@media(max-width:640px){.tcards{grid-template-columns:1fr}.tc-top a{min-height:34px;display:inline-flex;align-items:center}}
-@media(max-width:640px){h1{font-size:22px}main{padding:20px 16px 40px}
-.related a,.tlinks a,.tool-link a,footer a,.sib a{min-height:36px;display:inline-flex;align-items:center}
-.list a{padding:14px 14px}
-td a{display:inline-block;padding:8px 0}
-.note a{display:inline-block;padding:7px 0}
+.pricing-hero{padding:52px 0 10px;text-align:center}
+.pricing-hero h1{font-size:40px;line-height:1.2;letter-spacing:-.03em;margin:0 0 14px}
+.pricing-hero h1 em{font-style:normal;background:linear-gradient(90deg,#38bdf8,#8b5cf6);-webkit-background-clip:text;background-clip:text;color:transparent}
+.pricing-hero p{max-width:640px;margin:0 auto;color:var(--txt2);font-size:14.5px;line-height:1.75}
+.pricing-hero .eyebrow{margin-bottom:14px}
+.bill-toggle{display:inline-flex;align-items:center;gap:4px;margin:26px auto 6px;padding:5px;border-radius:999px;border:1px solid var(--line);background:rgba(255,255,255,.035)}
+.bill-toggle button{border:0;background:transparent;color:var(--txt2);min-height:44px;padding:0 20px;border-radius:999px;font-size:13.5px;font-weight:600;cursor:pointer;white-space:nowrap}
+.bill-toggle button.on{background:linear-gradient(135deg,rgba(56,189,248,.22),rgba(139,92,246,.24));color:#e0f2fe;box-shadow:inset 0 0 0 1px rgba(56,189,248,.28)}
+.bill-toggle .save{font-size:11.5px;color:var(--lime);padding-right:8px}
+.current-bar{max-width:820px;margin:16px auto 0;padding:11px 16px;border-radius:11px;border:1px solid rgba(56,189,248,.28);background:rgba(56,189,248,.07);font-size:12.5px;color:#bae6fd;line-height:1.7}
+.current-bar a{color:#7dd3fc;text-decoration:underline}
+.plans{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:15px;margin:26px 0 10px;align-items:stretch}
+.plan{position:relative;display:flex;flex-direction:column;border-radius:18px;border:1px solid var(--line);padding:22px 18px 18px;
+  background:linear-gradient(180deg,rgba(18,27,41,.9),rgba(11,17,27,.95));transition:.2s}
+.plan:hover{transform:translateY(-3px);border-color:rgba(148,163,184,.38);box-shadow:0 18px 44px rgba(0,0,0,.35)}
+.plan.hot{border-color:rgba(56,189,248,.48);box-shadow:0 0 0 1px rgba(56,189,248,.18),0 18px 50px rgba(56,189,248,.1)}
+.plan.current{border-color:rgba(52,211,153,.55);box-shadow:0 0 0 1px rgba(52,211,153,.25),0 18px 50px rgba(52,211,153,.08)}
+.plan .tagline{position:absolute;top:-11px;left:50%;transform:translateX(-50%);padding:3px 12px;border-radius:999px;font-size:11px;font-weight:700;white-space:nowrap;
+  background:linear-gradient(135deg,#38bdf8,#8b5cf6);color:#04121d;letter-spacing:.03em}
+.plan .tagline.green{background:linear-gradient(135deg,#34d399,#38bdf8)}
+.plan-top{padding-bottom:16px;border-bottom:1px solid var(--line);margin-bottom:15px}
+.plan-name{font-size:16px;font-weight:800;margin:0 0 3px;display:flex;align-items:center;gap:7px}
+.plan-desc{font-size:11.5px;color:var(--txt3);margin:0 0 13px;min-height:18px}
+.price{display:flex;align-items:flex-end;gap:4px;line-height:1;margin-bottom:5px}
+.price .cur{font-size:17px;font-weight:700;color:var(--txt2);padding-bottom:3px}
+.price .num{font-size:40px;font-weight:800;letter-spacing:-.035em;font-variant-numeric:tabular-nums}
+.price .unit{font-size:12px;color:var(--txt3);padding-bottom:5px}
+.price-note{font-size:11.5px;color:var(--txt3);min-height:34px;line-height:1.5}
+.price-note s{color:#5b6c82}
+.price-note b{color:var(--lime);font-weight:600}
+.plan-cta{margin:13px 0 16px}
+.plan-feats{display:grid;gap:0;font-size:12.5px;margin-top:auto}
+.feat{display:flex;justify-content:space-between;gap:10px;padding:7px 0;border-bottom:1px dashed rgba(148,163,184,.1)}
+.feat:last-child{border-bottom:0}
+.feat .k{color:var(--txt3);white-space:nowrap}
+.feat .v{color:var(--txt);font-weight:600;text-align:right}
+.feat .v.no{color:var(--txt3);font-weight:400}
+.feat .v.yes{color:var(--lime)}
+.plan-foot{font-size:11px;color:var(--txt3);margin-top:12px;min-height:30px;line-height:1.5}
+.notes{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:15px;margin:34px 0 8px}
+.note-card{padding:20px;border-radius:15px;border:1px solid var(--line);background:rgba(15,22,34,.65)}
+.note-card h3{margin:0 0 9px;font-size:14.5px;display:flex;align-items:center;gap:8px}
+.note-card h3 span{display:grid;place-items:center;width:26px;height:26px;border-radius:8px;background:rgba(56,189,248,.1);border:1px solid rgba(56,189,248,.22);font-size:13px}
+.note-card p{margin:0;font-size:12.5px;color:var(--txt2);line-height:1.75}
+.note-card p+p{margin-top:8px}
+.faq-sec{margin:38px 0 0}
+.faq-sec h2{font-size:22px;margin:0 0 6px;letter-spacing:-.02em}
+.faq-sec .sub{color:var(--txt3);font-size:13px;margin:0 0 16px}
+.faq-list{display:grid;gap:9px}
+.faq-item{border:1px solid var(--line);border-radius:12px;background:rgba(15,22,34,.6);overflow:hidden}
+.faq-q{display:flex;align-items:center;justify-content:space-between;gap:12px;width:100%;min-height:50px;padding:12px 16px;border:0;background:none;color:var(--txt);font-size:13.5px;font-weight:600;text-align:left;cursor:pointer}
+.faq-q:hover{color:var(--cyan)}
+.faq-q i{font-style:normal;color:var(--txt3);font-size:17px;transition:.2s;flex:0 0 auto}
+.faq-item.on .faq-q i{transform:rotate(45deg);color:var(--cyan)}
+.faq-a{display:none;padding:0 16px 15px;color:var(--txt2);font-size:12.5px;line-height:1.8}
+.faq-item.on .faq-a{display:block}
+.pay-strip{display:flex;align-items:center;justify-content:center;gap:9px;flex-wrap:wrap;margin:20px auto 0;font-size:11.5px;color:var(--txt3)}
+.pay-strip span{padding:4px 10px;border-radius:999px;border:1px solid var(--line);background:rgba(255,255,255,.02)}
+.order-summary{display:grid;gap:9px;padding:13px 15px;border-radius:11px;border:1px solid var(--line);background:rgba(6,10,17,.5);margin-bottom:16px}
+.order-summary .li{display:flex;justify-content:space-between;gap:12px;font-size:13px;color:var(--txt2)}
+.order-summary .li b{color:var(--txt);font-variant-numeric:tabular-nums}
+.order-summary .li.total{border-top:1px solid var(--line);padding-top:9px;margin-top:2px}
+.order-summary .li.total b{color:var(--lime);font-size:18px}
+.order-summary .li .cut{color:var(--lime)}
+.months{display:grid;grid-template-columns:repeat(4,1fr);gap:7px}
+.months button{min-height:44px;border-radius:9px;border:1px solid var(--line2);background:rgba(255,255,255,.03);color:var(--txt2);font-size:12.5px;cursor:pointer}
+.months button.on{border-color:rgba(56,189,248,.55);background:rgba(56,189,248,.12);color:#bae6fd;font-weight:600}
+.months button small{display:block;font-size:9.5px;color:var(--lime);line-height:1.2}
+.pay-list{display:grid;gap:8px;margin-top:4px}
+.pay-opt{display:flex;align-items:center;gap:10px;padding:11px 13px;border-radius:10px;border:1px solid var(--line);background:rgba(255,255,255,.02);cursor:pointer;font-size:13px}
+.pay-opt.on{border-color:rgba(56,189,248,.45);background:rgba(56,189,248,.08)}
+.pay-opt input{accent-color:#38bdf8;width:17px;height:17px}
+.pay-opt .pn{flex:1;font-weight:600}
+.pay-opt .pd{font-size:10.5px;color:var(--txt3);display:block;font-weight:400}
+.pay-opt .badge{font-size:10px}
+.modal .err{margin-top:12px}
+.success-box{text-align:center;padding:8px 0 4px}
+.success-box .big{font-size:42px;line-height:1;margin-bottom:12px}
+.success-box h3{margin-bottom:6px}
+.success-box .ordno{display:inline-block;margin:9px 0 4px;padding:5px 12px;border-radius:8px;border:1px dashed var(--line2);background:rgba(255,255,255,.03);font-size:12px;color:var(--cyan)}
+@media(max-width:1000px){
+  .plans{grid-template-columns:repeat(2,minmax(0,1fr))}
+  .notes{grid-template-columns:1fr}
+  .pricing-hero h1{font-size:32px}
 }
-
-/* ============ UI 升级 2026-11：更专业 / 更智能 ============ */
-:root{
-  --bg:#070a10; --bg2:#0a0f18; --panel:#0f1622; --panel2:#131c2b;
-  --line:rgba(148,163,184,.14); --line2:rgba(148,163,184,.22);
-  --txt:#e8eef8; --txt2:#9fb0c7; --txt3:#6b7c94;
-  --cyan:#38bdf8; --violet:#8b5cf6; --lime:#34d399;
-  --r:16px; --r-sm:11px;
-  --shadow:0 10px 30px -12px rgba(0,0,0,.7);
-  --shadow-lg:0 24px 60px -20px rgba(2,8,20,.9);
+@media(max-width:600px){
+  .pricing-hero{padding:34px 0 6px}
+  .pricing-hero h1{font-size:27px}
+  .pricing-hero p{font-size:13px}
+  .plans{grid-template-columns:1fr;gap:12px}
+  .plan{padding:20px 17px 16px}
+  .price .num{font-size:36px}
+  .months{grid-template-columns:repeat(2,1fr)}
+  .bill-toggle button{padding:0 15px;font-size:12.5px}
+  .bill-toggle .save{display:none}
 }
-body{
-  background:
-    radial-gradient(900px 480px at 78% -10%,rgba(56,189,248,.10),transparent 60%),
-    radial-gradient(760px 420px at 12% 8%,rgba(139,92,246,.10),transparent 60%),
-    linear-gradient(180deg,var(--bg) 0%,var(--bg2) 100%);
-  background-attachment:fixed;
-  font-feature-settings:"tnum" 1,"ss01" 1;
-  -webkit-font-smoothing:antialiased;
-}
-body::before{
-  content:"";position:fixed;inset:0;pointer-events:none;z-index:0;
-  background-image:linear-gradient(rgba(148,163,184,.045) 1px,transparent 1px),
-                   linear-gradient(90deg,rgba(148,163,184,.045) 1px,transparent 1px);
-  background-size:64px 64px;
-  mask-image:radial-gradient(ellipse at 50% 0%,#000 30%,transparent 78%);
-  -webkit-mask-image:radial-gradient(ellipse at 50% 0%,#000 30%,transparent 78%);
-}
-.wrap,.top-in{position:relative;z-index:1}
-
-/* 顶栏 */
-.top{background:rgba(7,10,16,.72);border-bottom:1px solid var(--line);backdrop-filter:blur(18px) saturate(140%)}
-.top-in{height:62px;gap:18px}
-.brand{font-weight:800;letter-spacing:.2px}
-.brand small{color:var(--txt3);font-weight:600;letter-spacing:.14em}
-.top a{color:var(--txt2);font-size:13.5px;padding:8px 12px;border-radius:10px;transition:.18s}
-.top a:hover{color:var(--txt);background:rgba(148,163,184,.10)}
-.top .btn,.top .nav-cta{background:linear-gradient(135deg,var(--cyan),#6366f1);color:#04121c;font-weight:700;border-radius:10px;padding:8px 15px}
-.top .nav-cta:hover{filter:brightness(1.08)}
-
-/* Hero */
-.hero{padding:74px 0 40px;text-align:center}
-.eyebrow{
-  display:inline-flex;align-items:center;gap:8px;
-  font-size:11.5px;letter-spacing:.22em;color:#7dd3fc;
-  border:1px solid rgba(56,189,248,.28);background:rgba(56,189,248,.07);
-  padding:6px 14px;border-radius:999px;margin-bottom:20px;
-}
-.hero h1{
-  font-size:clamp(32px,4.4vw,56px);line-height:1.14;letter-spacing:-.02em;
-  font-weight:800;margin:0 0 16px;color:var(--txt);
-}
-.hero h1 span{
-  background:linear-gradient(120deg,#7dd3fc 0%,#a78bfa 60%,#7dd3fc 100%);
-  -webkit-background-clip:text;background-clip:text;color:transparent;
-}
-.hero .lead,.hero p.sub{max-width:720px;margin:0 auto;color:var(--txt2);font-size:16px;line-height:1.75}
-
-/* 数据条 */
-.stats,.stat-row{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;max-width:860px;margin:30px auto 6px}
-.stat,.stat-card{
-  background:linear-gradient(180deg,rgba(19,27,42,.9),rgba(12,18,28,.9));
-  border:1px solid var(--line);border-radius:var(--r);padding:16px 18px;text-align:left;
-}
-.stat b,.stat-card b{display:block;font-size:26px;font-weight:800;color:#fff;letter-spacing:-.02em}
-.stat span,.stat-card span{font-size:12.5px;color:var(--txt3)}
-
-/* 搜索 */
-.search,.searchbox{position:relative;max-width:640px;margin:26px auto 0}
-.search input,.searchbox input{
-  width:100%;height:54px;border-radius:14px;border:1px solid var(--line2);
-  background:rgba(13,20,32,.9);color:var(--txt);font-size:15px;padding:0 118px 0 48px;outline:none;transition:.2s;
-}
-.search input:focus{border-color:rgba(56,189,248,.55);box-shadow:0 0 0 4px rgba(56,189,248,.12)}
-.search kbd,.searchbox kbd{
-  position:absolute;right:14px;top:15px;font-size:11.5px;color:var(--txt3);
-  border:1px solid var(--line2);border-radius:7px;padding:4px 8px;background:rgba(148,163,184,.07)
-}
-
-/* 分区标题 */
-.sec-head{display:flex;align-items:flex-end;gap:12px;margin:44px 0 18px}
-.sec-head h2{margin:0;font-size:21px;letter-spacing:-.01em;display:flex;align-items:center;gap:10px}
-.sec-head h2::before{content:"";width:4px;height:19px;border-radius:3px;background:linear-gradient(180deg,var(--cyan),var(--violet))}
-.sec-head .more{margin-left:auto;font-size:13px;color:var(--cyan)}
-
-/* 工具卡片 */
-.card{
-  background:linear-gradient(180deg,rgba(20,28,43,.86),rgba(12,18,28,.86));
-  border:1px solid var(--line);border-radius:var(--r);padding:18px;
-  transition:transform .22s cubic-bezier(.2,.8,.2,1),border-color .22s,box-shadow .22s;
-}
-.card:hover{transform:translateY(-4px);border-color:rgba(56,189,248,.42);box-shadow:var(--shadow-lg)}
-.card h3{font-size:15.5px;font-weight:700;color:var(--txt)}
-.card h3 i{width:30px;height:30px;border-radius:9px;font-size:13px;
-  background:linear-gradient(135deg,rgba(56,189,248,.22),rgba(139,92,246,.22));
-  border:1px solid rgba(148,163,184,.18);color:#cfe9ff}
-.card p{font-size:12.8px;line-height:1.65;color:var(--txt2)}
-.card .go{font-weight:600}
-.card .tagline{background:rgba(148,163,184,.08);border-radius:999px;padding:3px 9px;color:var(--txt3)}
-
-/* 分类胶囊 */
-.cats,.chips{display:flex;flex-wrap:wrap;gap:9px;margin:0 0 22px}
-.cats a,.chips a,.chips button{
-  font-size:13px;padding:9px 15px;border-radius:999px;border:1px solid var(--line);
-  background:rgba(15,22,34,.7);color:var(--txt2);transition:.18s
-}
-.cats a:hover,.chips a:hover{border-color:rgba(56,189,248,.45);color:#dff3ff;background:rgba(56,189,248,.08)}
-.cats a.on,.chips .on{background:linear-gradient(135deg,rgba(56,189,248,.16),rgba(139,92,246,.16));border-color:rgba(56,189,248,.45);color:#e8f7ff}
-
-/* 文章列表 */
-.art,.art-row,.list-item{border-bottom:1px solid var(--line);padding:16px 2px;transition:.16s}
-.art:hover,.art-row:hover,.list-item:hover{background:rgba(56,189,248,.045)}
-.art h3,.art-row h3{font-size:15.5px;margin:0 0 6px;line-height:1.5}
-
-/* 正文页增强 */
-.content{font-size:15.5px;line-height:1.9;color:#cdd8e6}
-.content h2{
-  font-size:20.5px;margin:34px 0 12px;padding-left:12px;position:relative;color:#fff;letter-spacing:-.01em
-}
-.content h2::before{content:"";position:absolute;left:0;top:4px;bottom:4px;width:3px;border-radius:2px;
-  background:linear-gradient(180deg,var(--cyan),var(--violet))}
-.content p{margin:0 0 16px}
-.content ul,.content ol{padding-left:22px;margin:0 0 18px}
-.content li{margin:6px 0}
-.content blockquote{margin:20px 0;padding:14px 18px;border-left:3px solid var(--cyan);
-  background:rgba(56,189,248,.06);border-radius:0 10px 10px 0;color:#bcd3e6}
-.content table{width:100%;border-collapse:collapse;margin:18px 0;font-size:14px}
-.content th{background:rgba(148,163,184,.08);text-align:left;padding:10px 12px;border:1px solid var(--line)}
-.content td{padding:10px 12px;border:1px solid var(--line);color:var(--txt2)}
-.content tr:hover td{background:rgba(56,189,248,.04)}
-.content code{background:rgba(148,163,184,.12);padding:2px 6px;border-radius:6px;font-size:.92em}
-.content pre{background:#0a1120;border:1px solid var(--line);border-radius:12px;padding:14px 16px;overflow:auto}
-
-/* 文中工具卡 / 广告位 */
-.tcard,.tcards .tcard{background:linear-gradient(180deg,rgba(20,28,43,.9),rgba(12,18,28,.9));
-  border:1px solid var(--line);border-radius:14px;transition:.2s}
-.tcard:hover{border-color:rgba(56,189,248,.4);transform:translateY(-2px)}
-.ad-bottom{border-radius:14px}
-
-/* 页脚 */
-footer{border-top:1px solid var(--line);margin-top:48px;padding:26px 0 40px;color:var(--txt3);font-size:12.5px;line-height:1.9}
-footer a{color:var(--txt2)}
-
-/* 阅读进度条（文章页） */
-#rp{position:fixed;top:0;left:0;height:2px;width:0;z-index:60;
-  background:linear-gradient(90deg,var(--cyan),var(--violet));transition:width .1s linear}
-
-/* 移动端 */
-@media (max-width:760px){
-  .hero{padding:44px 0 24px}
-  .hero h1{font-size:31px;line-height:1.22}
-  .hero .lead,.hero p.sub{font-size:14.5px}
-  .stats,.stat-row{grid-template-columns:repeat(2,1fr);gap:10px}
-  .stat b{font-size:22px}
-  .search input,.searchbox input{height:50px;font-size:14px;padding-right:96px}
-  .sec-head{margin:32px 0 14px}
-  .content{font-size:15px;line-height:1.85}
-  .content h2{font-size:18.5px;margin:28px 0 10px}
-}
-
-/* 阅读宽度与页面节奏 */
-body>main{max-width:1000px;margin:0 auto;padding:0 22px 48px}
-article.content{max-width:820px;margin:0 auto}
-article.content p{letter-spacing:.01em}
-.crumb,.breadcrumb,.meta.crumb{font-size:12.5px;color:var(--txt3);margin:18px 0 14px}
-.crumb a,.breadcrumb a{color:var(--txt2)}
-@media (max-width:760px){body>main{padding:0 16px 40px}}
-
-/* 移动端布局修正 */
-@media (max-width:760px){
-  .top-in{height:56px;flex-wrap:nowrap;overflow-x:auto;overflow-y:hidden;gap:6px;padding:0 12px;
-    -webkit-overflow-scrolling:touch;scrollbar-width:none}
-  .top-in::-webkit-scrollbar{display:none}
-  .brand{font-size:15.5px;white-space:nowrap;flex:0 0 auto}
-  .brand small{display:none}
-  .top a{padding:7px 11px;font-size:13px;white-space:nowrap;flex:0 0 auto}
-  .hero{padding:30px 0 18px}
-  .eyebrow{display:none}
-  .hero h1{font-size:27px;line-height:1.28;letter-spacing:-.015em;margin-bottom:12px}
-  .hero .lead,.hero p.sub{font-size:14px;line-height:1.7}
-  .stats,.stat-row{grid-template-columns:repeat(2,1fr);gap:9px;margin-top:22px}
-  .stat,.stat-card{padding:13px 14px}
-  .stat b,.stat-card b{font-size:22px}
-  .stat span,.stat-card span{font-size:11.5px}
-  .search,.searchbox{margin-top:18px}
-  .search input,.searchbox input{height:48px;padding:0 16px 0 42px;font-size:14px}
-  .search kbd,.searchbox kbd{display:none}
-  .sec-head{margin:30px 0 12px}
-  .sec-head h2{font-size:18px}
-  .cats,.chips{gap:8px}
-  .cats a,.chips a,.chips button{font-size:12.5px;padding:8px 12px}
-  .card{padding:15px}
-  footer{margin-top:36px;padding:22px 0 34px}
-}
-
-/* 头部品牌不再换行 */
-.brand{flex:0 0 auto;display:inline-flex;align-items:center;gap:9px;white-space:nowrap}
-.brand>div{display:inline-flex;align-items:center;gap:9px;white-space:nowrap}
-.brand span,.brand b{white-space:nowrap}
-@media (max-width:760px){
-  .top-in{gap:4px;padding:0 10px}
-  .brand{margin-right:6px}
-  .brand>div{flex-direction:row}
-  .top a{padding:6px 9px;font-size:12.5px}
-  .hero h1{font-size:25px;padding:0 10px}
-  .hero .lead{padding:0 12px}
-}
-
-table{width:100%;border-collapse:collapse;margin:18px 0;font-size:13.5px}
-th,td{border-bottom:1px solid var(--line);padding:9px 8px;text-align:left;vertical-align:top}
-th{color:var(--txt2);font-weight:600;font-size:12.5px;background:rgba(255,255,255,.03)}
-tr.grp td{background:rgba(90,209,255,.06);color:var(--cyan);font-weight:700;font-size:13px}
-td a{color:var(--cyan)}
-.note{font-size:12.5px;color:var(--txt3)}
-.filters{margin:16px 0 6px;display:flex;gap:8px;flex-wrap:wrap}
-.fbtn{padding:10px 16px;min-height:42px;display:inline-flex;align-items:center;border-radius:8px;border:1px solid var(--line);background:rgba(255,255,255,.03);color:var(--txt2);font-size:13px;cursor:pointer}
-.fbtn.on{color:var(--cyan);border-color:rgba(90,209,255,.45);background:rgba(90,209,255,.1)}
 </style>
 </head>
 <body>
-<header class="top"><div class="top-in">
-  <a class="logo" href="../index.html"><span class="mark">✦</span>星籁 AI 导航</a>
-  <a class="nav-leadgen" href="/ai-nav/leadgen/">AI 获客</a>
-  <a class="back" href="../index.html">← 回首页</a>
-</div></header>
-<main>
-  <div class="bread"><a href="../index.html">首页</a> / 价格对比</div>
-  <h1>AI 工具价格对比</h1>
-  <p class="note">42 款工具的收费方式一览。价格为整理时的公开信息，<b>以官网为准</b>；标"免费额度"的表示有可持续使用的免费档。</p>
-  <div class="filters">
-    <button class="fbtn on" data-f="all">全部</button>
-    <button class="fbtn" data-f="free">有免费额度</button>
-    <button class="fbtn" data-f="paid">需付费</button>
-    <button class="fbtn" data-f="local">可本地部署</button>
+<div class="topbar">
+  <div class="wrap">
+    <a class="brand" href="../index.html"><span class="mark">✦</span><span>星籁 AI<small>套餐定价</small></span></a>
+    <nav>
+      <a href="../index.html">AI 导航</a>
+      <a href="../studio/">AI 创作工坊</a>
+      <a href="../leadgen/">AI 获客</a>
+      <a class="on" href="./">套餐定价</a>
+      <a href="../account/dashboard.html">个人中心</a>
+    </nav>
+    <a class="back" href="../index.html">← 返回首页</a>
   </div>
-  <table id="ptable">
-    <tr><th style="width:24%">工具</th><th style="width:44%">免费额度 / 付费方式</th><th>一句话说明</th></tr>
-    <tr class="grp"><td colspan="3">对话AI</td></tr><tr data-free="1" data-local="0"><td><a href="../tool/chatgpt/">ChatGPT</a></td><td>免费版有次数限制；ChatGPT Plus 约 20 美元/月，团队版按人数计费，具体以官网为准。</td><td>GPT-5 通用对话，语音模式练口语、看图解题都稳</td></tr><tr data-free="1" data-local="0"><td><a href="../tool/claude/">Claude</a></td><td>免费版有每日用量限制；Claude Pro 约 20 美元/月，Team 版按席位计费，以官网为准。</td><td>长文档与代码阅读强，200K 上下文适合合同、论文</td></tr><tr data-free="1" data-local="0"><td><a href="../tool/deepseek/">DeepSeek</a></td><td>网页版和 App 免费使用；API 按 token 计费，价格较低，具体档位以官网为准。</td><td>开源权重可本地部署，推理与中文表达均衡</td></tr><tr data-free="1" data-local="0"><td><a href="../tool/kimi/">Kimi</a></td><td>基础功能免费，但长文本和高峰时段有额度限制；会员与 API 计费方式不同，价格以官网为准。</td><td>中文长文本总结，网页/文件一次读完整本</td></tr><tr data-free="1" data-local="0"><td><a href="../tool/doubao/">豆包</a></td><td>大部分功能免费使用，适合轻度日常使用；会员可解锁更高用量与部分模型权限，具体价格以官网为准。</td><td>字节系对话与语音，中文口语化程度高</td></tr><tr data-free="1" data-local="0"><td><a href="../tool/qwen/">通义千问</a></td><td>网页端与 App 基础功能免费使用；API 按 token 计费，企业版及高阶模型价格以官网为准。</td><td>阿里 Qwen 系列，函数调用与文档解析好用</td></tr><tr class="grp"><td colspan="3">图像生成</td></tr><tr data-free="0" data-local="0"><td><a href="../tool/midjourney/">Midjourney</a></td><td>无免费额度；订阅约 10 美元/月起，高档位约 30 美元/月，具体以官网为准。</td><td>v7 出图审美天花板，--cref 锁角色一致性</td></tr><tr data-free="1" data-local="1"><td><a href="../tool/stable-diffusion/">Stable Diffusion</a></td><td>模型权重开源免费，但需自备显卡或租用云算力；第三方在线托管服务按需收费，价格以官网为准。</td><td>本地开源，ControlNet/LoRA 生态最全</td></tr><tr data-free="1" data-local="1"><td><a href="../tool/flux/">Flux.1</a></td><td>模型权重开源可免费下载，本地运行需显卡；官方 API 按张计费，具体价格以官网为准。</td><td>开源模型，dev 版 12B，量化后可跑 8G 显存</td></tr><tr data-free="1" data-local="0"><td><a href="../tool/jimeng/">即梦 AI</a></td><td>每日提供免费积分额度，按次消耗且有上限；会员分档订阅，具体价格与额度以官网为准。</td><td>中文电商图、海报生成，免部署直接出图</td></tr><tr data-free="1" data-local="0"><td><a href="../tool/kling/">可灵 AI</a></td><td>每日赠送免费灵感值，超出后需单独购买；会员按月订阅可解锁更多权益，价格以官网为准。</td><td>图生视频与图生图，国风插画质感突出</td></tr><tr data-free="1" data-local="1"><td><a href="../tool/comfyui/">ComfyUI</a></td><td>软件本身开源免费，但需自备显卡和模型文件；云端托管服务按算力计费，具体以官网为准。</td><td>节点式工作流，一次搭建反复复用</td></tr><tr class="grp"><td colspan="3">编程助手</td></tr><tr data-free="1" data-local="0"><td><a href="../tool/cursor/">Cursor</a></td><td>免费版功能受限；Cursor Pro 20 美元/月，团队版按人计费，具体以官网为准。</td><td>AI 原生编辑器，Tab 补全 + 多文件改写</td></tr><tr data-free="0" data-local="0"><td><a href="../tool/claude-code/">Claude Code</a></td><td>需订阅 Claude Pro 或 Max 使用，Pro 约 20 美元/月；API 另按用量计费，以官网为准。</td><td>命令行 agent，能读整个仓库并提交 PR</td></tr><tr data-free="1" data-local="0"><td><a href="../tool/github-copilot/">GitHub Copilot</a></td><td>学生和开源维护者可免费使用；个人版 10 美元/月，企业版按席位计费，以官网为准。</td><td>IDE 内联补全与单测生成，企业可用</td></tr><tr data-free="1" data-local="0"><td><a href="../tool/windsurf/">Windsurf</a></td><td>提供免费额度，个人轻度使用够用；付费版按月订阅，团队版按席位计费，价格以官网为准。</td><td>Cascade 多文件流程，自动跑测试较稳</td></tr><tr data-free="1" data-local="0"><td><a href="../tool/tongyi-lingma/">通义灵码</a></td><td>个人版可免费使用，日常代码补全与问答够用；企业版按席位收费，具体价格以官网为准。</td><td>免费中文编程助手，支持私有仓库问答</td></tr><tr data-free="1" data-local="1"><td><a href="../tool/aider/">Aider</a></td><td>工具本身开源免费，调用模型需自备 API Key，费用按所选服务商用量计费，以官网为准。</td><td>开源 CLI，改完自动 git commit，审阅友好</td></tr><tr class="grp"><td colspan="3">写作文案</td></tr><tr data-free="1" data-local="0"><td><a href="../tool/doubao-writer/">小红书文案助手</a></td><td>基础文案生成免费，日常够用；会员提供更高生成次数和进阶功能，具体价格以官网为准。</td><td>按平台规则生成标题正文，规避违禁词</td></tr><tr data-free="0" data-local="0"><td><a href="../tool/notion-ai/">Notion AI</a></td><td>AI 功能需在 Notion 付费方案中订阅，个人版按月或按年计费，价格与额度以官网为准。</td><td>与笔记库联动，长文大纲与续写顺手</td></tr><tr data-free="1" data-local="0"><td><a href="../tool/grammarly/">Grammarly</a></td><td>免费版可检查基础语法和拼写；Premium 按月订阅解锁完整改写建议，价格以官网为准。</td><td>英文邮件与论文润色，语气可调</td></tr><tr data-free="1" data-local="0"><td><a href="../tool/xiezuocat/">秘塔写作猫</a></td><td>免费版有字数与功能限制，会员按月或按年订阅付费，有学生与团队档位，具体价格和额度以官网为准。</td><td>中文错别字与语病检查，公文场景友好</td></tr><tr data-free="1" data-local="0"><td><a href="../tool/copy-ai/">Copy.ai</a></td><td>免费版每月有生成字数上限，付费分基础、专业档位按月订阅，也可先试用再升级，具体价格以官网为准。</td><td>电商五点描述、广告语批量生成</td></tr><tr data-free="1" data-local="0"><td><a href="../tool/jasper/">Jasper</a></td><td>没有长期免费版，可先试用；付费分创作、专业与企业三档，按年订阅更常见，具体价格与额度以官网为准。</td><td>品牌语气库，团队协作写营销文案</td></tr><tr class="grp"><td colspan="3">视频音频</td></tr><tr data-free="1" data-local="0"><td><a href="../tool/kling-video/">可灵 AI</a></td><td>新用户每日有一定免费灵感值，用完后可购买积分或按月开通会员，具体价格和额度以官网为准。</td><td>图生视频首尾帧控制，5s/10s 可选</td></tr><tr data-free="1" data-local="0"><td><a href="../tool/runway/">Runway</a></td><td>免费账户每月有少量积分，付费按标准、专业等档位月付，积分用完可再购买，具体价格以官网为准。</td><td>Gen-4 运镜控制与视频编辑工具链</td></tr><tr data-free="1" data-local="0"><td><a href="../tool/heygen/">HeyGen</a></td><td>免费版每月可生成少量视频，导出带水印；付费分个人、团队档位订阅，按月或按年付，价格以官网为准。</td><td>数字人口型对齐，多语言播报</td></tr><tr data-free="1" data-local="0"><td><a href="../tool/elevenlabs/">ElevenLabs</a></td><td>免费账户每月约有1万字符的合成额度，付费分入门、专业和团队档位按月订阅，具体价格以官网为准。</td><td>多语言配音，情感与停顿可调</td></tr><tr data-free="1" data-local="0"><td><a href="../tool/suno/">Suno</a></td><td>免费额度每天可生成若干首，够试用；付费按月订阅，分基础、专业等档位，具体额度与价格以官网为准。</td><td>歌词生成整首歌，v5 中文咬字进步明显</td></tr><tr data-free="1" data-local="0"><td><a href="../tool/capcut/">剪映</a></td><td>基础剪辑功能免费，部分AI功能、素材和云空间需要开通会员，会员分档位，常见按年订阅，价格以官网为准。</td><td>自动字幕 + 文本剪辑，国内工作流顺手</td></tr><tr class="grp"><td colspan="3">商业效率</td></tr><tr data-free="1" data-local="0"><td><a href="../tool/feishu-bitable/">飞书多维表格</a></td><td>基础功能免费，高级权限、自动化执行次数等随企业付费版本解锁，常见按人头年付，价格以官网为准。</td><td>AI 字段做分类汇总，团队协作免费额度够用</td></tr><tr data-free="1" data-local="0"><td><a href="../tool/notion/">Notion</a></td><td>个人版免费，团队协作与AI功能需要订阅付费，通常按人数与档位按月或按年计费，具体价格以官网为准。</td><td>数据库 + AI 自动化，做轻量 CRM</td></tr><tr data-free="1" data-local="1"><td><a href="../tool/n8n/">n8n</a></td><td>开源社区版可自托管免费使用，适合自己搭服务器的人；云端版按执行次数订阅，价格以官网为准。</td><td>开源自建自动化，可接本地模型</td></tr><tr data-free="1" data-local="0"><td><a href="../tool/coze/">扣子 Coze</a></td><td>个人搭建和试用有免费额度，超出后按用量付费，企业版按需单独计费，具体价格与额度以官网为准。</td><td>拖拽搭客服机器人，可发布到微信/飞书</td></tr><tr data-free="1" data-local="1"><td><a href="../tool/dify/">Dify</a></td><td>开源社区版可自托管免费使用，云端版提供一定免费额度并按用量付费，超出后另计，价格以官网为准。</td><td>开源知识库问答，支持私有部署</td></tr><tr data-free="1" data-local="0"><td><a href="../tool/gamma/">Gamma</a></td><td>免费版提供一定AI积分，导出文件带平台标识；付费分个人、团队档位按月订阅，具体价格以官网为准。</td><td>一句话生成演示文稿，导出 PPT/PDF</td></tr><tr class="grp"><td colspan="3">实用工具</td></tr><tr data-free="1" data-local="0"><td><a href="../tool/perplexity/">Perplexity</a></td><td>基础搜索免费，Pro 版解锁更强模型与更多检索次数，订阅可按月付或年付两种方式，具体价格以官网为准。</td><td>带引用的联网检索，学术查证省时间</td></tr><tr data-free="1" data-local="0"><td><a href="../tool/notebooklm/">NotebookLM</a></td><td>个人使用免费，但有上传文档数量和来源数限制，需要更高额度时可订阅付费，具体价格以官网为准。</td><td>上传资料生成播客与问答，支持中文</td></tr><tr data-free="1" data-local="0"><td><a href="../tool/immersive-translate/">沉浸式翻译</a></td><td>基础功能免费，高级功能与专业版会员按月付费，常见还有年付套餐和团队版，具体价格以官网为准。</td><td>双语对照网页/PDF，论文阅读神器</td></tr><tr data-free="1" data-local="0"><td><a href="../tool/otter/">Otter.ai</a></td><td>免费版每月有转写分钟数限制，付费按个人、团队档位订阅，超出额度可单独加购，具体价格以官网为准。</td><td>会议实时转写与摘要，英文准确率高</td></tr><tr data-free="1" data-local="1"><td><a href="../tool/whisper/">Whisper</a></td><td>模型开源可免费本地运行，需要自备算力；调用官方接口转写则按音频时长计费，价格以官网为准。</td><td>开源转写，本地跑 16k 音频准确率稳</td></tr><tr data-free="1" data-local="1"><td><a href="../tool/real-esrgan/">Real-ESRGAN</a></td><td>开源代码可免费使用，本地部署无额外费用但要自备显卡；也可使用第三方在线服务，价格以官网为准。</td><td>开源图片放大，4 倍无损放大</td></tr>
-  </table>
-  <h2>关于价格</h2>
-  <h2>AI 工具一般怎么收费？</h2><p>三种模式：订阅制（月付/年付）、按量计费（API 按 token 或次数）、免费额度+付费解锁。先用免费额度跑通一次完整流程再考虑订阅。</p><h2>免费额度够用吗？</h2><p>个人轻度使用大多够：对话类通常有每日条数限制，图像/视频类按积分算，写作类限制字数。商用或批量任务基本都需要付费档。</p><h2>年付比月付便宜多少？</h2><p>常见 8 折到 6 折，但新工具改价频繁，建议先用月付确认能长期用，再考虑年付。</p>
-  <p class="note">· <a href="../index.html#/tools">回首页看全部工具</a> · <a href="../sitemap.xml">站点地图</a></p>
+</div>
+
+<main class="wrap auth-page">
+  <section class="pricing-hero">
+    <div class="eyebrow">PRICING · 按门店规模选</div>
+    <h1>先免费跑通一次，<br>再为<em>真正用到的额度</em>付费</h1>
+    <p>四档套餐，视频、线索、AI 改写额度逐档放开。没有隐藏费用，不自动续费；额度不够随时升级，管理员人工开通。</p>
+    <div class="bill-toggle" role="tablist" aria-label="计费周期">
+      <button type="button" data-bill="month" class="on" role="tab" aria-selected="true">月付</button>
+      <button type="button" data-bill="year" role="tab" aria-selected="false">年付 <span class="save">省 2 个月</span></button>
+    </div>
+    <div class="current-bar" id="currentBar" hidden></div>
+    <div class="pay-strip"><span>人工客服开通</span><span>微信支付接入中</span><span>支付宝接入中</span><span>支持对公发票</span></div>
+  </section>
+
+  <section class="plans" id="plans" aria-live="polite">
+    <div class="plan"><div class="skeleton" style="height:22px;margin-bottom:12px"></div><div class="skeleton" style="height:44px;margin-bottom:12px"></div><div class="skeleton" style="height:14px"></div></div>
+    <div class="plan"><div class="skeleton" style="height:22px;margin-bottom:12px"></div><div class="skeleton" style="height:44px;margin-bottom:12px"></div><div class="skeleton" style="height:14px"></div></div>
+    <div class="plan"><div class="skeleton" style="height:22px;margin-bottom:12px"></div><div class="skeleton" style="height:44px;margin-bottom:12px"></div><div class="skeleton" style="height:14px"></div></div>
+    <div class="plan"><div class="skeleton" style="height:22px;margin-bottom:12px"></div><div class="skeleton" style="height:44px;margin-bottom:12px"></div><div class="skeleton" style="height:14px"></div></div>
+  </section>
+
+  <section class="notes">
+    <div class="note-card"><h3><span>📊</span>额度如何计算</h3>
+      <p>视频额度按「成功生成一条成片」计 1 条；线索额度按「导入/抓取一条有效线索」计 1 条；AI 改写按「生成一版文案」计 1 次。</p>
+      <p>拆条、混剪、AI 视频共用视频额度；失败任务不扣额度。额度按自然月重置，未用完不结转。</p>
+    </div>
+    <div class="note-card"><h3><span>⏳</span>到期如何处理</h3>
+      <p>套餐到期前 7 天个人中心会提示。到期后自动回到体验版额度，已生成的作品和历史线索不会删除，仅暂停新增。</p>
+      <p>不自动续费、不自动扣款；需要续费时重新下单，管理员开通后立即生效。</p>
+    </div>
+    <div class="note-card"><h3><span>🧾</span>发票与退款</h3>
+      <p>付款后可在个人中心查看订单，联系客服开具电子普通发票或增值税专票，通常 3 个工作日内开出。</p>
+      <p>订单未开通可联系客服取消并全额退款；已开通部分按月折算，扣除已使用月份后退还剩余金额，特殊活动订单以活动规则为准。</p>
+    </div>
+  </section>
+
+  <section class="faq-sec" id="faq">
+    <h2>套餐常见问题</h2>
+    <p class="sub">还有没答到的，点右下角联系站长，或者直接下人工订单让客服联系你。</p>
+    <div class="faq-list" id="faqList"></div>
+  </section>
 </main>
+
+<footer class="site-foot">
+  <div class="wrap">
+    <a href="../index.html">首页</a><a href="../studio/">AI 创作工坊</a><a href="../leadgen/">AI 获客</a><a href="../account/dashboard.html">个人中心</a><a href="../privacy.html">隐私政策</a><a href="../sitemap.xml">站点地图</a>
+    <div style="margin-top:8px">© 2026 星籁 AI 工具导航 · xinglaiai.com · 套餐价格与额度以本页及订单页为准</div>
+  </div>
+</footer>
+
+<!-- 下单弹窗 -->
+<div class="modal-mask" id="orderMask" role="dialog" aria-modal="true" aria-labelledby="orderTitle">
+  <div class="modal">
+    <button class="modal-close" type="button" id="orderClose" aria-label="关闭">×</button>
+    <div id="orderBody"></div>
+  </div>
+</div>
+
+<script src="../assets/auth.js"></script>
 <script>
-document.querySelectorAll('.fbtn').forEach(function(b){
-  b.addEventListener('click', function(){
-    document.querySelectorAll('.fbtn').forEach(function(x){ x.classList.remove('on'); });
-    b.classList.add('on');
-    var f = b.getAttribute('data-f');
-    document.querySelectorAll('#ptable tr[data-free]').forEach(function(tr){
-      var show = f === 'all'
-        || (f === 'free' && tr.getAttribute('data-free') === '1')
-        || (f === 'paid' && tr.getAttribute('data-free') === '0')
-        || (f === 'local' && tr.getAttribute('data-local') === '1');
-      tr.style.display = show ? '' : 'none';
+(function () {
+  'use strict';
+  var $ = function (s, r) { return (r || document).querySelector(s); };
+  var $$ = function (s, r) { return Array.prototype.slice.call((r || document).querySelectorAll(s)); };
+
+  var FALLBACK = [
+    { id: 'free', name: '体验版', desc: '先跑通一次完整流程', price_month: 0, price_year: 0, price_year_original: 0,
+      quotas: { video: 3, lead: 10, copywrite: 3, aivideo: 0 },
+      features: { watermark: true, stores: 1, support: '社区答疑' },
+      foot: '适合第一次用 AI 做内容的小店' },
+    { id: 'basic', name: '基础版', desc: '一人管一个门店', price_month: 99, price_year: 990, price_year_original: 1188,
+      quotas: { video: 30, lead: 200, copywrite: -1, aivideo: 0 },
+      features: { watermark: false, stores: 1, support: '工作日客服' },
+      foot: '每月 30 条视频，够稳定日更' },
+    { id: 'pro', name: '专业版', desc: '有投放、有到店转化', price_month: 299, price_year: 2990, price_year_original: 3588,
+      quotas: { video: 100, lead: 1000, copywrite: -1, aivideo: 5 },
+      features: { watermark: false, stores: 3, support: '优先客服' }, hot: true,
+      foot: '适合连锁小店和代运营团队' },
+    { id: 'enterprise', name: '旗舰版', desc: '多门店 + 高频投放', price_month: 699, price_year: 6990, price_year_original: 8388,
+      quotas: { video: 500, lead: 5000, copywrite: -1, aivideo: 20 },
+      features: { watermark: false, stores: 5, support: '专属客服' },
+      foot: '多店统一管理，额度最充足' }
+  ];
+  var PLANS = FALLBACK.slice();
+  var BILL = 'month';
+  var CURRENT = null;
+  var planIndex = { free: 0, basic: 1, pro: 2, enterprise: 3 };
+
+  var FAQ = [
+    { q: '免费额度怎么算？会不会自动扣费？', a: '体验版注册即送 3 条视频、10 条线索、3 次 AI 改写，不绑定支付方式，不会自动扣费。额度用完只是暂停新建任务，已生成内容不受影响。' },
+    { q: '视频、线索额度每月什么时候重置？', a: '按自然月重置（每月 1 日 0 点，Asia/Shanghai），未用完的额度不结转到下月。订单开通当天生效，首月按整个月额度计算。' },
+    { q: '年付怎么优惠？可以中途升级吗？', a: '年付按「付 10 个月用 12 个月」计价，相当于省 2 个月。年付期间可以补差价升级，具体金额联系客服，由管理员在后台调整。' },
+    { q: '升级后多久生效？', a: '人工通道：提交订单后联系客服付款，管理员在后台激活订单，通常当天生效，额度立即到账。微信/支付宝通道接入中，未开通时会提示联系客服。' },
+    { q: '可以开发票吗？能退款吗？', a: '可以开电子普通发票或增值税专票，付款后联系客服提供抬头即可。未开通订单可取消全额退款；已开通订单按未使用月份折算退款，已使用月份不退。' },
+    { q: '多门店怎么算？一个账号能管几家店？', a: '体验版/基础版 1 家门店，专业版 3 家，旗舰版 5 家。更多门店请联系客服单独配置；多门店共享同一份额度，个人中心可分店查看消耗。' }
+  ];
+
+  function num(v, d) { var n = Number(v); return isFinite(n) ? n : (d || 0); }
+  function monthly(p) {
+    if (p.price_month != null) return num(p.price_month);
+    if (p.price != null) return num(p.price);
+    return num(p.price_cents) / 100;
+  }
+  function yearly(p) {
+    var m = monthly(p), y = p.price_year != null ? num(p.price_year) : m * 10;
+    if (y > m * 100) y = y / 100; // 兼容后端用“分”返回
+    return y;
+  }
+  function yearlyOriginal(p) {
+    var m = monthly(p), y = p.price_year_original != null ? num(p.price_year_original) : m * 12;
+    if (y > m * 100) y = y / 100;
+    return y;
+  }
+  function quotaOf(p, key) {
+    if (p.quotas && p.quotas[key] != null) return num(p.quotas[key], 0);
+    var m = { video: 'video_quota', lead: 'lead_quota', copywrite: 'rewrite_quota', aivideo: 'aivideo_quota' };
+    if (p[m[key]] != null) return num(p[m[key]], 0);
+    var f = FALLBACK.filter(function (x) { return x.id === p.id; })[0];
+    return f ? f.quotas[key] : 0;
+  }
+  function quotaText(n) { if (n < 0) return '不限'; if (n === 0) return '不含'; return n + ' 条'; }
+  function featOf(p, key) {
+    var f = p.features || {};
+    var fb = (FALLBACK.filter(function (x) { return x.id === p.id; })[0] || {}).features || {};
+    if (key === 'stores') return (f.stores != null ? f.stores : fb.stores) + ' 家';
+    if (key === 'support') return f.support || fb.support || '社区答疑';
+    return false;
+  }
+  function money(n) { n = num(n); return n % 1 === 0 ? String(n) : n.toFixed(2); }
+
+  function planById(id) { return PLANS.filter(function (p) { return p.id === id; })[0] || null; }
+  function userPlan() {
+    var u = XLAuth.user();
+    return u && u.plan ? u.plan : 'free';
+  }
+  function isLogged() { return !!XLAuth.token(); }
+
+  function renderPlans() {
+    var host = $('#plans');
+    var cur = userPlan();
+    host.innerHTML = PLANS.map(function (p) {
+      var isCur = isLogged() && p.id === cur;
+      var idx = planIndex[p.id] != null ? planIndex[p.id] : 0;
+      var curIdx = planIndex[cur] != null ? planIndex[cur] : 0;
+      var hot = p.id === 'pro';
+      var price = BILL === 'year' ? yearly(p) : monthly(p);
+      var note;
+      if (p.id === 'free') note = '<span>永久免费 · 每月重置</span>';
+      else if (BILL === 'year') note = '<span>折合 ¥' + money(yearly(p) / 12) + '/月 · <b>省 2 个月</b>，原价 <s>¥' + money(yearlyOriginal(p)) + '</s></span>';
+      else note = '<span>按月付 · 随时升级</span>';
+      var cta;
+      if (isCur) cta = '<button class="btn btn-block btn-sm" disabled>当前套餐</button>';
+      else if (p.id === 'free') cta = '<button class="btn btn-block" data-plan="free" data-free="1">' + (isLogged() ? '免费额度已包含' : '免费注册开始') + '</button>';
+      else if (isLogged() && idx < curIdx) cta = '<button class="btn btn-block btn-sm" data-plan="' + p.id + '" data-down="1">联系客服调整</button>';
+      else cta = '<button class="btn btn-primary btn-block" data-plan="' + p.id + '">立即升级</button>';
+      var tag = isCur ? '<div class="tagline green">当前套餐</div>' : (hot ? '<div class="tagline">最受欢迎</div>' : '');
+      return '' +
+        '<article class="plan' + (hot ? ' hot' : '') + (isCur ? ' current' : '') + '">' + tag +
+          '<div class="plan-top">' +
+            '<h2 class="plan-name">' + XLAuth.esc(p.name || XLAuth.planName(p.id)) + '</h2>' +
+            '<p class="plan-desc">' + XLAuth.esc(p.desc || '') + '</p>' +
+            '<div class="price"><span class="cur">¥</span><span class="num">' + money(price) + '</span><span class="unit">/' + (BILL === 'year' ? '年' : '月') + '</span></div>' +
+            '<div class="price-note">' + note + '</div>' +
+          '</div>' +
+          '<div class="plan-cta">' + cta + '</div>' +
+          '<div class="plan-feats">' +
+            '<div class="feat"><span class="k">视频</span><span class="v">' + quotaText(quotaOf(p, 'video')) + '</span></div>' +
+            '<div class="feat"><span class="k">线索</span><span class="v">' + quotaText(quotaOf(p, 'lead')) + '</span></div>' +
+            '<div class="feat"><span class="k">AI 改写</span><span class="v' + (quotaOf(p, 'copywrite') < 0 ? ' yes' : '') + '">' + quotaText(quotaOf(p, 'copywrite')) + '</span></div>' +
+            '<div class="feat"><span class="k">AI 视频</span><span class="v' + (quotaOf(p, 'aivideo') > 0 ? ' yes' : ' no') + '">' + quotaText(quotaOf(p, 'aivideo')) + '</span></div>' +
+            '<div class="feat"><span class="k">去水印</span><span class="v' + (p.id === 'free' ? ' no' : ' yes') + '">' + (p.id === 'free' ? '含水印' : '✓ 支持') + '</span></div>' +
+            '<div class="feat"><span class="k">多门店</span><span class="v">' + XLAuth.esc(featOf(p, 'stores')) + '</span></div>' +
+            '<div class="feat"><span class="k">客服</span><span class="v">' + XLAuth.esc(featOf(p, 'support')) + '</span></div>' +
+          '</div>' +
+          '<div class="plan-foot">' + XLAuth.esc(p.foot || '') + '</div>' +
+        '</article>';
+    }).join('');
+
+    $$('[data-plan]', host).forEach(function (b) {
+      b.addEventListener('click', function () {
+        var id = b.getAttribute('data-plan');
+        if (b.getAttribute('data-down')) { XLAuth.toast('降级或调整套餐请联系客服处理', 'warn', 3600); return; }
+        if (id === 'free') { if (!isLogged()) location.href = XLAuth.rootUrl('account/index.html') + '?next=' + encodeURIComponent(location.pathname); else XLAuth.toast('体验版额度已包含在账号里', 'good'); return; }
+        if (!isLogged()) {
+          location.href = XLAuth.rootUrl('account/index.html') + '?next=' + encodeURIComponent(location.pathname);
+          return;
+        }
+        openOrder(planById(id));
+      });
+    });
+    renderCurrentBar();
+  }
+
+  function renderCurrentBar() {
+    var bar = $('#currentBar');
+    var u = XLAuth.user();
+    if (!isLogged() || !u) { bar.hidden = true; return; }
+    bar.hidden = false;
+    var exp = u.plan_expire_at ? XLAuth.fmtDate(u.plan_expire_at) + ' 到期' : '长期有效（体验版）';
+    bar.innerHTML = '当前登录：<b style="color:#e0f2fe">' + XLAuth.esc(u.business_name || u.name || u.account || '商家') + '</b> · 套餐：<b style="color:#e0f2fe">' +
+      XLAuth.esc(u.plan_name || XLAuth.planName(u.plan)) + '</b> · ' + XLAuth.esc(exp) +
+      ' <a href="' + XLAuth.rootUrl('account/dashboard.html') + '">查看额度 →</a>';
+  }
+
+  // 计费周期
+  $$('[data-bill]').forEach(function (b) {
+    b.addEventListener('click', function () {
+      BILL = b.getAttribute('data-bill');
+      $$('[data-bill]').forEach(function (x) {
+        x.classList.toggle('on', x === b);
+        x.setAttribute('aria-selected', String(x === b));
+      });
+      renderPlans();
     });
   });
-});
+
+  // 加载套餐
+  XLAuth.api('/plans', { auth: false, timeout: 12000 }).then(function (d) {
+    var list = d.plans || d.list || [];
+    if (Array.isArray(list) && list.length) {
+      PLANS = list.map(function (p) {
+        var f = FALLBACK.filter(function (x) { return x.id === p.id; })[0] || {};
+        return Object.assign({}, f, p, { quotas: Object.assign({}, f.quotas, p.quotas || {}) });
+      });
+      // 保持四档顺序
+      PLANS.sort(function (a, b) { return (planIndex[a.id] == null ? 9 : planIndex[a.id]) - (planIndex[b.id] == null ? 9 : planIndex[b.id]); });
+    }
+    renderPlans();
+  }).catch(function () { renderPlans(); });
+
+  XLAuth.onChange(function () { renderPlans(); });
+
+  // FAQ
+  $('#faqList').innerHTML = FAQ.map(function (x) {
+    return '<div class="faq-item"><button class="faq-q" type="button">' + XLAuth.esc(x.q) + '<i>+</i></button><div class="faq-a">' + XLAuth.esc(x.a) + '</div></div>';
+  }).join('');
+  $$('.faq-q').forEach(function (b) {
+    b.addEventListener('click', function () { b.parentNode.classList.toggle('on'); });
+  });
+
+  /* ---------------- 下单弹窗 ---------------- */
+  var mask = $('#orderMask'), orderBody = $('#orderBody'), currentPlan = null, months = 1, channel = 'manual';
+
+  function closeOrder() { mask.classList.remove('on'); document.body.style.overflow = ''; }
+  $('#orderClose').addEventListener('click', closeOrder);
+  mask.addEventListener('click', function (e) { if (e.target === mask) closeOrder(); });
+  document.addEventListener('keydown', function (e) { if (e.key === 'Escape') closeOrder(); });
+
+  function openOrder(plan) {
+    if (!plan) return;
+    currentPlan = plan; months = 1; channel = 'manual';
+    renderOrder();
+    mask.classList.add('on');
+    document.body.style.overflow = 'hidden';
+  }
+
+  function unitCents(p) {
+    if (p.price_cents != null) return num(p.price_cents);
+    return Math.round(monthly(p) * 100);
+  }
+  function orderCalc(p, m) {
+    var unit = unitCents(p);
+    if (m === 12) {
+      var pay = Math.round(unit * 10);
+      return { pay: pay, original: unit * 12, cut: unit * 2 };
+    }
+    return { pay: unit * m, original: unit * m, cut: 0 };
+  }
+
+  function renderOrder() {
+    var p = currentPlan;
+    if (!p) return;
+    var c = orderCalc(p, months);
+    var opts = [1, 3, 6, 12].map(function (m) {
+      return '<button type="button" data-months="' + m + '" class="' + (m === months ? 'on' : '') + '">' + m + ' 个月' + (m === 12 ? '<small>省 2 个月</small>' : '') + '</button>';
+    }).join('');
+    var pays = [
+      ['manual', '人工客服', '推荐 · 客服确认后开通'],
+      ['wechat', '微信支付', '联系客服开通'],
+      ['alipay', '支付宝', '联系客服开通']
+    ].map(function (x) {
+      return '<label class="pay-opt ' + (channel === x[0] ? 'on' : '') + '"><input type="radio" name="paych" value="' + x[0] + '"' + (channel === x[0] ? ' checked' : '') + '><span class="pn">' + x[1] + '<span class="pd">' + x[2] + '</span></span>' +
+        (x[0] === 'manual' ? '<span class="badge lime">可用</span>' : '<span class="badge amber">未开通</span>') + '</label>';
+    }).join('');
+    orderBody.innerHTML =
+      '<h3 id="orderTitle">升级到 ' + XLAuth.esc(p.name) + '</h3>' +
+      '<p class="modal-sub">选择购买月数，提交后由客服确认收款并开通</p>' +
+      '<div class="order-summary">' +
+        '<div class="li"><span>' + XLAuth.esc(p.name) + ' · ' + (months === 12 ? '年付（12 个月）' : months + ' 个月') + '</span><b>¥' + money(c.pay / 100) + '</b></div>' +
+        (c.cut > 0 ? '<div class="li"><span>年付优惠（省 2 个月）</span><b class="cut">−¥' + money(c.cut / 100) + '</b></div>' : '') +
+        (c.cut > 0 ? '<div class="li"><span>原价</span><span style="text-decoration:line-through;color:#6b7c93">¥' + money(c.original / 100) + '</span></div>' : '') +
+        '<div class="li total"><span>应付</span><b>¥' + money(c.pay / 100) + '</b></div>' +
+      '</div>' +
+      '<div class="field"><label>购买月数</label><div class="months">' + opts + '</div><div class="hint">月付 1 个月起；年付按 12 个月计，实付 10 个月。</div></div>' +
+      '<div class="field"><label>支付方式</label><div class="pay-list">' + pays + '</div><div class="hint" id="payHint">' + (channel === 'manual' ? '提交订单后联系客服付款，管理员在后台激活。' : '该支付通道接入中，提交后客服会联系你开通。') + '</div></div>' +
+      '<div class="err" id="orderErr"></div>' +
+      '<div class="modal-actions"><button class="btn" type="button" id="orderCancel">再看看</button><button class="btn btn-primary" type="button" id="orderSubmit">提交订单</button></div>';
+
+    $$('[data-months]', orderBody).forEach(function (b) {
+      b.addEventListener('click', function () { months = num(b.getAttribute('data-months'), 1); renderOrder(); });
+    });
+    $$('input[name=paych]', orderBody).forEach(function (r) {
+      r.addEventListener('change', function () { channel = r.value; renderOrder(); });
+    });
+    $('#orderCancel').addEventListener('click', closeOrder);
+    $('#orderSubmit').addEventListener('click', submitOrder);
+  }
+
+  function submitOrder() {
+    var btn = $('#orderSubmit'), errEl = $('#orderErr');
+    if (!btn) return;
+    if (!isLogged()) { closeOrder(); location.href = XLAuth.rootUrl('account/index.html') + '?next=' + encodeURIComponent(location.pathname); return; }
+    errEl.classList.remove('on');
+    btn.disabled = true; var old = btn.textContent; btn.textContent = '提交中…';
+    XLAuth.api('/orders', { method: 'POST', body: { plan_id: currentPlan.id, months: months, channel: channel }, timeout: 20000 })
+      .then(function (d) {
+        var o = d.order || d;
+        renderSuccess(o);
+        XLAuth.toast('订单已提交，等待客服开通', 'good', 3200);
+      })
+      .catch(function (e) {
+        btn.disabled = false; btn.textContent = old;
+        errEl.textContent = e.code === 'NOT_READY' ? '功能准备中：订单服务还没上线，请稍后再试或直接联系客服' : (e.message || '提交失败，请稍后再试');
+        errEl.classList.add('on');
+      });
+  }
+
+  function renderSuccess(o) {
+    var amt = o.amount != null ? o.amount : (num(o.amount_cents) / 100);
+    orderBody.innerHTML =
+      '<div class="success-box"><div class="big">✅</div><h3>订单已提交</h3>' +
+      '<p class="modal-sub">客服确认收款后，管理员会在后台开通，额度立即到账。</p>' +
+      (o.order_no ? '<div class="ordno">订单号：' + XLAuth.esc(o.order_no) + '</div>' : '') +
+      '<div class="order-summary" style="text-align:left;margin-top:14px">' +
+        '<div class="li"><span>套餐</span><b>' + XLAuth.esc(o.plan_name || (currentPlan && currentPlan.name) || '') + '</b></div>' +
+        '<div class="li"><span>月数</span><b>' + XLAuth.esc(o.months || months) + ' 个月</b></div>' +
+        '<div class="li"><span>实付</span><b>¥' + XLAuth.money(o.amount_cents, amt) + '</b></div>' +
+        '<div class="li"><span>状态</span><b><span class="badge amber">待处理</span></b></div>' +
+      '</div>' +
+      '<div class="modal-actions"><a class="btn" href="' + XLAuth.rootUrl('pricing/index.html') + '">继续看看</a><a class="btn btn-primary" href="' + XLAuth.rootUrl('account/dashboard.html') + '#orders">查看我的订单</a></div>' +
+      '</div>';
+    $$('#orderBody .modal-actions a').forEach(function (a) { a.addEventListener('click', closeOrder); });
+  }
+
+  // 登录态刷新后重渲染当前套餐
+  document.addEventListener('auth:change', function () { renderCurrentBar(); });
+})();
 </script>
 </body>
 </html>

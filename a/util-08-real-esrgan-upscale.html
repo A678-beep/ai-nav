@@ -8,13 +8,13 @@
 <meta name="keywords" content="Real-ESRGAN 图片 放大, 图片超分, 显存占用, Real-ESRGAN 显存占用, Real-ESRGAN 模型选择">
 <meta name="robots" content="index,follow">
 
-<link rel="canonical" href="https://a678-beep.github.io/ai-nav/a/util-08-real-esrgan-upscale.html">
+<link rel="canonical" href="https://xinglaiai.com/ai-nav/a/util-08-real-esrgan-upscale.html">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Real-ESRGAN 图片 放大：显存与耗时">
 <meta property="og:description" content="上周把一张 800×600 的产品图放到 3200×2400 做展会物料，客户要求边缘不能糊。试了四个模型，最后是 Real-ESRGAN 的 4x-UltraSharp 加切片参数救回来的，一张 6 秒，显存峰值 4.">
-<meta property="og:url" content="https://a678-beep.github.io/ai-nav/a/util-08-real-esrgan-upscale.html">
-<script type="application/ld+json">{"@context": "https://schema.org", "@type": "Article", "headline": "Real-ESRGAN 图片 放大：显存与耗时", "inLanguage": "zh-CN", "datePublished": "2026-11-17", "author": {"@type": "Organization", "name": "星籁 Stellara"}, "publisher": {"@type": "Organization", "name": "星籁 Stellara"}, "mainEntityOfPage": "https://a678-beep.github.io/ai-nav/a/util-08-real-esrgan-upscale.html", "articleSection": "实用工具", "wordCount": 791, "dateModified": "2026-11-17", "keywords": "Real-ESRGAN 图片 放大, 图片超分, 显存占用, Real-ESRGAN 显存占用, Real-ESRGAN 模型选择"}</script>
-<script type="application/ld+json">{"@context": "https://schema.org", "@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "首页", "item": "https://a678-beep.github.io/ai-nav/"}, {"@type": "ListItem", "position": 2, "name": "实用工具", "item": "https://a678-beep.github.io/ai-nav/#/articles"}, {"@type": "ListItem", "position": 3, "name": "Real-ESRGAN 图片 放大：显存与耗时", "item": "https://a678-beep.github.io/ai-nav/a/util-08-real-esrgan-upscale.html"}]}</script>
+<meta property="og:url" content="https://xinglaiai.com/ai-nav/a/util-08-real-esrgan-upscale.html">
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "Article", "headline": "Real-ESRGAN 图片 放大：显存与耗时", "inLanguage": "zh-CN", "datePublished": "2026-11-17", "author": {"@type": "Organization", "name": "星籁 Stellara"}, "publisher": {"@type": "Organization", "name": "星籁 Stellara"}, "mainEntityOfPage": "https://xinglaiai.com/ai-nav/a/util-08-real-esrgan-upscale.html", "articleSection": "实用工具", "wordCount": 791, "dateModified": "2026-11-17", "keywords": "Real-ESRGAN 图片 放大, 图片超分, 显存占用, Real-ESRGAN 显存占用, Real-ESRGAN 模型选择"}</script>
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "首页", "item": "https://xinglaiai.com/ai-nav/"}, {"@type": "ListItem", "position": 2, "name": "实用工具", "item": "https://xinglaiai.com/ai-nav/#/articles"}, {"@type": "ListItem", "position": 3, "name": "Real-ESRGAN 图片 放大：显存与耗时", "item": "https://xinglaiai.com/ai-nav/a/util-08-real-esrgan-upscale.html"}]}</script>
 <style>
 :root{--bg:#080b12;--panel:#111827;--line:#1f2937;--txt:#e6edf7;--txt2:#9aa8bd;--txt3:#6b7a90;--cyan:#5ad1ff;--violet:#a78bfa}
 *{box-sizing:border-box}body{margin:0;background:radial-gradient(900px 500px at 82% -8%,rgba(90,209,255,.16),transparent 60%),var(--bg);color:var(--txt);font-family:"Microsoft YaHei","PingFang SC",system-ui,sans-serif;line-height:1.8}
@@ -281,6 +281,7 @@ article.content p{letter-spacing:.01em}
   .hero .lead{padding:0 12px}
 }
 </style>
+<link rel="stylesheet" href="../assets/auth-nav.css">
 </head>
 <body>
 <header class="top"><div class="top-in">
@@ -304,7 +305,7 @@ article.content p{letter-spacing:.01em}
 <p>Real-ESRGAN 图片 放大 的效果七成取决于模型和输入质量，参数只是兜底。Real-ESRGAN 模型选择 比调参数重要，产品图选 UltraSharp，插画选 anime_6B，显存不够就切 512 的块。800×600 到 3200×2400 只要 6 秒，比外包重绘便宜太多。但别指望它救回一张已经糊掉的原片。</p></article>
   <div class="sec tcards-sec"><h2>文中提到的工具</h2><div class="tcards"><div class="tcard"><div class="tc-top"><a href="../tool/real-esrgan/"><b>Real-ESRGAN</b></a><a class="tc-go" href="https://github.com/xinntao/Real-ESRGAN" target="_blank" rel="noopener nofollow">官网 →</a></div><p class="tc-d">开源图片放大，4 倍无损放大</p><p class="tc-lim">免费额度：开源代码可免费使用，本地部署无额外费用但要自备显卡；也可使用…</p></div></div><p class="tnote">点工具名看详情（适用场景 / 免费额度 / 替代方案），需要直接用点「官网 →」。</p></div>
   <section class="related"><h2>同类教程</h2><ul><li><a href="util-09-ai-video-watermark-removal.html">视频 去水印 AI：逐帧跟踪与镜头修复实测</a></li><li><a href="util-10-local-pdf-qa.html">本地 PDF 问答：7B 模型离线建库全流程</a></li><li><a href="util-11-offline-speech-to-text.html">离线 语音转文字：Whisper 模型选型与显存</a></li><li><a href="util-12-ai-detection-rewrite.html">AI 检测 降重：人工改写与句式拆分</a></li><li><a href="util-13-ai-flowchart-generator.html">AI 流程图 生成：代码导出可编辑矢量图</a></li></ul><p class="tool-link"><a href="../index.html">查看 实用工具 工具与其它教程 →</a> <a href="../t/errors/">AI 报错解决 →</a> <a href="../t/pricing/">AI 工具价格 →</a></p></section>
-  <footer>© 2026 星籁 AI 工具导航 · xinglaiai.com 版权所有 · 未经许可禁止镜像/采集/商业转载 · <a href="/ai-nav/radar/">工具雷达</a> &middot; <a href="/ai-nav/select-ai/">智能选型</a> &middot; <a href="/ai-nav/studio/">AI 创作工坊</a> &middot; <a href="/ai-nav/leadgen/">AI 获客</a> &middot; <a href="/ai-nav/travel/">出行导航</a> &middot; <a href="../privacy.html">隐私政策</a> · <a href="../sitemap.xml">站点地图</a></footer>
+  <footer>© 2026 星籁 AI 工具导航 · xinglaiai.com 版权所有 · 未经许可禁止镜像/采集/商业转载 · <a href="/ai-nav/radar/">工具雷达</a> &middot; <a href="/ai-nav/select-ai/">智能选型</a> &middot; <a href="/ai-nav/studio/">AI 创作工坊</a> &middot; <a href="/ai-nav/leadgen/">AI 获客</a> &middot; <a href="/ai-nav/travel/">出行导航</a> &middot; <a href="../privacy.html">隐私政策</a> · <a href="../pricing/">套餐定价</a> &middot; <a href="../sitemap.xml">站点地图</a></footer>
 <script>
 (function(){
   if (window.__ux) return; window.__ux = 1;
@@ -345,5 +346,6 @@ article.content p{letter-spacing:.01em}
 </script>
 
 </main>
+<script defer src="../assets/auth.js"></script>
 </body>
 </html>

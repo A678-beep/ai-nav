@@ -8,13 +8,13 @@
 <meta name="keywords" content="Cursor 中文乱码, 文件编码, UTF-8, Cursor 中文乱码怎么解决, Cursor 终端乱码">
 <meta name="robots" content="index,follow">
 
-<link rel="canonical" href="https://a678-beep.github.io/ai-nav/a/code-15-cursor-chinese-garbled.html">
+<link rel="canonical" href="https://xinglaiai.com/ai-nav/a/code-15-cursor-chinese-garbled.html">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Cursor 中文乱码：3 步改回 UTF-8">
 <meta property="og:description" content="接手一个 2019 年的 Vue 项目，用 Cursor 打开 .js 文件，注释全是锟斤拷锟斤拷，字符串里的中文变成一串问号。更麻烦的是让 Agent 改一个函数，它读进去再写回来，原本只是显示乱码的几行变成了真正的乱">
-<meta property="og:url" content="https://a678-beep.github.io/ai-nav/a/code-15-cursor-chinese-garbled.html">
-<script type="application/ld+json">{"@context": "https://schema.org", "@type": "Article", "headline": "Cursor 中文乱码：3 步改回 UTF-8", "inLanguage": "zh-CN", "datePublished": "2026-11-17", "author": {"@type": "Organization", "name": "星籁 Stellara"}, "publisher": {"@type": "Organization", "name": "星籁 Stellara"}, "mainEntityOfPage": "https://a678-beep.github.io/ai-nav/a/code-15-cursor-chinese-garbled.html", "articleSection": "编程助手", "wordCount": 811, "dateModified": "2026-11-17", "keywords": "Cursor 中文乱码, 文件编码, UTF-8, Cursor 中文乱码怎么解决, Cursor 终端乱码"}</script>
-<script type="application/ld+json">{"@context": "https://schema.org", "@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "首页", "item": "https://a678-beep.github.io/ai-nav/"}, {"@type": "ListItem", "position": 2, "name": "编程助手", "item": "https://a678-beep.github.io/ai-nav/#/articles"}, {"@type": "ListItem", "position": 3, "name": "Cursor 中文乱码：3 步改回 UTF-8", "item": "https://a678-beep.github.io/ai-nav/a/code-15-cursor-chinese-garbled.html"}]}</script>
+<meta property="og:url" content="https://xinglaiai.com/ai-nav/a/code-15-cursor-chinese-garbled.html">
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "Article", "headline": "Cursor 中文乱码：3 步改回 UTF-8", "inLanguage": "zh-CN", "datePublished": "2026-11-17", "author": {"@type": "Organization", "name": "星籁 Stellara"}, "publisher": {"@type": "Organization", "name": "星籁 Stellara"}, "mainEntityOfPage": "https://xinglaiai.com/ai-nav/a/code-15-cursor-chinese-garbled.html", "articleSection": "编程助手", "wordCount": 811, "dateModified": "2026-11-17", "keywords": "Cursor 中文乱码, 文件编码, UTF-8, Cursor 中文乱码怎么解决, Cursor 终端乱码"}</script>
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "首页", "item": "https://xinglaiai.com/ai-nav/"}, {"@type": "ListItem", "position": 2, "name": "编程助手", "item": "https://xinglaiai.com/ai-nav/#/articles"}, {"@type": "ListItem", "position": 3, "name": "Cursor 中文乱码：3 步改回 UTF-8", "item": "https://xinglaiai.com/ai-nav/a/code-15-cursor-chinese-garbled.html"}]}</script>
 <style>
 :root{--bg:#080b12;--panel:#111827;--line:#1f2937;--txt:#e6edf7;--txt2:#9aa8bd;--txt3:#6b7a90;--cyan:#5ad1ff;--violet:#a78bfa}
 *{box-sizing:border-box}body{margin:0;background:radial-gradient(900px 500px at 82% -8%,rgba(90,209,255,.16),transparent 60%),var(--bg);color:var(--txt);font-family:"Microsoft YaHei","PingFang SC",system-ui,sans-serif;line-height:1.8}
@@ -281,6 +281,7 @@ article.content p{letter-spacing:.01em}
   .hero .lead{padding:0 12px}
 }
 </style>
+<link rel="stylesheet" href="../assets/auth-nav.css">
 </head>
 <body>
 <header class="top"><div class="top-in">
@@ -304,7 +305,7 @@ article.content p{letter-spacing:.01em}
 <p>现在我的固定动作是：新项目先看 .editorconfig 和文件编码，老文件用 Reopen with Encoding 确认再另存 UTF-8，终端配上 chcp 65001，Agent 改文件前先 git commit。这样处理后，同一个项目里 Cursor 中文乱码再没出现过。真遇到 Cursor 中文乱码怎么解决，先问自己乱的是文件、终端还是 Agent 返回值，这三层对应的修法完全不同，先分类能省一半时间。</p></article>
   <div class="sec tcards-sec"><h2>文中提到的工具</h2><div class="tcards"><div class="tcard"><div class="tc-top"><a href="../tool/cursor/"><b>Cursor</b></a><a class="tc-go" href="https://cursor.com" target="_blank" rel="noopener nofollow">官网 →</a></div><p class="tc-d">AI 原生编辑器，Tab 补全 + 多文件改写</p><p class="tc-lim">免费额度：免费版功能受限；Cursor Pro 20 美元/月，团队版…</p></div></div><p class="tnote">点工具名看详情（适用场景 / 免费额度 / 替代方案），需要直接用点「官网 →」。</p></div>
   <section class="related"><h2>同类教程</h2><ul><li><a href="code-16-lingma-unit-test.html">通义灵码 单元测试：3 步生成可跑用例</a></li><li><a href="code-17-ai-code-review.html">AI 代码 审查：PR 流程与误报处理</a></li><li><a href="code-18-legacy-refactor-ai.html">老项目 重构 AI：先补测试再拆批次</a></li><li><a href="code-19-sql-generation-optimize.html">SQL 生成 优化：EXPLAIN 与索引实战</a></li><li><a href="code-20-cursor-index-stuck.html">Cursor 索引 卡住：先查目录再重建</a></li></ul><p class="tool-link"><a href="../index.html">查看 编程助手 工具与其它教程 →</a> <a href="../t/errors/">AI 报错解决 →</a> <a href="../t/params/">参数与配置 →</a></p></section>
-  <footer>© 2026 星籁 AI 工具导航 · xinglaiai.com 版权所有 · 未经许可禁止镜像/采集/商业转载 · <a href="/ai-nav/radar/">工具雷达</a> &middot; <a href="/ai-nav/select-ai/">智能选型</a> &middot; <a href="/ai-nav/studio/">AI 创作工坊</a> &middot; <a href="/ai-nav/leadgen/">AI 获客</a> &middot; <a href="/ai-nav/travel/">出行导航</a> &middot; <a href="../privacy.html">隐私政策</a> · <a href="../sitemap.xml">站点地图</a></footer>
+  <footer>© 2026 星籁 AI 工具导航 · xinglaiai.com 版权所有 · 未经许可禁止镜像/采集/商业转载 · <a href="/ai-nav/radar/">工具雷达</a> &middot; <a href="/ai-nav/select-ai/">智能选型</a> &middot; <a href="/ai-nav/studio/">AI 创作工坊</a> &middot; <a href="/ai-nav/leadgen/">AI 获客</a> &middot; <a href="/ai-nav/travel/">出行导航</a> &middot; <a href="../privacy.html">隐私政策</a> · <a href="../pricing/">套餐定价</a> &middot; <a href="../sitemap.xml">站点地图</a></footer>
 <script>
 (function(){
   if (window.__ux) return; window.__ux = 1;
@@ -345,5 +346,6 @@ article.content p{letter-spacing:.01em}
 </script>
 
 </main>
+<script defer src="../assets/auth.js"></script>
 </body>
 </html>

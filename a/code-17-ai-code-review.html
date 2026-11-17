@@ -8,13 +8,13 @@
 <meta name="keywords" content="AI 代码 审查, 代码审查 机器人, 误报率, CodeRabbit, AI 代码审查 误报, 代码审查 机器人 配置">
 <meta name="robots" content="index,follow">
 
-<link rel="canonical" href="https://a678-beep.github.io/ai-nav/a/code-17-ai-code-review.html">
+<link rel="canonical" href="https://xinglaiai.com/ai-nav/a/code-17-ai-code-review.html">
 <meta property="og:type" content="article">
 <meta property="og:title" content="AI 代码 审查：PR 流程与误报处理">
 <meta property="og:description" content="团队四个人，两周一个 release，PR 平均 420 行改动，人工 review 要排到第二天。我们用的是 GitHub 私有仓，CodeRabbit 走 GitHub App，Copilot Business 一人">
-<meta property="og:url" content="https://a678-beep.github.io/ai-nav/a/code-17-ai-code-review.html">
-<script type="application/ld+json">{"@context": "https://schema.org", "@type": "Article", "headline": "AI 代码 审查：PR 流程与误报处理", "inLanguage": "zh-CN", "datePublished": "2026-11-17", "author": {"@type": "Organization", "name": "星籁 Stellara"}, "publisher": {"@type": "Organization", "name": "星籁 Stellara"}, "mainEntityOfPage": "https://a678-beep.github.io/ai-nav/a/code-17-ai-code-review.html", "articleSection": "编程助手", "wordCount": 809, "dateModified": "2026-11-17", "keywords": "AI 代码 审查, 代码审查 机器人, 误报率, CodeRabbit, AI 代码审查 误报, 代码审查 机器人 配置"}</script>
-<script type="application/ld+json">{"@context": "https://schema.org", "@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "首页", "item": "https://a678-beep.github.io/ai-nav/"}, {"@type": "ListItem", "position": 2, "name": "编程助手", "item": "https://a678-beep.github.io/ai-nav/#/articles"}, {"@type": "ListItem", "position": 3, "name": "AI 代码 审查：PR 流程与误报处理", "item": "https://a678-beep.github.io/ai-nav/a/code-17-ai-code-review.html"}]}</script>
+<meta property="og:url" content="https://xinglaiai.com/ai-nav/a/code-17-ai-code-review.html">
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "Article", "headline": "AI 代码 审查：PR 流程与误报处理", "inLanguage": "zh-CN", "datePublished": "2026-11-17", "author": {"@type": "Organization", "name": "星籁 Stellara"}, "publisher": {"@type": "Organization", "name": "星籁 Stellara"}, "mainEntityOfPage": "https://xinglaiai.com/ai-nav/a/code-17-ai-code-review.html", "articleSection": "编程助手", "wordCount": 809, "dateModified": "2026-11-17", "keywords": "AI 代码 审查, 代码审查 机器人, 误报率, CodeRabbit, AI 代码审查 误报, 代码审查 机器人 配置"}</script>
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "首页", "item": "https://xinglaiai.com/ai-nav/"}, {"@type": "ListItem", "position": 2, "name": "编程助手", "item": "https://xinglaiai.com/ai-nav/#/articles"}, {"@type": "ListItem", "position": 3, "name": "AI 代码 审查：PR 流程与误报处理", "item": "https://xinglaiai.com/ai-nav/a/code-17-ai-code-review.html"}]}</script>
 <style>
 :root{--bg:#080b12;--panel:#111827;--line:#1f2937;--txt:#e6edf7;--txt2:#9aa8bd;--txt3:#6b7a90;--cyan:#5ad1ff;--violet:#a78bfa}
 *{box-sizing:border-box}body{margin:0;background:radial-gradient(900px 500px at 82% -8%,rgba(90,209,255,.16),transparent 60%),var(--bg);color:var(--txt);font-family:"Microsoft YaHei","PingFang SC",system-ui,sans-serif;line-height:1.8}
@@ -281,6 +281,7 @@ article.content p{letter-spacing:.01em}
   .hero .lead{padding:0 12px}
 }
 </style>
+<link rel="stylesheet" href="../assets/auth-nav.css">
 </head>
 <body>
 <header class="top"><div class="top-in">
@@ -304,7 +305,7 @@ article.content p{letter-spacing:.01em}
 <p>AI 代码 审查 的收益不在多抓几个 bug，在把 PR 等待时间从一天压到两小时，人只审红线和业务。流程是 draft 先跑、人工后审、合并前交叉二轮；误报靠配置和台账压到一成以下。机器人负责找可疑点，人负责判断能不能上线。代码审查 机器人 配置 改三处就够：语言、档位、排除目录。</p></article>
   
   <section class="related"><h2>同类教程</h2><ul><li><a href="code-18-legacy-refactor-ai.html">老项目 重构 AI：先补测试再拆批次</a></li><li><a href="code-19-sql-generation-optimize.html">SQL 生成 优化：EXPLAIN 与索引实战</a></li><li><a href="code-20-cursor-index-stuck.html">Cursor 索引 卡住：先查目录再重建</a></li><li><a href="code-21-copilot-login-failed.html">Copilot 无法 登录：代理与账号权限</a></li><li><a href="code-22-local-code-model.html">本地 代码 模型 推荐：7B 到 14B 实测</a></li></ul><p class="tool-link"><a href="../index.html">查看 编程助手 工具与其它教程 →</a> <a href="../t/errors/">AI 报错解决 →</a> <a href="../t/pricing/">AI 工具价格 →</a></p></section>
-  <footer>© 2026 星籁 AI 工具导航 · xinglaiai.com 版权所有 · 未经许可禁止镜像/采集/商业转载 · <a href="/ai-nav/radar/">工具雷达</a> &middot; <a href="/ai-nav/select-ai/">智能选型</a> &middot; <a href="/ai-nav/studio/">AI 创作工坊</a> &middot; <a href="/ai-nav/leadgen/">AI 获客</a> &middot; <a href="/ai-nav/travel/">出行导航</a> &middot; <a href="../privacy.html">隐私政策</a> · <a href="../sitemap.xml">站点地图</a></footer>
+  <footer>© 2026 星籁 AI 工具导航 · xinglaiai.com 版权所有 · 未经许可禁止镜像/采集/商业转载 · <a href="/ai-nav/radar/">工具雷达</a> &middot; <a href="/ai-nav/select-ai/">智能选型</a> &middot; <a href="/ai-nav/studio/">AI 创作工坊</a> &middot; <a href="/ai-nav/leadgen/">AI 获客</a> &middot; <a href="/ai-nav/travel/">出行导航</a> &middot; <a href="../privacy.html">隐私政策</a> · <a href="../pricing/">套餐定价</a> &middot; <a href="../sitemap.xml">站点地图</a></footer>
 <script>
 (function(){
   if (window.__ux) return; window.__ux = 1;
@@ -345,5 +346,6 @@ article.content p{letter-spacing:.01em}
 </script>
 
 </main>
+<script defer src="../assets/auth.js"></script>
 </body>
 </html>

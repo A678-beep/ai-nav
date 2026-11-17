@@ -235,6 +235,31 @@ footer.site a:hover{color:#fff;border-color:rgba(148,163,184,.4)}
  nav a{font-size:12px;padding:8px 6px}
 }
 </style>
+<link rel="stylesheet" href="../assets/auth-nav.css">
+
+<style>
+/* WB_LEADGEN_WIDE: AI 获客页全宽工作台布局，消除两侧空白 */
+@media (min-width:1180px){
+  .wrap{max-width:none;padding:0 32px 64px}
+  .top-in{max-width:none;padding:0 32px}
+  .hero{padding:20px 0 8px}
+  .workspace{grid-template-columns:minmax(340px,400px) minmax(0,1fr);gap:22px}
+  .workspace>.colL,.workspace>.colR{min-width:0}
+  /* 右栏内部主内容改成两列，信息密度更高、更少上下翻 */
+  .posts-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:16px;align-items:start}
+  .posts-grid>.span2{grid-column:1 / -1}
+  .decomp{grid-template-columns:repeat(2,minmax(0,1fr))}
+}
+@media (min-width:1650px){
+  .wrap{padding:0 48px 72px}
+  .top-in{padding:0 48px}
+  .workspace{grid-template-columns:minmax(380px,440px) minmax(0,1fr);gap:26px}
+  .posts-grid{grid-template-columns:repeat(2,minmax(0,1fr));gap:20px}
+}
+@media (max-width:1179px){
+  .posts-grid{display:block}
+}
+</style>
 </head>
 <body>
 <div class="top"><div class="top-in">
@@ -419,7 +444,7 @@ footer.site a:hover{color:#fff;border-color:rgba(148,163,184,.4)}
 
 <footer class="site">
   © <span id="year">2026</span> 星籁 AI 工具导航 · xinglaiai.com 版权所有 · 未经许可禁止镜像/采集/商业转载<br>
-  <a href="/ai-nav/">AI 导航</a> · <a href="/ai-nav/studio/">短视频工作台</a> · <a href="/ai-nav/leadgen/">AI 获客</a> · <a href="/ai-nav/travel/">出行导航</a> · <a href="/ai-nav/select-ai/">智能选型</a> · <a href="/ai-nav/radar/">工具雷达</a> · <a href="/ai-nav/privacy.html">隐私政策</a> · <a href="/ai-nav/sitemap.xml">站点地图</a>
+  <a href="/ai-nav/">AI 导航</a> · <a href="/ai-nav/studio/">短视频工作台</a> · <a href="/ai-nav/leadgen/">AI 获客</a> · <a href="/ai-nav/travel/">出行导航</a> · <a href="/ai-nav/select-ai/">智能选型</a> · <a href="/ai-nav/radar/">工具雷达</a> · <a href="/ai-nav/pricing/">套餐定价</a> · <a href="/ai-nav/account/dashboard.html">个人中心</a> · <a href="/ai-nav/privacy.html">隐私政策</a> · <a href="/ai-nav/sitemap.xml">站点地图</a>
 </footer>
 
 <div id="toast" role="status" aria-live="polite"></div>
@@ -1618,5 +1643,6 @@ footer.site a:hover{color:#fff;border-color:rgba(148,163,184,.4)}
   if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', init); else init();
 })();
 </script>
+<script defer src="../assets/auth.js"></script>
 </body>
 </html>

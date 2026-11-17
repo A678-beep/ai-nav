@@ -8,13 +8,13 @@
 <meta name="keywords" content="DeepSeek API 价格, DeepSeek 缓存命中, DeepSeek 计费, DeepSeek 缓存命中怎么算, DeepSeek 空闲时段价格">
 <meta name="robots" content="index,follow">
 
-<link rel="canonical" href="https://a678-beep.github.io/ai-nav/a/chat-17-deepseek-api-pricing.html">
+<link rel="canonical" href="https://xinglaiai.com/ai-nav/a/chat-17-deepseek-api-pricing.html">
 <meta property="og:type" content="article">
 <meta property="og:title" content="DeepSeek API 价格与缓存命中实测">
 <meta property="og:description" content="上个月把客服摘要从另一家模型迁到 DeepSeek，月底账单 46 元，比我按字符数拍脑袋估的 120 元低了一半多。不是内部折扣，而是我先花半小时把 2026 年这版 DeepSeek API 价格拆成三行，又把调用挪">
-<meta property="og:url" content="https://a678-beep.github.io/ai-nav/a/chat-17-deepseek-api-pricing.html">
-<script type="application/ld+json">{"@context": "https://schema.org", "@type": "Article", "headline": "DeepSeek API 价格与缓存命中实测", "inLanguage": "zh-CN", "datePublished": "2026-11-17", "author": {"@type": "Organization", "name": "星籁 Stellara"}, "publisher": {"@type": "Organization", "name": "星籁 Stellara"}, "mainEntityOfPage": "https://a678-beep.github.io/ai-nav/a/chat-17-deepseek-api-pricing.html", "articleSection": "对话AI", "wordCount": 846, "dateModified": "2026-11-17", "keywords": "DeepSeek API 价格, DeepSeek 缓存命中, DeepSeek 计费, DeepSeek 缓存命中怎么算, DeepSeek 空闲时段价格"}</script>
-<script type="application/ld+json">{"@context": "https://schema.org", "@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "首页", "item": "https://a678-beep.github.io/ai-nav/"}, {"@type": "ListItem", "position": 2, "name": "对话AI", "item": "https://a678-beep.github.io/ai-nav/#/articles"}, {"@type": "ListItem", "position": 3, "name": "DeepSeek API 价格与缓存命中实测", "item": "https://a678-beep.github.io/ai-nav/a/chat-17-deepseek-api-pricing.html"}]}</script>
+<meta property="og:url" content="https://xinglaiai.com/ai-nav/a/chat-17-deepseek-api-pricing.html">
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "Article", "headline": "DeepSeek API 价格与缓存命中实测", "inLanguage": "zh-CN", "datePublished": "2026-11-17", "author": {"@type": "Organization", "name": "星籁 Stellara"}, "publisher": {"@type": "Organization", "name": "星籁 Stellara"}, "mainEntityOfPage": "https://xinglaiai.com/ai-nav/a/chat-17-deepseek-api-pricing.html", "articleSection": "对话AI", "wordCount": 846, "dateModified": "2026-11-17", "keywords": "DeepSeek API 价格, DeepSeek 缓存命中, DeepSeek 计费, DeepSeek 缓存命中怎么算, DeepSeek 空闲时段价格"}</script>
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "首页", "item": "https://xinglaiai.com/ai-nav/"}, {"@type": "ListItem", "position": 2, "name": "对话AI", "item": "https://xinglaiai.com/ai-nav/#/articles"}, {"@type": "ListItem", "position": 3, "name": "DeepSeek API 价格与缓存命中实测", "item": "https://xinglaiai.com/ai-nav/a/chat-17-deepseek-api-pricing.html"}]}</script>
 <style>
 :root{--bg:#080b12;--panel:#111827;--line:#1f2937;--txt:#e6edf7;--txt2:#9aa8bd;--txt3:#6b7a90;--cyan:#5ad1ff;--violet:#a78bfa}
 *{box-sizing:border-box}body{margin:0;background:radial-gradient(900px 500px at 82% -8%,rgba(90,209,255,.16),transparent 60%),var(--bg);color:var(--txt);font-family:"Microsoft YaHei","PingFang SC",system-ui,sans-serif;line-height:1.8}
@@ -281,6 +281,7 @@ article.content p{letter-spacing:.01em}
   .hero .lead{padding:0 12px}
 }
 </style>
+<link rel="stylesheet" href="../assets/auth-nav.css">
 </head>
 <body>
 <header class="top"><div class="top-in">
@@ -304,7 +305,7 @@ article.content p{letter-spacing:.01em}
 <p>现在我估算 DeepSeek API 价格只用一条公式：输入命中量×0.02 加输入未命中量×1 加输出量×4，flash 按 DeepSeek 空闲时段价格直接套，高峰翻倍。对账时打开 usage 字段，把命中、未命中、输出分开看，再核对搜索和解析的附加费用。DeepSeek 缓存命中怎么算，就是这两组 token 分开乘单价，别用一个平均价糊过去。先把前缀缓存做对，再排空闲时段，最后才考虑换模型；命中率归零那次让我交了 50 倍学费。</p></article>
   <div class="sec tcards-sec"><h2>文中提到的工具</h2><div class="tcards"><div class="tcard"><div class="tc-top"><a href="../tool/deepseek/"><b>DeepSeek</b></a><a class="tc-go" href="https://chat.deepseek.com" target="_blank" rel="noopener nofollow">官网 →</a></div><p class="tc-d">开源权重可本地部署，推理与中文表达均衡</p><p class="tc-lim">免费额度：网页版和 App 免费使用；API 按 token 计费，价…</p></div></div><p class="tnote">点工具名看详情（适用场景 / 免费额度 / 替代方案），需要直接用点「官网 →」。</p></div>
   <section class="related"><h2>同类教程</h2><ul><li><a href="chat-18-llm-context-length-compare.html">大模型 上下文 长度 对比：5 家实测选型</a></li><li><a href="chat-19-prompt-injection-defense.html">提示词 注入 防御：外部内容的三层隔离</a></li><li><a href="chat-20-ai-chat-export-records.html">AI 对话 导出 聊天记录：三种格式与检索</a></li><li><a href="chat-21-ai-context-lost.html">AI 对话 上下文 丢失：分段摘要与粘贴法</a></li><li><a href="chat-22-claude-project-file-limit.html">Claude 项目 文件 上限：30MB 分卷</a></li></ul><p class="tool-link"><a href="../index.html">查看 对话AI 工具与其它教程 →</a> <a href="../t/errors/">AI 报错解决 →</a> <a href="../t/pricing/">AI 工具价格 →</a></p></section>
-  <footer>© 2026 星籁 AI 工具导航 · xinglaiai.com 版权所有 · 未经许可禁止镜像/采集/商业转载 · <a href="/ai-nav/radar/">工具雷达</a> &middot; <a href="/ai-nav/select-ai/">智能选型</a> &middot; <a href="/ai-nav/studio/">AI 创作工坊</a> &middot; <a href="/ai-nav/leadgen/">AI 获客</a> &middot; <a href="/ai-nav/travel/">出行导航</a> &middot; <a href="../privacy.html">隐私政策</a> · <a href="../sitemap.xml">站点地图</a></footer>
+  <footer>© 2026 星籁 AI 工具导航 · xinglaiai.com 版权所有 · 未经许可禁止镜像/采集/商业转载 · <a href="/ai-nav/radar/">工具雷达</a> &middot; <a href="/ai-nav/select-ai/">智能选型</a> &middot; <a href="/ai-nav/studio/">AI 创作工坊</a> &middot; <a href="/ai-nav/leadgen/">AI 获客</a> &middot; <a href="/ai-nav/travel/">出行导航</a> &middot; <a href="../privacy.html">隐私政策</a> · <a href="../pricing/">套餐定价</a> &middot; <a href="../sitemap.xml">站点地图</a></footer>
 <script>
 (function(){
   if (window.__ux) return; window.__ux = 1;
@@ -345,5 +346,6 @@ article.content p{letter-spacing:.01em}
 </script>
 
 </main>
+<script defer src="../assets/auth.js"></script>
 </body>
 </html>

@@ -8,13 +8,13 @@
 <meta name="keywords" content="代码 搜索 工具 对比, ripgrep, 语义搜索, VS Code 搜索, ast-grep, 多仓库 代码 搜索 方案, grep 搜索 大仓库 太慢">
 <meta name="robots" content="index,follow">
 
-<link rel="canonical" href="https://a678-beep.github.io/ai-nav/a/code-26-code-search-tools.html">
+<link rel="canonical" href="https://xinglaiai.com/ai-nav/a/code-26-code-search-tools.html">
 <meta property="og:type" content="article">
 <meta property="og:title" content="代码 搜索 工具 对比：grep 到语义检索">
 <meta property="og:description" content="上月排查一个重复扣款的线上问题，grep -r 在 40 个微服务、约 800 万行代码里扫了 47 秒，还把 node_modules 里的误命中翻出一堆。换 ripgrep 后 1.6 秒出结果；再后来试语义检索，一">
-<meta property="og:url" content="https://a678-beep.github.io/ai-nav/a/code-26-code-search-tools.html">
-<script type="application/ld+json">{"@context": "https://schema.org", "@type": "Article", "headline": "代码 搜索 工具 对比：grep 到语义检索", "inLanguage": "zh-CN", "datePublished": "2026-11-17", "author": {"@type": "Organization", "name": "星籁 Stellara"}, "publisher": {"@type": "Organization", "name": "星籁 Stellara"}, "mainEntityOfPage": "https://a678-beep.github.io/ai-nav/a/code-26-code-search-tools.html", "articleSection": "编程助手", "wordCount": 785, "dateModified": "2026-11-17", "keywords": "代码 搜索 工具 对比, ripgrep, 语义搜索, VS Code 搜索, ast-grep, 多仓库 代码 搜索 方案, grep 搜索 大仓库 太慢"}</script>
-<script type="application/ld+json">{"@context": "https://schema.org", "@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "首页", "item": "https://a678-beep.github.io/ai-nav/"}, {"@type": "ListItem", "position": 2, "name": "编程助手", "item": "https://a678-beep.github.io/ai-nav/#/articles"}, {"@type": "ListItem", "position": 3, "name": "代码 搜索 工具 对比：grep 到语义检索", "item": "https://a678-beep.github.io/ai-nav/a/code-26-code-search-tools.html"}]}</script>
+<meta property="og:url" content="https://xinglaiai.com/ai-nav/a/code-26-code-search-tools.html">
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "Article", "headline": "代码 搜索 工具 对比：grep 到语义检索", "inLanguage": "zh-CN", "datePublished": "2026-11-17", "author": {"@type": "Organization", "name": "星籁 Stellara"}, "publisher": {"@type": "Organization", "name": "星籁 Stellara"}, "mainEntityOfPage": "https://xinglaiai.com/ai-nav/a/code-26-code-search-tools.html", "articleSection": "编程助手", "wordCount": 785, "dateModified": "2026-11-17", "keywords": "代码 搜索 工具 对比, ripgrep, 语义搜索, VS Code 搜索, ast-grep, 多仓库 代码 搜索 方案, grep 搜索 大仓库 太慢"}</script>
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "首页", "item": "https://xinglaiai.com/ai-nav/"}, {"@type": "ListItem", "position": 2, "name": "编程助手", "item": "https://xinglaiai.com/ai-nav/#/articles"}, {"@type": "ListItem", "position": 3, "name": "代码 搜索 工具 对比：grep 到语义检索", "item": "https://xinglaiai.com/ai-nav/a/code-26-code-search-tools.html"}]}</script>
 <style>
 :root{--bg:#080b12;--panel:#111827;--line:#1f2937;--txt:#e6edf7;--txt2:#9aa8bd;--txt3:#6b7a90;--cyan:#5ad1ff;--violet:#a78bfa}
 *{box-sizing:border-box}body{margin:0;background:radial-gradient(900px 500px at 82% -8%,rgba(90,209,255,.16),transparent 60%),var(--bg);color:var(--txt);font-family:"Microsoft YaHei","PingFang SC",system-ui,sans-serif;line-height:1.8}
@@ -281,6 +281,7 @@ article.content p{letter-spacing:.01em}
   .hero .lead{padding:0 12px}
 }
 </style>
+<link rel="stylesheet" href="../assets/auth-nav.css">
 </head>
 <body>
 <header class="top"><div class="top-in">
@@ -304,7 +305,7 @@ article.content p{letter-spacing:.01em}
 <p>代码 搜索 工具 对比 的结论很简单：知道名字用 rg，不知道名字用语义索引，改结构用 ast-grep，跨仓库靠统一目录和 .rgignore 收敛范围。多仓库 代码 搜索 方案 里最容易被忽略的是索引权限和分支覆盖，先确认这两点，再谈工具好坏。</p></article>
   <div class="sec tcards-sec"><h2>文中提到的工具</h2><div class="tcards"><div class="tcard"><div class="tc-top"><a href="../tool/cursor/"><b>Cursor</b></a><a class="tc-go" href="https://cursor.com" target="_blank" rel="noopener nofollow">官网 →</a></div><p class="tc-d">AI 原生编辑器，Tab 补全 + 多文件改写</p><p class="tc-lim">免费额度：免费版功能受限；Cursor Pro 20 美元/月，团队版…</p></div></div><p class="tnote">点工具名看详情（适用场景 / 免费额度 / 替代方案），需要直接用点「官网 →」。</p></div>
   <section class="related"><h2>同类教程</h2><ul><li><a href="code-27-api-mock-tools.html">接口 Mock 工具 选型：3 款实测对比</a></li><li><a href="code-28-code-security-audit.html">代码 安全 审计：用 AI 扫 4 类漏洞</a></li><li><a href="code-29-code-migration-language.html">代码 迁移 语言：Java 转 Go 四步法</a></li><li><a href="code-30-ai-regex-test.html">AI 生成 正则 测试：边界用例先跑一遍</a></li><li><a href="code-31-code-review-checklist.html">代码 评审 清单：分级检查项与执行流程</a></li></ul><p class="tool-link"><a href="../index.html">查看 编程助手 工具与其它教程 →</a> <a href="../t/errors/">AI 报错解决 →</a> <a href="../t/params/">参数与配置 →</a></p></section>
-  <footer>© 2026 星籁 AI 工具导航 · xinglaiai.com 版权所有 · 未经许可禁止镜像/采集/商业转载 · <a href="/ai-nav/radar/">工具雷达</a> &middot; <a href="/ai-nav/select-ai/">智能选型</a> &middot; <a href="/ai-nav/studio/">AI 创作工坊</a> &middot; <a href="/ai-nav/leadgen/">AI 获客</a> &middot; <a href="/ai-nav/travel/">出行导航</a> &middot; <a href="../privacy.html">隐私政策</a> · <a href="../sitemap.xml">站点地图</a></footer>
+  <footer>© 2026 星籁 AI 工具导航 · xinglaiai.com 版权所有 · 未经许可禁止镜像/采集/商业转载 · <a href="/ai-nav/radar/">工具雷达</a> &middot; <a href="/ai-nav/select-ai/">智能选型</a> &middot; <a href="/ai-nav/studio/">AI 创作工坊</a> &middot; <a href="/ai-nav/leadgen/">AI 获客</a> &middot; <a href="/ai-nav/travel/">出行导航</a> &middot; <a href="../privacy.html">隐私政策</a> · <a href="../pricing/">套餐定价</a> &middot; <a href="../sitemap.xml">站点地图</a></footer>
 <script>
 (function(){
   if (window.__ux) return; window.__ux = 1;
@@ -345,5 +346,6 @@ article.content p{letter-spacing:.01em}
 </script>
 
 </main>
+<script defer src="../assets/auth.js"></script>
 </body>
 </html>

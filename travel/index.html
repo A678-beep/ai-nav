@@ -56,7 +56,8 @@ textarea{min-height:88px;resize:vertical}
 footer{border-top:1px solid var(--line);margin-top:44px;padding:24px 22px;text-align:center;color:var(--txt3);font-size:12.5px}
 .hint{font-size:12.5px;color:var(--txt3);margin-top:8px}
 @media(max-width:760px){.wrap{padding:0 16px 54px}.top-in{padding:0 14px}nav a{font-size:12.5px;padding:6px 8px}h1{font-size:25px}.grid2{grid-template-columns:1fr}}
-</style></head><body>
+</style><link rel="stylesheet" href="../assets/auth-nav.css">
+</head><body>
 <div class="top"><div class="top-in"><a class="brand" href="/ai-nav/"><span class="logo">✦</span>星籁 AI 导航</a>
 <nav><a href="/ai-nav/">AI 导航</a><a href="/ai-nav/studio/">AI 创作工坊</a><a href="/ai-nav/leadgen/">AI 获客</a><a href="/ai-nav/travel/">出行导航</a><a href="/ai-nav/select-ai/">智能选型</a><a href="/ai-nav/radar/">工具雷达</a></nav></div></div>
 <div class="wrap">
@@ -84,7 +85,7 @@ footer{border-top:1px solid var(--line);margin-top:44px;padding:24px 22px;text-a
 </div>
 <div class="out" id="out"></div>
 </div>
-<footer>© 2026 星籁 AI 工具导航 · xinglaiai.com 版权所有 · 未经许可禁止镜像/采集/商业转载</footer>
+<footer><a href="../pricing/" style="color:#7dd3fc">套餐定价</a> · © 2026 星籁 AI 工具导航 · xinglaiai.com 版权所有 · 未经许可禁止镜像/采集/商业转载</footer>
 <script>
 var mode='fast',busy=false,lastData=null;
 document.getElementById('modes').addEventListener('click',function(e){if(e.target.tagName!=='BUTTON')return;mode=e.target.dataset.m;[].forEach.call(this.children,function(b){b.className=b===e.target?'on':''});});
@@ -138,4 +139,5 @@ function reorderAndPlan(){
 }
 document.getElementById('go').onclick=function(){plan(true);};
 </script>
+<script defer src="../assets/auth.js"></script>
 </body></html>
