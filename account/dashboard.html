@@ -69,6 +69,78 @@ table.data td .oid{font-size:11.5px;color:var(--txt2);font-family:ui-monospace,C
   .plan-meta{display:grid;grid-template-columns:1fr 1fr;gap:12px}
   .side-col .card{padding:16px}
 }
+
+/* ---------- 我的承接页 ---------- */
+#storeCard{scroll-margin-top:84px;margin-top:18px;position:relative;overflow:hidden}
+#storeCard::before{content:"";position:absolute;right:-70px;top:-90px;width:240px;height:240px;border-radius:50%;
+  background:radial-gradient(circle,rgba(52,211,153,.12),transparent 68%);pointer-events:none}
+.store-head{display:flex;align-items:flex-start;justify-content:space-between;gap:16px;flex-wrap:wrap}
+.store-head h2{margin:0;font-size:19px}
+.store-head .tiny{margin:5px 0 0;max-width:680px}
+.store-head-actions{display:flex;align-items:center;gap:8px;flex-wrap:wrap}
+.store-grid{display:grid;grid-template-columns:minmax(0,1.55fr) minmax(270px,.8fr);gap:26px;margin-top:19px;align-items:start}
+.store-fields{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:0 13px}
+.store-fields .field-wide{grid-column:1/-1}
+.store-subhead{display:flex;align-items:center;gap:9px;margin:19px 0 9px;flex-wrap:wrap;min-height:36px}
+.store-subhead b{font-size:13.5px;letter-spacing:.2px}
+.store-subhead span{font-size:11.5px;color:var(--txt3)}
+.store-subhead .mini{margin-left:auto}
+.mini{min-height:36px;padding:0 12px;border-radius:9px;border:1px solid rgba(56,189,248,.38);
+  background:rgba(56,189,248,.08);color:#bae6fd;font-size:12px;font-weight:700;cursor:pointer}
+.mini:hover{background:rgba(56,189,248,.15)}
+.svc-edit{display:grid;grid-template-columns:minmax(0,1.3fr) minmax(0,.7fr) 42px;gap:8px;margin-bottom:8px;align-items:center}
+.svc-edit .svc-desc{grid-column:1/-1}
+.svc-edit .input{min-height:44px;font-size:13px}
+.svc-del{width:42px;height:44px;border-radius:10px;border:1px solid rgba(248,113,113,.32);
+  background:rgba(248,113,113,.07);color:#fca5a5;font-size:18px;line-height:1;cursor:pointer}
+.svc-del:hover{background:rgba(248,113,113,.14)}
+.store-actions{display:flex;align-items:center;gap:10px;margin-top:18px;flex-wrap:wrap}
+.store-actions .tiny{margin-left:auto;text-align:right}
+.slug-row{display:flex;align-items:center;gap:0;min-width:0;border:1px solid var(--line2);border-radius:11px;background:rgba(6,10,17,.72);overflow:hidden}
+.slug-row .slug-pre{flex:0 0 auto;padding:0 10px;font-size:12px;color:var(--txt3);font-family:ui-monospace,Consolas,monospace;
+  border-right:1px solid var(--line);line-height:46px;white-space:nowrap}
+.slug-row .input{border:0;border-radius:0;background:transparent;min-height:46px;font-family:ui-monospace,Consolas,monospace;font-size:13px}
+.slug-row .input:focus{box-shadow:none}
+.store-side{display:grid;gap:12px;min-width:0}
+.store-linkbox{padding:14px;border:1px dashed var(--line2);border-radius:13px;background:rgba(255,255,255,.02);min-width:0}
+.store-linkbox .lbl{font-size:11.5px;color:var(--txt3);margin-bottom:5px}
+.store-linkbox a{display:block;color:var(--cyan);font-size:12.5px;line-height:1.6;word-break:break-all;overflow-wrap:anywhere}
+.store-linkbox a:hover{text-decoration:underline}
+.store-linkbox .store-intro-preview{margin:9px 0 0;color:var(--txt2);font-size:12px;line-height:1.65}
+.qr-box{padding:14px;border:1px dashed var(--line2);border-radius:13px;text-align:center;background:rgba(255,255,255,.02)}
+.qr-box img{width:176px;height:176px;max-width:100%;margin:0 auto 8px;border-radius:9px;background:#fff;padding:7px;display:block}
+.qr-box .tiny{margin:0}
+.store-leads{padding:14px;border:1px solid var(--line);border-radius:13px;background:rgba(6,10,17,.3);min-width:0}
+.store-leads .store-subhead{margin-top:0;margin-bottom:10px;min-height:0}
+.store-leads .store-subhead a{margin-left:auto;font-size:11.5px;color:var(--cyan);white-space:nowrap}
+#storeLeads{max-height:280px;overflow:auto;display:grid;gap:8px;min-width:0}
+.store-lead{padding:9px 10px;border:1px solid rgba(148,163,184,.14);border-radius:9px;background:rgba(255,255,255,.025);min-width:0}
+.store-lead .sl-top{display:flex;align-items:center;gap:7px;justify-content:space-between}
+.store-lead .sl-top b{font-size:12.5px;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.store-lead .sl-phone{font-size:12px;color:var(--txt2);margin-top:2px;word-break:break-all}
+.store-lead .sl-need{font-size:11.5px;color:var(--txt3);margin-top:2px;line-height:1.55;word-break:break-word}
+.store-lead .sl-time{font-size:10.5px;color:var(--txt3);margin-top:3px}
+.store-empty{font-size:12px;color:var(--txt3);line-height:1.7;padding:5px 2px}
+#storeQrFallback{font-size:12px;color:var(--amber);line-height:1.6}
+@media(max-width:980px){
+  .store-grid{grid-template-columns:minmax(0,1fr);gap:18px}
+  .store-side{grid-template-columns:minmax(0,1fr) minmax(0,1fr);align-items:start}
+  .store-leads{grid-column:1/-1}
+}
+@media(max-width:600px){
+  .store-head{flex-direction:column;gap:11px}
+  .store-head-actions{width:100%}
+  .store-head-actions .btn{flex:1;min-height:44px}
+  .store-fields{grid-template-columns:1fr}
+  .store-fields .field-wide{grid-column:auto}
+  .store-side{grid-template-columns:1fr}
+  .svc-edit{grid-template-columns:minmax(0,1fr) minmax(0,.8fr) 44px}
+  .store-actions .btn{flex:1}
+  .store-actions .tiny{flex:1 0 100%;text-align:left;margin-left:0}
+  #storeCard{padding:17px}
+  .slug-row .slug-pre{font-size:10.5px;padding:0 7px;line-height:44px}
+  .slug-row .input{font-size:12px}
+}
 </style>
 </head>
 <body>
@@ -79,6 +151,7 @@ table.data td .oid{font-size:11.5px;color:var(--txt2);font-family:ui-monospace,C
       <a href="../index.html">AI 导航</a>
       <a href="../studio/">AI 创作工坊</a>
       <a href="../leadgen/">AI 获客</a>
+      <a href="#storeCard">我的承接页</a>
       <a href="../pricing/index.html">套餐定价</a>
       <a class="on" href="./dashboard.html">个人中心</a>
     </nav>
@@ -113,6 +186,76 @@ table.data td .oid{font-size:11.5px;color:var(--txt2);font-family:ui-monospace,C
       <div>工作区<b id="planWs">—</b></div>
     </div>
     <div class="cta"><a class="btn btn-sm" href="../pricing/index.html">查看套餐对比 →</a></div>
+  </section>
+
+  <section class="card" id="storeCard" aria-labelledby="storeTitle">
+    <div class="store-head">
+      <div>
+        <div class="sec-title" style="margin:0 0 4px"><h2 id="storeTitle">我的承接页</h2><span class="badge" id="storeState">未创建</span></div>
+        <p class="tiny">生成一个公开商家主页：服务价格、电话、地址、优惠一张页面全展示。顾客扫码或点链接即可拨号、导航、留电话，线索自动进入 <a href="../leadgen/" style="color:var(--cyan)">AI 获客</a>。</p>
+      </div>
+      <div class="store-head-actions">
+        <a class="btn btn-sm" id="storeOpen" href="#" target="_blank" rel="noopener" hidden>预览公开页</a>
+        <button class="btn btn-sm" id="storeCopy" type="button" hidden>复制链接</button>
+        <button class="btn btn-sm" id="storeQrToggle" type="button" hidden>二维码</button>
+      </div>
+    </div>
+
+    <div class="store-grid">
+      <form id="storeForm" novalidate>
+        <div class="err" id="storeErr"></div>
+        <div class="okmsg" id="storeOk"></div>
+
+        <div class="store-fields">
+          <div class="field"><label for="stName">商家名称 <i>*</i></label><input class="input" id="stName" maxlength="60" placeholder="例如：洁净家政（通州店）" autocomplete="organization"></div>
+          <div class="field"><label for="stIndustry">行业</label><input class="input" id="stIndustry" maxlength="30" list="storeIndustryList" placeholder="例如：家政"></div>
+          <div class="field"><label for="stCity">城市 / 区</label><input class="input" id="stCity" maxlength="30" placeholder="例如：北京通州"></div>
+          <div class="field"><label for="stPhone">联系电话 <i>*</i></label><input class="input" id="stPhone" maxlength="30" inputmode="tel" placeholder="手机号或座机"></div>
+          <div class="field"><label for="stWechat">微信号（选填）</label><input class="input" id="stWechat" maxlength="40" placeholder="顾客点击「加微信」时展示"></div>
+          <div class="field"><label for="stHours">营业时间</label><input class="input" id="stHours" maxlength="60" placeholder="例如：09:00-21:00 周一至周日"></div>
+          <div class="field field-wide"><label for="stAddress">门店地址</label><input class="input" id="stAddress" maxlength="120" placeholder="例如：北京市通州区梨园镇云景东路 88 号"></div>
+          <div class="field field-wide"><label for="stPromotions">优惠活动（选填）</label><textarea class="input" id="stPromotions" rows="2" maxlength="300" placeholder="例如：新客首单立减 30 元；到店出示本页送一次玻璃清洁"></textarea></div>
+        </div>
+
+        <div class="store-subhead"><b>服务与价格</b><span>展示在公开页，最多 20 项</span><button class="mini" id="stAddSvc" type="button">+ 添加服务</button></div>
+        <div id="stServices"></div>
+
+        <div class="store-subhead"><b>门店照片</b><span>每行一个图片链接，最多 12 张</span></div>
+        <textarea class="input" id="stPhotos" rows="3" placeholder="https://xinglaiai.com/ai-nav/studio/files/xxx.jpg
+（建议 4:3 横图；没有可留空）"></textarea>
+
+        <div class="store-subhead"><b>页面短链（选填）</b><span>小写字母 / 数字 / -，3-40 位</span></div>
+        <div class="slug-row"><span class="slug-pre">/ai-nav/store/?slug=</span><input class="input" id="stSlug" maxlength="40" placeholder="留空自动生成，例如 jingjie-tongzhou"></div>
+
+        <div class="store-actions">
+          <button class="btn btn-primary" id="stSave" type="submit">保存并上线</button>
+          <button class="btn" id="stReload" type="button">重新读取</button>
+          <span class="tiny" id="stUpdated"></span>
+        </div>
+      </form>
+
+      <aside class="store-side">
+        <div class="store-linkbox">
+          <div class="lbl">公开页链接（可直接发抖音/美团/朋友圈）</div>
+          <a id="storeUrl" href="#" target="_blank" rel="noopener">保存后自动生成</a>
+          <p class="tiny store-intro-preview" id="storeIntroPreview" hidden></p>
+        </div>
+
+        <div class="qr-box" id="qrBox" hidden>
+          <img id="storeQr" alt="商家承接页二维码" width="176" height="176">
+          <p class="tiny" id="storeQrTip">扫码打开承接页；长按可保存图片</p>
+          <p class="tiny" id="storeQrFallback" hidden></p>
+        </div>
+
+        <div class="store-leads">
+          <div class="store-subhead"><b>最近留资</b><a href="../leadgen/">全部线索 →</a></div>
+          <div id="storeLeads" class="store-empty">加载中…</div>
+        </div>
+      </aside>
+    </div>
+    <datalist id="storeIndustryList">
+      <option>家政</option><option>保洁</option><option>维修</option><option>餐饮</option><option>美业</option><option>美发</option><option>汽修</option><option>教培</option><option>摄影</option><option>搬家</option><option>装修</option><option>本地生活</option><option>零售</option><option>其他</option>
+    </datalist>
   </section>
 
   <div class="dash-grid">
@@ -521,6 +664,282 @@ table.data td .oid{font-size:11.5px;color:var(--txt2);font-family:ui-monospace,C
         pwErr('修改失败：' + errText(e));
       });
   });
+
+  /* ---------- 我的承接页 ---------- */
+  var STORE = { profile: null, base: String(XLAuth.apiBase || '').replace(/\/+$/, '') };
+
+  function storeErr(msg) {
+    var el = $('#storeErr');
+    el.textContent = msg || '';
+    el.classList.toggle('on', !!msg);
+  }
+  function storeOk(msg) {
+    var el = $('#storeOk');
+    el.textContent = msg || '';
+    el.classList.toggle('on', !!msg);
+  }
+  function storePublicUrl(slug) {
+    return XLAuth.rootUrl('store/') + '?slug=' + encodeURIComponent(slug || '');
+  }
+  function addSvcRow(svc) {
+    svc = svc || {};
+    var row = document.createElement('div');
+    row.className = 'svc-edit';
+    var name = document.createElement('input');
+    name.className = 'input svc-name';
+    name.maxLength = 40;
+    name.placeholder = '服务名称，如 日常保洁';
+    name.value = svc.name || '';
+    var price = document.createElement('input');
+    price.className = 'input svc-price';
+    price.maxLength = 30;
+    price.placeholder = '价格，如 60元/小时';
+    price.value = svc.price || '';
+    var del = document.createElement('button');
+    del.className = 'svc-del';
+    del.type = 'button';
+    del.setAttribute('aria-label', '删除这项服务');
+    del.textContent = '×';
+    var desc = document.createElement('input');
+    desc.className = 'input svc-desc';
+    desc.maxLength = 160;
+    desc.placeholder = '服务说明（选填），如 2 小时起订、含基础清洁剂';
+    desc.value = svc.desc || '';
+    row.appendChild(name);
+    row.appendChild(price);
+    row.appendChild(del);
+    row.appendChild(desc);
+    $('#stServices').appendChild(row);
+  }
+  function resetStoreLink() {
+    $('#storeUrl').textContent = '保存后自动生成';
+    $('#storeUrl').removeAttribute('href');
+    $('#storeOpen').hidden = true;
+    $('#storeCopy').hidden = true;
+    $('#storeQrToggle').hidden = true;
+    $('#qrBox').hidden = true;
+    $('#storeQrToggle').textContent = '二维码';
+    $('#storeIntroPreview').hidden = true;
+    $('#storeIntroPreview').textContent = '';
+    $('#storeState').className = 'badge';
+    $('#storeState').textContent = '未创建';
+  }
+  function paintStoreProfile(p) {
+    STORE.profile = p || null;
+    if (!p || !p.slug) { resetStoreLink(); return; }
+    var url = storePublicUrl(p.slug);
+    $('#stSlug').value = p.slug;
+    $('#storeUrl').textContent = url;
+    $('#storeUrl').href = url;
+    $('#storeOpen').href = url;
+    $('#storeOpen').hidden = false;
+    $('#storeCopy').hidden = false;
+    $('#storeQrToggle').hidden = false;
+    $('#storeState').className = 'badge lime';
+    $('#storeState').textContent = '已上线';
+    if (p.intro) {
+      $('#storeIntroPreview').textContent = '页面一句话介绍：' + p.intro;
+      $('#storeIntroPreview').hidden = false;
+    }
+    if (p.updated_at) $('#stUpdated').textContent = '上次保存：' + XLAuth.fmtDateTime(p.updated_at);
+  }
+  function fillStoreForm(p) {
+    p = p || {};
+    $('#stName').value = p.name || '';
+    $('#stIndustry').value = p.industry || '';
+    $('#stCity').value = p.city || '';
+    $('#stPhone').value = p.phone || '';
+    $('#stWechat').value = p.wechat || '';
+    $('#stHours').value = p.hours || '';
+    $('#stAddress').value = p.address || '';
+    $('#stPromotions').value = p.promotions || '';
+    $('#stPhotos').value = (p.photos || []).join('\n');
+    $('#stServices').innerHTML = '';
+    var list = p.services || [];
+    if (list.length) list.forEach(addSvcRow);
+    else { addSvcRow(); addSvcRow(); addSvcRow(); }
+  }
+  function collectStoreServices() {
+    var out = [];
+    var rows = document.querySelectorAll('#stServices .svc-edit');
+    for (var i = 0; i < rows.length; i++) {
+      var n = rows[i].querySelector('.svc-name').value.trim();
+      if (!n) continue;
+      out.push({
+        name: n,
+        price: rows[i].querySelector('.svc-price').value.trim(),
+        desc: rows[i].querySelector('.svc-desc').value.trim()
+      });
+    }
+    return out;
+  }
+  function loadStoreLeads() {
+    var box = $('#storeLeads');
+    box.textContent = '加载中…';
+    XLAuth.api('/leadgen/leads?limit=50', { timeout: 15000 }).then(function (d) {
+      var list = (d.leads || []).filter(function (l) {
+        return l.source === 'store_page' || l.platform === '商家承接页';
+      }).slice(0, 6);
+      if (!list.length) {
+        box.innerHTML = '<div class="store-empty">还没有承接页留资。把公开页链接发到抖音、美团或朋友圈，顾客提交电话后会出现在这里。</div>';
+        return;
+      }
+      box.innerHTML = list.map(function (l) {
+        var phone = String(l.phone || l.contact_hint || '').replace(/[^\d+\-]/g, '');
+        var name = esc(l.nickname || '顾客');
+        var need = l.need ? '<div class="sl-need">需求：' + esc(l.need) + '</div>' : '';
+        var tel = phone ? '<div class="sl-phone">📞 <a href="tel:' + esc(phone) + '" style="color:var(--txt2)">' + esc(phone) + '</a></div>' : '';
+        return '<div class="store-lead">' +
+          '<div class="sl-top"><b>' + name + '</b><span class="badge lime">高意向</span></div>' +
+          tel + need +
+          '<div class="sl-time">' + esc(XLAuth.fmtDateTime(l.time || l.created_at || l.published_at)) + ' · 商家承接页</div>' +
+        '</div>';
+      }).join('');
+    }).catch(function (e) {
+      if (handleAuthErr(e)) return;
+      box.innerHTML = '<div class="store-empty">留资读取失败：' + esc(errText(e)) + '</div>';
+    });
+  }
+  function loadStore() {
+    storeErr('');
+    storeOk('');
+    $('#storeState').className = 'badge';
+    $('#storeState').textContent = '加载中…';
+    XLAuth.api('/store/profile', { timeout: 15000 }).then(function (d) {
+      if (d && d.exists && d.profile) {
+        fillStoreForm(d.profile);
+        paintStoreProfile(d.profile);
+      } else {
+        var def = (d && d.defaults) || {};
+        fillStoreForm({ name: def.name || '', industry: def.industry || '', city: def.city || '', phone: def.phone || '' });
+        resetStoreLink();
+        $('#stUpdated').textContent = '保存后立即生成公开页和二维码';
+      }
+      loadStoreLeads();
+    }).catch(function (e) {
+      if (handleAuthErr(e)) return;
+      $('#storeState').textContent = '加载失败';
+      storeErr('承接页配置读取失败：' + errText(e));
+    });
+  }
+  function copyStoreText(text) {
+    if (navigator.clipboard && window.isSecureContext) {
+      navigator.clipboard.writeText(text).then(function () { XLAuth.toast('链接已复制，去抖音/朋友圈粘贴', 'good'); })
+        .catch(function () { fallbackStoreCopy(text); });
+    } else fallbackStoreCopy(text);
+  }
+  function fallbackStoreCopy(text) {
+    var ta = document.createElement('textarea');
+    ta.value = text;
+    ta.style.position = 'fixed';
+    ta.style.left = '-9999px';
+    document.body.appendChild(ta);
+    ta.select();
+    try { document.execCommand('copy'); XLAuth.toast('链接已复制', 'good'); }
+    catch (e) { XLAuth.toast('复制失败，请长按链接手动复制', 'warn'); }
+    ta.remove();
+  }
+  function showStoreQr() {
+    if (!STORE.profile || !STORE.profile.slug) { XLAuth.toast('请先保存上线', 'warn'); return; }
+    if (!$('#qrBox').hidden) {
+      $('#qrBox').hidden = true;
+      $('#storeQrToggle').textContent = '二维码';
+      return;
+    }
+    var img = $('#storeQr');
+    var fb = $('#storeQrFallback');
+    var tip = $('#storeQrTip');
+    fb.hidden = true; fb.textContent = '';
+    tip.hidden = false;
+    img.hidden = false;
+    img.onload = function () { fb.hidden = true; tip.hidden = false; };
+    img.onerror = function () {
+      img.hidden = true;
+      tip.hidden = true;
+      fb.hidden = false;
+      fb.textContent = '二维码暂不可用，请复制上方链接使用。';
+    };
+    img.src = STORE.base + '/store/' + encodeURIComponent(STORE.profile.slug) + '/qr?v=' + Date.now();
+    $('#qrBox').hidden = false;
+    $('#storeQrToggle').textContent = '隐藏二维码';
+  }
+
+  $('#stAddSvc').addEventListener('click', function () {
+    if (document.querySelectorAll('#stServices .svc-edit').length >= 20) {
+      XLAuth.toast('最多 20 项服务', 'warn'); return;
+    }
+    addSvcRow();
+  });
+  $('#stServices').addEventListener('click', function (e) {
+    var btn = e.target.closest ? e.target.closest('.svc-del') : null;
+    if (!btn) return;
+    btn.parentNode.remove();
+  });
+  $('#stReload').addEventListener('click', loadStore);
+  $('#storeCopy').addEventListener('click', function () {
+    if (!STORE.profile || !STORE.profile.slug) { XLAuth.toast('请先保存上线', 'warn'); return; }
+    copyStoreText(storePublicUrl(STORE.profile.slug));
+  });
+  $('#storeQrToggle').addEventListener('click', showStoreQr);
+
+  $('#storeForm').addEventListener('submit', function (ev) {
+    ev.preventDefault();
+    storeErr(''); storeOk('');
+    var name = $('#stName').value.trim();
+    var phone = $('#stPhone').value.trim();
+    if (!name) return storeErr('请填写商家名称');
+    if (!phone) return storeErr('请填写联系电话');
+    var services = collectStoreServices();
+    if (!services.length) return storeErr('至少填写一项服务（名称必填）');
+    var photos = $('#stPhotos').value.split(/[\n,]+/).map(function (x) { return x.trim(); }).filter(Boolean);
+    if (photos.length > 12) return storeErr('照片最多 12 张');
+    for (var i = 0; i < photos.length; i++) {
+      if (!/^https?:\/\//i.test(photos[i]) && photos[i].indexOf('/ai-nav/') !== 0) {
+        return storeErr('第 ' + (i + 1) + ' 张照片链接无效，请填写 http(s) 开头的图片地址');
+      }
+    }
+    var slug = $('#stSlug').value.trim().toLowerCase();
+    if (slug && !/^[a-z0-9][a-z0-9-]{2,39}$/.test(slug)) return storeErr('页面短链只能用小写字母、数字和 -，3-40 位');
+    var body = {
+      name: name,
+      industry: $('#stIndustry').value.trim(),
+      city: $('#stCity').value.trim(),
+      address: $('#stAddress').value.trim(),
+      phone: phone,
+      wechat: $('#stWechat').value.trim(),
+      hours: $('#stHours').value.trim(),
+      services: services,
+      photos: photos,
+      promotions: $('#stPromotions').value.trim(),
+      slug: slug
+    };
+    var btn = $('#stSave');
+    btn.disabled = true;
+    btn.textContent = '保存中…（AI 生成介绍）';
+    storeOk('正在保存，首次生成介绍约需 3-10 秒…');
+    XLAuth.api('/store/profile', { method: 'POST', body: body, timeout: 35000 }).then(function (d) {
+      btn.disabled = false;
+      btn.textContent = '保存并上线';
+      storeOk('');
+      if (!d || !d.profile) throw new Error('服务端未返回承接页配置');
+      fillStoreForm(d.profile);
+      paintStoreProfile(d.profile);
+      $('#storeState').className = 'badge lime';
+      $('#storeState').textContent = '已上线';
+      storeOk(d.hint || '承接页已上线，复制链接开始获客');
+      XLAuth.toast('承接页已上线', 'good');
+      loadStoreLeads();
+    }).catch(function (e) {
+      btn.disabled = false;
+      btn.textContent = '保存并上线';
+      storeOk('');
+      if (handleAuthErr(e)) return;
+      storeErr('保存失败：' + errText(e));
+      XLAuth.toast('保存失败', 'bad');
+    });
+  });
+
+  loadStore();
 
   /* ---------- 退出 ---------- */
   $('#logoutBtn').addEventListener('click', function () {

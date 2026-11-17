@@ -1,0 +1,794 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head><meta name="robots" content="noindex,nofollow"><meta name="googlebot" content="noindex,nofollow">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>商家主页 - 星籁AI</title>
+<meta name="description" content="商家服务、价格、地址与电话，一键拨号、导航到店、在线留资。">
+<meta name="keywords" content="本地服务,商家主页,电话,地址,价格">
+<meta name="theme-color" content="#0e1f1c">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="星籁AI">
+<meta property="og:title" content="商家主页 - 星籁AI">
+<meta property="og:description" content="商家服务、价格、地址与电话，一键拨号、导航到店、在线留资。">
+<meta property="og:url" content="https://xinglaiai.com/ai-nav/store/">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="canonical" href="https://xinglaiai.com/ai-nav/store/">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%230e1f1c'/%3E%3Cpath d='M18 40c8-16 20-16 28 0' fill='none' stroke='%23f5b942' stroke-width='6' stroke-linecap='round'/%3E%3C/svg%3E">
+<style>
+  :root{
+    --bg:#f5f2ec; --card:#ffffff; --ink:#10201d; --muted:#63706c;
+    --line:#e6e1d7; --brand:#0e5c52; --brand-2:#0b3d38; --accent:#c47a12;
+    --accent-soft:#fdf3e0; --danger:#b42318; --ok:#0f7b5f;
+    --shadow:0 14px 40px rgba(16,32,29,.10);
+    --radius:18px; --maxw:720px;
+    --sans:-apple-system,BlinkMacSystemFont,"Segoe UI","PingFang SC","Hiragino Sans GB","Microsoft YaHei",sans-serif;
+  }
+  *{box-sizing:border-box}
+  html,body{margin:0;padding:0;overflow-x:hidden}
+  body{
+    background:var(--bg); color:var(--ink); font-family:var(--sans);
+    font-size:16px; line-height:1.65; -webkit-font-smoothing:antialiased;
+    padding-bottom:calc(206px + env(safe-area-inset-bottom));
+  }
+  body.loaded{padding-bottom:calc(206px + env(safe-area-inset-bottom))}
+  button,input,textarea{font:inherit;color:inherit}
+  button{cursor:pointer;-webkit-tap-highlight-color:transparent}
+  a{color:inherit;text-decoration:none}
+  img{max-width:100%;display:block}
+  [hidden]{display:none !important}
+  .wrap{width:100%;max-width:var(--maxw);margin:0 auto;padding:0 14px}
+  .skeleton-page{min-height:100vh;display:flex;align-items:center;justify-content:center;padding:24px}
+  .loading{display:flex;flex-direction:column;align-items:center;gap:14px;color:var(--muted)}
+  .spinner{width:32px;height:32px;border:3px solid #dcd6ca;border-top-color:var(--brand);border-radius:50%;animation:spin .8s linear infinite}
+  @keyframes spin{to{transform:rotate(360deg)}}
+  .state-screen{min-height:100vh;display:none;align-items:center;justify-content:center;padding:28px 18px}
+  .state-screen.show{display:flex}
+  .state-card{width:100%;max-width:420px;background:var(--card);border:1px solid var(--line);border-radius:24px;padding:30px 24px;text-align:center;box-shadow:var(--shadow)}
+  .state-icon{font-size:40px;line-height:1;margin-bottom:10px}
+  .state-card h1{font-size:21px;margin:0 0 8px}
+  .state-card p{color:var(--muted);font-size:14px;margin:0 0 18px}
+  .state-card .btn{width:100%}
+  .app{display:none;padding-top:14px}
+  .app.show{display:block}
+  /* hero */
+  .hero{position:relative;overflow:hidden;border-radius:26px;background:
+    radial-gradient(120% 120% at 92% 0%,#1d6b5f 0%,#0e1f1c 52%,#0a1715 100%);
+    color:#f8f4ea;padding:22px 18px 18px;box-shadow:0 18px 46px rgba(14,31,28,.28)}
+  .hero:after{content:"";position:absolute;right:-54px;top:-64px;width:190px;height:190px;border-radius:50%;
+    background:radial-gradient(circle,rgba(245,185,66,.26),rgba(245,185,66,0) 70%);pointer-events:none}
+  .hero-top{display:flex;align-items:center;gap:12px;min-width:0}
+  .logo{flex:0 0 52px;width:52px;height:52px;border-radius:16px;display:flex;align-items:center;justify-content:center;
+    font-size:23px;font-weight:800;color:#10201d;background:linear-gradient(145deg,#f7cf7c,#e8a94b);box-shadow:inset 0 0 0 1px rgba(255,255,255,.35)}
+  .hero-head{min-width:0;flex:1}
+  .hero h1{font-size:25px;line-height:1.25;margin:0;letter-spacing:.3px;overflow-wrap:anywhere}
+  .tags{display:flex;flex-wrap:wrap;gap:6px;margin-top:7px}
+  .tag{font-size:11.5px;line-height:1;padding:6px 9px;border-radius:999px;background:rgba(255,255,255,.12);
+    border:1px solid rgba(255,255,255,.16);color:#f3e7ca;white-space:nowrap}
+  .tag.local{background:rgba(245,185,66,.16);border-color:rgba(245,185,66,.3);color:#ffd98d}
+  .hero-intro{margin:13px 0 15px;font-size:14.5px;line-height:1.7;color:#e8e2d5;overflow-wrap:anywhere}
+  .hero-intro:empty{display:none}
+  .quick{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:8px}
+  .quick-btn{min-height:62px;border-radius:14px;border:1px solid rgba(255,255,255,.16);background:rgba(255,255,255,.09);
+    color:#fff;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:3px;padding:8px 4px;
+    font-size:14px;font-weight:600;transition:transform .15s ease,background .15s ease}
+  .quick-btn:active{transform:scale(.97)}
+  .quick-btn .ico{font-size:20px;line-height:1.1}
+  .quick-btn.primary{background:linear-gradient(145deg,#f7cf7c,#e8a94b);color:#221707;border-color:transparent}
+  .quick-btn.ghost{background:rgba(255,255,255,.06)}
+  .hero-foot{display:flex;align-items:center;justify-content:space-between;gap:10px;margin-top:12px;font-size:12px;color:#b9c5bf}
+  .status{display:inline-flex;align-items:center;gap:6px;white-space:nowrap}
+  .dot{width:7px;height:7px;border-radius:50%;background:#7d8a84;box-shadow:0 0 0 3px rgba(255,255,255,.06)}
+  .dot.open{background:#54d3a5;box-shadow:0 0 0 3px rgba(84,211,165,.16)}
+  .dot.closed{background:#f0a35e}
+  .share{background:none;border:0;color:#ffd98d;font-size:12.5px;padding:8px 2px;min-height:44px}
+  /* cards */
+  .section{margin-top:14px;background:var(--card);border:1px solid var(--line);border-radius:var(--radius);
+    padding:18px 16px;box-shadow:0 6px 18px rgba(16,32,29,.04)}
+  .sec-head{display:flex;align-items:baseline;justify-content:space-between;gap:10px;margin-bottom:12px}
+  .sec-head h2{font-size:17px;margin:0;letter-spacing:.4px}
+  .sec-head .sub{font-size:12px;color:var(--muted);white-space:nowrap}
+  .promo{position:relative;overflow:hidden;margin-top:14px;border-radius:var(--radius);padding:15px 16px 15px 17px;
+    background:linear-gradient(120deg,#fff4df,#fde7c1);border:1px solid #f1d7a8;color:#5c3a07;
+    display:flex;gap:12px;align-items:flex-start}
+  .promo:before{content:"";position:absolute;left:0;top:0;bottom:0;width:4px;background:linear-gradient(#e8a94b,#c47a12)}
+  .promo .pico{font-size:22px;line-height:1.2}
+  .promo .ptxt{min-width:0}
+  .promo b{display:block;font-size:14px;margin-bottom:2px;letter-spacing:.5px}
+  .promo p{margin:0;font-size:13.5px;line-height:1.6;overflow-wrap:anywhere}
+  /* services */
+  .svc{border:1px solid var(--line);border-radius:14px;background:#fffdf9;overflow:hidden}
+  .svc + .svc{margin-top:9px}
+  .svc summary{list-style:none;display:flex;align-items:center;gap:10px;padding:13px 13px;min-height:56px;cursor:pointer}
+  .svc summary::-webkit-details-marker{display:none}
+  .svc .sname{flex:1;min-width:0;font-weight:650;font-size:15px;overflow-wrap:anywhere}
+  .svc .price{font-size:15px;font-weight:750;color:var(--accent);white-space:nowrap}
+  .svc .chev{flex:0 0 auto;width:20px;height:20px;color:#9a958a;transition:transform .2s ease}
+  .svc[open] .chev{transform:rotate(180deg)}
+  .svc .sdesc{padding:0 13px 13px;font-size:13.5px;color:var(--muted);line-height:1.7;overflow-wrap:anywhere}
+  .empty{font-size:13.5px;color:var(--muted);padding:10px 2px;text-align:center}
+  /* photos */
+  .photos{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:8px}
+  .photos.single{grid-template-columns:1fr}
+  .photo{position:relative;border-radius:12px;overflow:hidden;background:#ece7dc;aspect-ratio:4/3}
+  .photo img{width:100%;height:100%;object-fit:cover;transition:transform .35s ease}
+  .photo:active img{transform:scale(1.02)}
+  .photo .ph-fallback{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;color:#a39d90;font-size:12px}
+  /* info */
+  .info-row{display:flex;gap:11px;padding:11px 0;border-bottom:1px dashed #ece7dc;min-width:0}
+  .info-row:last-child{border-bottom:0;padding-bottom:2px}
+  .info-ico{flex:0 0 34px;width:34px;height:34px;border-radius:10px;background:#f2eee5;display:flex;align-items:center;justify-content:center;font-size:16px}
+  .info-body{min-width:0;flex:1}
+  .info-label{font-size:11.5px;color:var(--muted);line-height:1.3;margin-bottom:2px}
+  .info-value{font-size:14.5px;font-weight:600;line-height:1.55;overflow-wrap:anywhere}
+  .info-value.small{font-weight:500;font-size:13px;color:var(--muted)}
+  .map-links{display:flex;flex-wrap:wrap;gap:8px;margin-top:8px}
+  .map-link{min-height:44px;display:inline-flex;align-items:center;gap:6px;padding:0 12px;border-radius:11px;
+    background:#f1f7f4;border:1px solid #d7e7df;color:var(--brand);font-size:13px;font-weight:650}
+  .map-link.baidu{background:#f2f6ff;border-color:#d9e3fb;color:#2456b3}
+  .copy-mini{margin-left:auto;border:0;background:none;color:var(--brand);font-size:12px;padding:8px;min-height:40px}
+  /* footer */
+  .foot{text-align:center;color:#8a938f;font-size:11.5px;line-height:1.8;padding:20px 12px 8px}
+  .foot a{color:#63706c;text-decoration:underline;text-underline-offset:2px}
+  /* fixed lead */
+  .leadbar{position:fixed;left:0;right:0;bottom:0;z-index:40;background:rgba(255,255,255,.96);
+    backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);border-top:1px solid #e3ded3;
+    box-shadow:0 -10px 30px rgba(16,32,29,.08);padding:10px 0 calc(10px + env(safe-area-inset-bottom));display:none}
+  .leadbar.show{display:block}
+  .leadbar-in{max-width:var(--maxw);margin:0 auto;padding:0 14px}
+  .leadbar-title{display:flex;align-items:center;justify-content:space-between;gap:8px;font-size:12.5px;color:var(--muted);margin-bottom:7px}
+  .leadbar-title b{color:var(--ink);font-size:13px}
+  .leadbar-title span{font-size:11px;color:#9a9387}
+  .lead-row{display:flex;gap:8px}
+  .lead-input{min-width:0;flex:1;height:48px;border:1px solid #dcd6ca;border-radius:12px;background:#fff;padding:0 12px;
+    font-size:16px;outline:none;transition:border .15s ease,box-shadow .15s ease}
+  .lead-input::placeholder{color:#a8a196}
+  .lead-input:focus{border-color:var(--brand);box-shadow:0 0 0 3px rgba(14,92,82,.1)}
+  .lead-submit{flex:0 0 104px;height:48px;border-radius:12px;border:0;background:linear-gradient(145deg,#167c6c,#0e5c52);
+    color:#fff;font-size:15px;font-weight:750;box-shadow:0 6px 16px rgba(14,92,82,.22)}
+  .lead-submit:disabled{opacity:.6}
+  .need{margin-top:7px;height:44px;font-size:14px;background:#fbf9f4}
+  .lead-fine{margin-top:6px;font-size:10.5px;color:#a19a8e;line-height:1.5;display:flex;gap:6px;align-items:center}
+  .lead-fine .lock{flex:0 0 auto}
+  .lead-success{display:none;align-items:center;gap:11px;padding:9px 2px;min-height:64px}
+  .lead-success .ok-ico{flex:0 0 40px;width:40px;height:40px;border-radius:50%;background:#e7f6ef;color:var(--ok);
+    display:flex;align-items:center;justify-content:center;font-size:20px;font-weight:800}
+  .lead-success b{display:block;font-size:14.5px}
+  .lead-success p{margin:1px 0 0;font-size:12px;color:var(--muted)}
+  .lead-success .again{margin-left:auto;border:1px solid var(--line);background:#fff;border-radius:10px;min-height:40px;padding:0 10px;font-size:12px;color:var(--muted)}
+  /* modal / lightbox */
+  .modal{position:fixed;inset:0;z-index:80;background:rgba(9,18,16,.56);display:none;align-items:flex-end;justify-content:center;padding:0}
+  .modal.show{display:flex}
+  .modal-card{width:100%;max-width:var(--maxw);background:#fff;border-radius:22px 22px 0 0;padding:22px 20px calc(22px + env(safe-area-inset-bottom));
+    box-shadow:0 -18px 50px rgba(0,0,0,.2);animation:up .22s ease}
+  @keyframes up{from{transform:translateY(24px);opacity:.6}to{transform:none;opacity:1}}
+  .modal-card h3{margin:0 0 6px;font-size:18px}
+  .modal-card p{margin:0 0 14px;color:var(--muted);font-size:13.5px}
+  .wx-id{display:flex;align-items:center;justify-content:space-between;gap:10px;background:#f5f2ec;border:1px dashed #d8d1c3;
+    border-radius:12px;padding:12px 13px;font-size:16px;font-weight:700;overflow-wrap:anywhere}
+  .modal-actions{display:flex;gap:9px;margin-top:14px}
+  .modal-actions .btn{flex:1;min-height:48px;border-radius:12px;border:1px solid var(--line);background:#fff;font-weight:700}
+  .modal-actions .btn.primary{background:var(--brand);border-color:var(--brand);color:#fff}
+  .lightbox{position:fixed;inset:0;z-index:90;background:rgba(5,10,9,.92);display:none;align-items:center;justify-content:center;padding:14px}
+  .lightbox.show{display:flex}
+  .lightbox img{max-width:100%;max-height:88vh;width:auto;height:auto;border-radius:8px}
+  .lightbox .close{position:absolute;right:14px;top:calc(12px + env(safe-area-inset-top));width:44px;height:44px;border-radius:50%;
+    border:0;background:rgba(255,255,255,.16);color:#fff;font-size:22px}
+  .toast{position:fixed;left:50%;bottom:calc(222px + env(safe-area-inset-bottom));transform:translateX(-50%) translateY(8px);
+    background:rgba(16,32,29,.94);color:#fff;font-size:13px;padding:10px 15px;border-radius:999px;opacity:0;pointer-events:none;
+    transition:opacity .2s ease,transform .2s ease;z-index:100;max-width:calc(100% - 28px);text-align:center}
+  .toast.show{opacity:1;transform:translateX(-50%) translateY(0)}
+  @media (min-width:560px){
+    .hero{padding:26px 24px 20px;border-radius:30px}
+    .hero h1{font-size:30px}
+    .quick-btn{min-height:68px;font-size:15px}
+    .section{padding:20px 20px}
+    .photos{grid-template-columns:repeat(3,minmax(0,1fr))}
+    .photos.single{grid-template-columns:1fr}
+  }
+  @media (prefers-reduced-motion:reduce){
+    *{animation:none !important;transition:none !important}
+  }
+</style>
+</head>
+<body>
+
+<div class="skeleton-page" id="loadingView">
+  <div class="loading"><div class="spinner"></div><div>正在打开商家主页…</div></div>
+</div>
+
+<div class="state-screen" id="stateView">
+  <div class="state-card">
+    <div class="state-icon" id="stateIcon">🏪</div>
+    <h1 id="stateTitle">页面打不开</h1>
+    <p id="stateDesc">请检查链接是否完整，或稍后重试。</p>
+    <a class="btn" id="stateBtn" href="https://xinglaiai.com/ai-nav/" style="display:inline-flex;align-items:center;justify-content:center;min-height:48px;border-radius:12px;background:#0e5c52;color:#fff;font-weight:700">打开星籁AI</a>
+  </div>
+</div>
+
+<main class="app" id="app">
+  <div class="wrap">
+
+    <section class="hero" aria-labelledby="storeName">
+      <div class="hero-top">
+        <div class="logo" id="storeLogo" aria-hidden="true">店</div>
+        <div class="hero-head">
+          <h1 id="storeName">商家主页</h1>
+          <div class="tags" id="storeTags"></div>
+        </div>
+      </div>
+      <p class="hero-intro" id="storeIntro"></p>
+      <div class="quick">
+        <a class="quick-btn primary" id="callBtn" href="tel:">
+          <span class="ico" aria-hidden="true">📞</span><span>一键拨号</span>
+        </a>
+        <a class="quick-btn" id="navBtn" href="#" target="_blank" rel="noopener">
+          <span class="ico" aria-hidden="true">🧭</span><span>导航到店</span>
+        </a>
+        <button class="quick-btn ghost" id="wechatBtn" type="button">
+          <span class="ico" aria-hidden="true">💬</span><span>加微信</span>
+        </button>
+      </div>
+      <div class="hero-foot">
+        <span class="status"><i class="dot" id="openDot"></i><span id="openText">营业时间以商家为准</span></span>
+        <button class="share" id="shareBtn" type="button">↗ 分享给朋友</button>
+      </div>
+    </section>
+
+    <div class="promo" id="promoBox" hidden>
+      <div class="pico" aria-hidden="true">🎁</div>
+      <div class="ptxt"><b>本店优惠</b><p id="promoText"></p></div>
+    </div>
+
+    <section class="section" aria-labelledby="svcTitle">
+      <div class="sec-head"><h2 id="svcTitle">服务与价格</h2><span class="sub" id="svcCount"></span></div>
+      <div id="serviceList"></div>
+    </section>
+
+    <section class="section" id="photoSection" aria-labelledby="photoTitle" hidden>
+      <div class="sec-head"><h2 id="photoTitle">门店实拍</h2><span class="sub">点击查看大图</span></div>
+      <div class="photos" id="photoGrid"></div>
+    </section>
+
+    <section class="section" aria-labelledby="infoTitle">
+      <div class="sec-head"><h2 id="infoTitle">联系与到店</h2><span class="sub">到店前建议先电话确认</span></div>
+      <div class="info-row">
+        <div class="info-ico" aria-hidden="true">📍</div>
+        <div class="info-body">
+          <div class="info-label">门店地址</div>
+          <div class="info-value" id="addrText">—</div>
+          <div class="map-links" id="mapLinks"></div>
+        </div>
+      </div>
+      <div class="info-row">
+        <div class="info-ico" aria-hidden="true">🕘</div>
+        <div class="info-body">
+          <div class="info-label">营业时间</div>
+          <div class="info-value" id="hoursText">以商家实际营业时间为准</div>
+        </div>
+      </div>
+      <div class="info-row">
+        <div class="info-ico" aria-hidden="true">📞</div>
+        <div class="info-body">
+          <div class="info-label">联系电话</div>
+          <div class="info-value" id="phoneText">—</div>
+        </div>
+      </div>
+      <div class="info-row" id="wechatRow" hidden>
+        <div class="info-ico" aria-hidden="true">💬</div>
+        <div class="info-body">
+          <div class="info-label">微信</div>
+          <div class="info-value" id="wechatText">—</div>
+        </div>
+      </div>
+    </section>
+
+    <p class="foot">
+      本页由 <a href="https://xinglaiai.com/ai-nav/" target="_blank" rel="noopener">星籁AI</a> 为商家生成 · 信息由商家提供<br>
+      请勿向陌生人转账，服务前请核实商家身份
+    </p>
+  </div>
+</main>
+
+<div class="leadbar" id="leadBar" role="region" aria-label="在线留资">
+  <div class="leadbar-in">
+    <div class="leadbar-title"><b>留个电话，商家尽快联系你</b><span>免费 · 不收取任何费用</span></div>
+    <form id="leadForm" novalidate>
+      <div class="lead-row">
+        <input class="lead-input" id="leadPhone" type="tel" inputmode="numeric" autocomplete="tel"
+               maxlength="20" placeholder="请输入手机号" aria-label="手机号" required>
+        <button class="lead-submit" id="leadSubmit" type="submit">提交</button>
+      </div>
+      <input class="lead-input need" id="leadNeed" type="text" maxlength="200"
+             placeholder="想咨询什么？（选填，如：保洁 3 小时）" aria-label="需求（选填）">
+      <div class="lead-fine"><span class="lock" aria-hidden="true">🔒</span><span>仅用于商家联系你，不会公开展示；提交即表示同意商家致电</span></div>
+    </form>
+    <div class="lead-success" id="leadSuccess">
+      <div class="ok-ico" aria-hidden="true">✓</div>
+      <div><b>提交成功，商家会尽快联系你</b><p id="leadSuccessPhone">请保持电话畅通</p></div>
+      <button class="again" id="againBtn" type="button">再留一条</button>
+    </div>
+  </div>
+</div>
+
+<div class="modal" id="wxModal" role="dialog" aria-modal="true" aria-labelledby="wxTitle">
+  <div class="modal-card">
+    <h3 id="wxTitle">加商家微信</h3>
+    <p>复制微信号，打开微信搜索添加；也可直接拨打电话。</p>
+    <div class="wx-id"><span id="wxId">—</span><button class="copy-mini" id="copyWx" type="button">复制</button></div>
+    <div class="modal-actions">
+      <button class="btn" id="wxClose" type="button">关闭</button>
+      <a class="btn primary" id="wxCall" href="tel:">拨打电话</a>
+    </div>
+  </div>
+</div>
+
+<div class="lightbox" id="lightbox" role="dialog" aria-modal="true" aria-label="查看大图">
+  <button class="close" id="lightboxClose" type="button" aria-label="关闭">×</button>
+  <img id="lightboxImg" alt="门店实拍大图">
+</div>
+
+<div class="toast" id="toast" role="status" aria-live="polite"></div>
+
+<noscript><div style="padding:20px;text-align:center">请开启 JavaScript 查看商家主页，或直接拨打商家电话。</div></noscript>
+
+<script>
+(function () {
+  'use strict';
+
+  var $ = function (id) { return document.getElementById(id); };
+  var qs = new URLSearchParams(location.search);
+  var slug = (qs.get('slug') || '').trim();
+  var API = (location.hostname === 'xinglaiai.com' || /\.xinglaiai\.com$/.test(location.hostname))
+    ? '/ai-nav/api' : 'https://xinglaiai.com/ai-nav/api';
+  var PAGE_URL = 'https://xinglaiai.com/ai-nav/store/?slug=' + encodeURIComponent(slug);
+  var data = null;
+  var toastTimer = null;
+
+  function show(el) { el.hidden = false; if (el.classList) el.classList.add('show'); }
+  function hide(el) { el.hidden = true; if (el.classList) el.classList.remove('show'); }
+
+  function toast(msg, ms) {
+    var t = $('toast');
+    t.textContent = msg;
+    t.classList.add('show');
+    clearTimeout(toastTimer);
+    toastTimer = setTimeout(function () { t.classList.remove('show'); }, ms || 2200);
+  }
+
+  function setMeta(attr, key, val) {
+    if (!val) return;
+    var el = document.querySelector('meta[' + attr + '="' + key + '"]');
+    if (!el) {
+      el = document.createElement('meta');
+      el.setAttribute(attr, key);
+      document.head.appendChild(el);
+    }
+    el.setAttribute('content', val);
+  }
+
+  function showState(icon, title, desc, btnText, btnHref) {
+    $('loadingView').style.display = 'none';
+    $('app').classList.remove('show');
+    $('stateIcon').textContent = icon;
+    $('stateTitle').textContent = title;
+    $('stateDesc').textContent = desc;
+    $('stateBtn').textContent = btnText || '打开星籁AI';
+    $('stateBtn').href = btnHref || 'https://xinglaiai.com/ai-nav/';
+    $('stateView').classList.add('show');
+  }
+
+  function fail(msg, code) {
+    if (code === 404) {
+      showState('🏪', '这个商家主页不存在', '链接可能已失效或商家已下架，请向商家重新索取链接。');
+    } else if (location.protocol === 'file:' || location.hostname !== 'xinglaiai.com' && !/\.xinglaiai\.com$/.test(location.hostname)) {
+      showState('🌐', '请用国内站打开', '当前为静态预览，数据接口仅在国内站可用。请从商家分享的 xinglaiai.com 链接进入。');
+    } else {
+      showState('📡', '页面暂时打不开', msg || '网络开小差了，请稍后重试。');
+    }
+  }
+
+  function normalizePhone(p) {
+    return String(p || '').replace(/[^\d+]/g, '');
+  }
+
+  function telHref(p) {
+    var n = normalizePhone(p);
+    if (n.indexOf('+') > 0) n = n.replace(/\+/g, '');
+    return 'tel:' + n;
+  }
+
+  function isOpenNow(hours) {
+    var m = String(hours || '').match(/(\d{1,2})\s*[:：]\s*(\d{2})\s*[-–—~至]\s*(\d{1,2})\s*[:：]\s*(\d{2})/);
+    if (!m) return null;
+    var now = new Date();
+    var cur = now.getHours() * 60 + now.getMinutes();
+    var start = parseInt(m[1], 10) * 60 + parseInt(m[2], 10);
+    var end = parseInt(m[3], 10) * 60 + parseInt(m[4], 10);
+    if (start === end) return true;
+    if (end > start) return cur >= start && cur < end;
+    return cur >= start || cur < end; // 跨夜营业
+  }
+
+  function mapUrls(d) {
+    var amap = '', baidu = '';
+    var name = encodeURIComponent(d.name || '商家');
+    var addr = encodeURIComponent([d.city || '', d.address || ''].join(''));
+    if (typeof d.lng === 'number' && typeof d.lat === 'number' && d.lng && d.lat) {
+      amap = 'https://uri.amap.com/marker?position=' + d.lng + ',' + d.lat +
+        '&name=' + name + '&src=xinglaiai&coordinate=gaode&callnative=1';
+      baidu = 'https://api.map.baidu.com/marker?location=' + d.lat + ',' + d.lng +
+        '&title=' + name + '&content=' + addr + '&output=html&coord_type=gcj02&src=webapp.xinglaiai';
+    } else if (d.address || d.city) {
+      amap = 'https://uri.amap.com/search?keyword=' + encodeURIComponent((d.city || '') + (d.address || '')) +
+        '&city=' + encodeURIComponent(d.city || '全国') + '&src=xinglaiai';
+      baidu = 'https://map.baidu.com/search/' + encodeURIComponent((d.city || '') + (d.address || '')) +
+        '?querytype=s&da_src=shareurl';
+    }
+    return { amap: amap, baidu: baidu };
+  }
+
+  function renderTags(d) {
+    var box = $('storeTags');
+    box.textContent = '';
+    var items = [];
+    if (d.industry) items.push({ text: d.industry, cls: 'local' });
+    if (d.city) items.push({ text: d.city, cls: '' });
+    if (d.hours) {
+      var op = isOpenNow(d.hours);
+      if (op !== null) items.push({ text: op ? '营业中' : '已打烊', cls: 'local' });
+    }
+    items.forEach(function (it) {
+      var s = document.createElement('span');
+      s.className = 'tag ' + (it.cls || '');
+      s.textContent = it.text;
+      box.appendChild(s);
+    });
+  }
+
+  function renderServices(list) {
+    var box = $('serviceList');
+    box.textContent = '';
+    $('svcCount').textContent = list.length ? list.length + ' 项服务' : '';
+    if (!list.length) {
+      var e = document.createElement('div');
+      e.className = 'empty';
+      e.textContent = '商家正在补充服务项目，可直接电话咨询报价。';
+      box.appendChild(e);
+      return;
+    }
+    list.forEach(function (svc, i) {
+      var d = document.createElement('details');
+      d.className = 'svc';
+      if (i === 0) d.open = true;
+      var s = document.createElement('summary');
+      var n = document.createElement('span');
+      n.className = 'sname';
+      n.textContent = svc.name || ('服务 ' + (i + 1));
+      s.appendChild(n);
+      if (svc.price) {
+        var p = document.createElement('span');
+        p.className = 'price';
+        p.textContent = svc.price;
+        s.appendChild(p);
+      }
+      var chev = document.createElementNS('http://www.w3.org/2000/svg', 'svg');
+      chev.setAttribute('class', 'chev');
+      chev.setAttribute('viewBox', '0 0 20 20');
+      chev.setAttribute('aria-hidden', 'true');
+      var path = document.createElementNS('http://www.w3.org/2000/svg', 'path');
+      path.setAttribute('d', 'M5 8l5 5 5-5');
+      path.setAttribute('fill', 'none');
+      path.setAttribute('stroke', 'currentColor');
+      path.setAttribute('stroke-width', '1.8');
+      path.setAttribute('stroke-linecap', 'round');
+      chev.appendChild(path);
+      s.appendChild(chev);
+      d.appendChild(s);
+      if (svc.desc) {
+        var desc = document.createElement('div');
+        desc.className = 'sdesc';
+        desc.textContent = svc.desc;
+        d.appendChild(desc);
+      }
+      box.appendChild(d);
+    });
+  }
+
+  function renderPhotos(list) {
+    if (!list.length) { $('photoSection').hidden = true; return; }
+    var grid = $('photoGrid');
+    grid.textContent = '';
+    grid.className = 'photos' + (list.length === 1 ? ' single' : '');
+    list.forEach(function (url, i) {
+      var cell = document.createElement('div');
+      cell.className = 'photo';
+      var fb = document.createElement('div');
+      fb.className = 'ph-fallback';
+      fb.textContent = '图片加载中';
+      var img = document.createElement('img');
+      img.loading = 'lazy';
+      img.decoding = 'async';
+      img.alt = '门店实拍 ' + (i + 1);
+      img.referrerPolicy = 'no-referrer';
+      img.addEventListener('load', function () { fb.style.display = 'none'; });
+      img.addEventListener('error', function () {
+        fb.textContent = '图片暂时无法显示';
+        img.style.display = 'none';
+      });
+      img.src = url;
+      cell.appendChild(fb);
+      cell.appendChild(img);
+      cell.addEventListener('click', function () {
+        if (img.style.display === 'none') return;
+        $('lightboxImg').src = url;
+        $('lightboxImg').alt = '门店实拍 ' + (i + 1);
+        $('lightbox').classList.add('show');
+      });
+      grid.appendChild(cell);
+    });
+    $('photoSection').hidden = false;
+  }
+
+  function renderInfo(d) {
+    var addr = [d.city, d.address].filter(Boolean).join(' ');
+    $('addrText').textContent = addr || '地址请电话咨询';
+    var maps = mapUrls(d);
+    var box = $('mapLinks');
+    box.textContent = '';
+    if (maps.amap) {
+      var a = document.createElement('a');
+      a.className = 'map-link';
+      a.href = maps.amap;
+      a.target = '_blank';
+      a.rel = 'noopener';
+      a.textContent = '🧭 高德地图';
+      box.appendChild(a);
+    }
+    if (maps.baidu) {
+      var b = document.createElement('a');
+      b.className = 'map-link baidu';
+      b.href = maps.baidu;
+      b.target = '_blank';
+      b.rel = 'noopener';
+      b.textContent = '🗺 百度地图';
+      box.appendChild(b);
+    }
+    var nav = $('navBtn');
+    if (maps.amap) nav.href = maps.amap;
+    else nav.href = 'https://uri.amap.com/search?keyword=' + encodeURIComponent(addr || '附近商家') + '&src=xinglaiai';
+
+    $('hoursText').textContent = d.hours || '以商家实际营业时间为准';
+    $('phoneText').textContent = d.phone || '请在线留资';
+    $('phoneText').style.cursor = d.phone ? 'pointer' : '';
+    if (d.phone) {
+      $('phoneText').addEventListener('click', function () { location.href = telHref(d.phone); });
+      $('callBtn').href = telHref(d.phone);
+      $('wxCall').href = telHref(d.phone);
+    } else {
+      $('callBtn').addEventListener('click', function (e) { e.preventDefault(); toast('商家暂未填写电话，请先留资'); });
+    }
+    if (d.wechat) {
+      $('wechatRow').hidden = false;
+      $('wechatText').textContent = d.wechat;
+      $('wxId').textContent = d.wechat;
+    } else {
+      $('wechatRow').hidden = true;
+      $('wxId').textContent = '商家暂未填写微信号';
+    }
+    var op = isOpenNow(d.hours);
+    var dot = $('openDot');
+    var txt = $('openText');
+    if (op === true) { dot.classList.add('open'); txt.textContent = '现在营业中 · ' + d.hours; }
+    else if (op === false) { dot.classList.add('closed'); txt.textContent = '当前已打烊 · ' + d.hours; }
+    else { txt.textContent = d.hours ? '营业时间 ' + d.hours : '营业时间以商家为准'; }
+  }
+
+  function renderSeo(d) {
+    var seo = d.seo || {};
+    var title = seo.title || ((d.name || '商家') + '｜' + (d.industry || '本地服务') + ' 服务价格·电话·地址');
+    document.title = title;
+    var desc = seo.description || d.intro || '查看商家服务、价格、地址与电话，一键拨号、导航到店。';
+    setMeta('name', 'description', desc);
+    if (seo.keywords) setMeta('name', 'keywords', seo.keywords);
+    setMeta('property', 'og:title', title);
+    setMeta('property', 'og:description', desc);
+    setMeta('property', 'og:url', PAGE_URL);
+    setMeta('property', 'og:image', (d.photos && d.photos[0]) || '');
+    setMeta('name', 'twitter:title', title);
+    setMeta('name', 'twitter:description', desc);
+    var canonical = document.querySelector('link[rel="canonical"]');
+    if (canonical) canonical.href = PAGE_URL;
+    var ld = {
+      '@context': 'https://schema.org',
+      '@type': 'LocalBusiness',
+      name: d.name || '',
+      description: d.intro || desc,
+      telephone: d.phone || '',
+      image: (d.photos || []).slice(0, 6),
+      url: PAGE_URL,
+      address: {
+        '@type': 'PostalAddress',
+        addressLocality: d.city || '',
+        streetAddress: d.address || '',
+        addressCountry: 'CN'
+      }
+    };
+    if (d.hours) ld.openingHours = d.hours;
+    if (d.industry) ld.knowsAbout = d.industry;
+    var old = document.getElementById('ldjson');
+    if (old) old.remove();
+    var s = document.createElement('script');
+    s.type = 'application/ld+json';
+    s.id = 'ldjson';
+    s.textContent = JSON.stringify(ld);
+    document.head.appendChild(s);
+  }
+
+  function render(d) {
+    data = d;
+    $('storeName').textContent = d.name || '商家主页';
+    $('storeLogo').textContent = (d.name || '店').trim().charAt(0) || '店';
+    $('storeIntro').textContent = d.intro || '';
+    renderTags(d);
+    renderSeo(d);
+    renderServices(d.services || []);
+    renderPhotos(d.photos || []);
+    renderInfo(d);
+    if (d.promotions) {
+      $('promoBox').hidden = false;
+      $('promoText').textContent = d.promotions;
+    } else {
+      $('promoBox').hidden = true;
+    }
+    $('callBtn').setAttribute('aria-label', '一键拨打 ' + (d.phone || '商家电话'));
+    $('navBtn').addEventListener('click', function (e) {
+      if (!data) { e.preventDefault(); toast('地址加载中，请稍后'); return; }
+    });
+    $('wxCall').href = d.phone ? telHref(d.phone) : 'https://xinglaiai.com/ai-nav/';
+    $('leadBar').classList.add('show');
+    $('loadingView').style.display = 'none';
+    $('app').classList.add('show');
+    document.body.classList.add('loaded');
+    // 顶部到店按钮在主信息区也有入口；若页面被直接打开到锚点，保证留资栏可见。
+    if (location.hash === '#lead') setTimeout(function () { $('leadPhone').focus(); }, 350);
+  }
+
+  function load() {
+    if (!slug) {
+      showState('🔗', '缺少商家链接参数', '请使用商家分享的完整链接（包含 ?slug=），或扫描商家二维码进入。');
+      return;
+    }
+    if (location.protocol === 'file:') {
+      showState('🌐', '请用国内站打开', '当前是本地静态文件，无法读取商家数据。请使用 xinglaiai.com 上的公开链接。');
+      return;
+    }
+    fetch(API + '/store/' + encodeURIComponent(slug), {
+      method: 'GET',
+      headers: { 'Accept': 'application/json' },
+      cache: 'no-store'
+    }).then(function (r) {
+      return r.json().catch(function () { return {}; }).then(function (j) { return { status: r.status, body: j }; });
+    }).then(function (res) {
+      if (res.status !== 200 || !res.body || res.body.ok !== true) {
+        var code = res.status === 404 ? 404 : (res.body && res.body.error) || '';
+        if (code === 404) fail('未找到商家', 404);
+        else fail((res.body && res.body.hint) || '商家数据读取失败', code);
+        return;
+      }
+      render(res.body);
+    }).catch(function () {
+      fail('网络连接失败，请检查网络后重试。');
+    });
+  }
+
+  function submitLead(e) {
+    e.preventDefault();
+    var phoneInput = $('leadPhone');
+    var phone = phoneInput.value.replace(/\D/g, '');
+    if (!/^1[3-9]\d{9}$/.test(phone)) {
+      toast('请输入正确的 11 位手机号');
+      phoneInput.focus();
+      return;
+    }
+    var btn = $('leadSubmit');
+    btn.disabled = true;
+    var old = btn.textContent;
+    btn.textContent = '提交中';
+    var need = $('leadNeed').value.trim();
+    fetch(API + '/store/' + encodeURIComponent(slug) + '/lead', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
+      body: JSON.stringify({ phone: phone, need: need, source: 'store_page' })
+    }).then(function (r) {
+      return r.json().catch(function () { return {}; }).then(function (j) { return { status: r.status, body: j }; });
+    }).then(function (res) {
+      btn.disabled = false;
+      btn.textContent = old;
+      if (res.status === 200 && res.body && res.body.ok) {
+        $('leadForm').style.display = 'none';
+        $('leadSuccess').style.display = 'flex';
+        $('leadSuccessPhone').textContent = '已收到 ' + phone.slice(0, 3) + '****' + phone.slice(-4) + '，请保持电话畅通';
+        $('leadNeed').value = '';
+        return;
+      }
+      if (res.status === 429) {
+        toast((res.body && res.body.hint) || '提交太频繁，请稍后再试');
+        return;
+      }
+      toast((res.body && res.body.hint) || '提交失败，请稍后重试或直接拨打电话');
+    }).catch(function () {
+      btn.disabled = false;
+      btn.textContent = old;
+      toast('网络异常，提交失败，请直接拨打电话');
+    });
+  }
+
+  function copyText(text, okMsg) {
+    if (navigator.clipboard && window.isSecureContext) {
+      navigator.clipboard.writeText(text).then(function () { toast(okMsg || '已复制'); })
+        .catch(function () { fallbackCopy(text, okMsg); });
+    } else {
+      fallbackCopy(text, okMsg);
+    }
+  }
+
+  function fallbackCopy(text, okMsg) {
+    var ta = document.createElement('textarea');
+    ta.value = text;
+    ta.setAttribute('readonly', '');
+    ta.style.position = 'fixed';
+    ta.style.left = '-9999px';
+    document.body.appendChild(ta);
+    ta.select();
+    try { document.execCommand('copy'); toast(okMsg || '已复制'); }
+    catch (e) { toast('复制失败，请手动选择'); }
+    ta.remove();
+  }
+
+  // events
+  $('leadForm').addEventListener('submit', submitLead);
+  $('againBtn').addEventListener('click', function () {
+    $('leadSuccess').style.display = 'none';
+    $('leadForm').style.display = 'block';
+    $('leadPhone').value = '';
+    $('leadPhone').focus();
+  });
+  $('wechatBtn').addEventListener('click', function () {
+    if (!data) return;
+    if (!data.wechat) { toast('商家暂未填写微信号，请电话联系或留资'); $('leadPhone').focus(); return; }
+    $('wxModal').classList.add('show');
+  });
+  $('wxClose').addEventListener('click', function () { $('wxModal').classList.remove('show'); });
+  $('wxModal').addEventListener('click', function (e) { if (e.target === $('wxModal')) $('wxModal').classList.remove('show'); });
+  $('copyWx').addEventListener('click', function () {
+    var text = ($('wxId').textContent || '').trim();
+    if (!text || text.indexOf('暂未') >= 0) { toast('商家暂未填写微信号'); return; }
+    copyText(text, '微信号已复制，去微信添加');
+  });
+  $('shareBtn').addEventListener('click', function () {
+    if (!data) return;
+    var title = (data.name || '商家主页') + '｜服务价格·电话·地址';
+    if (navigator.share) {
+      navigator.share({ title: title, text: data.intro || '', url: PAGE_URL }).catch(function () {});
+    } else {
+      copyText(PAGE_URL, '页面链接已复制，粘贴给朋友即可');
+    }
+  });
+  $('lightboxClose').addEventListener('click', function () { $('lightbox').classList.remove('show'); });
+  $('lightbox').addEventListener('click', function (e) { if (e.target === $('lightbox')) $('lightbox').classList.remove('show'); });
+  document.addEventListener('keydown', function (e) {
+    if (e.key === 'Escape') {
+      $('wxModal').classList.remove('show');
+      $('lightbox').classList.remove('show');
+    }
+  });
+  $('leadPhone').addEventListener('input', function () {
+    this.value = this.value.replace(/[^\d+\s-]/g, '').slice(0, 20);
+  });
+
+  load();
+})();
+</script>
+</body>
+</html>
