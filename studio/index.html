@@ -418,6 +418,16 @@ body.elder nav a,body.elder .elder-btn{font-size:15px}
 .pad-btns .btn-main.small{flex:0 0 auto;text-decoration:none;display:inline-flex;align-items:center}
 .pad-copy{width:100%;min-height:92px;margin-top:10px;background:rgba(7,12,21,.92);border:1px solid var(--line);border-radius:10px;color:var(--txt2);font-size:12px;padding:8px 10px;resize:vertical;font-family:inherit}
 .pad-note{margin-top:10px;font-size:11.5px;color:var(--txt3);line-height:1.7;overflow-wrap:anywhere}
+.pad-ai{margin-top:12px;border:1px solid rgba(56,189,248,.24);background:rgba(56,189,248,.06);border-radius:12px;padding:12px 14px;min-width:0}
+.pad-ai-row{display:flex;align-items:flex-start;gap:10px;font-size:13.5px;color:var(--txt);line-height:1.55;min-width:0;cursor:pointer}
+.pad-ai-row input[type=checkbox]{width:19px;height:19px;flex:0 0 auto;margin-top:1px;accent-color:#38bdf8;cursor:pointer}
+.pad-ai-row span{min-width:0;overflow-wrap:anywhere}
+.pad-ai-row b{color:#bae6fd}
+.pad-ai-row small{display:block;color:var(--txt3);font-size:11.5px;margin-top:2px;font-weight:400;line-height:1.6}
+.pad-ai-prompt{margin-top:10px}
+.pad-ai-prompt[hidden]{display:none}
+.pad-ai-tag{margin:6px 0;font-size:12.5px;color:#7dd3fc;line-height:1.6;overflow-wrap:anywhere}
+.pad-ai-back{margin-top:8px;border:1px solid rgba(251,191,36,.32);background:rgba(251,191,36,.08);border-radius:9px;padding:7px 10px;font-size:12px;color:#fcd34d;line-height:1.6;overflow-wrap:anywhere}
 .pad-err{margin-top:10px;border:1px solid rgba(251,113,133,.35);background:rgba(251,113,133,.08);border-radius:10px;padding:8px 12px;font-size:12.5px;color:#fecdd3;display:none;line-height:1.6}
 #padSec summary{cursor:pointer;list-style:none;display:flex;align-items:flex-start;gap:12px}
 #padSec summary::-webkit-details-marker{display:none}
@@ -435,6 +445,8 @@ body.elder nav a,body.elder .elder-btn{font-size:15px}
  .pad-actions .btn-main{flex:1 1 100%}
  .pad-up{gap:9px}
  .pad-thumb{width:72px;height:72px}
+ .pad-ai{padding:10px 11px}
+ .pad-ai-row{font-size:12.5px}
 }
 
 </style>
@@ -848,9 +860,9 @@ details[open].music summary:after{content:"收起 ▴"}
 
 <!-- ================= 商品广告片 L1（PAD-SECTION-L1） ================= -->
 <details class="sec" id="padSec">
- <summary><span class="sec-ico">🎬</span><span><b>商品广告片（0 成本）</b><i>1 张产品图 + 3 个卖点 → 15/20/30 秒 9:16 广告片：多角度运镜 / 卖点大字 / 配音 / BGM / 片尾电话</i></span></summary>
+ <summary><span class="sec-ico">🎬</span><span><b>商品广告片（0 成本 / 可加 AI 动态镜头）</b><i>1 张产品图 + 3 个卖点 → 15/20/30 秒 9:16 广告片：多角度运镜 / 卖点大字 / 配音 / BGM / 片尾电话；可加 1 个 AI 动态镜头</i></span></summary>
  <div class="pad-body">
-  <p class="sec-sub">只用一张产品图，本地 FFmpeg 渲染，<b style="color:#7dd3fc">每条 0 token 成本</b>。首次约 60~90 秒，生成时别关页面。</p>
+  <p class="sec-sub">只用一张产品图，本地 FFmpeg 渲染，<b style="color:#7dd3fc">纯 L1 每条 0 token 成本</b>。首次约 60~90 秒；可勾选加 1 个 AI 动态镜头（约 ¥2.5，多等 5~6 分钟），AI 失败自动回退纯 L1。</p>
   <div class="pad-grid">
    <div class="pad-field pad-span2">产品图
     <div class="pad-up">
@@ -877,6 +889,15 @@ details[open].music summary:after{content:"收起 ▴"}
    </label>
    <label class="pad-field pad-span2">片尾文案（可选） <input type="text" id="padCta" maxlength="40" placeholder="到店出示本视频，享专属优惠"></label>
   </div>
+  <div class="pad-ai">
+   <label class="pad-ai-row" for="padAi">
+    <input type="checkbox" id="padAi">
+    <span><b>✨ 加 1 个 AI 动态镜头（约 ¥2.5，多等 5~6 分钟）</b><small>AI 图生视频插在钩子之后（第 2 镜），其余镜头保留；失败自动回退纯 L1，不额外收费。同一图片+提示词的镜头 24 小时内复用。</small></span>
+   </label>
+   <label class="pad-field pad-ai-prompt" id="padAiPromptWrap" hidden>自定义运镜提示（可选）
+    <input type="text" id="padAiPrompt" maxlength="200" placeholder="默认：产品缓慢旋转展示，灯光流动，高级广告质感">
+   </label>
+  </div>
   <div class="pad-actions">
    <button type="button" class="btn-main" id="padGo">🎬 生成商品广告片（0 元）</button>
   </div>
@@ -884,7 +905,7 @@ details[open].music summary:after{content:"收起 ▴"}
   <div class="pad-status" id="padStatus" role="status" aria-live="polite"></div>
   <div class="pad-err" id="padErr" role="alert"></div>
   <div class="pad-result" id="padResult"></div>
-  <p class="pad-note">成片规格 1080×1920 / 30fps / H.264 + AAC，带配音与配乐；配音由 Edge TTS 合成，BGM 来自可商用曲库；成片保留 14 天，请及时下载。</p>
+  <p class="pad-note">成片规格 1080×1920 / 30fps / H.264 + AAC，带配音与配乐；配音由 Edge TTS 合成，BGM 来自可商用曲库；AI 镜头由硅基流动 MiniMax-H3 生成（约 ¥2.5/条），AI 画面请勿冒充实拍；成片保留 14 天，请及时下载。</p>
  </div>
 </details>
 
@@ -2944,6 +2965,7 @@ if(pb)pb.addEventListener('click',async function(){
  var API='/ai-nav/api';
  var PAD={url:'',name:'',busy:false,file:null,timer:null};
  var LS_KEY='studio_pad_form_v1';
+ var AI_DEFAULT='产品缓慢旋转展示，灯光流动，高级广告质感';
  function e(s){return String(s==null?'':s).replace(/[&<>"']/g,function(c){return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c];});}
  function fmtBytes(n){n=Number(n)||0;if(n<1024)return n+' B';if(n<1048576)return (n/1024).toFixed(1)+' KB';return (n/1048576).toFixed(1)+' MB';}
  function status(msg,type){var el=$('padStatus');if(!el)return;el.className='pad-status'+(type?(' '+type):'');el.textContent=msg||'';}
@@ -2951,7 +2973,7 @@ if(pb)pb.addEventListener('click',async function(){
  function bar(p){var b=$('padBar');if(!b)return;b.style.display=(p==null?'none':'block');if(p!=null){var i=b.querySelector('i');if(i)i.style.width=Math.max(0,Math.min(100,p))+'%';}}
  function elapsedTxt(t0){var s=Math.round((Date.now()-t0)/1000);return s<60?(s+' 秒'):(Math.floor(s/60)+' 分 '+(s%60)+' 秒');}
  function saveForm(){
-  try{localStorage.setItem(LS_KEY,JSON.stringify({store:($('padStore')||{}).value||'',phone:($('padPhone')||{}).value||'',cta:($('padCta')||{}).value||'',dur:($('padDur')||{}).value||'20',mood:($('padMood')||{}).value||'',sp:[($('padSp1')||{}).value||'',($('padSp2')||{}).value||'',($('padSp3')||{}).value||'']}));}catch(x){}
+  try{localStorage.setItem(LS_KEY,JSON.stringify({store:($('padStore')||{}).value||'',phone:($('padPhone')||{}).value||'',cta:($('padCta')||{}).value||'',dur:($('padDur')||{}).value||'20',mood:($('padMood')||{}).value||'',ai:!!($('padAi')&&$('padAi').checked),aiPrompt:($('padAiPrompt')||{}).value||'',sp:[($('padSp1')||{}).value||'',($('padSp2')||{}).value||'',($('padSp3')||{}).value||'']}));}catch(x){}
  }
  function loadForm(){
   var d=null;try{d=JSON.parse(localStorage.getItem(LS_KEY)||'null');}catch(x){}
@@ -2961,7 +2983,16 @@ if(pb)pb.addEventListener('click',async function(){
   if($('padCta'))$('padCta').value=d.cta||'';
   if($('padDur')&&d.dur)$('padDur').value=d.dur;
   if($('padMood')&&d.mood!=null)$('padMood').value=d.mood;
+  if($('padAi'))$('padAi').checked=!!d.ai;
+  if($('padAiPrompt'))$('padAiPrompt').value=d.aiPrompt||'';
   if(d.sp&&d.sp.length===3){if($('padSp1'))$('padSp1').value=d.sp[0]||'';if($('padSp2'))$('padSp2').value=d.sp[1]||'';if($('padSp3'))$('padSp3').value=d.sp[2]||'';}
+ }
+ function updateAiUI(){
+  var on=!!($('padAi')&&$('padAi').checked);
+  var wrap=$('padAiPromptWrap');if(wrap)wrap.hidden=!on;
+  var p=$('padAiPrompt');if(p&&!p.placeholder)p.placeholder='默认：'+AI_DEFAULT;
+  var btn=$('padGo');
+  if(btn&&!PAD.busy)btn.textContent=on?'🎬 生成（含 AI 镜头，约 ¥2.5）':'🎬 生成商品广告片（0 元）';
  }
  function upload(file){
   return new Promise(function(resolve,reject){
@@ -2996,7 +3027,7 @@ if(pb)pb.addEventListener('click',async function(){
    status('',null);bar(null);err((x&&x.message)||'上传失败');
   });
  }
- function request(url,body,ms){
+ function request(url,body,ms,timeoutHint){
   var ctl=typeof AbortController!=='undefined'?new AbortController():null;
   var timer=setTimeout(function(){if(ctl)ctl.abort();},ms);
   return fetch(url,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(body),signal:ctl?ctl.signal:undefined})
@@ -3011,7 +3042,7 @@ if(pb)pb.addEventListener('click',async function(){
     });
    },function(x){
     clearTimeout(timer);
-    if(x&&x.name==='AbortError'){var er=new Error('生成超时（超过 10 分钟），请稍后重试');er.code='timeout';throw er;}
+    if(x&&x.name==='AbortError'){var er=new Error('生成超时（'+((timeoutHint||'请稍后重试'))+'），请稍后重试');er.code='timeout';throw er;}
     throw new Error('网络中断，生成失败');
    });
  }
@@ -3026,17 +3057,26 @@ if(pb)pb.addEventListener('click',async function(){
  }
  function renderResult(d){
   var st=$('padResult');if(!st)return;
+  var ai=d.ai_shots||{};
   var video=(d.video_url||'')+(d.video_url&&d.video_url.indexOf('?')<0?('?v='+Date.now()):'');
   var store=($('padStore')||{}).value||'';
   var phone=($('padPhone')||{}).value||'';
   var sp=[($('padSp1')||{}).value||'',($('padSp2')||{}).value||'',($('padSp3')||{}).value||''].filter(Boolean);
-  var copy='【'+store+'】商品广告片'+(phone?('｜电话 '+phone):'')+'\n'+sp.map(function(x){return '✅ '+x;}).join('\n')+'\n成片：'+location.origin+d.video_url+'\n（1080×1920 · '+d.duration+' 秒 · 本地渲染 0 元）';
+  var aiLine='';
+  if(ai.used){
+   aiLine='<p class="pad-ai-tag">✨ 已加入 1 个 AI 动态镜头（第 2 镜，5 秒）'+(ai.cached?' · 24h 缓存命中，未重复计费':' · '+e(ai.model||'MiniMax-H3')+'，约 ¥2.5')+'</p>';
+  }else if(ai.requested){
+   aiLine='<div class="pad-ai-back">⚠️ AI 动态镜头这次没用上，已自动回退纯 L1（不额外收费）。原因：'+e(ai.reason||'未知')+'</div>';
+  }
+  var costText=d.cost_hint||'¥0（本地渲染）';
+  var copy='【'+store+'】商品广告片'+(phone?('｜电话 '+phone):'')+'\n'+sp.map(function(x){return '✅ '+x;}).join('\n')+'\n成片：'+location.origin+d.video_url+'\n（1080×1920 · '+d.duration+' 秒 · '+costText+'）';
   var chips=(d.scenes||[]).map(function(s){return '<span>'+e(s.label)+' · '+e(s.duration)+'s</span>';}).join('');
   st.innerHTML='<div class="pad-result-in">'
    +'<video class="pad-phone" id="padVideo" controls playsinline preload="metadata" poster="'+e(d.poster_url||'')+'" src="'+e(video)+'"></video>'
-   +'<div class="pad-meta"><h3>✅ 成片好了</h3>'
+   +'<div class="pad-meta"><h3>✅ 成片好了'+(ai.used?' · 含 AI 镜头':'')+'</h3>'
    +'<p>时长 '+e(d.duration)+' 秒 · '+e(d.size.w)+'×'+e(d.size.h)+' · '+e(d.size.fps)+'fps · '+fmtBytes(d.bytes)+' · 渲染 '+e(d.elapsed)+' 秒</p>'
-   +'<p>配音 '+e(d.voice.ok)+'/'+e(d.voice.total)+' 句 · BGM：'+e(d.music?(d.music.name+'（'+d.music.mood+'）'):'无')+' · '+e(d.cost_hint||'¥0（本地渲染）')+'</p>'
+   +aiLine
+   +'<p>配音 '+e(d.voice.ok)+'/'+e(d.voice.total)+' 句 · BGM：'+e(d.music?(d.music.name+'（'+d.music.mood+'）'):'无')+' · '+e(costText)+'</p>'
    +'<div class="pad-tags">'+chips+'</div>'
    +'<div class="pad-btns"><a class="btn-main small" href="'+e(d.video_url)+'" download="'+(e(store||'商品广告片'))+'.mp4">⬇ 下载 MP4</a>'
    +'<button type="button" class="btn-line" id="padCopy">📋 复制文案</button>'
@@ -3057,25 +3097,38 @@ if(pb)pb.addEventListener('click',async function(){
   if(!store){err('请填写店名。');$('padStore').focus();return;}
   var sp=[($('padSp1')||{}).value||'',($('padSp2')||{}).value||'',($('padSp3')||{}).value||''].map(function(x){return x.trim();}).filter(Boolean);
   if(!sp.length){err('至少填 1 个卖点，3 个效果最好。');$('padSp1').focus();return;}
-  var body={image_url:PAD.url,selling_points:sp,store_name:store,duration:parseInt(($('padDur')||{}).value||'20',10)};
+  var aiEl=$('padAi');var aiOn=!!(aiEl&&aiEl.checked);
+  var aiPromptEl=$('padAiPrompt');var aiPrompt=aiOn?((aiPromptEl&&aiPromptEl.value)||'').trim():'';
+  var body={image_url:PAD.url,selling_points:sp,store_name:store,duration:parseInt(($('padDur')||{}).value||'20',10),ai_shots:aiOn?1:0};
   var phone=(($('padPhone')||{}).value||'').trim();
   var cta=(($('padCta')||{}).value||'').trim();
   var mood=(($('padMood')||{}).value||'').trim();
   if(phone)body.phone=phone;
   if(cta)body.cta_text=cta;
   if(mood)body.music_mood=mood;
+  if(aiOn&&aiPrompt)body.ai_shot_prompt=aiPrompt;
   PAD.busy=true;saveForm();
-  var btn=$('padGo');var old=btn.textContent;btn.disabled=true;btn.textContent='⏳ 正在渲染…';
-  var t0=Date.now();bar(8);
-  status('正在渲染 1080×1920 广告片… '+elapsedTxt(t0)+'（约 60~90 秒，别关页面）');
+  var btn=$('padGo');btn.disabled=true;btn.textContent=aiOn?'⏳ 生成 AI 镜头 + 渲染…':'⏳ 正在渲染…';
+  if(aiEl)aiEl.disabled=true;
+  if(aiPromptEl)aiPromptEl.disabled=true;
+  var t0=Date.now();bar(6);
+  var waitMsg=aiOn?('正在生成 AI 动态镜头（约 5~6 分钟）+ 本地渲染'):'正在渲染 1080×1920 广告片';
+  var waitHint=aiOn?'AI 生成约 5~6 分钟，加渲染共约 6~7 分钟，别关页面':'约 60~90 秒，别关页面';
+  status(waitMsg+'… '+elapsedTxt(t0)+'（'+waitHint+'）');
   clearInterval(PAD.timer);
   PAD.timer=setInterval(function(){
-   var p=Math.min(92,8+Math.round((Date.now()-t0)/90000*80));
-   bar(p);status('正在渲染 1080×1920 广告片… '+elapsedTxt(t0)+'（约 60~90 秒，别关页面）');
+   var budget=aiOn?420000:90000;
+   var p=Math.min(92,6+Math.round((Date.now()-t0)/budget*86));
+   var tip='';
+   if(aiOn){
+    tip=(Date.now()-t0<330000)?'AI 正在生成动态镜头':'AI 镜头已就绪/收尾，正在本地渲染';
+   }
+   bar(p);status(waitMsg+'… '+elapsedTxt(t0)+'（'+waitHint+'）'+(tip?(' · '+tip):''));
   },1000);
-  request(API+'/ad/product',body,620000).then(function(d){
+  request(API+'/ad/product',body,aiOn?880000:620000,aiOn?'AI 镜头约需 10 分钟':'约需 10 分钟').then(function(d){
    clearInterval(PAD.timer);bar(100);
-   status('出片完成：'+d.duration+' 秒 · '+fmtBytes(d.bytes)+' · 用时 '+elapsedTxt(t0),'ok');
+   var used=!!(d.ai_shots&&d.ai_shots.used);
+   status('出片完成：'+d.duration+' 秒 · '+fmtBytes(d.bytes)+' · 用时 '+elapsedTxt(t0)+(used?' · 含 AI 动态镜头':''),'ok');
    setTimeout(function(){bar(null);},800);
    renderResult(d);
   }).catch(function(x){
@@ -3085,7 +3138,9 @@ if(pb)pb.addEventListener('click',async function(){
    if(x&&x.code==='not_ready')msg='功能准备中：后端服务还没更新，稍后再试。';
    status(msg,'bad');err(msg);
   }).then(function(){
-   PAD.busy=false;btn.disabled=false;btn.textContent=old;
+   PAD.busy=false;btn.disabled=false;btn.textContent=aiOn?'🎬 生成（含 AI 镜头，约 ¥2.5）':'🎬 生成商品广告片（0 元）';
+   if(aiEl)aiEl.disabled=false;
+   if(aiPromptEl)aiPromptEl.disabled=false;
   });
  }
  function init(){
@@ -3096,7 +3151,10 @@ if(pb)pb.addEventListener('click',async function(){
   var up=$('padUpTxt');
   if(up)up.addEventListener('click',function(){if(f)f.click();});
   if($('padGo'))$('padGo').addEventListener('click',go);
-  ['padStore','padPhone','padCta','padDur','padMood','padSp1','padSp2','padSp3'].forEach(function(id){var el=$(id);if(el)el.addEventListener('change',saveForm);});
+  var aiEl=$('padAi');
+  if(aiEl)aiEl.addEventListener('change',function(){updateAiUI();saveForm();});
+  ['padStore','padPhone','padCta','padDur','padMood','padSp1','padSp2','padSp3','padAiPrompt'].forEach(function(id){var el=$(id);if(el)el.addEventListener('change',saveForm);});
+  updateAiUI();
   // 拖拽上传
   var box=document.querySelector('#padSec .pad-up');
   if(box){
