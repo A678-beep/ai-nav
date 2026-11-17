@@ -1,0 +1,9 @@
+# 站点验证标签：每行一个 name=content
+# 例如从 Google Search Console 复制：
+#   <meta name="google-site-verification" content="abc123..." />
+# 就写成：
+# google-site-verification=abc123...
+#
+# Bing / 百度 同理，写 name=content 即可，多个平台一行一个。
+# 改完保存，然后运行：python build.py --site https://a678-beep.github.io/ai-nav
+# 再重新部署（一键部署到GitHub.bat）
