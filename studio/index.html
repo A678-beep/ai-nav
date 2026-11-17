@@ -505,6 +505,24 @@ details[open].music summary:after{content:"收起 ▴"}
   .wrap>.colL,.wrap>.colR{align-self:stretch;align-content:start;max-height:100%;min-height:0;height:100%}
 }
 </style>
+
+<style>
+/* WB_COMPACT: 宽屏下压缩顶部，把高度让给工作区 */
+@media (min-width:1100px){
+  .wrap{box-sizing:border-box;height:calc(100vh - 60px);padding:4px 30px 6px;row-gap:10px}
+  .wrap>.hero{padding:2px 0 0;min-height:0}
+  .wrap>.hero .hero-badge,.wrap>.hero .eyebrow{display:none}
+  .wrap>.hero h1{font-size:24px;line-height:1.25;margin:0 0 4px}
+  .wrap>.hero p,.wrap>.hero .lead{font-size:12.5px;line-height:1.5;margin:0 0 4px;max-width:none}
+  .wrap>.flow{display:none}
+  .wrap>.colL,.wrap>.colR{height:100%;min-height:0}
+  #tplGrid{max-height:none}
+}
+@media (max-width:1099px){
+  .wrap{height:auto;padding:0 18px 70px}
+  .wrap>.hero h1{font-size:26px}
+}
+</style>
 </head><body>
 <div class="top"><div class="top-in">
  <a class="brand" href="/ai-nav/"><span class="logo">星</span>星籁 AI <span class="brand-sub">商家工作台</span></a>
