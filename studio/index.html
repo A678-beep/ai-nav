@@ -55,6 +55,45 @@ audio,video{width:100%;margin-top:10px;border-radius:12px;background:#0a1120}
 .foot{margin-top:26px;text-align:center;color:var(--txt3);font-size:12.5px}
 footer{border-top:1px solid var(--line);margin-top:44px;padding:24px 22px;text-align:center;color:var(--txt3);font-size:12.5px}
 @media(max-width:760px){.wrap{padding:0 16px 54px}.top-in{padding:0 14px}nav a{font-size:12.5px;padding:6px 8px}h1{font-size:26px}.steps{grid-template-columns:repeat(2,1fr)}.lead{padding:0 8px}}
+/* ---- 分镜编辑器 ---- */
+.sb-card{position:relative;border:1px solid var(--line);border-radius:14px;background:rgba(9,14,24,.72);padding:12px;margin-top:12px;transition:border-color .15s,box-shadow .15s}
+.sb-card.dragover{border-color:rgba(56,189,248,.75);box-shadow:0 0 0 3px rgba(56,189,248,.16)}
+.sb-card.dragging{opacity:.55}
+.sb-head{display:flex;align-items:center;gap:10px;flex-wrap:wrap}
+.sb-grip{cursor:grab;color:var(--txt3);font-size:17px;line-height:1;padding:3px 7px;border-radius:7px;background:rgba(148,163,184,.1);touch-action:none;user-select:none}
+.sb-grip:active{cursor:grabbing}
+.sb-no{font-weight:800;color:#7dd3fc;font-size:13px;letter-spacing:.02em}
+.sb-dur{font-size:12.5px;color:var(--txt3);display:flex;align-items:center;gap:6px}
+.sb-dur input{width:76px;background:rgba(9,14,24,.95);border:1px solid var(--line);color:var(--txt);border-radius:8px;padding:6px 8px;font-size:13px;text-align:center}
+.sb-tools{margin-left:auto;display:flex;gap:6px}
+.sb-tools button{background:rgba(148,163,184,.1);border:1px solid var(--line);color:var(--txt2);border-radius:8px;padding:6px 10px;font-size:12px;cursor:pointer}
+.sb-tools button:hover{color:#dff3ff;border-color:rgba(56,189,248,.45)}
+.sb-text{width:100%;min-height:58px;margin-top:9px;font-size:14px;line-height:1.7;padding:10px 11px;border-radius:10px}
+.sb-kw{display:flex;gap:8px;margin-top:8px}
+.sb-kw input{flex:1;min-width:0;background:rgba(9,14,24,.95);border:1px solid var(--line);border-radius:9px;color:var(--txt);padding:9px 11px;font-size:13px}
+.sb-kw button{background:rgba(56,189,248,.12);border:1px solid rgba(56,189,248,.35);color:#cfe9ff;border-radius:9px;padding:9px 13px;font-size:12.5px;font-weight:700;cursor:pointer;white-space:nowrap}
+.sb-clips{display:flex;gap:8px;overflow-x:auto;padding:9px 2px 3px;-webkit-overflow-scrolling:touch;scrollbar-width:thin}
+.sb-clip{position:relative;flex:0 0 112px;width:112px;height:66px;padding:0;border:2px solid rgba(148,163,184,.14);border-radius:10px;overflow:hidden;background:#0a1120;cursor:pointer}
+.sb-clip img{width:100%;height:100%;object-fit:cover;display:block;opacity:.82}
+.sb-clip.on{border-color:var(--cyan);box-shadow:0 0 0 2px rgba(56,189,248,.22)}
+.sb-clip.on img{opacity:1}
+.sb-clip b{position:absolute;left:4px;bottom:3px;font-size:9.5px;background:rgba(0,0,0,.7);color:#dff3ff;border-radius:5px;padding:1px 5px;font-weight:600}
+.sb-clip i{position:absolute;right:4px;top:3px;font-size:9.5px;font-style:normal;background:rgba(52,211,153,.9);color:#04121c;border-radius:5px;padding:1px 4px;font-weight:800}
+.sb-summary{display:flex;gap:8px;flex-wrap:wrap;font-size:12.5px;color:var(--txt3);margin-top:8px}
+.sb-summary span{border:1px solid var(--line);border-radius:999px;padding:3px 10px}
+.sbbar{position:fixed;left:0;right:0;bottom:0;z-index:40;display:none;background:rgba(7,10,16,.95);backdrop-filter:blur(16px);border-top:1px solid var(--line);padding:10px 16px calc(10px + env(safe-area-inset-bottom));gap:12px;align-items:center;justify-content:center;flex-wrap:wrap}
+.sbbar .sbinfo{font-size:12.5px;color:var(--txt2)}
+.sbbar .btn{padding:11px 18px}
+body.sb-open{padding-bottom:88px}
+/* ---- 试听混音 ---- */
+.mixbox{margin-top:16px;border:1px dashed rgba(148,163,184,.28);border-radius:12px;padding:12px 13px;background:rgba(9,14,24,.5)}
+.mixbox h4{margin:0 0 4px;font-size:14px;color:#dff3ff}
+.mixbox .lab{display:block;margin-top:8px;font-size:12.5px;color:var(--txt3)}
+.mixbox .mrow{display:flex;gap:9px;align-items:center;margin-top:5px;font-size:12.5px;color:var(--txt3)}
+.mixbox input[type=range]{flex:1;max-width:260px;accent-color:#38bdf8}
+.mixbox .tip{font-size:12px;color:var(--txt3);margin:8px 0 0}
+.sblist{margin-top:12px;font-size:12.5px;color:var(--txt2);line-height:1.95}
+.sblist b{color:#86efac;font-weight:600}
 </style></head><body>
 <div class="top"><div class="top-in"><a class="brand" href="/ai-nav/"><span class="logo">✦</span>星籁 AI 导航</a>
 <nav><a href="/ai-nav/">AI 导航</a><a href="/ai-nav/studio/">AI 创作工坊</a><a href="/ai-nav/travel/">出行导航</a><a href="/ai-nav/select-ai/">智能选型</a><a href="/ai-nav/radar/">工具雷达</a></nav></div></div>
@@ -67,14 +106,16 @@ footer{border-top:1px solid var(--line);margin-top:44px;padding:24px 22px;text-a
 <div class="row">
 <div class="seg" id="seg"><button data-m="auto" class="on">自动判断</button><button data-m="audio">音频 MP3</button><button data-m="video">文字视频</button><button data-m="footage">实拍成片</button></div>
 <select id="dur" style="width:auto;padding:9px 12px"><option value="30">30 秒</option><option value="60" selected>60 秒</option><option value="120">2 分钟</option><option value="180">3 分钟</option><option value="300">5 分钟</option></select>
-<div style="display:flex;gap:14px;align-items:center;flex-wrap:wrap;font-size:12.5px;color:var(--txt3)">人声 <input id="voiceVol" type="range" min="0" max="150" value="100" style="width:90px"> 配乐 <input id="bgmVol" type="range" min="0" max="150" value="90" style="width:90px"><label style="display:flex;align-items:center;gap:6px"><input id="unlimited" type="checkbox" style="width:auto"> 站长无限模式</label></div><button class="btn" id="go">开始生成</button>
+<div style="display:flex;gap:14px;align-items:center;flex-wrap:wrap;font-size:12.5px;color:var(--txt3)">人声 <input id="voiceVol" type="range" min="0" max="150" value="100" style="width:90px"> 配乐 <input id="bgmVol" type="range" min="0" max="150" value="90" style="width:90px"><label style="display:flex;align-items:center;gap:6px"><input id="unlimited" type="checkbox" style="width:auto"> 站长无限模式</label></div><button class="btn" id="go">开始生成</button><button class="btn" id="sbBtn" style="background:rgba(139,92,246,.22);border:1px solid rgba(139,92,246,.55);color:#e9d5ff">🎬 生成分镜</button>
 <span style="color:var(--txt3);font-size:12.5px" id="quota"></span>
 </div>
+<div style="margin-top:8px;font-size:12.5px;color:var(--txt3)">「生成分镜」= 逐句一个镜头：先看分镜、改文案/换素材/调时长，再渲染成片；「开始生成」= 一键快速出片。</div>
 <div class="chips" id="chips"></div>
 <div class="steps" id="steps"><div class="step" data-s="0">① 规划文案</div><div class="step" data-s="1">② AI 配音</div><div class="step" data-s="2">③ 配乐混音</div><div class="step" data-s="3">④ 校验导出</div></div>
 <div class="timer" id="timer"></div>
 </div>
 <div class="out" id="out"></div>
+<div class="sbbar" id="sbBar"><span class="sbinfo" id="sbInfo">共 0 镜</span><button class="btn" id="sbRender">🎬 按此分镜渲染成片</button><button class="btn" id="sbRegen" style="background:rgba(148,163,184,.14);border:1px solid var(--line);color:var(--txt2)">重新规划</button></div>
 <p class="foot">生成结果保留 24 小时 · 价格与功能以官方为准 · 每日 3 次免费额度</p>
 </div>
 <footer>© 2026 星籁 AI 工具导航 · xinglaiai.com 版权所有 · 未经许可禁止镜像/采集/商业转载</footer>
@@ -105,9 +146,23 @@ function render(d){
  h+='<audio controls src="'+d.audio_url+'"></audio>';
  h+='<div class="acts">';
  if(d.video_url){h+='<a href="'+d.video_url+'" download>⬇ 下载 MP4</a>';}
- h+=(d.engine==='pixabay-footage')?('<span class="hint" style="align-self:center">实拍素材成片 · '+ (d.scenes||0) +' 个镜头 · 素材来自 Pixabay（可商用）</span>'):'';
+ h+=(d.engine==='pixabay-footage')?('<span class="hint" style="align-self:center">逐句对齐成片 · '+ (d.scenes||0) +' 个镜头 · 素材来自 Pixabay / Mixkit（可商用）</span>'):'';
  h+='<a href="'+d.audio_url+'" download>⬇ 下载 MP3</a><button onclick="copyScript()">📋 复制文案</button></div>';
- h+='<h3 style="margin-top:20px">口播文案（可直接修改，改完点下面按钮重新生成）</h3><textarea id="scriptEdit" style="min-height:180px;font-size:14px">'+d.script.replace(/</g,'&lt;')+'</textarea>';
+ if(d.voice_url||d.bgm_url){
+  h+='<div class="mixbox"><h4>🎧 试听混音 · 人声/配乐双轨</h4>';
+  if(d.voice_url){h+='<span class="lab">① 人声轨（AI 配音）</span><audio id="auVoice" controls preload="none" src="'+d.voice_url+'"></audio><div class="mrow">人声音量 <input id="volVoice" type="range" min="0" max="150" value="100"> <b id="volVoiceVal">100</b>%</div>';}
+  if(d.bgm_url){h+='<span class="lab">② 配乐轨（背景音乐）</span><audio id="auBgm" controls preload="none" src="'+d.bgm_url+'"></audio><div class="mrow">配乐音量 <input id="volBgm" type="range" min="0" max="150" value="90"> <b id="volBgmVal">90</b>%</div>';}
+  h+='<div class="acts"><button id="playBoth">▶ 两轨同时播放</button><button id="stopBoth">■ 停止</button></div>';
+  h+='<p class="tip">试听滑块只调整这两条音轨的播放音量；成片已按生成时「人声/配乐」比例混好，下载即用。</p></div>';
+ }
+ if(d.scene_list&&d.scene_list.length){
+  h+='<div class="sblist">';
+  d.scene_list.forEach(function(s){h+='<div>镜头 '+s.index+' · '+Number(s.dur).toFixed(1)+' 秒 · <b>匹配 '+s.match_score+'</b> · '+s.kw+'</div>';});
+  h+='</div>';
+ }else if(d.storyboard&&d.storyboard.scenes){
+  h+='<div class="sblist">'+d.storyboard.scenes.map(function(s){return '<div>镜头 '+s.index+' · '+Number(s.dur).toFixed(1)+' 秒 · '+s.kw+'</div>';}).join('')+'</div>';
+ }
+ h+='<h3 style="margin-top:20px">口播文案（可直接修改，改完点下面按钮重新生成）</h3><textarea id="scriptEdit" style="min-height:180px;font-size:14px">'+(d.script||'').replace(/</g,'&lt;')+'</textarea>';
  if(d.logs&&d.logs.length){h+='<div class="log">';d.logs.forEach(function(l){h+='<div><b>'+(l.agent||'')+'</b> '+(l.ok?'通过':'重试')+(l.round?(' · 第'+(l.round)+'轮'):'')+(l.size_kb?(' · '+l.size_kb+'KB'):'')+(l.duration?(' · '+l.duration+'s'):'')+'</div>';});h+='</div>';}
  h+='<div class="row"><button class="btn" id="regen">用改后文案重新生成</button><button class="btn" id="aiPolish" style="background:rgba(139,92,246,.2);border:1px solid rgba(139,92,246,.5);color:#e9d5ff">✨ AI 优化文案</button><span class="hint">改文案后时长会按新文案重新计算</span></div></div>';
  return h;
@@ -132,6 +187,7 @@ async function doGen(body){
 }
 async function go(){
  if(busy)return;
+ sbHideBar();
  var q=(document.getElementById('q').value||'').trim();
  if(!q){document.getElementById('q').focus();return;}
  var qs=quota();
@@ -166,7 +222,201 @@ async function go(){
 document.getElementById('go').addEventListener('click',go);
 document.getElementById('unlimited').addEventListener('change',function(){localStorage.setItem('studio_unlimited',this.checked?'1':'0');quota();});
 document.getElementById('unlimited').checked=localStorage.getItem('studio_unlimited')==='1';
-document.addEventListener('click',function(e){ if(e.target && e.target.id==='aiPolish'){ var t=document.getElementById('scriptEdit'); if(!t)return; var v=t.value.trim(); if(!v){alert('文案为空');return;} var b=e.target; b.disabled=true; b.textContent='AI 优化中…'; fetch('/ai-nav/api/polish',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({script:v,prompt:(document.getElementById('q').value||'')})}) .then(function(r){return r.json()}).then(function(d){ if(d.ok&&d.script){t.value=d.script;} else {alert(d.hint||d.error||'优化失败');} }) .catch(function(){alert('网络异常')}) .finally(function(){b.disabled=false;b.textContent='✨ AI 优化文案';}); return; } if(e.target && e.target.id==='regen'){ var t=document.getElementById('scriptEdit'); if(!t) return; var v=t.value.trim(); if(!v){alert('文案不能为空');return;} var d0=lastData; var body={prompt:'按修改后的文案重新生成',mode:'video',engine:'footage',duration:(d0&&Math.max(30,Math.round(d0.duration)))||60,script:v}; return doGen(body); } });
 quota();
+document.addEventListener('click',function(e){ if(e.target && e.target.id==='aiPolish'){ var t=document.getElementById('scriptEdit'); if(!t)return; var v=t.value.trim(); if(!v){alert('文案为空');return;} var b=e.target; b.disabled=true; b.textContent='AI 优化中…'; fetch('/ai-nav/api/polish',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({script:v,prompt:(document.getElementById('q').value||'')})}) .then(function(r){return r.json()}).then(function(d){ if(d.ok&&d.script){t.value=d.script;} else {alert(d.hint||d.error||'优化失败');} }) .catch(function(){alert('网络异常')}) .finally(function(){b.disabled=false;b.textContent='✨ AI 优化文案';}); return; } if(e.target && e.target.id==='regen'){ var t=document.getElementById('scriptEdit'); if(!t) return; var v=t.value.trim(); if(!v){alert('文案不能为空');return;} var d0=lastData; var body={prompt:'按修改后的文案重新生成',mode:'video',engine:'footage',duration:(d0&&Math.max(30,Math.round(d0.duration)))||60,script:v}; return doGen(body); } });
+/* ================= 分镜编辑（逐句对齐） ================= */
+var sbData=null, sbPrompt='', sbBusy=false, sbDragFrom=-1;
+function escHtml(s){return String(s==null?'':s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');}
+function sbTotal(){var t=0;(sbData&&sbData.scenes||[]).forEach(function(s){t+=Number(s.dur)||0;});return t;}
+function sbThumb(c){return (c&&(c.thumb||c.url))||'';}
+function sbParams(){
+ var q=(document.getElementById('q').value||'').trim();
+ return {prompt:q,duration:parseInt(document.getElementById('dur').value,10)||60,
+  voice_vol:(parseInt(document.getElementById('voiceVol').value,10)||100)/100,
+  bgm_vol:(parseInt(document.getElementById('bgmVol').value,10)||90)/100};
+}
+function sbCardHTML(s,i){
+ var clips=s.clips||[], pick=s.pick||null;
+ var cs=clips.map(function(c,k){
+  var on=pick?((pick.id&&c.id)?pick.id===c.id:pick.url===c.url):(k===0);
+  var tag=(c.tags||'')+' · '+(c.source||'');
+  return '<button type="button" class="sb-clip'+(on?' on':'')+'" data-k="'+k+'" title="'+escHtml(tag)+'">'
+   +(sbThumb(c)?('<img loading="lazy" src="'+escHtml(sbThumb(c))+'" alt="素材预览">'):'')
+   +'<b>'+(c.source==='mixkit'?'Mixkit':(c.source==='generated'?'兜底':'Pixabay'))+'</b>'
+   +(c.match_score>0?('<i>★'+c.match_score+'</i>'):'')
+   +'</button>';
+ }).join('');
+ if(!cs){cs='<span style="font-size:12px;color:var(--txt3);padding:10px 2px">暂无候选素材，换关键词点「重搜」</span>';}
+ return '<div class="sb-card" data-i="'+i+'">'
+  +'<div class="sb-head"><span class="sb-grip" draggable="true" data-drag="'+i+'" title="按住拖动排序">⠿</span>'
+  +'<span class="sb-no">镜头 '+(i+1)+'</span>'
+  +'<span class="sb-dur">时长 <input class="sb-dur-in" data-i="'+i+'" type="number" value="'+Number(s.dur||0).toFixed(1)+'" min="1" max="30" step="0.1"> 秒</span>'
+  +'<span class="sb-tools"><button type="button" data-act="up" title="上移">↑</button><button type="button" data-act="down" title="下移">↓</button></span></div>'
+  +'<textarea class="sb-text" data-i="'+i+'" rows="2" placeholder="这一镜的旁白">'+escHtml(s.text)+'</textarea>'
+  +'<div class="sb-kw"><input class="sb-kw-in" data-i="'+i+'" value="'+escHtml(s.kw)+'" placeholder="素材关键词（英文更准）"><button type="button" data-act="research">🔍 重搜</button></div>'
+  +'<div class="sb-clips">'+cs+'</div></div>';
+}
+function sbOpenEditor(keepScroll){
+ var y=window.scrollY||window.pageYOffset||0;
+ var sb=sbData; if(!sb)return;
+ var cards=sb.scenes.map(sbCardHTML).join('');
+ var html='<div class="card"><h3>🎬 分镜方案 · 逐句一镜</h3>'
+  +'<div class="sb-summary"><span>标题：'+escHtml(sb.title||'-')+'</span><span>音色：'+escHtml(sb.voice||'-')+'</span>'
+  +'<span>配乐：'+escHtml(sb.bgm||'-')+'</span><span>镜头：'+sb.scenes.length+' 个</span><span id="sbTotal">合计约 '+sbTotal().toFixed(1)+' 秒</span></div>'
+  +'<p style="font-size:12.5px;color:var(--txt3);margin:9px 0 0">拖动 ⠿ 或用 ↑↓ 调整顺序 · 点缩略图换该镜素材 · 文案/关键词/时长都可改 · 时长与配音冲突时自动放宽，不会截断语音。</p>'
+  +cards+'</div>';
+ document.getElementById('out').style.display='block';
+ document.getElementById('out').innerHTML=html;
+ var bar=document.getElementById('sbBar'); bar.style.display='flex';
+ document.body.classList.add('sb-open');
+ sbUpdateInfo();
+ if(keepScroll){setTimeout(function(){window.scrollTo(0,y);},0);}
+}
+function sbUpdateInfo(){
+ var b=document.getElementById('sbInfo'), t=document.getElementById('sbTotal');
+ var n=(sbData&&sbData.scenes.length)||0, d=sbTotal();
+ if(b)b.textContent='共 '+n+' 镜 · 约 '+d.toFixed(1)+' 秒';
+ if(t)t.textContent='合计约 '+d.toFixed(1)+' 秒';
+}
+function sbHideBar(){var bar=document.getElementById('sbBar');if(bar)bar.style.display='none';document.body.classList.remove('sb-open');}
+function sbChoose(i,k){
+ var s=sbData&&sbData.scenes[i]; if(!s||!s.clips||!s.clips[k])return;
+ var c=s.clips[k];
+ s.pick={url:c.url||'',id:c.id||'',match_score:c.match_score||0,thumb:c.thumb||''};
+ var box=document.querySelectorAll('.sb-clip');
+ for(var j=0;j<box.length;j++){
+  var card=box[j].closest?box[j].closest('.sb-card'):null;
+  if(card&&parseInt(card.getAttribute('data-i'),10)===i){box[j].className='sb-clip'+(parseInt(box[j].getAttribute('data-k'),10)===k?' on':'');}
+ }
+}
+function sbMove(i,delta){
+ if(!sbData)return; var to=i+delta, arr=sbData.scenes;
+ if(to<0||to>=arr.length)return;
+ var item=arr.splice(i,1)[0]; arr.splice(to,0,item);
+ sbOpenEditor(true);
+}
+async function sbResearch(i,btn){
+ var s=sbData&&sbData.scenes[i]; if(!s)return;
+ var kw=(s.kw||'').trim(); if(!kw){alert('请先填写该镜的关键词');return;}
+ var old=btn.textContent; btn.disabled=true; btn.textContent='重搜中…';
+ try{
+  var r=await fetch('/ai-nav/api/clips',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({kw:kw,n:8})});
+  var d=await r.json();
+  if(!d.ok||!d.clips||!d.clips.length){alert(d.hint||'该关键词没有找到素材，建议换英文关键词');}
+  else{s.clips=d.clips; s.pick=null; sbOpenEditor(true);}
+ }catch(e){alert('重搜失败：'+e.message);}
+ finally{btn.disabled=false;btn.textContent=old;}
+}
+async function genStoryboard(){
+ if(sbBusy)return;
+ var p=sbParams();
+ if(!p.prompt){document.getElementById('q').focus();alert('请先输入创作需求');return;}
+ sbBusy=true; sbHideBar();
+ var btn=document.getElementById('sbBtn'); btn.disabled=true; btn.textContent='⏳ 规划分镜中…';
+ var out=document.getElementById('out'); out.style.display='block';
+ out.innerHTML='<div class="card"><h3>🎬 正在生成分镜方案</h3><p style="color:#9fb0c7;margin:8px 0 0">AI 正在逐句拆分镜头、检索素材、逐句配音测时长，预计 10~30 秒。</p><p style="color:#6b7c94;font-size:12.5px;margin:6px 0 0">已用时 <b id="sbTimer">0</b> 秒</p></div>';
+ out.scrollIntoView({behavior:'smooth',block:'start'});
+ var t0=Date.now(); var iv=setInterval(function(){var e=document.getElementById('sbTimer');if(e)e.textContent=Math.round((Date.now()-t0)/1000);},1000);
+ try{
+  var r=await fetch('/ai-nav/api/storyboard',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({prompt:p.prompt,duration:p.duration})});
+  var d=await r.json();
+  if(!d.ok||!d.scenes||!d.scenes.length){throw new Error(d.hint||d.error||'分镜生成失败');}
+  sbData=d; sbPrompt=p.prompt;
+  d.scenes.forEach(function(s){s.pick=s.pick||null;});
+  sbOpenEditor(false);
+ }catch(e){
+  document.getElementById('out').innerHTML='<div class="card"><h3>分镜生成失败</h3><p class="err">'+escHtml(e.message)+'</p><p style="color:var(--txt3);font-size:13px;margin-top:8px">可换更具体的需求重试，或直接用「开始生成」快速出片。</p></div>';
+ }finally{clearInterval(iv);sbBusy=false;btn.disabled=false;btn.textContent='🎬 生成分镜';}
+}
+function sbRender(){
+ if(!sbData||sbBusy)return;
+ var p=sbParams();
+ var scenes=sbData.scenes.map(function(s,i){
+  var o={index:i+1,text:s.text,kw:s.kw,dur:Number(s.dur)||0,clips:s.clips};
+  if(s.pick){o.clip=s.pick.url;o.clip_id=s.pick.id;}
+  return o;
+ });
+ var total=Math.max(5,sbTotal());
+ var body={engine:'footage',prompt:sbPrompt||p.prompt,duration:Math.round(total),
+  storyboard:{id:sbData.id,title:sbData.title,voice:sbData.voice,bgm:sbData.bgm,scenes:scenes},
+  voice_vol:p.voice_vol,bgm_vol:p.bgm_vol};
+ sbHideBar(); doGen(body);
+}
+function sbPlayBoth(){
+ var a=document.getElementById('auVoice'), b=document.getElementById('auBgm');
+ if(!a&&!b)return;
+ [a,b].forEach(function(x){if(x){x.pause();try{x.currentTime=0;}catch(_){}}});
+ if(a)a.volume=((parseInt(document.getElementById('volVoice').value,10)||0)/100);
+ if(b)b.volume=((parseInt(document.getElementById('volBgm').value,10)||0)/100);
+ [a,b].forEach(function(x){if(x&&x.play){var pr=x.play();if(pr&&pr.catch)pr.catch(function(){});}});
+}
+function sbStopBoth(){
+ ['auVoice','auBgm'].forEach(function(id){var x=document.getElementById(id);if(x){x.pause();try{x.currentTime=0;}catch(_){}}});
+}
+document.addEventListener('click',function(e){
+ var t=e.target; if(!t||!t.closest)return;
+ if(t.id==='sbBtn'){genStoryboard();return;}
+ if(t.id==='sbRender'||t.id==='sbRenderTop'){sbRender();return;}
+ if(t.id==='sbRegen'){genStoryboard();return;}
+ if(t.id==='playBoth'){sbPlayBoth();return;}
+ if(t.id==='stopBoth'){sbStopBoth();return;}
+ var card=t.closest('.sb-card');
+ if(!card)return;
+ var i=parseInt(card.getAttribute('data-i'),10);
+ var clip=t.closest('.sb-clip');
+ if(clip){sbChoose(i,parseInt(clip.getAttribute('data-k'),10));return;}
+ var act=t.closest('[data-act]');
+ if(act){
+  var a=act.getAttribute('data-act');
+  if(a==='up')sbMove(i,-1);
+  else if(a==='down')sbMove(i,1);
+  else if(a==='research')sbResearch(i,act);
+ }
+});
+document.addEventListener('input',function(e){
+ var t=e.target; if(!t||!sbData)return;
+ if(t.classList.contains('sb-text')){sbData.scenes[+t.getAttribute('data-i')].text=t.value;}
+ else if(t.classList.contains('sb-kw-in')){sbData.scenes[+t.getAttribute('data-i')].kw=t.value;}
+ else if(t.classList.contains('sb-dur-in')){
+  var v=parseFloat(t.value); if(!isNaN(v))sbData.scenes[+t.getAttribute('data-i')].dur=Math.max(1,Math.min(30,v));
+  sbUpdateInfo();
+ }
+ else if(t.id==='volVoice'||t.id==='volBgm'){
+  var a=document.getElementById(t.id==='volVoice'?'auVoice':'auBgm');
+  if(a)a.volume=(parseInt(t.value,10)||0)/100;
+  var lb=document.getElementById(t.id+'Val'); if(lb)lb.textContent=t.value;
+ }
+});
+document.addEventListener('dragstart',function(e){
+ var g=e.target&&e.target.closest?e.target.closest('.sb-grip'):null; if(!g)return;
+ sbDragFrom=parseInt(g.getAttribute('data-drag'),10);
+ var card=g.closest('.sb-card'); if(card)card.className='sb-card dragging';
+ if(e.dataTransfer){e.dataTransfer.effectAllowed='move';try{e.dataTransfer.setData('text/plain',String(sbDragFrom));}catch(_){}}
+});
+document.addEventListener('dragover',function(e){
+ var card=e.target&&e.target.closest?e.target.closest('.sb-card'):null;
+ if(!card||sbDragFrom<0)return;
+ e.preventDefault(); if(e.dataTransfer)e.dataTransfer.dropEffect='move';
+ card.className='sb-card dragover';
+});
+document.addEventListener('dragleave',function(e){
+ var card=e.target&&e.target.closest?e.target.closest('.sb-card'):null;
+ if(card)card.className='sb-card';
+});
+document.addEventListener('drop',function(e){
+ var card=e.target&&e.target.closest?e.target.closest('.sb-card'):null;
+ if(!card||sbDragFrom<0)return;
+ e.preventDefault();
+ var to=parseInt(card.getAttribute('data-i'),10);
+ var from=sbDragFrom; sbDragFrom=-1;
+ if(to!==from&&!isNaN(to)){
+  var arr=sbData.scenes; var item=arr.splice(from,1)[0]; arr.splice(to,0,item); sbOpenEditor(true);
+ }else{card.className='sb-card';}
+});
+document.addEventListener('dragend',function(){
+ sbDragFrom=-1;
+ var cs=document.querySelectorAll('.sb-card.dragging,.sb-card.dragover');
+ for(var i=0;i<cs.length;i++)cs[i].className='sb-card';
+});
 </script>
 </body></html>
