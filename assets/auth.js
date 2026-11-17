@@ -237,8 +237,7 @@
       var display = u.business_name || u.name || u.account || u.phone || '我的账号';
       var sub = planName(u.plan) + (u.plan_expire_at ? ' · ' + fmtDate(u.plan_expire_at) + ' 到期' : '');
       slot.innerHTML =
-        '<button class="auth-link auth-me" id="xlMe" aria-haspopup="true" aria-expanded="false" type="button"><span class="auth-dot"></span>' +
-        (isAdmin(u) ? '管理' : '我的') + ' ▾</button>' +
+        '<button class="auth-link auth-me" id="xlMe" aria-haspopup="true" aria-expanded="false" type="button"><span class="auth-dot"></span>我的 ▾</button>' +
         '<div class="auth-menu" id="xlMenu" role="menu">' +
           '<div class="who"><b>' + esc(display) + '</b>' + esc(sub) + '</div>' +
           '<a role="menuitem" href="' + esc(rootUrl('account/dashboard.html')) + '">👤 个人中心</a>' +

@@ -1,143 +1,1153 @@
 <!doctype html><html lang="zh-CN"><head>
-<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
-<title>AI 出行导航 · 一句话规划多任务顺路路线 · 星籁 AI</title>
-<meta name="description" content="输入一句话描述今天要做的事，AI 自动规划多任务顺路最优路线：总里程、到达时间、每站停留建议，附实时路线地图。">
-<meta name="keywords" content="多任务顺路规划,AI出行导航,路线优化,顺路取快递,办事路线规划">
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>AI 出行秘书 · 有记忆的办事路线规划 · 星籁 AI</title>
+<meta name="description" content="有记忆的私人办事出行秘书：记住家/公司/常去店，听懂“先去工行取钱，然后顺丰拿快递，最后洗车，五点前回家”，自动校验营业时间、时间窗和限行，给出可执行路线与高德/百度唤起链接。数据只存本机。">
+<meta name="keywords" content="AI出行秘书,办事路线规划,多任务顺路,取快递路线,洗车预约,时间窗规划,本地记忆">
 <link rel="canonical" href="https://a678-beep.github.io/ai-nav/travel/">
 <style>
-:root{--bg:#070a10;--panel:#0f1622;--line:rgba(148,163,184,.14);--txt:#e8eef8;--txt2:#9fb0c7;--txt3:#6b7c94;--cyan:#38bdf8;--violet:#8b5cf6;--lime:#34d399}
+:root{--bg:#070a10;--panel:#0f1622;--line:rgba(148,163,184,.14);--line2:rgba(148,163,184,.26);--txt:#e8eef8;--txt2:#9fb0c7;--txt3:#6b7c94;--cyan:#38bdf8;--violet:#8b5cf6;--lime:#34d399;--amber:#fbbf24;--red:#f87171;--card:linear-gradient(180deg,rgba(20,28,43,.92),rgba(12,18,28,.92))}
 *{box-sizing:border-box}
-body{margin:0;font:15px/1.7 -apple-system,"Segoe UI",Roboto,"Microsoft YaHei",sans-serif;color:var(--txt);background:radial-gradient(900px 480px at 78% -10%,rgba(56,189,248,.10),transparent 60%),radial-gradient(700px 400px at 10% 5%,rgba(139,92,246,.10),transparent 60%),linear-gradient(180deg,#070a10,#0a0f18);background-attachment:fixed;min-height:100vh}
+html{-webkit-text-size-adjust:100%}
+body{margin:0;font:15px/1.65 -apple-system,"Segoe UI",Roboto,"Microsoft YaHei",sans-serif;color:var(--txt);background:radial-gradient(900px 480px at 78% -10%,rgba(56,189,248,.10),transparent 60%),radial-gradient(700px 400px at 10% 5%,rgba(139,92,246,.10),transparent 60%),linear-gradient(180deg,#070a10,#0a0f18);background-attachment:fixed;min-height:100vh;overflow-x:hidden}
 a{color:inherit;text-decoration:none}
-.wrap{max-width:1000px;margin:0 auto;padding:0 22px 70px}
-.top{position:sticky;top:0;z-index:10;backdrop-filter:blur(18px);background:rgba(7,10,16,.78);border-bottom:1px solid var(--line)}
-.top-in{max-width:1000px;margin:0 auto;height:60px;display:flex;align-items:center;gap:14px;padding:0 22px}
-.brand{font-weight:800;font-size:15px;display:flex;align-items:center;gap:9px}
+button{font-family:inherit}
+.wrap{max-width:1040px;margin:0 auto;padding:0 22px 80px}
+.top{position:sticky;top:0;z-index:30;backdrop-filter:blur(18px);background:rgba(7,10,16,.82);border-bottom:1px solid var(--line)}
+.top-in{max-width:1040px;margin:0 auto;height:60px;display:flex;align-items:center;gap:14px;padding:0 22px}
+.brand{font-weight:800;font-size:15px;display:flex;align-items:center;gap:9px;min-height:44px}
 .logo{width:30px;height:30px;border-radius:9px;background:linear-gradient(135deg,#38bdf8,#8b5cf6);display:grid;place-items:center;font-size:15px;color:#04121c;font-weight:900}
-nav{margin-left:auto;display:flex;gap:2px;flex-wrap:wrap}
-nav a{color:var(--txt2);font-size:13.5px;padding:7px 11px;border-radius:9px}
+nav{margin-left:auto;display:flex;gap:2px;flex-wrap:wrap;justify-content:flex-end}
+nav a{color:var(--txt2);font-size:13.5px;padding:8px 10px;border-radius:9px;min-height:40px;display:inline-flex;align-items:center}
 nav a:hover{color:#fff;background:rgba(148,163,184,.1)}
-.hero{padding:46px 0 6px;text-align:center}
-.eyebrow{display:inline-block;font-size:11.5px;letter-spacing:.2em;color:#7dd3fc;border:1px solid rgba(56,189,248,.28);background:rgba(56,189,248,.07);padding:6px 14px;border-radius:999px;margin-bottom:16px}
-h1{font-size:clamp(27px,3.8vw,40px);margin:0 0 12px;letter-spacing:-.02em;line-height:1.22}
+.hero{padding:42px 0 8px;text-align:center}
+.eyebrow{display:inline-flex;align-items:center;gap:6px;font-size:11.5px;letter-spacing:.18em;color:#7dd3fc;border:1px solid rgba(56,189,248,.28);background:rgba(56,189,248,.07);padding:7px 14px;border-radius:999px;margin-bottom:15px}
+h1{font-size:clamp(26px,3.8vw,40px);margin:0 0 12px;letter-spacing:-.02em;line-height:1.25}
 h1 span{background:linear-gradient(120deg,#7dd3fc,#a78bfa);-webkit-background-clip:text;background-clip:text;color:transparent}
-.lead{color:var(--txt2);max-width:640px;margin:0 auto 22px;font-size:15px}
-.box,.card{background:linear-gradient(180deg,rgba(20,28,43,.9),rgba(12,18,28,.9));border:1px solid var(--line);border-radius:18px;padding:18px;box-shadow:0 24px 60px -24px rgba(2,8,20,.9)}
+.lead{color:var(--txt2);max-width:660px;margin:0 auto 20px;font-size:15px}
+.trust{display:inline-flex;align-items:center;gap:7px;font-size:12.5px;color:#86efac;background:rgba(52,211,153,.08);border:1px solid rgba(52,211,153,.22);padding:6px 12px;border-radius:999px;margin-bottom:20px}
+.box,.card{background:var(--card);border:1px solid var(--line);border-radius:18px;padding:18px;box-shadow:0 24px 60px -24px rgba(2,8,20,.9)}
+.box{padding:16px}
+.mem-bar{display:flex;gap:8px;flex-wrap:wrap;align-items:center;padding-bottom:12px;border-bottom:1px dashed var(--line);margin-bottom:13px}
+.chip{display:inline-flex;align-items:center;gap:6px;font-size:12.5px;color:var(--txt2);background:rgba(9,14,24,.85);border:1px solid var(--line);border-radius:999px;padding:6px 11px;min-height:34px;max-width:100%}
+.chip b{color:#dff3ff;font-weight:700;max-width:180px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.chip.ok{color:#86efac;border-color:rgba(52,211,153,.25)}
+.chip button{border:0;background:transparent;color:inherit;cursor:pointer;padding:2px 4px;font-size:12px}
+.mem-spacer{margin-left:auto}
+.chatbox{position:relative}
+.chatbox textarea{width:100%;min-height:96px;resize:vertical;background:rgba(9,14,24,.92);border:1px solid var(--line2);border-radius:14px;color:var(--txt);font-size:16px;line-height:1.7;padding:14px 15px;outline:none;font-family:inherit}
+.chatbox textarea:focus{border-color:rgba(56,189,248,.55);box-shadow:0 0 0 4px rgba(56,189,248,.1)}
+.chat-actions{display:flex;gap:9px;align-items:center;flex-wrap:wrap;margin-top:11px}
+.btn{background:linear-gradient(135deg,#38bdf8,#6366f1);color:#04121c;font-weight:800;border:0;border-radius:12px;padding:12px 22px;font-size:15px;cursor:pointer;min-height:46px;display:inline-flex;align-items:center;justify-content:center;gap:7px}
+.btn:disabled{opacity:.55;cursor:progress}
+.btn.ghost{background:rgba(56,189,248,.08);color:#bae6fd;border:1px solid rgba(56,189,248,.3)}
+.btn.mini{padding:9px 13px;font-size:13px;min-height:40px;font-weight:700}
+.btn.soft{background:rgba(148,163,184,.1);color:var(--txt);border:1px solid var(--line)}
+.btn.danger{background:rgba(248,113,113,.12);color:#fecaca;border:1px solid rgba(248,113,113,.3)}
+.linkbtn{display:inline-flex;align-items:center;justify-content:center;gap:5px;min-height:38px;padding:7px 11px;border-radius:10px;border:1px solid var(--line);background:rgba(148,163,184,.07);color:#cfe9ff;font-size:12.5px;cursor:pointer}
+.linkbtn:hover{border-color:rgba(56,189,248,.5)}
+.hint{font-size:12.5px;color:var(--txt3);margin-top:9px;line-height:1.8}
+.hint b{color:var(--txt2)}
+.examples{display:flex;gap:7px;flex-wrap:wrap;margin-top:10px}
+.examples button{border:1px dashed var(--line2);background:transparent;color:var(--txt2);border-radius:999px;padding:7px 11px;font-size:12.5px;cursor:pointer;min-height:38px}
+.examples button:hover{color:#dff3ff;border-color:rgba(56,189,248,.45)}
+.privacy-note{font-size:11.5px;color:var(--txt3);margin-top:10px;display:flex;gap:6px;align-items:flex-start;line-height:1.7}
+.form-panel{margin-top:14px;border-top:1px dashed var(--line);padding-top:14px;display:none}
+.form-panel.open{display:block}
 .grid2{display:grid;grid-template-columns:1fr 1fr;gap:10px}
 label{display:block;font-size:12.5px;color:var(--txt3);margin:10px 0 5px}
-input,textarea,select{width:100%;background:rgba(9,14,24,.9);border:1px solid var(--line);border-radius:11px;color:var(--txt);font-size:14.5px;padding:11px 13px;outline:none;font-family:inherit}
-input:focus,textarea:focus{border-color:rgba(56,189,248,.5);box-shadow:0 0 0 4px rgba(56,189,248,.1)}
-textarea{min-height:88px;resize:vertical}
-.row{display:flex;gap:10px;align-items:center;margin-top:14px;flex-wrap:wrap}
-.btn{background:linear-gradient(135deg,#38bdf8,#6366f1);color:#04121c;font-weight:800;border:0;border-radius:12px;padding:12px 26px;font-size:15px;cursor:pointer}
-.btn:disabled{opacity:.6;cursor:progress}
-.modes{display:flex;gap:6px;background:rgba(9,14,24,.8);border:1px solid var(--line);border-radius:11px;padding:4px}
-.modes button{background:transparent;border:0;color:var(--txt2);padding:7px 13px;border-radius:8px;font-size:13px;cursor:pointer}
+input,textarea,select{width:100%;background:rgba(9,14,24,.92);border:1px solid var(--line);border-radius:11px;color:var(--txt);font-size:14.5px;padding:11px 12px;outline:none;font-family:inherit;min-height:44px}
+textarea{min-height:84px;resize:vertical}
+input:focus,textarea:focus,select:focus{border-color:rgba(56,189,248,.5);box-shadow:0 0 0 4px rgba(56,189,248,.1)}
+input[type=checkbox]{width:auto;min-height:0;accent-color:#38bdf8;transform:scale(1.15);margin-right:6px}
+input[type=number]{max-width:110px}
+.row{display:flex;gap:9px;align-items:center;margin-top:12px;flex-wrap:wrap}
+.modes{display:flex;gap:5px;background:rgba(9,14,24,.8);border:1px solid var(--line);border-radius:11px;padding:4px;flex-wrap:wrap}
+.modes button{background:transparent;border:0;color:var(--txt2);padding:9px 13px;border-radius:8px;font-size:13px;cursor:pointer;min-height:38px}
 .modes button.on{background:rgba(56,189,248,.16);color:#dff3ff}
-.out{margin-top:18px;display:none}
-.card h3{margin:0 0 10px;font-size:16.5px;display:flex;align-items:center;gap:8px}
-.card h3:before{content:"";width:4px;height:16px;border-radius:2px;background:linear-gradient(180deg,#38bdf8,#8b5cf6)}
-#mapImg{width:100%;border-radius:14px;display:block;background:#0a1120;min-height:180px}
-.stats{display:flex;gap:10px;flex-wrap:wrap;margin-top:12px}
-.stats div{flex:1;min-width:110px;border:1px solid var(--line);border-radius:12px;padding:10px 14px;background:rgba(9,14,24,.6)}
-.stats b{display:block;font-size:20px;color:#fff}
-.stats span{font-size:12px;color:var(--txt3)}
-.stops{list-style:none;padding:0;margin:12px 0 0}
-.stops li{display:flex;gap:12px;align-items:flex-start;padding:12px 0;border-bottom:1px dashed var(--line);cursor:grab}
-.stops li:last-child{border:0}
-.stops .no{width:26px;height:26px;border-radius:8px;background:rgba(56,189,248,.16);border:1px solid rgba(56,189,248,.4);color:#cfe9ff;font-weight:800;font-size:13px;display:grid;place-items:center;flex:0 0 auto}
-.stops .nm{font-weight:700}
-.stops .ad{font-size:12.5px;color:var(--txt3)}
-.stops .tm{font-size:12.5px;color:#7dd3fc;margin-top:2px}
-.stops .st{font-size:12px;color:var(--txt3)}
-.note{margin-top:12px;font-size:12.5px;color:var(--txt3);line-height:1.9}
-.err{color:#fca5a5}
-.foot{margin-top:24px;text-align:center;color:var(--txt3);font-size:12.5px}
+.out,.confirm{margin-top:16px;display:none}
+.confirm.open,.out.open{display:block}
+h2{font-size:19px;margin:0 0 6px;letter-spacing:-.01em}
+h3{margin:0 0 10px;font-size:16.5px;display:flex;align-items:center;gap:8px}
+h3:before{content:"";width:4px;height:16px;border-radius:2px;background:linear-gradient(180deg,#38bdf8,#8b5cf6)}
+.sub{color:var(--txt3);font-size:12.5px;line-height:1.8}
+.editor{border:1px solid var(--line);background:rgba(9,14,24,.55);border-radius:13px;padding:11px 12px;margin-top:10px;position:relative}
+.editor .ed-label{font-size:12px;color:var(--txt3);margin-bottom:5px;display:flex;gap:8px;align-items:center;justify-content:space-between}
+.editor .place-line{display:flex;gap:8px;align-items:center}
+.editor .place-line input{flex:1;min-width:0}
+.task-card{border:1px solid var(--line);background:rgba(9,14,24,.55);border-radius:14px;padding:12px;margin-top:10px}
+.task-head{display:flex;gap:10px;align-items:flex-start}
+.task-ico{width:36px;height:36px;border-radius:10px;background:rgba(56,189,248,.12);display:grid;place-items:center;font-size:19px;flex:0 0 auto}
+.task-title{font-weight:700;font-size:14.5px;word-break:break-word}
+.task-title small{font-weight:500;color:var(--txt3);margin-left:6px;font-size:11.5px}
+.task-raw{font-size:11.5px;color:var(--txt3);margin-top:2px;word-break:break-word}
+.task-tools{margin-left:auto;display:flex;gap:4px;flex-wrap:wrap;justify-content:flex-end}
+.icon-btn{width:38px;height:38px;border-radius:9px;border:1px solid var(--line);background:rgba(148,163,184,.06);color:var(--txt2);cursor:pointer;font-size:15px;display:grid;place-items:center}
+.icon-btn:hover{color:#fff;border-color:rgba(56,189,248,.4)}
+.task-grid{display:grid;grid-template-columns:1.3fr .7fr .7fr .7fr;gap:8px;margin-top:9px}
+.task-grid .g{min-width:0}
+.task-grid label{margin:0 0 3px;font-size:11px}
+.cands{display:flex;gap:6px;flex-wrap:wrap;margin-top:8px}
+.cand{border:1px solid rgba(56,189,248,.25);background:rgba(56,189,248,.06);color:#bae6fd;border-radius:9px;padding:6px 9px;font-size:12px;cursor:pointer;min-height:34px;text-align:left;max-width:100%;overflow:hidden;text-overflow:ellipsis}
+.cand:hover{border-color:rgba(56,189,248,.6)}
+.cand.on{border-color:#38bdf8;background:rgba(56,189,248,.16)}
+.badge{display:inline-flex;align-items:center;gap:5px;border-radius:999px;padding:4px 9px;font-size:11.5px;border:1px solid var(--line)}
+.badge.ok{color:#86efac;border-color:rgba(52,211,153,.35);background:rgba(52,211,153,.08)}
+.badge.bad{color:#fecaca;border-color:rgba(248,113,113,.4);background:rgba(248,113,113,.1)}
+.badge.warn{color:#fde68a;border-color:rgba(251,191,36,.35);background:rgba(251,191,36,.08)}
+.confirm-actions{display:flex;gap:9px;flex-wrap:wrap;margin-top:14px}
+.res-head{display:flex;gap:10px;align-items:flex-start;flex-wrap:wrap}
+.res-head h2{flex:1;min-width:180px}
+.stats{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:9px;margin-top:12px}
+.stats div{border:1px solid var(--line);border-radius:12px;padding:10px 12px;background:rgba(9,14,24,.6);min-width:0}
+.stats b{display:block;font-size:19px;color:#fff;word-break:break-word}
+.stats span{font-size:11.5px;color:var(--txt3)}
+.banner{border-radius:12px;padding:11px 13px;font-size:13.5px;line-height:1.75;margin-top:12px;border:1px solid var(--line);background:rgba(9,14,24,.6)}
+.banner.ok{border-color:rgba(52,211,153,.3);background:rgba(52,211,153,.06);color:#bbf7d0}
+.banner.bad{border-color:rgba(248,113,113,.35);background:rgba(248,113,113,.07);color:#fecaca}
+.banner.warn{border-color:rgba(251,191,36,.3);background:rgba(251,191,36,.06);color:#fde68a}
+.warns{margin:10px 0 0;padding:0;list-style:none;font-size:12.5px;color:#fde68a;line-height:1.85}
+.warns li:before{content:"⚠ ";color:#fbbf24}
+.map-wrap{margin-top:13px}
+#mapImg{width:100%;max-width:100%;border-radius:14px;display:block;background:#0a1120;min-height:180px;border:1px solid var(--line)}
+.timeline{list-style:none;padding:0;margin:12px 0 0}
+.stop{display:flex;gap:11px;padding:13px 0;border-bottom:1px dashed var(--line);align-items:flex-start}
+.stop:last-child{border-bottom:0}
+.stop-no{width:30px;height:30px;border-radius:9px;background:rgba(56,189,248,.14);border:1px solid rgba(56,189,248,.4);color:#cfe9ff;font-weight:800;font-size:13px;display:grid;place-items:center;flex:0 0 auto}
+.stop-main{flex:1;min-width:0}
+.stop-name{font-weight:700;font-size:14.5px;word-break:break-word}
+.stop-addr{font-size:12px;color:var(--txt3);margin-top:1px;word-break:break-word}
+.stop-times{font-size:12.5px;color:#7dd3fc;margin-top:4px;display:flex;gap:8px;flex-wrap:wrap}
+.stop-times .muted{color:var(--txt3)}
+.stop-meta{font-size:11.5px;color:var(--txt3);margin-top:3px;line-height:1.7}
+.stop-links{display:flex;gap:5px;flex-wrap:wrap;margin-top:7px}
+.stop-side{display:flex;flex-direction:column;gap:5px;align-items:flex-end;flex:0 0 auto}
+.stop-warns{color:#fde68a;font-size:11.5px;margin-top:5px;line-height:1.6}
+.stop.dragging{opacity:.45}
+.share{margin-top:18px;border:1px solid var(--line);border-radius:16px;padding:15px;background:linear-gradient(160deg,rgba(56,189,248,.08),rgba(139,92,246,.07) 55%,rgba(12,18,28,.8));position:relative;overflow:hidden}
+.share:before{content:"";position:absolute;inset:0 auto 0 0;width:4px;background:linear-gradient(180deg,#38bdf8,#8b5cf6)}
+.share-head{display:flex;justify-content:space-between;gap:8px;align-items:baseline;flex-wrap:wrap}
+.share-title{font-weight:800;font-size:16px}
+.share-date{font-size:12px;color:var(--txt2)}
+.share-list{margin:10px 0 0;padding:0;list-style:none}
+.share-list li{display:flex;gap:9px;font-size:13px;padding:5px 0;border-bottom:1px dashed rgba(148,163,184,.12);align-items:flex-start}
+.share-list li:last-child{border-bottom:0}
+.share-list .t{color:#7dd3fc;min-width:86px;font-variant-numeric:tabular-nums}
+.share-list .n{min-width:0;word-break:break-word}
+.share-foot{font-size:11px;color:var(--txt3);margin-top:9px;display:flex;justify-content:space-between;gap:8px;flex-wrap:wrap}
+.alts{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:10px}
+.alt{border:1px solid var(--line);border-radius:13px;padding:12px;background:rgba(9,14,24,.55);min-width:0}
+.alt b{display:block;font-size:13.5px;color:#dff3ff;margin-bottom:4px}
+.alt p{font-size:12px;color:var(--txt2);margin:0 0 8px;line-height:1.7}
+.alt .changes{font-size:11.5px;color:var(--txt3);margin:0 0 8px;padding-left:16px}
+.edit-box{margin-top:16px;border-top:1px dashed var(--line);padding-top:14px}
+.edit-input{display:flex;gap:8px;align-items:center;flex-wrap:wrap}
+.edit-input input{flex:1;min-width:180px}
+.tomorrow{margin-top:10px;border:1px dashed rgba(139,92,246,.4);border-radius:12px;padding:10px 12px;background:rgba(139,92,246,.07);font-size:12.5px;color:#ddd6fe;line-height:1.8}
+.footer-note{margin-top:22px;font-size:11.5px;color:var(--txt3);line-height:1.9;text-align:center}
+.legacy-out .stops{list-style:none;padding:0;margin:10px 0 0}
+.legacy-out .stops li{display:flex;gap:10px;padding:10px 0;border-bottom:1px dashed var(--line)}
+.legacy-out .stops li:last-child{border:0}
+.legacy-out .no{width:26px;height:26px;border-radius:8px;background:rgba(56,189,248,.16);border:1px solid rgba(56,189,248,.4);color:#cfe9ff;font-weight:800;font-size:13px;display:grid;place-items:center;flex:0 0 auto}
 footer{border-top:1px solid var(--line);margin-top:44px;padding:24px 22px;text-align:center;color:var(--txt3);font-size:12.5px}
-.hint{font-size:12.5px;color:var(--txt3);margin-top:8px}
-@media(max-width:760px){.wrap{padding:0 16px 54px}.top-in{padding:0 14px}nav a{font-size:12.5px;padding:6px 8px}h1{font-size:25px}.grid2{grid-template-columns:1fr}}
+.toast{position:fixed;left:50%;bottom:26px;transform:translate(-50%,20px);background:#0b1220;border:1px solid rgba(56,189,248,.4);color:#e8f6ff;padding:11px 18px;border-radius:12px;font-size:13.5px;z-index:90;opacity:0;pointer-events:none;transition:.25s;max-width:calc(100vw - 30px);box-shadow:0 18px 40px -14px #000}
+.toast.show{opacity:1;transform:translate(-50%,0)}
+.modal{position:fixed;inset:0;z-index:70;background:rgba(2,6,12,.72);backdrop-filter:blur(4px);display:none;align-items:flex-end;justify-content:center;padding:0;overflow-y:auto}
+.modal.open{display:flex}
+.sheet{width:100%;max-width:640px;background:#0b1220;border:1px solid var(--line2);border-radius:20px 20px 0 0;padding:20px 18px calc(20px + env(safe-area-inset-bottom));max-height:92vh;overflow-y:auto;box-shadow:0 -20px 60px rgba(0,0,0,.6)}
+.sheet h2{font-size:19px}
+.sheet-close{position:absolute;right:16px;top:12px;background:transparent;border:0;color:var(--txt3);font-size:22px;cursor:pointer;width:44px;height:44px}
+.drawer{position:fixed;inset:0;z-index:75;background:rgba(2,6,12,.7);backdrop-filter:blur(4px);display:none;justify-content:flex-end}
+.drawer.open{display:flex}
+.drawer-panel{width:min(540px,100%);height:100%;background:#0b1220;border-left:1px solid var(--line2);padding:18px 16px 40px;overflow-y:auto}
+.drawer-head{display:flex;align-items:center;gap:10px;position:sticky;top:0;background:rgba(11,18,32,.96);padding:4px 0 10px;z-index:2;border-bottom:1px solid var(--line)}
+.drawer-head h2{flex:1;font-size:18px;margin:0}
+.drawer-tabs{display:flex;gap:5px;flex-wrap:wrap;margin:12px 0}
+.drawer-tabs button{border:1px solid var(--line);background:rgba(148,163,184,.06);color:var(--txt2);border-radius:9px;padding:8px 11px;font-size:12.5px;cursor:pointer;min-height:38px}
+.drawer-tabs button.on{color:#dff3ff;border-color:rgba(56,189,248,.5);background:rgba(56,189,248,.12)}
+.drawer-section{display:none}
+.drawer-section.on{display:block}
+.fav-row{display:flex;gap:8px;align-items:center;border-bottom:1px dashed var(--line);padding:9px 0}
+.fav-row .fi{flex:1;min-width:0}
+.fav-row .fn{font-size:13.5px;font-weight:600;word-break:break-word}
+.fav-row .fa{font-size:11.5px;color:var(--txt3);word-break:break-word}
+.hist-row{font-size:12px;border-bottom:1px dashed var(--line);padding:8px 0;color:var(--txt2);line-height:1.7;word-break:break-word}
+.hist-row b{color:#dff3ff;font-weight:600}
+.sug-pop{position:fixed;z-index:95;background:#0d1524;border:1px solid var(--line2);border-radius:12px;box-shadow:0 18px 50px rgba(0,0,0,.6);max-height:260px;overflow-y:auto;display:none;min-width:220px;max-width:min(420px,calc(100vw - 24px))}
+.sug-pop.open{display:block}
+.sug-item{padding:10px 12px;border-bottom:1px solid rgba(148,163,184,.1);cursor:pointer;font-size:13px;color:var(--txt)}
+.sug-item:last-child{border:0}
+.sug-item:hover{background:rgba(56,189,248,.1)}
+.sug-item small{display:block;color:var(--txt3);font-size:11px;margin-top:1px;word-break:break-word}
+.sug-empty{padding:10px 12px;font-size:12px;color:var(--txt3)}
+.kv{display:flex;justify-content:space-between;gap:10px;font-size:12.5px;padding:6px 0;border-bottom:1px dashed var(--line);color:var(--txt2)}
+.kv b{color:var(--txt)}
+.empty{font-size:12.5px;color:var(--txt3);padding:12px 0}
+.spin{width:16px;height:16px;border:2px solid rgba(4,18,28,.35);border-top-color:#04121c;border-radius:50%;display:inline-block;animation:sp .8s linear infinite}
+@keyframes sp{to{transform:rotate(360deg)}}
+@media(max-width:760px){
+ .wrap{padding:0 14px 64px}.top-in{padding:0 12px;height:auto;min-height:56px;flex-wrap:wrap}nav a{font-size:12px;padding:6px 7px}nav{gap:0}
+ h1{font-size:25px}.hero{padding:30px 0 4px}.lead{font-size:14px}
+ .stats{grid-template-columns:repeat(2,minmax(0,1fr))}
+ .task-grid{grid-template-columns:1fr 1fr}
+ .alts{grid-template-columns:1fr}
+ .grid2{grid-template-columns:1fr}
+ .sheet{border-radius:18px 18px 0 0;padding:16px 13px calc(16px + env(safe-area-inset-bottom))}
+ .stop-side{display:none}
+ .stop-links{width:100%}
+ .stop-links .linkbtn{flex:1;min-height:44px}
+ .chat-actions .btn{flex:1;min-width:120px}
+ .drawer-panel{padding:14px 12px 34px}
+ .mem-bar .chip{max-width:100%}
+ .chip b{max-width:150px}
+}
+@media(max-width:560px){
+ nav a{display:none}nav a[aria-current="page"]{display:inline-flex}
+ .top-in{min-height:52px}
+}
+@media(max-width:390px){.wrap{padding-left:11px;padding-right:11px}.task-grid{grid-template-columns:1fr}.stats{grid-template-columns:1fr 1fr}}
 </style><link rel="stylesheet" href="../assets/auth-nav.css">
 </head><body>
 <div class="top"><div class="top-in"><a class="brand" href="/ai-nav/"><span class="logo">✦</span>星籁 AI 导航</a>
-<nav><a href="/ai-nav/">AI 导航</a><a href="/ai-nav/studio/">AI 创作工坊</a><a href="/ai-nav/leadgen/">AI 获客</a><a href="/ai-nav/travel/">出行导航</a><a href="/ai-nav/select-ai/">智能选型</a><a href="/ai-nav/radar/">工具雷达</a></nav></div></div>
+<nav><a href="/ai-nav/">AI 导航</a><a href="/ai-nav/studio/">创作工坊</a><a href="/ai-nav/leadgen/">AI 获客</a><a href="/ai-nav/travel/" aria-current="page">出行秘书</a><a href="/ai-nav/select-ai/">智能选型</a><a href="/ai-nav/radar/">工具雷达</a></nav></div></div>
 <div class="wrap">
-<div class="hero"><div class="eyebrow">ROUTE · OPTIMIZE · SCHEDULE</div>
-<h1>一句话，把<span>今天要做的事</span>排成最优路线</h1>
-<p class="lead">自动识别地点、估算停留时间、计算顺路顺序，给出总里程、每站到达时间和路线地图。</p></div>
-<div class="box">
-<div class="grid2">
-<div><label>起点</label><input id="start" placeholder="例如：宋庄（小区名/公司名均可）"></div>
-<div><label>终点（可选）</label><input id="end" placeholder="例如：中兴和园"></div>
-</div>
-<label>途经任务（一行一个，最多 6 个）</label>
-<textarea id="stops" placeholder="工商银行取钱
-顺丰快递取件
-洗车"></textarea>
-<div class="grid2">
-<div><label>城市</label><input id="city" value="北京"></div>
-<div><label>出发时间</label><input id="depart" value="14:00" placeholder="14:00"></div>
-</div>
-<div class="row">
-<div class="modes" id="modes"><button data-m="fast" class="on">最快</button><button data-m="fuel">省钱</button><button data-m="safe">少走高速</button></div>
-<button class="btn" id="go">开始规划</button>
-<span class="hint">各地或小区名可能重名，建议带上区名</span>
-</div>
-</div>
-<div class="out" id="out"></div>
+<div class="hero"><div class="eyebrow">MEMORY · PLAN · EXECUTE</div>
+<h1>有记忆的<span>私人办事出行秘书</span></h1>
+<p class="lead">记住你家、公司和常去的店。一句话说清今天要办的事，自动排顺路顺序、校验营业时间与时间窗，给你能直接上路的方案。</p>
+<div class="trust">🔒 记忆只存本机 IndexedDB · 不上传服务器</div></div>
+
+<section class="box">
+  <div class="mem-bar" id="memBar"></div>
+  <div class="chatbox">
+    <textarea id="chatText" rows="2" placeholder="例：下午两点从家出发，先去工行取点钱，然后顺丰拿个快递，最后洗个车，五点前回家"></textarea>
+  </div>
+  <div class="chat-actions">
+    <button class="btn" id="btnAi">✨ AI 解析</button>
+    <button class="btn ghost" id="btnMem">🧠 记忆</button>
+    <button class="btn ghost" id="btnFormToggle">表单模式</button>
+    <button class="btn ghost" id="btnOnboard">设置家/公司</button>
+  </div>
+  <div class="examples" id="examples">
+    <button data-t="下午两点从家出发，先去工行取点钱，然后顺丰拿个快递，最后洗个车，五点前回家">取钱+快递+洗车，17:00 到家</button>
+    <button data-t="取钱、取快递、洗车">只说我常去的地方</button>
+    <button data-t="记一下，我家在宋庄镇小堡村">记忆指令：记住我家</button>
+  </div>
+  <div class="privacy-note"><span>🛡️</span><span>解析时只上传这段文字和本次必需的偏好（起点/城市/停留时长），<b>不上传历史记录</b>。所有记忆与行程历史只写入本机浏览器，可随时逐条删除或一键清空。</span></div>
+
+  <div class="form-panel" id="formPanel">
+    <div class="grid2">
+      <div><label>起点</label><input id="start" placeholder="例如：宋庄（小区名/公司名均可）"></div>
+      <div><label>终点（可选）</label><input id="end" placeholder="例如：中兴和园"></div>
+    </div>
+    <label>途经任务（一行一个，最多 6 个）</label>
+    <textarea id="stops" placeholder="工商银行取钱&#10;顺丰快递取件&#10;洗车"></textarea>
+    <div class="grid2">
+      <div><label>城市</label><input id="city" value="北京"></div>
+      <div><label>出发时间</label><input id="depart" type="time" value="14:00"></div>
+    </div>
+    <div class="row">
+      <div class="modes" id="modes"><button data-m="fast" class="on">最快</button><button data-m="fuel">省钱</button><button data-m="safe">少走高速</button></div>
+      <button class="btn" id="go">直接算路（旧版）</button>
+      <span class="hint">旧版表单保留，解析失败时可兜底</span>
+    </div>
+  </div>
+</section>
+
+<div class="confirm" id="confirmPanel"></div>
+<div class="out" id="result"></div>
+<div class="footer-note">AI 规划，请核实营业时间与门牌。路况、限行、停车以官方实时信息为准，本工具不作绝对承诺。</div>
 </div>
 <footer><a href="../pricing/" style="color:#7dd3fc">套餐定价</a> · © 2026 星籁 AI 工具导航 · xinglaiai.com 版权所有 · 未经许可禁止镜像/采集/商业转载</footer>
+
+<div class="modal" id="onboard" role="dialog" aria-modal="true" aria-labelledby="onbTitle">
+  <div class="sheet" style="position:relative">
+    <button class="sheet-close" id="onbClose" aria-label="关闭">×</button>
+    <div id="onbStep1">
+      <h2 id="onbTitle">先说明白：记忆只留在你的手机里</h2>
+      <p class="sub">为了第二次打开就能自动填好起点、城市和常去地点，我们想把下面这些信息存进浏览器的 IndexedDB。它们不会上传到服务器，也不会有账号同步。</p>
+      <div class="banner ok" style="margin-top:14px">
+        <b>会存在本机：</b>家 / 公司 / 城市 / 车牌尾号 / 常用出行方式 / 缓冲时间 / 常去地点别名 / 各类型默认停留时长 / 最近 20 次规划历史。
+      </div>
+      <div class="banner" style="margin-top:8px">
+        <b>不会上传：</b>历史记录、完整记忆库。只有当你点“AI 解析”时，本次文字与规划所需的偏好字段会发给服务器用于当次解析，结果返回后不在服务器保存。
+      </div>
+      <ul class="warns" style="color:#fca5a5;margin-top:12px">
+        <li style="color:#fca5a5">你可以随时在“记忆”里逐条修改/删除，或一键清空全部。</li>
+        <li style="color:#fca5a5">AI 结果仅供规划参考，请自行核实营业时间、门牌与限行。</li>
+      </ul>
+      <div class="confirm-actions">
+        <button class="btn" id="onbAgree">同意并设置记忆</button>
+        <button class="btn soft" id="onbSkip">先用一次（不保存）</button>
+      </div>
+    </div>
+    <div id="onbStep2" style="display:none">
+      <h2>设置你的常用信息</h2>
+      <p class="sub">搜索并选择准确地点；不填的项可以以后再补。</p>
+      <label>城市</label><input id="onbCity" value="北京" placeholder="北京">
+      <label>家（起点默认）</label><input id="onbHome" data-poi="onbHome" placeholder="小区/村镇名，输入后选择候选" autocomplete="off">
+      <label>公司（可选）</label><input id="onbWork" data-poi="onbWork" placeholder="公司/园区名" autocomplete="off">
+      <div class="grid2">
+        <div><label>车牌尾号（限行提醒）</label><input id="onbPlate" maxlength="2" placeholder="如 8 / 周一不限"></div>
+        <div><label>常用出行方式</label><select id="onbMode"><option value="fast">最快</option><option value="fuel">省钱</option><option value="safe">少走高速</option></select></div>
+      </div>
+      <label>每站缓冲时间（分钟）</label><input id="onbBuffer" type="number" min="0" max="30" value="5">
+      <div class="confirm-actions">
+        <button class="btn" id="onbSave">保存并开始</button>
+        <button class="btn soft" id="onbBack">返回隐私说明</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="drawer" id="drawer" role="dialog" aria-modal="true" aria-labelledby="drawerTitle">
+  <div class="drawer-panel">
+    <div class="drawer-head"><h2 id="drawerTitle">🧠 本地记忆</h2><button class="sheet-close" style="position:static" id="drawerClose" aria-label="关闭">×</button></div>
+    <div class="drawer-tabs" id="drawerTabs">
+      <button data-tab="profile" class="on">资料</button><button data-tab="fav">常去地点</button><button data-tab="dur">停留时长</button><button data-tab="hist">历史</button><button data-tab="data">数据</button>
+    </div>
+    <div class="drawer-section on" id="sec-profile">
+      <label>城市</label><input id="mCity" placeholder="北京">
+      <label>家（起点默认）</label><input id="mHome" data-poi="mHome" placeholder="搜索并选择" autocomplete="off">
+      <label>公司（可选）</label><input id="mWork" data-poi="mWork" placeholder="搜索并选择" autocomplete="off">
+      <div class="grid2">
+        <div><label>车牌尾号</label><input id="mPlate" maxlength="2" placeholder="如 8"></div>
+        <div><label>常用方式</label><select id="mMode"><option value="fast">最快</option><option value="fuel">省钱</option><option value="safe">少走高速</option></select></div>
+      </div>
+      <div class="grid2">
+        <div><label>缓冲时间（分钟）</label><input id="mBuffer" type="number" min="0" max="30" value="5"></div>
+        <div><label>出发提醒（提前分钟）</label><input id="mRemind" type="number" min="5" max="120" value="30"></div>
+      </div>
+      <div class="banner" style="margin-top:10px;font-size:12px">
+        <label style="margin:0;color:var(--txt2)"><input type="checkbox" id="mEvOn"> 电动车续航提醒</label>
+        <div class="grid2" style="margin-top:6px"><div><label>满电续航 km</label><input id="mEvRange" type="number" min="0" max="1000" value="0"></div></div>
+      </div>
+      <div class="confirm-actions"><button class="btn mini" id="mSave">保存资料</button><button class="btn mini soft" id="mGoOnb">重新引导</button></div>
+    </div>
+    <div class="drawer-section" id="sec-fav">
+      <p class="sub">给常去地点起个别名。以后说“取钱”“拿快递”“洗车”就能直接命中。</p>
+      <div id="favList"></div>
+      <div class="editor" style="margin-top:12px">
+        <label>别名（如：工行 / 顺丰 / 洗车店）</label><input id="favAlias" placeholder="工行">
+        <label>地点</label><input id="favPlace" data-poi="favPlace" placeholder="搜索地点" autocomplete="off">
+        <div class="grid2"><div><label>备注</label><input id="favNote" placeholder="如：对公柜台在2楼"></div><div><label>营业时间（可选）</label><input id="favHours" placeholder="如 09:00-17:00"></div></div>
+        <div class="confirm-actions"><button class="btn mini" id="favAdd">添加常去地点</button></div>
+      </div>
+    </div>
+    <div class="drawer-section" id="sec-dur">
+      <p class="sub">默认停留时长会用于“取钱/取快递/洗车”等不带具体名称的任务；连续 3 次历史计划后会自动校准。</p>
+      <div class="grid2" id="durFields"></div>
+      <div class="confirm-actions"><button class="btn mini" id="durSave">保存默认时长</button><button class="btn mini soft" id="durCal">按历史校准</button></div>
+      <p class="hint" id="durNote"></p>
+    </div>
+    <div class="drawer-section" id="sec-hist">
+      <p class="sub">只保留最近 20 次；只在本机。</p>
+      <div id="histList"></div>
+    </div>
+    <div class="drawer-section" id="sec-data">
+      <p class="sub">导出 JSON 可备份到自己的网盘；导入会覆盖当前记忆。</p>
+      <div class="confirm-actions">
+        <button class="btn mini soft" id="btnExport">导出 JSON</button>
+        <button class="btn mini soft" id="btnImport">导入 JSON</button>
+        <button class="btn mini danger" id="btnClearAll">清空全部记忆</button>
+      </div>
+      <div class="banner" style="margin-top:12px;font-size:12px">
+        <b>循环提醒 / 地理围栏：</b><span id="recurNote">暂无。P1 支持“每周三取快递”“到公司提醒带伞”。</span>
+      </div>
+      <p class="hint">清空后会删除 IndexedDB、本地同意记录与全部行程历史，回到首次使用状态。<br>数据位置：IndexedDB 数据库 <b>xinglai_travel</b>（store: kv）。</p>
+    </div>
+  </div>
+</div>
+
+<div class="toast" id="toast" role="status"></div>
+<div class="sug-pop" id="sugPop"></div>
+<input type="file" id="importFile" accept="application/json,.json" hidden>
+<pre id="diag" style="display:none"></pre>
 <script>
-var mode='fast',busy=false,lastData=null;
-document.getElementById('modes').addEventListener('click',function(e){if(e.target.tagName!=='BUTTON')return;mode=e.target.dataset.m;[].forEach.call(this.children,function(b){b.className=b===e.target?'on':''});});
-function esc(s){return String(s||'').replace(/</g,'&lt;').replace(/>/g,'&gt;');}
-function readStops(){return document.getElementById('stops').value.split('\n').map(function(s){return s.trim()}).filter(Boolean).slice(0,6);}
-async function plan(optimize){
- if(busy)return; busy=true;
- var go=document.getElementById('go');go.disabled=true;
- var payload={city:document.getElementById('city').value.trim(),start:document.getElementById('start').value.trim(),
-  stops:readStops(),end:document.getElementById('end').value.trim(),depart:document.getElementById('depart').value.trim(),
-  mode:mode,optimize:optimize!==false};
- if(!payload.start||!payload.stops.length){alert('请填写起点和至少一个途经任务');busy=false;go.disabled=false;return;}
- try{
-  var r=await fetch('/ai-nav/api/travel',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(payload)});
-  var d=await r.json();
-  if(!d.ok){document.getElementById('out').style.display='block';document.getElementById('out').innerHTML='<div class="card"><h3>规划失败</h3><p class="err">'+esc(d.hint||d.error)+'</p></div>';busy=false;go.disabled=false;return;}
-  lastData=d;render(d);
- }catch(e){
-  document.getElementById('out').style.display='block';document.getElementById('out').innerHTML='<div class="card"><h3>网络异常</h3><p class="err">'+esc(e.message)+'</p></div>';
+(function(){
+'use strict';
+window.__xlErr=[];window.onerror=function(m,s,l,c,e){window.__xlErr.push(m+' @'+l);try{document.title='ERR:'+m}catch(x){}};
+var API='/ai-nav/api';
+var S={mem:null, parsed:null, tasks:[], start:null, end:null, city:'北京', depart:'', deadline:'', mode:'fast', buffer:5, lock:true, busy:false, plan:null, lastText:'', snapshot:null, onbHome:null, onbWork:null, draftFav:null, drawerTab:'profile', lastPlanTasks:[]};
+var TYPES={
+ bank:{label:'银行/取钱',icon:'🏦'}, parcel:{label:'取快递',icon:'📦'}, carwash:{label:'洗车',icon:'🚗'},
+ grocery:{label:'买菜/超市',icon:'🛒'}, meal:{label:'吃饭',icon:'🍜'}, pickup:{label:'接人',icon:'🧍'}, other:{label:'其他',icon:'📍'}
+};
+var DUR_LABEL={bank:'取钱/银行',parcel:'取快递',carwash:'洗车',grocery:'买菜',meal:'吃饭',pickup:'接人'};
+var DEFAULT_DUR={bank:15,parcel:10,carwash:40,grocery:20,meal:45,pickup:10};
+var $=function(id){return document.getElementById(id)};
+function esc(s){return String(s==null?'':s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;')}
+function uid(p){return (p||'t')+Math.random().toString(36).slice(2,8)}
+function isMobile(){return /Android|iPhone|iPad|iPod|HarmonyOS|Mobile/i.test(navigator.userAgent)}
+function toast(msg,ms){var t=$('toast');t.textContent=msg;t.classList.add('show');clearTimeout(t._tm);t._tm=setTimeout(function(){t.classList.remove('show')},ms||2600)}
+function clone(o){return JSON.parse(JSON.stringify(o))}
+function defaultMem(){
+ return {version:1,profile:{home:null,work:null,city:'北京',plate_tail:'',mode:'fast',buffer_min:5,remind_min:30,ev_on:false,ev_range_km:0},
+  favorite_pois:[],default_durations:clone(DEFAULT_DUR),preferences:{avoid_highway:false,rain_wash:true},history:[],recurring:[],geo_reminders:[],consent:{agreed:false,ts:0}};
+}
+function normMem(m){
+ var d=defaultMem();
+ if(!m||typeof m!=='object')return d;
+ m.profile=m.profile||{};m.favorite_pois=Array.isArray(m.favorite_pois)?m.favorite_pois:[];
+ m.default_durations=Object.assign({},DEFAULT_DUR,m.default_durations||{});
+ m.preferences=Object.assign({},d.preferences,m.preferences||{});
+ m.history=Array.isArray(m.history)?m.history.slice(0,20):[];
+ m.recurring=Array.isArray(m.recurring)?m.recurring:[];
+ m.geo_reminders=Array.isArray(m.geo_reminders)?m.geo_reminders:[];
+ m.profile=Object.assign({},d.profile,m.profile);
+ m.consent=Object.assign({},d.consent,m.consent||{});
+ return m;
+}
+// ---------- IndexedDB ----------
+var _db=null,_saveTm=null;
+function idbOpen(){
+ if(_db)return Promise.resolve(_db);
+ return new Promise(function(res,rej){
+  if(!window.indexedDB){rej(new Error('no indexedDB'));return}
+  var r=indexedDB.open('xinglai_travel',1);
+  r.onupgradeneeded=function(){try{r.result.createObjectStore('kv')}catch(e){}};
+  r.onsuccess=function(){_db=r.result;res(_db)};
+  r.onerror=function(){rej(r.error)};
+ });
+}
+function dbGet(k){
+ return idbOpen().then(function(db){return new Promise(function(res,rej){
+  var tx=db.transaction('kv','readonly');var req=tx.objectStore('kv').get(k);
+  req.onsuccess=function(){res(req.result)};req.onerror=function(){rej(req.error)};
+ })}).catch(function(){try{var s=localStorage.getItem('xl_travel_'+k);return s?JSON.parse(s):null}catch(e){return null}});
+}
+function dbPut(k,v){
+ return idbOpen().then(function(db){return new Promise(function(res,rej){
+  var tx=db.transaction('kv','readwrite');tx.objectStore('kv').put(v,k);
+  tx.oncomplete=function(){res(true)};tx.onerror=function(){rej(tx.error)};
+ })}).catch(function(){try{localStorage.setItem('xl_travel_'+k,JSON.stringify(v));return true}catch(e){return false}});
+}
+function loadMem(){
+ return dbGet('memory').then(function(m){
+  if(m&&m.profile)S.mem=normMem(m);
+  else{
+   var legacy=null;try{legacy=JSON.parse(localStorage.getItem('xl_travel_memory')||'null')}catch(e){}
+   S.mem=normMem(legacy);
+  }
+  if(localStorage.getItem('xl_travel_consent')==='1'&&S.mem)S.mem.consent={agreed:true,ts:S.mem.consent&&S.mem.consent.ts||Date.now()};
+  S.city=S.mem.profile.city||'北京';
+  return S.mem;
+ });
+}
+function saveMem(){
+ if(!S.mem)return Promise.resolve();
+ clearTimeout(_saveTm);
+ return new Promise(function(res){
+  _saveTm=setTimeout(function(){dbPut('memory',S.mem).then(function(){res(true)});},120);
+ });
+}
+function saveConsent(){try{localStorage.setItem('xl_travel_consent','1')}catch(e){}}
+function hasConsent(){try{return localStorage.getItem('xl_travel_consent')==='1'}catch(e){return false}}
+function memSummary(){
+ var m=S.mem||defaultMem();
+ return {profile:{home:m.profile.home,work:m.profile.work,city:m.profile.city,plate_tail:m.profile.plate_tail,mode:m.profile.mode,buffer_min:m.profile.buffer_min},
+  favorite_pois:(m.favorite_pois||[]).slice(0,24),default_durations:m.default_durations};
+}
+// ---------- 深链 ----------
+function gcjToBd(lng,lat){var x=+lng,y=+lat,z=Math.sqrt(x*x+y*y)+0.00002*Math.sin(y*Math.PI),th=Math.atan2(y,x)+0.000003*Math.cos(x*Math.PI);return {lng:z*Math.cos(th)+0.0065,lat:z*Math.sin(th)+0.006}}
+function qs(o){return Object.keys(o).filter(function(k){return o[k]!==undefined&&o[k]!==null&&o[k]!==''}).map(function(k){return encodeURIComponent(k)+'='+encodeURIComponent(o[k])}).join('&')}
+function amapLink(s,d,vias){
+ var p={sourceApplication:'xinglai-ai',slat:s.lat,slon:s.lng,sname:s.name||'起点',dlat:d.lat,dlon:d.lng,dname:d.name||'终点',t:0,dev:0,m:0};
+ if(vias&&vias.length){p.vian=vias.length;p.vialons=vias.map(function(x){return x.lng.toFixed(6)}).join('|');p.vialats=vias.map(function(x){return x.lat.toFixed(6)}).join('|');p.vianames=vias.map(function(x){return (x.name||'').slice(0,20)}).join('|')}
+ return 'amapuri://route/plan/?'+qs(p);
+}
+function amapIosLink(s,d,vias){return amapLink(s,d,vias).replace('amapuri://route/plan/?','iosamap://path?')}
+function amapWebLink(s,d,vias){
+ var p={from:s.lng.toFixed(6)+','+s.lat.toFixed(6)+','+(s.name||'起点'),to:d.lng.toFixed(6)+','+d.lat.toFixed(6)+','+(d.name||'终点'),mode:'car',policy:'1',coordinate:'gaode',callnative:'1'};
+ if(vias&&vias.length){var v=vias[0];p.via=v.lng.toFixed(6)+','+v.lat.toFixed(6)+','+(v.name||'途经点')}
+ return 'https://uri.amap.com/navigation?'+qs(p);
+}
+function baiduLink(s,d,vias){
+ var o=gcjToBd(s.lng,s.lat),t=gcjToBd(d.lng,d.lat);
+ var p={origin:o.lat.toFixed(6)+','+o.lng.toFixed(6)+','+(s.name||'起点'),destination:t.lat.toFixed(6)+','+t.lng.toFixed(6)+','+(d.name||'终点'),mode:'driving',coord_type:'bd09ll'};
+ if(vias&&vias.length){p.viaPoints=JSON.stringify({viaPoints:vias.map(function(x){var b=gcjToBd(x.lng,x.lat);return{name:(x.name||'途经点').slice(0,20),lat:+b.lat.toFixed(6),lng:+b.lng.toFixed(6)}})})}
+ return 'baidumap://map/direction?'+qs(p);
+}
+function baiduWebLink(s,d,vias){
+ var o=gcjToBd(s.lng,s.lat),t=gcjToBd(d.lng,d.lat);
+ var p={origin:'latlng:'+o.lat.toFixed(6)+','+o.lng.toFixed(6),destination:'latlng:'+t.lat.toFixed(6)+','+t.lng.toFixed(6)+',name:'+(d.name||'终点'),mode:'driving',coord_type:'bd09ll'};
+ if(vias&&vias.length){var v=gcjToBd(vias[0].lng,vias[0].lat);p.viaPoints='latlng:'+v.lat.toFixed(6)+','+v.lng.toFixed(6)}
+ return 'https://api.map.baidu.com/direction?'+qs(p);
+}
+function openApp(uri,web){
+ if(!isMobile()){window.open(web,'_blank','noopener');return}
+ var t=Date.now();location.href=uri;
+ setTimeout(function(){if(Date.now()-t<1600&&!document.hidden)window.open(web,'_blank','noopener')},1200);
+}
+function appLinks(s,d,vias){
+ return '<a class="linkbtn" href="'+esc(amapLink(s,d,vias))+'" data-app="'+esc(amapLink(s,d,vias))+'" data-web="'+esc(amapWebLink(s,d,vias))+'" data-ios="'+esc(amapIosLink(s,d,vias))+'">高德</a>'+
+  '<a class="linkbtn" href="'+esc(baiduLink(s,d,vias))+'" data-app="'+esc(baiduLink(s,d,vias))+'" data-web="'+esc(baiduWebLink(s,d,vias))+'">百度</a>';
+}
+function bindAppLinks(){
+ document.addEventListener('click',function(e){
+  var a=e.target.closest?e.target.closest('[data-app]'):null;
+  if(!a)return;
+  e.preventDefault();
+  var uri=a.getAttribute('data-app');var web=a.getAttribute('data-web');
+  if(/iPhone|iPad|iPod/i.test(navigator.userAgent)&&a.getAttribute('data-ios'))uri=a.getAttribute('data-ios');
+  openApp(uri,web);
+ });
+}
+// ---------- 地点联想 ----------
+var sugEl,bindCounter=0;
+function hideSug(){if(sugEl)sugEl.classList.remove('open')}
+function poiText(p){return p?(p.name||'')+(p.addr?' · '+p.addr:''):''}
+function showSug(input,items,onPick){
+ if(!sugEl){sugEl=$('sugPop')}
+ if(!items.length){sugEl.innerHTML='<div class="sug-empty">没找到，换个更具体的名称或加区名</div>'}
+ else{
+  sugEl.innerHTML=items.map(function(p,i){
+   return '<div class="sug-item" data-i="'+i+'"><b>'+esc(p.name||'')+'</b><small>'+esc((p.district||'')+' · '+(p.addr||''))+'</small></div>';
+  }).join('');
  }
- busy=false;go.disabled=false;
+ var r=input.getBoundingClientRect();
+ sugEl.style.left=Math.max(8,Math.min(r.left,window.innerWidth-300))+'px';
+ sugEl.style.top=(r.bottom+5)+'px';
+ sugEl.style.width=Math.min(Math.max(r.width,240),window.innerWidth-20)+'px';
+ sugEl.classList.add('open');
+ sugEl.onclick=function(e){
+  var it=e.target.closest?e.target.closest('.sug-item'):null;
+  if(!it)return;
+  var p=items[+it.getAttribute('data-i')];
+  hideSug();input.value=p.name||'';onPick(p);
+ };
 }
-function render(d){
- var h='<div class="card"><h3>路线方案</h3>';
- h+='<img id="mapImg" src="'+d.map_url+'" alt="路线地图" loading="lazy">';
- h+='<div class="stats"><div><b>'+d.total_km+' km</b><span>总里程</span></div><div><b>'+d.total_min+' 分钟</b><span>纯驾驶时间</span></div><div><b>'+d.timeline.length+' 站</b><span>途经点</span></div></div>';
- h+='<h3 style="margin-top:22px">时间轴（可拖动调整顺序）</h3><ul class="stops" id="stopList">';
- d.timeline.forEach(function(t,i){
-  h+='<li draggable="true" data-i="'+i+'"><div class="no">'+(i+1)+'</div><div><div class="nm">'+esc(t.name)+'</div><div class="ad">'+esc(t.addr)+'</div><div class="tm">预计 '+t.arrive+' 到达'+(t.stay_min?' · 停留约 '+t.stay_min+' 分钟':'')+'</div></div></li>';
+function bindPoi(input,onPick){
+ if(!input)return;
+ input.addEventListener('input',function(){
+  var v=input.value.trim();
+  if(v.length<2){hideSug();return}
+  clearTimeout(input._tm);
+  input._tm=setTimeout(function(){
+   fetch(API+'/travel/poi-suggest',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({keywords:v,city:S.city||'北京',limit:6})})
+    .then(function(r){return r.json()}).then(function(d){if(input.value.trim()!==v)return;showSug(input,(d&&d.items)||[],function(p){onPick(p)});})
+    .catch(function(){hideSug();});
+  },260);
  });
- h+='</ul><div class="note">'+d.notes.map(function(n){return '· '+esc(n)}).join('<br>')+'</div>';
- h+='<div class="row"><button class="btn" id="recalc">按当前顺序重算</button></div></div>';
- document.getElementById('out').innerHTML=h;document.getElementById('out').style.display='block';
- bindDrag();document.getElementById('recalc').onclick=function(){reorderAndPlan();};
+ input.addEventListener('focus',function(){if(input.value.trim().length>=2)input.dispatchEvent(new Event('input'))});
 }
-function bindDrag(){
- var list=document.getElementById('stopList');if(!list)return;
- var src=null;
- list.querySelectorAll('li').forEach(function(li){
-  li.addEventListener('dragstart',function(){src=li;});
-  li.addEventListener('dragover',function(e){e.preventDefault();});
-  li.addEventListener('drop',function(e){e.preventDefault();if(!src||src===li)return;list.insertBefore(src, li.nextSibling);});
-  li.addEventListener('dragend',function(){src=null;});
+document.addEventListener('click',function(e){if(!e.target.closest||!e.target.closest('.sug-pop'))hideSug()});
+// ---------- 记忆栏 ----------
+function renderMemBar(){
+ var m=S.mem||defaultMem();var p=m.profile||{};var h='';
+ if(p.home){h+='<span class="chip ok">🏠 家 <b>'+esc(p.home.name)+'</b></span>'}
+ else{h+='<span class="chip">🏠 还没设置家</span>'}
+ if(p.work){h+='<span class="chip">🏢 公司 <b>'+esc(p.work.name)+'</b></span>'}
+ h+='<span class="chip">📍 城市 <b>'+esc(p.city||'北京')+'</b></span>';
+ if(p.plate_tail)h+='<span class="chip">🚗 尾号 <b>'+esc(p.plate_tail)+'</b></span>';
+ h+='<span class="chip">🕒 缓冲 <b>'+(p.buffer_min!=null?p.buffer_min:5)+' 分钟</b></span>';
+ if((m.favorite_pois||[]).length)h+='<span class="chip">⭐ 常去 <b>'+m.favorite_pois.length+' 处</b></span>';
+ h+='<span class="chip mem-spacer"><button id="memManage" style="min-height:26px">管理记忆 ›</button></span>';
+ $('memBar').innerHTML=h;
+ var mm=$('memManage');if(mm)mm.onclick=openDrawer;
+ if(p.home&&!$('start').value){$('start').value=p.home.name||''}
+ if(p.city&&$('city').value!==''){$('city').value=p.city}
+}
+// ---------- 引导 ----------
+var onbStep=1;
+function openOnboard(force){
+ $('onboard').classList.add('open');onbStep=1;$('onbStep1').style.display='block';$('onbStep2').style.display='none';
+ var p=(S.mem||defaultMem()).profile;
+ $('onbCity').value=p.city||'北京';$('onbHome').value=p.home?p.home.name:'';$('onbWork').value=p.work?p.work.name:'';
+ $('onbPlate').value=p.plate_tail||'';$('onbMode').value=p.mode||'fast';$('onbBuffer').value=p.buffer_min!=null?p.buffer_min:5;
+ S.onbHome=p.home||null;S.onbWork=p.work||null;
+}
+function closeOnboard(){$('onboard').classList.remove('open')}
+function step2(){
+ onbStep=2;$('onbStep1').style.display='none';$('onbStep2').style.display='block';
+ bindPoiOnce($('onbHome'),function(p){S.onbHome=p;});bindPoiOnce($('onbWork'),function(p){S.onbWork=p;});
+}
+var poiBound={};
+function bindPoiOnce(el,cb){
+ if(!el||poiBound[el.id]){if(el)el._onPick=cb;return}
+ poiBound[el.id]=1;el._onPick=cb;
+ bindPoi(el,function(p){if(el._onPick)el._onPick(p);});
+}
+function saveOnboard(){
+ if(!S.mem)S.mem=defaultMem();
+ var m=S.mem;m.profile.city=($('onbCity').value||'北京').trim();
+ m.profile.home=S.onbHome||null;m.profile.work=S.onbWork||null;
+ m.profile.plate_tail=($('onbPlate').value||'').trim();
+ m.profile.mode=$('onbMode').value||'fast';m.profile.buffer_min=Math.max(0,Math.min(30,+$('onbBuffer').value||0));
+ m.consent={agreed:true,ts:Date.now()};saveConsent();S.city=m.profile.city;
+ saveMem();renderMemBar();closeOnboard();toast('已保存，第二次打开会自动填好家和城市');
+}
+// ---------- 记忆抽屉 ----------
+function openDrawer(){
+ if(!hasConsent()){
+  openOnboard(true);toast('先在隐私说明里同意，才能写入本地记忆');return;
+ }
+ $('drawer').classList.add('open');renderDrawer();
+}
+function renderDrawer(){
+ var m=S.mem||defaultMem(),p=m.profile;
+ $('mCity').value=p.city||'北京';$('mHome').value=p.home?p.home.name:'';$('mWork').value=p.work?p.work.name:'';
+ $('mPlate').value=p.plate_tail||'';$('mMode').value=p.mode||'fast';$('mBuffer').value=p.buffer_min!=null?p.buffer_min:5;
+ $('mRemind').value=p.remind_min||30;$('mEvOn').checked=!!p.ev_on;$('mEvRange').value=p.ev_range_km||0;
+ bindPoiOnce($('mHome'),function(p2){p2&&(p.home=p2)});bindPoiOnce($('mWork'),function(p2){p2&&(p.work=p2)});
+ renderFav();renderDur();renderHist();renderData();
+ var rec=((m.recurring||[]).length+(m.geo_reminders||[]).length);
+ $('recurNote').textContent=rec?('已记录 '+rec+' 条。'):'暂无。P1 支持“每周三取快递”“到公司提醒带伞”。';
+}
+function renderFav(){
+ var m=S.mem||defaultMem();var arr=m.favorite_pois||[];
+ if(!arr.length){$('favList').innerHTML='<div class="empty">还没有常去地点。添加后，说“取钱”“拿快递”“洗车”会自动命中。</div>';return}
+ $('favList').innerHTML=arr.map(function(f,i){
+  var poi=f.poi||{};
+  return '<div class="fav-row"><div class="fi"><div class="fn">'+esc(f.alias||'未命名')+' · '+esc(poi.name||'')+'</div><div class="fa">'+esc(poi.addr||'')+(f.note?' · '+esc(f.note):'')+(f.hours?' · '+esc(f.hours):'')+'</div></div><button class="icon-btn" data-favdel="'+i+'" aria-label="删除">🗑</button></div>';
+ }).join('');
+}
+function renderDur(){
+ var m=S.mem||defaultMem();var d=m.default_durations||{};
+ $('durFields').innerHTML=Object.keys(DUR_LABEL).map(function(k){
+  return '<div><label>'+DUR_LABEL[k]+'</label><input type="number" min="0" max="240" data-dur="'+k+'" value="'+(d[k]!=null?d[k]:DEFAULT_DUR[k])+'"></div>';
+ }).join('');
+ var hs=(m.history||[]).length;
+ $('durNote').textContent=hs>=3?('已有 '+hs+' 条历史；点“按历史校准”会根据最近计划里各类型的停留时长更新中位数。'):'累计 3 次规划后可自动校准。';
+}
+function renderHist(){
+ var m=S.mem||defaultMem();var hs=m.history||[];
+ $('histList').innerHTML=hs.length?hs.map(function(x){
+  return '<div class="hist-row"><b>'+esc(x.text||x.summary||'一次规划')+'</b><br>'+esc(x.time?new Date(x.time).toLocaleString('zh-CN',{hour12:false}):'')+' · '+esc((x.total_km||0)+' km · '+(x.total_min||0)+' 分钟 · '+(x.feasible?'可行':'需调整'))+'</div>';
+ }).join(''):'<div class="empty">还没有历史。成功算过一次路线后会出现在这里。</div>';
+}
+function renderData(){}
+function saveProfile(){
+ var m=S.mem;if(!m)return;
+ m.profile.city=($('mCity').value||'北京').trim();m.profile.plate_tail=($('mPlate').value||'').trim();
+ m.profile.mode=$('mMode').value;m.profile.buffer_min=Math.max(0,Math.min(30,+$('mBuffer').value||0));
+ m.profile.remind_min=Math.max(5,Math.min(120,+$('mRemind').value||30));
+ m.profile.ev_on=$('mEvOn').checked;m.profile.ev_range_km=Math.max(0,+$('mEvRange').value||0);
+ S.city=m.profile.city;saveMem();renderMemBar();toast('资料已保存在本机');
+}
+function addFav(){
+ var m=S.mem;if(!m)return;
+ var alias=($('favAlias').value||'').trim(),poi=S.draftFav||null;
+ if(!alias){toast('先给常去地点起个别名，例如“工行”');return}
+ if(!poi){toast('先搜索并选择一个地点');return}
+ var note=($('favNote').value||'').trim(),hours=($('favHours').value||'').trim();
+ m.favorite_pois.push({alias:alias,poi:poi,note:note,hours:hours});
+ S.draftFav=null;$('favAlias').value='';$('favPlace').value='';$('favNote').value='';$('favHours').value='';
+ saveMem();renderFav();toast('已添加：说“'+alias+'”会命中 '+poi.name);
+}
+function delFav(i){var m=S.mem;if(!m)return;m.favorite_pois.splice(i,1);saveMem();renderFav()}
+function saveDur(){
+ var m=S.mem;if(!m)return;
+ $('durFields').querySelectorAll('[data-dur]').forEach(function(el){var k=el.getAttribute('data-dur');m.default_durations[k]=Math.max(0,Math.min(240,+el.value||0))});
+ saveMem();toast('默认停留时长已更新');
+}
+function calibrate(force){
+ var m=S.mem;if(!m)return [];
+ var hs=(m.history||[]).slice(0,12);var by={};
+ hs.forEach(function(h){(h.tasks||[]).forEach(function(t){if(!t||!t.type)return;by[t.type]=(by[t.type]||[]).concat([+t.duration_min||0])})});
+ var changed=[];
+ Object.keys(by).forEach(function(k){
+  var arr=by[k].filter(function(x){return x>0}).sort(function(a,b){return a-b});
+  if(arr.length<3)return;
+  var med=arr[Math.floor(arr.length/2)];var old=m.default_durations[k];if(!old)return;
+  if(Math.abs(med-old)>=5){m.default_durations[k]=med;changed.push(DUR_LABEL[k]+' '+old+'→'+med+' 分钟')}
+ });
+ if(changed.length){saveMem();renderDur()}
+ return changed;
+}
+function exportMem(){
+ var blob=new Blob([JSON.stringify(S.mem||defaultMem(),null,2)],{type:'application/json'});
+ var a=document.createElement('a');var d=new Date();a.href=URL.createObjectURL(blob);
+ a.download='xinglai-travel-memory-'+d.getFullYear()+('0'+(d.getMonth()+1)).slice(-2)+('0'+d.getDate()).slice(-2)+'.json';
+ document.body.appendChild(a);a.click();setTimeout(function(){URL.revokeObjectURL(a.href);a.remove()},800);toast('已导出 JSON（只含本地记忆）');
+}
+function importMem(file){
+ if(!file)return;
+ var fr=new FileReader();
+ fr.onload=function(){
+  try{
+   var obj=JSON.parse(fr.result);
+   if(!obj||!obj.profile)throw new Error('格式不对');
+   S.mem=normMem(obj);S.mem.consent={agreed:true,ts:Date.now()};saveConsent();S.city=S.mem.profile.city||'北京';
+   saveMem();renderMemBar();renderDrawer();toast('导入成功，已覆盖本地记忆');
+  }catch(e){toast('导入失败：'+e.message)}
+ };
+ fr.readAsText(file);
+}
+function clearAll(){
+ if(!confirm('清空全部本地记忆、历史与同意记录？此操作不可撤销。'))return;
+ if(!confirm('再确认一次：家/公司/常去地点/历史都会被删除。'))return;
+ try{if(indexedDB)indexedDB.deleteDatabase('xinglai_travel')}catch(e){}
+ try{localStorage.removeItem('xl_travel_consent');localStorage.removeItem('xl_travel_memory');localStorage.removeItem('xl_travel_memory')}catch(e){}
+ S.mem=defaultMem();S.plan=null;S.parsed=null;S.tasks=[];S.city='北京';
+ $('result').innerHTML='';$('result').classList.remove('open');$('confirmPanel').innerHTML='';$('confirmPanel').classList.remove('open');
+ $('start').value='';$('city').value='北京';renderMemBar();closeDrawer();toast('已清空，回到首次使用状态');setTimeout(openOnboard,400);
+}
+function closeDrawer(){$('drawer').classList.remove('open')}
+// ---------- 隐私命令 ----------
+function memCommand(text){
+ var t=(text||'').trim();var m;
+ m=t.match(/(?:记一下|记住|帮我记住)[，,：:\s]*(?:我)?(?:家|住址)(?:在|是|搬到)\s*(.+)$/);
+ if(m)return {kind:'home',q:m[1].trim()};
+ m=t.match(/(?:记一下|记住|帮我记住)[，,：:\s]*(?:我)?(?:公司|单位)(?:在|是|搬到)\s*(.+)$/);
+ if(m)return {kind:'work',q:m[1].trim()};
+ m=t.match(/(?:记一下|记住|帮我记住)[，,：:\s]*(?:我)?(?:洗车|保养|取快递|快递|银行|取钱|买菜|超市|吃饭)(?:去|在|是|常去)\s*(.+)$/);
+ if(m){
+  var type=/洗车|保养/.test(t)?'carwash':/快递/.test(t)?'parcel':/银行|取钱/.test(t)?'bank':/买菜|超市/.test(t)?'grocery':/吃饭/.test(t)?'meal':'other';
+  return {kind:'fav',q:m[1].trim(),type:type};
+ }
+ return null;
+}
+function doMemCommand(cmd){
+ if(!hasConsent()){openOnboard(true);toast('先同意本地记忆说明，再写入家/公司/常去地点');return}
+ S.busy=true;
+ fetch(API+'/travel/poi-suggest',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({keywords:cmd.q,city:S.city||'北京',limit:6})})
+ .then(function(r){return r.json()}).then(function(d){
+  S.busy=false;var items=(d&&d.items)||[];
+  if(!items.length){toast('没搜到「'+cmd.q+'」，换个更具体的名称');return}
+  S.memPending={cmd:cmd,items:items,sel:items[0]};
+  renderMemConfirm();
+ }).catch(function(e){S.busy=false;toast('搜索失败：'+e.message)});
+}
+function renderMemConfirm(){
+ var p=S.memPending;if(!p)return;
+ var label=p.cmd.kind==='home'?'家':p.cmd.kind==='work'?'公司':'常去地点';
+ var h='<div class="card"><h2>要记住这条吗？</h2><p class="sub">确认后写入本机 IndexedDB，服务器不会收到。</p>'+
+  '<div class="banner ok"><b>'+label+'：</b>'+esc(p.sel.name||'')+'<br><span class="muted">'+esc(p.sel.addr||'')+'</span></div>'+
+  '<div class="cands" style="margin-top:10px">';
+ p.items.forEach(function(it,i){h+='<button class="cand '+(i===0?'on':'')+'" data-memcand="'+i+'">'+esc(it.name)+'<br><small>'+esc(it.district||'')+'</small></button>'});
+ h+='</div><div class="confirm-actions"><button class="btn mini" id="memSave">确认写入</button><button class="btn mini soft" id="memCancel">取消</button></div></div>';
+ var c=$('confirmPanel');c.innerHTML=h;c.classList.add('open');window.scrollTo({top:c.offsetTop-70,behavior:'smooth'});
+ c.querySelectorAll('[data-memcand]').forEach(function(b){b.onclick=function(){p.sel=p.items[+b.getAttribute('data-memcand')];c.querySelectorAll('[data-memcand]').forEach(function(x){x.classList.remove('on')});b.classList.add('on')}});
+ $('memSave').onclick=function(){
+  var m=S.mem;if(p.cmd.kind==='home')m.profile.home=p.sel;else if(p.cmd.kind==='work')m.profile.work=p.sel;
+  else m.favorite_pois.push({alias:(p.cmd.type==='carwash'?'洗车':p.cmd.type==='parcel'?'顺丰':p.cmd.type==='bank'?'工行':'常去'),poi:p.sel,note:'',hours:''});
+  m.consent={agreed:true,ts:Date.now()};saveConsent();saveMem();renderMemBar();c.innerHTML='';c.classList.remove('open');S.memPending=null;$('chatText').value='';toast('已记住，下次直接说就行');
+ };
+ $('memCancel').onclick=function(){c.innerHTML='';c.classList.remove('open');S.memPending=null;};
+}
+// ---------- AI 解析 ----------
+function readCity(){return ($('city').value||S.city||'北京').trim()}
+function detectLock(t){return /先|然后|接着|最后|再去|再回/.test(t||'')}
+function doAiPlan(){
+ if(S.busy)return;
+ var text=($('chatText').value||'').trim();
+ if(!text){toast('先说一下今天要办什么');return}
+ var mc=memCommand(text);
+ if(mc){doMemCommand(mc);return}
+ if(!hasConsent()&&!S.mem){openOnboard(true);return}
+ S.busy=true;var btn=$('btnAi');btn.disabled=true;btn.innerHTML='<span class="spin"></span> 解析中';
+ var payload={text:text,city:readCity(),now:new Date().toISOString(),memory:S.mem?memSummary():{}};
+ fetch(API+'/travel/ai-plan',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(payload)})
+ .then(function(r){return r.json()}).then(function(d){
+  S.busy=false;btn.disabled=false;btn.innerHTML='✨ AI 解析';
+  if(!d||!d.ok){
+   showFallback('没能理解这段描述'+(d&&(d.hint||d.error)?'：'+(d.hint||d.error):'')+'');return;
+  }
+  S.parsed=d;S.lastText=text;
+  S.city=d.city||readCity();
+  S.start=d.start||null;S.end=d.end||null;S.deadline=d.deadline||'';
+  S.depart=d.depart||(new Date()).toTimeString().slice(0,5);
+  S.mode=S.mem.profile.mode||'fast';S.buffer=S.mem.profile.buffer_min||0;
+  S.lock=detectLock(text);
+  S.tasks=(d.tasks||[]).map(function(t){
+   var poi=t.poi||null;
+   return {id:t.id||uid(),type:t.type||'other',icon:t.icon||(TYPES[t.type]||TYPES.other).icon,
+    type_label:t.type_label||(TYPES[t.type]||TYPES.other).label,raw_text:t.raw_text||t.place_hint||'',
+    place_hint:t.place_hint||'',poi:poi,candidates:t.candidates||[],needs_choice:!!t.needs_choice,
+    duration_min:+t.duration_min||15,window:t.time_window||{},flexible:t.flexible!==false,locked:false};
+  });
+  if(!S.end&&S.deadline&&S.mem.profile.home)S.end=clone(S.mem.profile.home);
+  renderConfirm();
+ }).catch(function(e){
+  S.busy=false;btn.disabled=false;btn.innerHTML='✨ AI 解析';showFallback('网络或服务异常：'+e.message);
  });
 }
-function reorderAndPlan(){
- var list=document.getElementById('stopList');if(!list)return;
- var names=[];list.querySelectorAll('li .nm').forEach(function(n){names.push(n.textContent);});
- document.getElementById('stops').value=names.join('\n');
- plan(false);
+function showFallback(msg){
+ var c=$('confirmPanel');
+ c.innerHTML='<div class="card"><h2>解析失败，先用表单</h2><p class="sub">'+esc(msg)+'</p><p class="sub">AI 解析不可用不会影响旧版算路：展开“表单模式”，填写起点和任务即可。</p><div class="confirm-actions"><button class="btn mini" id="fallbackForm">展开表单</button><button class="btn mini soft" id="fallbackClose">关闭</button></div></div>';
+ c.classList.add('open');
+ $('fallbackForm').onclick=function(){switchForm(true)};
+ $('fallbackClose').onclick=function(){c.innerHTML='';c.classList.remove('open')};
 }
-document.getElementById('go').onclick=function(){plan(true);};
+function renderConfirm(){
+ if(!S.parsed)return;
+ var d=S.parsed;var h='<div class="card"><h2>先确认任务，再算路</h2><p class="sub">地点、停留时长、时间窗都可以改。确认后才调用路线规划。</p>';
+ h+='<div class="editor"><div class="ed-label"><span>起点</span><span class="badge '+(S.start?'ok':'bad')+'">'+(S.start?'已定位':'待定位')+'</span></div><div class="place-line"><input id="cStart" data-suggest="start" value="'+esc(S.start?S.start.name:'')+'" placeholder="从哪出发？默认记忆里的家"></div></div>';
+ h+='<div class="editor"><div class="ed-label"><span>出发时间</span></div><div class="place-line"><input id="cDepart" type="time" value="'+esc(S.depart)+'"></div></div>';
+ h+='<div style="margin-top:14px;font-weight:700;font-size:14px">要办的事</div>';
+ S.tasks.forEach(function(t,i){
+  var poi=t.poi||{};var w=t.window||{};
+  h+='<div class="task-card" data-id="'+esc(t.id)+'"><div class="task-head"><div class="task-ico">'+esc(t.icon)+'</div><div><div class="task-title">'+esc(t.type_label)+'<small>'+esc(t.raw_text||t.place_hint||'')+'</small></div><div class="task-raw">'+esc(poi.name||'未定位，点下面候选或输入地点')+'</div></div><div class="task-tools"><button class="icon-btn" data-act="up" data-i="'+i+'" aria-label="上移">↑</button><button class="icon-btn" data-act="down" data-i="'+i+'" aria-label="下移">↓</button><button class="icon-btn" data-act="rm" data-i="'+i+'" aria-label="删除">🗑</button></div></div>';
+  h+='<div class="place-line" style="margin-top:7px"><input class="t-place" id="tp'+i+'" data-suggest="task" data-i="'+i+'" value="'+esc(t.place_hint||poi.name||'')+'" placeholder="店名/地点（可留空用记忆）"></div>';
+  if(t.candidates&&t.candidates.length){
+   h+='<div class="cands">'+t.candidates.map(function(c,j){return '<button class="cand '+(poi.poi_id&&c.poi_id===poi.poi_id?'on':'')+'" data-act="cand" data-i="'+i+'" data-c="'+j+'">'+esc(c.name)+'<br><small>'+esc(c.district||'')+'</small></button>'}).join('')+'</div>';
+  }
+  if(t.needs_choice)h+='<div class="stop-warns">地点需要确认：选一个候选或补充更具体的店名</div>';
+  h+='<div class="task-grid"><div class="g"><label>停留（分钟）</label><input type="number" min="0" max="240" data-field="dur" data-i="'+i+'" value="'+t.duration_min+'"></div><div class="g"><label>不早于</label><input type="time" data-field="nb" data-i="'+i+'" value="'+esc(w.not_before||'')+'"></div><div class="g"><label>不晚于</label><input type="time" data-field="na" data-i="'+i+'" value="'+esc(w.not_after||'')+'"></div><div class="g"><label>弹性</label><label style="margin:0;display:flex;align-items:center;min-height:44px"><input type="checkbox" data-field="flex" data-i="'+i+'" '+(t.flexible?'checked':'')+'>可挪</label></div></div>';
+  h+='</div>';
+ });
+ h+='<div class="row"><button class="btn mini soft" id="addTask">+ 加一项</button><label style="margin:0;display:flex;align-items:center;min-height:44px"><input type="checkbox" id="lockOrder" '+(S.lock?'checked':'')+'>按口述顺序</label></div>';
+ h+='<div class="editor"><div class="ed-label"><span>终点 / 回家</span><span class="badge '+(S.end?'ok':'warn')+'">'+(S.end?'已定位':'可选')+'</span></div><div class="place-line"><input id="cEnd" data-suggest="end" value="'+esc(S.end?S.end.name:'')+'" placeholder="不给终点则最后一站结束"></div><label style="margin-top:7px">到家截止（硬约束，可空）</label><input id="cDeadline" type="time" value="'+esc(S.deadline)+'"></div>';
+ h+='<div class="grid2"><div><label>出行方式</label><select id="cMode"><option value="fast">最快</option><option value="fuel">省钱</option><option value="safe">少走高速</option></select></div><div><label>每站缓冲（分钟）</label><input id="cBuffer" type="number" min="0" max="30" value="'+S.buffer+'"></div></div>';
+ h+='<div class="confirm-actions"><button class="btn" id="btnCalc">确认并算路</button><button class="btn soft" id="btnReparse">重新解析</button><button class="btn soft" id="btnClearConfirm">收起</button></div>';
+ h+='<div class="hint">🔒 本次只上传确认后的地点坐标、停留时长与偏好，不包含历史记录。</div></div>';
+ var c=$('confirmPanel');c.innerHTML=h;c.classList.add('open');
+ $('cMode').value=S.mode;$('lockOrder').checked=S.lock;
+ bindPoiOnce($('cStart'),function(p){S.start=p;renderConfirm()});
+ bindPoiOnce($('cEnd'),function(p){S.end=p;renderConfirm()});
+ c.querySelectorAll('.t-place').forEach(function(inp){
+  var i=+inp.getAttribute('data-i');var t=S.tasks[i];
+  bindPoiOnce(inp,function(p){t.poi=p;t.place_hint=p.name;t.needs_choice=false;t.candidates=[];renderConfirm()});
+ });
+ c.querySelectorAll('[data-act]').forEach(function(b){
+  b.onclick=function(){
+   var i=+b.getAttribute('data-i');var act=b.getAttribute('data-act');
+   if(act==='rm'){S.tasks.splice(i,1)}
+   else if(act==='up'&&i>0){var x=S.tasks[i];S.tasks[i]=S.tasks[i-1];S.tasks[i-1]=x}
+   else if(act==='down'&&i<S.tasks.length-1){var y=S.tasks[i];S.tasks[i]=S.tasks[i+1];S.tasks[i+1]=y}
+   else if(act==='cand'){var j=+b.getAttribute('data-c');var t=S.tasks[i];t.poi=t.candidates[j];t.place_hint=t.poi.name;t.needs_choice=false;t.candidates=[]}
+   renderConfirm();
+  };
+ });
+ c.querySelectorAll('[data-field]').forEach(function(inp){
+  inp.onchange=function(){
+   var i=+inp.getAttribute('data-i');if(isNaN(i))return;var t=S.tasks[i];if(!t)return;var f=inp.getAttribute('data-field');
+   if(f==='dur')t.duration_min=Math.max(0,Math.min(240,+inp.value||0));
+   else if(f==='nb'){t.window=t.window||{};t.window.not_before=inp.value||null}
+   else if(f==='na'){t.window=t.window||{};t.window.not_after=inp.value||null}
+   else if(f==='flex')t.flexible=inp.checked;
+  };
+ });
+ $('cDepart').onchange=function(){S.depart=this.value};
+ $('cDeadline').onchange=function(){S.deadline=this.value};
+ $('cBuffer').onchange=function(){S.buffer=Math.max(0,Math.min(30,+this.value||0))};
+ $('cMode').onchange=function(){S.mode=this.value};
+ $('lockOrder').onchange=function(){S.lock=this.checked};
+ $('addTask').onclick=function(){
+  S.tasks.push({id:uid(),type:'other',icon:'📍',type_label:'其他',raw_text:'新任务',place_hint:'',poi:null,candidates:[],needs_choice:true,duration_min:15,window:{},flexible:true});
+  renderConfirm();
+ };
+ $('btnCalc').onclick=doOrchestrate;
+ $('btnReparse').onclick=function(){renderConfirm();window.scrollTo({top:$('confirmPanel').offsetTop-70,behavior:'smooth'})};
+ $('btnClearConfirm').onclick=function(){c.innerHTML='';c.classList.remove('open')};
+ window.scrollTo({top:c.offsetTop-70,behavior:'smooth'});
+}
+function doOrchestrate(){
+ if(S.busy)return;
+ if(!S.start){toast('先确认起点：在记忆里设置家，或输入起点');$('cStart').focus();return}
+ var missing=S.tasks.filter(function(t){return !t.poi});
+ if(missing.length){toast('还有 '+missing.length+' 个任务没定位，选候选或补充店名');return}
+ if(!S.tasks.length){toast('至少加一个任务');return}
+ S.busy=true;
+ var btn=$('btnCalc');if(btn){btn.disabled=true;btn.innerHTML='<span class="spin"></span> 计算中'}
+ var tasks=S.tasks.map(function(t,i){
+  var o={id:t.id,type:t.type,name:(t.poi&&t.poi.name)||t.place_hint||t.raw_text,poi:t.poi,duration_min:t.duration_min,time_window:t.window||{},flexible:!!t.flexible,fixed:!!S.lock};
+  if(S.lock)o.order_hint=i+1;
+  return o;
+ });
+ var payload={start:S.start,end:S.end?Object.assign({},S.end,{deadline:S.deadline||null}):null,tasks:tasks,city:S.city,depart:S.depart||null,mode:S.mode,buffer_min:S.buffer,order_mode:S.lock?'fixed':'auto',memory:S.mem?{profile:{plate_tail:S.mem.profile.plate_tail,mode:S.mem.profile.mode,buffer_min:S.mem.profile.buffer_min}}:{}};
+ fetch(API+'/travel/orchestrate',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(payload)})
+ .then(function(r){return r.json()}).then(function(d){
+  S.busy=false;if(btn){btn.disabled=false;btn.innerHTML='确认并算路'}
+  if(!d||!d.ok){toast('算路失败：'+((d&&(d.hint||d.error))||'未知错误'));return}
+  S.plan=d;S.lastPlanTasks=tasks;
+  afterPlan(d);
+ }).catch(function(e){S.busy=false;if(btn){btn.disabled=false;btn.innerHTML='确认并算路'}toast('网络异常：'+e.message)});
+}
+function afterPlan(d){
+ renderResult(d);
+ saveHistory(d);
+ var changed=calibrate(false);if(changed.length)toast('已按历史校准：'+changed[0]);
+}
+function saveHistory(d){
+ if(!S.mem)return;
+ var m=S.mem;
+ m.history.unshift({time:Date.now(),text:S.lastText||'AI 秘书规划',total_km:d.total_km,total_min:d.total_min,feasible:!!d.feasible,
+  tasks:(S.tasks||[]).map(function(t){return {type:t.type,duration_min:t.duration_min,name:(t.poi&&t.poi.name)||t.place_hint}})});
+ m.history=m.history.slice(0,20);saveMem();
+}
+// ---------- 结果渲染 ----------
+function renderResult(d){
+ var h='<div class="card"><div class="res-head"><h2>路线方案</h2><span class="badge '+(d.feasible?'ok':'bad')+'">'+(d.feasible?'时间可行':'需要调整')+'</span></div>';
+ h+='<div class="banner '+(d.feasible?'ok':'bad')+'">'+esc(d.conclusion||'')+(d.latest_depart?' <br><b>最晚 '+esc(d.latest_depart)+' 出发</b>':'')+'</div>';
+ h+='<div class="stats"><div><b>'+esc(d.total_km)+' km</b><span>总里程</span></div><div><b>'+esc(d.total_text||('' + d.total_min + ' 分钟'))+'</b><span>全程（含办事）</span></div><div><b>'+esc(d.stay_min||0)+' 分钟</b><span>办事停留</span></div><div><b>'+esc(d.arrive_home||d.finish_time||'—')+'</b><span>预计到家</span></div></div>';
+ if(d.map_url)h+='<div class="map-wrap"><img id="mapImg" src="'+esc(d.map_url)+'" alt="路线地图" loading="lazy"></div>';
+ var warns=d.warnings||[];if(warns.length){h+='<ul class="warns">'+warns.map(function(w){return '<li>'+esc(w)+'</li>'}).join('')+'</ul>'}
+ var evWarn=evCheck(d);if(evWarn)h+='<div class="banner warn">'+esc(evWarn)+'</div>';
+ h+='<h3 style="margin-top:20px">时间轴 <span class="sub" style="font-weight:400">· 可拖动调整顺序</span></h3><ul class="timeline" id="timeline">';
+ (d.timeline||[]).forEach(function(t,i){
+  var links=t.links||{};
+  h+='<li class="stop" draggable="true" data-id="'+esc(t.id)+'"><div class="stop-no">'+(i+1)+'</div><div class="stop-main">';
+  h+='<div class="stop-name">'+esc(t.icon||'📍')+' '+esc(t.name)+'</div><div class="stop-addr">'+esc(t.addr||'')+'</div>';
+  h+='<div class="stop-times"><span>'+esc(t.arrive)+' 到</span>'+(t.arrive_raw?'<span class="muted">（'+esc(t.arrive_raw)+' 到，等待）</span>':'')+'<span class="muted">'+esc(t.leave)+' 离开</span><span class="muted">停留 '+esc(t.stay_min)+' 分</span></div>';
+  h+='<div class="stop-meta">驾车 '+esc(t.leg_min)+' 分钟 · '+esc(t.leg_km)+' km'+(t.wait_min?' · 等待 '+esc(t.wait_min)+' 分钟':'')+(t.hours&&t.hours.status==='tight'?' · <span style="color:#fbbf24">营业时间偏紧</span>':'')+'</div>';
+  if(t.hours&&t.hours.text)h+='<div class="stop-meta">营业：'+esc(t.hours.text)+'</div>';
+  if(t.warnings&&t.warnings.length)h+='<div class="stop-warns">'+t.warnings.map(esc).join('<br>')+'</div>';
+  h+='<div class="stop-links"><a class="linkbtn" href="'+esc(links.amap||'')+'" data-app="'+esc(links.amap||'')+'" data-web="'+esc(links.amap_web||'')+'" data-ios="'+esc(links.amap_ios||'')+'">高德</a><a class="linkbtn" href="'+esc(links.baidu||'')+'" data-app="'+esc(links.baidu||'')+'" data-web="'+esc(links.baidu_web||'')+'">百度</a><button class="linkbtn" data-copy="'+esc(links.amap||'')+'">复制高德链接</button></div>';
+  h+='</div><div class="stop-side"><button class="icon-btn" data-move="up" data-id="'+esc(t.id)+'" aria-label="上移">↑</button><button class="icon-btn" data-move="down" data-id="'+esc(t.id)+'" aria-label="下移">↓</button></div></li>';
+ });
+ if(d.end_node){var e=d.end_node;h+='<li class="stop"><div class="stop-no">🏁</div><div class="stop-main"><div class="stop-name">'+esc(e.name)+'</div><div class="stop-addr">'+esc(e.addr||'')+'</div><div class="stop-times"><span>'+esc(e.arrive)+' 到</span><span class="muted">'+(e.deadline?'截止 '+esc(e.deadline):'终点')+'</span></div>'+(e.late?'<div class="stop-warns">晚于截止 '+esc(e.over_min)+' 分钟</div>':'')+'</div></li>'}
+ h+='</ul>';
+ // 整条路线
+ if(d.links&&d.links.amap){h+='<div class="row"><span class="sub">整条路线（含途经点）：</span><a class="linkbtn" href="'+esc(d.links.amap)+'" data-app="'+esc(d.links.amap)+'" data-web="'+esc(d.links.amap_web||'')+'" data-ios="'+esc(d.links.amap_ios||'')+'">在高德打开</a><a class="linkbtn" href="'+esc(d.links.baidu||'')+'" data-app="'+esc(d.links.baidu||'')+'" data-web="'+esc(d.links.baidu_web||'')+'">在百度打开</a><button class="linkbtn" id="copyRoute">复制整条链接</button></div>'}
+ // 分享卡片
+ h+='<div class="share" id="shareCard"><div class="share-head"><div class="share-title">✦ 星籁 AI · 出行计划</div><div class="share-date">'+esc(new Date().toLocaleDateString('zh-CN'))+' · '+esc(d.depart||'')+' 出发</div></div><ol class="share-list">';
+ (d.timeline||[]).forEach(function(t){h+='<li><span class="t">'+esc(t.arrive)+'–'+esc((t.leave||'').replace('次日 ',''))+'</span><span class="n">'+esc(t.icon||'')+' '+esc(t.name)+'<br><small style="color:var(--txt3)">停留 '+esc(t.stay_min)+' 分钟</small></span></li>'});
+ h+='</ol><div class="share-foot"><span>'+esc(d.total_km)+' km · '+esc(d.total_text||'')+' · '+(d.arrive_home?'预计 '+esc(d.arrive_home)+' 到家':'')+'</span><span>AI 规划，请核实营业时间与门牌</span></div></div>';
+ h+='<div class="row"><button class="btn mini" id="copyShare">复制分享文本</button><button class="btn mini soft" id="downloadShare">下载分享卡 PNG</button><button class="btn mini soft" id="btnRemind">设置出发提醒（提前'+(S.mem.profile.remind_min||30)+'分钟）</button></div>';
+ // 备选
+ if((d.alternatives||[]).length){
+  h+='<h3 style="margin-top:20px">备选方案与权衡</h3><div class="alts">';
+  (d.alternatives||[]).forEach(function(a,i){
+   h+='<div class="alt"><b>'+esc(a.title)+'</b><p>'+esc(a.summary)+'</p>'+(a.changes?'<ul class="changes">'+a.changes.map(function(c){return '<li>'+esc(c)+'</li>'}).join('')+'</ul>':'')+'<button class="btn mini soft" data-alt="'+i+'">采用这个方案</button></div>';
+  });
+  h+='</div>';
+ }
+ // 对话式编辑
+ h+='<div class="edit-box"><h3>继续改</h3><div class="edit-input"><input id="editText" placeholder="例如：把洗车挪到明天 / 洗车改 30 分钟 / 提前半小时出发"><button class="btn mini" id="btnEdit">改一下</button></div><div id="editReply" class="hint"></div></div>';
+ h+='<div class="hint">🔒 记忆与历史只在本机；分享文本不含车牌尾号与家庭详细地址（仅地点名）。</div></div>';
+ var out=$('result');out.innerHTML=h;out.classList.add('open');
+ bindResultEvents(d);
+ window.scrollTo({top:out.offsetTop-70,behavior:'smooth'});
+}
+function evCheck(d){
+ var p=S.mem&&S.mem.profile;if(!p||!p.ev_on||!p.ev_range_km)return '';
+ var km=+d.total_km||0;if(km>+p.ev_range_km)return '电动车续航提醒：满电约 '+p.ev_range_km+' km，本次路线约 '+km+' km，中途需要充电/换车。';
+ return '';
+}
+function bindResultEvents(d){
+ var tl=$('timeline');
+ if(tl){
+  var dragId=null;
+  tl.querySelectorAll('.stop[data-id]').forEach(function(li){
+   li.addEventListener('dragstart',function(){dragId=li.getAttribute('data-id');li.classList.add('dragging')});
+   li.addEventListener('dragend',function(){li.classList.remove('dragging')});
+   li.addEventListener('dragover',function(e){e.preventDefault()});
+   li.addEventListener('drop',function(e){e.preventDefault();if(!dragId)return;reorderByDrag(tl,dragId,li.getAttribute('data-id'))});
+  });
+  tl.querySelectorAll('[data-move]').forEach(function(b){
+   b.onclick=function(){
+    var ids=[].map.call(tl.querySelectorAll('.stop[data-id]'),function(x){return x.getAttribute('data-id')});
+    var id=b.getAttribute('data-id');var i=ids.indexOf(id);var j=b.getAttribute('data-move')==='up'?i-1:i+1;
+    if(i<0||j<0||j>=ids.length)return;var tmp=ids[i];ids[i]=ids[j];ids[j]=tmp;applyOrder(ids);
+   };
+  });
+ }
+ document.querySelectorAll('[data-copy]').forEach(function(b){b.onclick=function(){copyText(b.getAttribute('data-copy'));}});
+ var cr=$('copyRoute');if(cr)cr.onclick=function(){copyText((d.links&&d.links.amap)||'')};
+ var cs=$('copyShare');if(cs)cs.onclick=function(){copyText(buildShareText(d))};
+ var ds=$('downloadShare');if(ds)ds.onclick=function(){downloadShareCard(d)};
+ var br=$('btnRemind');if(br)br.onclick=function(){setDepartReminder(d)};
+ var be=$('btnEdit');if(be)be.onclick=doAiEdit;
+ $('editText')&&$('editText').addEventListener('keydown',function(e){if(e.key==='Enter')doAiEdit()});
+ document.querySelectorAll('[data-alt]').forEach(function(b){b.onclick=function(){applyAlt(+b.getAttribute('data-alt'))}});
+}
+function currentOrderIds(){return S.tasks.map(function(t){return t.id})}
+function applyOrder(ids){
+ var by={};S.tasks.forEach(function(t){by[t.id]=t});S.tasks=ids.map(function(id){return by[id]}).filter(Boolean);S.lock=true;
+ toast('顺序已锁定，正在重算…');doOrchestrate();
+}
+function reorderByDrag(tl,srcId,dstId){
+ if(!srcId||!dstId||srcId===dstId)return;
+ var ids=[].map.call(tl.querySelectorAll('.stop[data-id]'),function(x){return x.getAttribute('data-id')});
+ var from=ids.indexOf(srcId),to=ids.indexOf(dstId);if(from<0||to<0)return;
+ ids.splice(from,1);ids.splice(to,0,srcId);applyOrder(ids);
+}
+function applyAlt(i){
+ var a=(S.plan&&S.plan.alternatives||[])[i];if(!a)return;var ap=a.apply||{};
+ if(ap.type==='drop'){
+  S.tasks=S.tasks.filter(function(t){return String(t.id)!==String(ap.task_id)});
+  if(S.mem){S.mem.recurring=S.mem.recurring||[];S.mem.recurring.push({type:'defer',task_id:ap.task_id,date:'明天',created:Date.now()});saveMem()}
+  toast('已把该任务移到明天待办并重算');doOrchestrate();
+ }else if(ap.type==='depart'){
+  S.depart=shiftTime(S.depart,ap.minutes||0);toast('出发时间调整为 '+S.depart);doOrchestrate();
+ }else if(ap.type==='order'&&ap.order){
+  applyOrder(ap.order);
+ }else{toast('这个备选方案暂不支持一键采用')}
+}
+function applyOps(ops){
+ var tod=[];
+ ops.forEach(function(o){
+  if(o.action==='defer'){
+   var idx=S.tasks.findIndex(function(t){return String(t.id)===String(o.task_id)});
+   if(idx>=0){var t=S.tasks[idx];tod.push(t.name||t.place_hint||'任务');S.tasks.splice(idx,1)}
+  }else if(o.action==='remove'){
+   S.tasks=S.tasks.filter(function(t){return String(t.id)!==String(o.task_id)});
+  }else if(o.action==='duration'){
+   var t2=S.tasks.find(function(t){return String(t.id)===String(o.task_id)});if(t2)t2.duration_min=Math.max(0,+o.minutes||0);
+  }else if(o.action==='reorder'&&o.order){
+   var by={};S.tasks.forEach(function(t){by[t.id]=t});S.tasks=(o.order||[]).map(function(id){return by[id]}).filter(Boolean);
+  }else if(o.action==='add'&&o.task){
+   var nt=o.task;S.tasks.push({id:uid(),type:nt.type||'other',icon:(TYPES[nt.type]||TYPES.other).icon,type_label:(TYPES[nt.type]||TYPES.other).label,raw_text:nt.raw_text||nt.name,place_hint:nt.name||nt.raw_text,poi:null,candidates:[],needs_choice:true,duration_min:+nt.duration_min||15,window:{},flexible:true});
+  }else if(o.action==='depart'){
+   S.depart=shiftTime(S.depart,o.minutes||0);
+  }else if(o.action==='set_deadline'&&o.time){
+   S.deadline=o.time;
+  }
+ });
+ if(tod.length&&S.mem){S.mem.recurring=S.mem.recurring||[];tod.forEach(function(n){S.mem.recurring.push({type:'defer',text:n,date:'明天',created:Date.now()})});saveMem();renderDrawer()}
+ if(S.tasks.some(function(t){return !t.poi})){toast('有新增任务需要先确认地点');renderConfirm();return}
+ doOrchestrate();
+}
+function doAiEdit(){
+ var text=($('editText')&&$('editText').value||'').trim();if(!text){toast('说一下要改什么');return}
+ if(!S.plan){toast('先生成一份路线');return}
+ var btn=$('btnEdit');if(btn)btn.disabled=true;
+ var payload={text:text,plan:{depart:S.plan.depart,end:S.plan.end?{deadline:S.plan.end.deadline}:null,tasks:(S.plan.timeline||[]).map(function(t){return {id:t.id,name:t.name,raw_text:t.raw_text,type:t.type,duration_min:t.stay_min}})},now:new Date().toISOString()};
+ fetch(API+'/travel/ai-edit',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(payload)})
+ .then(function(r){return r.json()}).then(function(d){
+  if(btn)btn.disabled=false;
+  if(!d||!d.ok){toast('没改成：'+((d&&(d.hint||d.error))||''));return}
+  var rep=$('editReply');if(rep){rep.innerHTML='<b>'+esc(d.reply||'已理解')+'</b>'+(d.ops&&d.ops.length?'<br>识别到 '+d.ops.length+' 项改动，正在重算…':'')}
+  if(d.ops&&d.ops.length){applyOps(d.ops)}else{toast(d.reply||'没理解要改哪一项')}
+ }).catch(function(e){if(btn)btn.disabled=false;toast('网络异常：'+e.message)});
+}
+function shiftTime(hm,mins){
+ if(!hm)return hm;var a=hm.split(':');var m=(+a[0]||0)*60+(+a[1]||0)+mins;m=((m%1440)+1440)%1440;return ('0'+Math.floor(m/60)).slice(-2)+':'+('0'+(m%60)).slice(-2);
+}
+function buildShareText(d){
+ var lines=['【星籁 AI 出行计划】'+(d.depart?d.depart+' 出发':'')];
+ (d.timeline||[]).forEach(function(t,i){lines.push((i+1)+'. '+t.arrive+'–'+String(t.leave||'').replace('次日 ','')+' '+t.name+'（停留 '+t.stay_min+' 分钟）')});
+ if(d.end_node)lines.push('🏁 '+d.end_node.arrive+' 到家');
+ lines.push('总里程 '+d.total_km+' km · 全程 '+d.total_text+' · '+(d.feasible?'时间可行':'需要调整'));
+ if(d.conclusion)lines.push('结论：'+d.conclusion);
+ lines.push('AI 规划，请核实营业时间与门牌 · xinglaiai.com/ai-nav/travel');
+ return lines.join('\n');
+}
+function copyText(txt){
+ if(!txt){toast('没有可复制的链接');return}
+ if(navigator.clipboard&&navigator.clipboard.writeText){navigator.clipboard.writeText(txt).then(function(){toast('已复制')}).catch(function(){fallbackCopy(txt)})}
+ else fallbackCopy(txt);
+}
+function fallbackCopy(txt){
+ var ta=document.createElement('textarea');ta.value=txt;ta.style.position='fixed';ta.style.opacity='0';document.body.appendChild(ta);ta.select();
+ try{document.execCommand('copy');toast('已复制')}catch(e){toast('复制失败，请长按链接手动复制')}
+ ta.remove();
+}
+function downloadShareCard(d){
+ var W=760,items=d.timeline||[];var H=250+items.length*54+150;
+ var c=document.createElement('canvas');c.width=W;c.height=H;var x=c.getContext('2d');
+ var g=x.createLinearGradient(0,0,W,0);g.addColorStop(0,'#0b1220');g.addColorStop(1,'#111a2b');x.fillStyle=g;x.fillRect(0,0,W,H);
+ var bar=x.createLinearGradient(0,0,W,0);bar.addColorStop(0,'#38bdf8');bar.addColorStop(1,'#8b5cf6');x.fillStyle=bar;x.fillRect(0,0,W,6);
+ x.fillStyle='#e8eef8';x.font='700 32px -apple-system,"Microsoft YaHei",sans-serif';x.fillText('✦ 星籁 AI · 出行计划',40,70);
+ x.fillStyle='#9fb0c7';x.font='18px -apple-system,"Microsoft YaHei",sans-serif';x.fillText((d.depart?d.depart+' 出发 · ':'')+d.total_km+' km · '+d.total_text+' · '+(d.feasible?'时间可行':'需调整'),40,104);
+ var y=145;
+ items.forEach(function(t,i){
+  x.fillStyle='#7dd3fc';x.font='700 20px -apple-system,"Microsoft YaHei",sans-serif';x.fillText(t.arrive+'–'+String(t.leave||'').replace('次日 ',''),40,y);
+  x.fillStyle='#e8eef8';x.font='700 20px -apple-system,"Microsoft YaHei",sans-serif';x.fillText((t.icon||'')+' '+(t.name||'').slice(0,26),200,y);
+  x.fillStyle='#6b7c94';x.font='15px -apple-system,"Microsoft YaHei",sans-serif';x.fillText('停留 '+t.stay_min+' 分钟 · 驾车 '+t.leg_min+' 分钟',200,y+23);
+  y+=54;
+ });
+ if(d.conclusion){x.fillStyle=d.feasible?'#bbf7d0':'#fecaca';x.font='17px -apple-system,"Microsoft YaHei",sans-serif';wrapText(x,d.conclusion,40,y+8,W-80,24);y+=Math.ceil(d.conclusion.length/26)*24+12}
+ x.fillStyle='#6b7c94';x.font='14px -apple-system,"Microsoft YaHei",sans-serif';x.fillText('AI 规划，请核实营业时间与门牌 · xinglaiai.com/ai-nav/travel',40,H-40);
+ c.toBlob(function(b){var a=document.createElement('a');a.href=URL.createObjectURL(b);a.download='xinglai-travel-share.png';document.body.appendChild(a);a.click();setTimeout(function(){URL.revokeObjectURL(a.href);a.remove()},900);toast('分享卡已生成')},'image/png');
+}
+function wrapText(ctx,text,x0,y0,maxW,lh){
+ var line='',y=y0;for(var i=0;i<text.length;i++){var test=line+text[i];if(ctx.measureText(test).width>maxW&&line){ctx.fillText(line,x0,y);line=text[i];y+=lh}else line=test}
+ if(line)ctx.fillText(line,x0,y);
+}
+function setDepartReminder(d){
+ if(!('Notification' in window)){toast('此浏览器不支持系统通知，可用分享卡手动提醒');return}
+ var base=d.latest_depart||d.depart;if(!base){toast('没有出发时间');return}
+ var mins=(S.mem.profile.remind_min||30);var t=base.split(':');var dt=new Date();dt.setHours(+t[0],+t[1],0,0);dt.setMinutes(dt.getMinutes()-mins);
+ if(dt.getTime()<=Date.now()){toast('提醒时间已过（'+('0'+dt.getHours()).slice(-2)+':'+('0'+dt.getMinutes()).slice(-2)+'），无法再提醒');return}
+ Notification.requestPermission().then(function(p){
+  if(p!=='granted'){toast('没有通知权限，可把出发时间复制到日历');return}
+  var delay=dt.getTime()-Date.now();
+  setTimeout(function(){
+   try{new Notification('该出发了',{body:base+' 出发，'+d.total_km+' km，预计 '+((d.arrive_home)||'')+' 到家',tag:'xinglai-travel'})}
+   catch(e){toast('系统通知不可用，请留意时间')}
+  },delay);
+  toast('已设置 '+('0'+dt.getHours()).slice(-2)+':'+('0'+dt.getMinutes()).slice(-2)+' 出发提醒（页面需保持打开）');
+ });
+}
+// ---------- 旧版表单 ----------
+var mode='fast';
+function switchForm(open){
+ $('formPanel').classList.toggle('open',!!open);
+ if(open)$('formPanel').scrollIntoView({behavior:'smooth',block:'nearest'});
+}
+function bindLegacy(){
+ $('modes').addEventListener('click',function(e){if(e.target.tagName!=='BUTTON')return;mode=e.target.dataset.m;[].forEach.call(this.children,function(b){b.className=b===e.target?'on':''})});
+ $('go').onclick=doLegacy;
+}
+function doLegacy(){
+ var payload={city:($('city').value||'北京').trim(),start:($('start').value||'').trim(),stops:($('stops').value||'').split('\n').map(function(s){return s.trim()}).filter(Boolean).slice(0,6),end:($('end').value||'').trim(),depart:($('depart').value||'').trim(),mode:mode,optimize:true};
+ if(!payload.start||!payload.stops.length){toast('请填写起点和至少一个途经任务');return}
+ var btn=$('go');btn.disabled=true;
+ fetch(API+'/travel',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(payload)})
+ .then(function(r){return r.json()}).then(function(d){
+  btn.disabled=false;
+  if(!d.ok){$('result').innerHTML='<div class="card"><h3>规划失败</h3><p class="sub">'+esc(d.hint||d.error)+'</p></div>';$('result').classList.add('open');return}
+  renderLegacy(d);
+ }).catch(function(e){btn.disabled=false;toast('网络异常：'+e.message)});
+}
+function renderLegacy(d){
+ var pts=d.points||[];var h='<div class="card legacy-out"><h2>路线方案（旧版表单）</h2><div class="stats"><div><b>'+d.total_km+' km</b><span>总里程</span></div><div><b>'+d.total_min+' 分钟</b><span>纯驾驶时间</span></div><div><b>'+d.timeline.length+' 站</b><span>途经点</span></div></div>';
+ if(d.map_url)h+='<img id="mapImg" src="'+d.map_url+'" alt="路线地图" loading="lazy">';
+ h+='<ul class="stops">'+d.timeline.map(function(t,i){var p=pts[i+1]||pts[i]||null;var s=pts[i]||pts[0];return '<li><div class="no">'+(i+1)+'</div><div><div class="nm">'+esc(t.name)+'</div><div class="ad">'+esc(t.addr||'')+'</div><div class="tm">预计 '+esc(t.arrive)+' 到达'+(t.stay_min?' · 停留约 '+t.stay_min+' 分钟':'')+'</div>'+(p&&s?'<div class="stop-links">'+appLinks(s,p)+'</div>':'')+'</div></li>'}).join('')+'</ul>';
+ h+='<div class="row"><button class="btn mini" id="legacyNew">用 AI 秘书重新规划</button></div><div class="hint">'+d.notes.map(esc).join('<br>')+'</div></div>';
+ $('result').innerHTML=h;$('result').classList.add('open');
+ $('legacyNew').onclick=function(){switchForm(false);$('chatText').focus()};
+}
+// ---------- 工具 ----------
+function syncInputs(){
+ var p=S.mem&&S.mem.profile;
+ if(p){
+  if(p.city)$('city').value=p.city;
+  if(p.home&&!$('start').value)$('start').value=p.home.name||'';
+  if(p.home&&!$('chatText').value)$('chatText').placeholder='例：下午两点从家出发，先去'+((S.mem.favorite_pois||[{}])[0]&&(S.mem.favorite_pois[0].alias||'工行'))+'取点钱，然后顺丰拿个快递，最后洗个车，五点前回家';
+ }
+}
+function init(){
+ try{document.title='init';}catch(e){}
+ bindAppLinks();
+ loadMem().then(function(m){
+  try{document.title='mem-ok';}catch(e){}
+  S.mem=m;S.city=m.profile.city||'北京';S.buffer=m.profile.buffer_min||0;S.mode=m.profile.mode||'fast';
+  renderMemBar();syncInputs();bindLegacy();
+  bindPoiOnce($('mHome'),function(p){p&&(S.mem.profile.home=p)});bindPoiOnce($('mWork'),function(p){p&&(S.mem.profile.work=p)});
+  bindPoiOnce($('favPlace'),function(p){S.draftFav=p;$('favPlace').value=p.name||''});
+  $('btnAi').onclick=doAiPlan;
+  $('btnMem').onclick=openDrawer;
+  $('btnFormToggle').onclick=function(){switchForm(!$('formPanel').classList.contains('open'))};
+  $('btnOnboard').onclick=function(){openOnboard(true)};
+  $('examples').onclick=function(e){var b=e.target.closest('button');if(!b)return;$('chatText').value=b.getAttribute('data-t');$('chatText').focus()};
+  $('chatText').addEventListener('keydown',function(e){if((e.ctrlKey||e.metaKey)&&e.key==='Enter')doAiPlan()});
+  $('onbClose').onclick=closeOnboard;
+  $('onbSkip').onclick=function(){try{localStorage.setItem('xl_travel_consent','0')}catch(e){}closeOnboard();toast('本次不保存记忆，仍可用一句话规划')};
+  $('onbAgree').onclick=function(){if(!S.mem)S.mem=defaultMem();step2()};
+  $('onbBack').onclick=function(){$('onbStep2').style.display='none';$('onbStep1').style.display='block'};
+  $('onbSave').onclick=saveOnboard;
+  $('drawerClose').onclick=closeDrawer;
+  $('drawer').addEventListener('click',function(e){if(e.target===$('drawer'))closeDrawer()});
+  $('drawerTabs').addEventListener('click',function(e){var b=e.target.closest('button');if(!b)return;var tab=b.getAttribute('data-tab');[].forEach.call(this.children,function(x){x.classList.toggle('on',x===b)});document.querySelectorAll('.drawer-section').forEach(function(s){s.classList.toggle('on',s.id==='sec-'+tab)});S.drawerTab=tab});
+  $('mSave').onclick=saveProfile;
+  $('mGoOnb').onclick=function(){closeDrawer();openOnboard(true)};
+  $('favAdd').onclick=addFav;
+  $('favList').addEventListener('click',function(e){var b=e.target.closest('[data-favdel]');if(b)delFav(+b.getAttribute('data-favdel'))});
+  $('durSave').onclick=saveDur;
+  $('durCal').onclick=function(){var ch=calibrate(true);toast(ch.length?'已校准：'+ch.join('；'):'样本不足，至少同一类型 3 次')};
+  $('btnExport').onclick=exportMem;
+  $('btnImport').onclick=function(){$('importFile').click()};
+  $('importFile').onchange=function(){importMem(this.files[0]);this.value=''};
+  $('btnClearAll').onclick=clearAll;
+  $('mEvOn').onchange=function(){};
+  if(!hasConsent()&&!localStorage.getItem('xl_travel_consent'))setTimeout(function(){openOnboard(false)},600);
+  // diag
+  if(location.search.indexOf('diag')>=0){
+   var d=document.createElement('div');d.id='diag';d.style.cssText='position:fixed;left:0;bottom:0;z-index:9999;background:#000;color:#0f0;font:11px monospace;padding:4px;max-width:100%;white-space:pre-wrap';
+   var errs=[];window.addEventListener('error',function(e){errs.push(e.message)});
+   setTimeout(function(){var small=[];document.querySelectorAll('button,a.linkbtn,input,select').forEach(function(x){var r=x.getBoundingClientRect();if(r.width&&r.height&&r.height<44&&x.tagName!=='A')small.push((x.id||x.className||x.tagName)+':'+Math.round(r.height))});
+    d.textContent='scrollWidth='+document.documentElement.scrollWidth+' innerWidth='+innerWidth+' clientWidth='+document.documentElement.clientWidth+' errs='+JSON.stringify(errs)+' small='+small.slice(0,8).join(',');
+    document.body.appendChild(d);
+   },1800);
+  }
+  if(window.console&&console.log)console.log('travel-memory-ready',!!S.mem.profile.home);
+  try{document.title='ready';}catch(e){}
+ }).catch(function(e){try{document.title='memerr:'+(e&&e.message||e)}catch(x){}window.__xlErr.push('loadMem '+e)});
+}
+document.addEventListener('DOMContentLoaded',init);
+})();
 </script>
 <script defer src="../assets/auth.js"></script>
 </body></html>

@@ -1,0 +1,65 @@
+<!doctype html><html><head><meta charset="utf-8"><title>travel e2e</title>
+<style>body{background:#111;color:#eee;font:13px/1.6 monospace;margin:0}iframe{width:390px;height:844px;border:1px solid #444;background:#000}pre{white-space:pre-wrap;padding:10px}</style></head><body>
+<iframe id="fr"></iframe><pre id="out">running...</pre>
+<script>
+var LOG=[];function log(){LOG.push([].slice.call(arguments).join(' '));document.getElementById('out').textContent=LOG.join('\n')}
+function sleep(ms){return new Promise(function(r){setTimeout(r,ms)})}
+function waitFor(fn,label,max){max=max||240;return new Promise(function(res,rej){var i=0;(function tick(){var v;try{v=fn()}catch(e){v=null}if(v){res(v);return}if(++i>max){rej(new Error('timeout '+label));return}setTimeout(tick,250)})()})}
+var MEM={version:1,profile:{home:{name:'小堡村',addr:'小宝南街14号北京青年创业园通州园',lng:116.72172,lat:39.948354,district:'北京市通州区',poi_id:'B000A7ZY52'},work:null,city:'北京',plate_tail:'8',mode:'fast',buffer_min:5,remind_min:30,ev_on:false,ev_range_km:0},
+ favorite_pois:[{alias:'工行',poi:{name:'中国工商银行(北京清风路支行)',addr:'含英园九区5号楼1层101号',lng:116.727739,lat:39.913632,district:'通州区',poi_id:'B0HR1SB1PR'},note:'',hours:''},
+  {alias:'顺丰',poi:{name:'顺丰速运(小堡店)',addr:'小堡村',lng:116.719017,lat:39.952754,district:'通州区'},note:'',hours:''},
+  {alias:'洗车',poi:{name:'京东养车(宋庄店)',addr:'宋庄镇',lng:116.716011,lat:39.951573,district:'通州区'},note:'',hours:''}],
+ default_durations:{bank:15,parcel:10,carwash:40,grocery:20,meal:45,pickup:10},preferences:{},history:[],recurring:[],geo_reminders:[],consent:{agreed:true,ts:Date.now()}};
+function seed(){
+ return new Promise(function(res,rej){
+  var r=indexedDB.open('xinglai_travel',1);
+  r.onupgradeneeded=function(){r.result.createObjectStore('kv')};
+  r.onsuccess=function(){var db=r.result;var tx=db.transaction('kv','readwrite');tx.objectStore('kv').put(MEM,'memory');tx.oncomplete=function(){res()};tx.onerror=function(){rej(tx.error)}};
+  r.onerror=function(){rej(r.error)};
+ });
+}
+async function run(){
+ try{
+  localStorage.setItem('xl_travel_consent','1');
+  await seed();
+  var fr=document.getElementById('fr');
+  await new Promise(function(res){fr.onload=res;fr.src='/ai-nav/travel/?diag=1&e2e='+Date.now()});
+  var w=fr.contentWindow,d=w.document;
+  await waitFor(function(){return d.querySelector('#memBar')&&d.querySelector('#memBar').textContent.indexOf('小堡村')>=0},'membar');
+  log('AUTOFILL start=',d.querySelector('#start').value,'city=',d.querySelector('#city').value,'memBar=',d.querySelector('#memBar').innerText.replace(/\s+/g,' '));
+  d.querySelector('#chatText').value='下午两点从家出发，先去工行取点钱，然后顺丰拿个快递，最后洗个车，五点前回家';
+  d.querySelector('#btnAi').click();
+  await waitFor(function(){return d.querySelectorAll('#confirmPanel .task-card').length===3},'tasks',360);
+  var tasks=[].map.call(d.querySelectorAll('#confirmPanel .task-card'),function(c){return c.innerText.replace(/\s+/g,' ').slice(0,120)});
+  log('CONFIRM tasks=',JSON.stringify(tasks));
+  log('CONFIRM start=',d.querySelector('#cStart').value,'depart=',d.querySelector('#cDepart').value,'deadline=',d.querySelector('#cDeadline').value,'lock=',d.querySelector('#lockOrder').checked);
+  d.querySelector('#btnCalc').click();
+  await waitFor(function(){return d.querySelector('#result').classList.contains('open')&&d.querySelector('#timeline')},'result',480);
+  log('RESULT banner=',d.querySelector('#result .banner').innerText.replace(/\s+/g,' '));
+  log('RESULT stats=',d.querySelector('#result .stats').innerText.replace(/\s+/g,' '));
+  log('RESULT timeline=',[].map.call(d.querySelectorAll('#timeline .stop'),function(s){return s.innerText.replace(/\s+/g,' ').slice(0,150)}).join(' || '));
+  var amap=[].map.call(d.querySelectorAll('#timeline a[data-app]'),function(a){return a.getAttribute('data-app')});
+  var baidu=[].map.call(d.querySelectorAll('#timeline a[data-app]'),function(a){return a.getAttribute('data-app')}).filter(function(x){return x.indexOf('baidu')===0});
+  log('LINKS amap0=',amap[0]&&amap[0].slice(0,260));
+  log('LINKS baidu0=',baidu[0]&&baidu[0].slice(0,260));
+  log('ROUTE_LINK=',(d.querySelector('#result a[data-app]')||{}).getAttribute&&(d.querySelector('#result a[data-app]').getAttribute('data-app')||'').slice(0,200));
+  log('SHARE=',d.querySelector('#shareCard').innerText.replace(/\s+/g,' ').slice(0,500));
+  var diag=d.querySelector('#diag');
+  log('DIAG=',diag?diag.textContent:'no-diag');
+  // 对话式编辑
+  d.querySelector('#editText').value='把洗车挪到明天';
+  d.querySelector('#btnEdit').click();
+  await waitFor(function(){var n=d.querySelectorAll('#timeline .stop').length;return n>0&&n<3},'edit',360);
+  log('EDIT timeline=',[].map.call(d.querySelectorAll('#timeline .stop'),function(s){return s.innerText.replace(/\s+/g,' ').slice(0,100)}).join(' || '));
+  log('EDIT reply=',(d.querySelector('#editReply')||{}).innerText||'');
+  // 记忆抽屉
+  d.querySelector('#btnMem').click();
+  await waitFor(function(){return d.querySelector('#drawer').classList.contains('open')},'drawer',120);
+  log('DRAWER profile=',d.querySelector('#mHome').value,'fav=',JSON.stringify([].map.call(d.querySelectorAll('#favList .fn'),function(x){return x.textContent})));
+  d.querySelector('#drawerClose').click();
+  log('DONE');
+ }catch(e){log('ERROR '+e.stack)}
+ window.__done=true;
+}
+run();
+</script></body></html>
