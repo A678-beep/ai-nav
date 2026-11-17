@@ -784,6 +784,7 @@ function showFallback(msg){
 function renderConfirm(){
  if(!S.parsed)return;
  var d=S.parsed;var h='<div class="card"><h2>先确认任务，再算路</h2><p class="sub">地点、停留时长、时间窗都可以改。确认后才调用路线规划。</p>';
+ if(d.clarify_questions&&d.clarify_questions.length)h+='<div class="banner warn">需要你确认一句：'+esc(d.clarify_questions[0])+'</div>';
  h+='<div class="editor"><div class="ed-label"><span>起点</span><span class="badge '+(S.start?'ok':'bad')+'">'+(S.start?'已定位':'待定位')+'</span></div><div class="place-line"><input id="cStart" data-suggest="start" value="'+esc(S.start?S.start.name:'')+'" placeholder="从哪出发？默认记忆里的家"></div></div>';
  h+='<div class="editor"><div class="ed-label"><span>出发时间</span></div><div class="place-line"><input id="cDepart" type="time" value="'+esc(S.depart)+'"></div></div>';
  h+='<div style="margin-top:14px;font-weight:700;font-size:14px">要办的事</div>';
