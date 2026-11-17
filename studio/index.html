@@ -65,7 +65,8 @@ footer{border-top:1px solid var(--line);margin-top:44px;padding:24px 22px;text-a
 <div class="box">
 <textarea id="q" placeholder="例如：做一段 30 秒亲子出游 vlog 口播，女声温柔，轻音乐，导出 MP3"></textarea>
 <div class="row">
-<div class="seg" id="seg"><button data-m="auto" class="on">自动判断</button><button data-m="audio">音频 MP3</button><button data-m="video">视频 MP4</button></div>
+<div class="seg" id="seg"><button data-m="auto" class="on">自动判断</button><button data-m="audio">音频 MP3</button><button data-m="video">文字视频</button><button data-m="footage">实拍成片</button></div>
+<select id="dur" style="width:auto;padding:9px 12px"><option value="30">30 秒</option><option value="60" selected>60 秒</option><option value="120">2 分钟</option><option value="180">3 分钟</option><option value="300">5 分钟</option></select>
 <button class="btn" id="go">开始生成</button>
 <span style="color:var(--txt3);font-size:12.5px" id="quota"></span>
 </div>
@@ -103,6 +104,7 @@ function render(d){
  h+='<audio controls src="'+d.audio_url+'"></audio>';
  h+='<div class="acts">';
  if(d.video_url){h+='<a href="'+d.video_url+'" download>⬇ 下载 MP4</a>';}
+ h+=(d.engine==='pixabay-footage')?('<span class="hint" style="align-self:center">实拍素材成片 · '+ (d.scenes||0) +' 个镜头 · 素材来自 Pixabay（可商用）</span>'):'';
  h+='<a href="'+d.audio_url+'" download>⬇ 下载 MP3</a><button onclick="copyScript()">📋 复制文案</button></div>';
  h+='<h3 style="margin-top:20px">口播文案</h3><div class="script" id="scriptBox">'+d.script.replace(/</g,'&lt;')+'</div>';
  if(d.logs&&d.logs.length){h+='<div class="log">';d.logs.forEach(function(l){h+='<div><b>'+(l.agent||'')+'</b> '+(l.ok?'通过':'重试')+(l.round?(' · 第'+(l.round)+'轮'):'')+(l.size_kb?(' · '+l.size_kb+'KB'):'')+(l.duration?(' · '+l.duration+'s'):'')+'</div>';});h+='</div>';}
@@ -122,7 +124,9 @@ async function go(){
  var iv=tick(Date.now());var st=1;
  var stepTimer=setInterval(function(){setStep(st);if(st<3)st++;},2500);
  try{
-  var r=await fetch('/ai-nav/api/create',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({prompt:q,mode:mode})});
+  var body={prompt:q,mode:(mode==='footage'?'video':mode)};
+  if(mode==='footage'){body.engine='footage';body.duration=parseInt(document.getElementById('dur').value,10)||60;}
+  var r=await fetch('/ai-nav/api/create',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(body)});
   var d=await r.json();
   clearInterval(stepTimer);clearInterval(iv);
   if(!d.ok){setStep(0);document.getElementById('timer').textContent='';document.getElementById('out').style.display='block';document.getElementById('out').innerHTML='<div class="card"><h3>生成失败</h3><p class="err">'+(d.hint||d.error||'未知错误')+'</p><p style="color:var(--txt3);font-size:13px;margin-top:8px">建议：换个说法重试，或把文案要求写得更具体（时长/音色/风格）。</p></div>';}
