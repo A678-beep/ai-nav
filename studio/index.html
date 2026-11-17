@@ -2156,4 +2156,54 @@ function restoreProject(pid,cb){
 if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',init);else init();
 })();
 </script>
+
+<script>
+(function(){
+  var mode='auto';
+  var modes=document.getElementById('freeModes');
+  if(modes){modes.addEventListener('click',function(e){
+    var b=e.target.closest('button[data-fm]'); if(!b)return;
+    mode=b.getAttribute('data-fm');
+    Array.prototype.forEach.call(modes.querySelectorAll('button'),function(x){x.classList.toggle('on',x===b);});
+  });}
+  function bindVol(id,valId){var el=document.getElementById(id),v=document.getElementById(valId);if(el&&v){el.addEventListener('input',function(){v.textContent=el.value;});}}
+  bindVol('freeVoiceVol','freeVoiceVolVal'); bindVol('freeBgmVol','freeBgmVolVal');
+  var go=document.getElementById('freeGo');
+  if(!go)return;
+  go.addEventListener('click',async function(){
+    var prompt=(document.getElementById('freePrompt')||{}).value||'';
+    prompt=prompt.trim();
+    if(!prompt){alert('先写一句需求，例如：做一条 3 分钟的城市漫步 vlog');return;}
+    var dur=parseInt((document.getElementById('freeDur')||{}).value||'60',10);
+    var vv=(parseInt((document.getElementById('freeVoiceVol')||{}).value||'100',10))/100;
+    var bv=(parseInt((document.getElementById('freeBgmVol')||{}).value||'90',10))/100;
+    var out=document.getElementById('freeOut');
+    go.disabled=true; var old=go.textContent; go.textContent='⏳ 生成中…';
+    var t0=Date.now();
+    out.innerHTML='<div class="progress"><div class="wave"><span></span><span></span><span></span><span></span><span></span></div><p>正在生成，请保持页面打开（约 1~4 分钟，5 分钟视频约 3~6 分钟）<b id="freeTimer">0</b> 秒</p></div>';
+    var iv=setInterval(function(){var e=document.getElementById('freeTimer');if(e)e.textContent=Math.round((Date.now()-t0)/1000);},1000);
+    try{
+      var body={prompt:prompt,mode:(mode==='footage'?'video':mode),voice_vol:vv,bgm_vol:bv};
+      if(mode==='footage'){body.engine='footage';body.duration=dur;}
+      var r=await fetch('/ai-nav/api/create',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(body)});
+      var txt=await r.text(); var d;
+      try{d=JSON.parse(txt);}catch(e){throw new Error('服务返回异常（'+(r.status)+'），请稍后重试');}
+      if(!d.ok){throw new Error(d.hint||d.error||'生成失败');}
+      var h='<div class="adv-result"><h3>✅ 生成完成</h3>';
+      if(d.video_url){h+='<video controls src="'+d.video_url+'" style="width:100%;border-radius:12px"></video>';}
+      if(d.audio_url){h+='<audio controls src="'+d.audio_url+'" style="width:100%"></audio>';}
+      h+='<div class="meta">时长：'+(d.duration||'-')+' 秒 · 音色：'+(d.voice||'-')+' · 配乐：'+(d.bgm||'-')+'</div>';
+      h+='<div class="adv-actions">'+(d.video_url?'<a class="btn-line" href="'+d.video_url+'" download>⬇ 下载 MP4</a>':'')+(d.audio_url?'<a class="btn-line" href="'+d.audio_url+'" download>⬇ 下载 MP3</a>':'')+'</div>';
+      if(d.script){h+='<h3 style="margin-top:14px">口播文案</h3><textarea class="biz-q" style="min-height:140px;font-size:14px">'+String(d.script).replace(/</g,'&lt;')+'</textarea>';}
+      h+='</div>';
+      out.innerHTML=h;
+    }catch(err){
+      out.innerHTML='<div class="errorbox"><b>生成失败：</b>'+(err.message||'未知错误')+'<br><button type="button" class="btn-line" id="freeRetry">🔁 再试一次</button></div>';
+      var rt=document.getElementById('freeRetry'); if(rt) rt.addEventListener('click',function(){go.click();});
+    }finally{
+      clearInterval(iv); go.disabled=false; go.textContent=old;
+    }
+  });
+})();
+</script>
 </body></html>
