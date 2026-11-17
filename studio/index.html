@@ -67,7 +67,7 @@ footer{border-top:1px solid var(--line);margin-top:44px;padding:24px 22px;text-a
 <div class="row">
 <div class="seg" id="seg"><button data-m="auto" class="on">自动判断</button><button data-m="audio">音频 MP3</button><button data-m="video">文字视频</button><button data-m="footage">实拍成片</button></div>
 <select id="dur" style="width:auto;padding:9px 12px"><option value="30">30 秒</option><option value="60" selected>60 秒</option><option value="120">2 分钟</option><option value="180">3 分钟</option><option value="300">5 分钟</option></select>
-<button class="btn" id="go">开始生成</button>
+<div style="display:flex;gap:14px;align-items:center;flex-wrap:wrap;font-size:12.5px;color:var(--txt3)">人声 <input id="voiceVol" type="range" min="0" max="150" value="100" style="width:90px"> 配乐 <input id="bgmVol" type="range" min="0" max="150" value="90" style="width:90px"><label style="display:flex;align-items:center;gap:6px"><input id="unlimited" type="checkbox" style="width:auto"> 站长无限模式</label></div><button class="btn" id="go">开始生成</button>
 <span style="color:var(--txt3);font-size:12.5px" id="quota"></span>
 </div>
 <div class="chips" id="chips"></div>
@@ -93,8 +93,9 @@ function setStep(n){var s=document.querySelectorAll('#steps .step');for(var i=0;
 function quota(){
  var k='studio_quota_'+new Date().toISOString().slice(0,10);
  var n=parseInt(localStorage.getItem(k)||'0',10);
- document.getElementById('quota').textContent='今日剩余 '+(3-n)+' 次';
- return {k:k,n:n};
+ var unlim=localStorage.getItem('studio_unlimited')==='1';
+ document.getElementById('quota').textContent=unlim?'无限模式（不限次数）':('今日剩余 '+Math.max(0,20-n)+' 次');
+ return {k:k,n:n,unlim:unlim};
 }
 function tick(t0){var iv=setInterval(function(){document.getElementById('timer').textContent='已用时 '+((Date.now()-t0)/1000).toFixed(0)+' 秒，AI 正在工作…';},500);return iv;}
 function render(d){
@@ -106,18 +107,30 @@ function render(d){
  if(d.video_url){h+='<a href="'+d.video_url+'" download>⬇ 下载 MP4</a>';}
  h+=(d.engine==='pixabay-footage')?('<span class="hint" style="align-self:center">实拍素材成片 · '+ (d.scenes||0) +' 个镜头 · 素材来自 Pixabay（可商用）</span>'):'';
  h+='<a href="'+d.audio_url+'" download>⬇ 下载 MP3</a><button onclick="copyScript()">📋 复制文案</button></div>';
- h+='<h3 style="margin-top:20px">口播文案</h3><div class="script" id="scriptBox">'+d.script.replace(/</g,'&lt;')+'</div>';
+ h+='<h3 style="margin-top:20px">口播文案（可直接修改，改完点下面按钮重新生成）</h3><textarea id="scriptEdit" style="min-height:180px;font-size:14px">'+d.script.replace(/</g,'&lt;')+'</textarea>';
  if(d.logs&&d.logs.length){h+='<div class="log">';d.logs.forEach(function(l){h+='<div><b>'+(l.agent||'')+'</b> '+(l.ok?'通过':'重试')+(l.round?(' · 第'+(l.round)+'轮'):'')+(l.size_kb?(' · '+l.size_kb+'KB'):'')+(l.duration?(' · '+l.duration+'s'):'')+'</div>';});h+='</div>';}
- h+='</div>';
+ h+='<div class="row"><button class="btn" id="regen">用改后文案重新生成</button><span class="hint">改文案后时长会按新文案重新计算</span></div></div>';
  return h;
 }
 function copyScript(){var t=document.getElementById('scriptBox').innerText;navigator.clipboard&&navigator.clipboard.writeText(t);}
+async function doGen(body){
+ busy=true;document.getElementById('go').disabled=true;
+ document.getElementById('out').style.display='none';
+ setStep(0);
+ try{
+  var r=await fetch('/ai-nav/api/create',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(body)});
+  var d=await r.json();
+  if(!d.ok){document.getElementById('out').style.display='block';document.getElementById('out').innerHTML='<div class="card"><h3>生成失败</h3><p class="err">'+(d.hint||d.error||'未知错误')+'</p></div>';}
+  else{ setStep(4);document.getElementById('timer').textContent='✅ 完成，用时 '+d.elapsed+' 秒'; document.getElementById('out').style.display='block';document.getElementById('out').innerHTML=render(d);lastData=d;document.getElementById('out').scrollIntoView({behavior:'smooth',block:'start'});}
+ }catch(e){document.getElementById('out').style.display='block';document.getElementById('out').innerHTML='<div class="card"><h3>网络异常</h3><p class="err">'+e.message+'</p></div>';}
+ busy=false;document.getElementById('go').disabled=false;
+}
 async function go(){
  if(busy)return;
  var q=(document.getElementById('q').value||'').trim();
  if(!q){document.getElementById('q').focus();return;}
  var qs=quota();
- if(qs.n>=3){alert('今日 3 次免费额度已用完。升级会员（即将开放）可无限次生成，或明天再来。');return;}
+ if(!qs.unlim && qs.n>=20){alert('今日 20 次额度已用完。勾选「站长无限模式」可继续，或明天再来。');return;}
  busy=true;document.getElementById('go').disabled=true;
  document.getElementById('out').style.display='none';document.getElementById('timer').textContent='';
  setStep(0);
@@ -125,14 +138,16 @@ async function go(){
  var stepTimer=setInterval(function(){setStep(st);if(st<3)st++;},2500);
  try{
   var body={prompt:q,mode:(mode==='footage'?'video':mode)};
-  if(mode==='footage'){body.engine='footage';body.duration=parseInt(document.getElementById('dur').value,10)||60;}
+  body.voice_vol=(parseInt(document.getElementById('voiceVol').value,10)||100)/100;
+  body.bgm_vol=(parseInt(document.getElementById('bgmVol').value,10)||90)/100;
+  if(mode==='footage'){body.engine='footage';body.duration=parseInt(document.getElementById('dur').value,10)||60;} 
   var r=await fetch('/ai-nav/api/create',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(body)});
   var d=await r.json();
   clearInterval(stepTimer);clearInterval(iv);
   if(!d.ok){setStep(0);document.getElementById('timer').textContent='';document.getElementById('out').style.display='block';document.getElementById('out').innerHTML='<div class="card"><h3>生成失败</h3><p class="err">'+(d.hint||d.error||'未知错误')+'</p><p style="color:var(--txt3);font-size:13px;margin-top:8px">建议：换个说法重试，或把文案要求写得更具体（时长/音色/风格）。</p></div>';}
   else{
    setStep(4);document.getElementById('timer').textContent='✅ 完成，用时 '+d.elapsed+' 秒';
-   localStorage.setItem(qs.k,String(qs.n+1));quota();
+   if(!qs.unlim) localStorage.setItem(qs.k,String(qs.n+1));quota();
    document.getElementById('out').style.display='block';document.getElementById('out').innerHTML=render(d);
    document.getElementById('out').scrollIntoView({behavior:'smooth',block:'start'});
   }
@@ -144,6 +159,9 @@ async function go(){
  busy=false;document.getElementById('go').disabled=false;
 }
 document.getElementById('go').addEventListener('click',go);
+document.getElementById('unlimited').addEventListener('change',function(){localStorage.setItem('studio_unlimited',this.checked?'1':'0');quota();});
+document.getElementById('unlimited').checked=localStorage.getItem('studio_unlimited')==='1';
+document.addEventListener('click',function(e){ if(e.target && e.target.id==='regen'){ var t=document.getElementById('scriptEdit'); if(!t) return; var v=t.value.trim(); if(!v){alert('文案不能为空');return;} var d0=lastData; var body={prompt:'按修改后的文案重新生成',mode:'video',engine:'footage',duration:(d0&&Math.max(30,Math.round(d0.duration)))||60,script:v}; return doGen(body); } });
 quota();
 </script>
 </body></html>
