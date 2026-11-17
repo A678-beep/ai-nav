@@ -79,6 +79,7 @@ footer{border-top:1px solid var(--line);margin-top:44px;padding:24px 22px;text-a
 .sb-clip.on img{opacity:1}
 .sb-clip b{position:absolute;left:4px;bottom:3px;font-size:9.5px;background:rgba(0,0,0,.7);color:#dff3ff;border-radius:5px;padding:1px 5px;font-weight:600}
 .sb-clip i{position:absolute;right:4px;top:3px;font-size:9.5px;font-style:normal;background:rgba(52,211,153,.9);color:#04121c;border-radius:5px;padding:1px 4px;font-weight:800}
+.sb-more{flex:0 0 auto;align-self:center;height:40px;background:rgba(148,163,184,.1);border:1px dashed rgba(148,163,184,.32);color:var(--txt2);border-radius:10px;padding:0 12px;font-size:12px;cursor:pointer;white-space:nowrap}
 .sb-summary{display:flex;gap:8px;flex-wrap:wrap;font-size:12.5px;color:var(--txt3);margin-top:8px}
 .sb-summary span{border:1px solid var(--line);border-radius:999px;padding:3px 10px}
 .sbbar{position:fixed;left:0;right:0;bottom:0;z-index:40;display:none;background:rgba(7,10,16,.95);backdrop-filter:blur(16px);border-top:1px solid var(--line);padding:10px 16px calc(10px + env(safe-area-inset-bottom));gap:12px;align-items:center;justify-content:center;flex-wrap:wrap}
@@ -228,7 +229,7 @@ document.addEventListener('click',function(e){ if(e.target && e.target.id==='aiP
 var sbData=null, sbPrompt='', sbBusy=false, sbDragFrom=-1;
 function escHtml(s){return String(s==null?'':s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');}
 function sbTotal(){var t=0;(sbData&&sbData.scenes||[]).forEach(function(s){t+=Number(s.dur)||0;});return t;}
-function sbThumb(c){return (c&&(c.thumb_raw||c.thumb||c.url))||'';}
+function sbThumb(c){return (c&&(c.thumb||c.thumb_raw||c.url))||'';}
 function sbParams(){
  var q=(document.getElementById('q').value||'').trim();
  return {prompt:q,duration:parseInt(document.getElementById('dur').value,10)||60,
@@ -237,16 +238,21 @@ function sbParams(){
 }
 function sbCardHTML(s,i){
  var clips=s.clips||[], pick=s.pick||null;
+ var shown=s.more?clips:clips.slice(0,4);
  var cs=clips.map(function(c,k){
+  if(!s.more&&k>=4)return '';
   var on=pick?((pick.id&&c.id)?pick.id===c.id:pick.url===c.url):(k===0);
   var tag=(c.tags||'')+' · '+(c.source||'');
   return '<button type="button" class="sb-clip'+(on?' on':'')+'" data-k="'+k+'" title="'+escHtml(tag)+'">'
-   +(sbThumb(c)?('<img loading="lazy" src="'+escHtml(sbThumb(c))+'" data-proxy="'+escHtml(c.thumb||'')+'" onerror="if(this.dataset.proxy){this.onerror=null;this.src=this.dataset.proxy;}" alt="素材预览">'):'')
+   +(sbThumb(c)?('<img loading="lazy" src="'+escHtml(sbThumb(c))+'" data-proxy="'+escHtml(c.thumb_raw||c.thumb||'')+'" onerror="if(this.dataset.proxy){this.onerror=null;this.src=this.dataset.proxy;}" alt="素材预览">'):'')
    +'<b>'+(c.source==='mixkit'?'Mixkit':(c.source==='generated'?'兜底':'Pixabay'))+'</b>'
    +(c.match_score>0?('<i>★'+c.match_score+'</i>'):'')
    +'</button>';
  }).join('');
  if(!cs){cs='<span style="font-size:12px;color:var(--txt3);padding:10px 2px">暂无候选素材，换关键词点「重搜」</span>';}
+ else if(!s.more&&clips.length>shown.length){
+  cs+='<button type="button" class="sb-more" data-act="more">＋ 展开另外 '+(clips.length-shown.length)+' 个候选</button>';
+ }
  return '<div class="sb-card" data-i="'+i+'">'
   +'<div class="sb-head"><span class="sb-grip" draggable="true" data-drag="'+i+'" title="按住拖动排序">⠿</span>'
   +'<span class="sb-no">镜头 '+(i+1)+'</span>'
@@ -303,7 +309,7 @@ async function sbResearch(i,btn){
   var r=await fetch('/ai-nav/api/clips',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({kw:kw,n:8})});
   var d=await r.json();
   if(!d.ok||!d.clips||!d.clips.length){alert(d.hint||'该关键词没有找到素材，建议换英文关键词');}
-  else{s.clips=d.clips; s.pick=null; sbOpenEditor(true);}
+  else{s.clips=d.clips; s.pick=null; s.more=false; sbOpenEditor(true);}
  }catch(e){alert('重搜失败：'+e.message);}
  finally{btn.disabled=false;btn.textContent=old;}
 }
@@ -322,7 +328,7 @@ async function genStoryboard(){
   var d=await r.json();
   if(!d.ok||!d.scenes||!d.scenes.length){throw new Error(d.hint||d.error||'分镜生成失败');}
   sbData=d; sbPrompt=p.prompt;
-  d.scenes.forEach(function(s){s.pick=s.pick||null;});
+  d.scenes.forEach(function(s){s.pick=s.pick||null; s.more=false;});
   sbOpenEditor(false);
  }catch(e){
   document.getElementById('out').innerHTML='<div class="card"><h3>分镜生成失败</h3><p class="err">'+escHtml(e.message)+'</p><p style="color:var(--txt3);font-size:13px;margin-top:8px">可换更具体的需求重试，或直接用「开始生成」快速出片。</p></div>';
@@ -370,6 +376,7 @@ document.addEventListener('click',function(e){
   var a=act.getAttribute('data-act');
   if(a==='up')sbMove(i,-1);
   else if(a==='down')sbMove(i,1);
+  else if(a==='more'){sbData.scenes[i].more=true;sbOpenEditor(true);}
   else if(a==='research')sbResearch(i,act);
  }
 });
