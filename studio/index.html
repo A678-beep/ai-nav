@@ -550,6 +550,7 @@ details[open].music summary:after{content:"收起 ▴"}
  <nav>
   <a href="/ai-nav/">AI 导航</a>
   <a href="/ai-nav/studio/" class="on">短视频工作台</a>
+  <a href="/ai-nav/leadgen/">AI 获客</a>
   <a href="/ai-nav/travel/">出行导航</a>
   <a href="/ai-nav/ads/">广告位</a>
   <a href="/ai-nav/about.html">关于</a>
@@ -2367,6 +2368,13 @@ function init(){
   }
  }
  syncControls();syncFlow();
+ // 从「AI 获客」页带过来的视频选题：?prompt= / ?q= 或 sessionStorage
+ try{
+  var _qp;try{_qp=new URLSearchParams(location.search);}catch(e0){_qp=null;}
+  var _seed=(_qp&&(_qp.get('prompt')||_qp.get('q')))||'';
+  if(!_seed){try{_seed=sessionStorage.getItem('leadgen_video_prompt')||'';if(_seed)sessionStorage.removeItem('leadgen_video_prompt');}catch(e1){}}
+  if(_seed){var _q=$('bizPrompt');if(_q){_q.value=String(_seed).slice(0,300);updatePromptCount();toast('已带入获客选题，可直接生成视频','ok');}}
+ }catch(e2){}
  STATE.allowSave=true;
  if(!LS.get('studio_guide_done')&&!/[?&]noguide=1/.test(location.search)){
   setTimeout(function(){
