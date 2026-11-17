@@ -387,6 +387,29 @@ body.elder nav a,body.elder .elder-btn{font-size:15px}
  .elder-btn{padding:0 9px}
 }
 </style>
+
+<style>
+/* WB_WIDE_LAYOUT: 宽屏工作台布局（类剪映左右分栏，铺满屏幕） */
+@media (min-width:1100px){
+  .top-in{max-width:none;padding:0 30px}
+  .wrap{max-width:none;padding:0 30px 84px;display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.05fr);gap:20px;align-items:start}
+  .wrap>*{grid-column:1 / -1;min-width:0}
+  .wrap>.colL{grid-column:1}
+  .wrap>.colR{grid-column:2}
+  .colL,.colR{display:flex;flex-direction:column;gap:16px;min-width:0}
+  .colL>.sec,.colR>.sec{margin:0}
+  .wrap>.colL{position:sticky;top:8px;align-self:start}
+  #secPreview .result-grid{grid-template-columns:minmax(0,280px) minmax(0,1fr)}
+  .batch-results{grid-template-columns:repeat(3,minmax(0,1fr))}
+}
+@media (min-width:1500px){
+  .wrap{grid-template-columns:minmax(0,1fr) minmax(0,1.15fr);gap:24px;padding:0 40px 92px}
+  .top-in{padding:0 40px}
+}
+@media (max-width:1099px){
+  .colL,.colR{display:contents}
+}
+</style>
 </head><body>
 <div class="top"><div class="top-in">
  <a class="brand" href="/ai-nav/"><span class="logo">星</span>星籁 AI <span class="brand-sub">商家工作台</span></a>
