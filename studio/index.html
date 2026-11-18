@@ -1,9 +1,6 @@
 <!doctype html><html lang="zh-CN"><head><meta name="robots" content="noindex,nofollow"><meta name="googlebot" content="noindex,nofollow">
-<meta charset="utf-8">
-<!--xl-theme-start-->
-<script>(function(){try{var k="xl_theme",v=localStorage.getItem(k),m=(v==="dark"||v==="light"||v==="auto")?v:"auto",q=window.matchMedia?window.matchMedia("(prefers-color-scheme: light)"):null,t=(m==="auto")?((q&&q.matches)?"light":"dark"):m,d=document.documentElement;d.setAttribute("data-theme",t);d.setAttribute("data-theme-mode",m);d.style.colorScheme=t}catch(e){document.documentElement.setAttribute("data-theme","dark")}})();</script>
-<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
-<title>商家短视频工作台 · 一句话生成门店视频 · 星籁 AI</title>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>剪辑创作工作台 · 6 步出片 · 星籁 AI</title>
 <meta name="description" content="选行业模板、传素材、说一句话，AI 自动写文案、配音、配乐、剪成 9:16 商家短视频；支持极限词自检、一键改稿、版本回退和批量混剪。">
 <meta name="keywords" content="商家短视频,门店视频,AI视频生成,探店视频,开业宣传,批量混剪,美团抖音文案">
 <link rel="canonical" href="https://a678-beep.github.io/ai-nav/studio/">
@@ -1047,9 +1044,6 @@ body.ed-open{overflow:hidden}
 }
 
 </style>
-<link rel="stylesheet" href="../assets/theme-light.css">
-<script defer src="../assets/theme.js"></script>
-<!--xl-theme-end-->
 </head><body>
 <div class="top"><div class="top-in">
  <a class="brand" href="/ai-nav/"><span class="logo">星</span>星籁 AI <span class="brand-sub">商家工作台</span></a>
@@ -1215,7 +1209,7 @@ body.ed-open{overflow:hidden}
      <div><b>添加视频 / 图片</b><span>点这里或把文件拖进来 · 可多选 · 单个 ≤100MB</span></div>
     </div>
     <input type="file" id="edFile" accept="video/mp4,video/quicktime,image/jpeg,image/png,image/webp" multiple hidden>
-    <button type="button" class="btn-line" id="edFromMain">📎 从「③ 加素材」添加</button>
+    <button type="button" class="btn-line" id="edFromMain">📎 把「本片素材」加入时间轴</button>
    </div>
    <div class="edit-recent-wrap" id="edRecentWrap" hidden>
     <div class="edit-label">↺ 最近上传（点击复用）</div>
@@ -4143,13 +4137,13 @@ function collectMainAssets(){
 async function addFromMain(){
  if(ED.busy||ED.uploading)return;
  var assets=collectMainAssets();
- if(!assets.length){showError('「③ 加素材」里还没有图片/视频。请先在上方上传，再点这里。');return;}
+ if(!assets.length){showError('「本片素材」里还没有图片/视频。请先在素材库点「＋本片」，或在上方上传。');return;}
  var ok=0;
  for(var i=0;i<assets.length;i++){
   if(ED.clips.length>=MAX_CLIPS){showError('最多支持 '+MAX_CLIPS+' 段素材');break;}
   if(await addAssetUrl(assets[i],true))ok++;
  }
- if(ok){toast('已从「③ 加素材」添加 '+ok+' 段','ok');scrollEnd();}
+ if(ok){toast('已从「本片素材」添加 '+ok+' 段','ok');scrollEnd();}
 }
 
 /* ---------------- 拖拽排序 ---------------- */
