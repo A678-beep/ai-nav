@@ -706,6 +706,25 @@ details[open].edit summary:after{content:"收起 ▴"}
 .edit-result-actions a{flex:1 1 160px;min-height:48px;display:inline-flex;align-items:center;justify-content:center;border-radius:10px;background:linear-gradient(135deg,#0891b2,#7c3aed);color:#fff;font-size:14px;font-weight:800;text-decoration:none}
 .edit-result-actions a:hover{filter:brightness(1.08)}
 .edit-usage{margin-top:10px;font-size:11px;line-height:1.6;color:var(--txt3)}
+/* ===== 修复版：上传进度 / 双音量 / 下载区 ===== */
+.edit-status{flex-wrap:wrap}
+.edit-progress{flex:1 1 100%;min-width:0}
+.edit-progress .bar{height:8px;border-radius:999px;background:rgba(56,189,248,.16);overflow:hidden}
+.edit-progress .bar>b{display:block;height:100%;width:0;border-radius:999px;background:linear-gradient(90deg,#22d3ee,#7c3aed);transition:width .18s linear}
+.edit-progress .txt{font-size:11.5px;color:#7dd3fc;margin-top:4px;font-weight:700}
+.edit-mix{margin-top:12px;padding-top:12px;border-top:1px dashed rgba(148,163,184,.14)}
+.edit-mix .edit-volrow{margin-top:8px}
+.edit-mix .edit-volrow:first-child{margin-top:0}
+.edit-mix .edit-volrow label b{color:#7dd3fc}
+.edit-mix .edit-volrow label b.voice{color:#fbbf24}
+.edit-mix .edit-muted{flex:1 1 100%;font-size:11px}
+.edit-result-actions a.dl{flex:1 1 100%;min-height:54px;font-size:15.5px;box-shadow:0 10px 24px -12px rgba(124,58,237,.9)}
+.edit-result-actions a.nl{flex:1 1 140px;min-height:48px;display:inline-flex;align-items:center;justify-content:center;border-radius:10px;background:rgba(9,14,24,.85);border:1px solid rgba(56,189,248,.45);color:#bae6fd;font-size:13.5px;font-weight:700;text-decoration:none}
+.edit-result-actions a.nl:hover{background:rgba(56,189,248,.12)}
+.edit-result-tip{font-size:11.5px;line-height:1.7;color:var(--txt3);margin-top:8px;overflow-wrap:anywhere}
+.edit-result-tip b{color:#bae6fd}
+.edit-err-actions{margin-top:9px;display:flex;gap:8px;flex-wrap:wrap}
+.edit-err-actions button{min-height:42px;padding:0 14px;border-radius:9px;border:1px solid rgba(56,189,248,.45);background:rgba(56,189,248,.12);color:#bae6fd;font-size:12.5px;font-weight:700;cursor:pointer}
 @media (max-width:760px){
  .edit summary b{font-size:17px}
  .edit summary i{font-size:11.5px}
@@ -888,7 +907,7 @@ body.ed-open{overflow:hidden}
    </div>
    <div class="edit-label-row"><span class="edit-label">🎬 时间轴</span><span class="edit-total" id="edTotal">0 段 · 0.0 秒</span></div>
    <div class="edit-timeline" id="edTimeline"><div class="edit-empty">还没有片段。先上传视频/图片，或从「③ 加素材」添加。</div></div>
-   <p class="edit-hint">拖动片段换顺序；点片段裁剪 / 删除 / 插入；片段中间的「＋淡化」加 0.3 秒转场。视频默认取前 5 秒，可点片段改起止；手机长按片段拖动。</p>
+   <p class="edit-hint">拖动片段换顺序；点片段裁剪 / 删除 / 插入；片段中间的「＋淡化」加 0.3 秒转场。<b>视频默认使用完整时长</b>（点片段可改起止），图片默认 3 秒（可设 1~30 秒）。手机长按片段拖动。</p>
 
    <div class="edit-audio">
     <div class="edit-row">
@@ -898,10 +917,15 @@ body.ed-open{overflow:hidden}
      <button type="button" class="btn-line" id="edLibBtn">🎼 音乐库</button>
      <div class="edit-chip" id="edBgmChip" hidden></div>
     </div>
-    <div class="edit-row edit-volrow" id="edVolRow" hidden>
-     <label for="edBgmVol">BGM 音量 <b id="edBgmVolVal">20%</b></label>
-     <input type="range" id="edBgmVol" min="0" max="100" step="1" value="20" aria-label="BGM 音量">
+    <div class="edit-row edit-volrow" id="edVoiceVolRow">
+     <label for="edVoiceVol">🎙 人声音量 <b class="voice" id="edVoiceVolVal">100%</b></label>
+     <input type="range" id="edVoiceVol" min="0" max="200" step="5" value="100" aria-label="人声音量 0 到 200%">
     </div>
+    <div class="edit-row edit-volrow" id="edVolRow">
+     <label for="edBgmVol">🎵 配乐音量 <b id="edBgmVolVal">20%</b></label>
+     <input type="range" id="edBgmVol" min="0" max="100" step="5" value="20" aria-label="配乐音量 0 到 100%">
+    </div>
+    <div class="edit-muted" id="edMixHint">人声/配乐分别调音；没上传的轨道不会混入。混音后自动统一响度到 -16 LUFS 防爆音。</div>
     <div class="edit-lib" id="edLibBox" hidden>
      <div class="edit-lib-head"><span>🎼 音乐库 · 选一首作为 BGM</span><button type="button" id="edLibClose">收起</button></div>
      <div class="edit-lib-list" id="edLibList"><div class="edit-lib-load">正在加载音乐库…</div></div>
@@ -938,10 +962,11 @@ body.ed-open{overflow:hidden}
    </div>
 
    <div class="edit-actions">
-    <button type="button" class="btn-line" id="edPreview">▶ 预览合成</button>
+    <button type="button" class="btn-line" id="edPreview">▶ 预览完整合成</button>
+    <button type="button" class="btn-line" id="edPreview10">⚡ 预览前 10 秒</button>
     <button type="button" class="btn-main" id="edRender">🎬 合成并下载</button>
    </div>
-   <div class="edit-status" id="edStatus" hidden><span class="edit-spin" aria-hidden="true"></span><div><b id="edStatusText"></b><span id="edStatusSub"></span></div></div>
+   <div class="edit-status" id="edStatus" hidden><span class="edit-spin" aria-hidden="true"></span><div><b id="edStatusText"></b><span id="edStatusSub"></span></div><div class="edit-progress" id="edProgress" hidden><div class="bar"><b id="edProgFill"></b></div><div class="txt" id="edProgTxt"></div></div></div>
    <div class="edit-error" id="edError" hidden></div>
    <div class="edit-result" id="edResult" hidden></div>
    <p class="edit-usage">提示：合成会占用渲染队列，通常 5~60 秒；完成后请及时下载保存。字幕会烧录到画面下方，适合短句。</p>
@@ -3416,10 +3441,10 @@ if(pb)pb.addEventListener('click',async function(){
 'use strict';
 var MAX_CLIPS=20, MAX_TOTAL=300, FADE=0.3;
 var LS_ASSETS='xinglai_edit_assets_v1', LS_SET='xinglai_edit_settings_v1';
-var ED={clips:[],recent:[],bgm:null,voice:null,libItems:[],aspect:'9:16',res:'1080p',bgmVol:20,
-  busy:false,uploading:false,uid:0,trimUid:null,insertAt:null,suppressClick:0,
+var ED={clips:[],recent:[],bgm:null,voice:null,libItems:[],aspect:'9:16',res:'1080p',bgmVol:20,voiceVol:100,
+  previewSec:0,lastRender:null,busy:false,uploading:false,uid:0,trimUid:null,insertAt:null,suppressClick:0,
   dragUid:null,touchTimer:null,touchDrag:false,touchFrom:-1,touchUid:null,touchTarget:null,
-  touchX:0,touchY:0,trimSeq:0,thumbTimer:null};
+  touchX:0,touchY:0,trimSeq:0,thumbTimer:null,lastErr:null};
 
 function $(id){return document.getElementById(id);}
 function esc(s){return String(s==null?'':s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;').replace(/'/g,'&#39;');}
@@ -3427,8 +3452,26 @@ function fmtSize(n){n=Number(n)||0;if(n<1024)return n+' B';if(n<1048576)return (
 function fmtDur(s){s=Math.max(0,Number(s)||0);if(s<60)return s.toFixed(1)+' 秒';var m=Math.floor(s/60),r=Math.round(s%60);return m+' 分 '+(r<10?'0':'')+r+' 秒';}
 function clamp(n,a,b){n=Number(n);if(!isFinite(n))n=a;return Math.max(a,Math.min(b,n));}
 function toast(msg,type){var t=$('toast');if(!t)return;t.textContent=msg;t.className='toast show'+(type?' '+type:'');t.hidden=false;clearTimeout(t._tm);t._tm=setTimeout(function(){t.className='toast'+(type?' '+type:'');t.hidden=true;},3400);}
-function setStatus(text,sub){var b=$('edStatus');if(!b)return;if(!text){b.hidden=true;return;}b.hidden=false;$('edStatusText').textContent=text;$('edStatusSub').textContent=sub||'';}
-function showError(msg){var b=$('edError');if(!b)return;b.hidden=false;b.innerHTML='<b>操作失败：</b>'+esc(msg||'请稍后重试');}
+function setStatus(text,sub){var b=$('edStatus');if(!b)return;if(!text){b.hidden=true;setProgress(-1);return;}b.hidden=false;$('edStatusText').textContent=text;$('edStatusSub').textContent=sub||'';}
+function setProgress(pct,txt){
+ var box=$('edProgress'),fill=$('edProgFill'),t=$('edProgTxt');
+ if(!box)return;
+ if(pct==null||pct<0||!isFinite(Number(pct))){box.hidden=true;return;}
+ box.hidden=false;
+ if(fill)fill.style.width=clamp(pct,0,100)+'%';
+ if(t)t.textContent=txt||(Math.round(clamp(pct,0,100))+'%');
+}
+function showError(msg,retry){
+ var b=$('edError');if(!b)return;
+ b.hidden=false;
+ b.innerHTML='<b>操作失败：</b>'+esc(msg||'请稍后重试');
+ if(typeof retry==='function'){
+  var box=document.createElement('div');box.className='edit-err-actions';
+  var btn=document.createElement('button');btn.type='button';btn.textContent='🔄 重试';
+  btn.onclick=function(){b.hidden=true;retry();};
+  box.appendChild(btn);b.appendChild(box);
+ }
+}
 function hideError(){var b=$('edError');if(b)b.hidden=true;}
 function idxOf(uid){for(var i=0;i<ED.clips.length;i++)if(ED.clips[i].uid===uid)return i;return -1;}
 function clipLen(c){if(!c)return 0;if(c.kind==='video')return Math.max(0,(Number(c.end)||0)-(Number(c.start)||0));return Math.max(0,Number(c.duration)||0);}
@@ -3440,12 +3483,13 @@ function updateTotal(){
  var sum=$('edSum');
  if(sum)sum.textContent=n?('时间轴：'+n+' 段 · '+t.toFixed(1)+' 秒'+(bad?'（超过 300 秒上限，请裁剪）':'')):'上传自己的视频/图片/BGM，拖动排序、裁剪，直接合成导出';
 }
-function saveSettings(){try{localStorage.setItem(LS_SET,JSON.stringify({aspect:ED.aspect,res:ED.res,bgmVol:ED.bgmVol}));}catch(e){}}
+function saveSettings(){try{localStorage.setItem(LS_SET,JSON.stringify({aspect:ED.aspect,res:ED.res,bgmVol:ED.bgmVol,voiceVol:ED.voiceVol}));}catch(e){}}
 function loadSettings(){
  try{var s=JSON.parse(localStorage.getItem(LS_SET)||'{}');
   if(s.aspect&&/^(9:16|16:9|1:1|source)$/.test(s.aspect))ED.aspect=s.aspect;
   if(s.res&&/^(1080p|720p)$/.test(s.res))ED.res=s.res;
   if(typeof s.bgmVol==='number')ED.bgmVol=clamp(s.bgmVol,0,100);
+  if(typeof s.voiceVol==='number')ED.voiceVol=clamp(s.voiceVol,0,200);
  }catch(e){}
 }
 function loadRecent(){try{var a=JSON.parse(localStorage.getItem(LS_ASSETS)||'[]');if(Array.isArray(a))ED.recent=a.filter(function(x){return x&&x.url&&/^(video|image)$/.test(x.kind);}).slice(0,24);}catch(e){ED.recent=[];}}
@@ -3497,11 +3541,14 @@ function renderTimeline(){
   if(i>0){
    h+='<div class="edit-gap"><button type="button" data-gap="'+i+'" class="'+(c.fadeIn?'on':'')+'" aria-label="片段 '+(i+1)+' 前的转场">'+(c.fadeIn?'淡化<br>0.3s':'＋<br>淡化')+'</button></div>';
   }
+  var len=clipLen(c);
+  var durTxt=len.toFixed(1)+'s';
+  if(c.kind==='video'&&Number(c.srcDuration)>0&&Math.abs(len-Number(c.srcDuration))>0.05)durTxt=len.toFixed(1)+'/'+Number(c.srcDuration).toFixed(1)+'s';
   h+='<div class="edit-clip" draggable="true" data-uid="'+esc(c.uid)+'" title="'+esc(c.name)+'（拖动排序；点击裁剪）">'
    +'<div class="edit-thumb">'
    +(c.thumb?'<img src="'+esc(c.thumb)+'" alt="" loading="lazy">':'<span class="edit-ph">'+(c.kind==='video'?'🎞':'🖼')+'</span>')
    +'<span class="edit-num">'+(i+1)+'</span><span class="edit-kind">'+(c.kind==='video'?'视频':'图片')+'</span>'
-   +'<span class="edit-dur">'+clipLen(c).toFixed(1)+'s</span></div>'
+   +'<span class="edit-dur">'+durTxt+'</span></div>'
    +'<div class="edit-name">'+esc(c.name)+'</div>'
    +'<div class="edit-tools"><button type="button" data-act="trim">✂ 裁剪</button><button type="button" data-act="del" aria-label="删除片段">✕</button></div>'
    +'</div>';
@@ -3568,7 +3615,8 @@ function makeClip(a,p){
   var dur=Number(p.duration)||0;
   if(dur<0.3)throw new Error('视频时长太短，至少 0.3 秒');
   c.srcDuration=dur;c.width=Number(p.width)||0;c.height=Number(p.height)||0;
-  c.start=0;c.end=Math.min(5,dur);
+  /* 默认使用完整时长（之前只取前 5 秒，用户反馈后改为全长，需要时再裁剪） */
+  c.start=0;c.end=Math.round(dur*1000)/1000;
  }else{
   c.duration=3;c.start=0;c.end=0;c.width=Number(p.width)||0;c.height=Number(p.height)||0;
  }
@@ -3605,8 +3653,13 @@ async function addFiles(fileList,insertAt){
   for(var i=0;i<files.length;i++){
    var f=files[i];
    if(f.size>100*1024*1024){toast(f.name+' 超过 100MB，已跳过','warn');continue;}
-   setStatus('上传 '+(i+1)+'/'+files.length+'：'+f.name,'0%');
-   var up=await uploadFile(f,function(pct){setStatus('上传 '+(i+1)+'/'+files.length+'：'+f.name,pct+'%');});
+    setStatus('上传 '+(i+1)+'/'+files.length+'：'+f.name,'已上传 0% · '+fmtSize(f.size));
+    setProgress(0,'上传中 0%');
+    var up=await uploadFile(f,function(pct){
+    setStatus('上传 '+(i+1)+'/'+files.length+'：'+f.name,'已上传 '+pct+'% · '+fmtSize(f.size));
+     setProgress(pct,'上传中 '+pct+'%');
+    });
+    setProgress(-1);
    setStatus('解析素材 '+(i+1)+'/'+files.length+'：'+f.name,'正在读取时长/分辨率…');
    var p=await postJSON('/edit/probe',{url:up.url},120000);
    var c=makeClip({url:up.url,name:f.name},p);
@@ -3616,7 +3669,7 @@ async function addFiles(fileList,insertAt){
   }
   if(added){renderTimeline();scrollEnd();toast('已添加 '+added+' 段素材','ok');}
  }catch(e){if(added)renderTimeline();showError(e.message||'上传失败');}
- finally{ED.uploading=false;setStatus(null);var inp=$('edFile');if(inp)inp.value='';}
+ finally{ED.uploading=false;setProgress(-1);setStatus(null);var inp=$('edFile');if(inp)inp.value='';}
 }
 function collectMainAssets(){
  var out=[];
@@ -3798,9 +3851,9 @@ function openTrim(uid){
     +'<label class="edit-field">结束（秒）<input type="number" id="edTrimEnd" min="0" max="'+src.toFixed(2)+'" step="0.1" value="'+(Number(c.end)||0).toFixed(2)+'"></label></div>';
   h+='<div class="edit-quick"><button type="button" data-quick="first5">取前 5 秒</button><button type="button" data-quick="last5">取后 5 秒</button><button type="button" data-quick="full">用整段</button></div>';
  }else{
-  h+='<div class="edit-modal-note">图片会按设定时长循环静止展示（最多 60 秒）</div>';
-  h+='<div class="edit-fields"><label class="edit-field">展示时长（秒）<input type="number" id="edTrimDuration" min="0.5" max="60" step="0.5" value="'+(Number(c.duration)||3).toFixed(1)+'"></label></div>';
-  h+='<div class="edit-quick"><button type="button" data-quick="d3">3 秒</button><button type="button" data-quick="d5">5 秒</button><button type="button" data-quick="d10">10 秒</button></div>';
+  h+='<div class="edit-modal-note">图片会按设定时长静止展示（默认 3 秒，可设 1~30 秒）</div>';
+  h+='<div class="edit-fields"><label class="edit-field">展示时长（秒）<input type="number" id="edTrimDuration" min="1" max="30" step="1" value="'+(Number(c.duration)||3).toFixed(0)+'"></label></div>';
+  h+='<div class="edit-quick"><button type="button" data-quick="d1">1 秒</button><button type="button" data-quick="d3">3 秒</button><button type="button" data-quick="d5">5 秒</button><button type="button" data-quick="d10">10 秒</button><button type="button" data-quick="d30">30 秒</button></div>';
  }
  h+='<div class="edit-modal-note" id="edTrimInfo"></div><div class="edit-modal-err" id="edTrimErr"></div>';
  h+='<div class="edit-modal-actions">'
@@ -3824,9 +3877,9 @@ function openTrim(uid){
    return {err:err,start:clamp(st,0,src),end:clamp(en,0,src)};
   }
   var d=Number(durEl.value);
-  if(!isFinite(d)||d<0.5)err='图片时长至少 0.5 秒';
-  else if(d>60)err='图片时长最多 60 秒';
-  return {err:err,duration:clamp(d,0.5,60)};
+  if(!isFinite(d)||d<1)err='图片时长至少 1 秒';
+  else if(d>30)err='图片时长最多 30 秒';
+  return {err:err,duration:clamp(d,1,30)};
  }
  function refresh(){
   var v=readVals();var info=$('edTrimInfo');
@@ -3860,7 +3913,7 @@ function openTrim(uid){
     else if(k==='last5'){endEl.value=src.toFixed(2);startEl.value=Math.max(0,src-5).toFixed(2);}
     else{startEl.value='0';endEl.value=src.toFixed(2);}
    }else{
-    durEl.value=(k==='d3'?'3':k==='d5'?'5':'10');
+    durEl.value=(k==='d1'?'1':k==='d3'?'3':k==='d5'?'5':k==='d10'?'10':'30');
    }
    refresh();
   });
@@ -3891,32 +3944,42 @@ function bindModal(){
 function chipHTML(name,dur){
  return '<span class="nm">'+esc(name)+(dur?' · '+fmtDur(dur):'')+'</span><button type="button" aria-label="移除">✕</button>';
 }
+function updateMixHint(){
+ var h=$('edMixHint');if(!h)return;
+ h.innerHTML='当前混音：人声 '+(ED.voice?esc(ED.voice.name):'未添加')+' + 配乐 '+(ED.bgm?esc(ED.bgm.name):'未添加')+'；混音后自动统一响度到 -16 LUFS 防爆音。';
+}
 function setBgm(a){
  ED.bgm=a||null;
- var chip=$('edBgmChip'),row=$('edVolRow');
+ var chip=$('edBgmChip');
  if(chip){if(ED.bgm){chip.hidden=false;chip.innerHTML=chipHTML(ED.bgm.name,ED.bgm.duration);}else{chip.hidden=true;chip.innerHTML='';}}
- if(row)row.hidden=!ED.bgm;
+ updateMixHint();
 }
 function setVoice(a){
  ED.voice=a||null;
  var chip=$('edVoiceChip'),hint=$('edVoiceHint');
  if(chip){if(ED.voice){chip.hidden=false;chip.innerHTML=chipHTML(ED.voice.name,ED.voice.duration);}else{chip.hidden=true;chip.innerHTML='';}}
  if(hint)hint.hidden=!!ED.voice;
+ updateMixHint();
 }
 async function uploadAudio(file,kind){
  if(!file)return;
  if(ED.busy)return;
  hideError();
  try{
-  setStatus('上传'+(kind==='bgm'?' BGM':'人声')+'：'+file.name,'0%');
-  var up=await uploadFile(file,function(pct){setStatus('上传'+(kind==='bgm'?' BGM':'人声')+'：'+file.name,pct+'%');});
+  setStatus('上传'+(kind==='bgm'?' BGM':'人声')+'：'+file.name,'已上传 0% · '+fmtSize(file.size));
+  setProgress(0,'上传中 0%');
+  var up=await uploadFile(file,function(pct){
+   setStatus('上传'+(kind==='bgm'?' BGM':'人声')+'：'+file.name,'已上传 '+pct+'% · '+fmtSize(file.size));
+   setProgress(pct,'上传中 '+pct+'%');
+  });
+  setProgress(-1);
   setStatus('解析音频：'+file.name,'正在读取时长…');
   var p=await postJSON('/edit/probe',{url:up.url},120000);
   if(p.type!=='audio'||!p.has_audio)throw new Error('这个文件没有音频轨道');
   if(kind==='bgm'){setBgm({url:up.url,name:file.name,duration:p.duration});toast('BGM 已添加','ok');}
   else{setVoice({url:up.url,name:file.name,duration:p.duration});toast('人声已添加','ok');}
  }catch(e){showError(e.message||'音频上传失败');}
- finally{setStatus(null);var inp=kind==='bgm'?$('edBgmFile'):$('edVoiceFile');if(inp)inp.value='';}
+ finally{setProgress(-1);setStatus(null);var inp=kind==='bgm'?$('edBgmFile'):$('edVoiceFile');if(inp)inp.value='';}
 }
 function pickLibrary(){
  var box=$('edLibBox');if(!box)return;
@@ -3939,10 +4002,11 @@ function validateEdit(){
  if(ED.clips.length>MAX_CLIPS)return '最多支持 '+MAX_CLIPS+' 段素材';
  var t=totalDuration();
  if(t<0.3)return '合成总时长太短，至少 0.3 秒';
- if(t>MAX_TOTAL+0.05)return '合成总时长 '+t.toFixed(1)+' 秒，超过 '+MAX_TOTAL+' 秒上限；请裁剪或删除片段';
+ if(t>MAX_TOTAL+0.05)return '合成总时长 '+t.toFixed(1)+' 秒，超过 '+MAX_TOTAL+' 秒上限；请裁剪或删除片段后再合成';
  for(var i=0;i<ED.clips.length;i++){
   var c=ED.clips[i];
   if(c.kind==='video'&&(!(Number(c.end)>Number(c.start))||Number(c.end)-Number(c.start)<0.2))return '第 '+(i+1)+' 段裁剪后不足 0.2 秒';
+  if(c.kind==='image'&&(Number(c.duration)<1||Number(c.duration)>30))return '第 '+(i+1)+' 张图片时长需在 1~30 秒之间';
  }
  for(var j=1;j<ED.clips.length;j++){
   if(ED.clips[j].fadeIn&&(clipLen(ED.clips[j-1])<0.4||clipLen(ED.clips[j])<0.4))return '第 '+j+' 段附近不足 0.4 秒，不能加 0.3 秒淡化';
@@ -3950,51 +4014,83 @@ function validateEdit(){
  if(ED.bgm&&!ED.bgm.url)return 'BGM 地址异常，请重新选择';
  return '';
 }
-function buildPayload(){
+function buildPayload(previewSec){
  var clips=ED.clips.map(function(c){
   if(c.kind==='video')return {url:c.url,kind:'video',start:Math.round(Number(c.start)*1000)/1000,end:Math.round(Number(c.end)*1000)/1000};
   return {url:c.url,kind:'image',duration:Math.round(Number(c.duration)*10)/10};
  });
  var transitions=[];
  for(var i=1;i<ED.clips.length;i++)transitions.push(!!ED.clips[i].fadeIn);
- var p={clips:clips,transitions:transitions,aspect:ED.aspect,resolution:ED.res,bgm_volume:clamp(ED.bgmVol,0,100)/100,subtitle_text:($('edSubtitle')?$('edSubtitle').value.trim():'')};
+ var p={clips:clips,transitions:transitions,aspect:ED.aspect,resolution:ED.res,
+  bgm_volume:clamp(ED.bgmVol,0,100)/100,voice_volume:clamp(ED.voiceVol,0,200)/100,
+  subtitle_text:($('edSubtitle')?$('edSubtitle').value.trim():'')};
  if(ED.bgm)p.bgm_url=ED.bgm.url;
  if(ED.voice)p.voice_url=ED.voice.url;
+ if(Number(previewSec)>0)p.preview_only_seconds=Math.min(10,Number(previewSec));
  return p;
 }
 function setBusy(b,which){
  ED.busy=b;
- var p=$('edPreview'),r=$('edRender');
- if(p){p.disabled=b;p.textContent=(b&&which==='preview')?'⏳ 预览中…':'▶ 预览合成';}
+ var p=$('edPreview'),q=$('edPreview10'),r=$('edRender');
+ if(p){p.disabled=b;p.textContent=(b&&which==='preview')?'⏳ 预览中…':'▶ 预览完整合成';}
+ if(q){q.disabled=b;q.textContent=(b&&which==='preview10')?'⏳ 预览中…':'⚡ 预览前 10 秒';}
  if(r){r.disabled=b;r.textContent=(b&&which==='render')?'⏳ 合成中…':'🎬 合成并下载';}
 }
 var timerId=null,t0=0;
-function startTimer(label){
+/* 渲染耗时 ≈ 成片时长 × 系数：优先用上一次实测结果，否则按分辨率给默认值 */
+function renderFactor(){
+ var lr=ED.lastRender;
+ if(lr&&Number(lr.dur)>0.5&&Number(lr.elapsed)>0.5)return clamp(Number(lr.elapsed)/Number(lr.dur),0.08,3);
+ return ED.res==='720p'?0.6:0.9;
+}
+function startTimer(label,outDur){
  t0=Date.now();clearInterval(timerId);
- setStatus(label,'已用时 0 秒 · 请保持页面打开');
+ var est=Math.max(3,Math.round((Number(outDur)||10)*renderFactor()*1.08));
+ setStatus(label,'已用时 0 秒，预计约 '+est+' 秒');
  timerId=setInterval(function(){
   var s=Math.round((Date.now()-t0)/1000);
-  var el=$('edStatusSub');if(el)el.textContent='已用时 '+s+' 秒 · 请保持页面打开';
+  var el=$('edStatusSub');if(!el)return;
+  el.textContent='已用时 '+s+' 秒，预计约 '+est+' 秒'+(s>est?'（已超过预估，仍在渲染）':'');
  },1000);
 }
 function stopTimer(){clearInterval(timerId);timerId=null;}
 function showResult(d){
  var box=$('edResult');if(!box)return;
+ var url=d.video_url||'';
+ var dl=url+(url.indexOf('?')<0?'?download=1':'&download=1');
  box.hidden=false;box.innerHTML='';
  var v=document.createElement('video');
- v.controls=true;v.playsInline=true;v.preload='metadata';v.src=d.video_url||'';
+ v.controls=true;v.playsInline=true;v.preload='metadata';v.src=url;
  box.appendChild(v);
- var meta=document.createElement('div');meta.className='edit-result-meta';
- meta.textContent='✅ 合成完成 · '+(d.width||'?')+'×'+(d.height||'?')+' · '+(Number(d.duration)||0).toFixed(1)+' 秒 · '+fmtSize(d.size);
+ var durTxt=(Number(d.duration)||0).toFixed(1);
+ var meta=document.createElement('div');meta.className='edit-result-meta';meta.id='edResultMeta';
+ meta.textContent='✅ 合成完成 · '+(d.width||'?')+'×'+(d.height||'?')+' · 成片 '+durTxt+' 秒'
+  +(d.truncated?('（完整时间轴 '+(Number(d.full_duration)||0).toFixed(1)+' 秒，本次只渲染前 '+durTxt+' 秒）'):'')
+  +' · '+fmtSize(d.size)+(d.elapsed?(' · 渲染 '+(Number(d.elapsed)||0).toFixed(1)+' 秒'):'');
  box.appendChild(meta);
- if(d.elapsed)meta.textContent+=' · 渲染 '+(Number(d.elapsed)||0).toFixed(1)+' 秒';
+ v.addEventListener('loadedmetadata',function(){
+  if(isFinite(v.duration)&&v.duration>0)meta.textContent+=' · 播放器实测 '+v.duration.toFixed(1)+' 秒';
+ });
  var acts=document.createElement('div');acts.className='edit-result-actions';
- var a=document.createElement('a');a.href=d.video_url||'#';a.download='xinglai-edit-'+(d.id||Date.now())+'.mp4';a.textContent='⬇ 下载 MP4';
+ var a=document.createElement('a');a.className='dl';a.id='edDownload';
+ a.href=dl;a.setAttribute('download','xinglai-edit-'+(d.id||Date.now())+'.mp4');a.setAttribute('rel','noopener');
+ a.textContent='⬇ 下载 MP4（'+Math.max(0.1,(Number(d.size)||0)/1048576).toFixed(1)+'MB）';
+ a.addEventListener('click',function(){
+  setTimeout(function(){
+   var tip=$('edResultTip');
+   if(tip)tip.innerHTML='<b>如果浏览器没有弹出下载窗口：</b>右键/长按「⬇ 下载 MP4」→「链接另存为」，或点「🌐 新窗口打开」后在播放器里保存。';
+  },2200);
+ });
  acts.appendChild(a);
- var again=document.createElement('button');again.type='button';again.className='btn-line';again.textContent='▶ 播放';again.minHeight='48px';
- again.onclick=function(){try{v.currentTime=0;var pr=v.play();if(pr&&pr.catch)pr.catch(function(){});}catch(e){}};
- acts.appendChild(again);
+ var nl=document.createElement('a');nl.className='nl';nl.id='edNewWin';nl.href=url;nl.target='_blank';nl.rel='noopener';nl.textContent='🌐 新窗口打开';
+ acts.appendChild(nl);
+ var play=document.createElement('button');play.type='button';play.className='btn-line';play.textContent='▶ 从头播放';
+ play.onclick=function(){try{v.currentTime=0;var pr=v.play();if(pr&&pr.catch)pr.catch(function(){});}catch(e){}};
+ acts.appendChild(play);
  box.appendChild(acts);
+ var tip=document.createElement('div');tip.className='edit-result-tip';tip.id='edResultTip';
+ tip.innerHTML='下载没反应？<b>右键/长按「⬇ 下载 MP4」→ 另存为</b>，或点「🌐 新窗口打开」后再保存。iOS 会存到「文件」App。';
+ box.appendChild(tip);
  try{box.scrollIntoView({behavior:'smooth',block:'nearest'});}catch(e){}
 }
 async function doRender(which){
@@ -4002,18 +4098,24 @@ async function doRender(which){
  hideError();
  var err=validateEdit();
  if(err){showError(err);return;}
+ var full=totalDuration();
+ var prevSec=(which==='preview10')?Math.min(10,Math.max(0,full)):0;
+ var outDur=prevSec>0?prevSec:full;
+ var label=which==='render'?'正在合成成片 MP4（完整时间轴）…':(prevSec?('正在渲染前 '+Math.round(prevSec)+' 秒快速预览…'):'正在渲染完整预览（整条时间轴）…');
  setBusy(true,which);
- startTimer(which==='preview'?'正在合成预览 MP4…':'正在合成成片 MP4…');
+ startTimer(label,outDur);
  try{
-  var d=await postJSON('/edit',buildPayload(),900000);
+  var d=await postJSON('/edit',buildPayload(prevSec),900000);
   stopTimer();
+  if(d&&Number(d.duration)>0.3&&Number(d.elapsed)>0.3)ED.lastRender={dur:Number(d.duration),elapsed:Number(d.elapsed)};
   setStatus('合成完成','正在准备播放器…');
   showResult(d);
-  toast('合成完成','ok');
+  toast('合成完成，可下载或播放','ok');
   setTimeout(function(){setStatus(null);},1200);
  }catch(e){
   stopTimer();setStatus(null);
-  showError((e&&e.message)||'合成失败，请检查素材后重试');
+  var msg=(e&&e.message)||'合成失败，请检查素材后重试';
+  showError(msg,function(){doRender(which);});
  }finally{setBusy(false,null);}
 }
 
@@ -4044,6 +4146,8 @@ function bind(){
  if(vc)vc.addEventListener('click',function(e){if(e.target.closest('button')){setVoice(null);toast('已移除人声');}});
  var vol=$('edBgmVol');
  if(vol)vol.addEventListener('input',function(){ED.bgmVol=clamp(this.value,0,100);var v=$('edBgmVolVal');if(v)v.textContent=Math.round(ED.bgmVol)+'%';saveSettings();});
+ var vvol=$('edVoiceVol');
+ if(vvol)vvol.addEventListener('input',function(){ED.voiceVol=clamp(this.value,0,200);var v=$('edVoiceVolVal');if(v)v.textContent=Math.round(ED.voiceVol)+'%';saveSettings();});
  var lib=$('edLibBtn');if(lib)lib.addEventListener('click',pickLibrary);
  var lc=$('edLibClose');if(lc)lc.addEventListener('click',function(){$('edLibBox').hidden=true;});
  var ll=$('edLibList');
@@ -4051,13 +4155,16 @@ function bind(){
  var asp=$('edAspect');if(asp)asp.addEventListener('change',function(){ED.aspect=this.value;saveSettings();updateOutHint();});
  var res=$('edRes');if(res)res.addEventListener('change',function(){ED.res=this.value;saveSettings();updateOutHint();});
  var pv=$('edPreview');if(pv)pv.addEventListener('click',function(){doRender('preview');});
+ var pv10=$('edPreview10');if(pv10)pv10.addEventListener('click',function(){doRender('preview10');});
  var rd=$('edRender');if(rd)rd.addEventListener('click',function(){doRender('render');});
 }
 function init(){
  if(!$('edSec'))return;
  loadSettings();loadRecent();renderRecent();
- var asp=$('edAspect'),res=$('edRes'),vol=$('edBgmVol'),vv=$('edBgmVolVal');
+ var asp=$('edAspect'),res=$('edRes'),vol=$('edBgmVol'),vv=$('edBgmVolVal'),vvol=$('edVoiceVol'),vvl=$('edVoiceVolVal');
  if(asp)asp.value=ED.aspect;if(res)res.value=ED.res;if(vol)vol.value=ED.bgmVol;if(vv)vv.textContent=Math.round(ED.bgmVol)+'%';
+ if(vvol)vvol.value=ED.voiceVol;if(vvl)vvl.textContent=Math.round(ED.voiceVol)+'%';
+ updateMixHint();setProgress(-1);
  bind();bindTimeline();bindModal();
  renderTimeline();
 }
