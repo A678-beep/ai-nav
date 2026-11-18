@@ -1,0 +1,115 @@
+<!doctype html><html lang="zh-CN"><head><meta name="robots" content="noindex,nofollow"><meta name="googlebot" content="noindex,nofollow">
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>星籁剪辑桌面版 · Windows 安装包与说明 · 星籁 AI</title>
+<meta name="description" content="星籁剪辑桌面版 0.2.11：多轨剪辑、4K、自动字幕、本地渲染、星籁账号登录与工程云同步。Windows 安装包下载、安装步骤、系统要求与开源许可说明。">
+<meta name="keywords" content="星籁剪辑,桌面剪辑软件,多轨剪辑,4K剪辑,自动字幕,Windows剪辑软件">
+<link rel="canonical" href="https://xinglaiai.com/ai-nav/studio/desktop.html">
+<style>
+:root{--bg:#070a10;--panel:#0f1622;--line:rgba(148,163,184,.16);--txt:#e8eef8;--txt2:#9fb0c7;--txt3:#6b7c94;--cyan:#38bdf8;--violet:#8b5cf6;--lime:#34d399;--warn:#fbbf24;--r:18px}
+*{box-sizing:border-box}
+[hidden]{display:none!important}
+body{margin:0;font:15px/1.7 -apple-system,"Segoe UI",Roboto,"Microsoft YaHei",sans-serif;color:var(--txt);background:radial-gradient(900px 480px at 78% -10%,rgba(56,189,248,.14),transparent 60%),radial-gradient(700px 400px at 10% 5%,rgba(139,92,246,.14),transparent 60%),linear-gradient(180deg,#070a10,#0a0f18);background-attachment:fixed;min-height:100vh}
+a{color:#7dd3fc;text-decoration:none}
+a:hover{text-decoration:underline;text-underline-offset:3px}
+.top{position:sticky;top:0;z-index:20;background:rgba(7,10,16,.86);backdrop-filter:blur(16px);border-bottom:1px solid var(--line)}
+.top-in{max-width:1000px;margin:0 auto;height:58px;display:flex;align-items:center;gap:12px;padding:0 20px}
+.brand{font-weight:800;font-size:15px;display:flex;align-items:center;gap:9px;color:var(--txt)}
+.logo{width:30px;height:30px;border-radius:9px;background:linear-gradient(135deg,#38bdf8,#8b5cf6);display:grid;place-items:center;font-size:15px;color:#04121c;font-weight:900}
+.top-in .back{margin-left:auto;font-size:13px;color:var(--txt2);border:1px solid var(--line);border-radius:9px;padding:7px 11px;min-height:38px;display:inline-flex;align-items:center}
+.wrap{max-width:1000px;margin:0 auto;padding:34px 20px 70px}
+.hero{display:grid;grid-template-columns:minmax(0,1fr) 320px;gap:24px;align-items:center;margin-bottom:20px}
+.eyebrow{display:inline-block;font-size:11.5px;letter-spacing:.14em;color:#c4b5fd;border:1px solid rgba(139,92,246,.35);background:rgba(139,92,246,.12);padding:5px 12px;border-radius:999px;margin-bottom:12px}
+h1{font-size:clamp(26px,3.4vw,38px);line-height:1.25;margin:0 0 10px;letter-spacing:-.02em}
+h1 span{background:linear-gradient(120deg,#7dd3fc,#c4b5fd);-webkit-background-clip:text;background-clip:text;color:transparent}
+.lead{color:var(--txt2);font-size:14.5px;margin:0 0 16px;max-width:650px}
+.actions{display:flex;gap:10px;flex-wrap:wrap}
+.btn-main{display:inline-flex;align-items:center;justify-content:center;gap:6px;min-height:54px;padding:0 22px;border-radius:13px;background:linear-gradient(135deg,#22d3ee,#38bdf8 40%,#8b5cf6);color:#04121c;font-size:16px;font-weight:900;border:0;text-decoration:none!important}
+.btn-line{display:inline-flex;align-items:center;justify-content:center;gap:6px;min-height:54px;padding:0 18px;border-radius:13px;border:1px solid rgba(56,189,248,.4);background:rgba(56,189,248,.08);color:#bae6fd;font-size:14px;font-weight:700;text-decoration:none!important}
+.meta{display:flex;gap:14px;flex-wrap:wrap;margin-top:12px;font-size:12px;color:var(--txt3)}
+.meta b{color:#cbd5e1;font-weight:600}
+.preview{background:linear-gradient(180deg,rgba(20,28,43,.9),rgba(12,18,28,.92));border:1px solid var(--line);border-radius:18px;padding:14px;box-shadow:0 30px 80px -40px rgba(56,189,248,.5)}
+.preview .fake{aspect-ratio:16/10;border-radius:12px;border:1px solid rgba(148,163,184,.2);background:radial-gradient(500px 200px at 30% 10%,rgba(56,189,248,.2),transparent),radial-gradient(400px 200px at 90% 80%,rgba(139,92,246,.18),transparent),#0a1120;display:flex;flex-direction:column;justify-content:flex-end;padding:12px;gap:6px}
+.preview .timeline{display:flex;gap:3px;height:44px}
+.preview .timeline span{flex:1;border-radius:5px;background:linear-gradient(180deg,rgba(56,189,248,.5),rgba(139,92,246,.4));border:1px solid rgba(56,189,248,.25)}
+.preview .timeline span:nth-child(2n){background:linear-gradient(180deg,rgba(139,92,246,.5),rgba(56,189,248,.3))}
+.preview p{margin:8px 0 0;font-size:11.5px;color:var(--txt3);text-align:center}
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:12px;margin:16px 0}
+.card{background:rgba(15,22,34,.72);border:1px solid var(--line);border-radius:15px;padding:16px}
+.card h3{margin:0 0 6px;font-size:15px}
+.card p{margin:0;font-size:12.5px;line-height:1.7;color:var(--txt2)}
+.sec{margin-top:16px;background:rgba(15,22,34,.72);border:1px solid var(--line);border-radius:16px;padding:20px}
+.sec h2{font-size:18px;margin:0 0 10px}
+.sec p,.sec li{font-size:13.5px;color:var(--txt2);line-height:1.8}
+.sec ol,.sec ul{padding-left:20px;margin:8px 0}
+.code{font-family:Consolas,Menlo,monospace;font-size:12px;background:rgba(7,12,21,.9);border:1px solid var(--line);border-radius:8px;padding:6px 9px;color:#bae6fd;word-break:break-all;display:block;margin:6px 0;line-height:1.6}
+.warn{border:1px solid rgba(251,191,36,.4);background:rgba(251,191,36,.08);border-radius:12px;padding:11px 13px;font-size:12.5px;color:#fde68a;line-height:1.7;margin-top:10px}
+.note{font-size:12px;color:var(--txt3)}
+footer{max-width:1000px;margin:0 auto;padding:26px 20px 40px;text-align:center;font-size:12px;color:#4d5d72;line-height:1.7}
+@media(max-width:820px){.hero{grid-template-columns:1fr}.preview{max-width:520px}.top-in .back{font-size:12px;padding:6px 9px}.wrap{padding-top:24px}}
+</style>
+</head><body>
+<div class="top"><div class="top-in">
+ <a class="brand" href="./"><span class="logo">星</span>星籁 AI · 剪辑</a>
+ <a class="back" href="./">← 回到网页工作台</a>
+</div></div>
+
+<div class="wrap">
+ <div class="hero">
+  <div>
+   <div class="eyebrow">🖥 星籁剪辑桌面版 · Windows</div>
+   <h1>网页负责快，<span>桌面版负责专业</span></h1>
+   <p class="lead">多轨时间轴、4K 预览与导出、自动字幕、本地 FFmpeg 渲染；支持星籁 AI 账号登录与工程云同步。桌面程序独立运行，<b>不嵌入网页</b>。</p>
+   <div class="actions">
+    <a class="btn-main" href="/ai-nav/studio/files/downloads/xinglai-cut-0.2.11-setup.exe" download>⬇ 下载安装包（Windows x64）</a>
+    <a class="btn-line" href="/ai-nav/studio/files/downloads/xinglai-cut-0.2.11-setup.exe.sha256" target="_blank" rel="noopener">校验 SHA256</a>
+   </div>
+   <div class="meta"><span>版本 <b>0.2.11</b></span><span>大小 <b>101.6 MB</b></span><span>系统 <b>Windows 10/11 x64</b></span><span>授权 <b>AGPL-3.0（基于 Concat）</b></span></div>
+   <div class="warn">安装包未做代码签名，Windows SmartScreen 可能提示「未知发布者」：点「更多信息 → 仍要运行」即可。下载后可用上方 SHA256 校验。</div>
+  </div>
+  <div class="preview">
+   <div class="fake"><div class="timeline"><span></span><span></span><span></span><span></span><span></span><span></span><span></span></div></div>
+   <p>多轨时间轴 · 画面 / 字幕 / 音频分层</p>
+  </div>
+ </div>
+
+ <div class="grid">
+  <div class="card"><h3>🎞 多轨精剪</h3><p>画面、字幕、音乐、音效分轨；裁剪、变速、转场、关键帧、滤镜，适合需要精细控制的成片。</p></div>
+  <div class="card"><h3>🖥 4K 本地渲染</h3><p>不占用网页渲染队列，断网也能编辑导出；支持 1080p / 4K 与多种画幅。</p></div>
+  <div class="card"><h3>💬 自动字幕</h3><p>语音识别生成字幕，再在时间轴上逐句校对；可导出带字幕成片或字幕文件。</p></div>
+  <div class="card"><h3>🔐 账号与同步</h3><p>用星籁 AI 账号登录，工程 JSON 云同步；媒体文件按需上传，换设备可继续。</p></div>
+ </div>
+
+ <div class="sec">
+  <h2>安装步骤（3 步）</h2>
+  <ol>
+   <li>点上面的「下载安装包」，得到 <b>xinglai-cut-0.2.11-setup.exe</b>（约 101.6 MB）。</li>
+   <li>双击安装；如果 SmartScreen 拦截，点「更多信息 → 仍要运行」。装完桌面/开始菜单会有「星籁剪辑」。</li>
+   <li>打开后用星籁 AI 账号登录（与网页工作台同一个账号），即可本地剪辑；不登录也能先用本地模式。</li>
+  </ol>
+  <p class="note">安装包只包含 Windows x64 版本；macOS / Linux 版本还在路线图中。</p>
+ </div>
+
+ <div class="sec">
+  <h2>系统要求</h2>
+  <ul>
+   <li>Windows 10/11 64 位（x64），建议 16GB 内存、支持 DX12 的显卡（AMD / NVIDIA / Intel 均可）。</li>
+   <li>约 2GB 磁盘空间用于安装；4K 工程与素材另计。无独显时可软件渲染，但 4K 预览会明显变慢。</li>
+   <li>首次运行自动字幕/抠像等功能时，会按需下载模型（不随安装包分发）。</li>
+  </ul>
+ </div>
+
+ <div class="sec">
+  <h2>开源与许可</h2>
+  <p>星籁剪辑桌面版基于开源项目 <a href="https://github.com/A678-beep/concat-fork" target="_blank" rel="noopener">Concat（AGPL-3.0-or-later）</a> 修改，已改名换标并公开完整源码；安装包内附 LICENSE / THIRD_PARTY_NOTICES。FFmpeg 以 LGPL 共享库形式随包，可按需替换。</p>
+  <p class="note">源码仓库：<a href="https://github.com/A678-beep/concat-fork" target="_blank" rel="noopener">github.com/A678-beep/concat-fork</a> · 构建说明见仓库 README / docs/REBRAND.md。</p>
+ </div>
+
+ <div class="sec">
+  <h2>下载校验</h2>
+  <p>文件：<span class="code">xinglai-cut-0.2.11-setup.exe</span></p>
+  <p>SHA256：<span class="code">56b056049ba54492be49b65b12d218794155233ad59b866d0d8b97cc2b29dccb</span></p>
+  <p class="note">如果下载链接失效或速度慢，可先到 <a href="https://github.com/A678-beep/concat-fork" target="_blank" rel="noopener">GitHub 源码仓库</a> 查看最新发布说明；网页工作台（<a href="./">返回</a>）仍可正常使用。</p>
+ </div>
+</div>
+<footer>© 2026 星籁 AI 工具导航 · xinglaiai.com · 桌面版基于 Concat（AGPL-3.0）修改<br>AI 生成内容请按平台规则标注；素材版权由上传方负责。</footer>
+</body></html>

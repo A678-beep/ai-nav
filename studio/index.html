@@ -1,5 +1,8 @@
 <!doctype html><html lang="zh-CN"><head><meta name="robots" content="noindex,nofollow"><meta name="googlebot" content="noindex,nofollow">
-<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta charset="utf-8">
+<!--xl-theme-start-->
+<script>(function(){try{var k="xl_theme",v=localStorage.getItem(k),m=(v==="dark"||v==="light"||v==="auto")?v:"auto",q=window.matchMedia?window.matchMedia("(prefers-color-scheme: light)"):null,t=(m==="auto")?((q&&q.matches)?"light":"dark"):m,d=document.documentElement;d.setAttribute("data-theme",t);d.setAttribute("data-theme-mode",m);d.style.colorScheme=t}catch(e){document.documentElement.setAttribute("data-theme","dark")}})();</script>
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
 <title>商家短视频工作台 · 一句话生成门店视频 · 星籁 AI</title>
 <meta name="description" content="选行业模板、传素材、说一句话，AI 自动写文案、配音、配乐、剪成 9:16 商家短视频；支持极限词自检、一键改稿、版本回退和批量混剪。">
 <meta name="keywords" content="商家短视频,门店视频,AI视频生成,探店视频,开业宣传,批量混剪,美团抖音文案">
@@ -818,6 +821,235 @@ body.ed-open{overflow:hidden}
  .edit-modal-actions button{flex:1 1 100%}
 }
 </style>
+<style id="wb-workbench-css">
+/* ================= WB_WORKBENCH: 统一剪辑创作工作台（6 步） ================= */
+.top-in{max-width:1560px}
+.wb-wrap{max-width:1560px;margin:0 auto;padding:0 24px 64px}
+.wb-hero{display:flex;align-items:flex-end;justify-content:space-between;gap:18px;flex-wrap:wrap;padding:22px 0 4px;text-align:left}
+.wb-hero h1{font-size:clamp(22px,2.5vw,32px);line-height:1.28;margin:0 0 6px;letter-spacing:-.02em}
+.wb-hero .lead{font-size:13.5px;line-height:1.65;max-width:760px;margin:0 0 4px}
+.wb-hero .eyebrow{margin-bottom:10px;font-size:11px}
+.wb-hero-tools{display:flex;gap:4px;flex-wrap:wrap;align-items:center}
+.wb-hero-tools .link-btn{font-size:12.5px;padding:8px 8px;min-height:38px;text-decoration:none;border:1px solid var(--line);border-radius:9px;background:rgba(15,22,34,.6)}
+.wb-hero-tools .link-btn:hover{border-color:rgba(56,189,248,.45)}
+.wb-desk-btn{display:inline-flex;align-items:center;gap:6px;min-height:38px;padding:0 12px;border-radius:9px;border:1px solid rgba(139,92,246,.4);background:rgba(139,92,246,.1);color:#ddd6fe;font-size:12.5px;font-weight:700;white-space:nowrap}
+.wb-desk-btn:hover{background:rgba(139,92,246,.2)}
+.wb-steps{position:sticky;top:60px;z-index:25;display:flex;gap:6px;padding:7px;margin:12px 0 16px;background:rgba(7,10,16,.88);backdrop-filter:blur(16px);-webkit-backdrop-filter:blur(16px);border:1px solid var(--line);border-radius:16px;overflow-x:auto;scrollbar-width:none;max-width:100%}
+.wb-steps::-webkit-scrollbar{display:none}
+.wb-step{flex:1 1 0;min-width:106px;display:flex;align-items:center;gap:8px;padding:8px 9px;border-radius:11px;border:1px solid transparent;background:transparent;color:var(--txt2);cursor:pointer;text-align:left;font-family:inherit;min-height:48px}
+.wb-step b{width:25px;height:25px;border-radius:8px;display:grid;place-items:center;background:rgba(56,189,248,.1);color:#7dd3fc;font-size:12px;flex:0 0 auto}
+.wb-step span{min-width:0;overflow:hidden}
+.wb-step span>span{display:block;font-size:12.5px;font-weight:800;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.wb-step small{display:block;font-size:10.5px;color:var(--txt3);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;margin-top:1px;font-weight:400}
+.wb-step:hover{background:rgba(148,163,184,.06)}
+.wb-step.on{border-color:rgba(56,189,248,.5);background:rgba(56,189,248,.1);box-shadow:0 0 26px -16px rgba(56,189,248,.9)}
+.wb-step.on b{background:rgba(56,189,248,.28);color:#e0f2fe}
+.wb-step.done b{background:rgba(52,211,153,.2);color:#6ee7b7}
+.wb-grid{display:grid;grid-template-columns:minmax(0,1fr) minmax(340px,390px);gap:20px;align-items:start}
+.wb-main{min-width:0}
+.wb-side{min-width:0;display:flex;flex-direction:column;gap:14px;position:sticky;top:132px}
+.wb-pane[hidden]{display:none!important}
+.wb-pane>.sec:first-child,.wb-pane>section:first-child{margin-top:0}
+.wb-pane>.sec,.wb-pane .sec{margin-top:0}
+.wb-pane .sec{margin-bottom:12px}
+.wb-pane .sec:last-child{margin-bottom:0}
+.wb-pane .wb-inline{margin-top:0}
+.wb-foot{display:flex;gap:10px;align-items:center;flex-wrap:wrap;margin:16px 0 6px;padding:12px 14px;border:1px solid var(--line);border-radius:14px;background:rgba(15,22,34,.6)}
+.wb-foot-hint{flex:1 1 200px;font-size:12.5px;color:var(--txt3);line-height:1.55}
+.wb-foot .btn-line,.wb-foot .btn-main{flex:0 0 auto}
+@media(max-width:1099px){
+  .wb-grid{display:flex;flex-direction:column}
+  .wb-main{order:1;width:100%}
+  .wb-side{order:2;position:static;width:100%}
+  .wb-steps{top:0}
+}
+@media(max-width:760px){
+  .wb-wrap{padding:0 14px 56px}
+  .wb-hero{padding:16px 0 2px}
+  .wb-hero h1{font-size:23px}
+  .wb-hero .lead{font-size:12.5px}
+  .wb-hero-tools{width:100%}
+  .wb-hero-tools .link-btn{flex:1 1 auto;justify-content:center}
+  .wb-steps{margin:10px -14px 12px;border-radius:0;padding:6px 12px;border-left:0;border-right:0}
+  .wb-step{min-width:94px;padding:7px 8px}
+  .wb-step span>span{font-size:11.5px}
+  .wb-step small{display:none}
+  .wb-foot{padding:10px 12px}
+  .wb-foot .btn-line,.wb-foot .btn-main{flex:1 1 42%;min-height:48px}
+}
+
+/* ---- 自定义行业 ---- */
+.wb-ind-row{display:flex;gap:10px;align-items:flex-end;flex-wrap:wrap;padding:12px 14px;margin:0 0 14px;border:1px solid rgba(139,92,246,.32);border-radius:13px;background:linear-gradient(135deg,rgba(139,92,246,.12),rgba(56,189,248,.06))}
+.wb-ind-row label{display:flex;flex-direction:column;gap:5px;font-size:12px;color:var(--txt3);font-weight:700;min-width:0}
+.wb-ind-row select,.wb-ind-row input{min-height:44px;background:rgba(7,12,21,.94);border:1px solid rgba(148,163,184,.28);border-radius:10px;color:var(--txt);padding:0 11px;font-size:13.5px;font-family:inherit;min-width:0}
+.wb-ind-row select{min-width:210px}
+.wb-ind-row input{width:180px}
+.wb-ind-row select:focus,.wb-ind-row input:focus{outline:none;border-color:rgba(56,189,248,.6)}
+.wb-ind-row .btn-line{min-height:44px}
+.wb-ind-row .wb-ind-custom{display:flex;gap:8px;align-items:flex-end;flex-wrap:wrap}
+.wb-ind-row .wb-ind-custom[hidden]{display:none}
+.wb-infer{margin:0 0 14px;border:1px solid rgba(52,211,153,.32);background:rgba(52,211,153,.07);border-radius:13px;padding:12px 14px;font-size:12.5px;line-height:1.6}
+.wb-infer-head{display:flex;flex-direction:column;gap:2px}
+.wb-infer-head b{font-size:13.5px;color:#a7f3d0}
+.wb-infer-head span{color:var(--txt3);font-size:11.5px}
+.wb-kw{display:flex;gap:6px;flex-wrap:wrap;margin-top:9px}
+.wb-kw button{min-height:34px;padding:0 10px;border-radius:999px;border:1px solid rgba(52,211,153,.35);background:rgba(52,211,153,.08);color:#a7f3d0;font-size:12px;cursor:pointer}
+.wb-kw button:hover{background:rgba(52,211,153,.18)}
+.wb-tips{margin:9px 0 0;padding-left:18px;color:var(--txt2);font-size:12px}
+.wb-tips li{margin:2px 0}
+.wb-note{font-size:12.5px;color:#bae6fd;background:rgba(56,189,248,.08);border:1px solid rgba(56,189,248,.25);border-radius:10px;padding:8px 11px;line-height:1.6;margin-top:10px}
+.wb-note[hidden]{display:none!important}
+
+/* ---- 素材库 ---- */
+.wb-asset-toolbar{display:flex;gap:8px;align-items:center;flex-wrap:wrap;margin:4px 0 10px}
+.wb-asset-toolbar .btn-line{min-height:42px}
+.wb-asset-count{font-size:12px;color:var(--txt3);margin-left:auto}
+.wb-filters{display:flex;gap:4px;flex-wrap:wrap;background:rgba(7,12,21,.7);border:1px solid var(--line);border-radius:10px;padding:3px}
+.wb-filters button{min-height:36px;padding:0 11px;border:0;border-radius:8px;background:transparent;color:var(--txt3);font-size:12.5px;cursor:pointer;font-family:inherit}
+.wb-filters button.on{background:rgba(56,189,248,.16);color:#dff3ff;font-weight:700}
+.wb-asset-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(196px,1fr));gap:10px;max-width:100%}
+.wb-asset{position:relative;display:flex;flex-direction:column;gap:7px;border:1px solid var(--line);border-radius:13px;background:rgba(9,14,24,.72);padding:8px;min-width:0}
+.wb-asset.on{border-color:rgba(56,189,248,.6);background:rgba(56,189,248,.09);box-shadow:0 0 0 1px rgba(56,189,248,.2)}
+.wb-asset-check{position:absolute;right:8px;top:8px;z-index:2;display:flex;align-items:center;justify-content:center;width:30px;height:30px;border-radius:8px;background:rgba(2,6,14,.72);border:1px solid rgba(148,163,184,.3);cursor:pointer}
+.wb-asset-check input{width:17px;height:17px;accent-color:#38bdf8;cursor:pointer}
+.wb-asset-thumb{position:relative;height:104px;border-radius:9px;overflow:hidden;background:#05080f;cursor:zoom-in;display:grid;place-items:center}
+.wb-asset-thumb img{width:100%;height:100%;object-fit:cover}
+.wb-ico{font-size:30px}
+.wb-kind{position:absolute;right:6px;bottom:6px;font-size:10.5px;padding:1px 7px;border-radius:6px;background:rgba(2,6,14,.78);color:#c4b5fd}
+.wb-asset-meta{min-width:0}
+.wb-asset-meta b{display:block;font-size:12px;color:#dbe7f6;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.wb-asset-meta span{display:block;font-size:10.5px;color:var(--txt3);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;margin-top:2px}
+.wb-asset-acts{display:flex;gap:3px;flex-wrap:wrap}
+.wb-asset-acts button{min-height:34px;padding:0 6px;border-radius:7px;border:1px solid rgba(56,189,248,.3);background:rgba(56,189,248,.08);color:#bae6fd;font-size:11px;cursor:pointer;font-family:inherit}
+.wb-asset-acts button:hover{background:rgba(56,189,248,.18)}
+.wb-asset-acts button.danger{margin-left:auto;color:#fca5a5;border-color:rgba(251,113,133,.32);background:rgba(251,113,133,.06)}
+.wb-local-mat{margin-top:16px;padding-top:14px;border-top:1px dashed rgba(148,163,184,.16)}
+.wb-local-head{display:flex;gap:8px;align-items:center;flex-wrap:wrap;margin-bottom:8px}
+.wb-local-head b{font-size:14px}
+.wb-local-head span{font-size:11.5px;color:var(--txt3)}
+.wb-local-head .btn-line{margin-left:auto;min-height:38px;font-size:12.5px}
+.wb-auto-row{display:flex;gap:10px;align-items:center;flex-wrap:wrap;margin-top:10px}
+.wb-auto-row .btn-line{min-height:42px}
+.wb-auto-row .wb-note{flex:1 1 220px;margin:0}
+#dropZone[hidden]{display:none!important}
+#musicSec{margin-top:14px}
+#musicSec summary b{font-size:16px}
+.wb-side .music-body{max-height:none}
+
+/* ---- 创作方式 Tabs ---- */
+.wb-mode-intro{display:flex;gap:10px;align-items:baseline;flex-wrap:wrap;margin:0 0 10px}
+.wb-mode-intro b{font-size:17px}
+.wb-mode-intro span{font-size:12px;color:var(--txt3)}
+.wb-tabs{display:flex;gap:6px;overflow-x:auto;padding:4px 2px 8px;scrollbar-width:thin;max-width:100%}
+.wb-tabs::-webkit-scrollbar{height:6px}
+.wb-tab{flex:0 0 auto;display:inline-flex;align-items:center;gap:6px;min-height:44px;padding:0 14px;border-radius:11px;border:1px solid var(--line);background:rgba(15,22,34,.7);color:var(--txt2);font-size:13px;font-weight:700;cursor:pointer;white-space:nowrap;font-family:inherit}
+.wb-tab:hover{border-color:rgba(56,189,248,.4);color:#e6f6ff}
+.wb-tab.on{border-color:rgba(56,189,248,.7);background:rgba(56,189,248,.15);color:#dff3ff;box-shadow:0 0 24px -14px rgba(56,189,248,.9)}
+.wb-tab .tag{font-size:10px;background:rgba(139,92,246,.2);color:#c4b5fd;border:1px solid rgba(139,92,246,.35);border-radius:999px;padding:1px 6px}
+.wb-mode-pane[hidden]{display:none!important}
+.wb-mode-pane>.sec:first-child{margin-top:0}
+.wb-mode-pane .sec{margin-top:0}
+.wb-subtabs{display:flex;gap:6px;flex-wrap:wrap;margin:0 0 12px}
+.wb-subtabs button{min-height:40px;padding:0 13px;border-radius:9px;border:1px solid var(--line);background:rgba(15,22,34,.7);color:var(--txt2);font-size:12.5px;font-weight:700;cursor:pointer;font-family:inherit}
+.wb-subtabs button.on{border-color:rgba(139,92,246,.6);background:rgba(139,92,246,.16);color:#ddd6fe}
+#edSec .sec-head{padding-bottom:2px}
+#edSec .edit-body{margin-top:10px;padding-top:0;border-top:0}
+#padSec .pad-body{border-top:0;margin-top:0;padding-top:2px}
+#batchSec .batch-body,#advSec .adv-body{margin-top:0;padding-top:0;border-top:0}
+#freeSec .sec-head{margin-bottom:6px}
+#secPrompt .sec-head{margin-bottom:12px}
+
+/* ---- 批量剪辑（新） ---- */
+.wb-batch-form{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:10px;margin:8px 0 12px}
+.wb-batch-form label{display:flex;flex-direction:column;gap:5px;font-size:11.5px;color:var(--txt3);font-weight:700;min-width:0}
+.wb-batch-form select,.wb-batch-form input{min-height:44px;background:rgba(7,12,21,.94);border:1px solid rgba(148,163,184,.28);border-radius:9px;color:var(--txt);padding:0 10px;font-size:13px;font-family:inherit;min-width:0;width:100%}
+.wb-batch-form .wb-span2{grid-column:span 2}
+.wb-batch-sel{display:flex;gap:10px;align-items:center;flex-wrap:wrap;margin:4px 0 10px;font-size:12.5px;color:var(--txt2)}
+.wb-batch-sel b{color:#7dd3fc;font-size:16px}
+.wb-batch-sel .btn-line{min-height:38px;font-size:12.5px}
+.wb-batch-progress{margin:10px 0;padding:10px 12px;border:1px solid rgba(56,189,248,.3);border-radius:11px;background:rgba(56,189,248,.06)}
+.wb-batch-progress .bar{height:8px;border-radius:99px;background:rgba(56,189,248,.16);overflow:hidden}
+.wb-batch-progress .bar>b{display:block;height:100%;width:0;border-radius:99px;background:linear-gradient(90deg,#22d3ee,#7c3aed);transition:width .25s}
+.wb-batch-progress .txt{font-size:12px;color:#7dd3fc;margin-top:6px;font-weight:700;overflow-wrap:anywhere}
+.wb-batch-results{display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:10px;margin-top:12px}
+.wb-batch-results .bcard{background:rgba(9,14,24,.74);border:1px solid var(--line);border-radius:12px;overflow:hidden;min-width:0}
+.wb-batch-results .bcard>video{width:100%;max-height:300px;background:#000;display:block}
+.wb-batch-results .bcard-body{padding:9px 10px}
+.wb-batch-results .bcard-body h4{margin:0 0 3px;font-size:13.5px}
+.wb-batch-results .bcard-body h4 span{font-size:10.5px;color:#c4b5fd;border:1px solid rgba(139,92,246,.3);border-radius:999px;padding:0 6px}
+.wb-batch-results .bcard-body p{margin:0 0 7px;font-size:11.5px;color:var(--txt3)}
+.wb-batch-results .bcard-body .acts{display:flex;gap:6px;flex-wrap:wrap}
+.wb-batch-results .bcard-body .btn-line{min-height:38px;font-size:12px;display:inline-flex;align-items:center}
+#batchEditZip{margin-top:12px}
+
+/* ---- 预览信息区 ---- */
+.wb-info-grid{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:16px;align-items:start}
+.wb-info-grid .result-info{min-width:0}
+.wb-info-grid .mkt{margin-top:0}
+.wb-info-empty{border:1px dashed rgba(148,163,184,.25);border-radius:13px;padding:20px;text-align:center;color:var(--txt3);font-size:13px;background:rgba(9,14,24,.4)}
+.wb-stage{margin-top:18px;padding-top:14px;border-top:1px dashed rgba(148,163,184,.16)}
+.wb-stage-head{display:flex;gap:10px;align-items:baseline;flex-wrap:wrap;margin-bottom:10px}
+.wb-stage-head b{font-size:15px}
+.wb-stage-head span{font-size:11.5px;color:var(--txt3)}
+.wb-stage-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:10px}
+.wb-stage-item{background:rgba(9,14,24,.7);border:1px solid var(--line);border-radius:11px;overflow:hidden}
+.wb-stage-item video{width:100%;max-height:280px;background:#000;display:block}
+.wb-stage-meta{padding:7px 9px;font-size:11.5px;color:var(--txt2)}
+.wb-stage-meta a{color:#7dd3fc;text-decoration:underline;text-underline-offset:2px}
+
+/* ---- 右侧预览 / 汇总 ---- */
+.wb-side .sec{margin-top:0}
+.wb-preview .sec-head{margin-bottom:10px}
+.wb-preview .sec-head h2{font-size:18px}
+.wb-preview .vwrap{max-height:60vh}
+.wb-preview .vwrap video{max-height:60vh}
+.wb-side-actions{display:flex;gap:8px;flex-wrap:wrap;margin-top:10px}
+.wb-side-actions .btn-main{flex:1 1 130px;min-height:44px;font-size:13.5px;padding:0 12px;display:inline-flex;align-items:center;justify-content:center;text-decoration:none}
+.wb-side-actions .btn-main.disabled{opacity:.5;pointer-events:none}
+.wb-side-actions .btn-line{min-height:44px;font-size:13px}
+.wb-side .badges{margin-top:10px}
+.wb-summary h3{margin:0 0 8px;font-size:15px}
+.wb-sum-row{display:flex;gap:10px;justify-content:space-between;font-size:12px;padding:6px 0;border-top:1px dashed rgba(148,163,184,.12)}
+.wb-sum-row span{color:var(--txt3);flex:0 0 auto}
+.wb-sum-row b{font-weight:600;color:var(--txt2);text-align:right;overflow-wrap:anywhere}
+.wb-sum-actions{display:flex;gap:6px;flex-wrap:wrap;margin-top:10px}
+.wb-sum-actions .btn-line{min-height:36px;font-size:12px}
+.wb-desktop-mini{margin-top:12px;padding-top:12px;border-top:1px dashed rgba(148,163,184,.14);font-size:12px;color:var(--txt3);line-height:1.6}
+.wb-desktop-mini b{display:block;color:#ddd6fe;font-size:12.5px;margin-bottom:2px}
+.wb-desktop-mini a{color:#7dd3fc;text-decoration:underline;text-underline-offset:2px}
+.wb-desktop-card{border-color:rgba(139,92,246,.35)!important;background:linear-gradient(135deg,rgba(139,92,246,.14),rgba(56,189,248,.06))!important}
+.wb-desktop-card h3{margin:0 0 6px;font-size:17px}
+.wb-desktop-card p{margin:0 0 10px;font-size:12.5px;color:var(--txt2);line-height:1.7}
+.wb-desktop-card .btn-main.small{flex:0 0 auto;text-decoration:none;display:inline-flex;align-items:center}
+.wb-export-links{display:flex;gap:8px;flex-wrap:wrap;margin-top:10px}
+.wb-export-links .btn-line{min-height:44px;display:inline-flex;align-items:center}
+#wbBatchExport p{margin:4px 0;font-size:12px;color:var(--txt3)}
+
+@media(max-width:760px){
+  .wb-ind-row select{min-width:0;width:100%}
+  .wb-ind-row label{width:100%}
+  .wb-ind-row input{width:100%}
+  .wb-ind-row .wb-ind-custom{width:100%}
+  .wb-asset-grid{grid-template-columns:1fr 1fr}
+  .wb-asset-thumb{height:86px}
+  .wb-info-grid{grid-template-columns:1fr}
+  .wb-batch-form .wb-span2{grid-column:span 1}
+  .wb-preview .vwrap{max-height:none;max-width:330px;margin:0 auto}
+  .wb-preview .vwrap video{max-height:52vh}
+  .wb-side-actions{justify-content:center}
+  .wb-stage-grid{grid-template-columns:1fr 1fr}
+}
+@media(max-width:420px){
+  .wb-asset-grid{grid-template-columns:1fr}
+  .wb-asset-thumb{height:120px}
+  .wb-batch-results{grid-template-columns:1fr}
+  .wb-stage-grid{grid-template-columns:1fr}
+}
+
+</style>
+<link rel="stylesheet" href="../assets/theme-light.css">
+<script defer src="../assets/theme.js"></script>
+<!--xl-theme-end-->
 </head><body>
 <div class="top"><div class="top-in">
  <a class="brand" href="/ai-nav/"><span class="logo">星</span>星籁 AI <span class="brand-sub">商家工作台</span></a>
@@ -832,74 +1064,99 @@ body.ed-open{overflow:hidden}
  <button type="button" class="elder-btn" id="elderBtn" aria-pressed="false" title="放大字体和按钮，看得更清楚">👴 大字模式</button>
 </div></div>
 
-<div class="wrap">
+<div class="wb-wrap" id="wbWrap">
  <div id="staticNote" class="static-note" hidden>🌍 你正在访问全球静态站（GitHub Pages），这里只能看页面、不能生成视频。请用国内站 <a href="https://xinglaiai.com/ai-nav/studio/">xinglaiai.com</a> 生成。</div>
 
- <header class="hero">
-  <div class="eyebrow">商家短视频工作台 · 3 步出片</div>
-  <h1>一句话，给你的店<span>做条能发的短视频</span></h1>
-  <p class="lead">选行业模板 → 传门店素材（可跳过）→ 写一句活动，AI 负责文案、配音、配乐、字幕和成片。不满意点一下就能改。</p>
-  <div class="hero-tags"><span>🍲 餐饮</span><span>🚗 汽修洗车</span><span>🧹 家政</span><span>💅 美业</span><span>🎓 教培</span><span>🏬 门店开业</span></div>
-  <div class="hero-links">
-   <button type="button" class="link-btn" id="helpBtn">❓ 使用帮助</button>
-   <button type="button" class="link-btn" id="guideBtn">👀 3 步上手</button>
+ <header class="hero wb-hero">
+  <div>
+   <div class="eyebrow">星籁 AI · 剪辑创作工作台</div>
+   <h1>从选行业到导出，<span>6 步做完一条片</span></h1>
+   <p class="lead">① 选行业 → ② 素材库 → ③ 创作方式 → ④ 预览 → ⑤ 修改 → ⑥ 导出。右侧常驻预览，批量剪辑、自由剪辑、商品广告、专业模式都在一个工作台里。</p>
+   <div class="draft-bar"><span class="save-state" id="saveState" hidden>已自动保存</span><span class="save-tip">输入会自动保存，刷新/关掉再打开也不丢</span></div>
+  </div>
+  <div class="wb-hero-tools">
+   <a class="wb-desk-btn" href="./desktop.html" target="_blank" rel="noopener">🖥 星籁剪辑桌面版</a>
+   <button type="button" class="link-btn" id="helpBtn">❓ 帮助</button>
+   <button type="button" class="link-btn" id="guideBtn">👀 新手引导</button>
    <button type="button" class="link-btn" id="draftExport">💾 导出草稿</button>
    <button type="button" class="link-btn" id="draftImportBtn">📥 导入草稿</button>
    <input type="file" id="draftImport" accept="application/json,.json" hidden>
   </div>
-  <div class="draft-bar"><span class="save-state" id="saveState" hidden>已自动保存</span><span class="save-tip">输入会自动保存，刷新/关掉再打开也不丢</span></div>
  </header>
 
- <div class="flow" aria-label="使用流程">
-  <button type="button" class="flow-item" data-goto="secTpl"><b>1</b><span>选行业模板<i>24 个行业，先选一个</i></span></button>
-  <button type="button" class="flow-item" data-goto="secUpload"><b>2</b><span>传门店素材<i>没有就跳过，系统自动配</i></span></button>
-  <button type="button" class="flow-item on" data-goto="secPrompt"><b>3</b><span>写一句话并生成<i>等 1~2 分钟出片</i></span></button>
- </div>
+ <nav class="wb-steps" id="wbSteps" aria-label="剪辑流程：6 步">
+  <button type="button" class="wb-step" data-step="1"><b>1</b><span><span>选行业</span><small id="wbStep1Hint">24 个模板</small></span></button>
+  <button type="button" class="wb-step" data-step="2"><b>2</b><span><span>素材库</span><small id="wbStep2Hint">本片 0 · 勾选 0</small></span></button>
+  <button type="button" class="wb-step" data-step="3"><b>3</b><span><span>创作方式</span><small id="wbStep3Hint">模板成片</small></span></button>
+  <button type="button" class="wb-step" data-step="4"><b>4</b><span><span>预览</span><small id="wbStep4Hint">等待生成</small></span></button>
+  <button type="button" class="wb-step" data-step="5"><b>5</b><span><span>修改</span><small id="wbStep5Hint">待生成</small></span></button>
+  <button type="button" class="wb-step" data-step="6"><b>6</b><span><span>导出</span><small id="wbStep6Hint">待成片</small></span></button>
+ </nav>
 
- <!-- ================= 2. 一句话需求 ================= -->
- <div class="colL">
- <section class="sec" id="secTpl">
-  <div class="sec-head"><span class="sec-ico">🎞️</span><div><h2>① 选行业模板</h2><p class="sec-sub">模板决定文案套路、画面节奏、字幕和默认配乐。拿不准就先用「门店开业引流」。</p></div><span class="sec-hint" id="tplHint">已选：门店开业引流</span></div>
-  <div class="tpl-grid" id="tplGrid"></div>
+ <div class="wb-grid">
+  <main class="wb-main">
+   <section class="wb-pane" data-step="1" id="wbPane1">
+    <section class="sec" id="secTpl">
+  <div class="sec-head"><span class="sec-ico">🎞️</span><div><h2>① 选行业</h2><p class="sec-sub">24 个行业模板决定文案套路、节奏、字幕和默认配乐；选不到就用「其他 / 自定义」，AI 会推断配置并记住。</p></div><span class="sec-hint" id="tplHint">已选：门店开业引流</span></div>
+  <div class="wb-ind-row" aria-label="行业选择与自定义">
+  <label>行业快捷选择
+    <select id="indSel" aria-label="选择行业"><option value="">选择行业…</option></select>
+  </label>
+  <div class="wb-ind-custom" id="indCustomWrap" hidden>
+    <label>自定义行业名
+      <input type="text" id="indCustomName" maxlength="20" placeholder="例如：宠物殡葬" autocomplete="off">
+    </label>
+    <button type="button" class="btn-ai small" id="indInferBtn">✨ AI 推断配置</button>
+    <button type="button" class="btn-line" id="indClearBtn">清除</button>
+  </div>
+  <button type="button" class="btn-line" id="indOpenCustom">＋ 其他 / 自定义</button>
+</div>
+<div class="wb-note" id="indInferStatus" hidden></div>
+<div class="wb-infer" id="indInferResult" hidden></div>
+<div class="tpl-grid" id="tplGrid"></div>
   <div class="dur-row"><span>视频时长</span><div class="dur-chips" id="durChips"></div><span class="dur-note">按模板推荐，可自己改</span></div>
  </section>
- <section class="sec glow" id="secPrompt">
-  <div class="sec-head"><span class="sec-ico">💬</span><div><h2>② 说一句话，讲清你的活动</h2><p class="sec-sub">做什么 + 给谁 + 优惠/卖点。写不出花哨句子没关系，把价格、地址、时间说清楚就行。</p></div><span class="sec-hint"><b>必填</b> · 最多 300 字</span></div>
-  <div class="qbox">
-   <textarea id="bizPrompt" class="biz-q" maxlength="300" placeholder="例如：新店开业，全场 8.8 折，进店送招牌小菜，地址在万达广场一楼，本周末两天"></textarea>
-   <div class="q-meta"><span id="bizPromptCount">0 / 300</span><span>不会写？点下面的例子，改成你的店 →</span></div>
-  </div>
-  <div class="q-actions">
-   <button type="button" class="btn-ai" id="bizAiBtn">✨ AI 改写</button>
-   <button type="button" class="btn-mic" id="bizMicBtn">🎤 说话输入</button>
-   <button type="button" class="btn-main" id="bizGenBtn">🎬 生成商家视频</button>
-  </div>
-  <div class="mic-tip" id="bizMicTip" hidden></div>
-  <div id="preWarn" class="warnbox" hidden></div>
-  <div class="examples" id="bizExamples"></div>
- </section>
+   </section>
 
- <!-- ================= 3. 素材上传 ================= -->
- <section class="sec" id="secUpload">
-  <div class="sec-head"><span class="sec-ico">📎</span><div><h2>③ 加素材 <span class="tag">可跳过</span></h2><p class="sec-sub">传门店照片、菜品/施工视频、自己的 BGM。不上传也可以，系统自动匹配可商用素材。</p></div><span class="sec-hint">单个 ≤100MB · 可多选</span></div>
-  <div class="drop" id="dropZone" role="button" tabindex="0" aria-label="点击或拖拽上传图片和视频">
-   <div class="drop-ico">＋</div>
-   <b>点这里上传，或把文件拖进来</b>
-   <span>图片 jpg / png / webp · 视频 mp4 / mov · 音频 mp3 / wav / m4a · 单个 ≤100MB</span>
-  </div>
-  <input type="file" id="matInput" accept="image/jpeg,image/png,image/webp,video/mp4,video/quicktime,audio/mpeg,audio/wav,audio/mp4,audio/x-m4a,audio/m4a" multiple hidden>
-  <div class="mats" id="matList"></div>
-  <div class="upload-status" id="uploadStatus" hidden></div>
-  <div class="bgm-row">
-   <div><b>🎵 自己的 BGM（可选）</b><span>不传就用模板默认配乐，都是可商用/本地合成</span></div>
-   <button type="button" class="btn-line" id="bgmPick">选择音频</button>
-   <input type="file" id="bgmInput" accept="audio/mpeg,audio/wav,audio/mp4,audio/x-m4a,audio/m4a" hidden>
-   <div class="bgm-chip" id="bgmChip" hidden></div>
-  </div>
- </section>
+   <section class="wb-pane" data-step="2" id="wbPane2" hidden>
+    <section class="sec" id="secUpload">
+     <div class="sec-head"><span class="sec-ico">🗂️</span><div><h2>② 素材库</h2><p class="sec-sub">上传一次，反复用：图片 / 视频 / 音频统一管理，可预览、勾选做批量剪辑，也能一键加入时间轴、设为 BGM 或产品图。</p></div><span class="sec-hint">单个 ≤100MB · 可多选</span></div>
+     <div class="wb-asset-toolbar">
+      <div class="wb-filters" id="wbAssetFilters" role="tablist" aria-label="素材类型筛选">
+       <button type="button" data-filter="all" class="on">全部</button>
+       <button type="button" data-filter="image">图片</button>
+       <button type="button" data-filter="video">视频</button>
+       <button type="button" data-filter="audio">音频</button>
+      </div>
+      <button type="button" class="btn-line" id="wbAssetUploadBtn">⬆ 上传素材</button>
+      <input type="file" id="wbAssetFile" accept="image/jpeg,image/png,image/webp,video/mp4,video/quicktime,audio/mpeg,audio/wav,audio/mp4,audio/x-m4a,audio/m4a" multiple hidden>
+      <span class="wb-asset-count" id="wbAssetCount">正在读取素材库…</span>
+     </div>
+     <div class="wb-note" id="wbAssetNotice" hidden></div>
+     <div class="wb-asset-grid" id="wbAssetGrid"></div>
+     <div class="empty" id="wbAssetEmpty"><b>素材库还是空的</b>上传图片 / 视频 / 音频后，会统一出现在这里；没有素材也可以先用「自动配素材」。</div>
 
- <!-- ================= 3.5 音乐库 ================= -->
- <details class="sec music" id="musicSec">
+     <div class="wb-local-mat">
+      <div class="wb-local-head"><b>本片素材</b><span>模板成片 / AI 自由创作会用到</span><button type="button" class="btn-line" id="wbMatPick">＋ 添加本片素材</button></div>
+      <div class="mats" id="matList"></div>
+      <div class="upload-status" id="uploadStatus" hidden></div>
+      <div class="drop" id="dropZone" hidden role="button" tabindex="-1" aria-hidden="true">
+       <div class="drop-ico">＋</div><b>点这里上传，或把文件拖进来</b><span>图片 jpg / png / webp · 视频 mp4 / mov · 音频 mp3 / wav / m4a</span>
+      </div>
+      <input type="file" id="matInput" accept="image/jpeg,image/png,image/webp,video/mp4,video/quicktime,audio/mpeg,audio/wav,audio/mp4,audio/x-m4a,audio/m4a" multiple hidden>
+      <div class="bgm-row">
+       <div><b>🎵 自己的 BGM（可选）</b><span>不传就用模板默认配乐，都是可商用/本地合成</span></div>
+       <button type="button" class="btn-line" id="bgmPick">选择音频</button>
+       <input type="file" id="bgmInput" accept="audio/mpeg,audio/wav,audio/mp4,audio/x-m4a,audio/m4a" hidden>
+       <div class="bgm-chip" id="bgmChip" hidden></div>
+      </div>
+      <div class="wb-auto-row">
+       <button type="button" class="btn-line" id="wbAutoMat">✨ 没有素材？自动配素材</button>
+       <div class="wb-note" id="wbAutoMatNote" hidden></div>
+      </div>
+     </div>
+    </section>
+    <details class="sec music" id="musicSec">
   <summary>
    <span class="sec-ico">🎵</span>
    <div><b>音乐库 <span class="tag">可选</span></b><i id="musicSum">配乐：默认（系统合成 BGM）</i></div>
@@ -921,14 +1178,37 @@ body.ed-open{overflow:hidden}
    <audio id="musicAudio" preload="none"></audio>
   </div>
  </details>
+   </section>
 
-<!-- ================= 3.7 自由剪辑（时间轴） ================= -->
- <details class="sec edit" id="edSec">
-  <summary>
-   <span class="sec-ico">🎞</span>
-   <div><b>自由剪辑（时间轴） <span class="tag">NEW</span></b><i id="edSum">上传自己的视频/图片/BGM，拖动排序、裁剪，直接合成导出</i></div>
-  </summary>
-  <div class="edit-body">
+   <section class="wb-pane" data-step="3" id="wbPane3" hidden>
+    <div class="wb-mode-intro"><b>③ 先选创作方式</b><span>不管用哪种，都走 素材 → 生成 → 预览 → 修改 → 导出；只显示当前方式，不再堆折叠面板。</span></div>
+    <div class="wb-tabs" id="wbModeTabs" role="tablist" aria-label="创作方式">
+     <button type="button" class="wb-tab on" data-mode="template" role="tab" aria-selected="true">🎞 模板成片</button>
+     <button type="button" class="wb-tab" data-mode="timeline" role="tab" aria-selected="false">✂️ 自由剪辑</button>
+     <button type="button" class="wb-tab" data-mode="batch" role="tab" aria-selected="false">🎬 批量剪辑 <span class="tag">NEW</span></button>
+     <button type="button" class="wb-tab" data-mode="pad" role="tab" aria-selected="false">🛍️ 商品广告</button>
+     <button type="button" class="wb-tab" data-mode="free" role="tab" aria-selected="false">🤖 AI 自由创作</button>
+     <button type="button" class="wb-tab" data-mode="pro" role="tab" aria-selected="false">🛠️ 专业模式</button>
+    </div>
+    <div class="wb-mode-panes">
+     <div class="wb-mode-pane" data-mode="template"><section class="sec glow" id="secPrompt">
+  <div class="sec-head"><span class="sec-ico">💬</span><div><h2>模板成片 · 说一句话</h2><p class="sec-sub">做什么 + 给谁 + 优惠/卖点。把价格、地址、时间说清楚就行；生成后不满意可一键改。</p></div><span class="sec-hint"><b>必填</b> · 最多 300 字</span></div>
+  <div class="qbox">
+   <textarea id="bizPrompt" class="biz-q" maxlength="300" placeholder="例如：新店开业，全场 8.8 折，进店送招牌小菜，地址在万达广场一楼，本周末两天"></textarea>
+   <div class="q-meta"><span id="bizPromptCount">0 / 300</span><span>不会写？点下面的例子，改成你的店 →</span></div>
+  </div>
+  <div class="q-actions">
+   <button type="button" class="btn-ai" id="bizAiBtn">✨ AI 改写</button>
+   <button type="button" class="btn-mic" id="bizMicBtn">🎤 说话输入</button>
+   <button type="button" class="btn-main" id="bizGenBtn">🎬 生成商家视频</button>
+  </div>
+  <div class="mic-tip" id="bizMicTip" hidden></div>
+  <div id="preWarn" class="warnbox" hidden></div>
+  <div class="examples" id="bizExamples"></div>
+ </section></div>
+     <div class="wb-mode-pane" data-mode="timeline" hidden>
+      <div class="wb-note" style="margin:0 0 10px">从素材库点「时间轴」可一键加入片段；也可以在这里直接上传图片/视频。</div>
+      <section class="sec wb-panel edit" id="edSec"><div class="sec-head"><span class="sec-ico">✂️</span><div><h2>自由剪辑（时间轴）</h2><p class="sec-sub">拖拽排序、裁剪、转场、倍速、原声/人声/BGM 混音，直接合成导出。素材库点「时间轴」可一键加入片段。</p></div><span class="sec-hint">最多 20 段 / 300 秒</span></div>  <div class="edit-body">
    <div class="edit-add-row">
     <div class="edit-drop" id="edDrop" role="button" tabindex="0" aria-label="点击或拖拽上传视频图片，添加到时间轴">
      <span class="edit-drop-ico" aria-hidden="true">＋</span>
@@ -1021,101 +1301,36 @@ body.ed-open{overflow:hidden}
    <div class="edit-result" id="edResult" hidden></div>
    <p class="edit-usage">提示：合成会占用渲染队列，通常 5~60 秒；完成后请及时下载保存。字幕会烧录到画面下方，适合短句。</p>
 
-   <div class="edit-modal" id="edModal" hidden>
-    <div class="edit-modal-card" role="dialog" aria-modal="true" aria-labelledby="edModalTitle">
-     <div class="edit-modal-head"><b id="edModalTitle">裁剪片段</b><button type="button" class="edit-modal-x" id="edModalX" aria-label="关闭">✕</button></div>
-     <div id="edModalBody"></div>
-    </div>
-   </div>
-  </div>
- </details>
-
- <!-- ================= 4. 行业模板 ================= -->
-
- <!-- ================= 5. 生成预览 ================= -->
- </div>
- <div class="colR">
- <section class="sec" id="secPreview">
-  <div class="sec-head"><span class="sec-ico">📱</span><div><h2>④ 生成预览</h2><p class="sec-sub">出片后先看一遍：不满意就下面一键改，满意再去下载。</p></div><span class="sec-hint" id="previewTag">还没生成</span></div>
-  <div id="previewEmpty" class="empty"><b>这里会放你的成片</b>填好需求点「🎬 生成商家视频」，等 1~2 分钟。</div>
-  <div id="previewProgress" class="progress" hidden>
-   <div class="wave" aria-hidden="true"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></div>
-   <h3 id="progressTitle">正在准备出片…</h3>
-   <p id="progressStep">正在理解你的需求…</p>
-   <div class="bar"><i id="progressBar"></i></div>
-   <div class="progress-meta"><span>已用时 <b id="elapsed">0</b> 秒</span><span>预计 40~130 秒，别关页面</span></div>
-   <div class="task-line" id="taskLine" hidden></div>
-  </div>
-  <div id="previewBody" hidden>
-   <div class="result-grid">
-    <div class="vwrap"><video id="bizVideo" controls playsinline preload="metadata"></video><span class="vbadge">9:16 竖屏 · 无水印</span></div>
-    <div class="result-info">
-     <div class="badges" id="bizBadges"></div>
-     <div class="script-head"><h3>口播文案</h3><button type="button" class="btn-ai small" id="aiPolishBtn">✨ AI 优化文案</button></div>
-     <div class="script" id="bizScript"></div>
-     <div id="aiPolishWarn" class="warnbox" hidden></div>
-     <details class="lic"><summary>商用授权说明</summary><div class="lic-body" id="bizLicense"></div></details>
-     <details class="scenes"><summary>镜头脚本（<span id="sceneCount">0</span> 个镜头）</summary><div class="scenes-body" id="bizScenes"></div></details>
-    </div>
-   </div>
-   <div class="mkt">
-    <div class="tabs" id="mktTabs" role="tablist">
-     <button type="button" class="tab on" data-tab="douyin" role="tab" aria-selected="true">抖音文案</button>
-     <button type="button" class="tab" data-tab="meituan" role="tab" aria-selected="false">美团文案</button>
-     <button type="button" class="tab" data-tab="moments" role="tab" aria-selected="false">朋友圈文案</button>
-    </div>
-    <div class="tab-body"><div class="mtext" id="mktText"></div><div class="tab-actions"><button type="button" class="btn-line" id="copyMkt">📋 复制这段</button></div></div>
-   </div>
-   <div id="postWarn" class="warnbox" hidden></div>
-  </div>
-  <div id="previewError" class="errorbox" hidden></div>
- </section>
-
- <!-- ================= 6. 一键修改 ================= -->
- <section class="sec" id="secRevise">
-  <div class="sec-head"><span class="sec-ico">✂️</span><div><h2>⑤ 一键修改</h2><p class="sec-sub" id="reviseHint">先生成一条视频，再来这里改。改完是一版新的，旧版随时能回去。</p></div><span class="sec-hint">每次 40~95 秒</span></div>
-  <div class="rev-grid" id="revGrid">
-   <button type="button" class="rev-btn" data-act="change_bgm" disabled>🎵<b>换 BGM</b><span>轻快 / 温馨 / 大气 / 动感</span></button>
-   <button type="button" class="rev-btn" data-act="change_style" disabled>🎨<b>换风格</b><span>暖色 / 冷色 / 高饱和 / 胶片</span></button>
-   <button type="button" class="rev-btn" data-act="subtitle_bigger" disabled>🔠<b>字幕放大</b><span>再大一点，手机上更清楚</span></button>
-   <button type="button" class="rev-btn" data-act="change_opening" disabled>🖼️<b>换开头画面</b><span>用你上传的素材开头</span></button>
-   <button type="button" class="rev-btn" data-act="shorten" disabled>⏱️<b>缩短时长</b><span>10~15 秒更抓人</span></button>
-   <button type="button" class="rev-btn" data-act="regenerate" disabled>🔁<b>重新生成</b><span>同一套需求再出一条</span></button>
-  </div>
-  <div class="picker" id="revPicker" hidden></div>
-  <div class="rev-busy" id="revBusy" hidden><span class="spin" aria-hidden="true"></span><b id="revBusyText">正在修改…</b><span>已用时 <b id="revElapsed">0</b> 秒 · 通常 40~95 秒</span></div>
-  <div id="revError" class="errorbox" hidden></div>
-  <div class="versions-wrap">
-   <div class="versions-head"><b>版本记录</b><span>点任意一版可回退（会重新出片，约 1 分钟）</span></div>
-   <div class="versions" id="versions"></div>
-  </div>
-  <div class="rev-text">
-   <label for="revText">也可以直接说一句：</label>
-   <div class="rev-text-row"><input id="revText" maxlength="120" placeholder="例如：换个欢快的音乐 / 字幕再大一点 / 开头换成第二张图 / 回到第1版"><button type="button" class="btn-mic" id="revMic" title="说话输入">🎤</button><button type="button" class="btn-send" id="revSend" disabled>发送修改</button></div>
-   <div class="mic-tip" id="revMicTip" hidden></div>
-   <div class="rev-hint" id="revParseHint" hidden></div>
-   <div class="quick" id="revQuick"></div>
+   
   </div>
  </section>
-
- <!-- ================= 7. 下载导出 ================= -->
- <section class="sec" id="secExport">
-  <div class="sec-head"><span class="sec-ico">⬇️</span><div><h2>⑥ 下载导出</h2><p class="sec-sub">成片是竖屏 MP4，可直接发抖音、美团、视频号。下载不了就长按视频保存。</p></div><span class="sec-hint">无强制水印</span></div>
-  <div class="export-grid">
-   <a id="dlVideo" class="ex-btn primary disabled" href="#" download aria-disabled="true">⬇️<b>下载视频</b><span>MP4 · 9:16 竖屏</span></a>
-   <button type="button" class="ex-btn" id="saveFolder" disabled>📁<b>选择保存文件夹并下载</b><span>视频 + 音轨 + 文案 + 授权</span></button>
-   <button type="button" class="ex-btn" id="dlCover" disabled>🖼️<b>下载封面</b><span>从成片里截一帧</span></button>
-   <button type="button" class="ex-btn" id="copyScript" disabled>📋<b>复制口播文案</b><span>发点评/私信也能用</span></button>
-   <button type="button" class="ex-btn" id="copyAll" disabled>📑<b>复制全部文案</b><span>口播 + 三个平台</span></button>
-  </div>
-  <div class="license-line" id="exportLicense">素材来源：用户上传（授权由上传方确认）/ 站内可商用素材；BGM：本地合成；配音：Edge TTS 免费合成；AI 合成内容请自行标注。</div>
-  <p class="tiny">提示：素材建议用自己拍的门店照，避免用带别人商标/水印的图。</p>
- </section>
-
- <!-- ================= 8. 批量混剪 ================= -->
- <details class="sec batch" id="batchSec">
-  <summary><span class="sec-ico">🎬</span><span><b>批量混剪</b> <span class="tag">新增</span><i>一条长视频，自动拆成镜头，一次生成 3 条不同版本</i></span></summary>
-  <div class="batch-body">
+     </div>
+     <div class="wb-mode-pane" data-mode="batch" hidden>
+      <div class="wb-subtabs" id="wbBatchTabs">
+       <button type="button" data-bmode="materials" class="on">多素材批量剪辑 <span class="tag">NEW</span></button>
+       <button type="button" data-bmode="long">长视频拆条混剪</button>
+      </div>
+      <div id="wbBatchMaterials">
+       <section class="sec wb-inline" id="batchEdit">
+        <div class="sec-head"><span class="sec-ico">🎛️</span><div><h2>多素材批量剪辑</h2><p class="sec-sub">勾选 5~20 段素材 → 选生成条数（3/5/10）→ 每条自动换顺序、换转场、换字幕样式，批量出差异化成片。</p></div><span class="sec-hint">复用渲染队列</span></div>
+        <div class="wb-batch-sel">已勾选 <b id="batchSelCount">0</b> 段 <button type="button" class="btn-line" id="batchSelectAll">勾选最近 20 段</button><button type="button" class="btn-line" id="batchClearSel">清空勾选</button><span style="color:#56657a">（在 ② 素材库勾选图片/视频）</span></div>
+        <div class="wb-batch-form">
+         <label>生成条数<select id="batchCount"><option value="3" selected>3 条</option><option value="5">5 条</option><option value="10">10 条</option></select></label>
+         <label>画幅<select id="batchAspect"><option value="9:16" selected>9:16 竖屏</option><option value="16:9">16:9 横屏</option><option value="1:1">1:1 方形</option><option value="source">跟随原片</option></select></label>
+         <label>填充<select id="batchFit"><option value="cover" selected>铺满（裁剪）</option><option value="contain">完整（留黑边）</option></select></label>
+         <label>分辨率<select id="batchResolution"><option value="1080p" selected>1080p 高清</option><option value="720p">720p 省时</option></select></label>
+         <label>字幕风格<select id="batchSubtitleStyles"><option value="cycle" selected>每条不同（大字/温暖/简洁）</option><option value="big">大字醒目</option><option value="warm">温暖柔和</option><option value="clean">简洁白字</option><option value="yellow">潮流黄字</option></select></label>
+         <label>BGM<select id="batchBgmMode"><option value="auto" selected>自动轮换（素材库音频）</option><option value="none">不使用</option></select></label>
+         <label class="wb-span2">烧录字幕（可选）<input type="text" id="batchSubtitle" maxlength="300" placeholder="例如：到店出示本视频，享专属优惠"></label>
+        </div>
+        <button type="button" class="btn-main" id="batchEditStart" disabled>🎬 开始批量生成</button>
+        <div class="wb-batch-progress" id="batchEditProgress" hidden><div class="bar"><b id="batchEditBar"></b></div><div class="txt" id="batchEditTxt">等待提交…</div></div>
+        <div id="batchEditError" class="errorbox" hidden></div>
+        <div class="wb-batch-results" id="batchEditResults"></div>
+        <div id="batchEditZip" hidden><a class="btn-line" id="batchZipLink" href="#" download>⬇ 打包下载全部（zip）</a></div>
+       </section>
+      </div>
+      <div id="wbBatchLong" hidden><section class="sec wb-panel batch" id="batchSec"><div class="sec-head"><span class="sec-ico">🎬</span><div><h2>长视频拆条混剪</h2><p class="sec-sub">一条长视频自动拆镜头，再生成 3 条不同版本；适合探店员/老板拍的一条长素材。</p></div></div>  <div class="batch-body">
    <p class="sec-sub">适合探店员/老板拍的一条长素材。先「自动拆条」看镜头，再「一次生成 3 条」，每条文案和节奏都不一样，挑一条发。</p>
    <div class="batch-step">
     <b>1. 上传一段长视频（建议 15 秒以上）</b>
@@ -1140,46 +1355,9 @@ body.ed-open{overflow:hidden}
    <div id="sceneList" class="scenes-list"></div>
    <div id="batchResults" class="batch-results"></div>
   </div>
- </details>
-
-   <!-- ================= 自由创作（原素材剪辑） ================= -->
-  <details class="sec" id="freeSec">
-   <summary><span class="sec-ico">🎬</span><span><b>自由创作（原素材剪辑）</b><i>不用行业模板？这里直接一句话出片：实拍素材剪辑 / 文字视频 / 音频，最长 5 分钟</i></span></summary>
-   <div style="padding:14px 18px 20px">
-    <p class="sec-sub">和上面的商家模板是两套独立流程，互不影响：商家模板走 9:16 行业风格；这里走自由创作，可选 30 秒到 5 分钟。</p>
-    <textarea id="freePrompt" class="biz-q" style="min-height:84px;font-size:14.5px;padding:12px" placeholder="例如：做一条 3 分钟的北京秋天城市漫步 vlog，女声温柔，轻音乐，实拍素材成片"></textarea>
-    <div class="adv-row" style="margin-top:10px">
-     <label>模式
-      <span id="freeModes" style="display:inline-flex;gap:6px;flex-wrap:wrap">
-       <button type="button" class="btn-line on" data-fm="auto">自动判断</button>
-       <button type="button" class="btn-line" data-fm="audio">音频 MP3</button>
-       <button type="button" class="btn-line" data-fm="video">文字视频</button>
-       <button type="button" class="btn-line" data-fm="footage">实拍成片</button>
-      </span>
-     </label>
-     <label>时长
-      <select id="freeDur">
-       <option value="30">30 秒</option>
-       <option value="60" selected>60 秒</option>
-       <option value="120">2 分钟</option>
-       <option value="180">3 分钟</option>
-       <option value="300">5 分钟</option>
-      </select>
-     </label>
-     <label>人声 <input type="range" id="freeVoiceVol" min="0" max="100" value="100"><span id="freeVoiceVolVal">100</span>%</label>
-     <label>配乐 <input type="range" id="freeBgmVol" min="0" max="100" value="90"><span id="freeBgmVolVal">90</span>%</label>
-     <button type="button" class="btn-ai" id="freeAiBtn">✨ AI 改写</button>
-     <button type="button" class="btn-main small" id="freeGo">🎬 开始生成</button>
-    </div>
-    <div id="freeOut" style="margin-top:12px"></div>
-   </div>
-  </details>
-
-
-<!-- ================= 商品广告片 L1（PAD-SECTION-L1） ================= -->
-<details class="sec" id="padSec">
- <summary><span class="sec-ico">🎬</span><span><b>商品广告片（0 成本 / 可加 AI 动态镜头）</b><i>1 张产品图 + 3 个卖点 → 15/20/30 秒 9:16 广告片：多角度运镜 / 卖点大字 / 配音 / BGM / 片尾电话；可加 1 个 AI 动态镜头</i></span></summary>
- <div class="pad-body">
+ </section></div>
+     </div>
+     <div class="wb-mode-pane" data-mode="pad" hidden><section class="sec wb-panel" id="padSec"><div class="sec-head"><span class="sec-ico">🛍️</span><div><h2>商品广告片</h2><p class="sec-sub">1 张产品图 + 3 个卖点 → 15/20/30 秒 9:16 广告片：多角度运镜 / 卖点大字 / 配音 / BGM / 片尾电话。</p></div><span class="sec-hint">纯 L1 0 token</span></div> <div class="pad-body">
   <p class="sec-sub">只用一张产品图，本地 FFmpeg 渲染，<b style="color:#7dd3fc">纯 L1 每条 0 token 成本</b>。首次约 60~90 秒；可勾选加 1 个 AI 动态镜头（约 ¥2.5，多等 5~6 分钟），AI 失败自动回退纯 L1。</p>
   <div class="pad-grid">
    <div class="pad-field pad-span2">产品图
@@ -1224,13 +1402,37 @@ body.ed-open{overflow:hidden}
   <div class="pad-err" id="padErr" role="alert"></div>
   <div class="pad-result" id="padResult"></div>
   <p class="pad-note">成片规格 1080×1920 / 30fps / H.264 + AAC，带配音与配乐；配音由 Edge TTS 合成，BGM 来自可商用曲库；AI 镜头由硅基流动 MiniMax-H3 生成（约 ¥2.5/条），AI 画面请勿冒充实拍；成片保留 14 天，请及时下载。</p>
- </div>
-</details>
-
-<!-- ================= 高级模式（原分镜编辑器） ================= -->
- <details class="sec adv" id="advSec">
-  <summary><span class="sec-ico">🛠️</span><span><b>高级模式</b><i>原分镜编辑器：逐句一镜，改文案 / 时长 / 音量后再出片</i></span></summary>
-  <div class="adv-body">
+ </div></section></div>
+     <div class="wb-mode-pane" data-mode="free" hidden><section class="sec wb-panel" id="freeSec"><div class="sec-head"><span class="sec-ico">🤖</span><div><h2>AI 自由创作</h2><p class="sec-sub">不用行业模板，直接一句话出片：实拍素材剪辑 / 文字视频 / 音频，最长 5 分钟。</p></div></div>   <div style="padding:14px 18px 20px">
+    <p class="sec-sub">不用行业模板？直接一句话出片：实拍素材剪辑 / 文字视频 / 音频，最长 5 分钟。</p>
+    <textarea id="freePrompt" class="biz-q" style="min-height:84px;font-size:14.5px;padding:12px" placeholder="例如：做一条 3 分钟的北京秋天城市漫步 vlog，女声温柔，轻音乐，实拍素材成片"></textarea>
+    <div class="adv-row" style="margin-top:10px">
+     <label>模式
+      <span id="freeModes" style="display:inline-flex;gap:6px;flex-wrap:wrap">
+       <button type="button" class="btn-line on" data-fm="auto">自动判断</button>
+       <button type="button" class="btn-line" data-fm="audio">音频 MP3</button>
+       <button type="button" class="btn-line" data-fm="video">文字视频</button>
+       <button type="button" class="btn-line" data-fm="footage">实拍成片</button>
+      </span>
+     </label>
+     <label>时长
+      <select id="freeDur">
+       <option value="30">30 秒</option>
+       <option value="60" selected>60 秒</option>
+       <option value="120">2 分钟</option>
+       <option value="180">3 分钟</option>
+       <option value="300">5 分钟</option>
+      </select>
+     </label>
+     <label>人声 <input type="range" id="freeVoiceVol" min="0" max="100" value="100"><span id="freeVoiceVolVal">100</span>%</label>
+     <label>配乐 <input type="range" id="freeBgmVol" min="0" max="100" value="90"><span id="freeBgmVolVal">90</span>%</label>
+     <button type="button" class="btn-ai" id="freeAiBtn">✨ AI 改写</button>
+     <button type="button" class="btn-main small" id="freeGo">🎬 开始生成</button>
+    </div>
+    <div id="freeOut" style="margin-top:12px"></div>
+   </div>
+  </section></div>
+     <div class="wb-mode-pane" data-mode="pro" hidden><section class="sec adv wb-panel" id="advSec"><div class="sec-head"><span class="sec-ico">🛠️</span><div><h2>专业模式（分镜编辑器）</h2><p class="sec-sub">逐句一镜，改文案 / 时长 / 音量后再出片。熟手用；日常发视频用「模板成片」就够。</p></div></div>  <div class="adv-body">
    <p class="sec-sub">给熟手用的。日常发视频，用上面的 3 步就够了。</p>
    <textarea id="advPrompt" class="biz-q" style="min-height:84px;font-size:14.5px;padding:12px" placeholder="例如：做一条 30 秒的火锅店探店，突出毛肚和锅底，女声亲切，轻快配乐"></textarea>
    <div class="adv-row">
@@ -1244,9 +1446,134 @@ body.ed-open{overflow:hidden}
    <div class="adv-out" id="advOut"></div>
    <div class="adv-result" id="advResult"></div>
   </div>
- </details>
+ </section></div>
+    </div>
+   </section>
 
+   <section class="wb-pane" data-step="4" id="wbPane4" hidden>
+    <section class="sec" id="wbInfo">
+     <div class="sec-head"><span class="sec-ico">📝</span><div><h2>④ 预览与文案</h2><p class="sec-sub">右侧看画面与进度；这里看口播文案、镜头脚本、平台文案和授权说明。不满意去⑤一键改。</p></div><span class="sec-hint">右侧常驻预览</span></div>
+     <div class="wb-info-empty" id="wbInfoEmpty"><b>还没有成片</b>回第③步选一种创作方式生成；生成时右侧会显示进度，成功后这里出现文案与镜头。</div>
+     <div id="wbInfoBody" hidden>
+      <div class="wb-info-grid">
+       <div class="result-info">
+        <div class="script-head"><h3>口播文案</h3><button type="button" class="btn-ai small" id="aiPolishBtn">✨ AI 优化文案</button></div>
+        <div class="script" id="bizScript"></div>
+        <div id="aiPolishWarn" class="warnbox" hidden></div>
+        <details class="lic"><summary>商用授权说明</summary><div class="lic-body" id="bizLicense"></div></details>
+        <details class="scenes"><summary>镜头脚本（<span id="sceneCount">0</span> 个镜头）</summary><div class="scenes-body" id="bizScenes"></div></details>
+       </div>
+       <div>
+        <div class="mkt">
+         <div class="tabs" id="mktTabs" role="tablist">
+          <button type="button" class="tab on" data-tab="douyin" role="tab" aria-selected="true">抖音文案</button>
+          <button type="button" class="tab" data-tab="meituan" role="tab" aria-selected="false">美团文案</button>
+          <button type="button" class="tab" data-tab="moments" role="tab" aria-selected="false">朋友圈文案</button>
+         </div>
+         <div class="tab-body"><div class="mtext" id="mktText"></div><div class="tab-actions"><button type="button" class="btn-line" id="copyMkt">📋 复制这段</button></div></div>
+        </div>
+        <div id="postWarn" class="warnbox" hidden></div>
+       </div>
+      </div>
+     </div>
+     <div id="previewError" class="errorbox" hidden></div>
+     <div class="wb-stage" id="wbBatchStage" hidden></div>
+    </section>
+   </section>
+
+   <section class="wb-pane" data-step="5" id="wbPane5" hidden><section class="sec" id="secRevise">
+  <div class="sec-head"><span class="sec-ico">✂️</span><div><h2>⑤ 一键修改</h2><p class="sec-sub" id="reviseHint">先生成一条视频，再来这里改。改完是一版新的，旧版随时能回去。</p></div><span class="sec-hint">每次 40~95 秒</span></div>
+  <div class="rev-grid" id="revGrid">
+   <button type="button" class="rev-btn" data-act="change_bgm" disabled>🎵<b>换 BGM</b><span>轻快 / 温馨 / 大气 / 动感</span></button>
+   <button type="button" class="rev-btn" data-act="change_style" disabled>🎨<b>换风格</b><span>暖色 / 冷色 / 高饱和 / 胶片</span></button>
+   <button type="button" class="rev-btn" data-act="subtitle_bigger" disabled>🔠<b>字幕放大</b><span>再大一点，手机上更清楚</span></button>
+   <button type="button" class="rev-btn" data-act="change_opening" disabled>🖼️<b>换开头画面</b><span>用你上传的素材开头</span></button>
+   <button type="button" class="rev-btn" data-act="shorten" disabled>⏱️<b>缩短时长</b><span>10~15 秒更抓人</span></button>
+   <button type="button" class="rev-btn" data-act="regenerate" disabled>🔁<b>重新生成</b><span>同一套需求再出一条</span></button>
+  </div>
+  <div class="picker" id="revPicker" hidden></div>
+  <div class="rev-busy" id="revBusy" hidden><span class="spin" aria-hidden="true"></span><b id="revBusyText">正在修改…</b><span>已用时 <b id="revElapsed">0</b> 秒 · 通常 40~95 秒</span></div>
+  <div id="revError" class="errorbox" hidden></div>
+  <div class="versions-wrap">
+   <div class="versions-head"><b>版本记录</b><span>点任意一版可回退（会重新出片，约 1 分钟）</span></div>
+   <div class="versions" id="versions"></div>
+  </div>
+  <div class="rev-text">
+   <label for="revText">也可以直接说一句：</label>
+   <div class="rev-text-row"><input id="revText" maxlength="120" placeholder="例如：换个欢快的音乐 / 字幕再大一点 / 开头换成第二张图 / 回到第1版"><button type="button" class="btn-mic" id="revMic" title="说话输入">🎤</button><button type="button" class="btn-send" id="revSend" disabled>发送修改</button></div>
+   <div class="mic-tip" id="revMicTip" hidden></div>
+   <div class="rev-hint" id="revParseHint" hidden></div>
+   <div class="quick" id="revQuick"></div>
+  </div>
+ </section></section>
+
+   <section class="wb-pane" data-step="6" id="wbPane6" hidden>
+    <section class="sec" id="secExport">
+  <div class="sec-head"><span class="sec-ico">⬇️</span><div><h2>⑥ 导出</h2><p class="sec-sub">成片是竖屏 MP4，可直接发抖音、美团、视频号；下载不了就长按视频保存。批量成片的 zip 也在本页。</p></div><span class="sec-hint">无强制水印</span></div>
+  <div class="export-grid">
+   <a id="dlVideo" class="ex-btn primary disabled" href="#" download aria-disabled="true">⬇️<b>下载视频</b><span>MP4 · 9:16 竖屏</span></a>
+   <button type="button" class="ex-btn" id="saveFolder" disabled>📁<b>选择保存文件夹并下载</b><span>视频 + 音轨 + 文案 + 授权</span></button>
+   <button type="button" class="ex-btn" id="dlCover" disabled>🖼️<b>下载封面</b><span>从成片里截一帧</span></button>
+   <button type="button" class="ex-btn" id="copyScript" disabled>📋<b>复制口播文案</b><span>发点评/私信也能用</span></button>
+   <button type="button" class="ex-btn" id="copyAll" disabled>📑<b>复制全部文案</b><span>口播 + 三个平台</span></button>
+  </div>
+  <div class="license-line" id="exportLicense">素材来源：用户上传（授权由上传方确认）/ 站内可商用素材；BGM：本地合成；配音：Edge TTS 免费合成；AI 合成内容请自行标注。</div>
+  <p class="tiny">提示：素材建议用自己拍的门店照，避免用带别人商标/水印的图。</p>
+ </section>
+    <div class="sec wb-desktop-card">
+     <h3>🖥 更专业？用星籁剪辑桌面版（多轨 / 4K / 自动字幕）</h3>
+     <p>网页工作台负责「快」：一句话、批量、模板；需要多轨精细剪辑、4K、自动字幕时，装 Windows 桌面版。桌面版本地渲染、支持账号登录与工程云同步，不把桌面程序嵌进网页。</p>
+     <div class="wb-export-links"><a class="btn-main small" href="./desktop.html" target="_blank" rel="noopener">查看安装包与说明 →</a><a class="btn-line" href="https://github.com/A678-beep/concat-fork" target="_blank" rel="noopener">开源源码（AGPL-3.0）</a></div>
+    </div>
+    <div class="sec wb-inline" id="wbBatchExport" hidden></div>
+   </section>
+
+   <div class="wb-foot">
+    <button type="button" class="btn-line" id="wbPrev">← 上一步</button>
+    <span class="wb-foot-hint" id="wbFootHint"></span>
+    <button type="button" class="btn-main small" id="wbNext">下一步 →</button>
+   </div>
+  </main>
+
+  <aside class="wb-side" aria-label="常驻预览与本次创作汇总">
+   <section class="sec wb-preview" id="secPreview">
+    <div class="sec-head"><span class="sec-ico">📱</span><div><h2>实时预览</h2><p class="sec-sub">9:16 竖屏 · 无水印</p></div><span class="sec-hint" id="previewTag">还没生成</span></div>
+    <div id="previewEmpty" class="empty"><b>这里会放你的成片</b>选好创作方式点生成，等 1~2 分钟。</div>
+    <div id="previewProgress" class="progress" hidden>
+     <div class="wave" aria-hidden="true"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></div>
+     <h3 id="progressTitle">正在准备出片…</h3>
+     <p id="progressStep">正在理解你的需求…</p>
+     <div class="bar"><i id="progressBar"></i></div>
+     <div class="progress-meta"><span>已用时 <b id="elapsed">0</b> 秒</span><span>预计 40~130 秒，别关页面</span></div>
+     <div class="task-line" id="taskLine" hidden></div>
+    </div>
+    <div id="previewBody" hidden>
+     <div class="vwrap"><video id="bizVideo" controls playsinline preload="metadata"></video><span class="vbadge">9:16 竖屏 · 无水印</span></div>
+     <div class="badges" id="bizBadges"></div>
+     <div class="wb-side-actions">
+      <a id="wbSideDl" class="btn-main small disabled" href="#" download>⬇ 下载成片</a>
+      <button type="button" class="btn-line" id="wbGoRevise">✂️ 去修改</button>
+      <button type="button" class="btn-line" id="wbGoExport">⬇ 去导出</button>
+     </div>
+     <p class="tiny" style="margin-top:8px">成片 14 天内有效，请及时下载；改稿会存新版本，旧版可回退。</p>
+    </div>
+   </section>
+
+   <section class="sec wb-summary">
+    <h3>本次创作</h3>
+    <div id="wbSummary"></div>
+    <div class="wb-desktop-mini"><b>🖥 桌面版更专业</b>多轨 / 4K / 自动字幕，本地渲染。<a href="./desktop.html" target="_blank" rel="noopener">安装包与说明 →</a></div>
+   </section>
+  </aside>
  </div>
+
+ <div class="edit-modal" id="edModal" hidden>
+    <div class="edit-modal-card" role="dialog" aria-modal="true" aria-labelledby="edModalTitle">
+     <div class="edit-modal-head"><b id="edModalTitle">裁剪片段</b><button type="button" class="edit-modal-x" id="edModalX" aria-label="关闭">✕</button></div>
+     <div id="edModalBody"></div>
+    </div>
+   </div>
+
  <footer><a href="../pricing/" style="color:#7dd3fc">套餐定价</a> · <a href="../account/dashboard.html" style="color:#7dd3fc">个人中心</a> · © 2026 星籁 AI 工具导航 · xinglaiai.com 版权所有 · 未经许可禁止镜像/采集/商业转载<br>生成内容由 AI 合成，请按平台规则自行标注；素材版权由上传方负责。</footer>
 </div>
 
@@ -1255,7 +1582,7 @@ body.ed-open{overflow:hidden}
   <button type="button" class="modal-close" id="helpClose" aria-label="关闭帮助">×</button>
   <h3 id="helpTitle">❓ 使用帮助</h3>
   <p>这个页面帮商家把「一句话 + 几张素材」变成能直接发的竖屏短视频。全程不需要剪辑基础。</p>
-  <h4>3 步就能出片</h4>
+  <h4>工作台 6 步</h4>
   <ol>
    <li><b>选模板</b>：门店开业 / 餐饮菜品 / 汽修洗车 / 家政 / 美业 / 教培，24 个行业选 1。</li>
    <li><b>传素材</b>：传 1~3 张门店照或视频。没有就跳过，系统自动配可商用素材。</li>
@@ -2841,6 +3168,47 @@ function restoreProject(pid,cb){
   if(cb)cb(false);else LS.set('biz_pid','');
  });
 }
+/* WB_HOOKS_MAIN：给新工作台提供「素材库 → 本片素材 / BGM」的入口（在主 IIFE 内注入） */
+window.__WB_ADD_MAIN_ASSET = function (a) {
+  a = a || {};
+  if (!a.url) return false;
+  var kind = String(a.type || a.kind || 'image');
+  if (kind !== 'image' && kind !== 'video' && kind !== 'audio') {
+    kind = /\.(mp3|wav|m4a|aac|ogg|flac)$/i.test(a.url) ? 'audio'
+      : /\.(mp4|mov|m4v|webm|mkv)$/i.test(a.url) ? 'video' : 'image';
+  }
+  if (kind === 'audio') return !!window.__WB_SET_MAIN_BGM(a);
+  var src = String(a.url);
+  for (var i = 0; i < STATE.materials.length; i++) {
+    if (STATE.materials[i].src === src) return true;
+  }
+  if (STATE.materials.length >= 12) {
+    toast('本片素材最多 12 个，够用了', 'warn');
+    return false;
+  }
+  var item = {
+    id: 'm' + (++STATE.matSeq), name: a.name || '素材', size: Number(a.size) || 0,
+    kind: kind, src: src, uploading: false, progress: 100
+  };
+  STATE.materials.push(item);
+  renderMats(); syncFlow(); saveDraft();
+  return true;
+};
+window.__WB_SET_MAIN_BGM = function (a) {
+  a = a || {};
+  if (!a.url) return false;
+  var old = STATE.bgm;
+  if (old) STATE.materials = STATE.materials.filter(function (m) { return m.id !== old.id; });
+  var item = {
+    id: 'm' + (++STATE.matSeq), name: a.name || 'BGM', size: Number(a.size) || 0,
+    kind: 'audio', src: a.url, uploading: false, progress: 100
+  };
+  STATE.materials.push(item);
+  STATE.bgm = item;
+  renderMats(); renderBgm(); saveDraft();
+  return true;
+};
+
 window.STUDIO_BGM_INFO=function(){return (STATE.bgm&&STATE.bgm.src)?{id:STATE.bgm.id,name:STATE.bgm.name,src:STATE.bgm.src}:null;};
 window.STUDIO_APPLY_POLISH=function(text){if(!text)return false;if(STATE.d)STATE.d.script=text;var sc=$('bizScript');if(sc)sc.textContent=text;return true;};
 if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',init);else init();
@@ -3481,6 +3849,21 @@ if(pb)pb.addEventListener('click',async function(){
    box.addEventListener('drop',function(ev){ev.preventDefault();box.style.borderColor='';if(ev.dataTransfer&&ev.dataTransfer.files&&ev.dataTransfer.files[0])pickFile(ev.dataTransfer.files[0]);});
   }
  }
+ /* WB_HOOKS_PAD：素材库 → 商品广告产品图（在商品广告 IIFE 内注入） */
+window.__WB_SET_PAD_IMAGE = function (a) {
+  a = a || {};
+  if (!a.url) return false;
+  PAD.url = a.url;
+  PAD.name = a.name || '素材库图片';
+  PAD.file = null;
+  var th = document.getElementById('padThumb');
+  if (th) { th.src = a.url; th.hidden = false; }
+  var t = document.getElementById('padUpTxt');
+  if (t) t.innerHTML = '<b>' + e(PAD.name) + '</b><br>已从素材库选入 · 可生成';
+  status('产品图已从素材库就绪，填好卖点就能生成。', 'ok');
+  return true;
+};
+
  if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',init);else init();
 })();
 </script>
@@ -4506,8 +4889,939 @@ function init(){
  bind();bindTimeline();bindModal();dlInstallGuard();
  renderTimeline();
 }
+/* WB_HOOKS_EDITOR：素材库/行业配置 → 自由剪辑时间轴、BGM（在剪辑 IIFE 内注入） */
+window.__WB_ADD_TIMELINE = function (a) {
+  a = a || {};
+  if (!a.url) return Promise.resolve(false);
+  var kind = /\.(mp4|mov|m4v|webm|mkv)(\?|$)/i.test(a.url) ? 'video' : 'image';
+  return addAssetUrl({ url: a.url, name: a.name || '素材', kind: kind }, false);
+};
+window.__WB_SET_EDITOR_BGM = function (a) {
+  a = a || {};
+  if (!a.url) return false;
+  setBgm({ url: a.url, name: a.name || 'BGM' });
+  return true;
+};
+
 if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',init);else init();
 })();
+</script>
+<script>
+/* WB_WORKBENCH controller */
+/* 星籁剪辑创作工作台 · 6 步流程控制器（新增，不覆盖既有脚本） */
+(function () {
+  'use strict';
+
+  var LS = {
+    step: 'studio_wb_step_v1',
+    mode: 'studio_wb_mode_v1',
+    batchMode: 'studio_wb_batchmode_v1',
+    sel: 'studio_wb_asset_sel_v1',
+    autoMat: 'studio_wb_automat_v1',
+    custom: 'studio_custom_industries_v1',
+    industry: 'studio_wb_industry_v1',
+    filter: 'studio_wb_asset_filter_v1'
+  };
+  var WB = {
+    step: 1,
+    mode: 'template',
+    batchMode: 'materials',
+    filter: 'all',
+    assets: [],
+    sel: {},
+    custom: [],
+    templates: [],
+    industry: null,
+    autoMat: false,
+    batchActive: false,
+    batchResults: [],
+    booted: false
+  };
+  var MODE_LABEL = {
+    template: '模板成片', timeline: '自由剪辑', batch: '批量剪辑',
+    pad: '商品广告', free: 'AI 自由创作', pro: '专业模式'
+  };
+  var BATCH_LABEL = { materials: '多素材批量剪辑', long: '长视频拆条混剪', pad: '商品广告' };
+
+  function $(id) { return document.getElementById(id); }
+  function esc(s) {
+    return String(s == null ? '' : s).replace(/&/g, '&amp;').replace(/</g, '&lt;')
+      .replace(/>/g, '&gt;').replace(/"/g, '&quot;').replace(/'/g, '&#39;');
+  }
+  function read(k, d) {
+    try { var v = localStorage.getItem(k); return v == null ? d : v; } catch (e) { return d; }
+  }
+  function write(k, v) { try { localStorage.setItem(k, v); } catch (e) {} }
+  function toast(msg, type) {
+    var t = $('toast');
+    if (!t) { try { console.log(msg); } catch (e) {} return; }
+    t.textContent = msg; t.className = 'toast show' + (type ? ' ' + type : '');
+    t.hidden = false; clearTimeout(t._wbTm);
+    t._wbTm = setTimeout(function () { t.className = 'toast' + (type ? ' ' + type : ''); t.hidden = true; }, 3200);
+  }
+  function api(path, opt, ms) {
+    var ctrl = (typeof AbortController !== 'undefined') ? new AbortController() : null;
+    var tm = setTimeout(function () { if (ctrl) try { ctrl.abort(); } catch (e) {} }, ms || 60000);
+    var o = Object.assign({ cache: 'no-store' }, opt || {});
+    if (ctrl) o.signal = ctrl.signal;
+    return fetch('/ai-nav/api' + path, o).then(function (r) {
+      clearTimeout(tm);
+      return r.text().then(function (txt) {
+        var d = null;
+        try { d = JSON.parse(txt || '{}'); } catch (e) {}
+        if (!r.ok || (d && d.ok === false)) {
+          var er = new Error((d && (d.hint || d.error)) || ('请求失败（HTTP ' + r.status + '）'));
+          er.status = r.status; er.data = d; throw er;
+        }
+        return d || {};
+      });
+    }).catch(function (e) {
+      clearTimeout(tm);
+      if (e && e.name === 'AbortError') throw new Error('请求超时，请稍后重试');
+      throw e;
+    });
+  }
+  function ws() {
+    try {
+      if (window.XLAuth && typeof XLAuth.user === 'function') {
+        var u = XLAuth.user();
+        if (u && u.workspace_id) return String(u.workspace_id);
+      }
+    } catch (e) {}
+    return '';
+  }
+  function selCount() {
+    var n = 0;
+    for (var k in WB.sel) if (WB.sel[k]) n++;
+    return n;
+  }
+  function matCount() { return document.querySelectorAll('#matList .mat').length; }
+  function tplName() {
+    var el = document.querySelector('#tplGrid .tpl-card.on .tpl-name');
+    if (el) return el.textContent.trim();
+    var h = $('tplHint');
+    if (h) return String(h.textContent || '').replace(/^已选[:：]\s*/, '').trim();
+    return '门店开业引流';
+  }
+  function currentTplId() {
+    var el = document.querySelector('#tplGrid .tpl-card.on');
+    return el ? (el.getAttribute('data-tpl') || '') : '';
+  }
+  function hasPreview() {
+    var b = $('previewBody');
+    return !!(b && !b.hidden);
+  }
+  function anyResult() {
+    if (hasPreview()) return true;
+    var ed = $('edResult'); if (ed && !ed.hidden && ed.innerHTML.trim()) return true;
+    var pad = $('padResult'); if (pad && pad.innerHTML.trim() && pad.style.display !== 'none') return true;
+    var br = $('batchResults'); if (br && br.children.length) return true;
+    var ber = $('batchEditResults'); if (ber && ber.children.length) return true;
+    var adv = $('advResult'); if (adv && adv.innerHTML.trim()) return true;
+    var free = $('freeOut'); if (free && free.innerHTML.trim()) return true;
+    return false;
+  }
+  function modeLabel(m) { return MODE_LABEL[m] || m; }
+
+  /* ---------------- 步骤导航 ---------------- */
+  function goStep(n, silent) {
+    n = Math.max(1, Math.min(6, Number(n) || 1));
+    if (!silent && !canEnter(n)) return;
+    WB.step = n; write(LS.step, String(n));
+    var panes = document.querySelectorAll('.wb-pane');
+    for (var i = 0; i < panes.length; i++) panes[i].hidden = Number(panes[i].getAttribute('data-step')) !== n;
+    var btns = document.querySelectorAll('.wb-step');
+    for (var j = 0; j < btns.length; j++) {
+      var s = Number(btns[j].getAttribute('data-step'));
+      btns[j].className = 'wb-step' + (s === n ? ' on' : '') + (stepDone(s) ? ' done' : '');
+      btns[j].setAttribute('aria-current', s === n ? 'step' : 'false');
+    }
+    var prev = $('wbPrev'); if (prev) prev.disabled = n <= 1;
+    var next = $('wbNext');
+    if (next) {
+      next.disabled = n >= 6;
+      next.textContent = n >= 5 ? '下一步：导出 →' : '下一步 →';
+    }
+    updateFoot();
+    updateStepHints();
+    syncSummary();
+    syncPreviewInfo();
+    if (!silent) {
+      try {
+        var top = $('wbSteps');
+        var y = top ? (top.getBoundingClientRect().top + window.pageYOffset - 12) : 0;
+        window.scrollTo({ top: Math.max(0, y), behavior: 'smooth' });
+      } catch (e) { window.scrollTo(0, 0); }
+    }
+  }
+  function canEnter(n) {
+    if (n <= 1) return true;
+    if (n === 2) {
+      if (!currentTplId()) { toast('先选一个行业模板，或点「其他 / 自定义」用 AI 推断', 'warn'); return false; }
+      return true;
+    }
+    if (n === 3) {
+      if (matCount() > 0 || selCount() > 0 || WB.autoMat) return true;
+      toast('先在素材库上传/勾选素材，或点「没有素材？自动配素材」', 'warn');
+      return false;
+    }
+    if (n === 4) return true;
+    if (n === 5 || n === 6) {
+      if (anyResult()) return true;
+      toast('先生成一条成片，再进入「修改 / 导出」', 'warn');
+      return false;
+    }
+    return true;
+  }
+  function stepDone(n) {
+    if (n === 1) return !!currentTplId();
+    if (n === 2) return matCount() > 0 || selCount() > 0 || WB.autoMat;
+    if (n === 3) return anyResult();
+    if (n === 4) return anyResult();
+    if (n === 5) return anyResult();
+    if (n === 6) return !!(document.getElementById('dlVideo') && (document.getElementById('dlVideo').getAttribute('href') || '#') !== '#');
+    return false;
+  }
+  function updateFoot() {
+    var h = $('wbFootHint'); if (!h) return;
+    var txt = '';
+    if (WB.step === 1) txt = '当前行业：' + tplName();
+    else if (WB.step === 2) txt = '本片素材 ' + matCount() + ' 个 · 已勾选 ' + selCount() + ' 个（勾选后可做批量剪辑）';
+    else if (WB.step === 3) txt = '当前方式：' + modeLabel(WB.mode) + ' · 生成后自动进入预览';
+    else if (WB.step === 4) txt = anyResult() ? '成片已就绪，可点下一步去修改' : '生成中或还没生成：右侧会显示成片与进度';
+    else if (WB.step === 5) txt = '每次修改都会存一版，可以回退';
+    else if (WB.step === 6) txt = '下载不了就长按视频保存；也可用「保存文件夹」一次存齐';
+    h.textContent = txt;
+  }
+  function updateStepHints() {
+    var tpl = tplName();
+    setText('wbStep1Hint', tpl || '24 个模板');
+    setText('wbStep2Hint', matCount() + ' 本片 · ' + selCount() + ' 勾选');
+    setText('wbStep3Hint', modeLabel(WB.mode));
+    setText('wbStep4Hint', hasPreview() ? '成片已生成' : (WB.batchResults.length ? '批量成片 ' + WB.batchResults.length + ' 条' : '等待生成'));
+    var tag = $('previewTag');
+    setText('wbStep5Hint', tag ? (tag.textContent || '待生成') : '待生成');
+    var dl = $('dlVideo');
+    var ok = dl && (dl.getAttribute('href') || '#') !== '#';
+    setText('wbStep6Hint', ok ? '可下载' : '待成片');
+  }
+  function setText(id, t) { var e = $(id); if (e) e.textContent = t == null ? '' : String(t); }
+
+  /* ---------------- 创作方式 Tabs ---------------- */
+  function setMode(m, silent) {
+    if (!MODE_LABEL[m]) m = 'template';
+    WB.mode = m; write(LS.mode, m);
+    var tabs = document.querySelectorAll('.wb-tab');
+    for (var i = 0; i < tabs.length; i++) {
+      var on = tabs[i].getAttribute('data-mode') === m;
+      tabs[i].className = 'wb-tab' + (on ? ' on' : '');
+      tabs[i].setAttribute('aria-selected', on ? 'true' : 'false');
+    }
+    var panes = document.querySelectorAll('.wb-mode-pane');
+    for (var j = 0; j < panes.length; j++) panes[j].hidden = panes[j].getAttribute('data-mode') !== m;
+    if (!silent) updateStepHints();
+    syncSummary();
+  }
+  function setBatchMode(m, silent) {
+    if (!BATCH_LABEL[m]) m = 'materials';
+    WB.batchMode = m; write(LS.batchMode, m);
+    var tabs = document.querySelectorAll('[data-bmode]');
+    for (var i = 0; i < tabs.length; i++) tabs[i].className = (tabs[i].className || '').replace(/\s*\bon\b/g, '') + (tabs[i].getAttribute('data-bmode') === m ? ' on' : '');
+    var a = $('wbBatchMaterials'), b = $('wbBatchLong'); if (a) a.hidden = m !== 'materials'; if (b) b.hidden = m !== 'long';
+    if (!silent) updateStepHints();
+  }
+
+  /* ---------------- 自定义行业 ---------------- */
+  function loadTemplates() {
+    api('/templates', {}, 15000).then(function (d) {
+      WB.templates = (d && d.templates) || [];
+      renderIndustrySelect();
+      var sel = $('indSel');
+      if (sel && !sel.value && currentTplId()) sel.value = 'tpl:' + currentTplId();
+    }).catch(function () {
+      var sel = $('indSel');
+      if (sel && sel.options.length <= 1) {
+        var cards = document.querySelectorAll('#tplGrid .tpl-card');
+        WB.templates = [];
+        for (var i = 0; i < cards.length; i++) WB.templates.push({ id: cards[i].getAttribute('data-tpl'), name: (cards[i].querySelector('.tpl-name') || {}).textContent || '' });
+        renderIndustrySelect();
+      }
+    });
+  }
+  function normCustom(raw) {
+    try {
+      var a = JSON.parse(raw || '[]');
+      if (!Array.isArray(a)) return [];
+      return a.filter(function (x) { return x && (x.industry || x.name); }).slice(-30);
+    } catch (e) { return []; }
+  }
+  function renderIndustrySelect() {
+    var sel = $('indSel'); if (!sel) return;
+    var cur = sel.value || '';
+    var html = ['<option value="">选择行业…</option>'];
+    for (var i = 0; i < WB.templates.length; i++) {
+      var t = WB.templates[i];
+      html.push('<option value="tpl:' + esc(t.id) + '">' + esc(t.name || t.id) + '</option>');
+    }
+    for (var j = 0; j < WB.custom.length; j++) {
+      var c = WB.custom[j];
+      html.push('<option value="custom:' + esc(c.industry || c.name) + '">' + esc(c.industry || c.name) + '（自定义）</option>');
+    }
+    html.push('<option value="__custom__">其他 / 自定义…</option>');
+    sel.innerHTML = html.join('');
+    if (cur) sel.value = cur;
+  }
+  function showCustom(on) {
+    var w = $('indCustomWrap'); if (w) w.hidden = !on;
+    if (on) setTimeout(function () { var i = $('indCustomName'); if (i) i.focus(); }, 30);
+  }
+  function findCustom(name) {
+    for (var i = 0; i < WB.custom.length; i++) if ((WB.custom[i].industry || WB.custom[i].name) === name) return WB.custom[i];
+    return null;
+  }
+  function saveCustom(cfg) {
+    var name = cfg.industry || cfg.name;
+    WB.custom = WB.custom.filter(function (x) { return (x.industry || x.name) !== name; });
+    WB.custom.push(cfg);
+    WB.custom = WB.custom.slice(-30);
+    write(LS.custom, JSON.stringify(WB.custom));
+    renderIndustrySelect();
+    var sel = $('indSel'); if (sel) sel.value = 'custom:' + name;
+  }
+  function clickTpl(id, tries) {
+    var card = document.querySelector('#tplGrid [data-tpl="' + String(id).replace(/"/g, '') + '"]');
+    if (card) { card.click(); return true; }
+    if ((tries || 0) < 8) setTimeout(function () { clickTpl(id, (tries || 0) + 1); }, 450);
+    return false;
+  }
+  function syncSelToTpl(id) {
+    if (WB._applyingIndustry) return;
+    var sel = $('indSel'); if (!sel) return;
+    var v = 'tpl:' + id, found = false;
+    for (var i = 0; i < sel.options.length; i++) if (sel.options[i].value === v) found = true;
+    if (found) sel.value = v;
+    showCustom(false);
+  }
+  function applyIndustry(cfg, announce) {
+    if (!cfg) return;
+    WB._applyingIndustry = true;
+    WB.industry = cfg;
+    write(LS.industry, JSON.stringify(cfg));
+    if (cfg.template_id) clickTpl(cfg.template_id);
+    var mood = cfg.bgm_mood || '';
+    var tryMood = function (n) {
+      var chip = document.querySelector('#musicChips button[data-mood="' + String(mood).replace(/"/g, '') + '"]');
+      if (chip) { chip.click(); return; }
+      if (n < 12) setTimeout(function () { tryMood(n + 1); }, 500);
+    };
+    if (mood) tryMood(0);
+    var box = $('indInferResult');
+    if (box) {
+      var kws = cfg.keywords || [];
+      var tips = cfg.tips || [];
+      box.hidden = false;
+      box.innerHTML = '<div class="wb-infer-head"><b>✨ AI 已推断：' + esc(cfg.industry || '自定义行业') + '</b>'
+        + '<span>模板：' + esc(cfg.template_id || '') + ' · BGM：' + esc(cfg.bgm_mood || '') + ' · 字幕：' + esc(cfg.subtitle_style || '') + '</span></div>'
+        + '<div class="wb-kw">' + kws.map(function (k) { return '<button type="button" data-kw="' + esc(k) + '">' + esc(k) + '</button>'; }).join('') + '</div>'
+        + (tips.length ? '<ul class="wb-tips">' + tips.map(function (t) { return '<li>' + esc(t) + '</li>'; }).join('') + '</ul>' : '');
+    }
+    var st = $('batchSubtitleStyles');
+    if (st && cfg.subtitle_style) {
+      var map = { '大字醒目': 'big', '温暖柔和': 'warm', '简洁白字': 'clean', '潮流黄字': 'yellow' };
+      if (map[cfg.subtitle_style]) st.value = map[cfg.subtitle_style];
+    }
+    syncSummary();
+    setTimeout(function () {
+      WB._applyingIndustry = false;
+      var sel = $('indSel');
+      if (sel && cfg.industry) {
+        var v = 'custom:' + cfg.industry, has = false;
+        for (var i = 0; i < sel.options.length; i++) if (sel.options[i].value === v) has = true;
+        if (has) sel.value = v;
+      }
+    }, 80);
+    if (announce) toast('已应用「' + (cfg.industry || '') + '」的行业配置', 'ok');
+  }
+  function inferIndustry() {
+    var name = ($('indCustomName') || {}).value || '';
+    name = String(name).trim();
+    if (name.length < 2) { toast('至少输入 2 个字的行业名，例如：宠物殡葬', 'warn'); return; }
+    var btn = $('indInferBtn');
+    var st = $('indInferStatus');
+    if (btn) { btn.disabled = true; btn.textContent = '⏳ 推断中…'; }
+    if (st) { st.hidden = false; st.textContent = '正在让 AI 推断模板、配乐、关键词和字幕风格…'; }
+    api('/industry/infer', {
+      method: 'POST', headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ name: name })
+    }, 30000).then(function (d) {
+      if (!d || !d.ok) throw new Error((d && d.hint) || '推断失败');
+      var cfg = {
+        industry: d.industry || name, template_id: d.template_id || 'store_open',
+        bgm_mood: d.bgm_mood || '', subtitle_style: d.subtitle_style || '',
+        keywords: d.keywords || [], tips: d.tips || [], source: d.source || '',
+        created_at: new Date().toISOString()
+      };
+      saveCustom(cfg);
+      showCustom(false);
+      applyIndustry(cfg, true);
+      if (st) { st.hidden = false; st.textContent = '✅ 已完成：' + cfg.industry + '（' + (cfg.source === 'deepseek+mapping' ? 'DeepSeek + 内置映射' : '内置映射') + '）。配置已存本机，下次可直接在下拉里选。'; }
+    }).catch(function (e) {
+      if (st) { st.hidden = false; st.textContent = '❌ ' + (e.message || '推断失败，请重试'); }
+      toast(e.message || '行业推断失败', 'bad');
+    }).then(function () {
+      if (btn) { btn.disabled = false; btn.textContent = '✨ AI 推断配置'; }
+    });
+  }
+
+  /* ---------------- 素材库 ---------------- */
+  function assetKind(a) {
+    var t = String(a.type || '').toLowerCase();
+    if (t === 'image' || t === 'video' || t === 'audio') return t;
+    var u = String(a.url || a.name || '').toLowerCase();
+    if (/\.(jpe?g|png|webp|gif|bmp)$/.test(u)) return 'image';
+    if (/\.(mp3|wav|m4a|aac|ogg|flac)$/.test(u)) return 'audio';
+    if (/\.(mp4|mov|m4v|webm|mkv)$/.test(u)) return 'video';
+    return 'file';
+  }
+  function fmtSize(n) {
+    n = Number(n) || 0;
+    if (n < 1024) return n + ' B';
+    if (n < 1048576) return (n / 1024).toFixed(1) + ' KB';
+    return (n / 1048576).toFixed(1) + ' MB';
+  }
+  function loadAssets() {
+    var q = '/assets?limit=200';
+    if (ws()) q += '&workspace_id=' + encodeURIComponent(ws());
+    api(q, {}, 25000).then(function (d) {
+      var arr = (d && d.assets) || [];
+      WB.assets = arr.map(function (a) { a._kind = assetKind(a); return a; });
+      restoreSel();
+      renderAssets();
+      updateSelUI();
+      syncSummary();
+    }).catch(function (e) {
+      var n = $('wbAssetNotice');
+      if (n) { n.hidden = false; n.textContent = '素材库暂时读取不到：' + (e.message || '网络问题'); }
+    });
+  }
+  function restoreSel() {
+    var arr = [];
+    try { arr = JSON.parse(read(LS.sel, '[]') || '[]'); } catch (e) {}
+    var valid = {};
+    for (var i = 0; i < WB.assets.length; i++) valid[WB.assets[i].url] = true;
+    var out = {};
+    for (var j = 0; j < arr.length; j++) if (valid[arr[j]]) out[arr[j]] = true;
+    WB.sel = out;
+  }
+  function persistSel() { write(LS.sel, JSON.stringify(Object.keys(WB.sel))); }
+  function filteredAssets() {
+    return WB.assets.filter(function (a) { return WB.filter === 'all' || a._kind === WB.filter; });
+  }
+  function renderAssets() {
+    var g = $('wbAssetGrid'), empty = $('wbAssetEmpty'), count = $('wbAssetCount');
+    if (!g) return;
+    var arr = filteredAssets();
+    if (count) count.textContent = WB.assets.length + ' 个素材 · 已勾选 ' + selCount();
+    if (!arr.length) {
+      g.innerHTML = '';
+      if (empty) { empty.hidden = false; empty.innerHTML = '<b>素材库还是空的</b>上传图片 / 视频 / 音频后，会统一出现在这里；没有素材也可以先用「自动配素材」。'; }
+      return;
+    }
+    if (empty) empty.hidden = true;
+    g.innerHTML = arr.map(function (a) {
+      var kind = a._kind;
+      var checked = WB.sel[a.url] ? ' checked' : '';
+      var thumb = '';
+      if (kind === 'image') thumb = '<img src="' + esc(a.url) + '" alt="" loading="lazy">';
+      else if (kind === 'video') thumb = '<span class="wb-ico">🎞️</span><span class="wb-kind">视频</span>';
+      else if (kind === 'audio') thumb = '<span class="wb-ico">🎵</span><span class="wb-kind">音频</span>';
+      else thumb = '<span class="wb-ico">📄</span>';
+      return '<div class="wb-asset' + (WB.sel[a.url] ? ' on' : '') + '" data-url="' + esc(a.url) + '">'
+        + '<label class="wb-asset-check" title="勾选用于批量剪辑"><input type="checkbox" data-acheck="1"' + checked + '></label>'
+        + '<div class="wb-asset-thumb" data-aact="preview" title="点此预览">' + thumb + '</div>'
+        + '<div class="wb-asset-meta"><b title="' + esc(a.name) + '">' + esc(a.name) + '</b>'
+        + '<span>' + esc(kind === 'image' ? '图片' : kind === 'video' ? '视频' : kind === 'audio' ? '音频' : '文件') + ' · ' + fmtSize(a.size) + ' · ' + esc(a.created_at || '') + '</span></div>'
+        + '<div class="wb-asset-acts">'
+        + '<button type="button" data-aact="main" title="加入本片素材（模板成片使用）">＋本片</button>'
+        + '<button type="button" data-aact="timeline" title="加入自由剪辑时间轴">时间轴</button>'
+        + '<button type="button" data-aact="bgm" title="设为 BGM">BGM</button>'
+        + '<button type="button" data-aact="pad" title="设为商品广告产品图">产品图</button>'
+        + '<button type="button" data-aact="del" class="danger" title="从素材库删除">删</button>'
+        + '</div></div>';
+    }).join('');
+  }
+  function assetByUrl(url) {
+    for (var i = 0; i < WB.assets.length; i++) if (WB.assets[i].url === url) return WB.assets[i];
+    return null;
+  }
+  function updateSelUI() {
+    var cards = document.querySelectorAll('#wbAssetGrid .wb-asset');
+    for (var i = 0; i < cards.length; i++) {
+      var u = cards[i].getAttribute('data-url');
+      cards[i].className = 'wb-asset' + (WB.sel[u] ? ' on' : '');
+      var cb = cards[i].querySelector('[data-acheck]');
+      if (cb) cb.checked = !!WB.sel[u];
+    }
+    var c = $('wbAssetCount'); if (c) c.textContent = WB.assets.length + ' 个素材 · 已勾选 ' + selCount();
+    var bc = $('batchSelCount'); if (bc) bc.textContent = String(selCount());
+    var bbtn = $('batchEditStart');
+    if (bbtn && !WB.batchActive) bbtn.disabled = selCount() < 2;
+    updateStepHints();
+    syncSummary();
+  }
+  function toggleSel(url, on) {
+    if (!url) return;
+    if (on) WB.sel[url] = true; else delete WB.sel[url];
+    persistSel();
+    updateSelUI();
+  }
+  function selectRecent() {
+    var arr = filteredAssets().filter(function (a) { return a._kind === 'image' || a._kind === 'video'; }).slice(0, 20);
+    for (var i = 0; i < arr.length; i++) WB.sel[arr[i].url] = true;
+    persistSel(); renderAssets(); updateSelUI();
+    toast('已勾选 ' + arr.length + ' 段素材，可去「批量剪辑」生成', 'ok');
+  }
+  function clearSel() {
+    WB.sel = {}; persistSel(); renderAssets(); updateSelUI();
+  }
+  function uploadAssets(files) {
+    var arr = Array.prototype.slice.call(files || []);
+    if (!arr.length) return;
+    var notice = $('wbAssetNotice');
+    var done = 0, failed = 0;
+    function next() {
+      if (!arr.length) {
+        loadAssets();
+        if (notice) { notice.hidden = false; notice.textContent = '上传完成：成功 ' + done + ' 个' + (failed ? ('，失败 ' + failed + ' 个') : '') + '。'; }
+        toast('素材上传完成', 'ok');
+        return;
+      }
+      var f = arr.shift();
+      if (f.size > 100 * 1024 * 1024) { failed++; toast(f.name + ' 超过 100MB，已跳过', 'warn'); return next(); }
+      var fd = new FormData(); fd.append('file', f, f.name);
+      var xhr = new XMLHttpRequest();
+      xhr.open('POST', '/ai-nav/api/upload', true);
+      xhr.timeout = 300000;
+      if (notice) { notice.hidden = false; notice.textContent = '正在上传：' + f.name + '（' + fmtSize(f.size) + '）…'; }
+      xhr.upload.onprogress = function (ev) {
+        if (notice && ev.lengthComputable && ev.total) notice.textContent = '正在上传：' + f.name + ' ' + Math.round(ev.loaded / ev.total * 100) + '%';
+      };
+      xhr.onload = function () {
+        var d = null; try { d = JSON.parse(xhr.responseText || '{}'); } catch (e) {}
+        if (xhr.status >= 200 && xhr.status < 300 && d && d.ok) { done++; }
+        else { failed++; toast('上传失败：' + ((d && (d.hint || d.error)) || f.name), 'warn'); }
+        next();
+      };
+      xhr.onerror = function () { failed++; toast('上传失败：网络中断', 'warn'); next(); };
+      xhr.ontimeout = function () { failed++; toast('上传超时：' + f.name, 'warn'); next(); };
+      xhr.send(fd);
+    }
+    next();
+  }
+  function doAssetAction(url, act) {
+    var a = assetByUrl(url); if (!a) return;
+    if (act === 'preview') { try { window.open(a.url, '_blank', 'noopener'); } catch (e) {} return; }
+    if (act === 'main') {
+      if (a._kind === 'audio') { if (window.__WB_SET_MAIN_BGM) { window.__WB_SET_MAIN_BGM(a); toast('已设为 BGM', 'ok'); } }
+      else if (window.__WB_ADD_MAIN_ASSET) {
+        var ok = window.__WB_ADD_MAIN_ASSET(a);
+        toast(ok ? '已加入本片素材（模板成片会用到）' : '加入失败：本片素材最多 12 个', ok ? 'ok' : 'warn');
+      }
+      updateStepHints(); syncSummary();
+      return;
+    }
+    if (act === 'timeline') {
+      setMode('timeline'); goStep(3, true);
+      if (window.__WB_ADD_TIMELINE) {
+        Promise.resolve(window.__WB_ADD_TIMELINE(a)).then(function (ok) {
+          toast(ok ? '已加入自由剪辑时间轴' : '加入失败，请查看剪辑区提示', ok ? 'ok' : 'warn');
+        }).catch(function (e) { toast('加入失败：' + (e.message || e), 'warn'); });
+      } else toast('自由剪辑还没准备好，请刷新页面', 'warn');
+      return;
+    }
+    if (act === 'bgm') {
+      if (a._kind !== 'audio') { toast('只有音频素材能做 BGM', 'warn'); return; }
+      if (window.__WB_SET_MAIN_BGM) window.__WB_SET_MAIN_BGM(a);
+      if (window.__WB_SET_EDITOR_BGM) window.__WB_SET_EDITOR_BGM(a);
+      toast('已设为 BGM（模板成片 / 自由剪辑共用）', 'ok');
+      syncSummary();
+      return;
+    }
+    if (act === 'pad') {
+      if (a._kind !== 'image') { toast('产品图需要图片素材', 'warn'); return; }
+      setMode('pad'); goStep(3, true);
+      if (window.__WB_SET_PAD_IMAGE) { var ok2 = window.__WB_SET_PAD_IMAGE(a); toast(ok2 ? '已设为商品广告产品图' : '设置失败', ok2 ? 'ok' : 'warn'); }
+      else toast('商品广告还没准备好，请刷新页面', 'warn');
+      return;
+    }
+    if (act === 'del') {
+      if (!window.confirm('从素材库删除「' + (a.name || '') + '」？删除后不可恢复。')) return;
+      var q = '/assets?url=' + encodeURIComponent(a.url);
+      if (ws()) q += '&workspace_id=' + encodeURIComponent(ws());
+      api(q, { method: 'DELETE' }, 20000).then(function (d) {
+        if (!d || !d.ok) throw new Error((d && d.hint) || '删除失败');
+        delete WB.sel[a.url]; persistSel();
+        WB.assets = WB.assets.filter(function (x) { return x.url !== a.url; });
+        renderAssets(); updateSelUI();
+        toast('已删除：' + (a.name || a.url), 'ok');
+      }).catch(function (e) { toast('删除失败：' + (e.message || e), 'bad'); });
+    }
+  }
+
+  /* ---------------- 批量剪辑 ---------------- */
+  function selectedClips() {
+    var out = [];
+    for (var i = 0; i < WB.assets.length; i++) {
+      var a = WB.assets[i];
+      if (!WB.sel[a.url]) continue;
+      if (a._kind !== 'image' && a._kind !== 'video') continue;
+      var o = { url: a.url, kind: a._kind };
+      if (a._kind === 'image') o.duration = 3;
+      out.push(o);
+      if (out.length >= 20) break;
+    }
+    return out;
+  }
+  function startBatch() {
+    if (WB.batchActive) { toast('正在渲染，请等这一批完成', 'warn'); return; }
+    var clips = selectedClips();
+    if (clips.length < 2) { toast('先在素材库勾选至少 2 个图片/视频（建议 5~20 个）', 'warn'); return; }
+    var count = parseInt(($('batchCount') || {}).value || '3', 10) || 3;
+    var stylesMode = ($('batchSubtitleStyles') || {}).value || 'cycle';
+    var styles = stylesMode === 'cycle' ? ['big', 'warm', 'clean'] : [stylesMode];
+    var bgmUrls = [];
+    if ((($('batchBgmMode') || {}).value || 'auto') === 'auto') {
+      for (var i = 0; i < WB.assets.length && bgmUrls.length < 3; i++) {
+        if (WB.assets[i]._kind === 'audio') bgmUrls.push(WB.assets[i].url);
+      }
+    }
+    var body = {
+      clips: clips, count: count,
+      aspect: ($('batchAspect') || {}).value || '9:16',
+      fit_mode: ($('batchFit') || {}).value || 'cover',
+      resolution: ($('batchResolution') || {}).value || '1080p',
+      subtitle_text: (($('batchSubtitle') || {}).value || '').trim(),
+      subtitle_styles: styles,
+      bgm_urls: bgmUrls,
+      bgm_volume: 0.2,
+      keep_original_audio: true
+    };
+    WB.batchActive = true;
+    var btn = $('batchEditStart'); if (btn) { btn.disabled = true; btn.textContent = '⏳ 正在排队渲染…'; }
+    var box = $('batchEditProgress'); if (box) box.hidden = false;
+    var bar = $('batchEditBar'); if (bar) bar.style.width = '2%';
+    setText('batchEditTxt', '已提交 ' + clips.length + ' 段素材 × ' + count + ' 条，正在排队…');
+    var err = $('batchEditError'); if (err) err.hidden = true;
+    $('batchEditResults') && ($('batchEditResults').innerHTML = '');
+    api('/edit/batch', {
+      method: 'POST', headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(body)
+    }, 30000).then(function (d) {
+      if (!d || !d.ok || !d.task_id) throw new Error((d && d.hint) || '提交失败');
+      toast('已进入渲染队列（任务 ' + d.task_id + '）', 'ok');
+      pollBatch(d.task_id);
+    }).catch(function (e) {
+      WB.batchActive = false;
+      if (btn) { btn.disabled = false; btn.textContent = '🎬 开始批量生成'; }
+      setText('batchEditTxt', '提交失败：' + (e.message || e));
+      if (err) { err.hidden = false; err.innerHTML = '<b>提交失败</b><p>' + esc(e.message || e) + '</p>'; }
+      toast('批量任务提交失败：' + (e.message || e), 'bad');
+    });
+  }
+  function pollBatch(task) {
+    api('/edit/batch/' + encodeURIComponent(task), {}, 20000).then(function (st) {
+      if (!st || !st.task_id) throw new Error('任务状态异常');
+      var p = Number(st.progress) || 0;
+      var bar = $('batchEditBar'); if (bar) bar.style.width = Math.max(2, Math.min(100, p)) + '%';
+      setText('batchEditTxt', (st.status === 'done' ? '✅ 完成' : st.status === 'failed' ? '❌ 失败' : '⏳ 渲染中')
+        + '：' + p + '% · 已出 ' + (st.results || []).length + '/' + st.count + ' 条' + (st.zip_url ? ' · zip 已就绪' : ''));
+      renderBatchResults(st);
+      if (st.status === 'done' || st.status === 'failed') {
+        WB.batchActive = false;
+        var btn = $('batchEditStart'); if (btn) { btn.disabled = false; btn.textContent = '🎬 开始批量生成'; }
+        if ((st.results || []).length) {
+          toast('批量成片完成：' + st.results.length + ' 条', 'ok');
+          goStep(4, true);
+        } else {
+          toast('批量成片全部失败：' + ((st.hint || '').slice(0, 60)), 'bad');
+        }
+        return;
+      }
+      setTimeout(function () { pollBatch(task); }, 1500);
+    }).catch(function (e) {
+      setText('batchEditTxt', '查询失败，稍后自动重试：' + (e.message || e));
+      setTimeout(function () { pollBatch(task); }, 2500);
+    });
+  }
+  function renderBatchResults(st) {
+    WB.batchResults = (st && st.results) || [];
+    var box = $('batchEditResults');
+    if (box) {
+      box.innerHTML = WB.batchResults.map(function (r, i) {
+        return '<div class="bcard wb-bcard"><video controls playsinline preload="metadata" src="' + esc(r.video_url || '') + '"></video>'
+          + '<div class="bcard-body"><h4>版本 ' + (r.variant || (i + 1)) + ' <span>' + esc(r.subtitle_style || '') + '</span></h4>'
+          + '<p>时长 ' + (r.duration || '?') + ' 秒 · ' + (r.width || '?') + '×' + (r.height || '?') + ' · ' + fmtSize(r.size) + '</p>'
+          + '<div class="acts"><a class="btn-line" href="' + esc(r.download_url || r.video_url || '') + '" download="星籁剪辑-批量-' + (i + 1) + '.mp4">⬇ 下载</a>'
+          + '<a class="btn-line" href="' + esc(r.video_url || '') + '" target="_blank" rel="noopener">预览</a></div></div></div>';
+      }).join('');
+    }
+    var zipWrap = $('batchEditZip'), zip = $('batchZipLink');
+    if (zipWrap && zip) {
+      if (st && st.zip_url) { zip.href = st.zip_url; zipWrap.hidden = false; }
+      else zipWrap.hidden = true;
+    }
+    var pe = $('previewEmpty');
+    if (pe && !hasPreview() && WB.batchResults.length) {
+      pe.innerHTML = '<b>本次批量成片 ' + WB.batchResults.length + ' 条</b>在下方预览区逐条看/下载，或点「打包下载全部」。<br>想改成模板成片？回第③步选「模板成片」。';
+    }
+    var stage = $('wbBatchStage');
+    if (stage) {
+      if (WB.batchResults.length) {
+        stage.hidden = false;
+        stage.innerHTML = '<div class="wb-stage-head"><b>本次批量成片 ' + WB.batchResults.length + ' 条</b><span>每条顺序 / 时长 / 字幕样式不同</span></div>'
+          + '<div class="wb-stage-grid">' + WB.batchResults.map(function (r, i) {
+            return '<div class="wb-stage-item"><video controls playsinline preload="metadata" src="' + esc(r.video_url || '') + '"></video>'
+              + '<div class="wb-stage-meta">版本 ' + (r.variant || i + 1) + ' · ' + (r.duration || '?') + ' 秒 · <a href="' + esc(r.download_url || r.video_url || '') + '" download>下载</a></div></div>';
+          }).join('') + '</div>' + (st && st.zip_url ? '<a class="btn-line" href="' + esc(st.zip_url) + '">⬇ 打包下载全部（zip）</a>' : '');
+      } else stage.hidden = true;
+    }
+    var ex = $('wbBatchExport');
+    if (ex) {
+      if (st && st.zip_url) {
+        ex.hidden = false;
+        ex.innerHTML = '<b>📦 批量成片已打包</b><p>' + WB.batchResults.length + ' 条视频 · ' + esc(st.finished_at || '') + '</p><div class="wb-export-links"><a class="btn-main small" href="' + esc(st.zip_url) + '">⬇ 下载 zip</a><a class="btn-line" href="#" data-wb-goto="4">查看每条成片</a></div>';
+      } else ex.hidden = true;
+    }
+  }
+
+  /* ---------------- 预览 / 汇总同步 ---------------- */
+  function syncPreviewInfo() {
+    var has = hasPreview() || WB.batchResults.length > 0;
+    var body = $('wbInfoBody'), empty = $('wbInfoEmpty');
+    if (body) body.hidden = !has;
+    if (empty) empty.hidden = has;
+  }
+  function syncSideDownload() {
+    var dl = $('dlVideo'), side = $('wbSideDl');
+    if (!dl || !side) return;
+    var href = dl.getAttribute('href') || '#';
+    var valid = href && href !== '#';
+    var wantHref = valid ? href : '#';
+    var wantDl = valid ? (dl.getAttribute('download') || '星籁剪辑-成片.mp4') : '';
+    // 幂等：只在值变化时写属性，避免 MutationObserver 因自身写入而无限回调
+    if ((side.getAttribute('href') || '') !== wantHref) side.setAttribute('href', wantHref);
+    if (wantDl) {
+      if ((side.getAttribute('download') || '') !== wantDl) side.setAttribute('download', wantDl);
+    } else if (side.hasAttribute('download')) side.removeAttribute('download');
+    var hasDisabled = side.classList.contains('disabled');
+    if (valid && hasDisabled) { side.classList.remove('disabled'); side.removeAttribute('aria-disabled'); }
+    if (!valid && !hasDisabled) { side.classList.add('disabled'); side.setAttribute('aria-disabled', 'true'); }
+  }
+  function syncSummary() {
+    var box = $('wbSummary'); if (!box) return;
+    var mood = '';
+    var chip = document.querySelector('#musicChips button.on[data-mood]');
+    if (chip) mood = chip.getAttribute('data-mood');
+    if (!mood && WB.industry) mood = WB.industry.bgm_mood || '';
+    if (!mood) { var b = window.STUDIO_BGM_INFO ? window.STUDIO_BGM_INFO() : null; if (b && b.name) mood = b.name; }
+    var batchN = WB.batchResults.length;
+    var status = hasPreview() ? ('成片已生成' + (batchN ? ' · 批量 ' + batchN + ' 条' : ''))
+      : (batchN ? ('批量成片 ' + batchN + ' 条 · 在预览区下载') : '还没生成');
+    var rows = [
+      ['行业', tplName() + (WB.industry ? '（自定义：' + WB.industry.industry + '）' : '')],
+      ['素材', '本片 ' + matCount() + ' · 勾选 ' + selCount()],
+      ['方式', modeLabel(WB.mode)],
+      ['配乐', mood || '默认'],
+      ['状态', status]
+    ];
+    box.innerHTML = rows.map(function (r) { return '<div class="wb-sum-row"><span>' + esc(r[0]) + '</span><b>' + esc(r[1]) + '</b></div>'; }).join('')
+      + '<div class="wb-sum-actions"><button type="button" class="btn-line small" data-wb-goto="2">去素材库</button><button type="button" class="btn-line small" data-wb-goto="3">去创作</button></div>';
+  }
+
+  /* ---------------- 绑定 ---------------- */
+  function bindSteps() {
+    var btns = document.querySelectorAll('.wb-step');
+    for (var i = 0; i < btns.length; i++) {
+      (function (b) {
+        b.addEventListener('click', function () { goStep(Number(b.getAttribute('data-step'))); });
+      })(btns[i]);
+    }
+    var prev = $('wbPrev'); if (prev) prev.addEventListener('click', function () { goStep(WB.step - 1); });
+    var next = $('wbNext'); if (next) next.addEventListener('click', function () { goStep(WB.step + 1); });
+    document.addEventListener('click', function (e) {
+      var b = e.target && e.target.closest ? e.target.closest('[data-wb-goto]') : null;
+      if (!b) return;
+      e.preventDefault();
+      goStep(Number(b.getAttribute('data-wb-goto')));
+    });
+  }
+  function bindModes() {
+    var tabs = document.querySelectorAll('.wb-tab');
+    for (var i = 0; i < tabs.length; i++) {
+      (function (b) {
+        b.addEventListener('click', function () { setMode(b.getAttribute('data-mode')); });
+      })(tabs[i]);
+    }
+    var bm = document.querySelectorAll('[data-bmode]');
+    for (var j = 0; j < bm.length; j++) {
+      (function (b) {
+        b.addEventListener('click', function () { setBatchMode(b.getAttribute('data-bmode')); });
+      })(bm[j]);
+    }
+  }
+  function bindIndustry() {
+    var sel = $('indSel');
+    if (sel) sel.addEventListener('change', function () {
+      var v = this.value;
+      if (v === '__custom__') { showCustom(true); return; }
+      showCustom(false);
+      if (v.indexOf('tpl:') === 0) {
+        WB.industry = null;
+        WB._applyingIndustry = true;
+        clickTpl(v.slice(4));
+        setTimeout(function () { WB._applyingIndustry = false; }, 60);
+        var r = $('indInferResult'); if (r) r.hidden = true;
+        var st = $('indInferStatus'); if (st) st.hidden = true;
+      } else if (v.indexOf('custom:') === 0) {
+        var cfg = findCustom(v.slice(7));
+        if (cfg) applyIndustry(cfg, true);
+      }
+    });
+    var btn = $('indInferBtn'); if (btn) btn.addEventListener('click', inferIndustry);
+    var open = $('indOpenCustom'); if (open) open.addEventListener('click', function () { showCustom(true); });
+    var input = $('indCustomName');
+    if (input) input.addEventListener('keydown', function (e) { if (e.key === 'Enter') { e.preventDefault(); inferIndustry(); } });
+    var clear = $('indClearBtn');
+    if (clear) clear.addEventListener('click', function () {
+      if (input) input.value = '';
+      showCustom(false);
+      WB.industry = null;
+      var r = $('indInferResult'); if (r) r.hidden = true;
+      var st = $('indInferStatus'); if (st) st.hidden = true;
+      if (sel) sel.value = 'tpl:' + (currentTplId() || 'store_open');
+      toast('已清除自定义行业，模板保持不变', 'ok');
+    });
+    var result = $('indInferResult');
+    if (result) result.addEventListener('click', function (e) {
+      var b = e.target && e.target.closest ? e.target.closest('[data-kw]') : null;
+      if (!b) return;
+      var kw = b.getAttribute('data-kw') || '';
+      var q = $('bizPrompt');
+      if (q) {
+        q.value = (q.value ? q.value.replace(/\s+$/, '') + ' ' : '') + kw;
+        try { q.dispatchEvent(new Event('input', { bubbles: true })); } catch (x) {}
+        q.focus();
+        toast('已把关键词加进一句话，改成你的店名即可', 'ok');
+      }
+    });
+    var grid = $('tplGrid');
+    if (grid) grid.addEventListener('click', function (e) {
+      var c = e.target && e.target.closest ? e.target.closest('[data-tpl]') : null;
+      if (c) setTimeout(function () { syncSelToTpl(c.getAttribute('data-tpl')); }, 0);
+    }, true);
+  }
+  function bindAssets() {
+    var up = $('wbAssetUploadBtn'), file = $('wbAssetFile');
+    if (up && file) up.addEventListener('click', function () { file.click(); });
+    if (file) file.addEventListener('change', function () { uploadAssets(this.files); this.value = ''; });
+    var mp = $('wbMatPick'), mi = $('matInput');
+    if (mp && mi) mp.addEventListener('click', function () { mi.click(); });
+    var auto = $('wbAutoMat');
+    if (auto) auto.addEventListener('click', function () {
+      WB.autoMat = !WB.autoMat; write(LS.autoMat, WB.autoMat ? '1' : '0');
+      updateAutoMatNote(); updateStepHints(); syncSummary();
+      toast(WB.autoMat ? '已设置：没素材时用系统可商用素材自动匹配' : '已取消自动配素材', 'ok');
+    });
+    var filters = document.querySelectorAll('#wbAssetFilters [data-filter]');
+    for (var i = 0; i < filters.length; i++) {
+      (function (b) {
+        b.addEventListener('click', function () {
+          WB.filter = b.getAttribute('data-filter') || 'all';
+          write(LS.filter, WB.filter);
+          for (var j = 0; j < filters.length; j++) filters[j].className = filters[j] === b ? 'on' : '';
+          renderAssets(); updateSelUI();
+        });
+      })(filters[i]);
+    }
+    var g = $('wbAssetGrid');
+    if (g) {
+      g.addEventListener('change', function (e) {
+        var cb = e.target && e.target.closest ? e.target.closest('[data-acheck]') : null;
+        if (!cb) return;
+        var card = cb.closest('.wb-asset');
+        toggleSel(card ? card.getAttribute('data-url') : '', cb.checked);
+      });
+      g.addEventListener('click', function (e) {
+        var b = e.target && e.target.closest ? e.target.closest('[data-aact]') : null;
+        if (!b) return;
+        var card = b.closest('.wb-asset');
+        var url = card ? card.getAttribute('data-url') : '';
+        doAssetAction(url, b.getAttribute('data-aact'));
+      });
+    }
+    var selAll = $('batchSelectAll'); if (selAll) selAll.addEventListener('click', selectRecent);
+    var clr = $('batchClearSel'); if (clr) clr.addEventListener('click', clearSel);
+  }
+  function updateAutoMatNote() {
+    var n = $('wbAutoMatNote');
+    if (n) { n.hidden = !WB.autoMat; n.textContent = WB.autoMat ? '已开启：生成时未上传素材，会自动匹配可商用素材。' : ''; }
+    var b = $('wbAutoMat');
+    if (b) b.textContent = WB.autoMat ? '✅ 已设置自动配素材（点此取消）' : '✨ 没有素材？自动配素材';
+  }
+  function bindBatch() {
+    var go = $('batchEditStart');
+    if (go) go.addEventListener('click', startBatch);
+    var sub = $('batchSubtitleStyles');
+    if (sub) sub.addEventListener('change', function () { syncSummary(); });
+  }
+  function bindSide() {
+    var e = $('wbGoExport'); if (e) e.addEventListener('click', function () { goStep(6); });
+    var d = $('wbGoRevise'); if (d) d.addEventListener('click', function () { goStep(5); });
+  }
+  function observePreview() {
+    var targets = ['previewProgress', 'previewBody', 'previewError', 'previewTag', 'dlVideo', 'edResult', 'padResult', 'batchResults'];
+    if (typeof MutationObserver === 'undefined') return;
+    var mo = new MutationObserver(function () {
+      syncPreviewInfo(); syncSummary(); updateStepHints(); syncSideDownload();
+      var prog = $('previewProgress'), body = $('previewBody'), err = $('previewError');
+      var active = (prog && !prog.hidden) || (body && !body.hidden) || (err && !err.hidden && err.innerHTML.trim());
+      if (active && WB.step < 4) goStep(4, true);
+    });
+    for (var i = 0; i < targets.length; i++) {
+      var el = $(targets[i]);
+      if (el) mo.observe(el, { attributes: true, childList: true, subtree: true, characterData: true });
+    }
+  }
+
+  /* ---------------- 启动 ---------------- */
+  function boot() {
+    if (WB.booted) return;
+    WB.booted = true;
+    WB.step = parseInt(read(LS.step, '1'), 10) || 1;
+    WB.mode = read(LS.mode, 'template') || 'template';
+    if (!MODE_LABEL[WB.mode]) WB.mode = 'template';
+    WB.batchMode = read(LS.batchMode, 'materials') || 'materials';
+    WB.filter = read(LS.filter, 'all') || 'all';
+    WB.autoMat = read(LS.autoMat, '0') === '1';
+    WB.custom = normCustom(read(LS.custom, '[]'));
+    try { WB.industry = JSON.parse(read(LS.industry, 'null') || 'null'); } catch (e) { WB.industry = null; }
+    try {
+      var f = document.querySelector('#wbAssetFilters [data-filter="' + WB.filter + '"]');
+      if (f) { var fs = document.querySelectorAll('#wbAssetFilters [data-filter]'); for (var i = 0; i < fs.length; i++) fs[i].className = fs[i] === f ? 'on' : ''; }
+    } catch (e) {}
+    bindSteps(); bindModes(); bindIndustry(); bindAssets(); bindBatch(); bindSide();
+    observePreview();
+    updateAutoMatNote();
+    setMode(WB.mode, true); setBatchMode(WB.batchMode, true);
+    goStep(WB.step, true);
+    loadTemplates(); loadAssets();
+    syncSideDownload();
+    setInterval(syncSideDownload, 1200);
+  }
+  if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', boot);
+  else setTimeout(boot, 0);
+})();
+
 </script>
 <script defer src="../assets/auth.js"></script>
 </body></html>
