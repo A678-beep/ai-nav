@@ -3570,7 +3570,7 @@ function updateThumbDOM(c){
 function ensureThumb(c){
  if(!c||c.thumb||c._thumbBusy)return;
  c._thumbBusy=true;
- var at=c.kind==='video'?(Number(c.start)||0)+0.05:0;
+ var at=c.kind==='video'?((Number(c.start)||0)+Math.min(Math.max(clipLen(c)*0.12,0.2),5)):0;
  postJSON('/edit/thumbnail',{url:c.url,at:at},60000).then(function(d){
   if(d&&d.ok&&d.url){c.thumb=d.url;updateThumbDOM(c);}
  }).catch(function(){}).then(function(){c._thumbBusy=false;});
