@@ -655,7 +655,7 @@ footer.site a:hover{color:#fff;border-color:rgba(148,163,184,.4)}
       <!-- 话术工坊 -->
       <section class="card" id="sec-scripts">
         <div class="sec-h"><span class="sec-no">5</span><h2>话术工坊</h2><span class="tag">3 条差异化 · 合规检查</span></div>
-        <p class="sec-sub">按意向等级生成 3 条不同角度的话术，自动做合规检查（命中词高亮 + 替换建议）。<b style="color:#fde68a">需商家手动发送</b>，系统不会代发。</p>
+        <p class="sec-sub">按意向等级生成 3 条不同角度的话术，自动做合规检查（命中词高亮 + 替换建议）。<b style="color:var(--xl-warn)">需商家手动发送</b>，系统不会代发。</p>
         <div class="row" style="margin-bottom:6px">
           <select id="scriptLevel" class="inp grow" aria-label="选择意向等级" style="min-width:150px;max-width:230px">
             <option value="high">高意向话术</option>
@@ -672,9 +672,9 @@ footer.site a:hover{color:#fff;border-color:rgba(148,163,184,.4)}
         <div class="sec-h"><span class="sec-no">6</span><h2>数据复盘</h2><span class="tag" id="statsTag">示例数据</span></div>
         <p class="sec-sub">6 个指标看投入产出：抓了多少、几个真高意向、触达和回复多少、最终成线索几条、花了多少成本。</p>
         <div class="metrics" id="metricsOut"></div>
-        <h4 style="margin:16px 0 0;font-size:13.5px;color:#9ae6ff">平台效果对比</h4>
+        <h4 style="margin:16px 0 0;font-size:13.5px;color:var(--xl-accent)">平台效果对比</h4>
         <div class="plat-list" id="platOut"></div>
-        <h4 style="margin:18px 0 0;font-size:13.5px;color:#9ae6ff">自定义数据维度</h4>
+        <h4 style="margin:18px 0 0;font-size:13.5px;color:var(--xl-accent)">自定义数据维度</h4>
         <div class="dim-toolbar">
           <select id="dimBy" class="inp" aria-label="选择统计维度">
             <option value="platform">按平台</option>
@@ -686,7 +686,7 @@ footer.site a:hover{color:#fff;border-color:rgba(148,163,184,.4)}
         </div>
         <div class="dim-bars" id="dimOut"><div class="empty">选择维度后点「刷新」查看分组数据。</div></div>
         <div class="dim-legend" id="dimLegend"></div>
-        <h4 style="margin:16px 0 0;font-size:13.5px;color:#9ae6ff">AI 优化建议（可执行清单）</h4>
+        <h4 style="margin:16px 0 0;font-size:13.5px;color:var(--xl-accent)">AI 优化建议（可执行清单）</h4>
         <ul class="advice" id="adviceOut"></ul>
       </section>
 
@@ -869,7 +869,8 @@ footer.site a:hover{color:#fff;border-color:rgba(148,163,184,.4)}
 <script>
 (function () {
   'use strict';
-  var API = '/ai-nav/api/leadgen';
+  var API = /(^|\.)github\.io$/i.test(location.hostname) ? 'https://xinglaiai.com/ai-nav/api/leadgen' : '/ai-nav/api/leadgen';
+  var API_HEALTH = /(^|\.)github\.io$/i.test(location.hostname) ? 'https://xinglaiai.com/ai-nav/api/health' : '/ai-nav/api/health';
   var LS_CFG = 'leadgen_cfg_v1';
   var LS_SCRIPTS = 'leadgen_scripts_v1';
   var PLATFORMS = ['抖音', '小红书', '美团', '58同城', '大众点评', '快手', '视频号'];
@@ -1103,7 +1104,7 @@ footer.site a:hover{color:#fff;border-color:rgba(148,163,184,.4)}
     return SEARCH.inflight;
   }
   function probeSearchFallback() {
-    return api('', { url: '/ai-nav/api/health', timeout: 8000, silent: true }).then(function (h) {
+    return api('', { url: API_HEALTH, timeout: 8000, silent: true }).then(function (h) {
       if (h && h.ok && h.leadgen) return probeMineLight();
       setSearchState('failed', false, '后端健康检查未通过');
       return false;
@@ -1172,7 +1173,7 @@ footer.site a:hover{color:#fff;border-color:rgba(148,163,184,.4)}
       return '<div class="mine-item">' +
         '<div class="mi-h"><span class="badge ' + (hi ? 'hi' : 'pot') + '">' + (hi ? '高意向' : '潜在') + '</span>' +
         '<b>' + esc(x.platform || '公开网页') + '</b><span>来源：公开搜索</span>' +
-        '<span class="score' + (hi ? ' hi' : '') + '">' + esc(score) + '</span><span style="color:#54657c;font-size:11px">/10</span></div>' +
+        '<span class="score' + (hi ? ' hi' : '') + '">' + esc(score) + '</span><span style="color:var(--xl-txt2);font-size:11px">/10</span></div>' +
         '<p>' + esc(short) + '</p>' +
         (url ? '<a href="' + esc(url) + '" target="_blank" rel="noopener nofollow">查看原文 ↗</a>' : '') +
         '</div>';
@@ -1456,14 +1457,14 @@ footer.site a:hover{color:#fff;border-color:rgba(148,163,184,.4)}
     if (!audienceHtml) audienceHtml = '<p>（未返回目标客群）</p>';
     var signals = d.intent_signals || d.intent || [];
     if (signals && signals.length) {
-      audienceHtml += '<p style="margin-top:8px;color:#8ba0b8">意向信号</p><div class="kwgroup">' +
+      audienceHtml += '<p style="margin-top:8px;color:var(--xl-txt2)">意向信号</p><div class="kwgroup">' +
         signals.map(function (s) { return '<span>' + esc(typeof s === 'string' ? s : (s.text || s.name || JSON.stringify(s))) + '</span>'; }).join('') + '</div>';
     }
     // 兼容：search_scope（正式 [{platform,section,why}]）/ scope（别名 [{platform,board,reason}]）
     var scope = d.search_scope || d.scope || [];
     var scopeHtml = (scope.length ? scope.map(function (s) {
       if (typeof s === 'string') return '<li>' + esc(s) + '</li>';
-      return '<li><b style="color:#dbeafe">' + esc(s.platform || '') + '</b> · ' + esc(s.section || s.board || '') + '<br><span style="color:#8ba0b8">' + esc(s.why || s.reason || '') + '</span></li>';
+      return '<li><b style="color:var(--xl-txt)">' + esc(s.platform || '') + '</b> · ' + esc(s.section || s.board || '') + '<br><span style="color:var(--xl-txt2)">' + esc(s.why || s.reason || '') + '</span></li>';
     }).join('') : '<li>（未返回搜索范围）</li>');
     var kw = d.keywords || {};
     var risks = d.risk_notes || d.risks || [];
@@ -1488,7 +1489,7 @@ footer.site a:hover{color:#fff;border-color:rgba(148,163,184,.4)}
   function kwGroup(label, arr) {
     if (!arr || !arr.length) return '';
     var cls = label === '核心' ? 'core' : (label === '长尾' ? 'long' : 'oral');
-    return '<p style="margin:6px 0 3px;color:#8ba0b8">' + label + '</p><div class="kwgroup">' + arr.map(function (k) { return '<span class="' + cls + '">' + esc(k) + '</span>'; }).join('') + '</div>';
+    return '<p style="margin:6px 0 3px;color:var(--xl-txt2)">' + label + '</p><div class="kwgroup">' + arr.map(function (k) { return '<span class="' + cls + '">' + esc(k) + '</span>'; }).join('') + '</div>';
   }
 
   /* ---------------- 线索：解析 / 计分 ---------------- */
@@ -1676,7 +1677,7 @@ footer.site a:hover{color:#fff;border-color:rgba(148,163,184,.4)}
     function d(k, v) { return '<div class="d"><span>' + k + '</span><b>' + esc(v || '—') + '</b></div>'; }
     var notes = leadNotes(l);
     var noteHtml = notes.length ? notes.slice(-5).map(function (n) {
-      return '<div class="note-item">' + esc(n.text || '') + (n.created_at ? ' <span style="color:#54657c">· ' + esc(n.created_at) + '</span>' : '') + '</div>';
+      return '<div class="note-item">' + esc(n.text || '') + (n.created_at ? ' <span style="color:var(--xl-txt2)">· ' + esc(n.created_at) + '</span>' : '') + '</div>';
     }).join('') : '<span class="hint">暂无备注</span>';
     return '<tr class="lead-detail" data-detail-row="' + esc(l.id) + '"><td colspan="9"><div class="lead-detail-in">' +
       '<div class="detail-grid">' +
@@ -1727,7 +1728,7 @@ footer.site a:hover{color:#fff;border-color:rgba(148,163,184,.4)}
           (String(l.text).length > 34 ? '<button type="button" class="more-btn" data-expand="' + esc(l.id) + '">' + (open ? '收起' : '展开') + '</button>' : '') + '</td>' +
           '<td><span class="source-badge">' + esc(src) + '</span></td>' +
           '<td><span class="badge ' + (hi ? 'hi' : 'pot') + '">' + (hi ? '高意向' : '潜在') + '</span></td>' +
-          '<td><span class="score' + (hi ? ' hi' : '') + '">' + esc(l.score) + '</span><span style="color:#54657c;font-size:11px">/10</span></td>' +
+          '<td><span class="score' + (hi ? ' hi' : '') + '">' + esc(l.score) + '</span><span style="color:var(--xl-txt2);font-size:11px">/10</span></td>' +
           '<td>' + priorityBadge(l) + '</td>' +
           '<td class="tag-cell">' + tagChips(l, false) + (note ? '<span class="latest-note">📝 ' + esc(note.length > 26 ? note.slice(0, 26) + '…' : note) + '</span>' : '') + '</td>' +
           '<td class="act"><button type="button" class="mini" data-detail="' + esc(l.id) + '">' + (S.detail[l.id] ? '收起' : '详情') + '</button>' +
@@ -1807,7 +1808,7 @@ footer.site a:hover{color:#fff;border-color:rgba(148,163,184,.4)}
         '<div class="script-txt">' + highlight(s.text || '', hits) + '</div>' +
         '<div class="script-ft"><button type="button" class="mini" data-copy="' + i + '">复制</button>' +
         '<button type="button" class="mini ok" data-save-script="' + i + '">保存到话术库</button>' +
-        (hits.length ? '<span class="badge" style="color:#fecaca;border-color:rgba(248,113,113,.35)">命中 ' + hits.length + ' 处需修改</span>' : '<span class="badge done">合规检查通过</span>') + '</div>' +
+        (hits.length ? '<span class="badge" style="color:var(--xl-danger);border-color:rgba(248,113,113,.35)">命中 ' + hits.length + ' 处需修改</span>' : '<span class="badge done">合规检查通过</span>') + '</div>' +
         '<ul class="comp-list">' + (sug || []).slice(0, 4).map(function (x) { return '<li>' + esc(typeof x === 'string' ? x : ((x.word || '') + ' → ' + (x.advice || ''))) + '</li>'; }).join('') + '</ul>' +
         '</div>';
     });
@@ -1825,7 +1826,7 @@ footer.site a:hover{color:#fff;border-color:rgba(148,163,184,.4)}
       '<span>每日上限 ' + esc(daily) + ' 条</span>' +
       '<span>间隔 ≥ ' + esc(interval) + ' 分钟</span>' +
       '<span>同一用户 7 天内 ≤ 1 次</span>' +
-      '<span style="border-color:rgba(251,191,36,.35);background:rgba(251,191,36,.1);color:#fde68a">需商家手动发送</span></div>' +
+      '<span style="border-color:rgba(251,191,36,.35);background:rgba(251,191,36,.1);color:var(--xl-warn)">需商家手动发送</span></div>' +
       '<p class="hint" style="margin-top:8px">系统不代发、不群发。发送前请逐条确认对方是否公开表达过需求，避免打扰。</p>';
   }
 
@@ -1879,7 +1880,7 @@ footer.site a:hover{color:#fff;border-color:rgba(148,163,184,.4)}
     }
     var adv = $('adviceOut');
     if (adv) {
-      var head = (res && res.summary) ? '<li style="list-style:none;margin:0 0 8px;background:rgba(56,189,248,.07);border:1px solid rgba(56,189,248,.22);border-radius:10px;padding:9px 11px;color:#bae6fd;line-height:1.7">💡 ' + esc(res.summary) + '</li>' : '';
+      var head = (res && res.summary) ? '<li style="list-style:none;margin:0 0 8px;background:rgba(56,189,248,.07);border:1px solid rgba(56,189,248,.22);border-radius:10px;padding:9px 11px;color:var(--xl-accent);line-height:1.7">💡 ' + esc(res.summary) + '</li>' : '';
       adv.innerHTML = head + adviceList(res, plats, t).map(function (x) { return '<li>' + esc(x) + '</li>'; }).join('');
     }
   }
@@ -1993,13 +1994,13 @@ footer.site a:hover{color:#fff;border-color:rgba(148,163,184,.4)}
       var raw = p.priority;
       var pr = (raw === 1 || raw === '1') ? 'P0' : (raw === 2 || raw === '2') ? 'P1' : (raw === 3 || raw === '3') ? 'P2' : String(raw || '').toUpperCase();
       var cls = pr === 'P0' ? 'p0' : (pr === 'P1' ? 'p1' : '');
-      return '<span style="display:inline-block;margin:3px 6px 3px 0;font-size:12.5px;color:#dbeafe">' + esc(p.name) + '<i class="prio ' + cls + '" style="font-style:normal">' + esc(pr) + '</i></span>';
+      return '<span style="display:inline-block;margin:3px 6px 3px 0;font-size:12.5px;color:var(--xl-txt)">' + esc(p.name) + '<i class="prio ' + cls + '" style="font-style:normal">' + esc(pr) + '</i></span>';
     }).join('');
     // 目标客群：兼容对象 {core_customers,scene,decision_factors} 与字符串
     var aud = pb.audience, audHtml = '';
     if (aud && typeof aud === 'object' && !Array.isArray(aud)) {
       if (aud.core_customers) audHtml += '<p>' + esc(aud.core_customers) + '</p>';
-      if (aud.scene) audHtml += '<p style="color:#8ba0b8">场景：' + esc(aud.scene) + '</p>';
+      if (aud.scene) audHtml += '<p style="color:var(--xl-txt2)">场景：' + esc(aud.scene) + '</p>';
       if (Array.isArray(aud.decision_factors) && aud.decision_factors.length) {
         audHtml += '<div class="kwgroup">' + aud.decision_factors.map(function (x) { return '<span>' + esc(x) + '</span>'; }).join('') + '</div>';
       }
@@ -2030,7 +2031,7 @@ footer.site a:hover{color:#fff;border-color:rgba(148,163,184,.4)}
     if (!topics.length) html += '<div class="hint">（未返回选题）</div>';
     html += '</div>';
     html += '<div class="pb-cell" style="margin-top:10px"><h4>🕒 发布时间建议</h4><ul>' + ((postTimes || []).map(function (x) { return '<li>' + esc(x) + '</li>'; }).join('') || '<li>（未返回）</li>') +
-      (pb.post_frequency ? '<li style="color:#8ba0b8">频率：' + esc(pb.post_frequency) + '</li>' : '') + '</ul>' +
+      (pb.post_frequency ? '<li style="color:var(--xl-txt2)">频率：' + esc(pb.post_frequency) + '</li>' : '') + '</ul>' +
       '<div class="row" style="margin-top:10px"><button type="button" class="btn ghost" data-video="' + esc(pb.video_prompt || videoPrompt(topics[0] ? topics[0].title : (ind + '门店实拍'), '抖音')) + '">🎬 去做这条视频</button><span class="hint">跳到短视频工作台，选题自动填入</span></div></div>';
     out.innerHTML = html;
     var meta = $('pbMeta'); if (meta) meta.textContent = '当前行业：' + ind + ' · ' + (city) + ' · ' + (pb.platforms ? pb.platforms.length : 0) + ' 个平台建议';
@@ -2972,7 +2973,7 @@ footer.site a:hover{color:#fff;border-color:rgba(148,163,184,.4)}
     }
     var html = '<div class="notice safe" style="margin-top:10px"><span class="n-ico">✅</span><div>找到 <b>' + items.length + '</b> 条公开 POI，半径 ' + esc(res.radius || '') + 'm' +
       (res.level ? ' · ' + esc(res.level_name || ('L' + res.level)) : '') + '；勾选后导入。' +
-      (res.warnings && res.warnings.length ? '<br><span style="color:#fde68a">部分关键词/分页请求失败，已返回其余结果。</span>' : '') + '</div></div>';
+      (res.warnings && res.warnings.length ? '<br><span style="color:var(--xl-warn)">部分关键词/分页请求失败，已返回其余结果。</span>' : '') + '</div></div>';
     html += '<label class="lbs-checkall"><input type="checkbox" id="lbsAll"> 全选当前结果</label>';
     html += '<div class="lbs-list">' + items.map(function (it, i) {
       return '<label class="lbs-item"><input type="checkbox" data-lbs-idx="' + i + '">' +
@@ -3220,7 +3221,7 @@ footer.site a:hover{color:#fff;border-color:rgba(148,163,184,.4)}
     box.innerHTML = items.map(function (it) {
       var cfg = it.config || {};
       var target = cfg.webhook_url || cfg.webhook_url_preview || cfg.corp_id || '';
-      var push = it.last_push_at ? ('最近推送 ' + esc(it.last_push_at) + ' · ' + (it.last_push_ok ? '<span style="color:var(--lime)">成功</span>' : '<span style="color:#fca5a5">失败</span>')) : '尚未推送';
+      var push = it.last_push_at ? ('最近推送 ' + esc(it.last_push_at) + ' · ' + (it.last_push_ok ? '<span style="color:var(--lime)">成功</span>' : '<span style="color:var(--xl-danger)">失败</span>')) : '尚未推送';
       return '<div class="int-card"><div class="ih"><b>' + esc(it.name || INT_TYPES[it.type] || it.type) + '</b>' +
         '<span class="badge pot">' + esc(INT_TYPES[it.type] || it.type) + '</span>' +
         (it.enabled ? '<span class="badge done">启用</span>' : '<span class="badge">停用</span>') + '</div>' +
@@ -3378,7 +3379,7 @@ footer.site a:hover{color:#fff;border-color:rgba(148,163,184,.4)}
   if (window.__LGX_READY) return;
   window.__LGX_READY = true;
 
-  var API = '/ai-nav/api/leadgen';
+  var API = /(^|\.)github\.io$/i.test(location.hostname) ? 'https://xinglaiai.com/ai-nav/api/leadgen' : '/ai-nav/api/leadgen';
   var INDUSTRIES = ['家政保洁', '搬家公司', '家电维修', '开锁换锁', '管道疏通', '装修建材', '月嫂育儿', '餐饮美食', '美业美容', '宠物服务'];
   var PLATFORMS = ['抖音', '小红书', '美团', '大众点评', '视频号', '58同城'];
   var TYPES = [['video', '短视频口播包'], ['post', '图文笔记包'], ['title', '标题组合']];
