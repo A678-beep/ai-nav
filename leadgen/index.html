@@ -494,6 +494,50 @@ footer.site a:hover{color:#fff;border-color:rgba(148,163,184,.4)}
   .mine-tab{flex:1 1 auto;text-align:center;padding:8px 9px;font-size:12px}
   .intent-actions .btn{flex:1 1 140px;justify-content:center;text-align:center}
 }
+/* 客服与渠道（cs_hub：企微活码 / 抖音私信 / AI 自动回复） */
+.cs-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px;margin-top:10px}
+.cs-card{border:1px solid var(--line);border-radius:14px;padding:12px;background:rgba(9,14,24,.55);min-width:0}
+.cs-card.wide{grid-column:1/-1}
+.cs-head{display:flex;gap:7px;align-items:center;flex-wrap:wrap;margin:0 0 6px;font-size:13px;color:#e8f4ff}
+.cs-head b{font-size:13.5px}
+.cs-badge{margin-left:auto;border:1px solid var(--line);border-radius:999px;padding:2px 9px;font-size:11px;color:var(--txt2);white-space:nowrap}
+.cs-badge.ok{color:#a7f3d0;border-color:rgba(52,211,153,.38);background:rgba(52,211,153,.08)}
+.cs-badge.warn{color:#fde68a;border-color:rgba(251,191,36,.38);background:rgba(251,191,36,.08)}
+.cs-doc{margin:4px 0 8px;font-size:11.5px;color:var(--txt3);line-height:1.7;overflow-wrap:anywhere}
+.cs-doc code{font-size:11px;color:#bae6fd;background:rgba(56,189,248,.1);border-radius:4px;padding:1px 4px}
+.cs-steps{margin:4px 0 8px;padding-left:18px;font-size:11.5px;color:var(--txt3);line-height:1.8}
+.cs-steps li{margin:1px 0}
+.cs-form{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:2px 10px}
+.cs-form .full{grid-column:1/-1}
+.cs-form .fl{margin:7px 0 4px}
+.cs-actions{display:flex;gap:7px;flex-wrap:wrap;align-items:center;margin-top:8px}
+.cs-actions .hint{font-size:11px;flex:1 1 140px}
+.cs-out{margin-top:8px;min-width:0;font-size:12.5px;color:var(--txt2)}
+.cs-out .notice{margin:6px 0 0}
+.cs-sub{font-size:11.5px;color:var(--txt3);font-weight:700;margin:9px 0 4px}
+.cs-reply{border:1px solid rgba(148,163,184,.16);border-radius:12px;padding:9px 11px;margin:7px 0;background:rgba(15,22,34,.55)}
+.cs-reply-h{display:flex;gap:7px;align-items:center;flex-wrap:wrap;font-size:11.5px;color:var(--txt3)}
+.cs-reply-h .cs-badge{margin-left:0}
+.cs-reply p{margin:5px 0 0;font-size:13px;line-height:1.75;color:#e8f4ff;overflow-wrap:anywhere}
+.cs-comp{margin-top:8px;display:flex;gap:7px;align-items:flex-start;flex-wrap:wrap}
+.cs-comp .cs-badge{margin-left:0}
+.cs-comp .hint{font-size:11px;flex:1 1 180px}
+.cs-src-list{display:grid;gap:6px;margin-top:4px}
+.cs-src{border:1px dashed rgba(148,163,184,.22);border-radius:10px;padding:7px 9px;font-size:11.5px;color:var(--txt2);background:rgba(9,14,24,.4);min-width:0}
+.cs-src b{display:block;color:#dff3ff;font-size:12px;overflow-wrap:anywhere}
+.cs-src span{display:block;color:var(--txt3);font-size:10.5px;margin-top:2px}
+.cs-src p{margin:3px 0 0;line-height:1.65;overflow-wrap:anywhere}
+.cs-qr{display:flex;gap:12px;align-items:flex-start;flex-wrap:wrap;margin-top:8px}
+.cs-qr img{width:150px;height:150px;object-fit:contain;background:#fff;border-radius:10px;padding:6px;border:1px solid var(--line)}
+.cs-qr-meta{flex:1 1 180px;min-width:0;font-size:11.5px;color:var(--txt2);line-height:1.85;overflow-wrap:anywhere}
+.cs-qr-meta b{color:#dff3ff}
+@media (max-width:700px){
+  .cs-grid{grid-template-columns:1fr}
+  .cs-card.wide{grid-column:auto}
+  .cs-form{grid-template-columns:1fr}
+  .cs-actions .btn,.cs-actions .mini{flex:1 1 140px;justify-content:center;text-align:center}
+  .cs-qr img{width:130px;height:130px}
+}
 </style>
 <link rel="stylesheet" href="../assets/theme-light.css">
 <script defer src="../assets/theme.js"></script>
@@ -813,11 +857,12 @@ footer.site a:hover{color:#fff;border-color:rgba(148,163,184,.4)}
 
       <!-- Skill 市场 / 集成 -->
       <section class="card glow" id="sec-skillhub">
-        <div class="sec-h"><span class="sec-no">9</span><h2>🧩 Skill 市场 / 🔌 集成</h2><span class="tag" id="skillTag">流程复制</span></div>
-        <p class="sec-sub">把跑通的获客流程存成 Skill，一键复用到新门店 / 新行业：内置 12 个行业模板，支持私有 / 团队 / 公开可见；集成把线索导入与触达事件推送到企业微信、通用 webhook 或 CRM。</p>
+        <div class="sec-h"><span class="sec-no">9</span><h2>🧩 Skill 市场 / 🔌 集成 / 💬 客服与渠道</h2><span class="tag" id="skillTag">流程复制</span></div>
+        <p class="sec-sub">把跑通的获客流程存成 Skill，一键复用到新门店 / 新行业：内置 12 个行业模板，支持私有 / 团队 / 公开可见；集成把线索导入与触达事件推送到企业微信、通用 webhook 或 CRM；客服与渠道支持企微活码/欢迎语、抖音私信草稿与 AI 自动回复。</p>
         <div class="wstabs" role="tablist" aria-label="Skill 与集成">
           <button type="button" class="wstab on" data-wstab="skills" role="tab" aria-selected="true">🧩 Skill 市场</button>
           <button type="button" class="wstab" data-wstab="integrations" role="tab" aria-selected="false">🔌 集成</button>
+          <button type="button" class="wstab" data-wstab="cs" role="tab" aria-selected="false">💬 客服与渠道</button>
         </div>
         <div class="wspanel" data-wspanel="skills">
           <div class="skill-toolbar">
@@ -848,6 +893,73 @@ footer.site a:hover{color:#fff;border-color:rgba(148,163,184,.4)}
           </div>
           <div class="row"><button type="button" class="btn" id="intSave">保存集成</button><span class="hint" id="intHint">保存后可用「测试」真实发送一条测试消息。</span></div>
           <div class="int-list" id="intList"><div class="empty">还没有集成配置。</div></div>
+        </div>
+        <div class="wspanel" data-wspanel="cs" hidden>
+          <div class="notice" style="margin:2px 0 10px"><span class="n-ico">💬</span><div>客服渠道：企业微信走官方「联系我」活码 + 欢迎语接口；抖音走企业号官方私信 API（需 enterprise.im 权限审核）。<b>不模拟登录、不爬取、不自动群发</b>，草稿需人工确认后发送。</div></div>
+          <div class="cs-grid">
+            <div class="cs-card" id="csCardWecom">
+              <div class="cs-head"><b>🟢 企业微信</b><span class="cs-badge" id="csWecomState">读取中…</span></div>
+              <p class="cs-doc">自建应用需要：<b>corp_id</b>（我的企业）、<b>agent_id / secret</b>（应用详情），并在「客户联系」把应用设为可调用应用。</p>
+              <ol class="cs-steps" id="csWecomGuide">
+                <li>企业微信后台 → 应用管理 → 创建自建应用</li>
+                <li>我的企业 → 企业信息 → 复制 corp_id</li>
+                <li>应用详情 → 复制 AgentId 与 Secret</li>
+                <li>客户联系 → 可调用接口的应用 → 添加该应用</li>
+              </ol>
+              <div class="cs-form">
+                <div><label class="fl" for="csCorpId">corp_id</label><input class="inp" id="csCorpId" maxlength="64" placeholder="ww********" autocomplete="off"></div>
+                <div><label class="fl" for="csAgentId">agent_id</label><input class="inp" id="csAgentId" maxlength="32" placeholder="1000002" inputmode="numeric"></div>
+                <div class="full"><label class="fl" for="csSecret">secret（保存后打码）</label><input class="inp" id="csSecret" type="password" maxlength="256" placeholder="仅写入服务器，读取只返回 ****末4位" autocomplete="new-password"></div>
+                <div><label class="fl" for="csToken">回调 token（可选）</label><input class="inp" id="csToken" maxlength="256" placeholder="回调校验 Token" autocomplete="off"></div>
+                <div><label class="fl" for="csAesKey">aes_key（可选）</label><input class="inp" id="csAesKey" maxlength="128" placeholder="回调加密 Key" autocomplete="off"></div>
+              </div>
+              <div class="cs-actions">
+                <button type="button" class="btn sm" id="csWecomSave">保存企微配置</button>
+                <button type="button" class="btn line sm" id="csWecomTest">测试连接</button>
+              </div>
+              <div class="cs-out" id="csWecomOut"></div>
+              <div class="divider"></div>
+              <div class="cs-head"><b>生成「联系我」活码</b><span class="cs-badge">官方 API</span></div>
+              <div class="cs-form">
+                <div class="full"><label class="fl" for="csQrUser">成员 userid（逗号分隔）</label><input class="inp" id="csQrUser" maxlength="300" placeholder="zhangsan,lisi"></div>
+                <div><label class="fl" for="csQrRemark">活码备注</label><input class="inp" id="csQrRemark" maxlength="30" value="星籁AI客服活码"></div>
+                <div><label class="fl" for="csQrWelcome">欢迎语（可选）</label><input class="inp" id="csQrWelcome" maxlength="200" placeholder="添加后发送的欢迎语"></div>
+              </div>
+              <div class="cs-actions"><button type="button" class="btn sm" id="csQrGen">生成活码 / 预览二维码</button><span class="hint">欢迎语需在收到添加回调后用 welcome_code 调用官方接口</span></div>
+              <div id="csQrBox"></div>
+            </div>
+            <div class="cs-card" id="csCardDouyin">
+              <div class="cs-head"><b>🎵 抖音企业号私信</b><span class="cs-badge" id="csDouyinState">读取中…</span></div>
+              <p class="cs-doc">需企业号 + 开放平台应用 + <b>enterprise.im</b> 私信权限审核；access_token 通过官方 OAuth 获取。未配置时只返回 <code>need_config</code>，不报错。</p>
+              <div class="cs-form">
+                <div><label class="fl" for="csClientKey">client_key</label><input class="inp" id="csClientKey" maxlength="64" placeholder="aw********" autocomplete="off"></div>
+                <div><label class="fl" for="csClientSecret">client_secret（打码）</label><input class="inp" id="csClientSecret" type="password" maxlength="256" placeholder="仅写入服务器" autocomplete="new-password"></div>
+                <div class="full"><label class="fl" for="csAccessToken">access_token（可选，发送时必需）</label><input class="inp" id="csAccessToken" type="password" maxlength="512" placeholder="OAuth 授权返回的 access_token" autocomplete="new-password"></div>
+              </div>
+              <div class="cs-actions"><button type="button" class="btn sm" id="csDouyinSave">保存抖音配置</button><button type="button" class="btn line sm" id="csDouyinTest">测试配置</button></div>
+              <div class="cs-out" id="csDouyinOut"></div>
+              <div class="divider"></div>
+              <div class="cs-head"><b>回复草稿试用</b><span class="cs-badge ok">DeepSeek + 知识库</span></div>
+              <div class="cs-form">
+                <div class="full"><label class="fl" for="csDraftMsg">用户私信内容</label><textarea id="csDraftMsg" maxlength="2000">你们除甲醛多少钱一平</textarea></div>
+                <div><label class="fl" for="csDraftIndustry">行业（可选）</label><input class="inp" id="csDraftIndustry" maxlength="30" placeholder="除甲醛 / 家政保洁"></div>
+                <div><label class="fl" for="csDraftOpenid">open_id（可选）</label><input class="inp" id="csDraftOpenid" maxlength="128" placeholder="官方回调里的用户 open_id"></div>
+              </div>
+              <div class="cs-actions"><button type="button" class="btn sm" id="csDraftGen">生成 3 条回复草稿</button><span class="hint">专业 / 亲和 / 促单，含合规检查</span></div>
+              <div class="cs-out" id="csDraftOut"></div>
+            </div>
+            <div class="cs-card wide" id="csCardAuto">
+              <div class="cs-head"><b>🤖 AI 客服自动回复（通用）</b><span class="cs-badge" id="csAutoState">知识库 + 商家资料</span></div>
+              <p class="cs-doc">复用 leadgen RAG（BM25）+ store 商家资料生成回复；价格区间、预约引导、留资引导齐全。投诉/退款/医疗/法律等敏感问题自动 <b>escalate:true</b> 并给转人工话术。</p>
+              <div class="cs-form">
+                <div class="full"><label class="fl" for="csAutoQ">用户问题</label><textarea id="csAutoQ" maxlength="1000">能便宜点吗</textarea></div>
+                <div><label class="fl" for="csAutoChannel">渠道</label><select id="csAutoChannel"><option value="douyin">抖音私信</option><option value="wecom">企业微信</option><option value="通用">通用</option><option value="小红书">小红书</option><option value="美团/点评">美团/点评</option></select></div>
+                <div><label class="fl" for="csAutoIndustry">行业（可选）</label><input class="inp" id="csAutoIndustry" maxlength="30" placeholder="家政保洁 / 除甲醛"></div>
+              </div>
+              <div class="cs-actions"><button type="button" class="btn" id="csAutoRun">生成 AI 客服回复</button><span class="hint">不自动发送；复制后人工确认</span></div>
+              <div class="cs-out" id="csAutoOut"></div>
+            </div>
+          </div>
         </div>
       </section>
 
@@ -3578,6 +3690,330 @@ footer.site a:hover{color:#fff;border-color:rgba(148,163,184,.4)}
     }).catch(function () { box.innerHTML = '<div class="empty">维度统计加载失败，请稍后重试。</div>'; });
   }
 
+  /* ---------------- 客服与渠道（cs_hub / ai-nav/api/cs） ---------------- */
+  var CS_API = API.replace(/\/leadgen\/?$/, '/cs');
+  function csWs() {
+    try {
+      var au = window.XLAuth && window.XLAuth.token() ? window.XLAuth.user() : null;
+      if (au && au.workspace_id) return au.workspace_id;
+    } catch (e) {}
+    return 'default';
+  }
+  function csApi(path, opt) {
+    opt = opt || {};
+    var ctrl = window.AbortController ? new AbortController() : null;
+    var timer = null;
+    if (ctrl) timer = setTimeout(function () { try { ctrl.abort(); } catch (e) {} }, opt.timeout || 30000);
+    var init = { method: opt.method || 'GET', headers: {} };
+    if (opt.body) {
+      init.body = JSON.stringify(opt.body);
+      init.headers['Content-Type'] = 'application/json';
+    }
+    try {
+      var tk = window.XLAuth && window.XLAuth.token();
+      if (tk) init.headers['Authorization'] = 'Bearer ' + tk;
+    } catch (e) {}
+    if (ctrl) init.signal = ctrl.signal;
+    return fetch(CS_API + path, init).then(function (r) {
+      if (timer) clearTimeout(timer);
+      return r.text().then(function (tx) {
+        var d = null;
+        try { d = JSON.parse(tx); } catch (e) {}
+        if (!d) return { ok: false, error: 'bad_json', hint: '服务返回异常（HTTP ' + r.status + '）' };
+        return d;
+      });
+    }).catch(function () {
+      if (timer) clearTimeout(timer);
+      return { ok: false, error: 'network', hint: '网络异常或请求超时，请稍后重试' };
+    });
+  }
+  function csBadge(id, kind, text) {
+    var el = $(id); if (!el) return;
+    el.className = 'cs-badge' + (kind ? ' ' + kind : '');
+    el.textContent = text;
+  }
+  function csOut(id, html) { var el = $(id); if (el) el.innerHTML = html; }
+  function csErr(r) {
+    var s = (r && (r.hint || r.error)) || '请求失败';
+    if (r && r.errcode) s = '错误码 ' + r.errcode + '：' + s;
+    return s;
+  }
+  function csNotice(kind, html) {
+    return '<div class="notice' + (kind ? ' ' + kind : '') + '"><span class="n-ico">' + (kind === 'warn' ? '⚠️' : 'ℹ️') + '</span><div>' + html + '</div></div>';
+  }
+  function csSources(list) {
+    if (!list || !list.length) return '<div class="hint">知识库未命中相关片段，已使用商家资料兜底。</div>';
+    return '<div class="cs-src-list">' + list.map(function (s) {
+      return '<div class="cs-src"><b>' + esc(s.title || '知识库片段') + '</b>' +
+        '<span>' + esc(s.industry || s.source_type || '') + ' · ' + esc(s.source || '') + '</span>' +
+        '<p>' + esc(s.snippet || '') + '</p></div>';
+    }).join('') + '</div>';
+  }
+  function csCompliance(c) {
+    if (!c) return '';
+    var ok = !!c.passed;
+    var html = '<div class="cs-comp ' + (ok ? 'ok' : 'warn') + '">' +
+      '<span class="cs-badge ' + (ok ? 'ok' : 'warn') + '">' + (ok ? '合规通过' : '需人工复核') + '</span>' +
+      '<span class="hint">' + esc(c.note || '') + '</span></div>';
+    if (!ok && c.hits && c.hits.length) {
+      html += '<div class="hint">命中：' + c.hits.slice(0, 6).map(function (h) {
+        return esc(h.word || '') + '（' + esc(h.category || '') + '）';
+      }).join('、') + '</div>';
+    }
+    return html;
+  }
+
+  function csLoadAll() {
+    if (!$('csCardWecom')) return;
+    csLoadWecom();
+    csLoadDouyin();
+  }
+
+  function csLoadWecom() {
+    csOut('csWecomOut', '<div class="hint">正在读取企微配置…</div>');
+    csApi('/wecom/config?workspace_id=' + encodeURIComponent(csWs())).then(function (r) {
+      csRenderWecom(r || {});
+    });
+  }
+  function csRenderWecom(r) {
+    var configured = !!r.configured;
+    csBadge('csWecomState', configured ? 'ok' : '', configured ? '已配置' : '未配置');
+    var guide = $('csWecomGuide'); if (guide) guide.style.display = configured ? 'none' : '';
+    if (configured) {
+      if ($('csCorpId')) $('csCorpId').value = r.corp_id || '';
+      if ($('csAgentId')) $('csAgentId').value = r.agent_id || '';
+      if ($('csSecret')) $('csSecret').placeholder = '已保存 ' + (r.secret_masked || '****') + '，留空则不修改';
+      if ($('csToken')) $('csToken').placeholder = r.has_token ? '已保存（留空不修改）' : '回调校验 Token（可选）';
+      if ($('csAesKey')) $('csAesKey').placeholder = r.has_aes_key ? '已保存（留空不修改）' : '回调加密 Key（可选）';
+    } else {
+      if ($('csSecret')) $('csSecret').placeholder = '仅写入服务器，读取只返回 ****末4位';
+    }
+    var out = $('csWecomOut'); if (!out) return;
+    var err = r.last_error || '';
+    if (err) out.innerHTML = csNotice('warn', '<b>最近一次调用失败</b>：' + esc(err));
+    else if (configured) out.innerHTML = csNotice('safe', '<b>已配置</b>：secret ' + esc(r.secret_masked || '') +
+      '；点击「测试连接」调用官方 gettoken 验证（缓存 ' + (r.token_cache_ttl || 7000) + ' 秒）。');
+    else out.innerHTML = csNotice('', '<b>未配置</b>：' + esc(r.hint || '请填写 corp_id/agent_id/secret') +
+      '<br>填好后点「保存企微配置」，再点「测试连接」。');
+  }
+  function csSaveWecom() {
+    var corp = ($('csCorpId') && $('csCorpId').value || '').trim();
+    var agent = ($('csAgentId') && $('csAgentId').value || '').trim();
+    var secret = ($('csSecret') && $('csSecret').value || '').trim();
+    if (!corp) { toast('请填写企业微信 corp_id'); return; }
+    if (!agent) { toast('请填写企业微信 agent_id'); return; }
+    var body = {
+      workspace_id: csWs(), corp_id: corp, agent_id: agent,
+      token: ($('csToken') && $('csToken').value || '').trim(),
+      aes_key: ($('csAesKey') && $('csAesKey').value || '').trim()
+    };
+    if (secret) body.secret = secret;
+    var btn = $('csWecomSave'); if (btn) { btn.disabled = true; btn.textContent = '保存中…'; }
+    csApi('/wecom/config', { method: 'POST', body: body }).then(function (r) {
+      if (btn) { btn.disabled = false; btn.textContent = '保存企微配置'; }
+      if (r && r.ok) {
+        if ($('csSecret')) $('csSecret').value = '';
+        csRenderWecom(r);
+        toast('企微配置已加密保存');
+      } else {
+        csOut('csWecomOut', csNotice('warn', '<b>保存失败</b>：' + esc(csErr(r))));
+        toast(csErr(r));
+      }
+    });
+  }
+  function csTestWecom() {
+    var btn = $('csWecomTest'); if (btn) { btn.disabled = true; btn.textContent = '测试中…'; }
+    csOut('csWecomOut', '<div class="hint">正在调用企业微信官方 gettoken…</div>');
+    csApi('/wecom/test', { method: 'POST', body: { workspace_id: csWs() }, timeout: 25000 }).then(function (r) {
+      if (btn) { btn.disabled = false; btn.textContent = '测试连接'; }
+      if (r && r.ok) {
+        csOut('csWecomOut', csNotice('safe', '<b>连接正常</b>：已获取 access_token（缓存 ' + (r.cache_ttl || 7000) +
+          ' 秒，本次 ' + (r.token_cached ? '命中缓存' : '新获取') + '）。<br>' + esc(r.hint || '')));
+        toast('企业微信连接正常');
+      } else {
+        csOut('csWecomOut', csNotice('warn', '<b>测试未通过</b>：' + esc(csErr(r))));
+        toast(csErr(r));
+        if (r && r.need_config) csLoadWecom();
+      }
+    });
+  }
+  function csGenQr() {
+    var raw = ($('csQrUser') && $('csQrUser').value || '').trim();
+    var users = raw.split(/[,，;；\s]+/).filter(Boolean);
+    if (!users.length) { toast('请填写至少一个企微成员 userid'); return; }
+    var body = {
+      workspace_id: csWs(), user: users,
+      remark: ($('csQrRemark') && $('csQrRemark').value || '星籁AI客服活码').trim(),
+      welcome_text: ($('csQrWelcome') && $('csQrWelcome').value || '').trim()
+    };
+    var btn = $('csQrGen'); if (btn) { btn.disabled = true; btn.textContent = '生成中…'; }
+    csOut('csQrBox', '<div class="hint">正在调用企业微信 add_contact_way…</div>');
+    csApi('/wecom/contact-way', { method: 'POST', body: body, timeout: 30000 }).then(function (r) {
+      if (btn) { btn.disabled = false; btn.textContent = '生成活码 / 预览二维码'; }
+      var box = $('csQrBox'); if (!box) return;
+      if (!r || !r.ok) {
+        box.innerHTML = csNotice('warn', '<b>活码生成失败</b>：' + esc(csErr(r)));
+        toast(csErr(r));
+        return;
+      }
+      var qr = r.qr_code || '';
+      var img = /^https?:\/\//i.test(qr) ? '<img src="' + esc(qr) + '" alt="企业微信联系我活码" loading="lazy">' : '';
+      box.innerHTML = '<div class="cs-qr">' + img + '<div class="cs-qr-meta">' +
+        '<div><b>state</b>：' + esc(r.state || '') + '</div>' +
+        '<div><b>config_id</b>：' + esc(r.config_id || '') + '</div>' +
+        '<div><b>成员</b>：' + esc((r.user || []).join('、')) + '</div>' +
+        '<div class="hint">' + esc(r.note || '') + '</div>' +
+        (qr && !img ? '<div class="hint">二维码：' + esc(qr) + '</div>' : '') +
+        '</div></div>';
+      toast('活码已生成，可预览二维码');
+    });
+  }
+
+  function csLoadDouyin() {
+    csOut('csDouyinOut', '<div class="hint">正在读取抖音配置…</div>');
+    csApi('/douyin/config?workspace_id=' + encodeURIComponent(csWs())).then(function (r) {
+      csRenderDouyin(r || {});
+    });
+  }
+  function csRenderDouyin(r) {
+    var configured = !!r.configured;
+    var tokenReady = !!(r.access_token_set);
+    csBadge('csDouyinState', tokenReady ? 'ok' : (configured ? 'warn' : ''),
+      tokenReady ? '已配置' : (configured ? '待补 token' : '未配置'));
+    if (configured) {
+      if ($('csClientKey')) $('csClientKey').value = r.client_key || '';
+      if ($('csClientSecret')) $('csClientSecret').placeholder = '已保存 ' + (r.client_secret_masked || '****') + '，留空不修改';
+      if ($('csAccessToken')) $('csAccessToken').placeholder = tokenReady ? '已保存 ' + (r.access_token_masked || '****') + '，留空不修改' : 'OAuth 授权返回的 access_token';
+    } else {
+      if ($('csClientSecret')) $('csClientSecret').placeholder = '仅写入服务器，读取只返回 ****末4位';
+    }
+    var out = $('csDouyinOut'); if (!out) return;
+    var err = r.last_error || '';
+    if (err) out.innerHTML = csNotice('warn', '<b>最近一次调用失败</b>：' + esc(err));
+    else if (configured) out.innerHTML = csNotice(tokenReady ? 'safe' : 'warn',
+      '<b>' + (tokenReady ? '已配置' : '已保存应用信息，待补 access_token') + '</b>：' + esc(r.hint || ''));
+    else out.innerHTML = csNotice('', '<b>未配置</b>：' + esc(r.hint || '') +
+      '<br>需企业号 + 应用权限审核；未配置时接口只返回 need_config，不报错。');
+  }
+  function csSaveDouyin() {
+    var key = ($('csClientKey') && $('csClientKey').value || '').trim();
+    var secret = ($('csClientSecret') && $('csClientSecret').value || '').trim();
+    var token = ($('csAccessToken') && $('csAccessToken').value || '').trim();
+    if (!key) { toast('请填写抖音 client_key'); return; }
+    var body = { workspace_id: csWs(), client_key: key };
+    if (secret) body.client_secret = secret;
+    if (token) body.access_token = token;
+    var btn = $('csDouyinSave'); if (btn) { btn.disabled = true; btn.textContent = '保存中…'; }
+    csApi('/douyin/config', { method: 'POST', body: body }).then(function (r) {
+      if (btn) { btn.disabled = false; btn.textContent = '保存抖音配置'; }
+      if (r && r.ok) {
+        if ($('csClientSecret')) $('csClientSecret').value = '';
+        if ($('csAccessToken')) $('csAccessToken').value = '';
+        csRenderDouyin(r);
+        toast('抖音配置已加密保存');
+      } else {
+        csOut('csDouyinOut', csNotice('warn', '<b>保存失败</b>：' + esc(csErr(r))));
+        toast(csErr(r));
+      }
+    });
+  }
+  function csTestDouyin() {
+    var btn = $('csDouyinTest'); if (btn) { btn.disabled = true; btn.textContent = '测试中…'; }
+    csApi('/douyin/test', { method: 'POST', body: { workspace_id: csWs() }, timeout: 20000 }).then(function (r) {
+      if (btn) { btn.disabled = false; btn.textContent = '测试配置'; }
+      var box = $('csDouyinOut');
+      if (r && r.ok) {
+        if (box) box.innerHTML = csNotice('safe', '<b>配置完整</b>：' + esc(r.hint || ''));
+        toast('抖音配置完整');
+      } else {
+        if (box) box.innerHTML = csNotice('warn', '<b>测试未通过</b>：' + esc(csErr(r)));
+        toast(csErr(r));
+        if (r && r.need_config) csLoadDouyin();
+      }
+    });
+  }
+  function csDraft() {
+    var msg = ($('csDraftMsg') && $('csDraftMsg').value || '').trim();
+    if (!msg) { toast('请填写用户私信内容'); return; }
+    var body = {
+      workspace_id: csWs(), user_message: msg,
+      industry: ($('csDraftIndustry') && $('csDraftIndustry').value || '').trim(),
+      open_id: ($('csDraftOpenid') && $('csDraftOpenid').value || '').trim()
+    };
+    var btn = $('csDraftGen'); if (btn) { btn.disabled = true; btn.textContent = '生成中…'; }
+    csOut('csDraftOut', '<div class="hint">正在检索知识库并生成 3 条合规回复草稿，通常 5-20 秒…</div>');
+    csApi('/douyin/reply-draft', { method: 'POST', body: body, timeout: 120000 }).then(function (r) {
+      if (btn) { btn.disabled = false; btn.textContent = '生成 3 条回复草稿'; }
+      var box = $('csDraftOut'); if (!box) return;
+      if (!r || !r.ok) {
+        box.innerHTML = csNotice('warn', '<b>生成失败</b>：' + esc(csErr(r)));
+        toast(csErr(r));
+        return;
+      }
+      var html = '<div class="cs-head"><b>' + (r.count || 3) + ' 条回复草稿</b>' +
+        '<span class="cs-badge ' + (r.compliance && r.compliance.passed ? 'ok' : 'warn') + '">' +
+        (r.compliance && r.compliance.passed ? '合规通过' : '需人工复核') + '</span>' +
+        '<span class="cs-badge">' + esc(r.model || '') + '</span></div>';
+      (r.replies || []).forEach(function (x, i) {
+        html += '<div class="cs-reply"><div class="cs-reply-h"><span class="cs-badge">' + esc(x.style || ('话术 ' + (i + 1))) + '</span>' +
+          '<span class="hint">' + (x.text || '').length + ' 字</span></div><p>' + esc(x.text || '') + '</p></div>';
+      });
+      html += '<div class="hint">价格参考：' + esc(r.price_reference || '—') + ' · 预约引导：' +
+        (r.booking_cta_included ? '✓' : '—') + ' · 商家资料：' + (r.store_profile_used ? esc(r.store_name || '已用') : '未配置（用行业兜底）') + '</div>';
+      html += csCompliance(r.compliance);
+      html += '<div class="cs-sub">知识库来源</div>' + csSources(r.sources);
+      html += '<div class="hint">' + esc(r.ai_notice || '') + '</div>';
+      box.innerHTML = html;
+    });
+  }
+  function csAuto() {
+    var q = ($('csAutoQ') && $('csAutoQ').value || '').trim();
+    if (!q) { toast('请填写用户问题'); return; }
+    var body = {
+      workspace_id: csWs(), question: q,
+      channel: ($('csAutoChannel') && $('csAutoChannel').value) || '通用',
+      industry: ($('csAutoIndustry') && $('csAutoIndustry').value || '').trim(),
+      history: []
+    };
+    var btn = $('csAutoRun'); if (btn) { btn.disabled = true; btn.textContent = '生成中…'; }
+    csOut('csAutoOut', '<div class="hint">正在检索知识库并生成客服回复…</div>');
+    csApi('/auto-reply', { method: 'POST', body: body, timeout: 120000 }).then(function (r) {
+      if (btn) { btn.disabled = false; btn.textContent = '生成 AI 客服回复'; }
+      var box = $('csAutoOut'); if (!box) return;
+      if (!r || !r.ok) {
+        box.innerHTML = csNotice('warn', '<b>生成失败</b>：' + esc(csErr(r)));
+        toast(csErr(r));
+        return;
+      }
+      var html = '<div class="cs-head"><b>' + (r.escalate ? '已转人工' : 'AI 客服回复草稿') + '</b>' +
+        '<span class="cs-badge ' + (r.escalate ? 'warn' : 'ok') + '">' +
+        (r.escalate ? 'escalate:true' : 'escalate:false') + '</span>' +
+        '<span class="cs-badge">' + esc(r.model || '') + '</span></div>';
+      if (r.escalate) {
+        html += csNotice('warn', '<b>敏感问题</b>：' + esc(r.escalate_reason || '') + '；以下为建议转人工话术。');
+      }
+      html += '<div class="cs-reply"><p>' + esc(r.reply || '') + '</p></div>';
+      html += '<div class="hint">价格参考：' + esc(r.price_reference || '—') +
+        ' · 预约引导：' + (r.booking_cta_included ? '✓' : '—') +
+        ' · 留资引导：' + (r.lead_capture_included ? '✓' : '—') +
+        ' · 商家资料：' + (r.store_profile_used ? esc(r.store_name || '已用') : '未配置（用行业兜底）') + '</div>';
+      html += csCompliance(r.compliance);
+      html += '<div class="cs-sub">知识库来源</div>' + csSources(r.sources);
+      html += '<div class="hint">' + esc(r.ai_notice || '') + ' · ' + esc(r.compliance_notice || '') + '</div>';
+      box.innerHTML = html;
+    });
+  }
+
+  function bindCs() {
+    if ($('csWecomSave')) $('csWecomSave').addEventListener('click', csSaveWecom);
+    if ($('csWecomTest')) $('csWecomTest').addEventListener('click', csTestWecom);
+    if ($('csQrGen')) $('csQrGen').addEventListener('click', csGenQr);
+    if ($('csDouyinSave')) $('csDouyinSave').addEventListener('click', csSaveDouyin);
+    if ($('csDouyinTest')) $('csDouyinTest').addEventListener('click', csTestDouyin);
+    if ($('csDraftGen')) $('csDraftGen').addEventListener('click', csDraft);
+    if ($('csAutoRun')) $('csAutoRun').addEventListener('click', csAuto);
+  }
+
   function bindSkillHub() {
     Array.prototype.forEach.call(document.querySelectorAll('.wstab'), function (tab) {
       tab.addEventListener('click', function () {
@@ -3591,6 +4027,7 @@ footer.site a:hover{color:#fff;border-color:rgba(148,163,184,.4)}
           p.hidden = p.getAttribute('data-wspanel') !== name;
         });
         if (name === 'integrations') loadIntegrations();
+        if (name === 'cs') csLoadAll();
       });
     });
     if ($('skillReload')) $('skillReload').addEventListener('click', loadSkills);
@@ -3634,6 +4071,7 @@ footer.site a:hover{color:#fff;border-color:rgba(148,163,184,.4)}
     if ($('lbsCity') && !$('lbsCity').value) $('lbsCity').value = S.config.city || '北京';
     if ($('lbsIndustry') && !$('lbsIndustry').value) $('lbsIndustry').value = currentIndustry();
     bindSkillHub();
+    bindCs();
     agentPrefill();
     markApi('checking');
     probeSearch();
