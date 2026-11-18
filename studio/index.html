@@ -238,6 +238,15 @@ details[open].lic summary:before,details[open].scenes summary:before,details[ope
 .ex-btn:hover{border-color:rgba(56,189,248,.5);background:rgba(56,189,248,.06)}
 .ex-btn.primary{border-color:rgba(56,189,248,.55);background:linear-gradient(180deg,rgba(56,189,248,.16),rgba(9,14,24,.8));box-shadow:0 14px 40px -22px rgba(56,189,248,.9)}
 .ex-btn.disabled{opacity:.45;pointer-events:none}
+.ex-dl-progress{margin-top:10px;padding:10px 12px;border:1px solid rgba(56,189,248,.35);background:rgba(56,189,248,.08);border-radius:10px}
+.ex-dl-progress .bar{height:9px;border-radius:999px;background:rgba(56,189,248,.16);overflow:hidden}
+.ex-dl-progress .bar>i{display:block;height:100%;width:0;border-radius:999px;background:linear-gradient(90deg,#22d3ee,#7c3aed);transition:width .15s linear}
+.ex-dl-progress .txt{font-size:12px;color:#7dd3fc;margin-top:6px;font-weight:700;overflow-wrap:anywhere}
+.ex-dl-error{margin-top:10px;border:1px solid rgba(251,113,133,.45);background:rgba(251,113,133,.09);border-radius:10px;padding:9px 11px;font-size:12.5px;line-height:1.65;color:#fecdd3;overflow-wrap:anywhere}
+.ex-dl-error .msg{display:block;color:#fecdd3}
+.ex-dl-error .acts{display:flex;gap:8px;flex-wrap:wrap;margin-top:8px}
+.ex-dl-error button{min-height:40px;padding:0 13px;border-radius:9px;border:1px solid rgba(56,189,248,.45);background:rgba(56,189,248,.12);color:#bae6fd;font-size:12.5px;font-weight:700;cursor:pointer;font-family:inherit}
+.ex-dl-note{margin-top:10px;font-size:12px;color:#a7f3d0;line-height:1.6;overflow-wrap:anywhere}
 .license-line{margin-top:14px;font-size:12px;line-height:1.7;color:var(--txt3);border:1px dashed rgba(148,163,184,.18);border-radius:12px;padding:10px 12px}
 .tiny{font-size:11.5px;color:#56657a;margin:8px 0 0}
 .batch summary,.adv summary{cursor:pointer;list-style:none;min-height:64px;display:flex;align-items:center;gap:12px}
@@ -1595,6 +1604,15 @@ body.ed-open{overflow:hidden}
    <button type="button" class="ex-btn" id="copyScript" disabled>📋<b>复制口播文案</b><span>发点评/私信也能用</span></button>
    <button type="button" class="ex-btn" id="copyAll" disabled>📑<b>复制全部文案</b><span>口播 + 三个平台</span></button>
   </div>
+  <div class="ex-dl-progress" id="exDlProgress" hidden>
+   <div class="bar"><i id="exDlBar"></i></div>
+   <div class="txt" id="exDlProgTxt">准备保存…</div>
+  </div>
+  <div class="ex-dl-error" id="exDlError" hidden>
+   <b>保存失败：</b><span class="msg" id="exDlErrMsg"></span>
+   <div class="acts" id="exDlErrActs"></div>
+  </div>
+  <p class="ex-dl-note" id="exDlNote" hidden></p>
   <div class="license-line" id="exportLicense">素材来源：用户上传（授权由上传方确认）/ 站内可商用素材；BGM：本地合成；配音：Edge TTS 免费合成；AI 合成内容请自行标注。</div>
   <p class="tiny">提示：素材建议用自己拍的门店照，避免用带别人商标/水印的图。</p>
  </section>
@@ -2670,26 +2688,250 @@ function licenseText(d){
  if(!parts.length)parts.push('素材来源：用户上传 / 站内可商用素材；BGM 本地合成；配音 Edge TTS；AI 合成内容请自行标注。');
  return parts.join('\n');
 }
+/* ================= 导出下载（第一件事弹系统保存框，再拉流写入） ================= */
+var EXDl={busy:false,lastFolderBytes:0};
+function exDlEl(id){return document.getElementById(id);}
+function exDlTrace(step,extra){
+ try{
+  var arr=window.__exDlTrace||(window.__exDlTrace=[]);
+  arr.push({t:Date.now(),step:step,extra:extra||''});
+  if(arr.length>150)arr.shift();
+  if(window.console&&console.info)console.info('[ex-dl] '+step+(extra?(' '+JSON.stringify(extra)):''));
+ }catch(e){}
+}
+function exDlAbs(u){try{return new URL(u,location.href).href;}catch(e){return String(u||'');}}
+function exDlIsIOS(){var u=navigator.userAgent||'';return /iPad|iPhone|iPod/.test(u)||(navigator.platform==='MacIntel'&&Number(navigator.maxTouchPoints)>1);}
+function exDlIsMobile(){return /Android|iPhone|iPad|iPod|Mobile/i.test(navigator.userAgent||'');}
+function exDlMobileHint(){return exDlIsMobile()?'；手机请在浏览器「下载」里查看':'';}
+function exDlFileSupported(){return !!(window.showSaveFilePicker&&window.isSecureContext);}
+function exDlDirSupported(){return !!(window.showDirectoryPicker&&window.isSecureContext);}
+function exDlStamp(){
+ var d=new Date(),p=function(n){return ('0'+n).slice(-2);};
+ return d.getFullYear()+p(d.getMonth()+1)+p(d.getDate())+'-'+p(d.getHours())+p(d.getMinutes())+p(d.getSeconds());
+}
+function exDlVideoName(){return '星籁成片-'+exDlStamp()+'.mp4';}
+function exDlStatus(text,pct){
+ var box=exDlEl('exDlProgress'),bar=exDlEl('exDlBar'),tx=exDlEl('exDlProgTxt');
+ if(!box)return;
+ if(text==null){box.hidden=true;box.className='ex-dl-progress';return;}
+ box.hidden=false;box.className='ex-dl-progress on';
+ if(bar)bar.style.width=(Math.max(0,Math.min(100,Number(pct)||0)))+'%';
+ if(tx)tx.textContent=text;
+}
+function exDlNote(text){
+ var n=exDlEl('exDlNote');if(!n)return;
+ n.textContent=text||'';n.hidden=!text;
+}
+function exDlHideError(){
+ var b=exDlEl('exDlError');if(b){b.hidden=true;b.className='ex-dl-error';}
+ var m=exDlEl('exDlErrMsg');if(m)m.textContent='';
+ var a=exDlEl('exDlErrActs');if(a)a.innerHTML='';
+}
+function exDlShowError(msg,retry,fallback){
+ var box=exDlEl('exDlError');if(!box)return;
+ box.hidden=false;box.className='ex-dl-error on';
+ var m=exDlEl('exDlErrMsg');if(m)m.textContent=msg||'未知原因';
+ var acts=exDlEl('exDlErrActs');if(!acts)return;
+ acts.innerHTML='';
+ var b=document.createElement('button');b.type='button';b.textContent='🔄 重试';
+ b.onclick=function(){exDlHideError();if(typeof retry==='function')retry();else saveVideoWithPicker();};
+ acts.appendChild(b);
+ var alt=document.createElement('button');alt.type='button';alt.textContent='⬇ 改用直接下载';
+ alt.onclick=function(){exDlHideError();if(typeof fallback==='function')fallback();else exDlDirectVideo();};
+ acts.appendChild(alt);
+}
+function exDlErrText(prefix,err){
+ var name=(err&&err.name)||'',msg=(err&&err.message)||'',why;
+ if(name==='QuotaExceededError'||/quota/i.test(name))why='磁盘空间不足，或浏览器保存配额已满，请清理后重试';
+ else if(name==='NotAllowedError')why='浏览器拦截了保存操作（可能被权限设置或插件拦截），请再点一次并在弹窗里允许';
+ else if(name==='SecurityError')why='浏览器要求在点击后立刻选择保存位置，请再点一次按钮';
+ else if(name==='AbortError')why='已取消';
+ else if(name==='NotSupportedError'||name==='RangeError')why='文件过大或浏览器不支持写入这么大的文件，请改用「直接下载」';
+ else if(name==='TypeError'&&/fetch|network|load/i.test(msg))why='网络中断或下载被浏览器/插件拦截，请检查网络后重试';
+ else if(/HTTP\s*(\d{3})/i.test(msg))why='服务器返回 '+msg.replace(/^.*?(HTTP\s*\d{3}).*$/i,'$1')+'（成片可能已被清理或过期，请重新生成）';
+ else why=(prefix?prefix+'：':'')+(msg||'未知错误');
+ return why;
+}
+function exDlDirectVideo(name){
+ var d=STATE.d||{};
+ if(!d.video_url){toast('还没有成片，先生成一条','warn');return false;}
+ var n=name||exDlVideoName();
+ exDlTrace('direct:video',{href:d.video_url,name:n});
+ try{
+  var a=document.createElement('a');
+  a.href=exDlAbs(d.video_url);a.download=n;a.rel='noopener';
+  a.style.cssText='position:fixed;left:-9999px;top:0;opacity:0';
+  document.body.appendChild(a);a.click();
+  setTimeout(function(){try{a.remove();}catch(e){}},1500);
+  exDlNote('文件已保存到浏览器的下载文件夹（Ctrl+J 查看）'+exDlMobileHint());
+  toast('已开始下载：文件已保存到浏览器的下载文件夹（Ctrl+J 查看）'+exDlMobileHint(),'ok');
+  return true;
+ }catch(e){
+  exDlShowError(exDlErrText('无法触发下载',e),function(){exDlDirectVideo(n);},null);
+  return false;
+ }
+}
+function exDlFallbackVideo(reason){
+ exDlTrace('video:fallback',{reason:reason||''});
+ exDlDirectVideo(exDlVideoName());
+ exDlNote((reason?reason+'。':'')+'文件已保存到浏览器的下载文件夹（Ctrl+J 查看）'+exDlMobileHint());
+}
+function exDlCombinedText(){
+ var d=STATE.d||{},m=d.marketing_text||{};
+ return '商家短视频工作台 · 文案与授权\n作品编号：'+(STATE.projectId||'-')+'\n版本：v'+STATE.version+'\n\n'+
+  '【口播文案】\n'+(d.script||'')+'\n\n【抖音文案】\n'+(m.douyin||'')+'\n\n【美团文案】\n'+(m.meituan||'')+'\n\n【朋友圈文案】\n'+(m.moments||'')+'\n\n【商用授权说明】\n'+licenseText(d);
+}
+function exDlFallbackFolder(){
+ exDlTrace('folder:fallback',{});
+ exDlDirectVideo(exDlVideoName());
+ try{
+  var blob=new Blob([exDlCombinedText()],{type:'text/plain;charset=utf-8'});
+  var a=document.createElement('a');
+  a.href=URL.createObjectURL(blob);a.download='星籁文案与授权-'+exDlStamp()+'.txt';a.rel='noopener';
+  a.style.cssText='position:fixed;left:-9999px;top:0;opacity:0';
+  document.body.appendChild(a);a.click();
+  setTimeout(function(){try{URL.revokeObjectURL(a.href);a.remove();}catch(e){}},4000);
+ }catch(e){exDlTrace('folder:fallback:txt-fail',{name:e&&e.name,msg:String((e&&e.message)||'').slice(0,120)});}
+ exDlNote('当前浏览器不支持「选择文件夹」，已改为普通下载：视频 + 文案与授权 txt。文件已保存到浏览器的下载文件夹（Ctrl+J 查看）'+exDlMobileHint()+'；若被拦截请允许「多个文件下载」。');
+ toast('当前浏览器不支持「选择文件夹」，已改为普通下载（Ctrl+J 查看）','warn');
+}
+async function saveVideoWithPicker(){
+ var d=STATE.d;
+ if(!d||!d.video_url){toast('还没有成片，先生成一条','warn');return;}
+ if(EXDl.busy){toast('正在保存，请等这次完成','warn');return;}
+ var name=exDlVideoName();
+ exDlHideError();exDlNote('');
+ exDlTrace('video:click',{supported:exDlFileSupported(),secure:!!window.isSecureContext,hasSave:!!window.showSaveFilePicker,ios:exDlIsIOS(),href:d.video_url});
+ if(!exDlFileSupported()){
+  exDlTrace('video:picker:unsupported',{secure:!!window.isSecureContext,hasSave:!!window.showSaveFilePicker});
+  exDlFallbackVideo('当前浏览器不支持系统保存框');
+  return;
+ }
+ var handle;
+ try{
+  exDlTrace('video:picker:call',{suggestedName:name});
+  handle=await window.showSaveFilePicker({
+   suggestedName:name,
+   types:[{description:'MP4 视频',accept:{'video/mp4':['.mp4']}}],
+   excludeAcceptAllOption:false
+  });
+ }catch(e){
+  exDlTrace('video:picker:fail',{name:e&&e.name,msg:String((e&&e.message)||'').slice(0,180)});
+  if(e&&e.name==='AbortError'){toast('已取消保存','warn');exDlStatus(null);return;}
+  var why=exDlErrText('打不开系统保存框',e);
+  exDlStatus(null);
+  exDlShowError(why,function(){saveVideoWithPicker();},function(){exDlDirectVideo(name);});
+  toast(why,'bad');
+  return;
+ }
+ exDlTrace('video:picker:ok',{name:handle&&handle.name});
+ EXDl.busy=true;
+ try{
+  exDlStatus('下载中 0% · 正在读取成片…',0);
+  exDlTrace('video:fetch:start',{href:exDlAbs(d.video_url)});
+  var res=await fetch(exDlAbs(d.video_url),{cache:'no-store',credentials:'same-origin'});
+  if(!res.ok){var er=new Error('HTTP '+res.status);throw er;}
+  var total=Number(res.headers.get('content-length'))||0,got=0,writer=null;
+  try{
+   if(res.body&&res.body.getReader){
+    writer=await handle.createWritable();
+    var reader=res.body.getReader();
+    for(;;){
+     var r=await reader.read();
+     if(r.done)break;
+     await writer.write(r.value);
+     got+=r.value.length;
+     var pct=total?got/total*100:0;
+     exDlStatus('下载中 '+Math.round(pct)+'%（'+(got/1048576).toFixed(1)+' / '+(total?(total/1048576).toFixed(1):'?')+' MB）',pct);
+    }
+    await writer.close();writer=null;
+   }else{
+    var blob=await res.blob();got=blob.size;total=total||got;
+    writer=await handle.createWritable();
+    await writer.write(blob);await writer.close();writer=null;
+   }
+  }catch(e){
+   if(writer){try{await writer.abort();}catch(_e){}}
+   throw e;
+  }
+  exDlStatus('✅ 已保存 '+(got/1048576).toFixed(2)+' MB · '+(handle.name||name),100);
+  exDlTrace('video:save:ok',{name:handle.name||name,size:got,total:total});
+  toast('已保存到：'+(handle.name||name),'ok');
+  exDlNote('已保存到：'+(handle.name||name));
+ }catch(e){
+  exDlTrace('video:save:fail',{name:e&&e.name,msg:String((e&&e.message)||'').slice(0,180)});
+  var why2=exDlErrText('保存失败',e);
+  exDlStatus(null);
+  exDlShowError(why2,function(){saveVideoWithPicker();},function(){exDlDirectVideo(name);});
+  toast(why2,'bad');
+ }finally{EXDl.busy=false;}
+}
+async function exDlWriteUrlToDir(dir,name,href,onPct){
+ var fh=await dir.getFileHandle(name,{create:true});
+ var w=await fh.createWritable();
+ var got=0,total=0;
+ try{
+  var url=exDlAbs(href);
+  exDlTrace('folder:fetch:start',{name:name,href:url});
+  var res=await fetch(url,{cache:'no-store',credentials:'same-origin'});
+  if(!res.ok){var er=new Error('HTTP '+res.status);er.__file=name;throw er;}
+  total=Number(res.headers.get('content-length'))||0;
+  if(res.body&&res.body.getReader){
+   var rd=res.body.getReader();
+   for(;;){
+    var r=await rd.read();
+    if(r.done)break;
+    await w.write(r.value);
+    got+=r.value.length;
+    if(onPct)onPct(total?got/total*100:0,got,total);
+   }
+  }else{
+   var blob=await res.blob();got=blob.size;total=total||got;
+   await w.write(blob);
+   if(onPct)onPct(100,got,total);
+  }
+  await w.close();
+  EXDl.lastFolderBytes=(EXDl.lastFolderBytes||0)+got;
+  return got;
+ }catch(e){
+  try{await w.abort();}catch(_e){}
+  throw e;
+ }
+}
+async function exDlWriteTextToDir(dir,name,content){
+ var fh=await dir.getFileHandle(name,{create:true});
+ var w=await fh.createWritable();
+ await w.write(new Blob([content],{type:'text/plain;charset=utf-8'}));
+ await w.close();
+}
 async function saveToFolder(){
  var d=STATE.d;
  if(!d||!d.video_url){toast('还没有成片，先生成一条','warn');return;}
- if(!window.showDirectoryPicker){
-  toast('当前浏览器不支持「选文件夹」，已改为普通下载','warn');
-  var a0=$('dlVideo');if(a0){try{a0.click();}catch(e){}}
+ if(EXDl.busy){toast('正在保存，请等这次完成','warn');return;}
+ exDlHideError();exDlNote('');EXDl.lastFolderBytes=0;
+ exDlTrace('folder:click',{supported:exDlDirSupported(),secure:!!window.isSecureContext,hasDir:!!window.showDirectoryPicker,href:d.video_url});
+ if(!exDlDirSupported()){
+  exDlTrace('folder:picker:unsupported',{secure:!!window.isSecureContext,hasDir:!!window.showDirectoryPicker});
+  exDlFallbackFolder();
   return;
  }
- var dir=null;
- try{dir=await window.showDirectoryPicker({mode:'readwrite'});}
- catch(e){
-  if(e&&(e.name==='AbortError'||e.name==='NotAllowedError'))return;
-  toast('打不开文件夹：'+((e&&e.message)||'请重试'),'bad');
+ var dir;
+ try{
+  exDlTrace('folder:picker:call',{mode:'readwrite'});
+  dir=await window.showDirectoryPicker({mode:'readwrite'});
+ }catch(e){
+  exDlTrace('folder:picker:fail',{name:e&&e.name,msg:String((e&&e.message)||'').slice(0,180)});
+  if(e&&e.name==='AbortError'){toast('已取消保存','warn');exDlStatus(null);return;}
+  var why=exDlErrText('打不开文件夹选择框',e);
+  exDlStatus(null);
+  exDlShowError(why,function(){saveToFolder();},function(){exDlFallbackFolder();});
+  toast(why,'bad');
   return;
  }
- var btn=$('saveFolder'),lb=btn?btn.querySelector('b'):null,ls=btn?btn.querySelector('span'):null;
- var oldB=lb?lb.textContent:'',oldS=ls?ls.textContent:'';
- if(btn)btn.disabled=true;
+ exDlTrace('folder:picker:ok',{name:dir&&dir.name});
+ EXDl.busy=true;
  var tasks=[];
- tasks.push({name:'商家视频-'+(STATE.projectId||Date.now())+extOf(d.video_url,'.mp4'),url:d.video_url});
+ tasks.push({name:'商家视频-'+exDlStamp()+extOf(d.video_url,'.mp4'),url:d.video_url});
  if(d.voice_url)tasks.push({name:'配音'+extOf(d.voice_url,'.mp3'),url:d.voice_url});
  if(d.bgm_url)tasks.push({name:'配乐'+extOf(d.bgm_url,'.mp3'),url:d.bgm_url});
  var m=d.marketing_text||{};
@@ -2700,33 +2942,31 @@ async function saveToFolder(){
   {name:'商用授权说明.txt',content:licenseText(d)}
  ];
  var total=tasks.length+texts.length,done=0;
- function prog(){if(lb)lb.textContent='正在写入… '+done+'/'+total;if(ls)ls.textContent='保存到「'+dir.name+'」';}
- async function writeBlob(name,blob){
-  var fh=await dir.getFileHandle(name,{create:true});
-  var w=await fh.createWritable();
-  await w.write(blob);await w.close();
- }
  try{
   for(var i=0;i<tasks.length;i++){
-   prog();
-   var r=await fetch(tasks[i].url,{cache:'no-store'});
-   if(!r.ok)throw new Error('音视频读取失败（HTTP '+r.status+'）');
-   var blob=await r.blob();
-   await writeBlob(tasks[i].name,blob);
-   done++;prog();
+   var taskName=tasks[i].name;
+   exDlStatus('正在保存 '+(done+1)+'/'+total+'：'+taskName, done/total*100);
+   await exDlWriteUrlToDir(dir,taskName,tasks[i].url,(function(nm,idx){
+    return function(pct){exDlStatus('正在保存 '+(idx+1)+'/'+total+'：'+nm+' '+Math.round(pct)+'%',(idx+pct/100)/total*100);};
+   })(taskName,i));
+   done++;
   }
   for(var j=0;j<texts.length;j++){
-   prog();
-   await writeBlob(texts[j].name,new Blob([texts[j].content],{type:'text/plain;charset=utf-8'}));
-   done++;prog();
+   exDlStatus('正在保存 '+(done+1)+'/'+total+'：'+texts[j].name, done/total*100);
+   await exDlWriteTextToDir(dir,texts[j].name,texts[j].content);
+   done++;
   }
-  toast('已保存 '+total+' 个文件到「'+dir.name+'」','ok');
+  exDlStatus('✅ 已保存 '+total+' 个文件到「'+(dir.name||'所选文件夹')+'」',100);
+  exDlTrace('folder:save:ok',{dir:dir.name,files:total,bytes:EXDl.lastFolderBytes});
+  toast('已保存 '+total+' 个文件到「'+(dir.name||'所选文件夹')+'」','ok');
+  exDlNote('已保存 '+total+' 个文件到「'+(dir.name||'所选文件夹')+'」');
  }catch(e){
-  toast('写入失败：'+((e&&e.message)||'请检查文件夹权限后重试'),'bad');
- }finally{
-  if(lb)lb.textContent=oldB;if(ls)ls.textContent=oldS;
-  syncControls();
- }
+  exDlTrace('folder:save:fail',{file:e&&e.__file,name:e&&e.name,msg:String((e&&e.message)||'').slice(0,180)});
+  var why2=exDlErrText('写入失败',e);
+  exDlStatus(null);
+  exDlShowError(why2,function(){saveToFolder();},function(){exDlFallbackFolder();});
+  toast(why2,'bad');
+ }finally{EXDl.busy=false;syncControls();}
 }
 
 /* ================= 批量混剪 ================= */
@@ -3132,7 +3372,11 @@ function bindOnce(){
   runRevise('rollback',String(v),'回退到第 '+v+' 版');
  });
 
- $('dlVideo').addEventListener('click',function(e){if(!STATE.d||!STATE.d.video_url){e.preventDefault();toast('还没有成片，先生成一条','warn');}});
+ $('dlVideo').addEventListener('click',function(e){
+  if(!STATE.d||!STATE.d.video_url){e.preventDefault();toast('还没有成片，先生成一条','warn');return;}
+  e.preventDefault();
+  saveVideoWithPicker();
+ });
  $('dlCover').addEventListener('click',downloadCover);
  $('copyScript').addEventListener('click',function(){copyText((STATE.d&&STATE.d.script)||'','口播文案已复制');});
  $('copyAll').addEventListener('click',function(){copyText(allText(),'全部文案已复制');});
@@ -6137,4 +6381,25 @@ if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',
 
 </script>
 <script defer src="../assets/auth.js"></script>
+<script id="dg-gate">
+(function () {
+  'use strict';
+  var LOGIN = '/ai-nav/account/?next=' + encodeURIComponent('/ai-nav/studio/desktop.html');
+  function token() {
+    try { return localStorage.getItem('xl_token') || sessionStorage.getItem('xl_token') || ''; }
+    catch (e) { return ''; }
+  }
+  document.addEventListener('click', function (ev) {
+    var el = ev.target;
+    while (el && el !== document && el.tagName !== 'A') { el = el.parentNode; }
+    if (!el || el === document || el.tagName !== 'A') return;
+    var href = el.getAttribute('href') || '';
+    if (!/desktop\.html(\?|#|$)/.test(href)) return;
+    if (token()) return;
+    ev.preventDefault();
+    window.location.href = LOGIN;
+  }, true);
+})();
+</script>
+
 </body></html>

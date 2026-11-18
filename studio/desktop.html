@@ -4,6 +4,7 @@
 <script>(function(){try{var k="xl_theme",v=localStorage.getItem(k),m=(v==="dark"||v==="light"||v==="auto")?v:"auto",q=window.matchMedia?window.matchMedia("(prefers-color-scheme: light)"):null,t=(m==="auto")?((q&&q.matches)?"light":"dark"):m,d=document.documentElement;d.setAttribute("data-theme",t);d.setAttribute("data-theme-mode",m);d.style.colorScheme=t}catch(e){document.documentElement.setAttribute("data-theme","dark")}})();</script>
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
 <title>星籁剪辑桌面版 · Windows 安装包与说明 · 星籁 AI</title>
+<link rel="icon" href="data:,">
 <meta name="description" content="星籁剪辑桌面版 0.2.11：多轨剪辑、4K、自动字幕、本地渲染、星籁账号登录与工程云同步。Windows 安装包下载、安装步骤、系统要求与开源许可说明。">
 <meta name="keywords" content="星籁剪辑,桌面剪辑软件,多轨剪辑,4K剪辑,自动字幕,Windows剪辑软件">
 <link rel="canonical" href="https://xinglaiai.com/ai-nav/studio/desktop.html">
@@ -47,6 +48,14 @@ h1 span{background:linear-gradient(120deg,#7dd3fc,#c4b5fd);-webkit-background-cl
 .code{font-family:Consolas,Menlo,monospace;font-size:12px;background:rgba(7,12,21,.9);border:1px solid var(--line);border-radius:8px;padding:6px 9px;color:#bae6fd;word-break:break-all;display:block;margin:6px 0;line-height:1.6}
 .warn{border:1px solid rgba(251,191,36,.4);background:rgba(251,191,36,.08);border-radius:12px;padding:11px 13px;font-size:12.5px;color:#fde68a;line-height:1.7;margin-top:10px}
 .note{font-size:12px;color:var(--txt3)}
+.btn-main{border:0;cursor:pointer;font-family:inherit;line-height:1.2}
+.btn-main[aria-busy="true"]{opacity:.72;pointer-events:none}
+.btn-main.lock{background:linear-gradient(135deg,#475569,#1e293b);color:#e2e8f0;border:1px solid rgba(148,163,184,.4);text-decoration:none!important}
+.beta{display:inline-flex;align-items:center;gap:6px;margin-top:10px;font-size:12px;color:#fde68a;background:rgba(251,191,36,.08);border:1px solid rgba(251,191,36,.3);border-radius:999px;padding:5px 11px}
+.who{display:inline-flex;align-items:center;flex-wrap:wrap;gap:6px;max-width:100%;margin-top:12px;font-size:13px;color:#bbf7d0;background:rgba(52,211,153,.08);border:1px solid rgba(52,211,153,.28);border-radius:999px;padding:6px 12px}
+.who b{color:#ecfdf5;font-weight:700}
+.dlstate{margin-top:10px;font-size:12.5px;color:var(--txt2);min-height:18px;line-height:1.6;word-break:break-word}
+.dlstate.err{color:#fca5a5}
 footer{max-width:1000px;margin:0 auto;padding:26px 20px 40px;text-align:center;font-size:12px;color:#4d5d72;line-height:1.7}
 @media(max-width:820px){.hero{grid-template-columns:1fr}.preview{max-width:520px}.top-in .back{font-size:12px;padding:6px 9px}.wrap{padding-top:24px}}
 </style>
@@ -66,10 +75,14 @@ footer{max-width:1000px;margin:0 auto;padding:26px 20px 40px;text-align:center;f
    <h1>网页负责快，<span>桌面版负责专业</span></h1>
    <p class="lead">多轨时间轴、4K 预览与导出、自动字幕、本地 FFmpeg 渲染；支持星籁 AI 账号登录与工程云同步。桌面程序独立运行，<b>不嵌入网页</b>。</p>
    <div class="actions">
-    <a class="btn-main" href="/ai-nav/studio/files/downloads/xinglai-cut-0.2.11-setup.exe" download>⬇ 下载安装包（Windows x64）</a>
-    <a class="btn-line" href="/ai-nav/studio/files/downloads/xinglai-cut-0.2.11-setup.exe.sha256" target="_blank" rel="noopener">校验 SHA256</a>
+    <button class="btn-main" id="dlBtn" type="button" hidden>⬇ 下载安装包（Windows x64）</button>
+    <a class="btn-main lock" id="dlLogin" href="/ai-nav/account/?next=/ai-nav/studio/desktop.html">🔒 请先登录后下载</a>
+    <a class="btn-line" href="#dlcheck">校验 SHA256</a>
    </div>
-   <div class="meta"><span>版本 <b>0.2.11</b></span><span>大小 <b>101.6 MB</b></span><span>系统 <b>Windows 10/11 x64</b></span><span>授权 <b>AGPL-3.0（基于 Concat）</b></span></div>
+   <div class="beta" id="betaNote">🔒 内测阶段，仅登录用户可下载</div>
+   <div class="who" id="who" hidden></div>
+   <div class="dlstate" id="dlState" role="status" aria-live="polite"></div>
+   <div class="meta"><span>版本 <b>0.2.11</b></span><span>大小 <b id="metaSize">101.6 MB</b></span><span>系统 <b>Windows 10/11 x64</b></span><span>授权 <b>AGPL-3.0（基于 Concat）</b></span></div>
    <div class="warn">安装包未做代码签名，Windows SmartScreen 可能提示「未知发布者」：点「更多信息 → 仍要运行」即可。下载后可用上方 SHA256 校验。</div>
   </div>
   <div class="preview">
@@ -88,7 +101,7 @@ footer{max-width:1000px;margin:0 auto;padding:26px 20px 40px;text-align:center;f
  <div class="sec">
   <h2>安装步骤（3 步）</h2>
   <ol>
-   <li>点上面的「下载安装包」，得到 <b>xinglai-cut-0.2.11-setup.exe</b>（约 101.6 MB）。</li>
+   <li>先登录星籁 AI 账号（与网页工作台同一个账号），再点上面的「下载安装包」，得到 <b>星籁剪辑-0.2.11-setup.exe</b>（约 101.6 MB）。</li>
    <li>双击安装；如果 SmartScreen 拦截，点「更多信息 → 仍要运行」。装完桌面/开始菜单会有「星籁剪辑」。</li>
    <li>打开后用星籁 AI 账号登录（与网页工作台同一个账号），即可本地剪辑；不登录也能先用本地模式。</li>
   </ol>
@@ -110,12 +123,162 @@ footer{max-width:1000px;margin:0 auto;padding:26px 20px 40px;text-align:center;f
   <p class="note">源码仓库：<a href="https://github.com/A678-beep/concat-fork" target="_blank" rel="noopener">github.com/A678-beep/concat-fork</a> · 构建说明见仓库 README / docs/REBRAND.md。</p>
  </div>
 
- <div class="sec">
+ <div class="sec" id="dlcheck">
   <h2>下载校验</h2>
-  <p>文件：<span class="code">xinglai-cut-0.2.11-setup.exe</span></p>
-  <p>SHA256：<span class="code">56b056049ba54492be49b65b12d218794155233ad59b866d0d8b97cc2b29dccb</span></p>
-  <p class="note">如果下载链接失效或速度慢，可先到 <a href="https://github.com/A678-beep/concat-fork" target="_blank" rel="noopener">GitHub 源码仓库</a> 查看最新发布说明；网页工作台（<a href="./">返回</a>）仍可正常使用。</p>
+  <p>文件：<span class="code">星籁剪辑-0.2.11-setup.exe</span>（服务器文件名 xinglai-cut-0.2.11-setup.exe）</p>
+  <p>SHA256：<span class="code" id="shaVal">56b056049ba54492be49b65b12d218794155233ad59b866d0d8b97cc2b29dccb</span></p>
+  <p class="note">内测阶段，仅登录用户可下载；安装包与校验值通过登录态接口下发，直接 URL 已关闭。如果下载链接失效或速度慢，可先到 <a href="https://github.com/A678-beep/concat-fork" target="_blank" rel="noopener">GitHub 源码仓库</a> 查看最新发布说明；网页工作台（<a href="./">返回</a>）仍可正常使用。</p>
  </div>
 </div>
 <footer>© 2026 星籁 AI 工具导航 · xinglaiai.com · 桌面版基于 Concat（AGPL-3.0 许可，源码按需提供）修改<br>AI 生成内容请按平台规则标注；素材版权由上传方负责。</footer>
+<script>
+(function () {
+  'use strict';
+  var FILE = '星籁剪辑-0.2.11-setup.exe';
+  var API = (function () {
+    try {
+      if (location.protocol === 'file:') return 'https://xinglaiai.com/ai-nav/api';
+      if (/github\.io$/i.test(location.hostname)) return 'https://xinglaiai.com/ai-nav/api';
+      var k = location.pathname.indexOf('/ai-nav/');
+      if (k >= 0) return location.origin + location.pathname.slice(0, k) + '/ai-nav/api';
+      return location.origin + '/ai-nav/api';
+    } catch (e) { return '/ai-nav/api'; }
+  })();
+  var btn = document.getElementById('dlBtn');
+  var loginEl = document.getElementById('dlLogin');
+  var who = document.getElementById('who');
+  var state = document.getElementById('dlState');
+  var metaSize = document.getElementById('metaSize');
+  var shaVal = document.getElementById('shaVal');
+  if (!btn || !state) return;
+
+  function esc(s) {
+    return String(s == null ? '' : s).replace(/[&<>"']/g, function (c) {
+      return { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c];
+    });
+  }
+  function token() {
+    try { return localStorage.getItem('xl_token') || sessionStorage.getItem('xl_token') || ''; }
+    catch (e) { return ''; }
+  }
+  function clearToken() {
+    try { localStorage.removeItem('xl_token'); sessionStorage.removeItem('xl_token'); } catch (e) {}
+  }
+  function headers() { return { 'Authorization': 'Bearer ' + token() }; }
+  function fmt(n) {
+    n = Number(n) || 0;
+    return n >= 1048576 ? (n / 1048576).toFixed(1) + ' MB' : Math.max(1, Math.round(n / 1024)) + ' KB';
+  }
+  function setState(text, isErr) {
+    state.textContent = text || '';
+    state.className = 'dlstate' + (isErr ? ' err' : '');
+  }
+  function resetBtn() {
+    btn.removeAttribute('aria-busy');
+    btn.textContent = '⬇ 下载安装包（Windows x64）';
+  }
+  function showLocked(msg) {
+    btn.hidden = true;
+    loginEl.hidden = false;
+    who.hidden = true;
+    if (msg) setState(msg, true);
+  }
+  function showLogged(u) {
+    var name = u.business_name || u.name || u.account || u.phone || '已登录用户';
+    var plan = u.plan_name || u.plan || '体验版';
+    who.innerHTML = '✅ 已登录：<b>' + esc(name) + '</b> · ' + esc(plan);
+    who.hidden = false;
+    btn.hidden = false;
+    loginEl.hidden = true;
+  }
+  function loadMeta() {
+    fetch(API + '/desktop/download?meta=1', { headers: headers(), cache: 'no-store' })
+      .then(function (res) { return res.ok ? res.json() : null; })
+      .then(function (m) {
+        if (!m || !m.ok) return;
+        if (m.size) metaSize.textContent = (m.size / 1048576).toFixed(1) + ' MB';
+        if (m.sha256) shaVal.textContent = m.sha256;
+      })
+      .catch(function () {});
+  }
+  function save(blob, size) {
+    var url = URL.createObjectURL(blob);
+    var a = document.createElement('a');
+    a.href = url;
+    a.download = FILE;
+    a.rel = 'noopener';
+    document.body.appendChild(a);
+    a.click();
+    a.remove();
+    setTimeout(function () { URL.revokeObjectURL(url); }, 30000);
+    resetBtn();
+    setState('✅ 已开始下载：' + FILE + '（' + fmt(size) + '）', false);
+  }
+  function startDownload() {
+    if (!token()) { location.href = loginEl.getAttribute('href') || '/ai-nav/account/'; return; }
+    if (btn.getAttribute('aria-busy') === 'true') return;
+    btn.setAttribute('aria-busy', 'true');
+    btn.textContent = '⏳ 正在下载…';
+    setState('正在建立连接…', false);
+    fetch(API + '/desktop/download', { headers: headers(), cache: 'no-store' })
+      .then(function (res) {
+        if (res.status === 401) {
+          clearToken();
+          showLocked('登录已过期，请重新登录后再下载');
+          resetBtn();
+          throw { auth: true };
+        }
+        if (!res.ok) throw new Error('HTTP ' + res.status);
+        var total = parseInt(res.headers.get('Content-Length') || '0', 10) || 0;
+        if (!res.body || !res.body.getReader) {
+          return res.blob().then(function (b) { save(b, total || b.size); });
+        }
+        var reader = res.body.getReader(), chunks = [], loaded = 0;
+        function pump() {
+          return reader.read().then(function (r) {
+            if (r.done) {
+              save(new Blob(chunks, { type: 'application/octet-stream' }), loaded);
+              return;
+            }
+            chunks.push(r.value);
+            loaded += r.value.length;
+            var pct = total ? Math.min(100, Math.round(loaded * 1000 / total) / 10) : 0;
+            setState('正在下载 ' + fmt(loaded) + (total ? ' / ' + fmt(total) + '（' + pct + '%）' : ''), false);
+            return pump();
+          });
+        }
+        return pump();
+      })
+      .catch(function (e) {
+        if (e && e.auth) return;
+        resetBtn();
+        setState('下载失败：' + ((e && e.message) || '网络异常') + '，请重试或重新登录', true);
+      });
+  }
+
+  btn.addEventListener('click', startDownload);
+
+  if (!token()) { showLocked(''); return; }
+  fetch(API + '/auth/me', { headers: headers(), cache: 'no-store' })
+    .then(function (res) {
+      return res.text().then(function (t) {
+        var d = {};
+        try { d = JSON.parse(t) || {}; } catch (e) {}
+        return { status: res.status, data: d };
+      });
+    })
+    .then(function (x) {
+      if (x.status === 401 || !x.data || !x.data.ok) {
+        clearToken();
+        showLocked(x.status === 401 ? '登录已过期，请重新登录后再下载' : '登录状态校验失败，请刷新重试');
+        return;
+      }
+      showLogged(x.data.user || {});
+      loadMeta();
+    })
+    .catch(function () {
+      showLocked('网络异常，登录状态校验失败；请刷新页面重试');
+    });
+})();
+</script>
 </body></html>
