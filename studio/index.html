@@ -707,9 +707,15 @@ details[open].edit summary:after{content:"收起 ▴"}
 .edit-result{margin-top:12px;border:1px solid rgba(52,211,153,.35);background:rgba(52,211,153,.06);border-radius:12px;padding:10px;min-width:0}
 .edit-result video{display:block;width:100%;max-height:440px;background:#000;border-radius:10px}
 .edit-result-meta{font-size:12px;color:var(--txt3);margin-top:8px;line-height:1.6;overflow-wrap:anywhere}
-.edit-result-actions{display:flex;gap:8px;flex-wrap:wrap;margin-top:10px}
-.edit-result-actions a{flex:1 1 160px;min-height:48px;display:inline-flex;align-items:center;justify-content:center;border-radius:10px;background:linear-gradient(135deg,#0891b2,#7c3aed);color:#fff;font-size:14px;font-weight:800;text-decoration:none}
-.edit-result-actions a:hover{filter:brightness(1.08)}
+.edit-result-actions{display:flex;gap:8px;flex-wrap:wrap;margin-top:10px;min-width:0}
+/* 2026-11-18 成片下载区：另存为 / 直接下载 / 复制链接 / 打开原文件 */
+.edit-dl-main{flex:1 1 100%;min-width:0;min-height:56px;display:inline-flex;align-items:center;justify-content:center;gap:6px;border:0;border-radius:12px;padding:0 12px;background:linear-gradient(135deg,#0891b2,#7c3aed);color:#fff;font-size:15.5px;font-weight:800;font-family:inherit;cursor:pointer;box-shadow:0 10px 24px -12px rgba(124,58,237,.9);line-height:1.25;text-align:center}
+.edit-dl-main:hover{filter:brightness(1.08)}
+.edit-dl-main:disabled{opacity:.65;cursor:progress}
+.edit-dl-grid{flex:1 1 100%;min-width:0;display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:8px}
+.edit-dl-btn{min-width:0;min-height:48px;display:inline-flex;align-items:center;justify-content:center;gap:4px;border-radius:10px;padding:0 8px;background:rgba(9,14,24,.85);border:1px solid rgba(56,189,248,.45);color:#bae6fd;font-size:13.5px;font-weight:700;text-decoration:none;font-family:inherit;cursor:pointer;line-height:1.25;text-align:center}
+.edit-dl-btn:hover{background:rgba(56,189,248,.12)}
+.edit-dl-btn.wide{grid-column:1 / -1}
 .edit-usage{margin-top:10px;font-size:11px;line-height:1.6;color:var(--txt3)}
 /* ===== 修复版：上传进度 / 双音量 / 下载区 ===== */
 .edit-status{flex-wrap:wrap}
@@ -723,11 +729,25 @@ details[open].edit summary:after{content:"收起 ▴"}
 .edit-mix .edit-volrow label b{color:#7dd3fc}
 .edit-mix .edit-volrow label b.voice{color:#fbbf24}
 .edit-mix .edit-muted{flex:1 1 100%;font-size:11px}
-.edit-result-actions a.dl{flex:1 1 100%;min-height:54px;font-size:15.5px;box-shadow:0 10px 24px -12px rgba(124,58,237,.9)}
-.edit-result-actions a.nl{flex:1 1 140px;min-height:48px;display:inline-flex;align-items:center;justify-content:center;border-radius:10px;background:rgba(9,14,24,.85);border:1px solid rgba(56,189,248,.45);color:#bae6fd;font-size:13.5px;font-weight:700;text-decoration:none}
-.edit-result-actions a.nl:hover{background:rgba(56,189,248,.12)}
+.edit-dl-note{margin-top:9px;font-size:11.5px;line-height:1.7;color:var(--txt3);overflow-wrap:anywhere}
+.edit-dl-note b{color:#bae6fd}
+.edit-dl-progress{display:none;margin-top:9px}
+.edit-dl-progress.on{display:block}
+.edit-dl-progress .bar{height:9px;border-radius:999px;background:rgba(56,189,248,.16);overflow:hidden}
+.edit-dl-progress .bar>b{display:block;height:100%;width:0;border-radius:999px;background:linear-gradient(90deg,#22d3ee,#7c3aed);transition:width .15s linear}
+.edit-dl-progress .txt{font-size:11.5px;color:#7dd3fc;margin-top:5px;font-weight:700;overflow-wrap:anywhere}
+.edit-dl-error{display:none;margin-top:9px;border:1px solid rgba(251,113,133,.45);background:rgba(251,113,133,.09);border-radius:10px;padding:9px 11px;font-size:12px;line-height:1.65;color:#fecdd3;overflow-wrap:anywhere}
+.edit-dl-error.on{display:block}
+.edit-dl-error b{color:#fda4af;margin-right:4px}
+.edit-dl-erract{display:flex;gap:8px;flex-wrap:wrap;margin-top:8px}
+.edit-dl-erract button{min-height:42px;padding:0 13px;border-radius:9px;border:1px solid rgba(56,189,248,.45);background:rgba(56,189,248,.12);color:#bae6fd;font-size:12.5px;font-weight:700;cursor:pointer;font-family:inherit}
 .edit-result-tip{font-size:11.5px;line-height:1.7;color:var(--txt3);margin-top:8px;overflow-wrap:anywhere}
 .edit-result-tip b{color:#bae6fd}
+.edit-result-tip a{color:#bae6fd;text-decoration:underline}
+@media (max-width:420px){
+ .edit-dl-main{font-size:14px;min-height:54px}
+ .edit-dl-btn{font-size:12.5px;padding:0 5px}
+}
 .edit-err-actions{margin-top:9px;display:flex;gap:8px;flex-wrap:wrap}
 .edit-err-actions button{min-height:42px;padding:0 14px;border-radius:9px;border:1px solid rgba(56,189,248,.45);background:rgba(56,189,248,.12);color:#bae6fd;font-size:12.5px;font-weight:700;cursor:pointer}
 @media (max-width:760px){
@@ -3463,7 +3483,7 @@ var LS_ASSETS='xinglai_edit_assets_v1', LS_SET='xinglai_edit_settings_v1';
 var ED={clips:[],recent:[],bgm:null,voice:null,libItems:[],aspect:'source',res:'1080p',bgmVol:20,voiceVol:100,keepOrig:true,origVol:100,fit:'cover',
   previewSec:0,lastRender:null,busy:false,uploading:false,uid:0,trimUid:null,insertAt:null,suppressClick:0,
   dragUid:null,touchTimer:null,touchDrag:false,touchFrom:-1,touchUid:null,touchTarget:null,
-  touchX:0,touchY:0,trimSeq:0,thumbTimer:null,lastErr:null};
+  touchX:0,touchY:0,trimSeq:0,thumbTimer:null,lastErr:null,lastResult:null};
 
 function $(id){return document.getElementById(id);}
 function esc(s){return String(s==null?'':s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;').replace(/'/g,'&#39;');}
@@ -4090,6 +4110,188 @@ function startTimer(label,outDur){
  },1000);
 }
 function stopTimer(){clearInterval(timerId);timerId=null;}
+/* ---------------- 成片下载：另存为 / 直接下载 / 复制链接 / 打开原文件 ---------------- */
+var DL_NAME='星籁剪辑-成片.mp4';
+var dlBusy=false;
+function dlEl(id){return document.getElementById(id);}
+function dlTrace(step,extra){
+ try{
+  var arr=window.__edDlTrace||(window.__edDlTrace=[]);
+  arr.push({t:Date.now(),step:step,extra:extra||''});
+  if(arr.length>100)arr.shift();
+  if(window.console&&console.info)console.info('[ed-dl] '+step+(extra?(' '+JSON.stringify(extra)):''));
+ }catch(e){}
+}
+function dlAbs(u){try{return new URL(u,location.href).href;}catch(e){return String(u||'');}}
+function dlIsIOS(){var ua=navigator.userAgent||'';return /iPad|iPhone|iPod/.test(ua)||(navigator.platform==='MacIntel'&&Number(navigator.maxTouchPoints)>1);}
+function dlPickerSupported(){return !!(window.showSaveFilePicker&&window.isSecureContext);}
+function dlStatus(text,pct){
+ var box=dlEl('edDlProgress'),bar=dlEl('edDlBar'),tx=dlEl('edDlProgTxt');
+ if(!box)return;
+ if(text==null){box.className='edit-dl-progress';return;}
+ box.className='edit-dl-progress on';
+ if(bar)bar.style.width=clamp(Number(pct)||0,0,100)+'%';
+ if(tx)tx.textContent=text;
+}
+function dlHideError(){var b=dlEl('edDlError');if(b){b.className='edit-dl-error';b.innerHTML='';}}
+function dlShowError(msg,retry){
+ var box=dlEl('edDlError');if(!box)return;
+ box.className='edit-dl-error on';
+ box.innerHTML='<b>保存失败：</b>'+esc(msg||'未知原因');
+ var w=document.createElement('div');w.className='edit-dl-erract';
+ var b=document.createElement('button');b.type='button';b.textContent='🔄 重试';
+ b.onclick=function(){dlHideError();if(typeof retry==='function')retry();};
+ w.appendChild(b);
+ var alt=document.createElement('button');alt.type='button';alt.textContent='⬇ 改用直接下载';
+ alt.onclick=function(){dlHideError();dlForceDownload(dlCurrentHref(),DL_NAME);};
+ w.appendChild(alt);
+ box.appendChild(w);
+}
+function dlErrText(prefix,err){
+ var name=(err&&err.name)||'',msg=(err&&err.message)||'',why='';
+ if(name==='QuotaExceededError'||/quota/i.test(name))why='磁盘空间不足，或浏览器本地存储配额已满';
+ else if(name==='NotAllowedError')why='浏览器拦截了保存操作（需在点击后立刻授权，或保存权限被禁用）';
+ else if(name==='SecurityError')why='浏览器要求点击后立即选择保存位置，请再点一次「另存为」';
+ else if(name==='AbortError')why='已取消';
+ else if(name==='RangeError'||name==='NotSupportedError')why='文件过大或浏览器不支持写入这么大的文件，请改用「直接下载」';
+ else if(name==='TypeError'&&/fetch|network|load/i.test(msg))why='网络中断或下载被浏览器/插件拦截，请检查网络后重试';
+ else if(/HTTP\s*(\d{3})/i.test(msg))why=msg;
+ else why=(prefix?prefix+'：':'')+(msg||'未知错误');
+ return why;
+}
+function dlCurrentHref(){var a=dlEl('edDownload');return a?(a.getAttribute('href')||''):'';}
+function dlForceDownload(href,name){
+ if(!href){dlShowError('还没有成片下载地址，请先合成一条视频',null);return false;}
+ dlTrace('force-download',{href:href});
+ try{
+  var a=document.createElement('a');a.href=href;a.download=name||DL_NAME;a.rel='noopener';a.style.cssText='position:fixed;left:-9999px;top:0;opacity:0';
+  document.body.appendChild(a);a.click();
+  setTimeout(function(){try{a.remove();}catch(e){}},1200);
+  return true;
+ }catch(e){dlShowError(dlErrText('无法触发下载',e),function(){dlForceDownload(href,name);});return false;}
+}
+function dlFallbackCopy(text){
+ try{
+  var ta=document.createElement('textarea');ta.value=text;ta.setAttribute('readonly','');
+  ta.style.cssText='position:fixed;left:-9999px;top:0;opacity:0';
+  document.body.appendChild(ta);ta.focus();ta.select();
+  var ok=false;try{ok=document.execCommand('copy');}catch(e){}
+  ta.remove();return ok;
+ }catch(e){return false;}
+}
+function dlCopyLink(){
+ var href=dlCurrentHref();
+ if(!href){toast('还没有成片下载地址，请先合成一条视频','warn');return;}
+ var url=dlAbs(href);
+ dlTrace('copy:start',{url:url});
+ var done=function(ok){
+  dlTrace('copy:done',{ok:ok});
+  toast(ok?'已复制下载链接，可粘贴到浏览器地址栏或下载工具':'复制失败，请右键「直接下载」选择「复制链接地址」',ok?'ok':'warn');
+ };
+ if(navigator.clipboard&&navigator.clipboard.writeText){
+  navigator.clipboard.writeText(url).then(function(){done(true);},function(){done(dlFallbackCopy(url));});
+ }else done(dlFallbackCopy(url));
+}
+function dlTriggerDirect(){
+ var a=dlEl('edDownload');
+ if(!a||!a.getAttribute('href')){toast('还没有成片下载地址，请先合成一条视频','warn');return;}
+ dlTrace('direct:fallback-click',{href:a.getAttribute('href')});
+ try{a.click();}catch(e){dlForceDownload(a.getAttribute('href'),a.getAttribute('download'));}
+}
+async function dlSaveAs(){
+ if(dlBusy)return;
+ var a=dlEl('edDownload'),href=a?(a.getAttribute('href')||''):'';
+ if(!href){toast('还没有成片下载地址，请先合成一条视频','warn');return;}
+ var btn=dlEl('edSaveAs'),label=btn?btn.textContent:'📥 另存为（选择保存位置）';
+ dlBusy=true;dlHideError();dlStatus(null);
+ if(btn){btn.disabled=true;btn.textContent='📥 正在准备…';}
+ try{
+  if(!dlPickerSupported()){
+   dlTrace('picker:unsupported',{has:!!window.showSaveFilePicker,secure:!!window.isSecureContext,ios:dlIsIOS()});
+   toast(dlIsIOS()?'当前浏览器不支持「另存为」，已改为普通下载；iPhone 可长按视频→存储到相册/文件':'当前浏览器不支持「另存为」，已改为普通下载（请看下载栏或按 Ctrl+J）','warn');
+   dlTriggerDirect();
+   return;
+  }
+  dlTrace('picker:enter',{suggestedName:DL_NAME});
+  var handle;
+  try{
+   handle=await window.showSaveFilePicker({
+    suggestedName:DL_NAME,
+    types:[{description:'MP4 视频',accept:{'video/mp4':['.mp4']}}],
+    excludeAcceptAllOption:false
+   });
+  }catch(e){
+   dlTrace('picker:fail',{name:e&&e.name,msg:String((e&&e.message)||'').slice(0,160)});
+   if(e&&e.name==='AbortError'){toast('已取消保存','warn');return;}
+   dlShowError(dlErrText('无法打开保存窗口',e),dlSaveAs);return;
+  }
+  dlTrace('picker:ok',{name:handle&&handle.name});
+  if(btn)btn.textContent='📥 下载中…';
+  dlStatus('下载中 0% · 准备写入…',0);
+  var res=await fetch(href,{cache:'no-store',credentials:'same-origin'});
+  if(!res.ok){
+   var er=new Error('HTTP '+res.status);
+   er.__reason='服务器返回 '+res.status+'（成片可能已被清理或过期，请重新合成）';
+   throw er;
+  }
+  var total=Number(res.headers.get('content-length'))||Number((ED.lastResult&&ED.lastResult.size)||0)||0;
+  var got=0,lastPct=-1,writer=null;
+  try{
+   if(res.body&&res.body.getReader){
+    writer=await handle.createWritable();
+    var reader=res.body.getReader();
+    for(;;){
+     var r=await reader.read();
+     if(r.done)break;
+     await writer.write(r.value);
+     got+=r.value.length;
+     var pct=total?Math.min(100,got/total*100):0;
+     var shown=Math.round(pct);
+     if(total&&shown!==lastPct){
+      lastPct=shown;
+      dlStatus('下载中 '+shown+'%（'+(got/1048576).toFixed(1)+' / '+(total/1048576).toFixed(1)+' MB）',pct);
+      if(btn)btn.textContent='📥 下载中 '+shown+'%';
+     }else if(!total){dlStatus('下载中 '+(got/1048576).toFixed(1)+' MB',0);}
+    }
+    await writer.close();writer=null;
+   }else{
+    var blob=await res.blob();got=blob.size;total=total||got;
+    writer=await handle.createWritable();
+    await writer.write(blob);await writer.close();writer=null;
+   }
+  }catch(e){
+   if(writer){try{await writer.abort();}catch(_e){}}
+   throw e;
+  }
+  dlStatus('✅ 已保存 '+(got/1048576).toFixed(1)+' MB 到本机 · 文件名：'+(handle.name||DL_NAME),100);
+  dlTrace('save:ok',{name:handle.name,size:got});
+  toast('已保存到本机：'+(handle.name||DL_NAME)+'（在你刚才选的文件夹里）','ok');
+  var tip=dlEl('edResultTip');
+  if(tip)tip.innerHTML='✅ 已保存到本机：<b>'+esc(handle.name||DL_NAME)+'</b>。找不到就打开你刚才选的文件夹；Chrome/Edge 也能在「下载」记录（Ctrl+J）里看到。';
+ }catch(e){
+  dlTrace('save:fail',{name:e&&e.name,msg:String((e&&e.message)||'').slice(0,160)});
+  dlStatus(null);
+  dlShowError(e&&e.__reason?e.__reason:dlErrText('保存失败',e),dlSaveAs);
+ }finally{
+  dlBusy=false;
+  if(btn){btn.disabled=false;btn.textContent=label;}
+ }
+}
+/* 全局点击兜底：若别的脚本拦截了下载链接的默认行为，这里强制再触发一次，避免“点了没反应” */
+function dlInstallGuard(){
+ if(document.__edDlGuard)return;
+ document.__edDlGuard=1;
+ document.addEventListener('click',function(e){
+  var t=e.target,a=t&&t.closest?t.closest('#edResult a[download][data-dl-guard]'):null;
+  if(!a)return;
+  setTimeout(function(){
+   if(e.defaultPrevented){
+    dlTrace('guard:prevented',{href:a.getAttribute('href')});
+    dlForceDownload(a.getAttribute('href'),a.getAttribute('download'));
+   }
+  },0);
+ },true);
+}
 function showResult(d){
  var box=$('edResult');if(!box)return;
  var url=d.video_url||'';
@@ -4110,30 +4312,54 @@ function showResult(d){
  v.addEventListener('loadedmetadata',function(){
   if(isFinite(v.duration)&&v.duration>0)meta.textContent+=' · 播放器实测 '+v.duration.toFixed(1)+' 秒';
  });
+ var directHref=dl;
+ try{
+  if(url&&dl&&new URL(url,location.href).origin===location.origin)directHref=url;
+ }catch(e){}
+ ED.lastResult={videoUrl:url,downloadUrl:dl,size:Number(d.size)||0,id:d.id||''};
  var acts=document.createElement('div');acts.className='edit-result-actions';
- var a=document.createElement('a');a.className='dl';a.id='edDownload';
- a.href=dl;a.setAttribute('download','xinglai-edit-'+(d.id||Date.now())+'.mp4');a.setAttribute('rel','noopener');
- a.textContent='⬇ 下载 MP4（'+Math.max(0.1,(Number(d.size)||0)/1048576).toFixed(1)+'MB）';
+ var save=document.createElement('button');save.type='button';save.id='edSaveAs';save.className='edit-dl-main';
+ save.textContent='📥 另存为（选择保存位置）';
+ save.addEventListener('click',dlSaveAs);
+ acts.appendChild(save);
+ var grid=document.createElement('div');grid.className='edit-dl-grid';
+ var a=document.createElement('a');a.className='edit-dl-btn';a.id='edDownload';
+ a.href=directHref;a.setAttribute('download',DL_NAME);a.setAttribute('rel','noopener');a.setAttribute('data-dl-guard','1');
+ a.setAttribute('data-download-url',dl);
+ a.textContent='⬇ 直接下载';
  a.addEventListener('click',function(){
+  dlTrace('direct:click',{href:a.getAttribute('href')});
   setTimeout(function(){
-   var tip=$('edResultTip');
-   if(tip)tip.innerHTML='<b>如果浏览器没有弹出下载窗口：</b>右键/长按「⬇ 下载 MP4」→「链接另存为」，或点「⬇ 备用下载」/「🌐 新窗口打开」后再保存。';
+   var tip=dlEl('edResultTip');
+   if(tip)tip.innerHTML='⌛ 若还没看到保存窗口：文件通常已开始下载，按 <b>Ctrl+J</b> 打开下载列表；被拦截就点「📥 另存为」自己选位置。';
   },2200);
+  fetch(a.getAttribute('href'),{method:'HEAD',cache:'no-store'}).then(function(r){
+   if(!r.ok&&r.status!==405)dlShowError('下载地址返回 '+r.status+'（成片可能已被清理或过期，请重新合成）',function(){dlForceDownload(a.getAttribute('href'),DL_NAME);});
+  }).catch(function(){
+   dlShowError('网络不通或下载请求被浏览器/插件拦截，未能访问成片地址',function(){dlForceDownload(a.getAttribute('href'),DL_NAME);});
+  });
  });
- acts.appendChild(a);
- var nl=document.createElement('a');nl.className='nl';nl.id='edNewWin';nl.href=url;nl.target='_blank';nl.rel='noopener';nl.textContent='🌐 新窗口打开';
- acts.appendChild(nl);
- var alt=document.createElement('a');alt.className='nl';alt.id='edAltDownload';
- alt.href='/ai-nav/api/download?url='+encodeURIComponent(url);
- alt.setAttribute('download','xinglai-edit-'+(d.id||'video')+'.mp4');
- alt.textContent='⬇ 备用下载';
- acts.appendChild(alt);
- var play=document.createElement('button');play.type='button';play.className='btn-line';play.textContent='▶ 从头播放';
+ grid.appendChild(a);
+ var copy=document.createElement('button');copy.type='button';copy.className='edit-dl-btn';copy.id='edCopyLink';copy.textContent='🔗 复制链接';
+ copy.addEventListener('click',dlCopyLink);
+ grid.appendChild(copy);
+ var nl=document.createElement('a');nl.className='edit-dl-btn';nl.id='edNewWin';nl.href=url;nl.target='_blank';nl.rel='noopener';nl.textContent='🌐 打开原文件';
+ grid.appendChild(nl);
+ var play=document.createElement('button');play.type='button';play.className='edit-dl-btn';play.id='edReplay';play.textContent='▶ 从头播放';
  play.onclick=function(){try{v.currentTime=0;var pr=v.play();if(pr&&pr.catch)pr.catch(function(){});}catch(e){}};
- acts.appendChild(play);
+ grid.appendChild(play);
+ acts.appendChild(grid);
  box.appendChild(acts);
+ var note=document.createElement('div');note.className='edit-dl-note';
+ note.innerHTML='「⬇ 直接下载」点击后若没反应，请看浏览器<b>右上角下载栏</b>，或按 <b>Ctrl+J</b> 查看；也可以点「📥 另存为」自己选保存位置。'+(dlIsIOS()?'<br>iPhone/iPad：<b>长按视频 → 存储到相册/文件</b>（Safari 不支持另存为，请用「🌐 打开原文件」）。':'');
+ box.appendChild(note);
+ var prog=document.createElement('div');prog.className='edit-dl-progress';prog.id='edDlProgress';
+ prog.innerHTML='<div class="bar"><b id="edDlBar"></b></div><div class="txt" id="edDlProgTxt"></div>';
+ box.appendChild(prog);
+ var derr=document.createElement('div');derr.className='edit-dl-error';derr.id='edDlError';
+ box.appendChild(derr);
  var tip=document.createElement('div');tip.className='edit-result-tip';tip.id='edResultTip';
- tip.innerHTML='下载没反应？<b>右键/长按「⬇ 下载 MP4」→「链接另存为」</b>；或点「⬇ 备用下载」（走 API 强制附件头）/「🌐 新窗口打开」后再保存。iOS 会存到「文件」App。';
+ tip.innerHTML='备用通道：右键「⬇ 直接下载」→「链接另存为」；或点「🌐 打开原文件」在播放器里右键保存。iOS 会存到「文件」App；<a href="/ai-nav/api/download?url='+encodeURIComponent(url)+'" target="_blank" rel="noopener">API 下载通道</a>（直链被拦时用）。';
  box.appendChild(tip);
  try{box.scrollIntoView({behavior:'smooth',block:'nearest'});}catch(e){}
 }
@@ -4215,7 +4441,7 @@ function init(){
  if(vvol)vvol.value=ED.voiceVol;if(vvl)vvl.textContent=Math.round(ED.voiceVol)+'%';
  updateMixHint();setProgress(-1);
  syncOrigUI();
- bind();bindTimeline();bindModal();
+ bind();bindTimeline();bindModal();dlInstallGuard();
  renderTimeline();
 }
 if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',init);else init();
