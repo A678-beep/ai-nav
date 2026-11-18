@@ -1044,6 +1044,7 @@ body.ed-open{overflow:hidden}
 }
 
 </style>
+<style id="wb-theme-vars">:root{--xl-accent:#7dd3fc;--xl-txt2:#56657a;--xl-ok:#6ee7b7}</style>
 </head><body>
 <div class="top"><div class="top-in">
  <a class="brand" href="/ai-nav/"><span class="logo">星</span>星籁 AI <span class="brand-sub">商家工作台</span></a>
@@ -1307,7 +1308,7 @@ body.ed-open{overflow:hidden}
       <div id="wbBatchMaterials">
        <section class="sec wb-inline" id="batchEdit">
         <div class="sec-head"><span class="sec-ico">🎛️</span><div><h2>多素材批量剪辑</h2><p class="sec-sub">勾选 5~20 段素材 → 选生成条数（3/5/10）→ 每条自动换顺序、换转场、换字幕样式，批量出差异化成片。</p></div><span class="sec-hint">复用渲染队列</span></div>
-        <div class="wb-batch-sel">已勾选 <b id="batchSelCount">0</b> 段 <button type="button" class="btn-line" id="batchSelectAll">勾选最近 20 段</button><button type="button" class="btn-line" id="batchClearSel">清空勾选</button><span style="color:#56657a">（在 ② 素材库勾选图片/视频）</span></div>
+        <div class="wb-batch-sel">已勾选 <b id="batchSelCount">0</b> 段 <button type="button" class="btn-line" id="batchSelectAll">勾选最近 20 段</button><button type="button" class="btn-line" id="batchClearSel">清空勾选</button><span style="color:var(--xl-txt2)">（在 ② 素材库勾选图片/视频）</span></div>
         <div class="wb-batch-form">
          <label>生成条数<select id="batchCount"><option value="3" selected>3 条</option><option value="5">5 条</option><option value="10">10 条</option></select></label>
          <label>画幅<select id="batchAspect"><option value="9:16" selected>9:16 竖屏</option><option value="16:9">16:9 横屏</option><option value="1:1">1:1 方形</option><option value="source">跟随原片</option></select></label>
@@ -1352,7 +1353,7 @@ body.ed-open{overflow:hidden}
  </section></div>
      </div>
      <div class="wb-mode-pane" data-mode="pad" hidden><section class="sec wb-panel" id="padSec"><div class="sec-head"><span class="sec-ico">🛍️</span><div><h2>商品广告片</h2><p class="sec-sub">1 张产品图 + 3 个卖点 → 15/20/30 秒 9:16 广告片：多角度运镜 / 卖点大字 / 配音 / BGM / 片尾电话。</p></div><span class="sec-hint">纯 L1 0 token</span></div> <div class="pad-body">
-  <p class="sec-sub">只用一张产品图，本地 FFmpeg 渲染，<b style="color:#7dd3fc">纯 L1 每条 0 token 成本</b>。首次约 60~90 秒；可勾选加 1 个 AI 动态镜头（约 ¥2.5，多等 5~6 分钟），AI 失败自动回退纯 L1。</p>
+  <p class="sec-sub">只用一张产品图，本地 FFmpeg 渲染，<b style="color:var(--xl-accent)">纯 L1 每条 0 token 成本</b>。首次约 60~90 秒；可勾选加 1 个 AI 动态镜头（约 ¥2.5，多等 5~6 分钟），AI 失败自动回退纯 L1。</p>
   <div class="pad-grid">
    <div class="pad-field pad-span2">产品图
     <div class="pad-up">
@@ -1568,7 +1569,7 @@ body.ed-open{overflow:hidden}
     </div>
    </div>
 
- <footer><a href="../pricing/" style="color:#7dd3fc">套餐定价</a> · <a href="../account/dashboard.html" style="color:#7dd3fc">个人中心</a> · © 2026 星籁 AI 工具导航 · xinglaiai.com 版权所有 · 未经许可禁止镜像/采集/商业转载<br>生成内容由 AI 合成，请按平台规则自行标注；素材版权由上传方负责。</footer>
+ <footer><a href="../pricing/" style="color:var(--xl-accent)">套餐定价</a> · <a href="../account/dashboard.html" style="color:var(--xl-accent)">个人中心</a> · © 2026 星籁 AI 工具导航 · xinglaiai.com 版权所有 · 未经许可禁止镜像/采集/商业转载<br>生成内容由 AI 合成，请按平台规则自行标注；素材版权由上传方负责。</footer>
 </div>
 
 <div class="modal" id="helpModal" hidden>
@@ -1595,7 +1596,7 @@ body.ed-open{overflow:hidden}
   <h4>手机上能用吗？</h4>
   <p>可以，页面按手机竖屏做过适配。点右上「👴 大字模式」还能放大字体和按钮。</p>
   <h4>生成失败怎么办？</h4>
-  <p>先点「🔁 再试一次」；连续失败就换更短的说法，或减少素材。还不行请用国内站 <a href="https://xinglaiai.com/ai-nav/studio/" style="color:#7dd3fc">xinglaiai.com</a>。</p>
+  <p>先点「🔁 再试一次」；连续失败就换更短的说法，或减少素材。还不行请用国内站 <a href="https://xinglaiai.com/ai-nav/studio/" style="color:var(--xl-accent)">xinglaiai.com</a>。</p>
   <div class="modal-actions"><button type="button" class="btn-line" id="helpGuide">👀 看 3 步上手</button><button type="button" class="btn-line" id="helpOk">知道了</button></div>
  </div>
 </div>
@@ -2336,7 +2337,7 @@ function checkPostCompliance(script){
  api('/ai-nav/api/compliance',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({text:script})},20000)
  .then(function(d){
   if(d&&d.ok&&d.hits&&d.hits.length)renderWarn(box,d,'成片文案里有极限词，建议改稿');
-  else if(d&&d.ok){box.hidden=false;box.className='warnbox';box.style.borderColor='rgba(52,211,153,.35)';box.style.background='rgba(52,211,153,.07)';box.style.color='#a7f3d0';box.innerHTML='<b style="color:#6ee7b7">✅ 已做极限词自检，文案里没发现风险词</b>';}
+  else if(d&&d.ok){box.hidden=false;box.className='warnbox';box.style.borderColor='rgba(52,211,153,.35)';box.style.background='rgba(52,211,153,.07)';box.style.color='#a7f3d0';box.innerHTML='<b style="color:var(--xl-ok)">✅ 已做极限词自检，文案里没发现风险词</b>';}
  })
  .catch(function(){});
 }
@@ -2399,7 +2400,7 @@ function renderMarketing(){
 function renderVersions(){
  var box=$('versions'); if(!box)return;
  var vs=STATE.versions||[];
- if(!vs.length){box.innerHTML='<span style="font-size:12px;color:#56657a">还没有版本，生成后会出现。</span>';return;}
+ if(!vs.length){box.innerHTML='<span style="font-size:12px;color:var(--xl-txt2)">还没有版本，生成后会出现。</span>';return;}
  box.innerHTML=vs.map(function(v){
   var on=Number(v.version)===Number(STATE.version);
   var act=v.action==='create'?'首次生成':(v.action||'');
