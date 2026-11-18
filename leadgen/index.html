@@ -2758,8 +2758,8 @@ footer.site a:hover{color:#fff;border-color:rgba(148,163,184,.4)}
         '<p class="sk-desc">' + esc(s.desc || types || '按步骤执行获客流程') + '</p>' +
         '<div class="skill-actions">' +
           '<button type="button" class="mini" data-sk-run="' + esc(s.id) + '">▶ 运行</button>' +
-          (s.editable ? '<button type="button" class="mini" data-sk-clone="' + esc(s.id) + '" data-sk-name="' + esc(s.name) + '">克隆</button>' +
-            '<button type="button" class="mini warm" data-sk-del="' + esc(s.id) + '">删除</button>' : '') +
+          '<button type="button" class="mini" data-sk-clone="' + esc(s.id) + '" data-sk-name="' + esc(s.name) + '">克隆</button>' +
+          (s.editable ? '<button type="button" class="mini warm" data-sk-del="' + esc(s.id) + '">删除</button>' : '') +
         '</div>' +
       '</article>';
     }).join('');
