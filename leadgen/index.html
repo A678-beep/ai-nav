@@ -1,8 +1,11 @@
 <!doctype html>
 <!-- 2026-11-18 leadgen-biz: Skill 市场 / 企业微信·Webhook·CRM 集成 / 自定义数据维度上线 -->
-<html lang="zh-CN">
+<html lang="zh-CN" data-page="leadgen">
 <head>
 <meta charset="utf-8">
+<!--xl-theme-start-->
+<script>(function(){try{var k="xl_theme",v=localStorage.getItem(k),m=(v==="dark"||v==="light"||v==="auto")?v:"auto",q=window.matchMedia?window.matchMedia("(prefers-color-scheme: light)"):null,t=(m==="auto")?((q&&q.matches)?"light":"dark"):m,d=document.documentElement;d.setAttribute("data-theme",t);d.setAttribute("data-theme-mode",m);d.style.colorScheme=t}catch(e){document.documentElement.setAttribute("data-theme","dark")}})();</script>
+
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <link rel="icon" href="data:,">
 <title>AI 获客 · 商家线索挖掘与合规触达工作台 · 星籁 AI</title>
@@ -427,7 +430,33 @@ footer.site a:hover{color:#fff;border-color:rgba(148,163,184,.4)}
   .skill-toolbar #skillCreate{grid-column:1 / -1}
   .dim-row{grid-template-columns:minmax(0,76px) minmax(0,1fr) 52px;gap:6px;font-size:11.5px}
 }
+/* 公开搜索挖掘（Serper） */
+.import-btn .mine-badge{display:inline;font-size:11.5px;font-weight:700;color:#fbbf24}
+.import-btn .mine-badge.ok{color:#34d399}
+.mine-item{min-width:0;border:1px solid var(--line);border-radius:12px;padding:10px 12px;background:rgba(9,14,24,.55)}
+.mine-item .mi-h{display:flex;gap:8px;align-items:center;flex-wrap:wrap;font-size:12px;color:var(--txt3)}
+.mine-item .mi-h b{color:#e8f4ff;font-size:13px;overflow-wrap:anywhere}
+.mine-item .mi-h .score{font-size:13px}
+.mine-item p{margin:5px 0 0;font-size:12.5px;color:var(--txt2);line-height:1.7;overflow-wrap:anywhere}
+.mine-item a{color:#7dd3fc;font-size:11.5px;text-decoration:underline;text-underline-offset:2px;word-break:break-all}
+.mine-results{display:grid;gap:8px;max-height:44vh;overflow:auto;margin-top:8px;padding-right:2px}
+.mine-batch{margin-top:12px;padding:12px;border:1px dashed rgba(148,163,184,.24);border-radius:14px;background:rgba(9,14,24,.45);min-width:0}
+.mine-batch .mb-h{margin:0 0 8px;font-size:13.5px;font-weight:800;display:flex;gap:8px;align-items:center;flex-wrap:wrap}
+.mine-batch textarea{min-height:92px;font-size:13px;line-height:1.65}
+.batch-list{display:grid;gap:4px;margin-top:8px;font-size:12px}
+.batch-row{display:flex;gap:8px;justify-content:space-between;border-bottom:1px dashed rgba(148,163,184,.14);padding:4px 0;min-width:0}
+.batch-row .bk{color:var(--txt2);overflow-wrap:anywhere;min-width:0}
+.batch-row .bv{white-space:nowrap;flex:0 0 auto}
+@media (max-width:390px){
+  .mine-results{max-height:none}
+  .mine-item{padding:9px 10px}
+  .mine-item .mi-h{font-size:11.5px}
+  .batch-row{font-size:11.5px}
+}
 </style>
+<link rel="stylesheet" href="../assets/theme-light.css">
+<script defer src="../assets/theme.js"></script>
+<!--xl-theme-end-->
 </head>
 <body>
 <div class="top"><div class="top-in">
@@ -499,10 +528,9 @@ footer.site a:hover{color:#fff;border-color:rgba(148,163,184,.4)}
 
         <div class="divider"></div>
         <details>
-          <summary class="hint" style="cursor:pointer;color:var(--txt2)">高级：公开搜索 Key（可选）</summary>
-          <label class="fl" for="searchKey">搜索挖掘 Key</label>
-          <input class="inp" id="searchKey" placeholder="未配置时「公开搜索挖掘」会提示需开通" autocomplete="off" aria-label="公开搜索 Key">
-          <p class="hint" style="margin:6px 0 0">只保存在本机。没有 Key 也能用「粘贴采集内容 / 导入 CSV」。</p>
+          <summary class="hint" style="cursor:pointer;color:var(--txt2)">高级：公开搜索数据源状态</summary>
+          <p class="hint" id="searchKeyState" style="margin:6px 0 0"><span class="spin"></span>正在检测服务器公开搜索配置…</p>
+          <p class="hint" style="margin:6px 0 0">公开搜索 Key 统一配置在服务器（<code>/etc/ai-nav-api.env</code> 的 <code>SERPER_API_KEY</code>），本机无需填写；按钮显示「需配置 Key」时请联系管理员。</p>
         </details>
       </section>
 
@@ -540,10 +568,19 @@ footer.site a:hover{color:#fff;border-color:rgba(148,163,184,.4)}
           <div class="import-grid">
             <button type="button" class="import-btn" id="btnPaste"><i>📋</i><div>粘贴采集内容<span>评论区 / 私信 / 群聊记录</span></div></button>
             <button type="button" class="import-btn" id="btnCsv"><i>📥</i><div>导入 CSV<span>昵称,平台,原文,时间,来源</span></div></button>
-            <button type="button" class="import-btn" id="btnMining"><i>🔎</i><div>公开搜索挖掘<span>需配置 Key</span></div></button>
+            <button type="button" class="import-btn" id="btnMining" aria-label="公开搜索挖掘"><i>🔎</i><div>公开搜索挖掘<span class="mine-badge" id="miningBadge">检测中…</span></div></button>
           </div>
           <input type="file" id="csvFile" accept=".csv,text/csv" class="sr" aria-label="选择 CSV 文件">
           <div id="miningOut"></div>
+          <div class="mine-batch" id="mineBatchBox">
+            <div class="mb-h">🧩 批量关键词挖掘 <span class="hint" style="font-weight:400">一行一个关键词，最多 10 个；顺序调用公开搜索，自动去重</span></div>
+            <textarea id="mineBatch" maxlength="800" aria-label="批量关键词" placeholder="北京通州 开荒保洁 求推荐&#10;北京通州 深度保洁 多少钱&#10;北京通州 家政保洁 哪家好"></textarea>
+            <div class="row" style="margin-top:8px">
+              <button type="button" class="btn sm" id="doMineBatch">🚀 开始批量挖掘</button>
+              <span class="hint" id="mineBatchMeta">0 / 10 个关键词</span>
+            </div>
+            <div id="mineBatchMsg"></div>
+          </div>
           <div class="filters">
             <select id="fPlatform" aria-label="按平台筛选"><option value="">全部平台</option></select>
             <select id="fIntent" aria-label="按意向等级筛选">
@@ -667,7 +704,7 @@ footer.site a:hover{color:#fff;border-color:rgba(148,163,184,.4)}
       <!-- AI 经营智能体 -->
       <section class="card glow" id="sec-agent">
         <div class="sec-h"><span class="sec-no">8</span><h2>🤖 AI 经营智能体</h2><span class="tag" id="agentTag">P1 · 5 项</span></div>
-        <p class="sec-sub">同城关键词作战计划、流量高峰发布时间、团购套餐、评论/私信回复、经营周报。AI 只出初稿，人工核对价格与资质后再发布；接口未就绪时显示「功能准备中」，不影响页面其它功能。</p>
+        <p class="sec-sub">同城关键词作战计划、流量高峰发布时间、团购套餐、评论/私信回复、经营周报。AI 只出初稿，人工核对价格与资质后再发布；接口异常时会明确提示并支持重试，不影响页面其它功能。</p>
         <button type="button" class="btn ghost agent-toggle" id="agentToggle" aria-expanded="false" aria-controls="agentBody">展开 5 个智能体工具 <span class="agent-arrow">▾</span></button>
         <div id="agentBody" hidden>
           <div class="agent-tabs" role="tablist" aria-label="AI 经营智能体工具">
@@ -812,6 +849,23 @@ footer.site a:hover{color:#fff;border-color:rgba(148,163,184,.4)}
   </div>
 </div>
 
+<div class="modal" id="miningModal" hidden>
+  <div class="modal-in" role="dialog" aria-modal="true" aria-labelledby="miningTitle">
+    <h3 id="miningTitle">🔎 公开搜索挖掘</h3>
+    <p class="m-sub">调用公开搜索引擎官方 API，只导入公开结果摘要；导入后源标签为「公开搜索」，可在线索库筛选、生成话术。</p>
+    <div id="mineAuthHint"></div>
+    <label class="fl" for="mineQ">关键词（建议：城市 + 区县 + 行业 + 求推荐）</label>
+    <input class="inp" id="mineQ" maxlength="90" autocomplete="off" placeholder="如：北京通州 开荒保洁 求推荐">
+    <div class="row" style="margin-top:10px">
+      <button type="button" class="btn" id="doMine" style="flex:1 1 140px">开始挖掘</button>
+      <button type="button" class="btn line" id="closeMining">关闭</button>
+    </div>
+    <div id="mineMsg"></div>
+    <div id="mineResults"></div>
+    <p class="hint" style="margin-top:10px">单次最多导入 10 条公开结果；正文只保存公开摘要，不抓取登录内容。</p>
+  </div>
+</div>
+
 <script>
 (function () {
   'use strict';
@@ -902,6 +956,8 @@ footer.site a:hover{color:#fff;border-color:rgba(148,163,184,.4)}
     integrations: [],
     expanded: {}
   };
+  /* 公开搜索挖掘状态：checking / ready / missing / failed */
+  var SEARCH = { state: 'checking', enabled: false, provider: '', note: '', inflight: null, busy: false, batch: false };
 
   function $(id) { return document.getElementById(id); }
   function esc(v) { return String(v == null ? '' : v).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;'); }
@@ -941,19 +997,19 @@ footer.site a:hover{color:#fff;border-color:rgba(148,163,184,.4)}
     if (opt.body) { init.body = JSON.stringify(opt.body); init.headers['Content-Type'] = 'application/json'; }
     try { var _tk = window.XLAuth && window.XLAuth.token(); if (_tk) init.headers['Authorization'] = 'Bearer ' + _tk; } catch (e) {}
     if (ctrl) init.signal = ctrl.signal;
-    return fetch(API + path, init).then(function (r) {
+    return fetch(opt.url || (API + path), init).then(function (r) {
       if (timer) clearTimeout(timer);
       return r.text().then(function (tx) {
         var d = null;
         try { d = JSON.parse(tx); } catch (e) {}
-        if (r.status === 404) { S.apiState = 'pending'; return { ok: false, pending: true, error: 'not_found' }; }
-        if (!d) { if (r.status >= 500) { S.apiState = 'pending'; return { ok: false, pending: true, error: 'bad_json' }; } return { ok: false, error: 'bad_json' }; }
-        if (d.ok === false && (r.status >= 500)) { S.apiState = 'pending'; d.pending = true; }
+        if (r.status === 404) { if (!opt.silent) S.apiState = 'pending'; return { ok: false, pending: true, error: 'not_found' }; }
+        if (!d) { if (r.status >= 500) { if (!opt.silent) S.apiState = 'pending'; return { ok: false, pending: true, error: 'bad_json' }; } return { ok: false, error: 'bad_json' }; }
+        if (d.ok === false && (r.status >= 500)) { if (!opt.silent) S.apiState = 'pending'; d.pending = true; }
         return d;
       });
     }).catch(function () {
       if (timer) clearTimeout(timer);
-      S.apiState = 'pending';
+      if (!opt.silent) S.apiState = 'pending';
       return { ok: false, pending: true, error: 'network' };
     });
   }
@@ -961,8 +1017,321 @@ footer.site a:hover{color:#fff;border-color:rgba(148,163,184,.4)}
     S.apiState = state;
     var el = $('apiState'); if (!el) return;
     if (state === 'ok') { el.className = 'pill ok'; el.innerHTML = '<span class="dot"></span>后端已接入 · 在线 AI 能力可用'; }
-    else if (state === 'pending') { el.className = 'pill wait'; el.innerHTML = '<span class="dot"></span>功能准备中 · 当前展示本地示例'; }
+    else if (state === 'pending') { el.className = 'pill wait'; el.innerHTML = '<span class="dot"></span>部分接口异常 · 可点功能重试'; }
     else { el.className = 'pill'; el.innerHTML = '<span class="dot"></span>正在检测后端服务…'; }
+  }
+
+  /* ---------------- 公开搜索挖掘（Serper / 公开搜索 API） ---------------- */
+  function searchProviderInfo(r) {
+    var list = (r && (r.providers || r.items)) || [];
+    for (var i = 0; i < list.length; i++) {
+      if (list[i] && (list[i].id === 'search' || list[i].id === 'serper')) return list[i];
+    }
+    return null;
+  }
+  function loggedIn() {
+    try { return !!(window.XLAuth && window.XLAuth.token && window.XLAuth.token()); } catch (e) { return false; }
+  }
+  function miningQueryDefault() {
+    var c = S.config || {};
+    var city = String(c.city || '北京').trim();
+    var dist = String((c.districts || [])[0] || '').trim();
+    if (dist && city.indexOf(dist.replace(/[区县市]$/, '')) >= 0) dist = '';
+    var ind = '';
+    try { ind = currentIndustry(); } catch (e) { ind = c.industry || ''; }
+    return [city, dist, ind, '求推荐'].filter(Boolean).join(' ').replace(/\s+/g, ' ').trim();
+  }
+  function setSearchState(state, enabled, note) {
+    SEARCH.state = state;
+    SEARCH.enabled = !!enabled;
+    SEARCH.note = note || '';
+    applySearchUI();
+    var mo = $('miningOut');
+    if (mo) {
+      if (state === 'missing') mo.innerHTML = searchBlockNotice();
+      else if (state === 'ready' && /需配置|未配置/.test(mo.textContent || '')) mo.innerHTML = '';
+    }
+  }
+  function applySearchUI() {
+    var badge = $('miningBadge'), btn = $('btnMining'), st = $('searchKeyState');
+    var ready = SEARCH.state === 'ready' && SEARCH.enabled;
+    if (badge) {
+      badge.className = 'mine-badge' + (ready ? ' ok' : '');
+      if (SEARCH.state === 'checking') badge.textContent = '检测中…';
+      else if (ready) badge.textContent = '（已就绪）';
+      else if (SEARCH.state === 'missing') badge.textContent = '需配置 Key';
+      else badge.textContent = '检测失败 · 可重试';
+    }
+    if (btn) {
+      btn.title = ready ? '公开搜索已就绪（Serper），点此输入关键词挖掘' : (SEARCH.note || '正在检测公开搜索能力');
+      try { btn.setAttribute('aria-label', ready ? '公开搜索挖掘（已就绪）' : (SEARCH.state === 'missing' ? '公开搜索挖掘（需配置 Key）' : '公开搜索挖掘')); } catch (e) {}
+    }
+    if (st) {
+      if (SEARCH.state === 'checking') st.innerHTML = '<span class="spin"></span>正在检测服务器公开搜索配置…';
+      else if (ready) st.innerHTML = '✅ 服务器已配置 Serper 公开搜索 Key，公开搜索挖掘可用；本机无需填写 Key。';
+      else if (SEARCH.state === 'missing') st.innerHTML = '⚠️ 服务器尚未配置搜索 Key（SERPER_API_KEY / BING_SEARCH_KEY），公开搜索暂不可用；请联系管理员配置后重启 ai-nav-api。';
+      else st.innerHTML = '⚠️ 公开搜索检测失败：' + esc(SEARCH.note || '网络异常') + '。<button type="button" class="more-btn" data-mine-probe="1">重新检测</button>';
+    }
+    var modal = $('miningModal'), mmsg = $('mineMsg');
+    if (modal && !modal.hidden && mmsg && !SEARCH.busy) {
+      var hasResults = $('mineResults') && $('mineResults').innerHTML;
+      if (!hasResults) mmsg.innerHTML = (SEARCH.state === 'ready' && SEARCH.enabled) ? '' : searchBlockNotice();
+    }
+  }
+  function probeSearch(force) {
+    if (SEARCH.inflight && !force) return SEARCH.inflight;
+    if (!force && SEARCH.state === 'ready' && SEARCH.enabled) return Promise.resolve(true);
+    SEARCH.state = 'checking'; SEARCH.enabled = false;
+    applySearchUI();
+    var seq = (SEARCH.seq = (SEARCH.seq || 0) + 1);
+    var task = api('/providers', { timeout: 9000, silent: true }).then(function (r) {
+      if (r && r.ok) {
+        var sp = searchProviderInfo(r);
+        if (sp && sp.enabled) { setSearchState('ready', true, 'serper'); return true; }
+        setSearchState('missing', false, (sp && sp.howto) || '服务器未配置 SERPER_API_KEY / BING_SEARCH_KEY');
+        return false;
+      }
+      return probeSearchFallback();
+    }).catch(function () { return probeSearchFallback(); });
+    SEARCH.inflight = task.then(function (v) {
+      if (seq === SEARCH.seq) SEARCH.inflight = null;
+      return v;
+    }, function () {
+      if (seq === SEARCH.seq) SEARCH.inflight = null;
+      return false;
+    });
+    return SEARCH.inflight;
+  }
+  function probeSearchFallback() {
+    return api('', { url: '/ai-nav/api/health', timeout: 8000, silent: true }).then(function (h) {
+      if (h && h.ok && h.leadgen) return probeMineLight();
+      setSearchState('failed', false, '后端健康检查未通过');
+      return false;
+    }).catch(function () { return probeMineLight(); });
+  }
+  function probeMineLight() {
+    return api('/leads/mine', {
+      method: 'POST', timeout: 75000, silent: true,
+      body: { workspace_id: wsId(), provider: 'search', queries: [miningQueryDefault()], limit: 1 }
+    }).then(function (r) {
+      if (r && r.ok) { setSearchState('ready', true, 'serper'); return true; }
+      if (r && r.need_key) { setSearchState('missing', false, r.hint || '未配置搜索 Key'); return false; }
+      if (r && isQuota(r)) { setSearchState('ready', true, 'serper'); return true; }
+      setSearchState('failed', false, (r && (r.hint || r.error)) || '接口不可用');
+      return false;
+    }).catch(function () { setSearchState('failed', false, '网络异常'); return false; });
+  }
+  function isQuota(r) {
+    return !!(r && (r.code === 'QUOTA_EXCEEDED' || r.error === 'QUOTA_EXCEEDED' || r.upgrade === true));
+  }
+  function callMine(q, limit) {
+    return api('/leads/mine', {
+      method: 'POST', timeout: 120000,
+      body: { workspace_id: wsId(), provider: 'search', queries: [q], limit: limit || 10 }
+    });
+  }
+  function mineCount(r) {
+    var n = r ? (r.imported != null ? r.imported : (r.count != null ? r.count : ((r.leads || []).length))) : 0;
+    n = parseInt(n, 10);
+    return isNaN(n) ? 0 : n;
+  }
+  function quotaAdviceHtml() {
+    var html = '';
+    if (!loggedIn()) html += '当前是匿名体验额度（每月 10 条）。<a href="/ai-nav/account/?from=leadgen">登录商家账号</a>后可使用套餐额度（基础版 500 条/月）。<br>';
+    html += '升级套餐可继续挖掘：<a href="/ai-nav/pricing/">查看套餐</a>';
+    return html;
+  }
+  function searchBlockNotice() {
+    if (SEARCH.state === 'checking') return '<div class="overlay-skel"><span class="spin"></span>正在检测公开搜索能力…</div>';
+    if (SEARCH.state === 'missing') {
+      return '<div class="notice warn"><span class="n-ico">🔑</span><div><b>公开搜索暂不可用：服务器未配置 Key</b>。请联系管理员在服务器 <code>/etc/ai-nav-api.env</code> 配置 <code>SERPER_API_KEY</code>（或 <code>BING_SEARCH_KEY</code>）后重启 ai-nav-api；本机无需填写 Key。<br>未配置期间可先用「📋 粘贴采集内容」或「📥 导入 CSV」。</div></div>';
+    }
+    return '<div class="notice warn"><span class="n-ico">⚠️</span><div><b>公开搜索能力检测失败</b>：' + esc(SEARCH.note || '接口异常') + '。<button type="button" class="more-btn" data-mine-probe="1">重新检测</button></div></div>';
+  }
+  function mineErrorHtml(r) {
+    if (!r || r.pending || r.error === 'not_found') {
+      return '<div class="notice warn"><span class="n-ico">⚠️</span><div><b>公开搜索接口暂不可用</b>（404 / 网络异常）。请稍后重试；若持续失败请联系管理员检查 ai-nav-api。<button type="button" class="more-btn" data-mine-retry="1">重试</button></div></div>';
+    }
+    if (isQuota(r)) {
+      var used = (r.used != null ? ('（已用 ' + r.used + ' / ' + r.limit + '）') : '');
+      return '<div class="notice warn"><span class="n-ico">🚫</span><div><b>本月线索额度已用完</b>' + used + '：' + esc(r.hint || '请升级套餐') + '。<br>' + quotaAdviceHtml() + '<br><button type="button" class="more-btn" data-mine-retry="1">重新尝试</button></div></div>';
+    }
+    if (r.need_key) { setSearchState('missing', false, r.hint || '服务器未配置搜索 Key'); return searchBlockNotice(); }
+    return '<div class="notice warn"><span class="n-ico">⚠️</span><div><b>挖掘失败</b>：' + esc(r.hint || r.error || '未知错误') + '。<button type="button" class="more-btn" data-mine-retry="1">重试</button></div></div>';
+  }
+  function renderMineResults(r) {
+    var out = $('mineResults'); if (!out) return;
+    var leads = (r && r.leads) || [];
+    if (!leads.length) { out.innerHTML = '<div class="empty">这次没有匹配到公开结果。换个「城市 + 区县 + 服务 + 求推荐」的说法再试。</div>'; return; }
+    out.innerHTML = '<div class="mine-results">' + leads.slice(0, 20).map(function (x) {
+      var text = String((x.text != null ? x.text : x.content) || '').replace(/\s+/g, ' ').trim();
+      var short = text.length > 130 ? text.slice(0, 130) + '…' : text;
+      var hi = (x.intent || x.level) === 'high';
+      var score = (x.score != null ? x.score : (x.priority != null ? x.priority : ''));
+      var url = x.url || '';
+      return '<div class="mine-item">' +
+        '<div class="mi-h"><span class="badge ' + (hi ? 'hi' : 'pot') + '">' + (hi ? '高意向' : '潜在') + '</span>' +
+        '<b>' + esc(x.platform || '公开网页') + '</b><span>来源：公开搜索</span>' +
+        '<span class="score' + (hi ? ' hi' : '') + '">' + esc(score) + '</span><span style="color:#54657c;font-size:11px">/10</span></div>' +
+        '<p>' + esc(short) + '</p>' +
+        (url ? '<a href="' + esc(url) + '" target="_blank" rel="noopener nofollow">查看原文 ↗</a>' : '') +
+        '</div>';
+    }).join('') + '</div>';
+  }
+  function afterMineRefresh() {
+    S.filter.source = 'search';
+    var f = $('fSource'); if (f) f.value = 'search';
+    S.pager.page = 1;
+    renderLeads();
+    var h = $('leadsHint');
+    if (h && h.innerHTML.indexOf('已按来源') < 0) h.innerHTML += ' · 已按来源「公开搜索」筛选';
+  }
+  function closeMining() { var m = $('miningModal'); if (m) m.hidden = true; }
+  function openMining() {
+    var modal = $('miningModal'); if (!modal) return;
+    var q = $('mineQ');
+    if (q && !q.value) q.value = miningQueryDefault();
+    var ah = $('mineAuthHint');
+    if (ah) ah.innerHTML = loggedIn() ? '' : '<div class="notice warn"><span class="n-ico">👤</span><div>当前未登录：匿名体验额度每月 10 条，用完后需<a href="/ai-nav/account/?from=leadgen">登录商家账号</a>（基础版 500 条/月）。</div></div>';
+    $('mineMsg').innerHTML = (SEARCH.state === 'ready') ? '' : searchBlockNotice();
+    $('mineResults').innerHTML = '';
+    modal.hidden = false;
+    if (!(SEARCH.state === 'ready' && SEARCH.enabled) && SEARCH.state !== 'checking') probeSearch(true);
+    setTimeout(function () { if (q) { try { q.focus(); q.select(); } catch (e) {} } }, 60);
+  }
+  function doMineClick() {
+    var qEl = $('mineQ');
+    var q = (qEl ? qEl.value : '').trim().replace(/\s+/g, ' ');
+    if (!q) { toast('先输入关键词，例如：北京通州 开荒保洁 求推荐'); if (qEl) qEl.focus(); return; }
+    if (!(SEARCH.state === 'ready' && SEARCH.enabled)) {
+      $('mineMsg').innerHTML = searchBlockNotice();
+      if (SEARCH.state === 'failed') probeSearch(true).then(function () { if (SEARCH.state === 'ready') $('mineMsg').innerHTML = ''; else $('mineMsg').innerHTML = searchBlockNotice(); });
+      return;
+    }
+    if (SEARCH.busy) return;
+    SEARCH.busy = true;
+    var btn = $('doMine');
+    if (btn) { btn.disabled = true; btn.innerHTML = '<span class="spin"></span>挖掘中…'; }
+    $('mineMsg').innerHTML = '<div class="overlay-skel"><span class="spin"></span>正在调用公开搜索并解析线索，约 3-20 秒…</div>';
+    $('mineResults').innerHTML = '';
+    callMine(q, 10).then(function (r) {
+      if (r && r.ok) {
+        var n = mineCount(r);
+        var dup = parseInt(r.duplicates || 0, 10) || 0;
+        var hits = n + dup;
+        $('mineMsg').innerHTML = '<div class="notice safe"><span class="n-ico">✅</span><div><b>已导入 ' + n + ' 条到线索库</b>' + (dup > 0 ? '（本次公开搜索命中 ' + hits + ' 条，其中 ' + dup + ' 条此前已在库已跳过）' : '') + '。来源标记为「公开搜索」，下方线索库已刷新。</div></div>';
+        renderMineResults(r);
+        markApi('ok');
+        loadServerStats();
+        loadServerLeads().then(afterMineRefresh);
+        toast('已导入 ' + n + ' 条到线索库');
+      } else {
+        $('mineMsg').innerHTML = mineErrorHtml(r);
+      }
+    }).catch(function () {
+      $('mineMsg').innerHTML = '<div class="notice warn"><span class="n-ico">⚠️</span><div><b>网络异常</b>：请求没有完成，请稍后重试。<button type="button" class="more-btn" data-mine-retry="1">重试</button></div></div>';
+    }).then(function () {
+      SEARCH.busy = false;
+      if (btn) { btn.disabled = false; btn.textContent = '开始挖掘'; }
+    });
+  }
+  function parseBatchKeywords() {
+    var raw = String(($('mineBatch') && $('mineBatch').value) || '').split(/\r?\n/);
+    var out = [], seen = {};
+    raw.forEach(function (line) {
+      var s = line.trim().replace(/\s+/g, ' ');
+      if (!s || seen[s]) return;
+      seen[s] = 1;
+      out.push(s);
+    });
+    return out.slice(0, 10);
+  }
+  function updateBatchMeta() {
+    var meta = $('mineBatchMeta'); if (!meta) return;
+    var ta = $('mineBatch');
+    var lines = String((ta && ta.value) || '').split(/\r?\n/).filter(function (s) { return s.trim(); });
+    var uniqLines = parseBatchKeywords();
+    if (lines.length > 10) {
+      meta.textContent = '已填 ' + lines.length + ' 行，只执行前 10 个';
+      meta.style.color = '#fde68a';
+    } else {
+      meta.textContent = uniqLines.length + ' / 10 个关键词' + (lines.length !== uniqLines.length ? '（重复已合并）' : '');
+      meta.style.color = '';
+    }
+  }
+  function runBatchMining() {
+    if (SEARCH.batch) { toast('批量挖掘正在进行，请稍候'); return; }
+    var list = parseBatchKeywords();
+    if (!list.length) { toast('先输入关键词，一行一个，最多 10 行'); var ta = $('mineBatch'); if (ta) ta.focus(); return; }
+    if (!(SEARCH.state === 'ready' && SEARCH.enabled)) {
+      $('mineBatchMsg').innerHTML = searchBlockNotice();
+      if (SEARCH.state === 'failed') probeSearch(true);
+      return;
+    }
+    SEARCH.batch = true;
+    var btn = $('doMineBatch');
+    var old = btn ? btn.textContent : '🚀 开始批量挖掘';
+    if (btn) { btn.disabled = true; btn.textContent = '批量挖掘中…'; }
+    var st = { total: 0, ok: 0, zero: 0, failed: 0, rows: [], stopped: false, done: 0 };
+    var idx = 0;
+    function rowsHtml() {
+      if (!st.rows.length) return '';
+      return '<div class="batch-list">' + st.rows.map(function (x) {
+        return '<div class="batch-row"><span class="bk">' + esc(x.q) + '</span><span class="bv" style="color:' + (x.ok ? '#a7f3d0' : '#fde68a') + '">' + (x.ok ? ('+' + x.n + ' 条' + (x.n === 0 ? '（无新增）' : '')) : esc(x.err || '失败')) + '</span></div>';
+      }).join('') + '</div>';
+    }
+    function render(msg) {
+      $('mineBatchMsg').innerHTML = '<div class="notice' + (st.stopped ? ' warn' : '') + '"><span class="n-ico">' + (st.stopped ? '⚠️' : '⏳') + '</span><div>' + esc(msg) + ' · 累计导入 <b>' + st.total + '</b> 条</div></div>' + rowsHtml();
+      var meta = $('mineBatchMeta');
+      if (meta) meta.textContent = '进度 ' + st.done + ' / ' + list.length;
+    }
+    function finish() {
+      SEARCH.batch = false;
+      if (btn) { btn.disabled = false; btn.textContent = old; }
+      var meta = $('mineBatchMeta');
+      if (meta) meta.textContent = '完成 ' + st.done + ' / ' + list.length;
+      var summary;
+      if (st.stopped) {
+        summary = '额度已用完：完成 ' + st.ok + '/' + list.length + ' 行，共导入 ' + st.total + ' 条';
+        $('mineBatchMsg').innerHTML = '<div class="notice warn"><span class="n-ico">⚠️</span><div><b>' + esc(summary) + '</b>。<br>' + quotaAdviceHtml() + '</div></div>' + rowsHtml();
+      } else {
+        summary = '批量完成：' + st.ok + '/' + list.length + ' 个关键词，共导入 ' + st.total + ' 条' + (st.failed ? ('，失败 ' + st.failed + ' 行') : '');
+        $('mineBatchMsg').innerHTML = '<div class="notice safe"><span class="n-ico">✅</span><div><b>' + esc(summary) + '</b>。已写入线索库，可在线索列表查看。</div></div>' + rowsHtml();
+      }
+      toast(summary);
+      markApi('ok');
+      loadServerStats();
+      if (st.total > 0) loadServerLeads().then(afterMineRefresh); else loadServerLeads();
+    }
+    function step() {
+      if (idx >= list.length) return finish();
+      var q = list[idx];
+      render('正在挖掘第 ' + (idx + 1) + '/' + list.length + ' 个：' + q);
+      return callMine(q, 10).then(function (r) {
+        var n = mineCount(r);
+        if (r && r.ok) {
+          st.total += n; st.ok++;
+          if (n === 0) st.zero++;
+          st.rows.push({ q: q, n: n, ok: true });
+        } else if (isQuota(r)) {
+          st.stopped = true;
+          st.rows.push({ q: q, n: 0, ok: false, err: '额度已用完' });
+          return finish();
+        } else {
+          st.failed++;
+          st.rows.push({ q: q, n: 0, ok: false, err: (r && (r.hint || r.error)) || '接口失败' });
+        }
+        idx++; st.done++;
+        return step();
+      }).catch(function () {
+        st.failed++;
+        st.rows.push({ q: q, n: 0, ok: false, err: '网络异常' });
+        idx++; st.done++;
+        return step();
+      });
+    }
+    render('准备开始批量挖掘…');
+    return step();
   }
 
   /* ---------------- 配置存档 ---------------- */
@@ -1879,28 +2248,24 @@ footer.site a:hover{color:#fff;border-color:rgba(148,163,184,.4)}
       this.value = '';
     });
 
-    // 公开搜索挖掘
-    $('btnMining').addEventListener('click', function () {
-      var out = $('miningOut');
-      var btn = this; btn.disabled = true;
-      out.innerHTML = '<div class="overlay-skel"><span class="spin"></span>正在检查公开搜索数据源…</div>';
-      var q = (S.config.keywords[0] || currentIndustry());
-      api('/leads/mine', { method: 'POST', body: { workspace_id: wsId(), provider: 'search', queries: [q, S.config.city + currentIndustry()] } })
-        .then(function (r) {
-          if (r && r.ok && r.leads && r.leads.length) {
-            var added = mergeLeads(r.leads.map(function (x) { return mkLead(x); }));
-            renderLeads(); loadServerStats(); markApi('ok');
-            out.innerHTML = '<div class="notice safe"><span class="n-ico">✅</span><div>挖掘完成，新增 <b>' + added + '</b> 条公开线索。已按公开内容处理，不会自动私信。</div></div>';
-          } else if (r && r.need_key) {
-            out.innerHTML = '<div class="notice warn"><span class="n-ico">🔑</span><div><b>需配置搜索 Key</b>：' + esc(r.hint || '公开搜索能力暂未开通') + '<br>未配置时请用「📋 粘贴采集内容」或「📥 导入 CSV」，不需要任何权限。</div></div>';
-          } else if (r && r.ok && r.count === 0) {
-            out.innerHTML = '<div class="notice warn"><span class="n-ico">🔑</span><div><b>搜索数据源未配置（功能准备中）</b>：' + esc(r.note || '未配置搜索 Key') + '<br><b>现在就能用</b>：把抖音/小红书评论区里用户公开说过的话，用「📋 粘贴采集内容」导进来，AI 同样能解析意向等级。</div></div>';
-          } else {
-            out.innerHTML = pendingNote('公开搜索挖掘');
-          }
-        })
-        .catch(function () { out.innerHTML = pendingNote('公开搜索挖掘'); })
-        .then(function () { btn.disabled = false; });
+    // 公开搜索挖掘（Serper 真实接口；未就绪时给可重试提示，不用本地示例兜底）
+    $('btnMining').addEventListener('click', openMining);
+    $('closeMining').addEventListener('click', closeMining);
+    $('miningModal').addEventListener('click', function (e) { if (e.target === this) closeMining(); });
+    $('doMine').addEventListener('click', doMineClick);
+    $('mineQ').addEventListener('keydown', function (e) { if (e.key === 'Enter') { e.preventDefault(); doMineClick(); } });
+    $('mineMsg').addEventListener('click', function (e) {
+      var b = e.target.closest ? e.target.closest('[data-mine-retry]') : null;
+      if (b) doMineClick();
+    });
+    $('doMineBatch').addEventListener('click', runBatchMining);
+    $('mineBatch').addEventListener('input', updateBatchMeta);
+    document.addEventListener('click', function (e) {
+      var b = e.target.closest ? e.target.closest('[data-mine-probe]') : null;
+      if (b) probeSearch(true);
+    });
+    document.addEventListener('keydown', function (e) {
+      if (e.key === 'Escape') { var m = $('miningModal'); if (m && !m.hidden) m.hidden = true; }
     });
 
     // 筛选 + 排序 + 分页
@@ -2095,7 +2460,7 @@ footer.site a:hover{color:#fff;border-color:rgba(148,163,184,.4)}
     }).catch(function () {});
   }
   function loadServerLeads() {
-    api('/leads?workspace_id=' + encodeURIComponent(wsId()) + '&limit=500&sort=priority').then(function (r) {
+    return api('/leads?workspace_id=' + encodeURIComponent(wsId()) + '&limit=500&sort=priority').then(function (r) {
       if (!(r && r.ok)) return;
       S.leads = (r.leads || r.items || []).map(function (x) { return mkLead(x); });
       S.demo = false; S.pager.page = 1;
@@ -2779,7 +3144,7 @@ footer.site a:hover{color:#fff;border-color:rgba(148,163,184,.4)}
     });
     var md = '';
     (r.steps || []).forEach(function (s) { if (s.type === 'export' && s.data && s.data.markdown) md = s.data.markdown; });
-    if (md) html += '<details style="margin-top:8px"><summary class="hint" style="cursor:pointer;color:#7dd3fc">查看导出 Markdown（可复制）</summary><pre style="white-space:pre-wrap;overflow-wrap:anywhere;max-width:100%;overflow:auto;font-size:12px;line-height:1.7;color:#9fb0c7;background:rgba(0,0,0,.2);border:1px solid var(--line);border-radius:10px;padding:10px;margin-top:6px">' + esc(md) + '</pre></details>';
+    if (md) html += '<details style="margin-top:8px"><summary class="hint" style="cursor:pointer;color:var(--cyan)">查看导出 Markdown（可复制）</summary><pre style="white-space:pre-wrap;overflow-wrap:anywhere;max-width:100%;overflow:auto;font-size:12px;line-height:1.7;color:var(--txt2);background:rgba(148,163,184,.12);border:1px solid var(--line);border-radius:10px;padding:10px;margin-top:6px">' + esc(md) + '</pre></details>';
     html += '</div>';
     box.innerHTML = html;
   }
@@ -2979,6 +3344,8 @@ footer.site a:hover{color:#fff;border-color:rgba(148,163,184,.4)}
     bindSkillHub();
     agentPrefill();
     markApi('checking');
+    probeSearch();
+    updateBatchMeta();
     api('/industries').then(function (r) {
       if (r && r.ok) {
         var list = (r.industries || []).map(function (x) { return typeof x === 'string' ? x : (x.name || x.id || ''); }).filter(Boolean);
@@ -2993,13 +3360,6 @@ footer.site a:hover{color:#fff;border-color:rgba(148,163,184,.4)}
         loadDimensions();
       } else {
         markApi('pending');
-        var el = $('sec-config');
-        if (el && !el.querySelector('.notice')) {
-          var n = document.createElement('div');
-          n.className = 'notice warn';
-          n.innerHTML = '<span class="n-ico">⏳</span><div><b>功能准备中</b>：AI 获客后端接口（' + esc(S.pendingHint) + '）尚未就绪。页面骨架与本地示例可以完整体验；接口上线后，拆解、线索解析、话术和复盘会自动切到在线 AI。</div>';
-          el.appendChild(n);
-        }
       }
     }).catch(function () { markApi('pending'); });
   }
