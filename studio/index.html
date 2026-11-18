@@ -673,6 +673,11 @@ details[open].edit summary:after{content:"收起 ▴"}
 .edit-volrow label{flex:0 0 auto}
 .edit-volrow label b{color:#7dd3fc}
 .edit-volrow input[type="range"]{flex:1 1 160px;min-width:120px;height:44px;accent-color:#38bdf8;background:transparent;padding:0}
+.edit-check{display:inline-flex;align-items:center;gap:8px;min-height:44px;font-size:13px;color:var(--txt2);cursor:pointer;flex-wrap:wrap;font-weight:700}
+.edit-check input[type="checkbox"]{width:18px;height:18px;flex:0 0 auto;margin:0;accent-color:#38bdf8}
+.edit-volrow label b.orig{color:#4ade80}
+.edit-volrow input[type="range"]:disabled{opacity:.35}
+.edit-volrow.off label{opacity:.5}
 .edit-lib{margin-top:10px;border:1px solid var(--line);border-radius:12px;background:rgba(7,12,21,.8);padding:10px;max-width:100%}
 .edit-lib-head{display:flex;align-items:center;justify-content:space-between;gap:8px;font-size:12.5px;color:var(--txt2);font-weight:700}
 .edit-lib-head button{min-height:44px;border-radius:8px;border:1px solid var(--line);background:rgba(9,14,24,.8);color:var(--txt2);font-size:12px;cursor:pointer;padding:0 10px}
@@ -910,6 +915,14 @@ body.ed-open{overflow:hidden}
    <p class="edit-hint">拖动片段换顺序；点片段裁剪 / 删除 / 插入；片段中间的「＋淡化」加 0.3 秒转场。<b>视频默认使用完整时长</b>（点片段可改起止），图片默认 3 秒（可设 1~30 秒）。手机长按片段拖动。</p>
 
    <div class="edit-audio">
+    <div class="edit-row">
+     <label class="edit-check" for="edKeepOrig"><input type="checkbox" id="edKeepOrig" checked> 🔊 保留原视频声音</label>
+     <span class="edit-muted" id="edKeepOrigHint">勾选后保留素材原声，可与配乐/人声混音</span>
+    </div>
+    <div class="edit-row edit-volrow" id="edOrigVolRow">
+     <label for="edOrigVol">🔊 原声音量 <b class="orig" id="edOrigVolVal">100%</b></label>
+     <input type="range" id="edOrigVol" min="0" max="200" step="5" value="100" aria-label="原声音量 0 到 200%">
+    </div>
     <div class="edit-row">
      <b>🎵 BGM</b>
      <button type="button" class="btn-line" id="edBgmBtn">⬆ 上传 BGM</button>
@@ -3441,7 +3454,7 @@ if(pb)pb.addEventListener('click',async function(){
 'use strict';
 var MAX_CLIPS=20, MAX_TOTAL=300, FADE=0.3;
 var LS_ASSETS='xinglai_edit_assets_v1', LS_SET='xinglai_edit_settings_v1';
-var ED={clips:[],recent:[],bgm:null,voice:null,libItems:[],aspect:'9:16',res:'1080p',bgmVol:20,voiceVol:100,
+var ED={clips:[],recent:[],bgm:null,voice:null,libItems:[],aspect:'9:16',res:'1080p',bgmVol:20,voiceVol:100,keepOrig:true,origVol:100,
   previewSec:0,lastRender:null,busy:false,uploading:false,uid:0,trimUid:null,insertAt:null,suppressClick:0,
   dragUid:null,touchTimer:null,touchDrag:false,touchFrom:-1,touchUid:null,touchTarget:null,
   touchX:0,touchY:0,trimSeq:0,thumbTimer:null,lastErr:null};
@@ -3483,13 +3496,15 @@ function updateTotal(){
  var sum=$('edSum');
  if(sum)sum.textContent=n?('时间轴：'+n+' 段 · '+t.toFixed(1)+' 秒'+(bad?'（超过 300 秒上限，请裁剪）':'')):'上传自己的视频/图片/BGM，拖动排序、裁剪，直接合成导出';
 }
-function saveSettings(){try{localStorage.setItem(LS_SET,JSON.stringify({aspect:ED.aspect,res:ED.res,bgmVol:ED.bgmVol,voiceVol:ED.voiceVol}));}catch(e){}}
+function saveSettings(){try{localStorage.setItem(LS_SET,JSON.stringify({aspect:ED.aspect,res:ED.res,bgmVol:ED.bgmVol,voiceVol:ED.voiceVol,keepOrig:ED.keepOrig,origVol:ED.origVol}));}catch(e){}}
 function loadSettings(){
  try{var s=JSON.parse(localStorage.getItem(LS_SET)||'{}');
   if(s.aspect&&/^(9:16|16:9|1:1|source)$/.test(s.aspect))ED.aspect=s.aspect;
   if(s.res&&/^(1080p|720p)$/.test(s.res))ED.res=s.res;
   if(typeof s.bgmVol==='number')ED.bgmVol=clamp(s.bgmVol,0,100);
   if(typeof s.voiceVol==='number')ED.voiceVol=clamp(s.voiceVol,0,200);
+  if(typeof s.keepOrig==='boolean')ED.keepOrig=s.keepOrig;
+  if(typeof s.origVol==='number')ED.origVol=clamp(s.origVol,0,200);
  }catch(e){}
 }
 function loadRecent(){try{var a=JSON.parse(localStorage.getItem(LS_ASSETS)||'[]');if(Array.isArray(a))ED.recent=a.filter(function(x){return x&&x.url&&/^(video|image)$/.test(x.kind);}).slice(0,24);}catch(e){ED.recent=[];}}
@@ -3946,7 +3961,17 @@ function chipHTML(name,dur){
 }
 function updateMixHint(){
  var h=$('edMixHint');if(!h)return;
- h.innerHTML='当前混音：人声 '+(ED.voice?esc(ED.voice.name):'未添加')+' + 配乐 '+(ED.bgm?esc(ED.bgm.name):'未添加')+'；混音后自动统一响度到 -16 LUFS 防爆音。';
+ var orig=ED.keepOrig?('原声 '+Math.round(ED.origVol)+'%'):'原声已关闭';
+ h.innerHTML='当前混音：'+orig+' + 人声 '+(ED.voice?esc(ED.voice.name):'未添加')+' + 配乐 '+(ED.bgm?esc(ED.bgm.name):'未添加')+'；混音后自动统一响度到 -16 LUFS 防爆音。';
+}
+function syncOrigUI(){
+ var cb=$('edKeepOrig'),vol=$('edOrigVol'),val=$('edOrigVolVal'),row=$('edOrigVolRow'),hint=$('edKeepOrigHint');
+ if(cb)cb.checked=!!ED.keepOrig;
+ if(vol){vol.disabled=!ED.keepOrig;vol.value=ED.origVol;}
+ if(val)val.textContent=Math.round(ED.origVol)+'%';
+ if(row)row.className='edit-row edit-volrow'+(ED.keepOrig?'':' off');
+ if(hint)hint.textContent=ED.keepOrig?'勾选后保留素材原声，可与配乐/人声混音':'已关闭：成片只保留 BGM / 人声';
+ updateMixHint();
 }
 function setBgm(a){
  ED.bgm=a||null;
@@ -4023,6 +4048,7 @@ function buildPayload(previewSec){
  for(var i=1;i<ED.clips.length;i++)transitions.push(!!ED.clips[i].fadeIn);
  var p={clips:clips,transitions:transitions,aspect:ED.aspect,resolution:ED.res,
   bgm_volume:clamp(ED.bgmVol,0,100)/100,voice_volume:clamp(ED.voiceVol,0,200)/100,
+   keep_original_audio:!!ED.keepOrig,original_volume:clamp(ED.origVol,0,200)/100,
   subtitle_text:($('edSubtitle')?$('edSubtitle').value.trim():'')};
  if(ED.bgm)p.bgm_url=ED.bgm.url;
  if(ED.voice)p.voice_url=ED.voice.url;
@@ -4067,6 +4093,9 @@ function showResult(d){
  meta.textContent='✅ 合成完成 · '+(d.width||'?')+'×'+(d.height||'?')+' · 成片 '+durTxt+' 秒'
   +(d.truncated?('（完整时间轴 '+(Number(d.full_duration)||0).toFixed(1)+' 秒，本次只渲染前 '+durTxt+' 秒）'):'')
   +' · '+fmtSize(d.size)+(d.elapsed?(' · 渲染 '+(Number(d.elapsed)||0).toFixed(1)+' 秒'):'');
+  var au=d.audio||{};
+  if(au.has_original_audio)meta.textContent+=' · 含原声 '+Math.round((Number(au.original_volume)||0)*100)+'%';
+  else if(d.has_audio)meta.textContent+=' · 仅 BGM/人声';
  box.appendChild(meta);
  v.addEventListener('loadedmetadata',function(){
   if(isFinite(v.duration)&&v.duration>0)meta.textContent+=' · 播放器实测 '+v.duration.toFixed(1)+' 秒';
@@ -4148,6 +4177,10 @@ function bind(){
  if(vol)vol.addEventListener('input',function(){ED.bgmVol=clamp(this.value,0,100);var v=$('edBgmVolVal');if(v)v.textContent=Math.round(ED.bgmVol)+'%';saveSettings();});
  var vvol=$('edVoiceVol');
  if(vvol)vvol.addEventListener('input',function(){ED.voiceVol=clamp(this.value,0,200);var v=$('edVoiceVolVal');if(v)v.textContent=Math.round(ED.voiceVol)+'%';saveSettings();});
+ var kc=$('edKeepOrig');
+ if(kc)kc.addEventListener('change',function(){ED.keepOrig=!!this.checked;syncOrigUI();saveSettings();});
+ var ov=$('edOrigVol');
+ if(ov)ov.addEventListener('input',function(){ED.origVol=clamp(this.value,0,200);var v=$('edOrigVolVal');if(v)v.textContent=Math.round(ED.origVol)+'%';updateMixHint();saveSettings();});
  var lib=$('edLibBtn');if(lib)lib.addEventListener('click',pickLibrary);
  var lc=$('edLibClose');if(lc)lc.addEventListener('click',function(){$('edLibBox').hidden=true;});
  var ll=$('edLibList');
@@ -4165,6 +4198,7 @@ function init(){
  if(asp)asp.value=ED.aspect;if(res)res.value=ED.res;if(vol)vol.value=ED.bgmVol;if(vv)vv.textContent=Math.round(ED.bgmVol)+'%';
  if(vvol)vvol.value=ED.voiceVol;if(vvl)vvl.textContent=Math.round(ED.voiceVol)+'%';
  updateMixHint();setProgress(-1);
+ syncOrigUI();
  bind();bindTimeline();bindModal();
  renderTimeline();
 }
