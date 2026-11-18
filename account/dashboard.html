@@ -427,10 +427,11 @@ table.data td .oid{font-size:11.5px;color:var(--txt2);font-family:ui-monospace,C
       stateEl.className = 'badge lime'; stateEl.textContent = '体验中';
     } else {
       $('#planExpire').textContent = XLAuth.fmtDate(exp) + (days != null ? '（剩 ' + Math.max(0, days) + ' 天）' : '');
-      $('#planSub').textContent = '到期后自动回到体验版额度 · 不自动扣费';
+      var yq = { basic: [60, 500], pro: [200, 2000], enterprise: [600, 8000] }[u.plan] || [3, 10];
+      $('#planSub').textContent = '年费套餐（12 个月）· 视频 ' + yq[0] + ' 条/月 · 线索 ' + yq[1] + ' 条/月 · 到期后回到体验版';
       if (days != null && days < 0) { stateEl.className = 'badge red'; stateEl.textContent = '已到期'; }
       else if (days != null && days <= 7) { stateEl.className = 'badge amber'; stateEl.textContent = '即将到期'; }
-      else { stateEl.className = 'badge lime'; stateEl.textContent = '生效中'; }
+      else { stateEl.className = 'badge lime'; stateEl.textContent = '年费生效中'; }
     }
     $('#planWs').textContent = u.workspace_id || 'default';
   }
