@@ -658,6 +658,16 @@ details[open].edit summary:after{content:"收起 ▴"}
 .edit-gap button{width:48px;height:48px;padding:0;border-radius:50%;border:1px dashed rgba(148,163,184,.5);background:rgba(9,14,24,.7);color:var(--txt3);font-size:9.5px;line-height:1.25;cursor:pointer;font-weight:700}
 .edit-gap button:hover{border-color:rgba(56,189,248,.65);color:#bae6fd}
 .edit-gap button.on{border:1px solid rgba(139,92,246,.75);background:rgba(139,92,246,.2);color:#ddd6fe;box-shadow:0 0 0 2px rgba(139,92,246,.12)}
+.edit-gap button.on[data-t="flash"]{border-color:rgba(251,191,36,.8);background:rgba(251,191,36,.18);color:#fde68a;box-shadow:0 0 0 2px rgba(251,191,36,.14)}
+.edit-gap button.on[data-t="slide"]{border-color:rgba(34,211,238,.8);background:rgba(34,211,238,.16);color:#a5f3fc;box-shadow:0 0 0 2px rgba(34,211,238,.14)}
+.edit-gap button.on[data-t="black"]{border-color:rgba(148,163,184,.75);background:rgba(148,163,184,.18);color:#e2e8f0;box-shadow:0 0 0 2px rgba(148,163,184,.12)}
+.edit-gap button[disabled]{opacity:.45;cursor:not-allowed}
+/* 片段倍速下拉 */
+.edit-speed{display:flex;align-items:center;gap:4px;padding:0 7px 3px;min-width:0}
+.edit-speed label{flex:0 0 auto;font-size:10.5px;color:var(--txt3);font-weight:700}
+.edit-speed select{flex:1 1 0;min-width:0;height:32px;min-height:32px;border-radius:8px;border:1px solid rgba(148,163,184,.3);background:rgba(7,12,21,.92);color:#bae6fd;font-size:12px;font-weight:700;padding:0 4px;font-family:inherit;cursor:pointer}
+.edit-speed select:hover,.edit-speed select:focus{border-color:rgba(56,189,248,.55);outline:none}
+.edit-speed select.speed-on{color:#fde68a;border-color:rgba(251,191,36,.5)}
 .edit-hint{margin:2px 0 0;font-size:11.5px;line-height:1.65;color:var(--txt3)}
 .edit-audio{margin-top:10px;padding-top:12px;border-top:1px dashed rgba(148,163,184,.14)}
 .edit-row{display:flex;align-items:center;gap:8px;flex-wrap:wrap;margin-top:10px;min-width:0}
@@ -758,6 +768,7 @@ details[open].edit summary:after{content:"收起 ▴"}
  .edit-add-row .btn-line{width:100%;min-height:46px}
  .edit-clip{flex-basis:136px;width:136px}
  .edit-thumb{height:80px}
+ .edit-speed select{height:44px;min-height:44px;font-size:13px}
  .edit-tools button{min-height:44px}
  .edit-tools button[data-act="del"]{flex:0 0 44px}
  .edit-gap{flex-basis:46px}
@@ -932,7 +943,7 @@ body.ed-open{overflow:hidden}
    </div>
    <div class="edit-label-row"><span class="edit-label">🎬 时间轴</span><span class="edit-total" id="edTotal">0 段 · 0.0 秒</span></div>
    <div class="edit-timeline" id="edTimeline"><div class="edit-empty">还没有片段。先上传视频/图片，或从「③ 加素材」添加。</div></div>
-   <p class="edit-hint">拖动片段换顺序；点片段裁剪 / 删除 / 插入；片段中间的「＋淡化」加 0.3 秒转场。<b>视频默认使用完整时长</b>（点片段可改起止），图片默认 3 秒（可设 1~30 秒）。手机长按片段拖动。</p>
+   <p class="edit-hint">拖动片段换顺序；点片段裁剪 / 删除 / 插入。衔接处圆点循环切换转场：<b>无 → 淡化 → 闪白 → 左滑 → 黑场</b>（0.3 秒，视频 xfade / 音频 acrossfade 同步）。视频段落可单独设 <b>0.5x / 1x / 1.5x / 2x</b> 倍速，成片时长按倍速重算；手机长按片段拖动。</p>
 
    <div class="edit-audio">
     <div class="edit-row">
@@ -3479,6 +3490,9 @@ if(pb)pb.addEventListener('click',async function(){
 (function(){
 'use strict';
 var MAX_CLIPS=20, MAX_TOTAL=300, FADE=0.3;
+var TRANS_ORDER=['','fade','flash','slide','black'];
+var TRANS_META={fade:{label:'淡化'},flash:{label:'闪白'},slide:{label:'左滑'},black:{label:'黑场'}};
+var SPEEDS=[0.5,1,1.5,2];
 var LS_ASSETS='xinglai_edit_assets_v1', LS_SET='xinglai_edit_settings_v1';
 var ED={clips:[],recent:[],bgm:null,voice:null,libItems:[],aspect:'source',res:'1080p',bgmVol:20,voiceVol:100,keepOrig:true,origVol:100,fit:'cover',
   previewSec:0,lastRender:null,busy:false,uploading:false,uid:0,trimUid:null,insertAt:null,suppressClick:0,
@@ -3514,8 +3528,11 @@ function showError(msg,retry){
 function hideError(){var b=$('edError');if(b)b.hidden=true;}
 function idxOf(uid){for(var i=0;i<ED.clips.length;i++)if(ED.clips[i].uid===uid)return i;return -1;}
 function clipLen(c){if(!c)return 0;if(c.kind==='video')return Math.max(0,(Number(c.end)||0)-(Number(c.start)||0));return Math.max(0,Number(c.duration)||0);}
-function fadeCount(){var n=0;for(var i=1;i<ED.clips.length;i++)if(ED.clips[i].fadeIn)n++;return n;}
-function totalDuration(){var t=0;for(var i=0;i<ED.clips.length;i++)t+=clipLen(ED.clips[i]);return Math.max(0,t-FADE*fadeCount());}
+function speedOf(c){return (c&&c.kind==='video')?clamp(Number(c.speed)||1,0.5,2):1;}
+function effLen(c){return clipLen(c)/speedOf(c);}
+function transOf(c){return (c&&c.trans&&TRANS_META[c.trans.type])?c.trans:null;}
+function transSum(){var s=0;for(var i=1;i<ED.clips.length;i++){var t=transOf(ED.clips[i]);if(t)s+=Number(t.duration)||0;}return s;}
+function totalDuration(){var t=0;for(var i=0;i<ED.clips.length;i++)t+=effLen(ED.clips[i]);return Math.max(0,t-transSum());}
 function updateTotal(){
  var n=ED.clips.length,t=totalDuration(),bad=t>MAX_TOTAL+0.05;
  var el=$('edTotal');if(el){el.textContent=n+' 段 · '+t.toFixed(1)+' 秒'+(bad?' · 超过 300 秒':'');el.className='edit-total'+(bad?' bad':'');}
@@ -3575,26 +3592,35 @@ function updateOutHint(){
 /* ---------------- 时间轴渲染 ---------------- */
 function renderTimeline(){
  var tl=$('edTimeline');if(!tl)return;
- if(ED.clips.length>1&&ED.clips[0])ED.clips[0].fadeIn=false;
+ if(ED.clips.length>1&&ED.clips[0])ED.clips[0].trans=null;
  if(!ED.clips.length){
   tl.innerHTML='<div class="edit-empty">还没有片段。先上传视频/图片，或从「③ 加素材」添加。</div>';
   updateTotal();updateOutHint();return;
  }
  var h='';
  for(var i=0;i<ED.clips.length;i++){
-  var c=ED.clips[i];
+  var c=ED.clips[i],tr=transOf(c),sp=speedOf(c);
   if(i>0){
-   h+='<div class="edit-gap"><button type="button" data-gap="'+i+'" class="'+(c.fadeIn?'on':'')+'" aria-label="片段 '+(i+1)+' 前的转场">'+(c.fadeIn?'淡化<br>0.3s':'＋<br>淡化')+'</button></div>';
+   var tlab=tr?TRANS_META[tr.type].label:'＋';
+   var tsub=tr?((Number(tr.duration)||FADE).toFixed(1)+'s'):'转场';
+   h+='<div class="edit-gap"><button type="button" data-gap="'+i+'"'+(tr?(' data-t="'+tr.type+'"'):'')+' class="'+(tr?'on':'')+'" aria-label="片段 '+(i+1)+' 前的转场：'+(tr?tlab:'无')+'，点击循环切换">'+tlab+'<br>'+tsub+'</button></div>';
   }
-  var len=clipLen(c);
-  var durTxt=len.toFixed(1)+'s';
-  if(c.kind==='video'&&Number(c.srcDuration)>0&&Math.abs(len-Number(c.srcDuration))>0.05)durTxt=len.toFixed(1)+'/'+Number(c.srcDuration).toFixed(1)+'s';
+  var elen=effLen(c);
+  var durTxt=elen.toFixed(1)+'s';
+  if(c.kind==='video'&&Number(c.srcDuration)>0&&Math.abs(clipLen(c)-Number(c.srcDuration))>0.05)durTxt=elen.toFixed(1)+'/'+(Number(c.srcDuration)/sp).toFixed(1)+'s';
+  var speedSel='';
+  if(c.kind==='video'){
+   speedSel='<div class="edit-speed"><label for="edSpd'+i+'">倍速</label><select id="edSpd'+i+'" data-speed="'+esc(c.uid)+'" aria-label="第 '+(i+1)+' 段倍速" class="'+(sp!==1?'speed-on':'')+'">'
+    +SPEEDS.map(function(v){return '<option value="'+v+'"'+(Math.abs(sp-v)<0.001?' selected':'')+'>'+v+'x</option>';}).join('')
+    +'</select></div>';
+  }
   h+='<div class="edit-clip" draggable="true" data-uid="'+esc(c.uid)+'" title="'+esc(c.name)+'（拖动排序；点击裁剪）">'
    +'<div class="edit-thumb">'
    +(c.thumb?'<img src="'+esc(c.thumb)+'" alt="" loading="lazy">':'<span class="edit-ph">'+(c.kind==='video'?'🎞':'🖼')+'</span>')
    +'<span class="edit-num">'+(i+1)+'</span><span class="edit-kind">'+(c.kind==='video'?'视频':'图片')+'</span>'
    +'<span class="edit-dur">'+durTxt+'</span></div>'
    +'<div class="edit-name">'+esc(c.name)+'</div>'
+   +speedSel
    +'<div class="edit-tools"><button type="button" data-act="trim">✂ 裁剪</button><button type="button" data-act="del" aria-label="删除片段">✕</button></div>'
    +'</div>';
  }
@@ -3655,7 +3681,7 @@ function makeClip(a,p){
  if(!p||!p.ok)throw new Error('素材解析失败');
  if(p.type==='audio')throw new Error('这是音频文件，请用下方「上传 BGM / 人声」');
  var kind=p.type==='image'?'image':'video';
- var c={uid:'c'+(++ED.uid)+'-'+Date.now().toString(36),url:a.url,name:a.name||'素材',kind:kind,fadeIn:false,thumb:a.thumb||''};
+ var c={uid:'c'+(++ED.uid)+'-'+Date.now().toString(36),url:a.url,name:a.name||'素材',kind:kind,speed:1,trans:null,thumb:a.thumb||''};
  if(kind==='video'){
   var dur=Number(p.duration)||0;
   if(dur<0.3)throw new Error('视频时长太短，至少 0.3 秒');
@@ -3754,7 +3780,7 @@ function moveClip(from,to){
  if(to===from)return false;
  var c=ED.clips.splice(from,1)[0];
  ED.clips.splice(to,0,c);
- if(ED.clips[0])ED.clips[0].fadeIn=false;
+ if(ED.clips[0])ED.clips[0].trans=null;
  return true;
 }
 function setDropTarget(card){if(!card)return;clearDropTarget();card.classList.add('drop-target');}
@@ -3844,10 +3870,14 @@ function bindTimeline(){
  }
  tl.addEventListener('touchend',endTouch);
  tl.addEventListener('touchcancel',endTouch);
+ tl.addEventListener('change',function(e){
+  var sel=e.target.closest?e.target.closest('select[data-speed]'):null;
+  if(sel){setSpeed(sel.getAttribute('data-speed'),Number(sel.value));}
+ });
  tl.addEventListener('click',function(e){
   if(Date.now()<ED.suppressClick){e.preventDefault();e.stopPropagation();return;}
   var gap=e.target.closest?e.target.closest('.edit-gap button'):null;
-  if(gap){toggleFade(Number(gap.getAttribute('data-gap')));return;}
+  if(gap){cycleTrans(Number(gap.getAttribute('data-gap')));return;}
   var card=e.target.closest?e.target.closest('.edit-clip'):null;
   if(!card)return;
   var uid=card.getAttribute('data-uid');
@@ -3861,19 +3891,39 @@ function bindTimeline(){
   openTrim(uid);
  });
 }
-function toggleFade(i){
+function cycleTrans(i){
  var a=ED.clips[i-1],b=ED.clips[i];if(!a||!b)return;
- if(b.fadeIn){b.fadeIn=false;}
- else{
-  if(clipLen(a)<0.4||clipLen(b)<0.4){toast('片段太短，至少 0.4 秒才能加 0.3 秒淡化','warn');return;}
-  b.fadeIn=true;
+ var cur=b.trans?b.trans.type:'';
+ var idx=TRANS_ORDER.indexOf(cur);
+ if(idx<0)idx=0;
+ var next=TRANS_ORDER[(idx+1)%TRANS_ORDER.length];
+ if(!next){b.trans=null;renderTimeline();toast('已取消该处转场');return;}
+ var d=(transOf(b)&&Number(b.trans.duration))||FADE;
+ var need=Math.round((d+0.05)*10)/10;
+ if(effLen(a)<d+0.05||effLen(b)<d+0.05){
+  toast('相邻片段都要至少 '+need.toFixed(1)+' 秒，才能加 '+d.toFixed(1)+' 秒'+(TRANS_META[next]?TRANS_META[next].label:'转场'),'warn');
+  return;
  }
+ b.trans={type:next,duration:d};
+ renderTimeline();toast('已设置'+(TRANS_META[next]?TRANS_META[next].label:'转场')+'转场','ok');
+}
+function setSpeed(uid,val){
+ var i=idxOf(uid);if(i<0)return;
+ var c=ED.clips[i];if(!c||c.kind!=='video')return;
+ var sp=clamp(val,0.5,2);
+ if(Math.abs(speedOf(c)-sp)<0.001)return;
+ c.speed=sp;
+ var cancelled=0;
+ if(transOf(c)&&effLen(c)<Number(c.trans.duration)+0.05){c.trans=null;cancelled++;}
+ var nx=ED.clips[i+1];
+ if(nx&&transOf(nx)&&effLen(c)<Number(nx.trans.duration)+0.05){nx.trans=null;cancelled++;}
  renderTimeline();
+ toast('第 '+(i+1)+' 段已设为 '+sp+'x'+(cancelled?'（片段变短，已取消相邻转场）':''),cancelled?'warn':'ok');
 }
 function removeClip(uid){
  var i=idxOf(uid);if(i<0)return;
  ED.clips.splice(i,1);
- if(ED.clips[0])ED.clips[0].fadeIn=false;
+ if(ED.clips[0])ED.clips[0].trans=null;
  renderTimeline();toast('已删除片段');
 }
 
@@ -3931,7 +3981,9 @@ function openTrim(uid){
   if(v.err){info.textContent='';$('edTrimErr').textContent=v.err;return;}
   $('edTrimErr').textContent='';
   if(isV){
-   info.innerHTML='裁剪后 <b>'+(v.end-v.start).toFixed(1)+' 秒</b>（'+v.start.toFixed(1)+'s → '+v.end.toFixed(1)+'s）';
+   var sp=speedOf(c);
+   info.innerHTML='裁剪后 <b>'+(v.end-v.start).toFixed(1)+' 秒</b>（'+v.start.toFixed(1)+'s → '+v.end.toFixed(1)+'s）'
+    +(sp!==1?(' · 当前 '+sp+'x，成片约 <b>'+((v.end-v.start)/sp).toFixed(1)+' 秒</b>'):'');
    scheduleTrimThumb(v.start);
   }else{
    info.innerHTML='将展示 <b>'+v.duration.toFixed(1)+' 秒</b>';
@@ -4064,18 +4116,28 @@ function validateEdit(){
   if(c.kind==='image'&&(Number(c.duration)<1||Number(c.duration)>30))return '第 '+(i+1)+' 张图片时长需在 1~30 秒之间';
  }
  for(var j=1;j<ED.clips.length;j++){
-  if(ED.clips[j].fadeIn&&(clipLen(ED.clips[j-1])<0.4||clipLen(ED.clips[j])<0.4))return '第 '+j+' 段附近不足 0.4 秒，不能加 0.3 秒淡化';
+  var tr=transOf(ED.clips[j]);if(!tr)continue;
+  var td=Number(tr.duration)||FADE;
+  if(effLen(ED.clips[j-1])<td+0.05||effLen(ED.clips[j])<td+0.05)return '第 '+j+' 段附近不足 '+(td+0.05).toFixed(1)+' 秒，不能加 '+td.toFixed(1)+' 秒转场';
  }
  if(ED.bgm&&!ED.bgm.url)return 'BGM 地址异常，请重新选择';
  return '';
 }
 function buildPayload(previewSec){
  var clips=ED.clips.map(function(c){
-  if(c.kind==='video')return {url:c.url,kind:'video',start:Math.round(Number(c.start)*1000)/1000,end:Math.round(Number(c.end)*1000)/1000};
+  if(c.kind==='video'){
+   var o={url:c.url,kind:'video',start:Math.round(Number(c.start)*1000)/1000,end:Math.round(Number(c.end)*1000)/1000};
+   var sp=speedOf(c);
+   if(sp!==1)o.speed=sp;
+   return o;
+  }
   return {url:c.url,kind:'image',duration:Math.round(Number(c.duration)*10)/10};
  });
  var transitions=[];
- for(var i=1;i<ED.clips.length;i++)transitions.push(!!ED.clips[i].fadeIn);
+ for(var i=1;i<ED.clips.length;i++){
+  var tr=transOf(ED.clips[i]);
+  if(tr)transitions.push({between:i-1,type:tr.type,duration:Number(tr.duration)||FADE});
+ }
  var p={clips:clips,transitions:transitions,aspect:ED.aspect,resolution:ED.res,fit_mode:ED.fit,
   bgm_volume:clamp(ED.bgmVol,0,100)/100,voice_volume:clamp(ED.voiceVol,0,200)/100,
    keep_original_audio:!!ED.keepOrig,original_volume:clamp(ED.origVol,0,200)/100,
