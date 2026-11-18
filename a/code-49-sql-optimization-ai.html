@@ -11,13 +11,13 @@
 <meta name="keywords" content="SQL 优化 AI, 慢查询 定位, 执行计划 解读, 索引 优化, SQL 改写, 慢 SQL 如何 定位, 执行计划 解读 方法">
 <meta name="robots" content="noindex,nofollow"><meta name="googlebot" content="noindex,nofollow">
 
-<link rel="canonical" href="https://a678-beep.github.io/ai-nav/a/code-49-sql-optimization-ai.html">
+<link rel="canonical" href="https://xinglaiai.com/ai-nav/a/code-49-sql-optimization-ai.html">
 <meta property="og:type" content="article">
 <meta property="og:title" content="SQL 优化 AI：执行计划、索引与改写">
 <meta property="og:description" content="上季度接一个 SaaS 后台，客户列表页翻到第 500 页要 11 秒，DBA 的第一反应是加机器。我把 3 天慢日志、两张表结构、执行计划整理成三段贴给模型，两轮锁定 3 条慢查询：一条深分页、一条缺索引、一条统计信息">
-<meta property="og:url" content="https://a678-beep.github.io/ai-nav/a/code-49-sql-optimization-ai.html">
-<script type="application/ld+json">{"@context": "https://schema.org", "@type": "Article", "headline": "SQL 优化 AI：执行计划、索引与改写", "inLanguage": "zh-CN", "datePublished": "2026-11-18", "author": {"@type": "Organization", "name": "星籁 Stellara"}, "publisher": {"@type": "Organization", "name": "星籁 Stellara"}, "mainEntityOfPage": "https://a678-beep.github.io/ai-nav/a/code-49-sql-optimization-ai.html", "articleSection": "编程助手", "wordCount": 806, "dateModified": "2026-11-18", "keywords": "SQL 优化 AI, 慢查询 定位, 执行计划 解读, 索引 优化, SQL 改写, 慢 SQL 如何 定位, 执行计划 解读 方法"}</script>
-<script type="application/ld+json">{"@context": "https://schema.org", "@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "首页", "item": "https://a678-beep.github.io/ai-nav/"}, {"@type": "ListItem", "position": 2, "name": "编程助手", "item": "https://a678-beep.github.io/ai-nav/#/articles"}, {"@type": "ListItem", "position": 3, "name": "SQL 优化 AI：执行计划、索引与改写", "item": "https://a678-beep.github.io/ai-nav/a/code-49-sql-optimization-ai.html"}]}</script>
+<meta property="og:url" content="https://xinglaiai.com/ai-nav/a/code-49-sql-optimization-ai.html">
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "Article", "headline": "SQL 优化 AI：执行计划、索引与改写", "inLanguage": "zh-CN", "datePublished": "2026-11-19", "author": {"@type": "Organization", "name": "星籁 Stellara"}, "publisher": {"@type": "Organization", "name": "星籁 Stellara"}, "mainEntityOfPage": "https://xinglaiai.com/ai-nav/a/code-49-sql-optimization-ai.html", "articleSection": "编程助手", "wordCount": 806, "dateModified": "2026-11-19", "keywords": "SQL 优化 AI, 慢查询 定位, 执行计划 解读, 索引 优化, SQL 改写, 慢 SQL 如何 定位, 执行计划 解读 方法"}</script>
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "首页", "item": "https://xinglaiai.com/ai-nav/"}, {"@type": "ListItem", "position": 2, "name": "编程助手", "item": "https://xinglaiai.com/ai-nav/#/articles"}, {"@type": "ListItem", "position": 3, "name": "SQL 优化 AI：执行计划、索引与改写", "item": "https://xinglaiai.com/ai-nav/a/code-49-sql-optimization-ai.html"}]}</script>
 <style>
 :root{--bg:#080b12;--panel:#111827;--line:#1f2937;--txt:#e6edf7;--txt2:#9aa8bd;--txt3:#6b7a90;--cyan:#5ad1ff;--violet:#a78bfa}
 *{box-sizing:border-box}body{margin:0;background:radial-gradient(900px 500px at 82% -8%,rgba(90,209,255,.16),transparent 60%),var(--bg);color:var(--txt);font-family:"Microsoft YaHei","PingFang SC",system-ui,sans-serif;line-height:1.8}
