@@ -535,8 +535,9 @@ details[open].music summary:after{content:"收起 ▴"}
 .tpl-nav:hover{border-color:rgba(56,189,248,.8);background:rgba(56,189,248,.16);color:#e0f2fe}
 .tpl-nav:active{transform:translateY(1px)}
 .tpl-nav:disabled{opacity:.4;cursor:default}
-#tplGrid{max-height:min(560px,68vh);overflow-y:auto;padding-right:8px;scrollbar-color:rgba(56,189,248,.7) rgba(255,255,255,.05);overscroll-behavior:contain}
+#tplGrid{max-height:min(560px,68vh);overflow-y:auto;padding-right:8px;overscroll-behavior:contain}
 #tplGrid::-webkit-scrollbar{width:8px;height:8px}
+#tplGrid::-webkit-scrollbar-button{display:none;width:0;height:0}
 #tplGrid::-webkit-scrollbar-thumb{background:linear-gradient(180deg,rgba(56,189,248,.78),rgba(139,92,246,.78));border-radius:8px}
 #tplGrid::-webkit-scrollbar-thumb:hover{background:linear-gradient(180deg,rgba(56,189,248,.95),rgba(139,92,246,.95))}
 #tplGrid::-webkit-scrollbar-track{background:rgba(255,255,255,.05);border-radius:8px}
@@ -1063,6 +1064,38 @@ body.ed-open{overflow:hidden}
 <link rel="stylesheet" href="../assets/theme-light.css">
 <script defer src="../assets/theme.js"></script>
 <!--xl-theme-end-->
+<style id="wbGenCss">
+/* AI 生成行业素材（studio_gen，2026-11-18 追加）—— 只新增样式，不改既有规则 */
+.wb-gen{display:flex;flex-direction:column;gap:8px;background:linear-gradient(135deg,rgba(56,189,248,.10),rgba(139,92,246,.10));border:1px solid rgba(56,189,248,.3);border-radius:14px;padding:11px 12px;margin:2px 0 10px;min-width:0}
+.wb-gen-top{display:flex;flex-wrap:wrap;gap:8px;align-items:center}
+.wb-gen-btn{display:inline-flex;align-items:center;justify-content:center;gap:6px;min-height:42px;padding:0 16px;border-radius:11px;border:1px solid rgba(56,189,248,.55);background:linear-gradient(135deg,rgba(56,189,248,.3),rgba(139,92,246,.3));color:#f0f9ff;font-size:14px;font-weight:700;cursor:pointer;font-family:inherit;white-space:nowrap;flex:0 0 auto}
+.wb-gen-btn:hover{filter:brightness(1.1)}
+.wb-gen-btn[disabled]{opacity:.6;cursor:progress}
+.wb-gen-field{display:inline-flex;align-items:center;gap:6px;font-size:12.5px;color:var(--txt2);white-space:nowrap;flex:0 0 auto}
+.wb-gen-field select,.wb-gen-kw input{background:var(--panel);border:1px solid var(--line);border-radius:9px;color:var(--txt);font-size:13px;font-family:inherit;min-height:36px;padding:0 8px}
+.wb-gen-kwfield{flex:1 1 260px;min-width:0;white-space:nowrap}
+.wb-gen-kw{width:100%;min-width:0;flex:1 1 140px}
+.wb-gen-sm{min-height:36px;padding:0 10px;font-size:12px;flex:0 0 auto}
+.wb-gen-status{font-size:12.5px;color:var(--cyan);display:flex;gap:8px;align-items:center;flex-wrap:wrap}
+.wb-gen-status .sp{display:inline-block;width:13px;height:13px;border:2px solid rgba(56,189,248,.35);border-top-color:#38bdf8;border-radius:50%;animation:wbGenSpin .8s linear infinite;flex:0 0 auto}
+@keyframes wbGenSpin{to{transform:rotate(360deg)}}
+.wb-gen-note{font-size:12px;color:var(--txt2);line-height:1.6;background:var(--panel);border:1px solid var(--line);border-radius:10px;padding:8px 10px;word-break:break-word}
+.wb-gen-note.err{color:#fecaca;border-color:rgba(248,113,113,.45);background:rgba(248,113,113,.08)}
+.wb-gen-note .wb-gen-retry{min-height:32px;padding:0 10px;font-size:12px;margin-left:6px}
+.wb-gen-tags{display:flex;gap:5px;flex-wrap:wrap;margin-top:5px}
+.wb-gen-src{font-size:10.5px;line-height:1.2;border-radius:999px;padding:2px 7px;border:1px solid rgba(56,189,248,.45);background:rgba(56,189,248,.12);color:var(--cyan);white-space:nowrap;font-weight:700}
+.wb-gen-src.ai{border-color:rgba(139,92,246,.5);background:rgba(139,92,246,.14);color:#c4b5fd}
+:root[data-theme="light"] .wb-gen{background:linear-gradient(135deg,rgba(56,189,248,.12),rgba(139,92,246,.10))}
+:root[data-theme="light"] .wb-gen-btn{color:#0c4a6e}
+:root[data-theme="light"] .wb-gen-src.ai{color:#5b21b6}
+@media (max-width:640px){
+ .wb-gen{padding:10px}
+ .wb-gen-btn{width:100%;min-height:44px}
+ .wb-gen-kwfield{flex:1 1 100%}
+ .wb-gen-kw{flex:1 1 100%}
+ .wb-gen-field{flex:1 1 auto}
+}
+</style>
 </head><body>
 <div class="top"><div class="top-in">
  <a class="brand" href="/ai-nav/"><span class="logo">星</span>星籁 AI <span class="brand-sub">商家工作台</span></a>
@@ -1142,6 +1175,29 @@ body.ed-open{overflow:hidden}
    <section class="wb-pane" data-step="2" id="wbPane2" hidden>
     <section class="sec" id="secUpload">
      <div class="sec-head"><span class="sec-ico">🗂️</span><div><h2>② 素材库</h2><p class="sec-sub">上传一次，反复用：图片 / 视频 / 音频统一管理，可预览、勾选做批量剪辑，也能一键加入时间轴、设为 BGM 或产品图。</p></div><span class="sec-hint">单个 ≤100MB · 可多选</span></div>
+      <div class="wb-gen" id="wbGenBox">
+       <div class="wb-gen-top">
+        <button type="button" class="wb-gen-btn" id="wbGenBtn">✨ AI 生成行业素材</button>
+        <label class="wb-gen-field">类型
+         <select id="wbGenKind" aria-label="生成素材类型">
+          <option value="image" selected>图片</option>
+          <option value="video">视频</option>
+          <option value="both">图片+视频</option>
+          <option value="ai">AI 生成图片（实验）</option>
+         </select>
+        </label>
+        <label class="wb-gen-field">数量
+         <select id="wbGenCount" aria-label="生成数量"><option value="6" selected>6</option><option value="9">9</option><option value="12">12</option></select>
+        </label>
+        <label class="wb-gen-field wb-gen-kwfield">关键词
+         <input type="text" class="wb-gen-kw" id="wbGenKw" maxlength="120" autocomplete="off" placeholder="留空=按当前行业自动匹配，可填多个英文词（逗号分隔）">
+        </label>
+        <button type="button" class="btn-line wb-gen-sm" id="wbGenKwBtn" title="用当前行业关键词填入">载入行业关键词</button>
+       </div>
+       <div class="wb-gen-status" id="wbGenStatus" hidden></div>
+       <div class="wb-gen-note" id="wbGenNote" hidden></div>
+      </div>
+
      <div class="wb-asset-toolbar">
       <div class="wb-filters" id="wbAssetFilters" role="tablist" aria-label="素材类型筛选">
        <button type="button" data-filter="all" class="on">全部</button>
@@ -3560,7 +3616,7 @@ if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',
   function updateCount(){
    raf=0;
    var all=cards(), n=all.length;
-   if(total)total.textContent=String(n||24);
+   if(total){var tv=String(n||24);if(total.textContent!==tv)total.textContent=tv;}
    if(!pos)return;
    if(!grid.clientHeight||!grid.offsetParent)return; /* 步骤①隐藏时保持旧值 */
    var gt=grid.getBoundingClientRect().top+2, first=0;
@@ -3569,7 +3625,8 @@ if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',
     if(r.bottom>gt){first=i;break;}
     first=i;
    }
-   pos.textContent=String(n?first+1:0);
+   var pv=String(n?first+1:0);
+   if(pos.textContent!==pv)pos.textContent=pv;
   }
   function scheduleCount(){if(!raf)raf=requestAnimationFrame(updateCount);}
   function nudge(dir){
@@ -5879,6 +5936,174 @@ if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',
       if (el) mo.observe(el, { attributes: true, childList: true, subtree: true, characterData: true });
     }
   }
+
+  /* ---------------- AI 生成行业素材（studio_gen，2026-11-18 追加） ---------------- */
+  function wbGenEl(id) { return document.getElementById(id); }
+  function wbGenIndustryName() {
+    var cfg = WB.industry;
+    if (cfg) {
+      var nm = String(cfg.name || '').trim();
+      if (nm) return nm;
+      var ind = String(cfg.industry || '').trim();
+      if (ind) return ind;
+    }
+    try {
+      var id = currentTplId ? currentTplId() : '';
+      if (id) {
+        for (var i = 0; i < (WB.templates || []).length; i++) {
+          if (WB.templates[i].id === id) return String(WB.templates[i].name || id).trim();
+        }
+      }
+    } catch (e) {}
+    try { return tplName() || '本地商家'; } catch (e) { return '本地商家'; }
+  }
+  function wbGenSetBusy(busy) {
+    var btn = wbGenEl('wbGenBtn');
+    if (btn) { btn.disabled = !!busy; btn.textContent = busy ? '⏳ 生成中…' : '✨ AI 生成行业素材'; }
+  }
+  function wbGenShowStatus(html) {
+    var st = wbGenEl('wbGenStatus');
+    if (!st) return;
+    st.innerHTML = html || '';
+    st.hidden = !html;
+  }
+  function wbGenShowNote(html, isErr) {
+    var n = wbGenEl('wbGenNote');
+    if (!n) return;
+    n.className = 'wb-gen-note' + (isErr ? ' err' : '');
+    n.innerHTML = html || '';
+    n.hidden = !html;
+  }
+  function wbGenSourceTag(a) {
+    if (a && a.source === 'ai') return '<span class="wb-gen-src ai" title="' + esc(a.license || '') + '">AI 生成 · 需标注合成</span>';
+    return '<span class="wb-gen-src" title="' + esc((a && a.license) || '') + '">Pixabay · 可商用</span>';
+  }
+  function wbGenKeywordText() {
+    var inp = wbGenEl('wbGenKw');
+    return inp ? String(inp.value || '').trim() : '';
+  }
+  function wbGenPrefill(force) {
+    var inp = wbGenEl('wbGenKw');
+    if (!inp) return;
+    if (!force && inp.value.trim()) return;
+    var ind = wbGenIndustryName();
+    api('/studio/assets/industry-keywords?industry=' + encodeURIComponent(ind), {}, 12000).then(function (d) {
+      if (!d || !inp) return;
+      if (!force && inp.value.trim()) return;
+      var en = d.keywords_en || [];
+      if (en.length) inp.value = en.slice(0, 6).join(', ');
+    }).catch(function () {});
+  }
+  function wbGenSelectAllFilter() {
+    var f = document.querySelector('#wbAssetFilters [data-filter="all"]');
+    if (f) f.click();
+  }
+  function wbGenDecorate() {
+    var cards = document.querySelectorAll('#wbAssetGrid .wb-asset');
+    for (var i = 0; i < cards.length; i++) {
+      var u = cards[i].getAttribute('data-url');
+      var a = assetByUrl ? assetByUrl(u) : null;
+      if (!a || !a.gen) continue;
+      var meta = cards[i].querySelector('.wb-asset-meta');
+      if (!meta || meta.querySelector('.wb-gen-tags')) continue;
+      var src = a.gen.source === 'ai' ? 'AI 生成 · 需标注合成' : 'Pixabay · 可商用';
+      var tag = document.createElement('div');
+      tag.className = 'wb-gen-tags';
+      tag.innerHTML = '<span class="wb-gen-src' + (a.gen.source === 'ai' ? ' ai' : '') + '" title="' + esc(a.gen.license || '') + '">' + src + '</span>';
+      meta.appendChild(tag);
+    }
+  }
+  function wbGenObserve() {
+    var g = $('wbAssetGrid');
+    if (!g || typeof MutationObserver === 'undefined') return;
+    if (!g._wbGenMo) {
+      g._wbGenMo = new MutationObserver(function () { wbGenDecorate(); });
+      g._wbGenMo.observe(g, { childList: true, subtree: true });
+    }
+    wbGenDecorate();
+  }
+  function wbGenBindRetry() {
+    var b = wbGenEl('wbGenRetry');
+    if (b) b.addEventListener('click', function () { wbGenRun(); });
+  }
+  function wbGenRun() {
+    if (WB._genRunning) return;
+    var ind = wbGenIndustryName();
+    var kindSel = wbGenEl('wbGenKind');
+    var kind = kindSel ? kindSel.value : 'image';
+    var cntSel = wbGenEl('wbGenCount');
+    var count = cntSel ? (parseInt(cntSel.value, 10) || 6) : 6;
+    var kwText = wbGenKeywordText();
+    var keywords = kwText ? kwText.split(/[,，;；\s]+/).filter(function (x) { return !!x; }).slice(0, 6) : [];
+    WB._genRunning = true;
+    wbGenSetBusy(true);
+    wbGenShowNote('');
+    var t0 = Date.now();
+    var t = setInterval(function () {
+      var s = wbGenEl('wbGenSec');
+      if (s) s.textContent = Math.max(1, Math.round((Date.now() - t0) / 1000)) + 's';
+    }, 1000);
+    var kindTxt = kind === 'video' ? '视频' : kind === 'both' ? '图片+视频' : kind === 'ai' ? 'AI 图片' : '图片';
+    wbGenShowStatus('<span class="sp"></span><span>正在生成「' + esc(ind) + '」' + kindTxt + '素材 ' + count + ' 个… 已用 <b id="wbGenSec">0s</b></span>');
+    api('/studio/assets/generate', {
+      method: 'POST', headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ industry: ind, keywords: keywords, kind: kind, count: count })
+    }, 240000).then(function (d) {
+      clearInterval(t); WB._genRunning = false; wbGenSetBusy(false);
+      var arr = (d && d.assets) || [];
+      if (!arr.length) {
+        wbGenShowStatus('');
+        wbGenShowNote('没有生成到素材：' + esc((d && d.note) || '图库暂时没有匹配结果，换个关键词再试。')
+          + ' <button type="button" class="btn-line wb-gen-retry" id="wbGenRetry">重试</button>', true);
+        wbGenBindRetry();
+        return;
+      }
+      var urls = [];
+      for (var i = 0; i < arr.length; i++) if (arr[i].url) urls.push(arr[i].url);
+      for (var j = 0; j < urls.length; j++) WB.sel[urls[j]] = true;
+      persistSel();
+      wbGenSelectAllFilter();
+      loadAssets();
+      setTimeout(wbGenObserve, 600);
+      var aiN = arr.filter(function (a) { return a.source === 'ai'; }).length;
+      var pixN = arr.length - aiN;
+      var srcTxt = [];
+      if (pixN) srcTxt.push('Pixabay ' + pixN);
+      if (aiN) srcTxt.push('AI ' + aiN);
+      wbGenShowStatus('<span>✅ 已完成 ' + arr.length + ' 个素材（' + srcTxt.join(' / ') + '），已自动勾选并加入素材库。</span>');
+      var note = '授权：' + esc((arr[0] && arr[0].license) || 'Pixabay Content License（免费商用）');
+      if (d && d.note) note += '<br>提示：' + esc(d.note);
+      if (d && d.ai_fallback) note = '⚠️ AI 生成暂不可用，已自动回退免费商用图库。<br>' + note;
+      note += '<div class="wb-gen-tags">' + arr.map(wbGenSourceTag).join('') + '</div>';
+      wbGenShowNote(note, false);
+      toast('已生成 ' + arr.length + ' 个素材并自动勾选', 'ok');
+    }).catch(function (e) {
+      clearInterval(t); WB._genRunning = false; wbGenSetBusy(false);
+      wbGenShowStatus('');
+      wbGenShowNote('生成失败：' + esc(e && e.message ? e.message : '网络异常')
+        + ' <button type="button" class="btn-line wb-gen-retry" id="wbGenRetry">重试</button>', true);
+      wbGenBindRetry();
+    });
+  }
+  function bindGen() {
+    var btn = wbGenEl('wbGenBtn');
+    if (btn) btn.addEventListener('click', wbGenRun);
+    var kwb = wbGenEl('wbGenKwBtn');
+    if (kwb) kwb.addEventListener('click', function () { wbGenPrefill(true); toast('已载入当前行业关键词', 'ok'); });
+    var ks = wbGenEl('wbGenKind');
+    if (ks) ks.addEventListener('change', function () {
+      var cnt = wbGenEl('wbGenCount');
+      if (cnt && this.value === 'video' && parseInt(cnt.value, 10) > 6) cnt.value = '6';
+    });
+    var indSel = wbGenEl('indSel');
+    if (indSel) indSel.addEventListener('change', function () {
+      setTimeout(function () { wbGenPrefill(false); }, 700);
+    });
+    wbGenObserve();
+    setTimeout(function () { wbGenPrefill(false); }, 1500);
+  }
+  if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', bindGen);
+  else setTimeout(bindGen, 0);
 
   /* ---------------- 启动 ---------------- */
   function boot() {

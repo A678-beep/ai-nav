@@ -209,6 +209,8 @@
 /* 星籁 AI · 商家主页（store）双主题
  * store 天生浅色：浅色为默认设计，这里只补深色模式与少量浅色兜底。
  */
+html[data-theme="light"] body{background:var(--bg)}
+html[data-theme="dark"] body{background:var(--bg)}
 html[data-theme="light"]{
   color-scheme:light;
   --bg:#f5f2ec;--card:#ffffff;--ink:#10201d;--muted:#63706c;--line:#e6e1d7;
