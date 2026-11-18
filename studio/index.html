@@ -955,10 +955,16 @@ body.ed-open{overflow:hidden}
    <div class="edit-row">
     <label>画幅
      <select class="edit-select" id="edAspect">
+      <option value="source">跟随原片（推荐）</option>
       <option value="9:16">9:16 竖屏</option>
       <option value="16:9">16:9 横屏</option>
       <option value="1:1">1:1 方形</option>
-      <option value="source">原比例（按第一段）</option>
+     </select>
+    </label>
+    <label>填充
+     <select class="edit-select" id="edFit">
+      <option value="cover">铺满（裁剪）</option>
+      <option value="contain">完整（留黑边）</option>
      </select>
     </label>
     <label>分辨率
@@ -3454,7 +3460,7 @@ if(pb)pb.addEventListener('click',async function(){
 'use strict';
 var MAX_CLIPS=20, MAX_TOTAL=300, FADE=0.3;
 var LS_ASSETS='xinglai_edit_assets_v1', LS_SET='xinglai_edit_settings_v1';
-var ED={clips:[],recent:[],bgm:null,voice:null,libItems:[],aspect:'9:16',res:'1080p',bgmVol:20,voiceVol:100,keepOrig:true,origVol:100,
+var ED={clips:[],recent:[],bgm:null,voice:null,libItems:[],aspect:'source',res:'1080p',bgmVol:20,voiceVol:100,keepOrig:true,origVol:100,fit:'cover',
   previewSec:0,lastRender:null,busy:false,uploading:false,uid:0,trimUid:null,insertAt:null,suppressClick:0,
   dragUid:null,touchTimer:null,touchDrag:false,touchFrom:-1,touchUid:null,touchTarget:null,
   touchX:0,touchY:0,trimSeq:0,thumbTimer:null,lastErr:null};
@@ -3496,11 +3502,12 @@ function updateTotal(){
  var sum=$('edSum');
  if(sum)sum.textContent=n?('时间轴：'+n+' 段 · '+t.toFixed(1)+' 秒'+(bad?'（超过 300 秒上限，请裁剪）':'')):'上传自己的视频/图片/BGM，拖动排序、裁剪，直接合成导出';
 }
-function saveSettings(){try{localStorage.setItem(LS_SET,JSON.stringify({aspect:ED.aspect,res:ED.res,bgmVol:ED.bgmVol,voiceVol:ED.voiceVol,keepOrig:ED.keepOrig,origVol:ED.origVol}));}catch(e){}}
+function saveSettings(){try{localStorage.setItem(LS_SET,JSON.stringify({aspect:ED.aspect,res:ED.res,fit:ED.fit,bgmVol:ED.bgmVol,voiceVol:ED.voiceVol,keepOrig:ED.keepOrig,origVol:ED.origVol}));}catch(e){}}
 function loadSettings(){
  try{var s=JSON.parse(localStorage.getItem(LS_SET)||'{}');
   if(s.aspect&&/^(9:16|16:9|1:1|source)$/.test(s.aspect))ED.aspect=s.aspect;
   if(s.res&&/^(1080p|720p)$/.test(s.res))ED.res=s.res;
+  if(s.fit&&/^(cover|contain)$/.test(s.fit))ED.fit=s.fit;
   if(typeof s.bgmVol==='number')ED.bgmVol=clamp(s.bgmVol,0,100);
   if(typeof s.voiceVol==='number')ED.voiceVol=clamp(s.voiceVol,0,200);
   if(typeof s.keepOrig==='boolean')ED.keepOrig=s.keepOrig;
@@ -3539,7 +3546,10 @@ function updateOutHint(){
   W=Math.round(w*k);H=Math.round(h*k);
  } else {W=base;H=base*16/9;}
  W=Math.round(W/2)*2;H=Math.round(H/2)*2;
- el.textContent='输出 '+W+'×'+H+' · 30fps';
+ var fitTxt=(ED.fit==='contain'?'完整留边':'铺满裁剪');
+ if(a==='source')fitTxt='跟随原片 · '+fitTxt;
+ if(a==='source'&&!ED.clips.length){el.textContent='输出 跟随第一段素材 · 30fps · '+fitTxt;return;}
+ el.textContent='输出 '+W+'×'+H+' · 30fps · '+fitTxt;
 }
 
 /* ---------------- 时间轴渲染 ---------------- */
@@ -4046,7 +4056,7 @@ function buildPayload(previewSec){
  });
  var transitions=[];
  for(var i=1;i<ED.clips.length;i++)transitions.push(!!ED.clips[i].fadeIn);
- var p={clips:clips,transitions:transitions,aspect:ED.aspect,resolution:ED.res,
+ var p={clips:clips,transitions:transitions,aspect:ED.aspect,resolution:ED.res,fit_mode:ED.fit,
   bgm_volume:clamp(ED.bgmVol,0,100)/100,voice_volume:clamp(ED.voiceVol,0,200)/100,
    keep_original_audio:!!ED.keepOrig,original_volume:clamp(ED.origVol,0,200)/100,
   subtitle_text:($('edSubtitle')?$('edSubtitle').value.trim():'')};
@@ -4083,7 +4093,7 @@ function stopTimer(){clearInterval(timerId);timerId=null;}
 function showResult(d){
  var box=$('edResult');if(!box)return;
  var url=d.video_url||'';
- var dl=url+(url.indexOf('?')<0?'?download=1':'&download=1');
+ var dl=d.download_url||(url+(url.indexOf('?')<0?'?download=1':'&download=1'));
  box.hidden=false;box.innerHTML='';
  var v=document.createElement('video');
  v.controls=true;v.playsInline=true;v.preload='metadata';v.src=url;
@@ -4107,18 +4117,23 @@ function showResult(d){
  a.addEventListener('click',function(){
   setTimeout(function(){
    var tip=$('edResultTip');
-   if(tip)tip.innerHTML='<b>如果浏览器没有弹出下载窗口：</b>右键/长按「⬇ 下载 MP4」→「链接另存为」，或点「🌐 新窗口打开」后在播放器里保存。';
+   if(tip)tip.innerHTML='<b>如果浏览器没有弹出下载窗口：</b>右键/长按「⬇ 下载 MP4」→「链接另存为」，或点「⬇ 备用下载」/「🌐 新窗口打开」后再保存。';
   },2200);
  });
  acts.appendChild(a);
  var nl=document.createElement('a');nl.className='nl';nl.id='edNewWin';nl.href=url;nl.target='_blank';nl.rel='noopener';nl.textContent='🌐 新窗口打开';
  acts.appendChild(nl);
+ var alt=document.createElement('a');alt.className='nl';alt.id='edAltDownload';
+ alt.href='/ai-nav/api/download?url='+encodeURIComponent(url);
+ alt.setAttribute('download','xinglai-edit-'+(d.id||'video')+'.mp4');
+ alt.textContent='⬇ 备用下载';
+ acts.appendChild(alt);
  var play=document.createElement('button');play.type='button';play.className='btn-line';play.textContent='▶ 从头播放';
  play.onclick=function(){try{v.currentTime=0;var pr=v.play();if(pr&&pr.catch)pr.catch(function(){});}catch(e){}};
  acts.appendChild(play);
  box.appendChild(acts);
  var tip=document.createElement('div');tip.className='edit-result-tip';tip.id='edResultTip';
- tip.innerHTML='下载没反应？<b>右键/长按「⬇ 下载 MP4」→ 另存为</b>，或点「🌐 新窗口打开」后再保存。iOS 会存到「文件」App。';
+ tip.innerHTML='下载没反应？<b>右键/长按「⬇ 下载 MP4」→「链接另存为」</b>；或点「⬇ 备用下载」（走 API 强制附件头）/「🌐 新窗口打开」后再保存。iOS 会存到「文件」App。';
  box.appendChild(tip);
  try{box.scrollIntoView({behavior:'smooth',block:'nearest'});}catch(e){}
 }
@@ -4187,6 +4202,7 @@ function bind(){
  if(ll)ll.addEventListener('click',function(e){var b=e.target.closest?e.target.closest('button[data-i]'):null;if(!b)return;var it=ED.libItems[Number(b.getAttribute('data-i'))];if(it){setBgm({url:it.url,name:it.name||'音乐库 BGM',duration:it.duration});$('edLibBox').hidden=true;toast('BGM 已选择','ok');}});
  var asp=$('edAspect');if(asp)asp.addEventListener('change',function(){ED.aspect=this.value;saveSettings();updateOutHint();});
  var res=$('edRes');if(res)res.addEventListener('change',function(){ED.res=this.value;saveSettings();updateOutHint();});
+ var fit=$('edFit');if(fit)fit.addEventListener('change',function(){ED.fit=this.value;saveSettings();updateOutHint();});
  var pv=$('edPreview');if(pv)pv.addEventListener('click',function(){doRender('preview');});
  var pv10=$('edPreview10');if(pv10)pv10.addEventListener('click',function(){doRender('preview10');});
  var rd=$('edRender');if(rd)rd.addEventListener('click',function(){doRender('render');});
@@ -4194,8 +4210,8 @@ function bind(){
 function init(){
  if(!$('edSec'))return;
  loadSettings();loadRecent();renderRecent();
- var asp=$('edAspect'),res=$('edRes'),vol=$('edBgmVol'),vv=$('edBgmVolVal'),vvol=$('edVoiceVol'),vvl=$('edVoiceVolVal');
- if(asp)asp.value=ED.aspect;if(res)res.value=ED.res;if(vol)vol.value=ED.bgmVol;if(vv)vv.textContent=Math.round(ED.bgmVol)+'%';
+ var asp=$('edAspect'),res=$('edRes'),fit=$('edFit'),vol=$('edBgmVol'),vv=$('edBgmVolVal'),vvol=$('edVoiceVol'),vvl=$('edVoiceVolVal');
+ if(asp)asp.value=ED.aspect;if(res)res.value=ED.res;if(fit)fit.value=ED.fit;if(vol)vol.value=ED.bgmVol;if(vv)vv.textContent=Math.round(ED.bgmVol)+'%';
  if(vvol)vvol.value=ED.voiceVol;if(vvl)vvl.textContent=Math.round(ED.voiceVol)+'%';
  updateMixHint();setProgress(-1);
  syncOrigUI();
