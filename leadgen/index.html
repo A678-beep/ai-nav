@@ -380,6 +380,7 @@ footer.site a:hover{color:#fff;border-color:rgba(148,163,184,.4)}
  .prof-tip{left:10px!important;right:10px!important;width:auto!important;max-height:48vh}
  .pager{justify-content:space-between}
  .pager button{flex:1 1 0;min-width:0}
+}
 /* Skill 市场 / 集成 / 自定义数据维度 */
 .wstabs{display:flex;gap:6px;flex-wrap:wrap;margin:12px 0 10px}
 .wstab{flex:0 0 auto;border:1px solid var(--line);background:rgba(255,255,255,.03);color:var(--txt2);border-radius:999px;padding:8px 14px;font-size:13px;cursor:pointer;white-space:nowrap;font-family:inherit;min-height:42px}
@@ -453,6 +454,46 @@ footer.site a:hover{color:#fff;border-color:rgba(148,163,184,.4)}
   .mine-item .mi-h{font-size:11.5px}
   .batch-row{font-size:11.5px}
 }
+/* 公开搜索 · 意向客户（问答/评论） */
+.mine-tabs{display:flex;gap:8px;margin:0 0 12px;flex-wrap:wrap}
+.mine-tab{border:1px solid var(--line);background:rgba(255,255,255,.03);color:var(--txt2);border-radius:999px;padding:8px 13px;font-size:12.5px;cursor:pointer;font-family:inherit;min-height:40px;white-space:nowrap;line-height:1.4}
+.mine-tab.on{color:#04121a;background:linear-gradient(135deg,var(--cyan),var(--lime));border-color:transparent;font-weight:800}
+.mine-panel[hidden]{display:none!important}
+.intent-form{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:9px 10px;margin-top:10px}
+.intent-form .fg{min-width:0}
+.intent-form .fl{display:block;margin:0 0 5px;font-size:12px;color:var(--txt3)}
+.intent-block{margin-top:10px;min-width:0}
+.intent-chips{display:flex;gap:6px;flex-wrap:wrap;margin-top:6px}
+.intent-chip{border:1px solid var(--line);background:rgba(148,163,184,.07);color:var(--txt2);border-radius:999px;padding:7px 11px;font-size:12px;cursor:pointer;font-family:inherit;min-height:38px;display:inline-flex;align-items:center;gap:5px;line-height:1.3}
+.intent-chip.on{background:rgba(56,189,248,.15);border-color:rgba(56,189,248,.55);color:var(--xl-accent);font-weight:800}
+.intent-chip .ic-note{font-size:10px;color:var(--txt3);font-weight:400}
+.intent-chip.on .ic-note{color:var(--xl-accent)}
+.intent-results{display:grid;gap:8px;max-height:44vh;overflow:auto;margin-top:8px;padding-right:2px}
+.intent-card{min-width:0;border:1px solid var(--line);border-radius:13px;padding:10px 12px;background:rgba(148,163,184,.07);color:var(--txt)}
+.intent-card .ic-h{display:flex;gap:7px;align-items:center;flex-wrap:wrap;font-size:11.5px;color:var(--txt3)}
+.intent-plat{font-weight:800;color:var(--txt);font-size:12px}
+.intent-badge{border-radius:6px;padding:1px 6px;font-size:11px;font-weight:800;border:1px solid var(--line)}
+.intent-badge.high{color:var(--xl-danger);border-color:rgba(248,113,113,.4);background:rgba(248,113,113,.12)}
+.intent-badge.pot{color:var(--xl-accent);border-color:rgba(56,189,248,.35);background:rgba(56,189,248,.1)}
+.intent-score{font-weight:900;color:var(--txt);font-size:13px}
+.intent-score small{font-weight:400;color:var(--txt3);font-size:10px}
+.intent-flag{border-radius:5px;padding:1px 5px;font-size:10.5px;color:var(--xl-warn);border:1px solid rgba(251,191,36,.35);background:rgba(251,191,36,.08)}
+.intent-title{font-size:13.5px;font-weight:800;color:var(--txt);line-height:1.55;margin-top:5px;overflow-wrap:anywhere}
+.intent-card p{margin:5px 0 0;font-size:12.5px;color:var(--txt2);line-height:1.7;overflow-wrap:anywhere}
+.intent-meta{font-size:11.5px;color:var(--txt3);line-height:1.7;margin-top:5px;overflow-wrap:anywhere}
+.intent-why{font-size:11.5px;color:var(--xl-accent);line-height:1.7;margin-top:3px;overflow-wrap:anywhere}
+.intent-actions{display:flex;gap:7px;flex-wrap:wrap;margin-top:8px;align-items:center}
+.intent-actions .btn{min-height:36px;padding:0 10px;font-size:12px;text-decoration:none}
+.intent-note{font-size:11.5px;color:var(--txt3);line-height:1.75;margin-top:7px;overflow-wrap:anywhere}
+.intent-empty{padding:14px;border:1px dashed rgba(148,163,184,.28);border-radius:12px;font-size:12.5px;color:var(--txt3);line-height:1.75}
+@media (max-width:640px){
+  .intent-form{grid-template-columns:1fr}
+  .intent-results{max-height:none}
+  .intent-card{padding:9px 10px}
+  .intent-chip{min-height:40px}
+  .mine-tab{flex:1 1 auto;text-align:center;padding:8px 9px;font-size:12px}
+  .intent-actions .btn{flex:1 1 140px;justify-content:center;text-align:center}
+}
 </style>
 <link rel="stylesheet" href="../assets/theme-light.css">
 <script defer src="../assets/theme.js"></script>
@@ -465,6 +506,7 @@ footer.site a:hover{color:#fff;border-color:rgba(148,163,184,.4)}
     <a href="/ai-nav/">AI 导航</a>
     <a href="/ai-nav/studio/">短视频工作台</a>
     <a href="/ai-nav/leadgen/" class="on">AI 获客</a>
+    <a href="/ai-nav/geo/">🌍 GEO 推广</a>
     <a href="/ai-nav/travel/">出行导航</a>
     <a href="/ai-nav/select-ai/">智能选型</a>
     <a href="/ai-nav/radar/">工具雷达</a>
@@ -481,6 +523,7 @@ footer.site a:hover{color:#fff;border-color:rgba(148,163,184,.4)}
       <span class="pill">仅采集公开信息</span>
       <span class="pill">不自动发送 · 不刷量</span>
     </div>
+    <div class="hero-meta" style="margin-bottom:10px"><a class="pill" href="/ai-nav/geo/" style="border-color:rgba(139,92,246,.4);color:#ddd6fe;background:rgba(139,92,246,.1)">🌍 GEO 推广优化</a></div>
     <div class="flow">
       <span>① 配置商家</span><span>② 一句话需求</span><span>③ 意向客户</span><span>④ 合规话术</span><span>⑤ 数据复盘</span><span>⑥ 行业打法</span>
     </div>
@@ -592,6 +635,7 @@ footer.site a:hover{color:#fff;border-color:rgba(148,163,184,.4)}
             <select id="fSource" aria-label="按来源筛选">
               <option value="">全部来源</option><option value="lbs_poi">LBS 找客</option>
               <option value="manual">手动导入</option><option value="csv">CSV</option><option value="search">公开搜索</option>
+              <option value="intent_search">意向问答</option>
             </select>
             <select id="fPriority" aria-label="按优先级筛选">
               <option value="">全部优先级</option><option value="1">P1 最高</option><option value="2">P2</option>
@@ -852,17 +896,50 @@ footer.site a:hover{color:#fff;border-color:rgba(148,163,184,.4)}
 <div class="modal" id="miningModal" hidden>
   <div class="modal-in" role="dialog" aria-modal="true" aria-labelledby="miningTitle">
     <h3 id="miningTitle">🔎 公开搜索挖掘</h3>
-    <p class="m-sub">调用公开搜索引擎官方 API，只导入公开结果摘要；导入后源标签为「公开搜索」，可在线索库筛选、生成话术。</p>
-    <div id="mineAuthHint"></div>
-    <label class="fl" for="mineQ">关键词（建议：城市 + 区县 + 行业 + 求推荐）</label>
-    <input class="inp" id="mineQ" maxlength="90" autocomplete="off" placeholder="如：北京通州 开荒保洁 求推荐">
-    <div class="row" style="margin-top:10px">
-      <button type="button" class="btn" id="doMine" style="flex:1 1 140px">开始挖掘</button>
-      <button type="button" class="btn line" id="closeMining">关闭</button>
+    <p class="m-sub">两种用法：关键词挖掘（公司/文章/结果摘要）和意向客户（问答/评论里的真实个人提问）。只调用公开搜索索引，不抓页面、不登录、不自动私信。</p>
+    <div class="mine-tabs" role="tablist" aria-label="公开搜索挖掘模式">
+      <button type="button" class="mine-tab on" id="mtabKw" data-mtab="kw" role="tab" aria-selected="true">🔍 关键词挖掘</button>
+      <button type="button" class="mine-tab" id="mtabIntent" data-mtab="intent" role="tab" aria-selected="false">🎯 意向客户（问答/评论）</button>
     </div>
-    <div id="mineMsg"></div>
-    <div id="mineResults"></div>
-    <p class="hint" style="margin-top:10px">单次最多导入 10 条公开结果；正文只保存公开摘要，不抓取登录内容。</p>
+    <div class="mine-panel" id="minePanelKw">
+      <div id="mineAuthHint"></div>
+      <label class="fl" for="mineQ">关键词（建议：城市 + 区县 + 行业 + 求推荐）</label>
+      <input class="inp" id="mineQ" maxlength="90" autocomplete="off" placeholder="如：北京通州 开荒保洁 求推荐">
+      <div class="row" style="margin-top:10px">
+        <button type="button" class="btn" id="doMine" style="flex:1 1 140px">开始挖掘</button>
+        <button type="button" class="btn line" id="closeMining">关闭</button>
+      </div>
+      <div id="mineMsg"></div>
+      <div id="mineResults"></div>
+      <p class="hint" style="margin-top:10px">单次最多导入 10 条公开结果；正文只保存公开摘要，不抓取登录内容。</p>
+    </div>
+    <div class="mine-panel" id="minePanelIntent" hidden>
+      <div class="notice safe" style="margin:2px 0 4px"><span class="n-ico">🛡️</span><div><b>只搜公开索引，跟进需你本人到评论区回复</b>：不会登录平台、不会抓取正文、不会自动私信。打开原文后请按平台规则人工回复一次，请勿刷屏。</div></div>
+      <div id="intentAuthHint"></div>
+      <div class="intent-form">
+        <div class="fg"><label class="fl" for="intentIndustry">行业</label><input class="inp" id="intentIndustry" maxlength="30" autocomplete="off" placeholder="如：除甲醛"></div>
+        <div class="fg"><label class="fl" for="intentCity">城市</label><input class="inp" id="intentCity" maxlength="20" autocomplete="off" placeholder="如：北京"></div>
+        <div class="fg"><label class="fl" for="intentDistricts">区县（可选）</label><input class="inp" id="intentDistricts" maxlength="60" autocomplete="off" placeholder="如：朝阳区、海淀区"></div>
+        <div class="fg"><label class="fl" for="intentServices">服务词（可选，逗号分隔）</label><input class="inp" id="intentServices" maxlength="80" autocomplete="off" placeholder="如：甲醛检测、甲醛治理"></div>
+      </div>
+      <div class="intent-block">
+        <label class="fl">平台（可多选，最多 4 个）</label>
+        <div class="intent-chips" id="intentPlatforms" role="group" aria-label="选择平台"></div>
+      </div>
+      <div class="intent-block">
+        <label class="fl">时间</label>
+        <div class="intent-chips" id="intentDays" role="group" aria-label="选择时间范围"></div>
+      </div>
+      <div class="row" style="margin-top:10px">
+        <button type="button" class="btn" id="doIntent" style="flex:1 1 160px">🎯 挖掘意向客户</button>
+        <button type="button" class="btn line" id="intentSample">填入示例</button>
+        <button type="button" class="btn line" id="closeIntent">关闭</button>
+      </div>
+      <div id="intentMsg"></div>
+      <div id="intentQuota" class="hint"></div>
+      <div id="intentResults"></div>
+      <p class="hint" style="margin-top:10px">结果只保存公开标题/摘要/链接；发布时间以搜索引擎返回为准，未给日期的标注「日期未知」。每条都附「打开原文」和可复制的跟进话术。</p>
+    </div>
   </div>
 </div>
 
@@ -959,6 +1036,17 @@ footer.site a:hover{color:#fff;border-color:rgba(148,163,184,.4)}
   };
   /* 公开搜索挖掘状态：checking / ready / missing / failed */
   var SEARCH = { state: 'checking', enabled: false, provider: '', note: '', inflight: null, busy: false, batch: false };
+  /* 意向客户（问答/评论） */
+  var INTENT_PLATFORMS = [
+    { key: 'zhihu', name: '知乎', short: '问答' },
+    { key: 'baidu_zhidao', name: '百度知道', short: '问答' },
+    { key: 'tieba', name: '百度贴吧', short: '帖子' },
+    { key: 'xiaohongshu', name: '小红书', short: '索引少' },
+    { key: 'douyin', name: '抖音', short: '视频页' },
+    { key: 'dianping', name: '大众点评', short: '商户多' },
+    { key: '58', name: '58同城', short: '发布页' }
+  ];
+  var INTENT = { platforms: ['zhihu', 'baidu_zhidao', 'tieba'], days: 7, busy: false, last: null, tab: 'kw' };
 
   function $(id) { return document.getElementById(id); }
   function esc(v) { return String(v == null ? '' : v).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;'); }
@@ -1188,17 +1276,172 @@ footer.site a:hover{color:#fff;border-color:rgba(148,163,184,.4)}
     if (h && h.innerHTML.indexOf('已按来源') < 0) h.innerHTML += ' · 已按来源「公开搜索」筛选';
   }
   function closeMining() { var m = $('miningModal'); if (m) m.hidden = true; }
+  function splitIntentList(v) {
+    return String(v || '').split(/[,，、;；\s]+/).map(function (s) { return s.trim(); }).filter(Boolean).slice(0, 8);
+  }
+  function intentPlatformName(key) {
+    for (var i = 0; i < INTENT_PLATFORMS.length; i++) { if (INTENT_PLATFORMS[i].key === key) return INTENT_PLATFORMS[i].name; }
+    return key;
+  }
+  function renderIntentControls() {
+    var box = $('intentPlatforms');
+    if (box) {
+      box.innerHTML = INTENT_PLATFORMS.map(function (p) {
+        var on = INTENT.platforms.indexOf(p.key) >= 0;
+        return '<button type="button" class="intent-chip' + (on ? ' on' : '') + '" data-intent-platform="' + esc(p.key) + '" aria-pressed="' + (on ? 'true' : 'false') + '">' + esc(p.name) + '<span class="ic-note">' + esc(p.short) + '</span></button>';
+      }).join('');
+    }
+    var days = $('intentDays');
+    if (days) {
+      days.innerHTML = [{ d: 1, t: '24 小时' }, { d: 7, t: '7 天' }, { d: 30, t: '30 天' }].map(function (x) {
+        return '<button type="button" class="intent-chip' + (INTENT.days === x.d ? ' on' : '') + '" data-intent-days="' + x.d + '" aria-pressed="' + (INTENT.days === x.d ? 'true' : 'false') + '">' + x.t + '</button>';
+      }).join('');
+    }
+  }
+  function setMineTab(tab) {
+    INTENT.tab = (tab === 'intent') ? 'intent' : 'kw';
+    try { localStorage.setItem('leadgen_mine_tab', INTENT.tab); } catch (e) {}
+    var kw = $('minePanelKw'), it = $('minePanelIntent');
+    if (kw) kw.hidden = INTENT.tab !== 'kw';
+    if (it) it.hidden = INTENT.tab !== 'intent';
+    var b1 = $('mtabKw'), b2 = $('mtabIntent');
+    if (b1) { b1.className = 'mine-tab' + (INTENT.tab === 'kw' ? ' on' : ''); b1.setAttribute('aria-selected', INTENT.tab === 'kw' ? 'true' : 'false'); }
+    if (b2) { b2.className = 'mine-tab' + (INTENT.tab === 'intent' ? ' on' : ''); b2.setAttribute('aria-selected', INTENT.tab === 'intent' ? 'true' : 'false'); }
+    if (INTENT.tab === 'intent') {
+      var ind = $('intentIndustry');
+      if (ind) setTimeout(function () { try { ind.focus(); } catch (e) {} }, 40);
+    } else {
+      var q = $('mineQ');
+      if (q) setTimeout(function () { try { q.focus(); q.select(); } catch (e) {} }, 40);
+    }
+  }
+  function intentFillDefaults() {
+    var c = S.config || {};
+    var ind = $('intentIndustry'), city = $('intentCity'), dist = $('intentDistricts'), svc = $('intentServices');
+    var curInd = '';
+    try { curInd = currentIndustry(); } catch (e) { curInd = c.industry || ''; }
+    if (ind && !ind.value) ind.value = curInd || c.industry || '';
+    if (city && !city.value) city.value = c.city || '北京';
+    if (dist && !dist.value) dist.value = (c.districts || []).slice(0, 3).join('、');
+    if (svc && !svc.value) svc.value = (c.keywords || []).slice(0, 3).join('、');
+  }
   function openMining() {
     var modal = $('miningModal'); if (!modal) return;
     var q = $('mineQ');
     if (q && !q.value) q.value = miningQueryDefault();
-    var ah = $('mineAuthHint');
-    if (ah) ah.innerHTML = loggedIn() ? '' : '<div class="notice warn"><span class="n-ico">👤</span><div>当前未登录：匿名体验额度每月 10 条，用完后需<a href="/ai-nav/account/?from=leadgen">登录商家账号</a>（基础版 500 条/月）。</div></div>';
+    var ah = $('mineAuthHint'), iah = $('intentAuthHint');
+    var anon = loggedIn() ? '' : '<div class="notice warn" style="margin:6px 0"><span class="n-ico">👤</span><div>当前未登录：匿名体验额度每月 10 条，用完后需<a href="/ai-nav/account/?from=leadgen">登录商家账号</a>（基础版 500 条/月）。</div></div>';
+    if (ah) ah.innerHTML = anon;
+    if (iah) iah.innerHTML = anon;
     $('mineMsg').innerHTML = (SEARCH.state === 'ready') ? '' : searchBlockNotice();
     $('mineResults').innerHTML = '';
+    intentFillDefaults();
+    renderIntentControls();
+    var last = 'intent';
+    try { last = localStorage.getItem('leadgen_mine_tab') || 'intent'; } catch (e) { last = 'intent'; }
+    setMineTab(last);
     modal.hidden = false;
     if (!(SEARCH.state === 'ready' && SEARCH.enabled) && SEARCH.state !== 'checking') probeSearch(true);
-    setTimeout(function () { if (q) { try { q.focus(); q.select(); } catch (e) {} } }, 60);
+    setTimeout(function () { if (INTENT.tab === 'kw' && q) { try { q.focus(); q.select(); } catch (e) {} } }, 60);
+  }
+  function intentErrorHtml(r) {
+    if (r && r.error === 'RATE_LIMITED') {
+      var sec = parseInt(r.retry_after || 0, 10) || 60;
+      return '<div class="notice warn"><span class="n-ico">⏳</span><div><b>挖掘太频繁，已限流</b>：同一 IP 10 分钟最多 5 次，请约 ' + Math.ceil(sec / 60) + ' 分钟后再试（剩余 ' + ((r.quota && r.quota.remaining) != null ? r.quota.remaining : 0) + ' 次）。</div></div>';
+    }
+    if (r && r.need_key) {
+      return '<div class="notice warn"><span class="n-ico">🔑</span><div><b>公开搜索暂不可用：服务器未配置 Key</b>。请联系管理员在 <code>/etc/ai-nav-api.env</code> 配置 <code>SERPER_API_KEY</code> 后重启 ai-nav-api。</div></div>';
+    }
+    if (!r || r.pending || r.error === 'not_found') {
+      return '<div class="notice warn"><span class="n-ico">⚠️</span><div><b>意向挖掘接口暂不可用</b>（404 / 网络异常）。请稍后重试；若持续失败请联系管理员检查 ai-nav-api。</div></div>';
+    }
+    return '<div class="notice warn"><span class="n-ico">⚠️</span><div><b>挖掘失败</b>：' + esc(r.hint || r.error || '未知错误') + '。可换更口语化的行业词/城市，或稍后重试。</div></div>';
+  }
+  function intentScriptFor(x) {
+    var ind = ($('intentIndustry') && $('intentIndustry').value || '').trim() || '这项服务';
+    var city = ($('intentCity') && $('intentCity').value || '').trim() || S.config.city || '本地';
+    var title = String((x && (x.title || x.text)) || '').replace(/\s+/g, ' ').slice(0, 42);
+    return '看到你在问「' + title + (title.length >= 42 ? '…' : '') + '」。判断' + ind + '是否靠谱，建议先看三点：①服务/检测流程能不能逐项讲清；②报价是否按项目或面积列明，有没有隐形加项；③售后和复检怎么约定。你在' + city + '的话，把大概情况（面积/新房还是旧房/预算）发我，我可以按你的实际情况给一个参考区间，不合适也没关系。';
+  }
+  function renderIntentResults(r) {
+    var out = $('intentResults'); if (!out) return;
+    var leads = (r && r.leads) || [];
+    var hits = (r && r.platform_hits) || {};
+    var chips = Object.keys(hits).map(function (k) {
+      return '<span class="intent-chip on" style="cursor:default">' + esc(k) + ' ' + esc(hits[k]) + '</span>';
+    }).join('');
+    var head = '<div class="notice safe"><span class="n-ico">🎯</span><div><b>找到 ' + leads.length + ' 条个人意向提问</b>，已写入线索库（来源「意向问答」）。本次 ' + ((r.queries_used || []).length) + ' 组公开搜索' + (r.llm ? ' · DeepSeek 已复核' : ' · 规则判别') + '。</div></div>';
+    if (chips) head += '<div class="intent-note">平台命中：' + chips + '</div>';
+    if (r && r.time_filter && r.time_filter.note) head += '<div class="intent-note">⏱ ' + esc(r.time_filter.note) + '</div>';
+    if (r && r.note) head += '<div class="intent-note">' + esc(r.note) + '</div>';
+    if (!leads.length) {
+      out.innerHTML = head + '<div class="intent-empty">这次没有筛出个人提问。可把行业换成更口语的说法（如“除甲醛”而不是“室内空气治理”）、时间放宽到 7/30 天，或先只选知乎/百度知道/贴吧三个问答平台。</div>';
+      return;
+    }
+    out.innerHTML = head + '<div class="intent-results">' + leads.map(function (x, i) {
+      var hi = x.intent_level === 'high';
+      var date = x.published_at ? esc(x.published_at) : '日期未知';
+      var flag = x.outside_window ? '<span class="intent-flag">窗口外</span>' : '';
+      var snippet = String(x.snippet || '').replace(/\s+/g, ' ').trim();
+      var why = String(x.why || '').trim();
+      return '<div class="intent-card">' +
+        '<div class="ic-h"><span class="intent-plat">' + esc(x.platform || '公开网页') + '</span>' +
+        '<span class="intent-badge ' + (hi ? 'high' : 'pot') + '">' + (hi ? '高意向' : '潜在') + '</span>' +
+        '<span class="intent-score">' + esc(x.score) + '<small>/10</small></span>' + flag + '</div>' +
+        '<div class="intent-title">' + esc(x.title || x.text || '') + '</div>' +
+        (snippet ? '<p>' + esc(snippet) + '</p>' : '') +
+        '<div class="intent-meta">' + date + (x.published_at_raw && x.published_at_raw !== x.published_at ? (' · ' + esc(x.published_at_raw)) : '') + ' · ' + (x.date_confidence === 'unknown' ? '平台未给日期' : '日期可核验') + '</div>' +
+        (why ? '<div class="intent-why">为什么：' + esc(why) + '</div>' : '') +
+        '<div class="intent-actions">' +
+        '<a class="btn line sm" href="' + esc(x.url || '#') + '" target="_blank" rel="noopener nofollow">🔗 打开原文（人工跟进）</a>' +
+        '<button type="button" class="btn line sm" data-intent-copy="' + i + '">📋 复制跟进话术</button>' +
+        '</div></div>';
+    }).join('') + '</div>';
+    var q = $('intentQuota');
+    if (q && r && r.quota) q.textContent = '本次额度：剩余 ' + r.quota.remaining + ' / ' + r.quota.limit + ' 次（10 分钟窗口）；线索已入库，可按来源「意向问答」筛选/导出。';
+  }
+  function doIntentClick() {
+    if (INTENT.busy) return;
+    var industry = ($('intentIndustry') && $('intentIndustry').value || '').trim();
+    var city = ($('intentCity') && $('intentCity').value || '').trim();
+    if (!industry) { toast('先填行业，例如：除甲醛'); try { $('intentIndustry').focus(); } catch (e) {} return; }
+    if (!city) { toast('先填城市，例如：北京'); try { $('intentCity').focus(); } catch (e) {} return; }
+    if (!INTENT.platforms.length) { toast('至少选 1 个平台'); return; }
+    INTENT.busy = true;
+    var btn = $('doIntent');
+    if (btn) { btn.disabled = true; btn.innerHTML = '<span class="spin"></span>挖掘中…'; }
+    $('intentMsg').innerHTML = '<div class="overlay-skel"><span class="spin"></span>正在调用公开搜索 + 规则/AI 判别，通常 8-30 秒…</div>';
+    $('intentResults').innerHTML = '';
+    var body = {
+      workspace_id: wsId(), industry: industry, city: city,
+      districts: splitIntentList($('intentDistricts') && $('intentDistricts').value),
+      services: splitIntentList($('intentServices') && $('intentServices').value),
+      platforms: INTENT.platforms.slice(), days: INTENT.days, limit: 12
+    };
+    api('/leads/intent', { method: 'POST', timeout: 180000, body: body }).then(function (r) {
+      if (r && r.ok) {
+        INTENT.last = r;
+        $('intentMsg').innerHTML = '';
+        renderIntentResults(r);
+        markApi('ok');
+        toast('已找到 ' + (r.count || 0) + ' 条意向提问，已写入线索库');
+        S.filter.source = 'intent_search';
+        var f = $('fSource'); if (f) f.value = 'intent_search';
+        S.pager.page = 1;
+        loadServerStats();
+        loadServerLeads().then(function () {
+          var h = $('leadsHint');
+          if (h && h.innerHTML.indexOf('意向问答') < 0) h.innerHTML += ' · 已按来源「意向问答」筛选';
+        });
+      } else {
+        $('intentMsg').innerHTML = intentErrorHtml(r);
+      }
+    }).catch(function () {
+      $('intentMsg').innerHTML = '<div class="notice warn"><span class="n-ico">⚠️</span><div><b>网络异常</b>：请求没有完成，请稍后重试。</div></div>';
+    }).then(function () {
+      INTENT.busy = false;
+      if (btn) { btn.disabled = false; btn.innerHTML = '🎯 挖掘意向客户'; }
+    });
   }
   function doMineClick() {
     var qEl = $('mineQ');
@@ -1531,6 +1774,8 @@ footer.site a:hover{color:#fff;border-color:rgba(148,163,184,.4)}
       keywords_hit: o.keywords_hit || [],
       contact_hint: o.contact_hint || '',
       url: o.url || '',
+      why: o.why || o.intent_why || o.reason || '',
+      intent_meta: o.intent_meta || null,
       lbs: o.lbs || null,
       contacted: !!o.contacted
     };
@@ -1607,7 +1852,7 @@ footer.site a:hover{color:#fff;border-color:rgba(148,163,184,.4)}
   function leadTags(l) { return Array.isArray(l.tags) ? l.tags : []; }
   function leadNotes(l) { return Array.isArray(l.notes) ? l.notes : []; }
   function sourceLabel(src) {
-    var map = { lbs_poi: 'LBS 找客', manual: '手动导入', csv: 'CSV 导入', search: '公开搜索', onsite: '本站留言', official: '官方 API', '评论区': '评论区' };
+    var map = { lbs_poi: 'LBS 找客', manual: '手动导入', csv: 'CSV 导入', search: '公开搜索', intent_search: '意向问答', onsite: '本站留言', official: '官方 API', '评论区': '评论区' };
     return map[src] || src || '—';
   }
   function syncPlatformFilter() {
@@ -1647,7 +1892,7 @@ footer.site a:hover{color:#fff;border-color:rgba(148,163,184,.4)}
       if (S.filter.priority && String(leadPriority(l)) !== S.filter.priority) return false;
       if (S.filter.kw) {
         var k = S.filter.kw.toLowerCase();
-        var txt = [l.text, l.nickname, l.contact_hint, l.reason].join(' ');
+        var txt = [l.text, l.nickname, l.contact_hint, l.reason, l.why].join(' ');
         txt += ' ' + leadTags(l).join(' ');
         txt += ' ' + leadNotes(l).map(function (n) { return n.text; }).join(' ');
         if (l.lbs) txt += ' ' + (l.lbs.address || '') + ' ' + (l.lbs.type || '') + ' ' + (l.lbs.name || '');
@@ -1686,6 +1931,8 @@ footer.site a:hover{color:#fff;border-color:rgba(148,163,184,.4)}
       d('预算提示', p.budget_hint) + d('最佳联系时间', p.best_contact_time) +
       d('画像来源', p.generated_by === 'deepseek' ? 'DeepSeek AI' : '规则兜底') +
       d('距离/类型', (l.lbs && l.lbs.distance != null ? (l.lbs.distance + 'm · ') : '') + ((l.lbs && l.lbs.type) || '—')) +
+      d('意向理由', l.why) +
+      (l.url ? '<div class="d"><span>原文链接</span><b><a href="' + esc(l.url) + '" target="_blank" rel="noopener nofollow" style="color:#7dd3fc">打开原文 ↗</a></b></div>' : '') +
       '</div>' +
       '<div class="detail-section"><div class="ds-h">标签</div><div class="tag-row">' + tagChips(l, true) +
       '<input class="inp" data-tag-input="' + esc(l.id) + '" maxlength="20" placeholder="输入标签，如：重点跟进" style="max-width:190px;display:inline-block;margin-left:4px">' +
@@ -2252,12 +2499,56 @@ footer.site a:hover{color:#fff;border-color:rgba(148,163,184,.4)}
     // 公开搜索挖掘（Serper 真实接口；未就绪时给可重试提示，不用本地示例兜底）
     $('btnMining').addEventListener('click', openMining);
     $('closeMining').addEventListener('click', closeMining);
+    $('closeIntent').addEventListener('click', closeMining);
     $('miningModal').addEventListener('click', function (e) { if (e.target === this) closeMining(); });
     $('doMine').addEventListener('click', doMineClick);
     $('mineQ').addEventListener('keydown', function (e) { if (e.key === 'Enter') { e.preventDefault(); doMineClick(); } });
     $('mineMsg').addEventListener('click', function (e) {
       var b = e.target.closest ? e.target.closest('[data-mine-retry]') : null;
       if (b) doMineClick();
+    });
+    $('mtabKw').addEventListener('click', function () { setMineTab('kw'); });
+    $('mtabIntent').addEventListener('click', function () { setMineTab('intent'); });
+    $('intentPlatforms').addEventListener('click', function (e) {
+      var b = e.target.closest ? e.target.closest('[data-intent-platform]') : null;
+      if (!b) return;
+      var key = b.getAttribute('data-intent-platform');
+      var i = INTENT.platforms.indexOf(key);
+      if (i >= 0) {
+        if (INTENT.platforms.length <= 1) { toast('至少保留 1 个平台'); return; }
+        INTENT.platforms.splice(i, 1);
+      } else {
+        if (INTENT.platforms.length >= 4) { toast('最多选 4 个平台（每次最多 12 组搜索）'); return; }
+        INTENT.platforms.push(key);
+      }
+      renderIntentControls();
+    });
+    $('intentDays').addEventListener('click', function (e) {
+      var b = e.target.closest ? e.target.closest('[data-intent-days]') : null;
+      if (!b) return;
+      INTENT.days = parseInt(b.getAttribute('data-intent-days'), 10) || 7;
+      renderIntentControls();
+    });
+    $('intentSample').addEventListener('click', function () {
+      $('intentIndustry').value = '除甲醛';
+      $('intentCity').value = '北京';
+      $('intentDistricts').value = '朝阳区';
+      $('intentServices').value = '甲醛检测、甲醛治理';
+      INTENT.platforms = ['zhihu', 'baidu_zhidao', 'tieba'];
+      INTENT.days = 30;
+      renderIntentControls();
+      toast('已填入示例：除甲醛 / 北京 / 30 天');
+    });
+    $('doIntent').addEventListener('click', doIntentClick);
+    $('intentIndustry').addEventListener('keydown', function (e) { if (e.key === 'Enter') { e.preventDefault(); doIntentClick(); } });
+    $('intentCity').addEventListener('keydown', function (e) { if (e.key === 'Enter') { e.preventDefault(); doIntentClick(); } });
+    $('intentResults').addEventListener('click', function (e) {
+      var b = e.target.closest ? e.target.closest('[data-intent-copy]') : null;
+      if (!b) return;
+      var i = parseInt(b.getAttribute('data-intent-copy'), 10);
+      var x = (INTENT.last && INTENT.last.leads || [])[i];
+      if (!x) return;
+      copyText(intentScriptFor(x));
     });
     $('doMineBatch').addEventListener('click', runBatchMining);
     $('mineBatch').addEventListener('input', updateBatchMeta);

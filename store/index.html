@@ -755,6 +755,8 @@ html[data-theme="dark"] #stateBtn{background:var(--brand) !important;color:#0412
     if (d.hours) ld.openingHours = d.hours_text || d.hours;
     if (d.industry) ld.knowsAbout = d.industry;
     var old = document.getElementById('ldjson');
+    // GEO：服务端已注入完整 JSON-LD（含 geo/价格/营业时间）时保留，避免被简化版覆盖
+    if (old && old.getAttribute('data-ssr') === '1') { return; }
     if (old) old.remove();
     var s = document.createElement('script');
     s.type = 'application/ld+json';
