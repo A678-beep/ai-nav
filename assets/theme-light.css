@@ -655,12 +655,6 @@
   html[data-theme="light"]:not([data-page="store"]) .order-summary .li .cut{color:#047857}
   html[data-theme="light"]:not([data-page="store"]) .months button.on{background:rgba(56,189,248,0.12);color:#005079}
   html[data-theme="light"]:not([data-page="store"]) .months button small{color:#047857}
-  /* 36a0329e39 */
-  html[data-theme="light"]:not([data-page="store"]) .tpl-nudge button{background:#ffffff}
-  html[data-theme="light"]:not([data-page="store"]) .tpl-nudge button:hover{color:#00507e}
-  html[data-theme="light"]:not([data-page="store"]) .edit-result-actions a.dl{box-shadow:0 10px 24px -12px rgba(15,23,42,0.38)}
-  html[data-theme="light"]:not([data-page="store"]) .edit-result-actions a.nl{background:#ffffff;color:#005079}
-  html[data-theme="light"]:not([data-page="store"]) .edit-result-actions a.nl:hover{background:rgba(56,189,248,0.12)}
 
 /* ================= 手写核心段 ================= */
 /* ============================================================
