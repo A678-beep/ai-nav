@@ -1,5 +1,8 @@
-<!doctype html><html lang="zh-CN"><head><meta name="robots" content="noindex,nofollow"><meta name="googlebot" content="noindex,nofollow">
-<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<!doctype html><html lang="zh-CN" data-page="studio"><head><meta name="robots" content="noindex,nofollow"><meta name="googlebot" content="noindex,nofollow">
+<meta charset="utf-8">
+<!--xl-theme-start-->
+<script>(function(){try{var k="xl_theme",v=localStorage.getItem(k),m=(v==="dark"||v==="light"||v==="auto")?v:"auto",q=window.matchMedia?window.matchMedia("(prefers-color-scheme: light)"):null,t=(m==="auto")?((q&&q.matches)?"light":"dark"):m,d=document.documentElement;d.setAttribute("data-theme",t);d.setAttribute("data-theme-mode",m);d.style.colorScheme=t}catch(e){document.documentElement.setAttribute("data-theme","dark")}})();</script>
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
 <title>剪辑创作工作台 · 6 步出片 · 星籁 AI</title>
 <meta name="description" content="选行业模板、传素材、说一句话，AI 自动写文案、配音、配乐、剪成 9:16 商家短视频；支持极限词自检、一键改稿、版本回退和批量混剪。">
 <meta name="keywords" content="商家短视频,门店视频,AI视频生成,探店视频,开业宣传,批量混剪,美团抖音文案">
@@ -521,16 +524,30 @@ details[open].music summary:after{content:"收起 ▴"}
 </style>
 
 <style>
-/* WB_TPL_SCROLL: 模板区可滚动 + 自定义滚动条 + 滚动提示 */
-#tplGrid{max-height:min(600px,64vh);overflow-y:auto;padding-right:8px;scrollbar-width:thin;scrollbar-color:rgba(56,189,248,.55) transparent;overscroll-behavior:contain}
-#tplGrid::-webkit-scrollbar{width:8px}
-#tplGrid::-webkit-scrollbar-thumb{background:linear-gradient(180deg,rgba(56,189,248,.7),rgba(139,92,246,.7));border-radius:8px}
-#tplGrid::-webkit-scrollbar-track{background:rgba(255,255,255,.04);border-radius:8px}
-.tpl-scroll-hint{display:flex;align-items:center;justify-content:space-between;gap:10px;margin-top:8px;font-size:12.5px;color:var(--txt3)}
-.tpl-nudge{display:inline-flex;gap:8px}
-.tpl-nudge button{min-height:32px;padding:0 12px;border-radius:8px;border:1px solid var(--line);background:rgba(9,14,24,.7);color:var(--txt2);cursor:pointer}
-.tpl-nudge button:hover{border-color:rgba(56,189,248,.5);color:#e6f6ff}
-@media (max-width:1099px){#tplGrid{max-height:none;overflow:visible}}
+/* WB_TPL_SCROLL: 模板区可滚动 + 可见青色渐变滚动条 + 右上角 ↑↓ / x/24 计数 */
+.tpl-scroll{position:relative;min-width:0}
+.tpl-toolbar{display:flex;align-items:center;justify-content:flex-end;gap:8px;margin:0 0 8px;min-height:40px}
+.tpl-scroll-tip{margin-right:auto;font-size:12px;color:var(--txt3);line-height:1.4}
+.tpl-count{display:inline-flex;align-items:baseline;gap:1px;font-size:12px;color:var(--txt2);font-variant-numeric:tabular-nums;margin-right:4px;white-space:nowrap}
+.tpl-count b{font-size:15px;font-weight:800;color:#7dd3fc}
+.tpl-count span{color:var(--txt3)}
+.tpl-nav{width:40px;height:40px;min-width:40px;min-height:40px;padding:0;display:inline-grid;place-items:center;border-radius:10px;border:1px solid rgba(56,189,248,.38);background:rgba(9,14,24,.78);color:#bae6fd;font-size:17px;font-weight:800;line-height:1;cursor:pointer;transition:.15s;user-select:none}
+.tpl-nav:hover{border-color:rgba(56,189,248,.8);background:rgba(56,189,248,.16);color:#e0f2fe}
+.tpl-nav:active{transform:translateY(1px)}
+.tpl-nav:disabled{opacity:.4;cursor:default}
+#tplGrid{max-height:min(560px,68vh);overflow-y:auto;padding-right:8px;scrollbar-color:rgba(56,189,248,.7) rgba(255,255,255,.05);overscroll-behavior:contain}
+#tplGrid::-webkit-scrollbar{width:8px;height:8px}
+#tplGrid::-webkit-scrollbar-thumb{background:linear-gradient(180deg,rgba(56,189,248,.78),rgba(139,92,246,.78));border-radius:8px}
+#tplGrid::-webkit-scrollbar-thumb:hover{background:linear-gradient(180deg,rgba(56,189,248,.95),rgba(139,92,246,.95))}
+#tplGrid::-webkit-scrollbar-track{background:rgba(255,255,255,.05);border-radius:8px}
+#tplGrid:focus-visible{outline:2px solid rgba(56,189,248,.6);outline-offset:2px;border-radius:14px}
+#tplGrid .tpl-name,#tplGrid .tpl-ind{overflow-wrap:anywhere}
+@media (min-width:1200px){#tplGrid{grid-template-columns:repeat(3,minmax(0,1fr))}}
+@media (max-width:760px){
+  .tpl-scroll-tip{display:none}
+  .tpl-nav{width:44px;height:44px;min-width:44px;min-height:44px;font-size:19px}
+  #tplGrid{max-height:min(560px,68vh);padding-right:4px}
+}
 </style>
 
 <style>
@@ -551,7 +568,6 @@ details[open].music summary:after{content:"收起 ▴"}
   .wrap>.colL::-webkit-scrollbar-thumb,.wrap>.colR::-webkit-scrollbar-thumb{background:linear-gradient(180deg,rgba(56,189,248,.65),rgba(139,92,246,.65));border-radius:8px}
   .wrap>.colL::-webkit-scrollbar-track,.wrap>.colR::-webkit-scrollbar-track{background:rgba(255,255,255,.04);border-radius:8px}
   .wrap>footer{grid-row:4;grid-column:1 / -1;margin-top:6px}
-  #tplGrid{max-height:min(600px,60vh)}
 }
 @media (min-width:1500px){
   .wrap{column-gap:24px;padding:0 40px 20px}
@@ -579,7 +595,6 @@ details[open].music summary:after{content:"收起 ▴"}
   .wrap>.hero p,.wrap>.hero .lead{font-size:12.5px;line-height:1.5;margin:0 0 4px;max-width:none}
   .wrap>.flow{display:none}
   .wrap>.colL,.wrap>.colR{height:100%;min-height:0}
-  #tplGrid{max-height:none}
 }
 @media (max-width:1099px){
   .wrap{height:auto;padding:0 18px 70px}
@@ -1045,6 +1060,9 @@ body.ed-open{overflow:hidden}
 
 </style>
 <style id="wb-theme-vars">:root{--xl-accent:#7dd3fc;--xl-txt2:#56657a;--xl-ok:#6ee7b7}</style>
+<link rel="stylesheet" href="../assets/theme-light.css">
+<script defer src="../assets/theme.js"></script>
+<!--xl-theme-end-->
 </head><body>
 <div class="top"><div class="top-in">
  <a class="brand" href="/ai-nav/"><span class="logo">星</span>星籁 AI <span class="brand-sub">商家工作台</span></a>
@@ -1108,7 +1126,15 @@ body.ed-open{overflow:hidden}
 </div>
 <div class="wb-note" id="indInferStatus" hidden></div>
 <div class="wb-infer" id="indInferResult" hidden></div>
-<div class="tpl-grid" id="tplGrid"></div>
+<div class="tpl-scroll" id="tplScroll">
+  <div class="tpl-toolbar" aria-label="模板滚动控制">
+    <span class="tpl-scroll-tip">滚轮或 ↑↓ 翻看 · 点卡片选中</span>
+    <span class="tpl-count" aria-live="polite" title="当前可见的第几个模板 / 共 24 个"><b id="tplPos">1</b>/<span id="tplTotal">24</span></span>
+    <button type="button" class="tpl-nav" id="tplUp" aria-label="模板列表向上滚动" title="向上翻">↑</button>
+    <button type="button" class="tpl-nav" id="tplDown" aria-label="模板列表向下滚动" title="向下翻">↓</button>
+  </div>
+  <div class="tpl-grid" id="tplGrid" tabindex="0" role="group" aria-label="24 个行业模板，鼠标滚轮或键盘方向键 ↑↓ 浏览与切换"></div>
+</div>
   <div class="dur-row"><span>视频时长</span><div class="dur-chips" id="durChips"></div><span class="dur-note">按模板推荐，可自己改</span></div>
  </section>
    </section>
@@ -1942,7 +1968,8 @@ function renderTpl(){
    +'<span class="tpl-meta"><i>⏱ '+(t.default_duration||20)+' 秒</i>'+(bgm?'<i>🎵 '+esc(bgm)+'</i>':'')+'</span>'
    +'<span class="tpl-check">✓</span></button>';
  }).join('');
- var g=$('tplGrid'); if(g)g.innerHTML=html;
+ var g=$('tplGrid');
+ if(g){var keepY=g.scrollTop;g.innerHTML=html;g.scrollTop=keepY;}
  var h=$('tplHint'); var t2=findTpl(STATE.tplId)||TPL_FALLBACK[0];
  if(h)h.textContent='已选：'+(t2.name||'门店开业引流');
 }
@@ -1952,7 +1979,9 @@ function selectTpl(id,quiet){
  if(!t)return;
  STATE.tplId=id;
  STATE.duration=Number(t.default_duration)||20;
- renderTpl();renderDur();syncFlow();
+ renderTpl();
+ if(window.WB_TPL_SCROLL&&typeof window.WB_TPL_SCROLL.reveal==='function')window.WB_TPL_SCROLL.reveal();
+ renderDur();syncFlow();
  saveDraft();
  if(!quiet)toast('已选：'+t.name+' · '+STATE.duration+' 秒','ok');
 }
@@ -3515,20 +3544,83 @@ if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',
 </script>
 
 <script>
+/* WB_TPL_SCROLL2: 行业模板区滚动控制 —— ↑↓ 按钮（80% 视高）/ x/24 计数 / 滚轮同步 / 键盘 ↑↓ 切换 / 选中自动滚到可见处 */
 (function(){
-  function ready(fn){if(document.readyState!=='loading'){fn();}else{document.addEventListener('DOMContentLoaded',fn);}}
-  ready(function(){
-    var grid=document.getElementById('tplGrid');
-    if(!grid)return;
-    var step=function(){return Math.max(220, Math.round(grid.clientHeight*0.8));};
-    var up=document.getElementById('tplUp'), dn=document.getElementById('tplDown');
-    if(up)up.addEventListener('click',function(){grid.scrollBy({top:-step(),behavior:'smooth'});});
-    if(dn)dn.addEventListener('click',function(){grid.scrollBy({top:step(),behavior:'smooth'});});
-    var total=document.getElementById('tplTotal');
-    function setTotal(){if(total&&grid.children.length){total.textContent=String(grid.children.length);}}
-    setTotal();
-    var mo=new MutationObserver(setTotal); mo.observe(grid,{childList:true});
+ 'use strict';
+ function ready(fn){if(document.readyState!=='loading'){fn();}else{document.addEventListener('DOMContentLoaded',fn);}}
+ ready(function(){
+  var grid=document.getElementById('tplGrid');
+  if(!grid)return;
+  var up=document.getElementById('tplUp'), dn=document.getElementById('tplDown');
+  var pos=document.getElementById('tplPos'), total=document.getElementById('tplTotal');
+  var raf=0;
+
+  function cards(){return grid.querySelectorAll('.tpl-card');}
+  function step(){return Math.max(120, Math.round(grid.clientHeight*0.8));}
+  function updateCount(){
+   raf=0;
+   var all=cards(), n=all.length;
+   if(total)total.textContent=String(n||24);
+   if(!pos)return;
+   if(!grid.clientHeight||!grid.offsetParent)return; /* 步骤①隐藏时保持旧值 */
+   var gt=grid.getBoundingClientRect().top+2, first=0;
+   for(var i=0;i<n;i++){
+    var r=all[i].getBoundingClientRect();
+    if(r.bottom>gt){first=i;break;}
+    first=i;
+   }
+   pos.textContent=String(n?first+1:0);
+  }
+  function scheduleCount(){if(!raf)raf=requestAnimationFrame(updateCount);}
+  function nudge(dir){
+   var d=dir*step();
+   try{grid.scrollBy({top:d,behavior:'smooth'});}catch(e){grid.scrollTop+=d;}
+   scheduleCount();setTimeout(scheduleCount,240);setTimeout(scheduleCount,700);
+  }
+  if(up)up.addEventListener('click',function(){nudge(-1);});
+  if(dn)dn.addEventListener('click',function(){nudge(1);});
+  grid.addEventListener('scroll',scheduleCount,{passive:true});
+
+  /* 选中后若卡片不在可视区，滚动到中间；已在可视区则不动 */
+  function reveal(){
+   var on=grid.querySelector('.tpl-card.on');
+   if(!on||grid.clientHeight<40||!grid.offsetParent)return;
+   var gr=grid.getBoundingClientRect(), cr=on.getBoundingClientRect();
+   if(cr.top>=gr.top-1&&cr.bottom<=gr.bottom+1)return;
+   var delta=cr.top-gr.top-(grid.clientHeight-cr.height)/2;
+   var target=Math.max(0,Math.min(grid.scrollTop+delta,grid.scrollHeight-grid.clientHeight));
+   try{grid.scrollTo({top:target,behavior:'smooth'});}catch(e){grid.scrollTop=target;}
+   scheduleCount();setTimeout(scheduleCount,500);
+  }
+  window.WB_TPL_SCROLL={reveal:reveal,update:updateCount,nudge:nudge};
+
+  /* 键盘 ↑↓ 切换模板（Home/End 跳首尾） */
+  grid.addEventListener('keydown',function(e){
+   var key=e.key;
+   if(key!=='ArrowDown'&&key!=='ArrowUp'&&key!=='Home'&&key!=='End')return;
+   var all=cards();if(!all.length)return;
+   var idx=-1, i;
+   for(i=0;i<all.length;i++)if(all[i].classList.contains('on'))idx=i;
+   var next=idx;
+   if(key==='ArrowDown')next=Math.min(all.length-1,idx+1);
+   else if(key==='ArrowUp')next=Math.max(0,idx-1);
+   else if(key==='Home')next=0;
+   else next=all.length-1;
+   if(next===idx&&key!=='Home'&&key!=='End'){e.preventDefault();return;}
+   e.preventDefault();
+   all[next].click();
+   var on=grid.querySelector('.tpl-card.on');
+   if(on){try{on.focus({preventScroll:true});}catch(x){on.focus();}}
+   reveal();
   });
+
+  var mo=new MutationObserver(function(){updateCount();});
+  mo.observe(grid,{childList:true});
+  updateCount();
+  /* 从其它步骤切回①时刷新计数 */
+  var steps=document.querySelectorAll('.wb-step');
+  for(var s=0;s<steps.length;s++)steps[s].addEventListener('click',function(){setTimeout(updateCount,120);});
+ });
 })();
 </script>
 <script>

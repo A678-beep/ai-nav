@@ -1,7 +1,10 @@
 <!DOCTYPE html>
-<html lang="zh-CN">
+<html lang="zh-CN" data-skin="auth" data-page="account">
 <head>
 <meta charset="UTF-8">
+<!--xl-theme-start-->
+<script>(function(){try{var k="xl_theme",v=localStorage.getItem(k),m=(v==="dark"||v==="light"||v==="auto")?v:"auto",q=window.matchMedia?window.matchMedia("(prefers-color-scheme: light)"):null,t=(m==="auto")?((q&&q.matches)?"light":"dark"):m,d=document.documentElement;d.setAttribute("data-theme",t);d.setAttribute("data-theme-mode",m);d.style.colorScheme=t}catch(e){document.documentElement.setAttribute("data-theme","dark")}})();</script>
+
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <title>登录 / 注册 · 星籁 AI 商家中心</title>
 <meta name="description" content="注册星籁 AI 商家账号，一个账号打通 AI 创作工坊、AI 获客与套餐额度；支持手机号或邮箱登录，记住登录状态。">
@@ -63,6 +66,9 @@
   .auth-grid{padding-top:18px;padding-bottom:10px}
 }
 </style>
+<link rel="stylesheet" href="../assets/theme-light.css">
+<script defer src="../assets/theme.js"></script>
+<!--xl-theme-end-->
 </head>
 <body>
 <div class="topbar">
@@ -170,7 +176,7 @@
           </div>
         </div>
         <div class="field">
-          <label class="check"><input type="checkbox" id="agreeTerms" checked>我已阅读并同意 <a href="../privacy.html" style="color:var(--cyan)">隐私政策</a></label>
+          <label class="check"><input type="checkbox" id="agreeTerms" checked>我已阅读并同意 <a href="../privacy.html" style="color:var(--xl-accent)">隐私政策</a></label>
         </div>
         <button class="btn btn-primary btn-block" id="registerBtn" type="submit">注册并登录</button>
         <div class="tipbox"><b>注册后能做什么？</b>先领 3 条体验视频 + 10 条线索额度，够跑通一次完整流程；需要更多再升级套餐，不自动扣费。</div>
@@ -287,7 +293,7 @@
     if (!XLAuth.token() || !u) { $('#loggedBar').classList.remove('on'); return; }
     var name = u.business_name || u.name || u.account || '商家';
     $('#loggedBar').innerHTML = '当前已登录：<b>' + XLAuth.esc(name) + '</b> · ' + XLAuth.esc(XLAuth.planName(u.plan)) +
-      ' <a href="' + XLAuth.rootUrl('account/dashboard.html') + '" style="color:#6ee7b7;text-decoration:underline">进入个人中心 →</a>';
+      ' <a href="' + XLAuth.rootUrl('account/dashboard.html') + '" style="color:var(--xl-ok);text-decoration:underline">进入个人中心 →</a>';
     $('#loggedBar').classList.add('on');
   }
   renderLogged();

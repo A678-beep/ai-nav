@@ -1,5 +1,8 @@
-<!doctype html><html lang="zh-CN"><head><meta name="robots" content="noindex,nofollow"><meta name="googlebot" content="noindex,nofollow">
-<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+﻿<!doctype html><html lang="zh-CN" data-page="travel"><head><meta name="robots" content="noindex,nofollow"><meta name="googlebot" content="noindex,nofollow">
+<meta charset="utf-8">
+<!--xl-theme-start-->
+<script>(function(){try{var k="xl_theme",v=localStorage.getItem(k),m=(v==="dark"||v==="light"||v==="auto")?v:"auto",q=window.matchMedia?window.matchMedia("(prefers-color-scheme: light)"):null,t=(m==="auto")?((q&&q.matches)?"light":"dark"):m,d=document.documentElement;d.setAttribute("data-theme",t);d.setAttribute("data-theme-mode",m);d.style.colorScheme=t}catch(e){document.documentElement.setAttribute("data-theme","dark")}})();</script>
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
 <title>AI 出行秘书 · 有记忆的办事路线规划 · 星籁 AI</title>
 <meta name="description" content="有记忆的私人办事出行秘书：记住家/公司/常去店，听懂“先去工行取钱，然后顺丰拿快递，最后洗车，五点前回家”，自动校验营业时间、时间窗和限行，给出可执行路线与高德/百度唤起链接。数据只存本机。">
 <meta name="keywords" content="AI出行秘书,办事路线规划,多任务顺路,取快递路线,洗车预约,时间窗规划,本地记忆">
@@ -206,6 +209,9 @@ footer{border-top:1px solid var(--line);margin-top:44px;padding:24px 22px;text-a
 }
 @media(max-width:390px){.wrap{padding-left:11px;padding-right:11px}.task-grid{grid-template-columns:1fr}.stats{grid-template-columns:1fr 1fr}}
 </style><link rel="stylesheet" href="../assets/auth-nav.css">
+<link rel="stylesheet" href="../assets/theme-light.css">
+<script defer src="../assets/theme.js"></script>
+<!--xl-theme-end-->
 </head><body>
 <div class="top"><div class="top-in"><a class="brand" href="/ai-nav/"><span class="logo">✦</span>星籁 AI 导航</a>
 <nav><a href="/ai-nav/">AI 导航</a><a href="/ai-nav/studio/">创作工坊</a><a href="/ai-nav/leadgen/">AI 获客</a><a href="/ai-nav/travel/" aria-current="page">出行秘书</a><a href="/ai-nav/select-ai/">智能选型</a><a href="/ai-nav/radar/">工具雷达</a></nav></div></div>
@@ -256,7 +262,7 @@ footer{border-top:1px solid var(--line);margin-top:44px;padding:24px 22px;text-a
 <div class="out" id="result"></div>
 <div class="footer-note">AI 规划，请核实营业时间与门牌。路况、限行、停车以官方实时信息为准，本工具不作绝对承诺。</div>
 </div>
-<footer><a href="../pricing/" style="color:#7dd3fc">套餐定价</a> · © 2026 星籁 AI 工具导航 · xinglaiai.com 版权所有 · 未经许可禁止镜像/采集/商业转载</footer>
+<footer><a href="../pricing/">套餐定价</a> · © 2026 星籁 AI 工具导航 · xinglaiai.com 版权所有 · 未经许可禁止镜像/采集/商业转载</footer>
 
 <div class="modal" id="onboard" role="dialog" aria-modal="true" aria-labelledby="onbTitle">
   <div class="sheet" style="position:relative">
@@ -270,9 +276,9 @@ footer{border-top:1px solid var(--line);margin-top:44px;padding:24px 22px;text-a
       <div class="banner" style="margin-top:8px">
         <b>不会上传：</b>历史记录、完整记忆库。只有当你点“AI 解析”时，本次文字与规划所需的偏好字段会发给服务器用于当次解析，结果返回后不在服务器保存。
       </div>
-      <ul class="warns" style="color:#fca5a5;margin-top:12px">
-        <li style="color:#fca5a5">你可以随时在“记忆”里逐条修改/删除，或一键清空全部。</li>
-        <li style="color:#fca5a5">AI 结果仅供规划参考，请自行核实营业时间、门牌与限行。</li>
+      <ul class="warns" style="color:var(--xl-danger);margin-top:12px">
+        <li style="color:var(--xl-danger)">你可以随时在“记忆”里逐条修改/删除，或一键清空全部。</li>
+        <li style="color:var(--xl-danger)">AI 结果仅供规划参考，请自行核实营业时间、门牌与限行。</li>
       </ul>
       <div class="confirm-actions">
         <button class="btn" id="onbAgree">同意并设置记忆</button>
@@ -893,7 +899,7 @@ function renderResult(d){
   h+='<li class="stop" draggable="true" data-id="'+esc(t.id)+'"><div class="stop-no">'+(i+1)+'</div><div class="stop-main">';
   h+='<div class="stop-name">'+esc(t.icon||'📍')+' '+esc(t.name)+'</div><div class="stop-addr">'+esc(t.addr||'')+'</div>';
   h+='<div class="stop-times"><span>'+esc(t.arrive)+' 到</span>'+(t.arrive_raw?'<span class="muted">（'+esc(t.arrive_raw)+' 到，等待）</span>':'')+'<span class="muted">'+esc(t.leave)+' 离开</span><span class="muted">停留 '+esc(t.stay_min)+' 分</span></div>';
-  h+='<div class="stop-meta">驾车 '+esc(t.leg_min)+' 分钟 · '+esc(t.leg_km)+' km'+(t.wait_min?' · 等待 '+esc(t.wait_min)+' 分钟':'')+(t.hours&&t.hours.status==='tight'?' · <span style="color:#fbbf24">营业时间偏紧</span>':'')+'</div>';
+  h+='<div class="stop-meta">驾车 '+esc(t.leg_min)+' 分钟 · '+esc(t.leg_km)+' km'+(t.wait_min?' · 等待 '+esc(t.wait_min)+' 分钟':'')+(t.hours&&t.hours.status==='tight'?' · <span style="color:var(--xl-warn)">营业时间偏紧</span>':'')+'</div>';
   if(t.hours&&t.hours.text)h+='<div class="stop-meta">营业：'+esc(t.hours.text)+'</div>';
   if(t.warnings&&t.warnings.length)h+='<div class="stop-warns">'+t.warnings.map(esc).join('<br>')+'</div>';
   h+='<div class="stop-links"><a class="linkbtn" href="'+esc(links.amap||'')+'" data-app="'+esc(links.amap||'')+'" data-web="'+esc(links.amap_web||'')+'" data-ios="'+esc(links.amap_ios||'')+'">高德</a><a class="linkbtn" href="'+esc(links.baidu||'')+'" data-app="'+esc(links.baidu||'')+'" data-web="'+esc(links.baidu_web||'')+'">百度</a><button class="linkbtn" data-copy="'+esc(links.amap||'')+'">复制高德链接</button></div>';

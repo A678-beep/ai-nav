@@ -1,7 +1,10 @@
 <!DOCTYPE html>
-<html lang="zh-CN">
+<html lang="zh-CN" data-skin="auth" data-page="pricing">
 <head>
 <meta charset="UTF-8">
+<!--xl-theme-start-->
+<script>(function(){try{var k="xl_theme",v=localStorage.getItem(k),m=(v==="dark"||v==="light"||v==="auto")?v:"auto",q=window.matchMedia?window.matchMedia("(prefers-color-scheme: light)"):null,t=(m==="auto")?((q&&q.matches)?"light":"dark"):m,d=document.documentElement;d.setAttribute("data-theme",t);d.setAttribute("data-theme-mode",m);d.style.colorScheme=t}catch(e){document.documentElement.setAttribute("data-theme","dark")}})();</script>
+
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <title>套餐定价：体验 ¥0 起，专业版含 100 条视频 · 星籁 AI</title>
 <meta name="description" content="星籁 AI 商家套餐：体验版 ¥0、基础版 ¥99、专业版 ¥299、旗舰版 ¥699。视频/线索/AI 改写额度一目了然，年付省 2 个月，支持人工开通。">
@@ -106,6 +109,9 @@
   .bill-toggle .save{display:none}
 }
 </style>
+<link rel="stylesheet" href="../assets/theme-light.css">
+<script defer src="../assets/theme.js"></script>
+<!--xl-theme-end-->
 </head>
 <body>
 <div class="topbar">
@@ -324,7 +330,7 @@
     if (!isLogged() || !u) { bar.hidden = true; return; }
     bar.hidden = false;
     var exp = u.plan_expire_at ? XLAuth.fmtDate(u.plan_expire_at) + ' 到期' : '长期有效（体验版）';
-    bar.innerHTML = '当前登录：<b style="color:#e0f2fe">' + XLAuth.esc(u.business_name || u.name || u.account || '商家') + '</b> · 套餐：<b style="color:#e0f2fe">' +
+    bar.innerHTML = '当前登录：<b style="color:var(--xl-txt)">' + XLAuth.esc(u.business_name || u.name || u.account || '商家') + '</b> · 套餐：<b style="color:var(--xl-txt)">' +
       XLAuth.esc(u.plan_name || XLAuth.planName(u.plan)) + '</b> · ' + XLAuth.esc(exp) +
       ' <a href="' + XLAuth.rootUrl('account/dashboard.html') + '">查看额度 →</a>';
   }
@@ -424,7 +430,7 @@
       '<div class="order-summary">' +
         '<div class="li"><span>' + XLAuth.esc(p.name) + ' · ' + (months === 12 ? '年付（12 个月）' : months + ' 个月') + '</span><b>¥' + money(c.pay / 100) + '</b></div>' +
         (c.cut > 0 ? '<div class="li"><span>年付优惠（省 2 个月）</span><b class="cut">−¥' + money(c.cut / 100) + '</b></div>' : '') +
-        (c.cut > 0 ? '<div class="li"><span>原价</span><span style="text-decoration:line-through;color:#6b7c93">¥' + money(c.original / 100) + '</span></div>' : '') +
+        (c.cut > 0 ? '<div class="li"><span>原价</span><span style="text-decoration:line-through;color:var(--xl-txt2)">¥' + money(c.original / 100) + '</span></div>' : '') +
         '<div class="li total"><span>应付</span><b>¥' + money(c.pay / 100) + '</b></div>' +
       '</div>' +
       '<div class="field"><label>购买月数</label><div class="months">' + opts + '</div><div class="hint">月付 1 个月起；年付按 12 个月计，实付 10 个月。</div></div>' +

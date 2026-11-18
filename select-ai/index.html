@@ -1,5 +1,8 @@
-<!doctype html><html lang="zh-CN"><head><meta name="robots" content="noindex,nofollow"><meta name="googlebot" content="noindex,nofollow">
-<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<!doctype html><html lang="zh-CN" data-page="select-ai"><head><meta name="robots" content="noindex,nofollow"><meta name="googlebot" content="noindex,nofollow">
+<meta charset="utf-8">
+<!--xl-theme-start-->
+<script>(function(){try{var k="xl_theme",v=localStorage.getItem(k),m=(v==="dark"||v==="light"||v==="auto")?v:"auto",q=window.matchMedia?window.matchMedia("(prefers-color-scheme: light)"):null,t=(m==="auto")?((q&&q.matches)?"light":"dark"):m,d=document.documentElement;d.setAttribute("data-theme",t);d.setAttribute("data-theme-mode",m);d.style.colorScheme=t}catch(e){document.documentElement.setAttribute("data-theme","dark")}})();</script>
+<meta name="viewport" content="width=device-width,initial-scale=1">
 <title>AI 智能选型助手 · 一句话找到该用的 AI 工具 · 星籁 AI 导航</title>
 <meta name="description" content="输入一句话需求，自动生成 AI 工具组合方案：推荐工具、执行步骤、验收标准与备选方案，不花冤枉钱。">
 <meta name="keywords" content="AI选工具,AI工具推荐,AI方案生成,AI工具组合,AI智能选型">
@@ -53,6 +56,9 @@ li{margin:5px 0}
 footer{border-top:1px solid var(--line);margin-top:44px;padding:24px 22px;text-align:center;color:var(--txt3);font-size:12.5px}
 @media(max-width:640px){.wrap{padding:0 16px 54px}.top-in{padding:0 14px}nav a{font-size:12.5px;padding:6px 8px}h1{font-size:26px}.steps .step{min-width:88px;font-size:11.5px}}
 </style><link rel="stylesheet" href="../assets/auth-nav.css">
+<link rel="stylesheet" href="../assets/theme-light.css">
+<script defer src="../assets/theme.js"></script>
+<!--xl-theme-end-->
 </head><body>
 <div class="top"><div class="top-in"><a class="brand" href="/ai-nav/"><span class="logo">✦</span>星籁 AI 导航</a>
 <nav><a href="/ai-nav/">AI 导航</a><a href="/ai-nav/studio/">AI 创作工坊</a><a href="/ai-nav/leadgen/">AI 获客</a><a href="/ai-nav/travel/">出行导航</a><a href="/ai-nav/select-ai/">智能选型</a><a href="/ai-nav/radar/">工具雷达</a></nav></div></div>
@@ -69,7 +75,7 @@ footer{border-top:1px solid var(--line);margin-top:44px;padding:24px 22px;text-a
 <div class="out" id="out"></div>
 <p class="foot">方案由站内实测数据匹配生成，价格与功能以各工具官网为准。</p>
 </div>
-<footer><a href="../pricing/" style="color:#7dd3fc">套餐定价</a> · © 2026 星籁 AI 工具导航 · xinglaiai.com 版权所有 · 未经许可禁止镜像/采集/商业转载</footer>
+<footer><a href="../pricing/" style="color:var(--xl-accent)">套餐定价</a> · © 2026 星籁 AI 工具导航 · xinglaiai.com 版权所有 · 未经许可禁止镜像/采集/商业转载</footer>
 <script>
 var TOOLS={
  chat:{name:"ChatGPT",cat:"对话",desc:"通用理解与改写，中文表达稳",url:"https://chatgpt.com",price:"免费额度 + Plus"},
@@ -102,7 +108,7 @@ var TASKS=[
 ];
 function render(q,idx,task){
  var parsed=task?task.k.filter(function(k){return q.indexOf(k)>=0}):[];
- var html='<div class="card"><h3>① 需求拆解</h3><p style="color:var(--txt2);margin:0">你要做的事：<b style="color:#e8eef8">'+q+'</b></p>';
+ var html='<div class="card"><h3>① 需求拆解</h3><p style="color:var(--txt2);margin:0">你要做的事：<b style="color:var(--xl-txt)">'+q+'</b></p>';
  html+=parsed.length?'<p style="color:var(--txt3);font-size:13px;margin:8px 0 0">识别到的关键点：'+parsed.map(function(p){return '「'+p+'」'}).join(' ')+'</p>':'';
  html+='</div>';
  if(task){
@@ -113,7 +119,7 @@ function render(q,idx,task){
   html+='<div class="card"><h3>④ 校验与避坑</h3><ul>'+task.checks.map(function(s){return '<li class="check">'+s+'</li>'}).join('')+'</ul><p class="warn" style="margin-top:10px">备选方案：'+task.alt+'</p></div>';
   html+='<div class="card"><h3>方案可复制</h3><textarea style="min-height:120px">'+'【AI工具方案】'+q+'\n工具：'+task.tools.map(function(id){return TOOLS[id].name}).join(' / ')+'\n步骤：'+task.steps.join('；')+'</textarea></div>';
  } else {
-  html+='<div class="card"><h3>② 没匹配到现成方案</h3><p style="color:var(--txt2)">换个说法试试，或直接看 <a href="/ai-nav/" style="color:#7dd3fc">42 款工具库</a>／<a href="/ai-nav/articles" style="color:#7dd3fc">375 篇教程</a>。</p></div>';
+  html+='<div class="card"><h3>② 没匹配到现成方案</h3><p style="color:var(--txt2)">换个说法试试，或直接看 <a href="/ai-nav/" style="color:var(--xl-accent)">42 款工具库</a>／<a href="/ai-nav/articles" style="color:var(--xl-accent)">375 篇教程</a>。</p></div>';
  }
  return html;
 }

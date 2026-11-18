@@ -1,7 +1,10 @@
 <!DOCTYPE html>
-<html lang="zh-CN">
+<html lang="zh-CN" data-skin="auth" data-page="account">
 <head>
 <meta charset="UTF-8">
+<!--xl-theme-start-->
+<script>(function(){try{var k="xl_theme",v=localStorage.getItem(k),m=(v==="dark"||v==="light"||v==="auto")?v:"auto",q=window.matchMedia?window.matchMedia("(prefers-color-scheme: light)"):null,t=(m==="auto")?((q&&q.matches)?"light":"dark"):m,d=document.documentElement;d.setAttribute("data-theme",t);d.setAttribute("data-theme-mode",m);d.style.colorScheme=t}catch(e){document.documentElement.setAttribute("data-theme","dark")}})();</script>
+
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <title>个人中心 · 星籁 AI 商家中心</title>
 <meta name="description" content="星籁 AI 个人中心：查看当前套餐、本月视频/线索/AI 改写额度、订单记录，修改店名行业城市和登录密码。">
@@ -162,6 +165,9 @@ table.data td .oid{font-size:11.5px;color:var(--txt2);font-family:ui-monospace,C
   .slug-row .input{font-size:12px}
 }
 </style>
+<link rel="stylesheet" href="../assets/theme-light.css">
+<script defer src="../assets/theme.js"></script>
+<!--xl-theme-end-->
 </head>
 <body>
 <div class="topbar">
@@ -212,7 +218,7 @@ table.data td .oid{font-size:11.5px;color:var(--txt2);font-family:ui-monospace,C
     <div class="store-head">
       <div>
         <div class="sec-title" style="margin:0 0 4px"><h2 id="storeTitle">我的承接页</h2><span class="badge" id="storeState">未创建</span></div>
-        <p class="tiny">生成一个公开商家主页：服务价格、电话、地址、优惠一张页面全展示。顾客扫码或点链接即可拨号、导航、留电话，线索自动进入 <a href="../leadgen/" style="color:var(--cyan)">AI 获客</a>。</p>
+        <p class="tiny">生成一个公开商家主页：服务价格、电话、地址、优惠一张页面全展示。顾客扫码或点链接即可拨号、导航、留电话，线索自动进入 <a href="../leadgen/" style="color:var(--xl-accent)">AI 获客</a>。</p>
       </div>
       <div class="store-head-actions">
         <button class="badge bell" id="storeUnread" type="button" hidden>🔔 新留资 0 条</button>
@@ -318,7 +324,7 @@ table.data td .oid{font-size:11.5px;color:var(--txt2);font-family:ui-monospace,C
             <tbody id="orderBody"><tr><td colspan="6" class="empty">正在加载订单…</td></tr></tbody>
           </table>
         </div>
-        <p class="tiny" style="margin:11px 0 0">未付款订单不会自动扣款；提交后联系客服确认收款，管理员在后台开通。发票与退款规则见 <a href="../pricing/index.html" style="color:var(--cyan)">套餐页说明</a>。</p>
+        <p class="tiny" style="margin:11px 0 0">未付款订单不会自动扣款；提交后联系客服确认收款，管理员在后台开通。发票与退款规则见 <a href="../pricing/index.html" style="color:var(--xl-accent)">套餐页说明</a>。</p>
       </section>
     </div>
 
@@ -529,7 +535,7 @@ table.data td .oid{font-size:11.5px;color:var(--txt2);font-family:ui-monospace,C
     var list = state.orders || [];
     $('#orderCount').textContent = list.length ? list.length + ' 笔订单' : '暂无订单';
     if (!list.length) {
-      body.innerHTML = '<tr><td colspan="6" class="empty">还没有订单。升级套餐后在这里查看开通进度 → <a href="../pricing/index.html" style="color:var(--cyan)">去看看套餐</a></td></tr>';
+      body.innerHTML = '<tr><td colspan="6" class="empty">还没有订单。升级套餐后在这里查看开通进度 → <a href="../pricing/index.html" style="color:var(--xl-accent)">去看看套餐</a></td></tr>';
       return;
     }
     list.sort(function (a, b) { return (Number(b.created_at_ts) || 0) - (Number(a.created_at_ts) || 0) || String(b.created_at || '').localeCompare(String(a.created_at || '')); });
@@ -540,7 +546,7 @@ table.data td .oid{font-size:11.5px;color:var(--txt2);font-family:ui-monospace,C
         '<td><span class="oid">' + esc(o.order_no || ('#' + o.id)) + '</span></td>' +
         '<td>' + esc(o.plan_name || XLAuth.planName(o.plan_id)) + '</td>' +
         '<td>' + esc(o.months || 1) + ' 个月</td>' +
-        '<td class="mono">¥' + amt + (Number(o.discount_cents) > 0 ? '<div style="font-size:10px;color:var(--lime)">已省 ¥' + XLAuth.money(o.discount_cents) + '</div>' : '') + '</td>' +
+        '<td class="mono">¥' + amt + (Number(o.discount_cents) > 0 ? '<div style="font-size:10px;color:var(--xl-ok)">已省 ¥' + XLAuth.money(o.discount_cents) + '</div>' : '') + '</td>' +
         '<td>' + statusBadge(o.status) + hint + '</td>' +
         '<td class="mono" style="font-size:11.5px;color:var(--txt2)">' + esc(XLAuth.fmtDateTime(o.created_at || o.created_at_ts)) + '</td>' +
       '</tr>';

@@ -1,7 +1,10 @@
 <!DOCTYPE html>
-<html lang="zh-CN">
+<html lang="zh-CN" data-skin="auth" data-page="admin">
 <head>
 <meta charset="UTF-8">
+<!--xl-theme-start-->
+<script>(function(){try{var k="xl_theme",v=localStorage.getItem(k),m=(v==="dark"||v==="light"||v==="auto")?v:"auto",q=window.matchMedia?window.matchMedia("(prefers-color-scheme: light)"):null,t=(m==="auto")?((q&&q.matches)?"light":"dark"):m,d=document.documentElement;d.setAttribute("data-theme",t);d.setAttribute("data-theme-mode",m);d.style.colorScheme=t}catch(e){document.documentElement.setAttribute("data-theme","dark")}})();</script>
+
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <title>管理后台 · 星籁 AI</title>
 <meta name="description" content="星籁 AI 管理后台：商家、订单、套餐与营收统计。仅管理员可见。">
@@ -99,6 +102,9 @@ table.data td.actions .btn{margin-right:5px}
   .tabs-bar button{min-height:44px;padding:0 13px}
 }
 </style>
+<link rel="stylesheet" href="../assets/theme-light.css">
+<script defer src="../assets/theme.js"></script>
+<!--xl-theme-end-->
 </head>
 <body>
 <div class="topbar">

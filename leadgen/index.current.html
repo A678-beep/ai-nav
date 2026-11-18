@@ -1,7 +1,10 @@
 <!doctype html>
-<html lang="zh-CN">
+<html lang="zh-CN" data-page="leadgen">
 <head>
 <meta charset="utf-8">
+<!--xl-theme-start-->
+<script>(function(){try{var k="xl_theme",v=localStorage.getItem(k),m=(v==="dark"||v==="light"||v==="auto")?v:"auto",q=window.matchMedia?window.matchMedia("(prefers-color-scheme: light)"):null,t=(m==="auto")?((q&&q.matches)?"light":"dark"):m,d=document.documentElement;d.setAttribute("data-theme",t);d.setAttribute("data-theme-mode",m);d.style.colorScheme=t}catch(e){document.documentElement.setAttribute("data-theme","dark")}})();</script>
+
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <title>AI 获客 · 商家线索挖掘与合规触达工作台 · 星籁 AI</title>
 <meta name="description" content="本地商家 AI 获客工作台：配置行业与区域，一句话拆解获客需求，从公开评论与咨询里挖意向客户，按意向等级生成 3 条合规话术，复盘平台效果并给行业打法。仅采集公开信息，不自动发送、不刷量。">
@@ -313,6 +316,9 @@ footer.site a:hover{color:#fff;border-color:rgba(148,163,184,.4)}
   .agent-res{padding:10px 11px}
 }
 </style>
+<link rel="stylesheet" href="../assets/theme-light.css">
+<script defer src="../assets/theme.js"></script>
+<!--xl-theme-end-->
 </head>
 <body>
 <div class="top"><div class="top-in">
@@ -446,7 +452,7 @@ footer.site a:hover{color:#fff;border-color:rgba(148,163,184,.4)}
       <!-- 话术工坊 -->
       <section class="card" id="sec-scripts">
         <div class="sec-h"><span class="sec-no">5</span><h2>话术工坊</h2><span class="tag">3 条差异化 · 合规检查</span></div>
-        <p class="sec-sub">按意向等级生成 3 条不同角度的话术，自动做合规检查（命中词高亮 + 替换建议）。<b style="color:#fde68a">需商家手动发送</b>，系统不会代发。</p>
+        <p class="sec-sub">按意向等级生成 3 条不同角度的话术，自动做合规检查（命中词高亮 + 替换建议）。<b style="color:var(--xl-warn)">需商家手动发送</b>，系统不会代发。</p>
         <div class="row" style="margin-bottom:6px">
           <select id="scriptLevel" class="inp grow" aria-label="选择意向等级" style="min-width:150px;max-width:230px">
             <option value="high">高意向话术</option>
@@ -463,9 +469,9 @@ footer.site a:hover{color:#fff;border-color:rgba(148,163,184,.4)}
         <div class="sec-h"><span class="sec-no">6</span><h2>数据复盘</h2><span class="tag" id="statsTag">示例数据</span></div>
         <p class="sec-sub">6 个指标看投入产出：抓了多少、几个真高意向、触达和回复多少、最终成线索几条、花了多少成本。</p>
         <div class="metrics" id="metricsOut"></div>
-        <h4 style="margin:16px 0 0;font-size:13.5px;color:#9ae6ff">平台效果对比</h4>
+        <h4 style="margin:16px 0 0;font-size:13.5px;color:var(--xl-accent)">平台效果对比</h4>
         <div class="plat-list" id="platOut"></div>
-        <h4 style="margin:16px 0 0;font-size:13.5px;color:#9ae6ff">AI 优化建议（可执行清单）</h4>
+        <h4 style="margin:16px 0 0;font-size:13.5px;color:var(--xl-accent)">AI 优化建议（可执行清单）</h4>
         <ul class="advice" id="adviceOut"></ul>
       </section>
 
@@ -855,14 +861,14 @@ footer.site a:hover{color:#fff;border-color:rgba(148,163,184,.4)}
     if (!audienceHtml) audienceHtml = '<p>（未返回目标客群）</p>';
     var signals = d.intent_signals || d.intent || [];
     if (signals && signals.length) {
-      audienceHtml += '<p style="margin-top:8px;color:#8ba0b8">意向信号</p><div class="kwgroup">' +
+      audienceHtml += '<p style="margin-top:8px;color:var(--xl-txt2)">意向信号</p><div class="kwgroup">' +
         signals.map(function (s) { return '<span>' + esc(typeof s === 'string' ? s : (s.text || s.name || JSON.stringify(s))) + '</span>'; }).join('') + '</div>';
     }
     // 兼容：search_scope（正式 [{platform,section,why}]）/ scope（别名 [{platform,board,reason}]）
     var scope = d.search_scope || d.scope || [];
     var scopeHtml = (scope.length ? scope.map(function (s) {
       if (typeof s === 'string') return '<li>' + esc(s) + '</li>';
-      return '<li><b style="color:#dbeafe">' + esc(s.platform || '') + '</b> · ' + esc(s.section || s.board || '') + '<br><span style="color:#8ba0b8">' + esc(s.why || s.reason || '') + '</span></li>';
+      return '<li><b style="color:var(--xl-txt)">' + esc(s.platform || '') + '</b> · ' + esc(s.section || s.board || '') + '<br><span style="color:var(--xl-txt2)">' + esc(s.why || s.reason || '') + '</span></li>';
     }).join('') : '<li>（未返回搜索范围）</li>');
     var kw = d.keywords || {};
     var risks = d.risk_notes || d.risks || [];
@@ -887,7 +893,7 @@ footer.site a:hover{color:#fff;border-color:rgba(148,163,184,.4)}
   function kwGroup(label, arr) {
     if (!arr || !arr.length) return '';
     var cls = label === '核心' ? 'core' : (label === '长尾' ? 'long' : 'oral');
-    return '<p style="margin:6px 0 3px;color:#8ba0b8">' + label + '</p><div class="kwgroup">' + arr.map(function (k) { return '<span class="' + cls + '">' + esc(k) + '</span>'; }).join('') + '</div>';
+    return '<p style="margin:6px 0 3px;color:var(--xl-txt2)">' + label + '</p><div class="kwgroup">' + arr.map(function (k) { return '<span class="' + cls + '">' + esc(k) + '</span>'; }).join('') + '</div>';
   }
 
   /* ---------------- 线索：解析 / 计分 ---------------- */
@@ -1008,10 +1014,10 @@ footer.site a:hover{color:#fff;border-color:rgba(148,163,184,.4)}
           '<td>' + esc(l.platform) + '</td>' +
           '<td class="text"><div class="' + (open ? 'txt-open' : 'txt-clip') + '">' + esc(l.text) + '</div>' +
           (String(l.text).length > 34 ? '<button type="button" class="more-btn" data-expand="' + esc(l.id) + '">' + (open ? '收起' : '展开') + '</button>' : '') + '</td>' +
-          '<td style="white-space:nowrap;color:#8ba0b8">' + esc(l.time) + '</td>' +
+          '<td style="white-space:nowrap;color:var(--xl-txt2)">' + esc(l.time) + '</td>' +
           '<td><span class="badge ' + (hi ? 'hi' : 'pot') + '">' + (hi ? '高意向' : '潜在') + '</span></td>' +
-          '<td><span class="score' + (hi ? ' hi' : '') + '">' + esc(l.score) + '</span><span style="color:#54657c;font-size:11px">/10</span></td>' +
-          '<td style="white-space:nowrap;color:#8ba0b8">' + esc(l.source) + '</td>' +
+          '<td><span class="score' + (hi ? ' hi' : '') + '">' + esc(l.score) + '</span><span style="color:var(--xl-txt2);font-size:11px">/10</span></td>' +
+          '<td style="white-space:nowrap;color:var(--xl-txt2)">' + esc(l.source) + '</td>' +
           '<td class="act"><button type="button" class="mini" data-script="' + esc(l.id) + '">生成话术</button>' +
           '<button type="button" class="mini warm" data-contact="' + esc(l.id) + '"' + (l.contacted ? ' disabled' : '') + '>' + (l.contacted ? '已联系' : '标记已联系') + '</button></td>' +
           '</tr>';
@@ -1086,7 +1092,7 @@ footer.site a:hover{color:#fff;border-color:rgba(148,163,184,.4)}
         '<div class="script-txt">' + highlight(s.text || '', hits) + '</div>' +
         '<div class="script-ft"><button type="button" class="mini" data-copy="' + i + '">复制</button>' +
         '<button type="button" class="mini ok" data-save-script="' + i + '">保存到话术库</button>' +
-        (hits.length ? '<span class="badge" style="color:#fecaca;border-color:rgba(248,113,113,.35)">命中 ' + hits.length + ' 处需修改</span>' : '<span class="badge done">合规检查通过</span>') + '</div>' +
+        (hits.length ? '<span class="badge" style="color:var(--xl-danger);border-color:rgba(248,113,113,.35)">命中 ' + hits.length + ' 处需修改</span>' : '<span class="badge done">合规检查通过</span>') + '</div>' +
         '<ul class="comp-list">' + (sug || []).slice(0, 4).map(function (x) { return '<li>' + esc(typeof x === 'string' ? x : ((x.word || '') + ' → ' + (x.advice || ''))) + '</li>'; }).join('') + '</ul>' +
         '</div>';
     });
@@ -1104,7 +1110,7 @@ footer.site a:hover{color:#fff;border-color:rgba(148,163,184,.4)}
       '<span>每日上限 ' + esc(daily) + ' 条</span>' +
       '<span>间隔 ≥ ' + esc(interval) + ' 分钟</span>' +
       '<span>同一用户 7 天内 ≤ 1 次</span>' +
-      '<span style="border-color:rgba(251,191,36,.35);background:rgba(251,191,36,.1);color:#fde68a">需商家手动发送</span></div>' +
+      '<span style="border-color:rgba(251,191,36,.35);background:rgba(251,191,36,.1);color:var(--xl-warn)">需商家手动发送</span></div>' +
       '<p class="hint" style="margin-top:8px">系统不代发、不群发。发送前请逐条确认对方是否公开表达过需求，避免打扰。</p>';
   }
 
@@ -1158,7 +1164,7 @@ footer.site a:hover{color:#fff;border-color:rgba(148,163,184,.4)}
     }
     var adv = $('adviceOut');
     if (adv) {
-      var head = (res && res.summary) ? '<li style="list-style:none;margin:0 0 8px;background:rgba(56,189,248,.07);border:1px solid rgba(56,189,248,.22);border-radius:10px;padding:9px 11px;color:#bae6fd;line-height:1.7">💡 ' + esc(res.summary) + '</li>' : '';
+      var head = (res && res.summary) ? '<li style="list-style:none;margin:0 0 8px;background:rgba(56,189,248,.07);border:1px solid rgba(56,189,248,.22);border-radius:10px;padding:9px 11px;color:var(--xl-accent);line-height:1.7">💡 ' + esc(res.summary) + '</li>' : '';
       adv.innerHTML = head + adviceList(res, plats, t).map(function (x) { return '<li>' + esc(x) + '</li>'; }).join('');
     }
   }
@@ -1272,13 +1278,13 @@ footer.site a:hover{color:#fff;border-color:rgba(148,163,184,.4)}
       var raw = p.priority;
       var pr = (raw === 1 || raw === '1') ? 'P0' : (raw === 2 || raw === '2') ? 'P1' : (raw === 3 || raw === '3') ? 'P2' : String(raw || '').toUpperCase();
       var cls = pr === 'P0' ? 'p0' : (pr === 'P1' ? 'p1' : '');
-      return '<span style="display:inline-block;margin:3px 6px 3px 0;font-size:12.5px;color:#dbeafe">' + esc(p.name) + '<i class="prio ' + cls + '" style="font-style:normal">' + esc(pr) + '</i></span>';
+      return '<span style="display:inline-block;margin:3px 6px 3px 0;font-size:12.5px;color:var(--xl-txt)">' + esc(p.name) + '<i class="prio ' + cls + '" style="font-style:normal">' + esc(pr) + '</i></span>';
     }).join('');
     // 目标客群：兼容对象 {core_customers,scene,decision_factors} 与字符串
     var aud = pb.audience, audHtml = '';
     if (aud && typeof aud === 'object' && !Array.isArray(aud)) {
       if (aud.core_customers) audHtml += '<p>' + esc(aud.core_customers) + '</p>';
-      if (aud.scene) audHtml += '<p style="color:#8ba0b8">场景：' + esc(aud.scene) + '</p>';
+      if (aud.scene) audHtml += '<p style="color:var(--xl-txt2)">场景：' + esc(aud.scene) + '</p>';
       if (Array.isArray(aud.decision_factors) && aud.decision_factors.length) {
         audHtml += '<div class="kwgroup">' + aud.decision_factors.map(function (x) { return '<span>' + esc(x) + '</span>'; }).join('') + '</div>';
       }
@@ -1309,7 +1315,7 @@ footer.site a:hover{color:#fff;border-color:rgba(148,163,184,.4)}
     if (!topics.length) html += '<div class="hint">（未返回选题）</div>';
     html += '</div>';
     html += '<div class="pb-cell" style="margin-top:10px"><h4>🕒 发布时间建议</h4><ul>' + ((postTimes || []).map(function (x) { return '<li>' + esc(x) + '</li>'; }).join('') || '<li>（未返回）</li>') +
-      (pb.post_frequency ? '<li style="color:#8ba0b8">频率：' + esc(pb.post_frequency) + '</li>' : '') + '</ul>' +
+      (pb.post_frequency ? '<li style="color:var(--xl-txt2)">频率：' + esc(pb.post_frequency) + '</li>' : '') + '</ul>' +
       '<div class="row" style="margin-top:10px"><button type="button" class="btn ghost" data-video="' + esc(pb.video_prompt || videoPrompt(topics[0] ? topics[0].title : (ind + '门店实拍'), '抖音')) + '">🎬 去做这条视频</button><span class="hint">跳到短视频工作台，选题自动填入</span></div></div>';
     out.innerHTML = html;
     var meta = $('pbMeta'); if (meta) meta.textContent = '当前行业：' + ind + ' · ' + (city) + ' · ' + (pb.platforms ? pb.platforms.length : 0) + ' 个平台建议';

@@ -1,7 +1,10 @@
 <!DOCTYPE html>
-<html lang="zh-CN">
+<html lang="zh-CN" data-page="a">
 <head>
 <meta charset="UTF-8">
+<!--xl-theme-start-->
+<script>(function(){try{var k="xl_theme",v=localStorage.getItem(k),m=(v==="dark"||v==="light"||v==="auto")?v:"auto",q=window.matchMedia?window.matchMedia("(prefers-color-scheme: light)"):null,t=(m==="auto")?((q&&q.matches)?"light":"dark"):m,d=document.documentElement;d.setAttribute("data-theme",t);d.setAttribute("data-theme-mode",m);d.style.colorScheme=t}catch(e){document.documentElement.setAttribute("data-theme","dark")}})();</script>
+
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <title>AI 口语 陪练 21 天：场景纠错与发音打分 · 星籁</title>
 <meta name="description" content="我做外贸三年，最怕客户电话里的第三句：报完价，对方问 lead time，我只会说 maybe two weeks。去年十一月起排了三周计划，每天 15 分钟，用 AI 口语 陪练 把六个场景练到能接住三个回合。第一次录">
@@ -295,6 +298,9 @@ article.content p{letter-spacing:.01em}
 }
 </style>
 <link rel="stylesheet" href="../assets/auth-nav.css">
+<link rel="stylesheet" href="../assets/theme-light.css">
+<script defer src="../assets/theme.js"></script>
+<!--xl-theme-end-->
 </head>
 <body>
 <header class="top"><div class="top-in">
@@ -323,7 +329,7 @@ article.content p{letter-spacing:.01em}
 (function(){
   if (window.__ux) return; window.__ux = 1;
   function mk(tag, css, html){ var e=document.createElement(tag); e.style.cssText=css; if(html) e.innerHTML=html; return e; }
-  var top = mk('button','position:fixed;right:18px;bottom:80px;z-index:50;width:44px;height:44px;border-radius:12px;border:1px solid rgba(148,163,184,.25);background:rgba(15,22,34,.9);color:#cfe9ff;font-size:18px;cursor:pointer;display:none;backdrop-filter:blur(10px)','↑');
+  var top = mk('button','position:fixed;right:18px;bottom:80px;z-index:50;width:44px;height:44px;border-radius:12px;border:1px solid rgba(148,163,184,.25);background:var(--xl-panel);color:var(--xl-accent);font-size:18px;cursor:pointer;display:none;backdrop-filter:blur(10px)','↑');
   top.title='回到顶部'; top.onclick=function(){window.scrollTo({top:0,behavior:'smooth'})}; document.body.appendChild(top);
   var rp = mk('div','position:fixed;top:0;left:0;height:2px;width:0;z-index:60;background:linear-gradient(90deg,#38bdf8,#8b5cf6);transition:width .1s linear'); document.body.appendChild(rp);
   var last=0;
@@ -345,11 +351,11 @@ article.content p{letter-spacing:.01em}
     if(!c) return;
     var hs=c.querySelectorAll('h2');
     if(hs.length<2) return;
-    var box=mk('div','position:fixed;right:22px;top:110px;width:206px;max-height:70vh;overflow:auto;font-size:12.5px;line-height:1.6;background:rgba(15,22,34,.88);border:1px solid rgba(148,163,184,.16);border-radius:12px;padding:12px 14px;backdrop-filter:blur(10px);z-index:40');
-    var t='<div style="color:#9fb0c7;font-weight:700;margin-bottom:6px">本文目录</div>';
+    var box=mk('div','position:fixed;right:22px;top:110px;width:206px;max-height:70vh;overflow:auto;font-size:12.5px;line-height:1.6;background:var(--xl-panel);border:1px solid rgba(148,163,184,.16);border-radius:12px;padding:12px 14px;backdrop-filter:blur(10px);z-index:40');
+    var t='<div style="color:var(--xl-txt2);font-weight:700;margin-bottom:6px">本文目录</div>';
     for(var k=0;k<hs.length;k++){
       if(!hs[k].id) hs[k].id='sec-'+k;
-      t+='<a href="#'+hs[k].id+'" style="display:block;color:#9fb0c7;text-decoration:none;padding:3px 0">'+hs[k].textContent.slice(0,24)+'</a>';
+      t+='<a href="#'+hs[k].id+'" style="display:block;color:var(--xl-txt2);text-decoration:none;padding:3px 0">'+hs[k].textContent.slice(0,24)+'</a>';
     }
     box.innerHTML=t; document.body.appendChild(box);
   }

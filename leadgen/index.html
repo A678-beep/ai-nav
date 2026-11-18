@@ -3145,7 +3145,7 @@ footer.site a:hover{color:#fff;border-color:rgba(148,163,184,.4)}
     });
     var md = '';
     (r.steps || []).forEach(function (s) { if (s.type === 'export' && s.data && s.data.markdown) md = s.data.markdown; });
-    if (md) html += '<details style="margin-top:8px"><summary class="hint" style="cursor:pointer;color:var(--cyan)">查看导出 Markdown（可复制）</summary><pre style="white-space:pre-wrap;overflow-wrap:anywhere;max-width:100%;overflow:auto;font-size:12px;line-height:1.7;color:var(--txt2);background:rgba(148,163,184,.12);border:1px solid var(--line);border-radius:10px;padding:10px;margin-top:6px">' + esc(md) + '</pre></details>';
+    if (md) html += '<details style="margin-top:8px"><summary class="hint" style="cursor:pointer;color:var(--xl-accent)">查看导出 Markdown（可复制）</summary><pre style="white-space:pre-wrap;overflow-wrap:anywhere;max-width:100%;overflow:auto;font-size:12px;line-height:1.7;color:var(--txt2);background:rgba(148,163,184,.12);border:1px solid var(--line);border-radius:10px;padding:10px;margin-top:6px">' + esc(md) + '</pre></details>';
     html += '</div>';
     box.innerHTML = html;
   }
@@ -3221,7 +3221,7 @@ footer.site a:hover{color:#fff;border-color:rgba(148,163,184,.4)}
     box.innerHTML = items.map(function (it) {
       var cfg = it.config || {};
       var target = cfg.webhook_url || cfg.webhook_url_preview || cfg.corp_id || '';
-      var push = it.last_push_at ? ('最近推送 ' + esc(it.last_push_at) + ' · ' + (it.last_push_ok ? '<span style="color:var(--lime)">成功</span>' : '<span style="color:var(--xl-danger)">失败</span>')) : '尚未推送';
+      var push = it.last_push_at ? ('最近推送 ' + esc(it.last_push_at) + ' · ' + (it.last_push_ok ? '<span style="color:var(--xl-ok)">成功</span>' : '<span style="color:var(--xl-danger)">失败</span>')) : '尚未推送';
       return '<div class="int-card"><div class="ih"><b>' + esc(it.name || INT_TYPES[it.type] || it.type) + '</b>' +
         '<span class="badge pot">' + esc(INT_TYPES[it.type] || it.type) + '</span>' +
         (it.enabled ? '<span class="badge done">启用</span>' : '<span class="badge">停用</span>') + '</div>' +

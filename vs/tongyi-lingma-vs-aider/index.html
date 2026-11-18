@@ -1,7 +1,10 @@
 <!DOCTYPE html>
-<html lang="zh-CN">
+<html lang="zh-CN" data-page="vs">
 <head>
 <meta charset="UTF-8">
+<!--xl-theme-start-->
+<script>(function(){try{var k="xl_theme",v=localStorage.getItem(k),m=(v==="dark"||v==="light"||v==="auto")?v:"auto",q=window.matchMedia?window.matchMedia("(prefers-color-scheme: light)"):null,t=(m==="auto")?((q&&q.matches)?"light":"dark"):m,d=document.documentElement;d.setAttribute("data-theme",t);d.setAttribute("data-theme-mode",m);d.style.colorScheme=t}catch(e){document.documentElement.setAttribute("data-theme","dark")}})();</script>
+
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <title>通义灵码 vs Aider：怎么选（价格与适用场景对比）· 星籁 AI 导航</title>
 <meta name="description" content="在 IDE 里免费补全、中文注释问答，选通义灵码；要在命令行批量改代码并自动提交，选 Aider。">
@@ -284,6 +287,9 @@ td:first-child{color:var(--txt3);white-space:nowrap}
 .others a:hover{color:var(--txt);border-color:rgba(90,209,255,.45)}
 </style>
 <link rel="stylesheet" href="../../assets/auth-nav.css">
+<link rel="stylesheet" href="../../assets/theme-light.css">
+<script defer src="../../assets/theme.js"></script>
+<!--xl-theme-end-->
 </head>
 <body>
 <header class="top"><div class="top-in">
@@ -296,12 +302,12 @@ td:first-child{color:var(--txt3);white-space:nowrap}
   <h1>通义灵码 vs Aider：怎么选</h1>
   <p style="font-size:15px;color:var(--txt)">在 IDE 里免费补全、中文注释问答，选通义灵码；要在命令行批量改代码并自动提交，选 Aider。</p>
   <table>
-    <tr><th>维度</th><th><a href="../../tool/tongyi-lingma/" style="color:var(--cyan)">通义灵码</a></th><th><a href="../../tool/aider/" style="color:var(--cyan)">Aider</a></th></tr>
+    <tr><th>维度</th><th><a href="../../tool/tongyi-lingma/" style="color:var(--xl-accent)">通义灵码</a></th><th><a href="../../tool/aider/" style="color:var(--xl-accent)">Aider</a></th></tr>
     <tr><td>定位</td><td>阿里云推出的中文 AI 编程助手插件</td><td>命令行里的开源 AI 配对编程工具</td></tr><tr><td>免费额度</td><td>个人版可免费使用，日常代码补全与问答够用；企业版按席位收费，具体价格以官网为准。</td><td>工具本身开源免费，调用模型需自备 API Key，费用按所选服务商用量计费，以官网为准。</td></tr><tr><td>适合</td><td>在 VS Code 或 JetBrains 里写 Java、Python 的国内开发者，适合中文注释生成和代码补全。</td><td>熟悉 Git 和终端、想自己选模型的开发者，适合小步提交、逐次审查的代码修改流程。</td></tr>
   </table>
   <div class="sec"><h2>什么时候别选它</h2><p><b>不选 通义灵码：</b>要命令行批量改代码、自动生成 git 提交，灵码的 IDE 内交互撑不住。</p><p><b>不选 Aider：</b>要 IDE 内实时补全和中文问答，Aider 是命令行工具，不提供编辑器体验。</p></div>
   <div class="sec"><h2>本站相关教程</h2><ul><li><a href="../../a/code-05-tongyi-lingma-private-repo.html">通义灵码 私有仓库：企业版知识库200MB上限</a></li><li><a href="../../a/code-06-codeium-free-plan-compare.html">Codeium 免费版 对比：补全不限量卡在哪</a></li><li><a href="../../a/code-11-aider-git-commit.html">Aider git 提交：自动提交该不该</a></li><li><a href="../../a/code-16-lingma-unit-test.html">通义灵码 单元测试：3 步生成可跑用例</a></li><li><a href="../../a/code-18-legacy-refactor-ai.html">老项目 重构 AI：先补测试再拆批次</a></li></ul></div>
-  <p style="font-size:13.5px;color:var(--txt2)">想先看价格？<a href="../../pricing/tools.html" style="color:var(--cyan)">42 款工具的价格对比 →</a>　｜　<a href="../../tool/tongyi-lingma/" style="color:var(--cyan)">通义灵码 详情</a>　<a href="../../tool/aider/" style="color:var(--cyan)">Aider 详情</a></p>
+  <p style="font-size:13.5px;color:var(--txt2)">想先看价格？<a href="../../pricing/tools.html" style="color:var(--xl-accent)">42 款工具的价格对比 →</a>　｜　<a href="../../tool/tongyi-lingma/" style="color:var(--xl-accent)">通义灵码 详情</a>　<a href="../../tool/aider/" style="color:var(--xl-accent)">Aider 详情</a></p>
   <h2>通义灵码 和 Aider 哪个更好？</h2><p>在 IDE 里免费补全、中文注释问答，选通义灵码；要在命令行批量改代码并自动提交，选 Aider。</p><h2>通义灵码 和 Aider 价格差多少？</h2><p>按当前公开信息：个人版可免费使用，日常代码补全与问答够用；企业版按席位收费，具体价格以官网为准。；工具本身开源免费，调用模型需自备 API Key，费用按所选服务商用量计费，以官网为准。。具体以官网为准。</p>
   <div class="sec others"><h2>其它对比</h2></div>
   <p style="font-size:13px;color:var(--txt3)"><a href="../../vs/">全部对比 →</a> · <a href="../../pricing/">套餐定价</a> &middot; <a href="../../sitemap.xml">站点地图</a></p>
