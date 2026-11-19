@@ -629,6 +629,7 @@ html.xl-shell .leadbar { left: var(--xl-sbw) !important; }
   display: flex;
   flex-direction: column;
   flex-wrap: nowrap;
+  justify-content: flex-start;
   align-items: stretch;
   gap: 0;
   margin: 0;
@@ -777,3 +778,21 @@ html.xl-embed body > header.top { display: none !important; }
 html.xl-embed .wb-steps { top: 0; }
 html.xl-embed .stepnav { top: 0; }
 html.xl-embed .wb-side { top: 16px; }
+
+/* 2026-11-19 修复：页面级 nav/header 通用选择器污染侧栏，导致导航整体下移（不动 aside 的 fixed 定位） */
+html.xl-shell #xlSidebar nav,
+html.xl-shell #xlSidebar .xl-sb-nav {
+  margin: 0 !important;
+  float: none !important;
+  transform: none !important;
+  flex-wrap: nowrap !important;
+  justify-content: flex-start !important;
+  gap: 0 !important;
+}
+html.xl-shell #xlSidebar .xl-sb-top,
+html.xl-shell #xlSidebar .xl-sb-foot,
+html.xl-shell #xlSidebar .xl-sb-links {
+  margin: 0 !important;
+  justify-content: flex-start !important;
+  float: none !important;
+}

@@ -952,9 +952,9 @@ html[data-theme="light"] .ae-back-hint .ae-back-btn{color:#065f46}
         <div class="ae-tts-bar">
           <button type="button" class="ae-btn sm" id="btnTtsPreview">🔊 试听配音</button>
           <select class="ae-select ae-tts-voice" id="aeTtsVoice" aria-label="试听配音音色">
-            <option value="女声·亲切自然">女声 · 亲切自然</option>
-            <option value="男声·稳重专业">男声 · 稳重专业</option>
-            <option value="女声·活泼种草">女声 · 活泼种草</option>
+            <option value="qwen:Cherry" data-engine="qwen" selected>Cherry（女·亲和）</option>
+            <option value="qwen:Neil" data-engine="qwen">Neil（男·稳重）</option>
+            <option value="qwen:Chelsie" data-engine="qwen">Chelsie（女·元气）</option>
           </select>
           <span class="ae-hint" id="aeTtsHint">用成片同一套配音生成 MP3，可换音色重试</span>
         </div>
@@ -1138,6 +1138,15 @@ function apiBase() {
     if (i >= 0) return location.origin + p.slice(0, i) + '/api/autoedit';
     return location.origin + API_ROOT;
   } catch (e) { return API_ROOT; }
+}
+/* 百炼语音接口（/voice/list、/voice/preview...）：与 autoedit 同源，仅末段不同 */
+var VOICE_API_ROOT = '/ai-nav/api/voice';
+function voiceBase() {
+  try {
+    var b = String(apiBase() || '').replace(/\/+$/, '');
+    if (/\/autoedit$/.test(b)) return b.replace(/\/autoedit$/, '') + '/voice';
+    return b + '/voice';
+  } catch (e) { return VOICE_API_ROOT; }
 }
 
 /* ---------------- embed 模式：← 返回工作台 ---------------- */
@@ -1324,6 +1333,7 @@ var state = {
   detectDone: false,
   sound: { muted: false, volume: 100 },
   tts: { busy: false, url: '', path: '', duration: 0, voice: '' },
+  voiceCatalog: { presets: [], cloned: [], loaded: false, error: '' },
   avatar: { enabled: false, name: '', size: 0, previewUrl: '', dataUrl: '', busy: false },
   avatarGenerating: false
 };
@@ -1657,10 +1667,21 @@ function ttsGenerate(text, voice) {
   if (!t) return Promise.reject(new Error('没有可配音的文字'));
   if (t.length > 480) t = t.slice(0, 480);
   if (state.mode !== 'live') return Promise.reject(new Error('AI 服务未连接'));
-  return apiFetch('/tts', { method: 'POST', timeout: 30000, body: { text: t, voice: voice || state.input.voice, rate: 1 } }).then(function (d) {
+  var v = voice || state.input.voice;
+  return apiFetch('/tts', {
+    method: 'POST', timeout: 60000,
+    body: { text: t, voice: v, rate: 1, engine: voiceEngineOf(v) }
+  }).then(function (d) {
     if (!d || !d.audio_url) throw new Error('配音接口没有返回音频地址');
     var path = String(d.audio_url);
-    return { url: normalizeMediaUrl(path), path: path, duration: Number(d.duration) || 0, voice: d.voice_label || voice };
+    return {
+      url: normalizeMediaUrl(path), path: path,
+      duration: Number(d.duration) || 0,
+      voice: d.voice_label || voiceText(v),
+      voice_key: v,
+      engine: d.engine || (voiceEngineOf(v) === 'cosy' ? 'cosyvoice-v2' : 'qwen3-tts-flash'),
+      fallback: !!d.fallback
+    };
   });
 }
 function ttsUseResult(r, voice) {
@@ -1668,7 +1689,9 @@ function ttsUseResult(r, voice) {
   if ($('aeTtsAudioWrap')) $('aeTtsAudioWrap').hidden = false;
   var audio = $('aeTtsAudio');
   if (audio) { audio.src = r.url; applySound(); tryPlayAudio(audio); }
-  if ($('aeTtsDur')) $('aeTtsDur').textContent = (r.duration ? '时长 ' + r.duration.toFixed(1) + ' 秒' : '已生成') + ' · ' + (voice || r.voice || '');
+  var engTxt = r.engine ? '（' + r.engine + (r.fallback ? ' · 回退' : '') + '）' : '';
+  if ($('aeTtsDur')) $('aeTtsDur').textContent = (r.duration ? '时长 ' + r.duration.toFixed(1) + ' 秒' : '已生成') +
+    ' · ' + voiceText(voice || r.voice) + engTxt;
 }
 function previewTts() {
   if (state.tts.busy) return;
@@ -1676,16 +1699,18 @@ function previewTts() {
   var text = p ? cleanText(p.transcript || '') : cleanText($('aeText') ? $('aeText').value : '');
   if (!text) { toast('先写一段文案或生成视频，再试听配音', 'warn'); return; }
   if (text.length > 300) text = text.slice(0, 300);
-  var voice = ($('aeTtsVoice') && $('aeTtsVoice').value) || state.input.voice;
+  var sel = $('aeTtsVoice');
+  var voice = (sel && sel.value) || state.input.voice;
   if (state.mode !== 'live') { toast('当前为演示数据，无法生成真实配音；AI 服务连接后可试听 MP3', 'warn', 3600); return; }
   state.tts.busy = true;
   var btn = $('btnTtsPreview');
   if (btn) { btn.disabled = true; btn.innerHTML = '<span class="ae-tts-loading"></span>生成中…'; }
-  if ($('aeTtsHint')) $('aeTtsHint').textContent = '正在用「' + voice + '」生成配音，约 2-5 秒…';
+  var vname = voiceText(voice);
+  if ($('aeTtsHint')) $('aeTtsHint').textContent = '正在用「' + vname + '」生成配音（百炼 qwen3-tts / CosyVoice），约 1-3 秒…';
   ttsGenerate(text, voice).then(function (r) {
     ttsUseResult(r, voice);
     if (btn) { btn.disabled = false; btn.textContent = '🔊 试听配音'; }
-    if ($('aeTtsHint')) $('aeTtsHint').textContent = '试听地址：' + r.path + '（可换音色重试）';
+    if ($('aeTtsHint')) $('aeTtsHint').textContent = '试听地址：' + r.path + ' · ' + r.engine + '（可换音色重试）';
     toast('试听配音已生成：' + (r.duration ? r.duration.toFixed(1) + ' 秒' : '已就绪'), 'ok', 2600);
   }).catch(function (e) {
     state.tts.busy = false;
@@ -1986,13 +2011,21 @@ function setAspect(v) {
   });
 }
 function setVoice(v) {
-  state.input.voice = v || '女声·亲切自然';
+  state.input.voice = v || 'qwen:Cherry';
   $$('#aeVoices .ae-voice').forEach(function (b) {
     var on = b.getAttribute('data-voice') === state.input.voice;
     b.classList.toggle('on', on);
     b.setAttribute('aria-checked', on ? 'true' : 'false');
     b.setAttribute('tabindex', on ? '0' : '-1');
   });
+  var sel = $('aeTtsVoice');
+  if (sel && sel.options && sel.options.length) {
+    var want = state.input.voice;
+    if (!/^(qwen:|cosy:|cosyvoice-|zh-CN-)/.test(want)) want = VOICE_LABEL_TO_QWEN[want] || want;
+    for (var i = 0; i < sel.options.length; i++) {
+      if (sel.options[i].value === want) { sel.value = want; break; }
+    }
+  }
 }
 function setStyleUI(style) {
   $$('#aeStyles .ae-style-btn').forEach(function (b) {
@@ -2022,6 +2055,125 @@ function removeFile() {
   if ($('aeFileBox')) $('aeFileBox').hidden = true;
   if ($('aeDrop')) $('aeDrop').hidden = false;
   var fi = $('aeFile'); if (fi) fi.value = '';
+}
+/* ---------------- 百炼音色目录（/voice/list：qwen3-tts 预设 + CosyVoice 克隆） ---------------- */
+var VOICE_LABEL_TO_QWEN = {
+  '女声·亲切自然': 'qwen:Cherry',
+  '男声·稳重专业': 'qwen:Neil',
+  '女声·活泼种草': 'qwen:Chelsie'
+};
+function voiceFetch(path, opts) {
+  opts = opts || {};
+  var ctrl = (typeof AbortController !== 'undefined') ? new AbortController() : null;
+  var timer = setTimeout(function () { if (ctrl) { try { ctrl.abort(); } catch (e) {} } }, opts.timeout || 12000);
+  return fetch(voiceBase() + path, {
+    method: opts.method || 'GET',
+    headers: { 'Accept': 'application/json', 'Content-Type': 'application/json' },
+    body: opts.body !== undefined ? JSON.stringify(opts.body) : undefined,
+    cache: 'no-store', signal: ctrl ? ctrl.signal : undefined
+  }).then(function (res) {
+    clearTimeout(timer);
+    return res.json().then(function (d) {
+      if (!res.ok || !d || d.ok === false) {
+        throw new Error((d && (d.hint || d.error)) || ('HTTP ' + res.status));
+      }
+      return d;
+    });
+  }).catch(function (e) { clearTimeout(timer); throw e; });
+}
+function voiceEngineOf(voice) {
+  var v = String(voice || '');
+  if (v.indexOf('cosy:') === 0 || v.indexOf('cosyvoice-') === 0) return 'cosy';
+  if (/Neural$/.test(v)) return 'edge';
+  return 'qwen';
+}
+function voiceText(voice) {
+  var v = String(voice == null ? '' : voice);
+  if (!v) return '默认音色';
+  var cat = state.voiceCatalog || {};
+  var all = (cat.presets || []).concat(cat.cloned || []);
+  var bare = v.replace(/^cosy:/, '');
+  for (var i = 0; i < all.length; i++) {
+    if (all[i] && (all[i].id === v || all[i].voice_id === v || all[i].voice_id === bare)) return all[i].name || v;
+  }
+  if (v.indexOf('cosy:') === 0) return '我的克隆音色';
+  if (VOICE_LABEL_TO_QWEN[v]) return v;
+  if (/^qwen:/.test(v)) {
+    for (var j = 0; j < all.length; j++) {
+      if (all[j] && all[j].id === v) return all[j].name;
+    }
+    return v.slice(5);
+  }
+  if (/^(cosy:|cosyvoice-)/.test(v)) return '我的克隆音色';
+  return v;
+}
+function updateVoiceHint() {
+  var hint = $('aeTtsHint');
+  if (!hint) return;
+  var cat = state.voiceCatalog || {};
+  var pending = (cat.cloned || []).filter(function (c) {
+    return !(c && (c.ready || c.status === 'OK'));
+  }).length;
+  if (state.tts && state.tts.url) return;
+  var txt = '用成片同一套配音生成 MP3（百炼 qwen3-tts / CosyVoice 克隆音色），可换音色重试';
+  if (pending > 0) txt += '；' + pending + ' 个克隆音色部署中，请稍后（通常 1~5 分钟）';
+  hint.textContent = txt;
+}
+function renderVoiceSelect() {
+  var sel = $('aeTtsVoice');
+  if (!sel) return;
+  var cat = state.voiceCatalog || {};
+  var presets = cat.presets || [];
+  var cloned = cat.cloned || [];
+  if (!presets.length) return;   /* 拉取失败：保留 HTML 静态兜底音色 */
+  var featured = cloned.filter(function (c) { return c && (c.featured || /老板/.test(String(c.name || ''))); })[0];
+  function clonedOpts() {
+    var h = '';
+    cloned.forEach(function (c) {
+      var ready = !!(c.ready || c.status === 'OK');
+      var star = (featured && c.voice_id === featured.voice_id) ? '★ ' : '';
+      h += '<option value="cosy:' + esc(c.voice_id) + '" data-engine="cosy"' + (ready ? '' : ' disabled') + '>' +
+        star + esc(c.name || c.voice_id) + (ready ? ' · 已就绪' : '（部署中，请稍后）') + '</option>';
+    });
+    return h;
+  }
+  var html = '';
+  var presetGroup = '<optgroup label="百炼高品质音色（qwen3-tts）">' + presets.map(function (p) {
+    return '<option value="' + esc(p.id) + '" data-engine="qwen">' + esc(p.name) + '</option>';
+  }).join('') + '</optgroup>';
+  if (cloned.length) {
+    html += '<optgroup label="' + (featured ? '推荐音色（真人克隆）' : '我的克隆音色（CosyVoice）') + '">' +
+      clonedOpts() + '</optgroup>';
+  }
+  html += presetGroup;
+  sel.innerHTML = html;
+  var want = state.input.voice || 'qwen:Cherry';
+  if (!/^(qwen:|cosy:|cosyvoice-|zh-CN-)/.test(want)) want = VOICE_LABEL_TO_QWEN[want] || want;
+  var found = false;
+  for (var i = 0; i < sel.options.length; i++) {
+    if (sel.options[i].value === want) { found = true; break; }
+  }
+  if (!found) {
+    var readyClone = cloned.filter(function (c) { return c && (c.ready || c.status === 'OK'); })[0];
+    want = readyClone ? ('cosy:' + readyClone.voice_id) : ((presets[0] && presets[0].id) || 'qwen:Cherry');
+  }
+  sel.value = want;
+  updateVoiceHint();
+}
+
+
+function loadVoiceList() {
+  return voiceFetch('/list', { timeout: 12000 }).then(function (d) {
+    state.voiceCatalog = {
+      presets: (d && d.presets) || [],
+      cloned: (d && d.cloned) || [],
+      loaded: true, error: ''
+    };
+    renderVoiceSelect();
+  }).catch(function (e) {
+    state.voiceCatalog = { presets: [], cloned: [], loaded: false, error: (e && e.message) || 'load_failed' };
+    if ($('aeTtsHint')) $('aeTtsHint').textContent = '音色目录加载失败，暂用默认音色（' + ((e && e.message) || '网络异常') + '）';
+  });
 }
 function tryVoice(voice) {
   voice = voice || state.input.voice;
@@ -2057,7 +2209,7 @@ function tryVoice(voice) {
   ttsGenerate(text, voice).then(function (r) {
     busy(false);
     ttsUseResult(r, voice);
-    toast('正在试听「' + voice + '」配音' + (r.duration ? '（' + r.duration.toFixed(1) + ' 秒）' : ''), 'ok', 2600);
+    toast('正在试听「' + voiceText(voice) + '」配音' + (r.duration ? '（' + r.duration.toFixed(1) + ' 秒）' : ''), 'ok', 2600);
   }).catch(function (e) {
     busy(false);
     toast('试听配音生成失败：' + ((e && e.message) || '请稍后重试'), 'err', 3600);
@@ -2105,7 +2257,7 @@ function renderSummary() {
     '<span class="ae-sum-chip"><span class="dot"></span>共 <b>' + p.segments.length + '</b> 个镜头' + (trans ? '（含 ' + trans + ' 个转场）' : '') + '</span>',
     '<span class="ae-sum-chip">时长 <b>' + Math.round(p.plan.duration) + '</b> 秒</span>',
     '<span class="ae-sum-chip">画幅 <b>' + esc(aspectLabel(p.aspect)) + '</b></span>',
-    '<span class="ae-sum-chip">配音 <b>' + esc(p.voice) + '</b></span>',
+    '<span class="ae-sum-chip">配音 <b>' + esc(voiceText(p.voice)) + '</b></span>',
     '<span class="ae-sum-chip">风格 <b>' + esc(p.style) + '</b></span>'
   ];
   if (state.mode === 'demo') chips.push('<span class="ae-sum-chip demo"><span class="dot"></span>演示数据</span>');
@@ -2232,9 +2384,14 @@ function renderSwapPanel(seg, extra) {
   extra.hidden = false;
 }
 function renderVoicePanel(seg, extra) {
-  extra.innerHTML = '<span class="x-label">配音：</span>' + VOICES.map(function (v) {
-    return '<button type="button" class="ae-chip' + (v === seg.voice ? ' on' : '') + '" data-segvoice="' + esc(v) + '">🎙️ ' + esc(v) + '</button>';
-  }).join('');
+  var cur = String(seg.voice || '');
+  var chips = VOICES.map(function (v) {
+    return '<button type="button" class="ae-chip' + (v === cur ? ' on' : '') + '" data-segvoice="' + esc(v) + '">🎙️ ' + esc(v) + '</button>';
+  });
+  if (cur && !VOICE_LABEL_TO_QWEN[cur] && VOICES.indexOf(cur) < 0) {
+    chips.unshift('<button type="button" class="ae-chip on" data-segvoice="' + esc(cur) + '">🎙️ ' + esc(voiceText(cur)) + '</button>');
+  }
+  extra.innerHTML = '<span class="x-label">配音：</span>' + chips.join('');
   extra.hidden = false;
 }
 function doSegAction(id, act) {
@@ -3056,10 +3213,18 @@ function prepareStep3() {
     $('aePlayerMeta').innerHTML = '<span class="ae-sum-chip">' + p.segments.length + ' 个镜头</span>' +
       '<span class="ae-sum-chip">' + Math.round(p.plan.duration) + ' 秒</span>' +
       '<span class="ae-sum-chip">' + esc(aspectLabel(p.aspect)) + '</span>' +
-      '<span class="ae-sum-chip">' + esc(p.voice) + '</span>' +
+      '<span class="ae-sum-chip">' + esc(voiceText(p.voice)) + '</span>' +
       (avatar ? '<span class="ae-sum-chip live"><span class="dot"></span>数字人片段</span>' : '');
   }
-  if ($('aeTtsVoice')) $('aeTtsVoice').value = p.voice || state.input.voice || '女声·亲切自然';
+  if ($('aeTtsVoice')) {
+    var wantV = p.voice || state.input.voice || 'qwen:Cherry';
+    if (!/^(qwen:|cosy:|cosyvoice-|zh-CN-)/.test(wantV)) wantV = VOICE_LABEL_TO_QWEN[wantV] || wantV;
+    var vsel = $('aeTtsVoice'), vFound = false;
+    for (var vi = 0; vi < vsel.options.length; vi++) {
+      if (vsel.options[vi].value === wantV) { vFound = true; break; }
+    }
+    if (vFound) vsel.value = wantV;
+  }
   if ($('aeTtsHint')) {
     $('aeTtsHint').textContent = state.tts.url
       ? '试听地址：' + (state.tts.path || '') + '（可换音色重试）'
@@ -3681,10 +3846,15 @@ function bindUi() {
   });
   if ($('btnTtsPreview')) $('btnTtsPreview').addEventListener('click', previewTts);
   if ($('aeTtsVoice')) $('aeTtsVoice').addEventListener('change', function () {
-    state.input.voice = $('aeTtsVoice').value;
-    setVoice(state.input.voice);
-    if (state.project) state.project.voice = state.input.voice;
-    if ($('aeTtsHint')) $('aeTtsHint').textContent = '已切换为「' + state.input.voice + '」，点「试听配音」重新生成';
+    var v = $('aeTtsVoice').value;
+    var eng = voiceEngineOf(v);
+    var label = voiceText(v);
+    state.input.voice = v;
+    setVoice(v);
+    if (state.project) state.project.voice = v;
+    if ($('aeTtsHint')) $('aeTtsHint').textContent = '已切换为「' + label + '」（' +
+      (eng === 'cosy' ? 'CosyVoice 克隆音色' : (eng === 'edge' ? 'edge-tts' : 'qwen3-tts 高品质配音')) +
+      '），点「试听配音」重新生成';
   });
   if ($('aeMuteBtn')) $('aeMuteBtn').addEventListener('click', toggleMute);
   if ($('aeVolume')) $('aeVolume').addEventListener('input', function () {
@@ -3735,6 +3905,7 @@ function boot() {
   bindEmbed();
   goStep(1, true);
   detectMode();
+  loadVoiceList();
   if ($('aeCaption')) $('aeCaption').value = captionFor(state.input.industry, 'douyin');
 }
 if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', boot);
