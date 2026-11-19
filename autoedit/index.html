@@ -217,6 +217,15 @@ html[data-theme="light"][data-page="autoedit"] .ae-select option{background:#fff
 .ae-voice small{font-size:10.9px;color:var(--ae-txt3);line-height:1.4}
 .ae-voice .v-play{position:absolute;right:8px;bottom:8px;width:26px;height:26px;border-radius:50%;border:1px solid var(--ae-line);background:var(--ae-panel);color:var(--ae-txt2);font-size:11px;cursor:pointer;display:grid;place-items:center;padding:0}
 .ae-voice .v-play:hover{color:var(--ae-cyan-2);border-color:var(--ae-line-cyan)}
+/* 音色分组（2026-11-20：推荐音色（老板克隆）/ 蝉镜性价比音色 / qwen3 预设） */
+.ae-voice-group{grid-column:1/-1;display:flex;align-items:center;gap:8px;margin:5px 0 0;padding-top:4px;font-size:11.6px;font-weight:800;color:var(--ae-txt2);letter-spacing:.02em}
+.ae-voice-group:first-child{margin-top:0;padding-top:0}
+.ae-voice-group::after{content:"";flex:1;height:1px;background:var(--ae-line)}
+.ae-voice-group-price{font-weight:800;font-size:10.6px;color:var(--ae-cyan-2);background:rgba(56,189,248,.1);border:1px solid rgba(56,189,248,.28);border-radius:999px;padding:1px 7px;white-space:nowrap}
+.ae-voice-price{display:inline-flex;align-items:center;margin-left:8px;font-size:10.8px;font-weight:800;color:var(--ae-cyan-2);background:rgba(56,189,248,.1);border:1px solid rgba(56,189,248,.28);border-radius:999px;padding:1px 8px;vertical-align:1px}
+.ae-voice.is-cj .v-ico{background:rgba(251,191,36,.12);border-color:rgba(251,191,36,.3)}
+.ae-rec-tag{display:inline-block;margin-left:6px;font-size:10px;font-weight:800;color:#04131f;background:linear-gradient(135deg,#38bdf8,#34d399);border-radius:999px;padding:1px 7px;vertical-align:1px}
+.ae-avatar-card-tip{margin:8px 0 0;padding:7px 10px;border-radius:9px;background:rgba(56,189,248,.08);border:1px dashed rgba(56,189,248,.3);font-size:12px;color:var(--ae-txt2);line-height:1.55}
 .ae-quick-tip{display:flex;gap:9px;align-items:flex-start;margin-top:13px;padding:11px 13px;border-radius:12px;background:var(--ae-ok-bg);border:1px solid rgba(52,211,153,.22);font-size:12.4px;color:var(--ae-txt2);line-height:1.65}
 .ae-quick-tip b{color:var(--ae-lime-2);font-weight:800}
 .ae-cta-row{display:flex;align-items:center;gap:14px;flex-wrap:wrap;margin-top:22px}
@@ -879,8 +888,10 @@ html[data-theme="light"] .ae-bg-note{color:#475569}
           </div>
         </div>
         <div class="ae-opt full">
-          <span class="ae-field-label">配音音色 <small>不满意随时能换，不用重新录</small></span>
+          <span class="ae-field-label">配音音色 <small>不满意随时能换，不用重新录</small>
+            <span class="ae-voice-price" id="aeVoicePriceHint">约 ¥0.005/60字</span></span>
           <div class="ae-voices" id="aeVoices" role="radiogroup" aria-label="选择配音音色">
+            <div class="ae-voice-group">qwen3 预设音色<span class="ae-voice-group-price">约 ¥0.005/60字</span></div>
             <div class="ae-voice on" data-voice="女声·亲切自然" role="radio" aria-checked="true" tabindex="0">
               <span class="ae-voice-top"><span class="v-ico">👩</span><b>女声 · 亲切自然</b></span>
               <small>像邻居大姐介绍，适合家政 / 除甲醛</small>
@@ -907,20 +918,20 @@ html[data-theme="light"] .ae-bg-note{color:#475569}
               <i>纯画面 + 配音</i><small>素材 / 图表 / 字幕 + 配音，默认模式</small>
             </button>
             <button type="button" class="ae-presenter-card" data-presenter="photo" role="radio" aria-checked="false">
-              <span class="p-ico" aria-hidden="true">🧑</span><b>照片数字人</b>
-              <i>上传一张人像照片出镜</i><small>照片推近 / 轻微浮动，铺满背景或画中画</small>
+              <span class="p-ico" aria-hidden="true">🧑</span><b>照片数字人（免费推近 · 不做口型）</b>
+              <i>上传一张人像照片出镜</i><small>照片推近 / 轻微浮动，嘴不动、不额外计费；要嘴型动请选「照片口型数字人」</small>
             </button>
             <button type="button" class="ae-presenter-card" data-presenter="upload" role="radio" aria-checked="false">
               <span class="p-ico" aria-hidden="true">📹</span><b>上传口播视频 / 外部数字人</b>
               <i>自己的口播，或腾讯智影 / HeyGen 导出的数字人</i><small>支持绿幕自动抠像，背景换成我们的素材</small>
             </button>
             <button type="button" class="ae-presenter-card" id="aePresenterLipsync" data-presenter="lipsync" role="radio" aria-checked="false" aria-disabled="false">
-              <span class="p-ico" aria-hidden="true">👄</span><b>真口型数字人</b>
+              <span class="p-ico" aria-hidden="true">👄</span><b>真口型数字人（上传视频）</b>
               <i id="aeLipsyncNote">正在读取数字人供应商配置…</i><small>阿里云百炼 VideoRetalk：上传一段正面出镜视频，自动对口型，按秒计费</small>
             </button>
             <button type="button" class="ae-presenter-card" id="aePresenterPhotoLipsync" data-presenter="photo_lipsync" role="radio" aria-checked="false" aria-disabled="false">
-              <span class="p-ico" aria-hidden="true">🖼️</span><b>照片口型数字人（真口型）</b>
-              <i id="aePhotoLsNote">正在读取数字人供应商配置…</i><small>上传一张正脸照片：先做缓慢推近视频，再合成真口型（只有嘴型动）</small>
+              <span class="p-ico" aria-hidden="true">🖼️</span><b>照片口型数字人（真口型）<span class="ae-rec-tag">推荐</span></b>
+              <i id="aePhotoLsNote">正在读取数字人供应商配置…</i><small>上传一张正脸照片：先做缓慢推近视频，再合成真口型（只有嘴型动），按秒计费</small>
             </button>
           </div>
 
@@ -1886,13 +1897,17 @@ function ttsGenerate(text, voice, rate) {
   }).then(function (d) {
     if (!d || !d.audio_url) throw new Error('配音接口没有返回音频地址');
     var path = String(d.audio_url);
+    var engKey = d.engine_key || d.engine || voiceEngineOf(v);
     return {
       url: normalizeMediaUrl(path), path: path,
       duration: Number(d.duration) || 0,
       voice: d.voice_label || voiceText(v),
       voice_key: v,
-      engine: d.engine || (voiceEngineOf(v) === 'cosy' ? 'cosyvoice-v2' : 'qwen3-tts-flash'),
-      fallback: !!d.fallback
+      engine: d.engine || engKey,
+      engine_key: engKey,
+      cost_hint: d.cost_hint || voicePriceText(v),
+      fallback: !!d.fallback,
+      fallback_reason: d.fallback_reason || ''
     };
   });
 }
@@ -1903,7 +1918,7 @@ function ttsUseResult(r, voice) {
   if (audio) { audio.src = r.url; applySound(); tryPlayAudio(audio); }
   var engTxt = r.engine ? '（' + r.engine + (r.fallback ? ' · 回退' : '') + '）' : '';
   if ($('aeTtsDur')) $('aeTtsDur').textContent = (r.duration ? '时长 ' + r.duration.toFixed(1) + ' 秒' : '已生成') +
-    ' · ' + voiceText(voice || r.voice) + engTxt;
+    ' · ' + voiceText(voice || r.voice) + engTxt + (r.cost_hint ? ' · ' + r.cost_hint : '');
 }
 function previewTts() {
   if (state.tts.busy) return;
@@ -1918,11 +1933,15 @@ function previewTts() {
   var btn = $('btnTtsPreview');
   if (btn) { btn.disabled = true; btn.innerHTML = '<span class="ae-tts-loading"></span>生成中…'; }
   var vname = voiceText(voice);
-  if ($('aeTtsHint')) $('aeTtsHint').textContent = '正在用「' + vname + '」生成配音（百炼 qwen3-tts / CosyVoice），约 1-3 秒…';
+  var veng = voiceEngineOf(voice);
+  var engLabel = veng === 'chanjing' ? '蝉镜 TTS ¥0.007/秒' : (veng === 'cosy' ? 'CosyVoice 克隆音色' : 'qwen3-tts');
+  if ($('aeTtsHint')) $('aeTtsHint').textContent = '正在用「' + vname + '」生成配音（' + engLabel +
+    (veng === 'chanjing' ? '，约 5-20 秒' : '，约 1-3 秒') + '）…';
   ttsGenerate(text, voice).then(function (r) {
     ttsUseResult(r, voice);
     if (btn) { btn.disabled = false; btn.textContent = '🔊 试听配音'; }
-    if ($('aeTtsHint')) $('aeTtsHint').textContent = '试听地址：' + r.path + ' · ' + r.engine + '（可换音色重试）';
+    if ($('aeTtsHint')) $('aeTtsHint').textContent = '试听地址：' + r.path + ' · ' + r.engine +
+      (r.cost_hint ? ' · ' + r.cost_hint : '') + '（可换音色重试）';
     toast('试听配音已生成：' + (r.duration ? r.duration.toFixed(1) + ' 秒' : '已就绪'), 'ok', 2600);
   }).catch(function (e) {
     state.tts.busy = false;
@@ -2277,10 +2296,10 @@ function setPresenterMode(mode, opts) {
   if (!opts.silent) {
     var tips = {
       none: '已选「无出镜」：成片只有素材画面 + 配音',
-      photo: '已选「照片数字人」：上传照片后会直接合成进成片',
+      photo: '已选「照片数字人（免费推近）」：照片会合进成片但嘴不动、不额外计费；要嘴型动请选「照片口型数字人」',
       upload: '已选「上传口播视频」：可开启绿幕抠像，把背景换成我们的素材',
       lipsync: '已选「真口型数字人」：上传 5–20 秒正面出镜视频，生成时自动合成真口型出镜（按秒计费）',
-      photo_lipsync: '已选「照片口型数字人」：上传一张正脸清晰照片，生成时会先做缓慢推近再合成真口型（只有嘴型动，按秒计费）'
+      photo_lipsync: '已选「照片口型数字人（真口型）」：上传一张正脸清晰照片，生成时会先做缓慢推近再合成真口型（只有嘴型动，按秒计费）'
     };
     toast(tips[mode] || '已切换出镜方式', 'ok', 2400);
   }
@@ -2342,6 +2361,9 @@ function applyUrlPreset() {
   var wantBg = cleanText(qs.get('bg') || '');
   var wantPrompt = cleanText(qs.get('bg_prompt') || '');
   var from = cleanText(qs.get('from') || '');
+  /* 从工作台「③ 数字人」卡片进来：用户意图是要真数字人 → 默认照片口型数字人（真口型），
+     免费照片推近仍保留可选；只有运营没配数字人 API 时才降级到免费版。 */
+  if (!want && from === 'studio-avatar') want = 'photo_lipsync';
   if (!want && !wantBg) { _urlPresetApplied = true; return; }
   _urlPresetApplied = true;
   if (want === 'photo_lipsync' || want === 'lipsync') {
@@ -2362,7 +2384,7 @@ function applyUrlPreset() {
     var box = document.getElementById('aePresenterGrid');
     if (box) box.scrollIntoView({ behavior: 'smooth', block: 'center' });
   } catch (e) {}
-  var label = want === 'photo_lipsync' ? '照片口型数字人' : (want === 'lipsync' ? '真口型数字人' : (want === 'photo' ? '照片数字人' : (want === 'upload' ? '上传口播视频' : '出镜')));
+  var label = want === 'photo_lipsync' ? '照片口型数字人（真口型）' : (want === 'lipsync' ? '真口型数字人' : (want === 'photo' ? '照片数字人（免费推近·不做口型）' : (want === 'upload' ? '上传口播视频' : '出镜')));
   if (want) toast('已按入口默认展开「' + label + '」' + (from === 'studio-avatar' ? '（数字人创作方式）' : '') + '，上传素材后即可生成', 'ok', 3600);
 }
 
@@ -3040,9 +3062,9 @@ function buildAvatarClip(text, input, onNote) {
     var t = cleanText(text || '');
     if (!t) { reject(new Error('没有可用于数字人配音的文字')); return; }
     if (t.length > 480) t = t.slice(0, 480);
-    if (onNote) onNote('正在用「' + (input.voice || '女声·亲切自然') + '」生成数字人口播配音…');
+    if (onNote) onNote('正在用「' + voiceText(input.voice) + '」生成数字人口播配音…');
     ttsGenerate(t, input.voice).then(function (tts) {
-      if (onNote) onNote('正在合成数字人样片（照片出镜 + 口播音轨，已合成进成片画面）…');
+      if (onNote) onNote('正在合成数字人样片（照片推近 + 口播音轨，已合成进成片画面，不做口型）…');
       return apiFetch('/avatar', {
         method: 'POST', timeout: 180000,
         body: {
@@ -3051,7 +3073,7 @@ function buildAvatarClip(text, input, onNote) {
           voice: input.voice || '女声·亲切自然',
           integrate: true,
           text: t.slice(0, 300),
-          title: '数字人出镜样片',
+          title: '数字人样片（照片推近·不做口型）',
           options: { aspect: input.aspect || '9:16', motion: 'slow_push_in', quality: '720p' }
         }
       }).then(function (d) {
@@ -3065,7 +3087,7 @@ function buildAvatarClip(text, input, onNote) {
           previewCoverUrl: normalizeMediaUrl(d.preview_cover || ''),
           integrate: d.integrate === true,
           duration: Number(d.duration) || 0,
-          note: d.note || '照片+口播音轨（未做口型同步）',
+          note: d.note || '照片推近 + 口播音轨（不做口型同步）',
           voice: input.voice || '女声·亲切自然',
           audioUrl: tts.url,
           createdAt: Date.now()
@@ -3074,26 +3096,47 @@ function buildAvatarClip(text, input, onNote) {
     }).then(function (clip) { resolve(clip); }).catch(function (e) { reject(e); });
   });
 }
+function avatarCardMeta() {
+  var mode = presenterModeOf();
+  var isLipsync = (mode === 'photo_lipsync' || mode === 'lipsync');
+  return {
+    mode: mode,
+    isLipsync: isLipsync,
+    title: isLipsync ? '数字人样片（真口型版）'
+      : (mode === 'upload' ? '原始出镜视频（可选查看）' : '数字人样片（照片推近版 · 不做口型）'),
+    chipText: isLipsync ? (mode === 'lipsync' ? '真口型数字人（视频）' : '照片口型数字人（真口型）')
+      : (mode === 'upload' ? '口播视频出镜' : '照片数字人（免费推近）'),
+    shotNote: isLipsync ? '15 秒 · 真口型已合成进成片背景 / 画中画'
+      : '15 秒 · 照片推近已合成进成片背景 / 画中画（不做口型）'
+  };
+}
 function renderAvatarCard(errMsg) {
   var box = $('aeAvatarCard');
   if (!box) return;
   var p = state.project;
   var mode = presenterModeOf();
+  var meta = avatarCardMeta();
   var av = (p && p.avatar) || null;
   var waiting = !!(state.avatarGenerating && p);
   var hasPhoto = !!(state.avatar.dataUrl);
   var v = state.presenter;
-  var show = mode === 'photo' ? (hasPhoto && p && p.source === 'live' || !!av || waiting || !!errMsg)
-                              : (mode === 'upload' && !!v.videoName && !!p);
+  var show = false;
+  if (mode === 'photo') show = (hasPhoto && p && p.source === 'live') || !!av || waiting || !!errMsg;
+  else if (mode === 'upload') show = !!v.videoName && !!p;
+  else if (mode === 'photo_lipsync') show = !!p || hasPhoto;
+  else if (mode === 'lipsync') show = !!p || !!v.lipsyncVideoPath || !!v.lipsyncVideoName;
   if (!p || !show) { box.hidden = true; box.innerHTML = ''; return; }
   box.hidden = false;
-  var chip = '<span class="ae-sum-chip live"><span class="dot"></span>' + (mode === 'upload' ? '口播视频出镜' : '照片数字人') + '</span>';
+  var chip = '<span class="ae-sum-chip live"><span class="dot"></span>' + meta.chipText + '</span>';
   if (waiting) {
-    box.innerHTML = '<div class="ae-avatar-card"><div class="ae-avatar-clip-body"><h3>🧑 数字人出镜 · 生成中…</h3><p class="ae-hint">正在生成配音并合成数字人样片（照片出镜 + 口播音轨），大约 10-40 秒。</p></div></div>';
+    box.innerHTML = '<div class="ae-avatar-card"><div class="ae-avatar-clip-body">' +
+      '<h3>🧑 ' + meta.title + ' · 生成中…</h3>' +
+      '<p class="ae-hint">正在生成配音并合成样片（' +
+      (meta.isLipsync ? '真口型合成通常 30~120 秒' : '照片推近 + 口播音轨，约 10-40 秒') + '）。</p></div></div>';
     return;
   }
   if (errMsg) {
-    box.innerHTML = '<div class="ae-avatar-card"><div class="ae-avatar-err"><span aria-hidden="true">⚠️</span><div style="flex:1 1 220px;min-width:0">数字人出镜样片生成失败：' + esc(errMsg) + '</div><button type="button" class="ae-btn sm" id="btnAvatarRetry" style="flex:0 0 auto">重试生成</button></div></div>';
+    box.innerHTML = '<div class="ae-avatar-card"><div class="ae-avatar-err"><span aria-hidden="true">⚠️</span><div style="flex:1 1 220px;min-width:0">数字人样片生成失败：' + esc(errMsg) + '</div><button type="button" class="ae-btn sm" id="btnAvatarRetry" style="flex:0 0 auto">重试生成</button></div></div>';
     return;
   }
   if (mode === 'upload') {
@@ -3108,17 +3151,30 @@ function renderAvatarCard(errMsg) {
     '</div>';
     return;
   }
+  if (meta.isLipsync) {
+    var needTxt = mode === 'photo_lipsync' ? '一张正脸清晰照片' : '一段 5–20 秒正面出镜视频';
+    var readyL = mode === 'photo_lipsync' ? hasPhoto : !!v.lipsyncVideoPath;
+    box.innerHTML = '<div class="ae-avatar-card"><div class="ae-avatar-clip-body">' +
+      '<h3>🧑 ' + meta.title + ' ' + chip + '</h3>' +
+      '<span class="ae-avatar-clip-note">' + (readyL ? '导出成片时自动合成真口型，并合进背景 / 画中画' : '尚未上传' + needTxt) + '</span>' +
+      '<p class="ae-hint">' + (readyL
+        ? '真口型按秒计费（阿里云 VideoRetalk 约 ¥0.08/秒，30 秒约 ¥2.40），点「开始导出」后生成的就是真口型版；导出完成后可在第 3 步预览 / 下载。'
+        : '先上传' + needTxt + '，导出成片时会自动合成真口型版。') + '</p>' +
+      '</div></div>';
+    return;
+  }
   if (!av) {
-    box.innerHTML = '<div class="ae-avatar-card"><div class="ae-avatar-clip-body"><h3>🧑 数字人出镜 · 待生成</h3><p class="ae-hint">已上传照片，生成成片时会同步生成数字人样片；也可以点下面按钮单独生成。</p><div class="ae-avatar-clip-actions"><button type="button" class="ae-btn sm primary" id="btnAvatarGenNow">现在生成数字人样片</button></div></div></div>';
+    box.innerHTML = '<div class="ae-avatar-card"><div class="ae-avatar-clip-body"><h3>🧑 ' + meta.title + ' · 待生成</h3><p class="ae-hint">已上传照片，生成成片时会同步生成这个样片（照片推近 + 口播音轨，不做口型）；也可以点下面按钮单独生成。</p><div class="ae-avatar-clip-actions"><button type="button" class="ae-btn sm primary" id="btnAvatarGenNow">现在生成数字人样片</button></div></div></div>';
     return;
   }
   var mainSrc = av.previewUrl || av.clipUrl;
   box.innerHTML = '<div class="ae-avatar-card">' +
     '<video class="ae-avatar-clip-video" id="aeAvatarClip" controls playsinline preload="metadata"' + ((av.previewCoverUrl || av.coverUrl) ? ' poster="' + esc(av.previewCoverUrl || av.coverUrl) + '"' : '') + ' src="' + esc(mainSrc) + '"></video>' +
     '<div class="ae-avatar-clip-body">' +
-      '<h3>🧑 ' + (av.previewUrl ? '数字人合成样片（已融入成片画面）' : '数字人口播片段') + ' ' + chip + '</h3>' +
-      '<span class="ae-avatar-clip-note">' + (av.previewUrl ? '15 秒 · 数字人已合成进背景 / 画中画' : '照片 + 口播音轨（未做口型同步）') + '</span>' +
-      '<p class="ae-hint">时长 ' + (av.duration ? av.duration.toFixed(1) + ' 秒' : '—') + ' · 音色 ' + esc(av.voice || '') + '<br>' + esc(av.previewUrl ? '样片展示成片同款构图，整片导出后同样包含数字人。' : (av.note || '')) + '</p>' +
+      '<h3>🧑 ' + meta.title + (av.previewUrl ? '（已融入成片画面）' : '') + ' ' + chip + '</h3>' +
+      '<span class="ae-avatar-clip-note">' + (av.previewUrl ? meta.shotNote : '照片 + 口播音轨（未做口型同步）') + '</span>' +
+      '<p class="ae-hint">时长 ' + (av.duration ? av.duration.toFixed(1) + ' 秒' : '—') + ' · 音色 ' + esc(av.voice || '') + '<br>' + esc(av.previewUrl ? '样片展示成片同款构图，整片导出后同样包含数字人（本样片只有画面推近，不做口型）。' : (av.note || '')) + '</p>' +
+      '<p class="ae-avatar-card-tip">💡 要嘴型动请选「照片口型数字人」（真口型，按秒计费）；当前这张只是照片推近版，嘴不会动。</p>' +
       '<div class="ae-avatar-clip-actions">' +
         '<a class="ae-btn sm" href="' + esc(av.downloadUrl || av.clipUrl) + '" target="_blank" rel="noopener" download="数字人片段.mp4">' + (av.previewUrl ? '下载原始片段' : '下载片段') + '</a>' +
         '<button type="button" class="ae-btn sm ghost" id="btnAvatarRegen">重新生成样片</button>' +
@@ -3248,21 +3304,39 @@ function setAspect(v) {
   });
 }
 function setVoice(v) {
-  state.input.voice = v || 'qwen:Cherry';
+  var want = String(v || '').trim();
+  if (!want) want = 'qwen:Cherry';
+  if (VOICE_LABEL_TO_QWEN[want]) want = VOICE_LABEL_TO_QWEN[want];
+  state.input.voice = want;
+  var matched = false;
   $$('#aeVoices .ae-voice').forEach(function (b) {
-    var on = b.getAttribute('data-voice') === state.input.voice;
+    var on = b.getAttribute('data-voice') === want;
+    if (on) matched = true;
     b.classList.toggle('on', on);
     b.setAttribute('aria-checked', on ? 'true' : 'false');
     b.setAttribute('tabindex', on ? '0' : '-1');
   });
+  if (!matched) {
+    /* 音色目录还没加载出来时，用静态兜底卡片近似高亮（qwen:Cherry ↔ 女声·亲切自然） */
+    var legacy = { 'qwen:Cherry': '女声·亲切自然', 'qwen:Neil': '男声·稳重专业',
+                   'qwen:Chelsie': '女声·活泼种草' }[want];
+    if (legacy) {
+      $$('#aeVoices .ae-voice').forEach(function (b) {
+        if (b.getAttribute('data-voice') === legacy) {
+          b.classList.add('on');
+          b.setAttribute('aria-checked', 'true');
+          b.setAttribute('tabindex', '0');
+        }
+      });
+    }
+  }
   var sel = $('aeTtsVoice');
   if (sel && sel.options && sel.options.length) {
-    var want = state.input.voice;
-    if (!/^(qwen:|cosy:|cosyvoice-|zh-CN-)/.test(want)) want = VOICE_LABEL_TO_QWEN[want] || want;
     for (var i = 0; i < sel.options.length; i++) {
       if (sel.options[i].value === want) { sel.value = want; break; }
     }
   }
+  updateVoicePriceHint();
 }
 function setStyleUI(style) {
   $$('#aeStyles .ae-style-btn').forEach(function (b) {
@@ -3320,29 +3394,60 @@ function voiceFetch(path, opts) {
 }
 function voiceEngineOf(voice) {
   var v = String(voice || '');
+  if (v.indexOf('cj:') === 0) return 'chanjing';
   if (v.indexOf('cosy:') === 0 || v.indexOf('cosyvoice-') === 0) return 'cosy';
   if (/Neural$/.test(v)) return 'edge';
   return 'qwen';
 }
+var VOICE_PRICE_TEXT = {
+  qwen: '约 ¥0.005/60字',
+  cosy: 'CosyVoice 按量计费',
+  chanjing: '¥0.007/秒',
+  edge: '免费'
+};
+function voiceGroups() {
+  var cat = state.voiceCatalog || {};
+  return (cat.groups && cat.groups.length) ? cat.groups : null;
+}
+function voiceAll() {
+  var cat = state.voiceCatalog || {};
+  var out = (cat.presets || []).slice();
+  (cat.cloned || []).forEach(function (c) { out.push(c); });
+  var groups = voiceGroups();
+  if (groups) {
+    groups.forEach(function (g) { (g.voices || []).forEach(function (v) { out.push(v); }); });
+  }
+  return out;
+}
 function voiceText(voice) {
   var v = String(voice == null ? '' : voice);
   if (!v) return '默认音色';
-  var cat = state.voiceCatalog || {};
-  var all = (cat.presets || []).concat(cat.cloned || []);
-  var bare = v.replace(/^cosy:/, '');
+  var all = voiceAll();
+  var bare = v.replace(/^(cosy:|cj:)/, '');
   for (var i = 0; i < all.length; i++) {
-    if (all[i] && (all[i].id === v || all[i].voice_id === v || all[i].voice_id === bare)) return all[i].name || v;
+    var it = all[i] || {};
+    if (it.id === v || it.voice_id === v || it.voice_id === bare || it.voice === v) return it.name || v;
   }
   if (v.indexOf('cosy:') === 0) return '我的克隆音色';
+  if (v.indexOf('cj:') === 0) return '蝉镜音色';
   if (VOICE_LABEL_TO_QWEN[v]) return v;
-  if (/^qwen:/.test(v)) {
-    for (var j = 0; j < all.length; j++) {
-      if (all[j] && all[j].id === v) return all[j].name;
-    }
-    return v.slice(5);
-  }
+  if (/^qwen:/.test(v)) return v.slice(5);
   if (/^(cosy:|cosyvoice-)/.test(v)) return '我的克隆音色';
   return v;
+}
+function voicePriceText(voice) {
+  var eng = voiceEngineOf(voice);
+  return VOICE_PRICE_TEXT[eng] || '';
+}
+function updateVoicePriceHint() {
+  var el = $('aeVoicePriceHint');
+  if (!el) return;
+  var eng = voiceEngineOf(state.input.voice);
+  var t = VOICE_PRICE_TEXT[eng] || '';
+  el.textContent = (eng === 'chanjing' ? '蝉镜 ' : '') + t;
+  el.title = eng === 'chanjing' ? '302.AI 蝉镜 TTS：¥0.007/秒（按合成音频时长计费）'
+    : (eng === 'qwen' ? 'qwen3-tts-flash：约 0.8 元/万字符（约 ¥0.005/60字）'
+      : (eng === 'cosy' ? 'CosyVoice 克隆音色按量计费' : 'edge-tts 免费回退'));
 }
 function updateVoiceHint() {
   var hint = $('aeTtsHint');
@@ -3352,9 +3457,56 @@ function updateVoiceHint() {
     return !(c && (c.ready || c.status === 'OK'));
   }).length;
   if (state.tts && state.tts.url) return;
-  var txt = '用成片同一套配音生成 MP3（百炼 qwen3-tts / CosyVoice 克隆音色），可换音色重试';
+  var txt = '用成片同一套配音生成音频（推荐老板克隆 / 蝉镜 ¥0.007/秒 / qwen3 预设），可换音色重试';
   if (pending > 0) txt += '；' + pending + ' 个克隆音色部署中，请稍后（通常 1~5 分钟）';
   hint.textContent = txt;
+}
+/* 第 1 步音色卡片：按 推荐音色（老板克隆）/ 蝉镜性价比音色 / qwen3 预设 分组渲染 */
+function renderVoiceCards() {
+  var box = $('aeVoices');
+  if (!box) return;
+  var groups = voiceGroups();
+  if (!groups) return;   /* 目录未就绪：保留 HTML 静态兜底 */
+  if (VOICE_LABEL_TO_QWEN[state.input.voice]) state.input.voice = VOICE_LABEL_TO_QWEN[state.input.voice];
+  var html = '';
+  groups.forEach(function (g) {
+    var voices = (g.voices || []).slice();
+    var icon = g.key === 'boss' ? '👤' : (g.key === 'chanjing' ? '💰' : '🎙️');
+    if (g.key === 'qwen') voices = voices.slice(0, 6);
+    if (g.key === 'chanjing') {
+      var clones = voices.filter(function (v) { return v.kind === 'clone'; });
+      var publics = voices.filter(function (v) { return v.kind !== 'clone'; }).slice(0, 5);
+      voices = clones.concat(publics);
+    }
+    if (!voices.length) return;
+    var glabel = g.label || g.key;
+    var gprice = (g.price_hint && glabel.indexOf(g.price_hint) < 0) ? g.price_hint : '';
+    html += '<div class="ae-voice-group">' + esc(glabel) +
+      (gprice ? '<span class="ae-voice-group-price">' + esc(gprice) + '</span>' : '') + '</div>';
+    voices.forEach(function (v) {
+      var id = v.id || (g.key === 'qwen' ? ('qwen:' + (v.voice || '')) :
+        (v.voice_id ? (g.key === 'boss' ? 'cosy:' : 'cj:') + v.voice_id : ''));
+      if (!id) return;
+      var nm = v.name || v.audio_name || id;
+      var desc = v.desc || '';
+      var extra = '';
+      if (g.key === 'chanjing') {
+        desc = (v.kind === 'clone' ? '克隆音色 · ' : '公共音色 · ') + '¥0.007/秒（按合成时长）';
+        extra = ' is-cj';
+      } else if (g.key === 'boss') {
+        desc = '老板本人克隆 · CosyVoice 按量计费';
+        if (v.featured) nm = '★ ' + nm;
+      }
+      html += '<div class="ae-voice' + extra + '" data-voice="' + esc(id) + '" role="radio" aria-checked="false" tabindex="-1">' +
+        '<span class="ae-voice-top"><span class="v-ico">' + icon + '</span><b>' + esc(nm) + '</b></span>' +
+        '<small>' + esc(desc) + '</small>' +
+        '<button type="button" class="v-play" data-try-voice="' + esc(id) + '" aria-label="试听' + esc(nm) + '">▶ 试听</button>' +
+        '</div>';
+    });
+  });
+  if (!html) return;
+  box.innerHTML = html;
+  setVoice(state.input.voice || 'qwen:Cherry');
 }
 function renderVoiceSelect() {
   var sel = $('aeTtsVoice');
@@ -3362,30 +3514,56 @@ function renderVoiceSelect() {
   var cat = state.voiceCatalog || {};
   var presets = cat.presets || [];
   var cloned = cat.cloned || [];
-  if (!presets.length) return;   /* 拉取失败：保留 HTML 静态兜底音色 */
-  var featured = cloned.filter(function (c) { return c && (c.featured || /老板/.test(String(c.name || ''))); })[0];
-  function clonedOpts() {
-    var h = '';
-    cloned.forEach(function (c) {
-      var ready = !!(c.ready || c.status === 'OK');
-      var star = (featured && c.voice_id === featured.voice_id) ? '★ ' : '';
-      h += '<option value="cosy:' + esc(c.voice_id) + '" data-engine="cosy"' + (ready ? '' : ' disabled') + '>' +
-        star + esc(c.name || c.voice_id) + (ready ? ' · 已就绪' : '（部署中，请稍后）') + '</option>';
-    });
-    return h;
-  }
+  var groups = voiceGroups();
+  if (!presets.length && !groups) return;   /* 拉取失败：保留 HTML 静态兜底音色 */
   var html = '';
-  var presetGroup = '<optgroup label="百炼高品质音色（qwen3-tts）">' + presets.map(function (p) {
-    return '<option value="' + esc(p.id) + '" data-engine="qwen">' + esc(p.name) + '</option>';
-  }).join('') + '</optgroup>';
-  if (cloned.length) {
-    html += '<optgroup label="' + (featured ? '推荐音色（真人克隆）' : '我的克隆音色（CosyVoice）') + '">' +
-      clonedOpts() + '</optgroup>';
+  if (groups) {
+    groups.forEach(function (g) {
+      var voices = g.voices || [];
+      if (!voices.length) return;
+      var glabel = g.label || g.key;
+      var gprice = (g.price_hint && glabel.indexOf(g.price_hint) < 0) ? g.price_hint : '';
+      html += '<optgroup label="' + esc(glabel) +
+        (gprice ? ' · ' + esc(gprice) : '') + '">';
+      voices.forEach(function (v) {
+        if (g.key === 'qwen') {
+          if (!v.id) return;
+          html += '<option value="' + esc(v.id) + '" data-engine="qwen">' + esc(v.name || v.voice) + '</option>';
+          return;
+        }
+        if (g.key === 'boss') {
+          if (!v.voice_id) return;
+          var ready = !!(v.ready || v.status === 'OK');
+          html += '<option value="cosy:' + esc(v.voice_id) + '" data-engine="cosy"' + (ready ? '' : ' disabled') + '>' +
+            (v.featured ? '★ ' : '') + esc(v.name || v.voice_id) + (ready ? ' · 已就绪' : '（部署中，请稍后）') + '</option>';
+          return;
+        }
+        if (g.key === 'chanjing') {
+          if (!v.id) return;
+          var tag = v.kind === 'clone' ? ' · 克隆' : (v.kind === 'public' ? ' · 公共' : '');
+          html += '<option value="' + esc(v.id) + '" data-engine="chanjing">' +
+            esc(v.name || v.audio_name || v.voice_id) + tag + '</option>';
+        }
+      });
+      html += '</optgroup>';
+    });
+  } else {
+    /* 旧后端兜底：qwen 预设 + CosyVoice 克隆 */
+    if (cloned.length) {
+      html += '<optgroup label="推荐音色（真人克隆）">' + cloned.map(function (c) {
+        var ready = !!(c.ready || c.status === 'OK');
+        return '<option value="cosy:' + esc(c.voice_id) + '" data-engine="cosy"' + (ready ? '' : ' disabled') + '>' +
+          (c.featured ? '★ ' : '') + esc(c.name || c.voice_id) + '</option>';
+      }).join('') + '</optgroup>';
+    }
+    html += '<optgroup label="qwen3 预设音色">' + presets.map(function (p) {
+      return '<option value="' + esc(p.id) + '" data-engine="qwen">' + esc(p.name) + '</option>';
+    }).join('') + '</optgroup>';
   }
-  html += presetGroup;
+  if (!html) return;
   sel.innerHTML = html;
   var want = state.input.voice || 'qwen:Cherry';
-  if (!/^(qwen:|cosy:|cosyvoice-|zh-CN-)/.test(want)) want = VOICE_LABEL_TO_QWEN[want] || want;
+  if (VOICE_LABEL_TO_QWEN[want]) want = VOICE_LABEL_TO_QWEN[want];
   var found = false;
   for (var i = 0; i < sel.options.length; i++) {
     if (sel.options[i].value === want) { found = true; break; }
@@ -3396,6 +3574,7 @@ function renderVoiceSelect() {
   }
   sel.value = want;
   updateVoiceHint();
+  updateVoicePriceHint();
 }
 
 
@@ -3404,11 +3583,15 @@ function loadVoiceList() {
     state.voiceCatalog = {
       presets: (d && d.presets) || [],
       cloned: (d && d.cloned) || [],
+      groups: (d && d.groups) || [],
+      chanjing: (d && d.chanjing) || null,
+      price_hints: (d && d.price_hints) || {},
       loaded: true, error: ''
     };
+    renderVoiceCards();
     renderVoiceSelect();
   }).catch(function (e) {
-    state.voiceCatalog = { presets: [], cloned: [], loaded: false, error: (e && e.message) || 'load_failed' };
+    state.voiceCatalog = { presets: [], cloned: [], groups: [], loaded: false, error: (e && e.message) || 'load_failed' };
     if ($('aeTtsHint')) $('aeTtsHint').textContent = '音色目录加载失败，暂用默认音色（' + ((e && e.message) || '网络异常') + '）';
   });
 }
@@ -3980,7 +4163,7 @@ function startGenerate(opts) {
   var pl = presenterLayoutOf();
   if (pmode === 'photo') {
     if (!state.avatar.dataUrl) {
-      toast('已选「照片数字人」：请先上传一张人像照片，或改成「无出镜」', 'warn', 4200);
+      toast('已选「照片数字人（免费推近·不做口型）」：请先上传一张人像照片，或改成「无出镜」', 'warn', 4200);
       setPresenterMode('photo', { silent: true });
       try { $('aeAvatarDrop').focus(); } catch (e) {}
       return;
@@ -4068,7 +4251,7 @@ function startGenerate(opts) {
   var stageNotes = [
     '正在听懂你的文案，找出重点句…',
     '正在为每个镜头匹配门店画面…',
-    '正在用「' + input.voice + '」生成配音' + (avatarWanted ? '与数字人出镜素材' : '') + '…',
+    '正在用「' + voiceText(input.voice) + '」生成配音' + (avatarWanted ? '与数字人出镜素材' : '') + '…',
     '正在把画面、字幕和配音合成成片…'
   ];
   var capFor = function () { return state.mode === 'live' ? 92 : 100; };
@@ -4450,8 +4633,8 @@ function prepareStep3() {
   var composited = !!(taskPres && taskPres.composited);
   var presLayout = (taskPres && taskPres.layout) || (pres && pres.layout) || 'full';
   var presLabel = (taskPres && taskPres.label) || (pres && pres.mode === 'lipsync' ? '真口型数字人出镜'
-    : (pres && pres.mode === 'photo_lipsync' ? '照片口型数字人出镜'
-      : (pres && pres.mode === 'upload' ? '上传口播视频出镜' : '照片数字人出镜')));
+    : (pres && pres.mode === 'photo_lipsync' ? '照片口型数字人（真口型）出镜'
+      : (pres && pres.mode === 'upload' ? '上传口播视频出镜' : '照片数字人（免费推近·不做口型）出镜')));
   pausePlayer();
   if (hasReal) {
     if (canvas) canvas.style.display = 'none';
@@ -4479,9 +4662,9 @@ function prepareStep3() {
       $('aeAvatarShotList').innerHTML = '<b>成片镜头文案（' + p.segments.length + ' 个镜头，导出后合成完整成片）</b><ol>' +
         p.segments.slice(0, 8).map(function (s) { return '<li>' + esc(s.text || '') + '</li>'; }).join('') + '</ol>';
     }
-    if ($('playerPill')) { $('playerPill').className = 'ae-pill-tag live'; $('playerPill').textContent = (avatar.previewUrl ? '数字人合成样片' : '数字人片段'); }
+    if ($('playerPill')) { $('playerPill').className = 'ae-pill-tag live'; $('playerPill').textContent = (avatar.previewUrl ? '数字人样片（照片推近·不做口型）' : '数字人片段'); }
     if ($('aePlayNote')) $('aePlayNote').textContent = (avatar.previewUrl
-      ? '当前播放数字人合成样片（成片同款构图：照片出镜 + 标题/字幕 + 口播音轨）。点「开始导出」渲染完整成片后，这里会切换为带声音的真实合成成片。'
+      ? '当前播放数字人样片（照片推近版 · 不做口型）：成片同款构图 + 标题/字幕 + 口播音轨。点「开始导出」渲染完整成片后，这里会切换为带声音的真实合成成片；要嘴型动请回到第 1 步选「照片口型数字人」。'
       : '当前播放数字人片段（照片 + 口播音轨，未做口型同步）。点「开始导出」渲染完整成片后，这里会切换为带声音的真实成片。');
   } else {
     setVideoEl(video, '');
@@ -5306,9 +5489,10 @@ function bindUi() {
     state.input.voice = v;
     setVoice(v);
     if (state.project) state.project.voice = v;
-    if ($('aeTtsHint')) $('aeTtsHint').textContent = '已切换为「' + label + '」（' +
-      (eng === 'cosy' ? 'CosyVoice 克隆音色' : (eng === 'edge' ? 'edge-tts' : 'qwen3-tts 高品质配音')) +
-      '），点「试听配音」重新生成';
+    var engLabel = eng === 'cosy' ? 'CosyVoice 克隆音色（按量计费）'
+      : (eng === 'chanjing' ? '蝉镜 TTS（¥0.007/秒）'
+        : (eng === 'edge' ? 'edge-tts' : 'qwen3-tts 高品质配音（约 ¥0.005/60字）'));
+    if ($('aeTtsHint')) $('aeTtsHint').textContent = '已切换为「' + label + '」（' + engLabel + '），点「试听配音」重新生成';
   });
   if ($('aeMuteBtn')) $('aeMuteBtn').addEventListener('click', toggleMute);
   if ($('aeVolume')) $('aeVolume').addEventListener('input', function () {
