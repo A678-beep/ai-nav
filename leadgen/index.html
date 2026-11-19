@@ -148,6 +148,29 @@ td.text{min-width:240px;max-width:360px}
 .filters{display:grid;gap:8px;margin-top:10px;grid-template-columns:1fr 1fr}
 @media(min-width:700px){.filters{grid-template-columns:150px 150px minmax(0,1fr)}}
 .filters select,.filters .inp{min-height:44px;font-size:13px;padding:8px 11px}
+.filters .kw-search{display:flex;gap:6px;align-items:stretch;min-width:0}
+.filters .kw-search .kw-box{position:relative;flex:1 1 auto;min-width:0;display:flex}
+.filters .kw-search .inp{flex:1 1 auto;min-width:0;padding-right:38px}
+.kw-clear{position:absolute;right:6px;top:50%;transform:translateY(-50%);width:26px;height:26px;border-radius:50%;border:0;background:rgba(148,163,184,.18);color:#dbeafe;font:700 16px/1 -apple-system,"Microsoft YaHei",sans-serif;cursor:pointer;display:flex;align-items:center;justify-content:center;padding:0}
+.kw-clear:hover{background:rgba(248,113,113,.25);color:#fecaca}
+html[data-theme="light"] .kw-clear{background:rgba(15,23,42,.10);color:#334155}
+html[data-theme="light"] .kw-clear:hover{background:rgba(220,38,38,.14);color:#b91c1c}
+.kw-clear[hidden]{display:none}
+.kw-btn{flex:0 0 auto;min-width:104px;padding:0 14px;white-space:nowrap}
+.kw-btn:disabled{opacity:.75;cursor:progress}
+.wf-filter-sum{display:flex;gap:8px;align-items:center;justify-content:space-between;flex-wrap:wrap;
+  border:1px solid var(--wf-line);background:var(--wf-soft);border-radius:12px;padding:8px 12px;margin:0 0 10px;font-size:12.5px;color:var(--wf-ink2);line-height:1.6}
+.wf-filter-sum .wfs-txt{min-width:0;overflow-wrap:anywhere}
+.wf-filter-sum.has-filter{border-color:rgba(56,189,248,.38);background:rgba(56,189,248,.07)}
+.wf-filter-sum .wfs-reset{flex:0 0 auto;min-height:32px;padding:0 10px;border-radius:8px;border:1px solid var(--line);background:rgba(255,255,255,.03);color:var(--wf-ink2);font:inherit;cursor:pointer}
+.wf-filter-sum .wfs-reset:hover{color:#fff;border-color:rgba(56,189,248,.5)}
+.high-intent-note{font-size:11.5px;color:var(--wf-ink3);margin:0 0 10px;line-height:1.7}
+.search-empty{padding:22px 14px;text-align:center;max-width:640px;margin:0 auto}
+.search-empty .se-ico{font-size:34px;line-height:1;margin-bottom:8px}
+.search-empty h3{margin:0 0 8px;font-size:16px;color:var(--wf-ink)}
+.search-empty p{margin:0 0 12px;font-size:12.5px;color:var(--wf-ink2);line-height:1.8;overflow-wrap:anywhere}
+.search-empty .se-actions{display:flex;gap:8px;justify-content:center;flex-wrap:wrap}
+.search-empty .se-actions .btn{min-height:38px;font-size:12.5px}
 .script-list{display:grid;gap:10px;margin-top:12px}
 .script{border:1px solid var(--line);border-radius:14px;padding:12px 13px;background:rgba(9,14,24,.55);min-width:0}
 .script-h{display:flex;align-items:center;gap:8px;flex-wrap:wrap;margin-bottom:7px}
@@ -374,6 +397,12 @@ footer.site a:hover{color:#fff;border-color:rgba(148,163,184,.4)}
 @media(max-width:760px){
  .lbs-form{grid-template-columns:1fr}
  .filters2{grid-template-columns:1fr 1fr}
+ .filters .kw-search{grid-column:1/-1}
+ .kw-btn{min-width:96px;padding:0 12px}
+ .wf-filter-sum{font-size:11.5px;padding:7px 10px}
+ .search-empty{padding:18px 6px}
+ .search-empty .se-actions{flex-direction:column}
+ .search-empty .se-actions .btn{width:100%}
  .detail-grid{grid-template-columns:1fr}
  .lbs-side{font-size:11px}
  .lead-tabs .lead-tab{flex:1 1 auto;text-align:center;padding:8px 9px;font-size:12.5px}
@@ -995,11 +1024,15 @@ html[data-theme="light"] .wf-batch-lead{color:#075985}
           <span class="sh-badge">线索库</span>
         </div>
         <div class="filter-hero">
-          <label class="wf-switch"><input type="checkbox" id="wfHighOnly"><span class="sw"></span><span>只看高意向</span><span class="sw-tip">含询价 / 预约 / 求推荐</span></label>
+          <label class="wf-switch"><input type="checkbox" id="wfHighOnly"><span class="sw"></span><span>只看高意向</span><span class="sw-tip">明确需求词 · 评分≥6</span></label>
           <div class="batchbar">
             <span id="wfSelCount">已选 0 条</span>
             <button type="button" class="btn sm" id="wfBatchScript">生成话术</button>
             <button type="button" class="btn line sm" id="wfSelClear">清空选择</button>
+          </div>
+          <div class="wf-filter-sum" id="wfFilterSum" aria-live="polite" style="margin:10px 0 0">
+            <span class="wfs-txt" id="wfFilterSumTxt">当前：平台=全部 · 来源=全部 · 意向=全部 · 关键词=无 · 排序=按优先级</span>
+            <button type="button" class="wfs-reset" id="wfFilterReset">↺ 重置筛选</button>
           </div>
         </div>
       <section class="card" id="sec-leads">
@@ -1015,12 +1048,19 @@ html[data-theme="light"] .wf-batch-lead{color:#075985}
           <input type="file" id="csvFile" accept=".csv,text/csv" class="sr" aria-label="选择 CSV 文件">
           <div id="miningOut"></div>
           </details>
+          <p class="high-intent-note" id="highIntentNote">💡 高意向=明确需求词：评分 ≥ 6 或命中「多少钱 / 预约 / 求推荐」等询价词（排除商家广告）；徽标带「·需求」= 命中强需求词，可在「意向」筛选里单独查看。</p>
           <div class="filters">
             <select id="fPlatform" aria-label="按平台筛选"><option value="">全部平台</option></select>
             <select id="fIntent" aria-label="按意向等级筛选">
-              <option value="">全部意向</option><option value="high">高意向</option><option value="potential">潜在</option>
+              <option value="">全部意向</option><option value="high">高意向</option><option value="demand">明确需求（强需求词）</option><option value="potential">潜在</option>
             </select>
-            <input class="inp" id="fKw" placeholder="关键词 / 昵称 / 标签 / 地址" aria-label="关键词筛选">
+            <div class="kw-search">
+              <div class="kw-box">
+                <input class="inp" id="fKw" placeholder="关键词 / 昵称 / 标签 / 地址" aria-label="关键词筛选" autocomplete="off">
+                <button type="button" class="kw-clear" id="fKwClear" aria-label="清空关键词" hidden>×</button>
+              </div>
+              <button type="button" class="btn kw-btn" id="fKwBtn" aria-label="搜索线索">🔍 搜索</button>
+            </div>
           </div>
           <div class="filters2">
             <select id="fSource" aria-label="按来源筛选">
@@ -1493,6 +1533,7 @@ html[data-theme="light"] .wf-batch-lead{color:#075985}
     leads: [],
     demo: true,
     filter: { platform: '', intent: '', kw: '', source: '', priority: '' },
+    search: { q: '', extra: [], seq: 0, busy: false, fallback: false, server: null, at: 0 },
     sort: 'priority',
     pager: { page: 1, size: 10 },
     detail: {},
@@ -2224,13 +2265,24 @@ html[data-theme="light"] .wf-batch-lead{color:#075985}
     var intent = hit > 0 ? 'high' : 'potential';
     return { score: base, intent: intent };
   }
+  function leadIsAdLike(o, txt) {
+    var src = String(o.source || ''), plat = String(o.platform || ''), t = String(txt || '');
+    if (!(src === 'search' || src === 'intent_search' || plat === '公开网页' || plat === '新闻媒体')) return false;
+    if (/[?？]/.test(t)) return false;
+    if (/(求推荐|多少钱|在哪里|哪家|有没有|可以约|想买|想约|推荐)/.test(t)) return false;
+    return /(有限公司|我司|本公司|服务热线|欢迎来电|欢迎咨询|专业从事|专业提供|一站式|加盟|代理|推广|广告)/.test(t);
+  }
   function mkLead(o) {
     var txt = o.text != null ? o.text : (o.content || '');
     var s = scoreLead(txt);
+    var score = (typeof o.score === 'number' && o.score > 0) ? o.score : s.score;
     var nick = o.nickname || o.nick || o.user || '';
     if (!nick) { var m = txt.match(/^\s*([^：:\s，,]{1,14})[：:]\s*/); if (m) nick = m[1]; }
     if (!nick) nick = '匿名用户';
-    var lvl = (o.intent || o.level || s.intent) === 'high' ? 'high' : 'potential';
+    // 高意向=明确需求词：评分≥6 或命中询价/预约/求推荐等需求词，且排除商家广告；服务端旧的 high 仍保留
+    var strongHit = HIGH_WORDS.some(function (w) { return txt.indexOf(w) >= 0; });
+    var relaxedHigh = !leadIsAdLike(o, txt) && (Number(score) >= 6 || strongHit);
+    var lvl = (o.intent || o.level) === 'high' ? 'high' : (relaxedHigh ? 'high' : 'potential');
     var prof = (o.profile && typeof o.profile === 'object') ? o.profile : null;
     var tags = Array.isArray(o.tags) ? o.tags.slice(0, 20) : [];
     var notes = Array.isArray(o.notes) ? o.notes.map(function (n) {
@@ -2245,7 +2297,8 @@ html[data-theme="light"] .wf-batch-lead{color:#075985}
       created_at: o.created_at || o.time || '',
       source: o.source || o.from || '评论区',
       intent: lvl,
-      score: typeof o.score === 'number' ? o.score : s.score,
+      demand: !!strongHit && !leadIsAdLike(o, txt),
+      score: score,
       priority: o.priority != null ? o.priority : (prof && prof.priority ? prof.priority : null),
       profile: prof,
       tags: tags,
@@ -2362,25 +2415,170 @@ html[data-theme="light"] .wf-batch-lead{color:#075985}
       return String(b.created_at || b.time || '').localeCompare(String(a.created_at || a.time || ''));
     });
   }
+  function leadHaystack(l) {
+    var parts = [l.text, l.title, l.nickname, l.contact_hint, l.reason, l.why];
+    parts = parts.concat(leadTags(l));
+    parts = parts.concat(leadNotes(l).map(function (n) { return n.text; }));
+    if (l.profile) parts.push(l.profile.need_guess, l.profile.customer_type, l.profile.reason);
+    if (l.lbs) parts.push(l.lbs.address, l.lbs.type, l.lbs.name);
+    return parts.filter(Boolean).join(' ').toLowerCase();
+  }
+  function leadMatchesKeyword(l, q) {
+    q = String(q || '').trim().toLowerCase();
+    if (!q) return true;
+    var hay = leadHaystack(l);
+    if (hay.indexOf(q) >= 0) return true;
+    var terms = q.split(/\s+/).filter(Boolean);
+    if (terms.length > 1) return terms.every(function (t) { return hay.indexOf(t) >= 0; });
+    return false;
+  }
+  function searchPool() {
+    var extra = (S.search && S.search.extra) || [];
+    return extra.length ? S.leads.concat(extra) : S.leads;
+  }
   function filteredLeads() {
-    var arr = S.leads.filter(function (l) {
+    var arr = searchPool().filter(function (l) {
       if (S.filter.platform && l.platform !== S.filter.platform) return false;
-      if (S.filter.intent && l.intent !== S.filter.intent) return false;
+      if (S.filter.intent === 'demand') { if (!l.demand) return false; }
+      else if (S.filter.intent && l.intent !== S.filter.intent) return false;
       if (S.filter.source && String(l.source || '') !== S.filter.source) {
         if (!(S.filter.source === 'lbs_poi' && String(l.source || '').indexOf('lbs') === 0)) return false;
       }
       if (S.filter.priority && String(leadPriority(l)) !== S.filter.priority) return false;
-      if (S.filter.kw) {
-        var k = S.filter.kw.toLowerCase();
-        var txt = [l.text, l.nickname, l.contact_hint, l.reason, l.why].join(' ');
-        txt += ' ' + leadTags(l).join(' ');
-        txt += ' ' + leadNotes(l).map(function (n) { return n.text; }).join(' ');
-        if (l.lbs) txt += ' ' + (l.lbs.address || '') + ' ' + (l.lbs.type || '') + ' ' + (l.lbs.name || '');
-        if (txt.toLowerCase().indexOf(k) < 0) return false;
-      }
+      if (S.filter.kw && !leadMatchesKeyword(l, S.filter.kw)) return false;
       return true;
     });
     return sortLeads(arr);
+  }
+  /* ---------------- ③ 关键词搜索 / 组合筛选 ---------------- */
+  function hasActiveFilter() {
+    return !!(S.filter.platform || S.filter.intent || S.filter.source || S.filter.priority || S.filter.kw);
+  }
+  function setSearchBusy(on) {
+    S.search.busy = !!on;
+    var b = $('fKwBtn');
+    if (!b) return;
+    b.disabled = !!on;
+    b.classList.toggle('busy', !!on);
+    b.innerHTML = on ? '<span class="spin"></span>搜索中' : '🔍 搜索';
+  }
+  function finishSearchBusy(started, minMs, seq) {
+    setTimeout(function () {
+      if (seq != null && S.search.seq !== seq) return;
+      setSearchBusy(false);
+    }, Math.max(0, (minMs || 0) - (Date.now() - started)));
+  }
+  function updateKwClear() {
+    var b = $('fKwClear'), q = $('fKw');
+    if (b) b.hidden = !(q && String(q.value || '').trim());
+  }
+  function renderFilterSummary() {
+    var box = $('wfFilterSum'), txt = $('wfFilterSumTxt');
+    if (!box || !txt) return;
+    var srcMap = { lbs_poi: 'LBS 找客', manual: '手动导入', csv: 'CSV 导入', search: '公开搜索', intent_search: '意向问答' };
+    var intentMap = { high: '高意向', demand: '明确需求', potential: '潜在' };
+    var sortMap = { priority: '按优先级', score: '按评分', created_at: '按时间' };
+    var parts = [
+      '平台=' + (S.filter.platform || '全部'),
+      '来源=' + (srcMap[S.filter.source] || '全部'),
+      '意向=' + (intentMap[S.filter.intent] || '全部'),
+      '关键词=' + (S.filter.kw || '无'),
+      '排序=' + (sortMap[S.sort] || '按优先级')
+    ];
+    txt.textContent = '当前：' + parts.join(' · ');
+    box.classList.toggle('has-filter', hasActiveFilter());
+  }
+  function buildSearchUrl(q) {
+    var p = ['workspace_id=' + encodeURIComponent(wsId()), 'limit=500', 'page=1', 'size=500', 'sort=' + encodeURIComponent(S.sort || 'priority')];
+    if (q) { p.push('q=' + encodeURIComponent(q)); p.push('keyword=' + encodeURIComponent(q)); }
+    if (S.filter.source) p.push('source=' + encodeURIComponent(S.filter.source));
+    if (S.filter.priority) p.push('priority=' + encodeURIComponent(S.filter.priority));
+    if (S.filter.platform) p.push('platform=' + encodeURIComponent(S.filter.platform));
+    return '/leads?' + p.join('&');
+  }
+  function runSearch(explicit) {
+    var qEl = $('fKw');
+    var q = String(qEl && qEl.value != null ? qEl.value : (S.filter.kw || '')).trim();
+    S.filter.kw = q;
+    S.search.q = q;
+    S.pager.page = 1;
+    S.search.extra = [];
+    S.search.server = null;
+    S.search.fallback = false;
+    var seq = ++S.search.seq;
+    var started = Date.now();
+    updateKwClear();
+    renderFilterSummary();
+    if (explicit) setSearchBusy(true);
+    renderLeads();
+    // 请求带 q（并同时带 keyword，兼容服务端两种参数名）；结果回来后与本机全量合并，再由前端统一过滤兜底
+    api(buildSearchUrl(q), { silent: true, timeout: 12000 }).then(function (r) {
+      if (seq !== S.search.seq) return;
+      var ok = !!(r && r.ok);
+      var items = ok ? ((r.leads || r.items || []).map(function (x) { return mkLead(x); })) : [];
+      var known = {}; S.leads.forEach(function (l) { known[l.id] = 1; });
+      S.search.extra = items.filter(function (l) { return l && l.id && !known[l.id]; });
+      S.search.server = ok ? { total: Number(r.total || items.length), count: items.length, at: Date.now() } : null;
+      var serverTotal = ok ? Number(r.total || items.length) : 0;
+      // 服务端返回全量（q 未生效）或请求失败时，标记为本机兜底匹配
+      S.search.fallback = !ok || (!!q && serverTotal >= S.leads.length && items.length >= S.leads.length);
+      S.search.at = Date.now();
+      if (explicit) {
+        finishSearchBusy(started, 320, seq);
+        var found = filteredLeads().length;
+        toast(found ? ('找到 ' + found + ' 条匹配「' + q + '」的线索') : ('没有找到匹配「' + q + '」的线索'));
+      }
+      renderLeads();
+      renderFilterSummary();
+    }).catch(function () {
+      if (seq !== S.search.seq) return;
+      S.search.extra = [];
+      S.search.server = null;
+      S.search.fallback = !!q;
+      S.search.at = Date.now();
+      finishSearchBusy(started, explicit ? 320 : 0, seq);
+      renderLeads();
+      renderFilterSummary();
+      if (explicit) toast('搜索接口未响应，已在本机按关键词筛选');
+    });
+  }
+  function doKeywordSearch() {
+    var qEl = $('fKw');
+    if (!qEl) return;
+    qEl.value = String(qEl.value || '').trim();
+    if (!qEl.value) { clearKeyword(); return; }
+    runSearch(true);
+  }
+  function clearKeyword() {
+    var qEl = $('fKw');
+    if (qEl) qEl.value = '';
+    S.filter.kw = '';
+    S.pager.page = 1;
+    S.search.extra = [];
+    S.search.fallback = false;
+    updateKwClear();
+    renderFilterSummary();
+    runSearch(false);
+    toast('已清除关键词，恢复全部线索');
+  }
+  function resetFilters() {
+    S.filter = { platform: '', intent: '', kw: '', source: '', priority: '' };
+    S.sort = 'priority';
+    var vals = { fPlatform: '', fIntent: '', fSource: '', fPriority: '', fSort: 'priority' };
+    Object.keys(vals).forEach(function (id) { var el = $(id); if (el) el.value = vals[id]; });
+    var qEl = $('fKw'); if (qEl) qEl.value = '';
+    var hi = $('wfHighOnly'); if (hi) hi.checked = false;
+    S.pager.page = 1;
+    S.search.extra = [];
+    S.search.fallback = false;
+    updateKwClear();
+    renderFilterSummary();
+    runSearch(false);
+    toast('已重置筛选，显示全部线索');
+  }
+  function goMineWithKeyword() {
+    var q = String(($('fKw') && $('fKw').value) || S.filter.kw || '').trim();
+    try { window.dispatchEvent(new CustomEvent('lg:search-mine', { detail: { q: q } })); } catch (e) {}
   }
   function priorityBadge(l) {
     var p = leadPriority(l);
@@ -2439,9 +2637,28 @@ html[data-theme="light"] .wf-batch-lead{color:#075985}
     if (S.pager.page > pages) S.pager.page = pages;
     if (S.pager.page < 1) S.pager.page = 1;
     var list = all.slice((S.pager.page - 1) * size, S.pager.page * size);
-    var tag = $('leadsCount'); if (tag) tag.textContent = total + ' 条' + (S.demo ? ' · 示例' : '');
+    var kw = String(S.filter.kw || '').trim();
+    var tag = $('leadsCount'); if (tag) tag.textContent = (kw ? '找到 ' + total + ' 条' : total + ' 条') + (S.demo ? ' · 示例' : '');
     if (!list.length) {
-      body.innerHTML = '<tr><td colspan="10"><div class="empty">' + (S.leads.length ? '当前筛选条件下没有线索，换个平台/来源/优先级或关键词试试。' : '暂无线索，从上面的方式导入，或切到「📍 LBS 找客」按地图找客户。') + '</div></td></tr>';
+      if (kw) {
+        var active = [];
+        if (S.filter.platform) active.push('平台');
+        if (S.filter.source) active.push('来源');
+        if (S.filter.intent) active.push('意向');
+        if (S.filter.priority) active.push('优先级');
+        body.innerHTML = '<tr><td colspan="10"><div class="search-empty" role="status">' +
+          '<div class="se-ico">🔎</div>' +
+          '<h3>没有匹配「' + esc(kw) + '」的线索</h3>' +
+          '<p>已在全部 ' + S.leads.length + ' 条线索的内容 / 标题 / 标签 / 备注中检索，暂未找到包含「' + esc(kw) + '」的记录。' +
+          (active.length ? '当前还有' + active.join('、') + '筛选条件，可点上方「重置筛选」一并清除。' : '') + '</p>' +
+          '<div class="se-actions">' +
+          '<button type="button" class="btn line sm" data-clear-search="1">清除关键词</button>' +
+          '<button type="button" class="btn sm" data-search-mine="1">去第②步按关键词挖掘意向客户 →</button>' +
+          '</div>' +
+          '</div></td></tr>';
+      } else {
+        body.innerHTML = '<tr><td colspan="10"><div class="empty">' + (S.leads.length ? '当前筛选条件下没有线索，换个平台/来源/优先级或关键词试试。' : '暂无线索，从上面的方式导入，或切到「📍 LBS 找客」按地图找客户。') + '</div></td></tr>';
+      }
     } else {
       body.innerHTML = list.map(function (l) {
         var open = !!S.expanded[l.id];
@@ -2455,7 +2672,7 @@ html[data-theme="light"] .wf-batch-lead{color:#075985}
           '<td class="text"><div class="' + (open ? 'txt-open' : 'txt-clip') + '">' + esc(l.text) + '</div>' +
           (String(l.text).length > 34 ? '<button type="button" class="more-btn" data-expand="' + esc(l.id) + '">' + (open ? '收起' : '展开') + '</button>' : '') + '</td>' +
           '<td><span class="source-badge">' + esc(src) + '</span></td>' +
-          '<td><span class="badge ' + (hi ? 'hi' : 'pot') + '">' + (hi ? '高意向' : '潜在') + '</span></td>' +
+          '<td><span class="badge ' + (hi ? 'hi' : 'pot') + '" title="' + (hi && l.demand ? '高意向且命中询价/预约/求推荐等强需求词' : '高意向=明确需求词：评分≥6 或命中询价/预约/求推荐等词') + '">' + (hi ? (l.demand ? '高意向·需求' : '高意向') : '潜在') + '</span></td>' +
           '<td><span class="score' + (hi ? ' hi' : '') + '">' + esc(l.score) + '</span><span style="color:var(--xl-txt2);font-size:11px">/10</span></td>' +
           '<td>' + priorityBadge(l) + '</td>' +
           '<td class="tag-cell">' + tagChips(l, false) + (note ? '<span class="latest-note">📝 ' + esc(note.length > 26 ? note.slice(0, 26) + '…' : note) + '</span>' : '') + '</td>' +
@@ -2466,11 +2683,17 @@ html[data-theme="light"] .wf-batch-lead{color:#075985}
       }).join('');
     }
     renderPager(total, pages);
+    renderFilterSummary();
     var hint = $('leadsHint');
     if (hint) {
       var hi2 = S.leads.filter(function (l) { return l.intent === 'high'; }).length;
       var p1 = S.leads.filter(function (l) { return leadPriority(l) === 1; }).length;
-      hint.innerHTML = '共 ' + S.leads.length + ' 条，高意向 ' + hi2 + '，P1 ' + p1 + ' · 评分 1-10；悬停 P 徽标看画像' + (S.demo ? ' · <span class="badge demo">示例数据</span>' : '');
+      if (kw) {
+        hint.innerHTML = '找到 ' + total + ' 条（关键词：' + esc(kw) + '） · 共 ' + S.leads.length + ' 条，高意向 ' + hi2 + '，P1 ' + p1 +
+          (S.search && S.search.fallback ? ' · 本机匹配' : '') + ' · 高意向=明确需求词' + (S.demo ? ' · <span class="badge demo">示例数据</span>' : '');
+      } else {
+        hint.innerHTML = '共 ' + S.leads.length + ' 条，高意向 ' + hi2 + '，P1 ' + p1 + ' · 评分 1-10；悬停 P 徽标看画像' + (S.demo ? ' · <span class="badge demo">示例数据</span>' : '');
+      }
     }
   }
 
@@ -2586,9 +2809,24 @@ html[data-theme="light"] .wf-batch-lead{color:#075985}
       plats = Object.keys(res.by_platform).map(function (k) { var v = res.by_platform[k] || {}; return { name: k, collected: v.total || v.collected || 0, high: v.high || 0 }; });
     }
     plats = plats || localStats().platforms;
+    // 高意向口径已放宽（评分≥6 或明确需求词），统计卡与列表保持同一口径
+    if (S.leads.length) {
+      t = Object.assign({}, t, { high: S.leads.filter(function (l) { return l.intent === 'high'; }).length });
+      var byPlat = {};
+      S.leads.forEach(function (l) {
+        var k = l.platform || '未知';
+        byPlat[k] = byPlat[k] || { collected: 0, high: 0 };
+        byPlat[k].collected++;
+        if (l.intent === 'high') byPlat[k].high++;
+      });
+      plats = plats.map(function (p) {
+        var x = byPlat[p.name];
+        return x ? { name: p.name, collected: x.collected, high: x.high } : p;
+      });
+    }
     var metrics = [
       ['总抓取', t.collected, '公开线索条数'],
-      ['高意向', t.high, '评分 ≥ 7 或含询价词'],
+      ['高意向', t.high, '明确需求词 · 评分≥6 或询价/预约/求推荐'],
       ['已触达', t.contacted, '手动发送后标记'],
       ['回复', t.replied, '收到对方回应'],
       ['线索', t.leads, '可跟进商机'],
@@ -3044,15 +3282,28 @@ html[data-theme="light"] .wf-batch-lead{color:#075985}
 
     // 筛选 + 排序 + 分页
     function resetPage() { S.pager.page = 1; }
-    $('fPlatform').addEventListener('change', function () { S.filter.platform = this.value; resetPage(); renderLeads(); });
-    $('fIntent').addEventListener('change', function () { S.filter.intent = this.value; resetPage(); renderLeads(); });
-    $('fSource').addEventListener('change', function () { S.filter.source = this.value; resetPage(); renderLeads(); });
-    $('fPriority').addEventListener('change', function () { S.filter.priority = this.value; resetPage(); renderLeads(); });
-    $('fSort').addEventListener('change', function () { S.sort = this.value; resetPage(); renderLeads(); });
-    var kt = null;
-    $('fKw').addEventListener('input', function () {
-      var v = this.value.trim();
-      clearTimeout(kt); kt = setTimeout(function () { S.filter.kw = v; resetPage(); renderLeads(); }, 180);
+    function applyFilterChange() { resetPage(); renderFilterSummary(); runSearch(false); }
+    $('fPlatform').addEventListener('change', function () { S.filter.platform = this.value; applyFilterChange(); });
+    $('fIntent').addEventListener('change', function () { S.filter.intent = this.value; applyFilterChange(); });
+    $('fSource').addEventListener('change', function () { S.filter.source = this.value; applyFilterChange(); });
+    $('fPriority').addEventListener('change', function () { S.filter.priority = this.value; applyFilterChange(); });
+    $('fSort').addEventListener('change', function () { S.sort = this.value; applyFilterChange(); });
+    // 输入只更新清空按钮，不自动请求；点「🔍 搜索」或按 Enter 才发请求
+    $('fKw').addEventListener('input', updateKwClear);
+    $('fKw').addEventListener('keydown', function (e) {
+      if (e.key === 'Enter') {
+        if (e.isComposing || e.keyCode === 229) return; // 中文输入法选词中，不触发搜索
+        e.preventDefault(); doKeywordSearch();
+      } else if (e.key === 'Escape') { e.preventDefault(); clearKeyword(); }
+    });
+    $('fKwBtn').addEventListener('click', doKeywordSearch);
+    $('fKwClear').addEventListener('click', clearKeyword);
+    $('wfFilterReset').addEventListener('click', resetFilters);
+    document.addEventListener('click', function (e) {
+      var c = e.target.closest ? e.target.closest('[data-clear-search]') : null;
+      if (c) { clearKeyword(); return; }
+      var m = e.target.closest ? e.target.closest('[data-search-mine]') : null;
+      if (m) { goMineWithKeyword(); return; }
     });
     $('btnExport').addEventListener('click', exportCsv);
     $('pgPrev').addEventListener('click', function () { if (S.pager.page > 1) { S.pager.page--; renderLeads(); } });
@@ -3238,10 +3489,10 @@ html[data-theme="light"] .wf-batch-lead{color:#075985}
       if (!(r && r.ok)) return;
       S.leads = (r.leads || r.items || []).map(function (x) { return mkLead(x); });
       S.demo = false; S.pager.page = 1;
-      syncPlatformFilter(); renderLeads();
+      S.search.extra = []; S.search.server = null; S.search.fallback = false;
+      syncPlatformFilter(); renderFilterSummary(); renderLeads(); updateKwClear();
+      if (S.serverStats) refreshStats();
       wfEmit('lg:leads');
-      var h = $('leadsHint');
-      if (h) h.textContent = '已从服务器载入 ' + S.leads.length + ' 条线索（工作区 ' + wsId() + '）；可按平台/来源/意向/优先级/关键词筛选，并导出 CSV。';
     }).catch(function () {});
   }
   function loadServerStats() {
@@ -4473,6 +4724,9 @@ html[data-theme="light"] .wf-batch-lead{color:#075985}
     scriptVariants: scriptVariants,
     complianceCheck: complianceCheck,
     genScriptsFor: genScriptsFor,
+    filteredLeads: filteredLeads,
+    leadMatchesKeyword: leadMatchesKeyword,
+    search: function (q) { var el = $('fKw'); if (el) el.value = q || ''; doKeywordSearch(); },
     refresh: function () { loadServerLeads(); loadServerStats(); }
   };
 
@@ -5687,6 +5941,22 @@ html[data-theme="light"] .wf-batch-lead{color:#075985}
       syncSelection();
     });
     // 数据变化
+    window.addEventListener('lg:search-mine', function (e) {
+      var q = String((e.detail && e.detail.q) || '').trim().slice(0, 90);
+      goStep(2, { force: true });
+      selectFind('kw');
+      var b = $('btnMining'); if (b) b.click();
+      setTimeout(function () {
+        if (q) {
+          var mq = $('mineQ'); if (mq) mq.value = q;
+          var batch = $('mineBatch'); if (batch && !batch.value) batch.value = q;
+          var ind = $('intentIndustry'); if (ind) ind.value = q.slice(0, 30);
+          var svc = $('intentServices'); if (svc) svc.value = q.slice(0, 80);
+        }
+        var itab = $('mtabIntent'); if (itab) itab.click();
+      }, 140);
+      wfToast(q ? ('已到第 ② 步，关键词「' + q + '」已预填') : '已到第 ② 步关键词挖掘');
+    });
     window.addEventListener('lg:leads', function () { renderStats(); syncSelection(); autoDone(); });
     window.addEventListener('lg:merged', function (e) { onImport(e.detail); renderStats(); });
     window.addEventListener('lg:import', function (e) { onImport(e.detail); renderStats(); });
