@@ -1400,6 +1400,142 @@ html[data-theme="light"] .wb-bulkbar{background:rgba(255,255,255,.75)}
 }
 </style>
 <link rel="stylesheet" href="../assets/site-shell.css">
+<style id="wbAssetsUxCss">
+/* ================= ② 素材库 UX 重排（2026-11-19）：紧凑 6/4/2 列 + 吸顶工具栏 + 分页 ================= */
+/* --- 吸顶工具栏 --- */
+.wb-asset-sticky{position:sticky;top:124px;z-index:22;margin:0 0 10px;border:1px solid rgba(148,163,184,.2);border-radius:13px;background:linear-gradient(180deg,rgba(10,17,27,.97),rgba(9,14,24,.95));box-shadow:0 18px 44px -32px rgba(0,0,0,.95);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);min-width:0}
+.wb-asset-toolbar{display:flex;flex-direction:column;gap:6px;padding:8px 9px;min-width:0}
+.wb-asset-row{display:flex;gap:6px;align-items:center;flex-wrap:wrap;min-width:0}
+.wb-afield{display:inline-flex;align-items:center;gap:4px;font-size:11px;color:var(--txt3);font-weight:700;white-space:nowrap;flex:0 0 auto}
+.wb-afield select{min-height:32px;background:var(--panel);border:1px solid var(--line);border-radius:8px;color:var(--txt);font-size:12px;font-family:inherit;padding:0 5px;cursor:pointer}
+.wb-afield select:focus{outline:none;border-color:rgba(56,189,248,.6)}
+.wb-afield-search{flex:1 1 190px;min-width:150px;font-weight:400;position:relative;gap:0;display:inline-flex}
+.wb-afield-search input{width:100%;min-height:32px;background:var(--panel);border:1px solid var(--line);border-radius:8px;color:var(--txt);font-size:12px;font-family:inherit;padding:0 28px 0 27px;min-width:0}
+.wb-afield-search input:focus{outline:none;border-color:rgba(56,189,248,.6)}
+.wb-afield-search .wb-afield-lbl{position:absolute;left:9px;font-size:11.5px;color:var(--txt3);pointer-events:none}
+.wb-afield-clear{position:absolute;right:5px;width:22px;height:22px;border:0;border-radius:50%;background:rgba(148,163,184,.18);color:var(--txt2);font-size:11px;cursor:pointer;padding:0;line-height:1}
+.wb-afield-clear:hover{background:rgba(148,163,184,.32)}
+.wb-asset-count{font-size:12px;color:#7dd3fc;font-weight:800;margin-left:auto;white-space:nowrap;font-variant-numeric:tabular-nums}
+.wb-asset-row-acts .btn-line{min-height:32px;padding:0 8px;font-size:11.5px;white-space:nowrap;border-radius:8px}
+.wb-asset-row-acts .btn-line.danger{color:#fca5a5;border-color:rgba(251,113,133,.36);background:rgba(251,113,133,.07)}
+.wb-asset-row-acts .btn-line.danger:hover{background:rgba(251,113,133,.15)}
+.wb-asset-row-acts .btn-line[disabled]{opacity:.5;cursor:not-allowed}
+.wb-bulk-count{font-size:12px;color:#7dd3fc;font-weight:800;white-space:nowrap;font-variant-numeric:tabular-nums;margin-left:2px;padding-left:8px;border-left:1px solid rgba(148,163,184,.2)}
+.wb-asset-panels{display:flex;flex-direction:column;gap:8px;margin:0 0 8px}
+.wb-asset-panels .wb-gen,.wb-asset-panels .wb-search{margin:0}
+
+/* --- 紧凑网格：≥1200 6 列；641–1199 4 列；≤640 2 列（只渲染当前页，缩略图 ~110px） --- */
+#wbAssetGrid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:6px;max-width:100%;align-items:start}
+@media (min-width:641px){#wbAssetGrid{grid-template-columns:repeat(4,minmax(0,1fr));gap:8px}}
+@media (min-width:1200px){#wbAssetGrid{grid-template-columns:repeat(6,minmax(0,1fr));gap:8px}}
+#wbAssetGrid .wb-asset{position:relative;display:flex;flex-direction:column;gap:4px;border:1px solid var(--line);border-radius:10px;background:rgba(9,14,24,.72);padding:5px;min-width:0;overflow:hidden;transition:border-color .15s,background .15s}
+#wbAssetGrid .wb-asset:hover{border-color:rgba(56,189,248,.45)}
+#wbAssetGrid .wb-asset.on{border-color:rgba(56,189,248,.7);background:rgba(56,189,248,.1);box-shadow:0 0 0 1px rgba(56,189,248,.22)}
+#wbAssetGrid .wb-asset-fail{border-color:rgba(251,113,133,.85)!important;background:rgba(251,113,133,.1)!important;box-shadow:0 0 0 1px rgba(251,113,133,.45)!important}
+#wbAssetGrid .wb-asset-check{position:absolute;right:5px;top:5px;z-index:3;display:flex;align-items:center;justify-content:center;width:24px;height:24px;border-radius:6px;background:rgba(2,6,14,.72);border:1px solid rgba(148,163,184,.3);cursor:pointer}
+#wbAssetGrid .wb-asset-check input{width:14px;height:14px;accent-color:#38bdf8;cursor:pointer;margin:0}
+#wbAssetGrid .wb-asset-thumb{position:relative;height:110px;border-radius:7px;overflow:hidden;background:#05080f;cursor:zoom-in;display:grid;place-items:center}
+#wbAssetGrid .wb-asset-thumb img{width:100%;height:100%;object-fit:cover;display:block}
+.wb-asset-bigico{font-size:26px;line-height:1}
+#wbAssetGrid .wb-kind{position:absolute;right:4px;bottom:4px;font-size:9px;padding:0 5px;border-radius:5px;background:rgba(2,6,14,.78);color:#c4b5fd;line-height:1.5;z-index:2}
+#wbAssetGrid .wb-asset-src-badge{position:absolute;left:4px;top:4px;z-index:2;max-width:calc(100% - 38px);overflow:hidden;text-overflow:ellipsis;white-space:nowrap;font-size:9px;line-height:1.5;border-radius:999px;padding:0 5px;border:1px solid rgba(56,189,248,.42);background:rgba(2,6,14,.78);color:#7dd3fc;font-weight:700}
+#wbAssetGrid .wb-asset-src-badge.ai{border-color:rgba(139,92,246,.55);background:rgba(30,20,55,.8);color:#c4b5fd}
+#wbAssetGrid .wb-asset-src-badge.upload{border-color:rgba(148,163,184,.4);background:rgba(2,6,14,.72);color:#cbd5e1}
+#wbAssetGrid .wb-asset-meta{min-width:0;padding:0 1px}
+#wbAssetGrid .wb-asset-meta b{display:block;font-size:11.5px;line-height:1.45;color:#dbe7f6;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.wb-asset-sub{display:flex;align-items:center;gap:4px;margin-top:1px;min-width:0;overflow:hidden;font-size:9.5px;color:var(--txt3);white-space:nowrap;line-height:1.5}
+.wb-asset-sub i{font-style:normal;min-width:0;overflow:hidden;text-overflow:ellipsis}
+.wb-asset-sub .wb-asset-when{flex:0 0 auto;color:var(--txt3)}
+#wbAssetGrid .wb-asset-acts{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:2px;margin-top:1px}
+#wbAssetGrid .wb-asset-acts button{min-height:24px;padding:0;border-radius:5px;border:1px solid rgba(56,189,248,.28);background:rgba(56,189,248,.08);color:#bae6fd;font-size:11.5px;line-height:1;cursor:pointer;font-family:inherit;display:inline-flex;align-items:center;justify-content:center}
+#wbAssetGrid .wb-asset-acts button:hover{background:rgba(56,189,248,.22);border-color:rgba(56,189,248,.55)}
+#wbAssetGrid .wb-asset-acts button.danger{margin-left:0;color:#fca5a5;border-color:rgba(251,113,133,.32);background:rgba(251,113,133,.08)}
+#wbAssetGrid .wb-asset-acts button.danger:hover{background:rgba(251,113,133,.2)}
+html[data-theme="light"] .wb-asset-sticky{background:linear-gradient(180deg,rgba(255,255,255,.98),rgba(248,250,252,.97));border-color:rgba(15,23,42,.12)}
+html[data-theme="light"] #wbAssetGrid .wb-asset{background:#fff;border-color:rgba(15,23,42,.12)}
+html[data-theme="light"] #wbAssetGrid .wb-asset-meta b{color:#0f1b2d}
+html[data-theme="light"] #wbAssetGrid .wb-asset-check{background:rgba(255,255,255,.85)}
+html[data-theme="light"] #wbAssetGrid .wb-asset-acts button{background:rgba(56,189,248,.1);color:#075985}
+html[data-theme="light"] .wb-afield select,html[data-theme="light"] .wb-afield-search input{background:#fff;color:#0f1b2d}
+html[data-theme="light"] .wb-asset-count{color:#0369a1}
+html[data-theme="light"] .wb-bulk-count{color:#0369a1}
+
+/* --- 分页器 --- */
+.wb-pager{display:flex;gap:8px;align-items:center;flex-wrap:wrap;margin:10px 0 2px;padding:8px 10px;border:1px solid var(--line);border-radius:11px;background:rgba(9,14,24,.5);min-width:0}
+.wb-pager[hidden]{display:none!important}
+.wb-pager-info{font-size:11.5px;color:var(--txt3);white-space:nowrap;font-variant-numeric:tabular-nums}
+.wb-pager-nav{display:flex;gap:5px;align-items:center;flex-wrap:wrap;margin-left:auto;min-width:0}
+.wb-page-btn{min-height:32px;padding:0 10px;border-radius:8px;border:1px solid var(--line);background:rgba(15,22,34,.7);color:var(--txt2);font-size:12px;font-weight:700;cursor:pointer;font-family:inherit;white-space:nowrap}
+.wb-page-btn:hover:not([disabled]){border-color:rgba(56,189,248,.55);color:#dff3ff}
+.wb-page-btn[disabled]{opacity:.42;cursor:not-allowed}
+.wb-page-now{font-size:12px;color:#7dd3fc;font-weight:800;min-width:52px;text-align:center;font-variant-numeric:tabular-nums}
+.wb-page-jump{display:inline-flex;align-items:center;gap:4px;font-size:11.5px;color:var(--txt3);white-space:nowrap}
+.wb-page-jump input{width:50px;min-height:32px;background:var(--panel);border:1px solid var(--line);border-radius:8px;color:var(--txt);font-size:12px;text-align:center;font-family:inherit}
+.wb-page-jump input:focus{outline:none;border-color:rgba(56,189,248,.6)}
+html[data-theme="light"] .wb-pager{background:rgba(255,255,255,.75)}
+html[data-theme="light"] .wb-page-btn{background:#fff;color:#334155}
+html[data-theme="light"] .wb-page-jump input{background:#fff;color:#0f1b2d}
+html[data-theme="light"] .wb-page-now{color:#0369a1}
+
+/* --- 删除确认弹层（替代原生 confirm） --- */
+.wb-confirm .wb-confirm-box{position:relative;width:min(460px,100%);max-height:88vh;overflow:auto;background:linear-gradient(180deg,#111a29,#0a111b);border:1px solid rgba(251,113,133,.35);border-radius:16px;padding:16px;box-shadow:0 40px 120px -30px rgba(0,0,0,.9)}
+html[data-theme="light"] .wb-confirm .wb-confirm-box{background:#fff;border-color:rgba(190,18,60,.25)}
+.wb-confirm-head{display:flex;gap:10px;align-items:flex-start;min-width:0}
+.wb-confirm-ico{width:38px;height:38px;flex:0 0 auto;display:grid;place-items:center;border-radius:11px;background:rgba(251,113,133,.14);border:1px solid rgba(251,113,133,.35);font-size:18px}
+.wb-confirm-tt{min-width:0;flex:1 1 auto}
+.wb-confirm-tt b{display:block;font-size:16px;color:#fecdd3;line-height:1.4}
+.wb-confirm-tt span{display:block;font-size:11.5px;color:var(--txt3);line-height:1.55;margin-top:2px}
+html[data-theme="light"] .wb-confirm-tt b{color:#9f1239}
+.wb-confirm-body{margin:11px 0 0;font-size:12.5px;color:var(--txt2);line-height:1.6;min-height:20px}
+.wb-confirm-body>b{display:block;color:#f5f5f5;font-size:13px;overflow-wrap:anywhere}
+html[data-theme="light"] .wb-confirm-body>b{color:#0f1b2d}
+.wb-confirm-body>span{display:block;color:var(--txt3);font-size:11.5px;margin-top:2px}
+.wb-confirm-sum{display:flex;flex-direction:column;gap:2px;padding:8px 10px;border-radius:9px;background:rgba(56,189,248,.07);border:1px solid rgba(56,189,248,.2);font-size:12px}
+.wb-confirm-sum b{color:#7dd3fc;font-size:13px}
+.wb-confirm-list{display:flex;flex-wrap:wrap;gap:4px;margin-top:8px}
+.wb-confirm-item{display:inline-block;max-width:160px;padding:1px 7px;border-radius:6px;background:rgba(148,163,184,.12);border:1px solid rgba(148,163,184,.2);font-size:11px;color:#cbd5e1;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.wb-confirm-more{font-size:11px;color:var(--txt3);align-self:center}
+html[data-theme="light"] .wb-confirm-item{background:#f1f5f9;color:#334155}
+.wb-confirm-note{margin-top:10px;padding:8px 10px;border-radius:9px;border:1px solid rgba(251,113,133,.4);background:rgba(251,113,133,.08);color:#fecaca;font-size:12px;line-height:1.55;min-width:0}
+.wb-confirm-note[hidden]{display:none!important}
+.wb-confirm-note b{display:block;color:#fda4af;font-size:12.5px;margin-bottom:1px}
+.wb-confirm-note span{display:block;overflow-wrap:anywhere}
+html[data-theme="light"] .wb-confirm-note{color:#9f1239}
+.wb-confirm-prog{display:flex;gap:8px;align-items:center;margin-top:10px;font-size:12px;color:#7dd3fc}
+.wb-confirm-prog[hidden]{display:none!important}
+.wb-confirm-prog .sp{display:inline-block;width:13px;height:13px;border:2px solid rgba(56,189,248,.35);border-top-color:#38bdf8;border-radius:50%;animation:wbGenSpin .8s linear infinite;flex:0 0 auto}
+.wb-confirm-acts{display:flex;gap:8px;justify-content:flex-end;flex-wrap:wrap;margin-top:14px}
+.wb-confirm-acts .btn-line,.wb-confirm-acts .btn-main{min-height:42px;padding:0 16px;font-size:13px}
+.wb-confirm-acts .btn-main.wb-confirm-danger{background:linear-gradient(135deg,#fb7185,#be123c);color:#fff;box-shadow:0 14px 30px -18px rgba(251,113,133,.9)}
+.wb-confirm-acts .btn-main[disabled]{opacity:.55;cursor:progress}
+.wb-confirm-acts .btn-line[disabled]{opacity:.5;cursor:not-allowed}
+
+/* --- 失败提示 + 重试按钮 --- */
+.wb-note .wb-notice-retry{min-height:30px;padding:0 9px;font-size:11.5px;margin-left:6px;border-color:rgba(251,191,36,.4);color:#fde68a}
+.wb-note.bad{color:#fecaca;background:rgba(248,113,113,.08);border-color:rgba(248,113,113,.28)}
+
+/* --- 响应式 --- */
+@media (max-width:1099px){.wb-asset-sticky{top:64px}}
+@media (max-width:760px){
+ .wb-asset-sticky{position:static;top:auto;border-radius:11px;box-shadow:none}
+ .wb-asset-toolbar{padding:7px;gap:5px}
+ .wb-asset-row{gap:5px}
+ .wb-asset-row-acts .btn-line{min-height:32px;padding:0 7px;font-size:11px}
+ .wb-asset-count{margin-left:0;flex:1 1 100%;order:9}
+ #wbAssetGrid .wb-asset-thumb{height:92px}
+ #wbAssetGrid .wb-asset-meta b{font-size:11px}
+ .wb-pager{padding:7px 8px;gap:6px}
+ .wb-pager-nav{margin-left:0;width:100%;justify-content:space-between}
+ .wb-page-jump{margin-left:auto}
+}
+@media (max-width:420px){
+ #wbAssetGrid{grid-template-columns:repeat(2,minmax(0,1fr));gap:5px}
+ #wbAssetGrid .wb-asset-thumb{height:86px}
+ #wbAssetGrid .wb-asset-acts button{font-size:10.5px;min-height:26px}
+ .wb-confirm .wb-confirm-box{padding:14px}
+ .wb-confirm-acts .btn-line,.wb-confirm-acts .btn-main{flex:1 1 40%}
+}
+</style>
 </head><body>
 <div class="top"><div class="top-in">
  <a class="brand" href="/ai-nav/"><span class="logo">星</span>星籁 AI <span class="brand-sub">商家工作台</span></a>
@@ -1521,65 +1657,90 @@ html[data-theme="light"] .wb-bulkbar{background:rgba(255,255,255,.75)}
    <section class="wb-pane" data-step="2" id="wbPane2" hidden>
     <section class="sec" id="secUpload">
      <div class="sec-head"><span class="sec-ico">🗂️</span><div><h2>② 素材库</h2><p class="sec-sub">上传一次，反复用：图片 / 视频 / 音频统一管理，可预览、勾选做批量剪辑，也能一键加入时间轴、设为 BGM 或产品图。</p></div><span class="sec-hint">单个 ≤100MB · 可多选</span></div>
-      <!-- AI 生成行业素材 v1（studio_gen，2026-11-18） -->
-      <div class="wb-gen" id="wbGenBox">
-       <div class="wb-gen-top">
-        <button type="button" class="wb-gen-btn" id="wbGenBtn">✨ AI 生成行业素材</button>
-        <label class="wb-gen-field">类型
-         <select id="wbGenKind" aria-label="生成素材类型">
+      <!-- 素材库工具栏（2026-11-19 素材库 UX 重排）：筛选 / 排序 / 搜索 / 每页 / 入口 收进工具栏一行 -->
+      <div class="wb-asset-sticky" id="wbAssetSticky">
+       <div class="wb-asset-toolbar" id="wbAssetToolbar">
+        <div class="wb-asset-row wb-asset-row-filters">
+         <div class="wb-filters" id="wbAssetFilters" role="tablist" aria-label="素材类型筛选">
+          <button type="button" data-filter="all" class="on" aria-selected="true">全部</button>
+          <button type="button" data-filter="image" aria-selected="false">图片</button>
+          <button type="button" data-filter="video" aria-selected="false">视频</button>
+          <button type="button" data-filter="audio" aria-selected="false">音频</button>
+         </div>
+         <label class="wb-afield" title="按素材来源筛选">来源<select id="wbAssetSource" aria-label="来源筛选"><option value="all" selected>全部</option><option value="pixabay">Pixabay</option><option value="ai">AI生成</option><option value="upload">上传</option></select></label>
+         <label class="wb-afield" title="排序方式">排序<select id="wbAssetSort" aria-label="排序方式"><option value="new" selected>最新</option><option value="old">最旧</option><option value="name">名称</option><option value="size">大小</option></select></label>
+         <label class="wb-afield" title="每页显示数量">每页<select id="wbAssetPageSize" aria-label="每页数量"><option value="24" selected>24</option><option value="48">48</option><option value="96">96</option></select></label>
+         <label class="wb-afield wb-afield-search" title="按文件名 / 关键词过滤素材（输入即筛选，300ms 防抖）"><span class="wb-afield-lbl">🔍</span><input type="text" id="wbAssetSearch" maxlength="60" autocomplete="off" spellcheck="false" placeholder="搜素材名 / 关键词" aria-label="按文件名或关键词过滤素材"><button type="button" class="wb-afield-clear" id="wbAssetSearchClear" hidden aria-label="清空搜索">✕</button></label>
+         <span class="wb-asset-count" id="wbAssetCount">正在读取素材库…</span>
+        </div>
+        <div class="wb-asset-row wb-asset-row-acts">
+         <button type="button" class="btn-line" id="wbAssetGenToggle" title="展开「AI 生成行业素材」" aria-expanded="false" aria-controls="wbGenBox">✨ AI 生成行业素材</button>
+         <button type="button" class="btn-line" id="wbAssetSearchLibToggle" title="展开「中文搜 Pixabay 图库 → 一键入库」" aria-expanded="false" aria-controls="wbSearchBox">🔍 搜图入库</button>
+         <button type="button" class="btn-line" id="wbAssetUploadBtn" title="上传图片 / 视频 / 音频（单个 ≤100MB，可多选）">⬆ 上传素材</button>
+         <input type="file" id="wbAssetFile" accept="image/jpeg,image/png,image/webp,video/mp4,video/quicktime,audio/mpeg,audio/wav,audio/mp4,audio/x-m4a,audio/m4a" multiple hidden>
+         <span class="wb-bulk-count" id="wbBulkCount" aria-live="polite">已选 0（本页 0）</span>
+         <button type="button" class="btn-line" id="wbBulkAll" title="只勾选当前页的素材">全选本页</button>
+         <button type="button" class="btn-line" id="wbBulkNone" title="清空所有勾选">全不选</button>
+         <button type="button" class="btn-line" id="wbBulkTimeline" title="把勾选的图片/视频加入自由剪辑时间轴">＋ 批量加入时间轴</button>
+         <button type="button" class="btn-line danger" id="wbBulkDelete" title="删除勾选的素材（服务端文件与 sidecar 一并删除）">🗑 删除选中</button>
+        </div>
+       </div>
+      </div>
+
+      <!-- 入口展开展示区：AI 生成 / 中文图库搜索（默认收起） -->
+      <div class="wb-asset-panels" id="wbAssetPanels">
+       <!-- AI 生成行业素材 v1（studio_gen，2026-11-18） -->
+       <div class="wb-gen" id="wbGenBox" hidden>
+        <div class="wb-gen-top">
+         <button type="button" class="wb-gen-btn" id="wbGenBtn">✨ AI 生成行业素材</button>
+         <label class="wb-gen-field">类型
+          <select id="wbGenKind" aria-label="生成素材类型">
+           <option value="image" selected>图片</option>
+           <option value="video">视频</option>
+           <option value="both">图片+视频</option>
+           <option value="ai">AI 生成图片（实验）</option>
+          </select>
+         </label>
+         <label class="wb-gen-field">数量
+          <select id="wbGenCount" aria-label="生成数量"><option value="6" selected>6</option><option value="9">9</option><option value="12">12</option></select>
+         </label>
+         <label class="wb-gen-field wb-gen-kwfield">关键词
+          <input type="text" class="wb-gen-kw" id="wbGenKw" maxlength="120" autocomplete="off" placeholder="留空=按当前行业自动匹配，可填多个英文词（逗号分隔）">
+         </label>
+         <button type="button" class="btn-line wb-gen-sm" id="wbGenKwBtn" title="用当前行业关键词填入">载入行业关键词</button>
+        </div>
+        <div class="wb-gen-status" id="wbGenStatus" hidden></div>
+        <div class="wb-gen-note" id="wbGenNote" hidden></div>
+       </div>
+
+       <!-- 素材库中文搜索（studio_search，2026-11-19） -->
+       <div class="wb-search" id="wbSearchBox" hidden>
+        <div class="wb-search-row">
+         <input type="text" class="wb-search-input" id="wbSearchInput" maxlength="80" autocomplete="off" spellcheck="false" placeholder="🔍 搜素材：中文即可，如 汽车维修 / 除甲醛 / 家政 / 化妆" aria-label="素材搜索关键词">
+         <select class="wb-search-kind" id="wbSearchKind" aria-label="搜索素材类型">
           <option value="image" selected>图片</option>
           <option value="video">视频</option>
           <option value="both">图片+视频</option>
-          <option value="ai">AI 生成图片（实验）</option>
          </select>
-        </label>
-        <label class="wb-gen-field">数量
-         <select id="wbGenCount" aria-label="生成数量"><option value="6" selected>6</option><option value="9">9</option><option value="12">12</option></select>
-        </label>
-        <label class="wb-gen-field wb-gen-kwfield">关键词
-         <input type="text" class="wb-gen-kw" id="wbGenKw" maxlength="120" autocomplete="off" placeholder="留空=按当前行业自动匹配，可填多个英文词（逗号分隔）">
-        </label>
-        <button type="button" class="btn-line wb-gen-sm" id="wbGenKwBtn" title="用当前行业关键词填入">载入行业关键词</button>
+         <button type="button" class="wb-search-btn" id="wbSearchBtn">搜索图库</button>
+        </div>
+        <div class="wb-search-hist" id="wbSearchHist"><span class="lbl">热门搜索：</span></div>
        </div>
-       <div class="wb-gen-status" id="wbGenStatus" hidden></div>
-       <div class="wb-gen-note" id="wbGenNote" hidden></div>
       </div>
 
-      <!-- 素材库中文搜索（studio_search，2026-11-19） -->
-      <div class="wb-search" id="wbSearchBox">
-       <div class="wb-search-row">
-        <input type="text" class="wb-search-input" id="wbSearchInput" maxlength="80" autocomplete="off" spellcheck="false" placeholder="🔍 搜素材：中文即可，如 汽车维修 / 除甲醛 / 家政 / 化妆" aria-label="素材搜索关键词">
-        <select class="wb-search-kind" id="wbSearchKind" aria-label="搜索素材类型">
-         <option value="image" selected>图片</option>
-         <option value="video">视频</option>
-         <option value="both">图片+视频</option>
-        </select>
-        <button type="button" class="wb-search-btn" id="wbSearchBtn">搜索图库</button>
+      <div class="wb-note" id="wbAssetNotice" hidden></div>
+      <div class="wb-asset-grid" id="wbAssetGrid" aria-live="polite"></div>
+      <div class="empty" id="wbAssetEmpty" hidden><b>素材库还是空的</b>上传图片 / 视频 / 音频后，会统一出现在这里；没有素材也可以先用「自动配素材」。</div>
+      <div class="wb-pager" id="wbAssetPager" aria-label="素材分页" hidden>
+       <span class="wb-pager-info" id="wbPagerInfo">共 0 个素材</span>
+       <div class="wb-pager-nav">
+        <button type="button" class="wb-page-btn" id="wbPagePrev" title="上一页">‹ 上一页</button>
+        <span class="wb-page-now" id="wbPageNow">1 / 1</span>
+        <button type="button" class="wb-page-btn" id="wbPageNext" title="下一页">下一页 ›</button>
+        <label class="wb-page-jump">跳至<input type="number" id="wbPageJump" min="1" max="1" value="1" aria-label="跳转到第几页"><span>页</span></label>
+        <button type="button" class="wb-page-btn" id="wbPageGo" title="跳到指定页">跳转</button>
        </div>
-       <div class="wb-search-hist" id="wbSearchHist"><span class="lbl">热门搜索：</span></div>
       </div>
-
-     <div class="wb-asset-toolbar">
-      <div class="wb-filters" id="wbAssetFilters" role="tablist" aria-label="素材类型筛选">
-       <button type="button" data-filter="all" class="on">全部</button>
-       <button type="button" data-filter="image">图片</button>
-       <button type="button" data-filter="video">视频</button>
-       <button type="button" data-filter="audio">音频</button>
-      </div>
-      <button type="button" class="btn-line" id="wbAssetUploadBtn">⬆ 上传素材</button>
-      <input type="file" id="wbAssetFile" accept="image/jpeg,image/png,image/webp,video/mp4,video/quicktime,audio/mpeg,audio/wav,audio/mp4,audio/x-m4a,audio/m4a" multiple hidden>
-      <span class="wb-asset-count" id="wbAssetCount">正在读取素材库…</span>
-     </div>
-     <div class="wb-bulkbar" id="wbBulkBar" aria-label="素材批量操作">
-      <span class="wb-bulk-count" id="wbBulkCount">已选 0</span>
-      <button type="button" class="btn-line" id="wbBulkAll" title="勾选当前筛选下的全部素材">全选</button>
-      <button type="button" class="btn-line" id="wbBulkNone" title="清空所有勾选">全不选</button>
-      <button type="button" class="btn-line" id="wbBulkTimeline" title="把勾选的图片/视频加入自由剪辑时间轴">＋ 批量加入时间轴</button>
-      <button type="button" class="btn-line danger" id="wbBulkDelete" title="删除勾选的素材（服务端文件与 sidecar 一并删除）">🗑 删除选中</button>
-     </div>
-     <div class="wb-note" id="wbAssetNotice" hidden></div>
-     <div class="wb-asset-grid" id="wbAssetGrid"></div>
-     <div class="empty" id="wbAssetEmpty"><b>素材库还是空的</b>上传图片 / 视频 / 音频后，会统一出现在这里；没有素材也可以先用「自动配素材」。</div>
 
      <div class="wb-local-mat">
       <div class="wb-local-head"><b>本片素材</b><span>模板成片 / AI 自由创作会用到</span><button type="button" class="btn-line" id="wbMatPick">＋ 添加本片素材</button></div>
@@ -2130,6 +2291,23 @@ html[data-theme="light"] .wb-bulkbar{background:rgba(255,255,255,.75)}
    <button type="button" class="btn-line" id="wbSearchNone">全不选</button>
    <button type="button" class="btn-main small wb-simport" id="wbSearchImport" disabled>＋ 加入素材库</button>
    <button type="button" class="btn-line" id="wbSearchClose2">关闭</button>
+  </div>
+ </div>
+</div>
+
+<!-- 素材库删除确认弹层（自定义，替代原生 confirm；失败可就地重试） -->
+<div class="modal wb-confirm" id="wbConfirmModal" hidden>
+ <div class="wb-confirm-box" role="dialog" aria-modal="true" aria-labelledby="wbConfirmTitle">
+  <div class="wb-confirm-head">
+   <span class="wb-confirm-ico" id="wbConfirmIco">🗑</span>
+   <div class="wb-confirm-tt"><b id="wbConfirmTitle">删除素材</b><span id="wbConfirmSub">删除后不可恢复：服务端文件与 sidecar 会一起删除</span></div>
+  </div>
+  <div class="wb-confirm-body" id="wbConfirmBody"></div>
+  <div class="wb-confirm-note" id="wbConfirmErr" hidden></div>
+  <div class="wb-confirm-prog" id="wbConfirmProg" hidden><span class="sp"></span><span id="wbConfirmProgTxt">正在删除…</span></div>
+  <div class="wb-confirm-acts">
+   <button type="button" class="btn-line" id="wbConfirmCancel">取消</button>
+   <button type="button" class="btn-main small wb-confirm-danger" id="wbConfirmOk">确认删除</button>
   </div>
  </div>
 </div>
@@ -6883,15 +7061,25 @@ if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',
     autoMat: 'studio_wb_automat_v1',
     custom: 'studio_custom_industries_v1',
     industry: 'studio_wb_industry_v1',
-    filter: 'studio_wb_asset_filter_v1'
+    filter: 'studio_wb_asset_filter_v1',
+    source: 'studio_wb_asset_source_v1',
+    sort: 'studio_wb_asset_sort_v1',
+    page: 'studio_wb_asset_page_v1',
+    pageSize: 'studio_wb_asset_pagesize_v1'
   };
   var WB = {
     step: 1,
     mode: 'template',
     batchMode: 'materials',
     filter: 'all',
+    source: 'all',
+    sort: 'new',
+    q: '',
+    page: 1,
+    pageSize: 24,
     assets: [],
     sel: {},
+    delFail: {},
     custom: [],
     templates: [],
     industry: null,
@@ -7254,19 +7442,28 @@ if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',
     if (n < 1048576) return (n / 1024).toFixed(1) + ' KB';
     return (n / 1048576).toFixed(1) + ' MB';
   }
+  /* ================= 素材库：数据加载 / 筛选 / 排序 / 分页（2026-11-19 重排） ================= */
+  var ASSET_PAGE_SIZES = [24, 48, 96];
+  var ASSET_FILTERS = ['all', 'image', 'video', 'audio'];
+  var ASSET_SOURCES = ['all', 'pixabay', 'ai', 'upload'];
+  var ASSET_SORTS = ['new', 'old', 'name', 'size'];
+
   function loadAssets() {
-    var q = '/assets?limit=200';
+    /* limit 取大值：后端当前上限 200，未来放开后自动拿全量；分页在前端做，只渲染当前页 DOM */
+    var q = '/assets?limit=5000';
     if (ws()) q += '&workspace_id=' + encodeURIComponent(ws());
     api(q, {}, 25000).then(function (d) {
       var arr = (d && d.assets) || [];
       WB.assets = arr.map(function (a) { a._kind = assetKind(a); return a; });
       restoreSel();
+      clampAssetPage();
       renderAssets();
       updateSelUI();
       syncSummary();
     }).catch(function (e) {
-      var n = $('wbAssetNotice');
-      if (n) { n.hidden = false; n.textContent = '素材库暂时读取不到：' + (e.message || '网络问题'); }
+      showAssetNotice('素材库暂时读取不到：' + esc(e.message || '网络问题'), true);
+      var c = $('wbAssetCount'); if (c) c.textContent = '素材库读取失败';
+      var p = $('wbAssetPager'); if (p) p.hidden = true;
     });
   }
   function restoreSel() {
@@ -7279,46 +7476,158 @@ if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',
     WB.sel = out;
   }
   function persistSel() { write(LS.sel, JSON.stringify(Object.keys(WB.sel))); }
+
+  function assetSourceKey(a) {
+    var s = String((a && a.source) || '').toLowerCase();
+    var gs = String((a && a.gen && a.gen.source) || '').toLowerCase();
+    if (s === 'pixabay' || gs === 'pixabay') return 'pixabay';
+    if (s === 'ai' || gs === 'ai') return 'ai';
+    return 'upload';
+  }
+  function assetSourceLabel(a) {
+    var k = assetSourceKey(a);
+    return k === 'pixabay' ? 'Pixabay' : k === 'ai' ? 'AI 生成' : '上传';
+  }
+  function assetKindLabel(kind) {
+    return kind === 'image' ? '图片' : kind === 'video' ? '视频' : kind === 'audio' ? '音频' : '文件';
+  }
+  function assetSearchBlob(a) {
+    var gen = (a && a.gen) || {};
+    return [a && a.name, gen.keyword, gen.industry, gen.prompt, gen.provider, a && a.license]
+      .join(' ').toLowerCase();
+  }
   function filteredAssets() {
-    return WB.assets.filter(function (a) { return WB.filter === 'all' || a._kind === WB.filter; });
+    var q = String(WB.q || '').trim().toLowerCase();
+    var arr = WB.assets.filter(function (a) {
+      if (WB.filter !== 'all' && a._kind !== WB.filter) return false;
+      if (WB.source !== 'all' && assetSourceKey(a) !== WB.source) return false;
+      if (q && assetSearchBlob(a).indexOf(q) < 0) return false;
+      return true;
+    });
+    arr.sort(function (a, b) {
+      if (WB.sort === 'old') return (Number(a.mtime) || 0) - (Number(b.mtime) || 0) || String(a.created_at || '').localeCompare(String(b.created_at || ''));
+      if (WB.sort === 'name') return String(a.name || '').toLowerCase().localeCompare(String(b.name || '').toLowerCase(), 'zh-Hans-CN');
+      if (WB.sort === 'size') return (Number(b.size) || 0) - (Number(a.size) || 0);
+      return (Number(b.mtime) || 0) - (Number(a.mtime) || 0) || String(b.created_at || '').localeCompare(String(a.created_at || ''));
+    });
+    return arr;
+  }
+  function assetTotalPages() {
+    return Math.max(1, Math.ceil(filteredAssets().length / WB.pageSize));
+  }
+  function clampAssetPage() {
+    var pages = assetTotalPages();
+    WB.page = Math.max(1, Math.min(Number(WB.page) || 1, pages));
+    return pages;
+  }
+  function pageAssets() {
+    var arr = filteredAssets();
+    clampAssetPage();
+    var start = (WB.page - 1) * WB.pageSize;
+    return arr.slice(start, start + WB.pageSize);
+  }
+  function pageSelCount() {
+    var arr = pageAssets(), n = 0;
+    for (var i = 0; i < arr.length; i++) if (WB.sel[arr[i].url]) n++;
+    return n;
+  }
+  function persistAssetPage() {
+    write(LS.page, String(WB.page));
+    write(LS.pageSize, String(WB.pageSize));
+    write(LS.filter, WB.filter);
+    write(LS.source, WB.source);
+    write(LS.sort, WB.sort);
+  }
+  function fmtAssetWhen(s) {
+    var m = /^(\d{4})-(\d{2})-(\d{2})[T ](\d{2}):(\d{2})/.exec(String(s || ''));
+    if (m) return m[2] + '-' + m[3] + ' ' + m[4] + ':' + m[5];
+    return String(s || '').slice(0, 16);
+  }
+  function assetCardHtml(a) {
+    var kind = a._kind || 'file';
+    var on = WB.sel[a.url] ? ' on' : '';
+    var fail = WB.delFail && WB.delFail[a.url] ? ' wb-asset-fail' : '';
+    var checked = WB.sel[a.url] ? ' checked' : '';
+    var thumb = '';
+    if (kind === 'image') thumb = '<img src="' + esc(a.url) + '" alt="" loading="lazy" decoding="async">';
+    else if (kind === 'video') thumb = '<span class="wb-asset-bigico">🎞️</span><span class="wb-kind">视频</span>';
+    else if (kind === 'audio') thumb = '<span class="wb-asset-bigico">🎵</span><span class="wb-kind">音频</span>';
+    else thumb = '<span class="wb-asset-bigico">📄</span><span class="wb-kind">文件</span>';
+    var src = assetSourceKey(a);
+    var srcCls = src === 'ai' ? ' ai' : src === 'upload' ? ' upload' : '';
+    var lic = (a && (a.license || (a.gen && a.gen.license))) || '';
+    return '<div class="wb-asset' + on + fail + '" data-url="' + esc(a.url) + '">'
+      + '<label class="wb-asset-check" title="勾选用于批量剪辑 / 批量删除"><input type="checkbox" data-acheck="1"' + checked + '></label>'
+      + '<div class="wb-asset-thumb" data-aact="preview" title="点击预览原文件">' + thumb
+      + '<span class="wb-asset-src-badge' + srcCls + '" title="' + esc(lic || ('来源：' + assetSourceLabel(a))) + '">' + esc(assetSourceLabel(a)) + '</span>'
+      + '</div>'
+      + '<div class="wb-asset-meta"><b title="' + esc(a.name) + '">' + esc(a.name) + '</b>'
+      + '<span class="wb-asset-sub"><i>' + esc(fmtSize(a.size)) + '</i><i class="wb-asset-when">' + esc(fmtAssetWhen(a.created_at)) + '</i></span></div>'
+      + '<div class="wb-asset-acts">'
+      + '<button type="button" data-aact="main" title="加入本片素材（模板成片使用）" aria-label="加入本片素材">＋</button>'
+      + '<button type="button" data-aact="timeline" title="加入自由剪辑时间轴" aria-label="加入时间轴">⏱</button>'
+      + '<button type="button" data-aact="bgm" title="设为 BGM（仅音频）" aria-label="设为 BGM">♫</button>'
+      + '<button type="button" data-aact="pad" title="设为商品广告产品图（仅图片）" aria-label="设为产品图">🖼</button>'
+      + '<button type="button" data-aact="del" class="danger" title="从素材库删除" aria-label="删除素材">🗑</button>'
+      + '</div></div>';
   }
   function renderAssets() {
-    var g = $('wbAssetGrid'), empty = $('wbAssetEmpty'), count = $('wbAssetCount');
+    var g = $('wbAssetGrid'), empty = $('wbAssetEmpty');
     if (!g) return;
     var arr = filteredAssets();
-    if (count) count.textContent = WB.assets.length + ' 个素材 · 已勾选 ' + selCount();
+    var pages = clampAssetPage();
+    var filtering = WB.filter !== 'all' || WB.source !== 'all' || !!String(WB.q || '').trim();
+    var count = $('wbAssetCount');
+    if (count) count.textContent = '共 ' + WB.assets.length + ' 个素材' + (filtering ? (' · 筛选后 ' + arr.length + ' 个') : '');
     if (!arr.length) {
       g.innerHTML = '';
       if (empty) {
         empty.hidden = false;
         empty.innerHTML = WB.assets.length
-          ? '<b>当前筛选下没有素材</b>换个筛选（全部 / 图片 / 视频 / 音频）看看。'
+          ? '<b>当前筛选下没有素材</b>换个类型 / 来源 / 关键词试试，或点「全不选」后再筛选。'
           : '<b>素材库还是空的</b>上传图片 / 视频 / 音频后，会统一出现在这里；没有素材也可以先用「自动配素材」。';
       }
-      return;
+    } else {
+      if (empty) empty.hidden = true;
+      var start = (WB.page - 1) * WB.pageSize;
+      g.innerHTML = arr.slice(start, start + WB.pageSize).map(assetCardHtml).join('');
     }
-    if (empty) empty.hidden = true;
-    g.innerHTML = arr.map(function (a) {
-      var kind = a._kind;
-      var checked = WB.sel[a.url] ? ' checked' : '';
-      var thumb = '';
-      if (kind === 'image') thumb = '<img src="' + esc(a.url) + '" alt="" loading="lazy">';
-      else if (kind === 'video') thumb = '<span class="wb-ico">🎞️</span><span class="wb-kind">视频</span>';
-      else if (kind === 'audio') thumb = '<span class="wb-ico">🎵</span><span class="wb-kind">音频</span>';
-      else thumb = '<span class="wb-ico">📄</span>';
-      return '<div class="wb-asset' + (WB.sel[a.url] ? ' on' : '') + '" data-url="' + esc(a.url) + '">'
-        + '<label class="wb-asset-check" title="勾选用于批量剪辑"><input type="checkbox" data-acheck="1"' + checked + '></label>'
-        + '<div class="wb-asset-thumb" data-aact="preview" title="点此预览">' + thumb + '</div>'
-        + '<div class="wb-asset-meta"><b title="' + esc(a.name) + '">' + esc(a.name) + '</b>'
-        + '<span>' + esc(kind === 'image' ? '图片' : kind === 'video' ? '视频' : kind === 'audio' ? '音频' : '文件') + ' · ' + fmtSize(a.size) + ' · ' + esc(a.created_at || '') + '</span></div>'
-        + '<div class="wb-asset-acts">'
-        + '<button type="button" data-aact="main" title="加入本片素材（模板成片使用）">＋本片</button>'
-        + '<button type="button" data-aact="timeline" title="加入自由剪辑时间轴">时间轴</button>'
-        + '<button type="button" data-aact="bgm" title="设为 BGM">BGM</button>'
-        + '<button type="button" data-aact="pad" title="设为商品广告产品图">产品图</button>'
-        + '<button type="button" data-aact="del" class="danger" title="从素材库删除">删</button>'
-        + '</div></div>';
-    }).join('');
+    renderAssetPager(arr.length, pages);
+    syncAssetBulkUI();
+    persistAssetPage();
+    updateStepHints();
+    syncSummary();
+  }
+  function renderAssetPager(total, pages) {
+    var box = $('wbAssetPager'); if (!box) return;
+    pages = pages || Math.max(1, Math.ceil(total / WB.pageSize));
+    box.hidden = total === 0;
+    var now = $('wbPageNow'); if (now) now.textContent = WB.page + ' / ' + pages;
+    var info = $('wbPagerInfo');
+    if (info) {
+      var size = total ? Math.min(WB.pageSize, total - (WB.page - 1) * WB.pageSize) : 0;
+      info.textContent = total
+        ? ('第 ' + WB.page + '/' + pages + ' 页 · 本页 ' + size + ' 个 · 每页 ' + WB.pageSize + ' 个')
+        : '共 0 个素材';
+    }
+    var prev = $('wbPagePrev'); if (prev) prev.disabled = WB.page <= 1;
+    var next = $('wbPageNext'); if (next) next.disabled = WB.page >= pages;
+    var jump = $('wbPageJump');
+    if (jump) { jump.max = String(pages); jump.value = String(WB.page); }
+    var go = $('wbPageGo'); if (go) go.disabled = pages <= 1;
+  }
+  function syncAssetBulkUI() {
+    var n = selCount();
+    var pn = pageSelCount();
+    var bc = $('wbBulkCount'); if (bc) bc.textContent = '已选 ' + n + '（本页 ' + pn + '）';
+    var bcount = $('batchSelCount'); if (bcount) bcount.textContent = String(n);
+    var bbtn = $('batchEditStart');
+    if (bbtn && !WB.batchActive) bbtn.disabled = n < 2;
+    var pageN = pageAssets().length;
+    var bAll = $('wbBulkAll'); if (bAll) bAll.disabled = pageN === 0;
+    var bNone = $('wbBulkNone'); if (bNone) bNone.disabled = n === 0;
+    var bDel = $('wbBulkDelete'); if (bDel) bDel.disabled = n === 0;
+    var bTl = $('wbBulkTimeline'); if (bTl) bTl.disabled = n === 0;
   }
   function assetByUrl(url) {
     for (var i = 0; i < WB.assets.length; i++) if (WB.assets[i].url === url) return WB.assets[i];
@@ -7328,19 +7637,11 @@ if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',
     var cards = document.querySelectorAll('#wbAssetGrid .wb-asset');
     for (var i = 0; i < cards.length; i++) {
       var u = cards[i].getAttribute('data-url');
-      cards[i].className = 'wb-asset' + (WB.sel[u] ? ' on' : '');
+      cards[i].className = 'wb-asset' + (WB.sel[u] ? ' on' : '') + (WB.delFail && WB.delFail[u] ? ' wb-asset-fail' : '');
       var cb = cards[i].querySelector('[data-acheck]');
       if (cb) cb.checked = !!WB.sel[u];
     }
-    var c = $('wbAssetCount'); if (c) c.textContent = WB.assets.length + ' 个素材 · 已勾选 ' + selCount();
-    var bc = $('batchSelCount'); if (bc) bc.textContent = String(selCount());
-    var bbtn = $('batchEditStart');
-    if (bbtn && !WB.batchActive) bbtn.disabled = selCount() < 2;
-    var bcount = $('wbBulkCount'); if (bcount) bcount.textContent = '已选 ' + selCount();
-    var bAll = $('wbBulkAll'); if (bAll) bAll.disabled = filteredAssets().length === 0;
-    var bNone = $('wbBulkNone'); if (bNone) bNone.disabled = selCount() === 0;
-    var bDel = $('wbBulkDelete'); if (bDel) bDel.disabled = selCount() === 0;
-    var bTl = $('wbBulkTimeline'); if (bTl) bTl.disabled = selCount() === 0;
+    syncAssetBulkUI();
     updateStepHints();
     syncSummary();
   }
@@ -7362,12 +7663,11 @@ if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',
   function uploadAssets(files) {
     var arr = Array.prototype.slice.call(files || []);
     if (!arr.length) return;
-    var notice = $('wbAssetNotice');
     var done = 0, failed = 0;
     function next() {
       if (!arr.length) {
         loadAssets();
-        if (notice) { notice.hidden = false; notice.textContent = '上传完成：成功 ' + done + ' 个' + (failed ? ('，失败 ' + failed + ' 个') : '') + '。'; }
+        showAssetNotice('上传完成：成功 ' + done + ' 个' + (failed ? ('，失败 ' + failed + ' 个') : '') + '。', failed > 0);
         toast('素材上传完成', 'ok');
         return;
       }
@@ -7377,9 +7677,9 @@ if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',
       var xhr = new XMLHttpRequest();
       xhr.open('POST', '/ai-nav/api/upload', true);
       xhr.timeout = 300000;
-      if (notice) { notice.hidden = false; notice.textContent = '正在上传：' + f.name + '（' + fmtSize(f.size) + '）…'; }
+      showAssetNotice('正在上传：' + esc(f.name) + '（' + fmtSize(f.size) + '）…');
       xhr.upload.onprogress = function (ev) {
-        if (notice && ev.lengthComputable && ev.total) notice.textContent = '正在上传：' + f.name + ' ' + Math.round(ev.loaded / ev.total * 100) + '%';
+        if (ev.lengthComputable && ev.total) showAssetNotice('正在上传：' + esc(f.name) + ' ' + Math.round(ev.loaded / ev.total * 100) + '%');
       };
       xhr.onload = function () {
         var d = null; try { d = JSON.parse(xhr.responseText || '{}'); } catch (e) {}
@@ -7430,17 +7730,184 @@ if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',
       return;
     }
     if (act === 'del') {
-      if (!window.confirm('从素材库删除「' + (a.name || '') + '」？删除后不可恢复。')) return;
-      var q = '/assets?url=' + encodeURIComponent(a.url);
-      if (ws()) q += '&workspace_id=' + encodeURIComponent(ws());
-      api(q, { method: 'DELETE' }, 20000).then(function (d) {
-        if (!d || !d.ok) throw new Error((d && d.hint) || '删除失败');
-        delete WB.sel[a.url]; persistSel();
-        WB.assets = WB.assets.filter(function (x) { return x.url !== a.url; });
-        renderAssets(); updateSelUI();
-        toast('已删除：' + (a.name || a.url), 'ok');
-      }).catch(function (e) { toast('删除失败：' + (e.message || e), 'bad'); });
+      requestAssetDelete(a.url);
     }
+  }
+
+  /* ---------------- 素材库删除：自定义确认弹层 + 单删 / 批量删（2026-11-19 重写） ---------------- */
+  var CONF = { onOk: null, busy: false };
+  function confEls() {
+    return {
+      m: $('wbConfirmModal'), ok: $('wbConfirmOk'), cancel: $('wbConfirmCancel'),
+      err: $('wbConfirmErr'), prog: $('wbConfirmProg'), progTxt: $('wbConfirmProgTxt'),
+      title: $('wbConfirmTitle'), sub: $('wbConfirmSub'), body: $('wbConfirmBody'), ico: $('wbConfirmIco')
+    };
+  }
+  function openAssetConfirm(opt) {
+    var e = confEls(); if (!e.m) return;
+    CONF.onOk = opt && opt.onOk ? opt.onOk : null;
+    CONF.busy = false;
+    if (e.ico) e.ico.textContent = (opt && opt.ico) || '🗑';
+    if (e.title) e.title.textContent = (opt && opt.title) || '删除素材';
+    if (e.sub) e.sub.textContent = (opt && opt.sub) || '删除后不可恢复：服务端文件与 sidecar 会一起删除';
+    if (e.body) e.body.innerHTML = (opt && opt.body) || '';
+    if (e.err) { e.err.hidden = true; e.err.innerHTML = ''; e.err.className = 'wb-confirm-note'; }
+    if (e.prog) e.prog.hidden = true;
+    if (e.ok) { e.ok.hidden = false; e.ok.disabled = false; e.ok.textContent = (opt && opt.okText) || '确认删除'; }
+    if (e.cancel) { e.cancel.disabled = false; e.cancel.textContent = (opt && opt.cancelText) || '取消'; e.cancel.hidden = false; }
+    e.m.hidden = false;
+    e.m.setAttribute('aria-hidden', 'false');
+    try { document.body.style.overflow = 'hidden'; } catch (x) {}
+    setTimeout(function () { try { if (e.cancel) e.cancel.focus(); } catch (x) {} }, 30);
+  }
+  function closeAssetConfirm(force) {
+    var e = confEls(); if (!e.m) return;
+    if (CONF.busy && !force) return;
+    e.m.hidden = true;
+    e.m.setAttribute('aria-hidden', 'true');
+    CONF.onOk = null; CONF.busy = false;
+    try { document.body.style.overflow = ''; } catch (x) {}
+  }
+  function assetConfirmBusy(busy, txt) {
+    var e = confEls(); if (!e.m) return;
+    CONF.busy = !!busy;
+    if (e.ok) { e.ok.disabled = !!busy; if (!busy) e.ok.textContent = '确认删除'; }
+    if (e.cancel) e.cancel.disabled = !!busy;
+    if (e.prog) { e.prog.hidden = !busy; if (e.progTxt && txt) e.progTxt.textContent = txt; }
+  }
+  function assetConfirmFail(msg, retryTxt) {
+    var e = confEls(); if (!e.m) return;
+    CONF.busy = false;
+    if (e.ok) { e.ok.disabled = false; e.ok.textContent = retryTxt || '重试删除'; }
+    if (e.cancel) e.cancel.disabled = false;
+    if (e.prog) e.prog.hidden = true;
+    if (e.err) {
+      e.err.hidden = false;
+      e.err.className = 'wb-confirm-note';
+      e.err.innerHTML = '<b>删除失败</b><span>' + esc(msg || '网络异常，请重试') + '</span><span>可点「' + esc(retryTxt || '重试删除') + '」再试一次，或取消。</span>';
+    }
+  }
+  function showAssetNotice(html, bad) {
+    var n = $('wbAssetNotice'); if (!n) return;
+    if (!html) { n.hidden = true; n.innerHTML = ''; return; }
+    n.hidden = false;
+    n.className = 'wb-note' + (bad ? ' bad' : '');
+    n.innerHTML = html;
+  }
+  function deleteAssetApi(url) {
+    var q = '/assets?url=' + encodeURIComponent(url);
+    if (ws()) q += '&workspace_id=' + encodeURIComponent(ws());
+    return api(q, { method: 'DELETE' }, 25000).then(function (d) {
+      if (!d || !d.ok) throw new Error((d && (d.hint || d.error)) || '删除失败');
+      return true;
+    });
+  }
+  function removeDeletedAssets(urls) {
+    var del = {};
+    for (var i = 0; i < urls.length; i++) del[urls[i]] = true;
+    WB.assets = WB.assets.filter(function (x) { return !del[x.url]; });
+    for (var u in del) { delete WB.sel[u]; delete WB.delFail[u]; }
+    persistSel();
+    clampAssetPage();
+    renderAssets();
+    updateSelUI();
+    syncSummary();
+  }
+  function requestAssetDelete(url) {
+    var a = assetByUrl(url); if (!a) return;
+    var before = WB.assets.length;
+    function doDel() {
+      assetConfirmBusy(true, '正在删除「' + (a.name || '素材') + '」…');
+      deleteAssetApi(a.url).then(function () {
+        closeAssetConfirm(true);
+        removeDeletedAssets([a.url]);
+        toast('已删除：' + (a.name || '素材') + '（' + before + ' → ' + WB.assets.length + '）', 'ok');
+        showAssetNotice('已删除「' + esc(a.name || '素材') + '」；素材库数量 ' + before + ' → ' + WB.assets.length + '。');
+      }).catch(function (e) {
+        assetConfirmFail((e && e.message) || '网络异常');
+      });
+    }
+    openAssetConfirm({
+      ico: '🗑', title: '删除素材',
+      sub: '删除后不可恢复：服务端文件与 sidecar 会一起删除',
+      body: '<b>' + esc(a.name || '') + '</b><span>' + esc(assetKindLabel(a._kind)) + ' · ' + esc(fmtSize(a.size)) + ' · ' + esc(assetSourceLabel(a)) + '</span>',
+      okText: '确认删除',
+      onOk: doDel
+    });
+  }
+  function selectedAssets() {
+    var out = [];
+    for (var i = 0; i < WB.assets.length; i++) if (WB.sel[WB.assets[i].url]) out.push(WB.assets[i]);
+    return out;
+  }
+  function requestBulkDelete() {
+    var arr = selectedAssets();
+    if (!arr.length) { toast('先勾选要删除的素材', 'warn'); return; }
+    var names = arr.slice(0, 6).map(function (a) {
+      return '<span class="wb-confirm-item" title="' + esc(a.name) + '">' + esc(a.name) + '</span>';
+    }).join('');
+    var more = arr.length > 6 ? '<span class="wb-confirm-more">…等共 ' + arr.length + ' 个</span>' : '';
+    openAssetConfirm({
+      ico: '🗑', title: '批量删除素材',
+      sub: '删除后不可恢复：服务端文件与 sidecar 会一起删除',
+      body: '<div class="wb-confirm-sum"><b>共 ' + arr.length + ' 个</b><span>逐个删除（最多 3 个并发），失败项会保留并高亮，可重试。</span></div><div class="wb-confirm-list">' + names + more + '</div>',
+      okText: '删除 ' + arr.length + ' 个',
+      onOk: function () { runBulkDelete(arr); }
+    });
+  }
+  function runBulkDelete(arr) {
+    arr = (arr || []).filter(function (a) { return !!a && !!a.url; });
+    if (!arr.length) return;
+    var total = arr.length, idx = 0, running = 0, done = 0, okUrls = [], fails = [];
+    assetConfirmBusy(true, '正在删除 0/' + total + '…');
+    function finish() {
+      var before = WB.assets.length;
+      var okMap = {};
+      for (var i = 0; i < okUrls.length; i++) okMap[okUrls[i]] = true;
+      WB.assets = WB.assets.filter(function (x) { return !okMap[x.url]; });
+      for (var u in okMap) { delete WB.sel[u]; delete WB.delFail[u]; }
+      for (var j = 0; j < fails.length; j++) WB.delFail[fails[j].url] = true;
+      persistSel();
+      closeAssetConfirm(true);
+      clampAssetPage();
+      renderAssets();
+      updateSelUI();
+      syncSummary();
+      var after = WB.assets.length;
+      var msg = '批量删除完成：成功 ' + okUrls.length + ' 个' + (fails.length ? ('，失败 ' + fails.length + ' 个') : '')
+        + '；素材库数量 ' + before + ' → ' + after + '。';
+      if (fails.length) {
+        var reasons = {};
+        for (var k = 0; k < fails.length; k++) {
+          var r = fails[k].err || '删除失败';
+          reasons[r] = (reasons[r] || 0) + 1;
+        }
+        var rtxt = Object.keys(reasons).map(function (r) { return esc(r) + ' ×' + reasons[r]; }).join('；');
+        showAssetNotice(msg + '<br>失败原因：' + rtxt + '（失败项已保留并标红）<button type="button" class="btn-line wb-notice-retry" data-retry="1">↻ 重试失败项</button>', true);
+        toast('已删除 ' + okUrls.length + ' 个，失败 ' + fails.length + ' 个（已标红，可重试）', 'warn');
+      } else {
+        showAssetNotice(msg, false);
+        toast('已删除 ' + okUrls.length + ' 个素材', 'ok');
+      }
+    }
+    function next() {
+      while (running < 3 && idx < arr.length) {
+        (function (a) {
+          running++;
+          deleteAssetApi(a.url).then(function () {
+            okUrls.push(a.url);
+          }).catch(function (e) {
+            fails.push({ url: a.url, name: a.name, err: (e && e.message) || '网络异常' });
+          }).then(function () {
+            running--; done++;
+            if (done >= total) { finish(); return; }
+            assetConfirmBusy(true, '正在删除 ' + done + '/' + total + '…');
+            next();
+          });
+        })(arr[idx++]);
+      }
+    }
+    next();
   }
 
   /* ---------------- AI 全自动剪辑（入口合并，2026-11-19） ---------------- */
@@ -7653,8 +8120,7 @@ if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',
       showSearchNote('✅ ' + esc((d && d.note) || '已加入素材库') + '；已自动勾选，可在下方素材库继续批量操作。', false);
       SEARCH.sel = {};
       updateSearchSel();
-      var notice = $('wbAssetNotice');
-      if (notice) { notice.hidden = false; notice.textContent = '图库搜索已加入 ' + arr.length + ' 个素材（已自动勾选，可批量加入时间轴或删除选中）。'; }
+      showAssetNotice('图库搜索已加入 ' + arr.length + ' 个素材（已自动勾选，可批量加入时间轴或删除选中）。');
       setTimeout(closeSearchModal, 900);
     }).catch(function (e) {
       showSearchNote('❌ 加入素材库失败：' + esc(e && e.message ? e.message : '网络异常'), true);
@@ -7734,12 +8200,13 @@ if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',
     renderSearchHist();
   }
 
-  /* ---------------- 素材库：全选 / 全不选 / 批量加入时间轴 / 批量删除 ---------------- */
+  /* ---------------- 素材库：全选本页 / 全不选 / 批量加入时间轴 / 批量删除 ---------------- */
   function bulkSelectAll() {
-    var arr = filteredAssets();
+    var arr = pageAssets();
+    if (!arr.length) { toast('当前页没有可勾选的素材', 'warn'); return; }
     for (var i = 0; i < arr.length; i++) WB.sel[arr[i].url] = true;
     persistSel(); renderAssets(); updateSelUI();
-    toast('已全选 ' + arr.length + ' 个素材' + (WB.filter === 'all' ? '' : '（当前筛选）'), 'ok');
+    toast('已全选本页 ' + arr.length + ' 个素材（第 ' + WB.page + ' 页）', 'ok');
   }
   function bulkClearAll() {
     clearSel();
@@ -7768,41 +8235,136 @@ if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',
     }
     next();
   }
-  function bulkDelete() {
-    var arr = [];
-    for (var i = 0; i < WB.assets.length; i++) {
-      var a = WB.assets[i];
-      if (WB.sel[a.url]) arr.push(a);
+  function bulkDelete() { requestBulkDelete(); }
+
+  /* ---------------- 素材库：分页 / 筛选 / 入口 / 删除确认弹层 绑定（2026-11-19） ---------------- */
+  function scrollAssetTop() {
+    try {
+      var s = $('wbAssetSticky'); if (!s) return;
+      var top = s.getBoundingClientRect().top + (window.pageYOffset || document.documentElement.scrollTop || 0) - 132;
+      window.scrollTo({ top: Math.max(0, top), behavior: 'smooth' });
+    } catch (e) {}
+  }
+  function goAssetPage(n) {
+    var pages = clampAssetPage();
+    var target = Math.max(1, Math.min(Number(n) || 1, pages));
+    if (target === WB.page) { renderAssetPager(filteredAssets().length, pages); return; }
+    WB.page = target;
+    persistAssetPage();
+    renderAssets();
+    updateSelUI();
+    scrollAssetTop();
+  }
+  function applyAssetFilterChange() {
+    WB.page = 1;
+    persistAssetPage();
+    renderAssets();
+    updateSelUI();
+    scrollAssetTop();
+  }
+  function toggleAssetPanel(which) {
+    var g = $('wbGenBox'), s = $('wbSearchBox');
+    var genBtn = $('wbAssetGenToggle'), searchBtn = $('wbAssetSearchLibToggle');
+    var target = which === 'gen' ? g : s;
+    if (!target) return;
+    var willOpen = target.hidden;
+    if (g) g.hidden = true;
+    if (s) s.hidden = true;
+    if (genBtn) genBtn.setAttribute('aria-expanded', 'false');
+    if (searchBtn) searchBtn.setAttribute('aria-expanded', 'false');
+    if (!willOpen) return;
+    target.hidden = false;
+    var b = which === 'gen' ? genBtn : searchBtn;
+    if (b) b.setAttribute('aria-expanded', 'true');
+    try { target.scrollIntoView({ behavior: 'smooth', block: 'nearest' }); } catch (e) {}
+    if (which === 'gen') { try { wbGenPrefill(false); } catch (e) {} }
+    else {
+      var si = $('wbSearchInput');
+      if (si) { try { si.focus({ preventScroll: true }); } catch (e) {} }
     }
-    if (!arr.length) { toast('先勾选要删除的素材', 'warn'); return; }
-    if (!window.confirm('删除选中的 ' + arr.length + ' 个素材？\n服务端文件与 sidecar 会一并删除，删除后不可恢复。')) return;
-    var before = WB.assets.length;
-    var okN = 0, failN = 0, idx = 0;
+  }
+  function bindAssetConfirm() {
+    var e = confEls();
+    if (e.ok) e.ok.addEventListener('click', function () {
+      if (CONF.busy) return;
+      if (typeof CONF.onOk === 'function') CONF.onOk();
+    });
+    if (e.cancel) e.cancel.addEventListener('click', function () { closeAssetConfirm(); });
+    if (e.m) e.m.addEventListener('click', function (ev) { if (ev.target === e.m) closeAssetConfirm(); });
+  }
+  function bindAssetUx() {
+    bindAssetConfirm();
+    var genBtn = $('wbAssetGenToggle'), searchBtn = $('wbAssetSearchLibToggle');
+    if (genBtn) genBtn.addEventListener('click', function (e) { e.preventDefault(); toggleAssetPanel('gen'); });
+    if (searchBtn) searchBtn.addEventListener('click', function (e) { e.preventDefault(); toggleAssetPanel('search'); });
+    /* 文件名 / 关键词过滤：输入防抖 300ms（只在前端过滤，不请求接口） */
+    var si = $('wbAssetSearch'), clearBtn = $('wbAssetSearchClear'), timer = null;
+    if (si) {
+      si.addEventListener('input', function () {
+        if (clearBtn) clearBtn.hidden = !si.value;
+        clearTimeout(timer);
+        timer = setTimeout(function () {
+          WB.q = String(si.value || '').trim();
+          applyAssetFilterChange();
+        }, 300);
+      });
+      si.addEventListener('keydown', function (e) {
+        if (e.key !== 'Enter') return;
+        e.preventDefault();
+        clearTimeout(timer);
+        WB.q = String(si.value || '').trim();
+        applyAssetFilterChange();
+      });
+    }
+    if (clearBtn) clearBtn.addEventListener('click', function () {
+      if (si) si.value = '';
+      clearBtn.hidden = true;
+      WB.q = '';
+      applyAssetFilterChange();
+    });
+    var src = $('wbAssetSource');
+    if (src) src.addEventListener('change', function () {
+      WB.source = ASSET_SOURCES.indexOf(src.value) >= 0 ? src.value : 'all';
+      applyAssetFilterChange();
+    });
+    var sort = $('wbAssetSort');
+    if (sort) sort.addEventListener('change', function () {
+      WB.sort = ASSET_SORTS.indexOf(sort.value) >= 0 ? sort.value : 'new';
+      applyAssetFilterChange();
+    });
+    var ps = $('wbAssetPageSize');
+    if (ps) ps.addEventListener('change', function () {
+      var n = parseInt(ps.value, 10);
+      WB.pageSize = ASSET_PAGE_SIZES.indexOf(n) >= 0 ? n : 24;
+      applyAssetFilterChange();
+    });
+    var prev = $('wbPagePrev'); if (prev) prev.addEventListener('click', function () { goAssetPage(WB.page - 1); });
+    var next = $('wbPageNext'); if (next) next.addEventListener('click', function () { goAssetPage(WB.page + 1); });
+    var jump = $('wbPageJump');
+    if (jump) jump.addEventListener('keydown', function (e) {
+      if (e.key !== 'Enter') return;
+      e.preventDefault();
+      goAssetPage(parseInt(jump.value, 10));
+    });
+    var go = $('wbPageGo');
+    if (go) go.addEventListener('click', function () { goAssetPage(jump ? parseInt(jump.value, 10) : 1); });
+    /* 批量删除部分失败 → 「重试失败项」 */
     var notice = $('wbAssetNotice');
-    if (notice) { notice.hidden = false; notice.textContent = '正在删除 ' + arr.length + ' 个素材…'; }
-    function done() {
-      WB.assets = WB.assets.filter(function (x) { return !WB.sel[x.url]; });
-      for (var j = 0; j < arr.length; j++) delete WB.sel[arr[j].url];
-      persistSel(); renderAssets(); updateSelUI(); syncSummary();
-      var after = WB.assets.length;
-      if (notice) {
-        notice.hidden = false;
-        notice.textContent = '批量删除完成：成功 ' + okN + ' 个' + (failN ? ('，失败 ' + failN + ' 个') : '')
-          + '；素材库数量 ' + before + ' → ' + after + '（服务端文件与 sidecar 已删除，列表已刷新，勾选已清零）。';
-      }
-      toast('已删除 ' + okN + ' 个素材' + (failN ? ('，' + failN + ' 个失败') : ''), okN ? 'ok' : 'bad');
-    }
-    function next() {
-      if (idx >= arr.length) { done(); return; }
-      var a = arr[idx++];
-      var q = '/assets?url=' + encodeURIComponent(a.url);
-      if (ws()) q += '&workspace_id=' + encodeURIComponent(ws());
-      api(q, { method: 'DELETE' }, 25000).then(function (d) {
-        if (!d || !d.ok) throw new Error((d && d.hint) || '删除失败');
-        okN++;
-      }).catch(function () { failN++; }).then(next);
-    }
-    next();
+    if (notice) notice.addEventListener('click', function (e) {
+      var b = e.target && e.target.closest ? e.target.closest('[data-retry]') : null;
+      if (!b) return;
+      e.preventDefault();
+      var arr = [];
+      for (var i = 0; i < WB.assets.length; i++) if (WB.delFail && WB.delFail[WB.assets[i].url]) arr.push(WB.assets[i]);
+      if (!arr.length) { showAssetNotice(''); return; }
+      openAssetConfirm({
+        ico: '↻', title: '重试删除失败项',
+        sub: '只重试上一次失败的 ' + arr.length + ' 个素材，成功后从列表移除',
+        body: '<div class="wb-confirm-sum"><b>' + arr.length + ' 个失败项</b><span>仍按最多 3 个并发删除。</span></div>',
+        okText: '重试删除',
+        onOk: function () { runBulkDelete(arr); }
+      });
+    });
   }
   function bindBulk() {
     var all = $('wbBulkAll'); if (all) all.addEventListener('click', bulkSelectAll);
@@ -7814,11 +8376,13 @@ if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',
     bindAeEntry();
     bindSearch();
     bindBulk();
+    bindAssetUx();
     document.addEventListener('keydown', function (e) {
       if (e.key !== 'Escape') return;
-      var sm = $('wbSearchModal'), am = $('wbAeModal');
+      var cm = $('wbConfirmModal'), sm = $('wbSearchModal'), am = $('wbAeModal');
+      if (cm && !cm.hidden) { closeAssetConfirm(); return; }
       if (sm && !sm.hidden) { closeSearchModal(); return; }
-      if (am && !am.hidden) { closeAeModal(); }
+      if (am && !am.hidden) closeAeModal();
     });
   }
 
@@ -8091,9 +8655,13 @@ if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',
       (function (b) {
         b.addEventListener('click', function () {
           WB.filter = b.getAttribute('data-filter') || 'all';
+          if (ASSET_FILTERS.indexOf(WB.filter) < 0) WB.filter = 'all';
           write(LS.filter, WB.filter);
-          for (var j = 0; j < filters.length; j++) filters[j].className = filters[j] === b ? 'on' : '';
-          renderAssets(); updateSelUI();
+          for (var j = 0; j < filters.length; j++) {
+            filters[j].className = filters[j] === b ? 'on' : '';
+            filters[j].setAttribute('aria-selected', filters[j] === b ? 'true' : 'false');
+          }
+          applyAssetFilterChange();
         });
       })(filters[i]);
     }
@@ -8102,12 +8670,16 @@ if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',
       g.addEventListener('change', function (e) {
         var cb = e.target && e.target.closest ? e.target.closest('[data-acheck]') : null;
         if (!cb) return;
+        if (e.stopPropagation) e.stopPropagation();
         var card = cb.closest('.wb-asset');
         toggleSel(card ? card.getAttribute('data-url') : '', cb.checked);
       });
       g.addEventListener('click', function (e) {
         var b = e.target && e.target.closest ? e.target.closest('[data-aact]') : null;
         if (!b) return;
+        /* 事件委托：按钮点击不冒泡到卡片其它动作 */
+        if (e.stopPropagation) e.stopPropagation();
+        if (e.preventDefault) e.preventDefault();
         var card = b.closest('.wb-asset');
         var url = card ? card.getAttribute('data-url') : '';
         doAssetAction(url, b.getAttribute('data-aact'));
@@ -8216,7 +8788,7 @@ if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',
       var a = assetByUrl ? assetByUrl(u) : null;
       if (!a || !a.gen) continue;
       var meta = cards[i].querySelector('.wb-asset-meta');
-      if (!meta || meta.querySelector('.wb-gen-tags')) continue;
+      if (!meta || meta.querySelector('.wb-gen-tags') || cards[i].querySelector('.wb-asset-src-badge')) continue;
       var src = a.gen.source === 'ai' ? 'AI 生成 · 需标注合成' : 'Pixabay · 可商用';
       var tag = document.createElement('div');
       tag.className = 'wb-gen-tags';
@@ -8325,12 +8897,27 @@ if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',
     if (!MODE_LABEL[WB.mode]) WB.mode = 'template';
     WB.batchMode = read(LS.batchMode, 'materials') || 'materials';
     WB.filter = read(LS.filter, 'all') || 'all';
+    if (ASSET_FILTERS.indexOf(WB.filter) < 0) WB.filter = 'all';
+    WB.source = read(LS.source, 'all') || 'all';
+    if (ASSET_SOURCES.indexOf(WB.source) < 0) WB.source = 'all';
+    WB.sort = read(LS.sort, 'new') || 'new';
+    if (ASSET_SORTS.indexOf(WB.sort) < 0) WB.sort = 'new';
+    WB.pageSize = parseInt(read(LS.pageSize, '24'), 10) || 24;
+    if (ASSET_PAGE_SIZES.indexOf(WB.pageSize) < 0) WB.pageSize = 24;
+    WB.page = Math.max(1, parseInt(read(LS.page, '1'), 10) || 1);
     WB.autoMat = read(LS.autoMat, '0') === '1';
     WB.custom = normCustom(read(LS.custom, '[]'));
     try { WB.industry = JSON.parse(read(LS.industry, 'null') || 'null'); } catch (e) { WB.industry = null; }
     try {
       var f = document.querySelector('#wbAssetFilters [data-filter="' + WB.filter + '"]');
-      if (f) { var fs = document.querySelectorAll('#wbAssetFilters [data-filter]'); for (var i = 0; i < fs.length; i++) fs[i].className = fs[i] === f ? 'on' : ''; }
+      var fs = document.querySelectorAll('#wbAssetFilters [data-filter]');
+      for (var i = 0; i < fs.length; i++) {
+        fs[i].className = fs[i] === f ? 'on' : '';
+        fs[i].setAttribute('aria-selected', fs[i] === f ? 'true' : 'false');
+      }
+      var srcSel = $('wbAssetSource'); if (srcSel) srcSel.value = WB.source;
+      var sortSel = $('wbAssetSort'); if (sortSel) sortSel.value = WB.sort;
+      var psSel = $('wbAssetPageSize'); if (psSel) psSel.value = String(WB.pageSize);
     } catch (e) {}
     bindSteps(); bindModes(); bindIndustry(); bindAssets(); bindMergeExtras(); bindBatch(); bindSide();
     observePreview();
