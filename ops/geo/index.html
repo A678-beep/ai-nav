@@ -2743,8 +2743,8 @@ html[data-page="ops-geo"] .xl-sb-theme{display:none!important}
   function fetchDraftsLive(params) { return fetchPaged('/drafts', ['drafts', 'list', 'items'], normDraft, params, 4); }
   function fetchTasksLive(params) { return fetchPaged('/tasks', ['tasks', 'list', 'items'], normTask, params, 8); }
   function fetchLinksLive(params) { return fetchPaged('/links', ['links', 'list', 'items'], normLink, params, 4); }
-  function fetchMonitorsLive(params) {
-    var collected = [], total = -1, page = 1, max = 6, rawLast = null;
+  function fetchMonitorsLive(params, maxPages) {
+    var collected = [], total = -1, page = 1, max = maxPages || 6, rawLast = null;
     function step() {
       var p = { page: page };
       Object.keys(params || {}).forEach(function (k) { p[k] = params[k]; });
@@ -2964,7 +2964,8 @@ html[data-page="ops-geo"] .xl-sb-theme{display:none!important}
       fetchTasksLive().catch(function () { return null; }),
       fetchLinksLive().catch(function () { return null; }),
       fetchChannelsLive().catch(function () { return null; }),
-      fetchTemplatesLive().catch(function () { return null; })
+      fetchTemplatesLive().catch(function () { return null; }),
+      fetchMonitorsLive(null, 3).catch(function () { return null; })
     ];
     Promise.all(p).then(function (res) {
       state.data.overview = normOverview(res[0] || {});
@@ -2973,6 +2974,11 @@ html[data-page="ops-geo"] .xl-sb-theme{display:none!important}
       if (res[3]) state.data.links = res[3].list;
       if (res[4]) state.data.channels = res[4].list;
       if (res[5]) { state.data.templates = res[5].list; state.data.industries = res[5].raw.industries || uniqueIndustries(res[5].list); }
+      if (res[6]) {
+        state.data.monitors = res[6].list;
+        var rawSummary = res[6].raw && res[6].raw.summary;
+        if (Array.isArray(rawSummary) && rawSummary.length) state.data.monitorSummary = rawSummary;
+      }
       state.mode = 'live';
       state.loading.overview = false;
       state.loaded.overview = true;

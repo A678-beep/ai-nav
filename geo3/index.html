@@ -1870,6 +1870,10 @@ function authToken() {
   try { if (WIN.XLAuth && WIN.XLAuth.token) return WIN.XLAuth.token() || ''; } catch (e) {}
   try { return localStorage.getItem('xl_token') || sessionStorage.getItem('xl_token') || ''; } catch (e) { return ''; }
 }
+/* 未登录且未指定 workspace 预览时：直接用示例数据，避免首屏必然 404 的请求噪音 */
+function isAnonymousGuest() {
+  try { return !authToken() && !qsParam('ws'); } catch (e) { return false; }
+}
 function workspaceId() {
   var wsParam = qsParam('ws');
   if (wsParam) return wsParam.replace(/[^\w\-]/g, '').slice(0, 64);
@@ -1884,6 +1888,10 @@ function apiCall(path, opt) {
   return new Promise(function (resolve) {
     if (state.apiOffline && !opt.force) {
       resolve({ ok: false, status: 0, error: 'offline', hint: '', data: {} });
+      return;
+    }
+    if (!opt.force && isAnonymousGuest()) {
+      resolve({ ok: false, status: 0, error: 'anonymous', hint: '', data: {} });
       return;
     }
     var ctrl = null, timer = null;
@@ -2796,7 +2804,7 @@ function loadDashboard(force) {
       state.dashboard = live ? normDashboard(res.data) : demoDashboard();
       state.store = state.dashboard.merchant || DEMO_STORE;
       state.liveDashboard = !!live;
-      if (!live && res.status === 404 && /merchant/i.test(res.error || '')) state.needLogin = true;
+      if (!live && (isAnonymousGuest() || res.status === 401 || (res.status === 404 && /merchant/i.test(res.error || '')))) state.needLogin = true;
       if (live) state.needLogin = false;
       renderHeader();
       renderOverview();
@@ -5109,7 +5117,7 @@ function exportCsv() {
   var name = 'GEO效果诊断_' + safeFileName(merchant) + '_' + fmtDate(new Date()) + '.csv';
   var btn = $('#g3ExportCsv');
   if (btn) btn.disabled = true;
-  if (state.apiOffline) {
+  if (state.apiOffline || isAnonymousGuest()) {
     downloadText(name, buildDiagnoseCsv(), 'text/csv');
     toast('表格已导出（示例数据）');
     if (btn) btn.disabled = false;
@@ -5180,7 +5188,7 @@ function exportPdf() {
   if (!state.diagnose) { toast('诊断结果还没出来，稍等再导出', 'warn'); return; }
   var btn = $('#g3ExportPdf');
   if (btn) { btn.disabled = true; }
-  if (state.apiOffline) {
+  if (state.apiOffline || isAnonymousGuest()) {
     printLocalReport();
     if (btn) btn.disabled = false;
     return;
