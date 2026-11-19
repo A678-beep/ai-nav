@@ -2,11 +2,14 @@
 <meta charset="utf-8">
 <!--xl-theme-start-->
 <script>(function(){try{var k="xl_theme",v=localStorage.getItem(k),m=(v==="dark"||v==="light"||v==="auto")?v:"auto",q=window.matchMedia?window.matchMedia("(prefers-color-scheme: light)"):null,t=(m==="auto")?((q&&q.matches)?"light":"dark"):m,d=document.documentElement;d.setAttribute("data-theme",t);d.setAttribute("data-theme-mode",m);d.style.colorScheme=t}catch(e){document.documentElement.setAttribute("data-theme","dark")}})();</script>
+<script>/* 首屏性能：提前挂上全站侧栏外壳（site-shell.js 是 defer 脚本），避免首帧后整页位移（CLS）。
+   与 site-shell.js 的首行逻辑一致；若外壳脚本意外未加载（无 #xlSidebar），DOMContentLoaded 时自动卸下该 class 恢复原顶栏。 */
+(function(){try{var d=document.documentElement;d.classList.add('xl-shell');var embed=d.classList.contains('xl-embed')||/(?:^|[?&])embed=1(?:&|$)/.test(location.search)||window.self!==window.top;if(embed)return;try{if(localStorage.getItem('xl_sb_collapsed')==='1'&&!(window.matchMedia&&window.matchMedia('(max-width:1099.98px)').matches))d.classList.add('xl-sb-collapsed')}catch(e){}document.addEventListener('DOMContentLoaded',function(){try{if(!document.getElementById('xlSidebar')){d.classList.remove('xl-shell');d.classList.remove('xl-sb-collapsed')}}catch(e){}},{once:true})}catch(e){}})();</script>
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
 <title>剪辑创作工作台 · 6 步出片 · 星籁 AI</title>
 <meta name="description" content="选行业模板、传素材、说一句话，AI 自动写文案、配音、配乐、剪成 9:16 商家短视频；支持极限词自检、一键改稿、版本回退和批量混剪。">
 <meta name="keywords" content="商家短视频,门店视频,AI视频生成,探店视频,开业宣传,批量混剪,美团抖音文案">
-<link rel="canonical" href="https://a678-beep.github.io/ai-nav/studio/">
+<link rel="canonical" href="https://xinglaiai.com/ai-nav/studio/">
 <style>
 :root{--bg:#070a10;--panel:#0f1622;--line:rgba(148,163,184,.14);--line2:rgba(56,189,248,.22);--txt:#e8eef8;--txt2:#9fb0c7;--txt3:#6b7c94;--cyan:#38bdf8;--violet:#8b5cf6;--lime:#34d399;--warn:#fbbf24;--bad:#fb7185;--r:18px}
 *{box-sizing:border-box}
@@ -1348,6 +1351,40 @@ html[data-theme="light"] .wb-ae-new{background:#fff;color:#075985}
 .wb-search-hist button{min-height:30px;padding:0 9px;border-radius:999px;border:1px solid rgba(148,163,184,.28);background:rgba(15,22,34,.55);color:#bae6fd;font-size:11.5px;cursor:pointer;font-family:inherit;white-space:nowrap}
 .wb-search-hist button:hover{border-color:rgba(56,189,248,.5)}
 html[data-theme="light"] .wb-search-hist button{background:#fff;color:#075985}
+
+/* ---------- 素材库 AI 换背景 / ③ 数字人卡（2026-11-19 新增） ---------- */
+.wb-bgpanel{display:flex;flex-direction:column;gap:8px;margin:2px 0 10px;padding:11px 12px;border:1px solid rgba(52,211,153,.32);border-radius:13px;background:linear-gradient(135deg,rgba(52,211,153,.10),rgba(56,189,248,.08))}
+.wb-bgpanel-head{display:flex;gap:8px;flex-wrap:wrap;align-items:baseline}
+.wb-bgpanel-head b{font-size:13.5px}
+.wb-bgpanel-head span{font-size:11.5px;color:var(--txt3);line-height:1.55}
+.wb-bgpanel-row{display:flex;gap:8px;flex-wrap:wrap;align-items:center}
+.wb-bgpanel-field{display:inline-flex;align-items:center;gap:6px;font-size:12.5px;color:var(--txt2);white-space:nowrap}
+.wb-bgpanel-field select,.wb-bgpanel-field input[type=color],.wb-bgpanel-prompt{background:var(--panel);border:1px solid var(--line);border-radius:9px;color:var(--txt);font:inherit;font-size:13px;min-height:38px;padding:0 10px}
+.wb-bgpanel-field input[type=color]{width:46px;padding:2px;min-height:34px;cursor:pointer}
+.wb-bgpanel-prompt{flex:1 1 220px;min-width:0}
+.wb-bgpanel-go{min-height:38px;flex:0 0 auto;padding:0 16px}
+.wb-bgpanel-meta{font-size:12px;color:var(--txt3);max-width:100%;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.wb-bgpanel-ex{display:flex;gap:6px;flex-wrap:wrap}
+.wb-bgpanel-ex button{font:inherit;font-size:11.5px;padding:4px 10px;border-radius:999px;border:1px dashed rgba(148,163,184,.45);background:transparent;color:var(--txt3);cursor:pointer;min-height:30px}
+.wb-bgpanel-ex button:hover{border-color:var(--cyan);color:var(--txt)}
+.wb-bgpanel-status{display:flex;gap:8px;align-items:center;flex-wrap:wrap;font-size:12.5px;color:var(--cyan)}
+.wb-bgpanel-status.err{color:#fca5a5}
+.wb-bgpanel-status .sp{display:inline-block;width:13px;height:13px;border:2px solid rgba(56,189,248,.35);border-top-color:#38bdf8;border-radius:50%;animation:wbGenSpin .8s linear infinite}
+.wb-bgpanel-result{display:flex;gap:10px;flex-wrap:wrap;align-items:flex-start}
+.wb-bgpanel-result .thumb{width:92px;height:128px;border-radius:10px;overflow:hidden;border:1px solid var(--line);background:#05080f;flex:0 0 auto}
+.wb-bgpanel-result .thumb img{width:100%;height:100%;object-fit:cover;display:block}
+.wb-bgpanel-result .info{flex:1 1 210px;min-width:0;font-size:12px;color:var(--txt2);line-height:1.7}
+.wb-bgpanel-result .info b{color:var(--txt)}
+.wb-bgpanel-result .info a{color:var(--cyan);word-break:break-all}
+.wb-bgpanel-note{font-size:11.5px;color:var(--txt3);line-height:1.55}
+html[data-theme="light"] .wb-bgpanel{background:linear-gradient(135deg,rgba(16,185,129,.08),rgba(56,189,248,.06))}
+html[data-theme="light"] .wb-bgpanel-result .thumb{background:#fff}
+.wb-avatar-card{border-color:rgba(52,211,153,.5);background:linear-gradient(135deg,rgba(52,211,153,.16),rgba(56,189,248,.10))}
+.wb-avatar-card .wb-ae-ico{background:rgba(52,211,153,.18);border-color:rgba(52,211,153,.45)}
+@media(max-width:640px){.wb-bgpanel{padding:10px}.wb-bgpanel-row{gap:7px}.wb-bgpanel-prompt{flex:1 1 100%}.wb-bgpanel-go{width:100%}}
+/* 创作方式改成 7 个 tab 后，桌面端让 tab 换行显示（「数字人」不用横向滚动才看得到） */
+@media(min-width:900px){.wb-tabs{flex-wrap:wrap;overflow-x:visible;overflow-y:visible;row-gap:6px}}
+
 @media (max-width:640px){
  .wb-search{padding:9px}
  .wb-search-input{flex:1 1 100%}
@@ -1738,6 +1775,7 @@ html[data-theme="light"] .wb-confirm-note{color:#9f1239}
         <div class="wb-asset-row wb-asset-row-acts">
          <button type="button" class="btn-line" id="wbAssetGenToggle" title="展开「AI 生成行业素材」" aria-expanded="false" aria-controls="wbGenBox">✨ AI 生成行业素材</button>
          <button type="button" class="btn-line" id="wbAssetSearchLibToggle" title="展开「中文搜 Pixabay 图库 → 一键入库」" aria-expanded="false" aria-controls="wbSearchBox">🔍 搜图入库</button>
+          <button type="button" class="btn-line" id="wbAssetBgToggle" title="展开「AI 换背景」：上传图片 → 抠像 → AI 背景 → 保存为新素材" aria-expanded="false" aria-controls="wbBgBox">🖼️ AI 换背景</button>
          <button type="button" class="btn-line" id="wbAssetUploadBtn" title="上传图片 / 视频 / 音频（单个 ≤100MB，可多选）">⬆ 上传素材</button>
          <input type="file" id="wbAssetFile" accept="image/jpeg,image/png,image/webp,video/mp4,video/quicktime,audio/mpeg,audio/wav,audio/mp4,audio/x-m4a,audio/m4a" multiple hidden>
          <span class="wb-bulk-count" id="wbBulkCount" aria-live="polite">已选 0（本页 0）</span>
@@ -1776,6 +1814,28 @@ html[data-theme="light"] .wb-confirm-note{color:#9f1239}
        </div>
 
        <!-- 素材库中文搜索（studio_search，2026-11-19） -->
+       <div class="wb-bgpanel" id="wbBgBox" hidden>
+        <div class="wb-bgpanel-head"><b>🖼️ AI 换背景（图片素材）</b><span>上传一张人像 / 产品图 → 服务器自动抠像 → 换成 AI 生成 / 纯色背景 → 自动保存为素材库新素材</span></div>
+        <div class="wb-bgpanel-row">
+         <button type="button" class="btn-line" id="wbBgPickBtn">⬆ 选择图片</button>
+         <input type="file" id="wbBgFile" accept="image/jpeg,image/png,image/webp" hidden>
+         <span class="wb-bgpanel-meta" id="wbBgFileMeta">还没有选择图片</span>
+         <label class="wb-bgpanel-field">背景
+          <select id="wbBgMode" aria-label="AI 换背景方式">
+           <option value="ai" selected>AI 生成背景</option>
+           <option value="color">纯色背景</option>
+           <option value="cutout">只要透明 PNG（抠像）</option>
+          </select>
+         </label>
+         <label class="wb-bgpanel-field" id="wbBgColorWrap" hidden>底色<input type="color" id="wbBgColor" value="#0B1B2B" aria-label="纯色背景颜色"></label>
+         <input type="text" class="wb-bgpanel-prompt" id="wbBgPrompt" maxlength="120" autocomplete="off" placeholder="背景描述，例如：明亮门店前台" aria-label="AI 背景描述">
+         <button type="button" class="btn-main small wb-bgpanel-go" id="wbBgGo">✨ 生成并保存</button>
+        </div>
+        <div class="wb-bgpanel-ex" id="wbBgExamples"></div>
+        <div class="wb-bgpanel-status" id="wbBgStatus" hidden></div>
+        <div class="wb-bgpanel-result" id="wbBgResult" hidden></div>
+        <div class="wb-bgpanel-note" id="wbBgNote">价格提示：AI 生图约 ¥0.1/张（SiliconFlow Kolors / 通义万相，失败自动回退渐变背景）；抠像与合成在服务器完成，结果自动保存到素材库，刷新即可看到。</div>
+       </div>
        <div class="wb-search" id="wbSearchBox" hidden>
         <div class="wb-search-row">
          <input type="text" class="wb-search-input" id="wbSearchInput" maxlength="80" autocomplete="off" spellcheck="false" placeholder="🔍 搜素材：中文即可，如 汽车维修 / 除甲醛 / 家政 / 化妆" aria-label="素材搜索关键词">
@@ -1870,8 +1930,25 @@ html[data-theme="light"] .wb-confirm-note{color:#9f1239}
      <button type="button" class="wb-tab" data-mode="pad" role="tab" aria-selected="false">🛍️ 商品广告</button>
      <button type="button" class="wb-tab" data-mode="free" role="tab" aria-selected="false">🤖 AI 自由创作</button>
      <button type="button" class="wb-tab" data-mode="pro" role="tab" aria-selected="false">🛠️ 专业模式</button>
+     <button type="button" class="wb-tab" data-mode="avatar" role="tab" aria-selected="false">🧑 数字人 <span class="tag">NEW</span></button>
     </div>
     <div class="wb-mode-panes">
+     <div class="wb-mode-pane" data-mode="avatar" hidden>
+      <section class="wb-ae-card wb-avatar-card" id="wbAvatarCard" tabindex="0" role="button" aria-label="数字人：上传照片或视频生成数字人口播">
+       <span class="wb-ae-ico" aria-hidden="true">🧑</span>
+       <div class="wb-ae-main">
+        <b>🧑 数字人 <span class="tag">NEW</span></b>
+        <p>上传照片或视频生成数字人口播，可选克隆音色。照片会先做缓慢推近、再合成真口型；也可以上传一段正面口播视频，AI 自动对口型并合成进成片。出镜画面还能一键换 AI 背景（门店前台 / 温馨客厅 / 专业影棚）。</p>
+        <div class="wb-ae-tags"><span>🖼️ 照片生成数字人</span><span>👄 真口型对齐</span><span>🎙️ 可选克隆音色</span><span>🖼️ AI 换背景</span></div>
+       </div>
+       <div class="wb-ae-acts">
+        <button type="button" class="wb-ae-open" id="wbAvatarOpen">进入数字人 →</button>
+        <a class="wb-ae-new" id="wbAvatarNew" href="/ai-nav/autoedit/?presenter=photo_lipsync&amp;from=studio-avatar" target="_blank" rel="noopener">↗ 新窗口打开</a>
+       </div>
+      </section>
+      <div class="wb-mode-intro" style="margin-top:10px"><b>数字人怎么用</b><span>点卡片进入后默认展开「照片口型数字人」→ 上传正脸照片（或切「真口型数字人」上传 5–20 秒口播视频）→ 选音色 / 克隆音色 → 导出成片；① 出镜方式里还能选「AI 换背景」。全程不会自动发布。</span></div>
+     </div>
+
      <div class="wb-mode-pane" data-mode="template"><section class="sec glow" id="secPrompt">
   <div class="sec-head"><span class="sec-ico">💬</span><div><h2>模板成片 · 说一句话</h2><p class="sec-sub">做什么 + 给谁 + 优惠/卖点。把价格、地址、时间说清楚就行；生成后不满意可一键改。</p></div><span class="sec-hint"><b>必填</b> · 最多 300 字</span></div>
   <div class="qbox">
@@ -2327,7 +2404,7 @@ html[data-theme="light"] .wb-confirm-note{color:#9f1239}
 <div class="modal wb-ae-modal" id="wbAeModal" hidden>
  <div class="wb-ae-shell" role="dialog" aria-modal="true" aria-label="AI 全自动剪辑">
   <div class="wb-ae-bar">
-   <b>🤖 AI 全自动剪辑</b><span class="wb-ae-sub">一句话 / 文案 → 成片 · 不会自动发布</span>
+   <b id="wbAeTitle">🤖 AI 全自动剪辑</b><span class="wb-ae-sub" id="wbAeSub">一句话 / 文案 → 成片 · 不会自动发布</span>
    <div class="wb-ae-bar-acts">
     <a href="/ai-nav/autoedit/" target="_blank" rel="noopener" id="wbAeNew2">↗ 新窗口打开</a>
     <button type="button" class="wb-ae-close" id="wbAeClose">✕ 关闭</button>
@@ -7478,7 +7555,7 @@ if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',
   };
   var MODE_LABEL = {
     template: '模板成片', timeline: '自由剪辑', batch: '批量剪辑',
-    pad: '商品广告', free: 'AI 自由创作', pro: '专业模式'
+    pad: '商品广告', free: 'AI 自由创作', pro: '专业模式', avatar: '数字人'
   };
   var BATCH_LABEL = { materials: '多素材批量剪辑', long: '长视频拆条混剪', pad: '商品广告' };
 
@@ -8302,14 +8379,22 @@ if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',
 
   /* ---------------- AI 全自动剪辑（入口合并，2026-11-19） ---------------- */
   var AE_EMBED_URL = '/ai-nav/autoedit/?embed=1';
-  function openAeModal() {
+  var AE_AVATAR_URL = '/ai-nav/autoedit/?embed=1&presenter=photo_lipsync&from=studio-avatar';
+  function openAeModal(url, title, sub) {
     var m = $('wbAeModal'), f = $('wbAeFrame');
-    if (!m || !f) { try { window.open('/ai-nav/autoedit/', '_blank', 'noopener'); } catch (e) {} return; }
+    if (typeof url !== 'string' || !url) url = AE_EMBED_URL;
+    if (!m || !f) { try { window.open(typeof url === 'string' ? url : '/ai-nav/autoedit/', '_blank', 'noopener'); } catch (e) {} return; }
     var cur = f.getAttribute('src') || '';
-    if (cur === '' || cur === 'about:blank') f.setAttribute('src', AE_EMBED_URL);
+    if (cur !== url) f.setAttribute('src', url);
+    if ($('wbAeTitle')) $('wbAeTitle').textContent = title || '🤖 AI 全自动剪辑';
+    if ($('wbAeSub')) $('wbAeSub').textContent = sub || '一句话 / 文案 → 成片 · 不会自动发布';
     m.hidden = false;
     try { document.body.style.overflow = 'hidden'; } catch (e) {}
     setTimeout(function () { try { f.focus(); } catch (e) {} }, 80);
+  }
+  function openAvatarModal() {
+    openAeModal(AE_AVATAR_URL, '🧑 数字人 · 照片 / 视频生成数字人口播',
+      '上传照片或视频生成数字人口播 · 可选克隆音色 · 支持 AI 换背景 · 不自动发布');
   }
   function closeAeModal() {
     var m = $('wbAeModal'); if (!m) return;
@@ -8334,6 +8419,21 @@ if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',
     if (op) op.addEventListener('click', function (e) { e.stopPropagation(); openAeModal(); });
     var nw = $('wbAeNew');
     if (nw) nw.addEventListener('click', function (e) { e.stopPropagation(); });
+    var avCard = $('wbAvatarCard');
+    if (avCard) {
+      avCard.addEventListener('click', function (e) {
+        var t = e.target;
+        if (t && t.closest && t.closest('a')) return;
+        openAvatarModal();
+      });
+      avCard.addEventListener('keydown', function (e) {
+        if (e.key === 'Enter' || e.key === ' ' || e.key === 'Spacebar') { e.preventDefault(); openAvatarModal(); }
+      });
+    }
+    var avOpen = $('wbAvatarOpen');
+    if (avOpen) avOpen.addEventListener('click', function (e) { e.stopPropagation(); openAvatarModal(); });
+    var avNew = $('wbAvatarNew');
+    if (avNew) avNew.addEventListener('click', function (e) { e.stopPropagation(); });
     var cl = $('wbAeClose');
     if (cl) cl.addEventListener('click', closeAeModal);
     var m = $('wbAeModal');
@@ -8343,6 +8443,138 @@ if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',
       if (e.origin && e.origin !== location.origin) return;
       if (e.data && e.data.type === 'xl-autoedit-back') closeAeModal();
     });
+  }
+
+
+  /* ---------------- 素材库：AI 换背景（2026-11-19 新增） ---------------- */
+  var BG_PANEL_EXAMPLES = ['明亮门店前台', '温馨客厅', '专业影棚', '现代简约办公室'];
+  var BGP = { dataUrl: '', name: '', busy: false };
+
+  function bgStatus(msg, isErr) {
+    var el = $('wbBgStatus');
+    if (!el) return;
+    if (!msg) { el.hidden = true; el.innerHTML = ''; return; }
+    el.hidden = false;
+    el.className = 'wb-bgpanel-status' + (isErr ? ' err' : '');
+    el.innerHTML = (isErr ? '<span aria-hidden="true">⚠️</span>' : '<span class="sp" aria-hidden="true"></span>') + '<span>' + esc(msg) + '</span>';
+  }
+  function bgReadImage(file, maxSide, quality) {
+    return new Promise(function (resolve, reject) {
+      var fr = new FileReader();
+      fr.onload = function () {
+        var img = new Image();
+        img.onload = function () {
+          try {
+            var w = img.naturalWidth || img.width, h = img.naturalHeight || img.height;
+            var k = Math.min(1, (maxSide || 1500) / Math.max(1, Math.max(w, h)));
+            var c = document.createElement('canvas');
+            c.width = Math.max(2, Math.round(w * k));
+            c.height = Math.max(2, Math.round(h * k));
+            c.getContext('2d').drawImage(img, 0, 0, c.width, c.height);
+            resolve(c.toDataURL('image/jpeg', quality || 0.84));
+          } catch (e) { resolve(String(fr.result || '')); }
+        };
+        img.onerror = function () { reject(new Error('图片读取失败')); };
+        img.src = String(fr.result || '');
+      };
+      fr.onerror = function () { reject(new Error('图片读取失败')); };
+      fr.readAsDataURL(file);
+    });
+  }
+  function bgPickFile(f) {
+    if (!f) return;
+    if (!/^image\//.test(f.type || '') && !/\.(jpe?g|png|webp)$/i.test(f.name || '')) {
+      toast('只支持 JPG / PNG / WebP 图片', 'warn');
+      return;
+    }
+    if (f.size > 10 * 1024 * 1024) { toast('图片超过 10MB，请压缩或换一张', 'warn'); return; }
+    BGP.name = f.name || '图片';
+    var meta = $('wbBgFileMeta');
+    if (meta) meta.textContent = BGP.name + ' · ' + fmtSize(f.size) + ' · 正在压缩…';
+    bgReadImage(f, 1500, 0.84).then(function (durl) {
+      BGP.dataUrl = durl;
+      var kb = Math.max(1, Math.round((durl.length - (durl.indexOf(',') + 1)) * 0.75 / 1024));
+      if (meta) meta.textContent = BGP.name + ' · 已就绪（压缩后约 ' + kb + 'KB）';
+      bgStatus('', false);
+    }).catch(function () {
+      BGP.dataUrl = '';
+      if (meta) meta.textContent = BGP.name + ' · 读取失败，请换一张图';
+    });
+  }
+  function bgGo() {
+    if (BGP.busy) return;
+    if (!BGP.dataUrl) { toast('先点「选择图片」挑一张人像 / 产品图', 'warn'); return; }
+    var modeEl = $('wbBgMode');
+    var mode = modeEl ? modeEl.value : 'ai';
+    var prompt = $('wbBgPrompt') ? String($('wbBgPrompt').value || '').trim() : '';
+    var color = $('wbBgColor') ? String($('wbBgColor').value || '#0B1B2B') : '#0B1B2B';
+    if (mode === 'ai' && prompt.length < 2) { toast('写一句背景描述，例如：明亮门店前台（可点下面示例）', 'warn'); return; }
+    BGP.busy = true;
+    var go = $('wbBgGo');
+    if (go) { go.disabled = true; go.textContent = '⏳ 处理中…'; }
+    if ($('wbBgResult')) $('wbBgResult').hidden = true;
+    bgStatus('正在' + (mode === 'cutout' ? '抠像' : (mode === 'color' ? '抠像 + 合成纯色背景' : '抠像 + AI 生成背景'))
+      + '，约 5~25 秒' + (mode === 'ai' ? '（AI 生图约 ¥0.1/张）' : '') + '…', false);
+    var body = { file: BGP.dataUrl, width: 1080, height: 1920, quality: 'high', industry: tplName() };
+    if (mode === 'ai') body.bg_prompt = prompt;
+    else if (mode === 'color') body.bg_color = color;
+    api('/assets/remove-bg', {
+      method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(body)
+    }, 300000).then(function (d) {
+      bgStatus('', false);
+      if (!d || d.ok === false) throw new Error((d && d.hint) || '处理失败');
+      var resultUrl = d.result_url || d.url || '';
+      var html = '<div class="thumb"><img src="' + esc(resultUrl) + '" alt="AI 换背景结果"></div>'
+        + '<div class="info"><b>' + (d.result_url ? '已抠像并换背景，保存为新素材' : '抠像完成，透明 PNG 已保存为素材') + '</b>'
+        + '<div>透明 PNG：<a href="' + esc(d.url || '') + '" target="_blank" rel="noopener">' + esc(d.name || '打开') + '</a>'
+        + (d.width ? ' · ' + d.width + '×' + d.height : '') + '</div>'
+        + (d.result_url ? '<div>新素材：<a href="' + esc(d.result_url) + '" target="_blank" rel="noopener">查看大图</a></div>' : '')
+        + (d.price_estimate && d.price_estimate.text ? '<div>价格：' + esc(d.price_estimate.text) + '</div>' : '')
+        + (d.hint ? '<div style="color:#fbbf24">' + esc(d.hint) + '</div>' : '')
+        + '<div style="margin-top:6px"><button type="button" class="btn-line" id="wbBgViewLib">刷新素材库</button></div>'
+        + '</div>';
+      var box = $('wbBgResult');
+      if (box) { box.hidden = false; box.innerHTML = html; }
+      var v = $('wbBgViewLib');
+      if (v) v.addEventListener('click', function () { loadAssets(); toast('已刷新素材库，最新素材在最前面', 'ok'); });
+      loadAssets();
+      toast(d.result_url ? 'AI 换背景完成，已保存为素材库新素材' : '抠像完成，透明 PNG 已保存为素材', 'ok');
+    }).catch(function (e) {
+      var msg = (e && (e.message || (e.data && e.data.hint))) || '处理失败，请稍后重试';
+      bgStatus(msg, true);
+      toast('AI 换背景失败：' + msg, 'err', 5200);
+    }).then(function () {
+      BGP.busy = false;
+      if (go) { go.disabled = false; go.textContent = '✨ 生成并保存'; }
+    });
+  }
+  function bindBgPanel() {
+    var toggle = $('wbAssetBgToggle');
+    if (toggle) toggle.addEventListener('click', function (e) { e.preventDefault(); toggleAssetPanel('bg'); });
+    var pick = $('wbBgPickBtn'), file = $('wbBgFile');
+    if (pick && file) pick.addEventListener('click', function () { file.click(); });
+    if (file) file.addEventListener('change', function () { bgPickFile(this.files && this.files[0]); this.value = ''; });
+    var modeEl = $('wbBgMode');
+    if (modeEl) modeEl.addEventListener('change', function () {
+      var isColor = modeEl.value === 'color';
+      if ($('wbBgColorWrap')) $('wbBgColorWrap').hidden = !isColor;
+      if ($('wbBgPrompt')) $('wbBgPrompt').disabled = (modeEl.value !== 'ai');
+    });
+    var go = $('wbBgGo');
+    if (go) go.addEventListener('click', bgGo);
+    var ex = $('wbBgExamples');
+    if (ex) {
+      ex.innerHTML = BG_PANEL_EXAMPLES.map(function (t) {
+        return '<button type="button" data-bgt="' + esc(t) + '">＋ ' + esc(t) + '</button>';
+      }).join('');
+      ex.addEventListener('click', function (e) {
+        var b = e.target && e.target.closest ? e.target.closest('[data-bgt]') : null;
+        if (!b) return;
+        if ($('wbBgMode')) { $('wbBgMode').value = 'ai'; }
+        if ($('wbBgColorWrap')) $('wbBgColorWrap').hidden = true;
+        if ($('wbBgPrompt')) { $('wbBgPrompt').disabled = false; $('wbBgPrompt').value = b.getAttribute('data-bgt'); $('wbBgPrompt').focus(); }
+      });
+    }
   }
 
   /* ---------------- 素材库：中文图库搜索（studio_search） ---------------- */
@@ -8653,22 +8885,21 @@ if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',
     scrollAssetTop();
   }
   function toggleAssetPanel(which) {
-    var g = $('wbGenBox'), s = $('wbSearchBox');
-    var genBtn = $('wbAssetGenToggle'), searchBtn = $('wbAssetSearchLibToggle');
-    var target = which === 'gen' ? g : s;
+    var panels = { gen: $('wbGenBox'), search: $('wbSearchBox'), bg: $('wbBgBox') };
+    var btns = { gen: $('wbAssetGenToggle'), search: $('wbAssetSearchLibToggle'), bg: $('wbAssetBgToggle') };
+    var target = panels[which];
     if (!target) return;
     var willOpen = target.hidden;
-    if (g) g.hidden = true;
-    if (s) s.hidden = true;
-    if (genBtn) genBtn.setAttribute('aria-expanded', 'false');
-    if (searchBtn) searchBtn.setAttribute('aria-expanded', 'false');
+    for (var k in panels) { if (panels[k]) panels[k].hidden = true; if (btns[k]) btns[k].setAttribute('aria-expanded', 'false'); }
     if (!willOpen) return;
     target.hidden = false;
-    var b = which === 'gen' ? genBtn : searchBtn;
-    if (b) b.setAttribute('aria-expanded', 'true');
+    if (btns[which]) btns[which].setAttribute('aria-expanded', 'true');
     try { target.scrollIntoView({ behavior: 'smooth', block: 'nearest' }); } catch (e) {}
     if (which === 'gen') { try { wbGenPrefill(false); } catch (e) {} }
-    else {
+    else if (which === 'bg') {
+      var bp = $('wbBgPrompt');
+      if (bp) { try { bp.focus({ preventScroll: true }); } catch (e) {} }
+    } else {
       var si = $('wbSearchInput');
       if (si) { try { si.focus({ preventScroll: true }); } catch (e) {} }
     }
@@ -8684,6 +8915,7 @@ if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',
   }
   function bindAssetUx() {
     bindAssetConfirm();
+    bindBgPanel();
     var genBtn = $('wbAssetGenToggle'), searchBtn = $('wbAssetSearchLibToggle');
     if (genBtn) genBtn.addEventListener('click', function (e) { e.preventDefault(); toggleAssetPanel('gen'); });
     if (searchBtn) searchBtn.addEventListener('click', function (e) { e.preventDefault(); toggleAssetPanel('search'); });

@@ -32,9 +32,16 @@
   body{
     background:var(--bg); color:var(--ink); font-family:var(--sans);
     font-size:16px; line-height:1.65; -webkit-font-smoothing:antialiased;
-    padding-bottom:calc(206px + env(safe-area-inset-bottom));
+    /* 底部留资条默认收起为 61px 一行；展开时由 JS 量高后同步，正文永不被压住 */
+    padding-bottom:calc(var(--leadbar-h, 0px) + 14px + env(safe-area-inset-bottom));
+    transition:padding-bottom .3s cubic-bezier(.4,0,.2,1);
   }
-  body.loaded{padding-bottom:calc(206px + env(safe-area-inset-bottom))}
+  body.loaded{padding-bottom:calc(var(--leadbar-h, 0px) + 14px + env(safe-area-inset-bottom))}
+  /* 站壳（site-shell.css）会给 body 另设 transition，这里用更高优先级保留外壳动效并补上留资条让位动画 */
+  html.xl-shell.xl-shell-ready body.loaded{
+    padding-bottom:calc(var(--leadbar-h, 0px) + 14px + env(safe-area-inset-bottom));
+    transition:margin-left .22s cubic-bezier(.4,0,.2,1),padding-bottom .32s cubic-bezier(.4,0,.2,1);
+  }
   button,input,textarea{font:inherit;color:inherit}
   button{cursor:pointer;-webkit-tap-highlight-color:transparent}
   a{color:inherit;text-decoration:none}
@@ -113,10 +120,21 @@
   /* photos */
   .photos{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:8px}
   .photos.single{grid-template-columns:1fr}
+  .photos.photos-default{grid-template-columns:repeat(2,minmax(0,1fr))}
   .photo{position:relative;border-radius:12px;overflow:hidden;background:#ece7dc;aspect-ratio:4/3}
   .photo img{width:100%;height:100%;object-fit:cover;transition:transform .35s ease}
   .photo:active img{transform:scale(1.02)}
-  .photo .ph-fallback{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;color:#a39d90;font-size:12px}
+  .photo .ph-fallback{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;
+    gap:5px;padding:10px;text-align:center;color:#8a8377;font-size:12px;line-height:1.45;
+    background:linear-gradient(140deg,#f2ede3,#e8e1d4)}
+  .photo .ph-fallback .ph-ico{font-size:19px;line-height:1}
+  .photo.failed .ph-fallback{color:#6f6248;background:linear-gradient(140deg,#f7f2e8,#efe7d8)}
+  .photo .ph-tag{position:absolute;left:8px;top:8px;z-index:2;font-size:10px;line-height:1;padding:4px 7px;border-radius:999px;
+    background:rgba(255,255,255,.92);color:#5c6a64;border:1px solid rgba(16,32,29,.08)}
+  .photo-note{margin-top:10px;font-size:12px;color:var(--muted);line-height:1.6;display:flex;gap:6px;align-items:flex-start}
+  .photo-note .pn-ico{flex:0 0 auto;line-height:1.4}
+  .photo-note a,.photo-note button{color:var(--brand);font-weight:650;text-decoration:underline;text-underline-offset:2px;
+    background:none;border:0;padding:0;font-size:12px;min-height:0;display:inline;cursor:pointer}
   /* info */
   .info-row{display:flex;gap:11px;padding:11px 0;border-bottom:1px dashed #ece7dc;min-width:0}
   .info-row:last-child{border-bottom:0;padding-bottom:2px}
@@ -133,25 +151,53 @@
   /* footer */
   .foot{text-align:center;color:#8a938f;font-size:11.5px;line-height:1.8;padding:20px 12px 8px}
   .foot a{color:#63706c;text-decoration:underline;text-underline-offset:2px}
-  /* fixed lead */
-  .leadbar{position:fixed;left:0;right:0;bottom:0;z-index:40;background:rgba(255,255,255,.96);
+  /* fixed lead —— 默认收起为一行紧凑条（含内边距总高约 61px ≤64px），点开为完整留资表单 */
+  .leadbar{position:fixed;left:0;right:0;bottom:0;z-index:40;background:rgba(255,255,255,.97);
     backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);border-top:1px solid #e3ded3;
-    box-shadow:0 -10px 30px rgba(16,32,29,.08);padding:10px 0 calc(10px + env(safe-area-inset-bottom));display:none}
+    box-shadow:0 -10px 30px rgba(16,32,29,.08);padding:6px 0 calc(6px + env(safe-area-inset-bottom));display:none}
   .leadbar.show{display:block}
-  .leadbar-in{max-width:var(--maxw);margin:0 auto;padding:0 14px}
-  .leadbar-title{display:flex;align-items:center;justify-content:space-between;gap:8px;font-size:12.5px;color:var(--muted);margin-bottom:7px}
+  .leadbar-in{max-width:var(--maxw);margin:0 auto;padding:0 10px}
+  .leadbar-row{display:flex;align-items:stretch;gap:6px}
+  .leadbar-toggle{flex:1 1 auto;min-width:0;min-height:48px;display:flex;align-items:center;gap:10px;
+    padding:3px 6px 3px 2px;border:0;border-radius:13px;background:transparent;text-align:left;
+    transition:background .15s ease}
+  .leadbar-toggle:hover{background:#f4f1ea}
+  .leadbar-toggle:active{background:#ece7dc}
+  .leadbar-toggle:focus-visible{outline:2px solid var(--brand);outline-offset:2px}
+  .lb-ico{flex:0 0 auto;width:36px;height:36px;border-radius:11px;display:inline-flex;align-items:center;justify-content:center;
+    font-size:17px;background:linear-gradient(145deg,#e9f5f0,#d6ece3);color:#0e5c52}
+  .lb-txt{min-width:0;flex:1;display:flex;flex-direction:column;line-height:1.24}
+  .lb-txt b{font-size:14.5px;font-weight:750;color:var(--ink);letter-spacing:.2px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+  .lb-txt small{font-size:11.5px;color:#5f6b65;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;margin-top:1px}
+  .lb-chev{flex:0 0 auto;width:18px;height:18px;color:#7d8880;transition:transform .26s ease}
+  .leadbar.open .lb-chev{transform:rotate(180deg)}
+  .leadbar-close{flex:0 0 44px;width:44px;min-height:48px;border:0;border-radius:13px;background:transparent;
+    color:#7d8880;font-size:22px;line-height:1;display:inline-flex;align-items:center;justify-content:center;
+    transition:background .15s ease,color .15s ease}
+  .leadbar-close:hover{background:#f4f1ea;color:#46524c}
+  .leadbar-close:focus-visible{outline:2px solid var(--brand);outline-offset:2px}
+  .leadbar-panel{max-height:0;opacity:0;visibility:hidden;overflow:hidden;transform:translateY(6px);
+    transition:max-height .32s cubic-bezier(.4,0,.2,1),opacity .2s ease,transform .32s cubic-bezier(.4,0,.2,1),
+      visibility 0s linear .32s}
+  .leadbar.open .leadbar-panel{max-height:min(430px,66vh);opacity:1;visibility:visible;transform:none;
+    overflow-y:auto;overscroll-behavior:contain;-webkit-overflow-scrolling:touch;
+    transition:max-height .32s cubic-bezier(.4,0,.2,1),opacity .22s ease .05s,transform .32s cubic-bezier(.4,0,.2,1),
+      visibility 0s}
+  .leadbar-title{display:flex;align-items:baseline;justify-content:space-between;gap:8px;flex-wrap:wrap;
+    font-size:12.5px;color:var(--muted);margin:9px 2px 8px}
   .leadbar-title b{color:var(--ink);font-size:13px}
-  .leadbar-title span{font-size:11px;color:#9a9387}
+  .leadbar-title span{font-size:11px;color:#68736d}
   .lead-row{display:flex;gap:8px}
   .lead-input{min-width:0;flex:1;height:48px;border:1px solid #dcd6ca;border-radius:12px;background:#fff;padding:0 12px;
     font-size:16px;outline:none;transition:border .15s ease,box-shadow .15s ease}
-  .lead-input::placeholder{color:#a8a196}
+  .lead-input::placeholder{color:#8f887c}
   .lead-input:focus{border-color:var(--brand);box-shadow:0 0 0 3px rgba(14,92,82,.1)}
+  .lead-input.invalid{border-color:var(--danger);box-shadow:0 0 0 3px rgba(180,35,24,.12)}
   .lead-submit{flex:0 0 104px;height:48px;border-radius:12px;border:0;background:linear-gradient(145deg,#167c6c,#0e5c52);
     color:#fff;font-size:15px;font-weight:750;box-shadow:0 6px 16px rgba(14,92,82,.22)}
   .lead-submit:disabled{opacity:.6}
   .need{margin-top:7px;height:44px;font-size:14px;background:#fbf9f4}
-  .lead-fine{margin-top:6px;font-size:10.5px;color:#a19a8e;line-height:1.5;display:flex;gap:6px;align-items:center}
+  .lead-fine{margin-top:7px;margin-bottom:2px;font-size:10.5px;color:#68736d;line-height:1.5;display:flex;gap:6px;align-items:center}
   .lead-fine .lock{flex:0 0 auto}
   .lead-captcha{display:flex;align-items:center;gap:8px;margin-top:7px}
   .captcha-q{font-size:13px;color:var(--ink);font-weight:650;white-space:nowrap}
@@ -163,7 +209,7 @@
   .hours-row.today{background:#f1f7f4;font-weight:650}
   .hours-day{color:var(--muted);flex:0 0 42px}
   .hours-time{text-align:right;overflow-wrap:anywhere}
-  .lead-success{display:none;align-items:center;gap:11px;padding:9px 2px;min-height:64px}
+  .lead-success{display:none;align-items:center;gap:11px;padding:12px 2px 10px;min-height:64px}
   .lead-success .ok-ico{flex:0 0 40px;width:40px;height:40px;border-radius:50%;background:#e7f6ef;color:var(--ok);
     display:flex;align-items:center;justify-content:center;font-size:20px;font-weight:800}
   .lead-success b{display:block;font-size:14.5px}
@@ -187,7 +233,7 @@
   .lightbox img{max-width:100%;max-height:88vh;width:auto;height:auto;border-radius:8px}
   .lightbox .close{position:absolute;right:14px;top:calc(12px + env(safe-area-inset-top));width:44px;height:44px;border-radius:50%;
     border:0;background:rgba(255,255,255,.16);color:#fff;font-size:22px}
-  .toast{position:fixed;left:50%;bottom:calc(222px + env(safe-area-inset-bottom));transform:translateX(-50%) translateY(8px);
+  .toast{position:fixed;left:50%;bottom:calc(var(--leadbar-h, 0px) + 16px + env(safe-area-inset-bottom));transform:translateX(-50%) translateY(8px);
     background:rgba(16,32,29,.94);color:#fff;font-size:13px;padding:10px 15px;border-radius:999px;opacity:0;pointer-events:none;
     transition:opacity .2s ease,transform .2s ease;z-index:100;max-width:calc(100% - 28px);text-align:center}
   .toast.show{opacity:1;transform:translateX(-50%) translateY(0)}
@@ -198,6 +244,7 @@
     .section{padding:20px 20px}
     .photos{grid-template-columns:repeat(3,minmax(0,1fr))}
     .photos.single{grid-template-columns:1fr}
+    .photos.photos-default{grid-template-columns:repeat(4,minmax(0,1fr))}
   }
   @media (prefers-reduced-motion:reduce){
     *{animation:none !important;transition:none !important}
@@ -231,15 +278,27 @@ html[data-theme="dark"] .svc{background:#182220;border-color:var(--line)}
 html[data-theme="dark"] .svc .chev{color:#8a9a94}
 html[data-theme="dark"] .promo{background:linear-gradient(120deg,#2a2417,#33301c);border-color:#3d3522}
 html[data-theme="dark"] .photo{background:#1e2925}
-html[data-theme="dark"] .photo .ph-fallback{color:#8b9a94}
+html[data-theme="dark"] .photo .ph-fallback{background:linear-gradient(140deg,#1f2a26,#182220);color:#9fb0a8}
+html[data-theme="dark"] .photo.failed .ph-fallback{background:linear-gradient(140deg,#27231a,#211f18);color:#d8c08f}
+html[data-theme="dark"] .photo .ph-tag{background:rgba(20,29,26,.92);color:#c3d0ca;border-color:rgba(255,255,255,.1)}
+html[data-theme="dark"] .photo-note a,
+html[data-theme="dark"] .photo-note button{color:#7fd8c4}
+html[data-theme="dark"] .leadbar{background:rgba(18,26,23,.97);border-top-color:#2a352f}
+html[data-theme="dark"] .leadbar-toggle:hover{background:#1c2723}
+html[data-theme="dark"] .leadbar-toggle:active{background:#22302a}
+html[data-theme="dark"] .lb-ico{background:linear-gradient(145deg,#1c302a,#152a24);color:#7fd8c4}
+html[data-theme="dark"] .lb-txt small{color:#9db0a9}
+html[data-theme="dark"] .lb-chev{color:#8a9a94}
+html[data-theme="dark"] .leadbar-close{color:#8b9a94}
+html[data-theme="dark"] .leadbar-close:hover{background:#1c2723;color:#dbe6e0}
+html[data-theme="dark"] .leadbar-title span{color:#9aa8a2}
+html[data-theme="dark"] .lead-fine{color:#9aa8a2}
 html[data-theme="dark"] .info-row{border-bottom-color:#2a352f}
 html[data-theme="dark"] .info-ico{background:#1f2a26}
 html[data-theme="dark"] .map-link{background:#16241f;border-color:#274438;color:#7fd8c4}
 html[data-theme="dark"] .map-link.baidu{background:#16202e;border-color:#283a55;color:#93b4f0}
 html[data-theme="dark"] .foot{color:#8b9a94}
 html[data-theme="dark"] .foot a{color:#9db0a9}
-html[data-theme="dark"] .leadbar{background:rgba(18,26,23,.96);border-top-color:#2a352f}
-html[data-theme="dark"] .leadbar-title span{color:#9aa8a2}
 html[data-theme="dark"] .lead-input{background:#141d1a;border-color:#2d3a34;color:var(--ink)}
 html[data-theme="dark"] .lead-input::placeholder{color:#7f8f88}
 html[data-theme="dark"] .lead-input:focus{border-color:var(--brand);box-shadow:0 0 0 3px rgba(59,184,162,.16)}
@@ -367,27 +426,39 @@ html[data-theme="dark"] #stateBtn{background:var(--brand) !important;color:#0412
 
 <div class="leadbar" id="leadBar" role="region" aria-label="在线留资">
   <div class="leadbar-in">
-    <div class="leadbar-title"><b>留个电话，商家尽快联系你</b><span>免费 · 不收取任何费用</span></div>
-    <form id="leadForm" novalidate>
-      <div class="lead-row">
-        <input class="lead-input" id="leadPhone" type="tel" inputmode="numeric" autocomplete="tel"
-               maxlength="20" placeholder="请输入手机号" aria-label="手机号" required>
-        <button class="lead-submit" id="leadSubmit" type="submit">提交</button>
+    <div class="leadbar-row">
+      <button class="leadbar-toggle" id="leadToggle" type="button" aria-expanded="false" aria-controls="leadPanel"
+              aria-label="展开留资表单，30 秒留下电话，商家电话回访">
+        <span class="lb-ico" aria-hidden="true">📞</span>
+        <span class="lb-txt"><b>立即咨询 · 30 秒留资</b><small>免费 · 商家电话回访，仅用于联系</small></span>
+        <svg class="lb-chev" viewBox="0 0 20 20" aria-hidden="true"><path d="M5 12.4 10 7.4l5 5" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      </button>
+      <button class="leadbar-close" id="leadClose" type="button"
+              aria-label="关闭留资栏，24 小时内不再显示" title="关闭（24 小时内不再显示）">×</button>
+    </div>
+    <div class="leadbar-panel" id="leadPanel">
+      <div class="leadbar-title"><b>留个电话，商家尽快联系你</b><span>免费 · 不收取任何费用</span></div>
+      <form id="leadForm" novalidate>
+        <div class="lead-row">
+          <input class="lead-input" id="leadPhone" type="tel" inputmode="tel" autocomplete="tel"
+                 maxlength="20" placeholder="请输入手机号" aria-label="手机号" required>
+          <button class="lead-submit" id="leadSubmit" type="submit">提交</button>
+        </div>
+        <input class="lead-input need" id="leadNeed" type="text" maxlength="200"
+               placeholder="想咨询什么？（选填，如：保洁 3 小时）" aria-label="需求（选填）">
+        <div class="lead-captcha">
+          <span class="captcha-q" id="captchaQuestion" aria-live="polite">验证码加载中…</span>
+          <input class="lead-input captcha-input" id="leadCaptchaAnswer" type="text" inputmode="numeric"
+                 maxlength="3" placeholder="请输入答案" autocomplete="off" aria-label="数学验证码答案">
+          <button class="captcha-refresh" id="captchaRefresh" type="button" aria-label="换一道验证码" title="换一题">↻</button>
+        </div>
+        <div class="lead-fine"><span class="lock" aria-hidden="true">🔒</span><span>仅用于商家联系你，不会公开展示；提交即表示同意商家致电</span></div>
+      </form>
+      <div class="lead-success" id="leadSuccess">
+        <div class="ok-ico" aria-hidden="true">✓</div>
+        <div><b>提交成功，商家会尽快联系你</b><p id="leadSuccessPhone">请保持电话畅通</p></div>
+        <button class="again" id="againBtn" type="button">再留一条</button>
       </div>
-      <input class="lead-input need" id="leadNeed" type="text" maxlength="200"
-             placeholder="想咨询什么？（选填，如：保洁 3 小时）" aria-label="需求（选填）">
-      <div class="lead-captcha">
-        <span class="captcha-q" id="captchaQuestion" aria-live="polite">验证码加载中…</span>
-        <input class="lead-input captcha-input" id="leadCaptchaAnswer" type="text" inputmode="numeric"
-               maxlength="3" placeholder="请输入答案" autocomplete="off" aria-label="数学验证码答案">
-        <button class="captcha-refresh" id="captchaRefresh" type="button" aria-label="换一道验证码" title="换一题">↻</button>
-      </div>
-      <div class="lead-fine"><span class="lock" aria-hidden="true">🔒</span><span>仅用于商家联系你，不会公开展示；提交即表示同意商家致电</span></div>
-    </form>
-    <div class="lead-success" id="leadSuccess">
-      <div class="ok-ico" aria-hidden="true">✓</div>
-      <div><b>提交成功，商家会尽快联系你</b><p id="leadSuccessPhone">请保持电话畅通</p></div>
-      <button class="again" id="againBtn" type="button">再留一条</button>
     </div>
   </div>
 </div>
@@ -426,6 +497,44 @@ html[data-theme="dark"] #stateBtn{background:var(--brand) !important;color:#0412
   var data = null;
   var captchaToken = '';
   var toastTimer = null;
+  var leadSubmitting = false;
+  var leadbarRO = null;
+  var leadbarSafeBottom = -1;
+  var leadbarResizeTimer = null;
+  var LEAD_CLOSED_KEY = 'xl_store_lead_closed';
+  var LEAD_CLOSED_MS = 24 * 60 * 60 * 1000;
+  /* 默认相册：商家未上传实拍时显示的纯色/图标示意图（不占用额外图片文件，内联 SVG） */
+  var PHOTO_FAIL_TEXT = '图片加载失败，可联系我们看实拍';
+  var ALBUM_ICONS = {
+    home: '<path d="M3 10.7 12 3l9 7.7"/><path d="M5.4 9.2V21h13.2V9.2"/><path d="M9.4 21v-6.2h5.2V21"/>',
+    sparkle: '<path d="M12 3.2v3.4M12 17.4v3.4M3.2 12h3.4M17.4 12h3.4M6.2 6.2l2.4 2.4M15.4 15.4l2.4 2.4M17.8 6.2l-2.4 2.4M8.6 15.4l-2.4 2.4"/>',
+    bucket: '<path d="M5.2 9h13.6l-1.5 10.4a1.8 1.8 0 0 1-1.8 1.6H8.5a1.8 1.8 0 0 1-1.8-1.6L5.2 9Z"/><path d="M8.6 9V7.2a3.4 3.4 0 0 1 6.8 0V9"/>',
+    team: '<circle cx="9" cy="8.2" r="3.1"/><path d="M3.6 20v-1.5a4.7 4.7 0 0 1 4.7-4.7h1.4a4.7 4.7 0 0 1 4.7 4.7V20"/><circle cx="17" cy="9.2" r="2.5"/><path d="M15.8 14.1h1a3.9 3.9 0 0 1 3.9 3.9v2"/>'
+  };
+  var DEFAULT_ALBUM = [
+    { label: '门店环境', icon: 'home' },
+    { label: '服务现场', icon: 'sparkle' },
+    { label: '工具与耗材', icon: 'bucket' },
+    { label: '服务团队', icon: 'team' }
+  ];
+
+  function albumDataUri(label, iconKey) {
+    var ic = ALBUM_ICONS[iconKey] || '';
+    var svg = '<svg xmlns="http://www.w3.org/2000/svg" width="800" height="600" viewBox="0 0 800 600">'
+      + '<defs><linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">'
+      + '<stop offset="0" stop-color="#eef6f2"/><stop offset="1" stop-color="#dcebe4"/></linearGradient></defs>'
+      + '<rect width="800" height="600" fill="url(#bg)"/>'
+      + '<circle cx="690" cy="88" r="128" fill="#ffffff" opacity="0.42"/>'
+      + '<circle cx="92" cy="524" r="108" fill="#0e5c52" opacity="0.06"/>'
+      + '<g transform="translate(335,148) scale(5.4)" fill="none" stroke="#0e5c52" stroke-width="1.6" '
+      + 'stroke-linecap="round" stroke-linejoin="round" opacity="0.82">' + ic + '</g>'
+      + '<text x="400" y="436" text-anchor="middle" font-family="-apple-system,BlinkMacSystemFont,Segoe UI,PingFang SC,Microsoft YaHei,sans-serif" '
+      + 'font-size="42" font-weight="700" fill="#10433b">' + label + '</text>'
+      + '<text x="400" y="486" text-anchor="middle" font-family="-apple-system,BlinkMacSystemFont,Segoe UI,PingFang SC,Microsoft YaHei,sans-serif" '
+      + 'font-size="22" fill="#5f726b">默认示意图 · 实拍请联系商家</text>'
+      + '</svg>';
+    return 'data:image/svg+xml;charset=utf-8,' + encodeURIComponent(svg);
+  }
 
   function show(el) { el.hidden = false; if (el.classList) el.classList.add('show'); }
   function hide(el) { el.hidden = true; if (el.classList) el.classList.remove('show'); }
@@ -436,6 +545,106 @@ html[data-theme="dark"] #stateBtn{background:var(--brand) !important;color:#0412
     t.classList.add('show');
     clearTimeout(toastTimer);
     toastTimer = setTimeout(function () { t.classList.remove('show'); }, ms || 2200);
+  }
+
+  /* ---------------- 底部留资条：收起/展开/关闭 24h + 正文让位 ---------------- */
+  function leadClosed() {
+    try {
+      var ts = parseInt(localStorage.getItem(LEAD_CLOSED_KEY) || '0', 10);
+      if (!ts) return false;
+      if (Date.now() - ts < LEAD_CLOSED_MS) return true;
+      localStorage.removeItem(LEAD_CLOSED_KEY);
+      return false;
+    } catch (e) { return false; }
+  }
+
+  function safeAreaBottomPx() {
+    if (leadbarSafeBottom >= 0) return leadbarSafeBottom;
+    try {
+      var probe = document.createElement('div');
+      probe.style.cssText = 'position:fixed;left:-2px;bottom:0;width:1px;height:env(safe-area-inset-bottom,0px);visibility:hidden;pointer-events:none';
+      document.body.appendChild(probe);
+      leadbarSafeBottom = probe.getBoundingClientRect().height || 0;
+      probe.remove();
+    } catch (e) { leadbarSafeBottom = 0; }
+    return leadbarSafeBottom;
+  }
+
+  /* 量真实条高（不含 iOS 安全区），写进 --leadbar-h，body 的 padding-bottom 用它让位 */
+  function syncLeadbarSpace() {
+    var bar = $('leadBar');
+    var h = 0;
+    if (bar && bar.classList.contains('show') && getComputedStyle(bar).display !== 'none') {
+      h = bar.getBoundingClientRect().height - safeAreaBottomPx();
+    }
+    if (!(h > 0)) h = 0;
+    document.documentElement.style.setProperty('--leadbar-h', Math.round(h) + 'px');
+  }
+
+  function observeLeadbar() {
+    var bar = $('leadBar');
+    if (!bar || typeof ResizeObserver === 'undefined') return;
+    if (leadbarRO) { try { leadbarRO.disconnect(); } catch (e) {} }
+    leadbarRO = new ResizeObserver(function () {
+      if (leadbarRO._pending) return;
+      leadbarRO._pending = true;
+      requestAnimationFrame(function () { leadbarRO._pending = false; syncLeadbarSpace(); });
+    });
+    leadbarRO.observe(bar);
+  }
+
+  function setLeadbarOpen(open, focusPhone) {
+    var bar = $('leadBar');
+    var toggle = $('leadToggle');
+    if (!bar) return;
+    if (open) {
+      if (leadClosed()) { try { localStorage.removeItem(LEAD_CLOSED_KEY); } catch (e) {} }
+      if (!bar.classList.contains('show')) bar.classList.add('show');
+      observeLeadbar();
+    }
+    bar.classList.toggle('open', !!open);
+    if (toggle) toggle.setAttribute('aria-expanded', open ? 'true' : 'false');
+    if (open && !captchaToken) loadCaptcha();
+    syncLeadbarSpace();
+    if (open && focusPhone) {
+      setTimeout(function () {
+        var ph = $('leadPhone');
+        if (!ph) return;
+        try { ph.focus({ preventScroll: true }); } catch (e) { try { ph.focus(); } catch (e2) {} }
+      }, 300);
+    }
+  }
+
+  function openLead(focusPhone) {
+    var bar = $('leadBar');
+    if (!bar) return;
+    if (bar.classList.contains('show') && bar.classList.contains('open')) {
+      if (focusPhone) {
+        var ph = $('leadPhone');
+        if (ph) { try { ph.focus({ preventScroll: true }); } catch (e) {} }
+      }
+      return;
+    }
+    setLeadbarOpen(true, focusPhone !== false);
+  }
+
+  function dismissLeadbar() {
+    try { localStorage.setItem(LEAD_CLOSED_KEY, String(Date.now())); } catch (e) {}
+    setLeadbarOpen(false);
+    var bar = $('leadBar');
+    if (bar) bar.classList.remove('show');
+    syncLeadbarSpace();
+    toast('已关闭留资栏，24 小时内不再显示');
+  }
+
+  function initLeadbar() {
+    var bar = $('leadBar');
+    if (!bar) return;
+    if (leadClosed()) { bar.classList.remove('show'); syncLeadbarSpace(); return; }
+    bar.classList.add('show');
+    observeLeadbar();
+    syncLeadbarSpace();
+    if (qs.get('lead') === '1') setTimeout(function () { openLead(true); }, 280);
   }
 
   function setMeta(attr, key, val) {
@@ -660,39 +869,82 @@ html[data-theme="dark"] #stateBtn{background:var(--brand) !important;color:#0412
     });
   }
 
-  function renderPhotos(list) {
-    if (!list.length) { $('photoSection').hidden = true; return; }
+  function renderPhotos(rawList) {
+    var list = Array.isArray(rawList) ? rawList.filter(Boolean) : [];
+    var isDefault = list.length === 0;
+    var items = isDefault
+      ? DEFAULT_ALBUM.map(function (it) {
+          return { src: albumDataUri(it.label, it.icon), label: it.label, def: true };
+        })
+      : list.map(function (url) { return { src: url, label: '', def: false }; });
+    var section = $('photoSection');
+    if (!items.length) { section.hidden = true; return; }
+    section.hidden = false;
+    var sub = section.querySelector('.sec-head .sub');
+    if (sub) sub.textContent = isDefault ? '默认示意图 · 实拍可联系商家' : '点击查看大图';
+    var oldNote = section.querySelector('.photo-note');
+    if (oldNote) oldNote.remove();
     var grid = $('photoGrid');
     grid.textContent = '';
-    grid.className = 'photos' + (list.length === 1 ? ' single' : '');
-    list.forEach(function (url, i) {
+    grid.className = 'photos' + (items.length === 1 ? ' single' : '') + (isDefault ? ' photos-default' : '');
+    var failedCount = 0;
+    items.forEach(function (item, i) {
       var cell = document.createElement('div');
-      cell.className = 'photo';
+      cell.className = 'photo' + (item.def ? ' photo-default' : '');
       var fb = document.createElement('div');
       fb.className = 'ph-fallback';
-      fb.textContent = '图片加载中';
+      fb.innerHTML = '<span class="ph-ico" aria-hidden="true">🖼️</span><span>图片加载中…</span>';
       var img = document.createElement('img');
       img.loading = 'lazy';
       img.decoding = 'async';
-      img.alt = '门店实拍 ' + (i + 1);
+      img.alt = item.def ? '门店示意图：' + item.label : '门店实拍 ' + (i + 1);
       img.referrerPolicy = 'no-referrer';
       img.addEventListener('load', function () { fb.style.display = 'none'; });
       img.addEventListener('error', function () {
-        fb.textContent = '图片暂时无法显示';
+        fb.innerHTML = '<span class="ph-ico" aria-hidden="true">🔍</span><span>' + PHOTO_FAIL_TEXT + '</span>';
         img.style.display = 'none';
+        cell.classList.add('failed');
+        failedCount += 1;
+        if (failedCount === items.length && !isDefault) {
+          /* 全部真实图都加载失败：改成中文占位 + 默认相册，避免整排破图 */
+          setTimeout(function () {
+            if (!data) return;
+            renderPhotos([]);
+            toast('门店实拍图暂不可用，已展示默认示意图');
+          }, 500);
+        }
       });
-      img.src = url;
+      img.src = item.src;
       cell.appendChild(fb);
       cell.appendChild(img);
+      if (item.def) {
+        var tag = document.createElement('span');
+        tag.className = 'ph-tag';
+        tag.textContent = '示意图';
+        cell.appendChild(tag);
+      }
       cell.addEventListener('click', function () {
-        if (img.style.display === 'none') return;
-        $('lightboxImg').src = url;
-        $('lightboxImg').alt = '门店实拍 ' + (i + 1);
+        if (cell.classList.contains('failed')) {
+          openLead(true);
+          toast('可留个电话，商家联系你发实拍图');
+          return;
+        }
+        if (img.style.display === 'none' || !img.naturalWidth) return;
+        $('lightboxImg').src = item.src;
+        $('lightboxImg').alt = item.def ? '门店示意图：' + item.label : '门店实拍 ' + (i + 1);
         $('lightbox').classList.add('show');
       });
       grid.appendChild(cell);
     });
-    $('photoSection').hidden = false;
+    if (isDefault) {
+      var note = document.createElement('div');
+      note.className = 'photo-note';
+      note.innerHTML = '<span class="pn-ico" aria-hidden="true">💡</span><span>商家暂未上传门店实拍，以上为默认示意图；想看真实照片可'
+        + '<button type="button" data-open-lead>留个电话</button>或直接致电商家。</span>';
+      section.appendChild(note);
+      var openBtn = note.querySelector('[data-open-lead]');
+      if (openBtn) openBtn.addEventListener('click', function () { openLead(true); });
+    }
   }
 
   function renderInfo(d) {
@@ -726,13 +978,16 @@ html[data-theme="dark"] #stateBtn{background:var(--brand) !important;color:#0412
     $('hoursText').textContent = d.hours_text || d.hours || '以商家实际营业时间为准';
     renderHours(d);
     $('phoneText').textContent = d.phone || '请在线留资';
-    $('phoneText').style.cursor = d.phone ? 'pointer' : '';
+    $('phoneText').style.cursor = 'pointer';
+    $('phoneText').addEventListener('click', function () {
+      if (d.phone) location.href = telHref(d.phone);
+      else openLead(true);
+    });
     if (d.phone) {
-      $('phoneText').addEventListener('click', function () { location.href = telHref(d.phone); });
       $('callBtn').href = telHref(d.phone);
       $('wxCall').href = telHref(d.phone);
     } else {
-      $('callBtn').addEventListener('click', function (e) { e.preventDefault(); toast('商家暂未填写电话，请先留资'); });
+      $('callBtn').addEventListener('click', function (e) { e.preventDefault(); toast('商家暂未填写电话，请先留资'); openLead(true); });
     }
     if (d.wechat) {
       $('wechatRow').hidden = false;
@@ -821,13 +1076,13 @@ html[data-theme="dark"] #stateBtn{background:var(--brand) !important;color:#0412
       if (!data) { e.preventDefault(); toast('地址加载中，请稍后'); return; }
     });
     $('wxCall').href = d.phone ? telHref(d.phone) : 'https://xinglaiai.com/ai-nav/';
-    $('leadBar').classList.add('show');
+    initLeadbar();
     loadCaptcha();
     $('loadingView').style.display = 'none';
     $('app').classList.add('show');
     document.body.classList.add('loaded');
-    // 顶部到店按钮在主信息区也有入口；若页面被直接打开到锚点，保证留资栏可见。
-    if (location.hash === '#lead') setTimeout(function () { $('leadPhone').focus(); }, 350);
+    // 顶部到店按钮在主信息区也有入口；若页面被直接打开到锚点，展开留资栏。
+    if (location.hash === '#lead' || location.hash === '#leadbar') setTimeout(function () { openLead(true); }, 340);
   }
 
   function load() {
@@ -876,30 +1131,50 @@ html[data-theme="dark"] #stateBtn{background:var(--brand) !important;color:#0412
     });
   }
 
+  function setLeadBusy(busy) {
+    leadSubmitting = !!busy;
+    var btn = $('leadSubmit');
+    if (!btn) return;
+    btn.disabled = !!busy;
+    btn.textContent = busy ? '提交中…' : '提交';
+    var form = $('leadForm');
+    if (form) form.setAttribute('aria-busy', busy ? 'true' : 'false');
+  }
+
+  function leadPhoneInvalid(input, msg) {
+    setLeadBusy(false);
+    if (input) {
+      input.classList.add('invalid');
+      input.setAttribute('aria-invalid', 'true');
+      try { input.focus({ preventScroll: true }); } catch (e) { try { input.focus(); } catch (e2) {} }
+    }
+    toast(msg);
+  }
+
   function submitLead(e) {
     e.preventDefault();
+    if (leadSubmitting) return;                      // 防重复提交（连点/回车）
     var phoneInput = $('leadPhone');
-    var phone = phoneInput.value.replace(/\D/g, '');
-    if (!/^1[3-9]\d{9}$/.test(phone)) {
-      toast('请输入正确的 11 位手机号');
-      phoneInput.focus();
+    var phone = (phoneInput.value || '').replace(/\D/g, '');
+    if (!phone) { leadPhoneInvalid(phoneInput, '请输入手机号，方便商家联系你'); return; }
+    if (phone.length !== 11) {
+      leadPhoneInvalid(phoneInput, '请输入 11 位手机号（当前 ' + phone.length + ' 位）');
       return;
     }
-    var btn = $('leadSubmit');
-    btn.disabled = true;
-    var old = btn.textContent;
-    btn.textContent = '提交中';
-    var need = $('leadNeed').value.trim();
-    var captchaAnswer = $('leadCaptchaAnswer').value.replace(/\D/g, '');
+    if (!/^1[3-9]\d{9}$/.test(phone)) { leadPhoneInvalid(phoneInput, '手机号格式不正确，请检查后重试'); return; }
+    var captchaAnswer = ($('leadCaptchaAnswer').value || '').replace(/\D/g, '');
     if (!captchaToken) {
-      toast('验证码未加载，请点 ↻ 重新获取');
+      toast('验证码还没加载好，正在重新获取…');
+      loadCaptcha();
       return;
     }
     if (!captchaAnswer) {
       toast('请填写数学验证码答案');
-      $('leadCaptchaAnswer').focus();
+      try { $('leadCaptchaAnswer').focus({ preventScroll: true }); } catch (err) { $('leadCaptchaAnswer').focus(); }
       return;
     }
+    var need = $('leadNeed').value.trim();
+    setLeadBusy(true);
     fetch(API + '/store/' + encodeURIComponent(slug) + '/lead', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
@@ -908,30 +1183,36 @@ html[data-theme="dark"] #stateBtn{background:var(--brand) !important;color:#0412
     }).then(function (r) {
       return r.json().catch(function () { return {}; }).then(function (j) { return { status: r.status, body: j }; });
     }).then(function (res) {
-      btn.disabled = false;
-      btn.textContent = old;
-      if (res.status === 200 && res.body && res.body.ok) {
+      setLeadBusy(false);
+      var body = res.body || {};
+      if (res.status === 200 && body.ok) {
         $('leadForm').style.display = 'none';
         $('leadSuccess').style.display = 'flex';
-        $('leadSuccessPhone').textContent = '已收到 ' + phone.slice(0, 3) + '****' + phone.slice(-4) + '，请保持电话畅通';
+        var mask = '已收到 ' + phone.slice(0, 3) + '****' + phone.slice(-4) + '，请保持电话畅通';
+        $('leadSuccessPhone').textContent = body.duplicate ? (body.hint || '该手机号已提交过，商家会尽快联系你') : mask;
+        $('leadPhone').value = '';
         $('leadNeed').value = '';
+        $('leadCaptchaAnswer').value = '';
+        captchaToken = '';
+        loadCaptcha();
+        syncLeadbarSpace();
         return;
       }
       if (res.status === 429) {
-        toast((res.body && res.body.hint) || '提交太频繁，请稍后再试');
-        return;
-      }
-      if (res.status === 400 && res.body && res.body.error === 'CAPTCHA_FAIL') {
-        toast((res.body && res.body.hint) || '验证码错误，请重新验证');
+        toast(body.hint || '提交太频繁，请稍后再试，或直接拨打商家电话');
         loadCaptcha();
-        $('leadCaptchaAnswer').focus();
         return;
       }
-      toast((res.body && res.body.hint) || '提交失败，请稍后重试或直接拨打电话');
+      if (res.status === 400 && body.error === 'CAPTCHA_FAIL') {
+        toast(body.hint || '验证码错误或已过期，请重新验证');
+        loadCaptcha();
+        try { $('leadCaptchaAnswer').focus({ preventScroll: true }); } catch (err2) { $('leadCaptchaAnswer').focus(); }
+        return;
+      }
+      toast(body.hint || '提交失败，请稍后重试或直接拨打电话');
     }).catch(function () {
-      btn.disabled = false;
-      btn.textContent = old;
-      toast('网络异常，提交失败，请直接拨打电话');
+      setLeadBusy(false);
+      toast('网络异常，提交失败，请稍后重试或直接拨打商家电话');
     });
   }
 
@@ -959,12 +1240,28 @@ html[data-theme="dark"] #stateBtn{background:var(--brand) !important;color:#0412
 
   // events
   $('leadForm').addEventListener('submit', submitLead);
+  $('leadToggle').addEventListener('click', function () {
+    var open = $('leadBar').classList.contains('open');
+    setLeadbarOpen(!open, !open);
+  });
+  $('leadClose').addEventListener('click', dismissLeadbar);
+  $('leadPanel').addEventListener('transitionend', function (e) {
+    if (e && e.propertyName === 'max-height') syncLeadbarSpace();
+  });
+  window.addEventListener('resize', function () {
+    clearTimeout(leadbarResizeTimer);
+    leadbarResizeTimer = setTimeout(syncLeadbarSpace, 160);
+  });
+  window.addEventListener('load', syncLeadbarSpace);
   $('againBtn').addEventListener('click', function () {
     $('leadSuccess').style.display = 'none';
     $('leadForm').style.display = 'block';
     $('leadPhone').value = '';
+    $('leadNeed').value = '';
+    $('leadCaptchaAnswer').value = '';
+    captchaToken = '';
     loadCaptcha();
-    $('leadPhone').focus();
+    setLeadbarOpen(true, true);
   });
   $('captchaRefresh').addEventListener('click', loadCaptcha);
   $('leadCaptchaAnswer').addEventListener('input', function () {
@@ -972,7 +1269,7 @@ html[data-theme="dark"] #stateBtn{background:var(--brand) !important;color:#0412
   });
   $('wechatBtn').addEventListener('click', function () {
     if (!data) return;
-    if (!data.wechat) { toast('商家暂未填写微信号，请电话联系或留资'); $('leadPhone').focus(); return; }
+    if (!data.wechat) { toast('商家暂未填写微信号，请电话联系或留资'); openLead(true); return; }
     $('wxModal').classList.add('show');
   });
   $('wxClose').addEventListener('click', function () { $('wxModal').classList.remove('show'); });
@@ -997,10 +1294,20 @@ html[data-theme="dark"] #stateBtn{background:var(--brand) !important;color:#0412
     if (e.key === 'Escape') {
       $('wxModal').classList.remove('show');
       $('lightbox').classList.remove('show');
+      if ($('leadBar').classList.contains('open')) setLeadbarOpen(false, false);
     }
   });
   $('leadPhone').addEventListener('input', function () {
-    this.value = this.value.replace(/[^\d+\s-]/g, '').slice(0, 20);
+    this.value = this.value.replace(/\D/g, '').slice(0, 11);
+    this.classList.remove('invalid');
+    this.removeAttribute('aria-invalid');
+  });
+  $('leadPhone').addEventListener('blur', function () {
+    var v = (this.value || '').replace(/\D/g, '');
+    if (v && !/^1[3-9]\d{9}$/.test(v)) {
+      this.classList.add('invalid');
+      this.setAttribute('aria-invalid', 'true');
+    }
   });
 
   load();

@@ -3513,7 +3513,10 @@ html[data-page="ops-edit"] .xl-sb-theme{display:none!important}
   }
   function priceText(p) {
     var n = Number(p.price_per_sec || 0);
-    return n > 0 ? ('约 ¥' + n.toFixed(2) + '/秒（30 秒约 ¥' + (n * 30).toFixed(2) + '）') : '价格未知';
+    var cur = (p.currency === 'PTC' || p.price_unit === 'PTC') ? 'PTC' : '元';
+    if (n <= 0) return '价格未知';
+    if (cur === 'PTC') return ('约 ' + n.toFixed(2) + ' PTC/秒（30 秒约 ' + (n * 30).toFixed(2) + ' PTC）');
+    return ('约 ¥' + n.toFixed(2) + '/秒（30 秒约 ¥' + (n * 30).toFixed(2) + '）');
   }
   function inputModeText(p) {
     var m = (p.input_modes || []).map(function (x) { return x === 'video' ? '视频' : (x === 'photo' ? '照片' : x); });
@@ -3572,7 +3575,8 @@ html[data-page="ops-edit"] .xl-sb-theme{display:none!important}
     box.insertAdjacentHTML('beforeend',
       '<p class="oe-tiny" style="margin:10px 0 0">已配置：' + esc(cfg.join(' / ') || '无') +
       ' · 默认供应商：<b>' + esc(DATA.default_provider || '—') + '</b>' +
-      ' · 价格均为估算口径（aliyun ¥0.08/秒、D-ID 约 ¥4/分钟、HeyGen $0.60–7.20/分钟、Akool 积分、custom_http 可配），真实扣费以各家账单为准；今日预算上限 ¥' +
+      ' · 价格均为估算口径（aliyun ¥0.08/秒、D-ID 约 ¥4/分钟、HeyGen $0.60–7.20/分钟、Akool 积分、custom_http 可配、'
+      + '302.AI 蝉镜约 0.03 PTC/秒、Hedra 540P 0.03 / 720P 0.06 PTC/秒），真实扣费以各家账单为准；今日预算上限 ¥' +
       esc(((DATA.limits || {}).daily_budget_cny) != null ? Number((DATA.limits || {}).daily_budget_cny).toFixed(2) : '50.00') + '。</p>');
   }
   function showResult(lines, okAll) {
@@ -3681,6 +3685,209 @@ html[data-page="ops-edit"] .xl-sb-theme{display:none!important}
   });
   if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', function () { setTimeout(load, 500); });
   else setTimeout(load, 500);
+})();
+</script>
+
+<!-- ===== 302.AI 蝉镜 / Hedra 配置卡（chanjing_provider v1.0.0，2026-11-19） ===== -->
+<script>
+(function () {
+  'use strict';
+  if (window.__oe302CardLoaded) return;
+  window.__oe302CardLoaded = true;
+  var LAST = null;
+  function $(s, root) { return (root || document).querySelector(s); }
+  function esc(v) {
+    return String(v == null ? '' : v).replace(/[&<>"']/g, function (c) {
+      return { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c];
+    });
+  }
+  function api(method, path, body, timeout) {
+    if (!window.XLAuth || !XLAuth.api) return Promise.reject(new Error('登录组件未加载，请刷新页面重试'));
+    var opts = { method: method || 'GET', timeout: timeout || 20000 };
+    if (body != null) opts.body = body;
+    return XLAuth.api(path, opts);
+  }
+  function errText(e) {
+    if (!e) return '请求失败';
+    var d = e.data || {};
+    return d.hint || (d.error && d.error !== 'not_found' ? d.error : '') || e.message || '请求失败';
+  }
+  function toast(msg, kind) {
+    var box = document.getElementById('oeToastBox');
+    var text = String(msg || '');
+    if (!box) { try { console.log('[302ai]', text); } catch (e) {} return; }
+    var t = document.createElement('div');
+    t.className = 'oe-toast' + (kind === 'ok' ? ' ok' : kind === 'warn' ? ' warn' : ' bad');
+    t.textContent = text;
+    box.appendChild(t);
+    setTimeout(function () { try { box.removeChild(t); } catch (e) {} }, 5600);
+  }
+  function provider(data, id) {
+    var ps = (data && data.providers) || [];
+    for (var i = 0; i < ps.length; i++) { if (ps[i].id === id) return ps[i]; }
+    return null;
+  }
+  function chip(ok, label) {
+    return '<span class="oe-chips" style="' + (ok ? 'color:#6ee7b7' : '') + '">'
+      + (ok ? '✓ ' : '✗ ') + esc(label) + '</span>';
+  }
+  function inject() {
+    var panel = document.querySelector('#panel-compute');
+    if (!panel) return false;
+    if (document.getElementById('oe302Card')) return true;
+    var sec = document.createElement('section');
+    sec.className = 'oe-card';
+    sec.id = 'oe302Card';
+    sec.style.marginTop = '16px';
+    sec.innerHTML =
+      '<div class="oe-card-h"><div><h2><span class="hico">🎭</span>302.AI 蝉镜 / Hedra 配置（PTC 计费）</h2>' +
+      '<p class="oe-sub">接入 chanjing_provider.py：蝉镜（数字人定制 + 视频合成 + 声音克隆 + 文字转配音）与 ' +
+      'Hedra（照片 + 音频 → 有表情口播）。两个供应商共用同一个 302.AI Key（国内节点 https://api.302ai.cn），' +
+      'Key 加密存服务器 data/lipsync.json，本页只显示打码值。</p></div>' +
+      '<div class="oe-toolbar" style="padding:0;border:0">' +
+      '<button type="button" class="oe-btn" data-302-act="refresh">刷新状态</button>' +
+      '<button type="button" class="oe-btn primary" data-302-act="test">测试 302 连接</button></div></div>' +
+      '<div id="oe302Body" style="padding:4px 15px 10px"><div class="oe-tiny">加载中…</div></div>' +
+      '<div id="oe302Result" class="oe-tiny" style="padding:0 15px 10px;display:none"></div>' +
+      '<p class="oe-tiny" style="padding:0 15px 14px;margin:0">' +
+      'API 能力：<code>GET/POST /ai-nav/api/chanjing/voices</code>、<code>/chanjing/persons</code>、' +
+      '<code>/chanjing/video</code>、<code>/chanjing/tts</code>、<code>/chanjing/health</code>。' +
+      '计费：蝉镜约 0.03 PTC/秒；Hedra 540P 0.03 PTC/秒、720P 0.06 PTC/秒（按输出音频秒数）。' +
+      'PTC 余额请在 302.AI 控制台查看（本 Key 默认无 dashboard/balance 权限，接口返回 403）。</p>';
+    panel.appendChild(sec);
+    return true;
+  }
+  function render(data) {
+    LAST = data || {};
+    var box = $('#oe302Body');
+    if (!box) return;
+    var cj = provider(LAST, 'chanjing');
+    var hd = provider(LAST, 'hedra_302');
+    var keyMask = (cj && cj.key_masked) || (hd && hd.key_masked) || '';
+    var keySrc = (cj && cj.key_source) || (hd && hd.key_source) || '';
+    var opts = (cj && cj.options) || {};
+    box.innerHTML =
+      '<div style="display:flex;align-items:center;gap:8px;flex-wrap:wrap;margin:6px 0 10px">' +
+      '<b style="font-size:13px">302.AI 账户</b>' +
+      chip(!!(cj && cj.configured), '蝉镜') + chip(!!(hd && hd.configured), 'Hedra') +
+      (keyMask ? '<span class="oe-tiny">Key：<code>' + esc(keyMask) + '</code>（' + esc(keySrc) + '）</span>'
+               : '<span class="oe-tiny" style="color:#fca5a5">未配置 Key（点击下方保存后两个供应商同时生效）</span>') +
+      '</div>' +
+      '<div style="display:flex;align-items:center;gap:6px;flex-wrap:wrap;margin-bottom:8px">' +
+      '<input class="oe-input" id="oe302Key" style="flex:1 1 280px" placeholder="粘贴 302.AI API Key（sk-...，保存后同时写入蝉镜与 Hedra）" autocomplete="off">' +
+      '<button type="button" class="oe-btn primary" data-302-act="savekey">保存 302 Key</button></div>' +
+      '<div style="display:flex;align-items:center;gap:6px;flex-wrap:wrap;margin-bottom:8px">' +
+      '<span class="oe-tiny" style="font-weight:700">默认供应商</span>' +
+      '<select class="oe-select" id="oe302Default" style="max-width:280px">' +
+      '<option value="chanjing"' + ((LAST.default_provider === 'chanjing') ? ' selected' : '') + '>302 蝉镜 · 数字人视频' +
+      ((cj && cj.configured) ? '（已配置）' : '（未配置）') + '</option>' +
+      '<option value="hedra_302"' + ((LAST.default_provider === 'hedra_302') ? ' selected' : '') + '>302 Hedra · 照片口播' +
+      ((hd && hd.configured) ? '（已配置）' : '（未配置）') + '</option>' +
+      '</select>' +
+      '<button type="button" class="oe-btn primary" data-302-act="setdefault">切换默认</button>' +
+      '<span class="oe-tiny">当前：<b>' + esc(LAST.default_provider || '—') + '</b></span></div>' +
+      '<div style="display:flex;align-items:center;gap:6px;flex-wrap:wrap;margin-bottom:6px">' +
+      '<input class="oe-input" id="oe302Person" style="flex:1 1 280px" placeholder="蝉镜默认数字人形象 id（C-...，可选：让 provider 层不训练直接复用）" value="' + esc(opts.person_id || '') + '">' +
+      '<button type="button" class="oe-btn" data-302-act="saveperson">保存形象 id</button>' +
+      '<span class="oe-tiny">蝉镜接口不支持照片直出；照片口播请用 Hedra。未填形象 id 时上传人物视频会自动训练（30 秒–5 分钟、需带音轨）</span></div>' +
+      '<p class="oe-tiny" style="margin:4px 0 0">蝉镜：' + esc((cj && cj.note) || '') + '<br>' +
+      esc((cj && cj.price_note) || '') + '<br>Hedra：' + esc((hd && hd.note) || '') + '<br>' +
+      esc((hd && hd.price_note) || '') + '<br>' +
+      '<a href="https://doc.302.ai/311159148e0" target="_blank" rel="noopener" style="color:#7dd3fc">蝉镜 302 文档</a> · ' +
+      '<a href="https://doc.302.ai/226162384e0" target="_blank" rel="noopener" style="color:#7dd3fc">Hedra 302 文档</a></p>';
+  }
+  function showResult(lines, okAll) {
+    var box = $('#oe302Result');
+    if (!box) return;
+    box.style.display = 'block';
+    box.innerHTML = '<b>302.AI 连接测试（' + (okAll ? '全部通过' : '部分失败') + '）</b><br>' + lines.join('<br>');
+  }
+  function load() {
+    if (!inject()) return;
+    var box = $('#oe302Body');
+    if (box) box.innerHTML = '<div class="oe-tiny">加载中…</div>';
+    api('GET', '/lipsync/providers', null, 12000).then(render).catch(function (e) {
+      if ($('#oe302Body')) $('#oe302Body').innerHTML =
+        '<p class="oe-tiny" style="color:#fca5a5">加载失败：' + esc(errText(e)) + '（需要管理员登录）</p>';
+    });
+  }
+  function saveKey(btn) {
+    var el = $('#oe302Key');
+    var key = el ? el.value.trim() : '';
+    if (!key) { toast('请先粘贴 302.AI API Key', 'warn'); return; }
+    btn.disabled = true;
+    var chain = Promise.resolve();
+    var saved = [];
+    ['chanjing', 'hedra_302'].forEach(function (pid) {
+      chain = chain.then(function () {
+        return api('POST', '/lipsync/config', { provider: pid, api_key: key, enabled: true }, 25000)
+          .then(function () { saved.push(pid); });
+      });
+    });
+    chain.then(function () {
+      toast('302 Key 已保存（' + saved.join(' + ') + '）', 'ok');
+      if (el) el.value = '';
+      load();
+    }).catch(function (e) { toast('保存失败：' + errText(e), 'warn'); })
+      .then(function () { btn.disabled = false; });
+  }
+  function test(btn) {
+    btn.disabled = true;
+    toast('正在测试 302.AI 蝉镜 / Hedra 连接…', 'warn');
+    var lines = [];
+    var chain = Promise.resolve();
+    ['chanjing', 'hedra_302'].forEach(function (pid) {
+      chain = chain.then(function () {
+        return api('POST', '/lipsync/test', { provider: pid }, 90000).then(function (d) {
+          (d.providers || []).forEach(function (p) {
+            lines.push((p.ok ? '✓ ' : '✗ ') + esc(p.name || p.id) + '：' +
+              esc(p.detail || p.hint || p.error || (p.ok ? '连接正常' : '连接失败')));
+          });
+        }).catch(function (e) {
+          lines.push('✗ ' + esc(pid) + '：' + esc(errText(e)));
+        });
+      });
+    });
+    chain.then(function () {
+      var okAll = lines.length > 0 && lines.every(function (x) { return x.indexOf('✓') === 0; });
+      showResult(lines, okAll);
+      toast(okAll ? '302.AI 连接测试通过' : '302.AI 连接测试未全部通过', okAll ? 'ok' : 'warn');
+      load();
+    }).then(function () { btn.disabled = false; });
+  }
+  function setDefault(btn) {
+    var sel = $('#oe302Default');
+    if (!sel) return;
+    btn.disabled = true;
+    api('POST', '/lipsync/config', { default_provider: sel.value }, 20000).then(function (d) {
+      toast('默认供应商已切换为 ' + (d.default_provider || sel.value), 'ok');
+      load();
+    }).catch(function (e) { toast('切换失败：' + errText(e), 'warn'); })
+      .then(function () { btn.disabled = false; });
+  }
+  function savePerson(btn) {
+    var el = $('#oe302Person');
+    var pid = el ? el.value.trim() : '';
+    btn.disabled = true;
+    api('POST', '/lipsync/config', { provider: 'chanjing', person_id: pid, enabled: true }, 20000)
+      .then(function () { toast(pid ? ('已保存蝉镜默认形象：' + pid) : '已清空蝉镜默认形象', 'ok'); load(); })
+      .catch(function (e) { toast('保存失败：' + errText(e), 'warn'); })
+      .then(function () { btn.disabled = false; });
+  }
+  document.addEventListener('click', function (e) {
+    var t = e.target;
+    if (!t || !t.getAttribute) return;
+    var act = t.getAttribute('data-302-act');
+    if (act === 'refresh') { load(); return; }
+    if (act === 'test') { test(t); return; }
+    if (act === 'savekey') { saveKey(t); return; }
+    if (act === 'setdefault') { setDefault(t); return; }
+    if (act === 'saveperson') { savePerson(t); return; }
+    var tab = t.closest ? t.closest('.oe-menu-item[data-tab]') : null;
+    if (tab && tab.getAttribute('data-tab') === 'compute') setTimeout(load, 150);
+  });
+  if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', function () { setTimeout(load, 700); });
+  else setTimeout(load, 700);
 })();
 </script>
 </body>

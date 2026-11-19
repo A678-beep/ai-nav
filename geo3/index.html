@@ -9,12 +9,12 @@
 <meta name="theme-color" content="#070a10">
 <meta name="color-scheme" content="dark light">
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns=%27http://www.w3.org/2000/svg%27 viewBox=%270 0 64 64%27%3E%3Crect width=%2764%27 height=%2764%27 rx=%2714%27 fill=%27%230a1a17%27/%3E%3Ccircle cx=%2732%27 cy=%2732%27 r=%2715%27 fill=%27none%27 stroke=%27%2334d399%27 stroke-width=%275%27/%3E%3Cpath d=%27M32 17v15l11 7%27 fill=%27none%27 stroke=%27%23fbbf24%27 stroke-width=%275%27 stroke-linecap=%27round%27/%3E%3C/svg%3E">
-<title>同城 GEO 推广 · 商家工作台 - 星籁AI</title>
+<title>同城 GEO 推广 · 商家工作台 · 星籁 AI</title>
 <meta name="description" content="给本地商家用的同城 GEO 工作台：看效果、管门店资料、加同城词、确认稿件、一键诊断、自助查词、管理套餐订单。不用懂技术，跟着页面点一点就能用。">
 <meta name="keywords" content="GEO,同城推广,AI搜索,本地商家,商家工作台,门店曝光">
 <meta name="robots" content="noindex,follow">
 <meta property="og:type" content="website">
-<meta property="og:title" content="同城 GEO 推广 · 商家工作台">
+<meta property="og:title" content="同城 GEO 推广 · 商家工作台 · 星籁 AI">
 <meta property="og:description" content="看效果、管资料、加同城词、确认稿件、一键诊断——本地商家的 AI 同城曝光助手。">
 <meta property="og:url" content="https://xinglaiai.com/ai-nav/geo3/">
 <link rel="canonical" href="https://xinglaiai.com/ai-nav/geo3/">
@@ -842,6 +842,152 @@ html[data-theme="light"][data-page="geo3"] .g3-textarea{color:#0e242c;background
 html[data-theme="light"][data-page="geo3"] .g3-avatar{color:#fff}
 </style>
 <link rel="stylesheet" href="../assets/site-shell.css?v=20261119x">
+<style id="geo3-uxfix">
+/* ==========================================================================
+   UX 修复：商家工作区引导 / 以商家身份查看 / 移动端首屏压缩 / 页签横滑提示
+   ========================================================================== */
+html[data-page="geo3"] .g3-viewas{display:inline-flex;align-items:center;gap:7px;height:38px;padding:0 9px 0 11px;border-radius:11px;
+  border:1px solid var(--g3-line);background:var(--g3-soft);min-width:0}
+html[data-page="geo3"] .g3-viewas-lb{font-size:11.5px;font-weight:700;color:var(--g3-txt3);white-space:nowrap}
+html[data-page="geo3"] .g3-viewas-sel{appearance:none;-webkit-appearance:none;border:0;background:transparent;color:var(--g3-txt);
+  font-size:12.5px;font-weight:800;max-width:172px;padding:0 18px 0 0;cursor:pointer;text-overflow:ellipsis;
+  background-image:linear-gradient(45deg,transparent 50%,var(--g3-txt3) 50%),linear-gradient(135deg,var(--g3-txt3) 50%,transparent 50%);
+  background-position:calc(100% - 8px) 55%,calc(100% - 3px) 55%;background-size:5px 5px,5px 5px;background-repeat:no-repeat}
+html[data-page="geo3"] .g3-viewas-sel option{background:var(--g3-solid);color:var(--g3-txt)}
+
+/* ---------- 工作区引导卡 ---------- */
+html[data-page="geo3"] .g3-gate{display:flex;align-items:center;justify-content:center;padding:clamp(16px,4vw,42px) 0;min-height:calc(100vh - 210px)}
+html[data-page="geo3"] .g3-gate-card{position:relative;overflow:hidden;width:100%;max-width:900px;padding:clamp(24px,3.6vw,40px);
+  border-radius:20px;border:1px solid var(--g3-line);background:var(--g3-panel);box-shadow:var(--g3-shadow)}
+html[data-page="geo3"] .g3-gate-card::before{content:"";position:absolute;inset:0 0 auto;height:3px;
+  background:linear-gradient(90deg,var(--g3-teal),var(--g3-cyan),var(--g3-violet))}
+html[data-page="geo3"] .g3-gate-card::after{content:"";position:absolute;width:320px;height:320px;right:-120px;top:-150px;border-radius:50%;
+  pointer-events:none;background:radial-gradient(circle,rgba(45,212,191,.16),transparent 68%)}
+html[data-page="geo3"] .g3-gate-ico{width:52px;height:52px;border-radius:15px;display:grid;place-items:center;color:var(--g3-teal);
+  background:linear-gradient(135deg,rgba(45,212,191,.18),rgba(56,189,248,.10));border:1px solid var(--g3-line2);margin-bottom:16px}
+html[data-page="geo3"] .g3-gate-ico svg{width:26px;height:26px}
+html[data-page="geo3"] .g3-gate-kicker{display:inline-flex;align-items:center;gap:7px;font-size:11px;font-weight:800;letter-spacing:.14em;
+  color:var(--g3-teal);margin-bottom:7px}
+html[data-page="geo3"] .g3-gate-kicker i{width:6px;height:6px;border-radius:50%;background:var(--g3-teal);box-shadow:0 0 8px currentColor}
+html[data-page="geo3"] .g3-gate-h1{font-size:clamp(23px,2.6vw,30px);font-weight:900;letter-spacing:-.02em;line-height:1.26}
+html[data-page="geo3"] .g3-gate-sub{max-width:660px;margin-top:10px;font-size:13.5px;line-height:1.78;color:var(--g3-txt2)}
+html[data-page="geo3"] .g3-gate-sub b{color:var(--g3-txt)}
+html[data-page="geo3"] .g3-gate-acts{display:flex;flex-wrap:wrap;gap:10px;margin-top:20px}
+html[data-page="geo3"] .g3-gate-note{margin-top:12px;font-size:12px;color:var(--g3-txt3);line-height:1.65}
+html[data-page="geo3"] .g3-gate-sep{display:flex;align-items:center;gap:10px;margin:22px 0 12px;font-size:11.5px;font-weight:800;
+  letter-spacing:.08em;color:var(--g3-txt3)}
+html[data-page="geo3"] .g3-gate-sep::before,html[data-page="geo3"] .g3-gate-sep::after{content:"";height:1px;flex:1 1 auto;background:var(--g3-line)}
+html[data-page="geo3"] .g3-gate-wslist{display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:10px}
+html[data-page="geo3"] .g3-gate-ws{appearance:none;display:flex;flex-direction:column;align-items:flex-start;gap:3px;padding:12px 14px;
+  text-align:left;border-radius:12px;border:1px solid var(--g3-line);background:var(--g3-soft);color:var(--g3-txt);cursor:pointer;
+  transition:.15s;min-width:0;font-family:inherit}
+html[data-page="geo3"] .g3-gate-ws:hover,html[data-page="geo3"] .g3-gate-ws:focus-visible{border-color:var(--g3-line2);
+  background:var(--g3-soft2);transform:translateY(-1px)}
+html[data-page="geo3"] .g3-gate-ws b{font-size:13.5px}
+html[data-page="geo3"] .g3-gate-ws small{font-size:11.5px;color:var(--g3-txt3);line-height:1.5}
+html[data-page="geo3"] .g3-gate-ws em{font-style:normal;font-family:ui-monospace,SFMono-Regular,Consolas,monospace;font-size:11px;color:var(--g3-cyan)}
+html[data-page="geo3"] .g3-gate-ws .g3-gw-go{margin-top:5px;font-size:11.5px;font-weight:800;color:var(--g3-teal)}
+html[data-page="geo3"] .g3-gate-loading{display:flex;align-items:center;gap:10px;margin-top:18px;color:var(--g3-txt3);font-size:12.5px}
+html[data-page="geo3"] .g3-gate-loading .g3-spin{width:18px;height:18px;border-width:2px}
+html[data-page="geo3"] .g3-loaderr{padding:20px;text-align:center;color:var(--g3-txt2);font-size:13px;line-height:1.8}
+
+/* gate 状态：隐藏示例横幅/示例数据/页签/页脚，避免主体混乱 */
+html[data-page="geo3"] .g3-app.is-gate .g3-banner,
+html[data-page="geo3"] .g3-app.is-gate .g3-sec,
+html[data-page="geo3"] .g3-app.is-gate .g3-subnav-shell,
+html[data-page="geo3"] .g3-app.is-gate .g3-foot{display:none!important}
+html[data-page="geo3"] .g3-app.is-gate .g3-body{padding-top:0;display:block}
+html[data-page="geo3"] .g3-app.is-gate .g3-datasrc,
+html[data-page="geo3"] .g3-app.is-gate #g3PlanPill,
+html[data-page="geo3"] .g3-app.is-gate #g3UpgradeBtn,
+html[data-page="geo3"] .g3-app.is-gate .g3-viewas{display:none!important}
+
+/* ---------- 页签横滑提示（箭头 + 左右渐隐） ---------- */
+html[data-page="geo3"] .g3-subnav-shell{display:contents}
+html[data-page="geo3"] .g3-nav-arrow{display:none;appearance:none;border:0;font-family:inherit;cursor:pointer;padding:0}
+@media (max-width:900px){
+  html[data-page="geo3"] .g3-subnav-shell{display:block;position:sticky;top:var(--xl-topbar-h,0px);z-index:38;margin:0;
+    background:var(--g3-bg);border-bottom:1px solid var(--g3-line);padding:8px 0}
+  html[data-page="geo3"] .g3-subnav-shell .g3-subnav{position:static;top:auto;margin:0;padding:0 2px;background:transparent;
+    border-bottom:0;scrollbar-width:none;-ms-overflow-style:none;
+    -webkit-mask-image:linear-gradient(90deg,transparent 0,#000 16px,#000 calc(100% - 16px),transparent 100%);
+    mask-image:linear-gradient(90deg,transparent 0,#000 16px,#000 calc(100% - 16px),transparent 100%)}
+  html[data-page="geo3"] .g3-nav-arrow{display:grid;place-items:center;position:absolute;top:50%;transform:translateY(-50%);z-index:3;
+    width:28px;height:28px;border-radius:50%;border:1px solid var(--g3-line);background:var(--g3-solid);color:var(--g3-txt);
+    box-shadow:0 6px 16px -8px rgba(0,0,0,.7);font-size:17px;line-height:1}
+  html[data-page="geo3"] .g3-nav-arrow.prev{left:-2px}
+  html[data-page="geo3"] .g3-nav-arrow.next{right:-2px}
+  html[data-page="geo3"] .g3-nav-arrow:hover{border-color:var(--g3-line2);color:var(--g3-teal)}
+  html[data-page="geo3"] .g3-nav-arrow[disabled]{opacity:.32;cursor:default}
+  html[data-page="geo3"] .g3-nav-arrow svg{width:13px;height:13px}
+}
+
+/* ---------- 移动端首屏压缩 ---------- */
+@media (max-width:680px){
+  html[data-page="geo3"] .g3-apphead{padding:8px 0}
+  html[data-page="geo3"] .g3-apphead-in{flex-wrap:nowrap;gap:8px;align-items:center}
+  html[data-page="geo3"] .g3-who{flex:1 1 auto;gap:9px}
+  html[data-page="geo3"] .g3-who-ico{width:32px;height:32px;border-radius:10px}
+  html[data-page="geo3"] .g3-who-ico svg{width:17px;height:17px}
+  html[data-page="geo3"] .g3-who-txt small{font-size:9.5px;letter-spacing:.05em;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+  html[data-page="geo3"] .g3-who-txt b{font-size:14px;line-height:1.3}
+  html[data-page="geo3"] .g3-who-plan{display:inline;color:var(--g3-teal);font-weight:800}
+  html[data-page="geo3"] .g3-head-right{flex:0 0 auto;width:auto;flex-wrap:nowrap;gap:5px;justify-content:flex-end}
+  html[data-page="geo3"] #g3PlanPill,html[data-page="geo3"] #g3UpgradeBtn{display:none!important}
+  html[data-page="geo3"] .g3-datasrc{height:26px;padding:0 8px;font-size:10.5px}
+  html[data-page="geo3"] .g3-account-btn{height:34px;padding:0 6px}
+  html[data-page="geo3"] .g3-account-name{display:none}
+  html[data-page="geo3"] .g3-viewas{height:32px;padding:0 7px;gap:0}
+  html[data-page="geo3"] .g3-viewas-lb{display:none}
+  html[data-page="geo3"] .g3-viewas-sel{max-width:104px;font-size:11.5px;padding-right:16px}
+  html[data-page="geo3"] .g3-viewas:not([hidden]) + .g3-datasrc{display:none}
+  html[data-page="geo3"] .g3-body{padding-top:0;gap:10px}
+  html[data-page="geo3"] .g3-main{gap:12px}
+  html[data-page="geo3"] .g3-banner{padding:9px 11px;font-size:11.8px;line-height:1.55;border-radius:10px;align-items:flex-start}
+  html[data-page="geo3"] #g3DemoBannerTxt{display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
+  html[data-page="geo3"] .g3-banner .g3-bn-close{width:26px;height:26px;margin-top:-2px}
+  html[data-page="geo3"] .g3-sec{gap:12px}
+  /* 总览：核心指标卡先于套餐卡，首屏更靠上 */
+  html[data-page="geo3"] #sec-overview .g3-sechead{order:1}
+  html[data-page="geo3"] #sec-overview #g3Metrics{order:2}
+  html[data-page="geo3"] #sec-overview .g3-pkg{order:3}
+  html[data-page="geo3"] #sec-overview .g3-ovgrid{order:4}
+  html[data-page="geo3"] .g3-sechead{padding:0;gap:8px;align-items:flex-start}
+  html[data-page="geo3"] .g3-h1{font-size:21px}
+  html[data-page="geo3"] .g3-sub{font-size:12.5px}
+  html[data-page="geo3"] .g3-eyebrow{font-size:10.5px;margin-bottom:4px}
+  /* 套餐卡压成两行摘要：门店套餐一行 + 按钮一行 */
+  html[data-page="geo3"] .g3-pkg{display:grid;grid-template-columns:minmax(0,1fr) auto;
+    grid-template-areas:"pkg stats" "acts acts";gap:8px 10px;padding:11px 12px;border-radius:13px;align-items:center}
+  html[data-page="geo3"] .g3-pkg-main{grid-area:pkg;flex:none;gap:0}
+  html[data-page="geo3"] .g3-pkg-ico{display:none}
+  html[data-page="geo3"] .g3-pkg-txt small{display:none}
+  html[data-page="geo3"] .g3-pkg-txt h2{font-size:15px;gap:6px}
+  html[data-page="geo3"] .g3-pkg-txt h2 .g3-tag{display:none}
+  html[data-page="geo3"] .g3-pkg-txt p{display:none}
+  html[data-page="geo3"] .g3-pkg-stats{grid-area:stats;gap:12px;flex-wrap:nowrap;justify-content:flex-end}
+  html[data-page="geo3"] .g3-pkg-stat{min-width:0;flex:0 1 auto}
+  html[data-page="geo3"] .g3-pkg-stat small{font-size:10.5px;margin-bottom:1px}
+  html[data-page="geo3"] .g3-pkg-stat b{font-size:14.5px}
+  html[data-page="geo3"] .g3-pkg-stat .g3-hint,html[data-page="geo3"] .g3-pkg-stat .g3-progress{display:none}
+  html[data-page="geo3"] .g3-pkg-acts{grid-area:acts;width:100%;padding-top:8px;border-top:1px dashed var(--g3-line);gap:8px;flex-wrap:nowrap}
+  html[data-page="geo3"] .g3-pkg-acts .g3-btn{flex:1 1 0;min-height:32px;font-size:12px;padding:0 10px}
+  html[data-page="geo3"] .g3-metrics{gap:8px}
+  html[data-page="geo3"] .g3-metric{padding:11px 12px}
+  html[data-page="geo3"] .g3-metric-val{font-size:21px}
+  html[data-page="geo3"] .g3-metric-top{margin-bottom:6px;gap:6px}
+  html[data-page="geo3"] .g3-metric-top span{font-size:11.5px}
+  html[data-page="geo3"] .g3-metric-ico{width:24px;height:24px}
+  html[data-page="geo3"] .g3-metric-sub{font-size:10.5px;margin-top:4px}
+}
+@media (max-width:420px){
+  html[data-page="geo3"] .g3-metrics{grid-template-columns:repeat(2,minmax(0,1fr))}
+  html[data-page="geo3"] .g3-gate-card{padding:22px 18px;border-radius:16px}
+  html[data-page="geo3"] .g3-gate-wslist{grid-template-columns:minmax(0,1fr)}
+  html[data-page="geo3"] .g3-gate{min-height:0;padding:12px 0 26px}
+  html[data-page="geo3"] .g3-gate-acts .g3-btn{min-height:40px}
+}
+</style>
 </head>
 <a class="g3-skip" href="#g3Main">跳到主要内容</a>
 <div class="g3-app" id="g3App">
@@ -854,11 +1000,15 @@ html[data-theme="light"][data-page="geo3"] .g3-avatar{color:#fff}
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M4 10.4 12 4l8 6.4V20a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1v-9.6Z"/><path d="M9.6 21v-6.2h4.8V21"/></svg>
         </span>
         <div class="g3-who-txt">
-          <small>同城 GEO · 商家工作台</small>
+          <small>同城 GEO · 商家工作台<span class="g3-who-plan" id="g3WhoPlan"></span></small>
           <b id="g3StoreName">洁净家政（通州店）</b>
         </div>
       </div>
       <div class="g3-head-right">
+        <div class="g3-viewas" id="g3ViewAs" hidden>
+          <label class="g3-viewas-lb" for="g3ViewAsSel">以商家身份查看</label>
+          <select class="g3-viewas-sel" id="g3ViewAsSel" aria-label="以商家身份查看工作区"></select>
+        </div>
         <span class="g3-datasrc" id="g3DataSrc" title="当前展示的数据状态"><i aria-hidden="true"></i><span id="g3DataSrcTxt">示例数据</span></span>
         <button type="button" class="g3-pill" id="g3PlanPill" title="查看套餐与订单">
           <span class="g3-pill-ico" aria-hidden="true">
@@ -887,7 +1037,11 @@ html[data-theme="light"][data-page="geo3"] .g3-avatar{color:#fff}
   </header>
 
   <div class="g3-body">
-    <!-- ==================== 左侧二级菜单 ==================== -->
+    <!-- ==================== 左侧二级菜单（移动端横滑 + 左右箭头提示） ==================== -->
+    <div class="g3-subnav-shell" id="g3SubnavShell">
+      <button type="button" class="g3-nav-arrow prev" id="g3NavPrev" aria-label="查看前面的菜单" hidden>
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m14.5 6-6 6 6 6"/></svg>
+      </button>
     <nav class="g3-subnav" aria-label="工作台菜单">
       <div class="g3-subnav-title">我的店铺</div>
       <button type="button" class="g3-navlink is-on" data-sec="overview">
@@ -925,9 +1079,17 @@ html[data-theme="light"][data-page="geo3"] .g3-avatar{color:#fff}
         效果数据每周更新一次；有疑问联系你的服务顾问，我们会用大白话讲清楚。
       </div>
     </nav>
+      <button type="button" class="g3-nav-arrow next" id="g3NavNext" aria-label="查看后面的菜单" hidden>
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m9.5 6 6 6-6 6"/></svg>
+      </button>
+    </div>
 
     <!-- ==================== 主内容 ==================== -->
     <main class="g3-main" id="g3Main">
+      <!-- 已登录但无商家工作区时的明确引导；有工作区后隐藏 -->
+      <section class="g3-gate" id="g3MerchantGate" hidden aria-labelledby="g3GateTitle">
+        <div class="g3-gate-card" id="g3GateCard"></div>
+      </section>
       <div class="g3-banner" id="g3DemoBanner">
         <span class="g3-bn-ico" aria-hidden="true">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="8.6"/><path d="M12 7.6v5.1"/><circle cx="12" cy="16.4" r=".9" fill="currentColor" stroke="none"/></svg>
@@ -1755,7 +1917,16 @@ var state = {
   banners: { demoClosed: false },
   needLogin: false,
   lastSavedAt: '',
-  reportMode: 'local'
+  reportMode: 'local',
+  /* ---- 登录态 / 商家工作区路由（UX-11） ---- */
+  user: null,
+  isAdmin: false,
+  guest: false,          // 未登录访客：保留示例数据演示
+  merchantReady: false,  // 已确定商家工作区后才请求 /m/* 接口
+  viewWs: '',            // 当前商家工作区（admin 可为 ws_11 演示）
+  merchants: [],         // admin 可选商家工作区
+  gate: '',              // '' | 'admin' | 'admin-loading' | 'no-workspace' | 'login'
+  routerReady: false
 };
 
 /* ---------- toast ---------- */
@@ -1874,13 +2045,22 @@ function authToken() {
 function isAnonymousGuest() {
   try { return !authToken() && !qsParam('ws') && !qsParam('workspace_id'); } catch (e) { return false; }
 }
+/* 当前账号的用户信息（auth.js 可能尚未就绪） */
+function currentUser() {
+  try { return WIN.XLAuth && WIN.XLAuth.user ? WIN.XLAuth.user() : null; } catch (e) { return null; }
+}
+function userIsAdmin(u) {
+  return !!(u && (u.role === 'admin' || u.is_admin === true));
+}
+/* 商家工作区：admin 不默认使用自己的 workspace（那不是商家工作区，会 404）；
+   只有确认浏览器中的商家工作区（或运营「以商家身份查看」选择的）才作为请求参数。 */
 function workspaceId() {
   var wsParam = qsParam('ws') || qsParam('workspace_id');
   if (wsParam) return wsParam.replace(/[^\w\-]/g, '').slice(0, 64);
-  try {
-    var u = WIN.XLAuth && WIN.XLAuth.user ? WIN.XLAuth.user() : null;
-    if (u && u.workspace_id) return String(u.workspace_id);
-  } catch (e) {}
+  if (state.viewWs) return String(state.viewWs).replace(/[^\w\-]/g, '').slice(0, 64);
+  var u = currentUser();
+  if (u && !userIsAdmin(u) && u.workspace_id) return String(u.workspace_id).replace(/[^\w\-]/g, '').slice(0, 64);
+  if (state.guest || state.isAdmin) return '';
   try { return localStorage.getItem('geo3_ws') || ''; } catch (e) { return ''; }
 }
 function apiCall(path, opt) {
@@ -1971,6 +2151,307 @@ function apiWrite(path, method, body, opt) {
     markNet(res.ok, res.hint || '');
     return res;
   });
+}
+
+/* ======================================================================
+   登录态 → 商家工作区路由（UX-11）
+   - 未登录：保留示例数据演示（明确标注示例）
+   - 已登录但无商家工作区：显示开通引导，不再请求 /m/*，也不显示示例数据
+   - admin：提供「以商家身份查看」工作区选择器（默认演示 ws_11）
+   ====================================================================== */
+var OPS_API_BASE = API_BASE.replace(/\/m$/, '');
+var WS_STORE_KEY = 'geo3_ops_ws';
+var BANNER_KEY = 'geo3_banner_closed';
+var FALLBACK_MERCHANTS = [
+  { workspace_id: 'ws_11', name: '洁净家政（通州店）', industry: '家政保洁', city: '北京', plan_label: '基础版' },
+  { workspace_id: 'ws_12', name: '净之屋除甲醛', industry: '甲醛检测治理', city: '北京', plan_label: '中级版' },
+  { workspace_id: 'ws_13', name: '星籁化妆培训', industry: '化妆培训', city: '北京', plan_label: '高级版' }
+];
+
+function readStoredWs() { try { return localStorage.getItem(WS_STORE_KEY) || ''; } catch (e) { return ''; } }
+function writeStoredWs(ws) { try { if (ws) localStorage.setItem(WS_STORE_KEY, ws); else localStorage.removeItem(WS_STORE_KEY); } catch (e) {} }
+function readBannerClosed() { try { return localStorage.getItem(BANNER_KEY) === '1'; } catch (e) { return false; } }
+
+/* 运营端接口（admin Bearer）：只在这里用于获取「可查看的商家工作区」列表 */
+function opsApiGet(path) {
+  return new Promise(function (resolve, reject) {
+    var tk = authToken();
+    if (!tk) { reject(new Error('no-token')); return; }
+    try {
+      fetch(OPS_API_BASE + path, {
+        method: 'GET',
+        headers: { 'Authorization': 'Bearer ' + tk, 'Accept': 'application/json' },
+        cache: 'no-store',
+        credentials: SAME_ORIGIN ? 'same-origin' : 'omit'
+      }).then(function (r) {
+        return r.text().then(function (t) {
+          var j = null;
+          try { j = t ? JSON.parse(t) : null; } catch (e) { j = null; }
+          if (!r.ok || !j || j.ok === false) { reject(new Error('HTTP ' + r.status)); return; }
+          resolve(j);
+        });
+      }, function (e) { reject(e || new Error('network')); });
+    } catch (e) { reject(e); }
+  });
+}
+function fetchOpsMerchants() {
+  return opsApiGet('/ops/merchants').then(function (j) {
+    return (j && j.merchants) || [];
+  });
+}
+
+/* ---------- 引导卡 ---------- */
+function wsOptionButtons() {
+  var list = (state.merchants && state.merchants.length) ? state.merchants : FALLBACK_MERCHANTS;
+  var html = '';
+  list.forEach(function (m) {
+    var sub = [m.industry, m.city, m.plan_label].filter(Boolean).join(' · ');
+    html += '<button type="button" class="g3-gate-ws" data-enter-ws="' + esc(m.workspace_id) + '">' +
+      '<b>' + esc(m.name || m.workspace_id) + '</b>' +
+      '<small>' + esc(sub || '商家工作区') + '</small>' +
+      '<em>' + esc(m.workspace_id) + '</em>' +
+      '<span class="g3-gw-go">以商家身份查看 →</span></button>';
+  });
+  return html;
+}
+function buildGateCard(kind) {
+  var user = state.user || currentUser();
+  var uname = user ? (user.business_name || user.name || user.account || '') : '';
+  /* 未登录（正常演示路径不会走到这里） */
+  if (kind === 'loading') {
+    return '<div class="g3-gate-ico">' + svgIco('grid') + '</div>' +
+      '<span class="g3-gate-kicker"><i></i>商家工作区</span>' +
+      '<h1 class="g3-gate-h1" id="g3GateTitle">正在确认登录状态…</h1>' +
+      '<p class="g3-gate-sub">正在校验登录态与商家工作区，请稍候。</p>' +
+      '<div class="g3-gate-loading"><span class="g3-spin"></span><span>读取中…</span></div>';
+  }
+  if (kind === 'admin-loading') {
+    return '<div class="g3-gate-ico">' + svgIco('grid') + '</div>' +
+      '<span class="g3-gate-kicker"><i></i>商家工作区</span>' +
+      '<h1 class="g3-gate-h1" id="g3GateTitle">正在读取商家工作区…</h1>' +
+      '<p class="g3-gate-sub">已登录运营账号，正在获取可查看的商家工作区列表。</p>' +
+      '<div class="g3-gate-loading"><span class="g3-spin"></span><span>读取中，请稍候</span></div>';
+  }
+  if (kind === 'login') {
+    return '<div class="g3-gate-ico">' + svgIco('user') + '</div>' +
+      '<span class="g3-gate-kicker"><i></i>商家工作区</span>' +
+      '<h1 class="g3-gate-h1" id="g3GateTitle">登录状态已失效</h1>' +
+      '<p class="g3-gate-sub">请重新登录后查看你的商家工作区与真实效果数据。</p>' +
+      '<div class="g3-gate-acts">' +
+        '<a class="g3-btn primary" href="' + SITE_ROOT + 'account/index.html?next=' + encodeURIComponent(location.pathname + location.search) + '">去登录</a>' +
+        '<button type="button" class="g3-btn ghost" data-gate="retry">刷新试试</button>' +
+      '</div>';
+  }
+  if (kind === 'admin') {
+    return '<div class="g3-gate-ico">' + svgIco('shield') + '</div>' +
+      '<span class="g3-gate-kicker"><i></i>运营账号 · 商家工作区</span>' +
+      '<h1 class="g3-gate-h1" id="g3GateTitle">你还没有开通商家工作区</h1>' +
+      '<p class="g3-gate-sub">当前登录的是运营账号' + (uname ? '（<b>' + esc(uname) + '</b>）' : '') +
+        '。商家端只展示已开通 GEO 工作区的店铺真实数据，所以不会用示例数据充数。你可以直接以某个商家身份查看，或去运营后台开通新的商家工作区。</p>' +
+      '<div class="g3-gate-acts">' +
+        '<a class="g3-btn primary" href="' + SITE_ROOT + 'ops/geo/">去运营后台开通商家</a>' +
+        '<a class="g3-btn" href="' + SITE_ROOT + 'pricing/">查看套餐与服务</a>' +
+        '<button type="button" class="g3-btn ghost" data-gate="contact">联系运营</button>' +
+      '</div>' +
+      '<div class="g3-gate-sep">运营账号 · 以商家身份查看</div>' +
+      '<p class="g3-gate-sub" style="margin-top:0;font-size:12.5px">选择一个商家工作区即可查看真实接口数据（只读查看，不会改动商家资料）；选择会记住，下次自动进入。</p>' +
+      '<div class="g3-gate-wslist">' + wsOptionButtons() + '</div>' +
+      '<p class="g3-gate-note">演示工作区：ws_11 洁净家政（通州店）。商家本人登录后会看到自己的店铺，无需经过这里。</p>';
+  }
+  /* no-workspace：普通商家账号尚未开通 */
+  return '<div class="g3-gate-ico">' + svgIco('store') + '</div>' +
+    '<span class="g3-gate-kicker"><i></i>商家工作区</span>' +
+    '<h1 class="g3-gate-h1" id="g3GateTitle">你还没有开通商家工作区</h1>' +
+    '<p class="g3-gate-sub">当前账号' + (uname ? '（<b>' + esc(uname) + '</b>）' : '') +
+      '还没有绑定 GEO 商家工作区。开通后，这里会显示你店铺的真实收录、推荐、信源和稿件数据，不再展示示例内容。</p>' +
+    '<div class="g3-gate-acts">' +
+      '<a class="g3-btn primary" href="' + SITE_ROOT + 'pricing/">去开通商家工作区</a>' +
+      '<button type="button" class="g3-btn" data-gate="contact">联系运营开通</button>' +
+      '<button type="button" class="g3-btn ghost" data-gate="retry">刷新试试</button>' +
+    '</div>' +
+    '<p class="g3-gate-note">如果你已有商家账号，请用商家账号登录（当前登录账号不是商家工作区账号）。</p>';
+}
+function showGate(kind) {
+  state.gate = kind || 'no-workspace';
+  state.merchantReady = false;
+  state.guest = false;
+  var app = $('#g3App');
+  if (app) app.classList.add('is-gate');
+  var gate = $('#g3MerchantGate');
+  if (gate) {
+    gate.innerHTML = '<div class="g3-gate-card" id="g3GateCard">' + buildGateCard(state.gate) + '</div>';
+    gate.hidden = false;
+  }
+  renderViewAs();
+  renderHeader();
+  renderDataMode();
+  try { WIN.scrollTo({ top: 0, behavior: 'auto' }); } catch (e) {}
+}
+function openOpsContact() {
+  openModal({
+    title: '联系运营开通商家工作区',
+    size: 'sm',
+    body: '<div style="font-size:13px;line-height:1.85;color:var(--g3-txt2)">' +
+      '<p>请联系对接你的服务顾问（或在运营群 @运营），工作日 1 小时内会协助你开通 GEO 商家工作区。</p>' +
+      '<p style="margin-top:8px">开通后重新登录本页，就能看到自己店铺的真实收录、推荐与稿件数据。</p></div>',
+    foot: '<a class="g3-btn" href="' + SITE_ROOT + 'pricing/">查看套餐</a>' +
+      '<button type="button" class="g3-btn primary" data-close="modal">知道了</button>'
+  });
+}
+
+/* ---------- 工作区视图 ---------- */
+function resetMerchantData() {
+  state.dashboard = null; state.store = null; state.profile = null; state.words = null;
+  state.recommend = null; state.drafts = null; state.diagnose = null; state.plan = null;
+  state.orders = null; state.selftest = { last: null, history: null };
+  state.loading = {}; state.called = {}; state.busy = {};
+  state.net = { ok: 0, fail: 0, lastHint: '' };
+  state.dataMode = 'demo'; state.apiOffline = false; state.apiFailCount = 0; state.needLogin = false;
+}
+function renderViewAs() {
+  var wrap = $('#g3ViewAs'), sel = $('#g3ViewAsSel');
+  if (!wrap || !sel) return;
+  if (!state.isAdmin || !state.merchantReady || state.gate) { wrap.hidden = true; return; }
+  var list = (state.merchants && state.merchants.length) ? state.merchants : FALLBACK_MERCHANTS;
+  var html = '';
+  list.forEach(function (m) { html += '<option value="' + esc(m.workspace_id) + '">' + esc(m.name || m.workspace_id) + '</option>'; });
+  html += '<option value="">返回运营视角</option>';
+  sel.innerHTML = html;
+  sel.value = state.viewWs || '';
+  wrap.hidden = false;
+}
+function enterMerchantView(ws, opt) {
+  opt = opt || {};
+  ws = String(ws || '').replace(/[^\w\-]/g, '').slice(0, 64);
+  if (!ws) { showGate(state.isAdmin ? 'admin' : 'no-workspace'); return; }
+  var fromGate = !!state.gate;
+  var hadView = !!(state.viewWs && state.merchantReady);
+  var changed = state.viewWs !== ws;
+  state.viewWs = ws;
+  state.merchantReady = true;
+  state.guest = false;
+  state.gate = '';
+  if (state.isAdmin) writeStoredWs(ws);
+  var app = $('#g3App');
+  if (app) app.classList.remove('is-gate');
+  var gate = $('#g3MerchantGate');
+  if (gate) { gate.hidden = true; gate.innerHTML = ''; }
+  if (changed || fromGate) resetMerchantData();
+  renderViewAs();
+  renderHeader();
+  renderDataMode();
+  initRouterOnce();
+  if (!changed || fromGate) go(state.sec || 'overview', false);
+  if (state.__syncSubnav) state.__syncSubnav();
+  if (hadView && changed) toast('已切换到商家视角：' + ws);
+}
+function enterGuestDemo() {
+  state.user = currentUser();
+  state.isAdmin = userIsAdmin(state.user);
+  state.guest = true;
+  state.merchantReady = false;
+  state.gate = '';
+  state.viewWs = '';
+  var app = $('#g3App');
+  if (app) app.classList.remove('is-gate');
+  var gate = $('#g3MerchantGate');
+  if (gate) { gate.hidden = true; gate.innerHTML = ''; }
+  renderViewAs();
+  renderHeader();
+  renderDataMode();
+  initRouterOnce();
+  loadDashboard(false);
+}
+function routeLoggedIn(u) {
+  state.user = u;
+  state.isAdmin = userIsAdmin(u);
+  if (state.isAdmin) { setupAdminView(); return; }
+  if (u && u.workspace_id) { enterMerchantView(u.workspace_id); return; }
+  showGate('no-workspace');
+}
+function setupAdminView() {
+  state.isAdmin = true;
+  var saved = readStoredWs();
+  showGate('admin-loading');
+  fetchOpsMerchants().then(function (list) {
+    state.merchants = (list && list.length) ? list : FALLBACK_MERCHANTS;
+    var hit = null;
+    for (var i = 0; i < state.merchants.length; i++) {
+      if (state.merchants[i].workspace_id === saved) { hit = state.merchants[i]; break; }
+    }
+    if (hit) { enterMerchantView(hit.workspace_id); return; }
+    if (saved) writeStoredWs('');
+    showGate('admin');
+  }, function () {
+    state.merchants = FALLBACK_MERCHANTS;
+    showGate('admin');
+  });
+}
+function initMerchant() {
+  var token = authToken();
+  if (!token) { enterGuestDemo(); return; }
+  var cached = currentUser();
+  if (cached) { routeLoggedIn(cached); return; }
+  showGate('loading');
+  var settled = false;
+  function finish(u) {
+    if (settled) return;
+    settled = true;
+    if (u) routeLoggedIn(u); else showGate('login');
+  }
+  setTimeout(function () { finish(currentUser()); }, 3600);
+  try {
+    if (WIN.XLAuth && XLAuth.onChange) XLAuth.onChange(function (u) { if (u) finish(u); });
+  } catch (e) {}
+  setTimeout(function () { if (!settled) finish(currentUser()); }, 300);
+}
+function bindGateEvents() {
+  DOC.addEventListener('click', function (e) {
+    var t = e.target;
+    if (!t || !t.closest) return;
+    var wsBtn = t.closest('[data-enter-ws]');
+    if (wsBtn) {
+      e.preventDefault();
+      enterMerchantView(wsBtn.getAttribute('data-enter-ws'));
+      return;
+    }
+    var gateBtn = t.closest('[data-gate]');
+    if (gateBtn) {
+      e.preventDefault();
+      var act = gateBtn.getAttribute('data-gate');
+      if (act === 'contact') openOpsContact();
+      else if (act === 'retry') initMerchant();
+      return;
+    }
+  });
+}
+
+/* ---------- 页签横滑提示（移动端左右箭头 + 渐隐） ---------- */
+function bindSubnavHints() {
+  var shell = $('#g3SubnavShell');
+  if (!shell || shell.__hintBound) return;
+  shell.__hintBound = true;
+  var nav = $('.g3-subnav', shell), prev = $('#g3NavPrev'), next = $('#g3NavNext');
+  if (!nav || !prev || !next) return;
+  function sync() {
+    var max = nav.scrollWidth - nav.clientWidth;
+    var overflow = max > 2;
+    var x = nav.scrollLeft;
+    prev.hidden = !overflow || x <= 1;
+    next.hidden = !overflow || x >= max - 1;
+  }
+  function step(dir) {
+    var d = Math.max(140, Math.round(nav.clientWidth * 0.62));
+    try { nav.scrollBy({ left: dir * d, behavior: 'smooth' }); }
+    catch (e) { nav.scrollLeft += dir * d; }
+  }
+  prev.addEventListener('click', function () { step(-1); });
+  next.addEventListener('click', function () { step(1); });
+  nav.addEventListener('scroll', debounce(sync, 80));
+  WIN.addEventListener('resize', debounce(sync, 150));
+  state.__syncSubnav = sync;
+  setTimeout(sync, 60);
+  setTimeout(sync, 600);
 }
 
 /* ---------- 数据归一化辅助 ---------- */
@@ -2794,30 +3275,69 @@ function noteApiFailure(status) {
 }
 function loadDashboard(force) {
   if (state.dashboard && !force) return Promise.resolve(state.dashboard);
+  if (!state.merchantReady && !state.guest) return Promise.resolve(null);
+  /* 未登录访客：明确用示例数据演示（不发任何 /m/* 请求） */
+  if (state.guest) {
+    state.dashboard = demoDashboard();
+    state.store = DEMO_STORE;
+    state.liveDashboard = false;
+    state.dataMode = 'demo';
+    renderHeader();
+    renderOverview();
+    renderDataMode();
+    loadPlan(false).then(function () { renderHeader(); renderOverviewPkg(); renderDataMode(); });
+    loadDrafts(false).then(function () { renderTodos(); renderNavBadges(); });
+    return Promise.resolve(state.dashboard);
+  }
   return guardLoad('dashboard', function () {
     var metricsHost = $('#g3Metrics');
     if (metricsHost && !state.dashboard) setLoading(metricsHost, '正在读取你的效果数据…');
     return apiGet('/dashboard', { workspace_id: workspaceId() }, { force: !!force }).then(function (res) {
       var live = res.ok && res.data && (res.data.cards || res.data.trend);
-      if (live) { state.apiOffline = false; state.apiFailCount = 0; }
-      else noteApiFailure(res.status);
-      state.dashboard = live ? normDashboard(res.data) : demoDashboard();
-      state.store = state.dashboard.merchant || DEMO_STORE;
-      state.liveDashboard = !!live;
-      if (!live && (isAnonymousGuest() || res.status === 401 || (res.status === 404 && /merchant/i.test(res.error || '')))) state.needLogin = true;
-      if (live) state.needLogin = false;
+      if (live) {
+        state.apiOffline = false;
+        state.apiFailCount = 0;
+        state.dashboard = normDashboard(res.data);
+        state.store = state.dashboard.merchant || null;
+        state.liveDashboard = true;
+        renderHeader();
+        renderOverview();
+        renderNavBadges();
+        renderDataMode();
+        loadPlan(force).then(function () { renderHeader(); renderOverviewPkg(); renderDataMode(); });
+        /* 顶栏待办和稿件数量需要稿件列表，后台静默拉一次 */
+        loadDrafts(false).then(function () { renderTodos(); renderNavBadges(); });
+        return state.dashboard;
+      }
+      noteApiFailure(res.status);
+      /* 已登录但没有可用商家工作区：给明确引导，不请求 plan/drafts，也不用示例数据充数 */
+      if (res.status === 401) { showGate('login'); return null; }
+      if (res.status === 404 && /merchant|workspace/i.test(res.error || res.hint || '')) { showGate('no-workspace'); return null; }
+      if (res.status === 0 || res.error === 'network' || res.error === 'offline') {
+        state.dashboard = null;
+        renderHeader();
+        renderDataMode();
+        var host = $('#g3Metrics');
+        if (host) {
+          host.innerHTML = '<div class="g3-card g3-loaderr">' +
+            '<b>暂时读不到你的效果数据</b><br>网络或接口连接失败，请稍后重试。' +
+            '<div style="margin-top:12px"><button type="button" class="g3-btn sm" id="g3RetryDashboard">重新加载</button></div></div>';
+          var retry = $('#g3RetryDashboard');
+          if (retry) retry.addEventListener('click', function () { loadDashboard(true); });
+        }
+        return null;
+      }
+      state.dashboard = null;
+      state.store = null;
       renderHeader();
-      renderOverview();
-      renderNavBadges();
-      loadPlan(force).then(function () { renderHeader(); renderOverviewPkg(); renderDataMode(); });
-      /* 顶栏待办和稿件数量需要稿件列表，后台静默拉一次（失败就用示例） */
-      loadDrafts(false).then(function () { renderTodos(); renderNavBadges(); });
-      return state.dashboard;
+      renderDataMode();
+      return null;
     });
   });
 }
 function loadProfile(force) {
   if (state.profile && !force) return Promise.resolve(state.profile);
+  if (!state.merchantReady && !state.guest) return Promise.resolve(null);
   return guardLoad('profile', function () {
     return apiGet('/profile', { workspace_id: workspaceId() }).then(function (res) {
       var live = res.ok && res.data && (res.data.profile || res.data.completeness);
@@ -2831,6 +3351,7 @@ function loadProfile(force) {
 }
 function loadWords(force) {
   if (state.words && !force) return Promise.resolve(state.words);
+  if (!state.merchantReady && !state.guest) return Promise.resolve(null);
   return guardLoad('words', function () {
     var host = $('#g3WordList');
     if (host && !state.words) setLoading(host, '正在读词库…');
@@ -2848,6 +3369,7 @@ function loadWords(force) {
 }
 function loadRecommend(force) {
   if (state.recommend && !force) return Promise.resolve(state.recommend);
+  if (!state.merchantReady && !state.guest) return Promise.resolve(null);
   return guardLoad('recommend', function () {
     return apiGet('/words/recommend', {
       workspace_id: workspaceId(),
@@ -2868,6 +3390,7 @@ function loadWordDetail(id) {
 }
 function loadDrafts(force) {
   if (state.drafts && !force) return Promise.resolve(state.drafts);
+  if (!state.merchantReady && !state.guest) return Promise.resolve(null);
   return guardLoad('drafts', function () {
     var host = $('#g3DraftList');
     if (host && !state.drafts) setLoading(host, '正在读取稿件…');
@@ -2883,6 +3406,7 @@ function loadDrafts(force) {
 }
 function loadDiagnose(force) {
   if (state.diagnose && !force) return Promise.resolve(state.diagnose);
+  if (!state.merchantReady && !state.guest) return Promise.resolve(null);
   return guardLoad('diagnose', function () {
     var host = $('#g3Suggestions');
     if (host && !state.diagnose) setLoading(host, '正在给门店做体检…');
@@ -2897,6 +3421,7 @@ function loadDiagnose(force) {
 }
 function loadSelftestHistory(force) {
   if (state.selftest.history && !force) return Promise.resolve(state.selftest.history);
+  if (!state.merchantReady && !state.guest) return Promise.resolve(null);
   return guardLoad('selftestHistory', function () {
     return apiGet('/selftest/history', { workspace_id: workspaceId(), limit: 20 }).then(function (res) {
       var live = res.ok && res.data && (Array.isArray(res.data.batches) || Array.isArray(res.data.tests));
@@ -2940,6 +3465,7 @@ function runSelftest(word) {
 }
 function loadPlan(force) {
   if (state.plan && !force) return Promise.resolve(state.plan);
+  if (!state.merchantReady && !state.guest) return Promise.resolve(null);
   return guardLoad('plan', function () {
     return apiGet('/plan', { workspace_id: workspaceId() }, { force: !!force }).then(function (res) {
       var live = res.ok && res.data && (Array.isArray(res.data.plans) && res.data.plans.length);
@@ -2956,6 +3482,7 @@ function loadPlan(force) {
 }
 function loadOrders(force) {
   if (state.orders && !force) return Promise.resolve(state.orders);
+  if (!state.merchantReady && !state.guest) return Promise.resolve(null);
   return guardLoad('orders', function () {
     return apiGet('/orders', { workspace_id: workspaceId() }).then(function (res) {
       var live = res.ok && res.data && Array.isArray(res.data.orders);
@@ -3148,63 +3675,88 @@ function renderDataMode() {
   var chip = $('#g3DataSrc'), txt = $('#g3DataSrcTxt'), banner = $('#g3DemoBanner'), bTxt = $('#g3DemoBannerTxt');
   if (!chip) return;
   chip.classList.remove('is-live', 'is-part');
+  /* 引导状态 / 尚未确定工作区：不显示数据来源徽标，也不显示任何示例横幅 */
+  if (state.gate || (!state.merchantReady && !state.guest)) {
+    chip.style.display = 'none';
+    if (banner) banner.hidden = true;
+    return;
+  }
+  chip.style.display = '';
+  if (state.guest) {
+    /* 未登录访客：明确标注示例演示，横幅可关闭并记忆 */
+    if (txt) txt.textContent = '示例数据';
+    chip.title = '当前为示例演示数据；登录商家账号后可看到真实数据';
+    if (banner && bTxt) {
+      banner.classList.remove('is-live');
+      banner.hidden = !!state.banners.demoClosed;
+      bTxt.innerHTML = '<b>现在看到的是示例数据。</b>用「洁净家政（通州店）」演示整页功能；' +
+        '登录商家账号后，这里会自动换成你店铺的真实效果。';
+    }
+    return;
+  }
   if (state.dataMode === 'live') {
     chip.classList.add('is-live');
     if (txt) txt.textContent = '实时数据';
-    chip.title = '已连接你的店铺，展示的是真实数据';
-    if (banner && bTxt) {
-      banner.classList.add('is-live');
-      banner.hidden = false;
-      bTxt.innerHTML = '<b>已接入你的店铺数据。</b>以下是最近一次同步的真实效果；想刷新可以直接点「刷新」。';
-    }
-  } else if (state.dataMode === 'partial') {
+    chip.title = '已连接你的商家工作区，展示的是真实数据';
+    /* 真实数据模式不再显示横幅，减少移动端首屏占用 */
+    if (banner) banner.hidden = true;
+    return;
+  }
+  if (state.dataMode === 'partial') {
     chip.classList.add('is-part');
     if (txt) txt.textContent = '部分实时';
     chip.title = '部分数据已接入，其余暂用示例数据预览';
     if (banner && bTxt) {
       banner.classList.remove('is-live');
       banner.hidden = false;
-      bTxt.innerHTML = '<b>部分数据已接入。</b>还没接通的部分先用「洁净家政（通州店）」的示例数据占位，不影响你体验功能。';
+      bTxt.innerHTML = '<b>部分数据已接入。</b>还没接通的部分暂时用示例数据占位，不影响你体验功能。';
     }
-  } else {
-    if (txt) txt.textContent = '示例数据';
-    chip.title = state.needLogin ? '登录商家账号后显示真实数据；当前为示例演示数据' : '当前为示例数据，接入你的店铺后自动显示真实数据';
-    if (banner && bTxt) {
-      banner.classList.remove('is-live');
-      banner.hidden = !!state.banners.demoClosed;
-      bTxt.innerHTML = state.needLogin
-        ? '<b>登录商家账号后就能看到你的真实数据。</b>当前用「洁净家政（通州店）」的示例数据演示整页功能；登录入口在左侧栏底部，登录后这里会自动切换。'
-        : '<b>现在看到的是示例数据。</b>用「洁净家政（通州店）」演示整页功能；接入你的店铺后，这里会自动换成真实效果。';
-    }
+    return;
   }
+  if (txt) txt.textContent = '连接中';
+  chip.title = '正在连接你的商家工作区';
+  if (banner) banner.hidden = true;
 }
 function renderHeader() {
-  var store = (state.dashboard && state.dashboard.merchant) || state.store || DEMO_STORE;
-  var name = store.name || DEMO_STORE.name;
+  var gateOn = !!state.gate;
+  var store = (state.dashboard && state.dashboard.merchant) || state.store || null;
+  var name = gateOn ? '未开通商家工作区'
+    : state.guest ? DEMO_STORE.name
+    : (store && store.name) || '正在读取店铺…';
   var nameEl = $('#g3StoreName');
   if (nameEl) nameEl.textContent = name;
   var av = $('#g3Avatar');
-  if (av) av.textContent = (name.match(/[\u4e00-\u9fa5]/) || ['洁'])[0];
-  var userName = state.needLogin ? '演示账号' : '商家预览';
-  try {
-    var u = WIN.XLAuth && WIN.XLAuth.user ? WIN.XLAuth.user() : null;
-    if (u) userName = u.nickname || u.name || u.account || '我的账号';
-  } catch (e) {}
+  if (av) av.textContent = gateOn ? '运' : ((name.match(/[\u4e00-\u9fa5]/) || ['洁'])[0]);
+  var u = currentUser();
+  var userName = gateOn || state.merchantReady ? ((u && (u.business_name || u.name || u.nickname || u.account)) || '我的账号') : (state.guest ? '演示账号' : '我的账号');
+  if (!u && state.guest) userName = '演示账号';
   var acName = $('#g3AccountName');
   if (acName) acName.textContent = userName;
   var amName = $('#g3AmName');
   if (amName) amName.textContent = userName;
   var amSub = $('#g3AmSub');
   if (amSub) {
-    amSub.textContent = state.dataMode === 'live'
-      ? '已连接你的店铺 · 数据实时同步'
-      : '当前为示例数据，接入后显示你的店铺';
+    amSub.textContent = gateOn ? '当前账号未绑定商家工作区'
+      : state.dataMode === 'live' ? '已连接商家工作区 · 数据实时同步'
+      : state.guest ? '未登录 · 当前为示例数据'
+      : '正在连接商家工作区…';
   }
   var plan = state.dashboard ? state.dashboard.plan : null;
+  var planPill = $('#g3PlanPill'), upgrade = $('#g3UpgradeBtn');
+  if (planPill) planPill.hidden = gateOn;
+  if (upgrade) upgrade.hidden = gateOn;
   var nameEl2 = $('#g3PlanName');
-  if (nameEl2 && plan) nameEl2.textContent = plan.label;
+  if (nameEl2) nameEl2.textContent = (plan && plan.label) || '未开通';
   var wordsEl = $('#g3PlanWords');
-  if (wordsEl && plan) wordsEl.textContent = '剩 ' + fmtNum(plan.words_remaining) + ' 词';
+  if (wordsEl) wordsEl.textContent = plan ? '剩 ' + fmtNum(plan.words_remaining) + ' 词' : '--';
+  /* 移动端：门店名 + 套餐摘要合并到一行 */
+  var whoPlan = $('#g3WhoPlan');
+  if (whoPlan) {
+    whoPlan.textContent = gateOn ? ' · 待开通'
+      : state.guest ? ' · 示例数据'
+      : state.dataMode === 'live' && plan ? ' · ' + plan.label + ' 剩 ' + fmtNum(plan.words_remaining) + ' 词'
+      : ' · 连接中…';
+  }
 }
 function renderNavBadges() {
   var dp = $('#g3NavBadgeDrafts'), pp = $('#g3NavBadgeProfile');
@@ -3230,6 +3782,7 @@ function currentSecFromHash() {
   return 'overview';
 }
 function go(sec, push) {
+  if (!state.merchantReady && !state.guest) return;
   if (SECS.indexOf(sec) < 0) sec = 'overview';
   state.sec = sec;
   $$('.g3-sec').forEach(function (el) { el.classList.toggle('is-on', el.getAttribute('data-sec') === sec); });
@@ -3253,8 +3806,11 @@ function go(sec, push) {
   else if (sec === 'plan') { loadPlan(false); loadOrders(false); }
   WIN.scrollTo({ top: 0, behavior: 'auto' });
   try { location.hash = '#/' + sec; } catch (e) {}
+  if (state.__syncSubnav) setTimeout(state.__syncSubnav, 60);
 }
 function initRouter() {
+  if (state.__routerBound) { go(currentSecFromHash(), false); return; }
+  state.__routerBound = true;
   $$('.g3-navlink').forEach(function (btn) {
     btn.addEventListener('click', function () { go(btn.getAttribute('data-sec')); });
   });
@@ -3264,6 +3820,11 @@ function initRouter() {
     fixShellActive();
   });
   go(currentSecFromHash(), false);
+}
+function initRouterOnce() {
+  if (state.routerReady) return;
+  state.routerReady = true;
+  initRouter();
 }
 function fixShellActive() {
   /* 全站侧栏把 GEO 入口高亮在「GEO 推广」上（本站壳默认只认 geo2） */
@@ -5691,8 +6252,20 @@ function bindHeader() {
   var bannerClose = $('#g3DemoBannerClose');
   if (bannerClose) bannerClose.addEventListener('click', function () {
     state.banners.demoClosed = true;
+    try { localStorage.setItem(BANNER_KEY, '1'); } catch (e) {}
     var b = $('#g3DemoBanner');
     if (b) b.hidden = true;
+  });
+  /* admin「以商家身份查看」工作区切换 */
+  var viewSel = $('#g3ViewAsSel');
+  if (viewSel) viewSel.addEventListener('change', function () {
+    var v = viewSel.value;
+    if (!v) {
+      writeStoredWs('');
+      showGate('admin');
+      return;
+    }
+    enterMerchantView(v);
   });
   var refresh = $('#g3RefreshBtn');
   if (refresh) refresh.addEventListener('click', function () {
@@ -5810,6 +6383,7 @@ function fixShellRetry() {
 
 /* ---------- 启动 ---------- */
 function boot() {
+  state.banners.demoClosed = readBannerClosed();
   renderHeader();
   renderDataMode();
   bindHeader();
@@ -5821,7 +6395,8 @@ function boot() {
   bindDrafts();
   bindDiagnose();
   bindSelftest();
-  initRouter();
+  bindGateEvents();
+  bindSubnavHints();
   fixShellRetry();
   renderSelftestQuota();
   renderTestResult(null);
@@ -5830,15 +6405,8 @@ function boot() {
   if (!location.hash) {
     try { history.replaceState(null, '', '#/overview'); } catch (e) {}
   }
-  loadDashboard(false);
-  /* 若从带 hash 的链接进来，按对应页签预取 */
-  var sec = currentSecFromHash();
-  if (sec === 'profile') loadProfile(false);
-  if (sec === 'words') loadWords(false);
-  if (sec === 'drafts') loadDrafts(false);
-  if (sec === 'diagnose') loadDiagnose(false);
-  if (sec === 'selftest') loadSelftestHistory(false);
-  if (sec === 'plan') { loadPlan(false); loadOrders(false); }
+  /* 登录态判定：未登录 → 示例演示；已登录 → 找商家工作区 / 开通引导 */
+  initMerchant();
   /* 供验收脚本/调试使用 */
   WIN.GEO3 = {
     state: state,
@@ -5864,6 +6432,10 @@ function boot() {
     openDraftPreview: openDraftPreview,
     exportCsv: exportCsv,
     exportPdf: exportPdf,
+    enterMerchantView: enterMerchantView,
+    showGate: showGate,
+    initMerchant: initMerchant,
+    fetchOpsMerchants: fetchOpsMerchants,
     refreshAll: function () { return loadDashboard(true).then(function () { return loadPlan(true); }); },
     _demo: { words: DEMO_WORDS, dashboard: demoDashboard, profile: demoProfile, drafts: demoDrafts, diagnose: demoDiagnose, plan: demoPlan, orders: demoOrders, recommend: demoRecommend }
   };

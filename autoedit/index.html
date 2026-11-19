@@ -5,16 +5,19 @@
 <!--xl-theme-start-->
 <script>(function(){try{var k="xl_theme",v=localStorage.getItem(k),m=(v==="dark"||v==="light"||v==="auto")?v:"auto";var q=window.matchMedia?window.matchMedia("(prefers-color-scheme: light)"):null,t=(m==="auto")?((q&&q.matches)?"light":"dark"):m,d=document.documentElement;d.setAttribute("data-theme",t);d.setAttribute("data-theme-mode",m);d.style.colorScheme=t}catch(e){document.documentElement.setAttribute("data-theme","dark")}})();</script>
 <script>(function(){try{var m=/(?:^|[?&])embed=1(?:&|$)/.test(location.search)||window.self!==window.top;if(m){document.documentElement.classList.add('xl-embed');window.__AE_EMBED__=true;}}catch(e){}})();</script>
+<script>/* 首屏性能：提前挂上全站侧栏外壳（site-shell.js 是 defer 脚本），避免首帧后整页位移（CLS）。
+   与 site-shell.js 的首行逻辑一致；若外壳脚本意外未加载（无 #xlSidebar），DOMContentLoaded 时自动卸下该 class 恢复原顶栏。 */
+(function(){try{var d=document.documentElement;d.classList.add('xl-shell');if(d.classList.contains('xl-embed'))return;try{if(localStorage.getItem('xl_sb_collapsed')==='1'&&!(window.matchMedia&&window.matchMedia('(max-width:1099.98px)').matches))d.classList.add('xl-sb-collapsed')}catch(e){}document.addEventListener('DOMContentLoaded',function(){try{if(!document.getElementById('xlSidebar')){d.classList.remove('xl-shell');d.classList.remove('xl-sb-collapsed')}}catch(e){}},{once:true})}catch(e){}})();</script>
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
 <link rel="icon" href="data:,">
 <title>AI 全自动剪辑工作台 · 一句话出片 · 星籁 AI</title>
 <meta name="description" content="不懂剪辑也能发门店视频：粘贴一段话或上传口播录音，AI 自动听懂内容、排好镜头、配好声音和字幕，3 分钟生成可直接发布的短视频。适合家政、除甲醛、化妆培训等本地商家。">
 <meta name="keywords" content="AI剪辑,全自动剪辑,商家短视频,门店视频,口播视频,自动配音,家政视频,除甲醛视频,化妆培训招生">
-<link rel="canonical" href="https://a678-beep.github.io/ai-nav/autoedit/">
+<link rel="canonical" href="https://xinglaiai.com/ai-nav/autoedit/">
 <meta property="og:type" content="website">
 <meta property="og:title" content="AI 全自动剪辑工作台 · 一句话出片 · 星籁 AI">
 <meta property="og:description" content="把要宣传的话交给 AI，自动排镜头、配声音、加字幕，生成可直接发布的门店短视频。">
-<meta property="og:url" content="https://a678-beep.github.io/ai-nav/autoedit/">
+<meta property="og:url" content="https://xinglaiai.com/ai-nav/autoedit/">
 <style>
 /* ==================================================================
    星籁 AI · AI 全自动剪辑工作台（商家端）
@@ -568,6 +571,7 @@ html[data-theme="light"][data-page="autoedit"] .ae-avatar-err{color:#9f1239}
 }
 @media (max-width:640px){
   .ae-wrap{padding:14px 14px 80px}
+  .ae-hero-side{flex-direction:column;align-items:flex-start} /* 首屏稳定：连接状态文案变化不再引起行/列换行跳动（CLS） */
   .ae-hero h1{font-size:clamp(25px,7.6vw,34px)}
   .ae-lead{font-size:14px}
   .ae-hero-tags .ae-tag{font-size:11.6px;padding:4px 9px}
@@ -710,6 +714,44 @@ html[data-theme="light"] .ae-lipsync-price{background:rgba(2,132,199,.06)}
 .ae-chroma-adv input[type=color]{width:100%;height:30px;border:1px solid var(--ae-line-2);border-radius:8px;background:var(--ae-panel-2);padding:2px;cursor:pointer}
 .ae-chroma-adv input[type=range]{width:100%;accent-color:#38bdf8}
 @media(max-width:640px){.ae-presenter-grid{grid-template-columns:1fr}.ae-chroma-adv{grid-template-columns:1fr}}
+
+/* ---------- AI 换背景（2026-11-19 新增） ---------- */
+.ae-bg-box{margin-top:11px;padding:11px 12px;border-radius:13px;border:1px solid var(--ae-line);background:var(--ae-panel)}
+.ae-bg-head{display:flex;align-items:center;justify-content:space-between;gap:8px;flex-wrap:wrap}
+.ae-bg-head b{font-size:12.8px;font-weight:800}
+.ae-bg-head small{font-size:11px;color:var(--ae-txt3);line-height:1.5}
+.ae-bg-modes{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:7px;margin-top:8px}
+.ae-bg-mode{min-height:42px;padding:6px 4px;border-radius:10px;border:1px solid var(--ae-line-2);background:var(--ae-panel-3);color:var(--ae-txt2);font:inherit;font-size:12px;font-weight:700;cursor:pointer;line-height:1.3;text-align:center}
+.ae-bg-mode.on{border-color:var(--ae-line-cyan);background:var(--ae-grad-primary-soft);color:var(--ae-txt);box-shadow:inset 0 0 0 1px rgba(56,189,248,.12)}
+.ae-bg-mode small{display:block;font-size:10px;color:var(--ae-txt3);font-weight:400;margin-top:2px}
+.ae-bg-row{display:none;margin-top:9px;gap:9px;flex-wrap:wrap;align-items:center}
+.ae-bg-row.show{display:flex}
+.ae-bg-row.ai{display:none}
+.ae-bg-row.ai.show{display:block}
+.ae-bg-row label{font-size:11.4px;color:var(--ae-txt3);display:inline-flex;align-items:center;gap:6px}
+.ae-bg-row input[type=color]{width:44px;height:30px;border:1px solid var(--ae-line-2);border-radius:8px;background:var(--ae-panel-2);padding:2px;cursor:pointer}
+.ae-bg-swatches{display:inline-flex;gap:5px;flex-wrap:wrap}
+.ae-bg-swatch{width:22px;height:22px;border-radius:6px;border:1px solid rgba(148,163,184,.5);cursor:pointer;padding:0}
+.ae-bg-swatch.on{outline:2px solid var(--ae-cyan);outline-offset:1px}
+.ae-bg-input{width:100%;box-sizing:border-box;height:36px;padding:0 10px;border-radius:9px;border:1px solid var(--ae-line-2);background:var(--ae-panel-2);color:var(--ae-txt);font:inherit;font-size:12.5px}
+.ae-bg-input::placeholder{color:var(--ae-txt3)}
+.ae-bg-ex{margin-top:7px;display:flex;gap:6px;flex-wrap:wrap}
+.ae-bg-ex button{font:inherit;font-size:11px;padding:3px 9px;border-radius:99px;border:1px dashed var(--ae-line-2);background:transparent;color:var(--ae-txt3);cursor:pointer}
+.ae-bg-ex button:hover{border-color:var(--ae-line-cyan);color:var(--ae-txt)}
+.ae-bg-preview{display:flex;gap:9px;margin-top:9px;align-items:flex-start;flex-wrap:wrap}
+.ae-bg-thumb{position:relative;width:84px;height:118px;border-radius:9px;overflow:hidden;border:1px solid var(--ae-line-2);background:#05080f;flex:0 0 auto}
+.ae-bg-thumb img{width:100%;height:100%;object-fit:cover;display:block}
+.ae-bg-thumb span{position:absolute;left:0;right:0;bottom:0;padding:2px 4px;font-size:10px;color:#e2e8f0;background:rgba(2,6,14,.72);text-align:center;line-height:1.4}
+.ae-bg-note{flex:1 1 170px;min-width:0;font-size:11.4px;line-height:1.65;color:var(--ae-txt3)}
+.ae-bg-note b{color:var(--ae-txt)}
+.ae-bg-note .warn{color:#fbbf24}
+.ae-bg-actions{display:flex;gap:8px;flex-wrap:wrap;margin-top:8px;align-items:center}
+.ae-bg-price{font-size:11px;color:var(--ae-txt3);line-height:1.5;margin-top:6px}
+@media(max-width:640px){.ae-bg-modes{grid-template-columns:repeat(2,minmax(0,1fr))}.ae-bg-thumb{width:72px;height:100px}}
+html[data-theme="light"] .ae-bg-box{background:#f8fafc}
+html[data-theme="light"] .ae-bg-mode{background:#fff;color:#0f172a}
+html[data-theme="light"] .ae-bg-input{background:#fff;color:#0f172a}
+html[data-theme="light"] .ae-bg-note{color:#475569}
 </style>
 <link rel="stylesheet" href="../assets/theme-light.css">
 <script defer src="../assets/theme.js"></script>
@@ -858,7 +900,7 @@ html[data-theme="light"] .ae-lipsync-price{background:rgba(2,132,199,.06)}
         </div>
 
         <div class="ae-opt full">
-          <span class="ae-field-label">🧑 出镜方式 <small>数字人直接合成进成片：照片出镜 / 上传口播视频 / 绿幕抠像</small></span>
+          <span class="ae-field-label">🧑 出镜方式 <small>数字人直接合成进成片：照片出镜 / 上传口播视频 / 绿幕抠像 / <b>AI 换背景</b></small></span>
           <div class="ae-presenter-grid" id="aePresenterGrid" role="radiogroup" aria-label="选择出镜方式">
             <button type="button" class="ae-presenter-card on" data-presenter="none" role="radio" aria-checked="true">
               <span class="p-ico" aria-hidden="true">🎬</span><b>无出镜</b>
@@ -953,6 +995,42 @@ html[data-theme="light"] .ae-lipsync-price{background:rgba(2,132,199,.06)}
               <li>生成流程：TTS 配音（用所选音色）→ 提交真口型合成（阿里云 VideoRetalk，约 20~90 秒）→ 真口型片段合成进出镜成片</li>
               <li>失败会给中文原因（未配置 / 阿里云限流 / 视频无人脸）并可点「重试」，每次只提交一次真口型任务、不重复扣费</li>
             </ul>
+          </div>
+
+
+          <div class="ae-bg-box" id="aeBgBox" hidden>
+            <div class="ae-bg-head">
+              <b>🖼️ 背景 · AI 换背景</b>
+              <small id="aeBgModeHint">不换背景：保留原来的出镜画面</small>
+            </div>
+            <div class="ae-bg-modes" id="aeBgModes" role="group" aria-label="选择出镜背景">
+              <button type="button" class="ae-bg-mode on" data-bg="none">不换背景<small>原画面</small></button>
+              <button type="button" class="ae-bg-mode" data-bg="color">纯色<small>品牌底色</small></button>
+              <button type="button" class="ae-bg-mode" data-bg="image">上传图片<small>门店实景</small></button>
+              <button type="button" class="ae-bg-mode" data-bg="ai">AI 生成<small>一句话场景</small></button>
+            </div>
+            <div class="ae-bg-row" id="aeBgRowColor">
+              <label>背景色 <input type="color" id="aeBgColor" value="#0B1B2B"></label>
+              <span class="ae-bg-swatches" id="aeBgSwatches"></span>
+            </div>
+            <div class="ae-bg-row" id="aeBgRowImage">
+              <button type="button" class="ae-btn sm" id="aeBgImgBtn">⬆ 上传门店 / 场景图</button>
+              <input type="file" id="aeBgImgFile" accept="image/jpeg,image/png,image/webp" hidden>
+              <span class="ae-hint" id="aeBgImgMeta">未选择图片（建议竖版门店 / 场景图）</span>
+              <button type="button" class="ae-mini danger" id="aeBgImgRemove" hidden>移除图片</button>
+            </div>
+            <div class="ae-bg-row ai" id="aeBgRowAi">
+              <input type="text" class="ae-bg-input" id="aeBgPrompt" maxlength="120" autocomplete="off" placeholder="描述想要的背景，例如：明亮门店前台">
+              <div class="ae-bg-ex" id="aeBgExamples"></div>
+              <div class="ae-bg-actions">
+                <button type="button" class="ae-btn sm primary" id="aeBgGenBtn">✨ 生成背景预览</button>
+                <span class="ae-hint" id="aeBgGenStatus">AI 生图约 ¥0.1/张，失败自动回退渐变背景</span>
+              </div>
+            </div>
+            <div class="ae-bg-preview" id="aeBgPreview" hidden>
+              <div class="ae-bg-thumb"><img id="aeBgPreviewImg" alt="背景预览"><span id="aeBgPreviewTag">背景预览</span></div>
+              <div class="ae-bg-note" id="aeBgNote"></div>
+            </div>
           </div>
 
           <div class="ae-presenter-layout" id="aePresenterLayoutWrap" hidden>
@@ -1460,6 +1538,9 @@ var state = {
   avatar: { enabled: false, name: '', size: 0, previewUrl: '', dataUrl: '', busy: false },
   avatarGenerating: false,
   presenter: { mode: 'none', layout: 'full', chroma: false,
+               bg: { mode: 'none', color: '#0B1B2B', prompt: '', imageUrl: '', imageName: '',
+                     imageSize: 0, imagePreview: '', aiUrl: '', aiProvider: '', aiFallback: false,
+                     aiHint: '', aiElapsed: 0, previewUrl: '', generating: false, progress: '' },
                chromaColor: '#00FF00', chromaSimilarity: 0.25, chromaBlend: 0.05,
                videoName: '', videoSize: 0, videoPath: '', videoUrlRaw: '', videoPreviewUrl: '',
                uploading: false, uploadPct: 0, error: '',
@@ -1920,6 +2001,8 @@ function updatePresenterUI() {
           : '铺满背景：数字人做全屏背景（模糊放大 + 前景清晰居中），标题在上方 1/4、字幕在安全区；画中画：数字人在底部圆角框，上方放素材 / 图表，字幕自动上移。'));
   }
   updateLipsyncPanel();
+  if ($('aeBgBox')) $('aeBgBox').hidden = (mode === 'none');
+  updateBgUI();
 }
 
 function presenterSpecForRender() {
@@ -1940,8 +2023,220 @@ function presenterSpecForRender() {
     p.photoDataUrl = state.avatar.dataUrl || '';
     p.provider = LS_PROVIDER;
   }
+  var bgspec = bgSpecForRender();
+  if (bgspec) p.bg = bgspec;
   return p;
 }
+
+
+/* ---------------- AI 换背景（背景：无 / 纯色 / 上传图片 / AI 生成） ---------------- */
+var BG_MODE_LABEL = { none: '不换背景', color: '纯色背景', image: '上传图片背景', ai: 'AI 生成背景' };
+var BG_COLOR_SWATCHES = ['#0B1B2B', '#FFFFFF', '#F3F4F6', '#1F2937', '#0E7490', '#B45309'];
+var BG_EXAMPLES_BY_INDUSTRY = {
+  '除甲醛': ['明亮新家客厅', '干净卧室实景', '专业检测服务台'],
+  '家政服务': ['温馨客厅', '干净厨房实景', '整洁玄关'],
+  '餐饮门店': ['明亮门店前台', '暖光餐厅环境', '干净的厨房操作台'],
+  '化妆培训': ['专业化妆影棚', '明亮化妆间', '简洁白墙化妆台'],
+  '电商零售': ['专业影棚白底', '现代简约产品台', '明亮直播间'],
+  '汽车服务': ['专业汽车工位', '明亮汽车展厅', '工具墙实景'],
+  '房产中介': ['现代公寓客厅', '明亮样板间', '城市落地窗'],
+  '健身运动': ['专业健身工作室', '明亮器械区', '阳光运动场']
+};
+function bgModeOf() { return (state.presenter.bg && state.presenter.bg.mode) || 'none'; }
+function bgExamplesForIndustry() {
+  return BG_EXAMPLES_BY_INDUSTRY[state.input.industry] || ['明亮门店前台', '温馨客厅', '专业影棚'];
+}
+function defaultBgPrompt() { return bgExamplesForIndustry()[0] || '明亮门店前台'; }
+function bgSpecForRender() {
+  var bg = state.presenter.bg || {};
+  var mode = bg.mode || 'none';
+  if (mode === 'none') return null;
+  var out = { mode: mode, quality: 'high' };
+  if (mode === 'color') out.color = bg.color || '#0B1B2B';
+  if (mode === 'image') { if (!bg.imageUrl) return null; out.image_url = bg.imageUrl; }
+  if (mode === 'ai') {
+    out.prompt = bg.prompt || '';
+    if (bg.aiUrl) out.ai_url = bg.aiUrl;
+    if (!out.prompt && !out.ai_url) return null;
+  }
+  return out;
+}
+function syncBgProject() {
+  if (state.project) state.project.presenter = presenterSpecForRender();
+}
+function setBgMode(mode) {
+  mode = BG_MODE_LABEL[mode] ? mode : 'none';
+  var bg = state.presenter.bg = state.presenter.bg || {};
+  bg.mode = mode;
+  if (mode !== 'image' && $('aeBgImgFile')) $('aeBgImgFile').value = '';
+  if (mode === 'image' && !bg.imageUrl) setTimeout(function () { if ($('aeBgImgFile')) $('aeBgImgFile').click(); }, 60);
+  if (mode === 'ai' && !bg.prompt) bg.prompt = defaultBgPrompt();
+  syncBgProject();
+  invalidatePresenterExport();
+  updateBgUI();
+  if (state.step === 3) prepareStep3();
+  if (mode !== 'none') toast('已开启「' + BG_MODE_LABEL[mode] + '」：出片时自动抠人像换背景', 'ok', 2600);
+}
+function updateBgUI() {
+  var bg = state.presenter.bg = state.presenter.bg || {};
+  var mode = bg.mode || 'none';
+  $$('#aeBgModes .ae-bg-mode').forEach(function (b) {
+    var on = b.getAttribute('data-bg') === mode;
+    b.classList.toggle('on', on);
+    b.setAttribute('aria-pressed', on ? 'true' : 'false');
+  });
+  if ($('aeBgModeHint')) {
+    $('aeBgModeHint').textContent = mode === 'none' ? '不换背景：保留原来的出镜画面'
+      : (mode === 'color' ? '纯色背景：抠出人像叠到品牌底色上'
+        : (mode === 'image' ? '上传图片：抠出人像叠到你的门店 / 场景图上'
+          : 'AI 生成：一句话生成 1080x1920 场景背景，约 ¥0.1/张'));
+  }
+  if ($('aeBgRowColor')) $('aeBgRowColor').className = 'ae-bg-row' + (mode === 'color' ? ' show' : '');
+  if ($('aeBgRowImage')) $('aeBgRowImage').className = 'ae-bg-row' + (mode === 'image' ? ' show' : '');
+  if ($('aeBgRowAi')) $('aeBgRowAi').className = 'ae-bg-row ai' + (mode === 'ai' ? ' show' : '');
+  if ($('aeBgColor') && bg.color) $('aeBgColor').value = bg.color;
+  var sw = $('aeBgSwatches');
+  if (sw && !sw.getAttribute('data-init')) {
+    sw.setAttribute('data-init', '1');
+    BG_COLOR_SWATCHES.forEach(function (c) {
+      var b = document.createElement('button');
+      b.type = 'button'; b.className = 'ae-bg-swatch'; b.setAttribute('data-bgc', c);
+      b.style.background = c; b.title = '使用 ' + c; sw.appendChild(b);
+    });
+  }
+  $$('#aeBgSwatches .ae-bg-swatch').forEach(function (b) {
+    b.classList.toggle('on', String(b.getAttribute('data-bgc')).toUpperCase() === String(bg.color || '').toUpperCase());
+  });
+  if ($('aeBgImgMeta')) $('aeBgImgMeta').textContent = bg.imageName ? (bg.imageName + ' · 已就绪') : '未选择图片（建议竖版门店 / 场景图）';
+  if ($('aeBgImgRemove')) $('aeBgImgRemove').hidden = !bg.imageName;
+  if ($('aeBgPrompt')) {
+    if (document.activeElement !== $('aeBgPrompt') && ($('aeBgPrompt').value || '') !== (bg.prompt || '')) {
+      $('aeBgPrompt').value = bg.prompt || '';
+    }
+  }
+  var ex = $('aeBgExamples');
+  if (ex && ex.getAttribute('data-ind') !== String(state.input.industry || '')) {
+    ex.setAttribute('data-ind', String(state.input.industry || ''));
+    ex.innerHTML = bgExamplesForIndustry().map(function (t) {
+      return '<button type="button" data-bg-ex="' + esc(t) + '">＋ ' + esc(t) + '</button>';
+    }).join('');
+  }
+  var url = '', tagTxt = '';
+  if (mode === 'ai') {
+    url = bg.previewUrl || (bg.aiUrl ? normalizeMediaUrl(bg.aiUrl) : '');
+    tagTxt = bg.aiFallback ? '渐变兜底' : ('AI · ' + (bg.aiProvider || '生成'));
+  } else if (mode === 'image') {
+    url = bg.imagePreview || '';
+    tagTxt = '上传图';
+  } else if (mode === 'color') {
+    url = ''; tagTxt = '';
+  }
+  if ($('aeBgPreview')) $('aeBgPreview').hidden = !url;
+  if ($('aeBgPreviewImg') && url) $('aeBgPreviewImg').src = url;
+  if ($('aeBgPreviewTag') && tagTxt) $('aeBgPreviewTag').textContent = tagTxt;
+  var note = $('aeBgNote');
+  if (note) {
+    var parts = [];
+    if (mode === 'none') parts = [];
+    else if (mode === 'ai') {
+      if (bg.aiFallback) parts.push('<span class="warn">AI 生图失败，已回退渐变背景</span>' + (bg.aiHint ? '：' + esc(bg.aiHint) : ''));
+      else if (bg.aiUrl) parts.push('AI 背景已生成（' + esc(bg.aiProvider === 'siliconflow' ? '硅基流动 Kolors' : bg.aiProvider === 'dashscope' ? '通义万相' : bg.aiProvider || 'AI') + (bg.aiElapsed ? ' · ' + bg.aiElapsed + ' 秒' : '') + '），导出时直接复用，不重复扣费');
+      else parts.push('输入一句场景描述，点「生成背景预览」先看效果（约 ¥0.1/张）；不预览直接导出也会自动生成');
+    } else if (mode === 'image') {
+      parts.push(bg.imageName ? ('导出时把抠出的人像叠到「' + esc(bg.imageName) + '」上（背景图随本次渲染上传，不占公网素材位）') : '先选择一张门店 / 场景图片');
+    } else if (mode === 'color') {
+      parts.push('导出时抠出人像并叠到纯色背景上（背景色 ' + esc(bg.color || '#0B1B2B') + '）');
+    }
+    note.innerHTML = parts.join('<br>');
+  }
+  if ($('aeBgGenBtn')) {
+    $('aeBgGenBtn').disabled = !!bg.generating;
+    $('aeBgGenBtn').textContent = bg.generating ? '⏳ 生成中…' : '✨ 生成背景预览';
+  }
+  if ($('aeBgGenStatus')) {
+    $('aeBgGenStatus').textContent = bg.generating
+      ? (bg.progress || '正在调用 AI 生图…')
+      : (mode === 'ai' ? ('AI 生图约 ¥0.1/张' + (bg.aiUrl ? ' · 已有预览可复用' : '')) : 'AI 生图约 ¥0.1/张，失败自动回退渐变背景');
+  }
+  if (mode !== 'none' && $('aePresenterLayoutHint')) {
+    $('aePresenterLayoutHint').textContent = '已开启 AI 换背景：出片时先抠出人像再叠到新背景上，布局固定「铺满背景」（标题 / 字幕 / 图表仍在上层）。';
+  }
+}
+function generateAiBg() {
+  var bg = state.presenter.bg = state.presenter.bg || {};
+  if (bg.generating) return;
+  var prompt = cleanText($('aeBgPrompt') ? $('aeBgPrompt').value : '') || bg.prompt || '';
+  if (prompt.length < 2) { toast('先写一句背景描述，例如：明亮门店前台', 'warn', 3000); return; }
+  bg.prompt = prompt;
+  bg.generating = true;
+  bg.progress = '正在调用 AI 生图（SiliconFlow Kolors / 通义万相）…';
+  updateBgUI();
+  var t0 = Date.now();
+  apiFetch('/bg/generate', {
+    method: 'POST', timeout: 180000,
+    body: { prompt: prompt, industry: state.input.industry || '', aspect: state.input.aspect || '9:16' }
+  }).then(function (d) {
+    bg.generating = false;
+    if (!d || d.ok === false) throw new Error((d && d.hint) || '生成失败');
+    bg.aiUrl = d.url || '';
+    bg.aiProvider = d.provider || '';
+    bg.aiFallback = !!d.fallback;
+    bg.aiHint = d.hint || '';
+    bg.previewUrl = normalizeMediaUrl(d.url || '');
+    bg.aiElapsed = Number(d.elapsed) || Math.round((Date.now() - t0) / 100) / 10;
+    updateBgUI();
+    syncBgProject();
+    invalidatePresenterExport();
+    if (bg.aiFallback) toast('AI 生图失败，已回退渐变背景：' + (d.hint || ''), 'warn', 6200);
+    else toast('AI 背景已生成（' + (d.provider === 'siliconflow' ? '硅基流动 Kolors' : d.provider === 'dashscope' ? '通义万相' : d.provider) + ' · ' + bg.aiElapsed + ' 秒 · 约 ¥0.1）', 'ok', 3600);
+  }).catch(function (e) {
+    bg.generating = false;
+    bg.progress = '';
+    updateBgUI();
+    toast('生成背景失败：' + ((e && e.message) || '网络异常') + '（不预览直接导出时也会自动再试）', 'err', 5000);
+  });
+}
+function handleBgImageFile(file) {
+  if (!file) return;
+  var name = file.name || '背景图';
+  if (!/^image\//.test(file.type || '') && !/\.(jpe?g|png|webp)$/i.test(name)) { toast('只支持 JPG / PNG / WebP 图片', 'warn', 3000); return; }
+  if (file.size > 10 * 1024 * 1024) { toast('图片超过 10MB，请压缩或换一张', 'warn', 3400); return; }
+  var bg = state.presenter.bg = state.presenter.bg || {};
+  try { if (bg.imagePreview && bg.imagePreview.indexOf('blob:') === 0) URL.revokeObjectURL(bg.imagePreview); } catch (e) {}
+  bg.mode = 'image';
+  bg.imageName = name;
+  bg.imageSize = file.size;
+  bg.imagePreview = URL.createObjectURL(file);
+  updateBgUI();
+  readFileAsDataUrl(file).then(function (raw) { return shrinkImage(raw, 1400, 0.82); }).then(function (small) {
+    bg.imageUrl = small;
+    syncBgProject();
+    invalidatePresenterExport();
+    updateBgUI();
+    var kb = Math.max(1, Math.round((small.length - (small.indexOf(',') + 1)) * 0.75 / 1024));
+    if (kb > 1800) toast('背景图压缩后约 ' + kb + 'KB，建议换一张小一点的图（渲染请求上限 2MB）', 'warn', 4600);
+    else toast('背景图已就绪：' + name + '（压缩后约 ' + kb + 'KB）', 'ok', 2800);
+  }).catch(function () { toast('读取背景图失败，请换一张', 'warn'); });
+}
+function removeBgImage() {
+  var bg = state.presenter.bg = state.presenter.bg || {};
+  try { if (bg.imagePreview && bg.imagePreview.indexOf('blob:') === 0) URL.revokeObjectURL(bg.imagePreview); } catch (e) {}
+  bg.imageUrl = ''; bg.imageName = ''; bg.imageSize = 0; bg.imagePreview = '';
+  if ($('aeBgImgFile')) $('aeBgImgFile').value = '';
+  syncBgProject();
+  invalidatePresenterExport();
+  updateBgUI();
+  toast('已移除背景图', 'ok', 2200);
+}
+
+/* 只读测试钩子：供本地验收脚本读取导出参数（不影响线上流程） */
+try {
+  window.__AE_TEST__ = {
+    presenterSpec: function () { return presenterSpecForRender(); },
+    bgSpec: function () { return bgSpecForRender(); },
+    bgMode: function () { return bgModeOf(); }
+  };
+} catch (e) {}
 
 function invalidatePresenterExport() {
   if (!state.project) return;
@@ -2007,7 +2302,7 @@ function showLipsyncUpgrade() {
         (price.text ? '，' + price.text : '') + '）：上传正面出镜视频后，出片时会先合成真口型片段再合成进成片', 'ok', 4200);
 }
 function loadPresenterOptions() {
-  apiFetch('/presenter/options', { timeout: 7000 }).then(function (d) {
+  return apiFetch('/presenter/options', { timeout: 7000 }).then(function (d) {
     state.presenterOptions = d || {};
     var li = (d && d.lipsync) || {};
     var price = li.price_estimate_30s || {};
@@ -2035,6 +2330,40 @@ function loadPresenterOptions() {
     }
     updateLipsyncPanel();
   }).catch(function () { /* 网络失败时保持可用；导出时会给出中文失败原因 */ });
+}
+
+
+var _urlPresetApplied = false;
+function applyUrlPreset() {
+  if (_urlPresetApplied) return;
+  var qs = null;
+  try { qs = new URLSearchParams(location.search); } catch (e) { return; }
+  var want = cleanText(qs.get('presenter') || qs.get('ae_presenter') || '');
+  var wantBg = cleanText(qs.get('bg') || '');
+  var wantPrompt = cleanText(qs.get('bg_prompt') || '');
+  var from = cleanText(qs.get('from') || '');
+  if (!want && !wantBg) { _urlPresetApplied = true; return; }
+  _urlPresetApplied = true;
+  if (want === 'photo_lipsync' || want === 'lipsync') {
+    var li = (state.presenterOptions && state.presenterOptions.lipsync) || {};
+    if (li.configured === false) {
+      toast('真口型数字人需先开通数字人 API；已切到「照片数字人」，可先做 AI 换背景出镜', 'warn', 5200);
+      setPresenterMode('photo', { silent: true });
+    } else {
+      setPresenterMode(want, { silent: true });
+    }
+  } else if (want === 'photo' || want === 'upload' || want === 'none') {
+    setPresenterMode(want, { silent: true });
+  }
+  if (wantBg) setBgMode(wantBg);
+  if (wantPrompt) { state.presenter.bg = state.presenter.bg || {}; state.presenter.bg.prompt = wantPrompt; }
+  updateBgUI();
+  try {
+    var box = document.getElementById('aePresenterGrid');
+    if (box) box.scrollIntoView({ behavior: 'smooth', block: 'center' });
+  } catch (e) {}
+  var label = want === 'photo_lipsync' ? '照片口型数字人' : (want === 'lipsync' ? '真口型数字人' : (want === 'photo' ? '照片数字人' : (want === 'upload' ? '上传口播视频' : '出镜')));
+  if (want) toast('已按入口默认展开「' + label + '」' + (from === 'studio-avatar' ? '（数字人创作方式）' : '') + '，上传素材后即可生成', 'ok', 3600);
 }
 
 /* ==================================================================
@@ -2263,6 +2592,8 @@ function lipsyncExport(body, pr) {
       mode: 'upload', video_url: clip, layout: layout,
       lipsync: { provider: LS_PROVIDER, job_id: p.lipsyncJobId, cost: p.lipsyncCost, clip_url: clip }
     };
+    var bgspecL = bgSpecForRender();
+    if (bgspecL) body.presenter.bg = bgspecL;
     submitRenderBody(body, 40);
   }).catch(function (e) {
     var msg = lipsyncErrText(e);
@@ -2287,6 +2618,8 @@ function photoLipsyncExport(body, pr) {
       provider: LS_PROVIDER,
       layout: (pr && pr.layout) || 'full'
     };
+    var bgspecP = bgSpecForRender();
+    if (bgspecP) body.presenter.bg = bgspecP;
     submitRenderBody(body, 14);
   }).catch(function (e) {
     var msg = '配音合成失败：' + ((e && e.message) || '请稍后重试');
@@ -4353,8 +4686,10 @@ function liveExport() {
         blend: Number(state.presenter.chromaBlend || pr.chromaBlend || 0.05)
       };
     }
+    var bgspec = bgSpecForRender();
+    if (bgspec) presenter.bg = bgspec;
     body.presenter = presenter;
-    if ($('expStage')) $('expStage').textContent = '正在准备数字人出镜画面（' + (mode === 'photo' ? '照片推近' : '视频抠像/裁剪') + '）…';
+    if ($('expStage')) $('expStage').textContent = '正在准备数字人出镜画面（' + (mode === 'photo' ? '照片推近' : '视频抠像/裁剪') + (bgspec ? ' + AI 换背景' : '') + '）…';
   }
   submitRenderBody(body, 0);
 }
@@ -4896,6 +5231,67 @@ function bindUi() {
     if ($('aeChromaBlendVal')) $('aeChromaBlendVal').textContent = state.presenter.chromaBlend.toFixed(2);
     if (state.project) state.project.presenter = presenterSpecForRender();
   });
+
+  /* AI 换背景（背景：无 / 纯色 / 上传图片 / AI 生成） */
+  if ($('aeBgModes')) {
+    $('aeBgModes').addEventListener('click', function (e) {
+      var b = e.target.closest ? e.target.closest('[data-bg]') : null;
+      if (b) setBgMode(b.getAttribute('data-bg'));
+    });
+  }
+  if ($('aeBgColor')) {
+    $('aeBgColor').addEventListener('input', function () {
+      state.presenter.bg = state.presenter.bg || {};
+      state.presenter.bg.color = String($('aeBgColor').value || '#0B1B2B').toUpperCase();
+      state.presenter.bg.mode = 'color';
+      syncBgProject();
+      updateBgUI();
+    });
+  }
+  if ($('aeBgSwatches')) {
+    $('aeBgSwatches').addEventListener('click', function (e) {
+      var b = e.target.closest ? e.target.closest('[data-bgc]') : null;
+      if (!b) return;
+      state.presenter.bg = state.presenter.bg || {};
+      state.presenter.bg.color = b.getAttribute('data-bgc');
+      state.presenter.bg.mode = 'color';
+      if ($('aeBgColor')) $('aeBgColor').value = b.getAttribute('data-bgc');
+      syncBgProject();
+      updateBgUI();
+    });
+  }
+  if ($('aeBgImgBtn') && $('aeBgImgFile')) $('aeBgImgBtn').addEventListener('click', function () { $('aeBgImgFile').click(); });
+  if ($('aeBgImgFile')) $('aeBgImgFile').addEventListener('change', function () {
+    var f = $('aeBgImgFile').files && $('aeBgImgFile').files[0];
+    if (f) handleBgImageFile(f);
+  });
+  if ($('aeBgImgRemove')) $('aeBgImgRemove').addEventListener('click', function (e) { e.preventDefault(); e.stopPropagation(); removeBgImage(); });
+  if ($('aeBgPrompt')) {
+    $('aeBgPrompt').addEventListener('input', function () {
+      state.presenter.bg = state.presenter.bg || {};
+      state.presenter.bg.prompt = String($('aeBgPrompt').value || '');
+    });
+    $('aeBgPrompt').addEventListener('keydown', function (e) {
+      if (e.key !== 'Enter') return;
+      e.preventDefault();
+      generateAiBg();
+    });
+  }
+  if ($('aeBgExamples')) {
+    $('aeBgExamples').addEventListener('click', function (e) {
+      var b = e.target.closest ? e.target.closest('[data-bg-ex]') : null;
+      if (!b) return;
+      var t = b.getAttribute('data-bg-ex') || '';
+      state.presenter.bg = state.presenter.bg || {};
+      state.presenter.bg.mode = 'ai';
+      state.presenter.bg.prompt = t;
+      if ($('aeBgPrompt')) $('aeBgPrompt').value = t;
+      updateBgUI();
+      generateAiBg();
+    });
+  }
+  if ($('aeBgGenBtn')) $('aeBgGenBtn').addEventListener('click', generateAiBg);
+
   if ($('aeAvatarCard')) $('aeAvatarCard').addEventListener('click', function (e) {
     if (!e.target || !e.target.closest) return;
     if (e.target.closest('#btnAvatarRegen') || e.target.closest('#btnAvatarGenNow') || e.target.closest('#btnAvatarRetry')) {
@@ -4964,7 +5360,18 @@ function boot() {
   goStep(1, true);
   detectMode();
   loadVoiceList();
-  loadPresenterOptions();
+  loadPresenterOptions().then(applyUrlPreset);
+  /* 原为 setTimeout(applyUrlPreset, 2600)（硬编码 2.6s 兜底）：改为 DOM 就绪后立即应用；
+     数字人配置尚未返回时按 200ms 间隔重试最多 3 次，数据就绪回调仍会再尝试一次（applyUrlPreset 自带幂等保护）。 */
+  (function () {
+    var tries = 0;
+    function tryApplyUrlPreset() {
+      if (_urlPresetApplied) return;
+      if (!state.presenterOptions && tries < 3) { tries++; setTimeout(tryApplyUrlPreset, 200); return; }
+      applyUrlPreset();
+    }
+    tryApplyUrlPreset();
+  })();
   restoreLipsyncVideo();
   if ($('aeCaption')) $('aeCaption').value = captionFor(state.input.industry, 'douyin');
 }

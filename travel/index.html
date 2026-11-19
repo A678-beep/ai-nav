@@ -1,4 +1,4 @@
-﻿<!doctype html><html lang="zh-CN" data-page="travel"><head><meta name="robots" content="noindex,nofollow"><meta name="googlebot" content="noindex,nofollow">
+<!doctype html><html lang="zh-CN" data-page="travel"><head><meta name="robots" content="noindex,nofollow"><meta name="googlebot" content="noindex,nofollow">
 <meta charset="utf-8">
 <!--xl-theme-start-->
 <script>(function(){try{var k="xl_theme",v=localStorage.getItem(k),m=(v==="dark"||v==="light"||v==="auto")?v:"auto",q=window.matchMedia?window.matchMedia("(prefers-color-scheme: light)"):null,t=(m==="auto")?((q&&q.matches)?"light":"dark"):m,d=document.documentElement;d.setAttribute("data-theme",t);d.setAttribute("data-theme-mode",m);d.style.colorScheme=t}catch(e){document.documentElement.setAttribute("data-theme","dark")}})();</script>
@@ -6,7 +6,7 @@
 <title>AI 出行秘书 · 有记忆的办事路线规划 · 星籁 AI</title>
 <meta name="description" content="有记忆的私人办事出行秘书：记住家/公司/常去店，听懂“先去工行取钱，然后顺丰拿快递，最后洗车，五点前回家”，自动校验营业时间、时间窗和限行，给出可执行路线与高德/百度唤起链接。数据只存本机。">
 <meta name="keywords" content="AI出行秘书,办事路线规划,多任务顺路,取快递路线,洗车预约,时间窗规划,本地记忆">
-<link rel="canonical" href="https://a678-beep.github.io/ai-nav/travel/">
+<link rel="canonical" href="https://xinglaiai.com/ai-nav/travel/">
 <style>
 :root{--bg:#070a10;--panel:#0f1622;--line:rgba(148,163,184,.14);--line2:rgba(148,163,184,.26);--txt:#e8eef8;--txt2:#9fb0c7;--txt3:#6b7c94;--cyan:#38bdf8;--violet:#8b5cf6;--lime:#34d399;--amber:#fbbf24;--red:#f87171;--card:linear-gradient(180deg,rgba(20,28,43,.92),rgba(12,18,28,.92))}
 *{box-sizing:border-box}
@@ -208,6 +208,43 @@ footer{border-top:1px solid var(--line);margin-top:44px;padding:24px 22px;text-a
  .top-in{min-height:52px}
 }
 @media(max-width:390px){.wrap{padding-left:11px;padding-right:11px}.task-grid{grid-template-columns:1fr}.stats{grid-template-columns:1fr 1fr}}
+/* UX-23：首访隐私提示改为首屏内嵌提示条（不遮挡内容）；按钮文案明确区分 */
+.consent-bar{display:flex;gap:12px;align-items:center;flex-wrap:wrap;margin:14px 0 2px;padding:12px 14px;border:1px solid rgba(56,189,248,.32);border-radius:14px;background:linear-gradient(135deg,rgba(56,189,248,.10),rgba(139,92,246,.07));line-height:1.6}
+.consent-bar[hidden]{display:none!important}
+.consent-bar .cb-ic{flex:0 0 auto;font-size:19px;line-height:1.4}
+.consent-bar .cb-txt{flex:1 1 360px;min-width:0;font-size:12.5px;color:var(--txt2)}
+.consent-bar .cb-txt b{display:block;color:var(--txt);font-size:13.5px;margin-bottom:2px}
+.consent-bar .cb-actions{display:flex;gap:7px;align-items:center;flex-wrap:wrap;flex:0 0 auto}
+.consent-bar .cb-close{flex:0 0 44px;width:44px;height:44px;padding:0;border:1px solid var(--line);border-radius:11px;background:rgba(148,163,184,.08);color:var(--txt2);font-size:20px;line-height:1;cursor:pointer;display:inline-flex;align-items:center;justify-content:center}
+.consent-bar .cb-close:hover{color:var(--txt);border-color:var(--line2)}
+html[data-theme="light"] .consent-bar{background:linear-gradient(135deg,rgba(56,189,248,.10),rgba(139,92,246,.06));border-color:rgba(14,116,144,.28)}
+html[data-theme="light"] .consent-bar .cb-txt b{color:#0b2a44}
+html[data-theme="light"] .consent-bar .cb-txt{color:#33465e}
+@media(max-width:760px){
+ .consent-bar{gap:8px;margin-top:10px;padding:11px 12px}
+ .consent-bar .cb-ic{display:none}
+ .consent-bar .cb-txt{flex-basis:100%;font-size:12px}
+ .consent-bar .cb-txt b{font-size:13px}
+ .consent-bar .cb-actions{width:100%}
+ .consent-bar .cb-actions .btn{flex:1 1 auto;min-width:132px;padding-left:10px;padding-right:10px}
+ .consent-bar .cb-close{flex:0 0 44px}
+}
+/* UX-18：把原位于 body 末尾的满屏布局样式前移到 head，避免首屏先按旧布局绘制、样式后到造成 CLS 0.49 */
+@media (min-width:1180px){
+ .wrap{max-width:none;padding-left:32px;padding-right:32px}
+ .top-in{max-width:none;padding-left:32px;padding-right:32px}
+ .hero{max-width:1280px;margin-left:auto;margin-right:auto}
+ .hero .lead{max-width:72ch}
+ .box{display:grid;grid-template-columns:auto minmax(0,1fr);column-gap:24px;align-items:center}
+ .box > .mem-bar,.box > .chatbox,.box > .privacy-note,.box > .form-panel{grid-column:1/-1}
+ .box > .chat-actions{grid-column:1;margin-top:12px}
+ .box > .examples{grid-column:2;justify-content:flex-end;margin-top:12px}
+ .box > .chatbox textarea{min-height:112px}
+ #result .map-wrap{max-width:1120px;margin-left:auto;margin-right:auto}
+ #result.open .stats{grid-template-columns:repeat(4,minmax(0,1fr))}
+ #result.open .alts{grid-template-columns:repeat(2,minmax(0,1fr))}
+ footer{padding-left:32px;padding-right:32px}
+}
 </style><link rel="stylesheet" href="../assets/auth-nav.css">
 <link rel="stylesheet" href="../assets/theme-light.css">
 <script defer src="../assets/theme.js"></script>
@@ -217,13 +254,23 @@ footer{border-top:1px solid var(--line);margin-top:44px;padding:24px 22px;text-a
 <div class="top"><div class="top-in"><a class="brand" href="/ai-nav/"><span class="logo">✦</span>星籁 AI 导航</a>
 <nav><a href="/ai-nav/">AI 导航</a><a href="/ai-nav/studio/">创作工坊</a><a href="/ai-nav/leadgen/">AI 获客</a><a href="/ai-nav/travel/" aria-current="page">出行秘书</a><a href="/ai-nav/select-ai/">智能选型</a><a href="/ai-nav/radar/">工具雷达</a></nav></div></div>
 <div class="wrap">
+<div class="consent-bar" id="travelConsentBar" role="region" aria-label="本地记忆隐私提示" hidden>
+  <div class="cb-ic" aria-hidden="true">🛡️</div>
+  <div class="cb-txt"><b>记忆只留在本机，不会上传服务器</b><span>开启后，第二次打开会自动填好家、城市和常去地点；可随时在「记忆」里修改或一键清空。</span></div>
+  <div class="cb-actions">
+    <button class="btn mini" id="cbAgree" type="button">同意并启用记忆</button>
+    <button class="btn mini soft" id="cbSkip" type="button">仅本次使用</button>
+    <button class="cb-close" id="cbClose" type="button" aria-label="关闭提示">×</button>
+  </div>
+</div>
+<script>(function(){try{var c=localStorage.getItem('xl_travel_consent');var d=sessionStorage.getItem('xl_travel_consent_dismissed');if(c===null&&d!=='1'){document.getElementById('travelConsentBar').hidden=false;}}catch(e){}})();</script>
 <div class="hero"><div class="eyebrow">MEMORY · PLAN · EXECUTE</div>
 <h1>有记忆的<span>私人办事出行秘书</span></h1>
 <p class="lead">记住你家、公司和常去的店。一句话说清今天要办的事，自动排顺路顺序、校验营业时间与时间窗，给你能直接上路的方案。</p>
 <div class="trust">🔒 记忆只存本机 IndexedDB · 不上传服务器</div></div>
 
 <section class="box">
-  <div class="mem-bar" id="memBar"></div>
+  <div class="mem-bar" id="memBar"><span class="chip">🧠 正在读取本机记忆…</span></div>
   <div class="chatbox">
     <textarea id="chatText" rows="2" placeholder="例：下午两点从家出发，先去工行取点钱，然后顺丰拿个快递，最后洗个车，五点前回家"></textarea>
   </div>
@@ -282,8 +329,8 @@ footer{border-top:1px solid var(--line);margin-top:44px;padding:24px 22px;text-a
         <li style="color:var(--xl-danger)">AI 结果仅供规划参考，请自行核实营业时间、门牌与限行。</li>
       </ul>
       <div class="confirm-actions">
-        <button class="btn" id="onbAgree">同意并设置记忆</button>
-        <button class="btn soft" id="onbSkip">先用一次（不保存）</button>
+        <button class="btn" id="onbAgree">同意并启用记忆</button>
+        <button class="btn soft" id="onbSkip">仅本次使用</button>
       </div>
     </div>
     <div id="onbStep2" style="display:none">
@@ -371,7 +418,7 @@ footer{border-top:1px solid var(--line);margin-top:44px;padding:24px 22px;text-a
 <script>
 (function(){
 'use strict';
-window.__xlErr=[];window.onerror=function(m,s,l,c,e){window.__xlErr.push(m+' @'+l);try{document.title='ERR:'+m}catch(x){}};
+window.__xlErr=[];
 var API='/ai-nav/api';
 var S={mem:null, parsed:null, tasks:[], start:null, end:null, city:'北京', depart:'', deadline:'', mode:'fast', buffer:5, lock:true, busy:false, plan:null, lastText:'', snapshot:null, onbHome:null, onbWork:null, draftFav:null, drawerTab:'profile', lastPlanTasks:[]};
 var TYPES={
@@ -560,6 +607,30 @@ function openOnboard(force){
  S.onbHome=p.home||null;S.onbWork=p.work||null;
 }
 function closeOnboard(){$('onboard').classList.remove('open')}
+// ---------- 首访内嵌隐私提示条（UX-23） ----------
+function consentDecided(){try{return localStorage.getItem('xl_travel_consent')!==null}catch(e){return false}}
+function showConsentBar(){
+ var bar=$('travelConsentBar');if(!bar)return;
+ var dismissed=false;try{dismissed=sessionStorage.getItem('xl_travel_consent_dismissed')==='1'}catch(e){}
+ bar.hidden=!!(consentDecided()||dismissed);
+}
+function hideConsentBar(dismissSession){
+ var bar=$('travelConsentBar');if(bar)bar.hidden=true;
+ if(dismissSession){try{sessionStorage.setItem('xl_travel_consent_dismissed','1')}catch(e){}}
+}
+function agreeConsent(){
+ if(!S.mem)S.mem=defaultMem();
+ saveConsent();
+ if(S.mem)S.mem.consent={agreed:true,ts:Date.now()};
+ hideConsentBar(false);
+ saveMem();renderMemBar();
+ toast('已启用本地记忆，可顺手设置家和公司');
+}
+function skipConsent(){
+ try{localStorage.setItem('xl_travel_consent','0')}catch(e){}
+ hideConsentBar(false);renderMemBar();
+ toast('仅本次使用，不保存任何记忆');
+}
 function step2(){
  onbStep=2;$('onbStep1').style.display='none';$('onbStep2').style.display='block';
  bindPoiOnce($('onbHome'),function(p){S.onbHome=p;});bindPoiOnce($('onbWork'),function(p){S.onbWork=p;});
@@ -698,7 +769,7 @@ function clearAll(){
  try{localStorage.removeItem('xl_travel_consent');localStorage.removeItem('xl_travel_memory');localStorage.removeItem('xl_travel_consent')}catch(e){}
  S.mem=defaultMem();S.plan=null;S.parsed=null;S.tasks=[];S.city='北京';
  $('result').innerHTML='';$('result').classList.remove('open');$('confirmPanel').innerHTML='';$('confirmPanel').classList.remove('open');
- $('start').value='';$('city').value='北京';$('chatText').value='';renderMemBar();closeDrawer();toast('已清空，回到首次使用状态');setTimeout(openOnboard,400);
+ $('start').value='';$('city').value='北京';$('chatText').value='';renderMemBar();closeDrawer();toast('已清空，回到首次使用状态');setTimeout(function(){showConsentBar()},300);
 }
 function closeDrawer(){$('drawer').classList.remove('open')}
 // ---------- 隐私命令 ----------
@@ -1123,10 +1194,8 @@ function syncInputs(){
  }
 }
 function init(){
- try{document.title='init';}catch(e){}
  bindAppLinks();
  loadMem().then(function(m){
-  try{document.title='mem-ok';}catch(e){}
   S.mem=m;S.city=m.profile.city||'北京';S.buffer=m.profile.buffer_min||0;S.mode=m.profile.mode||'fast';
   renderMemBar();syncInputs();bindLegacy();
   bindPoiOnce($('mHome'),function(p){p&&(S.mem.profile.home=p)});bindPoiOnce($('mWork'),function(p){p&&(S.mem.profile.work=p)});
@@ -1135,12 +1204,15 @@ function init(){
   $('btnMem').onclick=openDrawer;
   $('btnFormToggle').onclick=function(){switchForm(!$('formPanel').classList.contains('open'))};
   $('btnOnboard').onclick=function(){openOnboard(true)};
+  $('cbAgree').onclick=function(){agreeConsent();openOnboard(true);step2()};
+  $('cbSkip').onclick=skipConsent;
+  $('cbClose').onclick=function(){hideConsentBar(true)};
   $('examples').onclick=function(e){var b=e.target.closest('button');if(!b)return;$('chatText').value=b.getAttribute('data-t');$('chatText').focus()};
   $('chatText').addEventListener('keydown',function(e){if((e.ctrlKey||e.metaKey)&&e.key==='Enter')doAiPlan()});
   $('city').addEventListener('change',function(){S.city=($('city').value||'北京').trim()});
   $('onbClose').onclick=closeOnboard;
-  $('onbSkip').onclick=function(){try{localStorage.setItem('xl_travel_consent','0')}catch(e){}closeOnboard();toast('本次不保存记忆，仍可用一句话规划')};
-  $('onbAgree').onclick=function(){if(!S.mem)S.mem=defaultMem();step2()};
+  $('onbSkip').onclick=function(){skipConsent();closeOnboard();};
+  $('onbAgree').onclick=function(){agreeConsent();step2()};
   $('onbBack').onclick=function(){$('onbStep2').style.display='none';$('onbStep1').style.display='block'};
   $('onbSave').onclick=saveOnboard;
   $('drawerClose').onclick=closeDrawer;
@@ -1157,7 +1229,7 @@ function init(){
   $('importFile').onchange=function(){importMem(this.files[0]);this.value=''};
   $('btnClearAll').onclick=clearAll;
   $('mEvOn').onchange=function(){};
-  if(!hasConsent()&&!localStorage.getItem('xl_travel_consent'))setTimeout(function(){openOnboard(false)},600);
+  if($('travelConsentBar'))showConsentBar();
   // diag
   if(location.search.indexOf('diag')>=0){
    var d=$('diag');d.style.cssText='position:fixed;left:0;bottom:0;z-index:9999;background:#000;color:#0f0;font:11px monospace;padding:4px;max-width:100%;white-space:pre-wrap;display:block';
@@ -1166,30 +1238,11 @@ function init(){
     d.textContent='scrollWidth='+document.documentElement.scrollWidth+' innerWidth='+innerWidth+' clientWidth='+document.documentElement.clientWidth+' errs='+JSON.stringify(errs)+' small='+small.slice(0,10).join(',');
    },1800);
   }
-  if(window.console&&console.log)console.log('travel-memory-ready',!!S.mem.profile.home);
-  try{document.title='ready';}catch(e){}
- }).catch(function(e){try{document.title='memerr:'+(e&&e.message||e)}catch(x){}window.__xlErr.push('loadMem '+e)});
+ }).catch(function(e){window.__xlErr.push('loadMem '+e);var mb=$('memBar');if(mb)mb.innerHTML='<span class="chip">🧠 本机记忆不可用，仍可正常规划</span>';});
 }
 document.addEventListener('DOMContentLoaded',init);
 })();
 </script>
 <script defer src="../assets/site-shell.js?v=20261119x"></script>
-<script defer src="../assets/auth.js"></script><style id="WB_WIDE_UNIFY">
-/* WB_WIDE_UNIFY：满屏工作台（仅 ≥1180px 生效，移动端维持原样） */
-@media (min-width:1180px){
-  .wrap{max-width:none;padding-left:32px;padding-right:32px}
-  .top-in{max-width:none;padding-left:32px;padding-right:32px}
-  .hero{max-width:1280px;margin-left:auto;margin-right:auto}
-  .hero .lead{max-width:72ch}
-  .box{display:grid;grid-template-columns:auto minmax(0,1fr);column-gap:24px;align-items:center}
-  .box > .mem-bar,.box > .chatbox,.box > .privacy-note,.box > .form-panel{grid-column:1/-1}
-  .box > .chat-actions{grid-column:1;margin-top:12px}
-  .box > .examples{grid-column:2;justify-content:flex-end;margin-top:12px}
-  .box > .chatbox textarea{min-height:112px}
-  #result .map-wrap{max-width:1120px;margin-left:auto;margin-right:auto}
-  #result.open .stats{grid-template-columns:repeat(4,minmax(0,1fr))}
-  #result.open .alts{grid-template-columns:repeat(2,minmax(0,1fr))}
-  footer{padding-left:32px;padding-right:32px}
-}
-</style>
+<script defer src="../assets/auth.js"></script>
 </body></html>

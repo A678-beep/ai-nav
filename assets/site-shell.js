@@ -51,6 +51,25 @@
     return;
   }
 
+  /* ---------- 旧 hash 入口统一跳到真实静态页 ----------
+     历史页脚/书签里仍是 #/articles、#/tools（根 SPA 的旧路由），
+     只改地址不改内容，属于死链。这里统一重定向到真实页面。 */
+  var LEGACY_HASH = {
+    '#/articles': ROOT + 'articles/',
+    '#/tools': ROOT + 'tools/'
+  };
+  function redirectLegacyHash() {
+    var h = location.hash || '';
+    if (!h) return false;
+    var qi = h.indexOf('?');
+    var key = qi === -1 ? h : h.slice(0, qi);
+    var target = LEGACY_HASH[key];
+    if (!target) return false;
+    location.replace(target + (qi === -1 ? '' : h.slice(qi)));
+    return true;
+  }
+  redirectLegacyHash();
+
   /* ---------- 图标 ---------- */
   function svg(inner) {
     return '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" ' +
@@ -87,7 +106,8 @@
     { key: 'radar', label: '工具雷达', href: ROOT + 'radar/', ico: ICO.radar }
   ];
   var RES = [
-    { key: 'articles', label: '教程文章', href: ROOT + '#/articles', ico: ICO.articles },
+    /* 教程文章改为真实静态列表页 /articles/；旧 hash 入口 #/articles 在下方统一重定向 */
+    { key: 'articles', label: '教程文章', href: ROOT + 'articles/', ico: ICO.articles },
     { key: 'tools', label: '工具库', href: ROOT + 'tools/', ico: ICO.tools },
     { key: 'pricing', label: '套餐定价', href: ROOT + 'pricing/', ico: ICO.pricing }
   ];
@@ -103,6 +123,7 @@
         seg === 'select-ai' || seg === 'radar') return seg;
     if (seg === 'pricing') return 'pricing';
     if (seg === 'tools' || seg === 'tool') return 'tools';
+    if (seg === 'articles') return 'articles';
     if (seg === 'a' || seg === 't' || seg === 'faq' || seg === 'glossary' ||
         seg === 'prompts' || seg === 'selector' || seg === 'vs' ||
         seg === 'chat' || seg === 'image' || seg === 'code' || seg === 'write' ||
@@ -196,6 +217,32 @@
   for (var i = 0; i < NAV.length; i++) navHost.appendChild(linkItem(NAV[i]));
   for (var j = 0; j < RES.length; j++) resHost.appendChild(linkItem(RES[j]));
 
+  /* ---------- 「教程文章」入口 ----------
+     - 其它页面（含 /a/ 文章详情页）：普通跳转到 /articles/;
+     - 已在文章列表页：阻止重复导航，回到顶部并重置搜索/分类/分页
+       （列表页监听 xl:articles-reset；未挂监听的老页面则退化为普通刷新）。 */
+  function isArticlesList() {
+    var rel = relPath();
+    return rel === 'articles/' || rel === 'articles/index.html';
+  }
+  var articlesLink = aside.querySelector('.xl-sb-link[data-nav="articles"]');
+  if (articlesLink) {
+    articlesLink.addEventListener('click', function (e) {
+      if (e.ctrlKey || e.metaKey || e.shiftKey || e.altKey || e.button !== 0) return;
+      if (!isArticlesList()) return;
+      e.preventDefault();
+      if (window.__xlArticlesPage) {
+        try { window.dispatchEvent(new CustomEvent('xl:articles-reset')); } catch (err) {}
+        try { window.scrollTo({ top: 0, behavior: 'smooth' }); } catch (err) { window.scrollTo(0, 0); }
+        if (location.search) {
+          try { history.replaceState(null, '', location.pathname); } catch (err) {}
+        }
+      } else {
+        location.href = articlesLink.href;
+      }
+    });
+  }
+
   function markActive(key) {
     var links = aside.querySelectorAll('.xl-sb-link');
     for (var k = 0; k < links.length; k++) {
@@ -281,6 +328,7 @@
   function updateCrumb() { if (crumbNow) crumbNow.textContent = pageTitle(); }
   updateCrumb();
   window.addEventListener('hashchange', function () {
+    if (redirectLegacyHash()) return;
     updateCrumb();
     markActive(activeKey());
   });

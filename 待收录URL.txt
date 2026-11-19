@@ -1,38 +1,38 @@
 # GSC 请求编入索引清单
 
 # 注意：先在 GSC 站点地图提交完整 URL:
-#   https://a678-beep.github.io/ai-nav/sitemap.xml
+#   https://xinglaiai.com/ai-nav/sitemap.xml
 # 站点：464 个 URL，全部 200
 
 # 建议每天在 GSC「网址检查」请求 ≤10 条
 
-https://a678-beep.github.io/ai-nav/
-https://a678-beep.github.io/ai-nav/privacy.html
-https://a678-beep.github.io/ai-nav/chat/
-https://a678-beep.github.io/ai-nav/image/
-https://a678-beep.github.io/ai-nav/code/
-https://a678-beep.github.io/ai-nav/write/
-https://a678-beep.github.io/ai-nav/video/
-https://a678-beep.github.io/ai-nav/biz/
-https://a678-beep.github.io/ai-nav/util/
-https://a678-beep.github.io/ai-nav/t/errors/
-https://a678-beep.github.io/ai-nav/t/pricing/
-https://a678-beep.github.io/ai-nav/t/params/
-https://a678-beep.github.io/ai-nav/t/compare/
-https://a678-beep.github.io/ai-nav/t/howto/
-https://a678-beep.github.io/ai-nav/faq/
-https://a678-beep.github.io/ai-nav/tools/
-https://a678-beep.github.io/ai-nav/pricing/
-https://a678-beep.github.io/ai-nav/glossary/
-https://a678-beep.github.io/ai-nav/prompts/
-https://a678-beep.github.io/ai-nav/selector/
-https://a678-beep.github.io/ai-nav/a/write-46-title-generator-tools.html
-https://a678-beep.github.io/ai-nav/a/write-47-press-release-writing.html
-https://a678-beep.github.io/ai-nav/a/write-48-academic-abstract-rewrite.html
-https://a678-beep.github.io/ai-nav/a/write-49-resume-optimization-ai.html
-https://a678-beep.github.io/ai-nav/a/write-50-official-document-ai.html
-https://a678-beep.github.io/ai-nav/a/write-51-product-description-optimization.html
-https://a678-beep.github.io/ai-nav/a/write-52-legal-document-writing.html
-https://a678-beep.github.io/ai-nav/a/write-53-ai-tool-subscription-select.html
-https://a678-beep.github.io/ai-nav/a/write-54-ai-tool-trial-evaluation.html
-https://a678-beep.github.io/ai-nav/a/write-55-white-paper-writing.html
+https://xinglaiai.com/ai-nav/
+https://xinglaiai.com/ai-nav/privacy.html
+https://xinglaiai.com/ai-nav/chat/
+https://xinglaiai.com/ai-nav/image/
+https://xinglaiai.com/ai-nav/code/
+https://xinglaiai.com/ai-nav/write/
+https://xinglaiai.com/ai-nav/video/
+https://xinglaiai.com/ai-nav/biz/
+https://xinglaiai.com/ai-nav/util/
+https://xinglaiai.com/ai-nav/t/errors/
+https://xinglaiai.com/ai-nav/t/pricing/
+https://xinglaiai.com/ai-nav/t/params/
+https://xinglaiai.com/ai-nav/t/compare/
+https://xinglaiai.com/ai-nav/t/howto/
+https://xinglaiai.com/ai-nav/faq/
+https://xinglaiai.com/ai-nav/tools/
+https://xinglaiai.com/ai-nav/pricing/
+https://xinglaiai.com/ai-nav/glossary/
+https://xinglaiai.com/ai-nav/prompts/
+https://xinglaiai.com/ai-nav/selector/
+https://xinglaiai.com/ai-nav/a/write-46-title-generator-tools.html
+https://xinglaiai.com/ai-nav/a/write-47-press-release-writing.html
+https://xinglaiai.com/ai-nav/a/write-48-academic-abstract-rewrite.html
+https://xinglaiai.com/ai-nav/a/write-49-resume-optimization-ai.html
+https://xinglaiai.com/ai-nav/a/write-50-official-document-ai.html
+https://xinglaiai.com/ai-nav/a/write-51-product-description-optimization.html
+https://xinglaiai.com/ai-nav/a/write-52-legal-document-writing.html
+https://xinglaiai.com/ai-nav/a/write-53-ai-tool-subscription-select.html
+https://xinglaiai.com/ai-nav/a/write-54-ai-tool-trial-evaluation.html
+https://xinglaiai.com/ai-nav/a/write-55-white-paper-writing.html

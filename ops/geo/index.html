@@ -5,6 +5,43 @@
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
 <meta name="color-scheme" content="dark">
 <meta name="theme-color" content="#070b12">
+<script>
+/* UX-12：运营后台固定深色。极早锁定 data-theme，并阻止任何主题脚本把它改成浅色。 */
+(function () {
+  var d = document.documentElement;
+  function pin() {
+    try {
+      if (d.getAttribute('data-theme') !== 'dark') d.setAttribute('data-theme', 'dark');
+      if (d.getAttribute('data-theme-mode') !== 'dark') d.setAttribute('data-theme-mode', 'dark');
+      d.style.colorScheme = 'dark';
+    } catch (e) {}
+  }
+  pin();
+  try {
+    new MutationObserver(pin).observe(d, { attributes: true, attributeFilter: ['data-theme', 'data-theme-mode', 'style'] });
+  } catch (e) {}
+  function killThemeButtons() {
+    try {
+      var btns = document.querySelectorAll('.xl-theme-btn');
+      for (var i = 0; i < btns.length; i++) { if (btns[i].parentNode) btns[i].parentNode.removeChild(btns[i]); }
+      var wraps = document.querySelectorAll('[data-theme-wrap]');
+      for (var j = 0; j < wraps.length; j++) { wraps[j].style.display = 'none'; }
+    } catch (e) {}
+    pin();
+  }
+  document.addEventListener('DOMContentLoaded', function () {
+    killThemeButtons();
+    setTimeout(killThemeButtons, 200);
+    setTimeout(killThemeButtons, 1200);
+  });
+  /* 拦截遗留主题按钮点击（含程序化 click）：固定深色，不切换到浅色 */
+  document.addEventListener('click', function (e) {
+    var t = e.target;
+    var b = t && t.closest ? t.closest('.xl-theme-btn') : null;
+    if (b) { e.preventDefault(); e.stopPropagation(); pin(); }
+  }, true);
+})();
+</script>
 <title>同城 GEO 运营后台 · 星籁 AI</title>
 <meta name="description" content="同城 GEO 推广运营端内部后台：商家、渠道池、词库稿件、任务调度、信源链接监测、AI 收录监测、成本核算与权限日志。仅平台运营团队可见。">
 <meta name="robots" content="noindex,nofollow">
@@ -22,7 +59,7 @@ html[data-page="ops-geo"]{
   --og-bg:#070b12; --og-bg2:#0a101b; --og-panel:#0c1421; --og-panel2:#101a2b;
   --og-panel3:#0e1726; --og-soft:rgba(148,163,184,.055); --og-soft2:rgba(148,163,184,.11);
   --og-line:rgba(148,163,184,.15); --og-line2:rgba(148,163,184,.26);
-  --og-txt:#e7edf6; --og-txt2:#a0b1c7; --og-txt3:#6b7f98; --og-txt4:#4f647d;
+  --og-txt:#e7edf6; --og-txt2:#a0b1c7; --og-txt3:#8598b3; --og-txt4:#7d90a9;
   --og-cyan:#38bdf8; --og-blue:#60a5fa; --og-violet:#a78bfa; --og-lime:#34d399;
   --og-teal:#2dd4bf; --og-amber:#fbbf24; --og-orange:#fb923c; --og-red:#fb7185; --og-pink:#f472b6;
   --og-okbg:rgba(52,211,153,.13); --og-warnbg:rgba(251,191,36,.13); --og-badbg:rgba(251,113,133,.13);
@@ -76,7 +113,7 @@ html[data-page="ops-geo"] .og-fallback{display:none}
   padding:12px 10px 10px;overflow-y:auto;z-index:40;scrollbar-width:thin}
 .og-menu-head{padding:4px 8px 12px;border-bottom:1px solid var(--og-line);margin-bottom:10px}
 .og-menu-head b{display:block;font-size:13.5px;letter-spacing:.02em;color:#f1f6fd}
-.og-menu-head span{display:block;margin-top:2px;font-size:9.5px;letter-spacing:.18em;color:var(--og-txt3);font-weight:700}
+.og-menu-head span{display:block;margin-top:2px;font-size:11px;letter-spacing:.18em;color:var(--og-txt3);font-weight:700}
 .og-menu nav{display:flex;flex-direction:column;gap:2px;flex:1 1 auto}
 .og-menu-item{display:flex;align-items:center;gap:9px;width:100%;padding:8px 9px;min-height:36px;
   border:1px solid transparent;border-radius:8px;background:transparent;color:var(--og-txt2);
@@ -88,37 +125,37 @@ html[data-page="ops-geo"] .og-fallback{display:none}
 .og-menu-item.is-on .mi{color:var(--og-cyan)}
 .og-menu-item .ml{flex:1 1 auto;min-width:0;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
 .og-menu-item .mb{flex:0 0 auto;min-width:18px;height:17px;padding:0 5px;border-radius:99px;background:rgba(251,113,133,.16);
-  color:#fda4af;font-size:10px;font-weight:800;display:grid;place-items:center;font-variant-numeric:tabular-nums}
+  color:#fda4af;font-size:11px;font-weight:800;display:grid;place-items:center;font-variant-numeric:tabular-nums}
 .og-menu-sep{height:1px;background:var(--og-line);margin:8px 4px}
 .og-menu-foot{padding:10px 6px 2px;border-top:1px solid var(--og-line);margin-top:8px;display:grid;gap:7px}
-.og-api{display:flex;align-items:center;gap:6px;font-size:10.5px;color:var(--og-txt3);padding:5px 7px;border-radius:7px;background:var(--og-soft);line-height:1.35}
+.og-api{display:flex;align-items:center;gap:6px;font-size:11.5px;color:var(--og-txt3);padding:5px 7px;border-radius:7px;background:var(--og-soft);line-height:1.35}
 .og-api .dot{flex:0 0 auto;width:6px;height:6px;border-radius:50%;background:var(--og-amber);box-shadow:0 0 0 3px rgba(251,191,36,.13)}
 .og-api.live .dot{background:var(--og-lime);box-shadow:0 0 0 3px rgba(52,211,153,.14)}
 .og-api.demo .dot{background:var(--og-amber)}
 .og-api.bad .dot{background:var(--og-red);box-shadow:0 0 0 3px rgba(251,113,133,.14)}
-.og-who{font-size:10.5px;color:var(--og-txt3);line-height:1.5;padding:2px 7px 0}
-.og-who b{display:block;color:var(--og-txt2);font-size:11.5px;font-weight:700}
+.og-who{font-size:11.5px;color:var(--og-txt3);line-height:1.5;padding:2px 7px 0}
+.og-who b{display:block;color:var(--og-txt2);font-size:12px;font-weight:700}
 .og-who a{color:var(--og-cyan)}
-.og-menu-ver{font-size:9.5px;color:var(--og-txt4);padding:2px 7px 4px;letter-spacing:.04em}
+.og-menu-ver{font-size:11px;color:var(--og-txt4);padding:2px 7px 4px;letter-spacing:.04em}
 
 .og-main{min-width:0;display:flex;flex-direction:column;min-height:calc(100vh - 52px)}
 .og-head{position:sticky;top:52px;z-index:30;display:flex;align-items:flex-end;justify-content:space-between;gap:16px;
   padding:15px 20px 13px;background:rgba(7,11,18,.88);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);
   border-bottom:1px solid var(--og-line)}
 .og-head-l{min-width:0}
-.og-crumb{font-size:10.5px;color:var(--og-txt3);letter-spacing:.02em;margin-bottom:4px}
+.og-crumb{font-size:11.5px;color:var(--og-txt3);letter-spacing:.02em;margin-bottom:4px}
 .og-crumb b{color:var(--og-txt2);font-weight:700}
 .og-head h1{margin:0;font-size:21px;line-height:1.25;letter-spacing:-.02em;font-weight:800}
-.og-head .og-sub{margin:4px 0 0;color:var(--og-txt3);font-size:11.5px;line-height:1.55;max-width:860px}
+.og-head .og-sub{margin:4px 0 0;color:var(--og-txt3);font-size:12px;line-height:1.55;max-width:860px}
 .og-head-r{display:flex;align-items:center;gap:8px;flex-wrap:wrap;justify-content:flex-end;flex:0 0 auto}
 .og-mode{display:inline-flex;align-items:center;gap:6px;min-height:28px;padding:0 10px;border-radius:99px;
-  border:1px solid rgba(251,191,36,.36);background:rgba(251,191,36,.08);color:#fde68a;font-size:11px;font-weight:600;white-space:nowrap}
+  border:1px solid rgba(251,191,36,.36);background:rgba(251,191,36,.08);color:#fde68a;font-size:11.5px;font-weight:600;white-space:nowrap}
 .og-mode .dot{width:6px;height:6px;border-radius:50%;background:var(--og-amber);box-shadow:0 0 0 3px rgba(251,191,36,.14)}
 .og-mode.live{border-color:rgba(52,211,153,.36);background:rgba(52,211,153,.08);color:#a7f3d0}
 .og-mode.live .dot{background:var(--og-lime);box-shadow:0 0 0 3px rgba(52,211,153,.14)}
 .og-mode.bad{border-color:rgba(251,113,133,.4);background:rgba(251,113,133,.08);color:#fecdd3}
 .og-mode.bad .dot{background:var(--og-red)}
-.og-mode .mini{padding:0 6px;min-height:22px;border-radius:99px;border:1px solid rgba(251,191,36,.36);background:transparent;color:inherit;font-size:10.5px;font-weight:700;cursor:pointer}
+.og-mode .mini{padding:0 6px;min-height:22px;border-radius:99px;border:1px solid rgba(251,191,36,.36);background:transparent;color:inherit;font-size:11.5px;font-weight:700;cursor:pointer}
 .og-body{padding:16px 20px 52px;min-width:0;flex:1 1 auto}
 
 /* ---------- 通用组件 ---------- */
@@ -133,11 +170,11 @@ html[data-page="ops-geo"] .og-fallback{display:none}
 .og-btn.danger{border-color:rgba(251,113,133,.42);background:rgba(251,113,133,.12);color:#fecdd3}
 .og-btn.ghost{border-color:var(--og-line);background:transparent;color:var(--og-txt2)}
 .og-btn.ghost:hover{color:var(--og-txt);background:var(--og-soft)}
-.og-btn.sm{min-height:26px;padding:0 9px;font-size:11px;border-radius:7px}
-.og-btn.xs{min-height:23px;padding:0 7px;font-size:10.5px;border-radius:6px;gap:4px}
+.og-btn.sm{min-height:26px;padding:0 9px;font-size:11.5px;border-radius:7px}
+.og-btn.xs{min-height:23px;padding:0 7px;font-size:11.5px;border-radius:6px;gap:4px}
 .og-btn.block{width:100%}
 .og-btn .ic{font-size:12px;line-height:1}
-.og-linkbtn{border:0;background:transparent;color:var(--og-cyan);font-size:11px;font-weight:600;cursor:pointer;padding:2px 0}
+.og-linkbtn{border:0;background:transparent;color:var(--og-cyan);font-size:11.5px;font-weight:600;cursor:pointer;padding:2px 0}
 .og-linkbtn:hover{text-decoration:underline}
 .og-linkbtn.bad{color:var(--og-red)}
 
@@ -149,9 +186,9 @@ html[data-page="ops-geo"] .og-fallback{display:none}
   background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%236b7f98' stroke-width='2'%3E%3Cpath d='m6 9 6 6 6-6'/%3E%3C/svg%3E");
   background-repeat:no-repeat;background-position:right 8px center;background-size:12px}
 .og-textarea{min-height:110px;resize:vertical;line-height:1.7;padding:9px 11px}
-.og-label{display:block;font-size:10.5px;color:var(--og-txt3);font-weight:700;letter-spacing:.02em;margin-bottom:5px}
+.og-label{display:block;font-size:11.5px;color:var(--og-txt3);font-weight:700;letter-spacing:.02em;margin-bottom:5px}
 .og-field{margin-bottom:12px;min-width:0}
-.og-field .hint{font-size:10.5px;color:var(--og-txt4);margin-top:4px;line-height:1.5}
+.og-field .hint{font-size:11.5px;color:var(--og-txt4);margin-top:4px;line-height:1.5}
 .og-row{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:11px}
 .og-row3{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:11px}
 .og-req{color:var(--og-red)}
@@ -161,7 +198,7 @@ html[data-page="ops-geo"] .og-fallback{display:none}
 .og-card+.og-card{margin-top:14px}
 .og-card-h{display:flex;align-items:flex-start;justify-content:space-between;gap:12px;padding:13px 15px 0;flex-wrap:wrap}
 .og-card-h h2{margin:0;font-size:14px;letter-spacing:-.01em;display:flex;align-items:center;gap:7px}
-.og-card-h .og-sub{margin:3px 0 0;font-size:10.5px;color:var(--og-txt3);line-height:1.55}
+.og-card-h .og-sub{margin:3px 0 0;font-size:11.5px;color:var(--og-txt3);line-height:1.55}
 .og-card-h .right{display:flex;align-items:center;gap:7px;flex-wrap:wrap;justify-content:flex-end}
 .og-card-b{padding:13px 15px 15px}
 .og-card-b.tight{padding-top:10px}
@@ -176,10 +213,10 @@ html[data-page="ops-geo"] .og-fallback{display:none}
 .og-sec-title{display:flex;align-items:center;justify-content:space-between;gap:10px;margin:18px 0 10px;flex-wrap:wrap}
 .og-sec-title:first-child{margin-top:0}
 .og-sec-title h2{margin:0;font-size:14.5px;letter-spacing:-.01em;display:flex;align-items:center;gap:8px}
-.og-sec-title p{margin:0;font-size:11px;color:var(--og-txt3)}
+.og-sec-title p{margin:0;font-size:11.5px;color:var(--og-txt3)}
 .og-sec-title .right{display:flex;gap:7px;align-items:center;flex-wrap:wrap}
 
-.og-badge{display:inline-flex;align-items:center;gap:4px;min-height:19px;padding:0 7px;border-radius:6px;font-size:10.5px;font-weight:700;
+.og-badge{display:inline-flex;align-items:center;gap:4px;min-height:19px;padding:0 7px;border-radius:6px;font-size:11.5px;font-weight:700;
   border:1px solid var(--og-line);background:var(--og-soft);color:var(--og-txt2);white-space:nowrap;line-height:1}
 .og-badge.cyan{border-color:rgba(56,189,248,.34);background:var(--og-infobg);color:#7dd3fc}
 .og-badge.violet{border-color:rgba(167,139,250,.34);background:var(--og-violetbg);color:#c4b5fd}
@@ -188,7 +225,7 @@ html[data-page="ops-geo"] .og-fallback{display:none}
 .og-badge.red{border-color:rgba(251,113,133,.36);background:var(--og-badbg);color:#fecdd3}
 .og-badge.pink{border-color:rgba(244,114,182,.34);background:rgba(244,114,182,.12);color:#fbcfe8}
 .og-badge.gray{color:var(--og-txt3)}
-.og-dotbadge{display:inline-flex;align-items:center;gap:5px;font-size:11px;color:var(--og-txt2);white-space:nowrap}
+.og-dotbadge{display:inline-flex;align-items:center;gap:5px;font-size:11.5px;color:var(--og-txt2);white-space:nowrap}
 .og-dotbadge .d{width:6px;height:6px;border-radius:50%;background:var(--og-txt4)}
 .og-dotbadge.ok .d{background:var(--og-lime);box-shadow:0 0 0 3px rgba(52,211,153,.12)}
 .og-dotbadge.warn .d{background:var(--og-amber);box-shadow:0 0 0 3px rgba(251,191,36,.12)}
@@ -203,17 +240,17 @@ html[data-page="ops-geo"] .og-fallback{display:none}
 .og-toolbar .og-input.search{min-width:130px}
 .og-chips{display:inline-flex;align-items:center;gap:5px;background:var(--og-soft);border:1px solid var(--og-line);border-radius:9px;padding:3px}
 .og-chips button{min-height:25px;padding:0 10px;border:1px solid transparent;border-radius:6px;background:transparent;color:var(--og-txt2);
-  font-size:11px;font-weight:600;cursor:pointer;white-space:nowrap;transition:background .15s,color .15s}
+  font-size:11.5px;font-weight:600;cursor:pointer;white-space:nowrap;transition:background .15s,color .15s}
 .og-chips button:hover{color:var(--og-txt);background:var(--og-soft)}
 .og-chips button.on{background:linear-gradient(135deg,rgba(56,189,248,.22),rgba(167,139,250,.18));color:#e0f2fe;border-color:rgba(56,189,248,.34)}
-.og-toolbar .count{font-size:10.5px;color:var(--og-txt3);margin-left:auto;white-space:nowrap}
+.og-toolbar .count{font-size:11.5px;color:var(--og-txt3);margin-left:auto;white-space:nowrap}
 
 /* ---------- 表格 ---------- */
 .og-table-wrap{overflow:auto;max-width:100%;scrollbar-width:thin;scrollbar-color:rgba(148,163,184,.28) transparent}
 .og-table-wrap::-webkit-scrollbar{height:8px;width:8px}
 .og-table-wrap::-webkit-scrollbar-thumb{background:rgba(148,163,184,.24);border-radius:99px}
-.og-table{width:100%;border-collapse:separate;border-spacing:0;font-size:11.8px;min-width:660px}
-.og-table th{position:sticky;top:0;z-index:2;background:#0b1320;text-align:left;padding:8px 10px;font-size:10px;font-weight:800;
+.og-table{width:100%;border-collapse:separate;border-spacing:0;font-size:12px;min-width:660px}
+.og-table th{position:sticky;top:0;z-index:2;background:#0b1320;text-align:left;padding:8px 10px;font-size:11px;font-weight:800;
   color:var(--og-txt3);letter-spacing:.06em;text-transform:uppercase;white-space:nowrap;border-bottom:1px solid var(--og-line2)}
 .og-table td{padding:8px 10px;border-bottom:1px solid rgba(148,163,184,.09);vertical-align:middle;color:var(--og-txt2);line-height:1.45}
 .og-table tbody tr{transition:background .12s}
@@ -221,7 +258,7 @@ html[data-page="ops-geo"] .og-fallback{display:none}
 .og-table tbody tr:last-child td{border-bottom:0}
 .og-table td.strong{color:var(--og-txt);font-weight:600}
 .og-table td .mname{color:var(--og-txt);font-weight:700;font-size:12px}
-.og-table td .msub{font-size:10px;color:var(--og-txt3);margin-top:2px;line-height:1.4;word-break:break-all}
+.og-table td .msub{font-size:11px;color:var(--og-txt3);margin-top:2px;line-height:1.4;word-break:break-all}
 .og-table td.actions{white-space:nowrap;text-align:right}
 .og-table th.actions{text-align:right}
 .og-table td.actions .og-btn{margin-left:4px}
@@ -232,24 +269,24 @@ html[data-page="ops-geo"] .og-fallback{display:none}
 .og-table tr.is-warn td{background:rgba(251,191,36,.045)}
 .og-table tr.is-selected td{background:rgba(56,189,248,.07)}
 .og-table .og-check{width:14px;height:14px;accent-color:#38bdf8;cursor:pointer;vertical-align:middle}
-.og-table .u{max-width:230px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;display:inline-block;vertical-align:bottom;font-size:11px;color:var(--og-blue)}
+.og-table .u{max-width:230px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;display:inline-block;vertical-align:bottom;font-size:11.5px;color:var(--og-blue)}
 .og-table .empty{text-align:center;color:var(--og-txt3);padding:28px 12px;font-size:12px}
 .og-table .expandrow td{padding:0;background:rgba(6,11,18,.65)}
 .og-table .expandbox{padding:12px 14px;border-bottom:1px solid var(--og-line)}
 .og-table .expandgrid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:10px}
-.og-kv{font-size:10.5px;color:var(--og-txt3);line-height:1.6}
-.og-kv b{display:block;color:var(--og-txt2);font-size:11px;font-weight:600;word-break:break-all}
+.og-kv{font-size:11.5px;color:var(--og-txt3);line-height:1.6}
+.og-kv b{display:block;color:var(--og-txt2);font-size:11.5px;font-weight:600;word-break:break-all}
 .og-pre{margin:7px 0 0;padding:9px 11px;border-radius:8px;border:1px solid var(--og-line);background:#060b13;
   color:#9db8cf;font:10.5px/1.65 ui-monospace,Consolas,monospace;max-height:150px;overflow:auto;white-space:pre-wrap;word-break:break-word}
 .og-emptystate{padding:30px 16px;text-align:center;color:var(--og-txt3);font-size:12px;line-height:1.7}
 .og-emptystate .big{font-size:24px;margin-bottom:6px;opacity:.85}
-.og-tiny{font-size:10.5px;color:var(--og-txt3);line-height:1.6}
+.og-tiny{font-size:11.5px;color:var(--og-txt3);line-height:1.6}
 
 /* ---------- 分页 ---------- */
 .og-pager{display:flex;align-items:center;justify-content:space-between;gap:10px;padding:10px 14px;border-top:1px solid var(--og-line);
-  font-size:11px;color:var(--og-txt3);flex-wrap:wrap}
+  font-size:11.5px;color:var(--og-txt3);flex-wrap:wrap}
 .og-pager .pg{display:flex;align-items:center;gap:5px}
-.og-pager .pg .og-btn{min-height:24px;padding:0 8px;font-size:10.5px}
+.og-pager .pg .og-btn{min-height:24px;padding:0 8px;font-size:11.5px}
 .og-pager b{color:var(--og-txt2);font-variant-numeric:tabular-nums}
 
 /* ---------- 进度条 ---------- */
@@ -258,7 +295,7 @@ html[data-page="ops-geo"] .og-fallback{display:none}
 .og-prog.ok i{background:linear-gradient(90deg,#34d399,#38bdf8)}
 .og-prog.warn i{background:linear-gradient(90deg,#fbbf24,#fb923c)}
 .og-prog.bad i{background:linear-gradient(90deg,#fb7185,#dc2626)}
-.og-prog-label{display:flex;justify-content:space-between;gap:6px;font-size:9.5px;color:var(--og-txt3);margin-top:3px;font-variant-numeric:tabular-nums}
+.og-prog-label{display:flex;justify-content:space-between;gap:6px;font-size:11px;color:var(--og-txt3);margin-top:3px;font-variant-numeric:tabular-nums}
 
 /* ---------- 抽屉 / 弹层 ---------- */
 .og-mask{position:fixed;inset:0;z-index:120;background:rgba(3,6,11,.66);backdrop-filter:blur(3px);opacity:0;pointer-events:none;transition:opacity .2s}
@@ -271,7 +308,7 @@ html[data-page="ops-geo"] .og-fallback{display:none}
 .og-drawer.slim{width:min(480px,94vw)}
 .og-drawer-h{display:flex;align-items:flex-start;justify-content:space-between;gap:12px;padding:16px 18px 13px;border-bottom:1px solid var(--og-line);flex:0 0 auto}
 .og-drawer-h h3{margin:0;font-size:16px;letter-spacing:-.01em}
-.og-drawer-h p{margin:4px 0 0;font-size:11px;color:var(--og-txt3);line-height:1.6}
+.og-drawer-h p{margin:4px 0 0;font-size:11.5px;color:var(--og-txt3);line-height:1.6}
 .og-drawer-x{flex:0 0 auto;width:30px;height:30px;border-radius:8px;border:1px solid var(--og-line);background:transparent;color:var(--og-txt3);font-size:16px;cursor:pointer;line-height:1}
 .og-drawer-x:hover{color:var(--og-txt);background:var(--og-soft)}
 .og-drawer-b{padding:16px 18px;overflow-y:auto;flex:1 1 auto;min-height:0}
@@ -304,11 +341,11 @@ html[data-page="ops-geo"] .xl-sb-theme{display:none!important}
 .og-stat:before{content:"";position:absolute;inset:0 0 auto;height:2px;background:linear-gradient(90deg,var(--sc,#38bdf8),transparent 78%);opacity:.85}
 .og-stat .s-top{display:flex;align-items:center;gap:6px;min-width:0}
 .og-stat .s-ico{flex:0 0 auto;font-size:13px;line-height:1;filter:saturate(.9)}
-.og-stat .s-lb{font-size:10.5px;color:var(--og-txt3);font-weight:700;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.og-stat .s-lb{font-size:11.5px;color:var(--og-txt3);font-weight:700;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
 .og-stat .s-v{margin-top:6px;font-size:24px;line-height:1.15;font-weight:800;letter-spacing:-.03em;font-variant-numeric:tabular-nums;white-space:nowrap}
 .og-stat .s-v small{font-size:12px;font-weight:700;color:var(--og-txt2);margin-left:2px;letter-spacing:0}
 .og-stat .s-foot{display:flex;align-items:flex-end;justify-content:space-between;gap:6px;margin-top:6px;min-height:20px}
-.og-stat .s-delta{font-size:10px;color:var(--og-txt3);line-height:1.4}
+.og-stat .s-delta{font-size:11px;color:var(--og-txt3);line-height:1.4}
 .og-stat .s-delta b{color:var(--og-lime);font-weight:700}
 .og-stat .s-delta b.down{color:var(--og-red)}
 .og-stat .s-spark{width:58px;height:20px;flex:0 0 auto;opacity:.9}
@@ -322,7 +359,7 @@ html[data-page="ops-geo"] .xl-sb-theme{display:none!important}
 .og-chart{width:100%;height:248px;margin-top:10px;position:relative;min-width:0}
 .og-chart svg{display:block;width:100%;height:100%;overflow:visible}
 .og-chart .grid{stroke:rgba(148,163,184,.12);stroke-width:1;shape-rendering:crispEdges}
-.og-chart .axis{fill:#5c7089;font-size:9.5px;font-family:inherit}
+.og-chart .axis{fill:#8598b3;font-size:11px;font-family:inherit}
 .og-chart .line-a{fill:none;stroke:#38bdf8;stroke-width:2;stroke-linejoin:round;stroke-linecap:round}
 .og-chart .line-b{fill:none;stroke:#a78bfa;stroke-width:2;stroke-dasharray:5 3;stroke-linejoin:round;stroke-linecap:round}
 .og-chart .dot-a{fill:#38bdf8;stroke:#071019;stroke-width:1.5}
@@ -331,14 +368,14 @@ html[data-page="ops-geo"] .xl-sb-theme{display:none!important}
 .og-chart .hoverline{stroke:rgba(148,163,184,.4);stroke-dasharray:3 3;stroke-width:1;opacity:0}
 .og-chart .tipbox{opacity:0;pointer-events:none}
 .og-chart .tipbg{fill:#0c1727;stroke:rgba(148,163,184,.34);rx:7}
-.og-chart .tiptext{fill:#c9d7e8;font-size:10px}
+.og-chart .tiptext{fill:#c9d7e8;font-size:11px}
 .og-chart .tiptext b{fill:#fff}
-.og-legend{display:flex;align-items:center;gap:12px;flex-wrap:wrap;font-size:10.5px;color:var(--og-txt3)}
+.og-legend{display:flex;align-items:center;gap:12px;flex-wrap:wrap;font-size:11.5px;color:var(--og-txt3)}
 .og-legend .k{display:inline-flex;align-items:center;gap:5px;white-space:nowrap}
 .og-legend .k i{width:9px;height:3px;border-radius:2px;background:#38bdf8;display:inline-block}
 .og-legend .k.alt i{background:#a78bfa}
 .og-legend .k.dot i{width:7px;height:7px;border-radius:50%}
-.og-chart-empty{padding:38px 10px;text-align:center;color:var(--og-txt3);font-size:11.5px;line-height:1.7}
+.og-chart-empty{padding:38px 10px;text-align:center;color:var(--og-txt3);font-size:12px;line-height:1.7}
 
 /* 任务分布甜甜圈 */
 .og-dist{display:flex;align-items:center;gap:14px;margin-top:6px;flex-wrap:wrap}
@@ -347,9 +384,9 @@ html[data-page="ops-geo"] .xl-sb-theme{display:none!important}
 .og-donut .dc{fill:transparent;stroke-width:15}
 .og-donut .dcenter{position:absolute;inset:0;display:grid;place-items:center;text-align:center;line-height:1.2}
 .og-donut .dcenter b{display:block;font-size:20px;font-weight:800;font-variant-numeric:tabular-nums;letter-spacing:-.02em}
-.og-donut .dcenter small{display:block;font-size:9.5px;color:var(--og-txt3);margin-top:2px}
+.og-donut .dcenter small{display:block;font-size:11px;color:var(--og-txt3);margin-top:2px}
 .og-dist-legend{flex:1 1 160px;min-width:150px;display:grid;gap:6px}
-.og-dist-row{display:flex;align-items:center;gap:7px;font-size:11px;color:var(--og-txt2)}
+.og-dist-row{display:flex;align-items:center;gap:7px;font-size:11.5px;color:var(--og-txt2)}
 .og-dist-row .sw{width:8px;height:8px;border-radius:2px;flex:0 0 auto}
 .og-dist-row .nm{flex:1 1 auto;min-width:0;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
 .og-dist-row b{font-variant-numeric:tabular-nums;color:var(--og-txt)}
@@ -359,9 +396,9 @@ html[data-page="ops-geo"] .xl-sb-theme{display:none!important}
 .og-alerts{display:grid;gap:7px;margin-top:2px}
 .og-alert{display:flex;gap:9px;padding:8px 10px;border-radius:9px;border:1px solid var(--og-line);background:var(--og-soft);align-items:flex-start}
 .og-alert .i{flex:0 0 auto;font-size:12px;line-height:1.4;margin-top:1px}
-.og-alert .b{flex:1 1 auto;min-width:0;font-size:11.5px;color:var(--og-txt2);line-height:1.55}
+.og-alert .b{flex:1 1 auto;min-width:0;font-size:12px;color:var(--og-txt2);line-height:1.55}
 .og-alert .b b{color:var(--og-txt);font-weight:700}
-.og-alert .b .h{display:block;font-size:10px;color:var(--og-txt3);margin-top:2px}
+.og-alert .b .h{display:block;font-size:11px;color:var(--og-txt3);margin-top:2px}
 .og-alert .go{flex:0 0 auto;align-self:center}
 .og-alert.error{border-color:rgba(251,113,133,.32);background:rgba(251,113,133,.07)}
 .og-alert.warn{border-color:rgba(251,191,36,.3);background:rgba(251,191,36,.065)}
@@ -370,28 +407,28 @@ html[data-page="ops-geo"] .xl-sb-theme{display:none!important}
 .og-todo-item{display:flex;align-items:center;gap:9px;padding:8px 10px;border-radius:9px;border:1px solid var(--og-line);background:var(--og-soft);cursor:pointer;transition:background .15s,border-color .15s;width:100%;text-align:left}
 .og-todo-item:hover{background:var(--og-soft2);border-color:rgba(56,189,248,.3)}
 .og-todo-item .ico{flex:0 0 auto;width:26px;height:26px;border-radius:7px;display:grid;place-items:center;font-size:12px;background:rgba(56,189,248,.12);color:#7dd3fc}
-.og-todo-item .tx{flex:1 1 auto;min-width:0;font-size:11.5px;color:var(--og-txt2);line-height:1.4}
+.og-todo-item .tx{flex:1 1 auto;min-width:0;font-size:12px;color:var(--og-txt2);line-height:1.4}
 .og-todo-item .tx b{display:block;color:var(--og-txt);font-size:12px}
 .og-todo-item .n{flex:0 0 auto;font-size:13px;font-weight:800;color:#7dd3fc;font-variant-numeric:tabular-nums}
 .og-todo-item .ar{flex:0 0 auto;color:var(--og-txt3);font-size:12px}
 
 /* ---------- 商家 ---------- */
-.og-plan-tag{display:inline-flex;align-items:center;gap:4px;font-size:10px;font-weight:800;padding:1px 7px;border-radius:5px;letter-spacing:.02em}
+.og-plan-tag{display:inline-flex;align-items:center;gap:4px;font-size:11px;font-weight:800;padding:1px 7px;border-radius:5px;letter-spacing:.02em}
 .og-plan-tag.free{background:rgba(148,163,184,.13);color:#cbd5e1}
 .og-plan-tag.basic{background:rgba(56,189,248,.14);color:#7dd3fc}
 .og-plan-tag.pro{background:rgba(167,139,250,.16);color:#c4b5fd}
 .og-plan-tag.max{background:linear-gradient(135deg,rgba(251,191,36,.2),rgba(244,114,182,.16));color:#fcd34d}
 .og-quota{min-width:110px;max-width:150px}
-.og-quota .q-top{display:flex;justify-content:space-between;gap:6px;font-size:10px;color:var(--og-txt3);font-variant-numeric:tabular-nums}
+.og-quota .q-top{display:flex;justify-content:space-between;gap:6px;font-size:11px;color:var(--og-txt3);font-variant-numeric:tabular-nums}
 .og-quota .q-top b{color:var(--og-txt2)}
 .og-rowacts{display:flex;gap:4px;justify-content:flex-end;flex-wrap:nowrap}
-.og-rowacts .og-btn{min-height:23px;padding:0 7px;font-size:10.5px}
+.og-rowacts .og-btn{min-height:23px;padding:0 7px;font-size:11.5px}
 
 /* ---------- 渠道 ---------- */
 .og-table.channels{min-width:1100px}
-.og-table.channels th,.og-table.channels td{padding:7px 7px;font-size:11px}
+.og-table.channels th,.og-table.channels td{padding:7px 7px;font-size:11.5px}
 .og-quality{display:inline-flex;align-items:center;gap:5px;min-width:62px}
-.og-quality .qv{font-weight:800;font-variant-numeric:tabular-nums;min-width:20px;text-align:right;font-size:11.5px}
+.og-quality .qv{font-weight:800;font-variant-numeric:tabular-nums;min-width:20px;text-align:right;font-size:12px}
 .og-quality .qv.ok{color:#6ee7b7}.og-quality .qv.warn{color:#fcd34d}.og-quality .qv.bad{color:#fda4af}
 .og-quality .bar{flex:1 1 auto;height:4px;border-radius:99px;background:rgba(255,255,255,.08);overflow:hidden;min-width:34px}
 .og-quality .bar i{display:block;height:100%;border-radius:99px;background:linear-gradient(90deg,#34d399,#38bdf8)}
@@ -401,14 +438,14 @@ html[data-page="ops-geo"] .xl-sb-theme{display:none!important}
 .og-vendor-row{display:grid;grid-template-columns:minmax(130px,1fr) minmax(160px,1.3fr) minmax(130px,1fr) auto;gap:9px;align-items:end;
   padding:10px;border-radius:10px;border:1px solid var(--og-line);background:var(--og-soft)}
 .og-vendor-row .nm{font-size:12px;font-weight:700;color:var(--og-txt);display:flex;align-items:center;gap:6px}
-.og-vendor-row .nm .msub{font-size:10px;color:var(--og-txt3);font-weight:400;margin-top:2px;display:block}
+.og-vendor-row .nm .msub{font-size:11px;color:var(--og-txt3);font-weight:400;margin-top:2px;display:block}
 .og-vendor-row .acts{display:flex;gap:6px;justify-content:flex-end;padding-bottom:1px}
 
 /* ---------- 词库 / 稿件 ---------- */
 .og-words{display:flex;flex-direction:column;min-height:540px}
 .og-words .og-card-b{padding:10px 12px 12px;display:flex;flex-direction:column;gap:9px;flex:1 1 auto}
 .og-wtabs{display:flex;gap:4px;flex-wrap:wrap}
-.og-wtabs button{min-height:24px;padding:0 8px;border-radius:6px;border:1px solid var(--og-line);background:transparent;color:var(--og-txt3);font-size:10.5px;cursor:pointer;white-space:nowrap}
+.og-wtabs button{min-height:24px;padding:0 8px;border-radius:6px;border:1px solid var(--og-line);background:transparent;color:var(--og-txt3);font-size:11.5px;cursor:pointer;white-space:nowrap}
 .og-wtabs button.on{border-color:rgba(56,189,248,.4);background:rgba(56,189,248,.1);color:#7dd3fc}
 .og-wlist{display:grid;gap:7px;overflow-y:auto;max-height:400px;padding-right:2px}
 .og-witem{padding:9px 10px;border-radius:9px;border:1px solid var(--og-line);background:var(--og-soft);cursor:pointer;transition:border-color .15s,background .15s}
@@ -416,46 +453,46 @@ html[data-page="ops-geo"] .xl-sb-theme{display:none!important}
 .og-witem.on{border-color:rgba(56,189,248,.5);background:rgba(56,189,248,.09)}
 .og-witem .wh{display:flex;align-items:center;justify-content:space-between;gap:6px}
 .og-witem .wh b{font-size:12px;color:var(--og-txt)}
-.og-witem .wh .n{font-size:9.5px;color:var(--og-txt3);background:var(--og-soft2);padding:1px 6px;border-radius:99px}
-.og-witem .ws{font-size:10.5px;color:var(--og-txt2);line-height:1.55;margin-top:3px;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
-.og-witem .wf{display:flex;gap:8px;margin-top:4px;font-size:9.5px;color:var(--og-txt3)}
+.og-witem .wh .n{font-size:11px;color:var(--og-txt3);background:var(--og-soft2);padding:1px 6px;border-radius:99px}
+.og-witem .ws{font-size:11.5px;color:var(--og-txt2);line-height:1.55;margin-top:3px;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
+.og-witem .wf{display:flex;gap:8px;margin-top:4px;font-size:11px;color:var(--og-txt3)}
 .og-wchips{display:flex;flex-wrap:wrap;gap:5px;margin-top:2px;max-height:86px;overflow:auto;padding:1px}
-.og-wchip{display:inline-flex;align-items:center;gap:4px;min-height:23px;padding:0 8px;border-radius:99px;border:1px solid var(--og-line);background:var(--og-soft);color:var(--og-txt2);font-size:10.5px;cursor:pointer;white-space:nowrap}
+.og-wchip{display:inline-flex;align-items:center;gap:4px;min-height:23px;padding:0 8px;border-radius:99px;border:1px solid var(--og-line);background:var(--og-soft);color:var(--og-txt2);font-size:11.5px;cursor:pointer;white-space:nowrap}
 .og-wchip:hover{border-color:rgba(56,189,248,.4);color:#bae6fd}
 .og-wchip.on{border-color:rgba(56,189,248,.55);background:rgba(56,189,248,.14);color:#e0f2fe}
 .og-editor{display:flex;flex-direction:column;gap:10px}
 .og-editor .title-in{font-size:14.5px;font-weight:700;min-height:38px}
 .og-editor .body-in{min-height:230px;font-size:12.5px;line-height:1.85}
-.og-editor-meta{display:flex;align-items:center;gap:10px;flex-wrap:wrap;font-size:10.5px;color:var(--og-txt3)}
+.og-editor-meta{display:flex;align-items:center;gap:10px;flex-wrap:wrap;font-size:11.5px;color:var(--og-txt3)}
 .og-editor-meta .ok{color:#6ee7b7}.og-editor-meta .warn{color:#fcd34d}
 .og-editor-acts{display:flex;align-items:center;gap:7px;flex-wrap:wrap}
 .og-compliance{border-radius:10px;border:1px solid var(--og-line);padding:10px 12px;background:var(--og-soft);display:none}
 .og-compliance.on{display:block}
 .og-compliance.pass{border-color:rgba(52,211,153,.36);background:rgba(52,211,153,.06)}
 .og-compliance.fail{border-color:rgba(251,113,133,.4);background:rgba(251,113,133,.06)}
-.og-compliance .ch{display:flex;align-items:center;gap:8px;font-size:11.5px;font-weight:700;color:var(--og-txt)}
-.og-compliance .ch .sc{font-size:11px;color:var(--og-txt3);font-weight:400;margin-left:auto}
+.og-compliance .ch{display:flex;align-items:center;gap:8px;font-size:12px;font-weight:700;color:var(--og-txt)}
+.og-compliance .ch .sc{font-size:11.5px;color:var(--og-txt3);font-weight:400;margin-left:auto}
 .og-compliance .cl{display:grid;gap:5px;margin-top:7px}
-.og-compliance .ci{font-size:10.5px;color:var(--og-txt2);line-height:1.55;display:flex;gap:6px}
-.og-compliance .ci .tag{flex:0 0 auto;font-size:9px;padding:0 5px;border-radius:4px;background:rgba(251,113,133,.16);color:#fda4af;height:16px;line-height:16px;margin-top:1px}
+.og-compliance .ci{font-size:11.5px;color:var(--og-txt2);line-height:1.55;display:flex;gap:6px}
+.og-compliance .ci .tag{flex:0 0 auto;font-size:11px;padding:0 5px;border-radius:4px;background:rgba(251,113,133,.16);color:#fda4af;height:16px;line-height:16px;margin-top:1px}
 .og-compliance .ci.ok{color:var(--og-txt3)}
 .og-compliance .ci.ok .tag{background:rgba(52,211,153,.14);color:#6ee7b7}
 .og-nap{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:6px;margin-top:7px}
-.og-nap .n{font-size:10px;padding:5px 7px;border-radius:6px;border:1px dashed var(--og-line);color:var(--og-txt3)}
-.og-nap .n b{display:block;color:var(--og-txt2);font-size:10.5px;margin-bottom:1px}
+.og-nap .n{font-size:11px;padding:5px 7px;border-radius:6px;border:1px dashed var(--og-line);color:var(--og-txt3)}
+.og-nap .n b{display:block;color:var(--og-txt2);font-size:11.5px;margin-bottom:1px}
 .og-nap .n.ok{border-color:rgba(52,211,153,.34)}
 .og-nap .n.bad{border-color:rgba(251,113,133,.4);color:#fda4af}
 .og-hl{background:rgba(251,113,133,.24);color:#fecdd3;border-radius:3px;padding:0 2px;box-shadow:inset 0 -1px 0 #fb7185}
 .og-draft-list{margin-top:14px}
-.og-draft-hl{font-size:10px;color:var(--og-txt3)}
+.og-draft-hl{font-size:11px;color:var(--og-txt3)}
 
 /* ---------- 任务 ---------- */
-.og-sumline{display:flex;align-items:center;gap:14px;flex-wrap:wrap;padding:9px 14px;border-bottom:1px solid var(--og-line);font-size:10.5px;color:var(--og-txt3)}
-.og-sumline b{color:var(--og-txt);font-size:11.5px;font-variant-numeric:tabular-nums}
+.og-sumline{display:flex;align-items:center;gap:14px;flex-wrap:wrap;padding:9px 14px;border-bottom:1px solid var(--og-line);font-size:11.5px;color:var(--og-txt3)}
+.og-sumline b{color:var(--og-txt);font-size:12px;font-variant-numeric:tabular-nums}
 .og-sumline .sep{width:1px;height:12px;background:var(--og-line2)}
 .og-sumline .right{margin-left:auto;display:flex;gap:8px;align-items:center}
 .og-table.tasks{min-width:1020px}
-.og-table.tasks td .tlog{font-size:10px;color:var(--og-txt3)}
+.og-table.tasks td .tlog{font-size:11px;color:var(--og-txt3)}
 .og-taskacts{display:flex;gap:4px;justify-content:flex-end;flex-wrap:wrap}
 
 /* ---------- 链接检测 ---------- */
@@ -463,13 +500,13 @@ html[data-page="ops-geo"] .xl-sb-theme{display:none!important}
 .og-mini{padding:10px 12px;border-radius:10px;border:1px solid var(--og-line);background:var(--og-panel);display:flex;align-items:center;gap:10px;min-width:0}
 .og-mini .ic{flex:0 0 auto;width:30px;height:30px;border-radius:8px;display:grid;place-items:center;font-size:13px;background:rgba(56,189,248,.1);color:#7dd3fc}
 .og-mini .tx{min-width:0}
-.og-mini .tx small{display:block;font-size:10px;color:var(--og-txt3)}
+.og-mini .tx small{display:block;font-size:11px;color:var(--og-txt3)}
 .og-mini .tx b{display:block;font-size:18px;font-weight:800;font-variant-numeric:tabular-nums;letter-spacing:-.02em;line-height:1.2}
 .og-mini.ok .ic{background:rgba(52,211,153,.1);color:#6ee7b7}
 .og-mini.warn .ic{background:rgba(251,191,36,.11);color:#fcd34d}
 .og-mini.bad .ic{background:rgba(251,113,133,.11);color:#fda4af}
 .og-bars{display:grid;gap:8px}
-.og-barrow{font-size:10.5px;color:var(--og-txt3)}
+.og-barrow{font-size:11.5px;color:var(--og-txt3)}
 .og-barrow .bl{display:flex;justify-content:space-between;gap:8px;margin-bottom:3px}
 .og-barrow .bl span{white-space:nowrap;overflow:hidden;text-overflow:ellipsis;min-width:0}
 .og-barrow .bl b{color:var(--og-txt2);font-variant-numeric:tabular-nums;white-space:nowrap}
@@ -477,7 +514,7 @@ html[data-page="ops-geo"] .xl-sb-theme{display:none!important}
 .og-barrow .track i{display:block;height:100%;border-radius:99px;background:linear-gradient(90deg,#38bdf8,#a78bfa)}
 .og-barrow.alt .track i{background:linear-gradient(90deg,#34d399,#38bdf8)}
 .og-table.links{min-width:1060px}
-.og-live{display:inline-flex;align-items:center;gap:4px;font-size:10.5px}
+.og-live{display:inline-flex;align-items:center;gap:4px;font-size:11.5px}
 .og-live .d{width:6px;height:6px;border-radius:50%}
 .og-live.ok{color:#6ee7b7}.og-live.ok .d{background:#34d399;box-shadow:0 0 0 3px rgba(52,211,153,.13)}
 .og-live.bad{color:#fda4af}.og-live.bad .d{background:#fb7185;box-shadow:0 0 0 3px rgba(251,113,133,.13)}
@@ -486,7 +523,7 @@ html[data-page="ops-geo"] .xl-sb-theme{display:none!important}
 /* ---------- AI 收录监测 ---------- */
 .og-monitor-ctrl{display:grid;grid-template-columns:minmax(180px,1fr) minmax(200px,1.5fr) auto;gap:10px;align-items:end}
 .og-platforms{display:flex;flex-wrap:wrap;gap:7px;margin-top:9px}
-.og-platform{display:inline-flex;align-items:center;gap:6px;padding:5px 9px;border-radius:8px;border:1px solid var(--og-line);background:var(--og-soft);font-size:10.5px;color:var(--og-txt2);white-space:nowrap}
+.og-platform{display:inline-flex;align-items:center;gap:6px;padding:5px 9px;border-radius:8px;border:1px solid var(--og-line);background:var(--og-soft);font-size:11.5px;color:var(--og-txt2);white-space:nowrap}
 .og-platform .pd{width:6px;height:6px;border-radius:50%}
 .og-platform.doubao .pd{background:#38bdf8}.og-platform.deepseek .pd{background:#a78bfa}.og-platform.wenxin .pd{background:#60a5fa}
 .og-platform.yuanbao .pd{background:#34d399}.og-platform.qwen .pd{background:#f472b6}
@@ -495,20 +532,20 @@ html[data-page="ops-geo"] .xl-sb-theme{display:none!important}
 .og-mtrend{height:190px;margin-top:6px}
 .og-mtrend svg{width:100%;height:100%;display:block}
 .og-feedback{display:flex;align-items:center;justify-content:space-between;gap:10px;padding:8px 10px;border-radius:8px;border:1px solid var(--og-line);background:var(--og-soft)}
-.og-feedback .w{font-size:11.5px;color:var(--og-txt2);min-width:0;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.og-feedback .w{font-size:12px;color:var(--og-txt2);min-width:0;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
 .og-feedback .w b{color:var(--og-txt);font-weight:700}
-.og-feedback .m{font-size:10px;color:var(--og-txt3);margin-top:2px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.og-feedback .m{font-size:11px;color:var(--og-txt3);margin-top:2px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
 .og-feedback+.og-feedback{margin-top:6px}
 
 /* ---------- 成本核算 ---------- */
 .og-cost-cards{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:10px;margin-bottom:14px}
 .og-table.costs{min-width:1080px}
 .og-alertlist{display:grid;gap:6px}
-.og-alertrow{display:flex;align-items:center;gap:8px;padding:7px 10px;border-radius:8px;border:1px solid var(--og-line);background:var(--og-soft);font-size:11px;color:var(--og-txt2)}
+.og-alertrow{display:flex;align-items:center;gap:8px;padding:7px 10px;border-radius:8px;border:1px solid var(--og-line);background:var(--og-soft);font-size:11.5px;color:var(--og-txt2)}
 .og-alertrow.error{border-color:rgba(251,113,133,.36);background:rgba(251,113,133,.07)}
 .og-alertrow.warn{border-color:rgba(251,191,36,.32);background:rgba(251,191,36,.06)}
 .og-alertrow .lb{flex:1 1 auto;min-width:0}
-.og-alertrow .ok{color:#6ee7b7;font-size:10.5px}
+.og-alertrow .ok{color:#6ee7b7;font-size:11.5px}
 .og-table tr.cost-bad td{background:rgba(251,113,133,.06)}
 .og-table tr.cost-warn td{background:rgba(251,191,36,.045)}
 
@@ -517,30 +554,30 @@ html[data-page="ops-geo"] .xl-sb-theme{display:none!important}
 .og-role{padding:12px;border-radius:10px;border:1px solid var(--og-line);background:var(--og-soft)}
 .og-role-head{display:flex;align-items:flex-start;justify-content:space-between;gap:8px}
 .og-role-head h3{margin:0;font-size:12.5px;display:flex;align-items:center;gap:6px}
-.og-role .rsub{font-size:10px;color:var(--og-txt3);margin-top:3px;line-height:1.5}
+.og-role .rsub{font-size:11px;color:var(--og-txt3);margin-top:3px;line-height:1.5}
 .og-perms{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:5px 8px;margin-top:9px}
-.og-perm{display:flex;align-items:center;gap:6px;font-size:10.5px;color:var(--og-txt2);line-height:1.4}
+.og-perm{display:flex;align-items:center;gap:6px;font-size:11.5px;color:var(--og-txt2);line-height:1.4}
 .og-perm input{width:13px;height:13px;accent-color:#38bdf8;cursor:pointer;flex:0 0 auto}
 .og-role .og-btn{margin-top:10px}
 .og-table.logs{min-width:860px}
 .og-table.roles{min-width:500px}
 .og-keyrows{display:grid;gap:7px;margin-top:2px}
 .og-keyrow{display:grid;grid-template-columns:minmax(110px,1fr) minmax(0,2.1fr) auto;gap:8px;align-items:center;padding:8px 10px;border-radius:8px;border:1px solid var(--og-line);background:var(--og-soft)}
-.og-keyrow .kn{font-size:11.5px;font-weight:700;color:var(--og-txt);display:flex;align-items:center;gap:6px;min-width:0}
-.og-keyrow .kn small{display:block;font-size:9.5px;color:var(--og-txt3);font-weight:400}
-.og-keyrow .og-input{min-height:28px;font-size:11px}
+.og-keyrow .kn{font-size:12px;font-weight:700;color:var(--og-txt);display:flex;align-items:center;gap:6px;min-width:0}
+.og-keyrow .kn small{display:block;font-size:11px;color:var(--og-txt3);font-weight:400}
+.og-keyrow .og-input{min-height:28px;font-size:11.5px}
 
 /* ---------- 可折叠小节 ---------- */
 .og-fold{border:1px solid var(--og-line);border-radius:10px;background:var(--og-soft);overflow:hidden}
-.og-fold-h{display:flex;align-items:center;justify-content:space-between;gap:10px;padding:9px 11px;cursor:pointer;font-size:11.5px;font-weight:700;color:var(--og-txt2);user-select:none}
+.og-fold-h{display:flex;align-items:center;justify-content:space-between;gap:10px;padding:9px 11px;cursor:pointer;font-size:12px;font-weight:700;color:var(--og-txt2);user-select:none}
 .og-fold-h:hover{color:var(--og-txt)}
-.og-fold-h .ar{transition:transform .18s;color:var(--og-txt3);font-size:10px}
+.og-fold-h .ar{transition:transform .18s;color:var(--og-txt3);font-size:11px}
 .og-fold.on .og-fold-h .ar{transform:rotate(90deg)}
 .og-fold-b{display:none;padding:0 11px 11px}
 .og-fold.on .og-fold-b{display:block}
 
 /* ---------- 快速信息块 ---------- */
-.og-info{display:flex;align-items:flex-start;gap:8px;padding:9px 11px;border-radius:9px;border:1px dashed var(--og-line2);background:rgba(56,189,248,.045);font-size:10.5px;color:var(--og-txt3);line-height:1.65}
+.og-info{display:flex;align-items:flex-start;gap:8px;padding:9px 11px;border-radius:9px;border:1px dashed var(--og-line2);background:rgba(56,189,248,.045);font-size:11.5px;color:var(--og-txt3);line-height:1.65}
 .og-info b{color:var(--og-txt2)}
 .og-info.warn{border-color:rgba(251,191,36,.34);background:rgba(251,191,36,.05)}
 .og-info .mini{flex:0 0 auto;font-size:12px;line-height:1.5}
@@ -570,7 +607,7 @@ html[data-page="ops-geo"] .xl-sb-theme{display:none!important}
   .og-head h1{font-size:19px}
   .og-body{padding:13px 14px 44px}
   .og-head-r{gap:6px}
-  .og-mode{min-height:26px;font-size:10.5px;padding:0 8px}
+  .og-mode{min-height:26px;font-size:11.5px;padding:0 8px}
 }
 @media (max-width:860px){
   .og-grid.g21,.og-grid.g12,.og-grid.g-ws{grid-template-columns:minmax(0,1fr)}
@@ -589,7 +626,7 @@ html[data-page="ops-geo"] .xl-sb-theme{display:none!important}
 @media (max-width:640px){
   .og-stats{grid-template-columns:repeat(2,minmax(0,1fr));gap:8px}
   .og-stat{padding:10px 11px 9px}
-  .og-stat .s-lb{font-size:10px}
+  .og-stat .s-lb{font-size:11px}
   .og-stat .s-v{font-size:20px}
   .og-cost-cards{grid-template-columns:minmax(0,1fr)}
   .og-mini-stats{gap:8px}
@@ -604,19 +641,19 @@ html[data-page="ops-geo"] .xl-sb-theme{display:none!important}
   .og-btn.sm{min-height:31px}
   .og-btn.xs{min-height:28px}
   .og-head h1{font-size:18px}
-  .og-head .og-sub{font-size:11px}
+  .og-head .og-sub{font-size:11.5px}
   .og-drawer{width:100vw;border-left:0}
   .og-drawer-b{padding:13px 14px}
   .og-drawer-h{padding:13px 14px 11px}
   .og-drawer-f{padding:10px 14px}
   .og-menu{padding:0 8px}
-  .og-menu-item{font-size:11.5px;padding:0 8px;gap:6px}
+  .og-menu-item{font-size:12px;padding:0 8px;gap:6px}
   .og-menu-item .mi svg{width:15px;height:15px}
   .og-body{padding:11px 11px 40px}
   .og-dist{gap:10px}
   .og-donut,.og-donut svg{width:126px;height:126px}
   .og-chart{height:210px}
-  .og-crumb{font-size:10px}
+  .og-crumb{font-size:11px}
   .og-pager{padding:9px 11px}
   .og-table th,.og-table td{padding:7px 8px}
   .og-nap{grid-template-columns:minmax(0,1fr)}
@@ -639,6 +676,39 @@ html[data-page="ops-geo"] .xl-sb-theme{display:none!important}
 @media print{
   html[data-page="ops-geo"] body{background:#fff;color:#111}
   .og-menu,.og-head-r,.xl-sb,.xl-topbar{display:none!important}
+}
+
+/* ==========================================================================
+   UX-12 / UX-14 / UX-21 修复
+   1) 运营后台固定深色：隐藏全站主题切换按钮，杜绝「侧栏浅、主区深」的混合态
+   2) 390 宽二级导航改为换行展示，不再依赖 905px 横向滚动
+   3) 提升最小字号（≥11px）与辅助文字对比度（≥4.5:1）
+   ========================================================================== */
+html[data-page="ops-geo"] .xl-sb-theme,
+html[data-page="ops-geo"] [data-theme-wrap],
+html[data-page="ops-geo"] .xl-theme-btn{display:none!important}
+
+/* 兜底：<small> 浏览器默认约缩到父级 83%，这里统一给到 11px（含站点壳侧栏） */
+html[data-page="ops-geo"] small{font-size:11px}
+html[data-page="ops-geo"] #xlSidebar small{font-size:11px}
+html[data-page="ops-geo"] .xl-sb-group{font-size:11px}
+html[data-page="ops-geo"] #xlSidebar .xl-sb-group{font-size:11px}
+html[data-page="ops-geo"] .xl-sb-brandtext small{font-size:11px}
+html[data-page="ops-geo"] .xl-sb-collapse kbd{font-size:11px;min-width:16px}
+
+/* 390：二级导航换行，所有入口一眼可见 */
+@media (max-width:1099px){
+  html[data-page="ops-geo"] .og-menu{overflow:visible;height:auto;align-items:center}
+  html[data-page="ops-geo"] .og-menu nav{flex:1 1 100%;width:100%;min-width:0;flex-wrap:wrap;height:auto;min-height:46px;
+    padding:4px 0;row-gap:2px;column-gap:2px;justify-content:flex-start;align-items:center}
+  html[data-page="ops-geo"] .og-menu-item{flex:0 0 auto;min-height:32px;padding:0 9px;font-size:12px;gap:6px}
+  html[data-page="ops-geo"] .og-menu-item .mi svg{width:15px;height:15px}
+}
+@media (max-width:640px){
+  html[data-page="ops-geo"] .og-menu{padding:2px 8px 5px}
+  html[data-page="ops-geo"] .og-menu nav{padding:3px 0}
+  html[data-page="ops-geo"] .og-menu-item{font-size:11.5px;padding:0 8px;gap:5px;min-height:30px}
+  html[data-page="ops-geo"] .og-menu-item .mi svg{width:14px;height:14px}
 }
 </style>
 </head>
@@ -1483,7 +1553,7 @@ html[data-page="ops-geo"] .xl-sb-theme{display:none!important}
     for (var g = 0; g <= 3; g++) {
       var gy = padT + ih / 3 * g;
       s.push('<line x1="' + padL + '" y1="' + gy.toFixed(1) + '" x2="' + (W - padR) + '" y2="' + gy.toFixed(1) + '" stroke="rgba(148,163,184,.13)"></line>');
-      s.push('<text x="' + (padL - 5) + '" y="' + (gy + 3).toFixed(1) + '" text-anchor="end" fill="#5c7089" font-size="9">' + Math.round(max - (max - min) / 3 * g) + '%</text>');
+      s.push('<text x="' + (padL - 5) + '" y="' + (gy + 3).toFixed(1) + '" text-anchor="end" fill="#8598b3" font-size="11">' + Math.round(max - (max - min) / 3 * g) + '%</text>');
     }
     var d = points.map(function (p, i) { return (i ? 'L' : 'M') + X(i).toFixed(1) + ' ' + Y(p.value).toFixed(1); }).join(' ');
     s.push('<path d="' + d + ' L' + X(points.length - 1).toFixed(1) + ' ' + (padT + ih) + ' L' + X(0).toFixed(1) + ' ' + (padT + ih) + ' Z" fill="rgba(52,211,153,.13)"></path>');
@@ -1491,7 +1561,7 @@ html[data-page="ops-geo"] .xl-sb-theme{display:none!important}
     points.forEach(function (p, i) {
       s.push('<circle cx="' + X(i).toFixed(1) + '" cy="' + Y(p.value).toFixed(1) + '" r="2.4" fill="#34d399" stroke="#071019" stroke-width="1.2"></circle>');
       if (i % Math.ceil(points.length / 5) === 0 || i === points.length - 1) {
-        s.push('<text x="' + X(i).toFixed(1) + '" y="' + (H - 5) + '" text-anchor="middle" fill="#5c7089" font-size="9">' + esc(p.label) + '</text>');
+        s.push('<text x="' + X(i).toFixed(1) + '" y="' + (H - 5) + '" text-anchor="middle" fill="#8598b3" font-size="11">' + esc(p.label) + '</text>');
       }
     });
     s.push('</svg>');
@@ -3062,10 +3132,10 @@ html[data-page="ops-geo"] .xl-sb-theme{display:none!important}
           '<td><div class="mname">' + esc(m.name) + '</div><div class="msub">' + esc(m.workspace || '—') + ' · ' + esc([m.city, m.industry].filter(Boolean).join(' / ') || '—') + '</div></td>' +
           '<td>' + planTag(m.plan) + '<div class="msub">' + esc(m.plan) + '</div></td>' +
           '<td>' + quotaCell(m.used, m.quota) + '</td>' +
-          '<td class="og-mono" style="font-size:10.5px">' + esc(fmtDate(m.expire)) + '<div class="msub">' + (expDays == null ? '' : expDays < 0 ? '已过期 ' + Math.abs(expDays) + ' 天' : '剩 ' + expDays + ' 天') + '</div></td>' +
+          '<td class="og-mono" style="font-size:11.5px">' + esc(fmtDate(m.expire)) + '<div class="msub">' + (expDays == null ? '' : expDays < 0 ? '已过期 ' + Math.abs(expDays) + ' 天' : '剩 ' + expDays + ' 天') + '</div></td>' +
           '<td><span class="og-badge ' + st.tone + '">' + esc(st.label) + '</span></td>' +
           '<td>' + esc(ownerText(m.owner)) + '</td>' +
-          '<td style="font-size:10.5px">' + fmtNum(m.wordsTotal || m.used) + ' / ' + fmtNum(m.tasksPending || m.tasks) + ' / ' + fmtNum(m.validLinks || m.links) + '<div class="msub">已收录 ' + fmtNum(m.indexed) + ' · 失效 ' + fmtNum(m.deadLinks) + '</div></td>' +
+          '<td style="font-size:11.5px">' + fmtNum(m.wordsTotal || m.used) + ' / ' + fmtNum(m.tasksPending || m.tasks) + ' / ' + fmtNum(m.validLinks || m.links) + '<div class="msub">已收录 ' + fmtNum(m.indexed) + ' · 失效 ' + fmtNum(m.deadLinks) + '</div></td>' +
           '<td class="actions"><div class="og-rowacts">' +
             '<button class="og-btn xs" type="button" data-mdetail="' + attr(m.id) + '">详情</button>' +
             '<button class="og-btn xs" type="button" data-mplan="' + attr(m.id) + '">调套餐</button>' +
@@ -3142,16 +3212,16 @@ html[data-page="ops-geo"] .xl-sb-theme{display:none!important}
     var monitors = (detail && Array.isArray(detail.monitors) ? detail.monitors.map(normMonitor) : state.data.monitors.filter(function (x) { return x.merchantId === m.id; }));
     var st = merchantStatusInfo(m);
     var draftsHtml = drafts.slice(0, 8).map(function (d) {
-      return '<tr><td class="strong">' + esc(d.title || '（未命名稿件）') + '<div class="msub">' + esc((d.words || []).join('、')) + '</div></td><td>' + statusBadge(DRAFT_STATUS, d.status) + '</td><td>' + esc(d.channel || '—') + '</td><td class="og-mono" style="font-size:10px">' + esc(fmtDT(d.createdAt)) + '</td></tr>';
+      return '<tr><td class="strong">' + esc(d.title || '（未命名稿件）') + '<div class="msub">' + esc((d.words || []).join('、')) + '</div></td><td>' + statusBadge(DRAFT_STATUS, d.status) + '</td><td>' + esc(d.channel || '—') + '</td><td class="og-mono" style="font-size:11px">' + esc(fmtDT(d.createdAt)) + '</td></tr>';
     }).join('');
     var tasksHtml = tasks.slice(0, 10).map(function (t) {
-      return '<tr><td class="og-mono" style="font-size:10px">' + esc(t.id) + '</td><td>' + esc(t.word || '—') + '</td><td>' + esc(t.channel || '—') + '</td><td>' + statusBadge(TASK_STATUS, t.status) + '</td><td class="num">' + fmtYuan(t.cost) + '</td></tr>';
+      return '<tr><td class="og-mono" style="font-size:11px">' + esc(t.id) + '</td><td>' + esc(t.word || '—') + '</td><td>' + esc(t.channel || '—') + '</td><td>' + statusBadge(TASK_STATUS, t.status) + '</td><td class="num">' + fmtYuan(t.cost) + '</td></tr>';
     }).join('');
     var linksHtml = links.slice(0, 10).map(function (l) {
       return '<tr class="' + (l.alive ? '' : 'is-dead') + '"><td><span class="u" title="' + attr(l.url) + '">' + esc(l.url) + '</span></td><td>' + esc(l.channel || '—') + '</td><td>' + (l.alive ? '<span class="og-live ok"><i class="d"></i>存活</span>' : '<span class="og-live bad"><i class="d"></i>失效</span>') + '</td><td>' + (l.indexed ? badge('已收录', 'lime') : badge('未收录', 'gray')) + '</td></tr>';
     }).join('');
     var monHtml = monitors.slice(0, 10).map(function (x) {
-      return '<tr><td>' + esc(x.word) + '</td><td>' + esc(x.platformLabel) + '</td><td>' + (x.hit ? badge('命中', 'lime') : badge('未命中', 'gray')) + '</td><td class="num">' + (x.rank ? x.rank : '—') + '</td><td class="og-mono" style="font-size:10px">' + esc(fmtDT(x.testedAt)) + '</td></tr>';
+      return '<tr><td>' + esc(x.word) + '</td><td>' + esc(x.platformLabel) + '</td><td>' + (x.hit ? badge('命中', 'lime') : badge('未命中', 'gray')) + '</td><td class="num">' + (x.rank ? x.rank : '—') + '</td><td class="og-mono" style="font-size:11px">' + esc(fmtDT(x.testedAt)) + '</td></tr>';
     }).join('');
     return '' +
       '<div class="og-grid g2" style="gap:10px">' +
@@ -3450,7 +3520,7 @@ html[data-page="ops-geo"] .xl-sb-theme{display:none!important}
           '<td>' + tierBadge(c.tier) + '</td>' +
           '<td>' + esc(c.typeLabel || c.type || '—') + '</td>' +
           '<td><span class="u" title="' + attr(c.url) + '">' + esc(c.url || '—') + '</span></td>' +
-          '<td style="font-size:10.5px">' + esc((c.contentTypeLabels || c.contentTypes || []).join(' / ') || '—') + '</td>' +
+          '<td style="font-size:11.5px">' + esc((c.contentTypeLabels || c.contentTypes || []).join(' / ') || '—') + '</td>' +
           '<td class="num">' + (c.weight ? c.weight : '—') + '</td>' +
           '<td class="num">' + fmtYuan(c.price) + '</td>' +
           '<td class="num">' + fmtNum(c.minQty) + '</td>' +
@@ -3977,7 +4047,7 @@ html[data-page="ops-geo"] .xl-sb-theme{display:none!important}
     if (!opts.length) { host.innerHTML = '<span class="og-tiny">暂无行业词模板，请先在左侧新增模板；或选择商家后加载其目标词</span>'; return; }
     host.innerHTML = opts.map(function (o) {
       var tone = o.status && WORD_STATUS[o.status] ? WORD_STATUS[o.status].tone : '';
-      return '<span class="og-wchip' + (sel.indexOf(o.word) >= 0 ? ' on' : '') + '" data-word="' + attr(o.word) + '" role="button" tabindex="0" title="' + attr((o.statusLabel || '') + (o.id ? ' · #' + o.id : '')) + '">' + esc(o.word) + (tone ? ' <i style="opacity:.7;font-style:normal;font-size:8px">' + esc(o.statusLabel || '') + '</i>' : '') + '</span>';
+      return '<span class="og-wchip' + (sel.indexOf(o.word) >= 0 ? ' on' : '') + '" data-word="' + attr(o.word) + '" role="button" tabindex="0" title="' + attr((o.statusLabel || '') + (o.id ? ' · #' + o.id : '')) + '">' + esc(o.word) + (tone ? ' <i style="opacity:.7;font-style:normal;font-size:11px">' + esc(o.statusLabel || '') + '</i>' : '') + '</span>';
     }).join('');
   }
 
@@ -4312,13 +4382,13 @@ html[data-page="ops-geo"] .xl-sb-theme{display:none!important}
         var compTxt = comp ? (comp.passed ? '通过 · ' + (comp.score != null ? comp.score : '') : '未通过 · ' + (comp.score != null ? comp.score : '')) : '未检测';
         var compTone = comp ? (comp.passed ? 'lime' : 'red') : 'gray';
         return '<tr data-did="' + attr(d.id) + '">' +
-          '<td><div class="mname" style="font-size:11.5px">' + esc(d.title || '（未命名稿件）') + '</div><div class="msub">' + esc((d.words || []).join('、') || '—') + '</div></td>' +
+          '<td><div class="mname" style="font-size:12px">' + esc(d.title || '（未命名稿件）') + '</div><div class="msub">' + esc((d.words || []).join('、') || '—') + '</div></td>' +
           '<td>' + esc(d.merchant || merchantName(d.merchantId)) + '</td>' +
           '<td>' + esc(d.channel || channelName(d.channelId)) + '<div class="msub">' + esc(d.tier || '') + '</div></td>' +
-          '<td style="font-size:10.5px">' + esc(d.typeLabel || DRAFT_TYPES[d.type] || d.type || '—') + '</td>' +
+          '<td style="font-size:11.5px">' + esc(d.typeLabel || DRAFT_TYPES[d.type] || d.type || '—') + '</td>' +
           '<td>' + statusBadge(DRAFT_STATUS, d.status, d.statusLabel) + '</td>' +
           '<td><span class="og-badge ' + compTone + '">' + esc(compTxt) + '</span></td>' +
-          '<td class="og-mono" style="font-size:10px">' + esc(fmtDT(d.createdAt)) + '</td>' +
+          '<td class="og-mono" style="font-size:11px">' + esc(fmtDT(d.createdAt)) + '</td>' +
           '<td class="actions"><div class="og-rowacts">' +
             '<button class="og-btn xs" type="button" data-dopen="' + attr(d.id) + '">打开</button>' +
             (d.status === 'draft' ? '<button class="og-btn xs" type="button" data-dsubmit="' + attr(d.id) + '">送审</button>' : '') +
@@ -4577,14 +4647,14 @@ html[data-page="ops-geo"] .xl-sb-theme{display:none!important}
         var expand = state.expandedTask === t.id;
         var row = '<tr data-tid="' + attr(t.id) + '" class="' + (checked ? 'is-selected' : '') + '">' +
           '<td><input class="og-check" type="checkbox" data-tcheck="' + attr(t.id) + '"' + (checked ? ' checked' : '') + ' aria-label="选择任务"></td>' +
-          '<td><div class="mname" style="font-size:11.5px">' + esc(t.merchant || merchantName(t.merchantId)) + '</div><div class="msub">' + esc(t.id) + ' · ' + esc(t.planTier || '') + '</div></td>' +
+          '<td><div class="mname" style="font-size:12px">' + esc(t.merchant || merchantName(t.merchantId)) + '</div><div class="msub">' + esc(t.id) + ' · ' + esc(t.planTier || '') + '</div></td>' +
           '<td>' + esc(t.word || t.draftTitle || '—') + (t.draftTitle && t.word ? '<div class="msub">' + esc(t.draftTitle) + '</div>' : '') + '</td>' +
           '<td>' + esc(t.channel || channelName(t.channelId)) + '<div class="msub">' + esc(t.tier || '') + '</div></td>' +
           '<td>' + statusBadge(TASK_STATUS, t.status, t.statusLabel) + (t.attempts > 1 ? '<div class="msub">提交 ' + t.attempts + ' 次</div>' : '') + '</td>' +
           '<td class="num">' + fmtYuan(t.cost) + '</td>' +
           '<td class="num">' + fmtYuan(t.price) + '</td>' +
           '<td class="num" style="color:' + (gross < 0 ? '#fda4af' : '#6ee7b7') + '">' + fmtYuan(gross) + '</td>' +
-          '<td class="og-mono" style="font-size:10px">' + esc(timeTxt) + '</td>' +
+          '<td class="og-mono" style="font-size:11px">' + esc(timeTxt) + '</td>' +
           '<td class="actions"><div class="og-taskacts">' + acts + '</div></td></tr>';
         if (expand) {
           row += '<tr class="expandrow"><td colspan="10"><div class="expandbox"><div class="expandgrid">' +
@@ -4900,7 +4970,7 @@ html[data-page="ops-geo"] .xl-sb-theme{display:none!important}
       size: 'wide',
       body: (drafts.length ? '<div class="og-table-wrap"><table class="og-table" style="min-width:620px"><thead><tr><th style="width:34px"><input class="og-check" type="checkbox" id="fdAll"></th><th>稿件</th><th>商家</th><th>渠道</th><th>状态</th><th class="num">售价</th></tr></thead><tbody>' + drafts.map(function (d) {
         return '<tr><td><input class="og-check" type="checkbox" data-fd="' + attr(d.id) + '"' + (d.status === 'confirmed' ? ' checked' : '') + '></td>' +
-          '<td><div class="mname" style="font-size:11.5px">' + esc(d.title || '（未命名）') + '</div><div class="msub">' + esc((d.words || []).join('、')) + '</div></td>' +
+          '<td><div class="mname" style="font-size:12px">' + esc(d.title || '（未命名）') + '</div><div class="msub">' + esc((d.words || []).join('、')) + '</div></td>' +
           '<td>' + esc(d.merchant || merchantName(d.merchantId)) + '</td><td>' + esc(d.channel || channelName(d.channelId)) + '</td>' +
           '<td>' + statusBadge(DRAFT_STATUS, d.status) + '</td><td class="num">' + fmtYuan(d.price) + '</td></tr>';
       }).join('') + '</tbody></table></div>' : '<div class="og-emptystate"><div class="big">📝</div>没有可用的已确认稿件<br><span class="og-tiny">先到「词库与稿件」把稿件确认，再来这里批量建任务</span></div>') +
@@ -5066,7 +5136,7 @@ html[data-page="ops-geo"] .xl-sb-theme{display:none!important}
           '<td>' + esc(l.merchant || merchantName(l.merchantId)) + '</td>' +
           '<td>' + esc(l.channel || channelName(l.channelId)) + '</td>' +
           '<td>' + aliveTxt + '</td><td>' + crawlTxt + '</td><td>' + idxTxt + '</td>' +
-          '<td class="og-mono" style="font-size:10px">' + esc(fmtDT(l.lastChecked)) + '</td>' +
+          '<td class="og-mono" style="font-size:11px">' + esc(fmtDT(l.lastChecked)) + '</td>' +
           '<td class="actions"><div class="og-rowacts">' +
             '<a class="og-btn xs ghost" href="' + attr(l.url) + '" target="_blank" rel="noopener nofollow">打开</a>' +
             (l.alive ? '<button class="og-btn xs" type="button" data-lcheck="' + attr(l.id) + '">巡检</button>' : '<button class="og-btn xs primary" type="button" data-lsupp="' + attr(l.id) + '">生成补发</button>') +
@@ -5373,7 +5443,7 @@ html[data-page="ops-geo"] .xl-sb-theme{display:none!important}
         return '<tr><td>' + esc(m.platformLabel) + '</td><td>' + esc(m.word) + '</td><td>' + esc(m.merchant || merchantName(m.merchantId)) + '</td>' +
           '<td>' + (m.hit ? badge('命中', 'lime') : badge('未命中', 'gray')) + '</td>' +
           '<td class="num">' + (m.rank ? '#' + m.rank : '—') + '</td>' +
-          '<td class="og-mono" style="font-size:10px">' + esc(fmtDT(m.testedAt)) + '</td></tr>';
+          '<td class="og-mono" style="font-size:11px">' + esc(fmtDT(m.testedAt)) + '</td></tr>';
       }).join('');
     }
     $('#mnPager').textContent = '已加载 ' + fmtNum(rows.length) + ' / 共 ' + fmtNum(sum.tests || rows.length) + ' 条 · 第 ' + page + ' / ' + Math.max(1, Math.ceil(rows.length / size)) + ' 页';
@@ -5635,7 +5705,7 @@ html[data-page="ops-geo"] .xl-sb-theme{display:none!important}
     for (var g = 0; g <= 4; g++) {
       var gy = padT + ih / 4 * g, gv = max - max / 4 * g;
       svg.push('<line x1="' + padL + '" y1="' + gy + '" x2="' + (W - padR) + '" y2="' + gy + '" stroke="rgba(148,163,184,.12)"></line>');
-      svg.push('<text x="' + (padL - 6) + '" y="' + (gy + 3) + '" text-anchor="end" fill="#5c7089" font-size="9">' + (gv >= 10000 ? (gv / 10000) + '万' : gv) + '</text>');
+      svg.push('<text x="' + (padL - 6) + '" y="' + (gy + 3) + '" text-anchor="end" fill="#8598b3" font-size="11">' + (gv >= 10000 ? (gv / 10000) + '万' : gv) + '</text>');
     }
     var colors = { revenue: '#38bdf8', cost: '#fb7185', gross: '#34d399' };
     var labels = { revenue: '收入', cost: '成本', gross: '毛利' };
@@ -5648,7 +5718,7 @@ html[data-page="ops-geo"] .xl-sb-theme{display:none!important}
         var x = cx - barW * 1.6 + bi * (barW + 4);
         svg.push('<rect x="' + x.toFixed(1) + '" y="' + (padT + ih - h).toFixed(1) + '" width="' + barW.toFixed(1) + '" height="' + h.toFixed(1) + '" rx="3" fill="' + colors[k] + '" opacity=".88"></rect>');
       });
-      svg.push('<text x="' + cx.toFixed(1) + '" y="' + (H - 8) + '" text-anchor="middle" fill="#5c7089" font-size="9.5">' + esc(m.month || '') + '</text>');
+      svg.push('<text x="' + cx.toFixed(1) + '" y="' + (H - 8) + '" text-anchor="middle" fill="#8598b3" font-size="11">' + esc(m.month || '') + '</text>');
     });
     svg.push('</svg><div class="og-legend" style="justify-content:center;margin-top:8px"><span class="k"><i style="background:#38bdf8"></i>收入</span><span class="k alt"><i style="background:#fb7185"></i>成本</span><span class="k"><i style="background:#34d399"></i>毛利</span></div>');
     el.innerHTML = svg.join('');
@@ -5672,7 +5742,7 @@ html[data-page="ops-geo"] .xl-sb-theme{display:none!important}
         return '<span class="og-badge ' + (a.level === 'error' ? 'red' : 'amber') + '" style="margin-right:4px">' + esc(a.message) + '</span>';
       }).join('') : (bad ? '<span class="og-badge red">毛利为负 / 配额超限</span>' : '<span class="og-badge lime">正常</span>');
       return '<tr class="' + (bad ? 'cost-bad' : warn ? 'cost-warn' : '') + '" data-cmid="' + attr(m.merchantId) + '">' +
-        '<td><div class="mname" style="font-size:11.5px">' + esc(m.name) + '</div><div class="msub">' + esc(m.merchantId) + '</div></td>' +
+        '<td><div class="mname" style="font-size:12px">' + esc(m.name) + '</div><div class="msub">' + esc(m.merchantId) + '</div></td>' +
         '<td>' + planTag(m.plan) + '</td>' +
         '<td>' + quotaCell(m.quotaUsed, m.quotaLimit) + '</td>' +
         '<td class="num">' + fmtYuan(m.revenue) + '</td>' +
@@ -5697,7 +5767,7 @@ html[data-page="ops-geo"] .xl-sb-theme{display:none!important}
             '<div class="og-mini ' + (m.gross < 0 ? 'bad' : 'ok') + '"><div class="ic">📈</div><div class="tx"><small>毛利</small><b>' + fmtYuan(m.gross) + '</b></div></div></div>' +
             '<div class="og-table-wrap"><table class="og-table" style="min-width:560px"><thead><tr><th>任务</th><th>关键词</th><th>渠道</th><th class="num">成本</th><th class="num">收入</th><th class="num">毛利</th></tr></thead><tbody>' +
             (tasks.length ? tasks.slice(0, 20).map(function (t) {
-              return '<tr><td class="og-mono" style="font-size:10px">' + esc(t.id) + '</td><td>' + esc(t.word) + '</td><td>' + esc(t.channel) + '</td><td class="num">' + fmtYuan(t.cost) + '</td><td class="num">' + fmtYuan(t.price) + '</td><td class="num">' + fmtYuan(t.price - t.cost) + '</td></tr>';
+              return '<tr><td class="og-mono" style="font-size:11px">' + esc(t.id) + '</td><td>' + esc(t.word) + '</td><td>' + esc(t.channel) + '</td><td class="num">' + fmtYuan(t.cost) + '</td><td class="num">' + fmtYuan(t.price) + '</td><td class="num">' + fmtYuan(t.price - t.cost) + '</td></tr>';
             }).join('') : emptyRow(6, '暂无发布任务')) + '</tbody></table></div>' +
             '<div class="og-info" style="margin-top:10px"><span class="mini">🧮</span><div>口径：毛利 = 平台价（price_cents）汇总 − 渠道单价（cost_cents）汇总；配额与收入按自然月。</div></div>'
         });
@@ -5711,7 +5781,7 @@ html[data-page="ops-geo"] .xl-sb-theme{display:none!important}
     if (!list.length) { body.innerHTML = emptyRow(6, '暂无渠道核算数据'); return; }
     body.innerHTML = list.map(function (c) {
       var rate = c.revenue ? c.gross / c.revenue : 0;
-      return '<tr><td><div class="mname" style="font-size:11.5px">' + esc(c.name) + '</div></td><td>' + tierBadge(c.tier) + '</td>' +
+      return '<tr><td><div class="mname" style="font-size:12px">' + esc(c.name) + '</div></td><td>' + tierBadge(c.tier) + '</td>' +
         '<td class="num">' + fmtNum(c.tasks) + '</td><td class="num">' + fmtYuan(c.cost) + '</td><td class="num">' + fmtYuan(c.revenue) + '</td>' +
         '<td class="num" style="color:' + (c.gross < 0 ? '#fda4af' : '#6ee7b7') + '">' + fmtYuan(c.gross) + '<div class="msub">' + fmtPct(rate * 100) + '</div></td></tr>';
     }).join('');
@@ -5839,9 +5909,9 @@ html[data-page="ops-geo"] .xl-sb-theme{display:none!important}
     body.innerHTML = list.map(function (u) {
       var rl = u.role_label || (ROLE_PRESET[u.role] ? ROLE_PRESET[u.role].label : u.role);
       var tone = ROLE_PRESET[u.role] ? ROLE_PRESET[u.role].tone : 'gray';
-      return '<tr><td><div class="mname" style="font-size:11.5px">' + esc(u.username) + '</div><div class="msub">' + esc(u.id) + '</div></td>' +
+      return '<tr><td><div class="mname" style="font-size:12px">' + esc(u.username) + '</div><div class="msub">' + esc(u.id) + '</div></td>' +
         '<td><span class="og-badge ' + tone + '">' + esc(rl) + '</span></td>' +
-        '<td class="og-mono" style="font-size:10.5px">' + esc(fmtDTFull(u.created_at || u.createdAt || '—')) + '</td>' +
+        '<td class="og-mono" style="font-size:11.5px">' + esc(fmtDTFull(u.created_at || u.createdAt || '—')) + '</td>' +
         '<td class="actions"><button class="og-btn xs ghost" type="button" data-roleedit="' + attr(u.id) + '">调整角色</button></td></tr>';
     }).join('');
     $$('#sysRoleBody [data-roleedit]').forEach(function (b) {
@@ -5899,10 +5969,10 @@ html[data-page="ops-geo"] .xl-sb-theme{display:none!important}
     if (!slice.length) { body.innerHTML = emptyRow(5, '暂无操作日志'); }
     else {
       body.innerHTML = slice.map(function (l) {
-        return '<tr><td class="og-mono" style="font-size:10px">' + esc(fmtDTFull(l.created_at || l.createdAt)) + '</td>' +
+        return '<tr><td class="og-mono" style="font-size:11px">' + esc(fmtDTFull(l.created_at || l.createdAt)) + '</td>' +
           '<td>' + esc(l.actor || '—') + '</td><td class="strong">' + esc(actLabel(l.action)) + '<div class="msub">' + esc(l.action || '') + '</div></td>' +
           '<td><span class="u" style="max-width:200px" title="' + attr(l.target) + '">' + esc(l.target || '—') + '</span></td>' +
-          '<td style="font-size:10.5px">' + esc(detailToText(l.detail)) + '</td></tr>';
+          '<td style="font-size:11.5px">' + esc(detailToText(l.detail)) + '</td></tr>';
       }).join('');
     }
     $('#sysLogPager').textContent = pagerText(list.length, page, size, '条');

@@ -28,4 +28,4 @@ Disallow: /
 User-agent: PerplexityBot
 Disallow: /
 
-Sitemap: https://a678-beep.github.io/ai-nav/sitemap.xml
+Sitemap: https://xinglaiai.com/ai-nav/sitemap.xml
