@@ -1,0 +1,3426 @@
+<!doctype html>
+<html lang="zh-CN" data-page="autoedit-expert">
+<head>
+<meta charset="utf-8">
+<!--xl-theme-start-->
+<script>(function(){try{var k="xl_theme",v=localStorage.getItem(k),m=(v==="dark"||v==="light"||v==="auto")?v:"auto",q=window.matchMedia?window.matchMedia("(prefers-color-scheme: light)"):null,t=(m==="auto")?((q&&q.matches)?"light":"dark"):m,d=document.documentElement;d.setAttribute("data-theme",t);d.setAttribute("data-theme-mode",m);d.style.colorScheme=t}catch(e){document.documentElement.setAttribute("data-theme","dark")}})();</script>
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>AI 全自动剪辑工作台 · 专家端 · 星籁 AI</title>
+<meta name="description" content="AI 全自动剪辑工作台专家端：四轨时间轴、拖拽裁剪吸附、属性面板、关键帧动画、自然语言改工程，纯前端可运行的专业多轨剪辑界面。">
+<meta name="keywords" content="AI剪辑,自动剪辑,多轨编辑,时间轴,关键帧,视频工作台,星籁AI">
+<meta name="author" content="星籁 Stellara">
+<meta name="robots" content="noindex,follow">
+<link rel="canonical" href="https://xinglaiai.com/ai-nav/autoedit/expert.html">
+<meta property="og:type" content="website">
+<meta property="og:title" content="AI 全自动剪辑工作台 · 专家端">
+<meta property="og:description" content="四轨时间轴 · 关键帧动画 · 自然语言改工程，纯前端专业多轨剪辑工作台。">
+<meta property="og:locale" content="zh_CN">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>✦</text></svg>">
+<link rel="stylesheet" href="../assets/theme-light.css">
+<link rel="stylesheet" href="../assets/site-shell.css">
+<style>
+/* ============================================================
+   AI 全自动剪辑工作台 · 专家端（纯前端可演示）
+   四轨时间轴 / 拖拽裁剪吸附 / 属性面板 / 关键帧 / 自然语言
+   ============================================================ */
+html[data-page="autoedit-expert"]{background:#070a10}
+html[data-page="autoedit-expert"] body{margin:0;padding:0;background:#070a10}
+:root{
+  --ae-labelw:148px; --ae-tl-h:302px;
+}
+.ae-app{
+  --ae-bg:#070a10; --ae-bg2:#0a0f18;
+  --ae-panel:#0b111b; --ae-panel2:#0e1521; --ae-panel3:#121b29;
+  --ae-line:rgba(148,163,184,.13); --ae-line2:rgba(148,163,184,.22);
+  --ae-txt:#e8eef8; --ae-txt2:#9fb0c7; --ae-txt3:#65758b;
+  --ae-cyan:#38bdf8; --ae-violet:#8b5cf6; --ae-lime:#34d399;
+  --ae-amber:#fbbf24; --ae-red:#f87171; --ae-pink:#f472b6;
+  --ae-r:12px;
+  height:calc(100dvh - var(--xl-topbar-h,52px));
+  display:flex; flex-direction:column; overflow:hidden;
+  color:var(--ae-txt);
+  font:13px/1.45 -apple-system,"Segoe UI",Roboto,"Microsoft YaHei","PingFang SC",system-ui,sans-serif;
+  background:
+    radial-gradient(1000px 460px at 74% -12%,rgba(56,189,248,.09),transparent 62%),
+    radial-gradient(760px 420px at 6% 2%,rgba(139,92,246,.08),transparent 60%),
+    var(--ae-bg);
+  color-scheme:dark;
+  -webkit-font-smoothing:antialiased;
+  position:relative; z-index:1;
+  font-feature-settings:"tnum" 1;
+}
+html[data-theme="light"] .ae-app{
+  --ae-bg:#e9eef6; --ae-bg2:#eef2f8;
+  --ae-panel:#ffffff; --ae-panel2:#f6f8fc; --ae-panel3:#eef2f8;
+  --ae-line:rgba(15,23,42,.12); --ae-line2:rgba(15,23,42,.2);
+  --ae-txt:#0f172a; --ae-txt2:#475569; --ae-txt3:#7b8798;
+  --ae-cyan:#0284c7; --ae-violet:#7c3aed; --ae-lime:#059669;
+  --ae-amber:#b45309; --ae-red:#dc2626; --ae-pink:#db2777;
+  color-scheme:light;
+  background:radial-gradient(1000px 460px at 74% -12%,rgba(56,189,248,.14),transparent 62%),var(--ae-bg);
+}
+.ae-app *{box-sizing:border-box}
+.ae-app button{font-family:inherit;cursor:pointer}
+.ae-app input,.ae-app select,.ae-app textarea{font-family:inherit}
+.ae-app ::-webkit-scrollbar{width:9px;height:9px}
+.ae-app ::-webkit-scrollbar-track{background:transparent}
+.ae-app ::-webkit-scrollbar-thumb{background:rgba(148,163,184,.22);border-radius:99px;border:2px solid transparent;background-clip:padding-box}
+.ae-app ::-webkit-scrollbar-thumb:hover{background:rgba(148,163,184,.4);background-clip:padding-box}
+.ae-mono{font-family:"SFMono-Regular",Consolas,"Liberation Mono",Menlo,monospace;font-variant-numeric:tabular-nums}
+.ae-tc{font-family:"SFMono-Regular",Consolas,"Liberation Mono",Menlo,monospace;font-variant-numeric:tabular-nums;letter-spacing:.02em}
+.ae-mockpill{font-size:9.5px;font-weight:800;letter-spacing:.12em;color:#fde68a;background:rgba(251,191,36,.12);border:1px solid rgba(251,191,36,.35);border-radius:5px;padding:2px 6px;white-space:nowrap}
+html[data-theme="light"] .ae-mockpill{color:#92400e;background:rgba(251,191,36,.16);border-color:rgba(180,83,9,.3)}
+
+/* ---------------- 顶栏 ---------------- */
+.ae-topbar{
+  flex:0 0 56px; height:56px; display:flex; align-items:center; gap:14px;
+  padding:0 12px; border-bottom:1px solid var(--ae-line2);
+  background:linear-gradient(180deg,rgba(18,27,41,.92),rgba(10,15,24,.94));
+  backdrop-filter:blur(14px); position:relative; z-index:20;
+}
+html[data-theme="light"] .ae-topbar{background:linear-gradient(180deg,#fff,#f3f6fb)}
+.ae-brand{display:flex;align-items:center;gap:10px;min-width:0}
+.ae-back{
+  width:30px;height:30px;border-radius:8px;display:grid;place-items:center;flex:0 0 auto;
+  color:var(--ae-txt2);border:1px solid var(--ae-line);background:var(--ae-panel2);
+  font-size:15px;line-height:1;transition:.16s;
+}
+.ae-back:hover{color:var(--ae-cyan);border-color:rgba(56,189,248,.5)}
+.ae-proj{min-width:0;display:flex;flex-direction:column;gap:2px}
+.ae-projname{
+  width:220px;max-width:26vw;background:transparent;border:1px solid transparent;border-radius:6px;
+  color:var(--ae-txt);font-size:14.5px;font-weight:800;padding:2px 6px;margin-left:-6px;outline:none;
+  white-space:nowrap;overflow:hidden;text-overflow:ellipsis;
+}
+.ae-projname:hover{border-color:var(--ae-line)}
+.ae-projname:focus{border-color:rgba(56,189,248,.55);background:var(--ae-panel2)}
+.ae-projmeta{display:flex;align-items:center;gap:6px;font-size:10.5px;color:var(--ae-txt3);padding-left:1px;white-space:nowrap}
+.ae-projmeta .ae-badge{font-size:9.5px;font-weight:800;letter-spacing:.08em;color:var(--ae-cyan);background:rgba(56,189,248,.12);border:1px solid rgba(56,189,248,.35);padding:1px 5px;border-radius:4px}
+.ae-topcenter{flex:1;display:flex;align-items:center;justify-content:center;gap:6px;min-width:0}
+.ae-mini{display:flex;align-items:center;gap:5px;font-size:11px;color:var(--ae-txt3);white-space:nowrap}
+.ae-mini select,.ae-mini input{
+  background:var(--ae-panel2);border:1px solid var(--ae-line);color:var(--ae-txt);border-radius:6px;
+  font-size:11.5px;padding:4px 5px;outline:none;height:26px;
+}
+.ae-mini select{appearance:none;padding-right:16px;background-image:linear-gradient(45deg,transparent 50%,var(--ae-txt3) 50%),linear-gradient(135deg,var(--ae-txt3) 50%,transparent 50%);background-position:calc(100% - 10px) 11px,calc(100% - 7px) 11px;background-size:3px 3px,3px 3px;background-repeat:no-repeat}
+.ae-mini input{width:52px;text-align:center;font-family:"SFMono-Regular",Consolas,monospace}
+.ae-mini select:focus,.ae-mini input:focus{border-color:rgba(56,189,248,.55)}
+.ae-topcenter .ae-tc{font-size:12px;color:var(--ae-cyan);background:rgba(56,189,248,.08);border:1px solid rgba(56,189,248,.25);border-radius:6px;padding:4px 8px;margin-left:4px}
+.ae-topright{display:flex;align-items:center;gap:6px;flex:0 0 auto}
+.ae-save{display:flex;align-items:center;gap:6px;font-size:11px;color:var(--ae-txt2);padding:4px 8px;border:1px solid var(--ae-line);border-radius:7px;background:var(--ae-panel2);white-space:nowrap}
+.ae-save .dot{width:6px;height:6px;border-radius:99px;background:var(--ae-lime);box-shadow:0 0 8px rgba(52,211,153,.8);flex:0 0 auto}
+.ae-save.dirty .dot{background:var(--ae-amber);box-shadow:0 0 8px rgba(251,191,36,.8)}
+.ae-save.saving .dot{background:var(--ae-cyan);animation:aePulse 1s infinite}
+@keyframes aePulse{50%{opacity:.25}}
+.ae-iconbtn{
+  width:30px;height:30px;border-radius:8px;display:grid;place-items:center;
+  border:1px solid var(--ae-line);background:var(--ae-panel2);color:var(--ae-txt2);
+  font-size:14px;line-height:1;transition:.15s;padding:0;
+}
+.ae-iconbtn:hover:not(:disabled){color:var(--ae-txt);border-color:var(--ae-line2);background:var(--ae-panel3)}
+.ae-iconbtn:disabled{opacity:.35;cursor:not-allowed}
+.ae-iconbtn.active{color:var(--ae-cyan);border-color:rgba(56,189,248,.5);background:rgba(56,189,248,.12)}
+.ae-iconbtn.small{width:26px;height:26px;font-size:12px}
+.ae-btn{
+  height:30px;padding:0 12px;border-radius:8px;border:1px solid var(--ae-line2);
+  background:var(--ae-panel2);color:var(--ae-txt);font-size:12px;font-weight:700;transition:.15s;
+}
+.ae-btn:hover{border-color:rgba(56,189,248,.5);color:var(--ae-cyan)}
+.ae-btn.primary{
+  border:0;color:#04121d;
+  background:linear-gradient(135deg,#67e8f9,#38bdf8 45%,#8b5cf6);
+  box-shadow:0 6px 18px -8px rgba(56,189,248,.75);
+}
+.ae-btn.primary:hover{filter:brightness(1.08);color:#04121d}
+.ae-btn.ghost{background:transparent}
+
+/* ---------------- 主体三栏 ---------------- */
+.ae-main{flex:1;min-height:0;display:grid;grid-template-columns:288px minmax(0,1fr) 320px;background:var(--ae-bg)}
+.ae-left,.ae-right{min-width:0;min-height:0;display:flex;flex-direction:column;background:var(--ae-panel)}
+.ae-left{border-right:1px solid var(--ae-line2)}
+.ae-right{border-left:1px solid var(--ae-line2)}
+.ae-panelhead{
+  flex:0 0 44px;height:44px;display:flex;align-items:center;justify-content:space-between;gap:8px;
+  padding:0 12px;border-bottom:1px solid var(--ae-line);background:var(--ae-panel2);
+}
+.ae-panelhead b{font-size:13px;letter-spacing:.02em}
+.ae-panelhead > div{display:flex;align-items:baseline;gap:7px;min-width:0}
+.ae-panelhead small{font-size:10px;color:var(--ae-txt3);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.ae-tag{font-size:10px;font-weight:800;letter-spacing:.06em;color:var(--ae-txt2);border:1px solid var(--ae-line);border-radius:5px;padding:2px 6px;white-space:nowrap}
+.ae-tag.video{color:var(--ae-cyan);border-color:rgba(56,189,248,.4);background:rgba(56,189,248,.1)}
+.ae-tag.audio{color:var(--ae-lime);border-color:rgba(52,211,153,.4);background:rgba(52,211,153,.1)}
+.ae-tag.text{color:var(--ae-violet);border-color:rgba(139,92,246,.4);background:rgba(139,92,246,.12)}
+.ae-tag.fx{color:var(--ae-amber);border-color:rgba(251,191,36,.4);background:rgba(251,191,36,.1)}
+
+/* 素材库 */
+.ae-tabs{display:flex;gap:4px;padding:8px 10px 0;background:var(--ae-panel)}
+.ae-tab{
+  flex:1;height:30px;border-radius:7px;border:1px solid transparent;background:transparent;
+  color:var(--ae-txt3);font-size:12px;font-weight:700;transition:.15s;
+}
+.ae-tab:hover{color:var(--ae-txt2);background:var(--ae-panel2)}
+.ae-tab.on{color:var(--ae-cyan);background:rgba(56,189,248,.1);border-color:rgba(56,189,248,.32)}
+.ae-libsearch{padding:8px 10px;background:var(--ae-panel)}
+.ae-libsearch input{
+  width:100%;height:30px;border-radius:7px;border:1px solid var(--ae-line);background:var(--ae-panel2);
+  color:var(--ae-txt);font-size:12px;padding:0 10px;outline:none;
+}
+.ae-libsearch input:focus{border-color:rgba(56,189,248,.5)}
+.ae-libscroll{flex:1;min-height:0;overflow-y:auto;padding:2px 10px 12px;display:flex;flex-direction:column;gap:8px}
+.ae-libcard{
+  position:relative;display:flex;gap:9px;padding:8px;border-radius:10px;
+  border:1px solid var(--ae-line);background:linear-gradient(180deg,var(--ae-panel2),var(--ae-panel));
+  transition:border-color .15s,transform .15s,box-shadow .15s;cursor:grab;user-select:none;
+}
+.ae-libcard:hover{border-color:rgba(56,189,248,.5);transform:translateY(-1px);box-shadow:0 10px 24px -16px rgba(56,189,248,.6)}
+.ae-libcard.dragging{opacity:.5;cursor:grabbing}
+.ae-libthumb{
+  flex:0 0 66px;width:66px;height:42px;border-radius:6px;position:relative;overflow:hidden;
+  background:linear-gradient(135deg,var(--c1,#38bdf8),var(--c2,#8b5cf6));
+  border:1px solid rgba(255,255,255,.16);
+}
+.ae-libthumb::after{content:"";position:absolute;inset:0;background:
+  linear-gradient(180deg,transparent 40%,rgba(3,7,13,.72)),
+  repeating-linear-gradient(90deg,rgba(255,255,255,.14) 0 1px,transparent 1px 9px);opacity:.8}
+.ae-libthumb .n{position:absolute;left:4px;bottom:2px;z-index:1;font:9px/1.3 "SFMono-Regular",Consolas,monospace;color:rgba(255,255,255,.92)}
+.ae-libthumb .p{position:absolute;inset:0;display:grid;place-items:center;z-index:1;color:rgba(255,255,255,.92);font-size:12px;text-shadow:0 1px 4px rgba(0,0,0,.6)}
+.ae-libmeta{flex:1;min-width:0;display:flex;flex-direction:column;justify-content:center;gap:2px}
+.ae-libmeta b{font-size:12px;font-weight:700;line-height:1.3;display:block;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.ae-libmeta small{font-size:10px;color:var(--ae-txt3);display:block;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.ae-libmeta .ind{font-size:9.5px;color:var(--ae-cyan);font-weight:700;margin-right:5px}
+.ae-libadd{
+  align-self:center;flex:0 0 auto;width:24px;height:24px;border-radius:6px;border:1px solid var(--ae-line2);
+  background:var(--ae-panel3);color:var(--ae-txt2);font-size:14px;line-height:1;padding:0;
+}
+.ae-libadd:hover{color:#04121d;background:var(--ae-cyan);border-color:transparent}
+.ae-apply{
+  align-self:center;flex:0 0 auto;height:24px;padding:0 7px;border-radius:6px;border:1px solid rgba(139,92,246,.5);
+  background:rgba(139,92,246,.16);color:#ddd6fe;font-size:10.5px;font-weight:800;white-space:nowrap;
+}
+html[data-theme="light"] .ae-apply{color:#5b21b6;background:rgba(139,92,246,.1)}
+.ae-apply:hover{background:rgba(139,92,246,.32)}
+.ae-libfoot{flex:0 0 auto;padding:8px 12px;border-top:1px solid var(--ae-line);font-size:10px;line-height:1.6;color:var(--ae-txt3);background:var(--ae-panel2)}
+.ae-kbd{display:inline-block;padding:0 4px;border:1px solid var(--ae-line2);border-radius:4px;background:var(--ae-panel3);font-family:Consolas,monospace;font-size:9.5px;color:var(--ae-txt2)}
+.ae-libempty{padding:30px 10px;text-align:center;color:var(--ae-txt3);font-size:12px;line-height:1.8}
+
+/* 中间预览 */
+.ae-center{min-width:0;min-height:0;display:flex;flex-direction:column;background:
+  radial-gradient(700px 320px at 50% 0%,rgba(56,189,248,.05),transparent 70%),var(--ae-bg2)}
+.ae-stagewrap{flex:1;min-height:0;display:flex;align-items:center;justify-content:center;padding:16px 18px 12px;overflow:hidden}
+.ae-stage{
+  position:relative;background:#000;border-radius:11px;overflow:hidden;
+  box-shadow:0 24px 70px -34px rgba(0,0,0,.95),0 0 0 1px rgba(148,163,184,.2),0 0 40px -18px rgba(56,189,248,.35);
+  flex:0 0 auto;
+}
+.ae-stage canvas{display:block;width:100%;height:100%}
+.ae-stage-top{position:absolute;left:9px;right:9px;top:8px;display:flex;align-items:center;gap:6px;z-index:4;pointer-events:none}
+.ae-stage-chip{
+  font-size:10px;color:rgba(226,240,255,.85);background:rgba(4,10,18,.6);border:1px solid rgba(148,163,184,.28);
+  border-radius:5px;padding:3px 7px;backdrop-filter:blur(6px);pointer-events:none;line-height:1.3;
+}
+button.ae-stage-chip{pointer-events:auto;cursor:pointer}
+button.ae-stage-chip:hover{color:#fff;border-color:rgba(56,189,248,.6)}
+.ae-stage-top .sp{flex:1}
+.ae-stage-bottom{position:absolute;left:9px;right:9px;bottom:8px;display:flex;align-items:flex-end;justify-content:space-between;gap:8px;z-index:4;pointer-events:none}
+.ae-stage-bottom span{font-size:10px;color:rgba(226,240,255,.72);background:rgba(4,10,18,.55);border-radius:5px;padding:2px 6px;backdrop-filter:blur(4px);max-width:70%;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.ae-stage-bottom .ae-mono{color:#fca5a5}
+.ae-stage-empty{position:absolute;inset:0;display:grid;place-items:center;color:rgba(148,163,184,.55);font-size:12px;background:repeating-linear-gradient(45deg,rgba(148,163,184,.04) 0 2px,transparent 2px 14px)}
+.ae-stage-empty[hidden]{display:none}
+/* 播放控制 */
+.ae-transport{flex:0 0 50px;height:50px;display:flex;align-items:center;gap:10px;padding:0 14px;border-top:1px solid var(--ae-line);background:var(--ae-panel2)}
+.ae-tp-left{display:flex;align-items:center;gap:5px}
+.ae-play{
+  width:34px;height:34px;border-radius:9px;border:0;display:grid;place-items:center;font-size:13px;padding:0;
+  color:#04121d;background:linear-gradient(135deg,#67e8f9,#38bdf8 50%,#8b5cf6);
+  box-shadow:0 6px 16px -8px rgba(56,189,248,.9);
+}
+.ae-play:hover{filter:brightness(1.08)}
+.ae-tc.big{font-size:14px;font-weight:800;color:var(--ae-txt);letter-spacing:.04em}
+.ae-tc.dim{font-size:11px;color:var(--ae-txt3)}
+.ae-scrub{flex:1;height:22px;display:flex;align-items:center;position:relative;cursor:pointer;min-width:40px}
+.ae-scrub::before{content:"";position:absolute;left:0;right:0;height:5px;border-radius:99px;background:rgba(148,163,184,.16)}
+.ae-scrub-fill{position:absolute;left:0;height:5px;border-radius:99px;background:linear-gradient(90deg,#22d3ee,#38bdf8,#8b5cf6);width:0;pointer-events:none}
+.ae-scrub-thumb{position:absolute;width:11px;height:11px;border-radius:99px;background:#f8fafc;box-shadow:0 0 0 2px #38bdf8,0 2px 6px rgba(0,0,0,.5);pointer-events:none;transform:translateX(-50%)}
+.ae-meter{display:flex;align-items:flex-end;gap:2px;height:18px;width:44px;flex:0 0 auto}
+.ae-meter i{flex:1;background:linear-gradient(180deg,#34d399,#0ea5e9);border-radius:1px;height:12%;transform-origin:bottom}
+.ae-transport .ae-iconbtn{flex:0 0 auto}
+
+/* 自然语言条 */
+.ae-nl{flex:0 0 auto;padding:9px 14px 11px;border-top:1px solid var(--ae-line);background:linear-gradient(180deg,var(--ae-panel),var(--ae-panel2))}
+.ae-nl-head{display:flex;align-items:center;gap:7px;font-size:11px;color:var(--ae-txt2);margin-bottom:7px}
+.ae-nl-head b{font-size:11.5px;color:var(--ae-txt);letter-spacing:.02em}
+.ae-nl-ico{color:var(--ae-violet);font-size:13px;line-height:1}
+.ae-nl-mock{font-size:9.5px;color:var(--ae-txt3);border:1px dashed var(--ae-line2);border-radius:4px;padding:1px 5px}
+.ae-nl-status{margin-left:auto;font-size:10px;color:var(--ae-lime)}
+.ae-nl-status.busy{color:var(--ae-amber)}
+.ae-nl-row{display:flex;gap:7px}
+.ae-nl-row input{
+  flex:1;min-width:0;height:34px;border-radius:8px;border:1px solid var(--ae-line2);background:var(--ae-panel2);
+  color:var(--ae-txt);font-size:12.5px;padding:0 11px;outline:none;
+}
+.ae-nl-row input:focus{border-color:rgba(56,189,248,.6);box-shadow:0 0 0 3px rgba(56,189,248,.1)}
+.ae-nl-row .ae-btn{height:34px;min-width:64px}
+.ae-nl-foot{display:flex;align-items:center;gap:8px;margin-top:6px;min-width:0}
+.ae-nl-chips{display:flex;gap:5px;flex:0 0 auto;overflow:hidden}
+.ae-nl-chips button{
+  height:21px;padding:0 7px;border-radius:5px;border:1px solid var(--ae-line);background:transparent;
+  color:var(--ae-txt3);font-size:10px;white-space:nowrap;max-width:190px;overflow:hidden;text-overflow:ellipsis;
+}
+.ae-nl-chips button:hover{color:var(--ae-cyan);border-color:rgba(56,189,248,.4)}
+.ae-nl-log{flex:1;min-width:0;font-size:10px;color:var(--ae-txt3);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;text-align:right}
+.ae-nl-log b{color:var(--ae-txt2);font-weight:600}
+
+/* 属性面板 */
+.ae-propscroll{flex:1;min-height:0;overflow-y:auto;padding-bottom:20px}
+.ae-grp{padding:11px 13px 12px;border-bottom:1px solid var(--ae-line)}
+.ae-grp:last-child{border-bottom:0}
+.ae-grp > h4{
+  margin:0 0 9px;font-size:10px;letter-spacing:.14em;color:var(--ae-txt3);font-weight:800;
+  display:flex;align-items:center;justify-content:space-between;text-transform:uppercase;
+}
+.ae-grp > h4 .r{display:flex;align-items:center;gap:5px}
+.ae-f{display:flex;align-items:center;gap:8px;margin:7px 0;min-height:24px}
+.ae-f > label{flex:0 0 66px;font-size:11.5px;color:var(--ae-txt2);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.ae-f .ae-ctl{flex:1;min-width:0;display:flex;align-items:center;gap:6px}
+.ae-f output{flex:0 0 auto;font-family:"SFMono-Regular",Consolas,monospace;font-size:10.5px;color:var(--ae-txt2);min-width:38px;text-align:right}
+.ae-app input[type=range]{flex:1;min-width:0;height:4px;appearance:none;background:rgba(148,163,184,.22);border-radius:99px;outline:none}
+.ae-app input[type=range]::-webkit-slider-thumb{appearance:none;width:12px;height:12px;border-radius:50%;background:var(--ae-cyan);border:2px solid #04121d;box-shadow:0 0 0 1px rgba(56,189,248,.5);cursor:pointer}
+html[data-theme="light"] .ae-app input[type=range]::-webkit-slider-thumb{border-color:#fff}
+.ae-num{
+  width:58px;height:24px;flex:0 0 auto;border-radius:6px;border:1px solid var(--ae-line);background:var(--ae-panel2);
+  color:var(--ae-txt);font-size:11px;font-family:"SFMono-Regular",Consolas,monospace;padding:0 5px;outline:none;text-align:center;
+}
+.ae-num:focus{border-color:rgba(56,189,248,.55)}
+.ae-app select.ae-sel,.ae-app input.ae-txt{
+  flex:1;min-width:0;height:26px;border-radius:6px;border:1px solid var(--ae-line);background:var(--ae-panel2);
+  color:var(--ae-txt);font-size:11.5px;padding:0 6px;outline:none;
+}
+.ae-app textarea.ae-txt{height:52px;resize:vertical;padding:6px 7px;line-height:1.5;font-size:11.5px}
+.ae-app select.ae-sel:focus,.ae-app input.ae-txt:focus,.ae-app textarea.ae-txt:focus{border-color:rgba(56,189,248,.55)}
+.ae-seg{display:flex;flex:1;background:var(--ae-panel3);border:1px solid var(--ae-line);border-radius:7px;padding:2px;gap:2px;min-width:0}
+.ae-seg button{flex:1;height:22px;border:0;border-radius:5px;background:transparent;color:var(--ae-txt3);font-size:10.5px;font-weight:700;padding:0 4px;min-width:0;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.ae-seg button.on{background:rgba(56,189,248,.16);color:var(--ae-cyan)}
+.ae-colorrow{display:flex;align-items:center;gap:6px;margin:7px 0}
+.ae-colorrow input[type=color]{width:26px;height:24px;border-radius:5px;border:1px solid var(--ae-line);background:var(--ae-panel2);padding:2px;cursor:pointer}
+.ae-kfrow{
+  display:flex;align-items:center;gap:5px;padding:5px 6px;margin-top:5px;border:1px solid var(--ae-line);
+  border-radius:7px;background:var(--ae-panel2);font-size:10.5px;cursor:pointer;
+}
+.ae-kfrow:hover{border-color:rgba(56,189,248,.4)}
+.ae-kfrow.onsel{border-color:var(--ae-amber);background:rgba(251,191,36,.08)}
+.ae-kfrow .nm{flex:0 0 auto;color:var(--ae-amber);font-weight:700}
+.ae-kfrow .tt{flex:0 0 auto;color:var(--ae-txt2);font-family:Consolas,monospace}
+.ae-kfrow .vv{flex:1;min-width:0;color:var(--ae-txt3);overflow:hidden;text-overflow:ellipsis;white-space:nowrap;text-align:right}
+.ae-kfrow select{height:20px;border-radius:4px;border:1px solid var(--ae-line);background:var(--ae-panel3);color:var(--ae-txt2);font-size:9.5px;padding:0 2px;max-width:62px}
+.ae-kfrow .x{width:17px;height:17px;border:0;border-radius:4px;background:transparent;color:var(--ae-txt3);font-size:11px;padding:0;line-height:1}
+.ae-kfrow .x:hover{color:#fff;background:rgba(248,113,113,.75)}
+.ae-hintbox{padding:9px 10px;border:1px dashed var(--ae-line2);border-radius:8px;color:var(--ae-txt3);font-size:10.5px;line-height:1.65;margin-top:8px}
+.ae-hintbox b{color:var(--ae-txt2)}
+.ae-emptyprops{flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:8px;padding:34px 24px;text-align:center;color:var(--ae-txt3);font-size:11.5px;line-height:1.8}
+.ae-emptyprops .big{font-size:30px;opacity:.5}
+.ae-emptyprops b{color:var(--ae-txt2);font-size:12.5px}
+.ae-prophead{display:flex;align-items:center;gap:8px;padding:10px 13px;border-bottom:1px solid var(--ae-line);background:var(--ae-panel2)}
+.ae-propico{width:26px;height:26px;border-radius:7px;display:grid;place-items:center;font-size:11px;font-weight:900;color:#04121d;flex:0 0 auto}
+.ae-propico.video{background:linear-gradient(135deg,#67e8f9,#38bdf8)}
+.ae-propico.audio{background:linear-gradient(135deg,#6ee7b7,#34d399)}
+.ae-propico.text{background:linear-gradient(135deg,#c4b5fd,#8b5cf6)}
+.ae-propico.fx{background:linear-gradient(135deg,#fde68a,#fbbf24)}
+.ae-prophead .nm{flex:1;min-width:0}
+.ae-prophead .nm b{display:block;font-size:12px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.ae-prophead .nm small{display:block;font-size:9.5px;color:var(--ae-txt3);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.ae-prophead .xbtn{width:24px;height:24px;padding:0;border-radius:6px;border:1px solid var(--ae-line);background:var(--ae-panel3);color:var(--ae-txt2);font-size:12px}
+.ae-prophead .xbtn:hover{color:var(--ae-red);border-color:rgba(248,113,113,.5)}
+.ae-minirow{display:flex;gap:6px;align-items:center;font-size:10.5px;color:var(--ae-txt3)}
+.ae-btnrow{display:flex;gap:6px;margin-top:8px}
+.ae-btnrow .ae-btn{flex:1;height:27px;font-size:11px;padding:0 6px}
+.ae-btnrow .ae-btn.warn:hover{color:var(--ae-red);border-color:rgba(248,113,113,.5)}
+.ae-projinfo{display:grid;grid-template-columns:1fr 1fr;gap:6px;margin-top:2px}
+.ae-projinfo div{border:1px solid var(--ae-line);border-radius:7px;background:var(--ae-panel2);padding:6px 8px}
+.ae-projinfo span{display:block;font-size:9px;color:var(--ae-txt3)}
+.ae-projinfo b{font-size:12px;font-family:Consolas,monospace;color:var(--ae-txt)}
+
+/* ---------------- 时间轴 ---------------- */
+.ae-timeline{flex:0 0 var(--ae-tl-h);height:var(--ae-tl-h);display:flex;flex-direction:column;border-top:1px solid var(--ae-line2);background:var(--ae-panel);min-height:0}
+html.xl-shell .ae-timeline{position:relative;z-index:2}
+.ae-tl-toolbar{
+  flex:0 0 40px;height:40px;display:flex;align-items:center;justify-content:space-between;gap:10px;
+  padding:0 12px;border-bottom:1px solid var(--ae-line);background:var(--ae-panel2);
+}
+.ae-tl-left,.ae-tl-right{display:flex;align-items:center;gap:6px;min-width:0}
+.ae-tl-title{font-size:12px;font-weight:800;letter-spacing:.04em;white-space:nowrap}
+.ae-tl-left .ae-tc{font-size:11px;color:var(--ae-red);background:rgba(248,113,113,.08);border:1px solid rgba(248,113,113,.25);border-radius:5px;padding:2px 6px}
+.ae-tl-left .ae-hint{font-size:10px;color:var(--ae-txt3);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.ae-tlbtn{
+  height:25px;padding:0 8px;border-radius:6px;border:1px solid var(--ae-line);background:var(--ae-panel3);
+  color:var(--ae-txt2);font-size:10.5px;font-weight:700;white-space:nowrap;
+}
+.ae-tlbtn:hover{color:var(--ae-txt);border-color:var(--ae-line2)}
+.ae-tlbtn.on{color:var(--ae-cyan);border-color:rgba(56,189,248,.42);background:rgba(56,189,248,.12)}
+.ae-tlbtn.danger:hover{color:var(--ae-red);border-color:rgba(248,113,113,.5)}
+.ae-tlbtn:disabled{opacity:.4;cursor:not-allowed}
+.ae-sep{width:1px;height:16px;background:var(--ae-line2);margin:0 2px}
+.ae-zoomlbl{font-size:9.5px;color:var(--ae-txt3);font-family:Consolas,monospace;min-width:44px;text-align:center}
+.ae-tl-scroll{flex:1;min-height:0;overflow:auto;position:relative;overscroll-behavior:contain}
+.ae-tl-inner{position:relative;min-width:100%}
+.ae-tl-rulerrow{
+  display:flex;height:30px;position:sticky;top:0;z-index:14;
+  background:linear-gradient(180deg,#0c1320,#0a101a);border-bottom:1px solid var(--ae-line2);
+}
+html[data-theme="light"] .ae-tl-rulerrow{background:linear-gradient(180deg,#f8fafc,#eef2f8)}
+.ae-tl-corner{
+  position:sticky;left:0;z-index:16;flex:0 0 var(--ae-labelw);width:var(--ae-labelw);
+  display:flex;align-items:center;gap:5px;padding:0 9px;font-size:9.5px;letter-spacing:.08em;color:var(--ae-txt3);
+  background:linear-gradient(90deg,#0b111b,#0e1521);border-right:1px solid var(--ae-line2);white-space:nowrap;
+}
+html[data-theme="light"] .ae-tl-corner{background:#f1f5f9}
+.ae-tl-ruler{position:relative;flex:1;min-width:0;cursor:pointer}
+.ae-tl-ruler canvas{display:block;position:absolute;left:0;top:0}
+.ae-ph-head{
+  position:absolute;top:0;left:0;width:0;height:0;z-index:18;
+  border-left:7px solid transparent;border-right:7px solid transparent;border-top:11px solid #f87171;
+  transform:translateX(-7px);cursor:ew-resize;filter:drop-shadow(0 1px 3px rgba(0,0,0,.5));
+}
+.ae-tl-tracks{position:relative}
+.ae-tl-row{display:flex;height:56px;border-bottom:1px solid var(--ae-line);position:relative}
+.ae-tl-row:hover .ae-tl-label{background:var(--ae-panel3)}
+.ae-tl-label{
+  position:sticky;left:0;z-index:12;flex:0 0 var(--ae-labelw);width:var(--ae-labelw);
+  display:flex;align-items:center;gap:7px;padding:0 8px;min-width:0;
+  background:linear-gradient(90deg,#0b111b,#0d1420);border-right:1px solid var(--ae-line2);
+}
+html[data-theme="light"] .ae-tl-label{background:#f8fafc}
+.ae-tl-tico{width:22px;height:22px;border-radius:6px;display:grid;place-items:center;font-size:9px;font-weight:900;color:#04121d;flex:0 0 auto}
+.ae-tl-tico.video{background:linear-gradient(135deg,#67e8f9,#38bdf8)}
+.ae-tl-tico.audio{background:linear-gradient(135deg,#6ee7b7,#34d399)}
+.ae-tl-tico.text{background:linear-gradient(135deg,#c4b5fd,#8b5cf6)}
+.ae-tl-tico.fx{background:linear-gradient(135deg,#fde68a,#fbbf24)}
+.ae-tl-lmeta{flex:1;min-width:0;display:flex;flex-direction:column;gap:1px}
+.ae-tl-lmeta b{font-size:10.5px;font-weight:700;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.ae-tl-lmeta small{font-size:8.5px;color:var(--ae-txt3);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.ae-tl-lbtns{display:flex;gap:2px;flex:0 0 auto}
+.ae-tl-lbtn{width:18px;height:18px;border-radius:4px;border:1px solid var(--ae-line);background:transparent;color:var(--ae-txt3);font-size:8.5px;font-weight:800;padding:0;line-height:1}
+.ae-tl-lbtn:hover{color:var(--ae-txt);border-color:var(--ae-line2)}
+.ae-tl-lbtn.on{color:var(--ae-amber);border-color:rgba(251,191,36,.5);background:rgba(251,191,36,.12)}
+.ae-tl-lane{
+  position:relative;flex:0 0 auto;min-width:0;
+  background-image:linear-gradient(90deg,rgba(148,163,184,.07) 1px,transparent 1px);
+  background-size:64px 100%;
+}
+.ae-tl-lane.dropping{background-color:rgba(56,189,248,.07)}
+.ae-tl-lane.locked{background-image:repeating-linear-gradient(45deg,rgba(148,163,184,.05) 0 6px,transparent 6px 12px)}
+.ae-clip{
+  position:absolute;top:7px;bottom:7px;border-radius:7px;overflow:visible;cursor:grab;
+  border:1px solid rgba(255,255,255,.16);background:linear-gradient(180deg,rgba(56,189,248,.26),rgba(30,64,90,.6));
+  box-shadow:0 5px 14px -9px rgba(0,0,0,.9);user-select:none;touch-action:none;z-index:3;
+  transition:box-shadow .12s,border-color .12s;
+}
+.ae-clip:hover{border-color:rgba(255,255,255,.38)}
+.ae-clip.video{background:linear-gradient(180deg,rgba(56,189,248,.24),rgba(15,45,68,.82));border-color:rgba(56,189,248,.38)}
+.ae-clip.audio{background:linear-gradient(180deg,rgba(52,211,153,.22),rgba(11,52,40,.82));border-color:rgba(52,211,153,.36)}
+.ae-clip.text{background:linear-gradient(180deg,rgba(139,92,246,.26),rgba(40,25,72,.84));border-color:rgba(139,92,246,.4)}
+.ae-clip.fx{background:linear-gradient(180deg,rgba(251,191,36,.24),rgba(66,48,8,.82));border-color:rgba(251,191,36,.4)}
+.ae-clip.sel{outline:2px solid #f8fafc;outline-offset:1px;box-shadow:0 0 0 3px rgba(56,189,248,.32),0 8px 24px -9px rgba(0,0,0,.95);z-index:7;cursor:grabbing}
+.ae-clip.dragging{opacity:.88;z-index:9;cursor:grabbing}
+.ae-clipstrip{position:absolute;inset:0;opacity:.5;pointer-events:none;border-radius:6px}
+.ae-clipstrip.video{background:linear-gradient(135deg,var(--c1,#38bdf8),var(--c2,#8b5cf6))}
+.ae-clipstrip.audio{background:repeating-linear-gradient(90deg,rgba(52,211,153,.5) 0 1px,transparent 1px 4px);opacity:.28}
+.ae-clipstrip.text{background:repeating-linear-gradient(90deg,rgba(196,181,253,.3) 0 2px,transparent 2px 12px)}
+.ae-clipstrip.fx{background:repeating-linear-gradient(135deg,rgba(251,191,36,.35) 0 2px,transparent 2px 10px);opacity:.3}
+.ae-clipname{position:relative;z-index:2;display:flex;align-items:center;gap:4px;padding:4px 7px 0;font-size:10px;font-weight:700;line-height:1.3;white-space:nowrap;color:#eaf6ff;min-width:0;overflow:hidden;border-radius:6px 6px 0 0}
+.ae-clipname .ico{font-size:8px;opacity:.8;flex:0 0 auto}
+.ae-clipname .nm{overflow:hidden;text-overflow:ellipsis;min-width:0}
+.ae-clipname .lk{color:#fde68a;font-size:8px}
+.ae-clipdur{position:absolute;right:5px;bottom:3px;z-index:2;font:9px/1.2 "SFMono-Regular",Consolas,monospace;color:rgba(230,245,255,.72);text-shadow:0 1px 2px rgba(0,0,0,.6)}
+.ae-wave{position:absolute;left:3px;right:3px;bottom:5px;height:24px;display:flex;align-items:flex-end;gap:1px;z-index:1;pointer-events:none;opacity:.75}
+.ae-wave i{flex:1;background:linear-gradient(180deg,rgba(167,243,208,.95),rgba(52,211,153,.35));border-radius:1px;min-width:1px}
+.ae-chartbars{position:absolute;left:6px;right:6px;bottom:6px;height:26px;display:flex;align-items:flex-end;gap:2px;z-index:1;pointer-events:none;opacity:.8}
+.ae-chartbars i{flex:1;background:linear-gradient(180deg,rgba(253,230,138,.95),rgba(251,191,36,.35));border-radius:1px}
+.ae-trim{position:absolute;top:0;bottom:0;width:7px;z-index:5;cursor:ew-resize;background:rgba(4,12,22,.35);opacity:0;transition:opacity .12s}
+.ae-trim::after{content:"";position:absolute;top:50%;left:50%;width:2px;height:14px;margin:-7px 0 0 -1px;border-radius:2px;background:rgba(255,255,255,.85)}
+.ae-clip:hover .ae-trim,.ae-clip.sel .ae-trim{opacity:1}
+.ae-trim.l{left:0;border-radius:7px 0 0 7px}
+.ae-trim.r{right:0;border-radius:0 7px 7px 0}
+.ae-kf{position:absolute;top:-4px;width:8px;height:8px;background:#fbbf24;border:1px solid #b45309;transform:translateX(-50%) rotate(45deg);z-index:6;cursor:pointer;box-shadow:0 0 0 1px rgba(4,12,22,.5)}
+.ae-kf:hover{background:#fde68a}
+.ae-kf.onsel{background:#f8fafc;border-color:#38bdf8;box-shadow:0 0 0 2px rgba(56,189,248,.8)}
+.ae-ph-line{position:absolute;top:0;bottom:0;width:2px;margin-left:-1px;background:linear-gradient(180deg,#f87171 0%,#f87171 78%,rgba(248,113,113,.1) 100%);z-index:10;pointer-events:none;box-shadow:0 0 7px rgba(248,113,113,.55)}
+.ae-snapline{position:absolute;top:0;bottom:0;width:1px;background:#67e8f9;z-index:11;pointer-events:none;box-shadow:0 0 8px rgba(103,232,249,.9)}
+.ae-snapline::before{content:"吸附";position:absolute;top:2px;left:3px;font-size:8px;color:#67e8f9;background:rgba(4,12,22,.7);padding:1px 3px;border-radius:3px;white-space:nowrap}
+.ae-dropline{position:absolute;top:0;bottom:0;width:2px;background:#38bdf8;z-index:11;pointer-events:none;box-shadow:0 0 10px rgba(56,189,248,.9)}
+.ae-dropline::before{content:"放置";position:absolute;top:2px;left:3px;font-size:8px;color:#7dd3fc;background:rgba(4,12,22,.75);padding:1px 3px;border-radius:3px;white-space:nowrap}
+
+/* 提示 / 弹窗 / 移动端 */
+.ae-mobile-note{
+  display:none;align-items:center;gap:8px;padding:8px 12px;font-size:11px;line-height:1.5;
+  color:#fde68a;background:rgba(251,191,36,.1);border-bottom:1px solid rgba(251,191,36,.3);
+}
+html[data-theme="light"] .ae-mobile-note{color:#92400e;background:rgba(251,191,36,.16)}
+.ae-mobile-note b{font-weight:800}
+.ae-mobile-note button{margin-left:auto;flex:0 0 auto;width:20px;height:20px;border:1px solid rgba(251,191,36,.4);border-radius:4px;background:transparent;color:inherit;font-size:11px;padding:0;line-height:1}
+.ae-toasts{position:fixed;right:18px;bottom:18px;z-index:400;display:flex;flex-direction:column;gap:7px;max-width:min(370px,calc(100vw - 36px));pointer-events:none}
+.ae-toast{
+  pointer-events:auto;display:flex;gap:8px;align-items:flex-start;padding:9px 11px;border-radius:9px;
+  background:rgba(13,21,33,.96);border:1px solid var(--ae-line2);border-left:3px solid var(--ae-cyan);
+  color:#e8eef8;font-size:11.5px;line-height:1.55;box-shadow:0 14px 38px -14px rgba(0,0,0,.9);
+  animation:aeToastIn .18s ease-out;
+}
+html[data-theme="light"] .ae-toast{background:#fff;color:#0f172a}
+.ae-toast.ok{border-left-color:#34d399}
+.ae-toast.warn{border-left-color:#fbbf24}
+.ae-toast.err{border-left-color:#f87171}
+.ae-toast .ti{flex:0 0 auto;font-size:12px}
+.ae-toast .tx{flex:1;min-width:0;word-break:break-word}
+.ae-toast.out{opacity:0;transform:translateY(6px);transition:.2s}
+@keyframes aeToastIn{from{opacity:0;transform:translateY(8px) scale(.98)}to{opacity:1;transform:none}}
+.ae-modal{position:fixed;inset:0;z-index:350;display:grid;place-items:center;padding:16px;background:rgba(3,7,13,.7);backdrop-filter:blur(7px)}
+.ae-modal[hidden]{display:none}
+.ae-modalcard{
+  width:min(430px,94vw);border-radius:16px;border:1px solid rgba(148,163,184,.3);
+  background:linear-gradient(180deg,#101a29,#0a111c);color:#e8eef8;padding:18px;box-shadow:0 30px 90px -30px #000;
+}
+html[data-theme="light"] .ae-modalcard{background:#fff;color:#0f172a;border-color:rgba(15,23,42,.15)}
+.ae-modalcard h3{margin:0 0 4px;font-size:15px;display:flex;align-items:center;gap:8px}
+.ae-modalcard h3 .mtag{font-size:9.5px;font-weight:800;letter-spacing:.1em;color:#fde68a;border:1px solid rgba(251,191,36,.4);background:rgba(251,191,36,.12);border-radius:4px;padding:1px 5px}
+.ae-modalcard p{margin:0 0 12px;font-size:11.5px;line-height:1.7;color:#9fb0c7}
+html[data-theme="light"] .ae-modalcard p{color:#475569}
+.ae-modalrow{display:flex;justify-content:space-between;gap:10px;font-size:11px;padding:5px 0;border-bottom:1px dashed rgba(148,163,184,.18)}
+.ae-modalrow span{color:#8ea0b8}
+html[data-theme="light"] .ae-modalrow span{color:#64748b}
+.ae-modalrow b{font-family:Consolas,monospace;font-weight:600}
+.ae-progress{height:7px;border-radius:99px;background:rgba(148,163,184,.18);overflow:hidden;margin:12px 0 6px}
+.ae-progress i{display:block;height:100%;width:0;background:linear-gradient(90deg,#22d3ee,#38bdf8,#8b5cf6);border-radius:99px;transition:width .25s}
+.ae-progress-txt{display:flex;justify-content:space-between;font-size:10px;color:#8ea0b8;font-family:Consolas,monospace}
+html[data-theme="light"] .ae-progress-txt{color:#64748b}
+.ae-modalactions{display:flex;gap:8px;justify-content:flex-end;margin-top:14px;flex-wrap:wrap}
+.ae-modalactions .ae-btn{height:30px}
+.ae-help{display:grid;grid-template-columns:1fr 1fr;gap:6px 14px;margin:10px 0 2px}
+.ae-help div{display:flex;justify-content:space-between;gap:8px;font-size:11px;padding:4px 0;border-bottom:1px dashed rgba(148,163,184,.16)}
+.ae-help span{color:#9fb0c7}
+html[data-theme="light"] .ae-help span{color:#475569}
+.ae-help kbd{font-family:Consolas,monospace;font-size:10px;border:1px solid rgba(148,163,184,.3);border-bottom-width:2px;border-radius:4px;padding:1px 5px;background:rgba(148,163,184,.08);white-space:nowrap}
+.ae-modal .ae-btn{background:transparent;border:1px solid rgba(148,163,184,.3);color:#e8eef8}
+html[data-theme="light"] .ae-modal .ae-btn{color:#0f172a;border-color:rgba(15,23,42,.18)}
+.ae-modal .ae-btn.primary{border:0;color:#04121d}
+.ae-modal .ae-btn:hover{filter:brightness(1.12)}
+
+/* 响应式 */
+@media (max-width:1439px){
+  .ae-app{--ae-labelw:132px}
+  .ae-main{grid-template-columns:266px minmax(0,1fr) 300px}
+  .ae-nl-chips button:nth-child(n+3){display:none}
+}
+@media (max-width:1180px){
+  .ae-main{grid-template-columns:238px minmax(0,1fr) 280px}
+  .ae-topcenter .ae-mini:nth-child(3){display:none}
+  .ae-nl-chips button:nth-child(n+2){display:none}
+}
+@media (max-width:979px){
+  .ae-app{height:auto;min-height:calc(100dvh - var(--xl-topbar-h,52px));overflow:visible}
+  .ae-main{display:flex;flex-direction:column;min-height:0}
+  .ae-center{order:1;min-height:auto}
+  .ae-left{order:2;border-right:0;border-top:1px solid var(--ae-line2);max-height:460px}
+  .ae-right{order:3;border-left:0;border-top:1px solid var(--ae-line2);max-height:none}
+  .ae-libscroll{min-height:180px;max-height:300px}
+  .ae-propscroll{max-height:none;min-height:200px}
+  .ae-stagewrap{padding:10px;flex:0 0 auto}
+  .ae-stage{width:100% !important;height:auto !important;aspect-ratio:var(--ar,16/9);max-width:640px}
+  .ae-transport{flex-wrap:wrap;height:auto;padding:8px 12px;gap:8px}
+  .ae-transport .ae-meter{display:none}
+  .ae-scrub{order:5;flex-basis:100%}
+  .ae-nl-foot{flex-wrap:wrap}
+  .ae-nl-log{flex-basis:100%;text-align:left;white-space:normal}
+  .ae-timeline{height:280px;flex-basis:280px}
+  .ae-topbar{flex-wrap:wrap;height:auto;padding:8px 10px;gap:8px}
+  .ae-topcenter{order:3;flex-basis:100%;justify-content:flex-start;overflow-x:auto}
+  .ae-projname{max-width:42vw}
+  .ae-save{display:none}
+  .ae-tl-left .ae-hint{display:none}
+  .ae-tl-toolbar{height:auto;min-height:40px;flex-wrap:wrap;padding:6px 10px;gap:6px}
+  .ae-tl-right{flex-wrap:wrap}
+}
+@media (max-width:760px){
+  .ae-mobile-note{display:flex}
+  .ae-main{grid-template-columns:none}
+  .ae-topcenter .ae-tc{display:none}
+  .ae-projname{max-width:52vw}
+  .ae-nl-chips{display:none}
+  .ae-help{grid-template-columns:1fr}
+  .ae-toasts{right:10px;left:10px;bottom:10px;max-width:none}
+  .ae-modalcard{width:100%}
+}
+@media (max-width:480px){
+  .ae-topbar{flex-wrap:wrap}
+  .ae-topright{width:100%;justify-content:space-between;order:2}
+  .ae-topcenter{order:4}
+  .ae-projname{max-width:60vw;font-size:13px}
+  .ae-app{--ae-labelw:104px}
+  .ae-timeline{height:264px;flex-basis:264px}
+}
+@media (prefers-reduced-motion:reduce){
+  .ae-app *{animation-duration:.001s !important;transition-duration:.001s !important}
+}
+</style>
+</head>
+<body>
+<main class="ae-app" id="app">
+  <header class="ae-topbar">
+    <div class="ae-brand">
+      <a class="ae-back" href="./" title="返回网页版工作台" aria-label="返回网页版工作台">←</a>
+      <div class="ae-proj">
+        <input class="ae-projname" id="projName" value="AI 全自动剪辑 · 专家端 Demo" aria-label="项目名称" spellcheck="false">
+        <div class="ae-projmeta">
+          <span class="ae-badge" id="projBadge">EXPERT</span>
+          <span class="ae-dot">·</span>
+          <span id="trackSummary">4 轨 · 载入中…</span>
+          <span class="ae-dot" id="mockDot">·</span>
+          <span class="ae-mockpill" id="mockPill" title="后端未连接时使用浏览器本地 mock 数据">MOCK</span>
+        </div>
+      </div>
+    </div>
+    <div class="ae-topcenter">
+      <label class="ae-mini">画幅
+        <select id="aspectSel" aria-label="画幅比例">
+          <option value="16:9">16:9</option>
+          <option value="9:16">9:16</option>
+          <option value="1:1">1:1</option>
+          <option value="4:5">4:5</option>
+        </select>
+      </label>
+      <label class="ae-mini">FPS
+        <select id="fpsSel" aria-label="帧率">
+          <option value="24">24</option>
+          <option value="25">25</option>
+          <option value="30">30</option>
+          <option value="60">60</option>
+        </select>
+      </label>
+      <label class="ae-mini">时长
+        <input id="durInput" type="number" min="5" max="300" step="1" value="28" aria-label="时间轴总时长（秒）">s
+      </label>
+      <span class="ae-tc" id="topTc">00:00:02:12</span>
+    </div>
+    <div class="ae-topright">
+      <div class="ae-save" id="saveChip" title="保存状态"><span class="dot"></span><span id="saveTxt">已载入</span></div>
+      <button class="ae-iconbtn" id="undoBtn" title="撤销 Ctrl+Z" aria-label="撤销" disabled>↶</button>
+      <button class="ae-iconbtn" id="redoBtn" title="重做 Ctrl+Shift+Z" aria-label="重做" disabled>↷</button>
+      <button class="ae-iconbtn" id="helpBtn" title="键盘快捷键" aria-label="键盘快捷键">⌨</button>
+      <button class="ae-btn" id="saveBtn" title="保存工程 Ctrl+S">保存</button>
+      <button class="ae-btn primary" id="exportBtn" title="导出成片">导出</button>
+    </div>
+  </header>
+
+  <div class="ae-mobile-note" id="mobileNote">
+    <span>⚠ 专家端建议桌面使用（≥1280px）。当前为窄屏降级视图，可滚动查看预览、素材库、属性与时间轴。</span>
+    <button id="mobileNoteClose" aria-label="关闭提示">×</button>
+  </div>
+
+  <div class="ae-main">
+    <aside class="ae-left" aria-label="素材库">
+      <div class="ae-panelhead">
+        <div><b>素材库</b><small id="libCount">…</small></div>
+        <span class="ae-mockpill">MOCK</span>
+      </div>
+      <div class="ae-tabs" id="libTabs" role="tablist">
+        <button class="ae-tab on" role="tab" aria-selected="true" data-tab="templates">模板</button>
+        <button class="ae-tab" role="tab" aria-selected="false" data-tab="animations">动画</button>
+        <button class="ae-tab" role="tab" aria-selected="false" data-tab="charts">图表</button>
+        <button class="ae-tab" role="tab" aria-selected="false" data-tab="transitions">转场</button>
+      </div>
+      <div class="ae-libsearch"><input id="libSearch" type="search" placeholder="搜索模板 / 动画 / 图表 / 转场" aria-label="搜索素材库"></div>
+      <div class="ae-libscroll" id="libList"></div>
+      <div class="ae-libfoot">拖拽卡片到时间轴对应轨道；点击 <span class="ae-kbd">+</span> 在播放头处快速添加。<br>行业模板可一键 <b>套用整片</b>。</div>
+    </aside>
+
+    <section class="ae-center" aria-label="预览与指令">
+      <div class="ae-stagewrap" id="stageWrap">
+        <div class="ae-stage" id="stage">
+          <canvas id="previewCanvas" width="1280" height="720" aria-label="预览画布（模拟渲染）"></canvas>
+          <div class="ae-stage-top">
+            <span class="ae-stage-chip" id="stageRes">1280×720 · 16:9</span>
+            <span class="ae-stage-chip">画布模拟预览</span>
+            <span class="sp"></span>
+            <button class="ae-stage-chip" id="safeBtn" title="切换安全框">安全框 关</button>
+          </div>
+          <div class="ae-stage-bottom">
+            <span id="stageClip">—</span>
+            <span class="ae-mono" id="stageTime">00:00:00:00</span>
+          </div>
+          <div class="ae-stage-empty" id="stageEmpty" hidden>当前播放头没有画面，拖入素材开始剪辑</div>
+        </div>
+      </div>
+      <div class="ae-transport">
+        <div class="ae-tp-left">
+          <button class="ae-iconbtn" id="prevFrame" title="上一帧 ←" aria-label="上一帧">⏮</button>
+          <button class="ae-play" id="playBtn" title="播放 / 暂停（空格）" aria-label="播放">▶</button>
+          <button class="ae-iconbtn" id="nextFrame" title="下一帧 →" aria-label="下一帧">⏭</button>
+        </div>
+        <span class="ae-tc big" id="tpTc">00:00:00:00</span>
+        <div class="ae-scrub" id="scrub" title="点击 / 拖动定位播放头">
+          <div class="ae-scrub-fill" id="scrubFill"></div>
+          <div class="ae-scrub-thumb" id="scrubThumb"></div>
+        </div>
+        <span class="ae-tc dim" id="tpDur">00:00:28:00</span>
+        <div class="ae-meter" id="meter" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i></div>
+        <button class="ae-iconbtn" id="loopBtn" title="循环播放" aria-label="循环播放">↻</button>
+      </div>
+      <div class="ae-nl">
+        <div class="ae-nl-head">
+          <span class="ae-nl-ico">✦</span><b>自然语言指令</b>
+          <span class="ae-nl-mock">前端 mock 解析</span>
+          <span class="ae-nl-status" id="nlStatus">就绪</span>
+        </div>
+        <div class="ae-nl-row">
+          <input id="nlInput" type="text" placeholder="试试：把第二段放大到 1.2 倍 / 加一个淡入淡出转场 / 给标题加打字机动画" aria-label="自然语言指令">
+          <button class="ae-btn primary" id="nlBtn">执行</button>
+        </div>
+        <div class="ae-nl-foot">
+          <div class="ae-nl-chips" id="nlChips"></div>
+          <div class="ae-nl-log" id="nlLog">等待指令… 支持「放大/缩小第 N 段」「加转场」「加标题」「音量/透明度」「删除第 N 段」等</div>
+        </div>
+      </div>
+    </section>
+
+    <aside class="ae-right" aria-label="属性面板">
+      <div class="ae-panelhead">
+        <div><b>属性</b><small id="propSub">未选中片段</small></div>
+        <span class="ae-tag" id="propKind">—</span>
+      </div>
+      <div class="ae-propscroll" id="props"></div>
+    </aside>
+  </div>
+
+  <section class="ae-timeline" id="timeline" aria-label="多轨时间轴">
+    <div class="ae-tl-toolbar">
+      <div class="ae-tl-left">
+        <span class="ae-tl-title">时间轴</span>
+        <span class="ae-tc" id="tlTc">00:00:00:00</span>
+        <span class="ae-hint" id="tlHint">空格播放 · Delete 删除 · Ctrl+Z 撤销</span>
+      </div>
+      <div class="ae-tl-right">
+        <button class="ae-tlbtn on" id="snapBtn" title="吸附对齐开 / 关">磁吸 开</button>
+        <button class="ae-tlbtn" id="kfBtn" title="在播放头为选中片段添加关键帧">◆ 关键帧</button>
+        <button class="ae-tlbtn danger" id="delBtn" title="删除选中片段（Delete）">删除</button>
+        <span class="ae-sep"></span>
+        <button class="ae-iconbtn small" id="zoomOut" title="缩小时间轴" aria-label="缩小时间轴">−</button>
+        <span class="ae-zoomlbl" id="zoomLbl">60px/s</span>
+        <button class="ae-iconbtn small" id="zoomIn" title="放大时间轴" aria-label="放大时间轴">＋</button>
+        <button class="ae-tlbtn" id="fitBtn" title="时间轴适配窗口">适配</button>
+      </div>
+    </div>
+    <div class="ae-tl-scroll" id="tlScroll">
+      <div class="ae-tl-inner" id="tlInner">
+        <div class="ae-tl-rulerrow">
+          <div class="ae-tl-corner" id="tlCorner">轨道 / 时间</div>
+          <div class="ae-tl-ruler" id="tlRuler">
+            <canvas id="rulerCanvas"></canvas>
+            <div class="ae-ph-head" id="phHead" title="拖动播放头"></div>
+          </div>
+        </div>
+        <div class="ae-tl-tracks" id="tlTracks">
+          <div id="tlRows"></div>
+          <div class="ae-ph-line" id="phLine"></div>
+          <div class="ae-snapline" id="snapLine" hidden></div>
+          <div class="ae-dropline" id="dropLine" hidden></div>
+        </div>
+      </div>
+    </div>
+  </section>
+</main>
+
+<div class="ae-toasts" id="toasts" aria-live="polite"></div>
+
+<div class="ae-modal" id="exportModal" hidden>
+  <div class="ae-modalcard" role="dialog" aria-modal="true" aria-label="导出">
+    <h3><span>⬆</span> 导出成片 <span class="mtag" id="exportMockTag">MOCK</span></h3>
+    <p id="exportDesc">正在提交渲染任务…</p>
+    <div class="ae-modalrow"><span>分辨率 / 编码</span><b id="expMeta1">1080p · H.264</b></div>
+    <div class="ae-modalrow"><span>帧率 / 时长</span><b id="expMeta2">30fps · 28.0s</b></div>
+    <div class="ae-modalrow"><span>输出</span><b id="expMeta3">/autoedit/render</b></div>
+    <div class="ae-progress"><i id="expBar"></i></div>
+    <div class="ae-progress-txt"><span id="expPct">0%</span><span id="expState">准备中</span></div>
+    <div class="ae-modalactions">
+      <button class="ae-btn" id="expDownload" type="button">下载工程 JSON</button>
+      <button class="ae-btn primary" id="expClose" type="button">关闭</button>
+    </div>
+  </div>
+</div>
+
+<div class="ae-modal" id="helpModal" hidden>
+  <div class="ae-modalcard" role="dialog" aria-modal="true" aria-label="快捷键">
+    <h3><span>⌨</span> 键盘快捷键</h3>
+    <p>焦点在输入框内时不会触发全局快捷键。</p>
+    <div class="ae-help">
+      <div><span>播放 / 暂停</span><kbd>空格</kbd></div>
+      <div><span>删除选中片段</span><kbd>Delete</kbd></div>
+      <div><span>撤销</span><kbd>Ctrl + Z</kbd></div>
+      <div><span>重做</span><kbd>Ctrl + Shift + Z</kbd></div>
+      <div><span>上一帧 / 下一帧</span><kbd>← / →</kbd></div>
+      <div><span>保存工程</span><kbd>Ctrl + S</kbd></div>
+      <div><span>添加关键帧</span><kbd>Ctrl + K</kbd></div>
+      <div><span>取消选中</span><kbd>Esc</kbd></div>
+    </div>
+    <div class="ae-modalactions"><button class="ae-btn primary" id="helpClose" type="button">知道了</button></div>
+  </div>
+</div>
+
+<script defer src="../assets/theme.js"></script>
+<script defer src="../assets/site-shell.js"></script>
+<script>
+(function () {
+  'use strict';
+
+  /* ============================================================
+   * 0. 基础工具
+   * ============================================================ */
+  var app = document.getElementById('app');
+  function $(sel, root) { return (root || document).querySelector(sel); }
+  function $$(sel, root) { return Array.prototype.slice.call((root || document).querySelectorAll(sel)); }
+  function clamp(v, a, b) { return v < a ? a : (v > b ? b : v); }
+  function r2(v) { return Math.round(v * 100) / 100; }
+  function pad2(n) { n = Math.floor(Math.abs(n)); return n < 10 ? '0' + n : '' + n; }
+  function uid(prefix) { return (prefix || 'id') + '-' + Date.now().toString(36).slice(-5) + '-' + Math.random().toString(36).slice(2, 6); }
+  function esc(s) {
+    return String(s == null ? '' : s).replace(/[&<>"']/g, function (c) {
+      return ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' })[c];
+    });
+  }
+  function clone(o) {
+    try { return structuredClone(o); } catch (e) {
+      try { return JSON.parse(JSON.stringify(o)); } catch (e2) { return o; }
+    }
+  }
+  function getLabelW() {
+    try { var v = getComputedStyle(app).getPropertyValue('--ae-labelw'); return parseFloat(v) || 148; } catch (e) { return 148; }
+  }
+  function fmtTC(t) {
+    if (project && project.fps) { /* noop */ }
+    var f = (project && project.fps) || 30;
+    t = Math.max(0, t || 0);
+    var totalFrames = Math.round(t * f);
+    var ff = totalFrames % f;
+    var sec = Math.floor(totalFrames / f);
+    return pad2(Math.floor(sec / 3600)) + ':' + pad2(Math.floor(sec / 60) % 60) + ':' + pad2(sec % 60) + ':' + pad2(ff);
+  }
+  function fmtSec(v) { return (Math.round(v * 10) / 10).toFixed(1) + 's'; }
+  function timeAgo(ts) {
+    var d = (Date.now() - ts) / 1000;
+    if (d < 5) return '刚刚';
+    if (d < 60) return Math.floor(d) + ' 秒前';
+    if (d < 3600) return Math.floor(d / 60) + ' 分钟前';
+    var dt = new Date(ts);
+    return pad2(dt.getHours()) + ':' + pad2(dt.getMinutes()) + ':' + pad2(dt.getSeconds());
+  }
+
+  var API_BASE = location.pathname.indexOf('/ai-nav/') === 0 ? '/ai-nav/api/autoedit' : '/api/autoedit';
+  var API_ENABLED = (function () {
+    try {
+      if (/[?&]api=1(?:&|$)/.test(location.search)) return true;
+      if (localStorage.getItem('ae_api_enabled') === '1') return true;
+    } catch (e) { }
+    return false;
+  })();
+  var PROJECT_ID = 'demo-project-2026';
+  var STORAGE_KEY = 'ae_expert_project_v1';
+  var MAX_HISTORY = 80;
+
+  /* ============================================================
+   * 1. 初始工程（mock 数据，字段与后端契约一致）
+   * ============================================================ */
+  function seedProject() {
+    var assets = [
+      { id: 'as-v1', name: '城市晨光 · 开场', kind: 'video', duration: 9, palette: ['#0ea5e9', '#6366f1'], scene: 0, type: 'video' },
+      { id: 'as-v2', name: '腕表特写 · 影棚', kind: 'video', duration: 8, palette: ['#f59e0b', '#ef4444'], scene: 1, type: 'video' },
+      { id: 'as-v3', name: '夏日海岸 · 空镜', kind: 'video', duration: 7, palette: ['#14b8a6', '#0284c7'], scene: 2, type: 'video' },
+      { id: 'as-v4', name: '都市夜行 · 转场', kind: 'video', duration: 10, palette: ['#8b5cf6', '#ec4899'], scene: 3, type: 'video' },
+      { id: 'as-a1', name: '夏日氛围 BGM', kind: 'audio', duration: 120, type: 'audio' },
+      { id: 'as-t1', name: '标题文字', kind: 'text', type: 'text' },
+      { id: 'as-f1', name: '转场 / 特效', kind: 'fx', type: 'fx' }
+    ];
+    var kf = function (prop, t, value, easing) {
+      return { id: uid('kf'), prop: prop, t: r2(t), value: value, easing: easing || 'easeInOut' };
+    };
+    var tracks = [
+      {
+        id: 'tr-video', type: 'video', name: '视频 1', locked: false, muted: false, clips: [
+          {
+            id: 'c-v1', name: '城市晨光 · 开场', type: 'video', asset_url: 'mock://video/city-morning',
+            start: 0, duration: 6.5, in: 0, out: 6.5,
+            props: { x: 0, y: 0, scale: 1, rotation: 0, opacity: 1, palette: ['#0ea5e9', '#6366f1'], scene: 0, keyframes: [kf('scale', 0, 1.02, 'easeInOut'), kf('scale', 6.5, 1.12, 'linear')] }
+          },
+          {
+            id: 'c-v2', name: '腕表特写 · 影棚', type: 'video', asset_url: 'mock://video/watch-studio',
+            start: 6.5, duration: 6.5, in: 0.4, out: 6.9,
+            props: { x: 0, y: 0, scale: 1.04, rotation: 0, opacity: 1, palette: ['#f59e0b', '#ef4444'], scene: 1, keyframes: [kf('scale', 0, 1.14, 'easeInOut'), kf('scale', 6.5, 1.02, 'linear')] }
+          },
+          {
+            id: 'c-v3', name: '夏日海岸 · 空镜', type: 'video', asset_url: 'mock://video/summer-coast',
+            start: 13, duration: 7, in: 1.2, out: 8.2,
+            props: { x: 0, y: 0, scale: 1, rotation: 0, opacity: 1, palette: ['#14b8a6', '#0284c7'], scene: 2, keyframes: [kf('x', 0, -1.5, 'easeInOut'), kf('x', 7, 1.5, 'linear')] }
+          },
+          {
+            id: 'c-v4', name: '都市夜行 · 转场', type: 'video', asset_url: 'mock://video/city-night',
+            start: 20, duration: 8, in: 0, out: 8,
+            props: { x: 0, y: 0, scale: 1.08, rotation: 0, opacity: 1, palette: ['#8b5cf6', '#ec4899'], scene: 3, keyframes: [] }
+          }
+        ]
+      },
+      {
+        id: 'tr-audio', type: 'audio', name: '音频 1 · BGM', locked: false, muted: false, clips: [
+          {
+            id: 'c-a1', name: '夏日氛围 BGM · 120BPM', type: 'audio', asset_url: 'mock://audio/summer-bgm',
+            start: 0, duration: 28, in: 0, out: 28,
+            props: { volume: 0.62, fadeIn: 1.2, fadeOut: 2.4, keyframes: [] }
+          }
+        ]
+      },
+      {
+        id: 'tr-text', type: 'text', name: '文字 1 · 字幕', locked: false, muted: false, clips: [
+          {
+            id: 'c-t1', name: '主标题 · SUMMER 2026', type: 'text', asset_url: 'mock://text/title',
+            start: 0.8, duration: 4.6, in: 0, out: 4.6,
+            props: {
+              text: 'SUMMER 2026', fontSize: 62, color: '#f8fafc', bg: false, align: 'center',
+              x: 0, y: -14, scale: 1, rotation: 0, opacity: 1, letterSpacing: 4, animation: 'fadeSlide',
+              keyframes: [kf('opacity', 0, 0), kf('opacity', 0.75, 1, 'linear'), kf('y', 0, -9), kf('y', 0.9, -14, 'linear')]
+            }
+          },
+          {
+            id: 'c-t2', name: '卖点字幕', type: 'text', asset_url: 'mock://text/points',
+            start: 7.4, duration: 4.8, in: 0, out: 4.8,
+            props: {
+              text: '轻盈 · 防水 · 长续航', fontSize: 34, color: '#e0f2fe', bg: true, bgColor: 'rgba(8,20,36,.55)',
+              align: 'center', x: 0, y: 20, scale: 1, rotation: 0, opacity: 1, letterSpacing: 2, animation: 'fadeSlide',
+              keyframes: [kf('opacity', 0, 0), kf('opacity', 0.5, 1, 'linear')]
+            }
+          },
+          {
+            id: 'c-t3', name: '行动号召 CTA', type: 'text', asset_url: 'mock://text/cta',
+            start: 20.6, duration: 5.6, in: 0, out: 5.6,
+            props: {
+              text: '现在下单 · 限时 8 折', fontSize: 42, color: '#fde68a', bg: true, bgColor: 'rgba(24,12,4,.5)',
+              align: 'center', x: 0, y: 19, scale: 1, rotation: 0, opacity: 1, letterSpacing: 2, animation: 'fadeSlide',
+              keyframes: [kf('opacity', 0, 0), kf('opacity', 0.6, 1, 'linear')]
+            }
+          }
+        ]
+      },
+      {
+        id: 'tr-fx', type: 'fx', name: '特效 1 · 转场/图表', locked: false, muted: false, clips: [
+          { id: 'c-f1', name: '淡入 · 开场', type: 'fx', asset_url: 'mock://fx/fade-in', start: 0, duration: 1.2, in: 0, out: 1.2, props: { effect: 'fade-in', intensity: 0.9, keyframes: [] } },
+          { id: 'c-f2', name: '闪白转场', type: 'fx', asset_url: 'mock://fx/flash', start: 6.2, duration: 1.1, in: 0, out: 1.1, props: { effect: 'transition', transition: 'flash', intensity: 0.85, keyframes: [] } },
+          { id: 'c-f3', name: '图表 · 近 30 天销量', type: 'fx', asset_url: 'mock://fx/chart-bar', start: 14.2, duration: 5.2, in: 0, out: 5.2, props: { effect: 'chart-bar', title: '近 30 天销量', values: [22, 38, 31, 52, 68, 84], intensity: 1, keyframes: [] } },
+          { id: 'c-f4', name: '横向擦除转场', type: 'fx', asset_url: 'mock://fx/wipe', start: 19.6, duration: 1.4, in: 0, out: 1.4, props: { effect: 'transition', transition: 'wipe', intensity: 0.9, keyframes: [] } }
+        ]
+      }
+    ];
+    return {
+      id: PROJECT_ID,
+      name: 'AI 全自动剪辑 · 专家端 Demo',
+      aspect: '16:9',
+      fps: 30,
+      timeline: { duration: 28 },
+      assets: assets,
+      tracks: tracks,
+      updatedAt: Date.now()
+    };
+  }
+
+  /* ============================================================
+   * 2. 素材库数据（mock；若后端 /library 可用则合并）
+   * ============================================================ */
+  var LIB = {
+    templates: [
+      { id: 'tpl-ecom', name: '电商爆款带货', industry: '电商', dur: 15, c1: '#f59e0b', c2: '#ef4444', desc: '3 镜卖点 + 2 条字幕 + 闪白', scenes: [['#f59e0b', '#ef4444'], ['#0ea5e9', '#6366f1'], ['#14b8a6', '#0284c7']], lines: ['限时直降 30%', '今晚 8 点直播间见'] },
+      { id: 'tpl-know', name: '知识口播模板', industry: '教育', dur: 20, c1: '#38bdf8', c2: '#6366f1', desc: '三段式口播 + 关键词字幕', scenes: [['#0ea5e9', '#6366f1'], ['#6366f1', '#8b5cf6'], ['#38bdf8', '#0ea5e9']], lines: ['3 个提效技巧', '第 1 个最常用'] },
+      { id: 'tpl-travel', name: '旅行 Vlog 开场', industry: '旅行', dur: 18, c1: '#14b8a6', c2: '#38bdf8', desc: '海岸空镜 + 地点字幕', scenes: [['#14b8a6', '#0284c7'], ['#38bdf8', '#8b5cf6'], ['#f59e0b', '#f472b6']], lines: ['出发吧', '下一站 · 阿那亚'] },
+      { id: 'tpl-corp', name: '企业品牌宣传片', industry: '企业', dur: 24, c1: '#6366f1', c2: '#8b5cf6', desc: '品牌叙事 + 数据图表', scenes: [['#0f172a', '#38bdf8'], ['#6366f1', '#8b5cf6'], ['#f59e0b', '#ef4444']], lines: ['让 AI 驱动增长', '星籁科技 · 2026'] },
+      { id: 'tpl-food', name: '美食探店快剪', industry: '餐饮', dur: 14, c1: '#f59e0b', c2: '#f472b6', desc: '快节奏镜头 + 价格字幕', scenes: [['#f59e0b', '#ef4444'], ['#f472b6', '#f59e0b'], ['#fde68a', '#f59e0b']], lines: ['本地人推荐', '人均 58 元'] },
+      { id: 'tpl-house', name: '房产家居带看', industry: '房产', dur: 22, c1: '#64748b', c2: '#38bdf8', desc: '空间运镜 + 卖点罗列', scenes: [['#64748b', '#0ea5e9'], ['#94a3b8', '#6366f1'], ['#0ea5e9', '#14b8a6']], lines: ['三环内改善盘', '首付 80 万起'] },
+      { id: 'tpl-hiring', name: '招聘雇主品牌', industry: '招聘', dur: 16, c1: '#8b5cf6', c2: '#38bdf8', desc: '团队氛围 + 岗位信息', scenes: [['#8b5cf6', '#38bdf8'], ['#0ea5e9', '#14b8a6'], ['#6366f1', '#8b5cf6']], lines: ['加入我们', '前端 / 算法 / 运营'] },
+      { id: 'tpl-beauty', name: '美妆种草测评', industry: '美妆', dur: 17, c1: '#f472b6', c2: '#a78bfa', desc: '上妆特写 + 持妆数据', scenes: [['#f472b6', '#a78bfa'], ['#fbcfe8', '#f472b6'], ['#a78bfa', '#6366f1']], lines: ['早八也服帖', '持妆 12 小时'] }
+    ],
+    animations: [
+      { id: 'anim-type', name: '打字机入场', preset: 'typewriter', text: 'STELLAR 2026', desc: '逐字显现 · 适合标题', c1: '#38bdf8', c2: '#8b5cf6' },
+      { id: 'anim-pop', name: '弹入放大', preset: 'pop', text: '限时直降', desc: '弹性缩放 · 强调促销', c1: '#f59e0b', c2: '#ef4444' },
+      { id: 'anim-up', name: '上滑淡入', preset: 'slideUp', text: '轻盈 · 防水 · 长续航', desc: '平滑上移 · 适合字幕', c1: '#8b5cf6', c2: '#6366f1' },
+      { id: 'anim-glow', name: '霓虹呼吸', preset: 'glow', text: 'SUMMER NIGHT', desc: '发光脉冲 · 夜景氛围', c1: '#ec4899', c2: '#8b5cf6' },
+      { id: 'anim-blur', name: '模糊聚焦', preset: 'blur', text: 'FOCUS ON', desc: '由虚到实 · 电影感', c1: '#0ea5e9', c2: '#14b8a6' }
+    ],
+    charts: [
+      { id: 'chart-bar', name: '柱状图 · 增长趋势', effect: 'chart-bar', title: '近 30 天销量', values: [22, 38, 31, 52, 68, 84], c1: '#fbbf24', c2: '#f59e0b' },
+      { id: 'chart-line', name: '折线图 · 转化走势', effect: 'chart-line', title: '转化率走势', values: [18, 26, 24, 41, 38, 62], c1: '#38bdf8', c2: '#0ea5e9' },
+      { id: 'chart-donut', name: '环形图 · 渠道占比', effect: 'chart-donut', title: '渠道占比', values: [42, 26, 18, 14], c1: '#8b5cf6', c2: '#a78bfa' },
+      { id: 'chart-kpi', name: 'KPI 数据卡 · 涨 128%', effect: 'chart-kpi', title: '本月新增线索', values: [128], c1: '#34d399', c2: '#10b981' }
+    ],
+    transitions: [
+      { id: 'trans-fade', name: '交叉淡入淡出', transition: 'fade', dur: 1.2, c1: '#38bdf8', c2: '#8b5cf6' },
+      { id: 'trans-wipe', name: '横向擦除', transition: 'wipe', dur: 1.0, c1: '#0ea5e9', c2: '#14b8a6' },
+      { id: 'trans-flash', name: '闪白冲击', transition: 'flash', dur: 0.9, c1: '#f8fafc', c2: '#94a3b8' },
+      { id: 'trans-slide', name: '推镜滑动', transition: 'slide', dur: 1.3, c1: '#8b5cf6', c2: '#ec4899' },
+      { id: 'trans-zoom', name: '放大穿越', transition: 'zoom', dur: 1.1, c1: '#f59e0b', c2: '#ef4444' }
+    ]
+  };
+
+  /* ============================================================
+   * 3. 运行状态
+   * ============================================================ */
+  var project = null;
+  var ui = {
+    tab: 'templates', search: '', currentTime: 2.6, playing: false, loop: false,
+    pps: 62, snap: true, selectedClipId: null, selectedKfId: null,
+    kfProp: 'scale', curve: 'easeInOut', safe: false,
+    apiOnline: false, dirty: false, saving: false, savedAt: null,
+    exporting: false, autoTimer: null, lastAuto: 0, nlBusy: false,
+    stageW: 0, stageH: 0, fitTry: 0
+  };
+  var history = { past: [], future: [] };
+  var boot = { loaded: false };
+  var els = {};
+  var ctx = null;
+  var pointer = { mode: null };   // 时间轴拖拽状态
+  var scrubState = null;
+
+  function fps() { return (project && project.fps) || 30; }
+  function clipsOf(type) {
+    var out = [];
+    if (!project) return out;
+    project.tracks.forEach(function (t) { if (t.type === type) out = out.concat(t.clips || []); });
+    return out;
+  }
+  function allClips() {
+    var out = [];
+    if (!project) return out;
+    project.tracks.forEach(function (t) { (t.clips || []).forEach(function (c) { out.push({ clip: c, track: t }); }); });
+    return out;
+  }
+  function findClip(id) {
+    if (!id || !project) return null;
+    var tracks = project.tracks;
+    for (var i = 0; i < tracks.length; i++) {
+      var clips = tracks[i].clips || [];
+      for (var j = 0; j < clips.length; j++) {
+        if (clips[j].id === id) return { clip: clips[j], track: tracks[i] };
+      }
+    }
+    return null;
+  }
+  function selectedClip() {
+    var hit = findClip(ui.selectedClipId);
+    return hit ? hit.clip : null;
+  }
+  function trackOfClip(clip) {
+    var hit = findClip(clip && clip.id);
+    return hit ? hit.track : null;
+  }
+  function maxClipEnd() {
+    var end = 0;
+    allClips().forEach(function (x) { end = Math.max(end, (x.clip.start || 0) + (x.clip.duration || 0)); });
+    return end;
+  }
+  function duration() {
+    return Math.max((project && project.timeline && project.timeline.duration) || 10, maxClipEnd(), 8);
+  }
+  function normalizeProject(p) {
+    if (!p || typeof p !== 'object') return seedProject();
+    p.id = p.id || PROJECT_ID;
+    p.name = p.name || '未命名工程';
+    p.aspect = p.aspect || '16:9';
+    p.fps = +p.fps || 30;
+    p.timeline = p.timeline || {};
+    p.timeline.duration = +p.timeline.duration || 28;
+    p.assets = Array.isArray(p.assets) ? p.assets : [];
+    p.tracks = Array.isArray(p.tracks) ? p.tracks : [];
+    var typeNames = { video: '视频', audio: '音频', text: '文字', fx: '特效' };
+    p.tracks.forEach(function (t, ti) {
+      t.id = t.id || ('tr-' + (t.type || 'video') + '-' + ti);
+      t.type = t.type || 'video';
+      t.name = t.name || (typeNames[t.type] || '轨道') + ' ' + (ti + 1);
+      t.clips = Array.isArray(t.clips) ? t.clips : [];
+      t.clips.forEach(function (c, ci) {
+        c.id = c.id || uid('c');
+        c.type = c.type || t.type;
+        c.name = c.name || ('片段 ' + (ci + 1));
+        c.start = Math.max(0, +c.start || 0);
+        c.duration = Math.max(0.2, +c.duration || 1);
+        c.in = +c.in || 0;
+        c.out = c.out != null ? +c.out : c.in + c.duration;
+        c.props = c.props || {};
+        if (!Array.isArray(c.props.keyframes)) c.props.keyframes = [];
+        c.props.keyframes.forEach(function (k) { k.id = k.id || uid('kf'); k.easing = k.easing || 'easeInOut'; });
+      });
+    });
+    return p;
+  }
+
+  /* ============================================================
+   * 4. 提示 / 保存状态 / 历史
+   * ============================================================ */
+  function toast(msg, type, ms) {
+    var host = $('#toasts');
+    if (!host) return;
+    var d = document.createElement('div');
+    d.className = 'ae-toast ' + (type || 'ok');
+    d.innerHTML = '<span class="ti">' + (type === 'warn' ? '⚠' : type === 'err' ? '✕' : '✓') + '</span><span class="tx">' + esc(msg) + '</span>';
+    host.appendChild(d);
+    while (host.children.length > 4) host.removeChild(host.firstChild);
+    setTimeout(function () {
+      d.classList.add('out');
+      setTimeout(function () { if (d.parentNode) d.parentNode.removeChild(d); }, 240);
+    }, ms || 2800);
+  }
+  function updateSaveChip() {
+    var chip = $('#saveChip'), txt = $('#saveTxt');
+    if (!chip || !txt) return;
+    chip.classList.toggle('dirty', !!ui.dirty && !ui.saving);
+    chip.classList.toggle('saving', !!ui.saving);
+    var t = ui.savedAt ? timeAgo(ui.savedAt) : '';
+    if (ui.saving) txt.textContent = '保存中…';
+    else if (ui.dirty) txt.textContent = '未保存更改';
+    else if (ui.savedAt) txt.textContent = (ui.apiOnline ? '已保存 ' : '已存本地 ') + t;
+    else txt.textContent = '已载入';
+    chip.title = ui.apiOnline ? '工程已连接后端 API' : '后端未连接：改动保存在浏览器 localStorage（mock），点击保存可再次确认';
+  }
+  function updateMockPill() {
+    var pill = $('#mockPill'), dot = $('#mockDot');
+    if (!pill) return;
+    pill.textContent = ui.apiOnline ? 'API' : 'MOCK';
+    pill.title = ui.apiOnline ? '后端 API 在线' : '后端未连接：保存 / 导出 / 指令均使用前端 mock；如后端已就绪，可在地址后加 ?api=1 启用 API';
+    pill.style.cursor = 'pointer';
+    if (!pill.getAttribute('data-api-bind')) {
+      pill.setAttribute('data-api-bind', '1');
+      pill.addEventListener('click', function () {
+        toast('当前为前端 mock：本地保存、模拟导出、本地指令解析均可正常演示。后端就绪后可在地址后追加 ?api=1 切换到真实 API。', 'warn', 4200);
+      });
+    }
+    if (dot) dot.style.display = 'none';
+  }
+  function markDirty() {
+    ui.dirty = true;
+    updateSaveChip();
+    clearTimeout(ui.autoTimer);
+    ui.autoTimer = setTimeout(function () {
+      try {
+        localStorage.setItem(STORAGE_KEY, JSON.stringify(project));
+        ui.savedAt = Date.now();
+        ui.lastAuto = ui.savedAt;
+        if (!ui.apiOnline) ui.dirty = false;
+        updateSaveChip();
+      } catch (e) { /* 忽略隐私模式存储失败 */ }
+    }, 650);
+  }
+  function updateUndoUI() {
+    var u = $('#undoBtn'), r = $('#redoBtn');
+    if (u) u.disabled = !history.past.length;
+    if (r) r.disabled = !history.future.length;
+    if (u) u.title = history.past.length ? ('撤销：' + history.past[history.past.length - 1].label + '（Ctrl+Z）') : '没有可撤销的操作';
+    if (r) r.title = history.future.length ? ('重做：' + history.future[history.future.length - 1].label + '（Ctrl+Shift+Z）') : '没有可重做的操作';
+  }
+  function pushHistory(label, prevState) {
+    var snap = clone(prevState || project);
+    history.past.push({ state: snap, label: label || '编辑' });
+    if (history.past.length > MAX_HISTORY) history.past.shift();
+    history.future.length = 0;
+    updateUndoUI();
+  }
+  function afterRestore(msg) {
+    normalizeProject(project);
+    if (ui.selectedClipId && !findClip(ui.selectedClipId)) ui.selectedClipId = null;
+    if (!ui.selectedClipId) ui.selectedKfId = null;
+    ui.currentTime = clamp(ui.currentTime, 0, duration());
+    renderAll();
+    markDirty();
+    updateUndoUI();
+    if (msg) toast(msg, 'ok');
+  }
+  function undo() {
+    if (!history.past.length) { toast('没有可撤销的操作', 'warn'); return; }
+    var h = history.past.pop();
+    history.future.push({ state: clone(project), label: h.label });
+    project = h.state;
+    afterRestore('已撤销：' + h.label);
+  }
+  function redo() {
+    if (!history.future.length) { toast('没有可重做的操作', 'warn'); return; }
+    var h = history.future.pop();
+    history.past.push({ state: clone(project), label: h.label });
+    project = h.state;
+    afterRestore('已重做：' + h.label);
+  }
+
+  /* ============================================================
+   * 5. 后端（可选；不可用时全部走 mock）
+   * ============================================================ */
+  function apiFetch(path, opts, timeout) {
+    var ctl = new AbortController();
+    var timer = setTimeout(function () { try { ctl.abort(); } catch (e) { } }, timeout || 1500);
+    var o = Object.assign({}, opts || {});
+    o.signal = ctl.signal;
+    o.headers = Object.assign({ 'Content-Type': 'application/json' }, o.headers || {});
+    return fetch(API_BASE + path, o).then(function (r) {
+      clearTimeout(timer);
+      if (!r.ok) throw new Error('HTTP ' + r.status);
+      var ct = r.headers.get('content-type') || '';
+      return ct.indexOf('json') >= 0 ? r.json() : r.text();
+    }, function (e) {
+      clearTimeout(timer);
+      throw e;
+    });
+  }
+  function saveProject(manual) {
+    if (!project) return;
+    if (ui.saving) return;
+    ui.saving = true;
+    updateSaveChip();
+    var finish = function (ok, online) {
+      ui.saving = false;
+      ui.dirty = false;
+      ui.savedAt = Date.now();
+      project.updatedAt = ui.savedAt;
+      try { localStorage.setItem(STORAGE_KEY, JSON.stringify(project)); } catch (e) { }
+      updateSaveChip();
+      if (ok) toast(online ? '工程已保存到云端（PUT /projects/' + project.id + '）' : '后端未连接，已保存到浏览器本地（mock）', 'ok');
+    };
+    if (ui.apiOnline) {
+      apiFetch('/projects/' + project.id, { method: 'PUT', body: JSON.stringify(project) }, 2500).then(function () {
+        finish(true, true);
+      }).catch(function () {
+        finish(true, false);
+        ui.apiOnline = false;
+        updateMockPill();
+      });
+    } else {
+      setTimeout(function () { finish(true, false); }, 280);
+    }
+  }
+  function runExport() {
+    var modal = $('#exportModal');
+    if (!modal) return;
+    if (ui.exporting) return;
+    ui.exporting = true;
+    var bar = $('#expBar'), pct = $('#expPct'), state = $('#expState'), desc = $('#exportDesc');
+    if (ui.expTimer) { clearInterval(ui.expTimer); ui.expTimer = null; }
+    bar.style.width = '0%';
+    pct.textContent = '0%';
+    state.textContent = '准备中';
+    $('#expMeta2').textContent = fps() + 'fps · ' + duration().toFixed(1) + 's';
+    $('#expMeta3').textContent = ui.apiOnline ? 'POST /render' : 'mock · 浏览器本地';
+    $('#expMeta1').textContent = project.aspect === '9:16' ? '1080×1920 · H.264' : project.aspect === '1:1' ? '1080×1080 · H.264' : project.aspect === '4:5' ? '1080×1350 · H.264' : '1920×1080 · H.264';
+    modal.hidden = false;
+    updateMockPill();
+    $('#exportMockTag').textContent = ui.apiOnline ? 'API' : 'MOCK';
+    var prog = 0;
+    desc.textContent = ui.apiOnline ? '正在提交渲染任务…' : '前端 mock：模拟 1080p H.264 渲染队列';
+    var timer = setInterval(function () {
+      prog = Math.min(100, prog + (prog < 60 ? 9 : prog < 90 ? 5 : 2));
+      bar.style.width = prog + '%';
+      pct.textContent = prog + '%';
+      state.textContent = prog < 20 ? '准备素材' : prog < 55 ? '合成多轨' : prog < 85 ? '编码 H.264' : prog < 100 ? '写入文件' : '完成';
+      if (prog >= 100) {
+        clearInterval(timer);
+        ui.expTimer = null;
+        ui.exporting = false;
+        desc.textContent = ui.apiOnline ? '渲染任务已提交（后端），完成后可在作品列表查看。' : '导出完成（mock）：四轨已合成为 1080p H.264 模拟成片，可下载工程 JSON 复核。';
+        toast('导出完成（' + (ui.apiOnline ? 'API' : 'mock') + '）· 1920×1080 · H.264 · ' + duration().toFixed(1) + 's', 'ok', 3800);
+      }
+    }, 120);
+    ui.expTimer = timer;
+    if (ui.apiOnline) {
+      apiFetch('/render', { method: 'POST', body: JSON.stringify({ project_id: project.id, aspect: project.aspect, fps: project.fps }) }, 2500).catch(function () {
+        ui.apiOnline = false;
+        updateMockPill();
+      });
+    }
+  }
+  function downloadProject() {
+    try {
+      var blob = new Blob([JSON.stringify(project, null, 2)], { type: 'application/json' });
+      var a = document.createElement('a');
+      a.href = URL.createObjectURL(blob);
+      a.download = 'autoedit-expert-' + Date.now() + '.json';
+      document.body.appendChild(a);
+      a.click();
+      setTimeout(function () { URL.revokeObjectURL(a.href); if (a.parentNode) a.parentNode.removeChild(a); }, 500);
+      toast('工程 JSON 已开始下载', 'ok');
+    } catch (e) {
+      toast('当前浏览器不支持下载工程 JSON', 'warn');
+    }
+  }
+
+  /* ============================================================
+   * 6. 预览画布渲染（模拟成片画面）
+   * ============================================================ */
+  var DEFAULTS = {
+    video: { x: 0, y: 0, scale: 1, rotation: 0, opacity: 1 },
+    audio: { volume: 0.75, fadeIn: 0.5, fadeOut: 0.8 },
+    text: { x: 0, y: 0, scale: 1, rotation: 0, opacity: 1, fontSize: 40, color: '#f8fafc', bg: false, bgColor: 'rgba(8,20,36,.55)', align: 'center', letterSpacing: 0, animation: '' },
+    fx: { intensity: 1, x: 0, y: 0, opacity: 1 }
+  };
+  var RES = { '16:9': [1280, 720], '9:16': [720, 1280], '1:1': [960, 960], '4:5': [864, 1080] };
+  var PROPS_KEYS = ['x', 'y', 'scale', 'rotation', 'opacity', 'fontSize', 'volume'];
+
+  function easeAt(name, p) {
+    p = clamp(p, 0, 1);
+    switch (name) {
+      case 'linear': return p;
+      case 'easeIn': return p * p * p;
+      case 'easeOut': return 1 - Math.pow(1 - p, 3);
+      case 'hold': return 0;
+      default: return p < 0.5 ? 2 * p * p : 1 - Math.pow(-2 * p + 2, 2) / 2;
+    }
+  }
+  function kfsOf(clip, prop) {
+    var arr = (clip.props && clip.props.keyframes) || [];
+    return arr.filter(function (k) { return k.prop === prop; }).sort(function (a, b) { return a.t - b.t; });
+  }
+  function effProps(clip, localT) {
+    var out = Object.assign({}, DEFAULTS[clip.type] || {}, clip.props || {});
+    for (var i = 0; i < PROPS_KEYS.length; i++) {
+      var prop = PROPS_KEYS[i];
+      var ks = kfsOf(clip, prop);
+      if (!ks.length) continue;
+      if (localT <= ks[0].t) { out[prop] = ks[0].value; continue; }
+      if (localT >= ks[ks.length - 1].t) { out[prop] = ks[ks.length - 1].value; continue; }
+      for (var j = 0; j < ks.length - 1; j++) {
+        var a = ks[j], b = ks[j + 1];
+        if (localT >= a.t && localT <= b.t) {
+          var span = b.t - a.t;
+          var p = span <= 0 ? 1 : (localT - a.t) / span;
+          out[prop] = a.value + (b.value - a.value) * easeAt(a.easing, p);
+          break;
+        }
+      }
+    }
+    return out;
+  }
+  function roundRectPath(x, y, w, h, r) {
+    r = Math.min(r, w / 2, h / 2);
+    ctx.beginPath();
+    ctx.moveTo(x + r, y);
+    ctx.arcTo(x + w, y, x + w, y + h, r);
+    ctx.arcTo(x + w, y + h, x, y + h, r);
+    ctx.arcTo(x, y + h, x, y, r);
+    ctx.arcTo(x, y, x + w, y, r);
+    ctx.closePath();
+  }
+  function mulberry(seed) {
+    var s = seed % 2147483647; if (s <= 0) s += 2147483646;
+    return function () { s = (s * 16807) % 2147483647; return (s - 1) / 2147483646; };
+  }
+  function drawScene(W, H, palette, scene, localT) {
+    var w = W, h = H, t = localT || 0;
+    var pal = palette && palette.length === 2 ? palette : ['#0ea5e9', '#6366f1'];
+    var g = ctx.createLinearGradient(-w / 2, -h / 2, w / 2, h / 2);
+    g.addColorStop(0, pal[0]); g.addColorStop(1, pal[1]);
+    ctx.fillStyle = g; ctx.fillRect(-w / 2, -h / 2, w, h);
+    var ph = t * 0.32;
+    for (var i = 0; i < 4; i++) {
+      var bx = Math.sin(ph + i * 1.9) * w * 0.33;
+      var by = Math.cos(ph * 0.82 + i * 2.2) * h * 0.3;
+      var br = (1.6 + i * 0.55) * Math.min(w, h) * 0.15;
+      var rg = ctx.createRadialGradient(bx, by, 0, bx, by, br);
+      rg.addColorStop(0, 'rgba(255,255,255,' + (0.16 - i * 0.028) + ')');
+      rg.addColorStop(1, 'rgba(255,255,255,0)');
+      ctx.fillStyle = rg;
+      ctx.beginPath(); ctx.arc(bx, by, br, 0, Math.PI * 2); ctx.fill();
+    }
+    var mode = Math.abs((scene || 0) % 4);
+    var u = Math.min(w, h);
+    if (mode === 0) {
+      // 同心圆 · 腕表镜头
+      ctx.save();
+      ctx.translate(Math.sin(ph * 0.5) * w * 0.05, Math.cos(ph * 0.4) * h * 0.03);
+      for (var r = 1; r <= 4; r++) {
+        ctx.strokeStyle = 'rgba(255,255,255,' + (0.28 - r * 0.045) + ')';
+        ctx.lineWidth = Math.max(1, u * 0.0026 * r);
+        ctx.beginPath(); ctx.arc(0, 0, u * 0.09 * r + Math.sin(ph + r) * 3, 0, Math.PI * 2); ctx.stroke();
+      }
+      ctx.strokeStyle = 'rgba(255,255,255,.6)';
+      ctx.lineWidth = Math.max(1.5, u * 0.004);
+      var ang = ph * 0.7;
+      ctx.beginPath(); ctx.arc(0, 0, u * 0.16, ang, ang + Math.PI * 0.7); ctx.stroke();
+      ctx.restore();
+    } else if (mode === 1) {
+      // 影棚产品 · 斜向光带
+      ctx.save();
+      ctx.translate(0, Math.sin(ph) * h * 0.02);
+      ctx.rotate(-0.42);
+      var lg = ctx.createLinearGradient(0, -h, 0, h);
+      lg.addColorStop(0, 'rgba(255,255,255,0)');
+      lg.addColorStop(0.5, 'rgba(255,255,255,.2)');
+      lg.addColorStop(1, 'rgba(255,255,255,0)');
+      ctx.fillStyle = lg;
+      ctx.fillRect(-w * 0.1 + Math.sin(ph) * w * 0.06, -h, w * 0.22, h * 2);
+      ctx.fillStyle = 'rgba(6,12,20,.34)';
+      roundRectPath(-u * 0.12, -u * 0.11, u * 0.24, u * 0.22, u * 0.035); ctx.fill();
+      ctx.strokeStyle = 'rgba(255,255,255,.34)'; ctx.lineWidth = 1.2; ctx.stroke();
+      ctx.fillStyle = 'rgba(255,255,255,.16)';
+      roundRectPath(-u * 0.075, -u * 0.075, u * 0.15, u * 0.15, u * 0.024); ctx.fill();
+      ctx.restore();
+    } else if (mode === 2) {
+      // 海岸波浪
+      ctx.save();
+      for (var k = 0; k < 4; k++) {
+        ctx.beginPath();
+        var y0 = h * (0.02 + k * 0.075);
+        for (var x = -w / 2; x <= w / 2; x += 12) {
+          var y = y0 + Math.sin((x / w) * 6 + ph * 2 + k * 0.9) * h * 0.024 + Math.cos(ph + k) * 6;
+          if (x === -w / 2) ctx.moveTo(x, y); else ctx.lineTo(x, y);
+        }
+        ctx.strokeStyle = 'rgba(255,255,255,' + (0.3 - k * 0.06) + ')';
+        ctx.lineWidth = Math.max(1, u * 0.0035);
+        ctx.stroke();
+      }
+      ctx.fillStyle = 'rgba(255,255,255,.14)';
+      ctx.beginPath(); ctx.arc(w * 0.24 + Math.sin(ph) * 8, -h * 0.2, u * 0.09, 0, Math.PI * 2); ctx.fill();
+      ctx.restore();
+    } else {
+      // 城市夜景 · 天际线
+      ctx.save();
+      ctx.translate(0, h * 0.08);
+      var rnd = mulberry(97);
+      for (var b = 0; b < 9; b++) {
+        var bw = w * (0.045 + rnd() * 0.04);
+        var bh = h * (0.12 + rnd() * 0.34) + Math.sin(ph + b) * 4;
+        var bx2 = -w / 2 + w * 0.04 + b * w * 0.105;
+        ctx.fillStyle = 'rgba(8,12,24,' + (0.55 + rnd() * 0.2) + ')';
+        ctx.fillRect(bx2, -bh, bw, bh);
+        for (var wy = -bh + 10; wy < 0; wy += h * 0.035) {
+          for (var wx = bx2 + 6; wx < bx2 + bw - 6; wx += 9) {
+            if (rnd() > 0.45) {
+              ctx.fillStyle = 'rgba(253,230,138,' + (0.25 + rnd() * 0.55) + ')';
+              ctx.fillRect(wx, wy, 3, 4);
+            }
+          }
+        }
+      }
+      ctx.restore();
+    }
+    // 统一压暗底部 + 暗角，保证字幕可读
+    var bg = ctx.createLinearGradient(0, -h / 2, 0, h / 2);
+    bg.addColorStop(0, 'rgba(3,7,13,.04)');
+    bg.addColorStop(0.62, 'rgba(3,7,13,.05)');
+    bg.addColorStop(1, 'rgba(3,7,13,.5)');
+    ctx.fillStyle = bg; ctx.fillRect(-w / 2, -h / 2, w, h);
+    var vg = ctx.createRadialGradient(0, 0, Math.min(w, h) * 0.22, 0, 0, Math.max(w, h) * 0.75);
+    vg.addColorStop(0, 'rgba(0,0,0,0)'); vg.addColorStop(1, 'rgba(0,0,0,.46)');
+    ctx.fillStyle = vg; ctx.fillRect(-w / 2, -h / 2, w, h);
+  }
+  function drawVideoClip(clip, lt, W, H) {
+    var p = effProps(clip, lt);
+    var sc = +(p.scale || 1), op = clamp(+(p.opacity == null ? 1 : p.opacity), 0, 1);
+    ctx.save();
+    ctx.globalAlpha = op;
+    ctx.translate(W / 2 + (+p.x || 0) / 100 * W, H / 2 + (+p.y || 0) / 100 * H);
+    ctx.rotate((+p.rotation || 0) * Math.PI / 180);
+    ctx.scale(sc, sc);
+    drawScene(W, H, clip.props && clip.props.palette, clip.props && clip.props.scene, lt);
+    ctx.restore();
+  }
+  function fmtKfValue(prop, v) {
+    if (v == null || isNaN(v)) return String(v);
+    if (prop === 'scale') return '×' + (Math.round(v * 100) / 100);
+    if (prop === 'opacity') return Math.round(v * 100) + '%';
+    if (prop === 'volume') return Math.round(v * 100) + '%';
+    if (prop === 'fontSize') return Math.round(v) + 'px';
+    if (prop === 'rotation') return Math.round(v) + '°';
+    if (prop === 'x' || prop === 'y') return (Math.round(v * 10) / 10) + '%';
+    return String(v);
+  }
+  var KF_LABEL = { scale: '缩放', opacity: '不透明度', x: '位置X', y: '位置Y', rotation: '旋转', fontSize: '字号', volume: '音量' };
+  function drawTextClip(clip, lt, W, H) {
+    var p = effProps(clip, lt);
+    var text = String(p.text == null ? '' : p.text);
+    if (!text) return;
+    var s = W / 1280;
+    var fs = Math.max(8, (+p.fontSize || 40) * s);
+    var anim = p.animation || '';
+    var prog = clamp(lt / 0.9, 0, 1);
+    var shown = text;
+    if (anim === 'typewriter') {
+      var n = Math.ceil(text.length * clamp(lt / 1.15, 0, 1));
+      shown = text.slice(0, n);
+      if (n < text.length) shown += '▍';
+    }
+    ctx.save();
+    ctx.globalAlpha = clamp(+(p.opacity == null ? 1 : p.opacity), 0, 1);
+    if (anim === 'blur') { try { ctx.filter = 'blur(' + ((1 - prog) * 7 * s).toFixed(1) + 'px)'; } catch (e) { } }
+    ctx.translate(W / 2 + (+p.x || 0) / 100 * W, H / 2 + (+p.y || 0) / 100 * H);
+    ctx.rotate((+p.rotation || 0) * Math.PI / 180);
+    ctx.scale(+(p.scale || 1), +(p.scale || 1));
+    ctx.font = '800 ' + fs.toFixed(1) + 'px "Microsoft YaHei","PingFang SC","Segoe UI",system-ui,sans-serif';
+    try { ctx.letterSpacing = ((+p.letterSpacing || 0) * s).toFixed(1) + 'px'; } catch (e) { }
+    ctx.textAlign = 'center';
+    ctx.textBaseline = 'middle';
+    var lines = shown.split('\n');
+    var lh = fs * 1.3;
+    var maxW = 0;
+    lines.forEach(function (ln) { maxW = Math.max(maxW, ctx.measureText(ln).width); });
+    var totalH = lh * lines.length;
+    if (p.bg) {
+      ctx.fillStyle = p.bgColor || 'rgba(8,20,36,.55)';
+      roundRectPath(-maxW / 2 - fs * 0.42, -totalH / 2 - fs * 0.22, maxW + fs * 0.84, totalH + fs * 0.44, fs * 0.26);
+      ctx.fill();
+    }
+    if (anim === 'glow') {
+      ctx.shadowColor = 'rgba(103,232,249,' + (0.55 + Math.sin(lt * 4) * 0.25) + ')';
+      ctx.shadowBlur = fs * 0.5 * s;
+    } else {
+      ctx.shadowColor = 'rgba(0,0,0,.55)';
+      ctx.shadowBlur = fs * 0.28;
+      ctx.shadowOffsetY = fs * 0.06;
+    }
+    ctx.fillStyle = p.color || '#f8fafc';
+    lines.forEach(function (ln, i) {
+      ctx.fillText(ln, 0, -totalH / 2 + lh * (i + 0.5));
+    });
+    ctx.restore();
+    try { ctx.filter = 'none'; } catch (e) { }
+    if (ui.selectedClipId === clip.id) {
+      ctx.save();
+      ctx.strokeStyle = 'rgba(248,250,252,.9)';
+      ctx.lineWidth = 2;
+      ctx.setLineDash([7, 5]);
+      var w = maxW + fs * 0.84, hh = totalH + fs * 0.44;
+      ctx.strokeRect(W / 2 + (+p.x || 0) / 100 * W - w / 2, H / 2 + (+p.y || 0) / 100 * H - hh / 2, w, hh);
+      ctx.restore();
+    }
+  }
+  function drawChart(clip, lt, W, H) {
+    var p = effProps(clip, lt);
+    var effect = (clip.props && clip.props.effect) || 'chart-bar';
+    var accent = (clip.props && clip.props.palette && clip.props.palette[0]) || '#fbbf24';
+    var accent2 = (clip.props && clip.props.palette && clip.props.palette[1]) || '#f59e0b';
+    var title = (clip.props && clip.props.title) || '数据图表';
+    var values = (clip.props && clip.props.values) || [24, 40, 32, 56, 72, 88];
+    var prog = clamp(lt / Math.max(0.5, clip.duration * 0.55), 0, 1);
+    var ease = easeAt('easeOut', prog);
+    var pw = W * 0.4, phh = H * 0.42;
+    var px = -pw / 2 + (+p.x || 0) / 100 * W;
+    var py = H * 0.02 + (+p.y || 0) / 100 * H;
+    ctx.save();
+    ctx.globalAlpha = clamp(prog * 1.4, 0, 1);
+    ctx.fillStyle = 'rgba(5,11,20,.72)';
+    roundRectPath(px, py, pw, phh, Math.min(pw, phh) * 0.07); ctx.fill();
+    ctx.strokeStyle = 'rgba(255,255,255,.16)'; ctx.lineWidth = 1.2; ctx.stroke();
+    ctx.textAlign = 'left'; ctx.textBaseline = 'top';
+    ctx.fillStyle = 'rgba(232,238,248,.85)';
+    ctx.font = '700 ' + Math.round(pw * 0.062) + 'px "Microsoft YaHei",system-ui,sans-serif';
+    ctx.fillText(title, px + pw * 0.07, py + phh * 0.085);
+    var cx0 = px + pw * 0.1, cy0 = py + phh * 0.32, cw = pw * 0.8, chh = phh * 0.5;
+    if (effect === 'chart-bar') {
+      var max = Math.max.apply(null, values.concat([1]));
+      var bw = cw / values.length * 0.56;
+      values.forEach(function (v, i) {
+        var bh = chh * (v / max) * ease;
+        var bx = cx0 + (cw / values.length) * i + (cw / values.length - bw) / 2;
+        var g = ctx.createLinearGradient(0, cy0, 0, cy0 - bh);
+        g.addColorStop(0, accent2); g.addColorStop(1, accent);
+        ctx.fillStyle = g;
+        roundRectPath(bx, cy0 - bh, bw, Math.max(2, bh), bw * 0.22); ctx.fill();
+        ctx.fillStyle = 'rgba(232,238,248,.6)';
+        ctx.font = '600 ' + Math.round(pw * 0.036) + 'px Consolas,monospace';
+        ctx.fillText(String(v), bx + bw * 0.18, cy0 - bh - pw * 0.055);
+      });
+      ctx.strokeStyle = 'rgba(148,163,184,.25)'; ctx.lineWidth = 1;
+      ctx.beginPath(); ctx.moveTo(cx0, cy0); ctx.lineTo(cx0 + cw, cy0); ctx.stroke();
+    } else if (effect === 'chart-line') {
+      var max2 = Math.max.apply(null, values.concat([1]));
+      ctx.strokeStyle = accent; ctx.lineWidth = Math.max(2, pw * 0.008);
+      ctx.beginPath();
+      values.forEach(function (v, i) {
+        var x = cx0 + cw * (i / Math.max(1, values.length - 1));
+        var y = cy0 - chh * (v / max2) * ease;
+        if (i === 0) ctx.moveTo(x, y); else ctx.lineTo(x, y);
+      });
+      ctx.stroke();
+      values.forEach(function (v, i) {
+        var x = cx0 + cw * (i / Math.max(1, values.length - 1));
+        var y = cy0 - chh * (v / max2) * ease;
+        ctx.fillStyle = '#f8fafc';
+        ctx.beginPath(); ctx.arc(x, y, Math.max(2.5, pw * 0.011), 0, Math.PI * 2); ctx.fill();
+      });
+    } else if (effect === 'chart-donut') {
+      var total = values.reduce(function (a, b) { return a + b; }, 0) || 1;
+      var R = Math.min(cw, chh) * 0.42, r0 = R * 0.58;
+      var start = -Math.PI / 2;
+      var cols = [accent, '#38bdf8', '#8b5cf6', '#34d399', '#f472b6'];
+      values.forEach(function (v, i) {
+        var a2 = (v / total) * Math.PI * 2 * ease;
+        ctx.beginPath();
+        ctx.arc(cx0 + cw / 2, cy0 - chh / 2, R, start, start + a2 - 0.04);
+        ctx.arc(cx0 + cw / 2, cy0 - chh / 2, r0, start + a2 - 0.04, start, true);
+        ctx.closePath();
+        ctx.fillStyle = cols[i % cols.length];
+        ctx.fill();
+        start += a2;
+      });
+    } else {
+      // KPI 卡
+      var big = String(values[0] || 128);
+      ctx.fillStyle = accent;
+      ctx.font = '800 ' + Math.round(pw * 0.19) + 'px "Microsoft YaHei",system-ui,sans-serif';
+      ctx.fillText('+' + big + '%', cx0, cy0 - chh * 0.78);
+      ctx.fillStyle = 'rgba(232,238,248,.55)';
+      ctx.font = '600 ' + Math.round(pw * 0.05) + 'px "Microsoft YaHei",system-ui,sans-serif';
+      ctx.fillText('环比上期', cx0 + 2, cy0 - chh * 0.28);
+    }
+    ctx.restore();
+  }
+  function drawFxLayer(clip, lt, W, H) {
+    var p = effProps(clip, lt);
+    var effect = (clip.props && clip.props.effect) || 'fade-in';
+    if (effect === 'chart-bar' || effect === 'chart-line' || effect === 'chart-donut' || effect === 'chart-kpi') { drawChart(clip, lt, W, H); return; }
+    var inten = clamp(+(p.intensity == null ? 1 : p.intensity), 0, 1);
+    if (effect === 'vignette') {
+      var vg = ctx.createRadialGradient(0, 0, Math.min(W, H) * 0.24, 0, 0, Math.max(W, H) * 0.68);
+      vg.addColorStop(0, 'rgba(0,0,0,0)');
+      vg.addColorStop(1, 'rgba(0,0,0,' + (0.72 * inten) + ')');
+      ctx.fillStyle = vg; ctx.fillRect(-W / 2, -H / 2, W, H);
+    } else if (effect === 'grain') {
+      var frame = Math.floor(lt * fps());
+      var rnd = mulberry(frame * 7919 + 13);
+      var n = Math.round(420 * inten);
+      ctx.fillStyle = 'rgba(255,255,255,.5)';
+      for (var i = 0; i < n; i++) {
+        ctx.globalAlpha = 0.05 + rnd() * 0.22;
+        ctx.fillRect(-W / 2 + rnd() * W, -H / 2 + rnd() * H, 1.6, 1.6);
+      }
+      ctx.globalAlpha = 1;
+    }
+  }
+  function drawFxOverlay(clip, lt, W, H) {
+    var p = effProps(clip, lt);
+    var effect = (clip.props && clip.props.effect) || '';
+    var inten = clamp(+(p.intensity == null ? 1 : p.intensity), 0, 1);
+    var prog = clamp(lt / Math.max(0.15, clip.duration), 0, 1);
+    ctx.save();
+    if (effect === 'fade-in' || effect === 'fade-out') {
+      var a = effect === 'fade-in' ? (1 - prog) : prog;
+      ctx.fillStyle = 'rgba(0,0,0,' + (a * inten * 0.96).toFixed(3) + ')';
+      ctx.fillRect(-W / 2, -H / 2, W, H);
+    } else if (effect === 'transition') {
+      var tr = (clip.props && clip.props.transition) || 'fade';
+      if (tr === 'flash') {
+        var fa = Math.sin(prog * Math.PI) * inten;
+        ctx.fillStyle = 'rgba(248,250,252,' + fa.toFixed(3) + ')';
+        ctx.fillRect(-W / 2, -H / 2, W, H);
+      } else if (tr === 'wipe') {
+        var lane = W * 1.35;
+        var x = -W * 0.35 + prog * lane;
+        var lg = ctx.createLinearGradient(x - W * 0.16, 0, x + W * 0.1, 0);
+        lg.addColorStop(0, 'rgba(3,7,13,0)');
+        lg.addColorStop(0.55, 'rgba(3,7,13,' + (0.72 * inten) + ')');
+        lg.addColorStop(1, 'rgba(103,232,249,' + (0.32 * inten) + ')');
+        ctx.fillStyle = lg;
+        ctx.beginPath();
+        ctx.moveTo(x - W * 0.16, -H / 2); ctx.lineTo(x + W * 0.1, -H / 2);
+        ctx.lineTo(x + W * 0.18, H / 2); ctx.lineTo(x - W * 0.08, H / 2);
+        ctx.closePath(); ctx.fill();
+        ctx.strokeStyle = 'rgba(103,232,249,' + (0.85 * inten) + ')';
+        ctx.lineWidth = Math.max(1.5, W * 0.0022);
+        ctx.beginPath(); ctx.moveTo(x + W * 0.1, -H / 2); ctx.lineTo(x + W * 0.18, H / 2); ctx.stroke();
+      } else if (tr === 'slide') {
+        var sw = W * (1 - easeAt('easeInOut', prog));
+        ctx.fillStyle = 'rgba(3,7,13,' + (0.92 * inten) + ')';
+        ctx.fillRect(W / 2 - sw, -H / 2, sw, H);
+        ctx.strokeStyle = 'rgba(139,92,246,' + (0.8 * inten) + ')';
+        ctx.lineWidth = Math.max(1.5, W * 0.0022);
+        ctx.beginPath(); ctx.moveTo(W / 2 - sw, -H / 2); ctx.lineTo(W / 2 - sw, H / 2); ctx.stroke();
+      } else if (tr === 'zoom') {
+        var rad = easeAt('easeOut', prog) * Math.max(W, H) * 0.8;
+        var zg = ctx.createRadialGradient(0, 0, Math.max(0, rad - W * 0.16), 0, 0, rad + 1);
+        zg.addColorStop(0, 'rgba(255,255,255,0)');
+        zg.addColorStop(0.7, 'rgba(255,255,255,' + (0.34 * inten * (1 - prog)).toFixed(3) + ')');
+        zg.addColorStop(1, 'rgba(255,255,255,0)');
+        ctx.fillStyle = zg; ctx.fillRect(-W / 2, -H / 2, W, H);
+        ctx.fillStyle = 'rgba(3,7,13,' + (0.5 * (1 - Math.min(1, prog * 1.6))).toFixed(3) + ')';
+        ctx.fillRect(-W / 2, -H / 2, W, H);
+      } else {
+        var fx = 1 - Math.abs(prog - 0.5) * 2;
+        ctx.fillStyle = 'rgba(3,7,13,' + (fx * inten * 0.85).toFixed(3) + ')';
+        ctx.fillRect(-W / 2, -H / 2, W, H);
+      }
+    }
+    ctx.restore();
+  }
+  function drawSafeArea(W, H) {
+    ctx.save();
+    ctx.strokeStyle = 'rgba(103,232,249,.55)';
+    ctx.lineWidth = 1.2;
+    ctx.setLineDash([6, 6]);
+    ctx.strokeRect(-W / 2 + W * 0.05, -H / 2 + H * 0.05, W * 0.9, H * 0.9);
+    ctx.strokeStyle = 'rgba(253,230,138,.4)';
+    ctx.strokeRect(-W / 2 + W * 0.1, -H / 2 + H * 0.1, W * 0.8, H * 0.8);
+    ctx.setLineDash([]);
+    ctx.strokeStyle = 'rgba(248,250,252,.25)';
+    ctx.beginPath(); ctx.moveTo(-W * 0.02, 0); ctx.lineTo(W * 0.02, 0); ctx.moveTo(0, -H * 0.02); ctx.lineTo(0, H * 0.02); ctx.stroke();
+    ctx.restore();
+  }
+  function drawSelectionRect(W, H) {
+    if (!ui.selectedClipId) return;
+    var hit = findClip(ui.selectedClipId);
+    if (!hit) return;
+    var c = hit.clip, lt = ui.currentTime - c.start;
+    if (ui.currentTime < c.start || ui.currentTime >= c.start + c.duration) return;
+    if (c.type !== 'video') return;
+    var p = effProps(c, lt);
+    var sc = +(p.scale || 1);
+    var w = W * sc, h = H * sc;
+    ctx.save();
+    ctx.translate(W / 2 + (+p.x || 0) / 100 * W, H / 2 + (+p.y || 0) / 100 * H);
+    ctx.rotate((+p.rotation || 0) * Math.PI / 180);
+    ctx.strokeStyle = 'rgba(248,250,252,.92)';
+    ctx.lineWidth = 2;
+    ctx.setLineDash([9, 6]);
+    ctx.strokeRect(-w / 2, -h / 2, w, h);
+    ctx.setLineDash([]);
+    ctx.fillStyle = 'rgba(248,250,252,.92)';
+    [[-w / 2, -h / 2], [w / 2, -h / 2], [-w / 2, h / 2], [w / 2, h / 2]].forEach(function (q) {
+      ctx.fillRect(q[0] - 3.5, q[1] - 3.5, 7, 7);
+    });
+    ctx.restore();
+  }
+  function renderPreview() {
+    if (!ctx || !project) return;
+    var cv = $('#previewCanvas');
+    var W = cv.width, H = cv.height;
+    ctx.clearRect(0, 0, W, H);
+    ctx.fillStyle = '#04070c';
+    ctx.fillRect(0, 0, W, H);
+    var t = ui.currentTime;
+    var activeVideo = [];
+    allClips().forEach(function (x) {
+      var c = x.clip;
+      if (c.type !== 'video') return;
+      if (t >= c.start && t < c.start + c.duration) activeVideo.push(c);
+    });
+    activeVideo.forEach(function (c) { drawVideoClip(c, t - c.start, W, H); });
+    allClips().forEach(function (x) {
+      var c = x.clip;
+      if (c.type === 'fx' && t >= c.start && t < c.start + c.duration) {
+        var e = c.props && c.props.effect;
+        if (e !== 'fade-in' && e !== 'fade-out' && e !== 'transition') {
+          ctx.save(); ctx.translate(W / 2, H / 2); drawFxLayer(c, t - c.start, W, H); ctx.restore();
+        }
+      }
+    });
+    allClips().forEach(function (x) {
+      var c = x.clip;
+      if (c.type === 'text' && t >= c.start && t < c.start + c.duration) drawTextClip(c, t - c.start, W, H);
+    });
+    allClips().forEach(function (x) {
+      var c = x.clip;
+      if (c.type === 'fx' && t >= c.start && t < c.start + c.duration) {
+        var e = c.props && c.props.effect;
+        if (e === 'fade-in' || e === 'fade-out' || e === 'transition') {
+          ctx.save(); ctx.translate(W / 2, H / 2); drawFxOverlay(c, t - c.start, W, H); ctx.restore();
+        }
+      }
+    });
+    if (ui.safe) { ctx.save(); ctx.translate(W / 2, H / 2); drawSafeArea(W, H); ctx.restore(); }
+    drawSelectionRect(W, H);
+    var empty = $('#stageEmpty');
+    if (empty) empty.hidden = activeVideo.length > 0;
+    var names = [];
+    allClips().forEach(function (x) {
+      var c = x.clip;
+      if (c.type !== 'audio' && t >= c.start && t < c.start + c.duration) names.push({ n: c.name, ty: c.type });
+    });
+    var label = names.length ? names.slice(0, 3).map(function (x) { return x.n; }).join(' · ') : '—';
+    var sc = $('#stageClip');
+    if (sc) sc.textContent = label;
+  }
+
+  /* ============================================================
+   * 7. 属性面板渲染
+   * ============================================================ */
+  var TYPE_LABEL = { video: '视频', audio: '音频', text: '文字', fx: '特效' };
+  function num(v, d) { var n = Number(v); return isFinite(n) ? Math.round(n * 100) / 100 : d; }
+  function fldRange(opts) {
+    var key = opts.key, val = opts.value, mult = opts.mult || 1;
+    var disp = Math.round(val * mult * 100) / 100;
+    return '<div class="ae-f"><label title="' + esc(opts.title || opts.label) + '">' + esc(opts.label) + '</label><div class="ae-ctl">' +
+      '<input type="range" data-p="' + key + '" data-mult="' + mult + '" min="' + opts.min + '" max="' + opts.max + '" step="' + (opts.step || 1) + '" value="' + disp + '">' +
+      '<input class="ae-num" type="number" data-p="' + key + '" data-mult="' + mult + '" min="' + opts.min + '" max="' + opts.max + '" step="' + (opts.step || 1) + '" value="' + disp + '">' +
+      '</div></div>';
+  }
+  function fldNum(opts) {
+    return '<div class="ae-f"><label>' + esc(opts.label) + '</label><div class="ae-ctl">' +
+      '<input class="ae-num" style="width:72px" type="number" data-k="' + opts.key + '" min="' + (opts.min != null ? opts.min : '') + '" max="' + (opts.max != null ? opts.max : '') + '" step="' + (opts.step || 0.1) + '" value="' + num(opts.value, 0) + '">' +
+      (opts.unit ? '<span style="font-size:10px;color:var(--ae-txt3)">' + opts.unit + '</span>' : '') +
+      '</div></div>';
+  }
+  function fldText(opts) {
+    return '<div class="ae-f" style="align-items:flex-start"><label style="padding-top:5px">' + esc(opts.label) + '</label><div class="ae-ctl">' +
+      '<textarea class="ae-txt" data-p="' + opts.key + '">' + esc(opts.value == null ? '' : opts.value) + '</textarea></div></div>';
+  }
+  function fldColor(opts) {
+    return '<div class="ae-f"><label>' + esc(opts.label) + '</label><div class="ae-ctl ae-colorrow" style="gap:6px">' +
+      '<input type="color" data-p="' + opts.key + '" value="' + esc(opts.value || '#ffffff') + '">' +
+      '<input class="ae-txt" style="height:24px" type="text" data-p="' + opts.key + '" value="' + esc(opts.value || '#ffffff') + '">' +
+      '</div></div>';
+  }
+  function kfListHtml(clip) {
+    var kfs = (clip.props && clip.props.keyframes) || [];
+    if (!kfs.length) return '<div class="ae-hintbox">还没有关键帧。在播放头位置点 <b>◆ 添加关键帧</b>，或在时间轴上双击片段。</div>';
+    var sorted = kfs.slice().sort(function (a, b) { return a.t - b.t; });
+    return sorted.map(function (k) {
+      return '<div class="ae-kfrow' + (k.id === ui.selectedKfId ? ' onsel' : '') + '" data-kfid="' + k.id + '">' +
+        '<span class="nm">◆ ' + esc(KF_LABEL[k.prop] || k.prop) + '</span>' +
+        '<span class="tt">' + k.t.toFixed(2) + 's</span>' +
+        '<span class="vv">' + fmtKfValue(k.prop, k.value) + '</span>' +
+        '<select data-kfease="' + k.id + '" title="曲线">' +
+        ['linear', 'easeIn', 'easeOut', 'easeInOut', 'hold'].map(function (e) {
+          return '<option value="' + e + '"' + (k.easing === e ? ' selected' : '') + '>' + ({ linear: '线性', easeIn: '缓入', easeOut: '缓出', easeInOut: '缓入缓出', hold: '定格' })[e] + '</option>';
+        }).join('') + '</select>' +
+        '<button class="x" data-kfdel="' + k.id + '" title="删除关键帧" aria-label="删除关键帧">×</button>' +
+        '</div>';
+    }).join('');
+  }
+  function propHeaderHtml(clip, track) {
+    var ini = { video: 'V', audio: 'A', text: 'T', fx: 'Fx' }[clip.type] || '?';
+    return '<div class="ae-prophead">' +
+      '<span class="ae-propico ' + clip.type + '">' + ini + '</span>' +
+      '<div class="nm"><b>' + esc(clip.name) + '</b><small>' + esc(track.name) + ' · ' + esc(clip.id) + '</small></div>' +
+      '<button class="xbtn" data-act="duplicate" title="复制片段">⧉</button>' +
+      '<button class="xbtn" data-act="deleteclip" title="删除片段">✕</button>' +
+      '</div>';
+  }
+  function emptyPropsHtml() {
+    return '<div class="ae-emptyprops">' +
+      '<div class="big">🎬</div><b>未选中片段</b>' +
+      '<span>点击时间轴上的片段，即可在这里编辑变换、文字样式、音量与关键帧。</span>' +
+      '<div class="ae-projinfo" style="width:100%;margin-top:10px">' +
+      '<div><span>画幅</span><b>' + esc(project.aspect) + '</b></div>' +
+      '<div><span>帧率</span><b>' + fps() + ' fps</b></div>' +
+      '<div><span>时间轴</span><b>' + duration().toFixed(1) + 's</b></div>' +
+      '<div><span>片段数</span><b>' + allClips().length + '</b></div>' +
+      '</div>' +
+      '<div class="ae-hintbox" style="text-align:left">快速上手：<br>1. 从左侧素材库拖入模板 / 动画 / 图表 / 转场<br>2. 拖动片段移动，拖两侧边缘裁剪<br>3. 选中片段后改属性，预览实时更新<br>4. 空格播放 · Delete 删除 · Ctrl+Z 撤销</div>' +
+      '</div>';
+  }
+  function renderProps() {
+    var host = $('#props'), sub = $('#propSub'), kind = $('#propKind');
+    if (!host) return;
+    var hit = findClip(ui.selectedClipId);
+    if (!hit) {
+      if (sub) sub.textContent = '未选中片段';
+      if (kind) { kind.textContent = '—'; kind.className = 'ae-tag'; }
+      host.innerHTML = emptyPropsHtml();
+      return;
+    }
+    var clip = hit.clip, track = hit.track;
+    if (sub) sub.textContent = track.name;
+    if (kind) { kind.textContent = TYPE_LABEL[clip.type] || clip.type; kind.className = 'ae-tag ' + clip.type; }
+    var c = clone(clip);
+    var p = Object.assign({}, DEFAULTS[c.type] || {}, c.props || {});
+    var html = propHeaderHtml(c, track);
+    html += '<div class="ae-grp"><h4>时间</h4>' +
+      fldNum({ label: '开始', key: 'start', value: c.start, min: 0, max: 300, step: 0.1, unit: 's' }) +
+      fldNum({ label: '时长', key: 'duration', value: c.duration, min: 0.2, max: 300, step: 0.1, unit: 's' });
+    if (c.type === 'video' || c.type === 'audio') {
+      html += fldNum({ label: '入点', key: 'in', value: c.in, min: 0, max: 300, step: 0.1, unit: 's' }) +
+        fldNum({ label: '出点', key: 'out', value: c.out, min: 0.2, max: 300, step: 0.1, unit: 's' });
+    }
+    html += '</div>';
+    if (c.type === 'video') {
+      html += '<div class="ae-grp"><h4>变换</h4>' +
+        fldRange({ label: '位置 X', key: 'x', value: +p.x || 0, min: -50, max: 50, step: 0.5 }) +
+        fldRange({ label: '位置 Y', key: 'y', value: +p.y || 0, min: -50, max: 50, step: 0.5 }) +
+        fldRange({ label: '缩放', key: 'scale', value: +p.scale || 1, min: 10, max: 300, step: 1, mult: 100 }) +
+        fldRange({ label: '旋转', key: 'rotation', value: +p.rotation || 0, min: -180, max: 180, step: 1 }) +
+        fldRange({ label: '不透明度', key: 'opacity', value: p.opacity == null ? 1 : +p.opacity, min: 0, max: 100, step: 1, mult: 100 }) +
+        '</div>';
+    } else if (c.type === 'text') {
+      html += '<div class="ae-grp"><h4>文字样式</h4>' +
+        fldText({ label: '内容', key: 'text', value: p.text }) +
+        fldRange({ label: '字号', key: 'fontSize', value: +p.fontSize || 40, min: 10, max: 160, step: 1 }) +
+        fldColor({ label: '颜色', key: 'color', value: p.color || '#f8fafc' }) +
+        '<div class="ae-f"><label>背景</label><div class="ae-ctl"><div class="ae-seg"><button data-pbtn="bg" data-val="on" class="' + (p.bg ? 'on' : '') + '">开启</button><button data-pbtn="bg" data-val="off" class="' + (!p.bg ? 'on' : '') + '">关闭</button></div></div></div>' +
+        fldRange({ label: '字距', key: 'letterSpacing', value: +p.letterSpacing || 0, min: 0, max: 20, step: 1 }) +
+        '<div class="ae-f"><label>入场动画</label><div class="ae-ctl"><select class="ae-sel" data-p="animation">' +
+        [['', '无'], ['fadeSlide', '上滑淡入'], ['typewriter', '打字机'], ['blur', '模糊聚焦'], ['glow', '霓虹呼吸']].map(function (o) {
+          return '<option value="' + o[0] + '"' + ((p.animation || '') === o[0] ? ' selected' : '') + '>' + o[1] + '</option>';
+        }).join('') + '</select></div></div>' +
+        '<div class="ae-grp" style="padding:0;border:0;margin-top:2px"><h4>位置/变换</h4>' +
+        fldRange({ label: '位置 X', key: 'x', value: +p.x || 0, min: -50, max: 50, step: 0.5 }) +
+        fldRange({ label: '位置 Y', key: 'y', value: +p.y || 0, min: -50, max: 50, step: 0.5 }) +
+        fldRange({ label: '缩放', key: 'scale', value: +p.scale || 1, min: 10, max: 300, step: 1, mult: 100 }) +
+        fldRange({ label: '不透明度', key: 'opacity', value: p.opacity == null ? 1 : +p.opacity, min: 0, max: 100, step: 1, mult: 100 }) +
+        '</div></div>';
+    } else if (c.type === 'audio') {
+      html += '<div class="ae-grp"><h4>音频</h4>' +
+        fldRange({ label: '音量', key: 'volume', value: +p.volume || 0.75, min: 0, max: 150, step: 1, mult: 100 }) +
+        fldRange({ label: '淡入', key: 'fadeIn', value: +p.fadeIn || 0, min: 0, max: 5, step: 0.1 }) +
+        fldRange({ label: '淡出', key: 'fadeOut', value: +p.fadeOut || 0, min: 0, max: 5, step: 0.1 }) +
+        '<div class="ae-hintbox">音频为 mock 轨道：预览区以电平/波形模拟，导出时后端会真实混音。</div></div>';
+    } else if (c.type === 'fx') {
+      var isChart = (p.effect || '').indexOf('chart') === 0;
+      var isTrans = p.effect === 'transition';
+      html += '<div class="ae-grp"><h4>特效</h4>' +
+        '<div class="ae-f"><label>类型</label><div class="ae-ctl"><select class="ae-sel" data-p="effect">' +
+        [['fade-in', '淡入（开场）'], ['fade-out', '淡出（结尾）'], ['transition', '转场'], ['vignette', '暗角'], ['grain', '颗粒噪点'], ['chart-bar', '柱状图'], ['chart-line', '折线图'], ['chart-donut', '环形图'], ['chart-kpi', 'KPI 数据卡']].map(function (o) {
+          return '<option value="' + o[0] + '"' + (p.effect === o[0] ? ' selected' : '') + '>' + o[1] + '</option>';
+        }).join('') + '</select></div></div>';
+      if (isTrans) {
+        html += '<div class="ae-f"><label>转场</label><div class="ae-ctl"><select class="ae-sel" data-p="transition">' +
+          [['fade', '交叉淡入淡出'], ['wipe', '横向擦除'], ['flash', '闪白冲击'], ['slide', '推镜滑动'], ['zoom', '放大穿越']].map(function (o) {
+            return '<option value="' + o[0] + '"' + (p.transition === o[0] ? ' selected' : '') + '>' + o[1] + '</option>';
+          }).join('') + '</select></div></div>';
+      }
+      if (isChart) {
+        html += '<div class="ae-f"><label>图表标题</label><div class="ae-ctl"><input class="ae-txt" data-p="title" value="' + esc(p.title || '数据图表') + '"></div></div>' +
+          '<div class="ae-f" style="align-items:flex-start"><label style="padding-top:5px">数据</label><div class="ae-ctl"><input class="ae-txt" data-p="values" value="' + esc((p.values || []).join(',')) + '" title="逗号分隔的数值"></div></div>';
+      }
+      html += fldRange({ label: '强度', key: 'intensity', value: p.intensity == null ? 1 : +p.intensity, min: 0, max: 100, step: 1, mult: 100 }) + '</div>';
+    }
+    // 动画曲线 + 关键帧
+    var kfProp = ui.kfProp;
+    if (c.type === 'audio') kfProp = 'volume';
+    else if (c.type === 'text') kfProp = ['scale', 'opacity', 'x', 'y', 'rotation', 'fontSize'].indexOf(kfProp) >= 0 ? kfProp : 'opacity';
+    else if (c.type === 'fx') kfProp = ['opacity', 'x', 'y'].indexOf(kfProp) >= 0 ? kfProp : 'opacity';
+    else kfProp = ['scale', 'opacity', 'x', 'y', 'rotation'].indexOf(kfProp) >= 0 ? kfProp : 'scale';
+    ui.kfProp = kfProp;
+    var propOpts = c.type === 'audio' ? [['volume', '音量']] : c.type === 'text' ? [['opacity', '不透明度'], ['scale', '缩放'], ['x', '位置X'], ['y', '位置Y'], ['fontSize', '字号'], ['rotation', '旋转']] : c.type === 'fx' ? [['opacity', '不透明度'], ['x', '位置X'], ['y', '位置Y']] : [['scale', '缩放'], ['opacity', '不透明度'], ['x', '位置X'], ['y', '位置Y'], ['rotation', '旋转']];
+    html += '<div class="ae-grp" data-kfsec><h4>动画曲线 / 关键帧 <span class="r"><span class="ae-kbd">◆</span></span></h4>' +
+      '<div class="ae-f"><label>属性</label><div class="ae-ctl"><select class="ae-sel" id="kfPropSel">' +
+      propOpts.map(function (o) { return '<option value="' + o[0] + '"' + (kfProp === o[0] ? ' selected' : '') + '>' + o[1] + '</option>'; }).join('') + '</select>' +
+      '<select class="ae-sel" id="curveSel" title="新关键帧曲线">' +
+      [['linear', '线性'], ['easeIn', '缓入'], ['easeOut', '缓出'], ['easeInOut', '缓入缓出'], ['hold', '定格']].map(function (o) {
+        return '<option value="' + o[0] + '"' + (ui.curve === o[0] ? ' selected' : '') + '>' + o[1] + '</option>';
+      }).join('') + '</select></div></div>' +
+      '<div class="ae-btnrow"><button class="ae-btn" data-act="addkf">◆ 在播放头添加关键帧</button></div>' +
+      '<div class="ae-hintbox" style="margin-top:7px">拖动已有动画的属性滑块，会在播放头处更新 / 新增关键帧（专业剪辑器行为）。</div>' +
+      '<div data-kflist>' + kfListHtml(c) + '</div>' +
+      '</div>';
+    host.innerHTML = html;
+  }
+
+  /* ============================================================
+   * 8. 素材库 / 顶部 / 播放控制渲染
+   * ============================================================ */
+  function libMeta(item) {
+    if (ui.tab === 'templates') return (item.dur || 15) + 's · ' + item.desc;
+    if (ui.tab === 'animations') return item.desc || '文字动画';
+    if (ui.tab === 'charts') return '数据图表 · 拖入特效轨';
+    return '转场 · 拖入特效轨';
+  }
+  function libBadge(item) {
+    if (ui.tab === 'templates') return '<span class="ind">' + esc(item.industry) + '</span>';
+    return '';
+  }
+  function libThumb(item) {
+    var p = '▶';
+    if (ui.tab === 'animations') p = 'Aa';
+    else if (ui.tab === 'charts') p = '▥';
+    else if (ui.tab === 'transitions') p = '⇄';
+    var n = ui.tab === 'templates' ? (item.dur + 's') : (ui.tab === 'animations' ? '3s' : ui.tab === 'charts' ? '4s' : (item.dur || 1) + 's');
+    return '<div class="ae-libthumb" style="--c1:' + esc(item.c1 || '#38bdf8') + ';--c2:' + esc(item.c2 || '#8b5cf6') + '"><span class="n">' + esc(n) + '</span><span class="p">' + p + '</span></div>';
+  }
+  function renderLibrary() {
+    var host = $('#libList'), count = $('#libCount');
+    if (!host) return;
+    var arr = LIB[ui.tab] || [];
+    var q = (ui.search || '').trim().toLowerCase();
+    var items = q ? arr.filter(function (it) {
+      return (it.name + ' ' + (it.industry || '') + ' ' + (it.desc || '')).toLowerCase().indexOf(q) >= 0;
+    }) : arr;
+    if (count) {
+      var total = 0;
+      Object.keys(LIB).forEach(function (k) { total += LIB[k].length; });
+      count.textContent = '共 ' + total + ' 个 · 当前 ' + items.length;
+    }
+    if (!items.length) { host.innerHTML = '<div class="ae-libempty">没有匹配的素材<br>换个关键词试试</div>'; return; }
+    host.innerHTML = items.map(function (item) {
+      var apply = ui.tab === 'templates' ? '<button class="ae-apply" data-apply="' + esc(item.id) + '" title="套用整片">套用</button>' : '<button class="ae-libadd" data-add="' + esc(item.id) + '" title="添加到播放头">+</button>';
+      return '<div class="ae-libcard" draggable="true" data-libtab="' + esc(ui.tab) + '" data-libid="' + esc(item.id) + '" title="拖拽到时间轴，或点击添加">' +
+        libThumb(item) +
+        '<div class="ae-libmeta"><b>' + esc(item.name) + '</b><small>' + libBadge(item) + esc(libMeta(item)) + '</small></div>' +
+        apply + '</div>';
+    }).join('');
+  }
+  function renderTopbar() {
+    if (!project) return;
+    var name = $('#projName');
+    if (name && document.activeElement !== name) name.value = project.name;
+    var a = $('#aspectSel'); if (a) a.value = project.aspect;
+    var f = $('#fpsSel'); if (f) f.value = String(project.fps);
+    var d = $('#durInput'); if (d && document.activeElement !== d) d.value = Math.round(project.timeline.duration);
+    var ts = $('#trackSummary');
+    if (ts) ts.textContent = project.tracks.length + ' 轨 · ' + allClips().length + ' 片段';
+    var res = RES[project.aspect] || RES['16:9'];
+    var sr = $('#stageRes'); if (sr) sr.textContent = res[0] + '×' + res[1] + ' · ' + project.aspect;
+    var st = $('#stage'); if (st) st.style.setProperty('--ar', project.aspect.replace(':', '/'));
+    updateSaveChip();
+    updateMockPill();
+    updateUndoUI();
+  }
+  function updatePlayheadDom() {
+    var t = ui.currentTime, d = duration();
+    var labelW = getLabelW();
+    var x = t * ui.pps;
+    var line = $('#phLine'), head = $('#phHead');
+    if (line) line.style.left = (labelW + x) + 'px';
+    if (head) head.style.left = x + 'px';
+    var fill = $('#scrubFill'), thumb = $('#scrubThumb');
+    var pct = clamp(t / d, 0, 1) * 100;
+    if (fill) fill.style.width = pct + '%';
+    if (thumb) thumb.style.left = pct + '%';
+    ['#topTc', '#tpTc', '#tlTc', '#stageTime'].forEach(function (sel) {
+      var el = $(sel); if (el) el.textContent = fmtTC(t);
+    });
+    var dur = $('#tpDur'); if (dur) dur.textContent = fmtTC(d);
+    var play = $('#playBtn');
+    if (play) {
+      play.textContent = ui.playing ? '❚❚' : '▶';
+      play.setAttribute('aria-label', ui.playing ? '暂停' : '播放');
+      play.title = ui.playing ? '暂停（空格）' : '播放（空格）';
+    }
+    var loop = $('#loopBtn'); if (loop) loop.classList.toggle('active', !!ui.loop);
+    var stageTime = $('#stageTime'); if (stageTime) stageTime.textContent = fmtTC(t);
+    var tlHint = $('#tlHint');
+    if (tlHint) {
+      var sel = selectedClip();
+      tlHint.textContent = sel ? ('已选中「' + sel.name + '」 · 拖动移动 / 拖边缘裁剪 / 双击加关键帧') : '空格播放 · Delete 删除 · Ctrl+Z 撤销';
+    }
+  }
+  function updateMeter() {
+    var bars = $$('#meter i');
+    if (!bars.length) return;
+    var t = ui.currentTime, level = 0;
+    clipsOf('audio').forEach(function (c) {
+      if (trackOfClip(c) && trackOfClip(c).muted) return;
+      if (t >= c.start && t < c.start + c.duration) {
+        var vol = +((c.props && c.props.volume) || 0.75);
+        var lt = t - c.start;
+        var fi = +(c.props && c.props.fadeIn) || 0;
+        var fo = +(c.props && c.props.fadeOut) || 0;
+        var mul = 1;
+        if (fi > 0 && lt < fi) mul *= lt / fi;
+        if (fo > 0 && lt > c.duration - fo) mul *= Math.max(0, (c.duration - lt) / fo);
+        level = Math.max(level, vol * mul);
+      }
+    });
+    for (var i = 0; i < bars.length; i++) {
+      var v = ui.playing ? level * (0.35 + Math.abs(Math.sin(t * 6 + i * 1.3)) * 0.65) : level * 0.18;
+      bars[i].style.height = clamp(v * 100, 5, 100) + '%';
+    }
+  }
+  function renderAll() {
+    if (!project) return;
+    renderTopbar();
+    renderLibrary();
+    renderTimeline();
+    renderProps();
+    renderPreview();
+    updatePlayheadDom();
+    var safeBtn = $('#safeBtn'); if (safeBtn) safeBtn.textContent = '安全框 ' + (ui.safe ? '开' : '关');
+    var snapBtn = $('#snapBtn'); if (snapBtn) { snapBtn.textContent = '磁吸 ' + (ui.snap ? '开' : '关'); snapBtn.classList.toggle('on', ui.snap); }
+    var zoomLbl = $('#zoomLbl'); if (zoomLbl) zoomLbl.textContent = Math.round(ui.pps) + 'px/s';
+    var delBtn = $('#delBtn'); if (delBtn) delBtn.disabled = !ui.selectedClipId;
+    var kfBtn = $('#kfBtn'); if (kfBtn) kfBtn.disabled = !ui.selectedClipId;
+  }
+
+  /* ============================================================
+   * 9. 时间轴渲染
+   * ============================================================ */
+  function laneWidth() {
+    return Math.max(duration() * ui.pps + 30, 320);
+  }
+  function hashStr(s) {
+    var h = 5381;
+    for (var i = 0; i < s.length; i++) h = ((h << 5) + h + s.charCodeAt(i)) | 0;
+    return Math.abs(h) || 7;
+  }
+  function waveHtml(c, width) {
+    var rnd = mulberry(hashStr(c.id));
+    var n = clamp(Math.round(width / 5), 8, 140);
+    var bars = '';
+    for (var i = 0; i < n; i++) {
+      var h = 18 + rnd() * 74;
+      bars += '<i style="height:' + h.toFixed(0) + '%"></i>';
+    }
+    return '<div class="ae-wave">' + bars + '</div>';
+  }
+  function chartClipBars(c, width) {
+    var vals = (c.props && c.props.values) || [24, 40, 32, 56, 72, 88];
+    var n = clamp(Math.round(width / 9), 4, 40);
+    var bars = '';
+    for (var i = 0; i < n; i++) {
+      var v = vals[i % vals.length];
+      bars += '<i style="height:' + (20 + (v / Math.max.apply(null, vals.concat([1]))) * 70) + '%"></i>';
+    }
+    return '<div class="ae-chartbars">' + bars + '</div>';
+  }
+  function kfDiamondsHtml(c) {
+    var kfs = (c.props && c.props.keyframes) || [];
+    if (!kfs.length) return '';
+    var groups = {};
+    kfs.forEach(function (k) {
+      if (k.t > c.duration + 0.01 || k.t < -0.01) return;
+      var key = Math.round(k.t * 100) / 100;
+      if (!groups[key]) groups[key] = { t: key, ids: [], props: [] };
+      groups[key].ids.push(k.id);
+      groups[key].props.push(KF_LABEL[k.prop] || k.prop);
+    });
+    return Object.keys(groups).map(function (key) {
+      var g = groups[key];
+      var on = g.ids.indexOf(ui.selectedKfId) >= 0;
+      return '<div class="ae-kf' + (on ? ' onsel' : '') + '" data-kfid="' + g.ids[0] + '" style="left:' + (g.t * ui.pps) + 'px" title="关键帧 ' + g.t.toFixed(2) + 's · ' + esc(g.props.join(' + ')) + '（右键删除）"></div>';
+    }).join('');
+  }
+  function clipHtml(c, track) {
+    var sel = ui.selectedClipId === c.id;
+    var width = Math.max(7, c.duration * ui.pps);
+    var cls = 'ae-clip ' + c.type + (sel ? ' sel' : '');
+    var html = '<div class="' + cls + '" data-clip="' + c.id + '" style="left:' + (c.start * ui.pps) + 'px;width:' + width + 'px" title="' + esc(c.name + ' · ' + fmtSec(c.start) + ' → ' + fmtSec(c.start + c.duration)) + '">';
+    if (c.type === 'video') {
+      var pal = (c.props && c.props.palette) || ['#38bdf8', '#8b5cf6'];
+      html += '<div class="ae-clipstrip video" style="--c1:' + esc(pal[0]) + ';--c2:' + esc(pal[1]) + '"></div>';
+    } else if (c.type === 'audio') {
+      html += '<div class="ae-clipstrip audio"></div>' + waveHtml(c, width);
+    } else if (c.type === 'text') {
+      html += '<div class="ae-clipstrip text"></div>';
+    } else {
+      var eff = (c.props && c.props.effect) || '';
+      html += '<div class="ae-clipstrip fx"></div>';
+      if (eff.indexOf('chart') === 0) html += chartClipBars(c, width);
+    }
+    var ico = { video: '▶', audio: '♪', text: 'T', fx: '✦' }[c.type] || '·';
+    html += '<div class="ae-clipname"><span class="ico">' + ico + '</span><span class="nm">' + esc(c.name) + '</span>' + (track.locked ? '<span class="lk">L</span>' : '') + '</div>';
+    html += '<span class="ae-clipdur">' + fmtSec(c.duration) + '</span>';
+    if (sel) html += kfDiamondsHtml(c);
+    html += '<div class="ae-trim l" data-trim="l" title="拖动裁剪入点"></div><div class="ae-trim r" data-trim="r" title="拖动裁剪出点"></div>';
+    html += '</div>';
+    return html;
+  }
+  function rowHtml(track) {
+    var clips = (track.clips || []).slice().sort(function (a, b) { return a.start - b.start; });
+    var ico = { video: 'V', audio: 'A', text: 'T', fx: 'Fx' }[track.type] || '?';
+    var W = laneWidth();
+    return '<div class="ae-tl-row" data-track="' + track.id + '">' +
+      '<div class="ae-tl-label">' +
+      '<span class="ae-tl-tico ' + track.type + '">' + ico + '</span>' +
+      '<div class="ae-tl-lmeta"><b>' + esc(track.name) + '</b><small>' + clips.length + ' 个片段</small></div>' +
+      '<div class="ae-tl-lbtns">' +
+      '<button class="ae-tl-lbtn' + (track.muted ? ' on' : '') + '" data-trackbtn="mute" data-track="' + track.id + '" title="静音">M</button>' +
+      '<button class="ae-tl-lbtn' + (track.locked ? ' on' : '') + '" data-trackbtn="lock" data-track="' + track.id + '" title="锁定">L</button>' +
+      '</div></div>' +
+      '<div class="ae-tl-lane' + (track.locked ? ' locked' : '') + '" data-lane="' + track.type + '" data-track="' + track.id + '" style="width:' + W + 'px;background-size:' + ui.pps + 'px 100%">' +
+      clips.map(function (c) { return clipHtml(c, track); }).join('') +
+      '</div></div>';
+  }
+  function drawRuler() {
+    var cv = $('#rulerCanvas');
+    if (!cv) return;
+    var W = laneWidth();
+    var dpr = Math.min(2, window.devicePixelRatio || 1);
+    cv.width = Math.round(W * dpr);
+    cv.height = Math.round(30 * dpr);
+    cv.style.width = W + 'px';
+    cv.style.height = '30px';
+    var c2 = cv.getContext('2d');
+    c2.setTransform(dpr, 0, 0, dpr, 0, 0);
+    c2.clearRect(0, 0, W, 30);
+    var light = document.documentElement.getAttribute('data-theme') === 'light';
+    var step = [0.2, 0.5, 1, 2, 5, 10, 15, 30, 60, 120].filter(function (s) { return s * ui.pps >= 56; })[0] || 120;
+    var minor = step / 5;
+    var total = duration() + 4;
+    c2.font = '9px Consolas,Menlo,monospace';
+    c2.textBaseline = 'middle';
+    for (var t = 0; t <= total; t = r2(t + minor)) {
+      var x = Math.round(t * ui.pps) + 0.5;
+      if (x > W) break;
+      var isMajor = Math.abs(t / step - Math.round(t / step)) < 0.001;
+      c2.strokeStyle = isMajor ? (light ? 'rgba(15,23,42,.32)' : 'rgba(148,163,184,.4)') : (light ? 'rgba(15,23,42,.14)' : 'rgba(148,163,184,.16)');
+      c2.lineWidth = 1;
+      c2.beginPath();
+      c2.moveTo(x, isMajor ? 12 : 23);
+      c2.lineTo(x, 30);
+      c2.stroke();
+      if (isMajor) {
+        var lab = step < 1 ? (Math.round(t * 10) / 10).toFixed(1) + 's' : (t >= 60 ? (Math.floor(t / 60) + ':' + pad2(Math.round(t % 60))) : String(Math.round(t)) + 's');
+        c2.fillStyle = light ? 'rgba(51,65,85,.82)' : 'rgba(159,176,199,.82)';
+        c2.fillText(lab, Math.min(x + 4, W - 34), 7);
+      }
+    }
+    // 播放头保持
+    var head = $('#phHead');
+    if (head) head.style.left = (ui.currentTime * ui.pps) + 'px';
+  }
+  function renderTimeline() {
+    if (!project) return;
+    var rows = $('#tlRows'), inner = $('#tlInner');
+    if (!rows || !inner) return;
+    var W = laneWidth();
+    var labelW = getLabelW();
+    inner.style.width = (labelW + W) + 'px';
+    var ruler = $('#tlRuler'); if (ruler) ruler.style.width = W + 'px';
+    drawRuler();
+    rows.innerHTML = project.tracks.map(rowHtml).join('');
+    updatePlayheadDom();
+    var delBtn = $('#delBtn'); if (delBtn) delBtn.disabled = !ui.selectedClipId;
+    var kfBtn = $('#kfBtn'); if (kfBtn) kfBtn.disabled = !ui.selectedClipId;
+    var zl = $('#zoomLbl'); if (zl) zl.textContent = Math.round(ui.pps) + 'px/s';
+  }
+  function showSnap(t) {
+    var el = $('#snapLine');
+    if (!el) return;
+    if (t == null) { el.hidden = true; return; }
+    el.hidden = false;
+    el.style.left = (getLabelW() + t * ui.pps) + 'px';
+  }
+  function showDrop(t) {
+    var el = $('#dropLine');
+    if (!el) return;
+    if (t == null) { el.hidden = true; return; }
+    el.hidden = false;
+    el.style.left = (getLabelW() + t * ui.pps) + 'px';
+  }
+  function selectClip(id) {
+    if (ui.selectedClipId !== id) ui.selectedKfId = null;
+    ui.selectedClipId = id;
+    kfEditGuard = null;
+    var hit = findClip(id);
+    if (hit) {
+      var c = hit.clip;
+      var inside = ui.currentTime >= c.start && ui.currentTime < c.start + c.duration;
+      if (!inside) ui.currentTime = clamp(c.start + Math.min(0.5, c.duration * 0.2), 0, duration());
+    }
+    renderTimeline();
+    renderProps();
+    renderPreview();
+    updatePlayheadDom();
+    var el = document.querySelector('.ae-clip.sel');
+    if (el && el.scrollIntoView) {
+      try { el.scrollIntoView({ block: 'nearest', inline: 'nearest' }); } catch (e) { }
+    }
+  }
+  function seek(t) {
+    ui.currentTime = clamp(t, 0, duration());
+    renderPreview();
+    updatePlayheadDom();
+  }
+
+  /* ============================================================
+   * 10. 时间轴拖拽 / 裁剪 / 播放头
+   * ============================================================ */
+  function snapCandidates(excludeId) {
+    var list = [0, ui.currentTime, duration()];
+    allClips().forEach(function (x) {
+      if (x.clip.id === excludeId) return;
+      list.push(x.clip.start, x.clip.start + x.clip.duration);
+    });
+    return list;
+  }
+  function snapMove(start, dur, excludeId) {
+    var th = 8 / ui.pps;
+    var cands = snapCandidates(excludeId);
+    var best = null;
+    for (var i = 0; i < cands.length; i++) {
+      [start, start + dur].forEach(function (edge) {
+        var d = cands[i] - edge;
+        if (Math.abs(d) <= th && (!best || Math.abs(d) < Math.abs(best.d))) best = { d: d, target: cands[i] };
+      });
+    }
+    if (!best) return { start: start, guide: null };
+    return { start: Math.max(0, start + best.d), guide: best.target };
+  }
+  function snapPoint(t, excludeId) {
+    var th = 8 / ui.pps;
+    var cands = snapCandidates(excludeId);
+    var best = null;
+    for (var i = 0; i < cands.length; i++) {
+      var d = Math.abs(cands[i] - t);
+      if (d <= th && (!best || d < best.d)) best = { d: d, target: cands[i] };
+    }
+    return best ? { t: best.target, guide: best.target } : { t: t, guide: null };
+  }
+  function beginClipDrag(ev, clipEl, mode) {
+    var hit = findClip(clipEl.getAttribute('data-clip'));
+    if (!hit) return;
+    selectClip(hit.clip.id);
+    if (hit.track.locked) { toast('该轨道已锁定，先点击轨道头的 L 解锁', 'warn'); return; }
+    var freshEl = document.querySelector('.ae-clip[data-clip="' + hit.clip.id + '"]');
+    pointer = {
+      mode: mode, clipId: hit.clip.id, trackId: hit.track.id,
+      startX: ev.clientX, startY: ev.clientY, orig: clone(hit.clip),
+      moved: false, historyPushed: false, el: freshEl || clipEl
+    };
+    document.addEventListener('pointermove', onClipDragMove);
+    document.addEventListener('pointerup', onClipDragUp, { once: true });
+    document.addEventListener('pointercancel', onClipDragUp, { once: true });
+    try { ev.preventDefault(); } catch (e) { }
+  }
+  function onClipDragMove(ev) {
+    if (!pointer.mode) return;
+    var hit = findClip(pointer.clipId);
+    if (!hit) return;
+    var clip = hit.clip;
+    var dx = ev.clientX - pointer.startX;
+    if (!pointer.moved) {
+      if (Math.abs(dx) < 2) return;
+      pointer.moved = true;
+      if (!pointer.historyPushed) {
+        pushHistory(pointer.mode === 'move' ? '移动片段' : '裁剪片段', pointer.orig);
+        pointer.historyPushed = true;
+      }
+    }
+    var dt = dx / ui.pps;
+    var guide = null;
+    if (pointer.mode === 'move') {
+      var ns = Math.max(0, pointer.orig.start + dt);
+      if (ui.snap) { var sm = snapMove(ns, pointer.orig.duration, clip.id); ns = sm.start; guide = sm.guide; }
+      clip.start = r2(ns);
+    } else if (pointer.mode === 'trim-l') {
+      var ns2 = pointer.orig.start + dt;
+      var maxStart = pointer.orig.start + pointer.orig.duration - 0.2;
+      var minStart = Math.max(0, pointer.orig.start - pointer.orig.in);
+      ns2 = clamp(ns2, minStart, maxStart);
+      if (ui.snap) { var sp = snapPoint(ns2, clip.id); ns2 = clamp(sp.t, minStart, maxStart); guide = sp.guide; }
+      var delta = ns2 - pointer.orig.start;
+      clip.start = r2(ns2);
+      clip.duration = r2(pointer.orig.duration - delta);
+      clip.in = Math.max(0, r2(pointer.orig.in + delta));
+    } else {
+      var nd = Math.max(0.2, pointer.orig.duration + dt);
+      if (ui.snap) { var sp2 = snapPoint(pointer.orig.start + nd, clip.id); nd = Math.max(0.2, sp2.t - pointer.orig.start); guide = sp2.guide; }
+      clip.duration = r2(nd);
+      clip.out = r2(clip.in + nd);
+    }
+    if (pointer.el && pointer.el.isConnected) {
+      pointer.el.style.left = (clip.start * ui.pps) + 'px';
+      pointer.el.style.width = Math.max(7, clip.duration * ui.pps) + 'px';
+      var durEl = pointer.el.querySelector('.ae-clipdur');
+      if (durEl) durEl.textContent = fmtSec(clip.duration);
+    }
+    showSnap(guide);
+    renderPreview();
+    updatePlayheadDom();
+    markDirty();
+  }
+  function onClipDragUp() {
+    document.removeEventListener('pointermove', onClipDragMove);
+    document.removeEventListener('pointerup', onClipDragUp);
+    document.removeEventListener('pointercancel', onClipDragUp);
+    showSnap(null);
+    if (pointer.mode && pointer.moved) {
+      renderTimeline();
+      renderProps();
+      updateSaveChip();
+    }
+    pointer = { mode: null };
+  }
+  function beginPlayheadDrag(ev, target) {
+    ev.preventDefault();
+    var ruler = $('#tlRuler');
+    var move = function (e) {
+      if (!ruler) return;
+      var r = ruler.getBoundingClientRect();
+      seek(clamp((e.clientX - r.left) / ui.pps, 0, duration()));
+    };
+    move(ev);
+    var up = function () {
+      document.removeEventListener('pointermove', move);
+      document.removeEventListener('pointerup', up);
+    };
+    document.addEventListener('pointermove', move);
+    document.addEventListener('pointerup', up, { once: true });
+  }
+  function beginScrub(ev) {
+    ev.preventDefault();
+    if (ui.playing) { ui.playing = false; updatePlayheadDom(); }
+    var track = $('#scrub');
+    var apply = function (e) {
+      var r = track.getBoundingClientRect();
+      seek(clamp((e.clientX - r.left) / r.width, 0, 1) * duration());
+    };
+    apply(ev);
+    var up = function () {
+      document.removeEventListener('pointermove', apply);
+      document.removeEventListener('pointerup', up);
+    };
+    document.addEventListener('pointermove', apply);
+    document.addEventListener('pointerup', up, { once: true });
+  }
+
+  /* ============================================================
+   * 11. 编辑操作
+   * ============================================================ */
+  function addKeyframeAt(localT, prop) {
+    var hit = findClip(ui.selectedClipId);
+    if (!hit) { toast('请先在时间轴选中一个片段', 'warn'); return; }
+    var clip = hit.clip;
+    var lt = clamp(localT == null ? (ui.currentTime - clip.start) : localT, 0, clip.duration);
+    prop = prop || ui.kfProp || 'scale';
+    var cur = effProps(clip, lt);
+    var val = cur[prop];
+    if (typeof val !== 'number') val = Number(val) || 0;
+    pushHistory('添加关键帧');
+    clip.props.keyframes = clip.props.keyframes || [];
+    var k = { id: uid('kf'), prop: prop, t: r2(lt), value: r2(val), easing: ui.curve || 'easeInOut' };
+    clip.props.keyframes.push(k);
+    ui.selectedKfId = k.id;
+    markDirty();
+    renderTimeline();
+    renderProps();
+    renderPreview();
+    toast('已添加「' + (KF_LABEL[prop] || prop) + '」关键帧 @ ' + lt.toFixed(2) + 's', 'ok');
+  }
+  function deleteKeyframe(id) {
+    var hit = findClip(ui.selectedClipId);
+    if (!hit || !id) return;
+    pushHistory('删除关键帧');
+    hit.clip.props.keyframes = (hit.clip.props.keyframes || []).filter(function (k) { return k.id !== id; });
+    if (ui.selectedKfId === id) ui.selectedKfId = null;
+    markDirty();
+    renderTimeline();
+    renderProps();
+    renderPreview();
+    toast('已删除关键帧', 'ok');
+  }
+  function deleteClip(id) {
+    id = id || ui.selectedClipId;
+    var hit = findClip(id);
+    if (!hit) return;
+    pushHistory('删除片段');
+    hit.track.clips = hit.track.clips.filter(function (c) { return c.id !== id; });
+    if (ui.selectedClipId === id) { ui.selectedClipId = null; ui.selectedKfId = null; }
+    markDirty();
+    renderAll();
+    toast('已删除片段「' + hit.clip.name + '」');
+  }
+  function duplicateClip() {
+    var hit = findClip(ui.selectedClipId);
+    if (!hit) return;
+    pushHistory('复制片段');
+    var copy = clone(hit.clip);
+    copy.id = uid('c');
+    copy.name = hit.clip.name + ' 副本';
+    copy.start = r2(hit.clip.start + hit.clip.duration);
+    copy.props.keyframes = (copy.props.keyframes || []).map(function (k) { k.id = uid('kf'); return k; });
+    hit.track.clips.push(copy);
+    ui.selectedClipId = copy.id;
+    ui.selectedKfId = null;
+    markDirty();
+    renderAll();
+    toast('已复制片段到 ' + fmtTC(copy.start));
+  }
+  function setTrackFlag(trackId, key) {
+    if (!project) return;
+    var tr = project.tracks.filter(function (t) { return t.id === trackId; })[0];
+    if (!tr) return;
+    pushHistory(key === 'locked' ? '锁定/解锁轨道' : '静音/取消静音轨道');
+    tr[key] = !tr[key];
+    markDirty();
+    renderTimeline();
+    renderPreview();
+    toast((tr.name || '轨道') + (key === 'locked' ? (tr.locked ? ' 已锁定' : ' 已解锁') : (tr.muted ? ' 已静音' : ' 已取消静音')));
+  }
+  function ensureTrack(type) {
+    var tr = project.tracks.filter(function (t) { return t.type === type; })[0];
+    if (tr) return tr;
+    tr = { id: uid('tr'), type: type, name: ({ video: '视频', audio: '音频', text: '文字', fx: '特效' })[type] + ' 1', locked: false, muted: false, clips: [] };
+    project.tracks.push(tr);
+    return tr;
+  }
+  function templateClips(tpl, t0) {
+    var t = Math.max(0, t0 || 0);
+    var d = tpl.dur;
+    var segs = [r2(d * 0.42), r2(d * 0.33), r2(d - d * 0.42 - d * 0.33)];
+    var out = { video: [], audio: [], text: [], fx: [] };
+    var cursor = t;
+    segs.forEach(function (seg, i) {
+      var pal = tpl.scenes[i % tpl.scenes.length];
+      out.video.push({
+        id: uid('c'), name: tpl.name + ' · 第' + (i + 1) + '镜', type: 'video', asset_url: 'mock://template/' + tpl.id + '/' + i,
+        start: cursor, duration: seg, in: 0, out: seg,
+        props: { x: 0, y: 0, scale: 1 + i * 0.015, rotation: 0, opacity: 1, palette: pal, scene: i % 4, keyframes: [{ id: uid('kf'), prop: 'scale', t: 0, value: 1 + i * 0.015, easing: 'easeInOut' }, { id: uid('kf'), prop: 'scale', t: seg, value: 1.06 + i * 0.015, easing: 'linear' }] }
+      });
+      cursor = r2(cursor + seg);
+    });
+    var line1 = tpl.lines[0] || tpl.name;
+    var line2 = tpl.lines[1] || '';
+    out.text.push({
+      id: uid('c'), name: '标题 · ' + line1, type: 'text', asset_url: 'mock://text/title',
+      start: r2(t + 0.6), duration: Math.min(4, r2(d * 0.3)), in: 0, out: 4,
+      props: { text: line1, fontSize: 58, color: '#f8fafc', bg: false, align: 'center', x: 0, y: -10, scale: 1, rotation: 0, opacity: 1, letterSpacing: 3, animation: 'fadeSlide', keyframes: [{ id: uid('kf'), prop: 'opacity', t: 0, value: 0, easing: 'easeInOut' }, { id: uid('kf'), prop: 'opacity', t: 0.6, value: 1, easing: 'linear' }, { id: uid('kf'), prop: 'y', t: 0, value: -4, easing: 'easeInOut' }, { id: uid('kf'), prop: 'y', t: 0.9, value: -10, easing: 'linear' }] }
+    });
+    if (line2) {
+      out.text.push({
+        id: uid('c'), name: '字幕 · ' + line2, type: 'text', asset_url: 'mock://text/sub',
+        start: r2(t + d * 0.52), duration: r2(d * 0.32), in: 0, out: 4,
+        props: { text: line2, fontSize: 32, color: '#e0f2fe', bg: true, bgColor: 'rgba(8,20,36,.55)', align: 'center', x: 0, y: 20, scale: 1, rotation: 0, opacity: 1, letterSpacing: 1, animation: 'fadeSlide', keyframes: [{ id: uid('kf'), prop: 'opacity', t: 0, value: 0, easing: 'easeInOut' }, { id: uid('kf'), prop: 'opacity', t: 0.5, value: 1, easing: 'linear' }] }
+      });
+    }
+    out.audio.push({
+      id: uid('c'), name: 'BGM · ' + tpl.name, type: 'audio', asset_url: 'mock://audio/template-bgm',
+      start: t, duration: d, in: 0, out: d, props: { volume: 0.55, fadeIn: 0.8, fadeOut: 1.4, keyframes: [] }
+    });
+    out.fx.push({ id: uid('c'), name: '淡入 · 开场', type: 'fx', asset_url: 'mock://fx/fade-in', start: t, duration: 1, in: 0, out: 1, props: { effect: 'fade-in', intensity: 0.9, keyframes: [] } });
+    out.fx.push({ id: uid('c'), name: '闪白转场', type: 'fx', asset_url: 'mock://fx/flash', start: r2(t + segs[0]), duration: 0.9, in: 0, out: 0.9, props: { effect: 'transition', transition: 'flash', intensity: 0.8, keyframes: [] } });
+    return out;
+  }
+  function applyTemplateWhole(tpl) {
+    pushHistory('套用整片模板：' + tpl.name);
+    var built = templateClips(tpl, 0);
+    project.tracks.forEach(function (t) {
+      t.clips = (built[t.type] || []).map(function (c) { return clone(c); });
+    });
+    project.timeline.duration = Math.max(10, tpl.dur + 2);
+    project.name = tpl.name + ' · AI 剪辑工程';
+    ui.selectedClipId = null;
+    ui.selectedKfId = null;
+    ui.currentTime = 0;
+    markDirty();
+    renderAll();
+    toast('已套用行业模板「' + tpl.name + '」：' + tpl.dur + 's / 4 轨（可 Ctrl+Z 撤销）', 'ok', 3600);
+  }
+  function addTemplateAt(tpl, t0) {
+    pushHistory('拖入行业模板：' + tpl.name);
+    var built = templateClips(tpl, Math.max(0, t0 || ui.currentTime));
+    project.tracks.forEach(function (t) {
+      if (built[t.type]) t.clips = (t.clips || []).concat(built[t.type].map(function (c) { return clone(c); }));
+    });
+    project.timeline.duration = Math.max(project.timeline.duration, maxClipEnd() + 2);
+    var first = project.tracks[0] && project.tracks[0].clips.slice(-3)[0];
+    if (first) { ui.selectedClipId = first.id; ui.selectedKfId = null; }
+    markDirty();
+    renderAll();
+    toast('已把行业模板「' + tpl.name + '」拖入时间轴（' + fmtSec(t0 || ui.currentTime) + ' 起，可 Ctrl+Z 撤销）', 'ok', 3200);
+  }
+  function addAnimationItem(item) {
+    var tr = ensureTrack('text');
+    pushHistory('添加文字动画：' + item.name);
+    var start = r2(ui.currentTime);
+    var kfs = [];
+    if (item.preset === 'pop') {
+      kfs = [{ prop: 'scale', t: 0, value: 0.4, easing: 'easeOut' }, { prop: 'scale', t: 0.35, value: 1.06, easing: 'easeInOut' }, { prop: 'scale', t: 0.6, value: 1, easing: 'linear' }, { prop: 'opacity', t: 0, value: 0, easing: 'linear' }, { prop: 'opacity', t: 0.2, value: 1, easing: 'linear' }];
+    } else if (item.preset === 'slideUp') {
+      kfs = [{ prop: 'y', t: 0, value: 12, easing: 'easeInOut' }, { prop: 'y', t: 0.6, value: 0, easing: 'linear' }, { prop: 'opacity', t: 0, value: 0, easing: 'linear' }, { prop: 'opacity', t: 0.4, value: 1, easing: 'linear' }];
+    } else if (item.preset === 'glow') {
+      kfs = [{ prop: 'opacity', t: 0, value: 0.35, easing: 'easeInOut' }, { prop: 'opacity', t: 0.5, value: 1, easing: 'easeInOut' }, { prop: 'scale', t: 0, value: 0.98, easing: 'easeInOut' }, { prop: 'scale', t: 1, value: 1.02, easing: 'linear' }];
+    } else if (item.preset === 'blur') {
+      kfs = [{ prop: 'opacity', t: 0, value: 0, easing: 'easeInOut' }, { prop: 'opacity', t: 0.7, value: 1, easing: 'linear' }];
+    } else {
+      kfs = [{ prop: 'opacity', t: 0, value: 0, easing: 'easeInOut' }, { prop: 'opacity', t: 0.5, value: 1, easing: 'linear' }];
+    }
+    kfs = kfs.map(function (k) { return { id: uid('kf'), prop: k.prop, t: k.t, value: k.value, easing: k.easing }; });
+    var clip = {
+      id: uid('c'), name: '文字动画 · ' + item.name, type: 'text', asset_url: 'mock://text/anim/' + item.id,
+      start: start, duration: 4, in: 0, out: 4,
+      props: { text: item.text, fontSize: 54, color: '#f8fafc', bg: false, bgColor: 'rgba(8,20,36,.55)', align: 'center', x: 0, y: 0, scale: 1, rotation: 0, opacity: 1, letterSpacing: 2, animation: item.preset, keyframes: kfs }
+    };
+    tr.clips.push(clip);
+    ui.selectedClipId = clip.id;
+    ui.selectedKfId = null;
+    markDirty();
+    renderAll();
+    toast('已添加「' + item.name + '」文字动画到 ' + fmtTC(start) + '（可 Ctrl+Z 撤销）', 'ok');
+  }
+  function addChartItem(item) {
+    var tr = ensureTrack('fx');
+    pushHistory('添加图表：' + item.name);
+    var start = r2(ui.currentTime);
+    var clip = {
+      id: uid('c'), name: '图表 · ' + item.title, type: 'fx', asset_url: 'mock://fx/' + item.id,
+      start: start, duration: 4.5, in: 0, out: 4.5,
+      props: { effect: item.effect, title: item.title, values: clone(item.values), intensity: 1, palette: [item.c1, item.c2], keyframes: [] }
+    };
+    tr.clips.push(clip);
+    ui.selectedClipId = clip.id;
+    ui.selectedKfId = null;
+    markDirty();
+    renderAll();
+    toast('已添加「' + item.name + '」到特效轨 ' + fmtTC(start) + '（可 Ctrl+Z 撤销）', 'ok');
+  }
+  function addTransitionItem(item) {
+    var tr = ensureTrack('fx');
+    pushHistory('添加转场：' + item.name);
+    var start = r2(clamp(ui.currentTime, 0, Math.max(0, duration() - item.dur)));
+    var clip = {
+      id: uid('c'), name: '转场 · ' + item.name, type: 'fx', asset_url: 'mock://fx/trans-' + item.transition,
+      start: start, duration: item.dur, in: 0, out: item.dur,
+      props: { effect: 'transition', transition: item.transition, intensity: 0.9, keyframes: [] }
+    };
+    tr.clips.push(clip);
+    ui.selectedClipId = clip.id;
+    ui.selectedKfId = null;
+    markDirty();
+    renderAll();
+    toast('已添加「' + item.name + '」转场 @ ' + fmtTC(start) + '（可 Ctrl+Z 撤销）', 'ok');
+  }
+  function addLibItem(tab, id, t0) {
+    var item = (LIB[tab] || []).filter(function (x) { return x.id === id; })[0];
+    if (!item) return;
+    if (tab === 'templates') { addTemplateAt(item, t0); return; }
+    if (t0 != null) { ui.currentTime = clamp(t0, 0, duration()); }
+    if (tab === 'animations') addAnimationItem(item);
+    else if (tab === 'charts') addChartItem(item);
+    else if (tab === 'transitions') addTransitionItem(item);
+  }
+
+  /* ============================================================
+   * 12. 自然语言指令（前端 mock 解析 + 可选后端）
+   * ============================================================ */
+  var CN_NUM = { '一': 1, '二': 2, '两': 2, '三': 3, '四': 4, '五': 5, '六': 6, '七': 7, '八': 8, '九': 9, '十': 10 };
+  function parseOrdinal(s) {
+    if (!s) return 0;
+    if (/^\d+$/.test(s)) return parseInt(s, 10);
+    return CN_NUM[s] || 0;
+  }
+  function nlSeekToClip(index, type) {
+    var clips = clipsOf(type || 'video').slice().sort(function (a, b) { return a.start - b.start; });
+    return clips[index] || null;
+  }
+  function nlSetProp(index, prop, value, label) {
+    var clip = nlSeekToClip(index, 'video');
+    if (!clip) return '没有找到第 ' + (index + 1) + ' 段视频（当前共 ' + clipsOf('video').length + ' 段）';
+    pushHistory('自然语言：' + label);
+    if (clip.type === 'text') { clip.props[prop] = value; }
+    else { clip.props[prop] = value; }
+    ui.selectedClipId = clip.id;
+    ui.currentTime = clip.start;
+    markDirty();
+    renderAll();
+    return '已将第 ' + (index + 1) + ' 段「' + clip.name + '」的' + label + '设为 ' + (prop === 'scale' ? '×' + value : fmtKfValue(prop, value)) + '（mock）';
+  }
+  function nlAddTransition(name) {
+    var tr = ensureTrack('fx');
+    pushHistory('自然语言：加转场');
+    var start = r2(Math.max(0, Math.min(ui.currentTime, duration() - 1.2)));
+    var clip = {
+      id: uid('c'), name: '转场 · ' + (name || '淡入淡出'), type: 'fx', asset_url: 'mock://fx/nl-transition',
+      start: start, duration: 1.2, in: 0, out: 1.2,
+      props: { effect: 'transition', transition: name && name.indexOf('闪') >= 0 ? 'flash' : name && name.indexOf('擦') >= 0 ? 'wipe' : 'fade', intensity: 0.92, keyframes: [] }
+    };
+    tr.clips.push(clip);
+    ui.selectedClipId = clip.id;
+    markDirty();
+    renderAll();
+    return '已在 ' + fmtTC(start) + ' 处加入「' + (name || '淡入淡出') + '」转场，时长 1.2s（mock）';
+  }
+  function nlAddTitle(text) {
+    var tr = ensureTrack('text');
+    pushHistory('自然语言：加标题');
+    var start = r2(ui.currentTime);
+    var clip = {
+      id: uid('c'), name: '标题 · ' + text, type: 'text', asset_url: 'mock://text/nl',
+      start: start, duration: 4, in: 0, out: 4,
+      props: { text: text, fontSize: 52, color: '#f8fafc', bg: true, bgColor: 'rgba(8,20,36,.55)', align: 'center', x: 0, y: 12, scale: 1, rotation: 0, opacity: 1, letterSpacing: 2, animation: 'typewriter', keyframes: [{ id: uid('kf'), prop: 'opacity', t: 0, value: 0, easing: 'linear' }, { id: uid('kf'), prop: 'opacity', t: 0.2, value: 1, easing: 'linear' }] }
+    };
+    tr.clips.push(clip);
+    ui.selectedClipId = clip.id;
+    markDirty();
+    renderAll();
+    return '已添加标题「' + text + '」@ ' + fmtTC(start) + '（打字机入场，mock）';
+  }
+  function runNlMock(cmd) {
+    var text = cmd.trim();
+    var m;
+    // 第 N 段 + 放大/缩小
+    m = text.match(/第\s*([一二三四五六七八九十两\d]+)\s*[段个]/);
+    var idx = m ? parseOrdinal(m[1]) - 1 : -1;
+    var scaleM = text.match(/(?:放大|缩放|变大|缩小|缩小到)\D*?([\d.]+)\s*[x×倍]/);
+    if (!scaleM) scaleM = text.match(/(?:放大|缩放|变大|缩小)\D*?([\d.]+)/);
+    if (scaleM && idx >= 0) {
+      var sv = Math.max(0.1, Math.min(3, parseFloat(scaleM[1])));
+      if (text.indexOf('缩小') >= 0 && sv >= 1) sv = 1 / sv;
+      return nlSetProp(idx, 'scale', r2(sv), '缩放');
+    }
+    // 不透明度
+    m = text.match(/(?:不透明度|透明度)[^\d]*(\d+)\s*%/);
+    if (m) {
+      var op = clamp(parseInt(m[1], 10) / 100, 0, 1);
+      return nlSetProp(Math.max(0, idx), 'opacity', op, '不透明度');
+    }
+    // 音量
+    m = text.match(/(?:音量|声音)[^\d]*(\d+)\s*%/);
+    if (m) {
+      var audio = clipsOf('audio')[0];
+      if (!audio) return '时间轴里还没有音频片段（mock）';
+      pushHistory('自然语言：调音量');
+      audio.props.volume = clamp(parseInt(m[1], 10) / 100, 0, 1.5);
+      ui.selectedClipId = audio.id;
+      markDirty(); renderAll();
+      return '已把 BGM 音量调整为 ' + m[1] + '%（mock）';
+    }
+    // 删除第 N 段
+    m = text.match(/(?:删除|删掉|去掉)\s*第\s*([一二三四五六七八九十两\d]+)\s*[段个]/);
+    if (m) {
+      var di = parseOrdinal(m[1]) - 1;
+      var dclip = nlSeekToClip(di, 'video');
+      if (!dclip) return '没有找到第 ' + (di + 1) + ' 段视频（mock）';
+      pushHistory('自然语言：删除片段');
+      var trk = trackOfClip(dclip);
+      trk.clips = trk.clips.filter(function (c) { return c.id !== dclip.id; });
+      if (ui.selectedClipId === dclip.id) ui.selectedClipId = null;
+      markDirty(); renderAll();
+      return '已删除第 ' + (di + 1) + ' 段「' + dclip.name + '」（mock）';
+    }
+    // 转场
+    if (/淡入淡出|转场|擦除|闪白/.test(text)) {
+      var nm = text.indexOf('闪白') >= 0 ? '闪白转场' : text.indexOf('擦除') >= 0 ? '横向擦除' : '淡入淡出转场';
+      return nlAddTransition(nm);
+    }
+    // 加标题
+    m = text.match(/(?:加|添加|插入)(?:一个|个|一条|条)?(?:标题|文字|字幕)[：:，,\s]*(.+)$/);
+    if (m) return nlAddTitle(m[1].replace(/^["'「『]|["'」』]$/g, '').trim() || '新标题');
+    // 文字动画
+    if (/打字机/.test(text)) {
+      var anim = LIB.animations[0];
+      if (idx >= 0) {
+        var clip = nlSeekToClip(idx, 'text');
+        if (clip) {
+          pushHistory('自然语言：文字动画');
+          clip.props.animation = 'typewriter';
+          ui.selectedClipId = clip.id;
+          markDirty(); renderAll();
+          return '已给文字「' + clip.name + '」加上打字机入场动画（mock）';
+        }
+      }
+      addAnimationItem(anim);
+      return '已添加「打字机入场」动画 @ ' + fmtTC(ui.currentTime) + '（mock）';
+    }
+    // 加关键帧
+    if (/关键帧/.test(text)) {
+      addKeyframeAt(ui.currentTime - (selectedClip() ? selectedClip().start : 0));
+      return '已在播放头为选中片段添加关键帧（mock）';
+    }
+    // 调时长
+    m = text.match(/(?:时长|长度|总长)[^\d]*(\d+)\s*秒/);
+    if (m) {
+      pushHistory('自然语言：改时长');
+      project.timeline.duration = clamp(parseInt(m[1], 10), 5, 300);
+      markDirty(); renderAll();
+      return '已将时间轴时长设置为 ' + project.timeline.duration + 's（mock）';
+    }
+    // 选中第 N 段
+    if (idx >= 0 && /(选中|选择|跳到)/.test(text)) {
+      var sc = nlSeekToClip(idx, 'video');
+      if (!sc) return '没有找到第 ' + (idx + 1) + ' 段视频（mock）';
+      ui.selectedClipId = sc.id;
+      ui.currentTime = sc.start;
+      markDirty(); renderAll();
+      return '已选中第 ' + (idx + 1) + ' 段「' + sc.name + '」并定位到 ' + fmtTC(sc.start) + '（mock）';
+    }
+    // 套用模板
+    m = text.match(/套用|模板/);
+    if (m) {
+      var tpl = LIB.templates.filter(function (t) { return text.indexOf(t.industry) >= 0 || text.indexOf(t.name) >= 0; })[0] || LIB.templates[0];
+      applyTemplateWhole(tpl);
+      return '已套用行业模板「' + tpl.name + '」（mock，可 Ctrl+Z 撤销）';
+    }
+    return '';
+  }
+  function nlLog(userText, reply, ok) {
+    var log = $('#nlLog');
+    if (!log) return;
+    log.innerHTML = '<b>' + (ok ? '✓' : '⚠') + ' ' + esc(reply) + '</b>';
+    log.title = '指令：' + userText;
+  }
+  function runCommand() {
+    var input = $('#nlInput');
+    if (!input) return;
+    var cmd = input.value.trim();
+    if (!cmd) { toast('请输入一条自然语言指令，例如「把第二段放大到 1.2 倍」', 'warn'); input.focus(); return; }
+    if (ui.nlBusy) return;
+    ui.nlBusy = true;
+    var status = $('#nlStatus'), btn = $('#nlBtn');
+    if (status) { status.textContent = '解析中…'; status.classList.add('busy'); }
+    if (btn) btn.disabled = true;
+    setTimeout(function () {
+      var reply = '';
+      try { reply = runNlMock(cmd); } catch (err) { reply = ''; }
+      if (!reply) {
+        if (ui.apiOnline) reply = '（mock）已把指令发送到 nl-command 队列，离线前端暂未匹配到可执行项，原工程未改动。';
+        else reply = '（mock）未匹配到可执行操作。已记录指令，试试示例：「把第二段放大到 1.2 倍」「加一个淡入淡出转场」「给标题加打字机动画」。';
+        nlLog(cmd, reply, false);
+        toast(reply.length > 60 ? reply.slice(0, 60) + '…' : reply, 'warn', 3600);
+      } else {
+        nlLog(cmd, reply, true);
+        toast(reply.length > 70 ? reply.slice(0, 70) + '…' : reply, 'ok', 3600);
+      }
+      if (ui.apiOnline) {
+        apiFetch('/nl-command', { method: 'POST', body: JSON.stringify({ project_id: project.id, command: cmd, project: project }) }, 2500).catch(function () {
+          ui.apiOnline = false; updateMockPill();
+        });
+      }
+      if (status) { status.textContent = '就绪'; status.classList.remove('busy'); }
+      if (btn) btn.disabled = false;
+      input.value = '';
+      ui.nlBusy = false;
+    }, 460);
+  }
+
+  /* ============================================================
+   * 13. 事件绑定
+   * ============================================================ */
+  function bindTopbar() {
+    var name = $('#projName');
+    if (name) {
+      name.addEventListener('input', function () { if (project) { project.name = name.value; markDirty(); } });
+      name.addEventListener('change', function () { if (project) { project.name = name.value; markDirty(); } });
+    }
+    var aspect = $('#aspectSel');
+    if (aspect) aspect.addEventListener('change', function () {
+      if (!project) return;
+      pushHistory('切换画幅');
+      project.aspect = aspect.value;
+      markDirty();
+      renderTopbar();
+      fitStage();
+      renderPreview();
+      toast('画幅已切换为 ' + project.aspect + '（画布 ' + (RES[project.aspect] || RES['16:9']).join('×') + '）', 'ok');
+    });
+    var fpsSel = $('#fpsSel');
+    if (fpsSel) fpsSel.addEventListener('change', function () {
+      if (!project) return;
+      pushHistory('切换帧率');
+      project.fps = parseInt(fpsSel.value, 10) || 30;
+      markDirty();
+      renderAll();
+      toast('帧率已切换为 ' + project.fps + 'fps', 'ok');
+    });
+    var durInput = $('#durInput');
+    if (durInput) durInput.addEventListener('change', function () {
+      if (!project) return;
+      pushHistory('修改时间轴时长');
+      project.timeline.duration = clamp(parseFloat(durInput.value) || 28, 5, 300);
+      markDirty();
+      renderAll();
+      toast('时间轴时长：' + project.timeline.duration + 's', 'ok');
+    });
+    var undoBtn = $('#undoBtn'); if (undoBtn) undoBtn.addEventListener('click', undo);
+    var redoBtn = $('#redoBtn'); if (redoBtn) redoBtn.addEventListener('click', redo);
+    var saveBtn = $('#saveBtn'); if (saveBtn) saveBtn.addEventListener('click', function () { saveProject(true); });
+    var expBtn = $('#exportBtn'); if (expBtn) expBtn.addEventListener('click', runExport);
+    var helpBtn = $('#helpBtn'); if (helpBtn) helpBtn.addEventListener('click', function () { $('#helpModal').hidden = false; });
+    var safeBtn = $('#safeBtn'); if (safeBtn) safeBtn.addEventListener('click', function () {
+      ui.safe = !ui.safe;
+      safeBtn.textContent = '安全框 ' + (ui.safe ? '开' : '关');
+      renderPreview();
+    });
+    var mobileClose = $('#mobileNoteClose');
+    if (mobileClose) mobileClose.addEventListener('click', function () {
+      var note = $('#mobileNote'); if (note) note.style.display = 'none';
+    });
+  }
+  function bindLibrary() {
+    var tabs = $('#libTabs');
+    if (tabs) tabs.addEventListener('click', function (e) {
+      var b = e.target.closest('.ae-tab'); if (!b) return;
+      ui.tab = b.getAttribute('data-tab');
+      $$('.ae-tab', tabs).forEach(function (x) { x.classList.toggle('on', x === b); x.setAttribute('aria-selected', x === b ? 'true' : 'false'); });
+      renderLibrary();
+    });
+    var search = $('#libSearch');
+    if (search) search.addEventListener('input', function () { ui.search = search.value; renderLibrary(); });
+    var list = $('#libList');
+    if (list) {
+      list.addEventListener('dragstart', function (e) {
+        var card = e.target.closest('.ae-libcard'); if (!card) return;
+        var payload = JSON.stringify({ tab: card.getAttribute('data-libtab'), id: card.getAttribute('data-libid') });
+        try {
+          e.dataTransfer.setData('application/x-autoedit', payload);
+          e.dataTransfer.setData('text/plain', payload);
+          e.dataTransfer.effectAllowed = 'copy';
+        } catch (err) { }
+        card.classList.add('dragging');
+        document.body.setAttribute('data-ae-dragging', '1');
+      });
+      list.addEventListener('dragend', function (e) {
+        var card = e.target.closest('.ae-libcard'); if (card) card.classList.remove('dragging');
+        document.body.removeAttribute('data-ae-dragging');
+        showDrop(null);
+        $$('.ae-tl-lane.dropping').forEach(function (l) { l.classList.remove('dropping'); });
+      });
+      list.addEventListener('click', function (e) {
+        var apply = e.target.closest('[data-apply]');
+        if (apply) {
+          var tpl = LIB.templates.filter(function (t) { return t.id === apply.getAttribute('data-apply'); })[0];
+          if (tpl) applyTemplateWhole(tpl);
+          return;
+        }
+        var add = e.target.closest('[data-add]');
+        if (add) { addLibItem(ui.tab, add.getAttribute('data-add')); return; }
+        var card = e.target.closest('.ae-libcard');
+        if (!card) return;
+        if (ui.tab === 'templates') {
+          toast('行业模板：点「套用」替换整片，或直接拖拽到时间轴叠加。', 'warn', 3000);
+        } else {
+          addLibItem(ui.tab, card.getAttribute('data-libid'));
+        }
+      });
+    }
+  }
+  function dropTimeFromEvent(e) {
+    var lane = e.target.closest ? e.target.closest('.ae-tl-lane') : null;
+    var ref = lane || $('#tlTracks');
+    var rect = ref.getBoundingClientRect();
+    var left = lane ? rect.left : rect.left + getLabelW();
+    return clamp((e.clientX - left) / ui.pps, 0, Math.max(1, duration()));
+  }
+  function readDragPayload(e) {
+    try {
+      var raw = e.dataTransfer.getData('application/x-autoedit') || e.dataTransfer.getData('text/plain');
+      return raw ? JSON.parse(raw) : null;
+    } catch (err) { return null; }
+  }
+  function dragTypeFor(tab) {
+    return tab === 'animations' ? 'text' : (tab === 'charts' || tab === 'transitions') ? 'fx' : null;
+  }
+  function bindTimeline() {
+    var tracks = $('#tlTracks');
+    if (tracks) {
+      tracks.addEventListener('pointerdown', function (e) {
+        var kf = e.target.closest('.ae-kf');
+        if (kf) {
+          e.preventDefault();
+          e.stopPropagation();
+          var kfid = kf.getAttribute('data-kfid');
+          var hit = findClip(ui.selectedClipId);
+          if (hit) {
+            var found = null;
+            (hit.clip.props.keyframes || []).forEach(function (k) { if (k.id === kfid) found = k; });
+            if (found) {
+              ui.selectedKfId = found.id;
+              renderTimeline();
+              renderProps();
+              seek(hit.clip.start + found.t);
+            }
+          }
+          return;
+        }
+        var clipEl = e.target.closest('.ae-clip');
+        if (clipEl) {
+          var trim = e.target.closest('.ae-trim');
+          beginClipDrag(e, clipEl, trim ? (trim.getAttribute('data-trim') === 'l' ? 'trim-l' : 'trim-r') : 'move');
+          return;
+        }
+        var lane = e.target.closest('.ae-tl-lane');
+        if (lane) {
+          seek(clamp((e.clientX - lane.getBoundingClientRect().left) / ui.pps, 0, duration()));
+        }
+      });
+      tracks.addEventListener('contextmenu', function (e) {
+        var kf = e.target.closest('.ae-kf');
+        if (kf) {
+          e.preventDefault();
+          deleteKeyframe(kf.getAttribute('data-kfid'));
+        }
+      });
+      tracks.addEventListener('dblclick', function (e) {
+        var clipEl = e.target.closest('.ae-clip');
+        if (!clipEl || e.target.closest('.ae-trim') || e.target.closest('.ae-kf')) return;
+        e.preventDefault();
+        var hit = findClip(clipEl.getAttribute('data-clip'));
+        if (!hit) return;
+        if (ui.selectedClipId !== hit.clip.id) selectClip(hit.clip.id);
+        var rect = document.querySelector('.ae-clip[data-clip="' + hit.clip.id + '"]').getBoundingClientRect();
+        var lt = clamp((e.clientX - rect.left) / ui.pps, 0, hit.clip.duration);
+        addKeyframeAt(lt);
+      });
+      tracks.addEventListener('dragover', function (e) {
+        var payload = null;
+        try {
+          if (e.dataTransfer && (e.dataTransfer.types || []).length) {
+            var types = Array.prototype.slice.call(e.dataTransfer.types);
+            if (types.indexOf('application/x-autoedit') < 0 && types.indexOf('text/plain') < 0) return;
+          }
+        } catch (err) { }
+        e.preventDefault();
+        if (e.dataTransfer) e.dataTransfer.dropEffect = 'copy';
+        var t = dropTimeFromEvent(e);
+        showDrop(t);
+        var tab = null;
+        try {
+          var raw = e.dataTransfer.getData('application/x-autoedit');
+          if (raw) { tab = JSON.parse(raw).tab; }
+        } catch (err) { tab = null; }
+        var wantType = tab ? dragTypeFor(tab) : null;
+        $$('.ae-tl-lane').forEach(function (lane) {
+          var ok = !wantType || lane.getAttribute('data-lane') === wantType;
+          lane.classList.toggle('dropping', ok);
+        });
+        $$('.ae-tl-lane').forEach(function (lane) {
+          if (wantType && lane.getAttribute('data-lane') !== wantType) lane.classList.remove('dropping');
+        });
+      });
+      tracks.addEventListener('dragleave', function (e) {
+        if (e.target === tracks) { showDrop(null); $$('.ae-tl-lane.dropping').forEach(function (l) { l.classList.remove('dropping'); }); }
+      });
+      tracks.addEventListener('drop', function (e) {
+        e.preventDefault();
+        var payload = readDragPayload(e);
+        showDrop(null);
+        $$('.ae-tl-lane.dropping').forEach(function (l) { l.classList.remove('dropping'); });
+        if (!payload) { toast('未识别到素材数据，请从左侧素材库拖入', 'warn'); return; }
+        var t = dropTimeFromEvent(e);
+        t = ui.snap ? Math.round(t * 10) / 10 : t;
+        addLibItem(payload.tab, payload.id, t);
+      });
+      tracks.addEventListener('click', function (e) {
+        var btn = e.target.closest('[data-trackbtn]');
+        if (!btn) return;
+        var trackId = btn.getAttribute('data-track');
+        var key = btn.getAttribute('data-trackbtn') === 'lock' ? 'locked' : 'muted';
+        setTrackFlag(trackId, key);
+      });
+    }
+    var ruler = $('#tlRuler');
+    if (ruler) ruler.addEventListener('pointerdown', function (e) { if (e.button === 0) beginPlayheadDrag(e, ruler); });
+    var head = $('#phHead');
+    if (head) head.addEventListener('pointerdown', function (e) { if (e.button === 0) { e.stopPropagation(); beginPlayheadDrag(e, head); } });
+    var scroll = $('#tlScroll');
+    if (scroll) scroll.addEventListener('wheel', function (e) {
+      if (e.ctrlKey) return;
+      e.preventDefault();
+      var rect = scroll.getBoundingClientRect();
+      var anchor = e.clientX - rect.left;
+      var factor = e.deltaY < 0 ? 1.16 : 1 / 1.16;
+      setZoom(ui.pps * factor, e.clientX);
+    }, { passive: false });
+    var snapBtn = $('#snapBtn');
+    if (snapBtn) snapBtn.addEventListener('click', function () {
+      ui.snap = !ui.snap;
+      snapBtn.textContent = '磁吸 ' + (ui.snap ? '开' : '关');
+      snapBtn.classList.toggle('on', ui.snap);
+      toast('吸附对齐：' + (ui.snap ? '开' : '关'), 'ok', 1400);
+    });
+    var kfBtn = $('#kfBtn');
+    if (kfBtn) kfBtn.addEventListener('click', function () {
+      var clip = selectedClip();
+      if (!clip) { toast('请先选中一个片段', 'warn'); return; }
+      addKeyframeAt(ui.currentTime - clip.start);
+    });
+    var delBtn = $('#delBtn'); if (delBtn) delBtn.addEventListener('click', function () { deleteClip(); });
+    var zo = $('#zoomOut'); if (zo) zo.addEventListener('click', function () { setZoom(ui.pps / 1.25); });
+    var zi = $('#zoomIn'); if (zi) zi.addEventListener('click', function () { setZoom(ui.pps * 1.25); });
+    var fit = $('#fitBtn'); if (fit) fit.addEventListener('click', fitTimeline);
+  }
+  function setZoom(next, anchorClientX) {
+    var scroll = $('#tlScroll');
+    if (!scroll) return;
+    var rect = scroll.getBoundingClientRect();
+    var anchor = anchorClientX != null ? anchorClientX - rect.left : Math.max(40, (scroll.clientWidth - getLabelW()) / 2);
+    var contentX = scroll.scrollLeft + anchor;
+    var t = Math.max(0, (contentX - getLabelW()) / ui.pps);
+    ui.pps = clamp(next, 14, 340);
+    renderTimeline();
+    var newScroll = t * ui.pps + getLabelW() - anchor;
+    scroll.scrollLeft = Math.max(0, newScroll);
+    var zl = $('#zoomLbl'); if (zl) zl.textContent = Math.round(ui.pps) + 'px/s';
+  }
+  function fitTimeline() {
+    var scroll = $('#tlScroll');
+    if (!scroll) return;
+    var usable = scroll.clientWidth - getLabelW() - 26;
+    ui.pps = clamp(usable / duration(), 14, 340);
+    renderTimeline();
+    scroll.scrollLeft = 0;
+    toast('时间轴已适配窗口（' + Math.round(ui.pps) + 'px/s）', 'ok', 1600);
+  }
+  function bindTransport() {
+    var play = $('#playBtn'); if (play) play.addEventListener('click', togglePlay);
+    var prev = $('#prevFrame'); if (prev) prev.addEventListener('click', function () { setTime(ui.currentTime - 1 / fps()); });
+    var next = $('#nextFrame'); if (next) next.addEventListener('click', function () { setTime(ui.currentTime + 1 / fps()); });
+    var loop = $('#loopBtn'); if (loop) loop.addEventListener('click', function () { ui.loop = !ui.loop; loop.classList.toggle('active', ui.loop); toast('循环播放：' + (ui.loop ? '开' : '关'), 'ok', 1400); });
+    var scrub = $('#scrub'); if (scrub) scrub.addEventListener('pointerdown', beginScrub);
+  }
+  function togglePlay() {
+    if (ui.playing) { ui.playing = false; updatePlayheadDom(); return; }
+    if (ui.currentTime >= duration() - 0.01) ui.currentTime = 0;
+    ui.playing = true;
+    lastTick = performance.now();
+    updatePlayheadDom();
+  }
+  function setTime(t) {
+    ui.currentTime = clamp(t, 0, duration());
+    renderPreview();
+    updatePlayheadDom();
+  }
+  function bindProps() {
+    var host = $('#props');
+    if (!host) return;
+    host.addEventListener('focusin', function () { propSnapshot = clone(project); });
+    host.addEventListener('input', function (e) {
+      var el = e.target;
+      if (el.matches('[data-p]')) onPropValueInput(el);
+      else if (el.matches('[data-k]')) onClipFieldInput(el);
+    });
+    host.addEventListener('change', function (e) {
+      var el = e.target;
+      if (el.matches('[data-p]') || el.matches('[data-k]')) {
+        onPropChangeCommit();
+        if (el.matches('[data-p]') && ['effect', 'transition', 'values', 'title'].indexOf(el.getAttribute('data-p')) >= 0) {
+          renderTimeline();
+        }
+      } else if (el.matches('[data-kfease]')) {
+        var hit = findClip(ui.selectedClipId);
+        if (hit) {
+          var kf = (hit.clip.props.keyframes || []).filter(function (k) { return k.id === el.getAttribute('data-kfease'); })[0];
+          if (kf) {
+            pushHistory('修改关键帧曲线', propSnapshot || undefined);
+            kf.easing = el.value;
+            markDirty();
+            renderPreview();
+            renderTimeline();
+          }
+        }
+        propSnapshot = clone(project);
+      } else if (el.id === 'kfPropSel') {
+        ui.kfProp = el.value;
+      } else if (el.id === 'curveSel') {
+        ui.curve = el.value;
+      }
+    });
+    host.addEventListener('click', onPropClick);
+  }
+  var propSnapshot = null;
+  var kfEditGuard = null;
+  var ANIM_PROPS = ['x', 'y', 'scale', 'rotation', 'opacity', 'fontSize', 'volume'];
+  function onPropValueInput(el) {
+    var hit = findClip(ui.selectedClipId);
+    if (!hit) return;
+    var clip = hit.clip;
+    var key = el.getAttribute('data-p');
+    var mult = parseFloat(el.getAttribute('data-mult')) || 1;
+    var val;
+    if (el.type === 'range' || el.type === 'number') {
+      val = parseFloat(el.value);
+      if (isNaN(val)) return;
+      val = val / mult;
+    } else {
+      val = el.value;
+    }
+    if (key === 'values') {
+      val = String(el.value).split(/[,，\s]+/).map(Number).filter(function (n) { return !isNaN(n); });
+      if (!val.length) val = [24, 40, 32, 56, 72, 88];
+    }
+    if (key === 'rotation' || key === 'fontSize') val = Math.round(val);
+    clip.props[key] = val;
+    // 已有动画的属性：在播放头处更新/新增关键帧（专业剪辑器行为）
+    if (ANIM_PROPS.indexOf(key) >= 0) {
+      var ks = kfsOf(clip, key);
+      if (ks.length) {
+        var localT = clamp(ui.currentTime - clip.start, 0, clip.duration);
+        var guardOk = kfEditGuard && kfEditGuard.clipId === clip.id && kfEditGuard.prop === key && Math.abs(kfEditGuard.t - localT) < 0.08;
+        var target = null;
+        if (guardOk) target = kfEditGuard.kf;
+        else {
+          target = ks.filter(function (k) { return Math.abs(k.t - localT) < 0.04; })[0] || null;
+          if (!target) {
+            target = { id: uid('kf'), prop: key, t: r2(localT), value: r2(val), easing: ui.curve || 'easeInOut' };
+            clip.props.keyframes.push(target);
+            ui.selectedKfId = target.id;
+            renderTimeline();
+          }
+          kfEditGuard = { clipId: clip.id, prop: key, t: localT, kf: target };
+        }
+        target.value = r2(val);
+        if (target.prop === 'fontSize' || target.prop === 'rotation') target.value = Math.round(val);
+        renderTimeline();
+      }
+    }
+    // 同步 slider / number 双控件
+    $$('[data-p="' + key + '"]', $('#props')).forEach(function (o) {
+      if (o === el) return;
+      if (o.type === 'range' || o.type === 'number') {
+        o.value = Math.round(val * mult * 100) / 100;
+      } else if (document.activeElement !== o) {
+        o.value = key === 'values' ? val.join(',') : val;
+      }
+    });
+    markDirty();
+    renderPreview();
+    if (key === 'start' || key === 'duration' || key === 'in' || key === 'out') { /* timeline 由 change 处理 */ }
+    updateTimelineDurOfClip(clip);
+  }
+  function onClipFieldInput(el) {
+    var hit = findClip(ui.selectedClipId);
+    if (!hit) return;
+    var clip = hit.clip;
+    var key = el.getAttribute('data-k');
+    var v = parseFloat(el.value);
+    if (isNaN(v)) return;
+    if (key === 'start') {
+      clip.start = clamp(v, 0, 300);
+    } else if (key === 'duration') {
+      clip.duration = clamp(v, 0.2, 300);
+      clip.out = r2(clip.in + clip.duration);
+    } else if (key === 'in') {
+      clip.in = clamp(v, 0, 300);
+      if (clip.in >= clip.out) clip.out = r2(clip.in + 0.2);
+      clip.duration = r2(clip.out - clip.in);
+    } else if (key === 'out') {
+      clip.out = clamp(v, clip.in + 0.2, 600);
+      clip.duration = r2(clip.out - clip.in);
+    }
+    renderTimeline();
+    renderPreview();
+    updatePlayheadDom();
+    markDirty();
+  }
+  function updateTimelineDurOfClip(clip) {
+    if (!clip) return;
+    var el = document.querySelector('.ae-clip[data-clip="' + clip.id + '"]');
+    if (!el) return;
+    el.style.left = (clip.start * ui.pps) + 'px';
+    el.style.width = Math.max(7, clip.duration * ui.pps) + 'px';
+    var d = el.querySelector('.ae-clipdur');
+    if (d) d.textContent = fmtSec(clip.duration);
+  }
+  function onPropChangeCommit() {
+    if (propSnapshot && JSON.stringify(propSnapshot) !== JSON.stringify(project)) {
+      history.past.push({ state: propSnapshot, label: '修改属性' });
+      if (history.past.length > MAX_HISTORY) history.past.shift();
+      history.future.length = 0;
+      updateUndoUI();
+    }
+    propSnapshot = clone(project);
+    var hadKfEdit = !!kfEditGuard;
+    kfEditGuard = null;
+    markDirty();
+    renderTimeline();
+    renderTopbar();
+    if (hadKfEdit) renderProps();
+  }
+  function onPropClick(e) {
+    var btn = e.target.closest('button');
+    var hit = findClip(ui.selectedClipId);
+    if (!hit) return;
+    if (btn) {
+      var act = btn.getAttribute('data-act');
+      if (act === 'duplicate') { duplicateClip(); return; }
+      if (act === 'deleteclip') { deleteClip(); return; }
+      if (act === 'addkf') {
+        addKeyframeAt(ui.currentTime - hit.clip.start);
+        return;
+      }
+      if (btn.getAttribute('data-kfdel')) { deleteKeyframe(btn.getAttribute('data-kfdel')); return; }
+      if (btn.getAttribute('data-pbtn') === 'bg') {
+        pushHistory('切换文字背景');
+        hit.clip.props.bg = btn.getAttribute('data-val') === 'on';
+        markDirty();
+        renderProps();
+        renderPreview();
+        return;
+      }
+      return;
+    }
+    var row = e.target.closest('.ae-kfrow');
+    if (row) {
+      var kfid = row.getAttribute('data-kfid');
+      var kf = (hit.clip.props.keyframes || []).filter(function (k) { return k.id === kfid; })[0];
+      if (kf) {
+        ui.selectedKfId = kf.id;
+        seek(hit.clip.start + kf.t);
+        renderTimeline();
+        renderProps();
+      }
+    }
+  }
+  function bindKeyboard() {
+    document.addEventListener('keydown', function (e) {
+      var t = e.target || {};
+      var tag = (t.tagName || '').toUpperCase();
+      var inField = tag === 'INPUT' || tag === 'TEXTAREA' || tag === 'SELECT' || t.isContentEditable;
+      if ((e.ctrlKey || e.metaKey) && String(e.key).toLowerCase() === 'z') {
+        e.preventDefault();
+        if (e.shiftKey) redo(); else undo();
+        return;
+      }
+      if ((e.ctrlKey || e.metaKey) && String(e.key).toLowerCase() === 'y') { e.preventDefault(); redo(); return; }
+      if ((e.ctrlKey || e.metaKey) && String(e.key).toLowerCase() === 's') { e.preventDefault(); saveProject(true); return; }
+      if ((e.ctrlKey || e.metaKey) && String(e.key).toLowerCase() === 'k') { e.preventDefault(); var c = selectedClip(); if (c) addKeyframeAt(ui.currentTime - c.start); return; }
+      if (inField) return;
+      if (e.code === 'Space' || e.key === ' ') { e.preventDefault(); togglePlay(); return; }
+      if (e.key === 'Delete' || e.key === 'Backspace') {
+        e.preventDefault();
+        if (ui.selectedKfId) deleteKeyframe(ui.selectedKfId);
+        else if (ui.selectedClipId) deleteClip();
+        else toast('先选中片段或关键帧再删除', 'warn', 1600);
+        return;
+      }
+      if (e.key === 'ArrowLeft') { e.preventDefault(); setTime(ui.currentTime - 1 / fps()); return; }
+      if (e.key === 'ArrowRight') { e.preventDefault(); setTime(ui.currentTime + 1 / fps()); return; }
+      if (e.key === 'Escape') {
+        var help = $('#helpModal'), exp = $('#exportModal');
+        if (help && !help.hidden) { help.hidden = true; return; }
+        if (exp && !exp.hidden) { closeExportModal(); return; }
+        ui.selectedClipId = null; ui.selectedKfId = null;
+        renderAll();
+        return;
+      }
+      if (e.key === '+' || e.key === '=') { setZoom(ui.pps * 1.2); return; }
+      if (e.key === '-' || e.key === '_') { setZoom(ui.pps / 1.2); return; }
+    });
+  }
+  function bindModals() {
+    var exp = $('#exportModal');
+    if (exp) exp.addEventListener('click', function (e) { if (e.target === exp) closeExportModal(); });
+    var expClose = $('#expClose'); if (expClose) expClose.addEventListener('click', closeExportModal);
+    var dl = $('#expDownload'); if (dl) dl.addEventListener('click', downloadProject);
+    var help = $('#helpModal');
+    if (help) help.addEventListener('click', function (e) { if (e.target === help) help.hidden = true; });
+    var hc = $('#helpClose'); if (hc) hc.addEventListener('click', function () { if (help) help.hidden = true; });
+  }
+  function closeExportModal() {
+    var exp = $('#exportModal');
+    if (ui.expTimer) { clearInterval(ui.expTimer); ui.expTimer = null; ui.exporting = false; }
+    if (exp) exp.hidden = true;
+  }
+  function bindNl() {
+    var btn = $('#nlBtn'); if (btn) btn.addEventListener('click', runCommand);
+    var input = $('#nlInput');
+    if (input) input.addEventListener('keydown', function (e) {
+      if (e.key === 'Enter') { e.preventDefault(); runCommand(); }
+    });
+    var chips = $('#nlChips');
+    if (chips) {
+      chips.innerHTML = ['把第二段放大到 1.2 倍', '加一个淡入淡出转场', '给标题加打字机动画']
+        .map(function (c) { return '<button type="button" data-cmd="' + esc(c) + '">' + esc(c) + '</button>'; }).join('');
+      chips.addEventListener('click', function (e) {
+        var b = e.target.closest('[data-cmd]');
+        if (!b || !input) return;
+        input.value = b.getAttribute('data-cmd');
+        runCommand();
+      });
+    }
+  }
+
+  /* ============================================================
+   * 14. 画布自适应 / 主循环 / 初始化
+   * ============================================================ */
+  var lastTick = performance.now();
+  function fitStage() {
+    var wrap = $('#stageWrap'), stage = $('#stage');
+    if (!wrap || !stage || !project) return;
+    var res = RES[project.aspect] || RES['16:9'];
+    var cv = $('#previewCanvas');
+    if (cv && (cv.width !== res[0] || cv.height !== res[1])) {
+      cv.width = res[0]; cv.height = res[1];
+      renderPreview();
+    }
+    if (window.innerWidth <= 979) { stage.style.width = ''; stage.style.height = ''; return; }
+    var ar = res[0] / res[1];
+    var aw = wrap.clientWidth - 36, ah = wrap.clientHeight - 28;
+    if (aw < 50 || ah < 50) return;
+    var w = aw, h = w / ar;
+    if (h > ah) { h = ah; w = h * ar; }
+    stage.style.width = Math.round(w) + 'px';
+    stage.style.height = Math.round(h) + 'px';
+  }
+  function loop(now) {
+    var dt = Math.min(0.1, (now - lastTick) / 1000);
+    lastTick = now;
+    if (ui.playing) {
+      var next = ui.currentTime + dt;
+      if (next >= duration()) {
+        if (ui.loop) next = next % duration();
+        else { next = duration(); ui.playing = false; }
+      }
+      ui.currentTime = next;
+      renderPreview();
+      updatePlayheadDom();
+      updateMeter();
+    }
+    requestAnimationFrame(loop);
+  }
+  function bootProject() {
+    var local = null;
+    try {
+      var raw = localStorage.getItem(STORAGE_KEY);
+      if (raw) local = JSON.parse(raw);
+    } catch (e) { local = null; }
+    if (local && Array.isArray(local.tracks) && local.tracks.length) {
+      project = normalizeProject(local);
+      ui.savedAt = +local.updatedAt || Date.now();
+      renderAll();
+      fitStage();
+      toast('已恢复浏览器本地草稿（' + timeAgo(ui.savedAt) + '）', 'ok', 2200);
+    } else {
+      project = normalizeProject(seedProject());
+      renderAll();
+      fitStage();
+    }
+    if (!API_ENABLED) {
+      ui.apiOnline = false;
+      updateMockPill();
+      updateSaveChip();
+      return;
+    }
+    apiFetch('/projects/' + PROJECT_ID, { method: 'GET' }, 1800).then(function (data) {
+      if (!data || !Array.isArray(data.tracks)) throw new Error('bad payload');
+      ui.apiOnline = true;
+      updateMockPill();
+      if (!local) {
+        project = normalizeProject(data);
+        renderAll();
+        fitStage();
+        toast('已从后端载入工程（API 在线）', 'ok');
+      }
+    }).catch(function () {
+      ui.apiOnline = false;
+      updateMockPill();
+      updateSaveChip();
+    });
+  }
+  function init() {
+    var cv = $('#previewCanvas');
+    if (cv) {
+      var res = RES['16:9'];
+      cv.width = res[0]; cv.height = res[1];
+      ctx = cv.getContext('2d');
+    }
+    bindTopbar();
+    bindLibrary();
+    bindTimeline();
+    bindTransport();
+    bindProps();
+    bindKeyboard();
+    bindModals();
+    bindNl();
+    bootProject();
+    if (window.ResizeObserver) {
+      try {
+        var ro = new ResizeObserver(function () { fitStage(); });
+        ro.observe($('#stageWrap'));
+      } catch (e) { }
+    }
+    window.addEventListener('resize', function () {
+      clearTimeout(ui.fitTry);
+      ui.fitTry = setTimeout(function () { fitStage(); renderTimeline(); }, 160);
+    });
+    setTimeout(function () { fitStage(); renderTimeline(); }, 320);
+    setTimeout(function () { fitStage(); renderTimeline(); }, 1200);
+    requestAnimationFrame(loop);
+    window.__AE = {
+      getProject: function () { return clone(project); },
+      getState: function () {
+        return {
+          currentTime: ui.currentTime, playing: ui.playing, selectedClipId: ui.selectedClipId,
+          selectedKfId: ui.selectedKfId, pps: ui.pps, apiOnline: ui.apiOnline, dirty: ui.dirty,
+          historyUndo: history.past.length, historyRedo: history.future.length
+        };
+      },
+      selectClip: selectClip,
+      addKeyframeAt: addKeyframeAt,
+      deleteClip: deleteClip,
+      setTime: setTime,
+      save: function () { saveProject(true); },
+      renderTimeline: renderTimeline,
+      rerender: renderAll
+    };
+    document.documentElement.setAttribute('data-ae-ready', '1');
+    updateMockPill();
+    updateSaveChip();
+  }
+  init();
+})();
+
+</script>
+
+</body>
+</html>
