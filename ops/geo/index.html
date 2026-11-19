@@ -4580,7 +4580,7 @@ html[data-page="ops-geo"] .xl-sb-theme{display:none!important}
           '<td><div class="mname" style="font-size:11.5px">' + esc(t.merchant || merchantName(t.merchantId)) + '</div><div class="msub">' + esc(t.id) + ' · ' + esc(t.planTier || '') + '</div></td>' +
           '<td>' + esc(t.word || t.draftTitle || '—') + (t.draftTitle && t.word ? '<div class="msub">' + esc(t.draftTitle) + '</div>' : '') + '</td>' +
           '<td>' + esc(t.channel || channelName(t.channelId)) + '<div class="msub">' + esc(t.tier || '') + '</div></td>' +
-          '<td>' + statusBadge(TASK_STATUS, t.status, t.statusLabel) + (t.attempts ? '<div class="msub">重试 ' + t.attempts + ' 次</div>' : '') + '</td>' +
+          '<td>' + statusBadge(TASK_STATUS, t.status, t.statusLabel) + (t.attempts > 1 ? '<div class="msub">提交 ' + t.attempts + ' 次</div>' : '') + '</td>' +
           '<td class="num">' + fmtYuan(t.cost) + '</td>' +
           '<td class="num">' + fmtYuan(t.price) + '</td>' +
           '<td class="num" style="color:' + (gross < 0 ? '#fda4af' : '#6ee7b7') + '">' + fmtYuan(gross) + '</td>' +
@@ -5376,7 +5376,7 @@ html[data-page="ops-geo"] .xl-sb-theme{display:none!important}
           '<td class="og-mono" style="font-size:10px">' + esc(fmtDT(m.testedAt)) + '</td></tr>';
       }).join('');
     }
-    $('#mnPager').textContent = pagerText(rows.length, page, size, '条');
+    $('#mnPager').textContent = '已加载 ' + fmtNum(rows.length) + ' / 共 ' + fmtNum(sum.tests || rows.length) + ' 条 · 第 ' + page + ' / ' + Math.max(1, Math.ceil(rows.length / size)) + ' 页';
     var pages = Math.max(1, Math.ceil(rows.length / size));
     $('#mnPrev').disabled = page <= 1;
     $('#mnNext').disabled = page >= pages;
