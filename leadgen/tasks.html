@@ -427,6 +427,10 @@ html[data-theme="light"] .tk-toast{background:#fff;color:#0f172a;border-color:#e
 
   var API_BASE = /(^|\.)github\.io$/i.test(location.hostname)
     ? 'https://xinglaiai.com/ai-nav/api' : '/ai-nav/api';
+  // 本地静态预览（file/127.0.0.1）时直连线上后端，便于逐项自测
+  if (/^(localhost|127\.0\.0\.1|::1)$/i.test(location.hostname)) {
+    API_BASE = 'https://xinglaiai.com/ai-nav/api';
+  }
   var API = API_BASE + '/leadgen/tasks';
 
   var state = {

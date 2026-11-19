@@ -2527,6 +2527,8 @@ html[data-theme="light"] .xpr-cost b{color:#075985}
       nickname: nick,
       platform: o.platform || (S.config.platforms[0] || '抖音'),
       text: txt,
+      title: o.title || '',
+      snippet: o.snippet || '',
       time: o.time || o.published_at || o.created_at || nowText(),
       created_at: o.created_at || o.time || '',
       source: o.source || o.from || '评论区',
@@ -6648,9 +6650,14 @@ html[data-theme="light"] .xpr-cost b{color:#075985}
     }).join('');
     var tags = (lead.tags || []).map(function (t) { return '<span>' + esc(t) + '</span>'; }).join('');
     var fbState = fb[lead.id];
+    var srcTitle = String(lead.title || '');
+    var srcBody = String(lead.text || lead.snippet || '');
+    if (srcTitle && srcBody.indexOf(srcTitle) === 0) {
+      srcBody = srcBody.slice(srcTitle.length).replace(/^[。.：:\s\-—]+/, '');
+    }
     body.innerHTML =
-      '<div class="xpr-src"><div class="t">' + esc(lead.title || lead.text || '公开提问') + '</div>' +
-      esc(lead.text || lead.snippet || '') + '</div>' +
+      '<div class="xpr-src"><div class="t">' + esc(srcTitle || lead.text || '公开提问') + '</div>' +
+      esc(srcBody || lead.snippet || '') + '</div>' +
       (lead.need_summary ? '<div class="xpr-need"><b>AI 提炼需求：</b>' + esc(lead.need_summary) + '</div>' : '') +
       '<div class="xpr-total"><b>' + score + '</b><span>总分 / 100 · ' +
       (score >= 75 ? '值得优先联系' : score >= 55 ? '可跟进' : '先观察') + '</span></div>' +

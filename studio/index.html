@@ -6205,8 +6205,8 @@ if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',
       var from = d.from, to = d.to;
       var body;
       if (k.slice(-7) === '_append' && Array.isArray(to)) {
-        var added = to.filter(function (x) { return (from || []).indexOf(x) < 0; });
-        body = '<span class="from">' + esc(diffVal(k, from)) + '</span><span class="to">+ ' + esc(added.join('、') || to.join('、')) + '</span>';
+        var added = to.slice((from || []).length);
+        body = '<span class="from">' + (from || []).length + ' 项</span><span class="to">→ ' + to.length + ' 项（+' + esc(added.join('、') || '无新增') + '）</span>';
       } else {
         body = '<span class="from">' + esc(diffVal(k, from)) + '</span><span class="to">→ ' + esc(diffVal(k, to)) + '</span>';
       }
@@ -6233,12 +6233,12 @@ if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',
   function matchHead(m, chosen) {
     var tier = m.tier || 'auto';
     var label = chosen ? '手动指定' : (tier === 'auto' ? '自动匹配' : (tier === 'confirm' ? '需你确认' : '先追问'));
-    var head = chosen ? ('✅ 已指定基础行业《' + esc(m.name) + '》')
+    var head = chosen ? ('已指定基础行业《' + esc(m.name) + '》')
       : (tier === 'auto' ? ('🤖 已为你匹配《' + esc(m.name) + '》')
         : (tier === 'confirm' ? ('🤔 我猜你是《' + esc(m.name) + '》，依据是…')
-          : ('🤔 先确认一下：更像《' + esc(m.name) + '》吗？')));
+          : ('先确认一下：更像《' + esc(m.name) + '》吗？')));
     var conf = Math.round((Number(m.confidence) || 0) * 100);
-    return '<div class="dict-match-head"><span class="dict-match-ico">' + (chosen ? '✅' : '🤖') + '</span>'
+    return '<div class="dict-match-head"><span class="dict-match-ico">' + (chosen ? '✅' : (tier === 'auto' ? '✨' : '❓')) + '</span>'
       + '<div><b>' + head + '</b><span>你的行业：' + esc(D.pending ? D.pending.name : '') + ' · 置信度 ' + conf + '% · 基础模板 ' + esc((m.template_id || '') + ' / ' + (m.name || '')) + '</span></div>'
       + '<span class="dict-tier ' + (chosen ? 'confirm' : esc(tier)) + '">' + esc(label) + '</span></div>';
   }
@@ -6274,9 +6274,12 @@ if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',
     if (sub) sub.textContent = tier === 'auto' ? 'AI 已按名称和描述匹配基础行业，并列出准备叠加的配置差异。' : 'AI 给出基础行业猜测和依据；你确认后才会保存。';
   }
   function askQuestions(m) {
-    var qs = (m.fallback_questions || []).slice(0, 3);
-    while (qs.length < 3) qs.push(['客户一般多久到店？', '客单价大概多少？', '客户更多在地图搜还是刷短视频？'][qs.length]);
-    return qs;
+    // 固定 3 个业务追问；接口的 fallback_questions 作为补充提示保留在标题里。
+    return [
+      '客户一般多久到店 / 多久内要响应？',
+      '客单价大概多少？',
+      '客户更多在地图搜，还是刷短视频？'
+    ];
   }
   function showAsk(m) {
     D.pending = D.pending || {};
