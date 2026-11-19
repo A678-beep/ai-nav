@@ -85,6 +85,7 @@
     var rel = relPath();
     var seg = rel.split('/')[0].replace(/\.html$/, '');
     if (seg === 'account' || seg === 'admin' || seg === 'store') return null;
+    if (seg === 'geo2') return 'geo';
     if (seg === 'studio' || seg === 'leadgen' || seg === 'ads' || seg === 'geo' || seg === 'travel' ||
         seg === 'select-ai' || seg === 'radar') return seg;
     if (seg === 'pricing') return 'pricing';
