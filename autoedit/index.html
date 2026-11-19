@@ -1835,7 +1835,8 @@ function renderAvatarCard(errMsg) {
   var p = state.project;
   var av = (p && p.avatar) || null;
   var waiting = !!(state.avatarGenerating && p);
-  if (!p || (!av && !waiting && !errMsg && !(state.avatar.enabled && state.avatar.dataUrl))) {
+  var canOffer = !!(state.avatar.enabled && state.avatar.dataUrl && p.source === 'live');
+  if (!p || (!av && !waiting && !errMsg && !canOffer)) {
     box.hidden = true; box.innerHTML = ''; return;
   }
   box.hidden = false;
