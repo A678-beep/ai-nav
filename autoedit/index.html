@@ -261,6 +261,10 @@ html[data-theme="light"][data-page="autoedit"] .ae-prog-note.err{color:#9f1239}
 .ae-sum-chip{display:inline-flex;align-items:center;gap:6px;font-size:12.3px;color:var(--ae-txt2);border:1px solid var(--ae-line);background:var(--ae-panel);border-radius:999px;padding:5px 11px;white-space:nowrap}
 .ae-sum-chip b{color:var(--ae-txt);font-weight:800}
 .ae-sum-chip .dot{width:6px;height:6px;border-radius:50%;background:var(--ae-cyan)}
+.ae-sum-chip.demo{border-color:rgba(251,191,36,.4);background:var(--ae-warn-bg);color:var(--ae-amber-2)}
+.ae-sum-chip.demo .dot{background:var(--ae-amber);box-shadow:0 0 8px rgba(251,191,36,.7)}
+.ae-sum-chip.live{border-color:rgba(52,211,153,.35);background:var(--ae-ok-bg);color:var(--ae-lime-2)}
+.ae-sum-chip.live .dot{background:var(--ae-lime)}
 .ae-board-actions{display:flex;gap:8px;flex-wrap:wrap;align-items:center}
 .ae-style-group{display:inline-flex;gap:4px;padding:3px;border-radius:11px;border:1px solid var(--ae-line);background:var(--ae-panel);flex-wrap:wrap}
 .ae-style-btn{border:0;background:transparent;color:var(--ae-txt2);border-radius:8px;min-height:32px;padding:0 10px;font-size:12.2px;font-weight:800;cursor:pointer;font-family:inherit;white-space:nowrap}
@@ -679,7 +683,7 @@ html[data-theme="light"][data-page="autoedit"] .ae-skill-art .sk-badge{backgroun
           <div class="ae-file-body"><b id="aeFileName">—</b><span id="aeFileMeta">—</span></div>
           <button type="button" class="ae-mini danger" id="btnFileRemove">移除</button>
         </div>
-        <p class="ae-hint" style="margin-top:9px">上传后，AI 会把录音转成文字并排出镜头；成片预览仍为演示占位，真实成片需接入渲染服务。</p>
+        <p class="ae-hint" style="margin-top:9px">上传后，AI 会把录音转成文字并排出镜头；成片预览仍为演示占位，真实成片需接入成片服务。</p>
       </div>
 
       <div class="ae-opts">
@@ -829,7 +833,7 @@ html[data-theme="light"][data-page="autoedit"] .ae-skill-art .sk-badge{backgroun
           <span class="ae-player-time" id="aePlayerTime">0:00 / 0:00</span>
         </div>
         <div class="ae-player-meta" id="aePlayerMeta"></div>
-        <p class="ae-note" id="aePlayNote" style="margin-top:9px">当前为演示占位预览（AI 会按导演板自动播放镜头效果）；接入成片渲染服务后，这里会播放真实视频。</p>
+        <p class="ae-note" id="aePlayNote" style="margin-top:9px">当前为演示占位预览（AI 会按导演板自动播放镜头效果）；接入成片成片服务后，这里会播放真实视频。</p>
       </div>
       <div class="ae-side-stack">
         <div class="ae-card ae-side-card">
@@ -862,7 +866,7 @@ html[data-theme="light"][data-page="autoedit"] .ae-skill-art .sk-badge{backgroun
               <button type="button" class="ae-btn sm primary" id="btnDownload">下载成片</button>
               <button type="button" class="ae-btn sm" id="btnReexport">重新导出</button>
             </div>
-            <p class="ae-exp-note" id="expNote">演示模式：这里是演示占位地址；真实成片需接入渲染服务后生成。</p>
+            <p class="ae-exp-note" id="expNote">演示模式：这里是演示占位地址；真实成片需接入成片服务后生成。</p>
           </div>
           <div class="ae-fail" id="expFail" hidden><div class="fx" id="expFailMsg">导出失败</div><button type="button" class="ae-btn sm" id="btnExpRetry">重试</button></div>
         </div>
@@ -1513,7 +1517,10 @@ function handleFile(file) {
   state.input.file = { name: name, size: file.size, type: file.type || '' };
   if ($('aeFileBox')) $('aeFileBox').hidden = false;
   if ($('aeFileName')) $('aeFileName').textContent = name;
-  if ($('aeFileMeta')) $('aeFileMeta').textContent = (file.size / 1024 / 1024).toFixed(1) + ' MB · ' + (isVideo ? '视频' : '音频') + ' · 已就绪';
+  if ($('aeFileMeta')) {
+    var szTxt = file.size >= 1024 * 1024 ? (file.size / 1024 / 1024).toFixed(1) + ' MB' : Math.max(1, Math.round(file.size / 1024)) + ' KB';
+    $('aeFileMeta').textContent = szTxt + ' · ' + (isVideo ? '视频' : '音频') + ' · 已就绪';
+  }
   if ($('aeFileIco')) $('aeFileIco').textContent = isVideo ? '🎬' : '🎙️';
   if ($('aeDrop')) $('aeDrop').hidden = true;
   toast('文件已收到，AI 会自动听写内容', 'ok');
@@ -1552,7 +1559,7 @@ function currentInput(override) {
 }
 
 /* ==================================================================
-   导演板渲染
+   导演板展示
    ================================================================== */
 function aspectLabel(a) {
   return a === '16:9' ? '16:9 横屏' : a === '1:1' ? '1:1 方形' : '9:16 竖屏';
@@ -1581,6 +1588,8 @@ function renderSummary() {
     '<span class="ae-sum-chip">配音 <b>' + esc(p.voice) + '</b></span>',
     '<span class="ae-sum-chip">风格 <b>' + esc(p.style) + '</b></span>'
   ];
+  if (state.mode === 'demo') chips.push('<span class="ae-sum-chip demo"><span class="dot"></span>演示数据</span>');
+  else if (state.mode === 'live') chips.push('<span class="ae-sum-chip live"><span class="dot"></span>AI 已连接</span>');
   if ($('aeSummary')) $('aeSummary').innerHTML = chips.join('');
   if ($('aeShotCount')) $('aeShotCount').textContent = p.segments.length + ' 个镜头';
   if ($('aeTimelineFoot')) $('aeTimelineFoot').textContent = '共 ' + p.segments.length + ' 个镜头 · 约 ' + Math.round(p.plan.duration) + ' 秒';
@@ -2113,8 +2122,8 @@ function startGenerate(opts) {
       state.genBusy = false;
       var ok = applyGenerated(result, input);
       if (!ok) { toast('生成结果为空，请重试', 'err'); return; }
-      if (mediaNote) toast('演示模式：已用行业示例文字模拟听写结果', 'warn', 3400);
-      toast('已排好 ' + state.project.segments.length + ' 个镜头，去导演板看看', 'ok', 2400);
+      if (mediaNote) toast('演示模式：已用行业示例文字模拟听写，已排好 ' + state.project.segments.length + ' 个镜头', 'warn', 3400);
+      else toast('已排好 ' + state.project.segments.length + ' 个镜头，去导演板看看', 'ok', 2400);
       goStep(opts.jumpStep || 2);
     });
   }).catch(function () {
@@ -2446,7 +2455,7 @@ function prepareStep3() {
   } else if (video && canvas) {
     video.hidden = true; canvas.style.display = 'block';
     if ($('playerPill')) { $('playerPill').className = 'ae-pill-tag'; $('playerPill').textContent = '演示占位'; }
-    if ($('aePlayNote')) $('aePlayNote').textContent = '当前为演示占位预览（AI 会按导演板自动播放镜头效果）；接入成片渲染服务后，这里会播放真实视频。';
+    if ($('aePlayNote')) $('aePlayNote').textContent = '当前为演示占位预览（AI 会按导演板自动播放镜头效果）；接入成片成片服务后，这里会播放真实视频。';
   }
   if ($('aePlayerMeta')) {
     $('aePlayerMeta').innerHTML = '<span class="ae-sum-chip">' + p.segments.length + ' 个镜头</span>' +
@@ -2523,7 +2532,7 @@ function finishExport(url, cover) {
   if ($('expNote')) {
     $('expNote').textContent = (state.mode === 'live' && state.exportState.url.indexOf('/demo/') < 0)
       ? '导出完成：可下载 MP4，或复制文案到平台发布。'
-      : '演示模式：这里是演示占位地址，真实成片需接入渲染服务后生成（页面其他交互不受影响）。';
+      : '演示模式：这里是演示占位地址，真实成片需接入成片服务后生成（页面其他交互不受影响）。';
   }
   if (cover && $('aeCoverImg')) $('aeCoverImg').src = cover;
   toast('导出完成', 'ok', 2400);
@@ -2633,7 +2642,7 @@ function downloadVideo() {
       toast('已开始下载成片', 'ok');
     } catch (e) { toast('下载失败，请打开成片地址手动保存', 'warn'); }
   } else {
-    toast('演示模式不提供真实视频文件：可先下载封面或发布包；接入渲染服务后可下载 MP4。', 'warn', 3600);
+    toast('演示模式不提供真实视频文件：可先下载封面或发布包；接入成片服务后可下载 MP4。', 'warn', 3600);
   }
 }
 function downloadCover() {
