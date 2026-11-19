@@ -799,6 +799,24 @@ html[data-theme="dark"] #stateBtn{background:var(--brand) !important;color:#0412
   function load() {
     if (!slug) {
       showState('🔗', '缺少商家链接参数', '请使用商家分享的完整链接（包含 ?slug=），或扫描商家二维码进入。');
+      var card = document.querySelector('#stateView .state-card');
+      if (card && !card.querySelector('.slug-entry')) {
+        var box = document.createElement('div');
+        box.className = 'slug-entry';
+        box.innerHTML = '<p style="font-size:13px;color:#5b6b76;margin:14px 0 8px">预览/调试：输入商家 slug 直接打开</p>'
+          + '<input id="stateSlug" placeholder="如 qingjie-tongzhou" autocomplete="off" style="width:100%;box-sizing:border-box;padding:11px 12px;border:1px solid #cfdcd6;border-radius:10px;font-size:14px">'
+          + '<div style="display:flex;gap:8px;margin-top:8px"><button id="stateGo" type="button" style="flex:1;min-height:44px;border:0;border-radius:10px;background:#0e5c52;color:#fff;font-weight:700;cursor:pointer">打开</button>'
+          + '<a href="../" style="flex:1;display:inline-flex;align-items:center;justify-content:center;min-height:44px;border-radius:10px;border:1px solid #cfe0da;color:#0e5c52;text-decoration:none;font-weight:600;box-sizing:border-box">返回首页</a></div>'
+          + '<p style="font-size:12px;color:#7d8f89;margin:10px 0 0">示例：<a href="?slug=qingjie-tongzhou" style="color:#0e5c52">qingjie-tongzhou</a> · <a href="?slug=qingjie-tongzhou" style="color:#0e5c52">洁净家政（通州店）</a></p>';
+        card.appendChild(box);
+        var go = function () {
+          var v = document.getElementById('stateSlug').value.trim().toLowerCase();
+          if (!v) { document.getElementById('stateSlug').focus(); return; }
+          location.href = '?slug=' + encodeURIComponent(v);
+        };
+        document.getElementById('stateGo').addEventListener('click', go);
+        document.getElementById('stateSlug').addEventListener('keydown', function (e) { if (e.key === 'Enter') { e.preventDefault(); go(); } });
+      }
       return;
     }
     if (location.protocol === 'file:') {
