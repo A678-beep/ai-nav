@@ -697,6 +697,16 @@ html[data-theme="light"][data-page="ads"] .ads-plan-current{background:linear-gr
           <button type="button" class="ads-btn" id="btnCrGen">✨ 生成创意</button>
         </div>
         <div class="ads-state" id="crStatus" role="status">选择平台与类型后生成；脚本可一键送去视频工作台。</div>
+        <div class="ads-card" id="cmpBox" style="box-shadow:none;padding:13px;margin:12px 0 14px;background:var(--ad-soft)">
+          <div style="display:flex;gap:10px;flex-wrap:wrap;align-items:flex-end">
+            <div class="ads-field" style="flex:1 1 300px;min-width:0">
+              <label class="ads-label" for="cmpText">🔍 合规预检（广告法极限词检测，生成内容与历史文案都可粘贴检测）</label>
+              <textarea class="ads-textarea" id="cmpText" style="min-height:58px;font-size:13px" placeholder="例如：本地最专业的除甲醛公司，100% 达标，绝对安全">本地最专业的除甲醛公司，100% 达标，绝对安全</textarea>
+            </div>
+            <button type="button" class="ads-btn ghost" id="btnCmpCheck">检测风险词</button>
+          </div>
+          <div id="cmpOut" style="margin-top:9px"></div>
+        </div>
         <div class="ads-cr-grid" id="crOut"></div>
         <div class="ads-note"><span class="n-ico">🤖</span><div>所有生成内容均带 <span class="ads-badge ai">AI 辅助生成</span> 标识。发布前请人工修改风险词，并对内容真实性负责；短视频脚本可到「短视频工作台」生成成片。</div></div>
       </section>
@@ -2569,6 +2579,44 @@ function switchTab(name, silent) {
   if (name === 'reports') renderReports();
   if (name === 'settings') renderSettings();
 }
+function runComplianceCheck() {
+  var el = $('cmpText');
+  var text = el ? String(el.value || '').trim() : '';
+  var out = $('cmpOut');
+  if (!out) return;
+  if (!text) { out.innerHTML = '<div class="ads-riskline">请先粘贴要检测的文案。</div>'; return; }
+  var render = function (risks, source) {
+    var marks = text.replace(/[&<>"']/g, function (c) { return { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]; });
+    var re = /./g;
+    if (risks && risks.length) {
+      var words = uniq(risks.map(function (r) { return r.word; }).filter(Boolean)).sort(function (a, b) { return b.length - a.length; });
+      if (words.length) re = new RegExp('(' + words.map(reEsc).join('|') + ')', 'g');
+    }
+    var highlighted = marks.replace(re, function (m) { return '<mark class="ads-mark">' + m + '</mark>'; });
+    if (risks && risks.length) {
+      out.innerHTML = '<div class="ads-riskline">⚠️ 命中 <b>' + risks.length + '</b> 个风险词：' + risks.map(function (r) { return '<span class="rw">' + esc(r.word) + '</span>' + (r.suggest ? ' → ' + esc(r.suggest) : ''); }).join('；') + (source ? ' <span class="ads-cr-note">（' + esc(source) + '）</span>' : '') + '</div>' +
+        '<div class="ads-cr-text" style="margin-top:6px">' + highlighted + '</div>';
+    } else {
+      out.innerHTML = '<div class="ads-riskline" style="color:var(--ad-lime)">✅ 未命中广告法极限词（最 / 第一 / 国家级 / 100% 等），发布前仍请人工复核。</div>' +
+        '<div class="ads-cr-text" style="margin-top:6px">' + highlighted + '</div>';
+    }
+  };
+  var localHits = checkCompliance(text);
+  render(localHits, '本地检测');
+  if (S.mode === 'live') {
+    apiPost('/compliance/check', { text: text }, 8000).then(function (d) {
+      var risks = (d && d.risks) || [];
+      if (Array.isArray(risks) && risks.length) {
+        var merged = localHits.slice();
+        risks.forEach(function (r) {
+          var w = r && (r.word || r.text);
+          if (w && !merged.some(function (x) { return x.word === w; })) merged.push({ word: w, suggest: r.hint || r.suggest || '' });
+        });
+        render(merged, '本地 + 服务器检测');
+      }
+    }).catch(function () {});
+  }
+}
 function doSaveProfile() {
   var p = collectProfile();
   if (!p.name) { toast('请先填写商家名称', 'warn'); if ($('pfName')) $('pfName').focus(); return; }
@@ -2884,6 +2932,7 @@ function bindAll() {
 
   /* 创意 */
   if ($('btnCrGen')) $('btnCrGen').addEventListener('click', doGenerateCreatives);
+  if ($('btnCmpCheck')) $('btnCmpCheck').addEventListener('click', runComplianceCheck);
 
   /* 线索 */
   if ($('btnLeadSample')) $('btnLeadSample').addEventListener('click', function () {
