@@ -3286,7 +3286,21 @@ function downloadBlob(name, blob) {
 function downloadTextFile(name, text) { return downloadBlob(name, new Blob([text], { type: 'text/plain;charset=utf-8' })); }
 function copyExportUrl() {
   var url = (state.exportState.status === 'done' && state.exportState.url) ? state.exportState.url : placeholderUrl();
-  copyText(url).then(function (ok) { toast(ok ? '成片链接已复制' : '复制失败，请手动选中链接复制', ok ? 'ok' : 'warn'); });
+  copyText(url).then(function (ok) {
+    if (ok) { toast('成片链接已复制', 'ok'); return; }
+    /* 浏览器拒绝剪贴板权限时的兜底：把地址选中，提示手动复制 */
+    try {
+      var code = $('expUrl');
+      if (code && window.getSelection && document.createRange) {
+        var range = document.createRange();
+        range.selectNodeContents(code);
+        var sel = window.getSelection();
+        sel.removeAllRanges();
+        sel.addRange(range);
+      }
+    } catch (e) {}
+    toast('成片链接已选中，按 Ctrl+C 复制', 'warn', 3600);
+  });
 }
 function downloadVideo() {
   if (state.exportState.status !== 'done') { toast('先完成导出，再下载成片', 'warn'); return; }
@@ -3297,11 +3311,24 @@ function downloadVideo() {
   }
   var name = '门店短视频-' + (state.project ? state.project.industry : '成片') + '-' + (state.exportState.quality || '1080p') + '.mp4';
   try {
+    /* 直接用 <a download> 触发浏览器原生下载（同源 + 后端 ?download=1 会加 attachment 头），边下边存不占内存 */
     var a = document.createElement('a');
-    a.href = url; a.download = name; a.target = '_blank'; a.rel = 'noopener';
+    a.href = url; a.download = name; a.rel = 'noopener';
     document.body.appendChild(a); a.click(); document.body.removeChild(a);
     toast('已开始下载成片；若浏览器直接打开，请右键另存为', 'ok', 3600);
-  } catch (e) { toast('下载失败，请复制链接手动下载', 'warn'); }
+  } catch (e) {
+    /* 个别浏览器拦截时退回 fetch → Blob 保存 */
+    try {
+      fetch(url, { credentials: 'same-origin', cache: 'no-store' }).then(function (r) {
+        if (!r.ok) throw new Error('HTTP ' + r.status);
+        return r.blob();
+      }).then(function (blob) {
+        if (!blob || !blob.size) throw new Error('空文件');
+        downloadBlob(name, blob);
+        toast('成片已开始下载', 'ok', 3000);
+      }).catch(function () { toast('下载失败，请复制链接手动下载', 'warn'); });
+    } catch (e2) { toast('下载失败，请复制链接手动下载', 'warn'); }
+  }
 }
 function playOnline() {
   if (state.exportState.status !== 'done' || !state.project) { toast('先导出成片，再在线播放', 'warn'); return; }
