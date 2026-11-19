@@ -576,7 +576,7 @@ html[data-theme="light"][data-page="ads"] .ads-plan-current{background:linear-gr
             <div class="ads-ba-card after"><h4>优化后（AI 辅助）</h4><div class="ba-big" id="baCplAfter">—</div><div class="ba-sub">平均线索成本</div><div class="ba-sub" style="margin-top:6px">转化率 <b id="baConvAfter">—</b></div></div>
           </div>
           <div class="ads-ba-list" id="baList"></div>
-          <div class="ads-note ok"><span class="n-ico">💡</span><div>对比口径说明：数据来自商家手动导入的报表；导入报表后本模块自动更新，未导入时显示行业演示数据。</div></div>
+          <div class="ads-note ok"><span class="n-ico">💡</span><div>对比口径说明：数据来自商家手动导入的报表；导入报表后本模块自动更新（暂无数据时显示「—」）。</div></div>
         </section>
       </div>
 
@@ -709,7 +709,7 @@ html[data-theme="light"][data-page="ads"] .ads-plan-current{background:linear-gr
         <div class="ads-lead-tools">
           <div class="ads-import">
             <label class="ads-label" for="leadPaste">粘贴线索 <span class="tip">每行一条：平台 | 昵称 | 原文</span></label>
-            <textarea class="ads-textarea" id="leadPaste" maxlength="8000" placeholder="小红书 | 李女士 | 通州新房刚装修完，90 平，想约周末检测甲醛，大概多少钱？微信 li123456&#10;百度 | 王先生 | 办公室 300 平除甲醛，麻烦报个价，电话 13800001234&#10;抖音 | 张同学 | 想学化妆，零基础，多少钱"></textarea>
+            <textarea class="ads-textarea" id="leadPaste" maxlength="8000" placeholder="小红书 | 李女士 | 北京通州新房刚装修完，90 平，这周末想约上门检测甲醛，多少钱？微信 li123456，急，预算 5000&#10;百度 | 王先生 | 北京办公室 300 平除甲醛，想了解一下报价，预算 8000 左右，电话 13800009999&#10;抖音 | 张同学 | 想学化妆，零基础，多少钱"></textarea>
             <div class="ads-btns" style="margin-top:0">
               <button type="button" class="ads-btn" id="btnLeadGrade">📥 导入并评分</button>
               <button type="button" class="ads-btn ghost" id="btnLeadSample">填入示例（3 条）</button>
@@ -804,7 +804,7 @@ html[data-theme="light"][data-page="ads"] .ads-plan-current{background:linear-gr
           <button type="button" class="ads-btn" id="btnRpExport">⬇ 导出汇总 CSV</button>
           <button type="button" class="ads-btn ghost" id="btnRpPrint">🖨️ 打印 / 另存 PDF</button>
           <button type="button" class="ads-btn danger" id="btnRpClear">清空报表数据</button>
-          <span class="ads-state" id="rpDataHint">尚无导入数据时，概览显示行业演示数据。</span>
+          <span class="ads-state" id="rpDataHint">尚无导入数据：接口在线时显示 0 与空状态，接口未就绪时显示演示数据。</span>
         </div>
         <div class="ads-note"><span class="n-ico">📌</span><div>报表仅使用商家从官方广告后台导出的数据；系统不代登录、不代充值，也不读取非授权数据。</div></div>
       </section>
@@ -1151,11 +1151,15 @@ function probeBackend(manual) {
 function loadRemoteData() {
   apiGet('/profile', null, 9000).then(function (d) {
     var p = normalizeRemoteProfile(d && d.profile);
-    if (p) {
+    if (p && (p.name || p.city || (p.services && p.services.length))) {
       saveProfileLocal(p);
       S.remoteProfile = true;
+      S.remoteProfileEmpty = false;
       renderProfileForm();
       if (d.plan) applyPlan(d.plan);
+    } else {
+      /* 服务端档案为空：本机/示例档案将在首次生成或导入时自动同步，保证关键词与线索分级能用到地域/服务上下文 */
+      S.remoteProfileEmpty = true;
     }
   }).catch(function () {});
   apiGet('/plan', null, 7000).then(function (d) {
@@ -1163,13 +1167,20 @@ function loadRemoteData() {
   }).catch(function () {});
   apiGet('/dashboard', null, 10000).then(function (d) {
     var n = normalizeDashboard(d);
-    if (n) { S.dashboard = n; renderOverview(); }
+    if (n) { S.dashboard = n; renderOverview(); renderReports(); }
   }).catch(function () {});
   apiGet('/reports', null, 9000).then(function (d) {
     if (d && Array.isArray(d.by_platform) && d.by_platform.length) {
       S.remoteReports = d;
       if (!S.reports.length) renderReports();
     }
+  }).catch(function () {});
+}
+function refreshDashboard() {
+  if (S.mode !== 'live') { renderOverview(); return Promise.resolve(); }
+  return apiGet('/dashboard', null, 10000).then(function (d) {
+    var n = normalizeDashboard(d);
+    if (n) { S.dashboard = n; renderOverview(); renderReports(); renderSettings(); }
   }).catch(function () {});
 }
 function normalizeDashboard(d) {
@@ -1919,14 +1930,14 @@ function currentOverview() {
   if (!d) d = clone(DEMO_DASHBOARD);
   var o = {
     spend: d.spend, leads: d.leads, cpl: d.cpl, high_intent: d.high_intent, est_deals: d.est_deals,
-    platforms: d.platforms && d.platforms.length ? d.platforms : clone(DEMO_DASHBOARD.platforms),
-    before: d.before || clone(DEMO_DASHBOARD.before),
-    after: d.after || { cpl: d.cpl || DEMO_DASHBOARD.after.cpl, conv: DEMO_DASHBOARD.after.conv },
+    platforms: d.platforms || [],
+    before: d.before || null,
+    after: d.after || null,
     budget: d.budget && d.budget.length ? d.budget : null,
     note: d.note || ''
   };
   var bg = Number((getProfile() || {}).budget) || 12000;
-  if (!o.budget) o.budget = scaleBudget(clone(DEMO_DASHBOARD.budget), bg);
+  if (!o.budget) o.budget = S.mode === 'live' ? [] : scaleBudget(clone(DEMO_DASHBOARD.budget), bg);
   else {
     var sum = o.budget.reduce(function (s, x) { return s + Number(x.amount || 0); }, 0);
     if (sum && Math.abs(sum - bg) / bg > 0.15) o.budget = scaleBudget(o.budget, bg);
@@ -1946,12 +1957,14 @@ function applyPlan(plan, full) {
   var id = plan.id === 'premium' ? 'premium' : (plan.id === 'basic' ? 'basic' : (plan.id || 'pro'));
   var def = planDef(id);
   var name = plan.name || def.name;
+  var dlim = plan.daily_keyword_limit;
   S.planInfo = {
     id: id, name: name, price: def.price,
     platforms: Array.isArray(plan.platforms) && plan.platforms.length ? plan.platforms : def.platforms,
-    daily: plan.daily_keyword_limit != null ? plan.daily_keyword_limit : def.daily,
-    usage: (full && full.usage) || null,
-    limits: (full && full.limits) || null,
+    daily: dlim == null ? def.daily : (dlim > 0 ? dlim : null),
+    usage: (full && full.usage) || (S.planInfo && S.planInfo.usage) || null,
+    limits: (full && full.limits) || (S.planInfo && S.planInfo.limits) || null,
+    kinds: Array.isArray(plan.creative_kinds) && plan.creative_kinds.length ? plan.creative_kinds : def.kinds,
     upgrade: (full && full.upgrade) || '',
     expire: plan.expire_at || plan.expires_at || ''
   };
@@ -1962,6 +1975,20 @@ function planCanPlatform(platform) {
   var info = S.planInfo;
   if (!info || S.mode !== 'live') return true;
   return (info.platforms || []).indexOf(platform) >= 0;
+}
+function planAllowsKind(kind) {
+  var info = S.planInfo;
+  if (!info || S.mode !== 'live' || !Array.isArray(info.kinds) || !info.kinds.length) return true;
+  return info.kinds.indexOf(kind) >= 0;
+}
+function keywordQuotaLeft() {
+  var info = S.planInfo;
+  if (!info || S.mode !== 'live') return null;
+  var u = info.usage;
+  if (u && u.remaining != null) return Number(u.remaining);
+  if (info.daily == null) return null;
+  var used = (u && u.keywords_generated != null) ? Number(u.keywords_generated) : 0;
+  return Math.max(0, info.daily - used);
 }
 function planDemoInfo() {
   return {
@@ -1975,24 +2002,74 @@ function planDemoInfo() {
 }
 
 /* ---------------- 11. 接口请求封装（带降级） ---------------- */
+var profileSyncPromise = null;
+function ensureProfileSynced() {
+  if (S.mode !== 'live' || !S.remoteProfileEmpty) return Promise.resolve();
+  if (profileSyncPromise) return profileSyncPromise;
+  profileSyncPromise = apiPut('/profile', publicProfile()).then(function (d) {
+    S.remoteProfileEmpty = false;
+    if (d && d.plan) applyPlan(d.plan);
+    refreshDashboard();
+    return d;
+  }).catch(function () { return null; });
+  return profileSyncPromise;
+}
 var KIND_MAP = { title: 'title', desc: 'description', note: 'note', post: 'post', script: 'video_script', reply: 'comment_reply' };
 function requestKeywords(platform, count, round) {
   var local = { data: localKeywords(platform, count, round), source: 'local', error: '' };
   if (S.mode !== 'live') return Promise.resolve(local);
-  return apiPost('/keywords', { platform: platform, count: count }).then(function (d) {
+  var info = S.planInfo || {};
+  if (!planCanPlatform(platform)) {
+    local.error = '当前套餐未覆盖「' + pfName(platform) + '」，已返回本地演示词表；升级套餐后可用在线 AI 生成';
+    return Promise.resolve(local);
+  }
+  var left = keywordQuotaLeft();
+  if (left != null && left <= 0) {
+    local.error = '今日关键词额度已用完（上限 ' + (info.daily || 0) + ' 条/日），已返回本地演示词表；明天重置或升级套餐';
+    return Promise.resolve(local);
+  }
+  if (left != null && count > left) {
+    count = Math.max(1, left);
+    local.error = '今日剩余额度仅 ' + left + ' 条，已按剩余额度生成';
+  }
+  return ensureProfileSynced().then(function () {
+    return apiPost('/keywords', { platform: platform, count: count });
+  }).then(function (d) {
     var n = normalizeKeywords(d);
     if (!n) throw new Error('empty');
-    return { data: n, source: 'api', error: '', meta: d };
+    updateKeywordUsage(d);
+    return { data: n, source: 'api', error: local.error || '', meta: d };
   }).catch(function (e) {
     local.error = apiErrText(e);
+    local.data = localKeywords(platform, count, round);
     return local;
   });
+}
+function updateKeywordUsage(d) {
+  if (!d || !d.plan || !S.planInfo) return;
+  var p = d.plan;
+  var used = p.used != null ? Number(p.used) : null;
+  var limit = p.daily_limit != null ? Number(p.daily_limit) : S.planInfo.daily;
+  if (used == null) return;
+  S.planInfo.usage = {
+    date: today(), keywords_generated: used,
+    daily_limit: limit,
+    remaining: (limit != null && limit > 0) ? Math.max(0, limit - used) : null
+  };
+  if (limit != null) S.planInfo.daily = limit > 0 ? limit : null;
+  renderSettings();
 }
 function requestCreatives(platform, type, count) {
   var local = { data: localCreatives(platform, type, count), source: 'local', error: '' };
   if (S.mode !== 'live') return Promise.resolve(local);
   var kind = KIND_MAP[type] || type;
-  return apiPost('/creatives', { platform: platform, kinds: [kind] }).then(function (d) {
+  if (S.mode === 'live' && !planAllowsKind(kind)) {
+    local.error = '当前套餐不含「' + (TYPE_LABEL[type] || type) + '」，已生成本地演示版本；升级套餐后可用在线 AI 生成';
+    return Promise.resolve(local);
+  }
+  return ensureProfileSynced().then(function () {
+    return apiPost('/creatives', { platform: platform, kinds: [kind] });
+  }).then(function (d) {
     var n = normalizeCreatives(d, platform, type);
     if (!n) throw new Error('empty');
     if (n.length < count) {
@@ -2008,7 +2085,9 @@ function requestCreatives(platform, type, count) {
 function requestScripts(industry, platform, level, style) {
   var local = { data: localScripts(industry, platform, level, style), source: 'local', error: '' };
   if (S.mode !== 'live') return Promise.resolve(local);
-  return apiPost('/scripts', { industry: industry, platform: platform, level: level, style: styleName(style) }).then(function (d) {
+  return ensureProfileSynced().then(function () {
+    return apiPost('/scripts', { industry: industry, platform: platform, level: level, style: styleName(style) });
+  }).then(function (d) {
     var n = normalizeScripts(d, industry, platform, level, style);
     if (!n) throw new Error('empty');
     return { data: n, source: 'api', error: '', meta: d };
@@ -2020,8 +2099,10 @@ function requestScripts(industry, platform, level, style) {
 function requestGradeLeads(rawList) {
   var localList = rawList.map(gradeLeadLocal);
   if (S.mode !== 'live') return Promise.resolve({ data: localList, source: 'local', error: '' });
-  return apiPost('/leads/grade', {
-    leads: rawList.map(function (r) { return { text: r.text, name: r.nick || '', platform: r.platform || '', phone: r.contact || '' }; })
+  return ensureProfileSynced().then(function () {
+    return apiPost('/leads/grade', {
+      leads: rawList.map(function (r) { return { text: r.text, name: r.nick || '', platform: r.platform || '', phone: r.contact || '' }; })
+    });
   }).then(function (d) {
     var n = normalizeGraded(d, rawList);
     if (!n) throw new Error('empty');
@@ -2113,6 +2194,10 @@ function barsHtml(platforms) {
 }
 function baListHtml(ov) {
   var before = ov.before || {}, after = ov.after || {};
+  var hasBA = (before.cpl || after.cpl || before.conv || after.conv);
+  if (!hasBA) {
+    return '<div class="ads-empty" style="padding:16px;font-size:12.5px"><span class="e-ico">📭</span>暂无优化前后对比数据：导入带日期的报表后自动生成对比。</div>';
+  }
   var rows = [];
   if (before.cpl && after.cpl) {
     var drop = (1 - after.cpl / before.cpl) * 100;
@@ -2123,15 +2208,17 @@ function baListHtml(ov) {
     rows.push('<div class="ads-ba-item"><span class="bl">转化率</span><b>' + pct(before.conv) + '</b><span class="to">→</span><b>' + pct(after.conv) + '</b><span class="good">' + (diff >= 0 ? '↑ ' : '↓ ') + Math.abs(diff).toFixed(1) + 'pp</span></div>');
   }
   var leads = Number(ov.leads) || 0;
-  var beforeLeads = Math.round(leads * 0.72);
-  rows.push('<div class="ads-ba-item"><span class="bl">本期线索</span><b>' + fm(beforeLeads) + '</b><span class="to">→</span><b>' + fm(leads) + '</b><span class="good">↑ ' + Math.max(0, leads - beforeLeads) + ' 条</span></div>');
-  var highRate = leads ? (Number(ov.high_intent) || 0) / leads * 100 : 0;
-  rows.push('<div class="ads-ba-item"><span class="bl">高意向占比</span><b>12.0%</b><span class="to">→</span><b>' + pct(highRate) + '</b><span class="good">↑ ' + Math.max(0, highRate - 12).toFixed(1) + 'pp</span></div>');
+  if (leads > 0) {
+    var beforeLeads = Math.round(leads * 0.72);
+    rows.push('<div class="ads-ba-item"><span class="bl">本期线索</span><b>' + fm(beforeLeads) + '</b><span class="to">→</span><b>' + fm(leads) + '</b><span class="good">↑ ' + Math.max(0, leads - beforeLeads) + ' 条</span></div>');
+    var highRate = leads ? (Number(ov.high_intent) || 0) / leads * 100 : 0;
+    rows.push('<div class="ads-ba-item"><span class="bl">高意向占比</span><b>12.0%</b><span class="to">→</span><b>' + pct(highRate) + '</b><span class="good">↑ ' + Math.max(0, highRate - 12).toFixed(1) + 'pp</span></div>');
+  }
   return rows.join('');
 }
 function budgetHtml(ov) {
   var list = ov.budget || [];
-  if (!list.length) list = clone(DEMO_DASHBOARD.budget);
+  if (!list.length) return '<div class="ads-empty" style="padding:14px;font-size:12.5px"><span class="e-ico">📭</span>暂无预算建议：导入报表后按线索成本自动生成。</div>';
   var total = list.reduce(function (s, x) { return s + (Number(x.amount) || 0); }, 0) || 1;
   return list.map(function (b) {
     var pid = b.id || b.platform || 'other';
@@ -2157,13 +2244,13 @@ function renderOverview() {
   if ($('baConvAfter')) $('baConvAfter').textContent = ov.after ? pct(ov.after.conv) : '—';
   if ($('baList')) $('baList').innerHTML = baListHtml(ov);
   if ($('budgetList')) $('budgetList').innerHTML = budgetHtml(ov);
-  if ($('budgetTotal')) $('budgetTotal').textContent = '¥' + fm(ov.budget.reduce(function (s, x) { return s + (Number(x.amount) || 0); }, 0));
+  if ($('budgetTotal')) $('budgetTotal').textContent = ov.budget && ov.budget.length ? '¥' + fm(ov.budget.reduce(function (s, x) { return s + (Number(x.amount) || 0); }, 0)) : '—';
   if ($('budgetTotalHint')) $('budgetTotalHint').textContent = '档案月预算 ¥' + fm((getProfile() || {}).budget || 0);
   if ($('ovUpdated')) {
     var txt;
     if (S.reports.length) txt = '基于已导入报表（' + S.reports.length + ' 个平台）· 更新于 ' + stamp();
-    else if (S.mode === 'live' && S.dashboard) txt = '服务器数据 · ' + (S.dashboard.note || '更新于 ' + stamp());
-    else txt = '演示数据 · 接口 / 报表就绪后自动更新';
+    else if (S.mode === 'live' && S.dashboard) txt = '服务器数据 · 实时同步';
+  else txt = '演示数据 · 接口 / 报表就绪后自动更新';
     $('ovUpdated').textContent = txt;
   }
 }
@@ -2405,13 +2492,13 @@ function renderReports() {
   var ov = currentOverview();
   if ($('rpBars')) $('rpBars').innerHTML = barsHtml(ov.platforms);
   renderBA('rpBa', ov);
-  if ($('rpLegend')) $('rpLegend').textContent = S.reports.length ? '以上为已导入报表汇总（' + S.reports.length + ' 个平台）。' : '尚未导入报表，当前显示演示数据；导入后自动更新为你的真实数据。';
+  if ($('rpLegend')) $('rpLegend').textContent = S.reports.length ? '以上为已导入报表汇总（' + S.reports.length + ' 个平台）。' : (S.mode === 'live' ? '尚未导入报表：接口在线时显示空数据，导入后自动更新为你的真实数据。' : '尚未导入报表，当前显示演示数据；导入后自动更新为你的真实数据。');
   if ($('rpImported')) {
     $('rpImported').innerHTML = S.reports.length ? S.reports.map(function (r, i) {
       return '<div class="ads-rp-item"><span class="ri-p">' + esc(pfName(r.platform)) + '</span><span>' + (r.period ? esc(r.period) + ' · ' : '') + '消耗 ¥' + fm(r.cost) + ' · 线索 ' + fm(r.leads) + ' · 线索成本 ' + (r.leads ? '¥' + fm1(r.cost / r.leads) : '—') + '</span><span class="ri-t">导入于 ' + esc(r.importedAt || '') + '</span><button type="button" class="ads-mini" data-del-report="' + i + '">删除</button></div>';
     }).join('') : '<div class="ads-hintline">还没有导入报表。选择平台、上传官方后台导出的 CSV，或先下载模板填写。</div>';
   }
-  if ($('rpDataHint')) $('rpDataHint').textContent = S.reports.length ? '已导入 ' + S.reports.length + ' 个平台报表；概览页数字已同步更新。' : '尚无导入数据时，概览显示行业演示数据。';
+  if ($('rpDataHint')) $('rpDataHint').textContent = S.reports.length ? '已导入 ' + S.reports.length + ' 个平台报表；概览页数字已同步更新。' : (S.mode === 'live' ? '尚无导入数据：接口在线，导入报表后概览数字自动更新。' : '尚无导入数据时，概览显示行业演示数据。');
 }
 function renderSettings() {
   var info = S.planInfo || planDemoInfo();
@@ -2420,7 +2507,8 @@ function renderSettings() {
   if ($('planExpire')) $('planExpire').textContent = (info.expire ? '有效期至 ' + info.expire + ' · ' : '按账号套餐 · ') + '覆盖 ' + (info.platforms || []).map(pfShort).join(' / ');
   var usage = info.usage || {};
   var kUsed = usage.keywords_generated != null ? usage.keywords_generated : 42;
-  var kLimit = usage.daily_limit != null ? usage.daily_limit : (info.daily || 100);
+  var kLimit = usage.daily_limit != null ? usage.daily_limit : (info.daily != null ? info.daily : 100);
+  if (kLimit != null && Number(kLimit) <= 0) kLimit = null;
   var items = [
     { label: '关键词生成（今日）', used: kUsed, limit: kLimit, unit: '条' },
     { label: '创意生成（本月）', used: S.creatives ? S.creatives.length : 18, limit: 100, unit: '条' },
@@ -2496,6 +2584,7 @@ function doSaveProfile() {
     if (d && d.plan) applyPlan(d.plan);
     if (st) st.textContent = '✅ 已保存到服务器 · ' + stamp();
     toast('档案已保存并同步到服务器', 'ok');
+    refreshDashboard();
   }).catch(function (e) {
     if (st) st.textContent = '⚠️ 已保存到本机，服务器同步失败：' + apiErrText(e);
     toast('已保存到本机（服务器同步失败）', 'warn');
@@ -2537,7 +2626,7 @@ function doGenerateKeywords(more) {
   requestKeywords(platform, count, S.kwRound).then(function (res) {
     S.keywords = res.data;
     S.keywords.platform = platform;
-    S.kwStatusText = (res.source === 'api' ? '✅ 已通过 AI 接口生成' : '💡 已用本地演示引擎生成（接口未就绪 / 套餐未覆盖该平台）') +
+    S.kwStatusText = (res.source === 'api' ? '✅ 已通过 AI 接口生成' : (S.mode === 'live' ? '💡 接口受限 / 套餐未覆盖' : '💡 本地演示引擎生成（接口未就绪）')) +
       (res.error ? ' · ' + esc(res.error) : '') + ' · 共 ' + res.data.count + ' 个词';
     kwBusy = false; setBusy(btn, false);
     renderKeywords();
@@ -2569,7 +2658,7 @@ function doGenerateCreatives() {
   if (st) st.innerHTML = '<span class="sp"></span> 正在生成「' + esc(pfName(platform)) + ' · ' + esc(TYPE_LABEL[type] || type) + '」' + count + ' 个版本…';
   requestCreatives(platform, type, count).then(function (res) {
     S.creatives = res.data;
-    S.crStatusText = (res.source === 'api' ? '✅ 已通过 AI 接口生成' : '💡 本地演示生成（接口未就绪 / 套餐未覆盖）') +
+    S.crStatusText = (res.source === 'api' ? '✅ 已通过 AI 接口生成' : (S.mode === 'live' ? '💡 接口受限 / 套餐未覆盖' : '💡 本地演示生成（接口未就绪）')) +
       (res.error ? ' · ' + esc(res.error) : '') + ' · 共 ' + res.data.length + ' 个版本，发布前请人工复核高亮风险词。';
     setBusy(btn, false);
     renderCreatives();
@@ -2659,7 +2748,7 @@ function doGenerateScripts() {
   if (st) st.innerHTML = '<span class="sp"></span> 正在生成 5 类话术（' + esc(styleName(style)) + '）…';
   requestScripts(industry, platform, level, style).then(function (res) {
     S.scripts = res.data;
-    S.scStatusText = (res.source === 'api' ? '✅ 已通过 AI 接口生成' : '💡 本地演示生成（接口未就绪 / 套餐未覆盖）') +
+    S.scStatusText = (res.source === 'api' ? '✅ 已通过 AI 接口生成' : (S.mode === 'live' ? '💡 接口受限 / 套餐未覆盖' : '💡 本地演示生成（接口未就绪）')) +
       (res.error ? ' · ' + esc(res.error) : '') + ' · 共 ' + res.data.scripts.length + ' 条，人工复制发送。';
     setBusy(btn, false);
     renderScripts();
@@ -2710,7 +2799,7 @@ function doImportReport() {
 }
 function exportReportCsv() {
   var ov = currentOverview();
-  var src = S.reports.length ? '导入报表' : '演示数据';
+  var src = S.reports.length ? '导入报表' : (S.mode === 'live' ? '服务器数据' : '演示数据');
   var lines = [['平台', '消耗(元)', '线索量', '线索成本(元)', '咨询量', '转化率', '数据来源'].map(csvCell).join(',')];
   ov.platforms.forEach(function (p) {
     lines.push([pfName(p.id), Math.round((Number(p.spend) || 0) * 100) / 100, Number(p.leads) || 0,
@@ -2745,7 +2834,7 @@ function twoStepConfirm(btn, cb) {
     if (btn.getAttribute('data-orig')) btn.textContent = btn.getAttribute('data-orig');
   }, 3200);
 }
-var SAMPLE_LEAD_TEXT = '小红书 | 李女士 | 通州新房刚装修完，90 平，这周末想约上门检测甲醛，多少钱？微信 li123456，急\n百度 | 王先生 | 北京办公室 300 平除甲醛，麻烦报个价，电话 13800001234\n抖音 | 张同学 | 想学化妆，零基础，多少钱';
+var SAMPLE_LEAD_TEXT = '小红书 | 李女士 | 北京通州新房刚装修完，90 平，这周末想约上门检测甲醛，多少钱？微信 li123456，急，预算 5000\n百度 | 王先生 | 北京办公室 300 平除甲醛，想了解一下报价，预算 8000 左右，电话 13800009999\n抖音 | 张同学 | 想学化妆，零基础，多少钱';
 function bindAll() {
   qa('.ads-tab').forEach(function (b) {
     b.addEventListener('click', function () { switchTab(b.getAttribute('data-tab')); });
@@ -2753,12 +2842,7 @@ function bindAll() {
   if ($('btnLeadgen')) $('btnLeadgen').addEventListener('click', function () { location.href = new URL('../leadgen/', location.href).href; });
   if ($('btnOvRefresh')) $('btnOvRefresh').addEventListener('click', function () {
     renderOverview(); renderReports();
-    if (S.mode === 'live') {
-      apiGet('/dashboard', null, 9000).then(function (d) {
-        var n = normalizeDashboard(d);
-        if (n) { S.dashboard = n; renderOverview(); renderReports(); }
-      }).catch(function () {});
-    }
+    refreshDashboard();
     toast('已刷新概览数据', 'ok');
   });
 
@@ -2834,7 +2918,7 @@ function bindAll() {
     twoStepConfirm(btn, function () {
       S.reports = []; lsSet(KEYS.reports, []); rpCsvPending = null;
       renderReports(); renderOverview(); renderSettings();
-      if ($('rpStatus')) $('rpStatus').textContent = '已清空本机报表数据，概览恢复为演示数据。';
+      if ($('rpStatus')) $('rpStatus').textContent = '已清空本机报表数据，概览将按接口/演示状态重新计算。';
       toast('已清空报表数据', 'ok');
     });
   });
