@@ -406,7 +406,7 @@ html[data-theme="light"] .toast.bad{color:#b91c1c;border-color:#fecaca}
     </div>
     <div class="startbox">
       <div class="slugrow">
-        <input class="inp" id="slugInput" type="text" maxlength="60" autocomplete="off" spellcheck="false" placeholder="输入承接页 slug，如 qingjie-tongzhou" aria-label="承接页 slug">
+        <input class="inp" id="slugInput" type="text" maxlength="60" autocomplete="off" spellcheck="false" placeholder="粘贴商家链接，或输入承接页 slug（如 qingjie-tongzhou）" aria-label="承接页 slug">
         <button class="btn" id="startBtn" type="button">开始优化</button>
       </div>
       <div class="metaline">
@@ -1213,8 +1213,22 @@ html[data-theme="light"] .toast.bad{color:#b91c1c;border-color:#fecaca}
     $('merchantName').textContent = '加载中…';
     loadProfile();
   }
+  function parseSlugInput(raw) {
+    var v = String(raw || '').trim();
+    if (!v) return '';
+    try {
+      if (/^https?:\/\//i.test(v)) {
+        var u = new URL(v);
+        var q = u.searchParams.get('slug');
+        v = q || (u.pathname.split('/').filter(Boolean).pop() || '');
+      }
+    } catch (e) {}
+    var m = v.match(/[?&]slug=([^&\s#]+)/i);
+    if (m) { try { v = decodeURIComponent(m[1]); } catch (e2) { v = m[1]; } }
+    return v.replace(/^\/+|\/+$/g, '').trim().toLowerCase();
+  }
   function start() {
-    var slug = $('slugInput').value.trim().toLowerCase();
+    var slug = parseSlugInput($('slugInput').value);
     if (!slug) { toast('请先输入承接页 slug', 'bad'); $('slugInput').focus(); return; }
     if (!/^[a-z0-9][a-z0-9-]{2,39}$/.test(slug)) { toast('slug 只能包含小写字母、数字和 -，长度 3–40', 'bad'); $('slugInput').focus(); return; }
     try {
