@@ -70,7 +70,7 @@
     { key: 'studio', label: '短视频工作台', href: ROOT + 'studio/', ico: ICO.studio },
     { key: 'ads', label: 'AI 投放优化获客', href: ROOT + 'ads/', ico: ICO.ads },
     { key: 'leadgen', label: '线索台账', href: ROOT + 'leadgen/', ico: ICO.leadgen },
-    { key: 'geo', label: 'GEO 推广', href: ROOT + 'geo/', ico: ICO.geo },
+    { key: 'geo', label: 'GEO 推广', href: ROOT + 'geo2/', ico: ICO.geo },
     { key: 'travel', label: '出行导航', href: ROOT + 'travel/', ico: ICO.travel },
     { key: 'select-ai', label: '智能选型', href: ROOT + 'select-ai/', ico: ICO.select },
     { key: 'radar', label: '工具雷达', href: ROOT + 'radar/', ico: ICO.radar }
