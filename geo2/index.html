@@ -2783,6 +2783,9 @@ function probe(manual) {
       var ring = $('g2Ring');
       if (ring) ring.style.setProperty('--p', String(comp));
     }
+    if (S.profile && S.profile.name && !S.dirty) {
+      setSaveState('已连接到商家工作区 · 资料已同步', 'ok');
+    }
     updateStepProgress();
     return apiGet('/plan', null, 6500).then(function (pd) {
       if (pd && (pd.tier || pd.plans)) applyPlan(pd);
