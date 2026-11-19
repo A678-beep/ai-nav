@@ -238,12 +238,18 @@ details[open].lic summary:before,details[open].scenes summary:before,details[ope
 .ex-btn:hover{border-color:rgba(56,189,248,.5);background:rgba(56,189,248,.06)}
 .ex-btn.primary{border-color:rgba(56,189,248,.55);background:linear-gradient(180deg,rgba(56,189,248,.16),rgba(9,14,24,.8));box-shadow:0 14px 40px -22px rgba(56,189,248,.9)}
 .ex-btn.disabled{opacity:.45;pointer-events:none}
+.ex-dl-main{display:flex;flex-direction:column;min-width:0}
+.ex-dl-main .ex-btn{width:100%}
+.ex-dl-size{margin:7px 2px 0;font-size:12px;color:#a7f3d0;font-weight:700;line-height:1.45;overflow-wrap:anywhere}
+.ex-dl-size:before{content:"✅ ";font-size:12px}
+.ex-dl-size.stale{color:#fcd34d}
+.ex-dl-size.stale:before{content:"⚠️ "}
 .ex-dl-progress{margin-top:10px;padding:10px 12px;border:1px solid rgba(56,189,248,.35);background:rgba(56,189,248,.08);border-radius:10px}
 .ex-dl-progress .bar{height:9px;border-radius:999px;background:rgba(56,189,248,.16);overflow:hidden}
 .ex-dl-progress .bar>i{display:block;height:100%;width:0;border-radius:999px;background:linear-gradient(90deg,#22d3ee,#7c3aed);transition:width .15s linear}
 .ex-dl-progress .txt{font-size:12px;color:#7dd3fc;margin-top:6px;font-weight:700;overflow-wrap:anywhere}
 .ex-dl-error{margin-top:10px;border:1px solid rgba(251,113,133,.45);background:rgba(251,113,133,.09);border-radius:10px;padding:9px 11px;font-size:12.5px;line-height:1.65;color:#fecdd3;overflow-wrap:anywhere}
-.ex-dl-error .msg{display:block;color:#fecdd3}
+.ex-dl-error .msg{display:block;color:#fecdd3;font-weight:700}
 .ex-dl-error .acts{display:flex;gap:8px;flex-wrap:wrap;margin-top:8px}
 .ex-dl-error button{min-height:40px;padding:0 13px;border-radius:9px;border:1px solid rgba(56,189,248,.45);background:rgba(56,189,248,.12);color:#bae6fd;font-size:12.5px;font-weight:700;cursor:pointer;font-family:inherit}
 .ex-dl-note{margin-top:10px;font-size:12px;color:#a7f3d0;line-height:1.6;overflow-wrap:anywhere}
@@ -1536,6 +1542,49 @@ html[data-theme="light"] .wb-confirm-note{color:#9f1239}
  .wb-confirm-acts .btn-line,.wb-confirm-acts .btn-main{flex:1 1 40%}
 }
 </style>
+<script id="xl-auth-fetch">
+/* 2026-11-19: 给所有 /ai-nav/api/ 请求自动带上登录 token，后台才能按账号套餐计额度（否则按匿名免费额度算） */
+(function () {
+  function tok() {
+    try { return localStorage.getItem('xl_token') || sessionStorage.getItem('xl_token') || ''; }
+    catch (e) { return ''; }
+  }
+  var of = window.fetch;
+  if (of) {
+    window.fetch = function (input, init) {
+      try {
+        var url = typeof input === 'string' ? input : ((input && input.url) || '');
+        if (url && /\/ai-nav\/api\//.test(url)) {
+          init = init || {};
+          var h = new Headers(init.headers || {});
+          if (!h.has('Authorization')) {
+            var t = tok();
+            if (t) h.set('Authorization', 'Bearer ' + t);
+          }
+          init.headers = h;
+          if (!init.credentials) init.credentials = 'same-origin';
+        }
+      } catch (e) {}
+      return of.call(this, input, init);
+    };
+  }
+  var ox = XMLHttpRequest.prototype.open;
+  var osh = XMLHttpRequest.prototype.send;
+  XMLHttpRequest.prototype.open = function (m, u) {
+    this.__xlUrl = u || '';
+    return ox.apply(this, arguments);
+  };
+  XMLHttpRequest.prototype.send = function () {
+    try {
+      if (this.__xlUrl && /\/ai-nav\/api\//.test(this.__xlUrl)) {
+        var t = tok();
+        if (t) this.setRequestHeader('Authorization', 'Bearer ' + t);
+      }
+    } catch (e) {}
+    return osh.apply(this, arguments);
+  };
+})();
+</script>
 </head><body>
 <div class="top"><div class="top-in">
  <a class="brand" href="/ai-nav/"><span class="logo">星</span>星籁 AI <span class="brand-sub">商家工作台</span></a>
@@ -2130,7 +2179,10 @@ html[data-theme="light"] .wb-confirm-note{color:#9f1239}
     <section class="sec" id="secExport">
   <div class="sec-head"><span class="sec-ico">⬇️</span><div><h2>⑥ 导出</h2><p class="sec-sub">成片是竖屏 MP4，可直接发抖音、美团、视频号；下载不了就长按视频保存。批量成片的 zip 也在本页。</p></div><span class="sec-hint">无强制水印</span></div>
   <div class="export-grid">
-   <a id="dlVideo" class="ex-btn primary disabled" href="#" download aria-disabled="true">⬇️<b>下载视频</b><span>MP4 · 9:16 竖屏</span></a>
+   <div class="ex-dl-main">
+    <a id="dlVideo" class="ex-btn primary disabled" href="#" download aria-disabled="true">⬇️<b>下载视频</b><span>MP4 · 9:16 竖屏</span></a>
+    <p class="ex-dl-size" id="exDlSize" hidden></p>
+   </div>
    <button type="button" class="ex-btn" id="saveFolder" disabled>📁<b>选择保存文件夹并下载</b><span>视频 + 音轨 + 文案 + 授权</span></button>
    <button type="button" class="ex-btn" id="dlCover" disabled>🖼️<b>下载封面</b><span>从成片里截一帧</span></button>
    <button type="button" class="ex-btn" id="copyScript" disabled>📋<b>复制口播文案</b><span>发点评/私信也能用</span></button>
@@ -2140,8 +2192,8 @@ html[data-theme="light"] .wb-confirm-note{color:#9f1239}
    <div class="bar"><i id="exDlBar"></i></div>
    <div class="txt" id="exDlProgTxt">准备保存…</div>
   </div>
-  <div class="ex-dl-error" id="exDlError" hidden>
-   <b>保存失败：</b><span class="msg" id="exDlErrMsg"></span>
+  <div class="ex-dl-error" id="exDlError" hidden role="alert">
+   <span class="msg" id="exDlErrMsg"></span>
    <div class="acts" id="exDlErrActs"></div>
   </div>
   <p class="ex-dl-note" id="exDlNote" hidden></p>
