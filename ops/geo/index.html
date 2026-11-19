@@ -523,7 +523,7 @@ html[data-page="ops-geo"] .xl-sb-theme{display:none!important}
 .og-perm input{width:13px;height:13px;accent-color:#38bdf8;cursor:pointer;flex:0 0 auto}
 .og-role .og-btn{margin-top:10px}
 .og-table.logs{min-width:860px}
-.og-table.roles{min-width:760px}
+.og-table.roles{min-width:500px}
 .og-keyrows{display:grid;gap:7px;margin-top:2px}
 .og-keyrow{display:grid;grid-template-columns:minmax(110px,1fr) minmax(0,2.1fr) auto;gap:8px;align-items:center;padding:8px 10px;border-radius:8px;border:1px solid var(--og-line);background:var(--og-soft)}
 .og-keyrow .kn{font-size:11.5px;font-weight:700;color:var(--og-txt);display:flex;align-items:center;gap:6px;min-width:0}
@@ -5266,29 +5266,49 @@ html[data-page="ops-geo"] .xl-sb-theme{display:none!important}
     });
     return max;
   }
-  function getMissingWords() {
+  function monitorWindowRows() {
     var list = state.data.monitors || [];
-    if (!list.length) return [];
-    /* 最近 7 天窗口内，5 平台均未命中的词（比只看最后一天更稳定） */
     var dates = list.map(function (m) { return fmtDate(m.testedAt); }).filter(function (d) { return d && d !== '—'; }).sort();
     if (!dates.length) return [];
     var lastDate = dates[dates.length - 1];
     var lastD = parseDate(lastDate);
     var cutoff = lastD ? dayStr(addDays(lastD, -6)) : lastDate;
-    var recent = list.filter(function (m) {
-      var d = fmtDate(m.testedAt);
-      return d && d >= cutoff && d <= lastDate;
-    });
+    return list.filter(function (m) { var d = fmtDate(m.testedAt); return d && d >= cutoff && d <= lastDate; });
+  }
+  function getMissingWords() {
+    var recent = monitorWindowRows();
+    if (!recent.length) return [];
     var map = {};
     recent.forEach(function (m) {
       if (!m.word) return;
       var key = m.merchantId + '|' + m.word;
-      if (!map[key]) map[key] = { merchantId: m.merchantId, merchant: m.merchant, word: m.word, platforms: [], hit: false, lastTested: '' };
+      if (!map[key]) map[key] = { merchantId: m.merchantId, merchant: m.merchant, word: m.word, platforms: [], hit: false, tests: 0, hits: 0, lastTested: '' };
       if (map[key].platforms.indexOf(m.platformLabel) < 0) map[key].platforms.push(m.platformLabel);
-      if (m.hit) map[key].hit = true;
+      map[key].tests++;
+      if (m.hit) { map[key].hit = true; map[key].hits++; }
       if (fmtDate(m.testedAt) > map[key].lastTested) map[key].lastTested = fmtDate(m.testedAt);
     });
-    return Object.keys(map).map(function (k) { return map[k]; }).filter(function (x) { return !x.hit && x.platforms.length >= 3; }).sort(function (a, b) { return b.lastTested > a.lastTested ? 1 : -1; });
+    return Object.keys(map).map(function (k) { return map[k]; })
+      .filter(function (x) { return !x.hit && x.platforms.length >= 3; })
+      .sort(function (a, b) { return b.lastTested > a.lastTested ? 1 : -1; });
+  }
+  /* 没有 0 命中词时，退化为「命中率偏低」建议列表，保证运营总有可反哺的词 */
+  function getLowHitWords() {
+    var recent = monitorWindowRows();
+    if (!recent.length) return [];
+    var map = {};
+    recent.forEach(function (m) {
+      if (!m.word) return;
+      var key = m.merchantId + '|' + m.word;
+      if (!map[key]) map[key] = { merchantId: m.merchantId, merchant: m.merchant, word: m.word, platforms: [], tests: 0, hits: 0, lastTested: '' };
+      if (map[key].platforms.indexOf(m.platformLabel) < 0) map[key].platforms.push(m.platformLabel);
+      map[key].tests++;
+      if (m.hit) map[key].hits++;
+      if (fmtDate(m.testedAt) > map[key].lastTested) map[key].lastTested = fmtDate(m.testedAt);
+    });
+    return Object.keys(map).map(function (k) { return map[k]; })
+      .filter(function (x) { return x.platforms.length >= 3 && x.tests > 0 && x.hits / x.tests < 0.6; })
+      .sort(function (a, b) { return (a.hits / a.tests) - (b.hits / b.tests); });
   }
   function monitorPlatformStats() {
     var list = state.data.monitors || [];
@@ -5370,14 +5390,19 @@ html[data-page="ops-geo"] .xl-sb-theme{display:none!important}
       trend.push({ label: p2(d.getMonth() + 1) + '-' + p2(d.getDate()), value: Math.round(h / ls.length * 100) });
     }
     renderMiniTrend($('#mnTrend'), trend);
-    /* 未收录词 */
+    /* 未收录词 / 待优化词 */
     var missing = getMissingWords();
+    var low = missing.length ? [] : getLowHitWords();
     var hostM = $('#mnMissing');
     if (hostM) {
-      hostM.innerHTML = missing.length ? missing.map(function (x) {
-        return '<div class="og-feedback"><div style="min-width:0"><div class="w"><b>' + esc(x.word) + '</b> · ' + esc(x.merchant) + '</div><div class="m">近 7 天 + ' + (x.platforms || []).length + ' 平台测试均未命中 · 最近 ' + esc(x.lastTested || '—') + '</div></div>' +
+      var listItems = missing.length ? missing : low;
+      var tipHtml = missing.length ? '' : (low.length ? '<div class="og-tiny" style="margin-bottom:7px">最近 7 天暂无 0 命中词，以下为<b style="color:#fcd34d">命中率偏低</b>的词，建议优先反哺稿件 / 调整渠道。</div>' : '');
+      hostM.innerHTML = tipHtml + (listItems.length ? listItems.slice(0, 12).map(function (x) {
+        var ratio = x.tests ? Math.round(x.hits / x.tests * 100) : 0;
+        var sub = missing.length ? ('近 7 天 ' + (x.platforms || []).length + ' 平台测试均未命中 · 最近 ' + (x.lastTested || '—')) : ('近 7 天命中率 ' + ratio + '%（' + x.hits + '/' + x.tests + '）· 建议反哺');
+        return '<div class="og-feedback"><div style="min-width:0"><div class="w"><b>' + esc(x.word) + '</b> · ' + esc(x.merchant) + '</div><div class="m">' + esc(sub) + '</div></div>' +
           '<button class="og-btn xs violet" type="button" data-feedback="' + attr(x.merchantId + '||' + x.word) + '">反哺稿件</button></div>';
-      }).join('') : '<div class="og-info"><span class="mini">✅</span><div>最近一次测试的所有词都有至少一个平台命中，暂无需反哺；建议保持每周测试频率。</div></div>';
+      }).join('') : '<div class="og-info"><span class="mini">✅</span><div>最近 7 天所有测试词命中率均 ≥ 60%，暂无需反哺；建议保持每周测试频率。</div></div>');
       $$('[data-feedback]', hostM).forEach(function (b) {
         b.addEventListener('click', function () {
           var parts = b.getAttribute('data-feedback').split('||');
@@ -5416,6 +5441,9 @@ html[data-page="ops-geo"] .xl-sb-theme{display:none!important}
   function renderMonitorPage() {
     fillSelect($('#mnMerchant'), (state.data.merchants || []).map(function (m) { return [m.id, m.name]; }), state.filters.mnMerchant, '全部商家（批量）');
     state.filters.mnMerchant = state.filters.mnMerchant || '';
+    var lastDate = latestMonitorDate(state.data.monitors || []);
+    var badge = $('#mnLastRun');
+    if (badge && lastDate) badge.textContent = '最近测试 ' + lastDate;
     renderMonitor();
   }
 

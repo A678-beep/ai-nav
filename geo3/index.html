@@ -1872,10 +1872,10 @@ function authToken() {
 }
 /* 未登录且未指定 workspace 预览时：直接用示例数据，避免首屏必然 404 的请求噪音 */
 function isAnonymousGuest() {
-  try { return !authToken() && !qsParam('ws'); } catch (e) { return false; }
+  try { return !authToken() && !qsParam('ws') && !qsParam('workspace_id'); } catch (e) { return false; }
 }
 function workspaceId() {
-  var wsParam = qsParam('ws');
+  var wsParam = qsParam('ws') || qsParam('workspace_id');
   if (wsParam) return wsParam.replace(/[^\w\-]/g, '').slice(0, 64);
   try {
     var u = WIN.XLAuth && WIN.XLAuth.user ? WIN.XLAuth.user() : null;
