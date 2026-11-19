@@ -247,6 +247,16 @@ details[open].lic summary:before,details[open].scenes summary:before,details[ope
 .ex-dl-saveas{margin:3px 2px 0;padding:2px 0;align-self:flex-start;background:none;border:0;color:#7dd3fc;font:inherit;font-size:11.5px;cursor:pointer;text-decoration:underline;text-underline-offset:2px}
 .ex-dl-saveas:hover{color:#bae6fd}
 .ex-dl-saveas[hidden]{display:none}
+/* 浅色主题下这些自定义下载区域沿用旧深色配色会偏淡，单独覆盖成可读配色 */
+html[data-theme="light"] .ex-dl-size{color:#047857}
+html[data-theme="light"] .ex-dl-saveas{color:#0a5f92}
+html[data-theme="light"] .ex-dl-saveas:hover{color:#084c74}
+html[data-theme="light"] .ex-dl-note{color:#047857}
+html[data-theme="light"] .ex-dl-progress{border-color:rgba(10,95,146,.28);background:rgba(10,95,146,.05)}
+html[data-theme="light"] .ex-dl-progress .txt{color:#0a5f92}
+html[data-theme="light"] .ex-dl-error{color:#7b000f;border-color:rgba(185,28,28,.35);background:rgba(251,113,133,.08)}
+html[data-theme="light"] .ex-dl-error .msg{color:#7b000f}
+html[data-theme="light"] .ex-dl-error button{border-color:rgba(10,95,146,.35);background:rgba(10,95,146,.08);color:#0a5f92}
 .ex-dl-progress{margin-top:10px;padding:10px 12px;border:1px solid rgba(56,189,248,.35);background:rgba(56,189,248,.08);border-radius:10px}
 .ex-dl-progress .bar{height:9px;border-radius:999px;background:rgba(56,189,248,.16);overflow:hidden}
 .ex-dl-progress .bar>i{display:block;height:100%;width:0;border-radius:999px;background:linear-gradient(90deg,#22d3ee,#7c3aed);transition:width .15s linear}
