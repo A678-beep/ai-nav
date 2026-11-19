@@ -1399,7 +1399,7 @@ html[data-theme="light"] .wb-bulkbar{background:rgba(255,255,255,.75)}
  .wb-bulkbar .wb-bulk-count{position:sticky;left:0;z-index:1;background:var(--panel);padding:4px 8px 4px 2px;border-radius:8px}
 }
 </style>
-<link rel="stylesheet" href="../assets/site-shell.css">
+<link rel="stylesheet" href="../assets/site-shell.css?v=20261119x">
 <style id="wbAssetsUxCss">
 /* ================= ② 素材库 UX 重排（2026-11-19）：紧凑 6/4/2 列 + 吸顶工具栏 + 分页 ================= */
 /* --- 吸顶工具栏 --- */
@@ -2522,11 +2522,28 @@ function showDraftModal(d){
  var m=$('draftMeta');if(m)m.textContent='上次保存：'+draftTime(d.ts)+'。接着上次的继续，还是清空重新开始？';
  var modal=$('draftModal');if(modal)modal.hidden=false;
 }
+function draftHasContent(d){
+ if(!d)return false;
+ var hasText=function(v){return !!(v&&String(v).trim());};
+ if(hasText(d.prompt)||hasText(d.advPrompt))return true;
+ if(d.materials&&d.materials.length)return true;
+ if(d.bgm)return true;
+ if(d.adv&&d.adv.scenes&&d.adv.scenes.length)return true;
+ if(d.task&&d.task.id)return true;
+ if(d.projectId)return true;
+ return false;
+}
 function restoreFromDraft(){
  var raw=LS.get(DRAFT_KEY);if(!raw)return false;
  var d=null;try{d=JSON.parse(raw);}catch(e){return false;}
  if(!d||!d.ts)return false;
  if(/[?&]fresh=1/.test(location.search)){try{localStorage.removeItem(DRAFT_KEY);}catch(e){}return false;}
+ /* 空草稿（没有文案/素材/BGM/分镜/任务/作品）不弹窗、直接清掉，避免每次打开都提示 */
+ if(!draftHasContent(d)){
+  try{localStorage.removeItem(DRAFT_KEY);}catch(e){}
+  var st=$('saveState');if(st){st.hidden=true;st.textContent='';}
+  return false;
+ }
  restoreDraft(d);
  showDraftModal(d);
  if(d.task&&d.task.id){setTimeout(function(){resumeTask(d.task);},300);}
@@ -8933,7 +8950,7 @@ if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',
 })();
 
 </script>
-<script defer src="../assets/site-shell.js"></script>
+<script defer src="../assets/site-shell.js?v=20261119x"></script>
 <script defer src="../assets/auth.js"></script>
 <script id="dg-gate">
 (function () {
