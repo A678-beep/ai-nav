@@ -3927,6 +3927,13 @@ function normalizeMonitor(d) {
     if (built.length >= 2) trend = built;
   }
   var lastRun = runs.length ? runs[runs.length - 1] : null;
+  var upRaw = pick(d, ['generated_at', 'updated_at', 'last_run_at']);
+  if (!upRaw) {
+    var lr = pick(d, ['last_run']);
+    if (lr && typeof lr === 'object') upRaw = pick(lr, ['at', 'date']);
+    else upRaw = lr;
+  }
+  if (upRaw && typeof upRaw === 'object') upRaw = pick(upRaw, ['at', 'date', 'time']);
   var pct = num(pick(d, ['hit_rate_pct', 'hitRatePct']), null);
   if (pct == null) {
     var hr2 = num(pick(d, ['hit_rate', 'hitRate']), null);
@@ -3939,7 +3946,7 @@ function normalizeMonitor(d) {
     total_runs: num(pick(d, ['total_runs', 'runs_count']), runs.length),
     next_run_hint: str(pick(d, ['next_run_hint', 'next_hint'])),
     note: str(pick(d, ['note', 'disclaimer'])) || '模型模拟 + 公开检索，仅供参考',
-    updated_at: str(pick(d, ['generated_at', 'updated_at', 'last_run'])) || (lastRun ? str(pick(lastRun, ['at', 'date'])) : (trend.length ? trend[trend.length - 1].date : '')),
+    updated_at: str(upRaw) || (lastRun ? str(pick(lastRun, ['at', 'date'])) : (trend.length ? trend[trend.length - 1].date : '')),
     source: 'api'
   };
 }
