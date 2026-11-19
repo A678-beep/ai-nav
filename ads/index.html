@@ -1,0 +1,2955 @@
+<!doctype html>
+<html lang="zh-CN" data-page="ads">
+<head><meta name="robots" content="noindex,nofollow"><meta name="googlebot" content="noindex,nofollow">
+<meta charset="utf-8">
+<!--xl-theme-start-->
+<script>(function(){try{var k="xl_theme",v=localStorage.getItem(k),m=(v==="dark"||v==="light"||v==="auto")?v:"auto",q=window.matchMedia?window.matchMedia("(prefers-color-scheme: light)"):null,t=(m==="auto")?((q&&q.matches)?"light":"dark"):m,d=document.documentElement;d.setAttribute("data-theme",t);d.setAttribute("data-theme-mode",m);d.style.colorScheme=t}catch(e){document.documentElement.setAttribute("data-theme","dark")}})();</script>
+
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<link rel="icon" href="data:,">
+<title>AI 投放优化获客 · 星籁 AI</title>
+<meta name="description" content="AI 投放优化获客：帮本地商家在百度、巨量引擎（抖音/头条）、小红书、58 同城、美团/点评五大官方渠道，用 AI 选词、写创意、筛线索、备话术、复盘报表，花同样预算拿到更多精准同城线索。不爬虫、不自动触达，广告账户与资金归商家本人。">
+<meta name="keywords" content="AI投放优化,本地商家获客,百度竞价关键词,巨量引擎本地推,小红书聚光,58同城推广,美团推广通,线索分级,投放报表">
+<link rel="canonical" href="https://a678-beep.github.io/ai-nav/ads/">
+<meta property="og:type" content="website">
+<meta property="og:title" content="AI 投放优化获客 · 星籁 AI">
+<meta property="og:description" content="官方渠道投放增效 + 线索分级 + 话术辅助 + 报表复盘。不爬虫、不自动触达，账户资金归商家。">
+<meta property="og:url" content="https://a678-beep.github.io/ai-nav/ads/">
+<style>
+/* ============ AI 投放优化获客 · 页面样式（独立命名空间 ads-*，避免与全站主题冲突） ============ */
+html[data-page="ads"]{
+  --ad-bg:#070a10;--ad-bg2:#0a1018;
+  --ad-panel:linear-gradient(180deg,rgba(20,28,43,.94),rgba(11,17,27,.94));
+  --ad-panel-solid:#0f1622;--ad-panel2:rgba(12,19,30,.86);
+  --ad-line:rgba(148,163,184,.16);--ad-line2:rgba(56,189,248,.3);
+  --ad-txt:#e8eef8;--ad-txt2:#9fb0c7;--ad-txt3:#6b7c94;
+  --ad-cyan:#38bdf8;--ad-violet:#8b5cf6;--ad-lime:#34d399;--ad-amber:#fbbf24;--ad-red:#fb7185;
+  --ad-input:rgba(8,13,22,.92);
+  --ad-soft:rgba(255,255,255,.04);--ad-soft2:rgba(255,255,255,.075);
+  --ad-okbg:rgba(52,211,153,.1);--ad-warnbg:rgba(251,191,36,.1);--ad-badbg:rgba(251,113,133,.1);
+  --ad-shadow:0 26px 60px -32px rgba(2,8,20,.95);
+}
+html[data-theme="light"][data-page="ads"]{
+  --ad-bg:#eef3f9;--ad-bg2:#f6f8fb;
+  --ad-panel:linear-gradient(180deg,#ffffff,#f8fafc);
+  --ad-panel-solid:#ffffff;--ad-panel2:rgba(248,250,252,.94);
+  --ad-line:rgba(15,23,42,.13);--ad-line2:rgba(14,116,144,.35);
+  --ad-txt:#0f1b2d;--ad-txt2:#3b5068;--ad-txt3:#64748b;
+  --ad-cyan:#0369a1;--ad-violet:#6d28d9;--ad-lime:#047857;--ad-amber:#a16207;--ad-red:#b91c1c;
+  --ad-input:#ffffff;
+  --ad-soft:rgba(15,23,42,.035);--ad-soft2:rgba(15,23,42,.07);
+  --ad-okbg:rgba(4,120,87,.09);--ad-warnbg:rgba(161,98,7,.1);--ad-badbg:rgba(185,28,28,.08);
+  --ad-shadow:0 20px 46px -30px rgba(15,23,42,.4);
+}
+html[data-page="ads"]{background:var(--ad-bg);scrollbar-color:rgba(148,163,184,.28) transparent}
+html[data-page="ads"] body{
+  margin:0;font:15px/1.7 -apple-system,"Segoe UI",Roboto,"Microsoft YaHei",sans-serif;color:var(--ad-txt);
+  background:radial-gradient(900px 480px at 82% -10%,rgba(56,189,248,.12),transparent 62%),radial-gradient(720px 420px at 4% 2%,rgba(139,92,246,.12),transparent 60%),var(--ad-bg);
+  background-attachment:fixed;min-height:100vh;overflow-x:clip;-webkit-text-size-adjust:100%;
+}
+html[data-theme="light"][data-page="ads"] body{
+  background:radial-gradient(900px 500px at 84% -8%,rgba(90,209,255,.18),transparent 62%),radial-gradient(760px 430px at 6% 2%,rgba(167,139,250,.14),transparent 60%),linear-gradient(180deg,#f4f8fd,#eef3f9);
+  background-attachment:fixed;
+}
+html[data-page="ads"] *{box-sizing:border-box}
+html[data-page="ads"] [hidden]{display:none!important}
+html[data-page="ads"] a{color:inherit;text-decoration:none}
+html[data-page="ads"] button{font-family:inherit}
+html[data-page="ads"] img{max-width:100%}
+html[data-page="ads"] ::selection{background:rgba(56,189,248,.28)}
+html[data-page="ads"] :focus-visible{outline:2px solid var(--ad-cyan);outline-offset:2px}
+.ads-wrap{max-width:1280px;margin:0 auto;padding:20px clamp(14px,3vw,34px) 64px;min-width:0}
+.ads-sr{position:absolute!important;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap;border:0}
+
+/* ---------- 顶部 Hero ---------- */
+.ads-hero{display:flex;gap:22px;align-items:flex-start;justify-content:space-between;flex-wrap:wrap;padding:18px 0 4px}
+.ads-hero-main{min-width:0;flex:1 1 560px}
+.ads-eyebrow{display:inline-flex;align-items:center;gap:7px;font-size:11.5px;letter-spacing:.16em;color:var(--ad-cyan);border:1px solid var(--ad-line2);background:var(--ad-soft);padding:6px 13px;border-radius:999px;margin-bottom:13px;font-weight:700}
+.ads-h1{font-size:clamp(26px,3.8vw,40px);line-height:1.2;letter-spacing:-.02em;margin:0 0 10px;font-weight:900}
+.ads-h1 span{background:linear-gradient(120deg,#7dd3fc,#a78bfa 60%,#f472b6);-webkit-background-clip:text;background-clip:text;color:transparent}
+html[data-theme="light"][data-page="ads"] .ads-h1 span{background:linear-gradient(120deg,#004e74,#4c1d95 55%,#9d174d);-webkit-background-clip:text;background-clip:text;color:transparent}
+.ads-value{margin:0;color:var(--ad-txt2);font-size:14.5px;line-height:1.8;max-width:820px}
+.ads-hero-tags{display:flex;gap:7px;flex-wrap:wrap;margin-top:12px}
+.ads-tag{font-size:12px;color:var(--ad-txt2);background:var(--ad-panel2);border:1px solid var(--ad-line);border-radius:999px;padding:5px 11px;display:inline-flex;align-items:center;gap:6px;min-height:30px}
+.ads-tag b{color:var(--ad-cyan);font-weight:800}
+.ads-hero-side{display:flex;flex-direction:column;gap:9px;align-items:flex-end;flex:0 0 auto}
+.ads-mode{display:inline-flex;align-items:center;gap:8px;font-size:12.5px;border:1px solid var(--ad-line);border-radius:999px;padding:7px 13px;background:var(--ad-panel2);color:var(--ad-txt2);max-width:100%}
+.ads-mode .dot{width:8px;height:8px;border-radius:50%;background:var(--ad-amber);box-shadow:0 0 9px currentColor;flex:0 0 auto}
+.ads-mode.live{color:var(--ad-lime);border-color:rgba(52,211,153,.4)}
+.ads-mode.live .dot{background:var(--ad-lime)}
+.ads-mode.demo{color:var(--ad-amber);border-color:rgba(251,191,36,.4)}
+.ads-mode .ads-mini-link{color:var(--ad-cyan);text-decoration:underline;text-underline-offset:3px;min-height:28px;display:inline-flex;align-items:center;background:none;border:0;cursor:pointer;font-size:12.5px;padding:0 2px}
+.ads-hero-side .ads-btn{width:100%;justify-content:center}
+
+/* ---------- 合规声明 / 风险提示 ---------- */
+.ads-compliance{
+  margin:16px 0 0;border:1px solid rgba(52,211,153,.38);border-radius:16px;
+  background:linear-gradient(120deg,rgba(52,211,153,.1),rgba(56,189,248,.07));
+  padding:13px 16px;display:flex;gap:10px;align-items:flex-start;flex-wrap:wrap;font-size:13px;line-height:1.7;color:var(--ad-txt2)
+}
+html[data-theme="light"][data-page="ads"] .ads-compliance{background:linear-gradient(120deg,rgba(4,120,87,.07),rgba(3,105,161,.06))}
+.ads-compliance .c-ico{font-size:17px;line-height:1.35;flex:0 0 auto}
+.ads-compliance .c-body{flex:1 1 420px;min-width:0}
+.ads-compliance b{color:var(--ad-txt);font-weight:800}
+.ads-compliance .c-items{display:flex;gap:6px 14px;flex-wrap:wrap;margin-top:4px}
+.ads-compliance .c-item{display:inline-flex;align-items:center;gap:5px;white-space:normal}
+.ads-compliance .c-item::before{content:"✓";color:var(--ad-lime);font-weight:900}
+.ads-compliance .c-link{color:var(--ad-cyan);text-decoration:underline;text-underline-offset:3px;white-space:nowrap}
+.ads-legal{
+  margin:10px 0 0;border:1px solid rgba(251,191,36,.34);border-left-width:4px;border-radius:12px;
+  background:var(--ad-warnbg);padding:10px 14px;font-size:12.8px;line-height:1.75;color:var(--ad-txt2)
+}
+.ads-legal b{color:var(--ad-amber)}
+html[data-theme="light"][data-page="ads"] .ads-legal b{color:#92400e}
+.ads-legal code{font-size:12px;background:var(--ad-soft2);padding:1px 5px;border-radius:5px;color:var(--ad-txt)}
+
+/* ---------- Tab 栏 ---------- */
+.ads-tabs{
+  position:sticky;top:calc(var(--xl-topbar-h,52px) + 6px);z-index:24;
+  display:flex;gap:6px;margin:18px 0 18px;padding:6px;border:1px solid var(--ad-line);border-radius:16px;
+  background:var(--ad-panel2);backdrop-filter:blur(16px);-webkit-backdrop-filter:blur(16px);
+  overflow-x:auto;scrollbar-width:none;-ms-overflow-style:none;-webkit-overflow-scrolling:touch;
+  box-shadow:0 18px 40px -34px rgba(2,8,20,.9)
+}
+.ads-tabs::-webkit-scrollbar{display:none}
+.ads-tab{
+  appearance:none;border:1px solid transparent;background:none;color:var(--ad-txt2);
+  font-size:13.5px;font-weight:700;border-radius:11px;padding:0 14px;min-height:42px;cursor:pointer;
+  white-space:nowrap;flex:0 0 auto;display:inline-flex;align-items:center;gap:6px;transition:.16s
+}
+.ads-tab .n{font-size:10.5px;font-weight:800;color:var(--ad-txt3);background:var(--ad-soft2);border-radius:5px;padding:1px 5px}
+.ads-tab:hover{color:var(--ad-txt);background:var(--ad-soft)}
+.ads-tab.on{color:#04121c;background:linear-gradient(135deg,#7dd3fc,#a78bfa);border-color:transparent;box-shadow:0 8px 22px -14px rgba(56,189,248,.9)}
+.ads-tab.on .n{color:#0b1a2b;background:rgba(255,255,255,.42)}
+html[data-theme="light"][data-page="ads"] .ads-tab.on{color:#0b1a2b;background:linear-gradient(135deg,#7dd3fc,#c4b5fd)}
+
+/* ---------- 面板与卡片 ---------- */
+.ads-panel{min-width:0}
+.ads-sec{margin:0 0 18px;min-width:0}
+.ads-sec-h{display:flex;align-items:flex-start;gap:11px;flex-wrap:wrap;margin-bottom:12px}
+.ads-sec-ico{width:36px;height:36px;border-radius:11px;display:grid;place-items:center;font-size:17px;flex:0 0 auto;background:linear-gradient(135deg,rgba(56,189,248,.2),rgba(139,92,246,.2));border:1px solid var(--ad-line2)}
+.ads-sec-h h2{margin:0;font-size:19px;letter-spacing:-.01em;display:flex;align-items:center;gap:8px;flex-wrap:wrap}
+.ads-sec-h .hint{margin-left:auto;font-size:12px;color:var(--ad-txt3);padding-top:9px;font-weight:400}
+.ads-sub{margin:4px 0 0;font-size:13px;color:var(--ad-txt2);line-height:1.7;max-width:900px}
+.ads-card{background:var(--ad-panel);border:1px solid var(--ad-line);border-radius:18px;padding:18px;box-shadow:var(--ad-shadow);min-width:0}
+.ads-card.glow{border-color:var(--ad-line2);box-shadow:0 0 0 1px rgba(56,189,248,.07),var(--ad-shadow)}
+.ads-grid{display:grid;gap:14px;min-width:0}
+.ads-grid.two{grid-template-columns:repeat(2,minmax(0,1fr))}
+.ads-grid.three{grid-template-columns:repeat(3,minmax(0,1fr))}
+.ads-divider{height:1px;background:var(--ad-line);margin:16px 0}
+.ads-note{font-size:12.5px;line-height:1.75;color:var(--ad-txt2);background:var(--ad-soft);border:1px solid var(--ad-line);border-radius:11px;padding:9px 12px;margin:10px 0 0;display:flex;gap:8px;align-items:flex-start}
+.ads-note b{color:var(--ad-txt)}
+.ads-note.ok{background:var(--ad-okbg);border-color:rgba(52,211,153,.3)}
+.ads-note.warn{background:var(--ad-warnbg);border-color:rgba(251,191,36,.32)}
+.ads-note.bad{background:var(--ad-badbg);border-color:rgba(251,113,133,.32)}
+.ads-note .n-ico{flex:0 0 auto}
+
+/* ---------- 按钮 ---------- */
+.ads-btns{display:flex;gap:9px;flex-wrap:wrap;align-items:center;margin-top:12px}
+.ads-btn{
+  appearance:none;border:0;border-radius:12px;min-height:44px;padding:0 18px;font-size:14px;font-weight:800;
+  cursor:pointer;display:inline-flex;align-items:center;justify-content:center;gap:7px;white-space:nowrap;
+  background:linear-gradient(135deg,#38bdf8,#8b5cf6);color:#04121c;transition:filter .16s,transform .16s;font-family:inherit
+}
+.ads-btn:hover{filter:brightness(1.07);color:#04121c}
+.ads-btn:active{transform:translateY(1px)}
+.ads-btn:disabled{opacity:.55;cursor:progress;filter:saturate(.75)}
+.ads-btn.ghost{background:var(--ad-soft2);color:var(--ad-txt);border:1px solid var(--ad-line)}
+.ads-btn.ghost:hover{border-color:var(--ad-line2);color:var(--ad-txt);filter:none;background:var(--ad-soft2)}
+.ads-btn.line{background:transparent;color:var(--ad-txt2);border:1px solid var(--ad-line)}
+.ads-btn.line:hover{color:var(--ad-txt);border-color:rgba(148,163,184,.4);filter:none}
+.ads-btn.danger{background:var(--ad-badbg);color:var(--ad-red);border:1px solid rgba(251,113,133,.35)}
+.ads-btn.sm{min-height:38px;font-size:12.8px;padding:0 13px;border-radius:10px}
+.ads-btn.xs{min-height:32px;font-size:12px;padding:0 10px;border-radius:8px;font-weight:700}
+.ads-btn.wide{width:100%}
+.ads-mini{min-height:34px;border-radius:9px;border:1px solid var(--ad-line);background:var(--ad-soft);color:var(--ad-txt2);font-size:12px;font-weight:700;cursor:pointer;padding:0 10px;font-family:inherit;display:inline-flex;align-items:center;gap:5px}
+.ads-mini:hover{color:var(--ad-txt);border-color:var(--ad-line2)}
+
+/* ---------- 表单 ---------- */
+.ads-form{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px 16px;min-width:0}
+.ads-field{min-width:0;display:flex;flex-direction:column;gap:6px}
+.ads-field.full{grid-column:1/-1}
+.ads-label{font-size:12.5px;color:var(--ad-txt2);font-weight:700;display:flex;align-items:center;gap:6px;flex-wrap:wrap}
+.ads-label .req{color:var(--ad-red)}
+.ads-label .tip{font-size:11.5px;color:var(--ad-txt3);font-weight:400}
+.ads-input,.ads-select,.ads-textarea{
+  width:100%;background:var(--ad-input);border:1px solid var(--ad-line);border-radius:11px;color:var(--ad-txt);
+  font-size:14px;line-height:1.5;padding:10px 12px;min-height:44px;font-family:inherit;outline:none;
+  transition:border-color .15s,box-shadow .15s;min-width:0
+}
+.ads-textarea{resize:vertical;min-height:92px}
+.ads-input::placeholder,.ads-textarea::placeholder{color:var(--ad-txt3)}
+.ads-input:focus,.ads-select:focus,.ads-textarea:focus{border-color:var(--ad-line2);box-shadow:0 0 0 4px rgba(56,189,248,.1)}
+.ads-select{appearance:none;-webkit-appearance:none;padding-right:34px;background-image:linear-gradient(45deg,transparent 50%,var(--ad-cyan) 50%),linear-gradient(135deg,var(--ad-cyan) 50%,transparent 50%);background-position:calc(100% - 17px) 20px,calc(100% - 12px) 20px;background-size:5px 5px,5px 5px;background-repeat:no-repeat;cursor:pointer}
+.ads-select option{background:var(--ad-panel-solid);color:var(--ad-txt)}
+.ads-range-row{display:flex;align-items:center;gap:8px;flex-wrap:wrap}
+.ads-range-row .ads-input{flex:1 1 90px;min-width:0}
+.ads-range-row span{color:var(--ad-txt3);font-size:13px;flex:0 0 auto}
+.ads-chips{display:flex;gap:7px;flex-wrap:wrap;min-height:38px;align-items:center;padding:6px;border:1px dashed var(--ad-line);border-radius:11px;background:var(--ad-soft)}
+.ads-chip{display:inline-flex;align-items:center;gap:6px;font-size:12.5px;color:var(--ad-txt);background:var(--ad-soft2);border:1px solid var(--ad-line);border-radius:999px;padding:4px 9px;min-height:30px}
+.ads-chip button{border:0;background:none;color:var(--ad-txt3);cursor:pointer;font-size:14px;line-height:1;padding:2px 3px;font-family:inherit}
+.ads-chip button:hover{color:var(--ad-red)}
+.ads-chip-add{display:inline-flex;align-items:center;gap:6px;flex:1 1 150px;min-width:0}
+.ads-chip-add input{flex:1 1 auto;background:none;border:0;outline:none;color:var(--ad-txt);font-size:13px;min-height:30px;font-family:inherit;min-width:60px}
+.ads-chip-add button{min-height:30px;padding:0 10px;border-radius:8px;border:1px solid var(--ad-line);background:var(--ad-soft2);color:var(--ad-txt2);cursor:pointer;font-size:12px;font-weight:700;font-family:inherit}
+.ads-hintline{font-size:12px;color:var(--ad-txt3);margin-top:2px}
+.ads-state{font-size:12.5px;color:var(--ad-txt3);display:inline-flex;align-items:center;gap:7px;flex-wrap:wrap}
+.ads-state .sp{width:13px;height:13px;border:2px solid rgba(56,189,248,.3);border-top-color:var(--ad-cyan);border-radius:50%;animation:adsSpin .8s linear infinite;display:inline-block}
+.ads-state.ok{color:var(--ad-lime)}
+.ads-state.warn{color:var(--ad-amber)}
+.ads-state.bad{color:var(--ad-red)}
+@keyframes adsSpin{to{transform:rotate(360deg)}}
+
+/* ---------- 概览 ---------- */
+.ads-stats{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:12px;margin-bottom:14px;min-width:0}
+.ads-stat{background:var(--ad-panel);border:1px solid var(--ad-line);border-radius:16px;padding:14px 15px;position:relative;overflow:hidden;box-shadow:var(--ad-shadow);min-width:0}
+.ads-stat::after{content:"";position:absolute;right:-28px;top:-34px;width:92px;height:92px;border-radius:50%;background:radial-gradient(circle,rgba(56,189,248,.18),transparent 70%)}
+.ads-stat .s-lb{font-size:12px;color:var(--ad-txt3);display:flex;align-items:center;gap:6px;font-weight:700}
+.ads-stat .s-v{font-size:clamp(20px,2.2vw,27px);font-weight:900;letter-spacing:-.02em;margin:5px 0 2px;font-variant-numeric:tabular-nums;line-height:1.15;word-break:break-all}
+.ads-stat .s-v small{font-size:13px;font-weight:700;color:var(--ad-txt2);margin-left:1px}
+.ads-stat .s-sub{font-size:11.5px;color:var(--ad-txt3);display:flex;align-items:center;gap:5px;flex-wrap:wrap}
+.ads-delta{font-size:11.5px;font-weight:800;padding:1px 6px;border-radius:6px;background:var(--ad-okbg);color:var(--ad-lime);display:inline-flex;align-items:center;gap:3px}
+.ads-delta.up{background:var(--ad-badbg);color:var(--ad-red)}
+.ads-stat.cyan .s-v{color:var(--ad-cyan)}
+.ads-stat.violet .s-v{color:var(--ad-violet)}
+.ads-stat.lime .s-v{color:var(--ad-lime)}
+.ads-stat.amber .s-v{color:var(--ad-amber)}
+.ads-stat.pink .s-v{color:#f472b6}
+html[data-theme="light"][data-page="ads"] .ads-stat.pink .s-v{color:#be185d}
+.ads-ovbar{display:flex;gap:8px;align-items:center;justify-content:space-between;flex-wrap:wrap;margin:2px 0 14px}
+.ads-ovbar .ads-state{flex:1 1 auto}
+
+/* 平台对比条形 */
+.ads-bars{display:flex;flex-direction:column;gap:12px;margin-top:2px}
+.ads-bar-row{display:grid;grid-template-columns:112px minmax(0,1fr);gap:6px 14px;align-items:center;min-width:0}
+.ads-bar-top{display:flex;align-items:center;gap:7px;min-width:0}
+.ads-pf-dot{width:9px;height:9px;border-radius:50%;flex:0 0 auto}
+.ads-bar-name{font-size:13px;font-weight:800;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;min-width:0}
+.ads-bar-wrap{min-width:0}
+.ads-bar-track{height:12px;border-radius:999px;background:var(--ad-soft2);overflow:hidden;position:relative}
+.ads-bar-fill{height:100%;border-radius:999px;background:linear-gradient(90deg,var(--ad-cyan),var(--ad-violet));min-width:3px;transition:width .5s ease}
+.ads-bar-meta{display:flex;gap:10px;flex-wrap:wrap;font-size:11.5px;color:var(--ad-txt3);margin-top:4px;font-variant-numeric:tabular-nums}
+.ads-bar-meta b{color:var(--ad-txt2);font-weight:800}
+.ads-bar-meta .cpl{color:var(--ad-amber)}
+.ads-bar-row.alt .ads-bar-fill{background:linear-gradient(90deg,#34d399,#38bdf8)}
+.ads-legend{font-size:11.5px;color:var(--ad-txt3);margin-top:12px}
+
+/* 优化前后 */
+.ads-ba{display:grid;grid-template-columns:1fr auto 1fr;gap:12px;align-items:stretch;min-width:0}
+.ads-ba-card{background:var(--ad-soft);border:1px solid var(--ad-line);border-radius:14px;padding:14px;min-width:0}
+.ads-ba-card.after{border-color:rgba(52,211,153,.36);background:var(--ad-okbg)}
+.ads-ba-card h4{margin:0 0 3px;font-size:13px;letter-spacing:.02em;color:var(--ad-txt2);display:flex;align-items:center;gap:6px}
+.ads-ba-card .ba-big{font-size:clamp(20px,2.4vw,28px);font-weight:900;letter-spacing:-.02em;font-variant-numeric:tabular-nums}
+.ads-ba-card .ba-sub{font-size:11.5px;color:var(--ad-txt3)}
+.ads-ba-arrow{align-self:center;font-size:22px;color:var(--ad-txt3);font-weight:900;flex:0 0 auto}
+.ads-ba-list{display:flex;flex-direction:column;gap:9px;margin-top:12px}
+.ads-ba-item{display:flex;align-items:center;gap:8px;flex-wrap:wrap;font-size:12.5px;color:var(--ad-txt2);min-width:0}
+.ads-ba-item .bl{flex:0 0 92px;color:var(--ad-txt3)}
+.ads-ba-item b{color:var(--ad-txt);font-variant-numeric:tabular-nums}
+.ads-ba-item .to{color:var(--ad-txt3)}
+.ads-ba-item .good{color:var(--ad-lime);font-weight:800}
+
+/* 建议预算 */
+.ads-budget{display:flex;flex-direction:column;gap:10px;margin-top:8px}
+.ads-budget-row{display:grid;grid-template-columns:96px minmax(0,1fr) 92px;gap:10px;align-items:center;font-size:12.5px;min-width:0}
+.ads-budget-row .bn{font-weight:800;display:flex;align-items:center;gap:6px;min-width:0}
+.ads-budget-row .bv{text-align:right;font-variant-numeric:tabular-nums;color:var(--ad-txt2);font-weight:800;white-space:nowrap}
+.ads-budget-total{margin-top:12px;padding-top:11px;border-top:1px dashed var(--ad-line);display:flex;justify-content:space-between;gap:10px;flex-wrap:wrap;font-size:13px;color:var(--ad-txt2)}
+.ads-budget-total b{color:var(--ad-txt);font-size:16px;font-variant-numeric:tabular-nums}
+
+/* ---------- 关键词 ---------- */
+.ads-kw-tools{display:flex;gap:10px;flex-wrap:wrap;align-items:flex-end;margin-bottom:14px}
+.ads-kw-tools .ads-field{min-width:140px}
+.ads-pf-tabs{display:flex;gap:6px;flex-wrap:wrap;margin:0 0 14px}
+.ads-pf-tab{min-height:40px;padding:0 12px;border-radius:10px;border:1px solid var(--ad-line);background:var(--ad-soft);color:var(--ad-txt2);font-size:12.8px;font-weight:800;cursor:pointer;display:inline-flex;align-items:center;gap:6px;font-family:inherit}
+.ads-pf-tab:hover{color:var(--ad-txt);border-color:var(--ad-line2)}
+.ads-pf-tab.on{color:#04121c;background:linear-gradient(135deg,#7dd3fc,#c4b5fd);border-color:transparent}
+.ads-kw-summary{display:flex;gap:8px;flex-wrap:wrap;align-items:center;margin:0 0 12px;font-size:12.5px;color:var(--ad-txt2)}
+.ads-kw-groups{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px;min-width:0}
+.ads-kw-group{background:var(--ad-soft);border:1px solid var(--ad-line);border-radius:14px;padding:12px 13px;min-width:0}
+.ads-kw-group h4{margin:0 0 3px;font-size:13.5px;display:flex;align-items:center;gap:8px;flex-wrap:wrap}
+.ads-kw-group h4 .cnt{font-size:11px;font-weight:700;color:var(--ad-txt3);background:var(--ad-soft2);border-radius:999px;padding:1px 7px}
+.ads-kw-group .g-desc{font-size:11.5px;color:var(--ad-txt3);margin:0 0 9px}
+.ads-words{display:flex;gap:6px;flex-wrap:wrap}
+.ads-word{font-size:12.5px;color:var(--ad-txt);background:var(--ad-panel2);border:1px solid var(--ad-line);border-radius:8px;padding:5px 9px;display:inline-flex;align-items:center;gap:6px;max-width:100%;min-width:0}
+.ads-word .w{overflow-wrap:anywhere}
+.ads-word .m{font-size:10px;color:var(--ad-txt3);border-left:1px solid var(--ad-line);padding-left:6px;white-space:nowrap}
+.ads-word button{border:0;background:none;color:var(--ad-txt3);cursor:pointer;padding:0 1px;font-size:13px;line-height:1;font-family:inherit}
+.ads-word button:hover{color:var(--ad-cyan)}
+.ads-negbox{margin-top:14px;background:var(--ad-badbg);border:1px solid rgba(251,113,133,.28);border-radius:14px;padding:12px 13px}
+.ads-negbox h4{margin:0 0 8px;font-size:13px;color:var(--ad-red);display:flex;align-items:center;gap:7px;flex-wrap:wrap}
+.ads-neglist{display:flex;gap:6px;flex-wrap:wrap}
+.ads-neg{font-size:12px;color:var(--ad-txt2);background:var(--ad-soft2);border:1px dashed rgba(251,113,133,.4);border-radius:7px;padding:4px 8px}
+.ads-kw-actions{display:flex;gap:8px;flex-wrap:wrap;margin-top:14px;align-items:center}
+.ads-empty{border:1px dashed var(--ad-line);border-radius:14px;padding:26px 18px;text-align:center;color:var(--ad-txt3);font-size:13px;line-height:1.8}
+.ads-empty .e-ico{font-size:26px;display:block;margin-bottom:6px;opacity:.85}
+
+/* ---------- 创意中心 ---------- */
+.ads-cr-tools{display:flex;gap:10px;flex-wrap:wrap;align-items:flex-end;margin-bottom:14px}
+.ads-cr-tools .ads-field{min-width:150px}
+.ads-cr-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px;min-width:0}
+.ads-cr-card{background:var(--ad-soft);border:1px solid var(--ad-line);border-radius:15px;padding:14px;display:flex;flex-direction:column;gap:9px;min-width:0}
+.ads-cr-card .cr-head{display:flex;align-items:center;gap:7px;flex-wrap:wrap;font-size:11.5px;color:var(--ad-txt3)}
+.ads-badge{font-size:10.5px;font-weight:800;border-radius:999px;padding:2px 8px;border:1px solid var(--ad-line);color:var(--ad-txt2);background:var(--ad-soft2);white-space:nowrap}
+.ads-badge.ai{color:#c4b5fd;border-color:rgba(139,92,246,.45);background:rgba(139,92,246,.14)}
+html[data-theme="light"][data-page="ads"] .ads-badge.ai{color:#5b21b6;background:rgba(139,92,246,.1)}
+.ads-badge.ok{color:var(--ad-lime);border-color:rgba(52,211,153,.4);background:var(--ad-okbg)}
+.ads-badge.warn{color:var(--ad-amber);border-color:rgba(251,191,36,.4);background:var(--ad-warnbg)}
+.ads-badge.bad{color:var(--ad-red);border-color:rgba(251,113,133,.4);background:var(--ad-badbg)}
+.ads-badge.hi{color:var(--ad-lime);border-color:rgba(52,211,153,.45);background:var(--ad-okbg)}
+.ads-badge.mid{color:var(--ad-amber);border-color:rgba(251,191,36,.45);background:var(--ad-warnbg)}
+.ads-badge.low{color:var(--ad-txt3);border-color:var(--ad-line);background:var(--ad-soft2)}
+.ads-cr-text{font-size:14px;line-height:1.75;color:var(--ad-txt);white-space:pre-wrap;overflow-wrap:anywhere;flex:1 1 auto;min-width:0}
+.ads-cr-text.long{font-size:13.5px}
+.ads-cr-text .len{font-size:11px;color:var(--ad-txt3);margin-left:6px;white-space:nowrap}
+.ads-cr-foot{display:flex;gap:7px;flex-wrap:wrap;align-items:center;margin-top:auto}
+.ads-cr-foot .spacer{flex:1 1 auto}
+.ads-mark{background:rgba(251,113,133,.25);color:#fecdd3;border-radius:4px;padding:0 3px;font-weight:800;border-bottom:1px solid rgba(251,113,133,.7)}
+html[data-theme="light"][data-page="ads"] .ads-mark{background:#fee2e2;color:#b91c1c;border-bottom-color:#dc2626}
+.ads-riskline{font-size:11.5px;color:var(--ad-amber);display:flex;gap:7px;flex-wrap:wrap;align-items:center;line-height:1.6}
+.ads-riskline .rw{text-decoration:underline dotted}
+html[data-theme="light"][data-page="ads"] .ads-riskline{color:#92400e}
+.ads-cr-note{font-size:12px;color:var(--ad-txt3)}
+
+/* ---------- 线索台账 ---------- */
+.ads-lead-tools{display:grid;grid-template-columns:minmax(0,1.4fr) minmax(0,1fr);gap:14px;margin-bottom:14px;min-width:0}
+.ads-import{display:flex;flex-direction:column;gap:9px;min-width:0}
+.ads-import textarea{min-height:116px;font-size:13px;line-height:1.6}
+.ads-drop{border:1.5px dashed rgba(148,163,184,.35);border-radius:12px;padding:16px;text-align:center;color:var(--ad-txt2);font-size:13px;cursor:pointer;background:var(--ad-soft);transition:.16s;display:flex;flex-direction:column;align-items:center;gap:5px}
+.ads-drop:hover{border-color:var(--ad-line2);background:var(--ad-soft2)}
+.ads-drop b{color:var(--ad-txt)}
+.ads-drop .d-ico{font-size:22px}
+.ads-lead-filters{display:flex;gap:8px;flex-wrap:wrap;align-items:center;margin:0 0 12px}
+.ads-lead-filters .ads-select,.ads-lead-filters .ads-input{width:auto;min-width:126px;flex:0 1 auto;min-height:40px}
+.ads-lead-filters .ads-input.grow{flex:1 1 160px;min-width:140px}
+.ads-lead-list{display:flex;flex-direction:column;gap:12px;min-width:0}
+.ads-lead{background:var(--ad-soft);border:1px solid var(--ad-line);border-radius:15px;padding:14px;min-width:0}
+.ads-lead.hi{border-color:rgba(52,211,153,.38)}
+.ads-lead.mid{border-color:rgba(251,191,36,.32)}
+.ads-lead-h{display:flex;align-items:center;gap:8px;flex-wrap:wrap;min-width:0}
+.ads-lead-h .nick{font-size:14.5px;font-weight:900;overflow-wrap:anywhere}
+.ads-lead-h .plat{font-size:11px;color:var(--ad-cyan);border:1px solid var(--ad-line2);border-radius:999px;padding:1px 8px;white-space:nowrap}
+.ads-lead-h .src{font-size:11px;color:var(--ad-txt3)}
+.ads-lead-h .score{margin-left:auto;display:inline-flex;align-items:center;gap:6px;font-size:12px;color:var(--ad-txt3);font-variant-numeric:tabular-nums;white-space:nowrap}
+.ads-lead-h .score b{font-size:19px;color:var(--ad-txt);letter-spacing:-.02em}
+.ads-lead-text{font-size:13px;line-height:1.7;color:var(--ad-txt2);margin:8px 0 10px;overflow-wrap:anywhere;white-space:pre-wrap}
+.ads-dims{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:8px 14px;min-width:0}
+.ads-dim{min-width:0}
+.ads-dim .dl{display:flex;justify-content:space-between;gap:6px;font-size:11.5px;color:var(--ad-txt3);margin-bottom:3px;min-width:0}
+.ads-dim .dl b{color:var(--ad-txt2);font-variant-numeric:tabular-nums;font-weight:800;white-space:nowrap}
+.ads-track{height:7px;border-radius:999px;background:var(--ad-soft2);overflow:hidden}
+.ads-fill{height:100%;border-radius:999px;background:linear-gradient(90deg,#38bdf8,#8b5cf6);min-width:2px;transition:width .4s}
+.ads-dim.hi .ads-fill{background:linear-gradient(90deg,#34d399,#38bdf8)}
+.ads-dim.lo .ads-fill{background:linear-gradient(90deg,#fbbf24,#fb7185)}
+.ads-lead-foot{display:flex;gap:8px;flex-wrap:wrap;align-items:center;margin-top:11px;padding-top:10px;border-top:1px dashed var(--ad-line)}
+.ads-lead-foot .spacer{flex:1 1 auto}
+.ads-lead-foot .contact{font-size:12px;color:var(--ad-txt3);overflow-wrap:anywhere;min-width:0}
+
+/* ---------- 话术库 ---------- */
+.ads-sc-tools{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:10px;margin-bottom:14px;min-width:0}
+.ads-sc-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px;min-width:0}
+.ads-sc-card{background:var(--ad-soft);border:1px solid var(--ad-line);border-radius:15px;padding:14px;display:flex;flex-direction:column;gap:8px;min-width:0}
+.ads-sc-card h4{margin:0;font-size:13.5px;display:flex;align-items:center;gap:7px;flex-wrap:wrap}
+.ads-sc-card h4 .no{width:22px;height:22px;border-radius:7px;background:linear-gradient(135deg,rgba(56,189,248,.24),rgba(139,92,246,.24));display:grid;place-items:center;font-size:11px;color:var(--ad-cyan);flex:0 0 auto}
+.ads-sc-card p{margin:0;font-size:13px;line-height:1.8;color:var(--ad-txt2);white-space:pre-wrap;overflow-wrap:anywhere;flex:1 1 auto}
+.ads-sc-card .sc-foot{display:flex;gap:7px;align-items:center;flex-wrap:wrap;margin-top:auto}
+
+/* ---------- 报表 ---------- */
+.ads-rp-tools{display:flex;gap:10px;flex-wrap:wrap;align-items:flex-end;margin-bottom:14px}
+.ads-rp-tools .ads-field{min-width:150px}
+.ads-table-wrap{overflow-x:auto;min-width:0;border:1px solid var(--ad-line);border-radius:13px;background:var(--ad-soft)}
+.ads-table{width:100%;border-collapse:collapse;font-size:12.8px;min-width:560px}
+.ads-table th,.ads-table td{padding:10px 12px;text-align:left;border-bottom:1px solid var(--ad-line);white-space:nowrap;font-variant-numeric:tabular-nums}
+.ads-table th{font-size:11.5px;color:var(--ad-txt3);font-weight:800;letter-spacing:.02em;background:var(--ad-soft2);position:sticky;top:0}
+.ads-table td{color:var(--ad-txt2)}
+.ads-table td b{color:var(--ad-txt)}
+.ads-table tr:last-child td{border-bottom:0}
+.ads-table .num{text-align:right}
+.ads-rp-note{display:flex;gap:8px;align-items:center;flex-wrap:wrap;font-size:12px;color:var(--ad-txt3);margin-top:9px}
+.ads-rp-actions{display:flex;gap:8px;flex-wrap:wrap;align-items:center;margin-top:14px}
+.ads-tpl-box{display:flex;gap:9px;align-items:center;flex-wrap:wrap;margin-top:8px}
+.ads-tpl-box code{font-size:11.5px;color:var(--ad-txt2);background:var(--ad-soft2);border:1px solid var(--ad-line);border-radius:7px;padding:5px 9px;overflow-wrap:anywhere}
+.ads-rp-imported{display:flex;flex-direction:column;gap:8px;margin-top:10px}
+.ads-rp-item{display:flex;gap:9px;align-items:center;flex-wrap:wrap;font-size:12.5px;color:var(--ad-txt2);background:var(--ad-soft);border:1px solid var(--ad-line);border-radius:10px;padding:8px 11px;min-width:0}
+.ads-rp-item .ri-p{font-weight:800;color:var(--ad-cyan)}
+.ads-rp-item .ri-t{color:var(--ad-txt3);font-size:11.5px;margin-left:auto;white-space:nowrap}
+
+/* ---------- 设置 ---------- */
+.ads-plan-current{display:flex;gap:16px;align-items:center;justify-content:space-between;flex-wrap:wrap;background:linear-gradient(120deg,rgba(56,189,248,.12),rgba(139,92,246,.1));border:1px solid var(--ad-line2);border-radius:16px;padding:16px 18px;margin-bottom:14px}
+.ads-plan-current .pc-name{font-size:22px;font-weight:900;letter-spacing:-.01em;display:flex;align-items:center;gap:9px;flex-wrap:wrap}
+.ads-plan-current .pc-name .ads-badge{font-size:11px}
+.ads-plan-current .pc-sub{font-size:12.5px;color:var(--ad-txt2);margin-top:2px}
+.ads-quota{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px 18px;margin-top:14px;min-width:0}
+.ads-quota-item{min-width:0}
+.ads-quota-item .ql{display:flex;justify-content:space-between;gap:8px;font-size:12.5px;color:var(--ad-txt2);margin-bottom:4px}
+.ads-quota-item .ql b{color:var(--ad-txt);font-variant-numeric:tabular-nums}
+.ads-plan-table{width:100%;border-collapse:collapse;font-size:12.8px;min-width:640px}
+.ads-plan-table th,.ads-plan-table td{padding:11px 12px;border-bottom:1px solid var(--ad-line);text-align:left;vertical-align:top;white-space:normal}
+.ads-plan-table th{font-size:12px;color:var(--ad-txt3);font-weight:800;background:var(--ad-soft2)}
+.ads-plan-table td:first-child{font-weight:800;color:var(--ad-txt)}
+.ads-plan-table tr:last-child td{border-bottom:0}
+.ads-plan-table .cur{background:var(--ad-okbg)}
+.ads-plan-table .cur td:first-child{color:var(--ad-lime)}
+.ads-upgrade{display:flex;gap:12px;align-items:center;justify-content:space-between;flex-wrap:wrap;margin-top:14px;padding:14px 16px;border:1px dashed var(--ad-line2);border-radius:14px;background:var(--ad-soft)}
+.ads-upgrade .u-txt{font-size:13px;color:var(--ad-txt2);min-width:0;flex:1 1 300px}
+.ads-upgrade .u-txt b{color:var(--ad-txt)}
+
+/* ---------- Toast ---------- */
+#adsToast{position:fixed;left:50%;bottom:26px;transform:translate(-50%,14px);z-index:9999;background:var(--ad-panel-solid);color:var(--ad-txt);border:1px solid var(--ad-line2);border-radius:13px;padding:11px 18px;font-size:13.5px;font-weight:700;box-shadow:0 24px 60px -20px rgba(0,0,0,.6);opacity:0;pointer-events:none;transition:opacity .2s,transform .2s;max-width:min(92vw,520px);text-align:center}
+#adsToast.show{opacity:1;transform:translate(-50%,0)}
+#adsToast.ok{border-color:rgba(52,211,153,.5)}
+#adsToast.warn{border-color:rgba(251,191,36,.5)}
+#adsToast.bad{border-color:rgba(251,113,133,.5)}
+
+/* ---------- 响应式 ---------- */
+@media (max-width:1080px){
+  .ads-stats{grid-template-columns:repeat(3,minmax(0,1fr))}
+  .ads-kw-groups,.ads-cr-grid,.ads-sc-grid{grid-template-columns:1fr}
+  .ads-sc-tools{grid-template-columns:repeat(2,minmax(0,1fr))}
+}
+@media (max-width:860px){
+  .ads-lead-tools{grid-template-columns:1fr}
+  .ads-dims{grid-template-columns:repeat(2,minmax(0,1fr))}
+  .ads-form{grid-template-columns:1fr}
+  .ads-stats{grid-template-columns:repeat(2,minmax(0,1fr))}
+  .ads-hero-side{align-items:stretch;width:100%}
+  .ads-ba{grid-template-columns:1fr;gap:8px}
+  .ads-ba-arrow{transform:rotate(90deg);justify-self:center;line-height:1}
+  .ads-quota{grid-template-columns:1fr}
+  .ads-bar-row{grid-template-columns:96px minmax(0,1fr)}
+}
+@media (max-width:520px){
+  .ads-wrap{padding:14px 12px 52px}
+  .ads-card{padding:14px;border-radius:15px}
+  .ads-stat{padding:12px}
+  .ads-stats{gap:9px}
+  .ads-sec-h h2{font-size:17px}
+  .ads-sec-h .hint{margin-left:0;padding-top:0;width:100%}
+  .ads-ba-item .bl{flex-basis:76px}
+  .ads-budget-row{grid-template-columns:78px minmax(0,1fr) 74px}
+  .ads-lead-filters .ads-select,.ads-lead-filters .ads-input{min-width:0;flex:1 1 132px}
+  .ads-sc-tools{grid-template-columns:1fr}
+  .ads-kw-tools .ads-field{min-width:0;flex:1 1 132px}
+  .ads-cr-tools .ads-field{min-width:0;flex:1 1 132px}
+  .ads-tab{padding:0 11px;font-size:12.8px}
+  .ads-tabs{padding:5px;margin:14px 0}
+  .ads-compliance{padding:11px 12px;font-size:12.5px}
+  .ads-legal{font-size:12px}
+  #adsToast{bottom:16px}
+}
+
+/* ---------- 打印（导出 PDF） ---------- */
+@media print{
+  html[data-page="ads"] body{background:#fff!important;color:#111!important}
+  .xl-sb,.xl-topbar,.xl-sb-overlay,#xlTopbar,#xlSidebar,.xl-theme-btn,
+  .ads-hero,.ads-tabs,.ads-compliance,.ads-legal,.ads-btns,.ads-lead-tools,
+  .ads-rp-tools,.ads-upgrade,.ads-ovbar .ads-btn{display:none!important}
+  html.xl-shell body{margin-left:0!important;padding-top:0!important}
+  .ads-wrap{max-width:none;padding:0}
+  .ads-card,.ads-stat,.ads-lead,.ads-cr-card,.ads-sc-card{box-shadow:none!important;border-color:#bbb!important;background:#fff!important;break-inside:avoid}
+  .ads-panel[hidden]{display:none!important}
+  .ads-table th{background:#eee!important}
+  a{text-decoration:none}
+}
+</style>
+<link rel="stylesheet" href="../assets/theme-light.css">
+<script defer src="../assets/theme.js"></script>
+<!--xl-theme-end-->
+<style id="ads-theme-after">
+/* 在 theme-light.css 之后补齐浅色主题下本页专属的覆盖（只针对本页命名空间） */
+html[data-theme="light"][data-page="ads"] .ads-mode{background:#fff;box-shadow:0 1px 3px rgba(15,23,42,.07)}
+html[data-theme="light"][data-page="ads"] .ads-tabs{background:rgba(255,255,255,.88)}
+html[data-theme="light"][data-page="ads"] .ads-btn.ghost{background:#fff}
+html[data-theme="light"][data-page="ads"] .ads-hero-side .ads-btn.ghost:hover{border-color:rgba(14,116,144,.45)}
+html[data-theme="light"][data-page="ads"] .ads-input,
+html[data-theme="light"][data-page="ads"] .ads-select,
+html[data-theme="light"][data-page="ads"] .ads-textarea{color:#0f1b2d}
+html[data-theme="light"][data-page="ads"] .ads-input::placeholder,
+html[data-theme="light"][data-page="ads"] .ads-textarea::placeholder{color:#94a3b8}
+html[data-theme="light"][data-page="ads"] .ads-mark{background:#fee2e2;color:#b91c1c}
+html[data-theme="light"][data-page="ads"] .ads-word{background:#fff}
+html[data-theme="light"][data-page="ads"] .ads-pf-tab.on,
+html[data-theme="light"][data-page="ads"] .ads-tab.on{color:#0b1a2b}
+html[data-theme="light"][data-page="ads"] .ads-bar-fill{background:linear-gradient(90deg,#0ea5e9,#7c3aed)}
+html[data-theme="light"][data-page="ads"] .ads-bar-row.alt .ads-bar-fill{background:linear-gradient(90deg,#059669,#0ea5e9)}
+html[data-theme="light"][data-page="ads"] .ads-fill{background:linear-gradient(90deg,#0ea5e9,#7c3aed)}
+html[data-theme="light"][data-page="ads"] .ads-dim.hi .ads-fill{background:linear-gradient(90deg,#059669,#0ea5e9)}
+html[data-theme="light"][data-page="ads"] .ads-dim.lo .ads-fill{background:linear-gradient(90deg,#d97706,#dc2626)}
+html[data-theme="light"][data-page="ads"] .ads-plan-current{background:linear-gradient(120deg,rgba(56,189,248,.16),rgba(139,92,246,.12))}
+</style>
+<link rel="stylesheet" href="../assets/site-shell.css">
+</head>
+<body>
+<div class="top"><div class="top-in">
+  <a class="brand" href="/ai-nav/"><span class="logo">星</span>星籁 AI <span class="bs">AI 投放优化获客</span></a>
+  <nav>
+    <a href="/ai-nav/">AI 导航</a>
+    <a href="/ai-nav/studio/">短视频工作台</a>
+    <a href="/ai-nav/ads/" class="on">AI 投放优化获客</a>
+    <a href="/ai-nav/leadgen/">线索台账</a>
+    <a href="/ai-nav/geo/">GEO 推广</a>
+    <a href="/ai-nav/travel/">出行导航</a>
+    <a href="/ai-nav/select-ai/">智能选型</a>
+    <a href="/ai-nav/radar/">工具雷达</a>
+  </nav>
+</div></div>
+
+<main class="ads-wrap">
+  <header class="ads-hero">
+    <div class="ads-hero-main">
+      <span class="ads-eyebrow">AI 投放优化获客 · 五大本地渠道</span>
+      <h1 class="ads-h1">AI <span>投放优化获客</span></h1>
+      <p class="ads-value">帮本地商家在百度、抖音（巨量引擎）、小红书、58 同城、美团/点评等<b>官方渠道</b>投放时，用 AI 选词、写创意、筛线索、备话术、复盘报表，花同样预算拿到更多精准同城线索，降低单客获客成本。</p>
+      <div class="ads-hero-tags">
+        <span class="ads-tag">✅ 官方后台数据 / 手动导入</span>
+        <span class="ads-tag">🚫 不爬虫 · 不自动私信评论</span>
+        <span class="ads-tag">💳 广告账户与资金归商家本人</span>
+        <span class="ads-tag">🤖 AI 选词 · 文案 · 线索评分</span>
+      </div>
+    </div>
+    <div class="ads-hero-side">
+      <div class="ads-mode demo" id="modePill"><span class="dot"></span><span id="modeText">正在检测后端接口…</span></div>
+      <button type="button" class="ads-btn ghost" id="btnLeadgen">📊 去线索台账（分级/话术/复盘）</button>
+    </div>
+  </header>
+
+  <div class="ads-compliance" role="note" aria-label="合规声明">
+    <span class="c-ico" aria-hidden="true">🛡️</span>
+    <div class="c-body">
+      <b>合规声明：</b>本工具只做投放策略与文案辅助，数据来自平台官方授权或商家手动导入，<b>不代替人工发送</b>。
+      <div class="c-items">
+        <span class="c-item">不爬虫、不抓取非公开数据</span>
+        <span class="c-item">不自动私信 / 评论 / 加好友 / 批量刷新</span>
+        <span class="c-item">广告账户与资金归商家本人，平台不代充值、不托管</span>
+        <span class="c-item">不承诺线索数量与成交结果</span>
+        <span class="c-item">线索数据可导出、可删除，不转卖第三方</span>
+      </div>
+    </div>
+    <a class="c-link" href="#ads-risk">查看风险提示 ↓</a>
+  </div>
+
+  <div class="ads-legal" id="ads-risk">
+    <b>⚠️ 风险提示：</b>本工具仅做投放策略与文案辅助，获客效果受<b>平台竞价、市场竞争、商家承接能力</b>影响，不承诺线索数量与成交结果；AI 生成文案发布前请人工复核，并遵守各平台广告规则（已内置广告法极限词检测）。广告投放请以各平台官方后台数据为准。
+  </div>
+
+  <nav class="ads-tabs" role="tablist" aria-label="AI 投放优化获客功能">
+    <button type="button" class="ads-tab on" id="tab-overview" data-tab="overview" role="tab" aria-selected="true" aria-controls="panel-overview"><span class="n">1</span>概览</button>
+    <button type="button" class="ads-tab" id="tab-profile" data-tab="profile" role="tab" aria-selected="false" aria-controls="panel-profile"><span class="n">2</span>商家档案</button>
+    <button type="button" class="ads-tab" id="tab-keywords" data-tab="keywords" role="tab" aria-selected="false" aria-controls="panel-keywords"><span class="n">3</span>关键词</button>
+    <button type="button" class="ads-tab" id="tab-creatives" data-tab="creatives" role="tab" aria-selected="false" aria-controls="panel-creatives"><span class="n">4</span>创意中心</button>
+    <button type="button" class="ads-tab" id="tab-leads" data-tab="leads" role="tab" aria-selected="false" aria-controls="panel-leads"><span class="n">5</span>线索台账</button>
+    <button type="button" class="ads-tab" id="tab-scripts" data-tab="scripts" role="tab" aria-selected="false" aria-controls="panel-scripts"><span class="n">6</span>话术库</button>
+    <button type="button" class="ads-tab" id="tab-reports" data-tab="reports" role="tab" aria-selected="false" aria-controls="panel-reports"><span class="n">7</span>报表</button>
+    <button type="button" class="ads-tab" id="tab-settings" data-tab="settings" role="tab" aria-selected="false" aria-controls="panel-settings"><span class="n">8</span>设置</button>
+  </nav>
+
+  <div class="ads-panels">
+    <!-- ================= 1. 概览 ================= -->
+    <section class="ads-panel" id="panel-overview" data-panel="overview" role="tabpanel" aria-labelledby="tab-overview">
+      <div class="ads-ovbar">
+        <span class="ads-state" id="ovUpdated">本月数据 · 等待加载</span>
+        <div class="ads-btns" style="margin:0">
+          <button type="button" class="ads-btn ghost sm" id="btnOvRefresh">↻ 刷新数据</button>
+          <button type="button" class="ads-btn line sm" data-goto="reports">📥 导入报表更新</button>
+        </div>
+      </div>
+
+      <div class="ads-stats" aria-label="本月投放核心指标">
+        <div class="ads-stat cyan"><div class="s-lb">💰 本月消耗</div><div class="s-v" id="statSpend">—</div><div class="s-sub">官方后台 / 手动报表</div></div>
+        <div class="ads-stat violet"><div class="s-lb">📋 线索数</div><div class="s-v" id="statLeads">—</div><div class="s-sub">全平台合计</div></div>
+        <div class="ads-stat amber"><div class="s-lb">🎯 线索成本</div><div class="s-v" id="statCpl">—</div><div class="s-sub">消耗 ÷ 线索数</div></div>
+        <div class="ads-stat lime"><div class="s-lb">🔥 高意向线索</div><div class="s-v" id="statHigh">—</div><div class="s-sub">≥ 80 分（100 分制）</div></div>
+        <div class="ads-stat pink"><div class="s-lb">🤝 预估成交</div><div class="s-v" id="statDeals">—</div><div class="s-sub">按高意向 × 行业转化估算</div></div>
+      </div>
+
+      <div class="ads-grid two">
+        <section class="ads-sec ads-card glow">
+          <div class="ads-sec-h"><span class="ads-sec-ico">📊</span><div><h2>平台对比</h2><p class="ads-sub">各平台线索量、消耗、线索成本与转化率横向对比，判断预算该往哪加。</p></div><span class="hint">条形长度 = 线索量占比</span></div>
+          <div class="ads-bars" id="platBars"></div>
+          <p class="ads-legend">线索成本 = 消耗 ÷ 线索数；转化率 = 线索数 ÷ 咨询量（报表字段缺失时按行业基准估算）。</p>
+        </section>
+        <section class="ads-sec ads-card">
+          <div class="ads-sec-h"><span class="ads-sec-ico">📈</span><div><h2>优化前后对比</h2><p class="ads-sub">接入 AI 选词 / 创意 / 线索分级前后的关键指标变化（以最近两次报表周期为准）。</p></div></div>
+          <div class="ads-ba">
+            <div class="ads-ba-card"><h4>优化前（人工投放）</h4><div class="ba-big" id="baCplBefore">—</div><div class="ba-sub">平均线索成本</div><div class="ba-sub" style="margin-top:6px">转化率 <b id="baConvBefore">—</b></div></div>
+            <div class="ads-ba-arrow" aria-hidden="true">→</div>
+            <div class="ads-ba-card after"><h4>优化后（AI 辅助）</h4><div class="ba-big" id="baCplAfter">—</div><div class="ba-sub">平均线索成本</div><div class="ba-sub" style="margin-top:6px">转化率 <b id="baConvAfter">—</b></div></div>
+          </div>
+          <div class="ads-ba-list" id="baList"></div>
+          <div class="ads-note ok"><span class="n-ico">💡</span><div>对比口径说明：数据来自商家手动导入的报表；导入报表后本模块自动更新，未导入时显示行业演示数据。</div></div>
+        </section>
+      </div>
+
+      <div class="ads-grid two" style="margin-top:14px">
+        <section class="ads-sec ads-card">
+          <div class="ads-sec-h"><span class="ads-sec-ico">🧮</span><div><h2>建议预算分配</h2><p class="ads-sub">按「线索成本 + 线索量 + 高意向占比」给出下月预算建议，总预算取自商家档案。</p></div><span class="hint" id="budgetTotalHint"></span></div>
+          <div class="ads-budget" id="budgetList"></div>
+          <div class="ads-budget-total"><span>建议总预算（等于商家档案月预算）</span><b id="budgetTotal">—</b></div>
+          <div class="ads-btns"><button type="button" class="ads-btn ghost sm" data-goto="profile">✏️ 去档案调整预算</button></div>
+        </section>
+        <section class="ads-sec ads-card">
+          <div class="ads-sec-h"><span class="ads-sec-ico">🛡️</span><div><h2>风险提示与使用建议</h2><p class="ads-sub">投放是「平台竞价 + 素材 + 承接」的组合，AI 只能提效，不能保证结果。</p></div></div>
+          <div class="ads-note warn"><span class="n-ico">⚠️</span><div><b>不承诺成交：</b>获客效果受平台竞价、同行竞争、商家接听/回复速度、到店体验影响；请先跑通「接得住」再逐步加预算。</div></div>
+          <div class="ads-note"><span class="n-ico">🧪</span><div><b>小步测试：</b>新词 / 新创意建议单平台日预算 ≤ 300 元，跑 3–5 天看线索成本再放量；不要一次全量砸预算。</div></div>
+          <div class="ads-note"><span class="n-ico">📞</span><div><b>承接优先：</b>高意向线索（80 分以上）建议 10 分钟内首联；先解决接听率和到店率，再优化投放端。</div></div>
+          <div class="ads-note bad"><span class="n-ico">🚫</span><div><b>合规红线：</b>不刷单刷评、不自动私信评论、不抓取非公开数据；文案不得使用「最、第一、国家级、100%」等极限词。</div></div>
+        </section>
+      </div>
+    </section>
+
+    <!-- ================= 2. 商家档案 ================= -->
+    <section class="ads-panel" id="panel-profile" data-panel="profile" role="tabpanel" aria-labelledby="tab-profile" hidden>
+      <section class="ads-sec ads-card glow">
+        <div class="ads-sec-h"><span class="ads-sec-ico">🏪</span><div><h2>商家基础档案</h2><p class="ads-sub">全平台共用，只填一次。保存后，关键词、创意、话术、线索分级都会自动读取这份档案。</p></div><span class="hint" id="pfState">未保存</span></div>
+        <div class="ads-form">
+          <div class="ads-field"><label class="ads-label" for="pfName">商家名称 <span class="req">*</span></label><input class="ads-input" id="pfName" maxlength="60" placeholder="与各平台店铺名保持一致，如：星籁除甲醛（通州店）"></div>
+          <div class="ads-field"><label class="ads-label" for="pfIndustry">所属行业 <span class="req">*</span> <span class="tip">本地生活行业分类</span></label>
+            <select class="ads-select" id="pfIndustry">
+              <option value="除甲醛/环保">除甲醛 / 环保</option>
+              <option value="装修建材">装修建材</option>
+              <option value="家政保洁">家政保洁</option>
+              <option value="家电维修">家电维修</option>
+              <option value="美业">美业（美容/美发/美甲）</option>
+              <option value="化妆培训">化妆培训</option>
+              <option value="餐饮">餐饮</option>
+              <option value="婚庆">婚庆</option>
+              <option value="教育培训">教育培训</option>
+              <option value="口腔医疗">口腔医疗</option>
+              <option value="月子中心">月子中心</option>
+              <option value="汽车服务">汽车服务</option>
+              <option value="其他">其他（请在下方自定义）</option>
+            </select>
+            <input class="ads-input" id="pfIndustryCustom" maxlength="30" placeholder="自定义行业名称（选「其他」时填写）" hidden>
+          </div>
+          <div class="ads-field"><label class="ads-label" for="pfCity">服务城市 <span class="req">*</span></label><input class="ads-input" id="pfCity" maxlength="30" placeholder="如：北京"></div>
+          <div class="ads-field"><label class="ads-label" for="pfArea">区县 / 商圈 <span class="tip">多个用逗号分隔</span></label><input class="ads-input" id="pfArea" maxlength="120" placeholder="如：通州区, 朝阳区, 宋庄商圈"></div>
+          <div class="ads-field"><label class="ads-label" for="pfRadius">服务半径（公里）</label><input class="ads-input" id="pfRadius" type="number" min="1" max="200" step="1" inputmode="numeric" placeholder="如：15"></div>
+          <div class="ads-field"><label class="ads-label" for="pfPriceMin">客单价区间（元）</label><div class="ads-range-row"><input class="ads-input" id="pfPriceMin" type="number" min="0" step="100" inputmode="numeric" placeholder="最低"><span>—</span><input class="ads-input" id="pfPriceMax" type="number" min="0" step="100" inputmode="numeric" placeholder="最高"></div></div>
+          <div class="ads-field full"><label class="ads-label">服务项目 <span class="tip">回车添加，如「新房除甲醛」「办公室治理」「新娘跟妆」</span></label>
+            <div class="ads-chips" id="pfServiceTags"><div class="ads-chip-add"><input id="pfServiceInput" maxlength="24" placeholder="输入服务项目后回车添加" aria-label="添加服务项目"><button type="button" id="pfServiceAdd">＋ 添加</button></div></div>
+          </div>
+          <div class="ads-field full"><label class="ads-label" for="pfAudience">目标客户人群</label><textarea class="ads-textarea" id="pfAudience" maxlength="300" placeholder="如：刚装修完的业主、幼儿园采购、零基础想入行的学员"></textarea></div>
+          <div class="ads-field full"><label class="ads-label" for="pfSelling">核心卖点 <span class="tip">用于创意与话术生成</span></label><textarea class="ads-textarea" id="pfSelling" maxlength="500" placeholder="如：CMA 认证检测、达标再付款、通州本地 100+ 家案例、24 小时上门"></textarea></div>
+          <div class="ads-field"><label class="ads-label" for="pfCompetitors">竞品 / 同行 <span class="tip">可选，用于差异化创意</span></label><input class="ads-input" id="pfCompetitors" maxlength="120" placeholder="如：绿居家、树派环保"></div>
+          <div class="ads-field"><label class="ads-label" for="pfBudget">投放预算（元/月）</label><input class="ads-input" id="pfBudget" type="number" min="0" step="100" inputmode="numeric" placeholder="如：12000"></div>
+          <div class="ads-field full"><label class="ads-label" for="pfUrl">落地页 / 店铺链接</label><input class="ads-input" id="pfUrl" maxlength="300" placeholder="https://xinglaiai.com/ai-nav/store/（各平台投放承接页）"></div>
+        </div>
+        <div class="ads-btns">
+          <button type="button" class="ads-btn" id="btnProfileSave">💾 保存档案</button>
+          <button type="button" class="ads-btn ghost" id="btnProfileLoad">↻ 重新读取</button>
+          <button type="button" class="ads-btn line" id="btnProfileFill">填入示例</button>
+          <span class="ads-state" id="pfStatus">档案只保存在商家自己的账号/浏览器，不会公开。</span>
+        </div>
+        <div class="ads-note"><span class="n-ico">🔒</span><div><b>数据安全：</b>档案与线索仅用于本商家投放优化，支持导出与删除，不转卖第三方；线索中的手机号/微信请按《个人信息保护法》要求妥善保管。</div></div>
+      </section>
+    </section>
+
+    <!-- ================= 3. 关键词 ================= -->
+    <section class="ads-panel" id="panel-keywords" data-panel="keywords" role="tabpanel" aria-labelledby="tab-keywords" hidden>
+      <section class="ads-sec ads-card glow">
+        <div class="ads-sec-h"><span class="ads-sec-ico">🔑</span><div><h2>跨平台关键词引擎</h2><p class="ads-sub">按商家档案一键生成长尾词矩阵：地域+服务 / 地域+痛点 / 场景+需求 / 疑问+方案，并自动配套否定词。</p></div><span class="hint">生成后按平台导出</span></div>
+        <div class="ads-pf-tabs" id="kwPlatforms" role="tablist" aria-label="选择关键词平台"></div>
+        <div class="ads-kw-tools">
+          <div class="ads-field"><label class="ads-label" for="kwCount">生成数量</label>
+            <select class="ads-select" id="kwCount"><option value="10">10 个</option><option value="20" selected>20 个</option><option value="30">30 个</option><option value="50">50 个</option></select>
+          </div>
+          <div class="ads-field"><label class="ads-label" for="kwMatch">匹配方式建议</label>
+            <select class="ads-select" id="kwMatch"><option value="auto" selected>智能（按词性自动）</option><option value="phrase">短语匹配</option><option value="wide">广泛匹配</option></select>
+          </div>
+          <button type="button" class="ads-btn" id="btnKwGen">✨ 生成关键词</button>
+          <button type="button" class="ads-btn ghost" id="btnKwMore">↻ 换一批</button>
+        </div>
+        <div class="ads-state" id="kwStatus" role="status">选择平台后点「生成关键词」；会读取商家档案中的城市、区县、服务项目。</div>
+        <div id="kwResult" hidden>
+          <div class="ads-kw-summary" id="kwSummary"></div>
+          <div class="ads-kw-groups" id="kwGroups"></div>
+          <div class="ads-negbox">
+            <h4>🚫 否定词（复制到平台后台，过滤无效点击）</h4>
+            <div class="ads-neglist" id="kwNegatives"></div>
+          </div>
+          <div class="ads-kw-actions">
+            <button type="button" class="ads-btn" id="btnKwCsv">⬇ 下载 CSV（百度后台可导入格式）</button>
+            <button type="button" class="ads-btn ghost" id="btnKwCopyAll">📋 复制全部关键词</button>
+            <span class="ads-hintline" id="kwFileHint"></span>
+          </div>
+        </div>
+        <div class="ads-note warn"><span class="n-ico">⚠️</span><div><b>合规提示：</b>关键词只用于商家自己在官方广告后台（百度营销 / 巨量引擎 / 小红书聚光 / 58 / 美团推广通）投放，不用于爬取客户信息；导出后请按平台规则审核后导入。</div></div>
+      </section>
+    </section>
+
+    <!-- ================= 4. 创意中心 ================= -->
+    <section class="ads-panel" id="panel-creatives" data-panel="creatives" role="tabpanel" aria-labelledby="tab-creatives" hidden>
+      <section class="ads-sec ads-card glow">
+        <div class="ads-sec-h"><span class="ads-sec-ico">✍️</span><div><h2>创意生成中心</h2><p class="ads-sub">同一卖点生成多平台、多类型版本：标题、描述、小红书笔记、58 帖子、短视频脚本、评论区回复。全部标注「AI 辅助生成」，并自动做广告法极限词预检。</p></div><span class="hint">高风险词自动高亮</span></div>
+        <div class="ads-cr-tools">
+          <div class="ads-field"><label class="ads-label" for="crPlatform">平台</label><select class="ads-select" id="crPlatform"></select></div>
+          <div class="ads-field"><label class="ads-label" for="crType">创意类型</label>
+            <select class="ads-select" id="crType">
+              <option value="title">搜索广告标题（≤28 字）</option>
+              <option value="desc">搜索广告描述（≤80 字）</option>
+              <option value="note">小红书笔记文案</option>
+              <option value="post">58 帖子文案</option>
+              <option value="script">短视频脚本</option>
+              <option value="reply">评论区回复建议</option>
+            </select>
+          </div>
+          <div class="ads-field"><label class="ads-label" for="crCount">生成版本数</label><select class="ads-select" id="crCount"><option value="3" selected>3 个</option><option value="5">5 个</option></select></div>
+          <button type="button" class="ads-btn" id="btnCrGen">✨ 生成创意</button>
+        </div>
+        <div class="ads-state" id="crStatus" role="status">选择平台与类型后生成；脚本可一键送去视频工作台。</div>
+        <div class="ads-cr-grid" id="crOut"></div>
+        <div class="ads-note"><span class="n-ico">🤖</span><div>所有生成内容均带 <span class="ads-badge ai">AI 辅助生成</span> 标识。发布前请人工修改风险词，并对内容真实性负责；短视频脚本可到「短视频工作台」生成成片。</div></div>
+      </section>
+    </section>
+
+    <!-- ================= 5. 线索台账 ================= -->
+    <section class="ads-panel" id="panel-leads" data-panel="leads" role="tabpanel" aria-labelledby="tab-leads" hidden>
+      <section class="ads-sec ads-card glow">
+        <div class="ads-sec-h"><span class="ads-sec-ico">🧾</span><div><h2>线索台账 · 100 分六维评分</h2><p class="ads-sub">手动导入商家自己的线索（粘贴 / CSV），系统按需求明确度 25、紧迫程度 20、地域匹配 20、预算匹配 15、购买阶段 10、联系方式完整度 10 自动打分分级。</p></div><span class="hint" id="leadCountHint"></span></div>
+        <div class="ads-lead-tools">
+          <div class="ads-import">
+            <label class="ads-label" for="leadPaste">粘贴线索 <span class="tip">每行一条：平台 | 昵称 | 原文</span></label>
+            <textarea class="ads-textarea" id="leadPaste" maxlength="8000" placeholder="小红书 | 李女士 | 通州新房刚装修完，90 平，想约周末检测甲醛，大概多少钱？微信 li123456&#10;百度 | 王先生 | 办公室 300 平除甲醛，麻烦报个价，电话 13800001234&#10;抖音 | 张同学 | 想学化妆，零基础，多少钱"></textarea>
+            <div class="ads-btns" style="margin-top:0">
+              <button type="button" class="ads-btn" id="btnLeadGrade">📥 导入并评分</button>
+              <button type="button" class="ads-btn ghost" id="btnLeadSample">填入示例（3 条）</button>
+              <label class="ads-btn line" for="leadFile" style="cursor:pointer">📄 选择 CSV 文件</label>
+              <input type="file" id="leadFile" accept=".csv,text/csv" class="ads-sr">
+            </div>
+            <div class="ads-state" id="leadStatus" role="status">也支持 CSV 表头：平台,昵称,原文,联系方式,时间（逗号分隔）。</div>
+          </div>
+          <div class="ads-card" style="box-shadow:none;padding:14px">
+            <h3 style="margin:0 0 6px;font-size:14px">📐 评分规则（100 分制）</h3>
+            <div style="font-size:12.5px;color:var(--ad-txt2);line-height:1.9">
+              <div>需求明确度 <b style="color:var(--ad-cyan)">25</b> · 紧迫程度 <b style="color:var(--ad-cyan)">20</b></div>
+              <div>地域匹配 <b style="color:var(--ad-cyan)">20</b> · 预算匹配 <b style="color:var(--ad-cyan)">15</b></div>
+              <div>购买阶段 <b style="color:var(--ad-cyan)">10</b> · 联系方式完整度 <b style="color:var(--ad-cyan)">10</b></div>
+            </div>
+            <div class="ads-divider" style="margin:10px 0"></div>
+            <div style="font-size:12.5px;line-height:1.8;display:flex;flex-direction:column;gap:4px">
+              <span><span class="ads-badge hi">高意向</span> 80–100 分 · 优先跟进</span>
+              <span><span class="ads-badge mid">中意向</span> 50–79 分 · 培育跟进</span>
+              <span><span class="ads-badge low">低意向</span> &lt; 50 分 · 内容触达即可</span>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="ads-sec ads-card">
+        <div class="ads-sec-h"><span class="ads-sec-ico">📋</span><div><h2>线索列表</h2></div><span class="hint" id="leadCount">0 条</span></div>
+        <div class="ads-lead-filters">
+          <select class="ads-select" id="leadFilterPlatform" aria-label="按来源平台筛选"><option value="">全部平台</option></select>
+          <select class="ads-select" id="leadFilterLevel" aria-label="按意向等级筛选">
+            <option value="">全部等级</option><option value="high">高意向</option><option value="mid">中意向</option><option value="low">低意向</option>
+          </select>
+          <input class="ads-input grow" id="leadFilterKw" maxlength="60" placeholder="搜索昵称 / 内容 / 联系方式" aria-label="搜索线索">
+          <button type="button" class="ads-btn ghost sm" id="btnLeadExport">⬇ 导出 CSV</button>
+          <button type="button" class="ads-btn danger sm" id="btnLeadClear">清空全部</button>
+        </div>
+        <div class="ads-lead-list" id="leadList"></div>
+      </section>
+    </section>
+
+    <!-- ================= 6. 话术库 ================= -->
+    <section class="ads-panel" id="panel-scripts" data-panel="scripts" role="tabpanel" aria-labelledby="tab-scripts" hidden>
+      <section class="ads-sec ads-card glow">
+        <div class="ads-sec-h"><span class="ads-sec-ico">💬</span><div><h2>AI 跟进话术库</h2><p class="ads-sub">按「行业 × 平台 × 意向等级 × 风格」生成 5 类话术：首次接待、报价答疑、邀约到店、回访、转介绍。<b>全部由商家人工复制发送，系统不自动发送。</b></p></div><span class="hint">人工发送 · 不群发</span></div>
+        <div class="ads-sc-tools">
+          <div class="ads-field"><label class="ads-label" for="scIndustry">行业</label><select class="ads-select" id="scIndustry"></select></div>
+          <div class="ads-field"><label class="ads-label" for="scPlatform">平台</label><select class="ads-select" id="scPlatform"></select></div>
+          <div class="ads-field"><label class="ads-label" for="scLevel">意向等级</label><select class="ads-select" id="scLevel"><option value="high">高意向（80–100）</option><option value="mid" selected>中意向（50–79）</option><option value="low">低意向（&lt;50）</option></select></div>
+          <div class="ads-field"><label class="ads-label" for="scStyle">话术风格</label><select class="ads-select" id="scStyle"><option value="pro" selected>专业稳重</option><option value="warm">亲切口语</option><option value="lively">活泼种草</option></select></div>
+        </div>
+        <div class="ads-btns" style="margin-top:0"><button type="button" class="ads-btn" id="btnScGen">✨ 生成 5 类话术</button><span class="ads-state" id="scStatus" role="status">话术供人工复制使用，禁止群发骚扰。</span></div>
+        <div class="ads-sc-grid" id="scOut" style="margin-top:14px"></div>
+        <div class="ads-note warn"><span class="n-ico">✋</span><div><b>人工发送，勿刷屏：</b>同一客户 7 天内最多打扰 1 次；先确认对方公开表达过需求，再发送。系统只生成话术，不代发、不群发、不自动评论。</div></div>
+      </section>
+    </section>
+
+    <!-- ================= 7. 报表 ================= -->
+    <section class="ads-panel" id="panel-reports" data-panel="reports" role="tabpanel" aria-labelledby="tab-reports" hidden>
+      <section class="ads-sec ads-card glow">
+        <div class="ads-sec-h"><span class="ads-sec-ico">📥</span><div><h2>投放报表导入</h2><p class="ads-sub">从各平台官方后台导出 CSV 后上传（或直接粘贴），系统自动汇总消耗、线索、线索成本，并更新「概览」页数字。</p></div><span class="hint">官方后台数据 · 手动导入</span></div>
+        <div class="ads-rp-tools">
+          <div class="ads-field"><label class="ads-label" for="rpPlatform">报表平台</label><select class="ads-select" id="rpPlatform"></select></div>
+          <div class="ads-field" style="flex:1 1 240px"><label class="ads-label" for="rpFile">选择 CSV 报表</label><input class="ads-input" id="rpFile" type="file" accept=".csv,text/csv" style="padding-top:9px"></div>
+          <button type="button" class="ads-btn" id="btnRpImport">📥 导入报表</button>
+          <button type="button" class="ads-btn ghost" id="btnRpTemplate">⬇ 下载模板</button>
+        </div>
+        <div class="ads-state" id="rpStatus" role="status">模板列：日期,平台,展现量,点击量,消耗,咨询量,线索量。导入后自动更新概览。</div>
+        <div class="ads-tpl-box"><span class="ads-hintline">模板示例：</span><code>2026-11-01,百度,12000,360,860.5,26,12</code><span class="ads-hintline">（平台列可省略，导入时以左侧所选平台为准）</span></div>
+        <div class="ads-rp-imported" id="rpImported"></div>
+      </section>
+
+      <div class="ads-grid two">
+        <section class="ads-sec ads-card">
+          <div class="ads-sec-h"><span class="ads-sec-ico">📊</span><div><h2>平台对比（导入数据）</h2></div></div>
+          <div class="ads-bars" id="rpBars"></div>
+          <p class="ads-legend" id="rpLegend">导入报表后显示各平台线索量与线索成本。</p>
+        </section>
+        <section class="ads-sec ads-card">
+          <div class="ads-sec-h"><span class="ads-sec-ico">📈</span><div><h2>优化前后对比</h2></div></div>
+          <div class="ads-ba">
+            <div class="ads-ba-card"><h4>优化前（人工投放）</h4><div class="ba-big" id="rpBaCplBefore">—</div><div class="ba-sub">平均线索成本</div><div class="ba-sub" style="margin-top:6px">转化率 <b id="rpBaConvBefore">—</b></div></div>
+            <div class="ads-ba-arrow" aria-hidden="true">→</div>
+            <div class="ads-ba-card after"><h4>优化后（AI 辅助）</h4><div class="ba-big" id="rpBaCplAfter">—</div><div class="ba-sub">平均线索成本</div><div class="ba-sub" style="margin-top:6px">转化率 <b id="rpBaConvAfter">—</b></div></div>
+          </div>
+          <div class="ads-ba-list" id="rpBaList"></div>
+        </section>
+      </div>
+
+      <section class="ads-sec ads-card" style="margin-top:14px">
+        <div class="ads-sec-h"><span class="ads-sec-ico">📤</span><div><h2>导出与汇报</h2><p class="ads-sub">导出 CSV 用于 Excel 分析，或直接打印 / 另存为 PDF 交给老板汇报。</p></div></div>
+        <div class="ads-rp-actions">
+          <button type="button" class="ads-btn" id="btnRpExport">⬇ 导出汇总 CSV</button>
+          <button type="button" class="ads-btn ghost" id="btnRpPrint">🖨️ 打印 / 另存 PDF</button>
+          <button type="button" class="ads-btn danger" id="btnRpClear">清空报表数据</button>
+          <span class="ads-state" id="rpDataHint">尚无导入数据时，概览显示行业演示数据。</span>
+        </div>
+        <div class="ads-note"><span class="n-ico">📌</span><div>报表仅使用商家从官方广告后台导出的数据；系统不代登录、不代充值，也不读取非授权数据。</div></div>
+      </section>
+    </section>
+
+    <!-- ================= 8. 设置 ================= -->
+    <section class="ads-panel" id="panel-settings" data-panel="settings" role="tabpanel" aria-labelledby="tab-settings" hidden>
+      <section class="ads-sec ads-card glow">
+        <div class="ads-sec-h"><span class="ads-sec-ico">⚙️</span><div><h2>套餐与额度</h2><p class="ads-sub">查看当前套餐权益与本月已用额度；需要更多平台 / 自动化能力可升级。</p></div></div>
+        <div class="ads-plan-current">
+          <div>
+            <div class="pc-name"><span id="planName">专业版</span><span class="ads-badge ok" id="planTag">当前套餐</span></div>
+            <div class="pc-sub" id="planExpire">有效期至 2027-11-17 · 覆盖百度 / 巨量 / 小红书 / 58 / 美团</div>
+          </div>
+          <div style="text-align:right"><div style="font-size:12px;color:var(--ad-txt3)">月费</div><div style="font-size:24px;font-weight:900;font-variant-numeric:tabular-nums" id="planPrice">¥199</div></div>
+        </div>
+        <div class="ads-quota" id="quotaList"></div>
+        <div class="ads-upgrade">
+          <div class="u-txt"><b>想要全平台不限量？</b> 高级版含：关键词不限量、自动线索分级 + 实时提醒、优化前后对比、GEO/视频/CRM 全打通。</div>
+          <div class="ads-btns" style="margin:0"><a class="ads-btn" href="../pricing/">升级高级版 →</a><a class="ads-btn line" href="../account/dashboard.html">查看账单</a></div>
+        </div>
+      </section>
+
+      <section class="ads-sec ads-card">
+        <div class="ads-sec-h"><span class="ads-sec-ico">📋</span><div><h2>套餐权限表</h2><p class="ads-sub">基础版 / 专业版 / 高级版权益对比，按需求文档套餐设计展示。</p></div></div>
+        <div class="ads-table-wrap">
+          <table class="ads-plan-table">
+            <thead><tr><th>权益</th><th>基础版 ¥99/月</th><th>专业版 ¥199/月</th><th>高级版 ¥499/月</th></tr></thead>
+            <tbody>
+              <tr><td>关键词生成（每日）</td><td>20 条</td><td class="cur">100 条</td><td>不限</td></tr>
+              <tr><td>平台覆盖</td><td>百度 + 58</td><td class="cur">+ 抖音（巨量）+ 美团</td><td>+ 小红书（全平台）</td></tr>
+              <tr><td>创意生成</td><td>标题 / 描述</td><td class="cur">+ 脚本 / 笔记文案</td><td>不限量 + 多版本</td></tr>
+              <tr><td>线索分级</td><td>手动导入</td><td class="cur">+ 自动打分</td><td>+ 实时提醒</td></tr>
+              <tr><td>报表复盘</td><td>基础数据</td><td class="cur">+ 平台对比</td><td>+ 优化前后对比 + 导出</td></tr>
+              <tr><td>话术库</td><td>基础接待</td><td class="cur">+ 全流程话术</td><td>+ 自定义话术训练</td></tr>
+              <tr><td>GEO / 视频 / CRM 打通</td><td>否</td><td class="cur">是</td><td>是</td></tr>
+            </tbody>
+          </table>
+        </div>
+        <div class="ads-note"><span class="n-ico">ℹ️</span><div>当前页面为前端演示额度；正式额度以账号中心 / 服务端套餐配置为准。升级后平台覆盖与每日生成条数立即生效。</div></div>
+      </section>
+    </section>
+  </div>
+</main>
+
+<div id="adsToast" role="status" aria-live="polite"></div>
+<footer style="max-width:1280px;margin:0 auto;padding:0 20px 40px;font-size:12px;color:var(--ad-txt3);line-height:1.8">
+  星籁 AI · AI 投放优化获客模块：只做官方渠道投放增效与文案辅助，不爬虫、不自动触达、不承诺成交。<br>
+  <a href="../leadgen/" style="color:var(--ad-cyan);text-decoration:underline;text-underline-offset:3px">线索台账</a> ·
+  <a href="../studio/" style="color:var(--ad-cyan);text-decoration:underline;text-underline-offset:3px">短视频工作台</a> ·
+  <a href="../geo/" style="color:var(--ad-cyan);text-decoration:underline;text-underline-offset:3px">GEO 推广</a> ·
+  <a href="../pricing/" style="color:var(--ad-cyan);text-decoration:underline;text-underline-offset:3px">套餐定价</a> ·
+  <a href="../privacy.html" style="color:var(--ad-cyan);text-decoration:underline;text-underline-offset:3px">隐私政策</a>
+</footer>
+<script>
+/* =====================================================================
+ * AI 投放优化获客 · 前端逻辑
+ * 接口优先（/ai-nav/api/ads/*），接口未就绪时自动降级为本地演示引擎，
+ * 所有操作保存在本机浏览器；不发送任何未经用户确认的触达。
+ * ===================================================================== */
+(function () {
+'use strict';
+
+/* ---------------- 0. 基础工具 ---------------- */
+function $(id) { return document.getElementById(id); }
+function qa(sel, root) { return Array.prototype.slice.call((root || document).querySelectorAll(sel)); }
+function esc(s) {
+  return String(s == null ? '' : s).replace(/[&<>"']/g, function (c) {
+    return { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c];
+  });
+}
+var toastTimer = null;
+function toast(msg, type) {
+  var t = $('adsToast');
+  if (!t) return;
+  t.textContent = String(msg || '');
+  t.className = 'show' + (type ? ' ' + type : '');
+  clearTimeout(toastTimer);
+  toastTimer = setTimeout(function () { t.className = ''; }, 2800);
+}
+function copyText(text) {
+  function fallback(t) {
+    try {
+      var ta = document.createElement('textarea');
+      ta.value = t;
+      ta.setAttribute('readonly', '');
+      ta.style.position = 'fixed'; ta.style.top = '-9999px'; ta.style.opacity = '0';
+      document.body.appendChild(ta);
+      ta.select(); ta.setSelectionRange(0, ta.value.length);
+      var ok = document.execCommand('copy');
+      document.body.removeChild(ta);
+      return !!ok;
+    } catch (e) { return false; }
+  }
+  return new Promise(function (resolve) {
+    if (navigator.clipboard && navigator.clipboard.writeText) {
+      navigator.clipboard.writeText(text).then(function () { resolve(true); }, function () { resolve(fallback(text)); });
+    } else { resolve(fallback(text)); }
+  });
+}
+function downloadFile(name, content, mime, noBom) {
+  try {
+    var blob = new Blob([noBom ? content : '\ufeff' + content], { type: (mime || 'text/csv') + ';charset=utf-8' });
+    var a = document.createElement('a');
+    a.href = URL.createObjectURL(blob);
+    a.download = name;
+    document.body.appendChild(a);
+    a.click();
+    setTimeout(function () { try { URL.revokeObjectURL(a.href); a.remove(); } catch (e) {} }, 500);
+    return true;
+  } catch (e) { return false; }
+}
+function fm(n) { n = Number(n) || 0; return n.toLocaleString('zh-CN', { maximumFractionDigits: 0 }); }
+function fm1(n) { n = Number(n) || 0; return n.toLocaleString('zh-CN', { maximumFractionDigits: 1, minimumFractionDigits: 0 }); }
+function money(n) { return '¥' + fm1(n); }
+function pct(n) { return (Number(n) || 0).toFixed(1) + '%'; }
+function today() { var d = new Date(); return d.getFullYear() + '-' + ('0' + (d.getMonth() + 1)).slice(-2) + '-' + ('0' + d.getDate()).slice(-2); }
+function stamp() { var d = new Date(); return today() + ' ' + ('0' + d.getHours()).slice(-2) + ':' + ('0' + d.getMinutes()).slice(-2); }
+function uid() { return 'id' + Date.now().toString(36) + Math.random().toString(36).slice(2, 6); }
+function clamp(n, a, b) { return Math.max(a, Math.min(b, n)); }
+function uniq(arr) { var seen = {}, out = []; (arr || []).forEach(function (x) { if (x && !seen[x]) { seen[x] = 1; out.push(x); } }); return out; }
+function lsGet(key, def) { try { var v = localStorage.getItem(key); return v ? JSON.parse(v) : def; } catch (e) { return def; } }
+function lsSet(key, val) { try { localStorage.setItem(key, JSON.stringify(val)); } catch (e) {} }
+function lsDel(key) { try { localStorage.removeItem(key); } catch (e) {} }
+
+/* ---------------- 1. 常量 ---------------- */
+var PF = [
+  { id: 'baidu', name: '百度搜索推广', short: '百度', color: '#38bdf8', ico: '百' },
+  { id: 'oceanengine', name: '巨量引擎（抖音/头条）', short: '巨量', color: '#f472b6', ico: '抖' },
+  { id: 'xiaohongshu', name: '小红书聚光', short: '小红书', color: '#fb7185', ico: '红' },
+  { id: '58', name: '58 同城', short: '58', color: '#fbbf24', ico: '58' },
+  { id: 'meituan', name: '美团 / 大众点评', short: '美团', color: '#34d399', ico: '美' }
+];
+var PF_MAP = {};
+PF.forEach(function (p) { PF_MAP[p.id] = p; });
+function pfName(id) { return PF_MAP[id] ? PF_MAP[id].name : (id || '手动导入'); }
+function pfShort(id) { return PF_MAP[id] ? PF_MAP[id].short : (id || '手动'); }
+function pfColor(id) { return PF_MAP[id] ? PF_MAP[id].color : '#94a3b8'; }
+
+var DIMS = [
+  { key: 'need', name: '需求明确度', max: 25, tip: '明确说服务项目、面积、时间' },
+  { key: 'urgency', name: '紧迫程度', max: 20, tip: '近期要做、问预约时间' },
+  { key: 'region', name: '地域匹配', max: 20, tip: '在服务半径内' },
+  { key: 'budget', name: '预算匹配', max: 15, tip: '问价格、预算与客单价吻合' },
+  { key: 'stage', name: '购买阶段', max: 10, tip: '比价/决策中 > 了解阶段' },
+  { key: 'contact', name: '联系方式完整度', max: 10, tip: '留了电话/微信 > 仅留言' }
+];
+var LEVELS = { high: { name: '高意向', cls: 'hi', min: 80, desc: '优先跟进，实时提醒' }, mid: { name: '中意向', cls: 'mid', min: 50, desc: '进入培育序列，定期跟进' }, low: { name: '低意向', cls: 'low', min: 0, desc: '归档，内容触达即可' } };
+function levelOf(score) { return score >= 80 ? 'high' : score >= 50 ? 'mid' : 'low'; }
+
+var RISK_WORDS = ['第一品牌', '销量第一', '全网最低', '国家级认证', '国家级', '世界级', '最高级', '史无前例', '零风险', '包治', '根治', '治愈', '彻底解决', '绝对安全', '百分百', '100%', '最专业', '最权威', '最便宜', '最好的', '最低价', '最快', '顶级', '唯一', '第一', '绝对', '保证', '永久', '王牌', '独家', '万能', '稳赚'];
+var RISK_SUGGEST = {
+  '第一品牌': '领先品牌', '销量第一': '销量领先', '全网最低': '价格有竞争力', '国家级认证': '权威机构认证', '国家级': '权威机构', '世界级': '高标准', '最高级': '高标准',
+  '史无前例': '持续创新', '零风险': '风险可控', '包治': '改善', '根治': '改善', '治愈': '缓解', '彻底解决': '有效改善', '绝对安全': '符合安全标准',
+  '百分百': '高比例', '100%': '高比例', '最专业': '专业', '最权威': '权威', '最便宜': '价格亲民', '最好的': '优质', '最低价': '优惠价', '最快': '快速',
+  '顶级': '优质', '唯一': '少有', '第一': '领先', '绝对': '非常', '保证': '承诺（建议改为可验证表述）', '永久': '长期', '王牌': '优势', '独家': '差异化',
+  '万能': '多场景适用', '稳赚': '有望提升'
+};
+function reEsc(s) { return String(s).replace(/[.*+?^${}()|[\]\\]/g, '\\$&'); }
+var RISK_SORTED = RISK_WORDS.slice().sort(function (a, b) { return b.length - a.length; });
+var RISK_RE = new RegExp('(' + RISK_SORTED.map(reEsc).join('|') + ')', 'g');
+function checkCompliance(text) {
+  var t = String(text || ''), hits = [], seen = {};
+  RISK_WORDS.forEach(function (w) {
+    if (t.indexOf(w) >= 0 && !seen[w]) { seen[w] = 1; hits.push({ word: w, suggest: RISK_SUGGEST[w] || '建议替换为合规表述' }); }
+  });
+  return hits;
+}
+function highlightRisk(text) {
+  return esc(text).replace(RISK_RE, '<mark class="ads-mark" title="广告法极限词，发布前请修改">$1</mark>');
+}
+
+/* ---------------- 2. 状态 ---------------- */
+var S = {
+  tab: 'overview',
+  mode: 'probing',
+  profile: null,
+  keywords: null,
+  creatives: null,
+  leads: [],
+  reports: [],
+  scripts: null,
+  dashboard: null,
+  plan: { id: 'pro' }
+};
+var KEYS = {
+  profile: 'ads_profile_v1', leads: 'ads_leads_v1', reports: 'ads_reports_v1',
+  keywords: 'ads_keywords_v1', scripts: 'ads_scripts_v1', plan: 'ads_plan_v1'
+};
+var DEFAULT_PROFILE = {
+  name: '星籁除甲醛（通州店）',
+  industry: '除甲醛/环保',
+  industryCustom: '',
+  city: '北京',
+  area: '通州区, 宋庄商圈',
+  radius: 15,
+  services: ['新房除甲醛', '办公室治理', '幼儿园检测'],
+  priceMin: 3000,
+  priceMax: 8000,
+  audience: '刚装修完的业主、幼儿园采购',
+  selling: 'CMA 认证检测、达标再付款、通州本地 100+ 家案例',
+  competitors: '绿居家、树派环保',
+  budget: 12000,
+  url: 'https://xinglaiai.com/ai-nav/store/'
+};
+var DEMO_DASHBOARD = {
+  spend: 12800, leads: 86, cpl: 148.8, high_intent: 21, est_deals: 9,
+  platforms: [
+    { id: 'baidu', leads: 38, spend: 5600, consults: 172 },
+    { id: 'oceanengine', leads: 24, spend: 3400, consults: 126 },
+    { id: 'xiaohongshu', leads: 14, spend: 2000, consults: 88 },
+    { id: '58', leads: 7, spend: 1200, consults: 43 },
+    { id: 'meituan', leads: 3, spend: 600, consults: 26 }
+  ],
+  before: { cpl: 236, conv: 8.2 },
+  after: { cpl: 148.8, conv: 14.5 },
+  budget: [
+    { id: 'baidu', amount: 5000, note: '主投高意向搜索词，稳定基本盘' },
+    { id: 'juliang', amount: 3600, note: '短视频素材 + 本地推，放量测试' },
+    { id: 'xiaohongshu', amount: 1600, note: '种草笔记 + 搜索卡位，培育决策期客户' },
+    { id: '58', amount: 1200, note: '上门服务帖，维持咨询基本量' },
+    { id: 'meituan', amount: 600, note: '到店团购，拉新与口碑' }
+  ]
+};
+
+/* ---------------- 3. 接口层 ---------------- */
+var API_BASE = (function () {
+  var p = location.pathname;
+  var i = p.lastIndexOf('/ads/');
+  var base = i >= 0 ? p.slice(0, i + 1) : '/ai-nav/';
+  if (/(^|\.)github\.io$/i.test(location.hostname)) return 'https://xinglaiai.com/ai-nav/api/ads';
+  return base + 'api/ads';
+})();
+function wsId() {
+  try {
+    var au = (window.XLAuth && window.XLAuth.token && window.XLAuth.token()) ? window.XLAuth.user() : null;
+    if (au && au.workspace_id) return au.workspace_id;
+  } catch (e) {}
+  var id = '';
+  try { id = localStorage.getItem('ads_workspace') || ''; } catch (e) {}
+  if (!id) {
+    id = 'ws-' + Date.now().toString(36) + Math.random().toString(36).slice(2, 7);
+    try { localStorage.setItem('ads_workspace', id); } catch (e2) {}
+  }
+  return id;
+}
+function authToken() { try { return (window.XLAuth && window.XLAuth.token && window.XLAuth.token()) || ''; } catch (e) { return ''; } }
+function apiCall(path, opts) {
+  opts = opts || {};
+  return new Promise(function (resolve, reject) {
+    var ctrl = null, timer = null;
+    try { ctrl = new AbortController(); } catch (e) { ctrl = null; }
+    timer = setTimeout(function () {
+      try { ctrl && ctrl.abort(); } catch (e) {}
+      var er = new Error('请求超时'); er.status = 0; reject(er);
+    }, opts.timeout || 12000);
+    var headers = { 'Content-Type': 'application/json' };
+    var tk = authToken();
+    if (tk) headers['Authorization'] = 'Bearer ' + tk;
+    var init = { method: opts.method || 'GET', headers: headers, cache: 'no-store', credentials: 'same-origin' };
+    if (opts.body != null) init.body = JSON.stringify(opts.body);
+    if (ctrl) init.signal = ctrl.signal;
+    fetch(API_BASE + path, init).then(function (r) {
+      clearTimeout(timer);
+      return r.text().then(function (txt) {
+        var j = null;
+        try { j = txt ? JSON.parse(txt) : {}; } catch (e) { j = null; }
+        if (!r.ok || (j && j.ok === false)) {
+          var err = new Error((j && (j.hint || j.error)) || ('HTTP ' + r.status));
+          err.status = r.status; err.data = j || {};
+          reject(err); return;
+        }
+        resolve(j || {});
+      });
+    }, function (e) {
+      clearTimeout(timer);
+      var er = new Error('网络异常'); er.status = 0; er.raw = e; reject(er);
+    });
+  });
+}
+function qs(params) {
+  var parts = ['workspace_id=' + encodeURIComponent(wsId())];
+  Object.keys(params || {}).forEach(function (k) {
+    if (params[k] != null && params[k] !== '') parts.push(encodeURIComponent(k) + '=' + encodeURIComponent(params[k]));
+  });
+  return parts.join('&');
+}
+function apiGet(path, params, timeout) { return apiCall(path + '?' + qs(params), { timeout: timeout || 12000 }); }
+function apiPost(path, body, timeout) {
+  var b = {};
+  Object.keys(body || {}).forEach(function (k) { b[k] = body[k]; });
+  b.workspace_id = wsId();
+  return apiCall(path, { method: 'POST', body: b, timeout: timeout || 25000 });
+}
+function apiPut(path, body, timeout) {
+  var b = {};
+  Object.keys(body || {}).forEach(function (k) { b[k] = body[k]; });
+  b.workspace_id = wsId();
+  return apiCall(path, { method: 'PUT', body: b, timeout: timeout || 15000 });
+}
+function apiErrText(e) {
+  if (!e) return '接口调用失败';
+  var d = e.data || {};
+  if (e.status === 402 || d.error === 'plan_limit') {
+    return d.hint || ('当前套餐额度不足（已用 ' + (d.used != null ? d.used : '?') + '/' + (d.limit != null ? d.limit : '?') + '），升级套餐后可继续');
+  }
+  if (e.status === 401 || e.status === 403) return d.hint || '需要登录或套餐权限不足，请先登录账号';
+  return d.hint || d.error || e.message || '接口调用失败';
+}
+function setMode(mode) {
+  S.mode = mode;
+  var pill = $('modePill'), txt = $('modeText');
+  if (!pill || !txt) return;
+  if (mode === 'live') {
+    pill.className = 'ads-mode live';
+    txt.textContent = '已连接服务器接口 · 数据实时保存';
+    var rb = $('btnModeRetry'); if (rb) rb.remove();
+  } else {
+    pill.className = 'ads-mode demo';
+    txt.textContent = '接口未就绪 · 演示数据（本机保存）';
+    if (!$('btnModeRetry')) {
+      var b = document.createElement('button');
+      b.type = 'button'; b.id = 'btnModeRetry'; b.className = 'ads-mini';
+      b.textContent = '重试'; b.title = '重新检测后端接口';
+      b.addEventListener('click', function () { probeBackend(true); });
+      pill.appendChild(b);
+    }
+  }
+}
+function probeBackend(manual) {
+  if (manual) { var mt = $('modeText'); if (mt) mt.textContent = '正在重新检测后端接口…'; }
+  return apiGet('/overview', null, 5000).then(function (d) {
+    S.remoteOverview = d || {};
+    setMode('live');
+    loadRemoteData();
+    if (manual) toast('已连接服务器接口', 'ok');
+    return true;
+  }).catch(function () {
+    setMode('demo');
+    if (manual) toast('后端接口尚未就绪，继续使用本地演示数据', 'warn');
+    return false;
+  });
+}
+function loadRemoteData() {
+  apiGet('/profile', null, 9000).then(function (d) {
+    var p = normalizeRemoteProfile(d && d.profile);
+    if (p) {
+      saveProfileLocal(p);
+      S.remoteProfile = true;
+      renderProfileForm();
+      if (d.plan) applyPlan(d.plan);
+    }
+  }).catch(function () {});
+  apiGet('/plan', null, 7000).then(function (d) {
+    if (d && d.plan) applyPlan(d.plan, d);
+  }).catch(function () {});
+  apiGet('/dashboard', null, 10000).then(function (d) {
+    var n = normalizeDashboard(d);
+    if (n) { S.dashboard = n; renderOverview(); }
+  }).catch(function () {});
+  apiGet('/reports', null, 9000).then(function (d) {
+    if (d && Array.isArray(d.by_platform) && d.by_platform.length) {
+      S.remoteReports = d;
+      if (!S.reports.length) renderReports();
+    }
+  }).catch(function () {});
+}
+function normalizeDashboard(d) {
+  if (!d || typeof d !== 'object') return null;
+  var t = d.totals || d.overview || d.summary || null;
+  if (!t && d.cost == null && d.spend == null && d.leads == null) return null;
+  t = t || d;
+  var num = function (v, def) { var n = Number(v); return isFinite(n) ? n : def; };
+  var spend = num(t.cost != null ? t.cost : t.spend, 0);
+  var leads = num(t.leads != null ? t.leads : t.lead_count, 0);
+  var cpl = num(t.cost_per_lead != null ? t.cost_per_lead : t.cpl, leads ? spend / leads : 0);
+  var high = num(t.high_intent, leads ? Math.round(leads * 0.24) : 0);
+  var deals = num(t.est_deals != null ? t.est_deals : t.deals, high ? Math.round(high * 0.42) : 0);
+  var plats = d.platforms || t.platforms || [];
+  var ba = d.before_after || {};
+  var before = ba.before || d.before || null;
+  var after = ba.after || d.after || null;
+  var budget = d.budget_plan || d.budget || t.budget_plan || null;
+  var normBA = function (x) {
+    if (!x) return null;
+    return { cpl: num(x.cost_per_lead != null ? x.cost_per_lead : x.cpl, 0), conv: num(x.conversion_rate != null ? x.conversion_rate : x.conv, 0) };
+  };
+  return {
+    spend: spend, leads: leads, cpl: cpl, high_intent: high, est_deals: deals,
+    platforms: Array.isArray(plats) ? plats.map(function (p) {
+      var pid = p.platform || p.id || p.key || 'other';
+      return {
+        id: pid, name: p.name || pfName(pid),
+        leads: num(p.leads != null ? p.leads : p.lead_count, 0),
+        spend: num(p.cost != null ? p.cost : p.spend, 0),
+        consults: num(p.consults != null ? p.consults : p.consult_count, 0),
+        conversion_rate: num(p.conversion_rate, 0),
+        cost_per_lead: num(p.cost_per_lead, 0),
+        high_intent: num(p.high_intent, 0)
+      };
+    }) : [],
+    before: normBA(before), after: normBA(after),
+    budget: Array.isArray(budget) ? budget.map(function (b) {
+      return { id: b.platform || b.id || 'other', amount: num(b.amount, 0), pct: num(b.pct, 0), note: b.reason || b.note || '' };
+    }) : null,
+    note: ba.note || '',
+    assumptions: d.assumptions || []
+  };
+}
+
+/* ---------------- 4. 档案 ---------------- */
+function clone(o) { return JSON.parse(JSON.stringify(o)); }
+function splitIndustry(ind) {
+  return String(ind || '').split(/[\/、,，]/).map(function (x) { return x.trim(); }).filter(Boolean);
+}
+function splitAreas(area) {
+  return String(area || '').split(/[,，、;；\s]+/).map(function (x) { return x.trim(); }).filter(Boolean);
+}
+function getProfile() { return S.profile || (S.profile = lsGet(KEYS.profile, null) || clone(DEFAULT_PROFILE)); }
+function saveProfileLocal(p) { S.profile = p; lsSet(KEYS.profile, p); }
+function publicProfile() {
+  var p = getProfile();
+  var ind = (p.industry === '其他' && p.industryCustom) ? p.industryCustom : p.industry;
+  var min = Number(p.priceMin) || 0, max = Number(p.priceMax) || 0;
+  var avg = max > 0 ? Math.round((min + max) / 2) : min;
+  return {
+    name: p.name || '', industry: ind || '', city: p.city || '',
+    districts: splitAreas(p.area), radius_km: Number(p.radius) || 0,
+    services: p.services || [], avg_ticket: avg,
+    audience: p.audience || '', selling_points: p.selling || '',
+    competitors: splitAreas(String(p.competitors || '').replace(/[、，,;；]/g, ',')),
+    monthly_budget: Number(p.budget) || 0, landing_url: p.url || ''
+  };
+}
+function normalizeRemoteProfile(p) {
+  if (!p || typeof p !== 'object') return null;
+  var districts = p.districts != null ? p.districts : p.area;
+  if (typeof districts === 'string') districts = splitAreas(districts);
+  if (!Array.isArray(districts)) districts = districts ? [String(districts)] : [];
+  var services = p.services != null ? p.services : p.service_items;
+  if (typeof services === 'string') services = splitAreas(services.replace(/、/g, ','));
+  if (!Array.isArray(services)) services = services ? [String(services)] : [];
+  var comp = p.competitors;
+  if (Array.isArray(comp)) comp = comp.join('、');
+  var pmin = p.price_min != null ? p.price_min : (p.avg_ticket_min != null ? p.avg_ticket_min : (p.avg_ticket != null ? p.avg_ticket : 0));
+  var pmax = p.price_max != null ? p.price_max : (p.avg_ticket_max != null ? p.avg_ticket_max : (p.avg_ticket != null ? p.avg_ticket : 0));
+  return {
+    name: p.name || '', industry: p.industry || '', industryCustom: p.industry_custom || '',
+    city: p.city || '', area: districts.join(', '),
+    radius: p.radius_km != null ? p.radius_km : (p.radius || 15),
+    services: services, priceMin: Number(pmin) || 0, priceMax: Number(pmax) || 0,
+    audience: p.audience || '', selling: p.selling_points || p.selling || '',
+    competitors: comp || '', budget: p.monthly_budget != null ? p.monthly_budget : (p.budget || 0),
+    url: p.landing_url || p.url || ''
+  };
+}
+
+/* ---------------- 5. 上下文 & 关键词引擎 ---------------- */
+function kwCtx() {
+  var p = getProfile();
+  var areas = splitAreas(p.area);
+  var areaFull = areas[0] || p.city || '本地';
+  var area = areaFull.replace(/(区|县|市|商圈|街道|镇)$/g, '') || p.city || '本地';
+  var city = String(p.city || '本地').replace(/市$/, '');
+  var svcRaw = (p.services && p.services[0]) || splitIndustry(p.industry)[0] || '本地服务';
+  var svc = String(svcRaw).replace(/^(新房|办公室|幼儿园|上门|专业)/, '') || svcRaw;
+  var ind = splitIndustry(p.industry)[0] || '本地服务';
+  return {
+    area: area, areaFull: areaFull, city: city, svc: svc, svcRaw: svcRaw,
+    ind: ind, radius: p.radius || 15, audience: p.audience || '本地客户',
+    selling: p.selling || '专业服务，本地口碑', priceMin: p.priceMin || 0, priceMax: p.priceMax || 0,
+    sellingShort: String(p.selling || '专业靠谱').split(/[、,，。；;]/)[0].slice(0, 10) || '专业靠谱'
+  };
+}
+function fillTpl(tpl, ctx) {
+  return String(tpl).replace(/\{(\w+)\}/g, function (m, k) { return ctx[k] != null ? ctx[k] : ''; });
+}
+var KW_PLATFORM = {
+  baidu: {
+    groups: [
+      { name: '地域 + 服务', desc: '客户按「城市/区县 + 服务」搜索，意向最直接', tpl: ['{area}{svc}公司', '{city}{area}{svc}', '{area}{svc}哪家好', '{city}{svc}推荐', '{area}{svc}上门', '{area}{svc}价格'] },
+      { name: '地域 + 痛点', desc: '抓刚遇到问题、正在找解决方案的人', tpl: ['{area}装修后甲醛超标怎么办', '{area}新房异味怎么去除', '{city}{area}甲醛检测', '{area}办公室甲醛治理', '{area}除甲醛大概多少钱'] },
+      { name: '场景 + 需求', desc: '场景化长尾词，覆盖准备消费人群', tpl: ['新房入住前{svc}流程', '{svc}多久能入住', '办公室{svc}方案', '{area}幼儿园{svc}', '{area}母婴房{svc}'] },
+      { name: '疑问 + 方案', desc: '问答型搜索，适合配落地页与科普内容', tpl: ['{svc}用什么药剂安全', '光触媒靠谱吗', '{svc}多少钱一平', '{svc}有没有副作用'] }
+    ],
+    negatives: [
+      { name: '通用无效词', words: ['免费', '教程', '图片', '招聘', '兼职', '二手', '厂家批发', '加盟', '自己做', 'diy', '视频', '学习', '考试'] },
+      { name: '非商业意图词', words: ['什么牌子好', '哪个牌子好', '原理', '成分', '科普', '国家标准', '论文', '配方', '化学式'] }
+    ],
+    bid: [2.2, 4.6]
+  },
+  oceanengine: {
+    groups: [
+      { name: '口语化搜索词', desc: '抖音搜索偏口语，像真人会说的话', tpl: ['{area}{svc}哪家靠谱', '{area}{svc}多少钱一次', '{area}{svc}推荐', '同城{svc}上门', '{area}{svc}怎么选', '{area}{svc}避雷'] },
+      { name: '本地推场景词', desc: 'POI + 同城流量，适合短视频挂载', tpl: ['{area}{svc}附近', '{area}{svc}团购', '{area}{svc}体验', '{area}{svc}上门服务', '{area}{svc}真实测评'] },
+      { name: '痛点共鸣词', desc: '视频开头钩子的搜索承接', tpl: ['装修完甲醛超标怎么办', '新房有味道能住吗', '{svc}是不是智商税', '{svc}有必要做吗', '孩子房间{svc}'] },
+      { name: '话题标签', desc: '发布短视频时带的话题，提升站内搜索曝光', tpl: ['#{area}{svc}', '#{city}{svc}', '#{area}本地生活', '#{svc}避坑', '#{city}同城'] }
+    ],
+    negatives: [
+      { name: '非商业意图', words: ['教程', '自己做', 'free', '免费', '搞笑', '表情包', '舞蹈', '剪辑教学'] },
+      { name: '同行/招聘', words: ['招聘', '招工', '加盟', '代理', '厂家', '批发', '进货'] }
+    ],
+    bid: [1.2, 2.8]
+  },
+  xiaohongshu: {
+    groups: [
+      { name: '种草决策词', desc: '小红书搜索偏「避坑 / 推荐 / 值不值」', tpl: ['{area}{svc}避坑', '{area}{svc}推荐', '{area}{svc}值不值', '{area}{svc}真实体验', '{area}{svc}攻略', '{svc}怎么选'] },
+      { name: '痛点科普选题', desc: '痛点科普类笔记选题词', tpl: ['装修后甲醛来源', '{svc}智商税吗', '{svc}真的有用吗', '新房入住前必看', '{svc}副作用'] },
+      { name: '价格揭秘选题', desc: '价格类笔记更容易获得收藏', tpl: ['{area}{svc}价格', '{svc}一平米多少钱', '{svc}报价单', '{area}{svc}费用'] },
+      { name: '话题标签', desc: '笔记标签组合，覆盖地域与需求', tpl: ['#{area}{svc}', '#{city}{svc}推荐', '#{area}装修', '#{svc}避坑指南', '#新房入住'] }
+    ],
+    negatives: [
+      { name: '非商业意图', words: ['教程', '自己做', '免费', '表情包', '壁纸', '头像', '穿搭'] },
+      { name: '泛流量词', words: ['搞笑', '明星', '电视剧', '综艺', '小说'] }
+    ],
+    bid: [0.8, 2.2]
+  },
+  '58': {
+    groups: [
+      { name: '直接需求词', desc: '58 用户目的性强，直接搜服务与电话', tpl: ['{area}{svc}上门', '{area}{svc}公司电话', '{area}{svc}多少钱', '{area}{svc}附近', '{area}{svc}服务', '{area}{svc}师傅'] },
+      { name: '服务分类词', desc: '对应 58 分类与服务标签', tpl: ['{area}甲醛检测治理', '{area}保洁清洗', '{area}装修后保洁', '{area}家电清洗', '{area}开荒保洁'] },
+      { name: '场景需求词', desc: '搬家 / 入住 / 开业等场景', tpl: ['新房入住前{svc}', '办公室{svc}', '商铺开业前{svc}', '出租房{svc}'] },
+      { name: '疑问词', desc: '价格与流程类疑问', tpl: ['{svc}一般多少钱', '{svc}多久做完', '{svc}要预约吗', '{svc}靠谱吗'] }
+    ],
+    negatives: [
+      { name: '招聘/求职', words: ['招聘', '求职', '兼职', '日结', '学徒', '招工'] },
+      { name: '二手/非服务', words: ['二手', '转让', '出售', '出租', '批发', '厂家'] }
+    ],
+    bid: [1.0, 2.2]
+  },
+  meituan: {
+    groups: [
+      { name: '到店套餐词', desc: '美团/点评用户多按套餐与团购搜索', tpl: ['{area}{svc}套餐', '{area}{svc}团购', '{area}{svc}预约', '{area}{svc}附近', '{area}{svc}优惠', '{area}{svc}多少钱'] },
+      { name: '品类词', desc: '门店品类与项目词', tpl: ['{area}除甲醛服务', '{area}甲醛检测', '{area}室内空气治理', '{area}保洁团购', '{area}家政服务'] },
+      { name: '决策辅助词', desc: '评价、口碑类决策词', tpl: ['{area}{svc}评价', '{area}{svc}哪家好', '{area}{svc}靠谱吗', '{area}{svc}体验怎么样'] },
+      { name: '场景词', desc: '新店开业 / 节前大扫除等', tpl: ['新店开业{svc}', '节前{svc}', '入住前{svc}', '办公室{svc}团购'] }
+    ],
+    negatives: [
+      { name: '非到店意图', words: ['教程', '自己做', '免费', '招聘', '兼职', '批发'] },
+      { name: '竞品/泛词', words: ['什么牌子', '原理', '加盟', '代理'] }
+    ],
+    bid: [0.6, 1.6]
+  }
+};
+function localKeywords(platform, count, round) {
+  var cfg = KW_PLATFORM[platform] || KW_PLATFORM.baidu;
+  var ctx = kwCtx();
+  round = round || 0;
+  var groups = cfg.groups.map(function (g) {
+    var words = g.tpl.map(function (t) { return fillTpl(t, ctx); });
+    if (round > 0) words = words.map(function (w, i) { return i % 2 === 0 ? w + ['', '哪家好', '多少钱', '推荐'][round % 4] : w; });
+    return { name: g.name, desc: g.desc, words: uniq(words) };
+  });
+  var cursors = groups.map(function () { return 0; });
+  var picked = [], seen = {};
+  var guard = 0;
+  while (picked.length < count && guard++ < count * 8) {
+    var added = false;
+    for (var i = 0; i < groups.length && picked.length < count; i++) {
+      var w = groups[i].words[cursors[i]++];
+      if (!w) continue;
+      if (!seen[w]) { seen[w] = 1; picked.push({ w: w, gi: i }); added = true; }
+    }
+    if (!added) break;
+  }
+  var display = groups.map(function (g, gi) {
+    return { name: g.name, desc: g.desc, words: picked.filter(function (p) { return p.gi === gi; }).map(function (p) { return p.w; }) };
+  }).filter(function (g) { return g.words.length > 0; });
+  var negGroups = cfg.negatives;
+  var rows = picked.map(function (p, i) {
+    var match = i % 3 === 0 ? '短语匹配' : '广泛匹配';
+    var bid = (cfg.bid[0] + ((i * 37) % 100) / 100 * (cfg.bid[1] - cfg.bid[0])).toFixed(1);
+    return { word: p.w, match: match, bid: bid, negative_group: negGroups[i % negGroups.length].name, group: groups[p.gi].name };
+  });
+  return {
+    platform: platform, count: rows.length, groups: display, rows: rows,
+    negatives: negGroups, generatedAt: Date.now(), round: round
+  };
+}
+function kwCopyText(kw) {
+  if (!kw) return '';
+  var lines = [];
+  kw.groups.forEach(function (g) {
+    lines.push('【' + g.name + '】');
+    g.words.forEach(function (w) { lines.push(w); });
+    lines.push('');
+  });
+  if (kw.negatives && kw.negatives.length) {
+    lines.push('【否定词】');
+    kw.negatives.forEach(function (g) { lines.push(g.name + '：' + g.words.join('、')); });
+  }
+  return lines.join('\n');
+}
+function kwCsvText(kw) {
+  if (!kw) return '';
+  var out = ['关键词,匹配方式,出价建议(元),否定词分组,分组'];
+  (kw.rows || []).forEach(function (r) {
+    out.push([r.word, r.match, r.bid, r.negative_group, r.group].map(function (x) { return '"' + String(x).replace(/"/g, '""') + '"'; }).join(','));
+  });
+  return out.join('\r\n');
+}
+function normalizeKeywords(d) {
+  if (!d) return null;
+  var groups = [], rows = [], byGroup = {}, order = [];
+  var kws = d.keywords || d.items || d.list;
+  if (Array.isArray(kws) && kws.length) {
+    kws.forEach(function (k, i) {
+      var word = typeof k === 'string' ? k : (k.word || k.keyword || k.text || '');
+      if (!word) return;
+      var gname = (typeof k === 'object' && (k.group || k.group_name)) || '关键词';
+      if (!byGroup[gname]) { byGroup[gname] = []; order.push(gname); }
+      byGroup[gname].push(word);
+      rows.push({
+        word: word,
+        match: (typeof k === 'object' && (k.match || k.match_type)) || (i % 3 === 0 ? '短语匹配' : '广泛匹配'),
+        bid: (typeof k === 'object' && (k.est_cpc != null ? k.est_cpc : (k.bid != null ? k.bid : k.bid_suggest))) || '2.5',
+        negative_group: '通用否定词',
+        group: gname,
+        intent: (typeof k === 'object' && k.intent) || '',
+        reason: (typeof k === 'object' && k.reason) || ''
+      });
+    });
+    order.forEach(function (g) { groups.push({ name: g, desc: '', words: uniq(byGroup[g]) }); });
+  } else if (Array.isArray(d.groups) && d.groups.length) {
+    d.groups.forEach(function (g, gi) {
+      var words = g.words || g.keywords || g.items || [];
+      if (!Array.isArray(words)) return;
+      var arr = [];
+      words.forEach(function (w, i) {
+        var word = typeof w === 'string' ? w : (w.word || w.keyword || '');
+        if (!word) return;
+        arr.push(word);
+        rows.push({ word: word, match: (typeof w === 'object' && w.match) || (i % 3 === 0 ? '短语匹配' : '广泛匹配'), bid: (typeof w === 'object' && (w.bid || w.est_cpc)) || '2.5', negative_group: g.name || '通用否定词', group: g.name || g.type || ('分组 ' + (gi + 1)) });
+      });
+      if (arr.length) groups.push({ name: g.name || g.type || ('分组 ' + (gi + 1)), desc: g.desc || '', words: uniq(arr) });
+    });
+  }
+  if (!groups.length) return null;
+  if (Array.isArray(d.groups)) {
+    d.groups.forEach(function (g) {
+      if (!g || !g.name) return;
+      for (var i = 0; i < groups.length; i++) {
+        if (groups[i].name === g.name) { if (g.desc) groups[i].desc = g.desc; if (g.count && !groups[i].words.length) groups[i].count = g.count; }
+      }
+    });
+  }
+  var negs = d.negatives || d.negative_words || [];
+  var normNegs = [];
+  if (Array.isArray(negs) && negs.length) {
+    if (typeof negs[0] === 'string') normNegs = [{ name: '否定词建议', words: negs.map(String) }];
+    else normNegs = negs.map(function (n) { return { name: (n && (n.name || n.group)) || '否定词', words: (n && (n.words || n.list)) || [] }; });
+  }
+  if (!normNegs.length && KW_PLATFORM[d.platform]) normNegs = KW_PLATFORM[d.platform].negatives;
+  if (!rows.length) {
+    groups.forEach(function (g) { g.words.forEach(function (w, i) { rows.push({ word: w, match: i % 3 === 0 ? '短语匹配' : '广泛匹配', bid: '2.5', negative_group: g.name, group: g.name }); }); });
+  }
+  return {
+    platform: d.platform || '', count: rows.length, groups: groups, rows: rows, negatives: normNegs,
+    csv_baidu: d.csv_baidu || '', csv_generic: d.csv_generic || '',
+    ai_label: d.ai_label || 'AI 辅助生成', source: d.source || '', cached: !!d.cached,
+    generatedAt: Date.now(), remote: true
+  };
+}
+
+/* ---------------- 6. 创意引擎 ---------------- */
+var TYPE_LABEL = { title: '搜索广告标题', desc: '搜索广告描述', note: '小红书笔记', post: '58 帖子', script: '短视频脚本', reply: '评论区回复' };
+function creativeTemplates(pf, type, ctx) {
+  var a = ctx.area, c = ctx.city, s = ctx.svc, sell = ctx.sellingShort, ind = ctx.ind, aud = ctx.audience, r = ctx.radius;
+  if (type === 'title') {
+    if (pf === 'xiaohongshu') return ['{area}{svc}避坑｜{aud}看完再决定', '在{area}做{svc}，我踩过的坑都在这', '{area}{svc}真实体验｜价格一次说清'];
+    if (pf === 'juliang') return ['{area}{svc}哪家靠谱？本地人实测推荐', '{area}{svc}多少钱一次？看完不踩坑', '{area}同城{svc}，当天可上门'];
+    if (pf === '58') return ['{area}{svc}上门 先检测后报价', '{area}专业{svc} 达标付款', '{area}{svc}公司 附近可上门'];
+    if (pf === 'meituan') return ['{area}{svc}套餐 到店可约', '{area}{svc}附近 团购优惠', '{area}专业{svc} 口碑门店'];
+    return ['{area}{svc}｜{sell}｜免费上门检测', '{city}{area}{svc}公司｜{sell}', '{area}{svc}多少钱？上门报价 达标付款', '{area}{svc}就找本地专业团队'];
+  }
+  if (type === 'desc') {
+    if (pf === 'xiaohongshu') return ['{aud}看过来！{area}{svc}前先搞清楚这几件事：{sell}。服务范围{area}及周边{r}公里。', '{area}本地{svc}团队，先检测后报价，{sell}，流程透明不套路。', '把{svc}说明白：适合谁、多少钱、要多久。{sell}，{area}可上门。'];
+    if (pf === 'juliang') return ['{area}{svc}别乱选！本地团队上门，{sell}，点击咨询报价。', '{area}同城{svc}，当天可约，{sell}，先检测后付费。', '装修完担心甲醛？{area}本地{svc}，{sell}，免费上门检测。'];
+    return ['{area}{svc}专业服务，{sell}。免费上门检测，达标再付款，{area}及周边{r}公里快速响应。', '{area}{svc}就选本地实体团队：{sell}，先检测后报价，流程透明，售后有保障。', '{city}{area}{svc}上门检测+治理，{sell}；立即咨询获取针对性方案与报价。'];
+  }
+  if (type === 'note') {
+    return ['{area}{svc}避坑｜{aud}一定要看\n\n最近好多{area}的朋友问我{svc}到底有没有用。作为本地服务方，说点实在的：\n\n① 先检测再治理，别一上来就报价\n② 看报告（CMA 认证更稳），别只看口头承诺\n③ {sell}\n\n📋 流程：免费检测 → 方案报价 → 上门治理 → 复检达标\n📍 服务：{city}{area}及周边 {radius} 公里\n\n#{area}{svc} #{city}{svc} #{area}本地生活',
+      '{area}{svc}价格揭秘｜一篇说清\n\n很多{aud}问：{svc}到底多少钱？\n\n影响价格的主要是面积、污染程度和治理次数，别只看单价。我们的做法：{sell}。\n\n✅ 免费上门检测\n✅ 检测报告可查\n✅ 达标再付款\n\n有需要的{area}朋友可以评论区问，看到都会回～\n\n#{area}{svc} #{svc}避坑 #{city}装修'];
+  }
+  if (type === 'post') {
+    return ['【{area}{svc}】{sell}。{city}{area}及周边 {radius} 公里上门，先检测后报价，达标再付款。服务项目：{svcRaw}。欢迎来电咨询，24 小时响应。',
+      '【{area}{svc}上门服务】专业设备 + 规范流程，{sell}。可服务{area}、周边商圈与小区，支持预约上门。先检测、再报价、后治理，价格透明。',
+      '【{city}{area}{svc}】本地实体团队，{sell}。承接家庭 / 办公室 / 商铺{svc}，免费上门检测，按实际面积与污染情况报价。'];
+  }
+  if (type === 'script') {
+    return ['【0-3 秒】镜头：{area}小区门口，口播：「{area}刚装修完的业主注意了，别急着入住！」\n【3-8 秒】特写：检测仪数值 + 报告单，字幕「甲醛超标别硬扛」\n【8-15 秒】口播：「我们本地团队上门，{sell}，先检测后报价。」\n【15-20 秒】镜头：治理过程快剪，字幕「{area}及周边 {radius} 公里可约」\n【结尾】引导：点击下方团购 / 私信「检测」预约。',
+      '【0-3 秒】钩子：「花了几十万装修，结果甲醛超标？」\n【3-10 秒】痛点：孩子咳嗽、异味散不掉，画面切检测对比\n【10-18 秒】方案：「{area}本地{svc}，{sell}，免费上门检测。」\n【18-22 秒】信任：展示资质 / 案例 / 复检报告\n【结尾】字卡：{city}{area}可约，评论区回复「检测」。'];
+  }
+  if (type === 'reply') {
+    return ['您好，我们在{area}做{svc}，可以先免费上门检测，再按实际面积和污染情况报价，{sell}。方便说一下小区和大概面积吗？',
+      '感谢关注～ {area}及周边 {radius} 公里都可以上门，先检测后报价，{sell}。您这边是刚装修完还是准备入住？我给您发个流程参考。',
+      '您好，{svc}的价格主要看面积和污染程度，不建议直接报一口价。可以先约免费检测，出结果再谈方案，{sell}，不推销。'];
+  }
+  return ['{area}{svc}，{sell}。'];
+}
+function localCreatives(platform, type, count) {
+  var ctx = kwCtx();
+  var tpls = creativeTemplates(platform, type, ctx);
+  var out = [];
+  for (var i = 0; i < count; i++) {
+    var t = fillTpl(tpls[i % tpls.length], ctx);
+    var title = '';
+    if (type === 'note') {
+      var parts = t.split('\n');
+      title = parts.shift() || '';
+      t = parts.join('\n').replace(/^\n+/, '');
+    }
+    var risk = false;
+    if (i === count - 1 && count > 1) {
+      t = t + (t.slice(-1) === '。' ? '' : '。') + '（{riskWord}）';
+      t = t.replace('{riskWord}', ['本地最专业', '100% 达标', '行业第一'][i % 3]);
+      risk = true;
+    }
+    var text = t;
+    var tags = '';
+    if (type === 'note') {
+      var m = text.match(/#[^\n]+$/);
+      if (m) { tags = m[0]; text = text.slice(0, m.index).replace(/\n+$/, ''); }
+    }
+    out.push({
+      id: uid(), platform: platform, type: type, title: title, text: text, tags: tags,
+      riskInjected: risk, risk: checkCompliance((title + ' ' + text + ' ' + tags)),
+      length: type === 'title' || type === 'note' ? (title || text).length : text.length
+    });
+  }
+  return out;
+}
+function normalizeCreatives(d, platform, type) {
+  if (!d) return null;
+  var arr = d.items || d.creatives || d.list;
+  if (!Array.isArray(arr) || !arr.length) return null;
+  var out = [];
+  arr.forEach(function (c) {
+    if (typeof c === 'string') c = { body: c };
+    if (!c) return;
+    var text = c.body || c.content || c.text || c.desc || '';
+    var title = c.title || '';
+    if (!text && title) { text = title; title = ''; }
+    if (!text) return;
+    var risks = (c.compliance && c.compliance.risks) || c.risks || [];
+    var risk = [];
+    (Array.isArray(risks) ? risks : []).forEach(function (r) {
+      if (typeof r === 'string') risk.push({ word: r, suggest: '' });
+      else risk.push({ word: (r && (r.word || r.text)) || '', suggest: (r && (r.hint || r.suggest)) || '' });
+    });
+    if (!risk.length) risk = checkCompliance(title + ' ' + text + ' ' + (Array.isArray(c.tags) ? c.tags.join(' ') : (c.tags || '')));
+    var tags = c.tags || '';
+    if (Array.isArray(tags)) tags = tags.join(' ');
+    out.push({
+      id: uid(), platform: platform, type: c.kind || type, title: title, text: text,
+      tags: tags, riskInjected: false, risk: risk, length: (title || text).length,
+      ai_label: c.ai_label || d.ai_label || 'AI 辅助生成',
+      videoBrief: d.video_brief || null,
+      complianceNotice: d.compliance_notice || ''
+    });
+  });
+  return out.length ? out : null;
+}
+
+/* ---------------- 7. 线索评分引擎 ---------------- */
+var NEED_GENERIC = ['甲醛', '检测', '治理', '保洁', '清洗', '维修', '装修', '化妆', '培训', '课程', '护理', '服务', '套餐', '报价', '价格'];
+var NEED_DETAIL = ['面积', '平米', '平方', '平', '房', '办公室', '店铺', '幼儿园', '新房', '刚装修', '入住', '三居', '两居'];
+var URGENCY_WORDS = ['马上', '今天', '明天', '这周', '下周', '周末', '尽快', '急', '近期', '最近', '月底', '年前', '现在', '什么时候', '预约', '约'];
+var REGION_WORDS = ['本地', '附近', '周边', '同城', '上门', '区', '镇', '街道', '公里'];
+var PRICE_WORDS = ['多少钱', '价格', '报价', '预算', '费用', '贵', '便宜', '优惠', '折', '元', '块', '价'];
+var STAGE_WORDS = ['预约', '约', '上门', '看店', '下单', '对比', '考虑', '了解', '咨询', '准备', '打算', '想', '报价', '问价', '报个价'];
+function countHits(text, words) { var n = 0; (words || []).forEach(function (w) { if (w && text.indexOf(w) >= 0) n++; }); return n; }
+function buildLeadTags(text, dims, level) {
+  var tags = [];
+  if (dims.need >= 18) tags.push('需求明确');
+  if (dims.urgency >= 12) tags.push('近期要做');
+  if (dims.region >= 12) tags.push('本地');
+  if (dims.budget >= 10) tags.push('问价');
+  if (dims.contact >= 9) tags.push('留联系方式');
+  if (level === 'high') tags.push('优先跟进');
+  return tags;
+}
+function gradeLeadLocal(raw) {
+  var p = getProfile();
+  var text = [raw.nick || '', raw.text || '', raw.contact || '', raw.region || ''].join(' ');
+  var services = (p.services || []).slice();
+  splitIndustry(p.industry).forEach(function (x) { if (services.indexOf(x) < 0) services.push(x); });
+  var areaTerms = splitAreas(p.area).map(function (a) { return a.replace(/(区|县|市|商圈|街道|镇)$/g, ''); }).filter(Boolean);
+  var city = String(p.city || '').replace(/市$/, '');
+  var genericHits = countHits(text, NEED_GENERIC);
+  var detailHits = countHits(text, NEED_DETAIL);
+  var profileHits = countHits(text, services);
+  var hasQuestion = /[?？]|多少|怎么|能否|可以吗|有没有/.test(text);
+  var need = Math.min(25, genericHits * 5 + profileHits * 12 + detailHits * 2 + (hasQuestion ? 2 : 0));
+  var urgency = Math.min(20, countHits(text, URGENCY_WORDS) * 7);
+  var regionHits = countHits(text, REGION_WORDS);
+  var areaMatch = 0;
+  areaTerms.forEach(function (a) { if (a && text.indexOf(a) >= 0) areaMatch = 1; });
+  var cityMatch = city && text.indexOf(city) >= 0 ? 1 : 0;
+  var region = Math.min(20, areaMatch * 12 + cityMatch * 8 + regionHits * 3);
+  var priceHits = countHits(text, PRICE_WORDS);
+  var hasNumber = /\d{2,}/.test(text);
+  var budget = Math.min(15, priceHits * 5 + (hasNumber ? 4 : 0) + (priceHits ? 2 : 0));
+  var stage = Math.min(10, countHits(text, STAGE_WORDS) * 4 + (text.indexOf('想') >= 0 ? 1 : 0));
+  var isPhone = /1[3-9]\d{9}/.test(text);
+  var wechat = /(微信|vx|v信|薇信|加我|weixin)/i.test(text);
+  var digits = /\d{5,}/.test(text);
+  var contact = isPhone ? 10 : wechat ? 9 : digits ? 6 : (/(电话|手机|联系)/.test(text) ? 3 : 0);
+  var dims = { need: need, urgency: urgency, region: region, budget: budget, stage: stage, contact: contact };
+  var score = need + urgency + region + budget + stage + contact;
+  var level = levelOf(score);
+  return {
+    id: uid(), platform: raw.platform || 'manual', nick: raw.nick || '匿名客户',
+    text: raw.text || '', contact: raw.contact || '', region: raw.region || '',
+    createdAt: raw.createdAt || stamp(), source: raw.source || '手动导入',
+    dims: dims, score: score, level: level, tags: buildLeadTags(text, dims, level),
+    reason: '六维合计 ' + score + ' 分 · ' + LEVELS[level].desc
+  };
+}
+function parseCsv(text) {
+  var rows = [], row = [], cur = '', q = false, i, c;
+  text = String(text || '').replace(/^\ufeff/, '');
+  for (i = 0; i < text.length; i++) {
+    c = text.charAt(i);
+    if (q) {
+      if (c === '"') {
+        if (text.charAt(i + 1) === '"') { cur += '"'; i++; } else { q = false; }
+      } else { cur += c; }
+    } else {
+      if (c === '"') q = true;
+      else if (c === ',') { row.push(cur); cur = ''; }
+      else if (c === '\n') { row.push(cur); rows.push(row); row = []; cur = ''; }
+      else if (c === '\r') { /* skip */ }
+      else cur += c;
+    }
+  }
+  if (cur !== '' || row.length) { row.push(cur); rows.push(row); }
+  return rows.filter(function (r) { return r.some(function (x) { return String(x).trim() !== ''; }); });
+}
+function normPlatform(name) {
+  var s = String(name || '');
+  if (/小红书|xhs/i.test(s)) return 'xiaohongshu';
+  if (/抖音|巨量|头条|ocean/i.test(s)) return 'oceanengine';
+  if (/百度|baidu/i.test(s)) return 'baidu';
+  if (/58|同城|wuba/i.test(s)) return '58';
+  if (/美团|点评|meituan/i.test(s)) return 'meituan';
+  return 'manual';
+}
+function parseLeadInput() {
+  var el = $('leadPaste');
+  var txt = el ? el.value : '';
+  var out = [];
+  String(txt).split(/\r?\n/).forEach(function (line) {
+    line = line.trim();
+    if (!line) return;
+    var parts = line.split(/\s*[|｜]\s*/);
+    if (parts.length >= 3) out.push({ platform: normPlatform(parts[0]), nick: parts[1], text: parts.slice(2).join(' | ') });
+    else if (parts.length === 2) out.push({ platform: normPlatform(parts[0]), nick: '', text: parts[1] });
+    else out.push({ platform: 'manual', nick: '', text: line });
+  });
+  return out;
+}
+function leadsFromCsv(text) {
+  var rows = parseCsv(text);
+  if (!rows.length) return [];
+  var header = rows[0].map(function (h) { return String(h).trim(); });
+  var idx = { platform: -1, nick: -1, text: -1, contact: -1 };
+  header.forEach(function (h, i) {
+    if (/平台|platform|渠道/i.test(h)) idx.platform = i;
+    else if (/昵称|姓名|name|nick/i.test(h)) idx.nick = i;
+    else if (/内容|原文|text|content|需求/i.test(h)) idx.text = i;
+    else if (/联系|手机|电话|contact|phone|微信/i.test(h)) idx.contact = i;
+  });
+  var hasHeader = idx.text >= 0 || idx.platform >= 0 || idx.nick >= 0;
+  var start = hasHeader ? 1 : 0;
+  var out = [];
+  for (var r = start; r < rows.length; r++) {
+    var row = rows[r];
+    if (!row || !row.length) continue;
+    var obj = {};
+    if (idx.platform >= 0) obj.platform = normPlatform(row[idx.platform]);
+    if (idx.nick >= 0) obj.nick = String(row[idx.nick] || '').trim();
+    if (idx.text >= 0) obj.text = String(row[idx.text] || '').trim();
+    if (idx.contact >= 0) obj.contact = String(row[idx.contact] || '').trim();
+    if (!obj.text) obj.text = row.join(' ').trim();
+    if (obj.text || obj.nick) out.push(obj);
+  }
+  return out;
+}
+function normalizeGraded(d, rawList) {
+  if (!d) return null;
+  var arr = d.results || d.leads || d.items;
+  if (!Array.isArray(arr) || !arr.length) return null;
+  var out = [];
+  var nameMap = { 需求明确度: 'need', 紧迫程度: 'urgency', 地域匹配: 'region', 预算匹配: 'budget', 购买阶段: 'stage', 联系方式完整度: 'contact', 联系方式: 'contact' };
+  arr.forEach(function (r, i) {
+    if (!r) return;
+    var raw = (rawList && rawList[r.index != null ? r.index : i]) || (rawList && rawList[i]) || {};
+    var dimsRaw = r.dims || r.scores || r.dimensions || {};
+    var dims = {};
+    DIMS.forEach(function (dd) {
+      var v = dimsRaw[dd.key];
+      if (v == null) v = dimsRaw[dd.name];
+      if (v == null) {
+        Object.keys(dimsRaw).forEach(function (k) { if (nameMap[k] === dd.key && v == null) v = dimsRaw[k]; });
+      }
+      dims[dd.key] = clamp(Number(v) || 0, 0, dd.max);
+    });
+    var score = Number(r.score != null ? r.score : r.total);
+    if (!isFinite(score) || score <= 0) score = DIMS.reduce(function (s, dd) { return s + dims[dd.key]; }, 0);
+    var level = String(r.level || levelOf(score));
+    if (level === '高' || level === '高意向') level = 'high';
+    else if (level === '中' || level === '中意向') level = 'mid';
+    else if (level === '低' || level === '低意向') level = 'low';
+    else if (['high', 'mid', 'low'].indexOf(level) < 0) level = levelOf(score);
+    out.push({
+      id: uid(), platform: raw.platform || r.platform || 'manual',
+      nick: r.name || r.nick || raw.nick || '匿名客户',
+      text: raw.text || r.raw_text || r.text || '', contact: r.contact_masked || raw.contact || '',
+      region: raw.region || r.region || '', createdAt: stamp(), source: 'AI 评分',
+      dims: dims, score: score, level: level, tags: Array.isArray(r.tags) ? r.tags : [],
+      reason: r.reason || ('六维合计 ' + score + ' 分 · ' + LEVELS[level].desc),
+      masked: r.contact_masked || ''
+    });
+  });
+  return out.length ? out : null;
+}
+function leadKey(l) { return (l.platform || '') + '|' + (l.contact || l.masked || '') + '|' + ((l.nick || '') + '|' + (l.text || '')).slice(0, 80); }
+
+/* ---------------- 8. 话术引擎 ---------------- */
+var SC_TYPES = ['首次接待', '报价答疑', '邀约到店', '回访', '转介绍'];
+function styleName(style) { return { pro: '专业稳重', warm: '亲切口语', lively: '活泼种草' }[style] || '专业稳重'; }
+function localScriptItem(type, style, lvlKey, ctx) {
+  var a = ctx.area, s = ctx.svc, sell = ctx.sellingShort, aud = ctx.audience, ind = ctx.ind, seg = ctx.seg;
+  var lvlDesc = LEVELS[lvlKey] ? LEVELS[lvlKey].desc : LEVELS.mid.desc;
+  var t = '';
+  if (type === '首次接待') {
+    t = style === 'pro'
+      ? '您好，我是' + ctx.name + '的' + ind + '顾问。看到您在' + ctx.platform + '咨询' + s + '，先简单了解一下：您这边是家庭还是' + seg + '？大概面积多少、什么时候方便上门检测？我们先免费检测，再给针对性方案和报价，不推销。'
+      : style === 'warm'
+        ? '您好呀～我是' + ctx.name + '的客服。看到您在' + ctx.platform + '问' + s + '，我们' + a + '本地可以免费上门检测～方便说下小区和面积吗？看完实际情况再给您报价，不着急定。'
+        : aud + '看过来～我是' + ctx.name + '的' + ind + '顾问！' + s + '先检测后报价，' + sell + '，' + a + '及周边 ' + ctx.radius + ' 公里都能上门～留个小区和面积，我帮您约检测时间！';
+  } else if (type === '报价答疑') {
+    t = style === 'pro'
+      ? s + '的费用主要看面积、污染程度和处理次数，' + ctx.priceMin + '-' + ctx.priceMax + ' 元是常见区间。包含：上门检测、治理方案、施工、复检。' + ctx.selling + '。您提供面积和小区，我可以先帮您估算一个区间。'
+      : style === 'warm'
+        ? '价格这块我们不乱报～' + s + '一般按面积算，大概 ' + ctx.priceMin + '-' + ctx.priceMax + ' 元，具体要检测后才知道。包含检测、治理和复检，' + sell + '。您把面积告诉我，我先帮您估个大概？'
+        : s + '多少钱？先说结论：常见 ' + ctx.priceMin + '-' + ctx.priceMax + ' 元，具体看面积和污染情况～包含上门检测 + 治理 + 复检，' + sell + '，' + a + '可约！报个面积，我马上给您算～';
+  } else if (type === '邀约到店') {
+    t = style === 'pro'
+      ? '方便的话，本周可以安排上门检测：检测约 40 分钟，当场出结果，检测不收费。您看周六上午还是周日下午方便？确认下小区地址，我提前排单。'
+      : style === 'warm'
+        ? '那咱们约个时间上门检测吧～检测免费，大概 40 分钟。您周六上午或周日下午哪个方便？发我个小区定位就行～'
+        : '安排！这周检测还有空位～免费上门检测，40 分钟出结果，周六上午 / 周日下午任选，' + a + '都能到。发个定位我帮您占个时间～';
+  } else if (type === '回访') {
+    t = style === 'pro'
+      ? '您好，昨天上门检测的情况还顺利吗？检测结果里重点关注项目建议尽快治理，治理后复检会对比数据。您这边还有哪些顾虑？我可以把方案和明细再发您确认。'
+      : style === 'warm'
+        ? '哈喽～昨天上门检测辛苦啦！结果里那项数值确实要注意一下，治理完我们会复检对比。您还有啥担心的随时问我～'
+        : '哈喽～昨天检测报告看了嘛？别慌，这类情况很常见，治理 + 复检就能改善～有疑问随时戳我，方案明细我也发您一份～';
+  } else if (type === '转介绍') {
+    t = style === 'pro'
+      ? '感谢您的信任。如果身边有刚装修完或准备入住的邻居、朋友，可以把我的联系方式转给他们；我们会按同样的标准提供免费检测，不打扰、不推销。'
+      : style === 'warm'
+        ? '谢谢您信任呀～要是邻居朋友也有' + s + '需求，可以把我推给他们，先免费检测再说，绝对不骚扰～'
+        : '感谢老板信任！身边有刚装修完的邻居朋友，欢迎推给我～免费检测安排上，' + sell + '，不套路不推销～';
+  }
+  return { type: type, style: styleName(style), content: t, compliance: checkCompliance(t), level: lvlKey, levelDesc: lvlDesc };
+}
+function localScripts(industry, platform, level, style) {
+  var ctx = kwCtx();
+  var p = getProfile();
+  ctx.name = p.name || '我们';
+  ctx.platform = pfName(platform);
+  ctx.seg = /办公|公司|店铺|商用/.test((p.services || []).join('')) ? '办公室' : '门店';
+  var out = SC_TYPES.map(function (t) { return localScriptItem(t, style, level, ctx); });
+  return { scripts: out, industry: industry, platform: platform, level: level, style: style, source: 'local' };
+}
+function normalizeScripts(d, industry, platform, level, style) {
+  if (!d) return null;
+  var arr = d.scripts || d.items || d.list;
+  if (!Array.isArray(arr) || !arr.length) return null;
+  var out = [];
+  arr.forEach(function (s) {
+    if (!s) return;
+    var content = s.content || s.text || s.script || '';
+    if (!content) return;
+    var risks = (s.compliance && s.compliance.risks) || s.risks || [];
+    var risk = [];
+    (Array.isArray(risks) ? risks : []).forEach(function (r) { risk.push(typeof r === 'string' ? { word: r, suggest: '' } : { word: (r && (r.word || r.text)) || '', suggest: (r && (r.hint || r.suggest)) || '' }); });
+    if (!risk.length) risk = checkCompliance(content);
+    out.push({ type: s.type || '话术', style: s.style || styleName(style), content: content, compliance: risk, ai_label: s.ai_label || 'AI 辅助生成' });
+  });
+  if (!out.length) return null;
+  if (out.length > 5) {
+    var picked = [];
+    SC_TYPES.forEach(function (tn) { for (var i = 0; i < out.length; i++) { if (String(out[i].type).indexOf(tn.replace(/话术$/, '')) >= 0) { picked.push(out[i]); return; } } });
+    if (picked.length >= 1) out = picked;
+  }
+  return { scripts: out, industry: industry, platform: platform, level: level, style: style, source: 'api' };
+}
+
+/* ---------------- 9. 报表解析与汇总 ---------------- */
+function toNum(v) { var n = Number(String(v == null ? '' : v).replace(/[¥￥元,\s]/g, '')); return isFinite(n) ? n : 0; }
+function reportFromCsv(text, platform) {
+  var rows = parseCsv(text);
+  if (!rows.length) return null;
+  var header = rows[0].map(function (h) { return String(h).trim(); });
+  var idx = { date: -1, platform: -1, impressions: -1, clicks: -1, cost: -1, consults: -1, leads: -1 };
+  var hasHeader = false;
+  header.forEach(function (h, i) {
+    if (/日期|date|时间/i.test(h)) { idx.date = i; hasHeader = true; }
+    else if (/平台|渠道|channel/i.test(h)) idx.platform = i;
+    else if (/展现|曝光|impression/i.test(h)) idx.impressions = i;
+    else if (/点击|click/i.test(h)) idx.clicks = i;
+    else if (/消耗|花费|成本|cost|spend/i.test(h)) idx.cost = i;
+    else if (/咨询|consult/i.test(h)) idx.consults = i;
+    else if (/线索|leads?/i.test(h)) idx.leads = i;
+  });
+  if (!hasHeader && (idx.cost < 0 || idx.leads < 0)) {
+    idx = { date: 0, platform: 1, impressions: 2, clicks: 3, cost: 4, consults: 5, leads: 6 };
+  }
+  var start = hasHeader ? 1 : 0;
+  var sum = { impressions: 0, clicks: 0, cost: 0, consults: 0, leads: 0, rows: 0 };
+  var dates = [];
+  for (var r = start; r < rows.length; r++) {
+    var row = rows[r];
+    if (!row || !row.length) continue;
+    var rowPf = idx.platform >= 0 ? normPlatform(row[idx.platform]) : platform;
+    if (rowPf !== platform && rowPf !== 'manual') {
+      /* 报表里如果带平台列且与所选不同，仍计入所选平台（以用户选择为准） */
+    }
+    var cost = idx.cost >= 0 ? toNum(row[idx.cost]) : 0;
+    var leads = idx.leads >= 0 ? toNum(row[idx.leads]) : 0;
+    var imps = idx.impressions >= 0 ? toNum(row[idx.impressions]) : 0;
+    var clicks = idx.clicks >= 0 ? toNum(row[idx.clicks]) : 0;
+    var consults = idx.consults >= 0 ? toNum(row[idx.consults]) : 0;
+    if (!cost && !leads && !imps && !clicks && !consults) continue;
+    sum.cost += cost; sum.leads += leads; sum.impressions += imps;
+    sum.clicks += clicks; sum.consults += consults; sum.rows++;
+    if (idx.date >= 0 && row[idx.date]) dates.push(String(row[idx.date]).trim());
+  }
+  if (!sum.rows) return null;
+  sum.platform = platform;
+  sum.cpl = sum.leads ? sum.cost / sum.leads : 0;
+  sum.ctr = sum.impressions ? sum.clicks / sum.impressions * 100 : 0;
+  sum.conv = sum.consults ? sum.leads / sum.consults * 100 : 0;
+  sum.avg_cpc = sum.clicks ? sum.cost / sum.clicks : 0;
+  sum.period = dates.length ? (dates[0] === dates[dates.length - 1] ? dates[0] : dates[0] + ' ~ ' + dates[dates.length - 1]) : '';
+  sum.importedAt = stamp();
+  return sum;
+}
+function upsertReport(rep) {
+  var found = false;
+  S.reports = S.reports.map(function (r) { if (r.platform === rep.platform) { found = true; return rep; } return r; });
+  if (!found) S.reports.push(rep);
+  lsSet(KEYS.reports, S.reports);
+}
+function reportsOverview() {
+  if (!S.reports.length) return null;
+  var by = {}, total = { spend: 0, leads: 0, consults: 0, clicks: 0, impressions: 0 };
+  S.reports.forEach(function (r) {
+    if (!by[r.platform]) by[r.platform] = { id: r.platform, spend: 0, leads: 0, consults: 0, clicks: 0, impressions: 0 };
+    ['spend', 'leads', 'consults', 'clicks', 'impressions'].forEach(function (k) {
+      by[r.platform][k] += Number(r[k === 'spend' ? 'cost' : k]) || 0;
+      total[k] += Number(r[k === 'spend' ? 'cost' : k]) || 0;
+    });
+  });
+  var platforms = Object.keys(by).map(function (id) {
+    var x = by[id];
+    return { id: id, name: pfName(id), spend: x.spend, leads: x.leads, consults: x.consults, cpl: x.leads ? x.spend / x.leads : 0, conv: x.consults ? x.leads / x.consults * 100 : 0 };
+  });
+  var spend = total.spend, leads = total.leads;
+  var cpl = leads ? spend / leads : 0;
+  var conv = total.consults ? leads / total.consults * 100 : 0;
+  var high = Math.round(leads * 0.24);
+  return {
+    spend: spend, leads: leads, cpl: cpl, high_intent: high, est_deals: Math.round(high * 0.42),
+    platforms: platforms,
+    before: { cpl: cpl ? cpl * 1.55 : 0, conv: conv ? conv * 0.58 : 0 },
+    after: { cpl: cpl, conv: conv },
+    budget: null,
+    local: true
+  };
+}
+function scaleBudget(list, budget) {
+  var total = list.reduce(function (s, x) { return s + Number(x.amount || 0); }, 0);
+  if (!total) return list;
+  var factor = budget / total;
+  var out = list.map(function (x) { return { id: x.id, amount: Math.round(x.amount * factor / 100) * 100, note: x.note || '' }; });
+  var diff = budget - out.reduce(function (s, x) { return s + x.amount; }, 0);
+  if (out.length) out[0].amount += diff;
+  return out;
+}
+function currentOverview() {
+  var local = reportsOverview();
+  if (local) {
+    var budget = Number((getProfile() || {}).budget) || 12000;
+    var plats = local.platforms.slice();
+    var base = DEMO_DASHBOARD.budget;
+    var weights = plats.map(function (p) { return Number(p.leads) || (Number(p.spend) ? 1 : 0); });
+    var wsum = weights.reduce(function (a, b) { return a + b; }, 0);
+    local.budget = plats.map(function (p, i) {
+      var amount = wsum ? Math.round(budget * weights[i] / wsum / 100) * 100 : 0;
+      return { id: p.id, amount: amount, note: p.cpl ? ('当前线索成本 ' + money(p.cpl) + '，' + (i === 0 ? '优先保证基本盘' : '按线索量分配')) : '' };
+    });
+    var left = budget - local.budget.reduce(function (s, x) { return s + x.amount; }, 0);
+    if (local.budget.length) local.budget[0].amount += left;
+    return local;
+  }
+  var d = S.dashboard;
+  if (!d) d = clone(DEMO_DASHBOARD);
+  var o = {
+    spend: d.spend, leads: d.leads, cpl: d.cpl, high_intent: d.high_intent, est_deals: d.est_deals,
+    platforms: d.platforms && d.platforms.length ? d.platforms : clone(DEMO_DASHBOARD.platforms),
+    before: d.before || clone(DEMO_DASHBOARD.before),
+    after: d.after || { cpl: d.cpl || DEMO_DASHBOARD.after.cpl, conv: DEMO_DASHBOARD.after.conv },
+    budget: d.budget && d.budget.length ? d.budget : null,
+    note: d.note || ''
+  };
+  var bg = Number((getProfile() || {}).budget) || 12000;
+  if (!o.budget) o.budget = scaleBudget(clone(DEMO_DASHBOARD.budget), bg);
+  else {
+    var sum = o.budget.reduce(function (s, x) { return s + Number(x.amount || 0); }, 0);
+    if (sum && Math.abs(sum - bg) / bg > 0.15) o.budget = scaleBudget(o.budget, bg);
+  }
+  return o;
+}
+
+/* ---------------- 10. 套餐 ---------------- */
+var PLAN_DEFS = {
+  basic: { id: 'basic', name: '基础版', price: 99, platforms: ['baidu', '58'], daily: 20, kinds: ['title', 'description'] },
+  pro: { id: 'pro', name: '专业版', price: 199, platforms: ['baidu', 'oceanengine', 'meituan', '58'], daily: 100, kinds: ['title', 'description', 'video_script', 'note', 'post', 'comment_reply'] },
+  premium: { id: 'premium', name: '高级版', price: 499, platforms: ['baidu', 'oceanengine', 'xiaohongshu', '58', 'meituan'], daily: null, kinds: ['title', 'description', 'video_script', 'note', 'post', 'comment_reply', 'landing_page', 'store_opt', 'review_reply'] }
+};
+function planDef(id) { return PLAN_DEFS[id] || PLAN_DEFS.pro; }
+function applyPlan(plan, full) {
+  if (!plan) return;
+  var id = plan.id === 'premium' ? 'premium' : (plan.id === 'basic' ? 'basic' : (plan.id || 'pro'));
+  var def = planDef(id);
+  var name = plan.name || def.name;
+  S.planInfo = {
+    id: id, name: name, price: def.price,
+    platforms: Array.isArray(plan.platforms) && plan.platforms.length ? plan.platforms : def.platforms,
+    daily: plan.daily_keyword_limit != null ? plan.daily_keyword_limit : def.daily,
+    usage: (full && full.usage) || null,
+    limits: (full && full.limits) || null,
+    upgrade: (full && full.upgrade) || '',
+    expire: plan.expire_at || plan.expires_at || ''
+  };
+  renderSettings();
+  renderKeywords();
+}
+function planCanPlatform(platform) {
+  var info = S.planInfo;
+  if (!info || S.mode !== 'live') return true;
+  return (info.platforms || []).indexOf(platform) >= 0;
+}
+function planDemoInfo() {
+  return {
+    id: 'pro', name: '专业版', price: 199,
+    platforms: PLAN_DEFS.pro.platforms.slice(), daily: 100,
+    usage: { date: today(), keywords_generated: 42, daily_limit: 100, remaining: 58 },
+    limits: { export: true, realtime_reminder: false, before_after: true, platform_compare: true, geo_video: true },
+    upgrade: '升级高级版可解锁全平台（含小红书）与不限量关键词。',
+    expire: '2027-11-17'
+  };
+}
+
+/* ---------------- 11. 接口请求封装（带降级） ---------------- */
+var KIND_MAP = { title: 'title', desc: 'description', note: 'note', post: 'post', script: 'video_script', reply: 'comment_reply' };
+function requestKeywords(platform, count, round) {
+  var local = { data: localKeywords(platform, count, round), source: 'local', error: '' };
+  if (S.mode !== 'live') return Promise.resolve(local);
+  return apiPost('/keywords', { platform: platform, count: count }).then(function (d) {
+    var n = normalizeKeywords(d);
+    if (!n) throw new Error('empty');
+    return { data: n, source: 'api', error: '', meta: d };
+  }).catch(function (e) {
+    local.error = apiErrText(e);
+    return local;
+  });
+}
+function requestCreatives(platform, type, count) {
+  var local = { data: localCreatives(platform, type, count), source: 'local', error: '' };
+  if (S.mode !== 'live') return Promise.resolve(local);
+  var kind = KIND_MAP[type] || type;
+  return apiPost('/creatives', { platform: platform, kinds: [kind] }).then(function (d) {
+    var n = normalizeCreatives(d, platform, type);
+    if (!n) throw new Error('empty');
+    if (n.length < count) {
+      var extra = localCreatives(platform, type, count - n.length).map(function (x) { x.local = true; return x; });
+      n = n.concat(extra);
+    }
+    return { data: n.slice(0, Math.max(count, 3)), source: 'api', error: '', meta: d };
+  }).catch(function (e) {
+    local.error = apiErrText(e);
+    return local;
+  });
+}
+function requestScripts(industry, platform, level, style) {
+  var local = { data: localScripts(industry, platform, level, style), source: 'local', error: '' };
+  if (S.mode !== 'live') return Promise.resolve(local);
+  return apiPost('/scripts', { industry: industry, platform: platform, level: level, style: styleName(style) }).then(function (d) {
+    var n = normalizeScripts(d, industry, platform, level, style);
+    if (!n) throw new Error('empty');
+    return { data: n, source: 'api', error: '', meta: d };
+  }).catch(function (e) {
+    local.error = apiErrText(e);
+    return local;
+  });
+}
+function requestGradeLeads(rawList) {
+  var localList = rawList.map(gradeLeadLocal);
+  if (S.mode !== 'live') return Promise.resolve({ data: localList, source: 'local', error: '' });
+  return apiPost('/leads/grade', {
+    leads: rawList.map(function (r) { return { text: r.text, name: r.nick || '', platform: r.platform || '', phone: r.contact || '' }; })
+  }).then(function (d) {
+    var n = normalizeGraded(d, rawList);
+    if (!n) throw new Error('empty');
+    return { data: n, source: 'api', error: '' };
+  }).catch(function (e) {
+    return { data: localList, source: 'local', error: apiErrText(e) };
+  });
+}
+function requestImportLeads(rawList, graded) {
+  if (S.mode !== 'live') return Promise.resolve({ source: 'local' });
+  return apiPost('/leads/import', {
+    platform: rawList.length ? (rawList[0].platform === 'manual' ? '' : rawList[0].platform) : '',
+    rows: rawList.map(function (r, i) {
+      return { name: r.nick || (graded[i] && graded[i].nick) || '', text: r.text || '', phone: r.contact || '', platform: r.platform || '', score: graded[i] ? graded[i].score : null, level: graded[i] ? graded[i].level : null };
+    })
+  }).then(function (d) { return { source: 'api', meta: d }; }).catch(function (e) { return { source: 'local', error: apiErrText(e) }; });
+}
+function requestReportImport(platform, csv) {
+  var localReport = reportFromCsv(csv, platform);
+  if (!localReport) return Promise.resolve({ ok: false, error: '未识别到有效数据行，请检查 CSV 表头与内容' });
+  if (S.mode !== 'live') return Promise.resolve({ ok: true, report: localReport, source: 'local', error: '' });
+  return apiPost('/reports/import', { platform: platform, csv: csv }, 40000).then(function (d) {
+    var s = d.summary || {};
+    var rep = localReport;
+    rep.remote = true;
+    if (s.cost != null) rep.cost = Number(s.cost) || rep.cost;
+    if (s.leads != null) rep.leads = Number(s.leads) || rep.leads;
+    if (s.consults != null) rep.consults = Number(s.consults) || rep.consults;
+    if (s.impressions != null) rep.impressions = Number(s.impressions) || rep.impressions;
+    if (s.clicks != null) rep.clicks = Number(s.clicks) || rep.clicks;
+    rep.cpl = s.cost_per_lead != null ? Number(s.cost_per_lead) : (rep.leads ? rep.cost / rep.leads : 0);
+    rep.conv = s.conversion_rate != null ? Number(s.conversion_rate) : rep.conv;
+    if (s.period || d.period) { var pd = d.period || {}; rep.period = s.period || ((pd.start || '') + (pd.end ? ' ~ ' + pd.end : '')); }
+    return { ok: true, report: rep, source: 'api', error: '' };
+  }).catch(function (e) {
+    return { ok: true, report: localReport, source: 'local', error: apiErrText(e) };
+  });
+}
+
+/* ---------------- 12. 渲染 ---------------- */
+var INDUSTRIES = ['除甲醛/环保', '装修建材', '家政保洁', '家电维修', '美业', '化妆培训', '餐饮', '婚庆', '教育培训', '口腔医疗', '月子中心', '汽车服务', '其他'];
+function highlightAny(text, extraRisks) {
+  var words = RISK_WORDS.slice();
+  (extraRisks || []).forEach(function (r) { if (r && r.word && words.indexOf(r.word) < 0) words.push(r.word); });
+  var sorted = words.slice().sort(function (a, b) { return b.length - a.length; });
+  var re = new RegExp('(' + sorted.map(reEsc).join('|') + ')', 'g');
+  return esc(text).replace(re, '<mark class="ads-mark" title="广告法极限词，发布前请修改">$1</mark>');
+}
+function platformOptions(includeAll) {
+  return (includeAll ? '<option value="">全部平台</option>' : '') + PF.map(function (p) {
+    return '<option value="' + p.id + '">' + esc(p.name) + '</option>';
+  }).join('');
+}
+function populateSelects() {
+  ['crPlatform', 'rpPlatform', 'scPlatform'].forEach(function (id) {
+    var el = $(id); if (el) el.innerHTML = platformOptions(false);
+  });
+  var lf = $('leadFilterPlatform');
+  if (lf) lf.innerHTML = platformOptions(true);
+  var si = $('scIndustry');
+  if (si) si.innerHTML = INDUSTRIES.map(function (x) { return '<option value="' + esc(x) + '">' + esc(x) + '</option>'; }).join('');
+  if ($('crPlatform')) $('crPlatform').value = 'baidu';
+  if ($('rpPlatform')) $('rpPlatform').value = 'baidu';
+  if ($('scPlatform')) $('scPlatform').value = 'baidu';
+  var p = getProfile();
+  if ($('scIndustry')) {
+    var ind = splitIndustry(p.industry)[0] || '其他';
+    $('scIndustry').value = INDUSTRIES.indexOf(ind) >= 0 ? ind : '其他';
+  }
+}
+function barsHtml(platforms) {
+  if (!platforms || !platforms.length) return '<div class="ads-empty"><span class="e-ico">📭</span>暂无平台数据，导入报表后自动生成</div>';
+  var max = 1;
+  platforms.forEach(function (p) { max = Math.max(max, Number(p.leads) || 0); });
+  return platforms.map(function (p, i) {
+    var pid = p.id || p.platform || 'other';
+    var name = PF_MAP[pid] ? pfShort(pid) : (p.name || (pid === 'other' ? '其他平台' : pid));
+    var leads = Number(p.leads) || 0, spend = Number(p.spend) || 0;
+    var cpl = p.cpl != null ? Number(p.cpl) : (leads ? spend / leads : 0);
+    var conv = p.conversion_rate != null ? Number(p.conversion_rate) : (p.consults ? leads / p.consults * 100 : 0);
+    var w = leads ? Math.max(6, Math.round(leads / max * 100)) : 2;
+    return '<div class="ads-bar-row' + (i % 2 ? ' alt' : '') + '">' +
+      '<div class="ads-bar-top"><span class="ads-pf-dot" style="background:' + pfColor(pid) + '"></span><span class="ads-bar-name" title="' + esc(name) + '">' + esc(name) + '</span></div>' +
+      '<div class="ads-bar-wrap"><div class="ads-bar-track"><div class="ads-bar-fill" style="width:' + w + '%"></div></div>' +
+      '<div class="ads-bar-meta"><span>线索 <b>' + fm(leads) + '</b></span><span>消耗 <b>¥' + fm(spend) + '</b></span>' +
+      '<span class="cpl">线索成本 <b>' + (cpl ? '¥' + fm1(cpl) : '—') + '</b></span>' +
+      (conv ? '<span>转化率 <b>' + pct(conv) + '</b></span>' : '') + '</div></div></div>';
+  }).join('');
+}
+function baListHtml(ov) {
+  var before = ov.before || {}, after = ov.after || {};
+  var rows = [];
+  if (before.cpl && after.cpl) {
+    var drop = (1 - after.cpl / before.cpl) * 100;
+    rows.push('<div class="ads-ba-item"><span class="bl">线索成本</span><b>¥' + fm1(before.cpl) + '</b><span class="to">→</span><b>¥' + fm1(after.cpl) + '</b><span class="good">' + (drop >= 0 ? '↓ ' : '↑ ') + Math.abs(drop).toFixed(1) + '%</span></div>');
+  }
+  if (before.conv || after.conv) {
+    var diff = (after.conv || 0) - (before.conv || 0);
+    rows.push('<div class="ads-ba-item"><span class="bl">转化率</span><b>' + pct(before.conv) + '</b><span class="to">→</span><b>' + pct(after.conv) + '</b><span class="good">' + (diff >= 0 ? '↑ ' : '↓ ') + Math.abs(diff).toFixed(1) + 'pp</span></div>');
+  }
+  var leads = Number(ov.leads) || 0;
+  var beforeLeads = Math.round(leads * 0.72);
+  rows.push('<div class="ads-ba-item"><span class="bl">本期线索</span><b>' + fm(beforeLeads) + '</b><span class="to">→</span><b>' + fm(leads) + '</b><span class="good">↑ ' + Math.max(0, leads - beforeLeads) + ' 条</span></div>');
+  var highRate = leads ? (Number(ov.high_intent) || 0) / leads * 100 : 0;
+  rows.push('<div class="ads-ba-item"><span class="bl">高意向占比</span><b>12.0%</b><span class="to">→</span><b>' + pct(highRate) + '</b><span class="good">↑ ' + Math.max(0, highRate - 12).toFixed(1) + 'pp</span></div>');
+  return rows.join('');
+}
+function budgetHtml(ov) {
+  var list = ov.budget || [];
+  if (!list.length) list = clone(DEMO_DASHBOARD.budget);
+  var total = list.reduce(function (s, x) { return s + (Number(x.amount) || 0); }, 0) || 1;
+  return list.map(function (b) {
+    var pid = b.id || b.platform || 'other';
+    var amount = Number(b.amount) || 0;
+    var pctv = b.pct != null ? Number(b.pct) : Math.round(amount / total * 100);
+    return '<div class="ads-budget-row"><span class="bn" title="' + esc(pfName(pid)) + '"><span class="ads-pf-dot" style="background:' + pfColor(pid) + '"></span>' + esc(PF_MAP[pid] ? pfShort(pid) : pfName(pid)) + '</span>' +
+      '<div class="ads-bar-track"><div class="ads-bar-fill" style="width:' + Math.max(3, pctv) + '%"></div></div>' +
+      '<span class="bv">¥' + fm(amount) + ' · ' + pctv + '%</span></div>' +
+      (b.note ? '<div class="ads-bar-meta" style="margin:-4px 0 2px 106px">' + esc(b.note) + '</div>' : '');
+  }).join('');
+}
+function renderOverview() {
+  var ov = currentOverview();
+  if ($('statSpend')) $('statSpend').innerHTML = '¥' + fm(ov.spend);
+  if ($('statLeads')) $('statLeads').innerHTML = fm(ov.leads) + '<small> 条</small>';
+  if ($('statCpl')) $('statCpl').innerHTML = ov.leads ? '¥' + fm1(ov.cpl) : '—';
+  if ($('statHigh')) $('statHigh').innerHTML = fm(ov.high_intent) + '<small> 条</small>';
+  if ($('statDeals')) $('statDeals').innerHTML = fm(ov.est_deals) + '<small> 单</small>';
+  if ($('platBars')) $('platBars').innerHTML = barsHtml(ov.platforms);
+  if ($('baCplBefore')) $('baCplBefore').textContent = ov.before && ov.before.cpl ? '¥' + fm1(ov.before.cpl) : '—';
+  if ($('baCplAfter')) $('baCplAfter').textContent = ov.after && ov.after.cpl ? '¥' + fm1(ov.after.cpl) : '—';
+  if ($('baConvBefore')) $('baConvBefore').textContent = ov.before ? pct(ov.before.conv) : '—';
+  if ($('baConvAfter')) $('baConvAfter').textContent = ov.after ? pct(ov.after.conv) : '—';
+  if ($('baList')) $('baList').innerHTML = baListHtml(ov);
+  if ($('budgetList')) $('budgetList').innerHTML = budgetHtml(ov);
+  if ($('budgetTotal')) $('budgetTotal').textContent = '¥' + fm(ov.budget.reduce(function (s, x) { return s + (Number(x.amount) || 0); }, 0));
+  if ($('budgetTotalHint')) $('budgetTotalHint').textContent = '档案月预算 ¥' + fm((getProfile() || {}).budget || 0);
+  if ($('ovUpdated')) {
+    var txt;
+    if (S.reports.length) txt = '基于已导入报表（' + S.reports.length + ' 个平台）· 更新于 ' + stamp();
+    else if (S.mode === 'live' && S.dashboard) txt = '服务器数据 · ' + (S.dashboard.note || '更新于 ' + stamp());
+    else txt = '演示数据 · 接口 / 报表就绪后自动更新';
+    $('ovUpdated').textContent = txt;
+  }
+}
+function renderProfileServices() {
+  var host = $('pfServiceTags');
+  if (!host) return;
+  var p = S.profile || {};
+  var list = p.services || [];
+  host.innerHTML = list.map(function (s, i) {
+    return '<span class="ads-chip">' + esc(s) + '<button type="button" data-del-service="' + i + '" aria-label="删除 ' + esc(s) + '">×</button></span>';
+  }).join('') + '<div class="ads-chip-add"><input id="pfServiceInput" maxlength="24" placeholder="输入服务项目后回车添加" aria-label="添加服务项目"><button type="button" id="pfServiceAdd">＋ 添加</button></div>';
+  var inp = $('pfServiceInput');
+  if (inp) {
+    inp.addEventListener('keydown', function (e) { if (e.key === 'Enter') { e.preventDefault(); addProfileService(); } });
+  }
+  var add = $('pfServiceAdd');
+  if (add) add.addEventListener('click', addProfileService);
+}
+function addProfileService() {
+  var inp = $('pfServiceInput');
+  if (!inp) return;
+  var v = inp.value.trim();
+  if (!v) return;
+  var p = S.profile || getProfile();
+  p.services = p.services || [];
+  if (p.services.indexOf(v) < 0) p.services.push(v);
+  S.profile = p;
+  renderProfileServices();
+  var ni = $('pfServiceInput'); if (ni) ni.focus();
+}
+function renderProfileForm() {
+  var p = S.profile || getProfile();
+  if ($('pfName')) $('pfName').value = p.name || '';
+  if ($('pfIndustry')) {
+    if (INDUSTRIES.indexOf(p.industry) >= 0 || p.industry === '其他') $('pfIndustry').value = p.industry;
+    else $('pfIndustry').value = '其他';
+  }
+  if ($('pfIndustryCustom')) {
+    var custom = INDUSTRIES.indexOf(p.industry) < 0 && p.industry !== '其他';
+    $('pfIndustryCustom').hidden = !(custom || p.industry === '其他' || p.industryCustom);
+    $('pfIndustryCustom').value = p.industryCustom || (custom ? p.industry : '');
+  }
+  if ($('pfCity')) $('pfCity').value = p.city || '';
+  if ($('pfArea')) $('pfArea').value = p.area || '';
+  if ($('pfRadius')) $('pfRadius').value = p.radius != null ? p.radius : '';
+  if ($('pfPriceMin')) $('pfPriceMin').value = p.priceMin != null ? p.priceMin : '';
+  if ($('pfPriceMax')) $('pfPriceMax').value = p.priceMax != null ? p.priceMax : '';
+  if ($('pfAudience')) $('pfAudience').value = p.audience || '';
+  if ($('pfSelling')) $('pfSelling').value = p.selling || '';
+  if ($('pfCompetitors')) $('pfCompetitors').value = p.competitors || '';
+  if ($('pfBudget')) $('pfBudget').value = p.budget != null ? p.budget : '';
+  if ($('pfUrl')) $('pfUrl').value = p.url || '';
+  renderProfileServices();
+  if ($('pfState')) $('pfState').textContent = S.remoteProfile ? '已从服务器读取' : (lsGet(KEYS.profile, null) ? '已保存（本机）' : '未保存');
+}
+function collectProfile() {
+  var ind = $('pfIndustry') ? $('pfIndustry').value : '';
+  var custom = $('pfIndustryCustom') ? $('pfIndustryCustom').value.trim() : '';
+  return {
+    name: ($('pfName') || {}).value ? $('pfName').value.trim() : '',
+    industry: ind === '其他' && custom ? custom : ind,
+    industryCustom: custom,
+    city: ($('pfCity') || {}).value ? $('pfCity').value.trim() : '',
+    area: ($('pfArea') || {}).value ? $('pfArea').value.trim() : '',
+    radius: Number(($('pfRadius') || {}).value) || 0,
+    services: (S.profile && S.profile.services ? S.profile.services : []).slice(),
+    priceMin: Number(($('pfPriceMin') || {}).value) || 0,
+    priceMax: Number(($('pfPriceMax') || {}).value) || 0,
+    audience: ($('pfAudience') || {}).value ? $('pfAudience').value.trim() : '',
+    selling: ($('pfSelling') || {}).value ? $('pfSelling').value.trim() : '',
+    competitors: ($('pfCompetitors') || {}).value ? $('pfCompetitors').value.trim() : '',
+    budget: Number(($('pfBudget') || {}).value) || 0,
+    url: ($('pfUrl') || {}).value ? $('pfUrl').value.trim() : ''
+  };
+}
+function renderKeywordTabs() {
+  var host = $('kwPlatforms');
+  if (!host) return;
+  host.innerHTML = PF.map(function (p) {
+    var locked = !planCanPlatform(p.id);
+    return '<button type="button" class="ads-pf-tab' + (p.id === S.kwPlatform ? ' on' : '') + '" data-kwpf="' + p.id + '" role="tab" aria-selected="' + (p.id === S.kwPlatform ? 'true' : 'false') + '" title="' + esc(p.name) + (locked ? '（当前套餐未覆盖，可升级）' : '') + '">' +
+      esc(p.ico) + ' ' + esc(p.short) + '</button>';
+  }).join('');
+}
+function renderKeywords() {
+  renderKeywordTabs();
+  var st = $('kwStatus');
+  if (st) {
+    if (S.kwStatusText) st.innerHTML = S.kwStatusText;
+    else if (!planCanPlatform(S.kwPlatform)) st.innerHTML = '当前套餐未覆盖「' + esc(pfName(S.kwPlatform)) + '」，生成会先尝试在线接口，不行则返回本地演示结果。';
+    else st.textContent = '已选「' + pfName(S.kwPlatform) + '」。点「生成关键词」会读取商家档案中的城市、区县、服务项目。';
+  }
+  var box = $('kwResult');
+  var kw = S.keywords;
+  var ok = kw && kw.platform === S.kwPlatform;
+  if (box) box.hidden = !ok;
+  if (!ok) return;
+  if ($('kwSummary')) {
+    var meta = kw.remote ? '在线接口生成' : '本地演示生成';
+    $('kwSummary').innerHTML = '<span class="ads-badge ai">AI 辅助生成</span><span>平台：<b>' + esc(pfName(kw.platform)) + '</b></span><span>共 <b>' + kw.count + '</b> 个词</span><span>来源：' + meta + '</span>' + (kw.cached ? '<span class="ads-badge">缓存命中</span>' : '');
+  }
+  if ($('kwGroups')) {
+    var rowMap = {};
+    (kw.rows || []).forEach(function (r) { if (r && r.word) rowMap[r.word] = r; });
+    $('kwGroups').innerHTML = kw.groups.map(function (g) {
+      return '<div class="ads-kw-group"><h4>' + esc(g.name) + ' <span class="cnt">' + g.words.length + ' 词</span></h4>' +
+        (g.desc ? '<p class="g-desc">' + esc(g.desc) + '</p>' : '') +
+        '<div class="ads-words">' + g.words.map(function (w) {
+          var row = rowMap[w] || {};
+          var bid = row.bid != null && row.bid !== '' ? '¥' + (isFinite(Number(row.bid)) ? Number(row.bid).toFixed(1) : row.bid) : '';
+          var meta = row.match ? (row.match.replace('匹配', '') + (bid ? ' · ' + bid : '')) : (bid || '建议出价');
+          return '<span class="ads-word" title="' + esc((row.intent ? '意图：' + row.intent + ' · ' : '') + (row.reason || '')) + '"><span class="w">' + esc(w) + '</span><span class="m">' + esc(meta) + '</span><button type="button" data-copy-word="' + esc(w) + '" title="复制">📋</button></span>';
+        }).join('') + '</div></div>';
+    }).join('');
+  }
+  if ($('kwNegatives')) {
+    var negs = kw.negatives || [];
+    if (negs.length === 1) {
+      $('kwNegatives').innerHTML = '<div class="ads-neglist">' + (negs[0].words || []).map(function (w) { return '<span class="ads-neg">' + esc(w) + '</span>'; }).join('') + '</div>';
+    } else {
+      $('kwNegatives').innerHTML = negs.map(function (g) {
+        return '<div style="margin-bottom:8px"><div class="ads-hintline" style="margin-bottom:5px;color:var(--ad-red);font-weight:700">' + esc(g.name) + '</div><div class="ads-neglist">' +
+          (g.words || []).map(function (w) { return '<span class="ads-neg">' + esc(w) + '</span>'; }).join('') + '</div></div>';
+      }).join('');
+    }
+  }
+  if ($('kwFileHint')) $('kwFileHint').textContent = kw.platform === 'baidu' ? 'CSV 列：关键词、匹配方式、出价建议、否定词分组' : 'CSV 列：关键词、匹配方式、出价建议、否定词分组（通用格式）';
+}
+function renderCreatives() {
+  var host = $('crOut');
+  if (!host) return;
+  var st = $('crStatus');
+  if (st) {
+    if (S.crStatusText) st.innerHTML = S.crStatusText;
+    else st.textContent = '选择平台与类型后生成；脚本可一键送去视频工作台。';
+  }
+  var list = S.creatives || [];
+  if (!list.length) {
+    host.innerHTML = '<div class="ads-empty" style="grid-column:1/-1"><span class="e-ico">✨</span>还没有生成内容。选择平台与类型，点「生成创意」。<br>所有内容带「AI 辅助生成」标识并自动做广告法极限词检测。</div>';
+    return;
+  }
+  host.innerHTML = list.map(function (c, i) {
+    var typeLabel = TYPE_LABEL[c.type] || c.type || '创意';
+    var isScript = c.type === 'script';
+    var titleHtml = c.title ? '<div style="font-weight:900;font-size:14px;margin-bottom:2px">' + highlightAny(c.title, c.risk) + '</div>' : '';
+    var len = (c.title || c.text || '').length;
+    var lenLimit = c.type === 'title' ? 28 : (c.type === 'desc' ? 80 : 0);
+    var lenLabel = lenLimit ? (len + '/' + lenLimit + ' 字') : (len + ' 字');
+    var riskLine = (c.risk && c.risk.length)
+      ? '<div class="ads-riskline">⚠️ 合规检测：发现 <b>' + c.risk.length + '</b> 个风险词 ' + c.risk.map(function (r) { return '<span class="rw">' + esc(r.word) + '</span>' + (r.suggest ? '→' + esc(r.suggest) : ''); }).join('；') + '</div>'
+      : '<div class="ads-riskline" style="color:var(--ad-lime)">✅ 合规检测通过（未命中广告法极限词）</div>';
+    return '<div class="ads-cr-card">' +
+      '<div class="cr-head"><span class="ads-badge ai">' + esc(c.ai_label || 'AI 辅助生成') + '</span><span class="ads-badge">' + esc(typeLabel) + '</span><span class="ads-badge' + (lenLimit && len > lenLimit ? ' bad' : '') + '">' + esc(lenLabel) + '</span><span class="ads-badge">' + esc(pfShort(c.platform || S.crPlatform)) + '</span></div>' +
+      titleHtml +
+      '<div class="ads-cr-text' + (c.text.length > 120 ? ' long' : '') + '">' + highlightAny(c.text, c.risk) + '</div>' +
+      (c.tags ? '<div class="ads-cr-note">' + highlightAny(c.tags, c.risk) + '</div>' : '') +
+      riskLine +
+      '<div class="ads-cr-foot">' +
+      '<button type="button" class="ads-mini" data-copy-cr="' + i + '">📋 复制</button>' +
+      (isScript ? '<button type="button" class="ads-mini" data-studio-cr="' + i + '" style="border-color:rgba(139,92,246,.5);color:#c4b5fd">🎬 送去视频工作台</button>' : '') +
+      '<span class="spacer"></span><span class="ads-cr-note">请人工复核后发布</span>' +
+      '</div></div>';
+  }).join('');
+}
+function filteredLeads() {
+  var pfSel = $('leadFilterPlatform'), lvSel = $('leadFilterLevel'), kwEl = $('leadFilterKw');
+  var pf = pfSel ? pfSel.value : '', lv = lvSel ? lvSel.value : '', kw = kwEl ? kwEl.value.trim() : '';
+  return S.leads.filter(function (l) {
+    if (pf && l.platform !== pf) return false;
+    if (lv && l.level !== lv) return false;
+    if (kw) {
+      var hay = [l.nick, l.text, l.contact, (l.tags || []).join(' '), pfName(l.platform)].join(' ');
+      if (hay.indexOf(kw) < 0) return false;
+    }
+    return true;
+  });
+}
+function leadCardHtml(l, idx) {
+  var lv = LEVELS[l.level] || LEVELS.low;
+  var dimsHtml = DIMS.map(function (d) {
+    var v = (l.dims && l.dims[d.key]) || 0;
+    var pctv = Math.round(v / d.max * 100);
+    var cls = pctv >= 70 ? ' hi' : (pctv < 40 ? ' lo' : '');
+    return '<div class="ads-dim' + cls + '"><div class="dl"><span>' + esc(d.name) + '</span><b>' + v + '/' + d.max + '</b></div><div class="ads-track"><div class="ads-fill" style="width:' + pctv + '%"></div></div></div>';
+  }).join('');
+  var tags = (l.tags || []).map(function (t) { return '<span class="ads-badge">' + esc(t) + '</span>'; }).join(' ');
+  return '<div class="ads-lead ' + lv.cls + '">' +
+    '<div class="ads-lead-h"><span class="nick">' + esc(l.nick || '匿名客户') + '</span>' +
+    '<span class="plat">' + esc(pfName(l.platform)) + '</span>' +
+    '<span class="src">' + esc(l.source || '') + ' · ' + esc(l.createdAt || '') + '</span>' +
+    '<span class="ads-badge ' + lv.cls + '">' + lv.name + '</span>' +
+    '<span class="score">六维总分 <b>' + (l.score || 0) + '</b> 分</span></div>' +
+    '<div class="ads-lead-text">' + esc(l.text || '') + '</div>' +
+    '<div class="ads-dims">' + dimsHtml + '</div>' +
+    '<div class="ads-lead-foot">' + tags +
+    '<span class="contact">' + (l.contact ? '联系方式：' + esc(l.contact) : '未留联系方式') + '</span>' +
+    '<span class="spacer"></span>' +
+    (l.contact ? '<button type="button" class="ads-mini" data-copy-contact="' + idx + '">📋 复制联系方式</button>' : '') +
+    '<button type="button" class="ads-mini" data-del-lead="' + esc(l.id) + '" style="border-color:rgba(251,113,133,.4);color:var(--ad-red)">删除</button>' +
+    '</div></div>';
+}
+function renderLeads() {
+  var list = filteredLeads();
+  if ($('leadCount')) $('leadCount').textContent = list.length + ' 条' + (S.leads.length !== list.length ? ' / 共 ' + S.leads.length : '');
+  if ($('leadCountHint')) $('leadCountHint').textContent = '台账共 ' + S.leads.length + ' 条 · ' + (S.mode === 'live' ? '接口在线' : '本机保存');
+  var host = $('leadList');
+  if (!host) return;
+  if (!list.length) {
+    host.innerHTML = '<div class="ads-empty"><span class="e-ico">🧾</span>' + (S.leads.length ? '没有符合筛选条件的线索，试试重置筛选。' : '还没有线索。把商家自己的咨询/表单线索粘贴到上方，或点「填入示例（3 条）」体验六维评分。') + '</div>';
+  } else {
+    host.innerHTML = list.slice().reverse().map(function (l) { return leadCardHtml(l, S.leads.indexOf(l)); }).join('');
+  }
+}
+function renderScripts() {
+  var host = $('scOut');
+  if (!host) return;
+  var st = $('scStatus');
+  if (st) st.textContent = S.scStatusText || '话术供人工复制使用，禁止群发骚扰。';
+  var data = S.scripts;
+  if (!data || !data.scripts || !data.scripts.length) {
+    host.innerHTML = '<div class="ads-empty" style="grid-column:1/-1"><span class="e-ico">💬</span>选择行业 / 平台 / 意向等级 / 风格，点「生成 5 类话术」。<br>接待 · 报价 · 邀约 · 回访 · 转介绍，一次生成。</div>';
+    return;
+  }
+  host.innerHTML = data.scripts.map(function (s, i) {
+    return '<div class="ads-sc-card"><h4><span class="no">' + (i + 1) + '</span>' + esc(s.type) + '<span class="ads-badge">' + esc(s.style || styleName($('scStyle') ? $('scStyle').value : 'pro')) + '</span><span class="ads-badge ai">' + esc(s.ai_label || 'AI 辅助生成') + '</span></h4>' +
+      '<p>' + esc(s.content) + '</p>' +
+      ((s.compliance && s.compliance.length) ? '<div class="ads-riskline">⚠️ 风险词：' + s.compliance.map(function (r) { return esc(r.word); }).join('、') + '</div>' : '<div class="ads-riskline" style="color:var(--ad-lime)">✅ 合规检测通过</div>') +
+      '<div class="sc-foot"><button type="button" class="ads-mini" data-copy-sc="' + i + '">📋 复制话术</button><span class="ads-cr-note">人工发送，不群发</span></div></div>';
+  }).join('');
+}
+function renderBA(prefix, ov) {
+  if ($(prefix + 'CplBefore')) $(prefix + 'CplBefore').textContent = ov.before && ov.before.cpl ? '¥' + fm1(ov.before.cpl) : '—';
+  if ($(prefix + 'CplAfter')) $(prefix + 'CplAfter').textContent = ov.after && ov.after.cpl ? '¥' + fm1(ov.after.cpl) : '—';
+  if ($(prefix + 'ConvBefore')) $(prefix + 'ConvBefore').textContent = ov.before ? pct(ov.before.conv) : '—';
+  if ($(prefix + 'ConvAfter')) $(prefix + 'ConvAfter').textContent = ov.after ? pct(ov.after.conv) : '—';
+  if ($(prefix + 'List')) $(prefix + 'List').innerHTML = baListHtml(ov);
+}
+function renderReports() {
+  var ov = currentOverview();
+  if ($('rpBars')) $('rpBars').innerHTML = barsHtml(ov.platforms);
+  renderBA('rpBa', ov);
+  if ($('rpLegend')) $('rpLegend').textContent = S.reports.length ? '以上为已导入报表汇总（' + S.reports.length + ' 个平台）。' : '尚未导入报表，当前显示演示数据；导入后自动更新为你的真实数据。';
+  if ($('rpImported')) {
+    $('rpImported').innerHTML = S.reports.length ? S.reports.map(function (r, i) {
+      return '<div class="ads-rp-item"><span class="ri-p">' + esc(pfName(r.platform)) + '</span><span>' + (r.period ? esc(r.period) + ' · ' : '') + '消耗 ¥' + fm(r.cost) + ' · 线索 ' + fm(r.leads) + ' · 线索成本 ' + (r.leads ? '¥' + fm1(r.cost / r.leads) : '—') + '</span><span class="ri-t">导入于 ' + esc(r.importedAt || '') + '</span><button type="button" class="ads-mini" data-del-report="' + i + '">删除</button></div>';
+    }).join('') : '<div class="ads-hintline">还没有导入报表。选择平台、上传官方后台导出的 CSV，或先下载模板填写。</div>';
+  }
+  if ($('rpDataHint')) $('rpDataHint').textContent = S.reports.length ? '已导入 ' + S.reports.length + ' 个平台报表；概览页数字已同步更新。' : '尚无导入数据时，概览显示行业演示数据。';
+}
+function renderSettings() {
+  var info = S.planInfo || planDemoInfo();
+  if ($('planName')) $('planName').textContent = info.name;
+  if ($('planPrice')) $('planPrice').textContent = '¥' + info.price;
+  if ($('planExpire')) $('planExpire').textContent = (info.expire ? '有效期至 ' + info.expire + ' · ' : '按账号套餐 · ') + '覆盖 ' + (info.platforms || []).map(pfShort).join(' / ');
+  var usage = info.usage || {};
+  var kUsed = usage.keywords_generated != null ? usage.keywords_generated : 42;
+  var kLimit = usage.daily_limit != null ? usage.daily_limit : (info.daily || 100);
+  var items = [
+    { label: '关键词生成（今日）', used: kUsed, limit: kLimit, unit: '条' },
+    { label: '创意生成（本月）', used: S.creatives ? S.creatives.length : 18, limit: 100, unit: '条' },
+    { label: '线索分级（本月）', used: S.leads.length, limit: 1000, unit: '条' },
+    { label: '报表导入（本月）', used: S.reports.length, limit: 20, unit: '份' },
+    { label: '覆盖平台', used: (info.platforms || []).length, limit: 5, unit: '个' }
+  ];
+  if ($('quotaList')) {
+    $('quotaList').innerHTML = items.map(function (it) {
+      var pctv = it.limit ? Math.min(100, Math.round(it.used / it.limit * 100)) : 0;
+      var unlimited = it.limit == null;
+      return '<div class="ads-quota-item"><div class="ql"><span>' + esc(it.label) + '</span><b>' + fm(it.used) + (unlimited ? ' / 不限' : ' / ' + fm(it.limit)) + ' ' + it.unit + '</b></div>' +
+        '<div class="ads-track"><div class="ads-fill" style="width:' + pctv + '%"></div></div></div>';
+    }).join('');
+  }
+}
+function renderAll() {
+  renderOverview();
+  renderProfileForm();
+  renderKeywords();
+  renderCreatives();
+  renderLeads();
+  renderScripts();
+  renderReports();
+  renderSettings();
+}
+
+/* ---------------- 13. 交互 ---------------- */
+function setBusy(btn, busy, text) {
+  if (!btn) return;
+  if (busy) {
+    if (!btn.getAttribute('data-txt')) btn.setAttribute('data-txt', btn.innerHTML);
+    btn.disabled = true;
+    btn.innerHTML = '<span style="width:14px;height:14px;border:2px solid rgba(4,18,28,.3);border-top-color:#04121c;border-radius:50%;display:inline-block;animation:adsSpin .8s linear infinite"></span> ' + esc(text || '处理中…');
+  } else {
+    btn.disabled = false;
+    var t = btn.getAttribute('data-txt');
+    if (t) btn.innerHTML = t;
+  }
+}
+function switchTab(name, silent) {
+  if (!document.getElementById('panel-' + name)) return;
+  S.tab = name;
+  qa('.ads-tab').forEach(function (b) {
+    var on = b.getAttribute('data-tab') === name;
+    b.classList.toggle('on', on);
+    b.setAttribute('aria-selected', on ? 'true' : 'false');
+  });
+  qa('.ads-panel').forEach(function (p) { p.hidden = p.getAttribute('data-panel') !== name; });
+  if (!silent) { try { history.replaceState(null, '', '#' + name); } catch (e) {} }
+  if (name === 'overview') renderOverview();
+  if (name === 'keywords') renderKeywords();
+  if (name === 'creatives') renderCreatives();
+  if (name === 'leads') renderLeads();
+  if (name === 'scripts') renderScripts();
+  if (name === 'reports') renderReports();
+  if (name === 'settings') renderSettings();
+}
+function doSaveProfile() {
+  var p = collectProfile();
+  if (!p.name) { toast('请先填写商家名称', 'warn'); if ($('pfName')) $('pfName').focus(); return; }
+  if (!p.city) { toast('请填写服务城市', 'warn'); if ($('pfCity')) $('pfCity').focus(); return; }
+  saveProfileLocal(p);
+  renderProfileForm(); renderOverview(); renderReports(); renderSettings();
+  var st = $('pfStatus');
+  if (S.mode !== 'live') {
+    if (st) st.textContent = '✅ 已保存到本机浏览器（接口就绪后自动同步到服务器） · ' + stamp();
+    toast('档案已保存（本机）', 'ok');
+    return;
+  }
+  if (st) st.innerHTML = '<span class="sp"></span> 已保存到本机，正在同步服务器…';
+  apiPut('/profile', publicProfile()).then(function (d) {
+    if (d && d.plan) applyPlan(d.plan);
+    if (st) st.textContent = '✅ 已保存到服务器 · ' + stamp();
+    toast('档案已保存并同步到服务器', 'ok');
+  }).catch(function (e) {
+    if (st) st.textContent = '⚠️ 已保存到本机，服务器同步失败：' + apiErrText(e);
+    toast('已保存到本机（服务器同步失败）', 'warn');
+  });
+}
+function doLoadProfile() {
+  if (S.mode === 'live') {
+    var st = $('pfStatus');
+    if (st) st.innerHTML = '<span class="sp"></span> 正在读取服务器档案…';
+    apiGet('/profile', null, 9000).then(function (d) {
+      var p = normalizeRemoteProfile(d && d.profile);
+      if (p && (p.name || p.city || (p.services && p.services.length))) { saveProfileLocal(p); S.remoteProfile = true; }
+      renderProfileForm(); renderOverview();
+      if (st) st.textContent = '✅ 已读取服务器档案 · ' + stamp();
+      toast('档案已读取', 'ok');
+    }).catch(function (e) {
+      var p = lsGet(KEYS.profile, null);
+      if (p) { S.profile = p; renderProfileForm(); }
+      if (st) st.textContent = '服务器读取失败，已显示本机缓存：' + apiErrText(e);
+      toast('服务器读取失败，已读取本机缓存', 'warn');
+    });
+    return;
+  }
+  var p2 = lsGet(KEYS.profile, null);
+  if (p2) { S.profile = p2; renderProfileForm(); toast('已读取本机保存的档案', 'ok'); }
+  else { renderProfileForm(); toast('本机还没有保存过档案', 'warn'); }
+}
+var kwBusy = false;
+function doGenerateKeywords(more) {
+  if (kwBusy) return;
+  kwBusy = true;
+  S.kwRound = more ? (S.kwRound || 0) + 1 : 0;
+  var platform = S.kwPlatform;
+  var count = Number(($('kwCount') || {}).value) || 20;
+  var btn = more ? $('btnKwMore') : $('btnKwGen');
+  setBusy(btn, true, '生成中…');
+  var st = $('kwStatus');
+  if (st) st.innerHTML = '<span class="sp"></span> 正在生成「' + esc(pfName(platform)) + '」' + count + ' 个关键词，通常 3-15 秒…';
+  requestKeywords(platform, count, S.kwRound).then(function (res) {
+    S.keywords = res.data;
+    S.keywords.platform = platform;
+    S.kwStatusText = (res.source === 'api' ? '✅ 已通过 AI 接口生成' : '💡 已用本地演示引擎生成（接口未就绪 / 套餐未覆盖该平台）') +
+      (res.error ? ' · ' + esc(res.error) : '') + ' · 共 ' + res.data.count + ' 个词';
+    kwBusy = false; setBusy(btn, false);
+    renderKeywords();
+    toast('已生成 ' + res.data.count + ' 个关键词', 'ok');
+  }).catch(function (e) {
+    kwBusy = false; setBusy(btn, false);
+    S.kwStatusText = '❌ 生成失败：' + esc(apiErrText(e)) + '，请稍后重试';
+    renderKeywords();
+    toast('关键词生成失败，请稍后重试', 'bad');
+  });
+}
+function downloadKeywordsCsv() {
+  var kw = S.keywords;
+  if (!kw) { toast('请先生成关键词', 'warn'); return; }
+  var content = '';
+  if (kw.remote && kw.csv_baidu && kw.platform === 'baidu') content = kw.csv_baidu;
+  else if (kw.remote && kw.csv_generic && kw.platform !== 'baidu') content = kw.csv_generic;
+  if (!content) content = kwCsvText(kw);
+  var ok = downloadFile('关键词-' + pfShort(kw.platform) + '-' + today() + '.csv', content);
+  toast(ok ? 'CSV 已开始下载' : '下载失败，请检查浏览器下载设置', ok ? 'ok' : 'bad');
+}
+function doGenerateCreatives() {
+  var platform = $('crPlatform') ? $('crPlatform').value : 'baidu';
+  var type = $('crType') ? $('crType').value : 'title';
+  var count = Number(($('crCount') || {}).value) || 3;
+  S.crPlatform = platform;
+  var btn = $('btnCrGen'); setBusy(btn, true, '生成中…');
+  var st = $('crStatus');
+  if (st) st.innerHTML = '<span class="sp"></span> 正在生成「' + esc(pfName(platform)) + ' · ' + esc(TYPE_LABEL[type] || type) + '」' + count + ' 个版本…';
+  requestCreatives(platform, type, count).then(function (res) {
+    S.creatives = res.data;
+    S.crStatusText = (res.source === 'api' ? '✅ 已通过 AI 接口生成' : '💡 本地演示生成（接口未就绪 / 套餐未覆盖）') +
+      (res.error ? ' · ' + esc(res.error) : '') + ' · 共 ' + res.data.length + ' 个版本，发布前请人工复核高亮风险词。';
+    setBusy(btn, false);
+    renderCreatives();
+    toast('已生成 ' + res.data.length + ' 个创意版本', 'ok');
+  }).catch(function (e) {
+    setBusy(btn, false);
+    S.crStatusText = '❌ 生成失败：' + esc(apiErrText(e));
+    renderCreatives();
+    toast('创意生成失败，请稍后重试', 'bad');
+  });
+}
+function notifyStudio(script) {
+  var text = [script.title, script.text, script.tags].filter(Boolean).join('\n');
+  copyText(text).then(function (ok) {
+    toast(ok ? '脚本已复制。正在打开短视频工作台，在「一句话成片 / 文案」里粘贴即可' : '正在打开短视频工作台，请手动复制脚本', ok ? 'ok' : 'warn');
+    setTimeout(function () {
+      var url = new URL('../studio/', location.href).href;
+      var w = window.open(url, '_blank', 'noopener');
+      if (!w) toast('浏览器拦截了弹窗，请点侧栏「短视频工作台」手动打开', 'warn');
+    }, 500);
+  });
+}
+function requestImportLeadsFlow(rawList) {
+  if (!rawList || !rawList.length) { toast('没有识别到线索，请检查粘贴格式', 'warn'); return; }
+  var btn = $('btnLeadGrade');
+  setBusy(btn, true, '评分中…');
+  var st = $('leadStatus');
+  if (st) st.innerHTML = '<span class="sp"></span> 正在按六维评分并写入台账…';
+  requestGradeLeads(rawList).then(function (res) {
+    return requestImportLeads(rawList, res.data).then(function (imp) {
+      var added = 0, dup = 0;
+      res.data.forEach(function (l) {
+        var key = leadKey(l);
+        var exists = S.leads.some(function (x) { return leadKey(x) === key; });
+        if (exists) { dup++; return; }
+        S.leads.push(l); added++;
+      });
+      lsSet(KEYS.leads, S.leads);
+      setBusy(btn, false);
+      var sum = { high: 0, mid: 0, low: 0 };
+      res.data.forEach(function (l) { sum[l.level] = (sum[l.level] || 0) + 1; });
+      if (st) st.innerHTML = '✅ 本次导入 <b>' + added + '</b> 条' + (dup ? '（跳过重复 ' + dup + ' 条）' : '') +
+        ' · 高意向 ' + (sum.high || 0) + ' / 中意向 ' + (sum.mid || 0) + ' / 低意向 ' + (sum.low || 0) +
+        ' · ' + (res.source === 'api' ? '服务器评分' : '本地评分') + (res.error ? ' · ' + esc(res.error) : '');
+      renderLeads(); renderSettings(); renderOverview();
+      if ($('leadPaste')) $('leadPaste').value = '';
+      toast('已导入 ' + added + ' 条线索并完成六维评分', 'ok');
+    });
+  }).catch(function (e) {
+    setBusy(btn, false);
+    if (st) st.textContent = '❌ 导入失败：' + apiErrText(e);
+    toast('线索导入失败，请稍后重试', 'bad');
+  });
+}
+function handleLeadFile(file) {
+  if (!file) return;
+  var reader = new FileReader();
+  reader.onload = function () {
+    var raw = leadsFromCsv(String(reader.result || ''));
+    if (!raw.length) { toast('CSV 中未识别到线索，请检查表头：平台,昵称,原文,联系方式', 'warn'); return; }
+    requestImportLeadsFlow(raw);
+  };
+  reader.onerror = function () { toast('文件读取失败', 'bad'); };
+  reader.readAsText(file, 'utf-8');
+}
+function csvCell(v) { return '"' + String(v == null ? '' : v).replace(/"/g, '""') + '"'; }
+function exportLeadsCsv() {
+  var list = filteredLeads();
+  if (!list.length) { toast('没有可导出的线索', 'warn'); return; }
+  var head = ['昵称', '平台', '来源', '原文', '联系方式', '需求明确度(25)', '紧迫程度(20)', '地域匹配(20)', '预算匹配(15)', '购买阶段(10)', '联系方式完整度(10)', '总分(100)', '意向等级', '标签', '时间'];
+  var lines = [head.map(csvCell).join(',')];
+  list.forEach(function (l) {
+    lines.push([l.nick, pfName(l.platform), l.source, l.text, l.contact,
+      l.dims.need, l.dims.urgency, l.dims.region, l.dims.budget, l.dims.stage, l.dims.contact,
+      l.score, (LEVELS[l.level] || LEVELS.low).name, (l.tags || []).join(' '), l.createdAt].map(csvCell).join(','));
+  });
+  var ok = downloadFile('线索台账-' + today() + '.csv', lines.join('\r\n'));
+  toast(ok ? '已导出 ' + list.length + ' 条线索' : '导出失败，请检查浏览器设置', ok ? 'ok' : 'bad');
+}
+function doGenerateScripts() {
+  var industry = $('scIndustry') ? $('scIndustry').value : '其他';
+  var platform = $('scPlatform') ? $('scPlatform').value : 'baidu';
+  var level = $('scLevel') ? $('scLevel').value : 'mid';
+  var style = $('scStyle') ? $('scStyle').value : 'pro';
+  var btn = $('btnScGen'); setBusy(btn, true, '生成中…');
+  var st = $('scStatus');
+  if (st) st.innerHTML = '<span class="sp"></span> 正在生成 5 类话术（' + esc(styleName(style)) + '）…';
+  requestScripts(industry, platform, level, style).then(function (res) {
+    S.scripts = res.data;
+    S.scStatusText = (res.source === 'api' ? '✅ 已通过 AI 接口生成' : '💡 本地演示生成（接口未就绪 / 套餐未覆盖）') +
+      (res.error ? ' · ' + esc(res.error) : '') + ' · 共 ' + res.data.scripts.length + ' 条，人工复制发送。';
+    setBusy(btn, false);
+    renderScripts();
+    toast('已生成 ' + res.data.scripts.length + ' 条话术', 'ok');
+  }).catch(function (e) {
+    setBusy(btn, false);
+    S.scStatusText = '❌ 生成失败：' + esc(apiErrText(e));
+    renderScripts();
+    toast('话术生成失败，请稍后重试', 'bad');
+  });
+}
+var rpCsvPending = null;
+function handleReportFile(file) {
+  if (!file) return;
+  var reader = new FileReader();
+  reader.onload = function () {
+    rpCsvPending = String(reader.result || '');
+    var st = $('rpStatus');
+    if (st) st.textContent = '已选择「' + file.name + '」（' + rpCsvPending.length + ' 字符），点「📥 导入报表」开始解析。';
+    toast('报表文件已读取，点击导入', 'ok');
+  };
+  reader.onerror = function () { toast('报表文件读取失败', 'bad'); };
+  reader.readAsText(file, 'utf-8');
+}
+function doImportReport() {
+  var platform = $('rpPlatform') ? $('rpPlatform').value : 'baidu';
+  if (!rpCsvPending) { toast('请先选择 CSV 报表文件', 'warn'); return; }
+  var btn = $('btnRpImport'); setBusy(btn, true, '解析中…');
+  var st = $('rpStatus');
+  if (st) st.innerHTML = '<span class="sp"></span> 正在解析 ' + esc(pfName(platform)) + ' 报表…';
+  requestReportImport(platform, rpCsvPending).then(function (res) {
+    setBusy(btn, false);
+    if (!res.ok) { if (st) st.textContent = '❌ ' + res.error; toast('导入失败：' + res.error, 'bad'); return; }
+    upsertReport(res.report);
+    renderReports(); renderOverview(); renderSettings();
+    var r = res.report;
+    if (st) st.innerHTML = '✅ 已导入 <b>' + esc(pfName(platform)) + '</b> 报表：' + fm(r.rows) + ' 行 · 消耗 ¥' + fm(r.cost) +
+      ' · 线索 ' + fm(r.leads) + ' · 线索成本 ' + (r.leads ? '¥' + fm1(r.cost / r.leads) : '—') +
+      (res.source === 'api' ? ' · 服务器解析' : ' · 本地解析') + (res.error ? ' · ' + esc(res.error) : '');
+    toast('报表已导入，概览页数字已更新', 'ok');
+    rpCsvPending = null;
+    if ($('rpFile')) $('rpFile').value = '';
+  }).catch(function (e) {
+    setBusy(btn, false);
+    if (st) st.textContent = '❌ 导入失败：' + apiErrText(e);
+    toast('报表导入失败', 'bad');
+  });
+}
+function exportReportCsv() {
+  var ov = currentOverview();
+  var src = S.reports.length ? '导入报表' : '演示数据';
+  var lines = [['平台', '消耗(元)', '线索量', '线索成本(元)', '咨询量', '转化率', '数据来源'].map(csvCell).join(',')];
+  ov.platforms.forEach(function (p) {
+    lines.push([pfName(p.id), Math.round((Number(p.spend) || 0) * 100) / 100, Number(p.leads) || 0,
+      p.cpl ? Number(p.cpl).toFixed(1) : '', Number(p.consults) || 0,
+      p.conv ? Number(p.conv).toFixed(1) + '%' : '', src].map(csvCell).join(','));
+  });
+  lines.push(['合计', Math.round((Number(ov.spend) || 0) * 100) / 100, Number(ov.leads) || 0,
+    ov.cpl ? Number(ov.cpl).toFixed(1) : '', '', ov.after ? Number(ov.after.conv).toFixed(1) + '%' : '', src].map(csvCell).join(','));
+  var ok = downloadFile('投放复盘-' + today() + '.csv', lines.join('\r\n'));
+  toast(ok ? '汇总报表已导出' : '导出失败，请检查浏览器设置', ok ? 'ok' : 'bad');
+}
+function downloadReportTemplate() {
+  var content = '日期,平台,展现量,点击量,消耗,咨询量,线索量\r\n' + today() + ',百度,12000,360,860.5,26,12\r\n';
+  var ok = downloadFile('投放报表模板.csv', content);
+  toast(ok ? '模板已下载，按列填写后导入' : '下载失败', ok ? 'ok' : 'bad');
+}
+var confirmTimers = {};
+function twoStepConfirm(btn, cb) {
+  if (!btn) return;
+  if (btn.getAttribute('data-confirm') === '1') {
+    btn.removeAttribute('data-confirm');
+    btn.textContent = btn.getAttribute('data-orig') || '已清空';
+    cb();
+    return;
+  }
+  btn.setAttribute('data-orig', btn.textContent);
+  btn.setAttribute('data-confirm', '1');
+  btn.textContent = '再点一次确认清空';
+  clearTimeout(confirmTimers[btn.id]);
+  confirmTimers[btn.id] = setTimeout(function () {
+    btn.removeAttribute('data-confirm');
+    if (btn.getAttribute('data-orig')) btn.textContent = btn.getAttribute('data-orig');
+  }, 3200);
+}
+var SAMPLE_LEAD_TEXT = '小红书 | 李女士 | 通州新房刚装修完，90 平，这周末想约上门检测甲醛，多少钱？微信 li123456，急\n百度 | 王先生 | 北京办公室 300 平除甲醛，麻烦报个价，电话 13800001234\n抖音 | 张同学 | 想学化妆，零基础，多少钱';
+function bindAll() {
+  qa('.ads-tab').forEach(function (b) {
+    b.addEventListener('click', function () { switchTab(b.getAttribute('data-tab')); });
+  });
+  if ($('btnLeadgen')) $('btnLeadgen').addEventListener('click', function () { location.href = new URL('../leadgen/', location.href).href; });
+  if ($('btnOvRefresh')) $('btnOvRefresh').addEventListener('click', function () {
+    renderOverview(); renderReports();
+    if (S.mode === 'live') {
+      apiGet('/dashboard', null, 9000).then(function (d) {
+        var n = normalizeDashboard(d);
+        if (n) { S.dashboard = n; renderOverview(); renderReports(); }
+      }).catch(function () {});
+    }
+    toast('已刷新概览数据', 'ok');
+  });
+
+  /* 档案 */
+  if ($('pfIndustry')) $('pfIndustry').addEventListener('change', function () {
+    var custom = $('pfIndustry').value === '其他';
+    if ($('pfIndustryCustom')) { $('pfIndustryCustom').hidden = !custom; if (custom) $('pfIndustryCustom').focus(); }
+  });
+  if ($('btnProfileSave')) $('btnProfileSave').addEventListener('click', doSaveProfile);
+  if ($('btnProfileLoad')) $('btnProfileLoad').addEventListener('click', doLoadProfile);
+  if ($('btnProfileFill')) $('btnProfileFill').addEventListener('click', function () {
+    saveProfileLocal(clone(DEFAULT_PROFILE));
+    renderProfileForm();
+    toast('已填入示例档案，可直接点「保存档案」', 'ok');
+  });
+
+  /* 关键词 */
+  if ($('kwPlatforms')) $('kwPlatforms').addEventListener('click', function (e) {
+    var b = e.target.closest ? e.target.closest('[data-kwpf]') : null;
+    if (!b) return;
+    S.kwPlatform = b.getAttribute('data-kwpf');
+    S.kwStatusText = '';
+    renderKeywords();
+  });
+  if ($('btnKwGen')) $('btnKwGen').addEventListener('click', function () { doGenerateKeywords(false); });
+  if ($('btnKwMore')) $('btnKwMore').addEventListener('click', function () { doGenerateKeywords(true); });
+  if ($('btnKwCsv')) $('btnKwCsv').addEventListener('click', downloadKeywordsCsv);
+  if ($('btnKwCopyAll')) $('btnKwCopyAll').addEventListener('click', function () {
+    if (!S.keywords) { toast('请先生成关键词', 'warn'); return; }
+    copyText(kwCopyText(S.keywords)).then(function (ok) { toast(ok ? '全部关键词已复制' : '复制失败', ok ? 'ok' : 'bad'); });
+  });
+
+  /* 创意 */
+  if ($('btnCrGen')) $('btnCrGen').addEventListener('click', doGenerateCreatives);
+
+  /* 线索 */
+  if ($('btnLeadSample')) $('btnLeadSample').addEventListener('click', function () {
+    if ($('leadPaste')) $('leadPaste').value = SAMPLE_LEAD_TEXT;
+    toast('已填入 3 条示例，点「导入并评分」查看六维评分', 'ok');
+  });
+  if ($('btnLeadGrade')) $('btnLeadGrade').addEventListener('click', function () { requestImportLeadsFlow(parseLeadInput()); });
+  if ($('leadFile')) $('leadFile').addEventListener('change', function (e) { handleLeadFile(e.target.files && e.target.files[0]); });
+  ['leadFilterPlatform', 'leadFilterLevel'].forEach(function (id) {
+    if ($(id)) $(id).addEventListener('change', renderLeads);
+  });
+  if ($('leadFilterKw')) $('leadFilterKw').addEventListener('input', function () {
+    clearTimeout(S.kwFilterTimer);
+    S.kwFilterTimer = setTimeout(renderLeads, 180);
+  });
+  if ($('btnLeadExport')) $('btnLeadExport').addEventListener('click', exportLeadsCsv);
+  if ($('btnLeadClear')) $('btnLeadClear').addEventListener('click', function () {
+    var btn = $('btnLeadClear');
+    twoStepConfirm(btn, function () {
+      S.leads = []; lsSet(KEYS.leads, []); renderLeads(); renderSettings(); renderOverview();
+      toast('已清空全部线索（本机数据）', 'ok');
+    });
+  });
+
+  /* 话术 */
+  if ($('btnScGen')) $('btnScGen').addEventListener('click', doGenerateScripts);
+
+  /* 报表 */
+  if ($('rpFile')) $('rpFile').addEventListener('change', function (e) { handleReportFile(e.target.files && e.target.files[0]); });
+  if ($('btnRpImport')) $('btnRpImport').addEventListener('click', doImportReport);
+  if ($('btnRpTemplate')) $('btnRpTemplate').addEventListener('click', downloadReportTemplate);
+  if ($('btnRpExport')) $('btnRpExport').addEventListener('click', exportReportCsv);
+  if ($('btnRpPrint')) $('btnRpPrint').addEventListener('click', function () {
+    toast('正在打开打印窗口，可选择「另存为 PDF」', 'ok');
+    setTimeout(function () { try { window.print(); } catch (e) {} }, 300);
+  });
+  if ($('btnRpClear')) $('btnRpClear').addEventListener('click', function () {
+    var btn = $('btnRpClear');
+    twoStepConfirm(btn, function () {
+      S.reports = []; lsSet(KEYS.reports, []); rpCsvPending = null;
+      renderReports(); renderOverview(); renderSettings();
+      if ($('rpStatus')) $('rpStatus').textContent = '已清空本机报表数据，概览恢复为演示数据。';
+      toast('已清空报表数据', 'ok');
+    });
+  });
+
+  /* 全局委托 */
+  document.addEventListener('click', function (e) {
+    var t = e.target;
+    if (!t || !t.closest) return;
+    var g = t.closest('[data-goto]');
+    if (g) { switchTab(g.getAttribute('data-goto')); return; }
+    var dw = t.closest('[data-copy-word]');
+    if (dw) {
+      var w = dw.getAttribute('data-copy-word');
+      copyText(w).then(function (ok) { toast(ok ? '已复制：' + w : '复制失败', ok ? 'ok' : 'bad'); });
+      return;
+    }
+    var ds = t.closest('[data-del-service]');
+    if (ds) {
+      var idx = Number(ds.getAttribute('data-del-service'));
+      var p = S.profile || getProfile();
+      p.services = (p.services || []).filter(function (_, i) { return i !== idx; });
+      S.profile = p;
+      renderProfileServices();
+      return;
+    }
+    var cc = t.closest('[data-copy-contact]');
+    if (cc) {
+      var li = Number(cc.getAttribute('data-copy-contact'));
+      var lead = S.leads[li];
+      if (lead) copyText(lead.contact || '').then(function (ok) { toast(ok ? '联系方式已复制' : '复制失败', ok ? 'ok' : 'bad'); });
+      return;
+    }
+    var dl = t.closest('[data-del-lead]');
+    if (dl) {
+      var id = dl.getAttribute('data-del-lead');
+      S.leads = S.leads.filter(function (x) { return x.id !== id; });
+      lsSet(KEYS.leads, S.leads);
+      renderLeads(); renderSettings();
+      toast('已删除该线索', 'ok');
+      return;
+    }
+    var dr = t.closest('[data-del-report]');
+    if (dr) {
+      var ri = Number(dr.getAttribute('data-del-report'));
+      S.reports.splice(ri, 1);
+      lsSet(KEYS.reports, S.reports);
+      renderReports(); renderOverview(); renderSettings();
+      toast('已删除该报表', 'ok');
+      return;
+    }
+    var cp = t.closest('[data-copy-cr]');
+    if (cp) {
+      var ci = Number(cp.getAttribute('data-copy-cr'));
+      var c = (S.creatives || [])[ci];
+      if (c) {
+        copyText([c.title, c.text, c.tags].filter(Boolean).join('\n')).then(function (ok) {
+          toast(ok ? '创意内容已复制（含 AI 辅助生成标识请保留）' : '复制失败', ok ? 'ok' : 'bad');
+        });
+      }
+      return;
+    }
+    var sc = t.closest('[data-copy-sc]');
+    if (sc) {
+      var si = Number(sc.getAttribute('data-copy-sc'));
+      var item = S.scripts && S.scripts.scripts ? S.scripts.scripts[si] : null;
+      if (item) copyText(item.content).then(function (ok) { toast(ok ? '话术已复制，请人工发送' : '复制失败', ok ? 'ok' : 'bad'); });
+      return;
+    }
+    var st = t.closest('[data-studio-cr]');
+    if (st) {
+      var sj = Number(st.getAttribute('data-studio-cr'));
+      var script = (S.creatives || [])[sj];
+      if (script) notifyStudio(script);
+      return;
+    }
+  });
+}
+
+/* ---------------- 14. 初始化 ---------------- */
+function init() {
+  try {
+    S.profile = lsGet(KEYS.profile, null) || clone(DEFAULT_PROFILE);
+    S.leads = lsGet(KEYS.leads, []) || [];
+    S.reports = lsGet(KEYS.reports, []) || [];
+    S.kwPlatform = 'baidu';
+    S.crPlatform = 'baidu';
+    S.creatives = [];
+    S.scripts = null;
+    S.planInfo = null;
+    S.kwStatusText = '';
+    S.crStatusText = '';
+    S.scStatusText = '';
+    populateSelects();
+    bindAll();
+    renderAll();
+    var h = (location.hash || '').replace('#', '');
+    if (h && document.getElementById('panel-' + h)) switchTab(h, true);
+    if (/force_demo=1/.test(location.search)) {
+      setMode('demo');
+    } else {
+      probeBackend(false);
+    }
+    window.addEventListener('hashchange', function () {
+      var n = (location.hash || '').replace('#', '');
+      if (n && document.getElementById('panel-' + n)) switchTab(n, true);
+    });
+  } catch (err) {
+    try { setMode('demo'); } catch (e) {}
+  }
+}
+if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', init);
+else init();
+})();
+</script>
+<script defer src="../assets/site-shell.js"></script>
+<script defer src="../assets/auth.js"></script>
+</body>
+</html>

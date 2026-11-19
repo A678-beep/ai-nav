@@ -8,13 +8,13 @@
 
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <link rel="icon" href="data:,">
-<title>AI 获客 · 商家线索挖掘与合规触达工作台 · 星籁 AI</title>
-<meta name="description" content="本地商家 AI 获客工作台：配置行业与区域，一句话拆解获客需求，从公开评论与咨询里挖意向客户，按意向等级生成 3 条合规话术，复盘平台效果并给行业打法。仅采集公开信息，不自动发送、不刷量。">
+<title>线索台账 · 线索分级 / 话术 / 复盘 · 星籁 AI</title>
+<meta name="description" content="商家线索台账与跟进复盘工作台：手动导入商家自有线索、按 100 分六维评分分级、生成合规话术、复盘平台效果。公开搜索挖掘、意向挖掘、一句话找客户等高风险入口已按合规要求下线；不爬虫、不抓非公开信息、不自动触达。">
 <meta name="keywords" content="AI获客,本地商家获客,评论区线索挖掘,抖音获客,小红书获客,AI话术,获客playbook,商家线索">
 <link rel="canonical" href="https://a678-beep.github.io/ai-nav/leadgen/">
 <meta property="og:type" content="website">
-<meta property="og:title" content="AI 获客 · 商家线索挖掘与合规触达工作台">
-<meta property="og:description" content="配置行业与区域 → AI 拆解获客需求 → 找到意向客户 → 生成合规话术 → 复盘优化。">
+<meta property="og:title" content="线索台账 · 线索分级 / 话术 / 复盘">
+<meta property="og:description" content="手动导入商家自有线索 → 100 分六维分级 → 生成合规话术 → 复盘优化。高风险挖掘入口已按合规要求下线。">
 <meta property="og:url" content="https://a678-beep.github.io/ai-nav/leadgen/">
 <meta name="robots" content="noindex,nofollow"><meta name="googlebot" content="noindex,nofollow">
 <script type="application/ld+json">{
@@ -937,6 +937,50 @@ html[data-theme="light"] .xpr-cost b{color:#075985}
 }
 </style>
 <link rel="stylesheet" href="../assets/site-shell.css">
+<style id="ads-compliance-migrate">
+/* AI 投放优化获客 · 合规迁移提示（2026-11-19 新增，只加不改旧样式） */
+.ads-migrate-banner{display:flex;gap:14px;align-items:center;flex-wrap:wrap;margin:16px 0 0;padding:13px 16px;border:1px solid rgba(251,191,36,.5);border-left:4px solid #fbbf24;border-radius:14px;background:linear-gradient(120deg,rgba(251,191,36,.14),rgba(56,189,248,.06));font-size:13px;line-height:1.65;color:var(--txt2)}
+.ads-migrate-banner b{color:var(--txt);display:block;font-size:13.5px;letter-spacing:.01em}
+.ads-migrate-banner .amb-main{flex:1 1 440px;min-width:0}
+.ads-migrate-banner .amb-cta{flex:0 0 auto;display:inline-flex;align-items:center;justify-content:center;gap:6px;min-height:42px;padding:0 16px;border-radius:11px;background:linear-gradient(135deg,#38bdf8,#8b5cf6);color:#04121c;font-weight:800;font-size:13px;white-space:nowrap}
+.ads-migrate-banner .amb-cta:hover{filter:brightness(1.06)}
+html[data-theme="light"] .ads-migrate-banner{background:linear-gradient(120deg,rgba(251,191,36,.18),rgba(56,189,248,.08));color:#3b4a5f}
+html[data-theme="light"] .ads-migrate-banner b{color:#5e4800}
+html[data-theme="light"] .ads-migrate-banner .amb-cta{color:#0b1a2b}
+@media (max-width:560px){.ads-migrate-banner{padding:12px}.ads-migrate-banner .amb-cta{width:100%}}
+/* 合规下线：公开搜索挖掘 / 意向挖掘 / 一句话找客户 / 任务自动挖掘入口（仅隐藏 DOM，不删代码，便于恢复） */
+#btnMining,
+.find-card[data-find="express"], .find-card[data-find="intent"], .find-card[data-find="kw"],
+.find-pane[data-findpane="express"], .find-pane[data-findpane="intent"], .find-pane[data-findpane="kw"],
+#miningModal, #expressModal,
+#mineBatchBox, #wfOpenMine, #wfOpenIntent, #xprOpen,
+.mine-tabs, #minePanelKw, #minePanelIntent { display:none !important; }
+.find-grid{grid-template-columns:repeat(auto-fit,minmax(240px,1fr))}
+</style>
+<script>
+/* 合规迁移：默认展示唯一保留的 LBS 周边找客；同步修改文案入口 */
+(function(){
+  function ready(){
+    var lbsCard = document.querySelector('.find-card[data-find="lbs"]');
+    if (lbsCard) { lbsCard.classList.add('on'); lbsCard.setAttribute('aria-selected','true'); }
+    var lbsPane = document.querySelector('.find-pane[data-findpane="lbs"]');
+    if (lbsPane) lbsPane.classList.add('on');
+    var em = document.querySelector('.rail-step[data-goto="2"] .rs-t em');
+    if (em) em.textContent = '周边找客（高德公开 POI）';
+    var desc = document.querySelector('.pane[data-pane="2"] .sh-t p');
+    if (desc) desc.textContent = '这一步做什么：只保留合规的「LBS 周边客户（高德官方公开 POI）」找客；公开搜索挖掘、意向挖掘、一句话找客户已按合规要求下线。';
+    var badge = document.querySelector('.pane[data-pane="2"] .sh-badge');
+    if (badge) badge.textContent = '仅 LBS 周边';
+    var sel = document.getElementById('fSource');
+    if (sel) ['search', 'intent_search', 'express'].forEach(function(v){
+      var op = sel.querySelector('option[value="' + v + '"]');
+      if (op) op.hidden = true;
+    });
+  }
+  if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', function(){ setTimeout(ready, 900); });
+  else setTimeout(ready, 900);
+})();
+</script>
 </head>
 <body>
 <div class="top"><div class="top-in">
@@ -944,7 +988,8 @@ html[data-theme="light"] .xpr-cost b{color:#075985}
   <nav>
     <a href="/ai-nav/">AI 导航</a>
     <a href="/ai-nav/studio/">短视频工作台</a>
-    <a href="/ai-nav/leadgen/" class="on">AI 获客</a>
+    <a href="/ai-nav/ads/">AI 投放优化获客</a>
+    <a href="/ai-nav/leadgen/" class="on">线索台账</a>
     <a href="/ai-nav/geo/">🌍 GEO 推广</a>
     <a href="/ai-nav/travel/">出行导航</a>
     <a href="/ai-nav/select-ai/">智能选型</a>
@@ -953,12 +998,19 @@ html[data-theme="light"] .xpr-cost b{color:#075985}
 </div></div>
 
 <main class="wrap">
+  <div class="ads-migrate-banner" role="note" aria-label="合规调整提示">
+    <div class="amb-main">
+      <b>⚠️ 本页仅保留线索台账 / 分级 / 话术 / 复盘</b>
+      <span>公开搜索挖掘、意向挖掘、一句话找客户、任务自动挖掘等已按合规要求下线（不爬虫、不抓非公开信息、不自动触达）。新的「AI 投放优化获客」模块已上线：官方渠道投放增效 + 线索分级 + 话术辅助 + 报表复盘。</span>
+    </div>
+    <a class="amb-cta" href="/ai-nav/ads/">🚀 去「AI 投放优化获客」→</a>
+  </div>
   <header class="goalbar" id="wfGoal">
     <div class="gb-top">
       <div class="gb-intro">
-        <div class="eyebrow">LEADGEN · 5 步获客工作流</div>
-        <h1>AI 获客：<span>找到真实高意向客户</span></h1>
-        <p class="gb-goal">🎯 目标：找到真实高意向客户 —— ① 配置商家 → ② 找客户 → ③ 筛客户 → ④ 跟进 → ⑤ 复盘</p>
+        <div class="eyebrow">LEADGEN · 线索台账 / 分级 / 话术 / 复盘</div>
+        <h1>AI 线索台账：<span>分级 · 话术 · 复盘</span></h1>
+        <p class="gb-goal">🎯 目标：把商家自有线索跟到成交 —— ① 配置商家 → ② 周边找客（公开 POI）→ ③ 筛客户/分级 → ④ 跟进 → ⑤ 复盘</p>
       </div>
       <div class="hero-meta gb-meta">
         <span class="pill" id="apiState"><span class="dot"></span>正在检测后端服务…</span>
@@ -1555,7 +1607,7 @@ html[data-theme="light"] .xpr-cost b{color:#075985}
 
 <footer class="site">
   © <span id="year">2026</span> 星籁 AI 工具导航 · xinglaiai.com 版权所有 · 未经许可禁止镜像/采集/商业转载<br>
-  <a href="/ai-nav/">AI 导航</a> · <a href="/ai-nav/studio/">短视频工作台</a> · <a href="/ai-nav/leadgen/">AI 获客</a> · <a href="/ai-nav/travel/">出行导航</a> · <a href="/ai-nav/select-ai/">智能选型</a> · <a href="/ai-nav/radar/">工具雷达</a> · <a href="/ai-nav/pricing/">套餐定价</a> · <a href="/ai-nav/account/dashboard.html">个人中心</a> · <a href="/ai-nav/privacy.html">隐私政策</a> · <a href="/ai-nav/sitemap.xml">站点地图</a>
+  <a href="/ai-nav/">AI 导航</a> · <a href="/ai-nav/studio/">短视频工作台</a> · <a href="/ai-nav/ads/">AI 投放优化获客</a> · <a href="/ai-nav/leadgen/">线索台账</a> · <a href="/ai-nav/travel/">出行导航</a> · <a href="/ai-nav/select-ai/">智能选型</a> · <a href="/ai-nav/radar/">工具雷达</a> · <a href="/ai-nav/pricing/">套餐定价</a> · <a href="/ai-nav/account/dashboard.html">个人中心</a> · <a href="/ai-nav/privacy.html">隐私政策</a> · <a href="/ai-nav/sitemap.xml">站点地图</a>
 </footer>
 
 <div id="profTip" class="prof-tip" role="tooltip"></div>
