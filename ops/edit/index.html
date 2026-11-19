@@ -3454,6 +3454,235 @@ html[data-page="ops-edit"] .xl-sb-theme{display:none!important}
 
 })();
 </script>
+
+<!-- ===== 数字人供应商配置卡（lipsync_provider 1.2 合并，2026-11-19） ===== -->
+<script>
+(function () {
+  'use strict';
+  if (window.__oeLipsyncCardLoaded) return;
+  window.__oeLipsyncCardLoaded = true;
+  var PROVIDERS = [];
+  var DATA = {};
+  function $(s, root) { return (root || document).querySelector(s); }
+  function esc(v) {
+    return String(v == null ? '' : v).replace(/[&<>"']/g, function (c) {
+      return { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c];
+    });
+  }
+  function api(method, path, body, timeout) {
+    if (!window.XLAuth || !XLAuth.api) return Promise.reject(new Error('登录组件未加载，请刷新页面重试'));
+    var opts = { method: method || 'GET', timeout: timeout || 20000 };
+    if (body != null) opts.body = body;
+    return XLAuth.api(path, opts);
+  }
+  function errText(e) {
+    if (!e) return '请求失败';
+    var d = e.data || {};
+    return d.hint || (d.error && d.error !== 'not_found' ? d.error : '') || e.message || '请求失败';
+  }
+  function toast(msg, kind) {
+    var box = document.getElementById('oeToastBox');
+    var text = String(msg || '');
+    if (!box) { try { console.log('[lipsync]', text); } catch (e) {} return; }
+    var t = document.createElement('div');
+    t.className = 'oe-toast' + (kind === 'ok' ? ' ok' : kind === 'warn' ? ' warn' : ' bad');
+    t.textContent = text;
+    box.appendChild(t);
+    setTimeout(function () { try { box.removeChild(t); } catch (e) {} }, 5600);
+  }
+  function inject() {
+    var panel = document.querySelector('#panel-compute');
+    if (!panel) return false;
+    if (document.getElementById('oeLipsyncCard')) return true;
+    var sec = document.createElement('section');
+    sec.className = 'oe-card';
+    sec.id = 'oeLipsyncCard';
+    sec.style.marginTop = '16px';
+    sec.innerHTML =
+      '<div class="oe-card-h"><div><h2><span class="hico">🧑‍🎤</span>数字人供应商配置（真口型 / 照片口型）</h2>' +
+      '<p class="oe-sub">lipsync_provider 多供应商适配层：autoedit 的「真口型数字人」「照片口型数字人」共用这里的配置。' +
+      'Key 加密存服务器 data/lipsync.json，本页只显示打码值；未配置的供应商调用会返回 501 need_config（不扣费、不假装成功）。</p></div>' +
+      '<div class="oe-toolbar" style="padding:0;border:0">' +
+      '<button type="button" class="oe-btn" data-ls-act="refresh">刷新</button>' +
+      '<button type="button" class="oe-btn primary" data-ls-act="testall">测试全部已配置</button></div></div>' +
+      '<div id="oeLsBody" style="padding:4px 15px 10px"><div class="oe-tiny">加载中…</div></div>' +
+      '<div id="oeLsResult" class="oe-tiny" style="padding:0 15px 10px;display:none"></div>' +
+      '<div class="oe-tiny" id="oeLsFoot" style="padding:0 15px 14px"></div>';
+    panel.appendChild(sec);
+    return true;
+  }
+  function priceText(p) {
+    var n = Number(p.price_per_sec || 0);
+    return n > 0 ? ('约 ¥' + n.toFixed(2) + '/秒（30 秒约 ¥' + (n * 30).toFixed(2) + '）') : '价格未知';
+  }
+  function inputModeText(p) {
+    var m = (p.input_modes || []).map(function (x) { return x === 'video' ? '视频' : (x === 'photo' ? '照片' : x); });
+    return m.length ? m.join(' / ') : '—';
+  }
+  function row(p) {
+    var isDefault = (DATA.default_provider === p.id);
+    var cfgInputs = '';
+    if (p.id === 'custom_http') {
+      var cu = p.custom || {};
+      cfgInputs = '<div style="display:grid;grid-template-columns:1fr 1fr;gap:6px;margin-top:6px;flex:1 1 100%">' +
+        '<input class="oe-input" data-k="submit_url" placeholder="submit_url（如 https://api.302.ai/.../submit）" value="' + esc(cu.submit_url || '') + '">' +
+        '<input class="oe-input" data-k="poll_url" placeholder="poll_url（含 {job_id}）" value="' + esc(cu.poll_url || '') + '">' +
+        '</div>';
+    }
+    return '<div class="oe-card" style="margin:8px 0;background:rgba(255,255,255,.02)" data-provider="' + esc(p.id) + '">' +
+      '<div style="display:flex;align-items:center;gap:8px;flex-wrap:wrap;padding:10px 12px 6px">' +
+      '<b style="font-size:13px">' + esc(p.name || p.id) + '</b>' +
+      (isDefault ? '<span class="oe-chips on" style="color:#7dd3fc">默认供应商</span>' : '') +
+      '<span class="oe-chips">' + (p.enabled ? '启用' : '停用') + '</span>' +
+      '<span class="oe-chips" style="' + (p.configured ? 'color:#6ee7b7' : '') + '">' + (p.configured ? '✓ 已配置' : '未配置') + '</span>' +
+      '<span class="oe-tiny">' + esc(priceText(p)) + ' · 输入：' + esc(inputModeText(p)) + '</span>' +
+      (p.key_masked ? '<span class="oe-tiny">Key：<code>' + esc(p.key_masked) + '</code>（' + esc(p.key_source || 'config') + '）</span>' : '') +
+      '</div>' +
+      '<div style="display:flex;align-items:center;gap:6px;flex-wrap:wrap;padding:0 12px 10px">' +
+      '<input class="oe-input" style="flex:1 1 220px" data-k="api_key" placeholder="' +
+      (p.configured ? '已配置，留空=不修改；输入新 Key 覆盖' : '粘贴 API Key') + '" autocomplete="off">' +
+      '<button type="button" class="oe-btn primary" data-ls-act="save" data-id="' + esc(p.id) + '">保存 Key</button>' +
+      (isDefault ? '' : '<button type="button" class="oe-btn" data-ls-act="default" data-id="' + esc(p.id) + '">设为默认</button>') +
+      '<button type="button" class="oe-btn" data-ls-act="test" data-id="' + esc(p.id) + '">测试连接</button>' +
+      cfgInputs +
+      '<p class="oe-tiny" style="flex:1 1 100%;margin:3px 0 0">' + esc(p.note || '') +
+      (p.price_note ? '<br>' + esc(p.price_note) : '') +
+      (p.docs ? '<br><a href="' + esc(p.docs) + '" target="_blank" rel="noopener" style="color:#7dd3fc">官方文档</a>' : '') +
+      '</p></div></div>';
+  }
+  function defaultBlock() {
+    var opts = (PROVIDERS || []).map(function (p) {
+      return '<option value="' + esc(p.id) + '"' + (DATA.default_provider === p.id ? ' selected' : '') + '>' +
+        esc((p.name || p.id) + (p.configured ? ' · 已配置' : ' · 未配置')) + '</option>';
+    }).join('');
+    return '<div class="oe-toolbar" style="padding:10px 12px;border:1px solid var(--oe-line);border-radius:10px;margin:12px 0 0">' +
+      '<span class="oe-tiny" style="font-weight:700">默认供应商</span>' +
+      '<select class="oe-select" id="oeLsDefault" style="max-width:300px">' + opts + '</select>' +
+      '<button type="button" class="oe-btn primary" data-ls-act="setdefault">切换默认</button>' +
+      '<span class="oe-tiny" id="oeLsDefaultNow">当前：' + esc(DATA.default_provider || '—') + '</span>' +
+      '<span class="grow"></span><span class="oe-tiny">切换后 autoedit 真口型/照片口型出片即走新供应商（未配置会 501 提示）</span></div>';
+  }
+  function render(data) {
+    DATA = data || {};
+    PROVIDERS = DATA.providers || [];
+    var box = $('#oeLsBody');
+    if (!box) return;
+    box.innerHTML = PROVIDERS.map(row).join('') + defaultBlock();
+    var cfg = DATA.configured || [];
+    box.insertAdjacentHTML('beforeend',
+      '<p class="oe-tiny" style="margin:10px 0 0">已配置：' + esc(cfg.join(' / ') || '无') +
+      ' · 默认供应商：<b>' + esc(DATA.default_provider || '—') + '</b>' +
+      ' · 价格均为估算口径（aliyun ¥0.08/秒、D-ID 约 ¥4/分钟、HeyGen $0.60–7.20/分钟、Akool 积分、custom_http 可配），真实扣费以各家账单为准；今日预算上限 ¥' +
+      esc(((DATA.limits || {}).daily_budget_cny) != null ? Number((DATA.limits || {}).daily_budget_cny).toFixed(2) : '50.00') + '。</p>');
+  }
+  function showResult(lines, okAll) {
+    var box = $('#oeLsResult');
+    if (!box) return;
+    box.style.display = 'block';
+    box.innerHTML = '<b>测试连接结果（' + (okAll ? '全部通过' : '部分失败') + '）</b><br>' + lines.join('<br>');
+  }
+  function loadJobs() {
+    return api('GET', '/lipsync/jobs?limit=5').then(function (d) {
+      var foot = $('#oeLsFoot');
+      if (!foot) return;
+      var rows = (d.jobs || []).map(function (j) {
+        var cost = (j.cost_estimate && (j.cost_estimate.text || j.cost_estimate.amount)) || '';
+        return '<span class="oe-chips">' + esc(j.provider) + ' ' + esc(j.status) +
+          (j.url ? ' ✓' : '') + (cost ? ' · ' + esc(cost) : '') + '</span>';
+      }).join(' ');
+      foot.innerHTML = '<b>今日数字人估算花费：¥' + Number(d.today_spend_cny || 0).toFixed(2) + '</b> · 最近任务：' + (rows || '无') +
+        '（任务记录与 autoedit 共用统一适配层 /lipsync/jobs）';
+    }).catch(function () {});
+  }
+  function load() {
+    if (!inject()) return;
+    var box = $('#oeLsBody');
+    if (box) box.innerHTML = '<div class="oe-tiny">加载中…</div>';
+    api('GET', '/lipsync/providers', null, 12000).then(function (d) {
+      render(d);
+      try { LOCAL_LAST = d; } catch (e) {}
+    }).catch(function (e) {
+      if ($('#oeLsBody')) $('#oeLsBody').innerHTML =
+        '<p class="oe-tiny" style="color:#fca5a5">加载失败：' + esc(errText(e)) + '（需要管理员登录；接口 /ai-nav/api/lipsync/providers）</p>';
+    });
+    loadJobs();
+  }
+  var LOCAL_LAST = null;
+  function cardOf(id) {
+    var btns = document.querySelectorAll('#oeLsBody [data-ls-act="save"]');
+    for (var i = 0; i < btns.length; i++) {
+      if (btns[i].getAttribute('data-id') === id) return btns[i].closest('.oe-card');
+    }
+    return null;
+  }
+  function save(btn) {
+    var id = btn.getAttribute('data-id');
+    var card = cardOf(id);
+    if (!card) return;
+    var keyEl = card.querySelector('[data-k="api_key"]');
+    var body = { provider: id, enabled: true };
+    var key = keyEl ? keyEl.value.trim() : '';
+    if (key) body.api_key = key;
+    var su = card.querySelector('[data-k="submit_url"]');
+    var pu = card.querySelector('[data-k="poll_url"]');
+    if (su && su.value.trim()) body.submit_url = su.value.trim();
+    if (pu && pu.value.trim()) body.poll_url = pu.value.trim();
+    btn.disabled = true;
+    api('POST', '/lipsync/config', body, 25000).then(function (d) {
+      var mask = ((d.provider_state || {}).key_masked) || ((d.config || {}).key_masked) || '未设置';
+      toast('已保存 ' + id + '（Key：' + mask + '）', 'ok');
+      if (keyEl) keyEl.value = '';
+      load();
+    }).catch(function (e) { toast('保存失败：' + errText(e), 'warn'); })
+      .then(function () { btn.disabled = false; });
+  }
+  function test(id) {
+    var body = id ? { provider: id } : {};
+    var btn = id ? (document.querySelector('#oeLsBody [data-ls-act="test"][data-id="' + id + '"]') || document.querySelector('[data-ls-act="testall"]')) : document.querySelector('[data-ls-act="testall"]');
+    if (btn) btn.disabled = true;
+    toast(id ? ('正在测试 ' + id + ' 连接…') : '正在测试全部已配置供应商…', 'warn');
+    api('POST', '/lipsync/test', body, 60000).then(function (d) {
+      var lines = (d.providers || []).map(function (p) {
+        var good = !!p.ok;
+        return (good ? '✓ ' : '✗ ') + esc(p.name || p.id) + '：' + esc(p.detail || p.hint || p.error || (good ? '连接正常' : '连接失败'));
+      });
+      if (!lines.length) lines = ['没有已配置的供应商（请先保存 Key）'];
+      showResult(lines, !!d.ok);
+      toast(d.ok ? '测试连接通过' : ('测试连接未通过：' + (lines[0] || '')), d.ok ? 'ok' : 'warn');
+    }).catch(function (e) { toast('测试失败：' + errText(e), 'warn'); showResult(['✗ ' + esc(errText(e))], false); })
+      .then(function () { if (btn) btn.disabled = false; });
+  }
+  function setDefault() {
+    var sel = $('#oeLsDefault');
+    if (!sel) return;
+    var id = sel.value;
+    var btn = document.querySelector('[data-ls-act="setdefault"]');
+    if (btn) btn.disabled = true;
+    api('POST', '/lipsync/config', { default_provider: id }, 20000).then(function (d) {
+      var now = d.default_provider || id;
+      if ($('#oeLsDefaultNow')) $('#oeLsDefaultNow').textContent = '当前：' + now;
+      toast('默认供应商已切换为 ' + now + '（autoedit 与照片口型出片立即生效）', 'ok');
+      load();
+    }).catch(function (e) { toast('切换失败：' + errText(e), 'warn'); })
+      .then(function () { if (btn) btn.disabled = false; });
+  }
+  document.addEventListener('click', function (e) {
+    var t = e.target;
+    if (!t || !t.getAttribute) return;
+    var act = t.getAttribute('data-ls-act');
+    if (act === 'refresh') { load(); return; }
+    if (act === 'testall') { test(null); return; }
+    if (act === 'save') { save(t); return; }
+    if (act === 'test') { test(t.getAttribute('data-id')); return; }
+    if (act === 'default') { var id = t.getAttribute('data-id'); var sel = $('#oeLsDefault'); if (sel) { sel.value = id; } setDefault(); return; }
+    if (act === 'setdefault') { setDefault(); return; }
+    var tab = t.closest ? t.closest('.oe-menu-item[data-tab]') : null;
+    if (tab && tab.getAttribute('data-tab') === 'compute') setTimeout(load, 150);
+  });
+  if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', function () { setTimeout(load, 500); });
+  else setTimeout(load, 500);
+})();
+</script>
 </body>
 </html>
 
