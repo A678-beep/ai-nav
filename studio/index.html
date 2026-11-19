@@ -244,6 +244,9 @@ details[open].lic summary:before,details[open].scenes summary:before,details[ope
 .ex-dl-size:before{content:"✅ ";font-size:12px}
 .ex-dl-size.stale{color:#fcd34d}
 .ex-dl-size.stale:before{content:"⚠️ "}
+.ex-dl-saveas{margin:3px 2px 0;padding:2px 0;align-self:flex-start;background:none;border:0;color:#7dd3fc;font:inherit;font-size:11.5px;cursor:pointer;text-decoration:underline;text-underline-offset:2px}
+.ex-dl-saveas:hover{color:#bae6fd}
+.ex-dl-saveas[hidden]{display:none}
 .ex-dl-progress{margin-top:10px;padding:10px 12px;border:1px solid rgba(56,189,248,.35);background:rgba(56,189,248,.08);border-radius:10px}
 .ex-dl-progress .bar{height:9px;border-radius:999px;background:rgba(56,189,248,.16);overflow:hidden}
 .ex-dl-progress .bar>i{display:block;height:100%;width:0;border-radius:999px;background:linear-gradient(90deg,#22d3ee,#7c3aed);transition:width .15s linear}
@@ -2177,11 +2180,12 @@ html[data-theme="light"] .wb-confirm-note{color:#9f1239}
 
    <section class="wb-pane" data-step="6" id="wbPane6" hidden>
     <section class="sec" id="secExport">
-  <div class="sec-head"><span class="sec-ico">⬇️</span><div><h2>⑥ 导出</h2><p class="sec-sub">成片是竖屏 MP4，可直接发抖音、美团、视频号；下载不了就长按视频保存。批量成片的 zip 也在本页。</p></div><span class="sec-hint">无强制水印</span></div>
+  <div class="sec-head"><span class="sec-ico">⬇️</span><div><h2>⑥ 导出</h2><p class="sec-sub">成片是竖屏 MP4，可直接发抖音、美团、视频号；点「下载视频」会直接下载到本地（不弹保存框）。批量成片的 zip 也在本页。</p></div><span class="sec-hint">无强制水印</span></div>
   <div class="export-grid">
    <div class="ex-dl-main">
     <a id="dlVideo" class="ex-btn primary disabled" href="#" download aria-disabled="true">⬇️<b>下载视频</b><span>MP4 · 9:16 竖屏</span></a>
     <p class="ex-dl-size" id="exDlSize" hidden></p>
+    <button type="button" class="ex-dl-saveas" id="exDlSaveAs" hidden>另存为…（可选）</button>
    </div>
    <button type="button" class="ex-btn" id="saveFolder" disabled>📁<b>选择保存文件夹并下载</b><span>视频 + 音轨 + 文案 + 授权</span></button>
    <button type="button" class="ex-btn" id="dlCover" disabled>🖼️<b>下载封面</b><span>从成片里截一帧</span></button>
@@ -3208,6 +3212,11 @@ function renderExports(d){
   a.setAttribute('aria-disabled','false');
  }else if(a){a.href='#';a.className='ex-btn primary disabled';a.setAttribute('aria-disabled','true');}
  ['dlCover','copyScript','copyAll','saveFolder'].forEach(function(id){var b=$(id);if(b)b.disabled=!d;});
+ /* 成片就绪后在按钮下方预检一次，直接显示「6.2 MB · 可直接下载」；点击下载时还会再 HEAD 复检 */
+ try{
+  if(d&&d.video_url){if(typeof exDlScheduleCheck==='function')exDlScheduleCheck();}
+  else{if(typeof EXDl!=='undefined'){EXDl.size=0;EXDl.checkedKey='';}if(typeof exDlHideSize==='function')exDlHideSize();}
+ }catch(e){}
 }
 
 /* ================= 修改 ================= */
@@ -3375,21 +3384,34 @@ function licenseText(d){
  if(!parts.length)parts.push('素材来源：用户上传 / 站内可商用素材；BGM 本地合成；配音 Edge TTS；AI 合成内容请自行标注。');
  return parts.join('\n');
 }
-/* ================= 导出下载（第一件事弹系统保存框，再拉流写入） ================= */
-var EXDl={busy:false,lastFolderBytes:0};
+/* ================= 导出下载（点按钮先自检成片 → 系统保存框 → 失败自动降级 Blob 下载） ================= */
+/* 设计要点：
+   1) 下载前自检：HEAD 成片（失败再 GET Range: bytes=0-1），必须 200/206 + video 类型 + 大小 > 50KB，否则不触发下载；
+   2) 系统保存框被拦截（NotAllowedError / SecurityError / 任何非用户取消失败）→ 立即自动降级 Blob 下载，不需要用户再点一次；
+   3) 直接下载兜底：fetch → Blob（校验 size 与 content-length 一致且 > 50KB）→ a.download 点击；Blob 失败再退回成片直链；
+   4) 写盘后校验：handle.getFile() 读回 size 与 content-length 对比，不一致自动改用浏览器下载；
+   5) 错误信息真实化：403/404/HTML/断网分别给明确原因，不再一律「保存失败」。 */
+var EXDl={busy:false,lastFolderBytes:0,size:0,checkedKey:'',checkTimer:null};
+var EX_DL_MIN_BYTES=50*1024;
 function exDlEl(id){return document.getElementById(id);}
 function exDlTrace(step,extra){
  try{
   var arr=window.__exDlTrace||(window.__exDlTrace=[]);
   arr.push({t:Date.now(),step:step,extra:extra||''});
-  if(arr.length>150)arr.shift();
+  if(arr.length>200)arr.shift();
   if(window.console&&console.info)console.info('[ex-dl] '+step+(extra?(' '+JSON.stringify(extra)):''));
  }catch(e){}
 }
 function exDlAbs(u){try{return new URL(u,location.href).href;}catch(e){return String(u||'');}}
 function exDlIsIOS(){var u=navigator.userAgent||'';return /iPad|iPhone|iPod/.test(u)||(navigator.platform==='MacIntel'&&Number(navigator.maxTouchPoints)>1);}
 function exDlIsMobile(){return /Android|iPhone|iPad|iPod|Mobile/i.test(navigator.userAgent||'');}
-function exDlMobileHint(){return exDlIsMobile()?'；手机请在浏览器「下载」里查看':'';}
+function exDlIsWeChat(){return /MicroMessenger/i.test(navigator.userAgent||'');}
+function exDlMobileHint(){
+ if(exDlIsWeChat())return '；微信内请点右上角「…」→「在浏览器打开」后下载';
+ return exDlIsMobile()?'；请到浏览器「下载列表」里查看':'';
+}
+function exDlMB(n){return (Math.max(0,Number(n)||0)/1048576).toFixed(1)+' MB';}
+function exDlMBc(n){return (Math.max(0,Number(n)||0)/1048576).toFixed(1)+'MB';}
 function exDlFileSupported(){return !!(window.showSaveFilePicker&&window.isSecureContext);}
 function exDlDirSupported(){return !!(window.showDirectoryPicker&&window.isSecureContext);}
 function exDlStamp(){
@@ -3397,6 +3419,32 @@ function exDlStamp(){
  return d.getFullYear()+p(d.getMonth()+1)+p(d.getDate())+'-'+p(d.getHours())+p(d.getMinutes())+p(d.getSeconds());
 }
 function exDlVideoName(){return '星籁成片-'+exDlStamp()+'.mp4';}
+function exDlVideoUrl(){var d=STATE.d;return (d&&d.video_url)?exDlAbs(d.video_url):'';}
+/* 原生附件下载网关（后端 /ai-nav/api/studio/download）：只允许 /ai-nav/studio/files/ 下的文件。
+   返回相对本站的网关地址：url=<成片相对路径>&name=<下载文件名> */
+function exDlVideoPath(){
+ var d=STATE.d,u=d&&d.video_url;if(!u)return '';
+ try{
+  var abs=new URL(u,location.href);
+  if(abs.origin===location.origin)return abs.pathname+abs.search;
+  return abs.href;
+ }catch(e){return String(u);}
+}
+function exDlGatewayUrl(name){
+ var raw=exDlVideoPath();
+ if(!raw)return '';
+ return '/ai-nav/api/studio/download?url='+encodeURIComponent(raw)+'&name='+encodeURIComponent(name||exDlVideoName());
+}
+function exDlOpenVideo(){
+ var u=exDlVideoUrl();
+ if(!u){toast('还没有成片，先生成一条','warn');return;}
+ try{var w=window.open(u,'_blank','noopener');if(!w)location.href=u;}catch(e){try{location.href=u;}catch(_e){}}
+}
+function exDlCopyLink(){
+ var u=exDlVideoUrl();
+ if(!u){toast('还没有成片，先生成一条','warn');return;}
+ copyText(u,'成片链接已复制');
+}
 function exDlStatus(text,pct){
  var box=exDlEl('exDlProgress'),bar=exDlEl('exDlBar'),tx=exDlEl('exDlProgTxt');
  if(!box)return;
@@ -3414,145 +3462,388 @@ function exDlHideError(){
  var m=exDlEl('exDlErrMsg');if(m)m.textContent='';
  var a=exDlEl('exDlErrActs');if(a)a.innerHTML='';
 }
-function exDlShowError(msg,retry,fallback){
+function exDlShowError(msg,actions){
  var box=exDlEl('exDlError');if(!box)return;
  box.hidden=false;box.className='ex-dl-error on';
- var m=exDlEl('exDlErrMsg');if(m)m.textContent=msg||'未知原因';
+ var m=exDlEl('exDlErrMsg');if(m)m.textContent=msg||'下载没完成，请重试';
  var acts=exDlEl('exDlErrActs');if(!acts)return;
  acts.innerHTML='';
- var b=document.createElement('button');b.type='button';b.textContent='🔄 重试';
- b.onclick=function(){exDlHideError();if(typeof retry==='function')retry();else saveVideoWithPicker();};
- acts.appendChild(b);
- var alt=document.createElement('button');alt.type='button';alt.textContent='⬇ 改用直接下载';
- alt.onclick=function(){exDlHideError();if(typeof fallback==='function')fallback();else exDlDirectVideo();};
- acts.appendChild(alt);
+ (actions||[]).forEach(function(a){
+  if(!a||!a.label)return;
+  var b=document.createElement('button');b.type='button';b.textContent=a.label;
+  b.onclick=function(){exDlHideError();try{if(typeof a.fn==='function')a.fn();}catch(e){}};
+  acts.appendChild(b);
+ });
+}
+function exDlHttpMsg(status){
+ var s=Number(status)||0;
+ if(s===404)return '服务端文件不存在（HTTP 404），请重新生成（或点「打开成片」）';
+ if(s===403)return '服务端拒绝访问成片（HTTP 403），请重新生成';
+ if(s===401)return '登录状态失效（HTTP 401），请刷新页面重新登录';
+ if(s>=500)return '服务端暂时不可用（HTTP '+s+'），请稍后重试';
+ return '服务端返回 HTTP '+s+'，请重新生成后再试';
+}
+function exDlHttpError(status){
+ var e=new Error(exDlHttpMsg(status));e.__http=Number(status)||0;e.status=Number(status)||0;return e;
 }
 function exDlErrText(prefix,err){
  var name=(err&&err.name)||'',msg=(err&&err.message)||'',why;
+ if(err&&err.__http)return msg;
  if(name==='QuotaExceededError'||/quota/i.test(name))why='磁盘空间不足，或浏览器保存配额已满，请清理后重试';
- else if(name==='NotAllowedError')why='浏览器拦截了保存操作（可能被权限设置或插件拦截），请再点一次并在弹窗里允许';
- else if(name==='SecurityError')why='浏览器要求在点击后立刻选择保存位置，请再点一次按钮';
+ else if(name==='NotAllowedError')why='浏览器拦截了保存操作（可能被权限设置或插件拦截）';
+ else if(name==='SecurityError')why='浏览器要求在点击后立刻选择保存位置';
  else if(name==='AbortError')why='已取消';
- else if(name==='NotSupportedError'||name==='RangeError')why='文件过大或浏览器不支持写入这么大的文件，请改用「直接下载」';
- else if(name==='TypeError'&&/fetch|network|load/i.test(msg))why='网络中断或下载被浏览器/插件拦截，请检查网络后重试';
- else if(/HTTP\s*(\d{3})/i.test(msg))why='服务器返回 '+msg.replace(/^.*?(HTTP\s*\d{3}).*$/i,'$1')+'（成片可能已被清理或过期，请重新生成）';
+ else if(name==='NotSupportedError'||name==='RangeError')why='文件过大或浏览器不支持写入这么大的文件';
+ else if(/Failed to fetch|NetworkError|Load failed|network error/i.test(msg)||name==='TypeError')why='网络中断，请检查网络后重试';
  else why=(prefix?prefix+'：':'')+(msg||'未知错误');
  return why;
 }
-function exDlDirectVideo(name){
- var d=STATE.d||{};
- if(!d.video_url){toast('还没有成片，先生成一条','warn');return false;}
- var n=name||exDlVideoName();
- exDlTrace('direct:video',{href:d.video_url,name:n});
+/* ---------- 成片自检：HEAD → 失败再 GET Range: bytes=0-1 ---------- */
+function exDlEvalProbe(status,ctype,clen,crange){
+ var s=Number(status)||0,ct=String(ctype||'').toLowerCase(),total=0;
+ if(clen){total=Number(clen)||0;}
+ var m=String(crange||'').match(/\/(\d+)\s*$/);if(m)total=Number(m[1])||total;
+ if(s===200||s===206){
+  if(!ct)return {ok:false,status:s,kind:'type',msg:'无法确认成片类型（HTTP '+s+'），请重新生成（或点「打开成片」）'};
+  if(ct.indexOf('video')<0){
+   if(/html|json|text/.test(ct))return {ok:false,status:s,kind:'html',msg:'服务端返回的不是视频文件（HTTP '+s+'，可能是错误页），请重新生成（或点「打开成片」）'};
+   return {ok:false,status:s,kind:'type',msg:'成片类型不正确（'+ct+'，HTTP '+s+'），请重新生成（或点「打开成片」）'};
+  }
+  if(!total)return {ok:false,status:s,kind:'size',msg:'无法确认成片大小（HTTP '+s+'），请刷新后重试（或点「打开成片」）'};
+  if(total<=EX_DL_MIN_BYTES)return {ok:false,status:s,kind:'small',msg:'成片文件尚未就绪或链接已失效，请重新生成（或点『打开成片』）'};
+  return {ok:true,status:s,size:total,type:ct};
+ }
+ return {ok:false,status:s,kind:'http',msg:exDlHttpMsg(s)};
+}
+function exDlProbe(url){
+ var abs=exDlAbs(url);
+ function byRange(){
+  return fetch(abs,{headers:{Range:'bytes=0-1'},cache:'no-store',credentials:'same-origin'})
+   .then(function(g){return exDlEvalProbe(g.status,g.headers.get('content-type'),g.headers.get('content-length'),g.headers.get('content-range'));})
+   .catch(function(){return {ok:false,kind:'network',msg:'网络中断，请检查网络后重试'};});
+ }
+ return fetch(abs,{method:'HEAD',cache:'no-store',credentials:'same-origin'}).then(function(r){
+  if(r.status===200){
+   var r1=exDlEvalProbe(200,r.headers.get('content-type'),r.headers.get('content-length'),'');
+   if(r1.ok)return r1;
+   /* 某些网关会丢掉 HEAD 的 content-type/content-length，用 2 字节 Range 再确认 */
+   if(r1.kind==='type'||r1.kind==='size'||r1.kind==='small')return byRange();
+   return r1;
+  }
+  if(r.status>=400)return exDlEvalProbe(r.status,r.headers.get('content-type'),0,'');
+  return byRange();
+ }).catch(function(){return byRange();});
+}
+function exDlShowSaveAs(show){var b=exDlEl('exDlSaveAs');if(b)b.hidden=!show;}
+function exDlShowSize(size){
+ var el=exDlEl('exDlSize');if(!el)return;
+ el.textContent=exDlMB(size)+' · 可直接下载';
+ el.hidden=false;el.className='ex-dl-size';
+ exDlShowSaveAs(exDlFileSupported());
+}
+function exDlHideSize(){var el=exDlEl('exDlSize');if(el){el.hidden=true;el.textContent='';el.className='ex-dl-size';}exDlShowSaveAs(false);}
+function exDlCheck(url,quiet){
+ if(!quiet)exDlStatus('正在检查成片文件…',0);
+ return exDlProbe(url).then(function(r){
+  if(!quiet)exDlStatus(null);
+  if(r&&r.ok){EXDl.size=r.size;EXDl.checkedKey=exDlVideoPath();exDlShowSize(r.size);exDlHideError();}
+  else{EXDl.size=0;EXDl.checkedKey='';exDlHideSize();}
+  return r||{ok:false,msg:'网络中断，请检查网络后重试'};
+ });
+}
+function exDlScheduleCheck(){
+ clearTimeout(EXDl.checkTimer);
+ var key=exDlVideoPath();
+ if(!key){EXDl.size=0;EXDl.checkedKey='';exDlHideSize();return;}
+ var gurl=exDlGatewayUrl('probe.mp4');
+ if(!gurl){exDlHideSize();return;}
+ EXDl.checkTimer=setTimeout(function(){
+  if(EXDl.busy)return;
+  if(EXDl.checkedKey===key&&EXDl.size>0)return;
+  exDlCheck(gurl,true).catch(function(){});
+ },350);
+}
+function exDlCheckFail(r){
+ var msg=(r&&r.msg)||'成片文件尚未就绪或链接已失效，请重新生成（或点『打开成片』）';
+ exDlShowError(msg,[
+  {label:'🔄 重试下载',fn:function(){exDlStartDownload();}},
+  {label:'👀 打开成片',fn:exDlOpenVideo},
+  {label:'📋 复制链接',fn:exDlCopyLink}
+ ]);
+ toast(msg,'bad');
+}
+function exDlAnchorDownload(name,href){
  try{
   var a=document.createElement('a');
-  a.href=exDlAbs(d.video_url);a.download=n;a.rel='noopener';
+  a.href=href;a.download=name||exDlVideoName();a.rel='noopener';
   a.style.cssText='position:fixed;left:-9999px;top:0;opacity:0';
   document.body.appendChild(a);a.click();
   setTimeout(function(){try{a.remove();}catch(e){}},1500);
-  exDlNote('文件已保存到浏览器的下载文件夹（Ctrl+J 查看）'+exDlMobileHint());
-  toast('已开始下载：文件已保存到浏览器的下载文件夹（Ctrl+J 查看）'+exDlMobileHint(),'ok');
+  return true;
+ }catch(e){return false;}
+}
+function exDlDirectVideo(name){
+ var u=exDlVideoUrl();
+ if(!u){toast('还没有成片，先生成一条','warn');return false;}
+ var n=name||exDlVideoName();
+ exDlTrace('direct:video',{href:u,name:n});
+ var ok=exDlAnchorDownload(n,u);
+ if(ok){
+  exDlNote('已改为直接下载成片链接，请看浏览器下载列表'+exDlMobileHint());
+  if(!exDlIsMobile())toast('已开始下载（Ctrl+J 查看下载列表）','ok');
+ }else{
+  exDlShowError('浏览器不允许多文件下载，请点「打开成片」后长按/另存',[
+   {label:'👀 打开成片',fn:exDlOpenVideo},
+   {label:'📋 复制链接',fn:exDlCopyLink}
+  ]);
+ }
+ return ok;
+}
+/* ---------- 原生附件下载：浏览器直接存盘（不弹保存框，Chrome/Edge/微信均可用） ---------- */
+function exDlNativeDownload(name,gurl){
+ try{
+  var a=document.createElement('a');
+  a.href=gurl;a.download=name||exDlVideoName();a.rel='noopener';
+  a.style.cssText='position:fixed;left:-9999px;top:0;opacity:0';
+  document.body.appendChild(a);
+  a.click();
+  setTimeout(function(){try{a.remove();}catch(e){}},2000);
   return true;
  }catch(e){
-  exDlShowError(exDlErrText('无法触发下载',e),function(){exDlDirectVideo(n);},null);
+  exDlTrace('native:anchor-fail',{name:e&&e.name,msg:String((e&&e.message)||'').slice(0,120)});
+  try{location.href=gurl;return true;}catch(_e){return false;}
+ }
+}
+function exDlDownloadStarted(size,name,extra){
+ var sz=Number(size)||0;
+ if(sz>0){EXDl.size=sz;exDlShowSize(sz);}
+ exDlHideError();
+ exDlStatus('✅ 已开始下载'+(sz>0?('（'+exDlMBc(sz)+'）'):''),100);
+ exDlNote('已开始下载：'+(name||'成片')+(sz>0?('（'+exDlMBc(sz)+'）'):'')+(extra?('，'+extra):'')+'。浏览器会直接存入下载列表'+exDlMobileHint());
+ toast('已保存：'+(name||'成片')+(sz>0?('（'+exDlMBc(sz)+'）'):''),'ok');
+}
+/* ---------- 直接下载兜底：fetch 网关 → Blob（校验大小）→ a.download 点击；失败再退回成片直链 ---------- */
+async function exDlBlobDownload(name,expectedSize,autoReason){
+ var fname=name||exDlVideoName();
+ var u=exDlGatewayUrl(fname);
+ if(!u){toast('还没有成片，先生成一条','warn');return false;}
+ var expect=Number(expectedSize)||Number(EXDl.size)||0;
+ exDlTrace('blob:start',{href:u,expect:expect});
+ try{
+  exDlStatus('正在下载成片 0%…',0);
+  var res=await fetch(u,{cache:'no-store',credentials:'same-origin'});
+  if(!res.ok)throw exDlHttpError(res.status);
+  var ct=(res.headers.get('content-type')||'').toLowerCase();
+  if(ct&&ct.indexOf('video')<0&&/html|json|text/.test(ct))throw new Error('服务端返回的不是视频文件（HTTP '+res.status+'，可能是错误页）');
+  var cl=Number(res.headers.get('content-length'))||expect||0;
+  var chunks=[],got=0;
+  if(res.body&&res.body.getReader){
+   var rd=res.body.getReader();
+   for(;;){
+    var r=await rd.read();
+    if(r.done)break;
+    chunks.push(r.value);got+=r.value.length;
+    var pct=cl?Math.min(99,Math.round(got/cl*100)):0;
+    exDlStatus('正在下载成片 '+pct+'%（'+exDlMB(got)+(cl?(' / '+exDlMB(cl)):'')+'）',pct);
+   }
+  }else{
+   var b=await res.blob();chunks=[b];got=b.size;
+   exDlStatus('正在下载成片 100%（'+exDlMB(got)+'）',100);
+  }
+  if(cl&&got!==cl)throw new Error('下载不完整（'+exDlMB(got)+' / '+exDlMB(cl)+'）');
+  if(got<=EX_DL_MIN_BYTES)throw new Error('下载到的文件太小（'+exDlMB(got)+'），成片可能还没生成好');
+  var blob=new Blob(chunks,{type:'video/mp4'});
+  var href=URL.createObjectURL(blob);
+  if(!exDlAnchorDownload(fname,href)){try{URL.revokeObjectURL(href);}catch(_e){}throw new Error('浏览器没接受下载');}
+  setTimeout(function(){try{URL.revokeObjectURL(href);}catch(e){}},120000);
+  EXDl.size=got;EXDl.checkedKey=exDlVideoPath();
+  exDlShowSize(got);
+  exDlStatus('✅ 已开始下载（'+exDlMBc(got)+'）',100);
+  exDlNote('已开始下载：'+fname+'（'+exDlMBc(got)+'）'+(autoReason?('，'+autoReason):'')+'。浏览器会直接存入下载列表'+exDlMobileHint());
+  toast('已保存：'+fname+'（'+exDlMBc(got)+'）','ok');
+  exDlTrace('blob:ok',{size:got,name:fname});
+  return true;
+ }catch(e){
+  exDlTrace('blob:fail',{name:e&&e.name,msg:String((e&&e.message)||'').slice(0,160)});
+  exDlStatus('直连下载没成功，改用成片链接…',0);
+  var ok2=exDlDirectVideo(fname);
+  exDlStatus(null);
+  if(!ok2)exDlNote('下载没成功：'+((e&&e.message)||'未知原因')+exDlMobileHint());
   return false;
  }
 }
-function exDlFallbackVideo(reason){
+function exDlIncomplete(got,total){
+ var e=new Error('保存不完整（'+exDlMB(got)+' / '+exDlMB(total)+'）');
+ e.__incomplete=true;e.__got=got;e.__total=total;return e;
+}
+/* ---------- 主流程：网关自检（HEAD）→ 原生附件下载（不弹保存框）→ Blob/成片直链兜底 ---------- */
+async function exDlStartDownload(){
+ var d=STATE.d;
+ if(!d||!d.video_url){toast('还没有成片，先生成一条','warn');return;}
+ if(EXDl.busy){toast('正在保存，请等这次完成','warn');return;}
+ exDlHideError();exDlNote('');
+ var name=exDlVideoName();
+ var gurl=exDlGatewayUrl(name);
+ if(!gurl){toast('还没有成片，先生成一条','warn');return;}
+ exDlTrace('video:click',{gateway:gurl,mobile:exDlIsMobile(),wechat:exDlIsWeChat(),secure:!!window.isSecureContext});
+ /* 下载前自检：HEAD 网关（200 + video + content-length > 50KB） */
+ var chk=await exDlCheck(gurl,false);
+ if(!chk||!chk.ok){exDlTrace('video:check:fail',{msg:(chk&&chk.msg)||''});exDlCheckFail(chk);return;}
+ exDlTrace('video:check:ok',{size:chk.size});
+ EXDl.busy=true;
+ try{
+  exDlStatus('正在交给浏览器下载…',60);
+  var ok=exDlNativeDownload(name,gurl);
+  exDlTrace('video:gateway:go',{ok:ok,name:name});
+  if(ok){exDlDownloadStarted(chk.size,name);return;}
+  exDlStatus('原生下载没触发，改用 Blob 下载…',10);
+  await exDlBlobDownload(name,chk.size,'原生下载未触发，已自动改用 Blob 下载');
+ }catch(e){
+  exDlTrace('video:flow:fail',{name:e&&e.name,msg:String((e&&e.message)||'').slice(0,160)});
+  exDlStatus(null);
+  var why3=exDlErrText('下载失败',e);
+  exDlShowError(why3,[
+   {label:'🔄 重试下载',fn:function(){exDlStartDownload();}},
+   {label:'👀 打开成片',fn:exDlOpenVideo},
+   {label:'📋 复制链接',fn:exDlCopyLink}
+  ]);
+  toast(why3,'bad');
+ }finally{EXDl.busy=false;}
+}
+/* ---------- 可选「另存为」：File System Access 写盘 + getFile 回读校验；被拦截自动降级网关下载 ---------- */
+async function exDlSaveAs(){
+ var d=STATE.d;
+ if(!d||!d.video_url){toast('还没有成片，先生成一条','warn');return;}
+ if(EXDl.busy){toast('正在保存，请等这次完成','warn');return;}
+ if(!exDlFileSupported()){toast('当前浏览器不支持另存为，已直接用浏览器下载','warn');exDlStartDownload();return;}
+ exDlHideError();exDlNote('');
+ var name=exDlVideoName();
+ var gurl=exDlGatewayUrl(name);
+ if(!gurl){toast('还没有成片，先生成一条','warn');return;}
+ var chk=await exDlCheck(gurl,false);
+ if(!chk||!chk.ok){exDlTrace('saveas:check:fail',{msg:(chk&&chk.msg)||''});exDlCheckFail(chk);return;}
+ exDlTrace('saveas:check:ok',{size:chk.size});
+ EXDl.busy=true;
+ var handle=null;
+ try{
+  try{
+   exDlTrace('saveas:picker:call',{suggestedName:name});
+   handle=await window.showSaveFilePicker({
+    suggestedName:name,
+    types:[{description:'MP4 视频',accept:{'video/mp4':['.mp4']}}],
+    excludeAcceptAllOption:false
+   });
+  }catch(e){
+   exDlTrace('saveas:picker:fail',{name:e&&e.name,msg:String((e&&e.message)||'').slice(0,160)});
+   if(e&&e.name==='AbortError'){toast('已取消保存','warn');exDlStatus(null);return;}
+   var why=exDlErrText('打不开系统保存框',e);
+   exDlStatus(null);
+   exDlNote(why+'，已自动改用浏览器下载…');
+   toast(why+'，已自动改用浏览器下载','warn');
+   if(exDlNativeDownload(name,gurl))exDlDownloadStarted(chk.size,name,'保存框被拦截，已自动改用浏览器下载');
+   else await exDlBlobDownload(name,chk.size,'保存框被拦截，已自动改用浏览器下载');
+   return;
+  }
+  exDlTrace('saveas:picker:ok',{name:handle&&handle.name});
+  var handleName=(handle&&handle.name)||name;
+  var writer=null;
+  try{
+   exDlStatus('下载中 0% · 正在读取成片…',0);
+   var res=await fetch(gurl,{cache:'no-store',credentials:'same-origin'});
+   if(!res.ok)throw exDlHttpError(res.status);
+   var ctype=(res.headers.get('content-type')||'').toLowerCase();
+   if(ctype&&ctype.indexOf('video')<0&&/html|json|text/.test(ctype))throw new Error('服务端返回的不是视频文件（HTTP '+res.status+'）');
+   var total=Number(res.headers.get('content-length'))||chk.size||0;
+   var got=0;
+   writer=await handle.createWritable();
+   if(res.body&&res.body.getReader){
+    var rd=res.body.getReader();
+    for(;;){
+     var r=await rd.read();
+     if(r.done)break;
+     await writer.write(r.value);got+=r.value.length;
+     var pct=total?Math.min(99,Math.round(got/total*100)):0;
+     exDlStatus('下载中 '+pct+'%（'+exDlMB(got)+(total?(' / '+exDlMB(total)):'')+'）',pct);
+    }
+   }else{
+    var blob=await res.blob();got=blob.size;total=total||got;
+    await writer.write(blob);
+   }
+   await writer.close();writer=null;
+   /* 写盘后校验：读回真实大小，与 content-length 比对 */
+   var readBack=0;
+   try{
+    var f=(handle&&typeof handle.getFile==='function')?await handle.getFile():null;
+    if(f)readBack=Number(f.size)||0;
+   }catch(e){
+    exDlTrace('saveas:verify:getfile-fail',{name:e&&e.name,msg:String((e&&e.message)||'').slice(0,120)});
+   }
+   var saved=readBack||got;
+   if(total&&saved!==total)throw exDlIncomplete(saved,total);
+   if(!saved||saved<=EX_DL_MIN_BYTES)throw exDlIncomplete(saved,total||got);
+   EXDl.size=saved;EXDl.checkedKey=exDlVideoPath();
+   exDlShowSize(saved);
+   exDlStatus('✅ 已保存 '+exDlMB(saved)+' · '+handleName,100);
+   exDlTrace('saveas:save:ok',{name:handleName,size:saved,total:total,readBack:readBack});
+   exDlNote('已保存到：'+handleName+'（'+exDlMBc(saved)+'）');
+   toast('已保存：'+handleName+'（'+exDlMBc(saved)+'）','ok');
+  }catch(e){
+   if(writer){try{await writer.abort();}catch(_e){}}
+   exDlTrace('saveas:save:fail',{name:e&&e.name,msg:String((e&&e.message)||'').slice(0,160)});
+   exDlStatus(null);
+   if(e&&e.name==='AbortError'){toast('已取消保存','warn');return;}
+   var why2=e&&e.__incomplete?e.message:exDlErrText('保存失败',e);
+   var reason=e&&e.__incomplete?'保存不完整，已改用浏览器下载':'保存失败，已自动改用浏览器下载';
+   exDlNote(why2+'，已改用浏览器下载…');
+   toast(why2+'，已改用浏览器下载…','warn');
+   if(exDlNativeDownload(name,gurl))exDlDownloadStarted(chk.size,name,reason);
+   else await exDlBlobDownload(name,chk.size,reason);
+  }
+ }catch(e){
+  exDlTrace('saveas:flow:fail',{name:e&&e.name,msg:String((e&&e.message)||'').slice(0,160)});
+  exDlStatus(null);
+  var why3=exDlErrText('另存为失败',e);
+  exDlShowError(why3,[
+   {label:'🔄 重试下载',fn:function(){exDlSaveAs();}},
+   {label:'👀 打开成片',fn:exDlOpenVideo},
+   {label:'📋 复制链接',fn:exDlCopyLink}
+  ]);
+  toast(why3,'bad');
+ }finally{EXDl.busy=false;}
+}
+async function exDlFallbackVideo(reason){
  exDlTrace('video:fallback',{reason:reason||''});
- exDlDirectVideo(exDlVideoName());
- exDlNote((reason?reason+'。':'')+'文件已保存到浏览器的下载文件夹（Ctrl+J 查看）'+exDlMobileHint());
+ if(reason)exDlNote(reason+'，改用浏览器直接下载…');
+ var name=exDlVideoName();
+ var gurl=exDlGatewayUrl(name);
+ if(exDlNativeDownload(name,gurl)){
+  exDlNote('已改为浏览器直接下载成片'+exDlMobileHint());
+  toast('已开始下载','ok');
+  return;
+ }
+ await exDlBlobDownload(name,EXDl.size,'已自动改用浏览器下载');
 }
 function exDlCombinedText(){
  var d=STATE.d||{},m=d.marketing_text||{};
  return '商家短视频工作台 · 文案与授权\n作品编号：'+(STATE.projectId||'-')+'\n版本：v'+STATE.version+'\n\n'+
   '【口播文案】\n'+(d.script||'')+'\n\n【抖音文案】\n'+(m.douyin||'')+'\n\n【美团文案】\n'+(m.meituan||'')+'\n\n【朋友圈文案】\n'+(m.moments||'')+'\n\n【商用授权说明】\n'+licenseText(d);
 }
-function exDlFallbackFolder(){
+async function exDlFallbackFolder(){
  exDlTrace('folder:fallback',{});
- exDlDirectVideo(exDlVideoName());
+ var name=exDlVideoName();
+ var gurl=exDlGatewayUrl(name);
+ var ok=exDlNativeDownload(name,gurl);
+ if(!ok)await exDlBlobDownload(name,EXDl.size,'已自动改用浏览器下载');
  try{
   var blob=new Blob([exDlCombinedText()],{type:'text/plain;charset=utf-8'});
-  var a=document.createElement('a');
-  a.href=URL.createObjectURL(blob);a.download='星籁文案与授权-'+exDlStamp()+'.txt';a.rel='noopener';
-  a.style.cssText='position:fixed;left:-9999px;top:0;opacity:0';
-  document.body.appendChild(a);a.click();
-  setTimeout(function(){try{URL.revokeObjectURL(a.href);a.remove();}catch(e){}},4000);
+  exDlAnchorDownload('星籁文案与授权-'+exDlStamp()+'.txt',URL.createObjectURL(blob));
  }catch(e){exDlTrace('folder:fallback:txt-fail',{name:e&&e.name,msg:String((e&&e.message)||'').slice(0,120)});}
- exDlNote('当前浏览器不支持「选择文件夹」，已改为普通下载：视频 + 文案与授权 txt。文件已保存到浏览器的下载文件夹（Ctrl+J 查看）'+exDlMobileHint()+'；若被拦截请允许「多个文件下载」。');
- toast('当前浏览器不支持「选择文件夹」，已改为普通下载（Ctrl+J 查看）','warn');
+ exDlNote('当前浏览器不支持「选择文件夹」，已改为普通下载：视频 + 文案与授权 txt'+exDlMobileHint());
+ toast('当前浏览器不支持「选择文件夹」，已改为普通下载（视频 + 文案）','warn');
 }
-async function saveVideoWithPicker(){
- var d=STATE.d;
- if(!d||!d.video_url){toast('还没有成片，先生成一条','warn');return;}
- if(EXDl.busy){toast('正在保存，请等这次完成','warn');return;}
- var name=exDlVideoName();
- exDlHideError();exDlNote('');
- exDlTrace('video:click',{supported:exDlFileSupported(),secure:!!window.isSecureContext,hasSave:!!window.showSaveFilePicker,ios:exDlIsIOS(),href:d.video_url});
- if(!exDlFileSupported()){
-  exDlTrace('video:picker:unsupported',{secure:!!window.isSecureContext,hasSave:!!window.showSaveFilePicker});
-  exDlFallbackVideo('当前浏览器不支持系统保存框');
-  return;
- }
- var handle;
- try{
-  exDlTrace('video:picker:call',{suggestedName:name});
-  handle=await window.showSaveFilePicker({
-   suggestedName:name,
-   types:[{description:'MP4 视频',accept:{'video/mp4':['.mp4']}}],
-   excludeAcceptAllOption:false
-  });
- }catch(e){
-  exDlTrace('video:picker:fail',{name:e&&e.name,msg:String((e&&e.message)||'').slice(0,180)});
-  if(e&&e.name==='AbortError'){toast('已取消保存','warn');exDlStatus(null);return;}
-  var why=exDlErrText('打不开系统保存框',e);
-  exDlStatus(null);
-  exDlShowError(why,function(){saveVideoWithPicker();},function(){exDlDirectVideo(name);});
-  toast(why,'bad');
-  return;
- }
- exDlTrace('video:picker:ok',{name:handle&&handle.name});
- EXDl.busy=true;
- try{
-  exDlStatus('下载中 0% · 正在读取成片…',0);
-  exDlTrace('video:fetch:start',{href:exDlAbs(d.video_url)});
-  var res=await fetch(exDlAbs(d.video_url),{cache:'no-store',credentials:'same-origin'});
-  if(!res.ok){var er=new Error('HTTP '+res.status);throw er;}
-  var total=Number(res.headers.get('content-length'))||0,got=0,writer=null;
-  try{
-   if(res.body&&res.body.getReader){
-    writer=await handle.createWritable();
-    var reader=res.body.getReader();
-    for(;;){
-     var r=await reader.read();
-     if(r.done)break;
-     await writer.write(r.value);
-     got+=r.value.length;
-     var pct=total?got/total*100:0;
-     exDlStatus('下载中 '+Math.round(pct)+'%（'+(got/1048576).toFixed(1)+' / '+(total?(total/1048576).toFixed(1):'?')+' MB）',pct);
-    }
-    await writer.close();writer=null;
-   }else{
-    var blob=await res.blob();got=blob.size;total=total||got;
-    writer=await handle.createWritable();
-    await writer.write(blob);await writer.close();writer=null;
-   }
-  }catch(e){
-   if(writer){try{await writer.abort();}catch(_e){}}
-   throw e;
-  }
-  exDlStatus('✅ 已保存 '+(got/1048576).toFixed(2)+' MB · '+(handle.name||name),100);
-  exDlTrace('video:save:ok',{name:handle.name||name,size:got,total:total});
-  toast('已保存到：'+(handle.name||name),'ok');
-  exDlNote('已保存到：'+(handle.name||name));
- }catch(e){
-  exDlTrace('video:save:fail',{name:e&&e.name,msg:String((e&&e.message)||'').slice(0,180)});
-  var why2=exDlErrText('保存失败',e);
-  exDlStatus(null);
-  exDlShowError(why2,function(){saveVideoWithPicker();},function(){exDlDirectVideo(name);});
-  toast(why2,'bad');
- }finally{EXDl.busy=false;}
-}
+
+/* 兼容旧名字：外部（旧代码/调试）仍按 saveVideoWithPicker 调用 */
+async function saveVideoWithPicker(){return exDlStartDownload();}
 async function exDlWriteUrlToDir(dir,name,href,onPct){
  var fh=await dir.getFileHandle(name,{create:true});
  var w=await fh.createWritable();
@@ -3607,11 +3898,14 @@ async function saveToFolder(){
   exDlTrace('folder:picker:call',{mode:'readwrite'});
   dir=await window.showDirectoryPicker({mode:'readwrite'});
  }catch(e){
-  exDlTrace('folder:picker:fail',{name:e&&e.name,msg:String((e&&e.message)||'').slice(0,180)});
+  exDlTrace('folder:picker:fail',{name:e&&e.name,msg:String((e&&e.message)||'').slice(0,160)});
   if(e&&e.name==='AbortError'){toast('已取消保存','warn');exDlStatus(null);return;}
   var why=exDlErrText('打不开文件夹选择框',e);
   exDlStatus(null);
-  exDlShowError(why,function(){saveToFolder();},function(){exDlFallbackFolder();});
+  exDlShowError(why,[
+   {label:'🔄 重试',fn:function(){saveToFolder();}},
+   {label:'⬇ 直接下载',fn:function(){exDlFallbackFolder();}}
+  ]);
   toast(why,'bad');
   return;
  }
@@ -3651,10 +3945,15 @@ async function saveToFolder(){
   exDlTrace('folder:save:fail',{file:e&&e.__file,name:e&&e.name,msg:String((e&&e.message)||'').slice(0,180)});
   var why2=exDlErrText('写入失败',e);
   exDlStatus(null);
-  exDlShowError(why2,function(){saveToFolder();},function(){exDlFallbackFolder();});
+  exDlShowError(why2,[
+   {label:'🔄 重试',fn:function(){saveToFolder();}},
+   {label:'⬇ 直接下载',fn:function(){exDlFallbackFolder();}}
+  ]);
   toast(why2,'bad');
  }finally{EXDl.busy=false;syncControls();}
 }
+window.__EXDL_REFRESH=exDlScheduleCheck;
+window.__EXDL_INFO=function(){return {busy:!!EXDl.busy,size:EXDl.size,checkedKey:EXDl.checkedKey};};
 
 /* ================= 批量混剪 ================= */
 function batchSetStatus(txt,show){
@@ -4062,8 +4361,18 @@ function bindOnce(){
  $('dlVideo').addEventListener('click',function(e){
   if(!STATE.d||!STATE.d.video_url){e.preventDefault();toast('还没有成片，先生成一条','warn');return;}
   e.preventDefault();
-  saveVideoWithPicker();
+  exDlStartDownload();
  });
+ /* 右侧「下载成片」也走同一套加固流程，避免绕过自检/校验直接拉成片链接写出坏文件 */
+ var sideDl=$('wbSideDl');
+ if(sideDl)sideDl.addEventListener('click',function(e){
+  if(!STATE.d||!STATE.d.video_url){e.preventDefault();toast('还没有成片，先生成一条','warn');return;}
+  e.preventDefault();
+  exDlStartDownload();
+ });
+ /* 可选「另存为」：主按钮始终走浏览器原生附件下载，不弹保存框 */
+ var saveAsBtn=$('exDlSaveAs');
+ if(saveAsBtn)saveAsBtn.addEventListener('click',function(){exDlSaveAs();});
  $('dlCover').addEventListener('click',downloadCover);
  $('copyScript').addEventListener('click',function(){copyText((STATE.d&&STATE.d.script)||'','口播文案已复制');});
  $('copyAll').addEventListener('click',function(){copyText(allText(),'全部文案已复制');});
@@ -7268,6 +7577,8 @@ if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',
     updateStepHints();
     syncSummary();
     syncPreviewInfo();
+    /* 进入「⑥ 导出」时复检成片，按钮下方显示真实大小；下载点击时还会再复检一次 */
+    if (n === 6 && typeof window.__EXDL_REFRESH === 'function') { try { window.__EXDL_REFRESH(); } catch (e) {} }
     if (!silent) {
       try {
         var top = $('wbSteps');
@@ -7312,7 +7623,7 @@ if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',
     else if (WB.step === 3) txt = '当前方式：' + modeLabel(WB.mode) + ' · 生成后自动进入预览';
     else if (WB.step === 4) txt = anyResult() ? '成片已就绪，可点下一步去修改' : '生成中或还没生成：右侧会显示成片与进度';
     else if (WB.step === 5) txt = '每次修改都会存一版，可以回退';
-    else if (WB.step === 6) txt = '下载不了就长按视频保存；也可用「保存文件夹」一次存齐';
+    else if (WB.step === 6) txt = '点「下载视频」直接下载成片（不弹保存框）；也可用「保存文件夹」一次存齐';
     h.textContent = txt;
   }
   function updateStepHints() {
