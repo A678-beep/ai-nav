@@ -462,7 +462,25 @@ html[data-theme="dark"] #stateBtn{background:var(--brand) !important;color:#0412
 
   function fail(msg, code) {
     if (code === 404) {
-      showState('🏪', '这个商家主页不存在', '链接可能已失效或商家已下架，请向商家重新索取链接。');
+      showState('🏪', '这个商家主页不存在', '链接可能已失效或商家已下架，请向商家重新索取链接；如果你还没创建商家主页，请在账号中心填写资料后保存。');
+      var card404 = document.querySelector('#stateView .state-card');
+      if (card404 && !card404.querySelector('.slug-entry')) {
+        var box404 = document.createElement('div');
+        box404.className = 'slug-entry';
+        box404.innerHTML = '<p style="font-size:13px;color:#5b6b76;margin:14px 0 8px">换个商家看看，或输入你记得的 slug</p>'
+          + '<input id="stateSlug" placeholder="如 qingjie-tongzhou" autocomplete="off" style="width:100%;box-sizing:border-box;padding:11px 12px;border:1px solid #cfdcd6;border-radius:10px;font-size:14px">'
+          + '<div style="display:flex;gap:8px;margin-top:8px"><button id="stateGo" type="button" style="flex:1;min-height:44px;border:0;border-radius:10px;background:#0e5c52;color:#fff;font-weight:700;cursor:pointer">打开</button>'
+          + '<a href="../account/dashboard.html#storeCard" style="flex:1;display:inline-flex;align-items:center;justify-content:center;min-height:44px;border-radius:10px;border:1px solid #cfe0da;color:#0e5c52;text-decoration:none;font-weight:600;box-sizing:border-box">创建我的主页</a></div>'
+          + '<p style="font-size:12px;color:#7d8f89;margin:10px 0 0">示例：<a href="?slug=qingjie-tongzhou" style="color:#0e5c52">洁净家政（通州店）</a> · <a href="?slug=sfe3f8b37fd" style="color:#0e5c52">净之屋除甲醛</a></p>';
+        card404.appendChild(box404);
+        var go404 = function () {
+          var v = document.getElementById('stateSlug').value.trim().toLowerCase();
+          if (!v) { document.getElementById('stateSlug').focus(); return; }
+          location.href = '?slug=' + encodeURIComponent(v);
+        };
+        document.getElementById('stateGo').addEventListener('click', go404);
+        document.getElementById('stateSlug').addEventListener('keydown', function (e) { if (e.key === 'Enter') { e.preventDefault(); go404(); } });
+      }
     } else if (location.protocol === 'file:' || location.hostname !== 'xinglaiai.com' && !/\.xinglaiai\.com$/.test(location.hostname)) {
       showState('🌐', '请用国内站打开', '当前为静态预览，数据接口仅在国内站可用。请从商家分享的 xinglaiai.com 链接进入。');
     } else {
