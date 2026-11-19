@@ -5263,17 +5263,26 @@ html[data-page="ops-geo"] .xl-sb-theme{display:none!important}
   function getMissingWords() {
     var list = state.data.monitors || [];
     if (!list.length) return [];
-    var last = latestMonitorDate(list);
-    var recent = list.filter(function (m) { return fmtDate(m.testedAt) === last; });
+    /* 最近 7 天窗口内，5 平台均未命中的词（比只看最后一天更稳定） */
+    var dates = list.map(function (m) { return fmtDate(m.testedAt); }).filter(function (d) { return d && d !== '—'; }).sort();
+    if (!dates.length) return [];
+    var lastDate = dates[dates.length - 1];
+    var lastD = parseDate(lastDate);
+    var cutoff = lastD ? dayStr(addDays(lastD, -6)) : lastDate;
+    var recent = list.filter(function (m) {
+      var d = fmtDate(m.testedAt);
+      return d && d >= cutoff && d <= lastDate;
+    });
     var map = {};
     recent.forEach(function (m) {
       if (!m.word) return;
       var key = m.merchantId + '|' + m.word;
-      if (!map[key]) map[key] = { merchantId: m.merchantId, merchant: m.merchant, word: m.word, platforms: [], hit: false };
-      map[key].platforms.push(m.platformLabel);
+      if (!map[key]) map[key] = { merchantId: m.merchantId, merchant: m.merchant, word: m.word, platforms: [], hit: false, lastTested: '' };
+      if (map[key].platforms.indexOf(m.platformLabel) < 0) map[key].platforms.push(m.platformLabel);
       if (m.hit) map[key].hit = true;
+      if (fmtDate(m.testedAt) > map[key].lastTested) map[key].lastTested = fmtDate(m.testedAt);
     });
-    return Object.keys(map).map(function (k) { return map[k]; }).filter(function (x) { return !x.hit; });
+    return Object.keys(map).map(function (k) { return map[k]; }).filter(function (x) { return !x.hit && x.platforms.length >= 3; }).sort(function (a, b) { return b.lastTested > a.lastTested ? 1 : -1; });
   }
   function monitorPlatformStats() {
     var list = state.data.monitors || [];
@@ -5360,7 +5369,7 @@ html[data-page="ops-geo"] .xl-sb-theme{display:none!important}
     var hostM = $('#mnMissing');
     if (hostM) {
       hostM.innerHTML = missing.length ? missing.map(function (x) {
-        return '<div class="og-feedback"><div style="min-width:0"><div class="w"><b>' + esc(x.word) + '</b> · ' + esc(x.merchant) + '</div><div class="m">5 平台（' + esc((x.platforms || []).slice(0, 5).join(' / ')) + '）均未命中</div></div>' +
+        return '<div class="og-feedback"><div style="min-width:0"><div class="w"><b>' + esc(x.word) + '</b> · ' + esc(x.merchant) + '</div><div class="m">近 7 天 + ' + (x.platforms || []).length + ' 平台测试均未命中 · 最近 ' + esc(x.lastTested || '—') + '</div></div>' +
           '<button class="og-btn xs violet" type="button" data-feedback="' + attr(x.merchantId + '||' + x.word) + '">反哺稿件</button></div>';
       }).join('') : '<div class="og-info"><span class="mini">✅</span><div>最近一次测试的所有词都有至少一个平台命中，暂无需反哺；建议保持每周测试频率。</div></div>';
       $$('[data-feedback]', hostM).forEach(function (b) {

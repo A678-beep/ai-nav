@@ -49,6 +49,7 @@
   var ICO = {
     home: svg('<path d="M3 10.7 12 3l9 7.7"/><path d="M5.4 9.2V21h13.2V9.2"/><path d="M9.4 21v-6.2h5.2V21"/>'),
     studio: svg('<rect x="3" y="5.5" width="12.5" height="13" rx="2.2"/><path d="m15.5 10 5.5-3.2v10.4L15.5 14"/>'),
+    autoedit: svg('<rect x="3" y="5.5" width="12.5" height="13" rx="2.2"/><path d="m15.5 10 5.5-3.2v10.4L15.5 14"/><path d="M6.4 9.2h4M6.4 12h4M6.4 14.8h2.6"/><path d="m18.6 6.2.9 2.1 2.1.9-2.1.9-.9 2.1-.9-2.1-2.1-.9 2.1-.9.9-2.1Z" stroke-width="1.2"/>'),
     leadgen: svg('<circle cx="12" cy="12" r="8.2"/><circle cx="12" cy="12" r="4.4"/><circle cx="12" cy="12" r="1.2" fill="currentColor" stroke="none"/>'),
     ads: svg('<path d="M3.4 10.6v2.8a1.4 1.4 0 0 0 1.4 1.4h2.6l4.1 3.1V6.1L7.4 9.2H4.8a1.4 1.4 0 0 0-1.4 1.4Z"/><path d="M15.2 8.6a5 5 0 0 1 0 6.8"/><path d="M18 6.1a8.6 8.6 0 0 1 0 11.8"/>'),
     geo: svg('<circle cx="12" cy="12" r="8.6"/><path d="M3.6 12h16.8"/><ellipse cx="12" cy="12" rx="4" ry="8.6"/>'),
@@ -68,6 +69,7 @@
   var NAV = [
     { key: 'home', label: 'AI 导航', href: ROOT, ico: ICO.home },
     { key: 'studio', label: '短视频工作台', href: ROOT + 'studio/', ico: ICO.studio },
+    { key: 'autoedit', label: '全自动剪辑', href: ROOT + 'autoedit/', ico: ICO.autoedit },
     { key: 'ads', label: 'AI 投放优化获客', href: ROOT + 'ads/', ico: ICO.ads },
     { key: 'leadgen', label: '线索台账', href: ROOT + 'leadgen/', ico: ICO.leadgen },
     { key: 'geo', label: 'GEO 推广', href: ROOT + 'geo2/', ico: ICO.geo },
@@ -86,7 +88,7 @@
     var seg = rel.split('/')[0].replace(/\.html$/, '');
     if (seg === 'account' || seg === 'admin' || seg === 'store') return null;
     if (seg === 'geo2') return 'geo';
-    if (seg === 'studio' || seg === 'leadgen' || seg === 'ads' || seg === 'geo' || seg === 'travel' ||
+    if (seg === 'studio' || seg === 'autoedit' || seg === 'leadgen' || seg === 'ads' || seg === 'geo' || seg === 'travel' ||
         seg === 'select-ai' || seg === 'radar') return seg;
     if (seg === 'pricing') return 'pricing';
     if (seg === 'tools' || seg === 'tool') return 'tools';

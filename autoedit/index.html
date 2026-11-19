@@ -564,6 +564,11 @@ html[data-theme="light"][data-page="autoedit"] .ae-modal{background:rgba(15,23,4
 }
 
 /* ---------- 浅色主题细节 ---------- */
+html[data-theme="light"][data-page="autoedit"] .ae-hero h1 span{
+  background-image:var(--ae-grad-hero);
+  -webkit-background-clip:text;background-clip:text;
+  -webkit-text-fill-color:transparent;color:transparent;
+}
 html[data-theme="light"][data-page="autoedit"] .ae-thumb::after{opacity:.55}
 html[data-theme="light"][data-page="autoedit"] .ae-tab.on{box-shadow:0 2px 8px rgba(15,23,42,.08)}
 html[data-theme="light"][data-page="autoedit"] .ae-aspect.on,
@@ -992,7 +997,7 @@ function apiBase() {
     if (saved) return saved.replace(/\/+$/, '');
     if (location.protocol === 'file:') return 'https://xinglaiai.com' + API_ROOT;
     var p = location.pathname, i = p.indexOf('/autoedit/');
-    if (i >= 0) return location.origin + p.slice(0, i) + API_ROOT;
+    if (i >= 0) return location.origin + p.slice(0, i) + '/api/autoedit';
     return location.origin + API_ROOT;
   } catch (e) { return API_ROOT; }
 }
