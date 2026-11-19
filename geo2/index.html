@@ -1229,7 +1229,9 @@ function authToken() {
 /* ---------- 附件/接口 ---------- */
 var API_BASE = (function () {
   var ov = qsParam('api_base');
-  if (ov) return ov.replace(/\/+$/, '');
+  var isLocalDev = /^(localhost|127\.0\.0\.1|\[::1\]|0\.0\.0\.0)$/i.test(location.hostname);
+  /* api_base 仅限本机联调使用，避免线上被构造链接把资料发到第三方地址 */
+  if (ov && isLocalDev) return ov.replace(/\/+$/, '');
   var p = location.pathname, i = p.lastIndexOf('/geo2/');
   var base = i >= 0 ? p.slice(0, i + 1) : '/';
   if (/(^|\.)github\.io$/i.test(location.hostname)) return 'https://xinglaiai.com/ai-nav/api/geo2';
