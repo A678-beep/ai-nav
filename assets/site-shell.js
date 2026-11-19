@@ -68,6 +68,7 @@
     { key: 'home', label: 'AI 导航', href: ROOT, ico: ICO.home },
     { key: 'studio', label: '短视频工作台', href: ROOT + 'studio/', ico: ICO.studio },
     { key: 'leadgen', label: 'AI 获客', href: ROOT + 'leadgen/', ico: ICO.leadgen },
+  { key: 'leadgen-tasks', label: '获客任务', href: ROOT + 'leadgen/tasks.html', ico: ICO.leadgen },
     { key: 'geo', label: 'GEO 推广', href: ROOT + 'geo/', ico: ICO.geo },
     { key: 'travel', label: '出行导航', href: ROOT + 'travel/', ico: ICO.travel },
     { key: 'select-ai', label: '智能选型', href: ROOT + 'select-ai/', ico: ICO.select },
