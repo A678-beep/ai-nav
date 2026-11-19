@@ -703,6 +703,7 @@ html[data-theme="light"] .batchbar b{color:#92400e}
 .tbl-wrap th.wfs,.tbl-wrap td.wfs{width:38px;text-align:center;padding-left:6px;padding-right:2px}
 .tbl-wrap .wfs input[type=checkbox]{width:17px;height:17px;min-height:17px;accent-color:#38bdf8;cursor:pointer;vertical-align:middle}
 .tbl-wrap tr.sel-on>td{background:rgba(56,189,248,.07)}
+@media(min-width:1100px){.pane .tbl-wrap table{min-width:820px}.pane .tbl-wrap td.text{min-width:170px;max-width:240px}}
 .next-hint{font-size:12.5px;color:var(--wf-ink3);display:flex;gap:6px;align-items:center;flex-wrap:wrap}
 .next-hint button{border:0;background:transparent;color:#7dd3fc;font:inherit;cursor:pointer;text-decoration:underline;padding:0}
 html[data-theme="light"] .next-hint button{color:#0369a1}
@@ -3245,7 +3246,7 @@ html[data-theme="light"] .wf-batch-lead{color:#075985}
   }
   function loadServerStats() {
     api('/stats?workspace_id=' + encodeURIComponent(wsId())).then(function (st) {
-      if (st && st.ok) { S.serverStats = st; refreshStats(); }
+      if (st && st.ok) { S.serverStats = st; refreshStats(); wfEmit('lg:stats', { totals: st.totals || null }); }
     }).catch(function () {});
     api('/insights?workspace_id=' + encodeURIComponent(wsId())).then(function (ins) {
       if (ins && ins.ok) { S.insights = ins; refreshStats(); }
@@ -5529,6 +5530,7 @@ html[data-theme="light"] .wf-batch-lead{color:#075985}
     if (reach && rslot && reach.parentNode !== rslot) {
       rslot.appendChild(reach);
       reach.hidden = false;
+      if (!reach.classList.contains('lgx')) reach.classList.add('lgx');
       if (!WF.flags.reachObs && window.MutationObserver) {
         WF.flags.reachObs = new MutationObserver(function () {
           if (reach.hidden) reach.hidden = false;
@@ -5693,7 +5695,10 @@ html[data-theme="light"] .wf-batch-lead{color:#075985}
       markDone(4);
       if (window.__LG && window.__LG.refresh) { try { window.__LG.refresh(); } catch (e) {} }
       renderStats();
+      setTimeout(renderStats, 1200);
+      setTimeout(renderStats, 3000);
     });
+    window.addEventListener('lg:stats', function () { renderStats(); });
     window.addEventListener('lg:cfg', function () { renderCfgState(); renderIntentMeta(); });
     // 线索表重渲染后恢复选择状态
     var body = $('leadsBody');
