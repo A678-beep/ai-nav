@@ -1038,6 +1038,8 @@ var API_BASE = (function () {
   if (/(^|\.)github\.io$/i.test(location.hostname)) return 'https://xinglaiai.com/ai-nav/api/ads';
   return base + 'api/ads';
 })();
+/* GitHub 镜像页与后端跨域：GET/POST 允许，但 PUT 预检被 CORS 拦截（跨域不可写档案） */
+var SAME_ORIGIN = !/(^|\.)github\.io$/i.test(location.hostname);
 function wsId() {
   try {
     var au = (window.XLAuth && window.XLAuth.token && window.XLAuth.token()) ? window.XLAuth.user() : null;
@@ -2004,7 +2006,7 @@ function planDemoInfo() {
 /* ---------------- 11. 接口请求封装（带降级） ---------------- */
 var profileSyncPromise = null;
 function ensureProfileSynced() {
-  if (S.mode !== 'live' || !S.remoteProfileEmpty) return Promise.resolve();
+  if (S.mode !== 'live' || !S.remoteProfileEmpty || !SAME_ORIGIN) return Promise.resolve();
   if (profileSyncPromise) return profileSyncPromise;
   profileSyncPromise = apiPut('/profile', publicProfile()).then(function (d) {
     S.remoteProfileEmpty = false;
@@ -2577,6 +2579,11 @@ function doSaveProfile() {
   if (S.mode !== 'live') {
     if (st) st.textContent = '✅ 已保存到本机浏览器（接口就绪后自动同步到服务器） · ' + stamp();
     toast('档案已保存（本机）', 'ok');
+    return;
+  }
+  if (!SAME_ORIGIN) {
+    if (st) st.textContent = '✅ 已保存到本机浏览器；GitHub 镜像页不支持跨域写入，请到 xinglaiai.com/ai-nav/ads/ 保存并同步服务器 · ' + stamp();
+    toast('已保存到本机；跨域镜像页请到 xinglaiai.com 同步服务器', 'warn');
     return;
   }
   if (st) st.innerHTML = '<span class="sp"></span> 已保存到本机，正在同步服务器…';
