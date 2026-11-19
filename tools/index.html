@@ -1,11 +1,14 @@
 <!DOCTYPE html>
-<html lang="zh-CN">
+<html lang="zh-CN" data-page="tools">
 <head>
 <meta charset="UTF-8">
+<!--xl-theme-start-->
+<script>(function(){try{var k="xl_theme",v=localStorage.getItem(k),m=(v==="dark"||v==="light"||v==="auto")?v:"auto",q=window.matchMedia?window.matchMedia("(prefers-color-scheme: light)"):null,t=(m==="auto")?((q&&q.matches)?"light":"dark"):m,d=document.documentElement;d.setAttribute("data-theme",t);d.setAttribute("data-theme-mode",m);d.style.colorScheme=t}catch(e){document.documentElement.setAttribute("data-theme","dark")}})();</script>
+
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <title>全部 AI 工具（42 款）· 星籁 AI 工具导航</title>
 <meta name="description" content="7 大分类 42 款 AI 工具，每款含官网入口、适用场景、同类替代和本站实测教程。">
-<meta name="robots" content="index,follow">
+<meta name="robots" content="noindex,nofollow"><meta name="googlebot" content="noindex,nofollow">
 <link rel="canonical" href="https://a678-beep.github.io/ai-nav/tools/">
 <script type="application/ld+json">{"@context": "https://schema.org", "@type": "CollectionPage", "name": "全部 AI 工具", "inLanguage": "zh-CN", "url": "https://a678-beep.github.io/ai-nav/tools/"}</script>
 <style>
@@ -16,7 +19,9 @@ a{color:inherit;text-decoration:none}
 .top-in{max-width:900px;margin:0 auto;padding:12px 20px;display:flex;align-items:center;gap:10px}
 .logo{display:flex;align-items:center;gap:9px;font-weight:800}
 .logo .mark{width:30px;height:30px;border-radius:9px;background:linear-gradient(135deg,var(--cyan),var(--violet));display:grid;place-items:center;color:#04121c;font-weight:900}
-.top-in .back{margin-left:auto;color:var(--txt2);font-size:13px}
+.top-in .nav-leadgen{margin-left:auto;color:var(--txt2);font-size:13px;padding:5px 10px;border:1px solid var(--line);border-radius:8px;white-space:nowrap}
+.top-in .nav-leadgen:hover{color:var(--txt);border-color:rgba(90,209,255,.45)}
+.top-in .back{margin-left:8px;color:var(--txt2);font-size:13px}
 main{max-width:900px;margin:0 auto;padding:28px 20px 60px}
 h1{font-size:28px;line-height:1.4;margin:8px 0 10px}
 .meta{color:var(--txt3);font-size:12.5px;margin-bottom:22px;display:flex;gap:8px;flex-wrap:wrap}
@@ -279,22 +284,25 @@ article.content p{letter-spacing:.01em}
 .list b{display:block;font-size:15px;color:var(--txt);margin-bottom:4px}
 .list span{font-size:12.5px;color:var(--txt3)}
 </style>
-
-<!-- adsense-head:start -->
-<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-8687289780561043"
-     crossorigin="anonymous"></script>
-<!-- adsense-head:end -->
+<link rel="stylesheet" href="../assets/auth-nav.css">
+<link rel="stylesheet" href="../assets/theme-light.css">
+<script defer src="../assets/theme.js"></script>
+<!--xl-theme-end-->
+<link rel="stylesheet" href="../assets/site-shell.css">
 </head>
 <body>
 <header class="top"><div class="top-in">
   <a class="logo" href="../index.html"><span class="mark">✦</span>星籁 AI 导航</a>
+  <a class="nav-leadgen" href="/ai-nav/leadgen/">AI 获客</a>
   <a class="back" href="../index.html">← 回首页</a>
 </div></header>
 <main>
   <div class="bread"><a href="../index.html">首页</a> / 全部工具</div>
   <h1>42 款 AI 工具</h1>
-  <p style="color:var(--txt3);font-size:13px">按 7 大分类整理，每款都有官网入口、适用场景和相关教程 · <a href="../pricing/" style="color:var(--cyan)">查看价格对比 →</a> · <a href="../glossary/" style="color:var(--cyan)">AI 术语表 →</a> · <a href="../prompts/" style="color:var(--cyan)">提示词库 →</a> · <a href="../selector/" style="color:var(--cyan)">让选择器帮我选 →</a></p>
+  <p style="color:var(--txt3);font-size:13px">按 7 大分类整理，每款都有官网入口、适用场景和相关教程 · <a href="../pricing/tools.html" style="color:var(--cyan)">查看价格对比 →</a> · <a href="../glossary/" style="color:var(--cyan)">AI 术语表 →</a> · <a href="../prompts/" style="color:var(--cyan)">提示词库 →</a> · <a href="../selector/" style="color:var(--cyan)">让选择器帮我选 →</a></p>
   <h2 style="font-size:18px;margin:26px 0 8px">对话AI</h2><ul class="list"><li><a href="../tool/chatgpt/"><b>ChatGPT</b><span>GPT-5 通用对话，语音模式练口语、看图解题都稳</span></a></li><li><a href="../tool/claude/"><b>Claude</b><span>长文档与代码阅读强，200K 上下文适合合同、论文</span></a></li><li><a href="../tool/deepseek/"><b>DeepSeek</b><span>开源权重可本地部署，推理与中文表达均衡</span></a></li><li><a href="../tool/kimi/"><b>Kimi</b><span>中文长文本总结，网页/文件一次读完整本</span></a></li><li><a href="../tool/doubao/"><b>豆包</b><span>字节系对话与语音，中文口语化程度高</span></a></li><li><a href="../tool/qwen/"><b>通义千问</b><span>阿里 Qwen 系列，函数调用与文档解析好用</span></a></li></ul><h2 style="font-size:18px;margin:26px 0 8px">图像生成</h2><ul class="list"><li><a href="../tool/midjourney/"><b>Midjourney</b><span>v7 出图审美天花板，--cref 锁角色一致性</span></a></li><li><a href="../tool/stable-diffusion/"><b>Stable Diffusion</b><span>本地开源，ControlNet/LoRA 生态最全</span></a></li><li><a href="../tool/flux/"><b>Flux.1</b><span>开源模型，dev 版 12B，量化后可跑 8G 显存</span></a></li><li><a href="../tool/jimeng/"><b>即梦 AI</b><span>中文电商图、海报生成，免部署直接出图</span></a></li><li><a href="../tool/kling/"><b>可灵 AI</b><span>图生视频与图生图，国风插画质感突出</span></a></li><li><a href="../tool/comfyui/"><b>ComfyUI</b><span>节点式工作流，一次搭建反复复用</span></a></li></ul><h2 style="font-size:18px;margin:26px 0 8px">编程助手</h2><ul class="list"><li><a href="../tool/cursor/"><b>Cursor</b><span>AI 原生编辑器，Tab 补全 + 多文件改写</span></a></li><li><a href="../tool/claude-code/"><b>Claude Code</b><span>命令行 agent，能读整个仓库并提交 PR</span></a></li><li><a href="../tool/github-copilot/"><b>GitHub Copilot</b><span>IDE 内联补全与单测生成，企业可用</span></a></li><li><a href="../tool/windsurf/"><b>Windsurf</b><span>Cascade 多文件流程，自动跑测试较稳</span></a></li><li><a href="../tool/tongyi-lingma/"><b>通义灵码</b><span>免费中文编程助手，支持私有仓库问答</span></a></li><li><a href="../tool/aider/"><b>Aider</b><span>开源 CLI，改完自动 git commit，审阅友好</span></a></li></ul><h2 style="font-size:18px;margin:26px 0 8px">写作文案</h2><ul class="list"><li><a href="../tool/doubao-writer/"><b>小红书文案助手</b><span>按平台规则生成标题正文，规避违禁词</span></a></li><li><a href="../tool/notion-ai/"><b>Notion AI</b><span>与笔记库联动，长文大纲与续写顺手</span></a></li><li><a href="../tool/grammarly/"><b>Grammarly</b><span>英文邮件与论文润色，语气可调</span></a></li><li><a href="../tool/xiezuocat/"><b>秘塔写作猫</b><span>中文错别字与语病检查，公文场景友好</span></a></li><li><a href="../tool/copy-ai/"><b>Copy.ai</b><span>电商五点描述、广告语批量生成</span></a></li><li><a href="../tool/jasper/"><b>Jasper</b><span>品牌语气库，团队协作写营销文案</span></a></li></ul><h2 style="font-size:18px;margin:26px 0 8px">视频音频</h2><ul class="list"><li><a href="../tool/kling-video/"><b>可灵 AI</b><span>图生视频首尾帧控制，5s/10s 可选</span></a></li><li><a href="../tool/runway/"><b>Runway</b><span>Gen-4 运镜控制与视频编辑工具链</span></a></li><li><a href="../tool/heygen/"><b>HeyGen</b><span>数字人口型对齐，多语言播报</span></a></li><li><a href="../tool/elevenlabs/"><b>ElevenLabs</b><span>多语言配音，情感与停顿可调</span></a></li><li><a href="../tool/suno/"><b>Suno</b><span>歌词生成整首歌，v5 中文咬字进步明显</span></a></li><li><a href="../tool/capcut/"><b>剪映</b><span>自动字幕 + 文本剪辑，国内工作流顺手</span></a></li></ul><h2 style="font-size:18px;margin:26px 0 8px">商业效率</h2><ul class="list"><li><a href="../tool/feishu-bitable/"><b>飞书多维表格</b><span>AI 字段做分类汇总，团队协作免费额度够用</span></a></li><li><a href="../tool/notion/"><b>Notion</b><span>数据库 + AI 自动化，做轻量 CRM</span></a></li><li><a href="../tool/n8n/"><b>n8n</b><span>开源自建自动化，可接本地模型</span></a></li><li><a href="../tool/coze/"><b>扣子 Coze</b><span>拖拽搭客服机器人，可发布到微信/飞书</span></a></li><li><a href="../tool/dify/"><b>Dify</b><span>开源知识库问答，支持私有部署</span></a></li><li><a href="../tool/gamma/"><b>Gamma</b><span>一句话生成演示文稿，导出 PPT/PDF</span></a></li></ul><h2 style="font-size:18px;margin:26px 0 8px">实用工具</h2><ul class="list"><li><a href="../tool/perplexity/"><b>Perplexity</b><span>带引用的联网检索，学术查证省时间</span></a></li><li><a href="../tool/notebooklm/"><b>NotebookLM</b><span>上传资料生成播客与问答，支持中文</span></a></li><li><a href="../tool/immersive-translate/"><b>沉浸式翻译</b><span>双语对照网页/PDF，论文阅读神器</span></a></li><li><a href="../tool/otter/"><b>Otter.ai</b><span>会议实时转写与摘要，英文准确率高</span></a></li><li><a href="../tool/whisper/"><b>Whisper</b><span>开源转写，本地跑 16k 音频准确率稳</span></a></li><li><a href="../tool/real-esrgan/"><b>Real-ESRGAN</b><span>开源图片放大，4 倍无损放大</span></a></li></ul>
 </main>
+<script defer src="../assets/site-shell.js"></script>
+<script defer src="../assets/auth.js"></script>
 </body>
 </html>
