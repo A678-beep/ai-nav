@@ -1,11 +1,15 @@
 <!DOCTYPE html>
-<html lang="zh-CN">
+<html lang="zh-CN" data-page="geo">
 <head>
 <meta charset="UTF-8">
+<!--xl-theme-start-->
+<script>(function(){try{var k="xl_theme",v=localStorage.getItem(k),m=(v==="dark"||v==="light"||v==="auto")?v:"auto",q=window.matchMedia?window.matchMedia("(prefers-color-scheme: light)"):null,t=(m==="auto")?((q&&q.matches)?"light":"dark"):m,d=document.documentElement;d.setAttribute("data-theme",t);d.setAttribute("data-theme-mode",m);d.style.colorScheme=t}catch(e){document.documentElement.setAttribute("data-theme","dark")}})();</script>
+
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>GEO 推广优化 · 让 AI 搜索主动推荐你的店 - 星籁AI</title>
 <meta name="description" content="星籁 AI GEO 推广优化：5 步完成资料完善、LocalBusiness 结构化数据、GEO 内容包、NAP 多平台登记与 AI 搜索可见性监测，让本地商家更容易被 AI 搜索和本地搜索推荐。">
 <meta name="keywords" content="GEO,生成式引擎优化,AI搜索优化,本地搜索,LocalBusiness,JSON-LD,NAP,商家获客">
+<meta name="theme-color" content="#070a10">
 <meta name="robots" content="noindex,nofollow"><meta name="googlebot" content="noindex,nofollow">
 <meta property="og:type" content="website">
 <meta property="og:title" content="GEO 推广优化 · 让 AI 搜索主动推荐你的店">
@@ -24,297 +28,513 @@
   "offers": {"@type": "Offer", "price": "0", "priceCurrency": "CNY"}
 }</script>
 <style>
-:root{--bg:#070a10;--panel:#0f1622;--line:rgba(148,163,184,.14);--txt:#e8eef8;--txt2:#9fb0c7;--txt3:#6b7c94;--cyan:#38bdf8;--violet:#8b5cf6;--lime:#34d399;--amber:#fbbf24;--red:#f87171;--pink:#f472b6}
+:root{
+  --bg:#070a10;--bg2:#0a0f18;--panel:#0f1622;--soft:rgba(9,14,24,.62);--soft2:rgba(148,163,184,.06);
+  --line:rgba(148,163,184,.14);--txt:#e8eef8;--txt2:#9fb0c7;--txt3:#6b7c94;
+  --accent:#38bdf8;--accent2:#8b5cf6;--ok:#34d399;--warn:#fbbf24;--danger:#f87171;
+  --codebg:#05090f;--codefg:#cfe3ff;--shadow:0 24px 60px -30px rgba(2,8,20,.9)
+}
+html[data-theme="light"]{
+  --bg:#f6f8fb;--bg2:#eef2f7;--panel:#ffffff;--soft:#f8fafc;--soft2:rgba(15,23,42,.04);
+  --line:rgba(15,23,42,.12);--txt:#0f1b2d;--txt2:#3b4a5f;--txt3:#55637a;
+  --accent:#0e7490;--accent2:#6d28d9;--ok:#047857;--warn:#92400e;--danger:#b91c1c;
+  --codebg:#f1f5f9;--codefg:#0f172a;--shadow:0 8px 26px rgba(15,23,42,.07)
+}
 *{box-sizing:border-box}
 html{-webkit-text-size-adjust:100%;scroll-behavior:smooth}
-body{margin:0;font:15px/1.7 -apple-system,"Segoe UI",Roboto,"Microsoft YaHei",sans-serif;color:var(--txt);background:radial-gradient(900px 480px at 80% -12%,rgba(56,189,248,.12),transparent 60%),radial-gradient(760px 420px at 6% 0%,rgba(139,92,246,.12),transparent 62%),radial-gradient(700px 500px at 50% 110%,rgba(52,211,153,.06),transparent 60%),linear-gradient(180deg,#070a10,#0a0f18);background-attachment:fixed;min-height:100vh;overflow-x:hidden}
+body{margin:0;font:15px/1.7 -apple-system,"Segoe UI",Roboto,"Microsoft YaHei",sans-serif;color:var(--txt);min-height:100vh;overflow-x:hidden;
+  background:radial-gradient(900px 480px at 82% -12%,rgba(56,189,248,.12),transparent 60%),radial-gradient(760px 420px at 4% 0%,rgba(139,92,246,.12),transparent 62%),linear-gradient(180deg,#070a10,#0a0f18);background-attachment:fixed}
+html[data-theme="light"] body{background:radial-gradient(900px 480px at 82% -12%,rgba(56,189,248,.10),transparent 60%),radial-gradient(700px 400px at 4% 0%,rgba(139,92,246,.07),transparent 62%),var(--bg);background-attachment:fixed}
 a{color:inherit;text-decoration:none}
 img{max-width:100%}
+button{font-family:inherit}
 ::selection{background:rgba(56,189,248,.28)}
-.wrap{max-width:1120px;margin:0 auto;padding:0 18px 70px;min-width:0}
-.top{position:sticky;top:0;z-index:30;backdrop-filter:blur(18px);background:rgba(7,10,16,.8);border-bottom:1px solid var(--line)}
-.top-in{max-width:1120px;margin:0 auto;height:60px;display:flex;align-items:center;gap:10px;padding:0 16px}
-.brand{font-weight:800;font-size:15px;display:flex;align-items:center;gap:9px;flex:0 0 auto}
+:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+[hidden]{display:none !important}
+
+/* ---------- 顶栏 ---------- */
+.top{position:sticky;top:0;z-index:30;backdrop-filter:blur(18px);background:rgba(7,10,16,.82);border-bottom:1px solid var(--line)}
+html[data-theme="light"] .top{background:rgba(255,255,255,.9)}
+.top-in{max-width:1280px;margin:0 auto;min-height:60px;display:flex;align-items:center;gap:10px;padding:8px 18px;flex-wrap:nowrap}
+.brand{font-weight:800;font-size:15px;display:flex;align-items:center;gap:9px;flex:0 0 auto;white-space:nowrap}
 .brand .logo{width:30px;height:30px;border-radius:9px;background:linear-gradient(135deg,#38bdf8,#8b5cf6);display:grid;place-items:center;font-size:15px;color:#04121c;font-weight:900}
 .brand .bs{font-size:11px;font-weight:600;color:var(--txt3);letter-spacing:.04em}
 nav{margin-left:auto;display:flex;gap:2px;min-width:0;overflow-x:auto;scrollbar-width:none;-ms-overflow-style:none;-webkit-overflow-scrolling:touch}
 nav::-webkit-scrollbar{display:none}
 nav a{color:var(--txt2);font-size:13px;padding:8px 10px;border-radius:9px;white-space:nowrap;min-height:40px;display:inline-flex;align-items:center;flex:0 0 auto}
-nav a:hover{color:#fff;background:rgba(148,163,184,.1)}
+nav a:hover{color:var(--txt);background:rgba(148,163,184,.12)}
 nav a.on{color:#dff3ff;background:rgba(56,189,248,.13);box-shadow:inset 0 0 0 1px rgba(56,189,248,.24)}
-.hero{padding:36px 0 6px;text-align:center}
-.eyebrow{display:inline-flex;align-items:center;gap:8px;font-size:11.5px;letter-spacing:.18em;color:#7dd3fc;border:1px solid rgba(56,189,248,.28);background:rgba(56,189,248,.07);padding:6px 14px;border-radius:999px;margin-bottom:14px;text-transform:uppercase}
-h1{font-size:clamp(26px,4.2vw,40px);margin:0 0 12px;letter-spacing:-.02em;line-height:1.22}
+html[data-theme="light"] nav a.on{color:#004e7d;background:rgba(56,189,248,.13)}
+
+/* ---------- 页头 ---------- */
+.page{max-width:1280px;margin:0 auto;padding:20px 18px 56px;min-width:0}
+.page-head{display:grid;grid-template-columns:minmax(0,1fr) minmax(320px,430px);gap:16px;align-items:end;margin:6px 0 18px}
+.eyebrow{display:inline-flex;align-items:center;gap:8px;font-size:11px;letter-spacing:.16em;color:#7dd3fc;border:1px solid rgba(56,189,248,.28);background:rgba(56,189,248,.07);padding:5px 12px;border-radius:999px;margin-bottom:10px;text-transform:uppercase}
+html[data-theme="light"] .eyebrow{color:#0b6ea8;border-color:rgba(14,116,144,.3);background:rgba(14,165,233,.08)}
+h1{font-size:clamp(25px,3.2vw,36px);margin:0 0 6px;letter-spacing:-.02em;line-height:1.22}
 h1 span{background:linear-gradient(120deg,#7dd3fc,#a78bfa 55%,#f472b6);-webkit-background-clip:text;background-clip:text;color:transparent}
-.lead{color:var(--txt2);max-width:760px;margin:0 auto 16px;font-size:14.5px}
-.startbox{max-width:640px;margin:0 auto;display:flex;gap:8px;align-items:stretch;flex-wrap:wrap;justify-content:center}
-.startbox .inp{flex:1 1 260px;min-width:0}
-.startbox .btn{flex:0 0 auto}
-.hero-note{font-size:12px;color:var(--txt3);margin-top:9px;display:flex;gap:8px;justify-content:center;flex-wrap:wrap;align-items:center}
-.hero-note a{color:#7dd3fc;text-decoration:underline;text-underline-offset:2px;min-height:32px;display:inline-flex;align-items:center}
-.pill{font-size:12px;color:var(--txt2);border:1px solid var(--line);background:rgba(15,22,34,.7);padding:6px 12px;border-radius:999px;display:inline-flex;align-items:center;gap:7px;min-height:32px}
+html[data-theme="light"] .page-head h1 span{background:linear-gradient(120deg,#004e74,#1e0174 62%,#6e043b) !important;-webkit-background-clip:text !important;background-clip:text !important;-webkit-text-fill-color:transparent !important;color:transparent}
+.lead{color:var(--txt2);margin:0;font-size:14px;max-width:640px}
+.startbox{display:flex;flex-direction:column;gap:8px;min-width:0}
+.slugrow{display:flex;gap:8px;min-width:0}
+.slugrow .inp{flex:1 1 auto;min-width:0}
+.slugrow .btn{flex:0 0 auto}
+.metaline{display:flex;gap:12px;align-items:center;flex-wrap:wrap;font-size:12px;color:var(--txt3)}
+.metaline a{color:var(--accent);text-decoration:underline;text-underline-offset:2px;min-height:28px;display:inline-flex;align-items:center}
+html[data-theme="light"] .metaline a{color:#0a5f92}
+.pill{font-size:12px;color:var(--txt2);border:1px solid var(--line);background:var(--soft);padding:5px 11px;border-radius:999px;display:inline-flex;align-items:center;gap:7px;min-height:30px}
+html[data-theme="light"] .pill{background:#fff}
 .pill.ok{color:#a7f3d0;border-color:rgba(52,211,153,.35);background:rgba(52,211,153,.08)}
 .pill.wait{color:#fde68a;border-color:rgba(251,191,36,.32);background:rgba(251,191,36,.08)}
-.dot{width:7px;height:7px;border-radius:50%;background:currentColor;display:inline-block;box-shadow:0 0 10px currentColor}
-.stepper{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:6px;margin:24px 0 8px;position:relative}
-.stepper button{position:relative;min-width:0;border:1px solid var(--line);background:rgba(15,22,34,.72);border-radius:12px;padding:9px 4px 8px;font-family:inherit;color:var(--txt3);font-size:12px;cursor:pointer;display:flex;flex-direction:column;align-items:center;gap:2px;line-height:1.35;min-height:64px}
-.stepper button:hover{border-color:rgba(56,189,248,.4);color:#dff3ff}
-.stepper button .n{font-size:14px;font-weight:900;width:24px;height:24px;border-radius:50%;display:grid;place-items:center;background:rgba(148,163,184,.14);color:var(--txt2)}
-.stepper button .t{white-space:nowrap;overflow:hidden;text-overflow:ellipsis;max-width:100%;font-size:11.5px}
-.stepper button.done{border-color:rgba(52,211,153,.35);background:rgba(52,211,153,.07);color:#a7f3d0}
-.stepper button.done .n{background:rgba(52,211,153,.2);color:#a7f3d0}
-.stepper button.now{border-color:rgba(56,189,248,.55);background:rgba(56,189,248,.12);color:#dff3ff;box-shadow:0 0 0 1px rgba(56,189,248,.16),0 10px 30px -18px rgba(56,189,248,.8)}
-.stepper button.now .n{background:linear-gradient(135deg,#38bdf8,#8b5cf6);color:#04121c}
-.progress{height:6px;border-radius:999px;background:rgba(148,163,184,.12);overflow:hidden;margin:8px 0 0}
-.progress i{display:block;height:100%;width:0;border-radius:999px;background:linear-gradient(90deg,#38bdf8,#34d399);transition:width .35s ease}
-.progress-meta{display:flex;justify-content:space-between;gap:10px;font-size:11.5px;color:var(--txt3);margin-top:5px;flex-wrap:wrap}
-.card{background:linear-gradient(180deg,rgba(20,28,43,.94),rgba(12,18,28,.94));border:1px solid var(--line);border-radius:18px;padding:16px;box-shadow:0 26px 60px -30px rgba(2,8,20,.95);min-width:0;margin-top:16px;scroll-margin-top:76px}
-.card.glow{border-color:rgba(56,189,248,.24);box-shadow:0 0 0 1px rgba(56,189,248,.07),0 30px 70px -34px rgba(56,189,248,.42)}
-.sec-h{display:flex;align-items:center;gap:10px;margin:0 0 4px;flex-wrap:wrap}
-.sec-no{width:28px;height:28px;border-radius:9px;background:linear-gradient(135deg,#38bdf8,#8b5cf6);color:#03121c;font-weight:900;font-size:13px;display:grid;place-items:center;flex:0 0 auto}
-.sec-h h2{font-size:17px;margin:0;letter-spacing:-.01em}
-.sec-h .tag{margin-left:auto;font-size:11.5px;color:var(--txt3);border:1px solid var(--line);border-radius:999px;padding:2px 9px;white-space:nowrap}
-.sec-h .tag.ok{color:#a7f3d0;border-color:rgba(52,211,153,.32);background:rgba(52,211,153,.08)}
-.sec-h .tag.warn{color:#fde68a;border-color:rgba(251,191,36,.3);background:rgba(251,191,36,.08)}
-.sec-sub{margin:6px 0 12px;font-size:12.5px;color:var(--txt3);line-height:1.75}
-.inp,select,textarea{width:100%;background:rgba(9,14,24,.92);border:1px solid var(--line);border-radius:11px;color:var(--txt);font-size:14.5px;padding:11px 13px;outline:none;font-family:inherit;min-height:44px;appearance:none;-webkit-appearance:none}
-textarea{min-height:82px;resize:vertical;line-height:1.65}
-select{background-image:linear-gradient(45deg,transparent 50%,#7dd3fc 50%),linear-gradient(135deg,#7dd3fc 50%,transparent 50%);background-position:calc(100% - 18px) 20px,calc(100% - 13px) 20px;background-size:5px 5px,5px 5px;background-repeat:no-repeat;padding-right:36px}
-.inp:focus,select:focus,textarea:focus{border-color:rgba(56,189,248,.55);box-shadow:0 0 0 4px rgba(56,189,248,.1)}
+html[data-theme="light"] .pill.ok{color:#0b6c3f;background:rgba(52,211,153,.1)}
+html[data-theme="light"] .pill.wait{color:#5e4b00;background:rgba(251,191,36,.12)}
+.dot{width:7px;height:7px;border-radius:50%;background:currentColor;display:inline-block;box-shadow:0 0 10px currentColor;flex:0 0 auto}
+
+/* ---------- 两栏布局 ---------- */
+.geo-layout{display:grid;grid-template-columns:220px minmax(0,1fr);gap:16px;align-items:start}
+.stepnav{position:sticky;top:76px;background:var(--panel);border:1px solid var(--line);border-radius:16px;padding:10px;box-shadow:var(--shadow);min-width:0}
+.sn-head{padding:6px 8px 8px;border-bottom:1px solid var(--line);margin-bottom:8px}
+.sn-head b{display:block;font-size:13px;letter-spacing:.02em}
+.sn-head span{font-size:11.5px;color:var(--txt3)}
+.stepnav ol{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:6px;min-width:0}
+.step-item{width:100%;display:flex;gap:10px;align-items:flex-start;text-align:left;border:1px solid transparent;background:transparent;border-radius:12px;padding:9px 8px;color:var(--txt);cursor:pointer;transition:background .15s,border-color .15s;min-height:54px}
+.step-item:hover{background:var(--soft2)}
+.step-item .si{flex:0 0 auto;width:30px;height:30px;border-radius:9px;background:rgba(148,163,184,.14);color:var(--txt2);display:grid;place-items:center;transition:background .15s,color .15s}
+.step-item .si svg{width:16px;height:16px;display:block}
+.step-item .st{flex:1 1 auto;min-width:0;display:flex;flex-direction:column;gap:1px}
+.step-item .sn{font-size:13px;font-weight:700;line-height:1.35}
+.step-item .sh{font-size:11px;color:var(--txt3);line-height:1.4;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.step-item .sb{flex:0 0 auto;font-size:10.5px;font-weight:700;border:1px solid var(--line);color:var(--txt3);border-radius:999px;padding:1px 7px;margin-top:2px;white-space:nowrap;display:inline-flex;align-items:center;gap:4px}
+.step-item .sb::before{content:"";width:5px;height:5px;border-radius:50%;background:currentColor;flex:0 0 auto}
+.step-item .sb.ok{color:#a7f3d0;border-color:rgba(52,211,153,.35);background:rgba(52,211,153,.08)}
+.step-item .sb.warn{color:#fde68a;border-color:rgba(251,191,36,.32);background:rgba(251,191,36,.08)}
+.step-item.now{background:linear-gradient(135deg,rgba(56,189,248,.14),rgba(139,92,246,.10));border-color:rgba(56,189,248,.4)}
+.step-item.now .si{background:linear-gradient(135deg,#38bdf8,#8b5cf6);color:#04121c}
+.step-item.now .sn{color:#e0f2fe}
+.step-item.done .si{background:rgba(52,211,153,.16);color:#6ee7b7}
+.step-item.done .sn{color:#d1fae5}
+html[data-theme="light"] .step-item .si{background:#f1f5f9;color:#475569}
+html[data-theme="light"] .step-item.now{background:#eff8ff;border-color:#7dd3fc}
+html[data-theme="light"] .step-item.now .si{background:linear-gradient(135deg,#38bdf8,#a78bfa);color:#082033}
+html[data-theme="light"] .step-item.now .sn{color:#0c4a6e}
+html[data-theme="light"] .step-item.done .si{background:#ecfdf5;color:#047857}
+html[data-theme="light"] .step-item.done .sn{color:#065f46}
+html[data-theme="light"] .step-item .sb.ok{color:#047857;border-color:#a7f3d0;background:#ecfdf5}
+html[data-theme="light"] .step-item .sb.warn{color:#92400e;border-color:#fde68a;background:#fffbeb}
+.sn-foot{border-top:1px solid var(--line);margin-top:8px;padding:9px 8px 3px}
+.sn-foot .progtext{display:flex;flex-direction:column;align-items:flex-start;gap:1px;font-size:11px;color:var(--txt3);margin-bottom:6px}
+.sn-foot #merchantName{max-width:100%;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.progbar{height:6px;border-radius:999px;background:rgba(148,163,184,.16);overflow:hidden}
+html[data-theme="light"] .progbar{background:#e2e8f0}
+.progbar i{display:block;height:100%;width:0;border-radius:999px;background:linear-gradient(90deg,#38bdf8,#34d399);transition:width .3s}
+
+/* ---------- 步骤卡片 ---------- */
+.content{min-width:0}
+.step-panel{background:var(--panel);border:1px solid var(--line);border-radius:16px;padding:18px;box-shadow:var(--shadow);margin:0;scroll-margin-top:76px}
+.phead{display:flex;align-items:center;gap:10px;flex-wrap:wrap;margin-bottom:4px}
+.pno{width:30px;height:30px;border-radius:9px;background:linear-gradient(135deg,#38bdf8,#a78bfa);color:#03121c;font-weight:900;font-size:13px;display:grid;place-items:center;flex:0 0 auto}
+.phead h2{font-size:17px;margin:0;letter-spacing:-.01em;line-height:1.35}
+.ptag{margin-left:auto;font-size:11.5px;color:var(--txt3);border:1px solid var(--line);border-radius:999px;padding:2px 9px;white-space:nowrap;font-weight:600}
+.ptag.ok{color:#a7f3d0;border-color:rgba(52,211,153,.35);background:rgba(52,211,153,.08)}
+.ptag.warn{color:#fde68a;border-color:rgba(251,191,36,.32);background:rgba(251,191,36,.08)}
+.ptag.info{color:#bae6fd;border-color:rgba(56,189,248,.32);background:rgba(56,189,248,.1)}
+html[data-theme="light"] .ptag.ok{color:#047857;border-color:#a7f3d0;background:#ecfdf5}
+html[data-theme="light"] .ptag.warn{color:#92400e;border-color:#fde68a;background:#fffbeb}
+html[data-theme="light"] .ptag.info{color:#075985;border-color:#bae6fd;background:#eff8ff}
+.pdesc{margin:4px 0 14px;font-size:13px;color:var(--txt2);line-height:1.7;max-width:820px}
+.pactions{display:flex;gap:8px;flex-wrap:wrap;align-items:center;margin-bottom:14px}
+.pnext{display:flex;justify-content:flex-end;margin-top:16px;padding-top:14px;border-top:1px solid var(--line)}
+
+/* ---------- 按钮 / 输入 ---------- */
+.inp,select,textarea{width:100%;background:var(--soft);border:1px solid var(--line);border-radius:11px;color:var(--txt);font-size:14px;padding:10px 13px;outline:none;font-family:inherit;min-height:44px}
+html[data-theme="light"] .inp,html[data-theme="light"] select,html[data-theme="light"] textarea{background:#fff;border-color:rgba(15,23,42,.16);color:#0f1b2d}
+textarea{min-height:84px;resize:vertical;line-height:1.65}
+.inp:focus,select:focus,textarea:focus{border-color:rgba(56,189,248,.6);box-shadow:0 0 0 4px rgba(56,189,248,.12)}
+html[data-theme="light"] .inp:focus,html[data-theme="light"] select:focus,html[data-theme="light"] textarea:focus{border-color:rgba(14,116,144,.55);box-shadow:0 0 0 3px rgba(14,165,233,.14)}
 .inp::placeholder,textarea::placeholder{color:#54657c}
-.row{display:flex;gap:8px;align-items:center;flex-wrap:wrap}
-.grow{flex:1 1 auto;min-width:0}
-.btn{min-height:44px;border-radius:12px;padding:0 18px;font-weight:800;font-size:14.5px;border:0;background:linear-gradient(135deg,#38bdf8,#6366f1);color:#04121c;cursor:pointer;font-family:inherit;display:inline-flex;align-items:center;justify-content:center;gap:7px;transition:filter .18s,transform .18s;text-align:center}
+html[data-theme="light"] .inp::placeholder,html[data-theme="light"] textarea::placeholder{color:#64748b}
+select{padding-right:34px}
+.btn{min-height:44px;border-radius:12px;padding:0 17px;font-weight:800;font-size:14px;border:0;background:linear-gradient(135deg,#38bdf8,#818cf8);color:#04121c;cursor:pointer;display:inline-flex;align-items:center;justify-content:center;gap:7px;transition:filter .18s,transform .18s;text-align:center;line-height:1.2}
 .btn:hover{filter:brightness(1.07)}
 .btn:active{transform:translateY(1px)}
-.btn:disabled{opacity:.6;cursor:progress;filter:none}
+.btn:disabled{opacity:.85;cursor:progress;filter:none}
 .btn.ghost{background:rgba(9,14,24,.85);color:#dbeafe;border:1px solid rgba(56,189,248,.35)}
 .btn.ghost:hover{border-color:rgba(56,189,248,.6);background:rgba(56,189,248,.1)}
 .btn.line{background:transparent;color:var(--txt2);border:1px solid var(--line)}
-.btn.line:hover{color:#fff;border-color:rgba(148,163,184,.35)}
-.btn.violet{background:linear-gradient(135deg,#a78bfa,#6366f1);color:#0b0618}
-.btn.sm{min-height:40px;font-size:13px;padding:0 13px;border-radius:10px}
+.btn.line:hover{color:var(--txt);border-color:rgba(148,163,184,.4)}
+.btn.violet{background:linear-gradient(135deg,#a78bfa,#818cf8);color:#0b0618}
+.btn.sm{min-height:38px;font-size:12.5px;padding:0 12px;border-radius:10px}
 .btn.block{width:100%}
-.mini{min-height:40px;border-radius:10px;padding:0 12px;font-size:12.5px;font-weight:700;border:1px solid rgba(56,189,248,.35);background:rgba(56,189,248,.1);color:#dff3ff;cursor:pointer;font-family:inherit;white-space:nowrap}
-.mini:disabled{opacity:.55;cursor:default}
-.chips{display:flex;gap:7px;flex-wrap:wrap;margin-top:9px;min-height:6px}
-.chip{border:1px solid var(--line);background:rgba(9,14,24,.82);border-radius:999px;padding:6px 11px;font-size:12.5px;color:var(--txt2);display:inline-flex;align-items:center;gap:6px;line-height:1.3;min-height:32px}
-.chip.ok{color:#a7f3d0;border-color:rgba(52,211,153,.3);background:rgba(52,211,153,.08)}
-.chip.warn{color:#fde68a;border-color:rgba(251,191,36,.3);background:rgba(251,191,36,.08)}
+html[data-theme="light"] .btn.ghost{background:#fff;color:#0b4a6f;border-color:rgba(14,116,144,.35)}
+html[data-theme="light"] .btn.ghost:hover{background:#eff8ff;border-color:rgba(14,116,144,.6)}
+html[data-theme="light"] .btn.line{background:#fff;color:#334155;border-color:rgba(15,23,42,.16)}
+html[data-theme="light"] .btn.line:hover{color:#0f1b2d;background:#f8fafc;border-color:rgba(15,23,42,.28)}
+html[data-theme="light"] .btn.violet{background:linear-gradient(135deg,#c4b5fd,#818cf8);color:#1e1b4b}
 .hint{font-size:12px;color:var(--txt3);line-height:1.7}
-.hint a{color:#7dd3fc;text-decoration:underline;text-underline-offset:2px}
-.notice{display:flex;gap:8px;align-items:flex-start;font-size:12.5px;color:#cfe3ff;background:rgba(56,189,248,.08);border:1px solid rgba(56,189,248,.26);border-radius:12px;padding:10px 12px;margin:10px 0;line-height:1.7}
-.notice b{color:#e0f2fe}
-.notice.warn{background:rgba(251,191,36,.07);border-color:rgba(251,191,36,.28);color:#fde68a}
-.notice.safe{background:rgba(52,211,153,.07);border-color:rgba(52,211,153,.28);color:#a7f3d0}
-.notice.red{background:rgba(248,113,113,.07);border-color:rgba(248,113,113,.3);color:#fecaca}
-.notice .n-ico{flex:0 0 auto;font-size:14px;line-height:1.5}
-.divider{height:1px;background:linear-gradient(90deg,transparent,rgba(148,163,184,.2),transparent);margin:14px 0}
-.badge{display:inline-flex;align-items:center;gap:5px;font-size:11px;font-weight:700;border-radius:6px;padding:2px 7px;border:1px solid var(--line);color:var(--txt3);white-space:nowrap}
-.badge.ok{color:#a7f3d0;border-color:rgba(52,211,153,.32);background:rgba(52,211,153,.1)}
-.badge.warn{color:#fde68a;border-color:rgba(251,191,36,.3);background:rgba(251,191,36,.08)}
-.badge.info{color:#bae6fd;border-color:rgba(56,189,248,.32);background:rgba(56,189,248,.1)}
+.hint a{color:var(--accent);text-decoration:underline;text-underline-offset:2px}
+html[data-theme="light"] .hint a{color:#0a5f92}
+.row{display:flex;gap:8px;align-items:center;flex-wrap:wrap}
+
+/* ---------- 通用块 ---------- */
+.note{display:flex;gap:9px;align-items:flex-start;font-size:12.5px;line-height:1.7;color:#cfe3ff;background:rgba(56,189,248,.08);border:1px solid rgba(56,189,248,.26);border-radius:12px;padding:10px 12px;margin:0 0 10px}
+.note .ico{flex:0 0 auto;font-size:14px;line-height:1.4}
+.note b{color:#e0f2fe}
+.note.safe{background:rgba(52,211,153,.07);border-color:rgba(52,211,153,.3);color:#a7f3d0}
+.note.safe b{color:#d1fae5}
+.note.warn{background:rgba(251,191,36,.08);border-color:rgba(251,191,36,.3);color:#fde68a}
+.note.warn b{color:#fef3c7}
+.note.bad{background:rgba(248,113,113,.08);border-color:rgba(248,113,113,.34);color:#fecaca}
+.note.bad b{color:#fee2e2}
+html[data-theme="light"] .note{color:#075985;background:#eff8ff;border-color:#bae6fd}
+html[data-theme="light"] .note b{color:#0c4a6e}
+html[data-theme="light"] .note.safe{color:#047857;background:#ecfdf5;border-color:#a7f3d0}
+html[data-theme="light"] .note.safe b{color:#065f46}
+html[data-theme="light"] .note.warn{color:#92400e;background:#fffbeb;border-color:#fde68a}
+html[data-theme="light"] .note.warn b{color:#78350f}
+html[data-theme="light"] .note.bad{color:#b91c1c;background:#fef2f2;border-color:#fecaca}
+html[data-theme="light"] .note.bad b{color:#991b1b}
+.note ul{margin:6px 0 0;padding-left:18px}
+.note li{margin:2px 0}
+.chipx{display:inline-flex;align-items:center;gap:5px;font-size:12px;line-height:1.3;border-radius:7px;padding:4px 9px;border:1px solid var(--line);color:var(--txt2);background:var(--soft)}
+.chipx.ok{color:#a7f3d0;border-color:rgba(52,211,153,.32);background:rgba(52,211,153,.08)}
+.chipx.warn{color:#fde68a;border-color:rgba(251,191,36,.32);background:rgba(251,191,36,.08)}
+html[data-theme="light"] .chipx.ok{color:#047857;border-color:#a7f3d0;background:#ecfdf5}
+html[data-theme="light"] .chipx.warn{color:#92400e;border-color:#fde68a;background:#fffbeb}
+.chips{display:flex;gap:7px;flex-wrap:wrap;margin-top:8px}
+.sep{height:1px;background:var(--line);margin:14px 0}
+.empty{padding:22px 12px;text-align:center;color:var(--txt3);font-size:12.5px;line-height:1.8;border:1px dashed var(--line);border-radius:12px;background:var(--soft)}
+html[data-theme="light"] .empty{background:#f8fafc;border-color:rgba(15,23,42,.14)}
+.loading{display:inline-block;width:14px;height:14px;border:2px solid rgba(148,163,184,.35);border-top-color:currentColor;border-radius:50%;animation:spin .8s linear infinite;vertical-align:-2px;margin-right:6px}
+@keyframes spin{to{transform:rotate(360deg)}}
+
+/* ---------- 资料 ---------- */
+.metrics{display:flex;gap:18px;align-items:flex-end;flex-wrap:wrap;margin:0 0 12px}
+.metric{min-width:88px}
+.metric b{display:block;font-size:28px;line-height:1.1;font-weight:900;color:#e0f2fe;letter-spacing:-.02em}
+.metric span{font-size:11.5px;color:var(--txt3)}
+.metric.ok b{color:#a7f3d0}
+.metric.warn b{color:#fde68a}
+html[data-theme="light"] .metric b{color:#0f1b2d}
+html[data-theme="light"] .metric.ok b{color:#047857}
+html[data-theme="light"] .metric.warn b{color:#92400e}
+.bar{height:8px;border-radius:999px;background:rgba(148,163,184,.16);overflow:hidden;flex:1 1 180px;min-width:120px}
+html[data-theme="light"] .bar{background:#e2e8f0}
+.bar i{display:block;height:100%;border-radius:999px;background:linear-gradient(90deg,#38bdf8,#34d399);transition:width .3s}
+.miss{display:flex;gap:10px;align-items:flex-start;border:1px solid rgba(251,191,36,.24);background:rgba(251,191,36,.06);border-radius:12px;padding:10px 12px;margin-top:8px}
+.miss .mi{flex:0 0 auto;font-size:15px;line-height:1.5}
+.miss b{font-size:13px;color:#fde68a;display:block;line-height:1.5}
+.miss p{margin:2px 0 0;font-size:12px;color:var(--txt3);line-height:1.7}
+html[data-theme="light"] .miss{background:#fffbeb;border-color:#fde68a}
+html[data-theme="light"] .miss b{color:#92400e}
+html[data-theme="light"] .miss p{color:#6b5a2f}
+.profile-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:8px;margin-top:12px}
+.pf{border:1px solid var(--line);border-radius:10px;padding:8px 11px;background:var(--soft);min-width:0}
+.pf span{display:block;font-size:11px;color:var(--txt3);margin-bottom:1px}
+.pf b{display:block;font-size:13px;font-weight:600;line-height:1.5;overflow-wrap:anywhere}
+html[data-theme="light"] .pf{background:#f8fafc;border-color:rgba(15,23,42,.1)}
+
+/* ---------- JSON-LD ---------- */
+pre.ldcode{margin:10px 0 0;padding:12px;background:var(--codebg);border:1px solid var(--line);border-radius:12px;max-height:360px;overflow:auto;font-size:12px;line-height:1.65;color:var(--codefg);white-space:pre;font-family:"SFMono-Regular",Consolas,"Liberation Mono",monospace;-webkit-overflow-scrolling:touch}
+html[data-theme="light"] pre.ldcode{background:#f8fafc;border-color:rgba(15,23,42,.12);color:#0f172a}
+.injline{display:flex;gap:8px;align-items:center;flex-wrap:wrap}
+.injline .hint{flex:1 1 auto;min-width:160px}
+
+/* ---------- 内容包 ---------- */
+.secrow{display:flex;gap:10px;align-items:center;flex-wrap:wrap;margin:0 0 8px}
+.secrow h3{font-size:13.5px;margin:0}
+.secrow .hint{margin-left:auto}
+.faq{border:1px solid var(--line);border-radius:12px;background:var(--soft);margin-top:8px;overflow:hidden}
+.faq summary{list-style:none;cursor:pointer;padding:11px 12px;font-size:13.5px;font-weight:700;color:var(--txt);display:flex;gap:8px;align-items:flex-start;min-height:44px}
+.faq summary::-webkit-details-marker{display:none}
+.faq summary .qm{color:var(--accent);flex:0 0 auto;font-variant-numeric:tabular-nums}
+.faq .a{padding:0 12px 12px 30px;font-size:13px;color:var(--txt2);line-height:1.85;overflow-wrap:anywhere}
+.faq .a .cp{margin-top:8px}
+html[data-theme="light"] .faq{background:#f8fafc;border-color:rgba(15,23,42,.12)}
+html[data-theme="light"] .faq summary{color:#0f1b2d}
+html[data-theme="light"] .faq summary .qm{color:#0e7490}
+html[data-theme="light"] .faq .a{color:#334155}
 .grid2{display:grid;gap:10px}
 @media(min-width:720px){.grid2{grid-template-columns:1fr 1fr}}
-.stat-row{display:flex;gap:14px;align-items:flex-end;flex-wrap:wrap;margin:6px 0 10px}
-.stat{min-width:96px}
-.stat b{display:block;font-size:30px;line-height:1.1;font-weight:900;color:#e0f2fe;letter-spacing:-.02em}
-.stat span{font-size:11.5px;color:var(--txt3)}
-.stat.ok b{color:#a7f3d0}
-.stat.warn b{color:#fde68a}
-.bar{height:8px;border-radius:999px;background:rgba(148,163,184,.12);overflow:hidden;flex:1 1 180px;min-width:120px}
-.bar i{display:block;height:100%;background:linear-gradient(90deg,#38bdf8,#34d399);border-radius:999px;transition:width .3s}
-.miss{display:flex;gap:10px;align-items:flex-start;border:1px solid rgba(251,191,36,.22);background:rgba(251,191,36,.05);border-radius:12px;padding:10px 12px;margin-top:8px}
-.miss .mi{flex:0 0 auto;font-size:15px;line-height:1.5}
-.miss b{font-size:13px;color:#fde68a}
-.miss p{margin:2px 0 0;font-size:12px;color:var(--txt3)}
-pre.code{margin:10px 0 0;padding:12px;background:rgba(5,9,15,.92);border:1px solid var(--line);border-radius:12px;max-height:340px;overflow:auto;font-size:12px;line-height:1.65;color:#cfe3ff;white-space:pre;font-family:"SFMono-Regular",Consolas,"Liberation Mono",monospace;-webkit-overflow-scrolling:touch}
-.q-list{margin-top:10px}
-details.q{border:1px solid var(--line);border-radius:12px;background:rgba(9,14,24,.55);margin-top:8px;overflow:hidden}
-details.q summary{list-style:none;cursor:pointer;padding:11px 12px;font-size:13.5px;font-weight:700;color:#e6eefb;display:flex;gap:8px;align-items:flex-start;min-height:44px}
-details.q summary::-webkit-details-marker{display:none}
-details.q summary .qmark{color:#7dd3fc;flex:0 0 auto}
-details.q .a{padding:0 12px 12px 28px;font-size:13px;color:var(--txt2);line-height:1.8;overflow-wrap:anywhere}
-details.q .a .cp{margin-top:8px}
-.svc-card{border:1px solid rgba(139,92,246,.24);background:rgba(139,92,246,.06);border-radius:14px;padding:12px;min-width:0}
-.svc-card h4{margin:0 0 6px;font-size:14px;color:#ddd6fe;line-height:1.5}
-.svc-card p{margin:0 0 8px;font-size:12.8px;color:var(--txt2);line-height:1.75}
-.svc-card ul{margin:0;padding-left:18px;font-size:12.5px;color:var(--txt2);line-height:1.8}
-.svc-card li{margin:2px 0}
-.kw{display:flex;gap:6px;flex-wrap:wrap;margin-top:8px}
-.kw span{font-size:12px;border-radius:7px;padding:3px 8px;border:1px solid rgba(56,189,248,.24);background:rgba(56,189,248,.08);color:#bae6fd}
-.nap-row{display:flex;gap:10px;align-items:flex-start;padding:11px 12px;border:1px solid var(--line);border-radius:12px;margin-top:8px;background:rgba(9,14,24,.5);min-width:0}
-.nap-row input[type=checkbox]{width:20px;height:20px;flex:0 0 auto;margin-top:2px;accent-color:#34d399;cursor:pointer}
-.nap-body{flex:1 1 auto;min-width:0}
-.nap-body .nb1{display:flex;gap:8px;align-items:center;flex-wrap:wrap}
-.nap-body b{font-size:13.5px}
-.nap-body a{color:#7dd3fc;font-size:12px;text-decoration:underline;text-underline-offset:2px;min-height:28px;display:inline-flex;align-items:center}
-.nap-body p{margin:2px 0 0;font-size:12px;color:var(--txt3);line-height:1.7;overflow-wrap:anywhere}
-.nap-row.done{border-color:rgba(52,211,153,.28);background:rgba(52,211,153,.05)}
-.tbl-wrap{overflow-x:auto;-webkit-overflow-scrolling:touch;border:1px solid var(--line);border-radius:14px;margin-top:12px;background:rgba(8,13,21,.5)}
-table{width:100%;border-collapse:collapse;font-size:12.5px;min-width:560px}
-thead th{font-size:11px;font-weight:700;color:var(--txt3);text-align:left;padding:9px 10px;border-bottom:1px solid var(--line);background:rgba(148,163,184,.05);white-space:nowrap;letter-spacing:.03em}
-tbody td{padding:9px 10px;border-bottom:1px solid rgba(148,163,184,.08);vertical-align:top;color:var(--txt2);white-space:nowrap}
+.svc{border:1px solid rgba(139,92,246,.26);background:rgba(139,92,246,.07);border-radius:14px;padding:12px;min-width:0}
+.svc h4{margin:0 0 6px;font-size:14px;color:#ddd6fe;line-height:1.5}
+.svc p{margin:0 0 8px;font-size:12.8px;color:var(--txt2);line-height:1.75}
+.svc ul{margin:0;padding-left:18px;font-size:12.5px;color:var(--txt2);line-height:1.8}
+.svc li{margin:2px 0}
+html[data-theme="light"] .svc{background:#f5f3ff;border-color:#ddd6fe}
+html[data-theme="light"] .svc h4{color:#5b21b6}
+html[data-theme="light"] .svc p,html[data-theme="light"] .svc ul{color:#3b4a5f}
+.kwx{display:flex;gap:6px;flex-wrap:wrap;margin-top:8px}
+.kwx span{font-size:12px;border-radius:7px;padding:3px 8px;border:1px solid rgba(56,189,248,.24);background:rgba(56,189,248,.08);color:#bae6fd}
+html[data-theme="light"] .kwx span{background:#e0f2fe;border-color:#bae6fd;color:#075985}
+.quotebox{border:1px solid var(--line);border-radius:12px;background:var(--soft);padding:10px 12px;font-size:13px;color:var(--txt2);line-height:1.8;margin-top:8px;overflow-wrap:anywhere}
+html[data-theme="light"] .quotebox{background:#fff;border-color:rgba(15,23,42,.12)}
+
+/* ---------- NAP ---------- */
+.nap{display:flex;gap:10px;align-items:flex-start;padding:11px 12px;border:1px solid var(--line);border-radius:12px;margin-top:8px;background:var(--soft);min-width:0;cursor:pointer}
+.nap input[type=checkbox]{width:20px;height:20px;flex:0 0 auto;margin-top:2px;accent-color:#10b981;cursor:pointer}
+.nap .nb{flex:1 1 auto;min-width:0}
+.nap .nb1{display:flex;gap:8px;align-items:center;flex-wrap:wrap}
+.nap .nb b{font-size:13.5px}
+.nap .nb a{color:var(--accent);font-size:12px;text-decoration:underline;text-underline-offset:2px;min-height:28px;display:inline-flex;align-items:center}
+.nap .np{margin:2px 0 0;font-size:12px;color:var(--txt3);line-height:1.7;overflow-wrap:anywhere;display:block}
+.nap.done{border-color:rgba(52,211,153,.3);background:rgba(52,211,153,.06)}
+html[data-theme="light"] .nap{background:#fff;border-color:rgba(15,23,42,.12)}
+html[data-theme="light"] .nap .nb a{color:#0a5f92}
+html[data-theme="light"] .nap.done{background:#ecfdf5;border-color:#a7f3d0}
+.tagb{display:inline-flex;align-items:center;gap:4px;font-size:10.5px;font-weight:700;border-radius:6px;padding:1px 6px;border:1px solid var(--line);color:var(--txt3);white-space:nowrap}
+.tagb.ok{color:#a7f3d0;border-color:rgba(52,211,153,.34);background:rgba(52,211,153,.1)}
+.tagb.warn{color:#fde68a;border-color:rgba(251,191,36,.32);background:rgba(251,191,36,.08)}
+html[data-theme="light"] .tagb.ok{color:#047857;border-color:#a7f3d0;background:#ecfdf5}
+html[data-theme="light"] .tagb.warn{color:#92400e;border-color:#fde68a;background:#fffbeb}
+
+/* ---------- 表格 / 趋势 ---------- */
+.tablewrap{overflow-x:auto;-webkit-overflow-scrolling:touch;border:1px solid var(--line);border-radius:14px;margin-top:12px;background:var(--soft)}
+table{width:100%;border-collapse:collapse;font-size:12.5px;min-width:620px}
+thead th{font-size:11px;font-weight:700;color:var(--txt3);text-align:left;padding:9px 10px;border-bottom:1px solid var(--line);background:rgba(148,163,184,.06);white-space:nowrap;letter-spacing:.03em}
+tbody td{padding:9px 10px;border-bottom:1px solid rgba(148,163,184,.1);vertical-align:top;color:var(--txt2);white-space:nowrap}
 tbody tr:last-child td{border-bottom:0}
-td.kwcell{white-space:normal;min-width:140px;color:#e8f4ff;font-weight:600}
-.trend{margin-top:12px;display:flex;flex-direction:column;gap:6px}
+td.kwcell{white-space:normal;min-width:140px;color:var(--txt);font-weight:600}
+td.notecell{white-space:normal;min-width:140px;color:var(--txt3);font-size:12px}
+html[data-theme="light"] .tablewrap{background:#fff;border-color:rgba(15,23,42,.12)}
+html[data-theme="light"] thead th{background:#f8fafc;color:#475569;border-bottom-color:rgba(15,23,42,.12)}
+html[data-theme="light"] tbody td{color:#1e293b;border-bottom-color:#eef2f7}
+html[data-theme="light"] td.kwcell{color:#0f1b2d}
+html[data-theme="light"] td.notecell{color:#55637a}
+.trend{margin-top:14px;display:flex;flex-direction:column;gap:6px}
 .trend-row{display:flex;gap:9px;align-items:center;font-size:12px;color:var(--txt3)}
-.trend-row .d{flex:0 0 84px;font-variant-numeric:tabular-nums}
-.trend-row .tb{flex:1 1 auto;height:8px;background:rgba(148,163,184,.12);border-radius:999px;overflow:hidden;min-width:80px}
+.trend-row .d{flex:0 0 86px;font-variant-numeric:tabular-nums}
+.trend-row .tb{flex:1 1 auto;height:8px;background:rgba(148,163,184,.16);border-radius:999px;overflow:hidden;min-width:70px}
 .trend-row .tb i{display:block;height:100%;background:linear-gradient(90deg,#38bdf8,#34d399)}
 .trend-row .v{flex:0 0 auto;color:var(--txt2);font-variant-numeric:tabular-nums}
-.empty{padding:20px 12px;text-align:center;color:var(--txt3);font-size:12.5px;line-height:1.8}
-.loading{display:inline-block;width:14px;height:14px;border:2px solid rgba(148,163,184,.3);border-top-color:#38bdf8;border-radius:50%;animation:spin .8s linear infinite;vertical-align:-2px;margin-right:6px}
-@keyframes spin{to{transform:rotate(360deg)}}
-.foot{text-align:center;color:var(--txt3);font-size:11.5px;line-height:1.8;padding:24px 12px 8px}
-.foot a{color:#7dd3fc;text-decoration:underline;text-underline-offset:2px}
-.toast{position:fixed;left:50%;bottom:30px;transform:translateX(-50%) translateY(8px);background:rgba(16,32,29,.96);color:#fff;font-size:13px;padding:10px 15px;border-radius:999px;opacity:0;pointer-events:none;transition:opacity .2s ease,transform .2s ease;z-index:100;max-width:calc(100% - 28px);text-align:center;border:1px solid rgba(52,211,153,.3)}
+html[data-theme="light"] .trend-row .tb{background:#e2e8f0}
+html[data-theme="light"] .trend-row .v{color:#334155}
+.formgrid{display:grid;gap:10px;margin-bottom:6px}
+@media(min-width:720px){.formgrid{grid-template-columns:1fr 1fr}}
+.formgrid label{display:block;font-size:12px;color:var(--txt3);margin-bottom:4px}
+.formgrid .full{grid-column:1/-1}
+.atbottom{align-self:end}
+
+/* ---------- 页脚 / 提示 ---------- */
+.foot{text-align:center;color:var(--txt3);font-size:11.5px;line-height:1.9;padding:22px 12px 4px}
+.foot a{color:var(--accent);text-decoration:underline;text-underline-offset:2px}
+html[data-theme="light"] .foot a{color:#0a5f92}
+.toast{position:fixed;left:50%;bottom:30px;transform:translateX(-50%) translateY(8px);background:rgba(16,32,29,.96);color:#fff;font-size:13px;padding:10px 16px;border-radius:999px;opacity:0;pointer-events:none;transition:opacity .2s ease,transform .2s ease;z-index:100;max-width:calc(100% - 28px);text-align:center;border:1px solid rgba(52,211,153,.3)}
 .toast.show{opacity:1;transform:translateX(-50%) translateY(0)}
+.toast.bad{border-color:rgba(248,113,113,.5)}
+html[data-theme="light"] .toast{background:#fff;color:#0f1b2d;border-color:rgba(15,23,42,.16);box-shadow:0 14px 40px rgba(15,23,42,.18)}
+html[data-theme="light"] .toast.bad{color:#b91c1c;border-color:#fecaca}
+
+/* ---------- 响应式 ---------- */
+@media(max-width:1099px){
+  .geo-layout{display:block}
+  .stepnav{position:sticky;top:60px;z-index:22;padding:8px;border-radius:14px;margin-bottom:16px}
+  .sn-head,.sn-foot{display:none}
+  .stepnav ol{flex-direction:row;overflow-x:auto;gap:8px;padding-bottom:2px;scroll-snap-type:x proximity;scrollbar-width:none;-ms-overflow-style:none}
+  .stepnav ol::-webkit-scrollbar{display:none}
+  .stepnav ol>li{flex:0 0 auto;list-style:none}
+  .step-item{display:grid;grid-template-columns:24px minmax(0,1fr);grid-template-areas:"i n" "b b";align-items:center;gap:2px 7px;width:166px;min-width:166px;min-height:58px;padding:8px 9px;scroll-snap-align:start}
+  .step-item .si{grid-area:i;width:24px;height:24px;border-radius:7px}
+  .step-item .si svg{width:13px;height:13px}
+  .step-item .st{grid-area:n;min-width:0}
+  .step-item .sn{font-size:12.5px;white-space:nowrap}
+  .step-item .sh{display:none}
+  .step-item .sb{grid-area:b;justify-self:start;margin:1px 0 0;font-size:10px;padding:0 6px}
+  .step-panel{scroll-margin-top:126px}
+}
 @media(max-width:760px){
-  .wrap{padding:0 14px 56px}
-  .top-in{padding:8px 12px;height:auto;flex-wrap:wrap;gap:6px}
+  .top-in{padding:7px 12px;gap:6px;min-height:56px}
   .brand .bs{display:none}
-  nav{margin-left:0;width:100%;flex-wrap:wrap;overflow:visible;gap:2px}
-  nav a{padding:6px 8px;font-size:12.5px;min-height:36px}
-  .hero{padding:22px 0 4px}
-  .card{padding:14px;border-radius:16px;scroll-margin-top:66px}
-  .btn{min-height:46px;font-size:15px}
-  .stepper button{min-height:60px;padding:7px 2px}
-  .stepper button .n{width:21px;height:21px;font-size:12.5px}
-  .stepper button .t{font-size:10.5px}
-  .sec-h h2{font-size:15.5px}
-  .sec-h .tag{font-size:10.5px}
-  details.q summary{font-size:13px}
-  .stat b{font-size:26px}
+  .brand{font-size:14px}
+  .brand .logo{width:27px;height:27px;font-size:13px}
+  nav a{padding:7px 8px;font-size:12.5px;min-height:38px}
+  .page{padding:14px 12px 44px}
+  .page-head{grid-template-columns:1fr;gap:12px;margin-bottom:14px}
+  h1{font-size:24px}
+  .lead{font-size:13px}
+  .slugrow .inp{font-size:14px}
+  .slugrow .btn{padding:0 14px}
+  .metaline{gap:9px;font-size:11.5px}
+  .stepnav{top:56px}
+  .step-item{width:148px;min-width:148px}
+  .step-item .sn{font-size:12px}
+  .step-panel{padding:14px;border-radius:14px}
+  .phead h2{font-size:16px}
+  .ptag{font-size:10.5px}
+  .pdesc{font-size:12.5px;margin-bottom:12px}
+  .pactions .btn{flex:1 1 auto;min-width:0}
+  .pactions .btn.sm{flex:0 0 auto}
+  .formgrid{grid-template-columns:1fr}
+  .metric b{font-size:24px}
+  .faq summary{font-size:13px}
+  .foot{padding:16px 6px 2px}
 }
 @media(max-width:390px){
-  .wrap{padding:0 12px 52px}
-  .stepper{gap:4px}
-  .stepper button .t{font-size:10px}
+  .page{padding:12px 10px 40px}
+  .step-panel{padding:12px}
+  .step-item{width:140px;min-width:140px}
+  .metric b{font-size:22px}
+  .btn{font-size:13.5px}
 }
 @media(prefers-reduced-motion:reduce){*{animation:none !important;transition:none !important}}
 </style>
+<link rel="stylesheet" href="../assets/theme-light.css">
+<script defer src="../assets/theme.js"></script>
+<!--xl-theme-end-->
 </head>
 <body>
+
 <div class="top"><div class="top-in">
   <a class="brand" href="../"><span class="logo">✦</span>星籁 AI <span class="bs">GEO 推广</span></a>
   <nav aria-label="站内导航">
     <a href="../">AI 导航</a>
     <a href="../studio/">短视频工作台</a>
     <a href="../leadgen/">AI 获客</a>
-    <a href="./" class="on" aria-current="page">🌍 GEO 推广</a>
+    <a href="./" class="on" aria-current="page">GEO 推广</a>
     <a href="../travel/">出行导航</a>
     <a href="../select-ai/">智能选型</a>
     <a href="../radar/">工具雷达</a>
   </nav>
 </div></div>
 
-<main class="wrap">
-  <header class="hero">
-    <div class="eyebrow">GEO · AI SEARCH VISIBILITY</div>
-    <h1>GEO 推广优化：让 AI 搜索<span>主动推荐你的店</span></h1>
-    <p class="lead">做完这 5 步，你的店更容易被 AI 搜索和本地搜索推荐。每一步都会告诉你<strong>要填什么、会产出什么</strong>。</p>
+<main class="page">
+  <header class="page-head">
+    <div>
+      <div class="eyebrow">GEO · AI SEARCH VISIBILITY</div>
+      <h1>GEO 推广优化：让 AI 搜索<span>主动推荐你的店</span></h1>
+      <p class="lead">5 步做完：资料 → 结构化数据 → 内容包 → NAP 登记 → 可见性监测。每一步都写清楚要填什么、会产出什么。</p>
+    </div>
     <div class="startbox">
-      <input class="inp" id="slugInput" type="text" maxlength="60" autocomplete="off" spellcheck="false" placeholder="输入你的承接页 slug，如 qingjie-tongzhou" aria-label="承接页 slug">
-      <button class="btn" id="startBtn" type="button">开始优化 →</button>
+      <div class="slugrow">
+        <input class="inp" id="slugInput" type="text" maxlength="60" autocomplete="off" spellcheck="false" placeholder="输入承接页 slug，如 qingjie-tongzhou" aria-label="承接页 slug">
+        <button class="btn" id="startBtn" type="button">开始优化</button>
+      </div>
+      <div class="metaline">
+        <span class="pill" id="loadState"><span class="dot"></span>等待输入</span>
+        <a href="?slug=qingjie-tongzhou">示例 qingjie-tongzhou</a>
+        <a href="../account/dashboard.html#storeCard" target="_blank" rel="noopener">我的承接页 ↗</a>
+      </div>
     </div>
-    <div class="hero-note">
-      <span class="pill" id="loadState"><span class="dot"></span>等待输入</span>
-      <a href="?slug=qingjie-tongzhou">使用示例 qingjie-tongzhou</a>
-      <a href="../account/dashboard.html#storeCard" target="_blank" rel="noopener">我的承接页 ↗</a>
-    </div>
-    <div class="stepper" id="stepper" role="tablist" aria-label="GEO 五步">
-      <button type="button" data-go="1" role="tab" aria-selected="true"><span class="n">1</span><span class="t">完善资料</span></button>
-      <button type="button" data-go="2" role="tab" aria-selected="false"><span class="n">2</span><span class="t">结构化数据</span></button>
-      <button type="button" data-go="3" role="tab" aria-selected="false"><span class="n">3</span><span class="t">GEO 内容包</span></button>
-      <button type="button" data-go="4" role="tab" aria-selected="false"><span class="n">4</span><span class="t">NAP 登记</span></button>
-      <button type="button" data-go="5" role="tab" aria-selected="false"><span class="n">5</span><span class="t">可见性监测</span></button>
-    </div>
-    <div class="progress"><i id="progressBar"></i></div>
-    <div class="progress-meta"><span id="progressText">0 / 5 步完成</span><span id="merchantName">尚未加载商家</span></div>
   </header>
 
-  <!-- ① 完善资料 -->
-  <section class="card glow" id="step1">
-    <div class="sec-h"><span class="sec-no">1</span><h2>完善资料</h2><span class="tag" id="p1Tag">未加载</span></div>
-    <p class="sec-sub">资料来自你的承接页（store profile）。AI 搜索和本地搜索都按这些字段理解你的店：名称、行业、地址、电话、营业时间、服务与价格、照片、坐标。缺哪项就补哪项，补完自动刷新。</p>
-    <div id="p1Body"><div class="empty"><span class="loading"></span>输入 slug 后加载资料</div></div>
-  </section>
+  <div class="geo-layout">
+    <aside class="stepnav" aria-label="GEO 五步导航">
+      <div class="sn-head"><b>GEO 五步</b><span>左侧选择步骤，右侧只看当前步</span></div>
+      <ol role="tablist" aria-label="GEO 五步">
+        <li><button class="step-item" id="step1tab" type="button" data-go="1" role="tab" aria-selected="true" aria-controls="panel1">
+          <span class="si" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M7 3h7l5 5v13H7z"/><path d="M14 3v5h5M10 12h6M10 16h6"/></svg></span>
+          <span class="st"><span class="sn">完善资料</span><span class="sh" data-nav-sub="1">资料完整度</span></span>
+          <span class="sb" data-nav-badge="1">未加载</span>
+        </button></li>
+        <li><button class="step-item" id="step2tab" type="button" data-go="2" role="tab" aria-selected="false" aria-controls="panel2">
+          <span class="si" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M8 9l-4 3 4 3M16 9l4 3-4 3M13.5 5l-3 14"/></svg></span>
+          <span class="st"><span class="sn">结构化数据</span><span class="sh" data-nav-sub="2">LocalBusiness JSON-LD</span></span>
+          <span class="sb" data-nav-badge="2">未生成</span>
+        </button></li>
+        <li><button class="step-item" id="step3tab" type="button" data-go="3" role="tab" aria-selected="false" aria-controls="panel3">
+          <span class="si" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3l9 5-9 5-9-5 9-5z"/><path d="M3 13l9 5 9-5"/></svg></span>
+          <span class="st"><span class="sn">GEO 内容包</span><span class="sh" data-nav-sub="3">FAQ / 服务页 / 问答</span></span>
+          <span class="sb" data-nav-badge="3">未生成</span>
+        </button></li>
+        <li><button class="step-item" id="step4tab" type="button" data-go="4" role="tab" aria-selected="false" aria-controls="panel4">
+          <span class="si" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 21s7-6.2 7-11a7 7 0 10-14 0c0 4.8 7 11 7 11z"/><circle cx="12" cy="10" r="2.6"/></svg></span>
+          <span class="st"><span class="sn">NAP 登记</span><span class="sh" data-nav-sub="4">7 个平台信息一致</span></span>
+          <span class="sb" data-nav-badge="4">0 / 7</span>
+        </button></li>
+        <li><button class="step-item" id="step5tab" type="button" data-go="5" role="tab" aria-selected="false" aria-controls="panel5">
+          <span class="si" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M4 19V5M4 19h16"/><path d="M8 15l3-4 3 2 4-6"/></svg></span>
+          <span class="st"><span class="sn">可见性监测</span><span class="sh" data-nav-sub="5">人工登记搜索排名</span></span>
+          <span class="sb" data-nav-badge="5">0 条</span>
+        </button></li>
+      </ol>
+      <div class="sn-foot">
+        <div class="progtext"><span id="navProgressText">0 / 5 步完成</span><span id="merchantName">尚未加载商家</span></div>
+        <div class="progbar"><i id="navBar"></i></div>
+      </div>
+    </aside>
 
-  <!-- ② 结构化数据 -->
-  <section class="card" id="step2">
-    <div class="sec-h"><span class="sec-no">2</span><h2>结构化数据</h2><span class="tag" id="p2Tag">未生成</span></div>
-    <p class="sec-sub">生成 schema.org LocalBusiness JSON-LD，并<strong>自动写入你的承接页 HTML</strong>（服务端注入 &lt;script type="application/ld+json"&gt;）。AI 搜索、Google/必应富媒体结果靠它准确识别店名、地址、营业时间与价格。</p>
-    <div class="row">
-      <button class="btn" id="btnJsonld" type="button">一键生成 JSON-LD</button>
-      <button class="btn line" id="btnCopyJsonld" type="button" disabled>复制 JSON-LD</button>
-      <a class="btn line" id="validateLink" href="https://search.google.com/test/rich-results" target="_blank" rel="noopener">Google 富媒体测试 ↗</a>
-      <a class="btn line" id="schemaLink" href="https://validator.schema.org/" target="_blank" rel="noopener">Schema 校验 ↗</a>
+    <div class="content">
+      <!-- ① 完善资料 -->
+      <section class="step-panel" id="panel1" data-step="1" role="tabpanel" aria-labelledby="step1tab">
+        <div class="phead"><span class="pno">1</span><h2>完善资料</h2><span class="ptag" id="p1Tag">未加载</span></div>
+        <p class="pdesc">AI 搜索按这些字段理解你的店：名称、行业、地址、电话、营业时间、服务与价格、照片、坐标。缺哪项补哪项，保存后回到本页刷新。</p>
+        <div class="pactions">
+          <a class="btn" id="editLink" href="../account/dashboard.html#storeCard" target="_blank" rel="noopener">去完善资料</a>
+          <a class="btn line" id="storeLink" href="../store/" target="_blank" rel="noopener">打开承接页</a>
+          <button class="btn line" type="button" id="btnReload">重新加载</button>
+          <span class="hint">编辑需登录，保存后会同步到承接页。</span>
+        </div>
+        <div id="p1Body"><div class="empty">输入 slug 并点「开始优化」，这里显示资料完成度、缺失项与字段快照。</div></div>
+        <div class="pnext"><button class="btn line sm" type="button" data-go="2">下一步：结构化数据 →</button></div>
+      </section>
+
+      <!-- ② 结构化数据 -->
+      <section class="step-panel" id="panel2" data-step="2" role="tabpanel" aria-labelledby="step2tab" hidden>
+        <div class="phead"><span class="pno">2</span><h2>结构化数据</h2><span class="ptag" id="p2Tag">未生成</span></div>
+        <p class="pdesc">生成 schema.org LocalBusiness JSON-LD 并保存，承接页由服务端注入；AI 搜索和 Google / 必应靠它识别店名、地址、营业时间与价格。</p>
+        <div class="pactions">
+          <button class="btn" id="btnJsonld" type="button">一键生成 JSON-LD</button>
+          <button class="btn line" id="btnCopyJsonld" type="button" disabled>复制 JSON-LD</button>
+          <button class="btn line" id="btnVerify" type="button" disabled>核验承接页注入</button>
+          <a class="btn line" id="validateLink" href="https://search.google.com/test/rich-results" target="_blank" rel="noopener">Google 富媒体测试 ↗</a>
+          <a class="btn line" id="schemaLink" href="https://validator.schema.org/" target="_blank" rel="noopener">Schema 校验 ↗</a>
+        </div>
+        <div id="p2Body"><div class="empty">还没有生成。点「一键生成 JSON-LD」，生成后可复制代码并核验承接页注入。</div></div>
+        <div class="pnext"><button class="btn line sm" type="button" data-go="3">下一步：GEO 内容包 →</button></div>
+      </section>
+
+      <!-- ③ 内容包 -->
+      <section class="step-panel" id="panel3" data-step="3" role="tabpanel" aria-labelledby="step3tab" hidden>
+        <div class="phead"><span class="pno">3</span><h2>GEO 内容包</h2><span class="ptag" id="p3Tag">未生成</span></div>
+        <p class="pdesc">DeepSeek 基于真实资料生成：8 条 FAQ、3 个服务页、5 条本地问答、地图简介、品牌口号、10 个搜索词，可逐条复制发布。</p>
+        <div class="pactions">
+          <button class="btn violet" id="btnContent" type="button">生成 GEO 内容包</button>
+          <button class="btn line" id="btnCopyAll" type="button" disabled>复制全部</button>
+          <a class="btn line" href="../leadgen/#sec-content" target="_blank" rel="noopener">去内容工坊 ↗</a>
+          <span class="hint" id="p3Hint">生成约 5–30 秒；失败会自动用本地事实模板兜底。</span>
+        </div>
+        <div id="p3Body"><div class="empty">还没有内容包。生成后可逐条复制 FAQ、服务页和本地问答。</div></div>
+        <div class="pnext"><button class="btn line sm" type="button" data-go="4">下一步：NAP 登记 →</button></div>
+      </section>
+
+      <!-- ④ NAP -->
+      <section class="step-panel" id="panel4" data-step="4" role="tabpanel" aria-labelledby="step4tab" hidden>
+        <div class="phead"><span class="pno">4</span><h2>NAP 登记</h2><span class="ptag" id="p4Tag">0 / 7</span></div>
+        <p class="pdesc">NAP = 名称 / 地址 / 电话。7 个平台用完全一致的信息登记，AI 才会合并成同一家店。勾选即保存，刷新后保留。</p>
+        <div class="pactions">
+          <button class="btn ghost" id="btnNapReload" type="button">刷新清单</button>
+          <span class="hint">已登记 <b id="napCount">0</b> / 7；信息有任何一处不同都会让 AI 当成两家店。</span>
+        </div>
+        <div id="p4Body"><div class="empty">输入 slug 后显示 7 个平台的 NAP 清单与一致性文案。</div></div>
+        <div class="pnext"><button class="btn line sm" type="button" data-go="5">下一步：可见性监测 →</button></div>
+      </section>
+
+      <!-- ⑤ 监测 -->
+      <section class="step-panel" id="panel5" data-step="5" role="tabpanel" aria-labelledby="step5tab" hidden>
+        <div class="phead"><span class="pno">5</span><h2>可见性监测</h2><span class="ptag" id="p5Tag">0 条</span></div>
+        <p class="pdesc">人工登记：在 Google / 必应搜某个词，看你的店是否出现、排第几。坚持每周登记就能看到趋势；系统不爬取、不刷量。</p>
+        <div class="pactions">
+          <button class="btn line" id="btnMonReload" type="button">刷新记录</button>
+          <span class="hint">一条记录 = 某天 / 某个词 / 某个引擎的结果。</span>
+        </div>
+        <div id="p5Summary"></div>
+        <form id="monForm" class="formgrid" novalidate>
+          <div><label for="monKeyword">搜索词 *</label><input class="inp" id="monKeyword" type="text" maxlength="60" placeholder="如：通州保洁 / 北京通州家政"></div>
+          <div><label for="monEngine">搜索引擎</label><select id="monEngine"><option value="google">Google</option><option value="bing">必应 Bing</option></select></div>
+          <div><label for="monAppeared">是否出现</label><select id="monAppeared"><option value="1">出现了</option><option value="0">未出现</option></select></div>
+          <div><label for="monPosition">排名（未出现留空）</label><input class="inp" id="monPosition" type="number" min="1" max="100" inputmode="numeric" placeholder="如：3"></div>
+          <div><label for="monDate">日期</label><input class="inp" id="monDate" type="date"></div>
+          <div><label for="monNote">备注（可选）</label><input class="inp" id="monNote" type="text" maxlength="120" placeholder="如：首页第 3 条"></div>
+          <div class="full"><button class="btn block" id="btnMonitor" type="submit">＋ 添加监测记录</button></div>
+        </form>
+        <div id="p5Body" style="margin-top:12px"><div class="empty">还没有监测记录。先加一条「通州保洁 / Google / 第 3 名」。</div></div>
+      </section>
+
+      <p class="foot">
+        GEO 是长期优化：<a href="../legal/">不做虚假排名承诺</a> · 评价/评分需真实数据 · 监测为人工登记<br>
+        星籁 AI · <a href="../leadgen/">AI 获客</a> · <a href="../store/">商家承接页</a> · <a href="../">返回导航</a>
+      </p>
     </div>
-    <div id="p2Status" class="hint" style="margin-top:8px">生成后会显示写入状态与可复制代码。</div>
-    <div id="p2Warnings"></div>
-    <pre class="code" id="p2Code" hidden></pre>
-    <div id="p2Empty" class="empty">还没有生成。点上面的「一键生成 JSON-LD」。</div>
-  </section>
-
-  <!-- ③ GEO 内容包 -->
-  <section class="card" id="step3">
-    <div class="sec-h"><span class="sec-no">3</span><h2>GEO 内容包</h2><span class="tag" id="p3Tag">未生成</span></div>
-    <p class="sec-sub">DeepSeek 基于你的真实资料生成：8 条 FAQ、3 个服务页、5 条本地问答、地图简介、品牌口号、10 个搜索词。发布到承接页、公众号、抖音或问答平台，AI 搜索更容易引用你的内容。</p>
-    <div class="row">
-      <button class="btn violet" id="btnContent" type="button">生成 GEO 内容包</button>
-      <a class="btn line" id="workshopLink" href="../leadgen/#sec-content" target="_blank" rel="noopener">去内容工坊 ↗</a>
-      <a class="btn line" id="studioLink" href="../studio/" target="_blank" rel="noopener">发去短视频工作台 ↗</a>
-      <button class="btn line" id="btnCopyAll" type="button" disabled>复制全部</button>
-    </div>
-    <div id="p3Status" class="hint" style="margin-top:8px">生成约 5-30 秒；失败会自动用本地事实模板兜底。</div>
-    <div id="p3Body"><div class="empty">还没有内容包。生成后可逐条复制。</div></div>
-  </section>
-
-  <!-- ④ NAP 登记 -->
-  <section class="card" id="step4">
-    <div class="sec-h"><span class="sec-no">4</span><h2>NAP 登记</h2><span class="tag" id="p4Tag">0 / 7</span></div>
-    <p class="sec-sub">NAP = 名称（Name）、地址（Address）、电话（Phone）。在 7 个平台登记并保持完全一致，AI 才会把它们合并成同一家店而不是多家。勾选表示你已在该平台登记且信息一致。</p>
-    <div id="p4Body"><div class="empty">还没有加载。输入 slug 后显示清单。</div></div>
-  </section>
-
-  <!-- ⑤ 可见性监测 -->
-  <section class="card" id="step5">
-    <div class="sec-h"><span class="sec-no">5</span><h2>可见性监测</h2><span class="tag" id="p5Tag">0 条</span></div>
-    <p class="sec-sub">人工登记：在 Google / 必应搜索某个词，看你的店是否出现、排第几，把结果记下来。坚持每周登记，就能看到趋势；系统不爬取、不刷量。</p>
-    <form id="monForm" class="grid2">
-      <div>
-        <label class="hint" for="monKeyword">搜索词 *</label>
-        <input class="inp" id="monKeyword" type="text" maxlength="60" placeholder="如：通州保洁 / 北京通州家政" required>
-      </div>
-      <div>
-        <label class="hint" for="monEngine">搜索引擎</label>
-        <select id="monEngine"><option value="google">Google</option><option value="bing">必应 Bing</option></select>
-      </div>
-      <div>
-        <label class="hint" for="monAppeared">是否出现</label>
-        <select id="monAppeared"><option value="1">出现了</option><option value="0">未出现</option></select>
-      </div>
-      <div>
-        <label class="hint" for="monPosition">排名（未出现留空）</label>
-        <input class="inp" id="monPosition" type="number" min="1" max="100" inputmode="numeric" placeholder="如：3">
-      </div>
-      <div>
-        <label class="hint" for="monDate">日期</label>
-        <input class="inp" id="monDate" type="date">
-      </div>
-      <div style="display:flex;align-items:flex-end">
-        <button class="btn block" id="btnMonitor" type="submit">＋ 添加监测记录</button>
-      </div>
-    </form>
-    <div id="p5Summary" class="stat-row"></div>
-    <div id="p5Body"><div class="empty">还没有监测记录。先加一条「通州保洁 / Google」。</div></div>
-  </section>
-
-  <p class="foot">
-    GEO 是长期优化：<a href="../legal/">不做虚假排名承诺</a> · 评价/评分需真实数据 · 监测为人工登记<br>
-    星籁 AI · <a href="../leadgen/">AI 获客</a> · <a href="../store/">商家承接页</a> · <a href="../">返回导航</a>
-  </p>
+  </div>
 </main>
 
 <div class="toast" id="toast" role="status" aria-live="polite"></div>
@@ -326,35 +546,56 @@ td.kwcell{white-space:normal;min-width:140px;color:#e8f4ff;font-weight:600}
   var API = (location.hostname === 'xinglaiai.com' || /\.xinglaiai\.com$/.test(location.hostname) ||
              location.hostname === '127.0.0.1' || location.hostname === 'localhost' || location.hostname === '')
     ? '/ai-nav/api' : 'https://xinglaiai.com/ai-nav/api';
-  var S = { slug: '', profile: null, jsonld: null, content: null, nap: null, monitor: null, loading: false };
+  var S = { slug: '', profile: null, jsonld: null, content: null, nap: null, monitor: null, step: 1, req: 0, napBusy: false };
   var COPY = {};
-  var toastTimer = null;
   var LS_KEY = 'xl_geo_slug';
+  var toastTimer = null;
 
   function esc(s) {
     return String(s == null ? '' : s).replace(/[&<>"']/g, function (c) {
       return { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c];
     });
   }
-  function toast(msg) {
+  function toast(msg, type) {
     var t = $('toast');
     t.textContent = msg;
-    t.classList.add('show');
+    t.className = 'toast show' + (type === 'bad' ? ' bad' : '');
     clearTimeout(toastTimer);
-    toastTimer = setTimeout(function () { t.classList.remove('show'); }, 2400);
+    toastTimer = setTimeout(function () { t.classList.remove('show'); }, 2800);
   }
   function todayStr() {
     var d = new Date();
-    var m = String(d.getMonth() + 1).padStart(2, '0');
-    var day = String(d.getDate()).padStart(2, '0');
-    return d.getFullYear() + '-' + m + '-' + day;
+    return d.getFullYear() + '-' + String(d.getMonth() + 1).padStart(2, '0') + '-' + String(d.getDate()).padStart(2, '0');
   }
+  function setLoadState(text, cls) {
+    var el = $('loadState');
+    el.className = 'pill ' + (cls || '');
+    el.innerHTML = '<span class="dot"></span>' + esc(text);
+  }
+  function setTag(id, text, cls) {
+    var el = $(id);
+    if (!el) return;
+    el.textContent = text;
+    el.className = 'ptag ' + (cls || '');
+  }
+  function busy(btn, on, label) {
+    if (!btn) return;
+    if (on) {
+      btn.dataset.old = btn.textContent;
+      btn.disabled = true;
+      btn.textContent = label || '处理中…';
+    } else {
+      btn.disabled = false;
+      btn.textContent = btn.dataset.old || btn.textContent;
+    }
+  }
+
   function api(path, opt) {
     opt = opt || {};
     var timeout = opt.timeout || 25000;
     var ctl = new AbortController();
     var timer = setTimeout(function () { ctl.abort(); }, timeout);
-    var headers = {};
+    var headers = { 'Accept': 'application/json' };
     if (opt.body) headers['Content-Type'] = 'application/json';
     return fetch(API + path, {
       method: opt.method || 'GET',
@@ -367,430 +608,687 @@ td.kwcell{white-space:normal;min-width:140px;color:#e8f4ff;font-weight:600}
         clearTimeout(timer);
         var d = null;
         try { d = JSON.parse(txt); } catch (e) { d = null; }
-        if (!d) throw new Error('接口返回异常（HTTP ' + r.status + '）');
+        if (!d) {
+          if (r.status === 404) throw new Error('接口不存在（HTTP 404），请确认 /ai-nav/api/geo/* 已部署');
+          throw new Error('接口返回异常（HTTP ' + r.status + '）');
+        }
         if (!r.ok || d.ok === false) {
-          var err = new Error(d.hint || d.error || ('HTTP ' + r.status));
-          err.data = d;
+          var err = new Error(d.hint || d.error || ('请求失败（HTTP ' + r.status + '）'));
+          err.status = r.status;
+          err.code = d.error;
           throw err;
         }
         return d;
       });
     }).catch(function (e) {
       clearTimeout(timer);
-      if (e.name === 'AbortError') throw new Error('请求超时，请稍后重试');
+      if (e.name === 'AbortError') throw new Error('请求超时（' + Math.round(timeout / 1000) + 's），请稍后重试');
+      if (e instanceof TypeError) throw new Error('网络请求失败，请检查网络或稍后重试');
       throw e;
     });
   }
-  function setLoadState(text, cls) {
-    var el = $('loadState');
-    el.className = 'pill ' + (cls || '');
-    el.innerHTML = '<span class="dot"></span>' + esc(text);
-  }
 
-  // ---------------- 五步状态 ----------------
-  function stepDone(n) {
+  // ---------------- 导航 ----------------
+  function stepState(n) {
     var p = S.profile;
-    if (!p) return false;
-    if (n === 1) return p.completion >= 80;
-    if (n === 2) return !!p.jsonld_ready;
-    if (n === 3) return !!p.content_ready;
-    if (n === 4) return p.nap_checked > 0;
-    if (n === 5) return p.monitor_count > 0;
-    return false;
+    if (!p) return { badge: n === 4 ? '0 / 7' : (n === 5 ? '0 条' : '未加载'), cls: '', done: false };
+    if (n === 1) {
+      var miss = (p.missing || []).length;
+      return { badge: miss ? '缺 ' + miss + ' 项' : '已完整', cls: miss ? 'warn' : 'ok', done: miss === 0 };
+    }
+    if (n === 2) return { badge: p.jsonld_ready ? '已生成' : '未生成', cls: p.jsonld_ready ? 'ok' : '', done: !!p.jsonld_ready };
+    if (n === 3) return { badge: p.content_ready ? '已生成' : '未生成', cls: p.content_ready ? 'ok' : '', done: !!p.content_ready };
+    if (n === 4) {
+      var c = p.nap_checked || 0, t = p.nap_total || 7;
+      return { badge: c + ' / ' + t, cls: c >= t ? 'ok' : (c ? 'warn' : ''), done: c >= t };
+    }
+    if (n === 5) {
+      var m = p.monitor_count || 0;
+      return { badge: m + ' 条', cls: m ? 'ok' : '', done: m > 0 };
+    }
+    return { badge: '', cls: '', done: false };
   }
-  function renderStepper() {
+  function navSub(n) {
+    var p = S.profile;
+    if (!p) return ['资料完整度', 'LocalBusiness JSON-LD', 'FAQ / 服务页 / 问答', '7 个平台信息一致', '人工登记搜索排名'][n - 1];
+    if (n === 1) return '完成度 ' + (p.completion || 0) + '%';
+    if (n === 2) return p.jsonld_at ? shortTime(p.jsonld_at) : (p.jsonld_ready ? '已生成' : '待生成');
+    if (n === 3) return p.content_at ? shortTime(p.content_at) : (p.content_ready ? '已生成' : '待生成');
+    if (n === 4) return '已登记 ' + (p.nap_checked || 0) + ' / ' + (p.nap_total || 7) + ' 个平台';
+    if (n === 5) return (p.monitor_count || 0) + ' 条记录';
+    return '';
+  }
+  function shortTime(s) {
+    s = String(s || '').replace('T', ' ');
+    return s.length >= 16 ? s.slice(5, 16) : s;
+  }
+  function fmtTime(s) {
+    return String(s || '').replace('T', ' ').slice(0, 19);
+  }
+  function canVerify(url) {
+    try { return !!url && new URL(url, location.href).origin === location.origin; } catch (e) { return false; }
+  }
+  function updateNav() {
     var done = 0;
-    var nodes = document.querySelectorAll('#stepper button');
-    for (var i = 0; i < nodes.length; i++) {
-      var n = i + 1;
-      var ok = stepDone(n);
-      if (ok) done++;
-      nodes[i].classList.toggle('done', ok);
-      nodes[i].classList.toggle('now', false);
-      var num = nodes[i].querySelector('.n');
-      num.textContent = ok ? '✓' : String(n);
-      nodes[i].setAttribute('aria-selected', ok ? 'true' : 'false');
+    for (var n = 1; n <= 5; n++) {
+      var st = stepState(n);
+      if (st.done) done++;
+      var badge = document.querySelector('[data-nav-badge="' + n + '"]');
+      if (badge) { badge.textContent = st.badge; badge.className = 'sb ' + st.cls; }
+      var sub = document.querySelector('[data-nav-sub="' + n + '"]');
+      if (sub) sub.textContent = navSub(n);
+      var item = document.querySelector('.step-item[data-go="' + n + '"]');
+      if (item) item.classList.toggle('done', st.done);
     }
-    $('progressBar').style.width = (done / 5 * 100) + '%';
-    $('progressText').textContent = done + ' / 5 步完成' + (done === 5 ? ' · 全部完成 🎉' : '');
+    $('navBar').style.width = (done / 5 * 100) + '%';
+    $('navProgressText').textContent = done + ' / 5 步完成';
+    var p = S.profile;
+    $('merchantName').textContent = p ? ((p.name || p.slug) + ' · ' + (p.completion || 0) + '%') : '尚未加载商家';
   }
-  function markNow(n) {
-    var nodes = document.querySelectorAll('#stepper button');
-    for (var i = 0; i < nodes.length; i++) {
-      nodes[i].classList.toggle('now', (i + 1) === n);
+  function setStep(n, opts) {
+    opts = opts || {};
+    n = Math.max(1, Math.min(5, +n || 1));
+    S.step = n;
+    var items = document.querySelectorAll('.step-item');
+    for (var i = 0; i < items.length; i++) {
+      var on = +items[i].getAttribute('data-go') === n;
+      items[i].classList.toggle('now', on);
+      items[i].setAttribute('aria-selected', on ? 'true' : 'false');
     }
+    var panels = document.querySelectorAll('.step-panel');
+    for (var j = 0; j < panels.length; j++) {
+      panels[j].hidden = +panels[j].getAttribute('data-step') !== n;
+    }
+    if (window.innerWidth <= 1099 && !opts.silent) {
+      var nav = document.querySelector('.stepnav ol');
+      var cur = document.querySelector('.step-item.now');
+      if (nav && cur) {
+        var target = cur.offsetLeft - 8;
+        if (nav.scrollTo) nav.scrollTo({ left: Math.max(0, target), behavior: 'smooth' });
+      }
+    }
+    if (!opts.silent) {
+      var panel = $('panel' + n);
+      if (panel) {
+        var r = panel.getBoundingClientRect();
+        if (r.top < 62) panel.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      }
+    }
+    lazyLoad(n);
+  }
+  function lazyLoad(n) {
+    if (!S.profile) return;
+    if (n === 2 && !S.jsonld && S.profile.jsonld_ready) loadJsonld();
+    if (n === 3 && !S.content && S.profile.content_ready) loadContent();
+    if (n === 4 && !S.nap) loadNap();
+    if (n === 5 && !S.monitor) loadMonitor();
   }
 
   // ---------------- ① 资料 ----------------
   function renderStep1(p) {
     S.profile = p;
-    $('merchantName').textContent = (p.name || p.slug) + ' · 完成度 ' + p.completion + '%';
-    $('p1Tag').textContent = p.completion + '%';
-    $('p1Tag').className = 'tag ' + (p.completion >= 80 ? 'ok' : 'warn');
-    var html = '';
-    html += '<div class="stat-row">' +
-      '<div class="stat ' + (p.completion >= 80 ? 'ok' : 'warn') + '"><b>' + p.completion + '%</b><span>资料完成度</span></div>' +
-      '<div class="stat"><b>' + (p.filled ? p.filled.length : 0) + '/' + ((p.filled ? p.filled.length : 0) + (p.missing ? p.missing.length : 0)) + '</b><span>已填 / 全部字段</span></div>' +
-      '<div class="bar"><i style="width:' + Math.max(2, p.completion) + '%"></i></div>' +
+    var miss = p.missing || [], filled = p.filled || [];
+    setTag('p1Tag', miss.length ? ('缺 ' + miss.length + ' 项') : '已完整', miss.length ? 'warn' : 'ok');
+    if (p.edit_url) $('editLink').href = p.edit_url;
+    if (p.store_url) $('storeLink').href = p.store_url;
+    var total = filled.length + miss.length;
+    var h = '<div class="metrics">' +
+      '<div class="metric ' + (p.completion >= 80 ? 'ok' : 'warn') + '"><b>' + (p.completion || 0) + '%</b><span>资料完成度</span></div>' +
+      '<div class="metric"><b>' + filled.length + '/' + total + '</b><span>已填 / 全部字段</span></div>' +
+      '<div class="bar"><i style="width:' + Math.max(2, p.completion || 0) + '%"></i></div>' +
       '</div>';
-    if (p.filled && p.filled.length) {
-      html += '<div class="hint" style="margin-top:12px">已填字段：</div><div class="chips">' +
-        p.filled.map(function (x) { return '<span class="chip ok">✓ ' + esc(x.label) + '</span>'; }).join('') +
-        (p.missing || []).map(function (x) { return '<span class="chip warn">○ ' + esc(x.label) + '（缺）</span>'; }).join('') +
-        '</div>';
+    var name = (p.profile && p.profile.name) || p.name || '';
+    var pf = p.profile || {};
+    var hoursText = hoursLine(pf.hours);
+    var svcText = (pf.services || []).map(function (s) { return s.name + (s.price ? ' ' + s.price : ''); }).filter(Boolean).join('、');
+    var cells = [
+      ['名称', name], ['行业', pf.industry], ['城市', pf.city],
+      ['地址', pf.address], ['电话', pf.phone], ['营业时间', hoursText],
+      ['服务与价格', svcText], ['照片', (pf.photos || []).length ? ((pf.photos || []).length + ' 张') : ''],
+      ['坐标', (pf.lat != null && pf.lng != null) ? (pf.lat + ', ' + pf.lng) : '']
+    ].filter(function (x) { return x[1]; });
+    if (cells.length) {
+      h += '<div class="profile-grid">' + cells.map(function (x) {
+        return '<div class="pf"><span>' + esc(x[0]) + '</span><b>' + esc(x[1]) + '</b></div>';
+      }).join('') + '</div>';
     }
-    if (p.missing && p.missing.length) {
-      html += '<div class="hint" style="margin-bottom:2px">还缺 ' + p.missing.length + ' 项（按权重排序）：</div>';
-      p.missing.forEach(function (m) {
-        html += '<div class="miss"><span class="mi">⚠️</span><div><b>' + esc(m.label) + '</b>' +
-          '<p>' + esc(m.hint) + '（权重 ' + m.weight + ' 分）</p></div></div>';
+    if (filled.length) {
+      h += '<div class="hint" style="margin-top:12px">已填字段：</div><div class="chips">' +
+        filled.map(function (x) { return '<span class="chipx ok">✓ ' + esc(x.label) + '</span>'; }).join('') + '</div>';
+    }
+    if (miss.length) {
+      h += '<div class="hint" style="margin:14px 0 2px">还缺 ' + miss.length + ' 项（按权重排序）：</div>';
+      miss.forEach(function (m) {
+        h += '<div class="miss"><span class="mi">⚠️</span><div><b>' + esc(m.label) + '（' + m.weight + ' 分）</b>' +
+          '<p>' + esc(m.hint) + '</p></div></div>';
       });
     } else {
-      html += '<div class="notice safe"><span class="n-ico">✅</span><span><b>资料已完整</b>（11/11 项）。接下来做结构化数据。</span></div>';
-      COPY.allFilled = true;
+      h += '<div class="note safe" style="margin-top:12px"><span class="ico">✅</span><div><b>资料已完整</b>（' + filled.length + '/' + total + ' 项）。下一步生成结构化数据。</div></div>';
     }
-    html += '<div class="row" style="margin-top:12px">' +
-      '<a class="btn" href="' + esc(p.edit_url || '../account/dashboard.html#storeCard') + '" target="_blank" rel="noopener">去完善资料</a>' +
-      '<a class="btn line" href="' + esc(p.store_url || '#') + '" target="_blank" rel="noopener">打开承接页</a>' +
-      '<span class="hint">编辑需登录；保存后回到本页刷新即可。</span>' +
-      '</div>';
-    $('p1Body').innerHTML = html;
-    renderStepper();
+    h += '<div class="hint" style="margin-top:12px">资料更新于 ' + esc(shortTime(p.updated_at) || '—') + '；编辑保存后回到本页点「重新加载」。</div>';
+    $('p1Body').innerHTML = h;
+    updateNav();
+  }
+  function hoursLine(hours) {
+    if (!hours || typeof hours !== 'object') return '';
+    var labels = { mon: '周一', tue: '周二', wed: '周三', thu: '周四', fri: '周五', sat: '周六', sun: '周日' };
+    var keys = ['mon', 'tue', 'wed', 'thu', 'fri', 'sat', 'sun'];
+    var parts = [];
+    keys.forEach(function (k) {
+      var slots = hours[k] || [];
+      var ss = [];
+      (slots || []).forEach(function (s) {
+        if (s && s[0] && s[1]) ss.push(String(s[0]).slice(0, 5) + '-' + String(s[1]).slice(0, 5));
+      });
+      if (ss.length) parts.push(labels[k] + ' ' + ss.join('、'));
+    });
+    return parts.join('；');
+  }
+  function loadProfile(opts) {
+    if (!S.slug) return;
+    var slug = S.slug;
+    var token = ++S.req;
+    setLoadState('加载中…', 'wait');
+    $('p1Body').innerHTML = '<div class="empty"><span class="loading"></span>正在读取承接页资料…</div>';
+    return api('/geo/profile?slug=' + encodeURIComponent(slug)).then(function (p) {
+      if (token !== S.req || slug !== S.slug) return;
+      renderStep1(p);
+      setLoadState('已加载 ' + (p.name || p.slug), 'ok');
+      if (p.jsonld_ready) loadJsonld(); else renderJsonldEmpty();
+      if (p.content_ready) loadContent(); else renderContentEmpty();
+      loadNap();
+      loadMonitor();
+    }).catch(function (e) {
+      if (token !== S.req || slug !== S.slug) return;
+      setLoadState('加载失败', 'wait');
+      setTag('p1Tag', '加载失败', 'warn');
+      $('p1Body').innerHTML = '<div class="note bad"><span class="ico">✕</span><div><b>读取资料失败：' + esc(e.message) + '</b>' +
+        '<div style="margin-top:6px">确认 slug 是否正确；若还没有承接页，先到 <a href="../account/dashboard.html#storeCard" target="_blank" rel="noopener" style="text-decoration:underline">我的承接页</a> 保存资料。</div>' +
+        '<button class="btn sm line" type="button" data-retry="1" style="margin-top:8px">重试</button></div></div>';
+      updateNav();
+      $('merchantName').textContent = '未找到 ' + slug;
+    });
   }
 
   // ---------------- ② JSON-LD ----------------
-  function renderJsonld(d) {
+  function renderJsonldEmpty() {
+    S.jsonld = null;
+    setTag('p2Tag', '未生成', '');
+    $('btnCopyJsonld').disabled = true;
+    $('btnVerify').disabled = true;
+    COPY.jsonld = '';
+    $('p2Body').innerHTML = '<div class="empty">还没有生成。点「一键生成 JSON-LD」，生成后可复制代码并核验承接页注入。</div>';
+  }
+  function renderJsonld(d, fromSave) {
     S.jsonld = d;
-    $('p2Tag').textContent = d.injected ? '已写入承接页' : '已生成（未注入）';
-    $('p2Tag').className = 'tag ' + (d.injected ? 'ok' : 'warn');
-    var html = '<div class="notice safe"><span class="n-ico">✅</span><span><b>已自动写入承接页</b>：' +
-      '<a href="' + esc(d.store_url) + '" target="_blank" rel="noopener">' + esc(d.store_url) + '</a>' +
-      ' 的 HTML 中已出现 application/ld+json（服务端注入，刷新即可看到）。</span></div>';
-    $('p2Status').innerHTML = html;
-    var w = '';
-    if (d.warnings && d.warnings.length) {
-      w += '<div class="notice warn"><span class="n-ico">⚠️</span><div><b>生成提示（不编造数据）</b><ul style="margin:6px 0 0;padding-left:18px">' +
-        d.warnings.map(function (x) { return '<li>' + esc(x) + '</li>'; }).join('') + '</ul></div></div>';
-    }
-    $('p2Warnings').innerHTML = w;
-    $('p2Code').textContent = d.jsonld_text || JSON.stringify(d.jsonld, null, 2);
-    $('p2Code').hidden = false;
-    $('p2Empty').style.display = 'none';
-    COPY.jsonld = $('p2Code').textContent;
-    $('btnCopyJsonld').disabled = false;
+    var text = d.jsonld_text || JSON.stringify(d.jsonld, null, 2) || '';
+    COPY.jsonld = text;
+    setTag('p2Tag', '已生成', 'ok');
+    var can = canVerify(d.store_url);
+    $('btnCopyJsonld').disabled = !text;
+    $('btnVerify').disabled = !d.store_url || !can;
+    $('btnVerify').title = can ? '读取承接页 HTML 核验 JSON-LD 注入' : '本地跨域环境读不到承接页 HTML；部署到 xinglaiai.com 同域后可用';
     if (d.validate_url) $('validateLink').href = d.validate_url;
     if (d.schema_validator) $('schemaLink').href = d.schema_validator;
+    var at = fromSave ? d.generated_at : ((S.profile && S.profile.jsonld_at) || d.generated_at);
+    var h = '';
+    h += '<div class="note" id="injNote"><span class="ico">🔎</span><div><b>承接页注入状态</b><div class="injline" style="margin-top:2px">' +
+      '<span class="hint" id="injText">' + (can ? '<span class="loading"></span>正在核验承接页 HTML…' : '本机与承接页不同域，无法读取承接页 HTML；部署到 xinglaiai.com 同域后会自动核验，也可直接打开承接页查看源代码。') + '</span>' +
+      '</div></div></div>';
+    if (d.warnings && d.warnings.length) {
+      h += '<div class="note warn"><span class="ico">⚠️</span><div><b>生成提示（不编造数据）</b><ul>' +
+        d.warnings.map(function (x) { return '<li>' + esc(x) + '</li>'; }).join('') + '</ul></div></div>';
+    }
+    h += '<div class="hint" style="margin:10px 0 0">已保存到服务器 · 生成于 ' + esc(fmtTime(at) || '—') +
+      ' · <a href="' + esc(d.store_url || '#') + '" target="_blank" rel="noopener">打开承接页查看 ↗</a></div>';
+    h += '<pre class="ldcode" id="jsonldCode">' + esc(text) + '</pre>';
+    $('p2Body').innerHTML = h;
+    if (S.profile) {
+      S.profile.jsonld_ready = true;
+      if (fromSave) S.profile.jsonld_at = d.generated_at || S.profile.jsonld_at;
+    }
+    updateNav();
+    if (can) verifyInjection();
+  }
+  function verifyInjection() {
+    var d = S.jsonld;
+    var note = $('injNote');
+    if (!d || !d.store_url || !note) return;
+    if (!canVerify(d.store_url)) { toast('跨域环境无法核验承接页，部署后可用', 'bad'); return; }
+    var textEl = $('injText');
+    if (textEl) textEl.innerHTML = '<span class="loading"></span>正在核验承接页 HTML…';
+    var url = d.store_url;
+    fetch(url + (url.indexOf('?') < 0 ? '?' : '&') + 'xl_verify=' + Date.now(), { cache: 'no-store', credentials: 'omit' })
+      .then(function (r) {
+        if (!r.ok) throw new Error('承接页返回 HTTP ' + r.status);
+        return r.text();
+      })
+      .then(function (html) {
+        var has = /type=["']application\/ld\+json["']/.test(html);
+        var name = (S.profile && S.profile.name) || '';
+        var hit = name ? html.indexOf(name) >= 0 : false;
+        note.className = 'note ' + (has && hit ? 'safe' : 'warn');
+        note.innerHTML = '<span class="ico">' + (has && hit ? '✅' : '⚠️') + '</span><div><b>' +
+          (has && hit ? '已注入承接页' : (has ? '未匹配到本店 JSON-LD' : '承接页未发现 JSON-LD')) + '</b>' +
+          '<div class="injline" style="margin-top:2px"><span class="hint">' +
+          (has && hit ? '承接页 HTML 中已包含本店 application/ld+json（服务端渲染）。' :
+            '承接页 HTML ' + (has ? '有 JSON-LD，但未出现「' + esc(name) + '」，请刷新/清缓存后重试。' : '未发现 application/ld+json，刷新承接页或等待服务端缓存更新。')) +
+          ' <a href="' + esc(url) + '" target="_blank" rel="noopener">打开承接页 ↗</a></span></div></div>';
+      })
+      .catch(function (e) {
+        note.className = 'note';
+        note.innerHTML = '<span class="ico">ℹ️</span><div><b>无法自动核验</b>' +
+          '<div class="injline" style="margin-top:2px"><span class="hint">' + esc(e.message || '网络错误') +
+          '。本地/跨域环境读不到承接页 HTML，部署到 xinglaiai.com 后可自动核验，或直接打开承接页查看源代码。</span></div></div>';
+      });
   }
   function loadJsonld() {
-    return api('/geo/jsonld?slug=' + encodeURIComponent(S.slug)).then(function (d) {
+    if (!S.slug) return;
+    var slug = S.slug;
+    setTag('p2Tag', '读取中…', 'info');
+    api('/geo/jsonld?slug=' + encodeURIComponent(slug)).then(function (d) {
+      if (slug !== S.slug) return;
       renderJsonld(d);
     }).catch(function (e) {
-      $('p2Status').innerHTML = '<div class="notice warn"><span class="n-ico">ℹ️</span><span>' + esc(e.message || '读取失败') + '</span></div>';
+      if (slug !== S.slug) return;
+      setTag('p2Tag', '读取失败', 'warn');
+      $('p2Body').innerHTML = '<div class="note bad"><span class="ico">✕</span><div><b>读取 JSON-LD 失败：' + esc(e.message) + '</b>' +
+        '<div style="margin-top:8px"><button class="btn sm line" type="button" data-retry="2">重试</button></div></div></div>';
     });
   }
   function genJsonld() {
+    if (!S.slug) { toast('请先输入 slug 并开始优化', 'bad'); return; }
     var btn = $('btnJsonld');
-    btn.disabled = true;
-    var old = btn.textContent;
-    btn.textContent = '生成中…';
+    busy(btn, true, '生成中…');
+    setTag('p2Tag', '生成中…', 'info');
     api('/geo/jsonld', { method: 'POST', body: { slug: S.slug } }).then(function (d) {
-      renderJsonld(d);
-      toast('JSON-LD 已生成并写入承接页');
-      if (S.profile) { S.profile.jsonld_ready = true; renderStepper(); }
+      renderJsonld(d, true);
+      toast('JSON-LD 已生成并保存', 'ok');
     }).catch(function (e) {
-      $('p2Status').innerHTML = '<div class="notice red"><span class="n-ico">✕</span><span>' + esc(e.message) + '</span></div>';
-      toast('生成失败：' + e.message);
-    }).then(function () {
-      btn.disabled = false;
-      btn.textContent = old;
-    });
+      setTag('p2Tag', '生成失败', 'warn');
+      $('p2Body').innerHTML = '<div class="note bad"><span class="ico">✕</span><div><b>生成失败：' + esc(e.message) + '</b>' +
+        '<div style="margin-top:8px"><button class="btn sm line" type="button" data-retry="2">重试</button></div></div></div>';
+      toast('生成失败：' + e.message, 'bad');
+    }).then(function () { busy(btn, false); });
   }
 
   // ---------------- ③ 内容包 ----------------
+  function renderContentEmpty() {
+    S.content = null;
+    setTag('p3Tag', '未生成', '');
+    $('btnCopyAll').disabled = true;
+    COPY = COPY || {};
+    $('p3Body').innerHTML = '<div class="empty">还没有内容包。生成后可逐条复制 FAQ、服务页和本地问答。</div>';
+  }
   function renderContent(d) {
     var c = d.content;
+    if (!c) { renderContentEmpty(); return false; }
     S.content = c;
-    if (!c) { return false; }
-    $('p3Tag').textContent = '已生成' + (d.provider === 'deepseek' ? ' · DeepSeek' : ' · 本地模板');
-    $('p3Tag').className = 'tag ok';
-    $('p3Status').innerHTML = '<span class="hint">生成于 ' + esc(d.generated_at || '') + ' · 来源 ' +
-      (d.provider === 'deepseek' ? 'DeepSeek（事实来自承接页）' : '本地事实模板') +
-      (d.seconds ? ' · ' + d.seconds + 's' : '') + '。发布前请人工核对价格与资质。</span>';
+    setTag('p3Tag', d.provider === 'deepseek' ? '已生成 · DeepSeek' : '已生成 · 本地模板', 'ok');
+    $('btnCopyAll').disabled = false;
+    $('p3Hint').textContent = '生成于 ' + fmtTime(d.generated_at) + (d.seconds ? ' · ' + d.seconds + 's' : '') + '；发布前请人工核对价格与资质，重新生成会覆盖当前内容。';
     var h = '';
     if (c.brand_slogan) {
-      h += '<div class="notice"><span class="n-ico">✨</span><div><b>品牌口号</b><div style="margin-top:2px">' + esc(c.brand_slogan) + '</div></div></div>';
+      h += '<div class="note"><span class="ico">✨</span><div><b>品牌口号</b><div style="margin-top:2px">' + esc(c.brand_slogan) + '</div></div></div>';
+      COPY.slogan = c.brand_slogan;
     }
     if (c.map_desc) {
-      h += '<div class="divider"></div><div><b style="font-size:13px">地图/平台简介</b>' +
-        '<p class="hint" style="margin-top:4px;color:var(--txt2)">' + esc(c.map_desc) + '</p></div>';
       COPY.mapDesc = c.map_desc;
+      h += '<div class="secrow" style="margin-top:12px"><h3>地图 / 平台简介</h3><button class="btn sm line" type="button" data-copy="mapDesc">复制</button></div>' +
+        '<div class="quotebox">' + esc(c.map_desc) + '</div>';
     }
     if (c.keywords && c.keywords.length) {
       COPY.keywords = c.keywords.join('、');
-      h += '<div class="divider"></div><div><b style="font-size:13px">搜索词（10 个）</b><div class="kw">' +
-        c.keywords.map(function (k) { return '<span>' + esc(k) + '</span>'; }).join('') + '</div></div>';
+      h += '<div class="secrow" style="margin-top:14px"><h3>搜索词（' + c.keywords.length + ' 个）</h3><button class="btn sm line" type="button" data-copy="keywords">复制</button></div>' +
+        '<div class="kwx">' + c.keywords.map(function (k) { return '<span>' + esc(k) + '</span>'; }).join('') + '</div>';
     }
-    h += '<div class="divider"></div><div class="row"><b style="font-size:13px">FAQ · 8 条</b><button class="mini" type="button" data-copy="faqAll">复制全部 FAQ</button></div><div class="q-list">';
-    (c.faq || []).forEach(function (x, i) {
-      COPY['faq' + i] = 'Q：' + x.q + '\nA：' + x.a;
-      h += '<details class="q"><summary><span class="qmark">Q' + (i + 1) + '</span><span>' + esc(x.q) + '</span></summary>' +
-        '<div class="a"><div>' + esc(x.a) + '</div><button class="mini cp" type="button" data-copy="faq' + i + '">复制这条</button></div></details>';
-    });
-    h += '</div>';
-    h += '<div class="divider"></div><div class="row"><b style="font-size:13px">服务页 · 3 个</b><button class="mini" type="button" data-copy="svcAll">复制全部服务页</button></div><div class="grid2" style="margin-top:8px">';
-    (c.service_pages || []).forEach(function (pg, i) {
-      COPY['svc' + i] = pg.title + '\n' + pg.intro + '\n' + (pg.bullets || []).join('\n');
-      h += '<div class="svc-card"><h4>' + esc(pg.title) + '</h4><p>' + esc(pg.intro) + '</p><ul>' +
-        (pg.bullets || []).map(function (b) { return '<li>' + esc(b) + '</li>'; }).join('') + '</ul>' +
-        '<div style="margin-top:8px"><button class="mini" type="button" data-copy="svc' + i + '">复制服务页</button></div></div>';
-    });
-    h += '</div>';
-    h += '<div class="divider"></div><div class="row"><b style="font-size:13px">本地问答 · 5 条</b><button class="mini" type="button" data-copy="qaAll">复制全部问答</button></div><div class="q-list">';
-    (c.local_qa || []).forEach(function (x, i) {
-      COPY['qa' + i] = '问：' + x.q + '\n答：' + x.a;
-      h += '<details class="q"><summary><span class="qmark">问' + (i + 1) + '</span><span>' + esc(x.q) + '</span></summary>' +
-        '<div class="a"><div>' + esc(x.a) + '</div><button class="mini cp" type="button" data-copy="qa' + i + '">复制这条</button></div></details>';
-    });
-    h += '</div>';
+    var faq = c.faq || [];
+    if (faq.length) {
+      var faqAll = faq.map(function (x, i) { return 'Q' + (i + 1) + '：' + x.q + '\nA：' + x.a; }).join('\n\n');
+      COPY.faqAll = faqAll;
+      h += '<div class="sep"></div><div class="secrow"><h3>FAQ · ' + faq.length + ' 条</h3><button class="btn sm line" type="button" data-copy="faqAll">复制全部 FAQ</button></div>';
+      faq.forEach(function (x, i) {
+        COPY['f' + i] = 'Q：' + x.q + '\nA：' + x.a;
+        h += '<details class="faq fq"><summary><span class="qm">Q' + (i + 1) + '</span><span>' + esc(x.q) + '</span></summary>' +
+          '<div class="a"><div>' + esc(x.a) + '</div><button class="btn sm line cp" type="button" data-copy="f' + i + '">复制这条</button></div></details>';
+      });
+    }
+    var pages = c.service_pages || [];
+    if (pages.length) {
+      var svcAll = pages.map(function (pg) { return pg.title + '\n' + pg.intro + '\n' + (pg.bullets || []).join('\n'); }).join('\n\n');
+      COPY.svcAll = svcAll;
+      h += '<div class="sep"></div><div class="secrow"><h3>服务页 · ' + pages.length + ' 个</h3><button class="btn sm line" type="button" data-copy="svcAll">复制全部服务页</button></div><div class="grid2">';
+      pages.forEach(function (pg, i) {
+        COPY['s' + i] = pg.title + '\n' + pg.intro + '\n' + (pg.bullets || []).join('\n');
+        h += '<div class="svc"><h4>' + esc(pg.title) + '</h4><p>' + esc(pg.intro) + '</p><ul>' +
+          (pg.bullets || []).map(function (b) { return '<li>' + esc(b) + '</li>'; }).join('') + '</ul>' +
+          '<div style="margin-top:8px"><button class="btn sm line" type="button" data-copy="s' + i + '">复制服务页</button></div></div>';
+      });
+      h += '</div>';
+    }
+    var qa = c.local_qa || [];
+    if (qa.length) {
+      var qaAll = qa.map(function (x, i) { return '问' + (i + 1) + '：' + x.q + '\n答：' + x.a; }).join('\n\n');
+      COPY.qaAll = qaAll;
+      h += '<div class="sep"></div><div class="secrow"><h3>本地问答 · ' + qa.length + ' 条</h3><button class="btn sm line" type="button" data-copy="qaAll">复制全部问答</button></div>';
+      qa.forEach(function (x, i) {
+        COPY['q' + i] = '问：' + x.q + '\n答：' + x.a;
+        h += '<details class="faq qa"><summary><span class="qm">问' + (i + 1) + '</span><span>' + esc(x.q) + '</span></summary>' +
+          '<div class="a"><div>' + esc(x.a) + '</div><button class="btn sm line cp" type="button" data-copy="q' + i + '">复制这条</button></div></details>';
+      });
+    }
     var all = [];
     if (c.brand_slogan) all.push('品牌口号：' + c.brand_slogan);
     if (c.map_desc) all.push('地图简介：' + c.map_desc);
-    (c.faq || []).forEach(function (x, i) { all.push('Q' + (i + 1) + '：' + x.q + '\nA：' + x.a); });
-    (c.service_pages || []).forEach(function (pg) { all.push(pg.title + '\n' + pg.intro + '\n' + (pg.bullets || []).join('\n')); });
-    (c.local_qa || []).forEach(function (x, i) { all.push('问' + (i + 1) + '：' + x.q + '\n答：' + x.a); });
+    faq.forEach(function (x, i) { all.push('Q' + (i + 1) + '：' + x.q + '\nA：' + x.a); });
+    pages.forEach(function (pg) { all.push(pg.title + '\n' + pg.intro + '\n' + (pg.bullets || []).join('\n')); });
+    qa.forEach(function (x, i) { all.push('问' + (i + 1) + '：' + x.q + '\n答：' + x.a); });
     if (c.keywords) all.push('搜索词：' + c.keywords.join('、'));
     COPY.all = all.join('\n\n');
     $('p3Body').innerHTML = h;
-    $('btnCopyAll').disabled = false;
-    var prompt = '基于真实商家资料做 3 条 30 秒短视频脚本，不要编造。商家：' + (S.profile ? S.profile.name : '') +
-      '；口号：' + (c.brand_slogan || '') + '；' + (c.faq && c.faq[0] ? '用户问题：' + c.faq[0].q + ' ' + c.faq[0].a : '');
-    $('studioLink').href = '../studio/?prompt=' + encodeURIComponent(prompt);
+    if (S.profile) { S.profile.content_ready = true; S.profile.content_at = d.generated_at || S.profile.content_at; }
+    updateNav();
     return true;
   }
   function loadContent() {
-    return api('/geo/content?slug=' + encodeURIComponent(S.slug)).then(function (d) {
-      if (d.content) renderContent(d);
-    }).catch(function () {});
+    if (!S.slug) return;
+    var slug = S.slug;
+    setTag('p3Tag', '读取中…', 'info');
+    api('/geo/content?slug=' + encodeURIComponent(slug)).then(function (d) {
+      if (slug !== S.slug) return;
+      if (d.content) renderContent(d); else renderContentEmpty();
+    }).catch(function (e) {
+      if (slug !== S.slug) return;
+      setTag('p3Tag', '读取失败', 'warn');
+      $('p3Body').innerHTML = '<div class="note bad"><span class="ico">✕</span><div><b>读取内容包失败：' + esc(e.message) + '</b>' +
+        '<div style="margin-top:8px"><button class="btn sm line" type="button" data-retry="3">重试</button></div></div></div>';
+    });
   }
   function genContent() {
+    if (!S.slug) { toast('请先输入 slug 并开始优化', 'bad'); return; }
     var btn = $('btnContent');
-    btn.disabled = true;
-    var t0 = Date.now();
-    btn.textContent = '正在生成…';
-    $('p3Status').innerHTML = '<span class="loading"></span><span class="hint">DeepSeek 正在基于真实资料生成，约 5-30 秒，请稍候…</span>';
+    busy(btn, true, '正在生成…');
+    setTag('p3Tag', '生成中…', 'info');
+    $('p3Hint').innerHTML = '<span class="loading"></span>DeepSeek 正在基于真实资料生成，约 5–30 秒…';
     api('/geo/content', { method: 'POST', body: { slug: S.slug }, timeout: 120000 }).then(function (d) {
-      renderContent(d);
-      toast('内容包已生成（' + d.provider + '，' + d.seconds + 's）');
-      if (S.profile) { S.profile.content_ready = true; renderStepper(); }
+      if (renderContent(d)) toast('内容包已生成（' + (d.provider === 'deepseek' ? 'DeepSeek' : '本地模板') + (d.seconds ? '，' + d.seconds + 's' : '') + '）', 'ok');
     }).catch(function (e) {
-      $('p3Status').innerHTML = '<div class="notice red"><span class="n-ico">✕</span><span>' + esc(e.message) + '</span></div>';
-      toast('生成失败：' + e.message);
+      setTag('p3Tag', '生成失败', 'warn');
+      $('p3Body').innerHTML = '<div class="note bad"><span class="ico">✕</span><div><b>生成失败：' + esc(e.message) + '</b>' +
+        '<div style="margin-top:8px"><button class="btn sm line" type="button" data-retry="3">重试</button></div></div></div>';
+      toast('生成失败：' + e.message, 'bad');
     }).then(function () {
-      btn.disabled = false;
-      btn.textContent = '生成 GEO 内容包';
+      busy(btn, false);
     });
   }
 
   // ---------------- ④ NAP ----------------
   function renderNap(d) {
     S.nap = d;
-    $('p4Tag').textContent = d.checked + ' / ' + d.total;
-    $('p4Tag').className = 'tag ' + (d.checked >= d.total ? 'ok' : (d.checked ? 'warn' : ''));
-    var h = '<div class="notice"><span class="n-ico">🔁</span><span>' + esc(d.consistency.text) + '</span></div>';
-    h += '<div class="row"><span class="hint">已登记 <b style="color:#a7f3d0">' + d.checked + '</b> / ' + d.total + ' 个平台。勾选即保存。</span></div>';
+    setTag('p4Tag', d.checked + ' / ' + d.total, d.checked >= d.total ? 'ok' : (d.checked ? 'warn' : ''));
+    var h = '<div class="note"><span class="ico">🔁</span><div><b>7 个平台用同一套 NAP</b><div style="margin-top:2px">' + esc(d.consistency.text) + '</div></div></div>';
+    h += '<div class="hint" style="margin-bottom:6px">已登记 <b style="color:var(--ok)">' + d.checked + '</b> / ' + d.total + ' 个平台；勾选即保存，刷新后保留。</div>';
     (d.rows || []).forEach(function (r) {
-      h += '<label class="nap-row' + (r.checked ? ' done' : '') + '">' +
-        '<input type="checkbox" data-nap="' + esc(r.key) + '"' + (r.checked ? ' checked' : '') + '>' +
-        '<span class="nap-body"><span class="nb1"><b>' + esc(r.name) + '</b>' +
-        '<a href="' + esc(r.url) + '" target="_blank" rel="noopener">去登记 ↗</a>' +
-        (r.checked ? '<span class="badge ok">已登记</span>' : '<span class="badge">未登记</span>') + '</span>' +
-        '<p>' + esc(r.note) + '</p></span></label>';
+      h += '<label class="nap' + (r.checked ? ' done' : '') + '">' +
+        '<input type="checkbox" data-nap="' + esc(r.key) + '"' + (r.checked ? ' checked' : '') + ' aria-label="标记 ' + esc(r.name) + ' 已登记">' +
+        '<span class="nb"><span class="nb1"><b>' + esc(r.name) + '</b>' +
+        (r.url ? '<a href="' + esc(r.url) + '" target="_blank" rel="noopener">去登记 ↗</a>' : '') +
+        (r.checked ? '<span class="tagb ok">已登记</span>' : '<span class="tagb">未登记</span>') + '</span>' +
+        '<span class="np">' + esc(r.note) + '</span></span></label>';
     });
     $('p4Body').innerHTML = h;
-    if (S.profile) { S.profile.nap_checked = d.checked; renderStepper(); }
+    $('napCount').textContent = d.checked;
+    if (S.profile) { S.profile.nap_checked = d.checked; S.profile.nap_total = d.total; updateNav(); }
   }
   function loadNap() {
-    return api('/geo/nap-checklist?slug=' + encodeURIComponent(S.slug)).then(renderNap).catch(function (e) {
-      $('p4Body').innerHTML = '<div class="notice red"><span class="n-ico">✕</span><span>' + esc(e.message) + '</span></div>';
+    if (!S.slug) return;
+    var slug = S.slug;
+    setTag('p4Tag', '读取中…', 'info');
+    api('/geo/nap-checklist?slug=' + encodeURIComponent(slug)).then(function (d) {
+      if (slug !== S.slug) return;
+      renderNap(d);
+    }).catch(function (e) {
+      if (slug !== S.slug) return;
+      setTag('p4Tag', '读取失败', 'warn');
+      $('p4Body').innerHTML = '<div class="note bad"><span class="ico">✕</span><div><b>读取 NAP 清单失败：' + esc(e.message) + '</b>' +
+        '<div style="margin-top:8px"><button class="btn sm line" type="button" data-retry="4">重试</button></div></div></div>';
     });
   }
   function toggleNap(input) {
+    if (!S.slug) return;
+    if (S.napBusy) { input.checked = !input.checked; toast('上一次保存中，请稍候', 'bad'); return; }
     var key = input.getAttribute('data-nap');
     var checked = input.checked;
+    S.napBusy = true;
     input.disabled = true;
+    var row = input.closest('.nap');
+    if (row) row.classList.add('saving');
     api('/geo/nap-checklist', { method: 'POST', body: { slug: S.slug, platform: key, checked: checked } })
-      .then(function (d) { renderNap(d); toast(checked ? '已标记为已登记' : '已取消'); })
-      .catch(function (e) { input.checked = !checked; toast('保存失败：' + e.message); })
-      .then(function () { input.disabled = false; });
+      .then(function (d) {
+        renderNap(d);
+        toast(checked ? '已标记为已登记' : '已取消登记', 'ok');
+      })
+      .catch(function (e) {
+        input.checked = !checked;
+        if (row) row.classList.remove('saving');
+        toast('保存失败：' + e.message, 'bad');
+      })
+      .then(function () {
+        S.napBusy = false;
+        var fresh = document.querySelector('[data-nap="' + key + '"]');
+        if (fresh) fresh.disabled = false;
+      });
   }
 
   // ---------------- ⑤ 监测 ----------------
   function renderMonitor(d) {
     S.monitor = d;
-    $('p5Tag').textContent = d.summary.total + ' 条';
-    $('p5Tag').className = 'tag ' + (d.summary.total ? 'ok' : '');
-    var h = '<div class="stat"><b>' + d.summary.total + '</b><span>监测记录</span></div>' +
-      '<div class="stat ok"><b>' + d.summary.appeared + '</b><span>出现次数</span></div>' +
-      '<div class="stat"><b>' + d.summary.keywords + '</b><span>搜索词</span></div>';
+    var sm = d.summary || { total: 0, appeared: 0, keywords: 0, engines: {} };
+    setTag('p5Tag', sm.total + ' 条', sm.total ? 'ok' : '');
+    var eng = sm.engines || {};
+    var engText = ['google', 'bing'].filter(function (k) { return eng[k]; }).map(function (k) {
+      return (k === 'bing' ? '必应' : 'Google') + ' ' + eng[k];
+    }).join(' / ');
+    var h = '<div class="metrics">' +
+      '<div class="metric"><b>' + sm.total + '</b><span>监测记录</span></div>' +
+      '<div class="metric ok"><b>' + sm.appeared + '</b><span>出现次数</span></div>' +
+      '<div class="metric"><b>' + sm.keywords + '</b><span>搜索词</span></div>' +
+      (engText ? '<div class="metric" style="min-width:110px"><b style="font-size:15px;line-height:1.9">' + esc(engText) + '</b><span>按引擎</span></div>' : '') +
+      '</div>';
     $('p5Summary').innerHTML = h;
-    if (!d.rows.length) {
+    if (!d.rows || !d.rows.length) {
       $('p5Body').innerHTML = '<div class="empty">还没有监测记录。先加一条「通州保洁 / Google / 第 3 名」。</div>';
-      return;
-    }
-    var rows = '<div class="tbl-wrap"><table><thead><tr><th>日期</th><th>搜索词</th><th>引擎</th><th>是否出现</th><th>排名</th></tr></thead><tbody>';
-    d.rows.slice(0, 60).forEach(function (r) {
-      rows += '<tr><td>' + esc(r.date || '') + '</td><td class="kwcell">' + esc(r.keyword) + '</td>' +
-        '<td>' + (r.engine === 'bing' ? '必应' : 'Google') + '</td>' +
-        '<td>' + (r.appeared ? '<span class="badge ok">出现</span>' : '<span class="badge">未出现</span>') + '</td>' +
-        '<td>' + (r.position ? '第 ' + r.position + ' 名' : '—') + '</td></tr>';
-    });
-    rows += '</tbody></table></div>';
-    if (d.trend && d.trend.length) {
-      rows += '<div class="trend"><div class="hint" style="margin-bottom:2px">每日出现趋势（出现条数 / 总条数）</div>';
-      d.trend.forEach(function (t) {
-        var pct = t.total ? Math.round(t.appeared / t.total * 100) : 0;
-        rows += '<div class="trend-row"><span class="d">' + esc(t.date) + '</span>' +
-          '<span class="tb"><i style="width:' + Math.max(2, pct) + '%"></i></span>' +
-          '<span class="v">' + t.appeared + '/' + t.total + (t.avg_position ? ' · 均第' + t.avg_position + '名' : '') + '</span></div>';
+    } else {
+      var rows = '<div class="tablewrap"><table><thead><tr><th>日期</th><th>搜索词</th><th>引擎</th><th>结果</th><th>排名</th><th>备注</th></tr></thead><tbody>';
+      d.rows.slice(0, 80).forEach(function (r) {
+        rows += '<tr><td>' + esc(r.date || '') + '</td><td class="kwcell">' + esc(r.keyword) + '</td>' +
+          '<td>' + (r.engine === 'bing' ? '必应' : 'Google') + '</td>' +
+          '<td>' + (r.appeared ? '<span class="tagb ok">出现</span>' : '<span class="tagb">未出现</span>') + '</td>' +
+          '<td>' + (r.position ? '第 ' + r.position + ' 名' : '—') + '</td>' +
+          '<td class="notecell">' + esc(r.note || '—') + '</td></tr>';
       });
-      rows += '</div>';
+      rows += '</tbody></table></div>';
+      if (d.trend && d.trend.length) {
+        rows += '<div class="trend"><div class="hint" style="margin-bottom:2px">每日出现趋势（出现条数 / 总条数）</div>';
+        d.trend.forEach(function (t) {
+          var pct = t.total ? Math.round(t.appeared / t.total * 100) : 0;
+          rows += '<div class="trend-row"><span class="d">' + esc(t.date) + '</span>' +
+            '<span class="tb"><i style="width:' + Math.max(2, pct) + '%"></i></span>' +
+            '<span class="v">' + t.appeared + '/' + t.total + (t.avg_position ? ' · 均第' + t.avg_position + '名' : '') + '</span></div>';
+        });
+        rows += '</div>';
+      }
+      $('p5Body').innerHTML = rows;
     }
-    $('p5Body').innerHTML = rows;
-    if (S.profile) { S.profile.monitor_count = d.summary.total; renderStepper(); }
+    if (S.profile) { S.profile.monitor_count = sm.total; updateNav(); }
   }
   function loadMonitor() {
-    return api('/geo/monitor?slug=' + encodeURIComponent(S.slug)).then(renderMonitor).catch(function (e) {
-      $('p5Body').innerHTML = '<div class="notice red"><span class="n-ico">✕</span><span>' + esc(e.message) + '</span></div>';
+    if (!S.slug) return;
+    var slug = S.slug;
+    setTag('p5Tag', '读取中…', 'info');
+    api('/geo/monitor?slug=' + encodeURIComponent(slug)).then(function (d) {
+      if (slug !== S.slug) return;
+      renderMonitor(d);
+    }).catch(function (e) {
+      if (slug !== S.slug) return;
+      setTag('p5Tag', '读取失败', 'warn');
+      $('p5Body').innerHTML = '<div class="note bad"><span class="ico">✕</span><div><b>读取监测记录失败：' + esc(e.message) + '</b>' +
+        '<div style="margin-top:8px"><button class="btn sm line" type="button" data-retry="5">重试</button></div></div></div>';
     });
   }
   function addMonitor(e) {
     e.preventDefault();
+    if (!S.slug) { toast('请先输入 slug 并开始优化', 'bad'); return; }
     var keyword = $('monKeyword').value.trim();
-    if (!keyword) { toast('请填写搜索词'); $('monKeyword').focus(); return; }
+    if (!keyword) { toast('请填写搜索词', 'bad'); $('monKeyword').focus(); return; }
     var appeared = $('monAppeared').value === '1';
-    var pos = $('monPosition').value.trim();
+    var posRaw = $('monPosition').value.trim();
+    var pos = null;
+    if (posRaw) {
+      pos = parseInt(posRaw, 10);
+      if (!(pos >= 1 && pos <= 100)) { toast('排名需为 1–100 的整数', 'bad'); $('monPosition').focus(); return; }
+    }
     var body = {
       slug: S.slug, keyword: keyword, engine: $('monEngine').value,
-      appeared: appeared, date: $('monDate').value || todayStr(), position: pos ? parseInt(pos, 10) : null
+      appeared: appeared, date: $('monDate').value || todayStr(),
+      position: appeared ? pos : null,
+      note: $('monNote').value.trim()
     };
-    if (!appeared) body.position = null;
     var btn = $('btnMonitor');
-    btn.disabled = true;
+    busy(btn, true, '添加中…');
     api('/geo/monitor', { method: 'POST', body: body }).then(function (d) {
       renderMonitor(d);
       $('monKeyword').value = '';
       $('monPosition').value = '';
-      toast('已记录监测，坚持每周登记');
-    }).catch(function (err2) {
-      toast('添加失败：' + err2.message);
-    }).then(function () { btn.disabled = false; });
+      $('monNote').value = '';
+      toast('已记录监测，坚持每周登记', 'ok');
+    }).catch(function (err) {
+      toast('添加失败：' + err.message, 'bad');
+    }).then(function () { busy(btn, false); });
   }
 
   // ---------------- 统一加载 ----------------
+  function resetPanels() {
+    COPY = {};
+    setTag('p1Tag', '未加载', '');
+    setTag('p2Tag', '未生成', '');
+    setTag('p3Tag', '未生成', '');
+    setTag('p4Tag', '0 / 7', '');
+    setTag('p5Tag', '0 条', '');
+    $('p2Body').innerHTML = '<div class="empty">还没有生成。点「一键生成 JSON-LD」。</div>';
+    $('p3Body').innerHTML = '<div class="empty">还没有内容包。生成后可逐条复制。</div>';
+    $('p4Body').innerHTML = '<div class="empty">输入 slug 后显示 7 个平台的 NAP 清单。</div>';
+    $('p5Summary').innerHTML = '';
+    $('p5Body').innerHTML = '<div class="empty">还没有监测记录。先加一条「通州保洁 / Google / 第 3 名」。</div>';
+    $('p3Hint').textContent = '生成约 5–30 秒；失败会自动用本地事实模板兜底。';
+    $('btnCopyJsonld').disabled = true;
+    $('btnVerify').disabled = true;
+    $('btnCopyAll').disabled = true;
+    $('napCount').textContent = '0';
+  }
+  function clearData() {
+    S.profile = null; S.jsonld = null; S.content = null; S.nap = null; S.monitor = null;
+    S.napBusy = false;
+  }
+  function lsGet(k) { try { return localStorage.getItem(k); } catch (e) { return ''; } }
+  function lsSet(k, v) { try { localStorage.setItem(k, v); } catch (e) {} }
   function loadAll(slug) {
+    slug = String(slug || '').trim().toLowerCase();
+    if (!slug) return;
     S.slug = slug;
-    localStorage.setItem(LS_KEY, slug);
+    S.req++;
+    clearData();
+    resetPanels();
+    lsSet(LS_KEY, slug);
     $('slugInput').value = slug;
     setLoadState('加载中…', 'wait');
-    $('p1Body').innerHTML = '<div class="empty"><span class="loading"></span>正在读取承接页资料…</div>';
-    api('/geo/profile?slug=' + encodeURIComponent(slug)).then(function (p) {
-      renderStep1(p);
-      setLoadState('已加载 ' + (p.name || p.slug), 'ok');
-      if (p.jsonld_ready) loadJsonld(); else { $('p2Empty').style.display = ''; }
-      if (p.content_ready) loadContent();
-      loadNap();
-      loadMonitor();
-      $('monDate').value = todayStr();
-      markNow(1);
-    }).catch(function (e) {
-      setLoadState('加载失败', 'wait');
-      $('p1Body').innerHTML = '<div class="notice red"><span class="n-ico">✕</span><div><b>' + esc(e.message) + '</b>' +
-        '<div style="margin-top:6px;font-size:12px">确认 slug 是否正确；若还没创建承接页，先到 <a href="../account/dashboard.html#storeCard" target="_blank" rel="noopener">我的承接页</a> 保存资料。</div></div></div>';
-      $('merchantName').textContent = '未找到 ' + slug;
-    });
+    $('merchantName').textContent = '加载中…';
+    loadProfile();
   }
   function start() {
     var slug = $('slugInput').value.trim().toLowerCase();
-    if (!slug) { toast('请先输入承接页 slug'); $('slugInput').focus(); return; }
-    if (!/^[a-z0-9][a-z0-9-]{2,39}$/.test(slug)) { toast('slug 只能包含小写字母、数字和 -，长度 3-40'); return; }
-    if (location.search.indexOf('slug=') < 0) {
-      history.replaceState(null, '', '?slug=' + encodeURIComponent(slug));
-    }
+    if (!slug) { toast('请先输入承接页 slug', 'bad'); $('slugInput').focus(); return; }
+    if (!/^[a-z0-9][a-z0-9-]{2,39}$/.test(slug)) { toast('slug 只能包含小写字母、数字和 -，长度 3–40', 'bad'); $('slugInput').focus(); return; }
+    try {
+      var u = new URL(location.href);
+      u.searchParams.set('slug', slug);
+      history.replaceState(null, '', u.pathname + u.search + u.hash);
+    } catch (e) {}
+    setStep(1, { silent: true });
     loadAll(slug);
   }
 
   // ---------------- 复制 ----------------
   function copyText(text, label) {
-    if (!text) { toast('暂无可复制内容'); return; }
-    function done() { toast(label || '已复制'); }
+    if (!text) { toast('暂无可复制内容', 'bad'); return; }
+    function done() { toast(label || '已复制', 'ok'); }
     if (navigator.clipboard && window.isSecureContext) {
-      navigator.clipboard.writeText(text).then(done).catch(function () { fallback(); });
+      navigator.clipboard.writeText(text).then(done).catch(fallback);
     } else { fallback(); }
     function fallback() {
       var ta = document.createElement('textarea');
       ta.value = text;
+      ta.setAttribute('readonly', '');
       ta.style.position = 'fixed';
       ta.style.left = '-9999px';
       document.body.appendChild(ta);
       ta.select();
-      try { document.execCommand('copy'); done(); } catch (e) { toast('复制失败，请手动选择'); }
+      try { document.execCommand('copy'); done(); } catch (e) { toast('复制失败，请手动选择代码', 'bad'); }
       ta.remove();
-    }
-  }
-  function copyByKey(key) {
-    if (key === 'faqAll') {
-      var arr = [];
-      (S.content && S.content.faq || []).forEach(function (x, i) { arr.push('Q' + (i + 1) + '：' + x.q + '\nA：' + x.a); });
-      copyText(arr.join('\n\n'), 'FAQ 已复制');
-    } else if (key === 'svcAll') {
-      var arr2 = [];
-      (S.content && S.content.service_pages || []).forEach(function (p) {
-        arr2.push(p.title + '\n' + p.intro + '\n' + (p.bullets || []).join('\n'));
-      });
-      copyText(arr2.join('\n\n'), '服务页已复制');
-    } else if (key === 'qaAll') {
-      var arr3 = [];
-      (S.content && S.content.local_qa || []).forEach(function (x, i) { arr3.push('问' + (i + 1) + '：' + x.q + '\n答：' + x.a); });
-      copyText(arr3.join('\n\n'), '本地问答已复制');
-    } else {
-      copyText(COPY[key] || '');
     }
   }
 
   // ---------------- 事件 ----------------
+  function retry(n) {
+    if (!S.slug) { toast('请先输入 slug 并开始优化', 'bad'); return; }
+    if (n === 1) loadProfile();
+    else if (n === 2) loadJsonld();
+    else if (n === 3) loadContent();
+    else if (n === 4) loadNap();
+    else if (n === 5) loadMonitor();
+  }
   document.addEventListener('click', function (e) {
     var t = e.target;
-    var cp = t.closest ? t.closest('[data-copy]') : null;
-    if (cp) { copyByKey(cp.getAttribute('data-copy')); return; }
-    var st = t.closest ? t.closest('#stepper button') : null;
-    if (st) {
-      var n = parseInt(st.getAttribute('data-go'), 10);
-      var sec = $('step' + n);
-      if (sec) sec.scrollIntoView({ behavior: 'smooth', block: 'start' });
-      markNow(n);
-    }
+    if (!t.closest) return;
+    var go = t.closest('[data-go]');
+    if (go) { setStep(+go.getAttribute('data-go')); return; }
+    var cp = t.closest('[data-copy]');
+    if (cp) { copyText(COPY[cp.getAttribute('data-copy')] || '', cp.getAttribute('data-copy') === 'jsonld' ? 'JSON-LD 已复制' : '已复制'); return; }
+    var rt = t.closest('[data-retry]');
+    if (rt) { retry(+rt.getAttribute('data-retry')); return; }
   });
   document.addEventListener('change', function (e) {
-    if (e.target && e.target.getAttribute && e.target.getAttribute('data-nap')) {
-      toggleNap(e.target);
-    }
+    var t = e.target;
+    if (t && t.getAttribute && t.getAttribute('data-nap')) toggleNap(t);
   });
   $('startBtn').addEventListener('click', start);
-  $('slugInput').addEventListener('keydown', function (e) { if (e.key === 'Enter') start(); });
+  $('slugInput').addEventListener('keydown', function (e) { if (e.key === 'Enter') { e.preventDefault(); start(); } });
+  $('btnReload').addEventListener('click', function () { if (S.slug) loadAll(S.slug); else toast('请先输入 slug', 'bad'); });
   $('btnJsonld').addEventListener('click', genJsonld);
+  $('btnVerify').addEventListener('click', verifyInjection);
   $('btnCopyJsonld').addEventListener('click', function () { copyText(COPY.jsonld || '', 'JSON-LD 已复制'); });
   $('btnContent').addEventListener('click', genContent);
   $('btnCopyAll').addEventListener('click', function () { copyText(COPY.all || '', '内容包已复制'); });
+  $('btnNapReload').addEventListener('click', function () { if (S.slug) loadNap(); else toast('请先输入 slug', 'bad'); });
+  $('btnMonReload').addEventListener('click', function () { if (S.slug) loadMonitor(); else toast('请先输入 slug', 'bad'); });
   $('monForm').addEventListener('submit', addMonitor);
-  $('monDate').value = todayStr();
+  $('monAppeared').addEventListener('change', function () {
+    var no = this.value === '0';
+    $('monPosition').disabled = no;
+    if (no) $('monPosition').value = '';
+  });
 
-  // 初始化：URL slug > localStorage > 空
+  // 初始化
+  $('monDate').value = todayStr();
   var qs = new URLSearchParams(location.search);
   var initSlug = (qs.get('slug') || '').trim().toLowerCase();
-  if (!initSlug) initSlug = (localStorage.getItem(LS_KEY) || '').trim();
+  if (!initSlug) initSlug = (lsGet(LS_KEY) || '').trim().toLowerCase();
+  setStep(1, { silent: true });
   if (initSlug) {
     $('slugInput').value = initSlug;
     loadAll(initSlug);
+  } else {
+    updateNav();
   }
 })();
 </script>

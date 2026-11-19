@@ -1,0 +1,900 @@
+
+
+########## studio/index.html ##########
+=== BODY START ===
+<body>
+<div class="top"><div class="top-in">
+ <a class="brand" href="/ai-nav/"><span class="logo">星</span>星籁 AI <span class="brand-sub">商家工作台</span></a>
+ <nav>
+  <a href="/ai-nav/">AI 导航</a>
+  <a href="/ai-nav/studio/" class="on">短视频工作台</a>
+  <a href="/ai-nav/leadgen/">AI 获客</a>
+  <a href="/ai-nav/travel/">出行导航</a>
+  <a href="/ai-nav/ads/">广告位</a>
+  <a href="/ai-nav/about.html">关于</a>
+ </nav>
+ <button type="button" class="elder-btn" id="elderBtn" aria-pressed="false" title="放大字体和按钮，看得更清楚">👴 大字模式</button>
+</div></div>
+
+<div class="wb-wrap" id="wbWrap">
+ <div id="staticNote" class="static-note" hidden>🌍 你正在访问全球静态站（GitHub Pages），这里只能看页面、不能生成视频。请用国内站 <a href="https://xinglaiai.com/ai-nav/studio/">xinglaiai.com</a> 生成。</div>
+
+ <header class="hero wb-hero">
+  <div>
+   <div class="eyebrow">星籁 AI · 剪辑创作工作台</div>
+   <h1>从选行业到导出，<span>6 步做完一条片</span></h1>
+   <p class="lead">① 选行业 → ② 素材库 → ③ 创作方式 → ④ 预览 → ⑤ 修改 → ⑥ 导出。右侧常驻预览，批量剪辑、自由剪辑、商品广告、专业模式都在一个工作台里。</p>
+   <div class="draft-bar"><span class="save-state" id="saveState" hidden>已自动保存</span><span class="save-tip">输入会自动保存，刷新/关掉再打开也不丢</span></div>
+  </div>
+  <div class="wb-hero-tools">
+   <a class="wb-desk-btn" href="./desktop.html" target="_blank" rel="noopener">🖥 星籁剪辑桌面版</a>
+   <button type="button" class="link-btn" id="helpBtn">❓ 帮助</button>
+   <button type="button" class="link-btn" id="guideBtn">👀 新手引导</button>
+   <button type="button" class="link-btn" id="draftExport">💾 导出草稿</button>
+   <button type="button" class="link-btn" id="draftImportBtn">📥 导入草稿</button>
+   <input type="file" id="draftImport" accept="application/json,.json" hidden>
+  </div>
+ </header>
+
+ <nav class="wb-steps" id="wbSteps" aria-label="剪辑流程：6 步">
+  <button type="button" class="wb-step" data-step="1"><b>1</b><span><span>选行业</span><small id="wbStep1Hint">24 个模板</small></span></button>
+  <button type="button" class="wb-step" data-step="2"><b>2</b><span><span>素材库</span><small id="wbStep2Hint">本片 0 · 勾选 0</small></span></button>
+  <button type="button" class="wb-step" data-step="3"><b>3</b><span><span>创作方式</span><small id="wbStep3Hint">模板成片</small></span></button>
+  <button type="button" class="wb-step" data-step="4"><b>4</b><span><span>预览</span><small id="wbStep4Hint">等待生成</small></span></button>
+  <button type="button" class="wb-step" data-step="5"><b>5</b><span><span>修改</span><small id="wbStep5Hint">待生成</small></span></button>
+  <button type="button" class="wb-step" data-step="6"><b>6</b><span><span>导出</span><small id="wbStep6Hint">待成片</small></span></button>
+ </nav>
+
+ <div class="wb-grid">
+  <main class="wb-main">
+   <section class="wb-pane" d
+=== STYLES 11 blocks, total 92034 ===
+--- style#0 (42608B) ---
+body{margin:0;font:15px/1.7 -apple-system,"Segoe UI",Roboto,"Microsoft YaHei",sans-serif;color:var(--txt);background:radial-gradient(900px 480px at 78% -10%,rgba(56,189,248,.12),transparent 60%),radial-gradient(700px 400px at 10% 5%,rgba(139,92,246,.12),transparent 60%),linear-gradient(180deg,#070a10,#0a0f18);background-attachment:fixed;min-height:100vh;overflow-x:hidden}
+.wrap{max-width:1040px;margin:0 auto;padding:0 22px 84px}
+.top{position:sticky;top:0;z-index:30;backdrop-filter:blur(18px);-webkit-backdrop-filter:blur(18px);background:rgba(7,10,16,.82);border-bottom:1px solid var(--line)}
+.top-in{max-width:1040px;margin:0 auto;height:60px;display:flex;align-items:center;gap:12px;padding:0 22px}
+nav{margin-left:auto;display:flex;gap:2px;flex-wrap:wrap}
+nav a{color:var(--txt2);font-size:13.5px;padding:8px 10px;border-radius:9px;min-height:40px;display:inline-flex;align-items:center}
+nav a:hover{color:#fff;background:rgba(148,163,184,.1)}
+nav a.on{color:#dff3ff;background:rgba(56,189,248,.12)}
+.hero{padding:38px 0 6px;text-align:center}
+.hero-tags{display:flex;gap:8px;justify-content:center;flex-wrap:wrap;margin-bottom:10px}
+.hero-tags span{font-size:12.5px;color:var(--txt2);background:rgba(15,22,34,.72);border:1px solid var(--line);border-radius:999px;padding:5px 12px}
+.hero-links{display:flex;gap:8px;justify-content:center;flex-wrap:wrap}
+.lic-body,.scenes-body{padding:0 13px 12px;font-size:12.5px;color:var(--txt2);line-height:1.7}
+.tab-body{padding:13px 14px;min-width:0}
+.batch-body,.adv-body{margin-top:16px;padding-top:16px;border-top:1px dashed rgba(148,163,184,.14)}
+.bcard-body{padding:10px 12px 12px;min-width:0}
+.guide-body{font-size:14px;color:var(--txt2);line-height:1.8;margin:6px 0 0}
+body.elder nav a,body.elder .elder-btn{font-size:15px}
+ .wrap{padding:0 14px 70px}
+ .top-in{height:auto;min-height:56px;flex-wrap:wrap;padding:7px 14px;gap:6px}
+ nav{margin-left:0;order:3;width:100%;justify-content:space-between;gap:0}
+ nav a{font-size:12.5px;padding:8px 6px;min-height:44px}
+ .hero{padding:24px 0 2px}
+ .top-in{padding:6px 12px}
+ nav a{font-size:12px;padding:8px 4px}
+.pad-body{padding:14px 18px 20px;min-width:0}
+.pad-body{border-top:1px dashed rgba(148,163,184,.14);margin-top:14px;padding-top:14px}
+ .pad-body{padding:12px 4px 10px}
+--- style#1 (4961B) ---
+  .top-in{max-width:none;padding:0 30px}
+  .wrap{max-width:none;padding:0 30px 84px;display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.05fr);gap:20px;align-items:start}
+  .wrap>*{grid-column:1 / -1;min-width:0}
+  .wrap>.colL{grid-column:1}
+  .wrap>.colR{grid-column:2}
+  .wrap>.colL{align-self:stretch}
+  .wrap{grid-template-columns:minmax(0,1fr) minmax(0,1.15fr);gap:24px;padding:0 40px 92px}
+  .top-in{padding:0 40px}
+.music-body{margin-top:16px;padding-top:16px;border-top:1px dashed rgba(148,163,184,.14)}
+--- style#2 (2035B) ---
+.tpl-nav{width:40px;height:40px;min-width:40px;min-height:40px;padding:0;display:inline-grid;place-items:center;border-radius:10px;border:1px solid rgba(56,189,248,.38);background:rgba(9,14,24,.78);color:#bae6fd;font-size:17px;font-weight:800;line-height:1;cursor:pointer;transition:.15s;user-select:none}
+.tpl-nav:hover{border-color:rgba(56,189,248,.8);background:rgba(56,189,248,.16);color:#e0f2fe}
+.tpl-nav:active{transform:translateY(1px)}
+.tpl-nav:disabled{opacity:.4;cursor:default}
+  .tpl-nav{width:44px;height:44px;min-width:44px;min-height:44px;font-size:19px}
+--- style#3 (1401B) ---
+  .wrap{height:calc(100vh - 60px);overflow:hidden;display:grid;
+  .wrap>.hero{grid-row:1;grid-column:1 / -1}
+  .wrap>.flow{grid-row:2;grid-column:1 / -1}
+  .wrap>.static-note{grid-row:1;grid-column:1 / -1;display:none}
+  .wrap>.colL{grid-row:3;grid-column:1}
+  .wrap>.colR{grid-row:3;grid-column:2}
+  .wrap>.colL,.wrap>.colR{overflow-y:auto;min-height:0;padding-right:8px;
+  .wrap>.colL::-webkit-scrollbar,.wrap>.colR::-webkit-scrollbar{width:8px}
+  .wrap>.colL::-webkit-scrollbar-thumb,.wrap>.colR::-webkit-scrollbar-thumb{background:linear-gradient(180deg,rgba(56,189,248,.65),rgba(139,92,246,.65));border-radius:8px}
+  .wrap>.colL::-webkit-scrollbar-track,.wrap>.colR::-webkit-scrollbar-track{background:rgba(255,255,255,.04);border-radius:8px}
+  .wrap>footer{grid-row:4;grid-column:1 / -1;margin-top:6px}
+  .wrap{column-gap:24px;padding:0 40px 20px}
+  .wrap{height:auto;display:block;overflow:visible}
+  .wrap>.colL,.wrap>.colR{overflow:visible;height:auto;padding-right:0}
+--- style#4 (174B) ---
+  .wrap>.colL,.wrap>.colR{align-self:stretch;align-content:start;max-height:100%;min-height:0;height:100%}
+--- style#5 (607B) ---
+  .wrap{box-sizing:border-box;height:calc(100vh - 60px);padding:4px 30px 6px;row-gap:10px}
+  .wrap>.hero{padding:2px 0 0;min-height:0}
+  .wrap>.hero .hero-badge,.wrap>.hero .eyebrow{display:none}
+  .wrap>.hero h1{font-size:24px;line-height:1.25;margin:0 0 4px}
+  .wrap>.hero p,.wrap>.hero .lead{font-size:12.5px;line-height:1.5;margin:0 0 4px;max-width:none}
+  .wrap>.flow{display:none}
+  .wrap>.colL,.wrap>.colR{height:100%;min-height:0}
+  .wrap{height:auto;padding:0 18px 70px}
+  .wrap>.hero h1{font-size:26px}
+--- style#7 (19452B) ---
+html,body{overscroll-behavior-x:contain}
+.edit-body{margin-top:16px;padding-top:16px;border-top:1px dashed rgba(148,163,184,.14);min-width:0}
+--- style#8 (16801B) ---
+.top-in{max-width:1560px}
+.wb-side .music-body{max-height:none}
+#edSec .edit-body{margin-top:10px;padding-top:0;border-top:0}
+#padSec .pad-body{border-top:0;margin-top:0;padding-top:2px}
+#batchSec .batch-body,#advSec .adv-body{margin-top:0;padding-top:0;border-top:0}
+.wb-batch-results .bcard-body{padding:9px 10px}
+
+
+########## leadgen/index.html ##########
+=== BODY START ===
+<body>
+<div class="top"><div class="top-in">
+  <a class="brand" href="/ai-nav/"><span class="logo">✦</span>星籁 AI <span class="bs">商家获客</span></a>
+  <nav>
+    <a href="/ai-nav/">AI 导航</a>
+    <a href="/ai-nav/studio/">短视频工作台</a>
+    <a href="/ai-nav/leadgen/" class="on">AI 获客</a>
+    <a href="/ai-nav/geo/">🌍 GEO 推广</a>
+    <a href="/ai-nav/travel/">出行导航</a>
+    <a href="/ai-nav/select-ai/">智能选型</a>
+    <a href="/ai-nav/radar/">工具雷达</a>
+  </nav>
+</div></div>
+
+<main class="wrap">
+  <header class="hero">
+    <div class="eyebrow">LEADGEN · LOCAL BUSINESS</div>
+    <h1>AI 获客：把<span>「谁在问、问什么」</span>变成可触达的客户</h1>
+    <p class="lead">配置行业与区域 → AI 拆解获客需求 → 找到意向客户 → 生成合规话术 → 复盘优化</p>
+    <div class="hero-meta">
+      <span class="pill" id="apiState"><span class="dot"></span>正在检测后端服务…</span>
+      <span class="pill">仅采集公开信息</span>
+      <span class="pill">不自动发送 · 不刷量</span>
+    </div>
+    <div class="hero-meta" style="margin-bottom:10px"><a class="pill" href="/ai-nav/geo/" style="border-color:rgba(139,92,246,.4);color:#ddd6fe;background:rgba(139,92,246,.1)">🌍 GEO 推广优化</a></div>
+    <div class="flow">
+      <span>① 配置商家</span><span>② 一句话需求</span><span>③ 意向客户</span><span>④ 合规话术</span><span>⑤ 数据复盘</span><span>⑥ 行业打法</span>
+    </div>
+  </header>
+
+  <div class="workspace">
+    <!-- ============ 左栏：配置 + 需求 ============ -->
+    <aside class="col-left">
+      <section class="card glow" id="sec-config">
+        <div class="sec-h"><span class="sec-no">2</span><h2>商家配置中心</h2><span class="tag">先配这一栏</span></div>
+        <p class="sec-sub">行业 + 城市区县 + 业务关键词 + 获客平台，决定后面所有拆解、线索和话术的方向。配置只保存在本机浏览器，可随时改。</p>
+
+        <label class="fl" for="industrySel">行业（下拉选择，也可手输自定义）</label>
+        <select id="industrySel" aria-label="选择行业"></select>
+        <input class="inp" id="industryCustom" placeholder="手输你的行业，例如：宠物殡葬 / 钢琴调律" style="margin-top:8px;display:none" aria-label="自定义行业">
+
+        <label class="fl" for="cityInp">城市</label>
+        <div class="row">
+          <input class="inp grow" id="cityInp" placeholder="例如：北京" value="北京" aria-label="城市">
+          <button type="button" class="btn ghost sm" id="loadDistricts">载入区县</button>
+        </div>
+        <label class="fl">区县（多选，可自己加）</label>
+        <div class="chips" id="districtChips"></div>
+        <div class="row" style="margin-top:8px">
+          <input class="inp grow" id="districtInp" placeholder="没有你要的？输入区县后回车添加" aria-label="自定义区县">
+          <button type="button" class="btn line sm" id="addDistrict">＋ 添加</button>
+        </div>
+
+        <label class="fl">业务关键词（chips 可增删）</label>
+        <div class="chips" id="keywordChips"></div
+=== STYLES 2 blocks, total 41807 ===
+--- style#0 (18961B) ---
+body{margin:0;font:15px/1.7 -apple-system,"Segoe UI",Roboto,"Microsoft YaHei",sans-serif;color:var(--txt);background:radial-gradient(900px 480px at 80% -12%,rgba(56,189,248,.12),transparent 60%),radial-gradient(760px 420px at 6% 0%,rgba(139,92,246,.12),transparent 62%),radial-gradient(700px 500px at 50% 110%,rgba(52,211,153,.06),transparent 60%),linear-gradient(180deg,#070a10,#0a0f18);background-attachment:fixed;min-height:100vh;overflow-x:hidden}
+.wrap{max-width:1180px;margin:0 auto;padding:0 18px 70px;min-width:0}
+.top{position:sticky;top:0;z-index:30;backdrop-filter:blur(18px);background:rgba(7,10,16,.8);border-bottom:1px solid var(--line)}
+.top-in{max-width:1180px;margin:0 auto;height:60px;display:flex;align-items:center;gap:10px;padding:0 16px}
+nav{margin-left:auto;display:flex;gap:2px;min-width:0;overflow-x:auto;scrollbar-width:none;-ms-overflow-style:none;-webkit-overflow-scrolling:touch}
+nav::-webkit-scrollbar{display:none}
+nav a{color:var(--txt2);font-size:13px;padding:8px 10px;border-radius:9px;white-space:nowrap;min-height:40px;display:inline-flex;align-items:center;flex:0 0 auto}
+nav a:hover{color:#fff;background:rgba(148,163,184,.1)}
+nav a.on{color:#dff3ff;background:rgba(56,189,248,.13);box-shadow:inset 0 0 0 1px rgba(56,189,248,.24)}
+.hero{padding:38px 0 8px;text-align:center}
+.hero-meta{display:flex;gap:8px;justify-content:center;flex-wrap:wrap;margin-bottom:6px}
+.topic{border:1px solid var(--line);border-radius:12px;padding:10px 11px;margin-top:8px;background:rgba(15,22,34,.6);display:flex;gap:10px;align-items:flex-start;flex-wrap:wrap}
+.topic .t-main{flex:1 1 200px;min-width:0}
+.topic b{font-size:13px;color:#e6eefb;display:block;line-height:1.6}
+.topic span{font-size:11.5px;color:var(--txt3);display:block;margin-top:2px;line-height:1.6}
+.hero-note{font-size:12px;color:var(--txt3);margin-top:8px}
+ .wrap{padding:0 14px 56px}
+ .top-in{padding:0 12px;height:56px;gap:8px}
+ .hero{padding:26px 0 4px}
+ nav a{font-size:12.5px;padding:8px 8px;min-height:44px}
+ .wrap{padding:0 12px 52px}
+ nav a{font-size:12px;padding:8px 6px}
+--- style#1 (22846B) ---
+  .wrap{max-width:none;padding:0 32px 64px}
+  .top-in{max-width:none;padding:0 32px}
+  .hero{padding:20px 0 8px}
+  .wrap{padding:0 48px 72px}
+  .top-in{padding:0 48px}
+
+
+########## geo/index.html ##########
+=== BODY START ===
+<body>
+
+<div class="top"><div class="top-in">
+  <a class="brand" href="../"><span class="logo">✦</span>星籁 AI <span class="bs">GEO 推广</span></a>
+  <nav aria-label="站内导航">
+    <a href="../">AI 导航</a>
+    <a href="../studio/">短视频工作台</a>
+    <a href="../leadgen/">AI 获客</a>
+    <a href="./" class="on" aria-current="page">GEO 推广</a>
+    <a href="../travel/">出行导航</a>
+    <a href="../select-ai/">智能选型</a>
+    <a href="../radar/">工具雷达</a>
+  </nav>
+</div></div>
+
+<main class="page">
+  <header class="page-head">
+    <div>
+      <div class="eyebrow">GEO · AI SEARCH VISIBILITY</div>
+      <h1>GEO 推广优化：让 AI 搜索<span>主动推荐你的店</span></h1>
+      <p class="lead">5 步做完：资料 → 结构化数据 → 内容包 → NAP 登记 → 可见性监测。每一步都写清楚要填什么、会产出什么。</p>
+    </div>
+    <div class="startbox">
+      <div class="slugrow">
+        <input class="inp" id="slugInput" type="text" maxlength="60" autocomplete="off" spellcheck="false" placeholder="输入承接页 slug，如 qingjie-tongzhou" aria-label="承接页 slug">
+        <button class="btn" id="startBtn" type="button">开始优化</button>
+      </div>
+      <div class="metaline">
+        <span class="pill" id="loadState"><span class="dot"></span>等待输入</span>
+        <a href="?slug=qingjie-tongzhou">示例 qingjie-tongzhou</a>
+        <a href="../account/dashboard.html#storeCard" target="_blank" rel="noopener">我的承接页 ↗</a>
+      </div>
+    </div>
+  </header>
+
+  <div class="geo-layout">
+    <aside class="stepnav" aria-label="GEO 五步导航">
+      <div class="sn-head"><b>GEO 五步</b><span>左侧选择步骤，右侧只看当前步</span></div>
+      <ol role="tablist" aria-label="GEO 五步">
+        <li><button class="step-item" id="step1tab" type="button" data-go="1" role="tab" aria-selected="true" aria-controls="panel1">
+          <span class="si" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M7 3h7l5 5v13H7z"/><path d="M14 3v5h5M10 12h6M10 16h6"/></svg></span>
+          <span class="st"><span class="sn">完善资料</span><span class="sh" data-nav-sub="1">资料完整度</span></span>
+          <span class="sb" data-nav-badge="1">未加载</span>
+        </button></li>
+        <li><button class="step-item" id="step2tab" type="button" data-go="2" role="tab" aria-selected="false" aria-controls="panel2">
+          <span class="si" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M8 9l-4 3 4 3M16 9l4 3-4 3M13.5 5l-3 14"/></svg></span>
+          <span class="st"><span class="sn">结构化数据</span><span class="sh" data-nav-sub="2">LocalBusiness JSON-LD</span
+=== STYLES 1 blocks, total 26934 ===
+--- style#0 (26934B) ---
+body{margin:0;font:15px/1.7 -apple-system,"Segoe UI",Roboto,"Microsoft YaHei",sans-serif;color:var(--txt);min-height:100vh;overflow-x:hidden;
+html[data-theme="light"] body{background:radial-gradient(900px 480px at 82% -12%,rgba(56,189,248,.10),transparent 60%),radial-gradient(700px 400px at 4% 0%,rgba(139,92,246,.07),transparent 62%),var(--bg);background-attachment:fixed}
+.top{position:sticky;top:0;z-index:30;backdrop-filter:blur(18px);background:rgba(7,10,16,.82);border-bottom:1px solid var(--line)}
+html[data-theme="light"] .top{background:rgba(255,255,255,.9)}
+.top-in{max-width:1280px;margin:0 auto;min-height:60px;display:flex;align-items:center;gap:10px;padding:8px 18px;flex-wrap:nowrap}
+nav{margin-left:auto;display:flex;gap:2px;min-width:0;overflow-x:auto;scrollbar-width:none;-ms-overflow-style:none;-webkit-overflow-scrolling:touch}
+nav::-webkit-scrollbar{display:none}
+nav a{color:var(--txt2);font-size:13px;padding:8px 10px;border-radius:9px;white-space:nowrap;min-height:40px;display:inline-flex;align-items:center;flex:0 0 auto}
+nav a:hover{color:var(--txt);background:rgba(148,163,184,.12)}
+nav a.on{color:#dff3ff;background:rgba(56,189,248,.13);box-shadow:inset 0 0 0 1px rgba(56,189,248,.24)}
+html[data-theme="light"] nav a.on{color:#004e7d;background:rgba(56,189,248,.13)}
+.stepnav{position:sticky;top:76px;background:var(--panel);border:1px solid var(--line);border-radius:16px;padding:10px;box-shadow:var(--shadow);min-width:0}
+.stepnav ol{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:6px;min-width:0}
+  .stepnav{position:sticky;top:60px;z-index:22;padding:8px;border-radius:14px;margin-bottom:16px}
+  .stepnav ol{flex-direction:row;overflow-x:auto;gap:8px;padding-bottom:2px;scroll-snap-type:x proximity;scrollbar-width:none;-ms-overflow-style:none}
+  .stepnav ol::-webkit-scrollbar{display:none}
+  .stepnav ol>li{flex:0 0 auto;list-style:none}
+  .top-in{padding:7px 12px;gap:6px;min-height:56px}
+  nav a{padding:7px 8px;font-size:12.5px;min-height:38px}
+  .stepnav{top:56px}
+
+
+########## travel/index.html ##########
+=== BODY START ===
+<body>
+<div class="top"><div class="top-in"><a class="brand" href="/ai-nav/"><span class="logo">✦</span>星籁 AI 导航</a>
+<nav><a href="/ai-nav/">AI 导航</a><a href="/ai-nav/studio/">创作工坊</a><a href="/ai-nav/leadgen/">AI 获客</a><a href="/ai-nav/travel/" aria-current="page">出行秘书</a><a href="/ai-nav/select-ai/">智能选型</a><a href="/ai-nav/radar/">工具雷达</a></nav></div></div>
+<div class="wrap">
+<div class="hero"><div class="eyebrow">MEMORY · PLAN · EXECUTE</div>
+<h1>有记忆的<span>私人办事出行秘书</span></h1>
+<p class="lead">记住你家、公司和常去的店。一句话说清今天要办的事，自动排顺路顺序、校验营业时间与时间窗，给你能直接上路的方案。</p>
+<div class="trust">🔒 记忆只存本机 IndexedDB · 不上传服务器</div></div>
+
+<section class="box">
+  <div class="mem-bar" id="memBar"></div>
+  <div class="chatbox">
+    <textarea id="chatText" rows="2" placeholder="例：下午两点从家出发，先去工行取点钱，然后顺丰拿个快递，最后洗个车，五点前回家"></textarea>
+  </div>
+  <div class="chat-actions">
+    <button class="btn" id="btnAi">✨ AI 解析</button>
+    <button class="btn ghost" id="btnMem">🧠 记忆</button>
+    <button class="btn ghost" id="btnFormToggle">表单模式</button>
+    <button class="btn ghost" id="btnOnboard">设置家/公司</button>
+  </div>
+  <div class="examples" id="examples">
+    <button data-t="下午两点从家出发，先去工行取点钱，然后顺丰拿个快递，最后洗个车，五点前回家">取钱+快递+洗车，17:00 到家</button>
+    <button data-t="取钱、取快递、洗车">只说我常去的地方</button>
+    <button data-t="记一下，我家在宋庄镇小堡村">记忆指令：记住我家</button>
+  </div>
+  <div class="privacy-note"><span>🛡️</span><span>解析时只上传这段文字和本次必需的偏好（起点/城市/停留时长），<b>不上传历史记录</b>。所有记忆与行程历史只写入本机浏览器，可随时逐条删除或一键清空。</span></div>
+
+  <div class="form-panel" id="formPanel">
+    <div class="grid2">
+      <div><label>起点</label><input id="start" placeholder="例如：宋庄（小区名/公司名均可）"></div>
+      <div><label>终点（可选）</label><input id="end" placeholder="例如：中兴和园"></div>
+    </div>
+    <label>途经任务（一行一个，最多 6 个）</label>
+    <textarea id="stops" placeholder="工商银行取钱&#10;顺丰快递取件&#10;洗车"></textarea>
+    <div class="grid2">
+      <div><label>城市</label><input id="city" value="北京"></div>
+      <div><label>出发时间</label><input id="depart" type="time" value="14:00"></div>
+    </div>
+    <div class="row">
+      <div class="modes" id="modes"><button data-m="fast" class="on">最快</button><button data-m="fuel">省钱</button><button data-m="safe">少走高速</button></div>
+      <button class="btn" id="go">直接算路（旧版）</button>
+      <span class="hint">旧版表单保留，解析失败时可兜底</span>
+    </div>
+  </div>
+</section>
+
+<div class="confirm" id="confirmPanel"></div>
+<div class="out" id="result"></div>
+<div class="footer-note">AI 规划，请核实营业时间与门牌。路况、限行、停车以官方实时信息为准，本工具不作绝对承诺。</div>
+</div>
+<footer><a href="../pricing/">套餐定价</a> · © 2026 星籁 AI 工具导航 · xinglaiai.com 版权所有 · 未经许可禁止镜像/采集/商业转载</footer>
+
+<div class="mo
+=== STYLES 2 blocks, total 19161 ===
+--- style#0 (18248B) ---
+body{margin:0;font:15px/1.65 -apple-system,"Segoe UI",Roboto,"Microsoft YaHei",sans-serif;color:var(--txt);background:radial-gradient(900px 480px at 78% -10%,rgba(56,189,248,.10),transparent 60%),radial-gradient(700px 400px at 10% 5%,rgba(139,92,246,.10),transparent 60%),linear-gradient(180deg,#070a10,#0a0f18);background-attachment:fixed;min-height:100vh;overflow-x:hidden}
+.wrap{max-width:1040px;margin:0 auto;padding:0 22px 80px}
+.top{position:sticky;top:0;z-index:30;backdrop-filter:blur(18px);background:rgba(7,10,16,.82);border-bottom:1px solid var(--line)}
+.top-in{max-width:1040px;margin:0 auto;height:60px;display:flex;align-items:center;gap:14px;padding:0 22px}
+nav{margin-left:auto;display:flex;gap:2px;flex-wrap:wrap;justify-content:flex-end}
+nav a{color:var(--txt2);font-size:13.5px;padding:8px 10px;border-radius:9px;min-height:40px;display:inline-flex;align-items:center}
+nav a:hover{color:#fff;background:rgba(148,163,184,.1)}
+.hero{padding:42px 0 8px;text-align:center}
+ .wrap{padding:0 14px 64px}.top-in{padding:0 12px;height:auto;min-height:56px;flex-wrap:wrap}nav a{font-size:12px;padding:6px 7px}nav{gap:0}
+ h1{font-size:25px}.hero{padding:30px 0 4px}.lead{font-size:14px}
+ nav a{display:none}nav a[aria-current="page"]{display:inline-flex}
+ .top-in{min-height:52px}
+@media(max-width:390px){.wrap{padding-left:11px;padding-right:11px}.task-grid{grid-template-columns:1fr}.stats{grid-template-columns:1fr 1fr}}
+--- style#1 (913B) ---
+  .wrap{max-width:none;padding-left:32px;padding-right:32px}
+  .top-in{max-width:none;padding-left:32px;padding-right:32px}
+  .hero{max-width:1280px;margin-left:auto;margin-right:auto}
+  .hero .lead{max-width:72ch}
+
+
+########## account/index.html ##########
+=== BODY START ===
+<body>
+<div class="topbar">
+  <div class="wrap">
+    <a class="brand" href="../index.html"><span class="mark">✦</span><span>星籁 AI<small>商家中心</small></span></a>
+    <nav>
+      <a href="../index.html">AI 导航</a>
+      <a href="../studio/">AI 创作工坊</a>
+      <a href="../leadgen/">AI 获客</a>
+      <a href="../pricing/index.html">套餐定价</a>
+      <a class="on" href="./">账号</a>
+    </nav>
+    <a class="back" href="../index.html">← 返回首页</a>
+  </div>
+</div>
+
+<main class="wrap auth-page">
+  <div class="auth-grid">
+    <section class="hero-side">
+      <div class="eyebrow">MERCHANT ACCOUNT</div>
+      <h1 class="big">一个账号，<br>打通<em>创作</em>与<em>获客</em></h1>
+      <p class="lead">登录后，短视频工作台与 AI 获客共用同一份套餐额度。做视频、找线索、看数据，不用再来回切换账号。</p>
+      <div class="perks">
+        <div class="perk"><div class="ic">🎬</div><div><b>视频额度通用</b><span>拆条、混剪、AI 改写消耗同一份额度，个人中心实时可查。</span></div></div>
+        <div class="perk"><div class="ic">🧲</div><div><b>获客工作区同步</b><span>登录后自动进入你的工作区，线索、关键词、话术跟着账号走。</span></div></div>
+        <div class="perk"><div class="ic">📈</div><div><b>套餐随时升级</b><span>额度不够时在线下单，管理员人工开通，最快当天生效。</span></div></div>
+        <div class="perk"><div class="ic">🔐</div><div><b>只存必要信息</b><span>不采集平台隐私数据；登录凭证仅保存在你自己的浏览器。</span></div></div>
+      </div>
+      <div class="trust">
+        <div><b>3 条</b>免费体验视频</div>
+        <div><b>10 条</b>免费线索额度</div>
+        <div><b>7 天</b>登录有效期</div>
+      </div>
+    </section>
+
+    <section class="form-card" aria-label="登录与注册">
+      <div class="form-head">
+        <h2 id="formTitle">欢迎回来</h2>
+        <p id="formSub">登录后继续做视频、找线索</p>
+      </div>
+      <div class="logged-bar" id="loggedBar"></div>
+
+      <div class="tabs" role="tablist">
+        <button type="button" id="tabLogin" class="on" role="tab" aria-selected="true">登录</button>
+        <button type="button" id="tabRegister" role="tab" aria-selected="false">注册</button>
+      </div>
+
+      <div class="err" id="formErr" role="alert"></div>
+
+      <form id="paneLogin" novalidate>
+        <div class="field">
+          <label for="loginAccount">手机号或邮箱 <i>*</i></label>
+          <input class="input" id="loginAccount" name="account" autocomplete="username" placeholder="例如 13900000001 或 name@example.com" required>
+        </div>
+        <div class="field eye">
+          <label for="loginPassword">密码 <i>*</i></label>
+          <input class="input" id="loginPassword" name="password" type="password" autocomplete="current-password" placeholder="请输入登录密码" required>
+          <button type="button" data-eye="loginPassword">显示</button>
+        </div>
+        <div class="form-links">
+          <label class="
+=== STYLES 2 blocks, total 4320 ===
+--- style#0 (3697B) ---
+.hero-side .big{font-size:40px;line-height:1.18;letter-spacing:-.03em;font-weight:800;margin:0 0 16px}
+.hero-side .big em{font-style:normal;background:linear-gradient(90deg,#38bdf8,#8b5cf6);-webkit-background-clip:text;background-clip:text;color:transparent}
+.hero-side p.lead{color:var(--txt2);font-size:15px;line-height:1.8;margin:0 0 24px;max-width:460px}
+  .hero-side{order:2}
+  .hero-side .big{font-size:29px}
+  .hero-side p.lead{font-size:13.5px;margin-bottom:16px}
+--- style#1 (623B) ---
+  .wrap{max-width:none;padding-left:32px;padding-right:32px}
+  .hero-side .big{font-size:clamp(38px,3.4vw,50px);max-width:760px}
+  .hero-side p.lead{max-width:56ch}
+  .site-foot .wrap{max-width:none}
+
+
+########## account/dashboard.html ##########
+=== BODY START ===
+<body>
+<div class="topbar">
+  <div class="wrap">
+    <a class="brand" href="../index.html"><span class="mark">✦</span><span>星籁 AI<small>商家中心</small></span></a>
+    <nav>
+      <a href="../index.html">AI 导航</a>
+      <a href="../studio/">AI 创作工坊</a>
+      <a href="../leadgen/">AI 获客</a>
+      <a href="#storeCard">我的承接页</a>
+      <a href="../pricing/index.html">套餐定价</a>
+      <a class="on" href="./dashboard.html">个人中心</a>
+    </nav>
+    <a class="back" href="../index.html">← 返回首页</a>
+  </div>
+</div>
+
+<main class="wrap auth-page">
+  <div class="dash-head">
+    <div>
+      <div class="eyebrow" style="margin-bottom:10px">MERCHANT CENTER</div>
+      <h1 id="hello">你好，商家</h1>
+      <p id="subline">正在读取账号信息…</p>
+    </div>
+    <div class="dash-actions">
+      <a class="btn btn-primary" href="../pricing/index.html" id="upgradeBtn">升级套餐</a>
+      <button class="btn btn-danger" id="logoutBtn" type="button">退出登录</button>
+    </div>
+  </div>
+
+  <div class="notice" id="offlineTip">账号服务暂时不可用，当前显示的是本机缓存信息；额度与订单可能不是最新，请稍后刷新。</div>
+
+  <section class="plan-strip" aria-label="当前套餐">
+    <div>
+      <span class="badge cyan">当前套餐</span>
+      <h2 id="planName">体验版 <span class="badge lime" id="planState">生效中</span></h2>
+      <p class="sub" id="planSub">每月 1 日重置额度 · 不自动续费</p>
+    </div>
+    <div class="plan-meta">
+      <div>到期时间<b id="planExpire">—</b></div>
+      <div>账单周期<b id="planPeriod">—</b></div>
+      <div>工作区<b id="planWs">—</b></div>
+    </div>
+    <div class="cta"><a class="btn btn-sm" href="../pricing/index.html">查看套餐对比 →</a></div>
+  </section>
+
+  <section class="card" id="storeCard" aria-labelledby="storeTitle">
+    <div class="store-head">
+      <div>
+        <div class="sec-title" style="margin:0 0 4px"><h2 id="storeTitle">我的承接页</h2><span class="badge" id="storeState">未创建</span></div>
+        <p class="tiny">生成一个公开商家主页：服务价格、电话、地址、优惠一张页面全展示。顾客扫码或点链接即可拨号、导航、留电话，线索自动进入 <a href="../leadgen/" style="color:var(--xl-accent)">AI 获客</a>。</p>
+      </div>
+      <div class="store-head-actions">
+        <button class="badge bell" id="storeUnread" type="button" hidden>🔔 新留资 0 条</button>
+        <a class="btn btn-sm" id="storeOpen" href="#" target="_blank" rel="noopener" hidden>预览公开页</a>
+        <button class="btn btn-sm" id="storeCopy" type="button" hidden>复制链接</button>
+        <button class="btn btn-sm" id="storeQrToggle" type="button" hidden>二维码</button>
+      </div>
+    </div>
+
+    <div class="store-grid">
+      <form id="storeForm" novalidate>
+        <div class="err" id="storeErr"></div>
+        <div class="okmsg" id="storeOk"></div>
+
+        <div class="store-fields">
+=== STYLES 2 blocks, total 11764 ===
+--- style#1 (506B) ---
+  .wrap{max-width:none;padding-left:32px;padding-right:32px}
+  .site-foot .wrap{max-width:none}
+
+
+########## pricing/index.html ##########
+=== BODY START ===
+<body>
+<div class="topbar">
+  <div class="wrap">
+    <a class="brand" href="../index.html"><span class="mark">✦</span><span>星籁 AI<small>年费套餐</small></span></a>
+    <nav>
+      <a href="../index.html">AI 导航</a>
+      <a href="../studio/">AI 创作工坊</a>
+      <a href="../leadgen/">AI 获客</a>
+      <a class="on" href="./">套餐定价</a>
+      <a href="../account/dashboard.html">个人中心</a>
+    </nav>
+    <a class="back" href="../index.html">← 返回首页</a>
+  </div>
+</div>
+
+<main class="wrap auth-page">
+  <section class="pricing-hero">
+    <div class="eyebrow">PRICING · 年费制 · 一年一次</div>
+    <h1>按年付费，<em>日均 ¥5.4 起</em><br>把一整年的获客额度一次配齐</h1>
+    <p>基础版 ¥1980/年、专业版 ¥3980/年、旗舰版 ¥6980/年，另有免费体验版。年费一次收取 12 个月，视频与线索额度按自然月发放；不自动续费，管理员人工开通。</p>
+    <div class="pay-strip"><span>年付 12 个月</span><span>人工客服开通</span><span>微信/支付宝接入中</span><span>支持对公发票</span><span>不自动续费</span></div>
+    <div class="current-bar" id="currentBar" hidden></div>
+  </section>
+
+  <section class="plans" id="plans" aria-live="polite">
+    <div class="plan"><div class="skeleton" style="height:22px;margin-bottom:12px"></div><div class="skeleton" style="height:44px;margin-bottom:12px"></div><div class="skeleton" style="height:14px"></div></div>
+    <div class="plan"><div class="skeleton" style="height:22px;margin-bottom:12px"></div><div class="skeleton" style="height:44px;margin-bottom:12px"></div><div class="skeleton" style="height:14px"></div></div>
+    <div class="plan"><div class="skeleton" style="height:22px;margin-bottom:12px"></div><div class="skeleton" style="height:44px;margin-bottom:12px"></div><div class="skeleton" style="height:14px"></div></div>
+    <div class="plan"><div class="skeleton" style="height:22px;margin-bottom:12px"></div><div class="skeleton" style="height:44px;margin-bottom:12px"></div><div class="skeleton" style="height:14px"></div></div>
+  </section>
+
+  <section class="notes">
+    <div class="note-card"><h3><span>📊</span>额度怎么算</h3>
+      <p>视频额度按「成功生成一条成片」计 1 条/月；线索额度按「导入/抓取一条有效线索」计 1 条/月。年费套餐每月发放一次，当月未用完不结转。</p>
+      <p>基础版 60 视频 / 500 线索；专业版 200 视频 / 2000 线索；旗舰版 600 视频 / 8000 线索。AI 改写均不限次数，AI 图生视频专业版 5 条/月、旗舰版 20 条/月。</p>
+    </div>
+    <div class="note-card"><h3><span>⏳</span>年费与到期</h3>
+      <p>年费一次收取 12 个月费用，开通当天生效，到期日 = 开通日 + 12 个月。到期前 7 天个人中心提示；到期后自动回到体验版额度，已生成作品与历史线索不删除。</p>
+      <p>不自动续费、不自动扣款；续费时重新下单，管理员开通后按原到期日顺延 12 个月。</p>
+    </div>
+    <div class="note-card"><h3><span>🧾</span>开票与退款</h3>
+      <p>付款后可联系客服开具电子普通发票或增值税专票，通常 3 个工作日内开出，抬头与税号请在订单备注里提供。</p>
+      <p>未开通订单可取消并全额退款；已开通的年费订单按未使用月份折算退款（扣除已使用月份与已产生的开通成本），特殊活动订单以活动规则为准。</p>
+    </div>
+  </section>
+
+  <section class="faq-sec"
+=== STYLES 1 blocks, total 6511 ===
+
+
+########## admin/index.html ##########
+=== BODY START ===
+<body>
+<div class="topbar">
+  <div class="wrap">
+    <a class="brand" href="../index.html"><span class="mark">✦</span><span>星籁 AI<small>管理后台</small></span></a>
+    <nav>
+      <a href="../index.html">AI 导航</a>
+      <a href="../studio/">AI 创作工坊</a>
+      <a href="../leadgen/">AI 获客</a>
+      <a href="../pricing/index.html">套餐定价</a>
+      <a class="on" href="./">管理后台</a>
+    </nav>
+    <a class="back" href="../account/dashboard.html">个人中心</a>
+  </div>
+</div>
+
+<!-- 权限门 -->
+<div class="gate" id="gate">
+  <div class="gate-card" id="gateCard">
+    <div class="spinner"></div>
+    <h1>正在验证管理员身份…</h1>
+    <p>需要管理员账号登录。验证通过后才会加载商家与订单数据。</p>
+  </div>
+</div>
+
+<!-- 后台主体 -->
+<main class="wrap" id="adminShell" hidden>
+  <div class="admin-head">
+    <div>
+      <div class="eyebrow" style="margin-bottom:10px">ADMIN CONSOLE</div>
+      <h1>管理后台</h1>
+      <p id="adminWho">—</p>
+    </div>
+    <div class="actions">
+      <button class="btn" id="reloadAll" type="button">刷新数据</button>
+      <a class="btn" href="../account/dashboard.html">返回个人中心</a>
+    </div>
+  </div>
+
+  <div class="notice" id="adminNotice"></div>
+
+  <div class="stat-grid">
+    <div class="stat-card cyan"><div class="k">🏪 入驻商家数</div><div class="v" id="stMerchants">—</div><div class="d">已注册商家账号</div></div>
+    <div class="stat-card violet"><div class="k">💎 付费商家数</div><div class="v" id="stPaid">—</div><div class="d">当前有付费套餐</div></div>
+    <div class="stat-card lime"><div class="k">💰 本月营收</div><div class="v" id="stRevenue">—</div><div class="d" id="stMonth">—</div></div>
+    <div class="stat-card amber"><div class="k">⏳ 待处理订单</div><div class="v" id="stPending">—</div><div class="d" id="stOrders">共 — 笔订单</div></div>
+  </div>
+
+  <div class="admin-grid">
+    <div class="tabs-bar" role="tablist">
+      <button class="on" data-tab="merchants" type="button">商家管理</button>
+      <button data-tab="orders" type="button">订单处理</button>
+      <button data-tab="plans" type="button">套餐配置</button>
+    </div>
+    <div class="card chart-card">
+      <h2>行业分布</h2>
+      <p class="sub">按商家注册行业统计</p>
+      <div class="bars" id="industryBars"><div class="tiny">加载中…</div></div>
+    </div>
+  </div>
+
+  <!-- 商家 -->
+  <section class="panel on" data-panel="merchants">
+    <div class="card">
+      <div class="toolbar">
+        <div class="search">
+          <input class="input" id="mq" placeholder="搜索店名 / 手机号 / 邮箱" autocomplete="off">
+          <button class="btn" id="mSearch" type="button">搜索</button>
+        </div>
+        <button class="btn btn-sm" id="mClear" type="button">清空</button>
+      </div>
+      <div class="table-wrap">
+     
+=== STYLES 2 blocks, total 6997 ===
+--- style#1 (448B) ---
+  .wrap{max-width:none;padding-left:32px;padding-right:32px}
+  .site-foot .wrap{max-width:none}
+
+
+########## radar/index.html ##########
+=== BODY START ===
+<body>
+<div class="top"><div class="top-in"><a class="brand" href="/ai-nav/"><span class="logo">✦</span>星籁 AI 导航</a>
+<nav><a href="/ai-nav/">工具库</a><a href="/ai-nav/articles">教程</a><a href="/ai-nav/pricing/">价格</a><a href="/ai-nav/radar/">工具雷达</a></nav></div></div>
+<div class="wrap">
+<div class="hero"><div class="eyebrow">DAILY AI RADAR</div>
+<h1>每天更新的<span>AI 工具雷达</span></h1>
+<p class="lead">只收集真正能用、值得花时间学的顶级模型与工具，写清适用场景和价格，帮你少走弯路。</p>
+<div class="stat"><div><b>20</b><span>今日精选</span></div><div><b>3</b><span>模型 / 生成 / 工具</span></div><div><b>每日</b><span>更新频率</span></div></div></div>
+<div class="sec"><h2>模型（8）</h2><span class="day">更新于 2026-11-19</span></div><div class="grid"><div class="card"><div class="hd"><span class="nm">GPT-6.2 Astra / Sol</span><span class="cat">旗舰/性价比</span><span class="tag hot">热门</span></div><p>上下文 105 万 Token，Astra 在 AA 智能指数排第 2；Sol 同价升级，FrontierCode 上只比 Astra 低 0.5 分</p><span class="pr">Astra 输入 $8 / 输出 $40，Sol $2 / $10 每百万 Token</span></div><div class="card"><div class="hd"><span class="nm">Gemini 4 Hydrogen</span><span class="cat">多模态/智能体</span><span class="tag hot">热门</span></div><p>100 万 Token 上下文，速度约为 Gemini 3.8 Flash 的 2.5 倍，已接入 Google 搜索</p><span class="pr">输入 $1.5 / 输出 $7.5 每百万 Token</span></div><div class="card"><div class="hd"><span class="nm">Claude Opus 5.5</span><span class="cat">长文/代码</span><span class="tag hot">热门</span></div><p>付费计划的默认模型，可自主调节推理深度；同期 Fable 5.2 目前在 AA 智能指数排第 1</p><span class="pr">Pro $20/月起</span></div><div class="card"><div class="hd"><span class="nm">混元 Hy4 flash</span><span class="cat">中文/轻量</span><span class="tag new">新增</span><span class="tag hot">热门</span></div><p>224B 总参数（含 64B Engram）/ 12B 激活，多模态 + 100 万上下文；11-16 上线首日 Token 调用破 50 万亿并登顶 OpenRouter 日榜，单任务成本约为 DeepSeek V4.1 Flash（Max 档忙时）的 1/8</p><span class="pr">输入 ¥0.5 / 输出 ¥2，缓存命中 ¥0.02 每百万 Token</span></div><div class="card"><div class="hd"><span class="nm">Phai-A1 / Phai-M1</span><span class="cat">开源/国产算力</span><span class="tag new">新增</span></div><p>范式智能 11-18 发布，原生百万级上下文，昇腾平台全流程国产算力训练；A1 在 RTX 3090 上跑代码智能体比 Qwen 27B 快 8–10 倍，M1 专攻真人影视向视频</p><span class="pr">计划开放权重，以官网为准</span></div><div class="card"><div class="hd"><span class="nm">DeepSeek V4.1 Flash</span><span class="cat">中文/代码</span></div><p>开源可本地部署；联网搜索、文件、链接阅读、OCR、语音能力已全部 API 化</p><span class="pr">缓存命中输入低至 $0.003/百万 Token</span></div><div class="card"><div class="hd"><span class="nm">Kimi K3</span><span class="cat">开源/长文</span></div><p>2.8 万亿参数 MoE 且开放权重（全球最大开源模型），100 万 Token 上下文 + 原生视觉，长程编码与 Agent 任务见长</p><span class="pr">开放权重 / 免费额度 + API 按量</span></div><div class="card"><di
+=== STYLES 1 blocks, total 3959 ===
+--- style#0 (3959B) ---
+body{margin:0;font:15px/1.7 -apple-system,"Segoe UI",Roboto,"Microsoft YaHei",sans-serif;color:var(--txt);
+.wrap{max-width:1080px;margin:0 auto;padding:0 22px 60px}
+.top{position:sticky;top:0;z-index:10;backdrop-filter:blur(18px);background:rgba(7,10,16,.75);border-bottom:1px solid var(--line)}
+.top-in{max-width:1080px;margin:0 auto;height:60px;display:flex;align-items:center;gap:16px;padding:0 22px}
+nav a{color:var(--txt2);font-size:13.5px;padding:7px 11px;border-radius:9px}
+nav a:hover{color:#fff;background:rgba(148,163,184,.1)}
+nav{margin-left:auto;display:flex;gap:2px;flex-wrap:wrap}
+.hero{padding:56px 0 28px;text-align:center}
+@media(max-width:640px){.stat{gap:16px}.card{padding:15px}.wrap{padding:0 16px 48px}.top-in{padding:0 14px;gap:8px}nav a{font-size:12.5px;padding:6px 8px}}
+
+
+########## select-ai/index.html ##########
+=== BODY START ===
+<body>
+<div class="top"><div class="top-in"><a class="brand" href="/ai-nav/"><span class="logo">✦</span>星籁 AI 导航</a>
+<nav><a href="/ai-nav/">AI 导航</a><a href="/ai-nav/studio/">AI 创作工坊</a><a href="/ai-nav/leadgen/">AI 获客</a><a href="/ai-nav/travel/">出行导航</a><a href="/ai-nav/select-ai/">智能选型</a><a href="/ai-nav/radar/">工具雷达</a></nav></div></div>
+<div class="wrap">
+<div class="hero"><div class="eyebrow">PLAN · EXECUTE · VERIFY</div>
+<h1>一句话，找到<span>该用的 AI 工具</span></h1>
+<p class="lead">说出你要做的事，自动给出「工具组合 + 执行步骤 + 验收标准 + 备选方案」，不花冤枉钱。</p></div>
+<div class="box">
+<textarea id="q" placeholder="例如：我要给淘宝店做 20 张商品主图，预算有限，需要能商用"></textarea>
+<div class="steps" id="steps"><div class="step on" data-s="0">① 拆解需求</div><div class="step" data-s="1">② 匹配工具</div><div class="step" data-s="2">③ 生成步骤</div><div class="step" data-s="3">④ 校验风险</div></div>
+<div class="row"><button class="btn" id="go">生成方案</button><span style="color:var(--txt3);font-size:12.5px">无需注册 · 结果可复制</span></div>
+<div class="chips" id="chips"></div>
+</div>
+<div class="out" id="out"></div>
+<p class="foot">方案由站内实测数据匹配生成，价格与功能以各工具官网为准。</p>
+</div>
+<footer><a href="../pricing/" style="color:var(--xl-accent)">套餐定价</a> · © 2026 星籁 AI 工具导航 · xinglaiai.com 版权所有 · 未经许可禁止镜像/采集/商业转载</footer>
+<script>
+var TOOLS={
+ chat:{name:"ChatGPT",cat:"对话",desc:"通用理解与改写，中文表达稳",url:"https://chatgpt.com",price:"免费额度 + Plus"},
+ doubao:{name:"豆包",cat:"对话",desc:"字节出品，中文口语化好，免费额度足",url:"https://www.doubao.com",price:"免费"},
+ claude:{name:"Claude",cat:"长文",desc:"长文档与代码阅读强，200K 上下文",url:"https://claude.ai",price:"Pro $20/月"},
+ kimi:{name:"Kimi",cat:"长文",desc:"中文长文本总结，网页/文件一次读完整本",url:"https://kimi.moonshot.cn",price:"免费"},
+ deepseek:{name:"DeepSeek",cat:"中文/代码",desc:"开源可本地部署，API 便宜",url:"https://www.deepseek.com",price:"免费 / API 低价"},
+ midjourney:{name:"Midjourney",cat:"图像",desc:"审美最强，电商主图出片率高",url:"https://www.midjourney.com",price:"$10/月起"},
+ jimeng:{name:"即梦 AI",cat:"图像/视频",desc:"国产，免费额度，适合电商与短视频",url:"https://jimeng.jianying.com",price:"免费额度"},
+ comfy:{name:"ComfyUI",cat:"图像",desc:"本地工作流，批量出图成本最低",url:"https://github.com/comfyanonymous/ComfyUI",price:"开源免费"},
+ kling:{name:"可灵 AI",cat:"视频",desc:"图生视频稳定，短视频素材首选",url:"https://klingai.kuaishou.com",price:"免费额度"},
+ sora:{name:"Sora 2",cat:"视频",desc:"文生视频带音效，分镜素材",url:"https://sora.com",price:"Plus 内含"},
+ jianying:{name:"剪映",cat:"视频剪辑",desc:"自动字幕 + 模板，成片快",url:"https://www.capcut.cn",price:"免费"},
+ cursor:{name:"Cursor",cat:"编程",desc:"AI 原生 IDE，多文件重构",url:"https://cursor.com",price:"免费 + $20/月"},
+ v0:{name:"v0 / Bolt",cat:"前端",desc:"一句话生成可部署页面",url:"https://v0.dev",price:"免费额度"},
+ notebook:{name
+=== STYLES 2 blocks, total 5798 ===
+--- style#0 (4602B) ---
+body{margin:0;font:15px/1.7 -apple-system,"Segoe UI",Roboto,"Microsoft YaHei",sans-serif;color:var(--txt);
+.wrap{max-width:920px;margin:0 auto;padding:0 22px 70px}
+.top{position:sticky;top:0;z-index:10;backdrop-filter:blur(18px);background:rgba(7,10,16,.78);border-bottom:1px solid var(--line)}
+.top-in{max-width:920px;margin:0 auto;height:60px;display:flex;align-items:center;gap:14px;padding:0 22px}
+nav{margin-left:auto;display:flex;gap:2px;flex-wrap:wrap}
+nav a{color:var(--txt2);font-size:13.5px;padding:7px 11px;border-radius:9px}
+nav a:hover{color:#fff;background:rgba(148,163,184,.1)}
+.hero{padding:52px 0 10px;text-align:center}
+@media(max-width:640px){.wrap{padding:0 16px 54px}.top-in{padding:0 14px}nav a{font-size:12.5px;padding:6px 8px}h1{font-size:26px}.steps .step{min-width:88px;font-size:11.5px}}
+--- style#1 (1196B) ---
+  .wrap{max-width:none;padding-left:32px;padding-right:32px}
+  .top-in{max-width:none;padding-left:32px;padding-right:32px}
+  .hero{max-width:1240px;margin-left:auto;margin-right:auto}
+  .hero .lead{max-width:72ch}
+  .top-in{flex-wrap:nowrap;gap:8px;padding:0 12px}
+  nav{flex:1 1 auto;min-width:0;margin-left:0;flex-wrap:nowrap;justify-content:flex-start;overflow-x:auto;overflow-y:hidden;scrollbar-width:none}
+  nav::-webkit-scrollbar{display:none}
+  nav a{white-space:nowrap;flex:0 0 auto;font-size:12.5px;padding:6px 8px;min-height:40px;display:inline-flex;align-items:center}
+
+
+########## store/index.html ##########
+=== BODY START ===
+<body>
+
+<div class="skeleton-page" id="loadingView">
+  <div class="loading"><div class="spinner"></div><div>正在打开商家主页…</div></div>
+</div>
+
+<div class="state-screen" id="stateView">
+  <div class="state-card">
+    <div class="state-icon" id="stateIcon">🏪</div>
+    <h1 id="stateTitle">页面打不开</h1>
+    <p id="stateDesc">请检查链接是否完整，或稍后重试。</p>
+    <a class="btn" id="stateBtn" href="https://xinglaiai.com/ai-nav/" style="display:inline-flex;align-items:center;justify-content:center;min-height:48px;border-radius:12px;background:#0e5c52;color:#fff;font-weight:700">打开星籁AI</a>
+  </div>
+</div>
+
+<main class="app" id="app">
+  <div class="wrap">
+
+    <section class="hero" aria-labelledby="storeName">
+      <div class="hero-top">
+        <div class="logo" id="storeLogo" aria-hidden="true">店</div>
+        <div class="hero-head">
+          <h1 id="storeName">商家主页</h1>
+          <div class="tags" id="storeTags"></div>
+        </div>
+      </div>
+      <p class="hero-intro" id="storeIntro"></p>
+      <div class="quick">
+        <a class="quick-btn primary" id="callBtn" href="tel:">
+          <span class="ico" aria-hidden="true">📞</span><span>一键拨号</span>
+        </a>
+        <a class="quick-btn" id="navBtn" href="#" target="_blank" rel="noopener">
+          <span class="ico" aria-hidden="true">🧭</span><span>导航到店</span>
+        </a>
+        <button class="quick-btn ghost" id="wechatBtn" type="button">
+          <span class="ico" aria-hidden="true">💬</span><span>加微信</span>
+        </button>
+      </div>
+      <div class="hero-foot">
+        <span class="status"><i class="dot" id="openDot"></i><span id="openText">营业时间以商家为准</span></span>
+        <button class="share" id="shareBtn" type="button">↗ 分享给朋友</button>
+      </div>
+    </section>
+
+    <div class="promo" id="promoBox" hidden>
+      <div class="pico" aria-hidden="true">🎁</div>
+      <div class="ptxt"><b>本店优惠</b><p id="promoText"></p></div>
+    </div>
+
+    <section class="section" aria-labelledby="svcTitle">
+      <div class="sec-head"><h2 id="svcTitle">服务与价格</h2><span class="sub" id="svcCount"></span></div>
+      <div id="serviceList"></div>
+    </section>
+
+    <section class="section" id="photoSection" aria-labelledby="photoTitle" hidden>
+      <div class="sec-head"><h2 id="photoTitle">门店实拍</h2><span class="sub">点击查看大图</span></div>
+      <div class="photos" id="photoGrid"></div>
+    </section>
+
+    <section class="section" aria-labelledby="infoTitle">
+      <div class="sec-head"><h2 id="infoTitle">联系与到店</h2><span class="sub">到店前建议先电话确认</span></div>
+      <div class="info-row">
+        <div class="info-ico" aria-hidden="true">
+=== STYLES 2 blocks, total 17196 ===
+--- style#0 (13591B) ---
+  html,body{margin:0;padding:0;overflow-x:hidden}
+  body{
+  .wrap{width:100%;max-width:var(--maxw);margin:0 auto;padding:0 14px}
+  .hero{position:relative;overflow:hidden;border-radius:26px;background:
+  .hero:after{content:"";position:absolute;right:-54px;top:-64px;width:190px;height:190px;border-radius:50%;
+  .hero-top{display:flex;align-items:center;gap:12px;min-width:0}
+  .hero-head{min-width:0;flex:1}
+  .hero h1{font-size:25px;line-height:1.25;margin:0;letter-spacing:.3px;overflow-wrap:anywhere}
+  .hero-intro{margin:13px 0 15px;font-size:14.5px;line-height:1.7;color:#e8e2d5;overflow-wrap:anywhere}
+  .hero-intro:empty{display:none}
+  .hero-foot{display:flex;align-items:center;justify-content:space-between;gap:10px;margin-top:12px;font-size:12px;color:#b9c5bf}
+  .info-body{min-width:0;flex:1}
+    .hero{padding:26px 24px 20px;border-radius:30px}
+    .hero h1{font-size:30px}
+--- style#1 (3605B) ---
+html[data-theme="light"] body{background:var(--bg)}
+html[data-theme="dark"] body{background:var(--bg)}
+html[data-theme="dark"] body{background:var(--bg);color:var(--ink)}
+
+
+########## index.html ##########
+=== BODY START ===
+<body>
+<header class="top">
+  <div class="wrap top-in">
+    <div class="logo"><span class="mark">✦</span><div>星籁 AI 导航<small>AI TOOLS · TUTORIALS</small></div></div>
+    <nav class="top-nav" id="nav"></nav>
+  </div>
+</header>
+
+<main class="wrap" id="app"></main>
+
+<footer>
+  <div class="wrap">
+    <div class="links">
+      <a href="#/tools">工具库</a><a href="#/articles">全部教程</a><a href="radar/">工具雷达</a><a href="select-ai/">智能选型</a><a href="studio/">AI 创作工坊</a><a href="leadgen/">AI 获客</a><a href="travel/">出行导航</a><a href="#/about">关于</a>
+      <a href="chat/index.html">对话AI</a><a href="image/index.html">图像生成</a><a href="code/index.html">编程助手</a><a href="write/index.html">写作文案</a><a href="video/index.html">视频音频</a><a href="biz/index.html">商业效率</a><a href="util/index.html">实用工具</a>
+      <a href="t/errors/index.html">报错解决</a><a href="t/pricing/index.html">价格</a><a href="t/params/index.html">参数</a><a href="t/compare/index.html">对比</a><a href="t/howto/index.html">上手</a><a href="pricing/index.html">套餐定价</a><a href="pricing/tools.html">价格对比</a><a href="glossary/index.html">术语表</a><a href="prompts/index.html">提示词库</a><a href="selector/index.html">工具选择器</a><a href="vs/index.html">工具对比</a><a href="faq/index.html">常见问题</a><a href="privacy.html">隐私政策</a><a href="sitemap.xml">站点地图</a>
+    </div>
+    <div>© <span id="year"></span> 星籁 AI 工具导航 · xinglaiai.com 版权所有 · 未经书面许可，禁止镜像、采集与商业转载 · 工具价格与功能以官方页面为准。</div>
+  </div>
+</footer>
+
+<script>
+/* ---------------- 数据 ---------------- */
+const CATS = [
+  {id:'chat', name:'对话AI'},
+  {id:'image',name:'图像生成'},
+  {id:'code', name:'编程助手'},
+  {id:'write',name:'写作文案'},
+  {id:'video',name:'视频音频'},
+  {id:'biz',  name:'商业效率'},
+  {id:'util', name:'实用工具'}
+];
+
+const TOOLS = [{"c":"chat","n":"ChatGPT","d":"GPT-5 通用对话，语音模式练口语、看图解题都稳","u":"https://chatgpt.com","s":"chatgpt"},{"c":"chat","n":"Claude","d":"长文档与代码阅读强，200K 上下文适合合同、论文","u":"https://claude.ai","s":"claude"},{"c":"chat","n":"DeepSeek","d":"开源权重可本地部署，推理与中文表达均衡","u":"https://chat.deepseek.com","s":"deepseek"},{"c":"chat","n":"Kimi","d":"中文长文本总结，网页/文件一次读完整本","u":"https://kimi.moonshot.cn","s":"kimi"},{"c":"chat","n":"豆包","d":"字节系对话与语音，中文口语化程度高","u":"https://www.doubao.com","s":"doubao"},{"c":"chat","n":"通义千问","d":"阿里 Qwen 系列，函数调用与文档解析好用","u":"https://tongyi.aliyun.com","s":"qwen"},{"c":"image","n":"Midjourney","d":"v7 出图审美天花板，--cref 锁角色一致性","u":"https://www.midjourney.com","s":"midjourney"},{"c":"image","n":"Stable Diffusion","d":"本地开源，ControlNet/LoRA 生态最全","u":"https://stability.ai","s":"stable-diffusion"},{"c":"image","n":"Flux.1","d":"开源模型，dev 版 12B，量化后可跑 8G 显存","u":"https://blackforest
+=== STYLES 1 blocks, total 17827 ===
+--- style#0 (17827B) ---
+html,body{margin:0;padding:0}
+body{
+.wrap{max-width:var(--max);margin:0 auto;padding:0 20px}
+.top-in{display:flex;align-items:center;gap:18px;height:64px}
+nav.top-nav{margin-left:auto;display:flex;gap:4px;flex-wrap:wrap}
+nav.top-nav button{background:transparent;border:0;color:var(--txt2);font:inherit;font-size:13.5px;padding:8px 12px;border-radius:9px;cursor:pointer}
+nav.top-nav button:hover{background:rgba(120,180,255,.08);color:var(--txt)}
+nav.top-nav button.on{background:rgba(90,209,255,.12);color:var(--cyan)}
+nav.top-nav a.nav-ext{color:var(--txt2);font-size:13.5px;padding:8px 12px;border-radius:9px;text-decoration:none}
+nav.top-nav a.nav-ext:hover{background:rgba(120,180,255,.08);color:var(--txt)}
+main{padding:34px 0 70px}
+.hero{margin-bottom:26px}
+  nav.top-nav{margin-left:0;width:100%}
+body{
+.wrap,.top-in{position:relative;z-index:1}
+.top{background:rgba(7,10,16,.72);border-bottom:1px solid var(--line);backdrop-filter:blur(18px) saturate(140%)}
+.top-in{height:62px;gap:18px}
+.top a{color:var(--txt2);font-size:13.5px;padding:8px 12px;border-radius:10px;transition:.18s}
+.top a:hover{color:var(--txt);background:rgba(148,163,184,.10)}
+.top .btn,.top .nav-cta{background:linear-gradient(135deg,var(--cyan),#6366f1);color:#04121c;font-weight:700;border-radius:10px;padding:8px 15px}
+.top .nav-cta:hover{filter:brightness(1.08)}
+.hero{padding:74px 0 40px;text-align:center}
+.hero h1{
+.hero h1 span{
+.hero .lead,.hero p.sub{max-width:720px;margin:0 auto;color:var(--txt2);font-size:16px;line-height:1.75}
+  .hero{padding:44px 0 24px}
+  .hero h1{font-size:31px;line-height:1.22}
+  .hero .lead,.hero p.sub{font-size:14.5px}
+  .top-in{height:56px;flex-wrap:nowrap;overflow-x:auto;overflow-y:hidden;gap:6px;padding:0 12px;
+  .top-in::-webkit-scrollbar{display:none}
+  .top a{padding:7px 11px;font-size:13px;white-space:nowrap;flex:0 0 auto}
+  .hero{padding:30px 0 18px}
+  .hero h1{font-size:27px;line-height:1.28;letter-spacing:-.015em;margin-bottom:12px}
+  .hero .lead,.hero p.sub{font-size:14px;line-height:1.7}
+  .top-in{gap:4px;padding:0 10px}
+  .top a{padding:6px 9px;font-size:12.5px}
+  .hero h1{font-size:25px;padding:0 10px}
+  .hero .lead{padding:0 12px}

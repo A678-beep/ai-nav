@@ -1,0 +1,160 @@
+
+===== studio/index.html len=358440 =====
+BODY: <body> <div class="top"><div class="top-in">  <a class="brand" href="/ai-nav/"><span class="logo">星</span>星籁 AI <span class="brand-sub">商家工作台</span></a>  <nav>   <a href="/ai-nav/">AI 导航</a>   <a href
+NAV COUNT=2
+--- nav#0 len=241 ---
+<nav>
+  <a href="/ai-nav/">AI 导航</a>
+  <a href="/ai-nav/studio/" class="on">短视频工作台</a>
+  <a href="/ai-nav/leadgen/">AI 获客</a>
+  <a href="/ai-nav/travel/">出行导航</a>
+  <a href="/ai-nav/ads/">广告位</a>
+  <a href="/ai-nav/about.html">关于</a>
+ </nav>
+--- nav#1 len=892 ---
+<nav class="wb-steps" id="wbSteps" aria-label="剪辑流程：6 步">
+  <button type="button" class="wb-step" data-step="1"><b>1</b><span><span>选行业</span><small id="wbStep1Hint">24 个模板</small></span></button>
+  <button type="button" class="wb-step" data-step="2"><b>2</b><span><span>素材库</span><small id="wbStep2Hint">本片 0 · 勾选 0</small></span></button>
+  <button type="button" class="wb-step" data-step="3"><b>3</b><span><span>创作方式</span><small id="wbStep3Hint">模板成片</small></span></button>
+  <button type="button" class="wb-step" data-step="4"><b>4</b><span><span>预览</span><small id="wbStep4Hint">等待生成</small></span></button>
+  <button type="button" class="wb-step" data-step="5"><b>5</b><span><span>修改</span><small id="wbStep5Hint">待生成</small></span></button>
+  <button type="button" class="wb-step" data-step="6"><b>6</b><span><span>导出</span><small id="wbStep6Hint">待成片</small></span></button>
+ </nav>
+CSS: <link rel="stylesheet" href="../assets/auth-nav.css">
+CSS: <link rel="stylesheet" href="../assets/theme-light.css">
+BODY CLASS/STYLE: <body>
+
+===== leadgen/index.html len=288670 =====
+BODY: <body> <div class="top"><div class="top-in">   <a class="brand" href="/ai-nav/"><span class="logo">✦</span>星籁 AI <span class="bs">商家获客</span></a>   <nav>     <a href="/ai-nav/">AI 导航</a>     <a href="
+NAV COUNT=1
+--- nav#0 len=299 ---
+<nav>
+    <a href="/ai-nav/">AI 导航</a>
+    <a href="/ai-nav/studio/">短视频工作台</a>
+    <a href="/ai-nav/leadgen/" class="on">AI 获客</a>
+    <a href="/ai-nav/geo/">🌍 GEO 推广</a>
+    <a href="/ai-nav/travel/">出行导航</a>
+    <a href="/ai-nav/select-ai/">智能选型</a>
+    <a href="/ai-nav/radar/">工具雷达</a>
+  </nav>
+CSS: <link rel="stylesheet" href="../assets/auth-nav.css">
+CSS: <link rel="stylesheet" href="../assets/theme-light.css">
+BODY CLASS/STYLE: <body>
+
+===== geo/index.html len=75588 =====
+BODY: <body>  <div class="top"><div class="top-in">   <a class="brand" href="../"><span class="logo">✦</span>星籁 AI <span class="bs">GEO 推广</span></a>   <nav aria-label="站内导航">     <a href="../">AI 导航</a>   
+NAV COUNT=1
+--- nav#0 len=295 ---
+<nav aria-label="站内导航">
+    <a href="../">AI 导航</a>
+    <a href="../studio/">短视频工作台</a>
+    <a href="../leadgen/">AI 获客</a>
+    <a href="./" class="on" aria-current="page">GEO 推广</a>
+    <a href="../travel/">出行导航</a>
+    <a href="../select-ai/">智能选型</a>
+    <a href="../radar/">工具雷达</a>
+  </nav>
+CSS: <link rel="stylesheet" href="../assets/theme-light.css">
+BODY CLASS/STYLE: <body>
+
+===== travel/index.html len=84342 =====
+BODY: <body> <div class="top"><div class="top-in"><a class="brand" href="/ai-nav/"><span class="logo">✦</span>星籁 AI 导航</a> <nav><a href="/ai-nav/">AI 导航</a><a href="/ai-nav/studio/">创作工坊</a><a href="/ai-nav
+NAV COUNT=1
+--- nav#0 len=233 ---
+<nav><a href="/ai-nav/">AI 导航</a><a href="/ai-nav/studio/">创作工坊</a><a href="/ai-nav/leadgen/">AI 获客</a><a href="/ai-nav/travel/" aria-current="page">出行秘书</a><a href="/ai-nav/select-ai/">智能选型</a><a href="/ai-nav/radar/">工具雷达</a></nav>
+CSS: <link rel="stylesheet" href="../assets/auth-nav.css">
+CSS: <link rel="stylesheet" href="../assets/theme-light.css">
+BODY CLASS/STYLE: <body>
+
+===== account/index.html len=20012 =====
+BODY: <body> <div class="topbar">   <div class="wrap">     <a class="brand" href="../index.html"><span class="mark">✦</span><span>星籁 AI<small>商家中心</small></span></a>     <nav>       <a href="../index.html">
+NAV COUNT=1
+--- nav#0 len=217 ---
+<nav>
+      <a href="../index.html">AI 导航</a>
+      <a href="../studio/">AI 创作工坊</a>
+      <a href="../leadgen/">AI 获客</a>
+      <a href="../pricing/index.html">套餐定价</a>
+      <a class="on" href="./">账号</a>
+    </nav>
+CSS: <link rel="stylesheet" href="../assets/auth.css">
+CSS: <link rel="stylesheet" href="../assets/theme-light.css">
+BODY CLASS/STYLE: <body>
+
+===== account/dashboard.html len=58000 =====
+BODY: <body> <div class="topbar">   <div class="wrap">     <a class="brand" href="../index.html"><span class="mark">✦</span><span>星籁 AI<small>商家中心</small></span></a>     <nav>       <a href="../index.html">
+NAV COUNT=1
+--- nav#0 len=270 ---
+<nav>
+      <a href="../index.html">AI 导航</a>
+      <a href="../studio/">AI 创作工坊</a>
+      <a href="../leadgen/">AI 获客</a>
+      <a href="#storeCard">我的承接页</a>
+      <a href="../pricing/index.html">套餐定价</a>
+      <a class="on" href="./dashboard.html">个人中心</a>
+    </nav>
+CSS: <link rel="stylesheet" href="../assets/auth.css">
+CSS: <link rel="stylesheet" href="../assets/theme-light.css">
+BODY CLASS/STYLE: <body>
+
+===== pricing/index.html len=25213 =====
+BODY: <body> <div class="topbar">   <div class="wrap">     <a class="brand" href="../index.html"><span class="mark">✦</span><span>星籁 AI<small>年费套餐</small></span></a>     <nav>       <a href="../index.html">
+NAV COUNT=1
+--- nav#0 len=223 ---
+<nav>
+      <a href="../index.html">AI 导航</a>
+      <a href="../studio/">AI 创作工坊</a>
+      <a href="../leadgen/">AI 获客</a>
+      <a class="on" href="./">套餐定价</a>
+      <a href="../account/dashboard.html">个人中心</a>
+    </nav>
+CSS: <link rel="stylesheet" href="../assets/auth.css">
+CSS: <link rel="stylesheet" href="../assets/theme-light.css">
+BODY CLASS/STYLE: <body>
+
+===== store/index.html len=45514 =====
+BODY: <body>  <div class="skeleton-page" id="loadingView">   <div class="loading"><div class="spinner"></div><div>正在打开商家主页…</div></div> </div>  <div class="state-screen" id="stateView">   <div class="state-
+NAV COUNT=0
+CSS: <link rel="stylesheet" href="../assets/theme-light.css">
+BODY CLASS/STYLE: <body>
+
+===== admin/index.html len=37802 =====
+BODY: <body> <div class="topbar">   <div class="wrap">     <a class="brand" href="../index.html"><span class="mark">✦</span><span>星籁 AI<small>管理后台</small></span></a>     <nav>       <a href="../index.html">
+NAV COUNT=1
+--- nav#0 len=219 ---
+<nav>
+      <a href="../index.html">AI 导航</a>
+      <a href="../studio/">AI 创作工坊</a>
+      <a href="../leadgen/">AI 获客</a>
+      <a href="../pricing/index.html">套餐定价</a>
+      <a class="on" href="./">管理后台</a>
+    </nav>
+CSS: <link rel="stylesheet" href="../assets/auth.css">
+CSS: <link rel="stylesheet" href="../assets/theme-light.css">
+BODY CLASS/STYLE: <body>
+
+===== radar/index.html len=11291 =====
+BODY: <body> <div class="top"><div class="top-in"><a class="brand" href="/ai-nav/"><span class="logo">✦</span>星籁 AI 导航</a> <nav><a href="/ai-nav/">工具库</a><a href="/ai-nav/articles">教程</a><a href="/ai-nav/pr
+NAV COUNT=1
+--- nav#0 len=136 ---
+<nav><a href="/ai-nav/">工具库</a><a href="/ai-nav/articles">教程</a><a href="/ai-nav/pricing/">价格</a><a href="/ai-nav/radar/">工具雷达</a></nav>
+CSS: <link rel="stylesheet" href="../assets/theme-light.css">
+BODY CLASS/STYLE: <body>
+
+===== select-ai/index.html len=16524 =====
+BODY: <body> <div class="top"><div class="top-in"><a class="brand" href="/ai-nav/"><span class="logo">✦</span>星籁 AI 导航</a> <nav><a href="/ai-nav/">AI 导航</a><a href="/ai-nav/studio/">AI 创作工坊</a><a href="/ai-
+NAV COUNT=1
+--- nav#0 len=216 ---
+<nav><a href="/ai-nav/">AI 导航</a><a href="/ai-nav/studio/">AI 创作工坊</a><a href="/ai-nav/leadgen/">AI 获客</a><a href="/ai-nav/travel/">出行导航</a><a href="/ai-nav/select-ai/">智能选型</a><a href="/ai-nav/radar/">工具雷达</a></nav>
+CSS: <link rel="stylesheet" href="../assets/auth-nav.css">
+CSS: <link rel="stylesheet" href="../assets/theme-light.css">
+BODY CLASS/STYLE: <body>
+
+===== index.html len=123007 =====
+BODY: <body> <header class="top">   <div class="wrap top-in">     <div class="logo"><span class="mark">✦</span><div>星籁 AI 导航<small>AI TOOLS · TUTORIALS</small></div></div>     <nav class="top-nav" id="nav">
+NAV COUNT=1
+--- nav#0 len=36 ---
+<nav class="top-nav" id="nav"></nav>
+CSS: <link rel="stylesheet" href="assets/auth.css">
+CSS: <link rel="stylesheet" href="assets/theme-light.css">
+BODY CLASS/STYLE: <body>
