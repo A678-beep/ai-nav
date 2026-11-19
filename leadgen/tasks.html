@@ -47,6 +47,10 @@ button{font-family:inherit}
 .tk-head h1{font-size:27px;line-height:1.2;margin:0 0 8px;letter-spacing:-.4px}
 .tk-head h1 span{background:linear-gradient(90deg,var(--cyan),var(--violet));-webkit-background-clip:text;background-clip:text;
   -webkit-text-fill-color:transparent}
+/* theme-light.css 会给全站 h1 span 覆盖 background 而不带 background-clip，导致浅色主题下标题变成色块；
+   这里用更高优先级显式还原为纯色文字 */
+html[data-theme="light"] body .tk-head h1 span{background:none;-webkit-background-clip:border-box;background-clip:border-box;
+  -webkit-text-fill-color:currentColor;color:#075985}
 .tk-sub{margin:0;max-width:760px;color:var(--txt2);font-size:13px}
 .tk-head-actions{display:flex;align-items:center;gap:10px;flex-wrap:wrap}
 .tk-pill{display:inline-flex;align-items:center;gap:6px;font-size:12px;color:var(--txt2);

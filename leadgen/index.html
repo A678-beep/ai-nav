@@ -2527,7 +2527,7 @@ html[data-theme="light"] .xpr-cost b{color:#075985}
       nickname: nick,
       platform: o.platform || (S.config.platforms[0] || '抖音'),
       text: txt,
-      title: o.title || '',
+      title: o.title || String(txt || '').split('。')[0].slice(0, 120),
       snippet: o.snippet || '',
       time: o.time || o.published_at || o.created_at || nowText(),
       created_at: o.created_at || o.time || '',
