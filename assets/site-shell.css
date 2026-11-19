@@ -606,6 +606,12 @@ html.xl-shell .topbar { display: none !important; }
   .xl-crumb { font-size: 12px; }
 }
 
+/* 商家承接页：底部固定留资条避开左侧栏 */
+html.xl-shell .leadbar { left: var(--xl-sbw) !important; }
+@media (max-width: 1099.98px) {
+  html.xl-shell .leadbar { left: 0 !important; }
+}
+
 @media (prefers-reduced-motion: reduce) {
   .xl-sb, .xl-topbar, .xl-sb-overlay, html.xl-shell body, .xl-sb-collapse svg, .xl-topbar-collapse svg {
     transition: none !important;
