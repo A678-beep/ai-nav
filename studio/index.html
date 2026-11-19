@@ -1069,6 +1069,167 @@ body.ed-open{overflow:hidden}
 }
 
 </style>
+<style id="wbDictCss">
+/* WB_DICT_V2: 行业字典 v2 选择界面（分组 chips / 获客信息卡 / 时长锁定 / 自定义 diff / 三产线分叉） */
+.dict-chips{display:flex;flex-wrap:wrap;gap:8px;overflow:visible;padding:2px 0 10px;margin:0;min-width:0;scrollbar-width:thin;-webkit-overflow-scrolling:touch}
+.dict-chips::-webkit-scrollbar{height:6px}
+.dict-chips::-webkit-scrollbar-thumb{background:rgba(56,189,248,.45);border-radius:6px}
+.dict-chip{flex:0 0 auto;display:inline-flex;align-items:center;gap:6px;min-height:38px;padding:0 13px;border-radius:999px;border:1px solid var(--line);background:rgba(9,14,24,.66);color:var(--txt2);font-size:13px;font-weight:650;cursor:pointer;font-family:inherit;white-space:nowrap;scroll-snap-align:start;transition:.15s}
+.dict-chip:hover{border-color:rgba(56,189,248,.5);color:var(--txt)}
+.dict-chip em{font-style:normal;font-size:11px;color:#7dd3fc;background:rgba(56,189,248,.12);border:1px solid rgba(56,189,248,.18);border-radius:999px;padding:1px 7px;font-variant-numeric:tabular-nums}
+.dict-chip.on{border-color:rgba(56,189,248,.75);background:rgba(56,189,248,.16);color:#e0f2fe;box-shadow:0 0 0 1px rgba(56,189,248,.18)}
+.dict-chip.on em{background:#38bdf8;color:#04121c;border-color:#38bdf8}
+.dict-chip-add{border-style:dashed;border-color:rgba(139,92,246,.55);background:rgba(139,92,246,.11);color:#ddd6fe}
+.dict-chip-add:hover{border-color:rgba(139,92,246,.9);background:rgba(139,92,246,.2)}
+.dict-notice{margin:0 0 10px;font-size:12.5px;line-height:1.6;color:#bae6fd;background:rgba(56,189,248,.08);border:1px solid rgba(56,189,248,.25);border-radius:10px;padding:8px 11px}
+.dict-notice.bad{color:#fecaca;background:rgba(248,113,113,.08);border-color:rgba(248,113,113,.28)}
+.dict-card{padding:14px 14px 12px;min-height:212px;gap:5px;overflow:hidden}
+.dict-badge{position:absolute;left:11px;top:11px;z-index:1;display:inline-flex;align-items:center;gap:3px;max-width:calc(100% - 52px);padding:2px 8px;border-radius:999px;border:1px solid rgba(56,189,248,.3);background:rgba(56,189,248,.12);color:#bae6fd;font-size:10.5px;font-weight:700;line-height:1.5;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.dict-badge.g-instant{border-color:rgba(251,146,60,.45);background:rgba(251,146,60,.14);color:#fed7aa}
+.dict-badge.g-appointment{border-color:rgba(56,189,248,.42);background:rgba(56,189,248,.13);color:#bae6fd}
+.dict-badge.g-highend{border-color:rgba(52,211,153,.4);background:rgba(52,211,153,.12);color:#a7f3d0}
+.dict-badge.g-trust{border-color:rgba(244,114,182,.4);background:rgba(244,114,182,.12);color:#fbcfe8}
+.dict-badge.custom{border-color:rgba(139,92,246,.55);background:rgba(139,92,246,.16);color:#ddd6fe}
+.dict-card .tpl-emoji{margin-top:17px;font-size:23px;line-height:1.1}
+.dict-card .tpl-name{font-size:16px;line-height:1.35}
+.dict-card .tpl-ind{font-size:11px;line-height:1.45;color:#7dd3fc;display:-webkit-box;-webkit-line-clamp:1;-webkit-box-orient:vertical;overflow:hidden}
+.dict-lead{display:flex;flex-direction:column;gap:3px;margin-top:auto;padding-top:8px;border-top:1px dashed rgba(148,163,184,.16);font-size:11.5px;line-height:1.5;color:var(--txt2);min-width:0}
+.dict-lead>span{display:block;overflow-wrap:anywhere}
+.dict-lead b{color:#7dd3fc;font-weight:700}
+.dict-lead .dict-hook b{color:#ddd6fe}
+.dict-card .tpl-meta{margin-top:2px;padding-top:3px}
+.dict-card .tpl-meta i{font-size:10.5px;padding:2px 7px}
+.dict-empty{grid-column:1/-1;border:1px dashed rgba(148,163,184,.28);border-radius:14px;padding:26px 18px;text-align:center;color:var(--txt3);font-size:13px;line-height:1.7;background:rgba(9,14,24,.4)}
+.dict-empty b{display:block;color:var(--txt2);font-size:15px;margin-bottom:6px}
+.dict-lock{margin-top:13px;border:1px solid rgba(52,211,153,.28);border-radius:12px;background:linear-gradient(135deg,rgba(52,211,153,.08),rgba(56,189,248,.05));padding:10px 13px;min-width:0}
+.dict-lock-main{display:flex;align-items:center;gap:8px;flex-wrap:wrap;font-size:13.5px;color:var(--txt2)}
+.dict-lock-main b{color:#a7f3d0;font-size:15px;font-weight:800}
+.dict-lock-sep{color:var(--txt3)}
+.dict-lock-tag{display:inline-flex;align-items:center;gap:4px;font-size:10.5px;color:#6ee7b7;border:1px solid rgba(52,211,153,.35);background:rgba(52,211,153,.1);border-radius:999px;padding:1px 8px;white-space:nowrap}
+.dict-lock-tag.changed{color:#fcd34d;border-color:rgba(251,191,36,.4);background:rgba(251,191,36,.1)}
+.dict-basis{margin-top:4px;font-size:11.5px;line-height:1.55;color:var(--txt3);overflow-wrap:anywhere}
+.dict-adv{margin-top:10px;border:1px solid var(--line);border-radius:12px;background:rgba(9,14,24,.4);overflow:hidden}
+.dict-adv summary{cursor:pointer;list-style:none;display:flex;align-items:center;gap:7px;min-height:44px;padding:9px 13px;font-size:13px;color:#c8d6e8;font-weight:650}
+.dict-adv summary::-webkit-details-marker{display:none}
+.dict-adv summary:before{content:"▸";color:#7dd3fc;transition:.15s;font-size:12px}
+.dict-adv[open] summary:before{transform:rotate(90deg)}
+.dict-adv summary small{margin-left:auto;font-size:11px;color:var(--txt3);font-weight:400;text-align:right;min-width:0}
+.dict-adv-body{padding:2px 13px 13px;display:flex;flex-direction:column;gap:10px;min-width:0}
+.dict-adv .dur-row{margin-top:2px;padding-top:8px;border-top:0}
+.dict-field{display:flex;flex-direction:column;gap:4px;font-size:11.5px;color:var(--txt3);font-weight:600;min-width:0}
+.dict-field select,.dict-field input,.dict-field textarea{background:rgba(7,12,21,.94);border:1px solid rgba(148,163,184,.28);border-radius:9px;color:var(--txt);padding:0 10px;min-height:40px;font-size:13px;font-family:inherit;min-width:0;width:100%}
+.dict-field textarea{min-height:64px;padding:9px 10px;resize:vertical;line-height:1.55}
+.dict-field select:focus,.dict-field input:focus,.dict-field textarea:focus{outline:none;border-color:rgba(56,189,248,.65)}
+.dict-adv-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:9px}
+.dict-adv-sep{border-top:1px dashed rgba(148,163,184,.16);padding-top:9px}
+.dict-adv-title{font-size:12px;color:#bae6fd;font-weight:700;display:flex;align-items:center;gap:6px;flex-wrap:wrap}
+.dict-adv-title span{font-weight:400;color:var(--txt3);font-size:11px}
+.dict-adv-actions{display:flex;align-items:center;gap:8px;flex-wrap:wrap}
+.dict-adv-actions button,.dict-adv-actions a{min-height:40px;display:inline-flex;align-items:center;justify-content:center;gap:5px;padding:0 12px;border-radius:10px;border:1px solid rgba(148,163,184,.28);background:rgba(7,12,21,.7);color:var(--txt2);font-size:12.5px;font-weight:600;cursor:pointer;font-family:inherit;text-decoration:none}
+.dict-adv-actions button:hover{border-color:rgba(56,189,248,.55);color:#dff3ff}
+.dict-snapline{margin-left:auto;display:flex;align-items:center;gap:6px;font-size:11.5px;color:var(--txt3);flex-wrap:wrap}
+.dict-snapline select{min-height:38px;background:rgba(7,12,21,.94);border:1px solid rgba(148,163,184,.28);border-radius:9px;color:var(--txt);font-size:12.5px;padding:0 8px}
+.dict-fork{margin-top:14px;border:1px solid rgba(52,211,153,.34);border-radius:14px;background:linear-gradient(135deg,rgba(52,211,153,.09),rgba(139,92,246,.08));padding:12px 13px 13px}
+.dict-fork-head{display:flex;align-items:baseline;gap:8px;flex-wrap:wrap;margin-bottom:9px}
+.dict-fork-head b{font-size:14px;color:#a7f3d0}
+.dict-fork-head span{font-size:11.5px;color:var(--txt3)}
+.dict-fork-btns{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:8px}
+.dict-fork-btn{position:relative;display:flex;flex-direction:column;align-items:flex-start;gap:2px;min-height:64px;padding:10px 13px;border-radius:11px;border:1px solid rgba(56,189,248,.3);background:rgba(9,14,24,.66);color:var(--txt);cursor:pointer;font-family:inherit;text-align:left;text-decoration:none;min-width:0;transition:.15s}
+.dict-fork-btn:hover{border-color:rgba(56,189,248,.7);background:rgba(56,189,248,.11);transform:translateY(-1px)}
+.dict-fork-btn b{font-size:13px;line-height:1.4;overflow-wrap:anywhere}
+.dict-fork-btn span{font-size:11px;color:var(--txt3);line-height:1.4;overflow-wrap:anywhere}
+.dict-fork-btn em{position:absolute;right:10px;bottom:8px;font-style:normal;color:#7dd3fc;font-size:15px;font-weight:800}
+.dict-fork-btn[data-fork="geo"]{border-color:rgba(139,92,246,.35)}
+.dict-fork-btn[data-fork="geo"] em{color:#c4b5fd}
+.dict-fork-btn[data-fork="leadgen"]{border-color:rgba(52,211,153,.35)}
+.dict-fork-btn[data-fork="leadgen"] em{color:#6ee7b7}
+.dict-modal-box{width:min(680px,100%)}
+.dict-modal-sub{margin:0 0 12px;font-size:12.5px;color:var(--txt3);line-height:1.7}
+.dict-form-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.dict-form-grid .dict-field.full{grid-column:1/-1}
+.dict-form-status{margin-top:10px;font-size:12.5px;line-height:1.6;color:#bae6fd;background:rgba(56,189,248,.08);border:1px solid rgba(56,189,248,.25);border-radius:10px;padding:8px 11px;min-height:38px}
+.dict-form-status[hidden]{display:none}
+.dict-form-status.bad{color:#fecaca;background:rgba(248,113,113,.08);border-color:rgba(248,113,113,.28)}
+.dict-form-status.ok{color:#a7f3d0;background:rgba(52,211,153,.08);border-color:rgba(52,211,153,.28)}
+.dict-match-head{display:flex;align-items:flex-start;gap:10px;flex-wrap:wrap;border:1px solid rgba(52,211,153,.3);border-radius:12px;background:rgba(52,211,153,.07);padding:11px 13px}
+.dict-match-head .dict-match-ico{font-size:22px;line-height:1.2}
+.dict-match-head b{display:block;font-size:15px;color:#a7f3d0;line-height:1.5}
+.dict-match-head span{display:block;font-size:11.5px;color:var(--txt3);line-height:1.55;margin-top:2px}
+.dict-tier{margin-left:auto;flex:0 0 auto;font-size:10.5px;border-radius:999px;padding:2px 9px;border:1px solid rgba(52,211,153,.4);background:rgba(52,211,153,.12);color:#a7f3d0;white-space:nowrap}
+.dict-tier.confirm{border-color:rgba(251,191,36,.45);background:rgba(251,191,36,.12);color:#fde68a}
+.dict-tier.ask{border-color:rgba(248,113,113,.45);background:rgba(248,113,113,.12);color:#fecaca}
+.dict-section-title{margin:13px 0 6px;font-size:12px;font-weight:700;color:#bae6fd;display:flex;align-items:center;gap:6px;flex-wrap:wrap}
+.dict-section-title span{font-weight:400;color:var(--txt3);font-size:11px}
+.dict-diff{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:6px}
+.dict-diff li{display:flex;align-items:center;gap:7px;flex-wrap:wrap;font-size:12.5px;line-height:1.5;background:rgba(9,14,24,.55);border:1px solid var(--line);border-radius:9px;padding:7px 10px;color:var(--txt2)}
+.dict-diff .k{font-weight:700;color:#dbe7f6;flex:0 0 auto}
+.dict-diff .from{color:var(--txt3);text-decoration:line-through}
+.dict-diff .to{color:#6ee7b7;font-weight:700}
+.dict-diff .why{margin-left:auto;font-size:11px;color:var(--txt3)}
+.dict-reasons{margin:0;padding-left:18px;color:var(--txt2);font-size:12px;line-height:1.7}
+.dict-reasons li{margin:2px 0}
+.dict-candidates{display:flex;gap:7px;flex-wrap:wrap;margin-top:6px}
+.dict-candidates button{min-height:36px;padding:0 11px;border-radius:9px;border:1px solid rgba(148,163,184,.3);background:rgba(9,14,24,.6);color:var(--txt2);font-size:12px;cursor:pointer;font-family:inherit}
+.dict-candidates button.on{border-color:rgba(56,189,248,.7);color:#dff3ff;background:rgba(56,189,248,.15)}
+.dict-ask-list{display:flex;flex-direction:column;gap:9px}
+.dict-ask-q{font-size:13px;color:var(--txt);line-height:1.5;font-weight:600}
+.dict-ask-q i{font-style:normal;color:#7dd3fc;font-size:11px;margin-right:5px}
+.dict-modal-actions{display:flex;gap:8px;flex-wrap:wrap;justify-content:flex-end;margin-top:14px}
+.dict-modal-actions button{min-height:44px;border-radius:11px;padding:0 15px;font-size:13.5px;font-weight:650;cursor:pointer;font-family:inherit;border:1px solid rgba(148,163,184,.3);background:rgba(9,14,24,.7);color:var(--txt2)}
+.dict-modal-actions button.primary{border-color:rgba(56,189,248,.65);background:linear-gradient(135deg,rgba(56,189,248,.35),rgba(139,92,246,.35));color:#f0f9ff}
+.dict-modal-actions button.danger{border-color:rgba(248,113,113,.4);color:#fecaca}
+.dict-modal-actions button:hover{filter:brightness(1.08)}
+.dict-modal-actions button[disabled]{opacity:.5;cursor:progress}
+.dict-edit-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(160px,1fr));gap:9px;margin-top:8px}
+@media (max-width:760px){
+  .dict-chips{flex-wrap:nowrap;overflow-x:auto;overflow-y:hidden;scroll-snap-type:x proximity;padding-bottom:8px}
+  .dict-chip{min-height:42px;font-size:12.5px;padding:0 12px}
+  .dict-card{min-height:196px}
+  .dict-fork-btns{grid-template-columns:1fr}
+  .dict-form-grid{grid-template-columns:1fr}
+  .dict-form-grid .dict-field.full{grid-column:auto}
+  .dict-snapline{margin-left:0;width:100%}
+  .dict-adv summary small{display:none}
+  .dict-modal-box{max-height:92vh;padding:16px}
+}
+@media (max-width:420px){
+  .dict-lock-main{font-size:12.5px;gap:6px}
+  .dict-lock-main b{font-size:14px}
+  .dict-adv-grid{grid-template-columns:1fr}
+  .dict-edit-grid{grid-template-columns:1fr}
+}
+html[data-theme="light"] .dict-chip{background:#fff;color:#334155;border-color:rgba(15,23,42,.14)}
+html[data-theme="light"] .dict-chip:hover{border-color:rgba(56,189,248,.55);color:#0f1b2d}
+html[data-theme="light"] .dict-chip.on{background:rgba(56,189,248,.16);color:#004e7d;border-color:rgba(56,189,248,.65)}
+html[data-theme="light"] .dict-chip.on em{background:#0284c7;color:#fff;border-color:#0284c7}
+html[data-theme="light"] .dict-chip-add{background:rgba(139,92,246,.08);color:#5b21b6;border-color:rgba(139,92,246,.4)}
+html[data-theme="light"] .dict-card{background:#fff}
+html[data-theme="light"] .dict-lead{color:#3b4a5f;border-top-color:rgba(15,23,42,.12)}
+html[data-theme="light"] .dict-lead b{color:#0369a1}
+html[data-theme="light"] .dict-lead .dict-hook b{color:#6d28d9}
+html[data-theme="light"] .dict-empty{background:rgba(255,255,255,.6);color:#55637a}
+html[data-theme="light"] .dict-lock{background:linear-gradient(135deg,rgba(52,211,153,.1),rgba(56,189,248,.05))}
+html[data-theme="light"] .dict-lock-main{color:#3b4a5f}
+html[data-theme="light"] .dict-lock-main b{color:#047857}
+html[data-theme="light"] .dict-lock-tag{color:#047857;background:rgba(52,211,153,.12)}
+html[data-theme="light"] .dict-basis{color:#55637a}
+html[data-theme="light"] .dict-adv{background:rgba(255,255,255,.65)}
+html[data-theme="light"] .dict-adv summary{color:#1e3a5f}
+html[data-theme="light"] .dict-field{color:#55637a}
+html[data-theme="light"] .dict-field select,html[data-theme="light"] .dict-field input,html[data-theme="light"] .dict-field textarea{background:#fff;color:#0f1b2d;border-color:rgba(15,23,42,.18)}
+html[data-theme="light"] .dict-snapline select{background:#fff;color:#0f1b2d}
+html[data-theme="light"] .dict-adv-actions button,html[data-theme="light"] .dict-adv-actions a{background:#fff;color:#3b4a5f}
+html[data-theme="light"] .dict-fork{background:linear-gradient(135deg,rgba(52,211,153,.1),rgba(139,92,246,.07))}
+html[data-theme="light"] .dict-fork-head b{color:#047857}
+html[data-theme="light"] .dict-fork-btn{background:#fff;color:#0f1b2d;border-color:rgba(56,189,248,.35)}
+html[data-theme="light"] .dict-fork-btn span{color:#55637a}
+html[data-theme="light"] .dict-diff li{background:#f8fafc;color:#3b4a5f}
+html[data-theme="light"] .dict-diff .k{color:#0f1b2d}
+html[data-theme="light"] .dict-modal-actions button{background:#fff;color:#3b4a5f}
+html[data-theme="light"] .dict-candidates button{background:#fff;color:#3b4a5f}
+html[data-theme="light"] .dict-match-head b{color:#047857}
+html[data-theme="light"] .dict-form-status{color:#005079}
+</style>
 <style id="wb-theme-vars">:root{--xl-accent:#7dd3fc;--xl-txt2:#56657a;--xl-ok:#6ee7b7}</style>
 <link rel="stylesheet" href="../assets/theme-light.css">
 <script defer src="../assets/theme.js"></script>
@@ -1153,32 +1314,73 @@ body.ed-open{overflow:hidden}
   <main class="wb-main">
    <section class="wb-pane" data-step="1" id="wbPane1">
     <section class="sec" id="secTpl">
-  <div class="sec-head"><span class="sec-ico">🎞️</span><div><h2>① 选行业</h2><p class="sec-sub">24 个行业模板决定文案套路、节奏、字幕和默认配乐；选不到就用「其他 / 自定义」，AI 会推断配置并记住。</p></div><span class="sec-hint" id="tplHint">已选：门店开业引流</span></div>
-  <div class="wb-ind-row" aria-label="行业选择与自定义">
-  <label>行业快捷选择
-    <select id="indSel" aria-label="选择行业"><option value="">选择行业…</option></select>
-  </label>
-  <div class="wb-ind-custom" id="indCustomWrap" hidden>
-    <label>自定义行业名
-      <input type="text" id="indCustomName" maxlength="20" placeholder="例如：宠物殡葬" autocomplete="off">
-    </label>
-    <button type="button" class="btn-ai small" id="indInferBtn">✨ AI 推断配置</button>
-    <button type="button" class="btn-line" id="indClearBtn">清除</button>
+  <div class="sec-head"><span class="sec-ico">🎞️</span><div><h2>① 选行业</h2><p class="sec-sub">行业字典 v2：24 个行业按「即时刚需 / 到店预约 / 高客单 / 合规敏感」分组，每张卡带客户到店节奏与获客钩子。选不到就用「＋ 其他 / 自定义」，AI 会给出匹配依据和配置差异。</p></div><span class="sec-hint" id="tplHint">已选：汽修洗车</span></div>
+  <div class="dict-chips" id="dictChips" role="tablist" aria-label="行业分组筛选">
+   <button type="button" class="dict-chip on" data-group="all" role="tab" aria-selected="true">全部 <em>24</em></button>
+   <button type="button" class="dict-chip" data-group="instant" role="tab" aria-selected="false">🔥 即时刚需 <em>6</em></button>
+   <button type="button" class="dict-chip" data-group="appointment" role="tab" aria-selected="false">⏱ 到店预约 <em>6</em></button>
+   <button type="button" class="dict-chip" data-group="highend" role="tab" aria-selected="false">🧭 高客单 <em>8</em></button>
+   <button type="button" class="dict-chip" data-group="trust" role="tab" aria-selected="false">⚖️ 合规敏感 <em>4</em></button>
+   <button type="button" class="dict-chip" data-group="custom" role="tab" aria-selected="false">＋ 我的自定义 <em>0</em></button>
+   <button type="button" class="dict-chip dict-chip-add" id="dictOpenCustom" aria-label="新建自定义行业">＋ 其他 / 自定义</button>
   </div>
-  <button type="button" class="btn-line" id="indOpenCustom">＋ 其他 / 自定义</button>
-</div>
-<div class="wb-note" id="indInferStatus" hidden></div>
-<div class="wb-infer" id="indInferResult" hidden></div>
-<div class="tpl-scroll" id="tplScroll">
-  <div class="tpl-toolbar" aria-label="模板滚动控制">
-    <span class="tpl-scroll-tip">滚轮或 ↑↓ 翻看 · 点卡片选中</span>
-    <span class="tpl-count" aria-live="polite" title="当前可见的第几个模板 / 共 24 个"><b id="tplPos">1</b>/<span id="tplTotal">24</span></span>
-    <button type="button" class="tpl-nav" id="tplUp" aria-label="模板列表向上滚动" title="向上翻">↑</button>
-    <button type="button" class="tpl-nav" id="tplDown" aria-label="模板列表向下滚动" title="向下翻">↓</button>
+  <div class="dict-notice" id="dictNotice" hidden></div>
+  <div class="tpl-scroll" id="tplScroll">
+    <div class="tpl-toolbar" aria-label="模板滚动控制">
+      <span class="tpl-scroll-tip">滚轮或 ↑↓ 翻看 · 点卡片选中 · 分组筛选只影响当前网格</span>
+      <span class="tpl-count" aria-live="polite" title="当前分组第几个行业 / 当前分组总数"><b id="tplPos">1</b>/<span id="tplTotal">24</span></span>
+      <button type="button" class="tpl-nav" id="tplUp" aria-label="模板列表向上滚动" title="向上翻">↑</button>
+      <button type="button" class="tpl-nav" id="tplDown" aria-label="模板列表向下滚动" title="向下翻">↓</button>
+    </div>
+    <div class="tpl-grid" id="tplGrid" tabindex="0" role="group" aria-label="行业字典 v2：24 个行业卡片，鼠标滚轮或键盘方向键 ↑↓ 浏览与切换"></div>
   </div>
-  <div class="tpl-grid" id="tplGrid" tabindex="0" role="group" aria-label="24 个行业模板，鼠标滚轮或键盘方向键 ↑↓ 浏览与切换"></div>
-</div>
-  <div class="dur-row"><span>视频时长</span><div class="dur-chips" id="durChips"></div><span class="dur-note">按模板推荐，可自己改</span></div>
+  <div class="dict-lock" id="dictLock" hidden>
+    <div class="dict-lock-main">
+      <span>🎬 视频时长 <b id="dictDurNum">20 秒</b></span><span class="dict-lock-sep">·</span>
+      <span>🎵 BGM <b id="dictBgmName">科技</b></span>
+      <span class="dict-lock-tag" id="dictLockTag">🔒 字典默认</span>
+    </div>
+    <div class="dict-basis" id="dictBasis"></div>
+  </div>
+  <details class="dict-adv" id="dictAdv">
+    <summary>⚙️ 高级设置 <small>时长 / BGM / 获客参数 / 表单字段</small></summary>
+    <div class="dict-adv-body">
+      <div class="dur-row"><span>视频时长</span><div class="dur-chips" id="durChips"></div><span class="dur-note" id="dictDurNote">默认按字典锁定</span></div>
+      <label class="dict-field">配乐风格（BGM）<select id="dictBgmSel" aria-label="配乐风格"><option value="">按字典默认</option><option>轻快</option><option>温暖</option><option>动感</option><option>大气</option><option>舒缓</option><option>科技</option></select></label>
+      <div id="dictCustomFields"></div>
+      <div class="dict-adv-actions">
+        <button type="button" id="dictResetBtn">↺ 恢复模板默认</button>
+        <span class="dict-snapline" id="dictSnapWrap" hidden>⧉ 从快照回滚<select id="dictSnapSel" aria-label="选择快照版本"></select><button type="button" id="dictRollbackBtn">回滚</button></span>
+      </div>
+    </div>
+  </details>
+  <div class="dict-fork" id="dictFork" hidden>
+    <div class="dict-fork-head"><b>下一步去哪？</b><span>同一个行业，三条产线共用一份配置</span></div>
+    <div class="dict-fork-btns">
+      <button type="button" class="dict-fork-btn" data-fork="video"><b>① 继续做短视频</b><span>进第②步素材库，模板成片 / 批量剪辑</span><em>→</em></button>
+      <a class="dict-fork-btn" data-fork="geo" id="dictForkGeo" href="/ai-nav/geo/" target="_blank" rel="noopener"><b>② 去配 GEO 推广</b><span>地图 / 搜索获客，带上同一行业参数</span><em>→</em></a>
+      <a class="dict-fork-btn" data-fork="leadgen" id="dictForkLead" href="/ai-nav/leadgen/" target="_blank" rel="noopener"><b>③ 去开线索 SLA 与跟进</b><span>线索分流、响应时效与跟进</span><em>→</em></a>
+    </div>
+  </div>
+
+  <div class="modal" id="dictModal" hidden>
+    <div class="modal-box dict-modal-box" role="dialog" aria-modal="true" aria-labelledby="dictModalTitle">
+      <button type="button" class="modal-close" id="dictModalClose" aria-label="关闭自定义行业">×</button>
+      <h3 id="dictModalTitle">＋ 其他 / 自定义行业</h3>
+      <p class="dict-modal-sub" id="dictModalSub">行业字典里没有？输入名称和一句描述，AI 会匹配最接近的行业、列出配置差异；匹配不敢确定时会先追问，不会直接覆盖。</p>
+      <div id="dictFormStep">
+        <div class="dict-form-grid">
+          <label class="dict-field">行业 / 门店名称<input type="text" id="dictCustomName" maxlength="40" autocomplete="off" placeholder="例如：张记汽修·高端改装"></label>
+          <label class="dict-field">一句描述（可选，能带客单价 / 半衰期 / 屏蔽词）<input type="text" id="dictCustomDesc" maxlength="300" autocomplete="off" placeholder="例如：客单价1800元，半衰期24小时，屏蔽词：招聘、加盟"></label>
+        </div>
+        <div class="dict-form-status" id="dictFormStatus" hidden></div>
+        <div class="dict-modal-actions"><button type="button" class="primary" id="dictMatchBtn">🤖 让 AI 匹配行业</button></div>
+      </div>
+      <div id="dictMatchStep" hidden></div>
+      <div id="dictAskStep" hidden></div>
+      <div id="dictEditStep" hidden></div>
+    </div>
+  </div>
  </section>
    </section>
 
@@ -2030,8 +2232,18 @@ var TPL_FALLBACK=[
  {"id":"maternity","name":"月子中心 / 月嫂","industry":"月子中心 / 月嫂 / 产后修复 / 育婴","description":"护理团队、餐食、环境和服务，突出安心专业，适合预约参观、产前咨询。","default_duration":30,"bgm":{"style":"温馨","label":"温馨钢琴（舒缓铺底）"}},
  {"id":"pharmacy-optical","name":"药店 / 眼镜店","industry":"药店 / 眼镜 / 验光 / 视力健康","description":"验光、镜片、药师咨询和店内环境，突出专业与便利，适合配镜、体检、换季。","default_duration":20,"bgm":{"style":"温馨","label":"温馨钢琴（舒缓铺底）"}}
 ];
-function findTpl(id){for(var i=0;i<STATE.templates.length;i++){if(STATE.templates[i].id===id)return STATE.templates[i];}return null;}
+function findTpl(id){
+ for(var i=0;i<STATE.templates.length;i++){if(STATE.templates[i].id===id)return STATE.templates[i];}
+ if(window.WB_DICT&&typeof window.WB_DICT.findTpl==='function'){var dt=window.WB_DICT.findTpl(id);if(dt)return dt;}
+ return null;
+}
 function renderTpl(){
+ if(window.WB_DICT&&window.WB_DICT.active&&typeof window.WB_DICT.render==='function'){window.WB_DICT.render();return;}
+ if(document.getElementById('dictChips')&&!window.__WB_DICT_FAILED){
+  var g0=$('tplGrid');
+  if(g0&&!g0.children.length)g0.innerHTML='<div class="dict-empty"><b>正在读取行业字典 v2…</b>24 个行业、分组和获客配置马上加载好。</div>';
+  return;
+ }
  var list=STATE.templates.length?STATE.templates:TPL_FALLBACK;
  var html=list.map(function(t){
   var on=t.id===STATE.tplId?' on':'';
@@ -2050,6 +2262,9 @@ function renderTpl(){
  if(h)h.textContent='已选：'+(t2.name||'门店开业引流');
 }
 function selectTpl(id,quiet){
+ if(window.WB_DICT&&window.WB_DICT.active&&typeof window.WB_DICT.owns==='function'&&window.WB_DICT.owns(id)){
+  window.WB_DICT.select(id,quiet);return;
+ }
  var t=findTpl(id)||null;
  if(!t){for(var i=0;i<TPL_FALLBACK.length;i++){if(TPL_FALLBACK[i].id===id){t=TPL_FALLBACK[i];break;}}}
  if(!t)return;
@@ -2062,10 +2277,27 @@ function selectTpl(id,quiet){
  if(!quiet)toast('已选：'+t.name+' · '+STATE.duration+' 秒','ok');
 }
 function renderDur(){
+ if(window.WB_DICT&&window.WB_DICT.active&&typeof window.WB_DICT.renderDur==='function'){window.WB_DICT.renderDur();return;}
  var g=$('durChips'); if(!g)return;
  var ds=[15,20,30];
  g.innerHTML=ds.map(function(n){return '<button type="button" data-dur="'+n+'" class="'+(Number(STATE.duration)===n?'on':'')+'">'+n+' 秒</button>';}).join('');
 }
+function genTplId(){
+ var d=window.WB_DICT;
+ if(d&&d.active&&typeof d.apiTplId==='function')return d.apiTplId(STATE.tplId)||STATE.tplId||'store_open';
+ return STATE.tplId;
+}
+window.__WB_SELECT_DICT=function(key,duration,name){
+ STATE.tplId=key;
+ STATE.duration=Number(duration)||20;
+ renderTpl();renderDur();syncFlow();saveDraft();
+ var h=$('tplHint');if(h&&name)h.textContent='已选：'+name;
+};
+window.__WB_DICT_SET_DURATION=function(n){
+ STATE.duration=Number(n)||20;renderDur();saveDraft();
+};
+window.__WB_DICT_GET_STATE=function(){return {tplId:STATE.tplId,duration:STATE.duration,hasDraft:!!STATE.d};};
+window.__WB_RENDER_TPL_LEGACY=function(){window.__WB_DICT_FAILED=true;renderTpl();};
 function loadTemplates(){
  if(STATIC_SITE){renderTpl();return;}
  api('/ai-nav/api/templates',{},15000).then(function(d){
@@ -2285,7 +2517,8 @@ function startGenerate(prompt,ack){
  var tl=$('taskLine');if(tl)tl.hidden=true;
  var bar=$('progressBar');if(bar)bar.style.width='2%';
  startTimer();
- var body={prompt:prompt,template_id:STATE.tplId,duration:Number(STATE.duration)||20,aspect:'9:16',material_urls:STATE.materials.filter(function(m){return m.src&&m.kind!=='audio';}).map(function(m){return m.src;})};
+ var body={prompt:prompt,template_id:genTplId(),duration:Number(STATE.duration)||20,aspect:'9:16',material_urls:STATE.materials.filter(function(m){return m.src&&m.kind!=='audio';}).map(function(m){return m.src;})};
+ if(window.WB_DICT&&typeof window.WB_DICT.genExtra==='function'){var _x=window.WB_DICT.genExtra();if(_x)for(var _k in _x)if(_x.hasOwnProperty(_k)&&_x[_k]!=null&&_x[_k]!=='')body[_k]=_x[_k];}
  if(STATE.bgm&&STATE.bgm.src)body.music_url=STATE.bgm.src;
  if(!body.music_url&&window.STUDIO_MUSIC_PAYLOAD)window.STUDIO_MUSIC_PAYLOAD(body);
  saveDraft();
@@ -3034,7 +3267,7 @@ function doBatchMix(){
  STATE.batch.busy=true;setBusy(true);
  $('batchError').hidden=true;$('batchResults').innerHTML='';$('batchProgress').hidden=false;$('batchTitle').textContent='正在一次生成 3 条…';$('batchEta').textContent='预计 2~6 分钟';
  startTimer();syncControls();
- var body={video_url:STATE.batch.url,scenes:STATE.batch.scenes.map(function(s){return s.url;}),template_id:STATE.tplId,count:3,prompt:(($('bizPrompt')||{}).value||'').trim(),aspect:'9:16'};
+ var body={video_url:STATE.batch.url,scenes:STATE.batch.scenes.map(function(s){return s.url;}),template_id:genTplId(),count:3,prompt:(($('bizPrompt')||{}).value||'').trim(),aspect:'9:16'};
  api('/ai-nav/api/batch_mix',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(body)},1200000)
  .then(function(d){
   if(!d||!d.ok||!d.results||!d.results.length)throw new Error((d&&(d.hint||d.error))||'混剪失败，请重试');
@@ -3482,6 +3715,7 @@ function applyProject(p,pid){
  STATE.d=d;STATE.projectId=d.project_id;STATE.version=d.version;STATE.versions=d.versions||[];
  if(cur.settings&&cur.settings.template_id)STATE.tplId=cur.settings.template_id;
  if(cur.settings&&cur.settings.duration)STATE.duration=Number(cur.settings.duration)||STATE.duration;
+ if(window.WB_DICT&&window.WB_DICT.active&&window.WB_DICT.owns&&window.WB_DICT.owns(STATE.tplId)&&typeof window.WB_DICT.syncSelection==='function')window.WB_DICT.syncSelection();
  renderTpl();renderDur();renderResult();showPreviewState('body');
  saveDraft();
  return true;
@@ -5296,6 +5530,1136 @@ window.__WB_SET_EDITOR_BGM = function (a) {
 if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',init);else init();
 })();
 </script>
+<script id="wbDictV2">
+/* WB_DICT_V2: 行业字典 v2 界面控制器（分组 chips / 获客信息卡 / 时长锁定 / 自定义 diff / 三产线分叉）
+ * 独立 IIFE；通过 window.WB_DICT 与主模板脚本（renderTpl/selectTpl/renderDur/genTplId）协作。
+ * 后端：/ai-nav/api/industry/{dict,groups,match,custom,resolve}
+ */
+(function () {
+  'use strict';
+  var root = document.getElementById('dictChips');
+  if (!root) return;
+
+  var API = '/ai-nav/api';
+  var LS_KEY = 'studio_dict_v2_selected';
+  var $ = function (id) { return document.getElementById(id); };
+  function esc(s) {
+    return String(s == null ? '' : s).replace(/&/g, '&amp;').replace(/</g, '&lt;')
+      .replace(/>/g, '&gt;').replace(/"/g, '&quot;').replace(/'/g, '&#39;');
+  }
+  function q(sel, ctx) { return (ctx || document).querySelector(sel); }
+  function qa(sel, ctx) { return Array.prototype.slice.call((ctx || document).querySelectorAll(sel)); }
+  function read(k, d) { try { var v = localStorage.getItem(k); return v == null ? d : v; } catch (e) { return d; } }
+  function write(k, v) { try { localStorage.setItem(k, v); } catch (e) {} }
+  function toast(msg, type) {
+    var t = $('toast');
+    if (!t) { try { console.log(msg); } catch (e) {} return; }
+    t.textContent = msg; t.className = 'toast show' + (type ? ' ' + type : '');
+    t.hidden = false; clearTimeout(t._dictTm);
+    t._dictTm = setTimeout(function () { t.className = 'toast' + (type ? ' ' + type : ''); t.hidden = true; }, 3600);
+  }
+  function workspaceId() {
+    try {
+      if (window.XLAuth && typeof XLAuth.user === 'function') {
+        var u = XLAuth.user();
+        if (u && u.workspace_id) return String(u.workspace_id);
+      }
+    } catch (e) {}
+    return '';
+  }
+  function req(path, opt, ms) {
+    var ctrl = (typeof AbortController !== 'undefined') ? new AbortController() : null;
+    var tm = setTimeout(function () { if (ctrl) try { ctrl.abort(); } catch (e) {} }, ms || 20000);
+    var o = Object.assign({ cache: 'no-store' }, opt || {});
+    if (ctrl) o.signal = ctrl.signal;
+    return fetch(API + path, o).then(function (r) {
+      clearTimeout(tm);
+      return r.text().then(function (txt) {
+        var d = null;
+        try { d = JSON.parse(txt || 'null'); } catch (e) {}
+        if (!r.ok || (d && d.ok === false)) {
+          var er = new Error((d && (d.hint || d.error)) || ('请求失败（HTTP ' + r.status + '）'));
+          er.status = r.status; er.data = d; throw er;
+        }
+        return d;
+      });
+    }).catch(function (e) {
+      clearTimeout(tm);
+      if (e && e.name === 'AbortError') throw new Error('请求超时，请稍后重试');
+      throw e;
+    });
+  }
+
+  var GROUP_META = {
+    instant: { icon: '🔥', label: '即时刚需', short: '即时刚需' },
+    appointment: { icon: '⏱', label: '到店预约', short: '到店预约' },
+    highend: { icon: '🧭', label: '高客单', short: '高客单' },
+    trust: { icon: '⚖️', label: '合规敏感', short: '合规敏感' }
+  };
+  var GROUP_ORDER = ['instant', 'appointment', 'highend', 'trust'];
+  var EMOJI = {
+    auto_repair: '🧰', flower_bakery: '💐', fresh_fruit: '🍉', ktv_bar: '🎤', pet_hospital: '🐾',
+    restaurant: '🍲', beauty: '💅', coffee_tea: '☕', fitness: '🏋️', hotel: '🏨',
+    housekeeping: '🧹', moving_clean: '🚚', auto_beauty: '🚗', bookstore: '📚',
+    driving_school: '🚦', education: '🎓', fashion: '👗', maternity: '🍼',
+    photo_studio: '📸', renovation: '🛠️', dental: '🦷', legal: '⚖️', medspa: '💉', pharmacy: '💊'
+  };
+  var OLD_TPL_MAP = {
+    auto_repair: 'auto_care', flower_bakery: 'flower-bakery', fresh_fruit: 'fresh-fruit',
+    ktv_bar: 'ktv-bar', pet_hospital: 'pet-care', restaurant: 'restaurant', beauty: 'beauty',
+    coffee_tea: 'coffee-tea', fitness: 'fitness', hotel: 'hotel-stay', housekeeping: 'housekeeping',
+    moving_clean: 'moving-clean', auto_beauty: 'car-beauty', bookstore: 'bookstore',
+    driving_school: 'driving-school', education: 'education', fashion: 'fashion-store',
+    maternity: 'maternity', photo_studio: 'photo-studio', renovation: 'renovation',
+    dental: 'dental', legal: 'store_open', medspa: 'beauty', pharmacy: 'pharmacy-optical'
+  };
+  var VALID_MOODS = ['轻快', '温暖', '科技', '舒缓', '大气'];
+  var BGM_CHOICES = ['轻快', '温暖', '动感', '大气', '舒缓', '科技'];
+
+  var D = {
+    active: false, failed: false, loading: false,
+    items: [], groups: [], customs: [], counts: {},
+    filter: 'all', selectedKey: '', selectedName: '', selected: null, selectedCustom: null,
+    duration: 20, bgm: '', durationOverride: 0, bgmOverride: '',
+    resolved: {}, ws: '', failedMsg: '',
+    pending: null, editorCtx: null, lastStage: '', matchCache: null,
+    _lastFilter: '', _rendering: false
+  };
+  window.WB_DICT = D;
+
+  /* ---------- 数据工具 ---------- */
+  function byId(id) {
+    if (!id) return null;
+    for (var i = 0; i < D.items.length; i++) if (D.items[i].industry_id === id) return D.items[i];
+    return null;
+  }
+  function customById(id) {
+    for (var i = 0; i < D.customs.length; i++) if (D.customs[i].custom_id === id) return D.customs[i];
+    return null;
+  }
+  function mergeOverride(base, ov) {
+    if (Array.isArray(ov)) return ov.slice();
+    if (ov && typeof ov === 'object') {
+      var out = (base && typeof base === 'object' && !Array.isArray(base)) ? JSON.parse(JSON.stringify(base)) : {};
+      Object.keys(ov).forEach(function (k) {
+        if (k.length > 7 && k.slice(-7) === '_append' && Array.isArray(ov[k])) {
+          var bk = k.slice(0, -7);
+          var arr = Array.isArray(out[bk]) ? out[bk].slice() : [];
+          out[bk] = arr.concat(ov[k]);
+        } else {
+          out[k] = mergeOverride(out[k], ov[k]);
+        }
+      });
+      return out;
+    }
+    return ov;
+  }
+  function fmtNum(n) {
+    n = Number(n);
+    if (!isFinite(n)) return '';
+    return (Math.round(n * 100) / 100).toString();
+  }
+  function splitWords(s) {
+    return String(s || '').split(/[,，、;；\s]+/).map(function (x) { return x.trim(); }).filter(Boolean);
+  }
+  function groupMeta(g) { return GROUP_META[g] || { icon: '🏷️', label: g || '行业', short: g || '行业' }; }
+  function wsQuery() { return D.ws ? ('?workspace_id=' + encodeURIComponent(D.ws)) : ''; }
+
+  function builtinRecord(item) {
+    return {
+      key: item.industry_id, group: item.group || '', name: item.name || item.industry_id,
+      sub: (item.sub_types || []).slice(0, 4).join(' / '),
+      duration: Number((item.video || {}).duration) || 20, bgm: (item.video || {}).bgm || '',
+      t: item.t_decision_days || [], sla: item.sla || {}, hook: (item.lead || {}).hook || {},
+      ticket: item.avg_ticket, config: item, custom: null, baseId: item.industry_id, diffCount: 0
+    };
+  }
+  function customRecord(c) {
+    var base = byId(c.base_template) || {};
+    var cfg = D.resolved[c.custom_id] || mergeOverride(base, c.override || {});
+    var video = cfg.video || {};
+    return {
+      key: c.custom_id, group: base.group || cfg.group || '', name: c.name || '自定义行业',
+      sub: '基于《' + (c.base_name || base.name || c.base_template || '') + '》· v' + (c.version || 1),
+      duration: Number(video.duration) || 20, bgm: video.bgm || '',
+      t: cfg.t_decision_days || [], sla: cfg.sla || {}, hook: (cfg.lead || {}).hook || {},
+      ticket: cfg.avg_ticket, config: cfg, custom: c, baseId: c.base_template, diffCount: Object.keys(c.diff || {}).length
+    };
+  }
+  function findRecord(key) {
+    var item = byId(key);
+    if (item) return builtinRecord(item);
+    var c = customById(key);
+    if (c) return customRecord(c);
+    return null;
+  }
+  function visibleRecords() {
+    if (D.filter === 'custom') return D.customs.map(customRecord);
+    if (D.filter === 'all') return D.items.map(builtinRecord);
+    return D.items.filter(function (i) { return i.group === D.filter; }).map(builtinRecord);
+  }
+
+  /* ---------- 加载 ---------- */
+  function computeCounts() {
+    var c = { all: D.items.length, custom: D.customs.length };
+    GROUP_ORDER.forEach(function (g) { c[g] = 0; });
+    if (D.groups && D.groups.length) {
+      D.groups.forEach(function (g) { if (g && g.key) c[g.key] = Number(g.count) || 0; });
+    } else {
+      D.items.forEach(function (i) { if (i.group && c.hasOwnProperty(i.group)) c[i.group]++; });
+    }
+    D.counts = c;
+  }
+  function loadCustoms() {
+    D.ws = workspaceId();
+    return req('/industry/custom' + wsQuery(), {}, 15000).then(function (d) {
+      D.customs = (Array.isArray(d) ? d : (d && (d.items || d.customs)) || []).filter(function (c) {
+        return c && c.custom_id;
+      }).sort(function (a, b) {
+        return String(b.updated_at || '').localeCompare(String(a.updated_at || ''));
+      });
+      D.counts.custom = D.customs.length;
+      return D.customs;
+    });
+  }
+  function failLoad(err) {
+    D.loading = false; D.failed = true; D.active = false;
+    D.failedMsg = (err && err.message) || '行业字典接口不可用';
+    var n = $('dictNotice');
+    if (n) {
+      n.hidden = false; n.className = 'dict-notice bad';
+      n.textContent = '行业字典 v2 接口暂时不可用，已回退旧版 24 个模板（不影响生成）：' + D.failedMsg;
+    }
+    var chips = $('dictChips'); if (chips) chips.hidden = true;
+    ['dictLock', 'dictAdv', 'dictFork'].forEach(function (id) { var x = $(id); if (x) x.hidden = true; });
+    if (typeof window.__WB_RENDER_TPL_LEGACY === 'function') window.__WB_RENDER_TPL_LEGACY();
+  }
+  function load() {
+    D.loading = true;
+    D.ws = workspaceId();
+    var pd = req('/industry/dict', {}, 18000).then(function (d) {
+      D.items = (Array.isArray(d) ? d : (d && d.items) || []).filter(function (x) { return x && x.industry_id; });
+    });
+    var pg = req('/industry/groups', {}, 12000).then(function (d) {
+      D.groups = Array.isArray(d) ? d : ((d && d.groups) || []);
+    }).catch(function () { D.groups = []; });
+    var pc = loadCustoms().catch(function () { D.customs = []; });
+    Promise.all([pd, pg, pc]).then(function () {
+      if (!D.items.length) throw new Error('行业字典返回为空');
+      D.loading = false; D.active = true; D.failed = false;
+      computeCounts();
+      var key = savedKey();
+      if (!findRecord(key)) {
+        var st = (typeof window.__WB_DICT_GET_STATE === 'function') ? window.__WB_DICT_GET_STATE() : null;
+        if (st && findRecord(st.tplId)) key = st.tplId;
+      }
+      if (!findRecord(key)) {
+        var first = D.items.filter(function (i) { return i.group === 'instant'; })[0] || D.items[0];
+        key = first ? first.industry_id : '';
+      }
+      renderChips(); render();
+      if (key) D.select(key, true);
+      if (typeof window.WB_TPL_SCROLL !== 'undefined' && window.WB_TPL_SCROLL.update) setTimeout(window.WB_TPL_SCROLL.update, 60);
+    }).catch(failLoad);
+  }
+
+  /* ---------- chips / 卡片 ---------- */
+  function chipButton(group, label, count) {
+    var on = D.filter === group ? ' on' : '';
+    return '<button type="button" class="dict-chip' + on + '" data-group="' + esc(group) + '" role="tab" aria-selected="' + (on ? 'true' : 'false') + '">'
+      + label + ' <em>' + (count == null ? 0 : count) + '</em></button>';
+  }
+  function renderChips() {
+    var box = $('dictChips'); if (!box) return;
+    var sl = box.scrollLeft;
+    var h = '';
+    h += chipButton('all', '全部', D.counts.all != null ? D.counts.all : D.items.length);
+    GROUP_ORDER.forEach(function (g) {
+      var m = GROUP_META[g];
+      h += chipButton(g, m.icon + ' ' + m.label, D.counts[g] != null ? D.counts[g] : 0);
+    });
+    h += chipButton('custom', '＋ 我的自定义', D.counts.custom != null ? D.counts.custom : D.customs.length);
+    h += '<button type="button" class="dict-chip dict-chip-add" id="dictOpenCustom" aria-label="新建自定义行业">＋ 其他 / 自定义</button>';
+    box.innerHTML = h;
+    box.scrollLeft = sl;
+  }
+  D.renderChips = renderChips;
+  function cardHTML(rec) {
+    var gm = groupMeta(rec.group);
+    var badge = rec.custom
+      ? '<span class="dict-badge custom">🧩 自定义</span>'
+      : '<span class="dict-badge g-' + esc(rec.group || 'x') + '">' + gm.icon + ' ' + esc(gm.label) + '</span>';
+    var emoji = EMOJI[rec.baseId] || EMOJI[rec.key] || '🎬';
+    var tmax = (rec.t && rec.t.length) ? rec.t[1] : 3;
+    var sla = (rec.sla && rec.sla.s) || 15;
+    var hook = (rec.hook && rec.hook.copy) || '到店咨询';
+    var on = D.selectedKey === rec.key ? ' on' : '';
+    var meta = '<span class="tpl-meta"><i>⏱ ' + esc(rec.duration) + ' 秒</i>'
+      + (rec.bgm ? '<i>🎵 ' + esc(rec.bgm) + '</i>' : '')
+      + (rec.custom ? '<i>diff ' + esc(rec.diffCount) + ' 项</i>' : '<i>客单 ¥' + esc(fmtNum(rec.ticket)) + '</i>')
+      + '</span>';
+    return '<button type="button" class="tpl-card dict-card' + on + '" data-tpl="' + esc(rec.key) + '" aria-pressed="' + (on ? 'true' : 'false') + '">'
+      + badge
+      + '<span class="tpl-emoji">' + emoji + '</span>'
+      + '<span class="tpl-name">' + esc(rec.name) + '</span>'
+      + '<span class="tpl-ind">' + esc(rec.sub || '') + '</span>'
+      + '<span class="dict-lead">'
+      + '<span>🎯 客户多在 <b>' + esc(tmax) + ' 天</b>内到店 · 建议 <b>' + esc(sla) + ' 分钟</b>内响应</span>'
+      + '<span class="dict-hook">💬 钩子：<b>' + esc(hook) + '</b></span>'
+      + '</span>'
+      + meta
+      + '<span class="tpl-check">✓</span></button>';
+  }
+  D.render = function () {
+    if (!D.active) return;
+    var g = $('tplGrid'); if (!g) return;
+    D._rendering = true;
+    var list = visibleRecords();
+    var keep = g.scrollTop;
+    if (D._lastFilter !== D.filter) { keep = 0; D._lastFilter = D.filter; }
+    var html = list.map(cardHTML).join('');
+    if (!html) {
+      var title = D.filter === 'custom' ? '还没有自定义行业' : '这个分组暂时没有行业';
+      var sub = D.filter === 'custom' ? '点「＋ 其他 / 自定义」，输入名称和一句描述，AI 会匹配基础行业并列出差异。' : '换个分组看看，或点「全部」。';
+      html = '<div class="dict-empty"><b>' + title + '</b>' + sub + (D.filter === 'custom' ? '<div style="margin-top:10px"><button type="button" class="btn-line" data-open-custom>＋ 其他 / 自定义</button></div>' : '') + '</div>';
+    }
+    g.innerHTML = html;
+    g.scrollTop = keep;
+    var total = $('tplTotal'); if (total) total.textContent = String(list.length || 0);
+    var label = D.filter === 'all' ? '全部行业' : (D.filter === 'custom' ? '我的自定义行业' : groupMeta(D.filter).label);
+    g.setAttribute('aria-label', '行业字典 v2：' + label + '，共 ' + list.length + ' 个；鼠标滚轮或键盘方向键 ↑↓ 浏览与切换');
+    updateNotice();
+    D._rendering = false;
+    if (window.WB_TPL_SCROLL && window.WB_TPL_SCROLL.update) setTimeout(window.WB_TPL_SCROLL.update, 30);
+  };
+  function render() { if (D.active) D.render(); }
+  function updateNotice() {
+    var n = $('dictNotice'); if (!n) return;
+    if (D.failed) return;
+    if (!D.active) { n.hidden = false; n.className = 'dict-notice'; n.textContent = '正在读取行业字典 v2…'; return; }
+    if (D.filter !== 'all' && D.filter !== 'custom' && D.selectedKey) {
+      var rec = findRecord(D.selectedKey);
+      if (rec && rec.group !== D.filter) {
+        n.hidden = false; n.className = 'dict-notice';
+        n.textContent = '已选「' + D.selectedName + '」不在当前分组；切换「全部」可见，选中状态不会丢。';
+        return;
+      }
+    }
+    if (D.filter === 'custom' && !D.customs.length) { n.hidden = true; return; }
+    n.hidden = true;
+  }
+
+  /* ---------- 选择 / 锁定 / 高级 ---------- */
+  function savedKey() {
+    try {
+      var raw = read(LS_KEY, '');
+      if (!raw) return '';
+      var o = JSON.parse(raw);
+      return o && o.key ? String(o.key) : '';
+    } catch (e) { return ''; }
+  }
+  function saveSelected() {
+    try { write(LS_KEY, JSON.stringify({ key: D.selectedKey, at: Date.now() })); } catch (e) {}
+  }
+  function applySelection(quiet) {
+    if (typeof window.__WB_SELECT_DICT === 'function') {
+      window.__WB_SELECT_DICT(D.selectedKey, D.duration, D.selectedName);
+    }
+    renderChips(); render(); renderLock(); renderAdvanced(); renderFork(); updateNotice();
+    if (!quiet) toast('已选：' + D.selectedName + ' · ' + D.duration + ' 秒 · BGM ' + (D.bgm || '默认'), 'ok');
+    if (window.WB_TPL_SCROLL && window.WB_TPL_SCROLL.reveal) setTimeout(window.WB_TPL_SCROLL.reveal, 60);
+  }
+  D.select = function (key, quiet) {
+    var rec = findRecord(key);
+    if (!rec) return false;
+    D.selectedKey = key;
+    D.selectedName = rec.name;
+    D.selectedCustom = rec.custom;
+    D.selected = rec.config;
+    D.duration = rec.duration;
+    D.bgm = rec.bgm;
+    D.durationOverride = 0;
+    D.bgmOverride = '';
+    saveSelected();
+    applySelection(!!quiet);
+    if (rec.custom) resolveCustom(rec.custom, true);
+    return true;
+  };
+  D.syncSelection = function () {
+    var st = (typeof window.__WB_DICT_GET_STATE === 'function') ? window.__WB_DICT_GET_STATE() : null;
+    if (!st || !st.tplId) return;
+    var rec = findRecord(st.tplId);
+    if (!rec) return;
+    D.selectedKey = st.tplId; D.selectedName = rec.name; D.selectedCustom = rec.custom;
+    D.selected = rec.config; D.duration = rec.duration; D.bgm = rec.bgm;
+    render(); renderLock(); renderAdvanced(); renderFork();
+  };
+  D.owns = function (key) { return !!findRecord(key); };
+  D.findTpl = function (key) {
+    var rec = findRecord(key);
+    if (!rec) return null;
+    return {
+      id: key, name: rec.name, industry: rec.sub, description: '',
+      default_duration: rec.duration, bgm: { style: rec.bgm, label: rec.bgm }
+    };
+  };
+  D.apiTplId = function (key) {
+    var rec = findRecord(key);
+    if (rec && rec.custom) return OLD_TPL_MAP[rec.custom.base_template] || rec.custom.base_template || 'store_open';
+    return OLD_TPL_MAP[key] || key || 'store_open';
+  };
+  D.genExtra = function () {
+    var out = {};
+    if (D.selected) {
+      var iid = D.selected.industry_id || (D.selectedCustom && D.selectedCustom.base_template) || '';
+      if (iid) out.industry_id = iid;
+    }
+    var mood = D.bgmOverride || D.bgm;
+    if (mood && VALID_MOODS.indexOf(mood) >= 0) out.music_mood = mood;
+    return out;
+  };
+  D.bgmMood = function () {
+    var m = D.bgmOverride || D.bgm;
+    return VALID_MOODS.indexOf(m) >= 0 ? m : '';
+  };
+  D.renderDur = function () {
+    var g = $('durChips'); if (!g) return;
+    var st = (typeof window.__WB_DICT_GET_STATE === 'function') ? window.__WB_DICT_GET_STATE() : null;
+    var cur = Number(st && st.duration) || Number(D.duration) || 20;
+    var opts = [15, 18, 20, 25, 30];
+    if (D.duration && opts.indexOf(Number(D.duration)) < 0) opts.push(Number(D.duration));
+    if (opts.indexOf(cur) < 0) opts.push(cur);
+    opts.sort(function (a, b) { return a - b; });
+    g.innerHTML = opts.map(function (n) {
+      return '<button type="button" data-dur="' + n + '" class="' + (cur === n ? 'on' : '') + '">' + n + ' 秒</button>';
+    }).join('');
+    var note = $('dictDurNote');
+    if (note) note.textContent = cur !== Number(D.duration) ? '已手动改，点「恢复模板默认」可回退' : '默认按字典锁定';
+    renderLock();
+  };
+  function renderLock() {
+    var box = $('dictLock'); if (!box) return;
+    if (!D.selected) { box.hidden = true; return; }
+    box.hidden = false;
+    var st = (typeof window.__WB_DICT_GET_STATE === 'function') ? window.__WB_DICT_GET_STATE() : null;
+    var cur = Number(st && st.duration) || Number(D.duration) || 20;
+    var def = Number(D.duration) || 20;
+    var changed = cur !== def;
+    var gm = groupMeta(D.selected.group);
+    var dnum = $('dictDurNum'); if (dnum) dnum.textContent = cur + ' 秒';
+    var bname = D.bgmOverride || D.bgm || '默认';
+    var bnm = $('dictBgmName'); if (bnm) bnm.textContent = bname;
+    var tag = $('dictLockTag');
+    if (tag) {
+      tag.textContent = changed ? '✏️ 已手动修改' : '🔒 字典默认';
+      tag.className = 'dict-lock-tag' + (changed ? ' changed' : '');
+    }
+    var basis = $('dictBasis');
+    if (basis) {
+      if (D.selectedCustom) {
+        basis.textContent = (changed ? '已手动改成 ' + cur + ' 秒，点「恢复模板默认」回到 ' + def + ' 秒。' : '依据：' + (gm.short || gm.label) + '行业建议 ' + def + ' 秒 · 配乐「' + (D.bgm || '默认') + '」')
+          + ' · 自定义v' + (D.selectedCustom.version || 1) + '（基于《' + (D.selectedCustom.base_name || '') + '》）';
+      } else {
+        basis.textContent = changed
+          ? '已手动改成 ' + cur + ' 秒，点「恢复模板默认」回到 ' + def + ' 秒。'
+          : '依据：' + (gm.short || gm.label) + '行业建议 ' + def + ' 秒 · 配乐「' + (D.bgm || '默认') + '」';
+      }
+    }
+    var sel = $('dictBgmSel');
+    if (sel && !sel._dictFocus) sel.value = D.bgmOverride || '';
+  }
+
+  /* ---------- 自定义配置编辑器 ---------- */
+  function fieldNum(key, label, val, step) {
+    return '<label class="dict-field">' + esc(label) + '<input type="number" data-ed="' + key + '" value="' + esc(fmtNum(val)) + '" step="' + (step || '1') + '" inputmode="decimal"></label>';
+  }
+  function fieldText(key, label, val) {
+    return '<label class="dict-field">' + esc(label) + '<input type="text" data-ed="' + key + '" value="' + esc(val == null ? '' : val) + '" autocomplete="off"></label>';
+  }
+  function fieldArea(key, label, val) {
+    return '<label class="dict-field">' + esc(label) + '<textarea data-ed="' + key + '" rows="2">' + esc(val == null ? '' : val) + '</textarea></label>';
+  }
+  function bgmOptions(cur) {
+    var h = '';
+    BGM_CHOICES.forEach(function (m) { h += '<option' + (m === cur ? ' selected' : '') + '>' + esc(m) + '</option>'; });
+    return h;
+  }
+  function editorFieldsHTML(base, ov) {
+    return editorFieldsFromConfig(mergeOverride(base || {}, ov || {}));
+  }
+  function editorFieldsFromConfig(cfg) {
+    cfg = cfg || {};
+    var lead = cfg.lead || {};
+    var hook = (lead.hook && lead.hook.copy) || '';
+    var video = cfg.video || {};
+    return '<div class="dict-adv-grid dict-edit-grid">'
+      + fieldNum('avg_ticket', '客单价（元）', cfg.avg_ticket)
+      + fieldNum('gross_margin', '毛利率 / 评分权重（0-1）', cfg.gross_margin, '0.01')
+      + fieldNum('half_life_hours', '热度半衰期（小时）', cfg.half_life_hours)
+      + fieldText('t_decision_days', '决策周期（天，如 1,3）', (cfg.t_decision_days || []).join(','))
+      + fieldNum('service_radius_km', '服务半径（km）', cfg.service_radius_km)
+      + fieldNum('sla_s', '响应 SLA（分钟）', (cfg.sla || {}).s)
+      + fieldNum('acceptable_cac', '可接受获客成本（元）', cfg.acceptable_cac)
+      + fieldNum('video_duration', '视频时长（秒）', video.duration)
+      + '<label class="dict-field">配乐 BGM<select data-ed="video_bgm">' + bgmOptions(video.bgm || '') + '</select></label>'
+      + fieldText('hook_copy', '获客钩子（一句话）', hook)
+      + fieldArea('intent_words', '意向词（逗号 / 顿号分隔）', (lead.intent_words || []).join('、'))
+      + fieldArea('negative_words', '黑名单词（逗号 / 顿号分隔）', (lead.negative_words || []).join('、'))
+      + fieldArea('form_fields', '表单字段（逗号 / 顿号分隔）', (lead.form_fields || []).join('、'))
+      + fieldArea('forbidden_words', '广告法禁用词（逗号 / 顿号分隔）', ((cfg.compliance || {}).forbidden_words || []).join('、'))
+      + '</div>';
+  }
+  function getEd(container, key) {
+    var el = container ? container.querySelector('[data-ed="' + key + '"]') : null;
+    return el ? el.value : '';
+  }
+  function numOrNull(v) {
+    var s = String(v == null ? '' : v).trim();
+    if (!s) return null;
+    var n = Number(s);
+    return isFinite(n) ? n : null;
+  }
+  function collectEditor(container) {
+    var o = {};
+    function setNum(k, name) { var n = numOrNull(getEd(container, name)); if (n != null) o[k] = n; }
+    setNum('avg_ticket', 'avg_ticket');
+    setNum('gross_margin', 'gross_margin');
+    setNum('half_life_hours', 'half_life_hours');
+    setNum('service_radius_km', 'service_radius_km');
+    setNum('acceptable_cac', 'acceptable_cac');
+    var td = getEd(container, 't_decision_days');
+    if (String(td || '').trim()) {
+      var days = splitWords(td).map(function (x) { return Number(x); }).filter(function (n) { return isFinite(n) && n > 0; });
+      if (days.length) o.t_decision_days = days;
+    }
+    var sla = numOrNull(getEd(container, 'sla_s'));
+    if (sla != null) o.sla = { s: sla };
+    var vd = numOrNull(getEd(container, 'video_duration'));
+    var vb = String(getEd(container, 'video_bgm') || '').trim();
+    if (vd != null || vb) o.video = {};
+    if (vd != null) o.video.duration = vd;
+    if (vb) o.video.bgm = vb;
+    var lead = {};
+    var iw = splitWords(getEd(container, 'intent_words'));
+    var nw = splitWords(getEd(container, 'negative_words'));
+    var ff = splitWords(getEd(container, 'form_fields'));
+    var hc = String(getEd(container, 'hook_copy') || '').trim();
+    if (iw.length) lead.intent_words = iw;
+    if (nw.length) lead.negative_words = nw;
+    if (ff.length) lead.form_fields = ff;
+    if (hc) lead.hook = { copy: hc };
+    if (Object.keys(lead).length) o.lead = lead;
+    var fw = splitWords(getEd(container, 'forbidden_words'));
+    if (fw.length) o.compliance = { forbidden_words: fw };
+    o.negative_words_append = [];
+    o.intent_words_append = [];
+    return o;
+  }
+  function fillEditorBase(container, baseId) {
+    var base = byId(baseId) || {};
+    var video = base.video || {}, lead = base.lead || {}, comp = base.compliance || {};
+    var map = {
+      avg_ticket: fmtNum(base.avg_ticket), gross_margin: fmtNum(base.gross_margin),
+      half_life_hours: fmtNum(base.half_life_hours), t_decision_days: (base.t_decision_days || []).join(','),
+      service_radius_km: fmtNum(base.service_radius_km), sla_s: fmtNum((base.sla || {}).s),
+      acceptable_cac: fmtNum(base.acceptable_cac), video_duration: fmtNum(video.duration),
+      hook_copy: (lead.hook && lead.hook.copy) || '',
+      intent_words: (lead.intent_words || []).join('、'),
+      negative_words: (lead.negative_words || []).join('、'),
+      form_fields: (lead.form_fields || []).join('、'),
+      forbidden_words: (comp.forbidden_words || []).join('、')
+    };
+    Object.keys(map).forEach(function (k) {
+      var el = container ? container.querySelector('[data-ed="' + k + '"]') : null;
+      if (el) el.value = map[k];
+    });
+    var sel = container ? container.querySelector('[data-ed="video_bgm"]') : null;
+    if (sel && video.bgm) sel.value = video.bgm;
+  }
+
+  function renderAdvanced() {
+    var adv = $('dictAdv'); if (!adv) return;
+    if (!D.selected) { adv.hidden = true; return; }
+    adv.hidden = false;
+    var cf = $('dictCustomFields');
+    var snap = $('dictSnapWrap');
+    if (cf) cf.innerHTML = '';
+    if (D.selectedCustom) {
+      var c = D.selectedCustom;
+      var base = byId(c.base_template) || {};
+      var cfg = D.resolved[c.custom_id] || mergeOverride(base, c.override || {});
+      var html = '<div class="dict-adv-sep">'
+        + '<div class="dict-adv-title">我的自定义配置 <span>基于《' + esc(c.base_name || base.name || '') + '》· 当前 v' + esc(c.version || 1) + ' · diff ' + esc(Object.keys(c.diff || {}).length) + ' 项</span></div>'
+        + '<div id="dictMainEditor">' + editorFieldsFromConfig(cfg) + '</div>'
+        + '<div class="dict-adv-actions" style="margin-top:9px"><button type="button" data-main-save>💾 保存修改</button><span style="font-size:11px;color:var(--txt3)">保存后生成新版本，可回滚</span></div>'
+        + '</div>';
+      if (cf) cf.innerHTML = html;
+      if (snap) {
+        var n = Number(c.snapshot_count) || 1;
+        var cur = Number(c.version) || 1;
+        var start = Math.max(1, cur - n + 1);
+        var opts = '';
+        for (var v = start; v < cur; v++) opts += '<option value="' + v + '">v' + v + '</option>';
+        snap.hidden = !opts;
+        var sel = $('dictSnapSel'); if (sel && opts) sel.innerHTML = opts;
+      }
+    } else {
+      if (snap) snap.hidden = true;
+    }
+    renderLock();
+  }
+
+  /* ---------- 自定义行业：匹配 / 追问 / 编辑 ---------- */
+  function hideStages() {
+    ['dictFormStep', 'dictMatchStep', 'dictAskStep', 'dictEditStep'].forEach(function (id) {
+      var x = $(id); if (x) x.hidden = true;
+    });
+  }
+  function setFormStatus(msg, cls) {
+    var s = $('dictFormStatus'); if (!s) return;
+    s.hidden = !msg;
+    s.className = 'dict-form-status' + (cls ? ' ' + cls : '');
+    s.textContent = msg || '';
+  }
+  function openCustom() {
+    D.pending = null; D.editorCtx = null; D.lastStage = '';
+    hideStages();
+    var fs = $('dictFormStep'); if (fs) fs.hidden = false;
+    setFormStatus('');
+    var n = $('dictCustomName'), ds = $('dictCustomDesc');
+    if (n) n.value = '';
+    if (ds) ds.value = '';
+    var modal = $('dictModal'); if (modal) modal.hidden = false;
+    setTimeout(function () { if (n) n.focus(); }, 40);
+  }
+  function closeCustom() {
+    var modal = $('dictModal'); if (modal) modal.hidden = true;
+    D.pending = null; D.editorCtx = null;
+  }
+  function diffLabel(key) {
+    var map = {
+      avg_ticket: '客单价', half_life_hours: '半衰期', t_decision_days: '决策周期',
+      service_radius_km: '服务半径', acceptable_cac: '可接受获客成本', gross_margin: '毛利率',
+      'sla.s': '响应时效', sla: '响应时效', 'video.duration': '视频时长', 'video.bgm': '配乐',
+      negative_words_append: '新增黑名单词', intent_words_append: '新增意向词',
+      'lead.negative_words': '黑名单词', 'lead.intent_words': '意向词', 'lead.hook.copy': '获客钩子',
+      'lead.form_fields': '表单字段', 'compliance.forbidden_words': '禁用词'
+    };
+    return map[key] || key;
+  }
+  function diffVal(key, v) {
+    if (Array.isArray(v)) return v.join('、');
+    if (v == null) return '空';
+    if (key === 'avg_ticket' || key === 'acceptable_cac') return '¥' + fmtNum(v);
+    if (key === 'half_life_hours') return fmtNum(v) + 'h';
+    if (key === 'video.duration') return fmtNum(v) + ' 秒';
+    if (key === 'sla.s' || key === 'sla') return fmtNum(v) + ' 分钟';
+    if (key === 'gross_margin') return fmtNum(v);
+    return String(v);
+  }
+  function buildPreviewDiff(baseId, ov) {
+    var base = byId(baseId) || {};
+    var full = mergeOverride(base, ov || {});
+    var leadB = base.lead || {}, leadF = full.lead || {};
+    var vb = base.video || {}, vf = full.video || {};
+    var d = {};
+    function add(k, from, to, why) {
+      if (from === undefined && to === undefined) return;
+      if (JSON.stringify(from) === JSON.stringify(to)) return;
+      d[k] = { from: from, to: to, why: why || '' };
+    }
+    add('avg_ticket', base.avg_ticket, full.avg_ticket, '客户自定义客单价');
+    add('half_life_hours', base.half_life_hours, full.half_life_hours, '客户自定义热度半衰期');
+    add('t_decision_days', base.t_decision_days, full.t_decision_days, '客户自定义决策周期');
+    add('service_radius_km', base.service_radius_km, full.service_radius_km, '客户自定义服务半径');
+    add('gross_margin', base.gross_margin, full.gross_margin, '客户自定义毛利');
+    add('acceptable_cac', base.acceptable_cac, full.acceptable_cac, '客户自定义获客成本');
+    add('video.duration', vb.duration, vf.duration, '客户自定义视频时长');
+    add('video.bgm', vb.bgm, vf.bgm, '客户自定义配乐');
+    add('sla.s', (base.sla || {}).s, (full.sla || {}).s, '客户自定义响应时效');
+    add('lead.intent_words', leadB.intent_words, leadF.intent_words, '客户自定义意向词');
+    add('lead.negative_words', leadB.negative_words, leadF.negative_words, '客户自定义负面词表');
+    add('lead.hook.copy', (leadB.hook || {}).copy, (leadF.hook || {}).copy, '客户自定义获客钩子');
+    add('lead.form_fields', leadB.form_fields, leadF.form_fields, '客户自定义表单字段');
+    add('compliance.forbidden_words', (base.compliance || {}).forbidden_words, (full.compliance || {}).forbidden_words, '客户自定义禁用词');
+    add('channels', base.channels, full.channels, '客户自定义渠道');
+    if (ov && Array.isArray(ov.negative_words_append) && ov.negative_words_append.length) {
+      add('negative_words_append', leadB.negative_words || [], (leadB.negative_words || []).concat(ov.negative_words_append), '追加自定义关键词');
+    }
+    if (ov && Array.isArray(ov.intent_words_append) && ov.intent_words_append.length) {
+      add('intent_words_append', leadB.intent_words || [], (leadB.intent_words || []).concat(ov.intent_words_append), '追加自定义关键词');
+    }
+    return d;
+  }
+  function diffHTML(diff) {
+    var keys = Object.keys(diff || {});
+    if (!keys.length) return '<li>描述里还没有可量化的参数，保存后会沿用基础模板；可以点「我改一下」逐项设置。</li>';
+    var order = ['avg_ticket', 'half_life_hours', 'video.duration', 'sla.s', 'negative_words_append', 'lead.negative_words', 'lead.intent_words', 't_decision_days'];
+    keys.sort(function (a, b) {
+      var ia = order.indexOf(a), ib = order.indexOf(b);
+      if (ia < 0) ia = 99; if (ib < 0) ib = 99;
+      return ia - ib;
+    });
+    return keys.slice(0, 8).map(function (k) {
+      var d = diff[k] || {};
+      var from = d.from, to = d.to;
+      var body;
+      if (k.slice(-7) === '_append' && Array.isArray(to)) {
+        var added = to.filter(function (x) { return (from || []).indexOf(x) < 0; });
+        body = '<span class="from">' + esc(diffVal(k, from)) + '</span><span class="to">+ ' + esc(added.join('、') || to.join('、')) + '</span>';
+      } else {
+        body = '<span class="from">' + esc(diffVal(k, from)) + '</span><span class="to">→ ' + esc(diffVal(k, to)) + '</span>';
+      }
+      return '<li><span class="k">' + esc(diffLabel(k)) + '</span>' + body + (d.why ? '<span class="why">' + esc(d.why) + '</span>' : '') + '</li>';
+    }).join('') + (keys.length > 8 ? '<li>还有 ' + (keys.length - 8) + ' 项配置差异…</li>' : '');
+  }
+  function candidatesHTML(m) {
+    var h = '';
+    var seen = {};
+    (m.candidates || []).forEach(function (c) {
+      var id = c && (c.template_id || c.industry_id || c.id);
+      var nm = c && (c.name || c.label || id);
+      if (!id || seen[id]) return;
+      seen[id] = 1;
+      h += '<button type="button" data-base="' + esc(id) + '">' + esc(nm) + '</button>';
+    });
+    var opts = '<option value="">换一个基础行业…</option>' + D.items.map(function (i) {
+      return '<option value="' + esc(i.industry_id) + '">' + esc(i.name) + '（' + esc(groupMeta(i.group).label) + '）</option>';
+    }).join('');
+    return '<div class="dict-section-title" style="margin-top:12px">这不是我？换个基础行业 <span>只换底座，描述里的参数保留</span></div>'
+      + '<div class="dict-candidates">' + h + '</div>'
+      + '<label class="dict-field" style="margin-top:8px">全部行业<select data-base-all>' + opts + '</select></label>';
+  }
+  function matchHead(m, chosen) {
+    var tier = m.tier || 'auto';
+    var label = chosen ? '手动指定' : (tier === 'auto' ? '自动匹配' : (tier === 'confirm' ? '需你确认' : '先追问'));
+    var head = chosen ? ('✅ 已指定基础行业《' + esc(m.name) + '》')
+      : (tier === 'auto' ? ('🤖 已为你匹配《' + esc(m.name) + '》')
+        : (tier === 'confirm' ? ('🤔 我猜你是《' + esc(m.name) + '》，依据是…')
+          : ('🤔 先确认一下：更像《' + esc(m.name) + '》吗？')));
+    var conf = Math.round((Number(m.confidence) || 0) * 100);
+    return '<div class="dict-match-head"><span class="dict-match-ico">' + (chosen ? '✅' : '🤖') + '</span>'
+      + '<div><b>' + head + '</b><span>你的行业：' + esc(D.pending ? D.pending.name : '') + ' · 置信度 ' + conf + '% · 基础模板 ' + esc((m.template_id || '') + ' / ' + (m.name || '')) + '</span></div>'
+      + '<span class="dict-tier ' + (chosen ? 'confirm' : esc(tier)) + '">' + esc(label) + '</span></div>';
+  }
+  function showMatch(m, chosen) {
+    D.pending = D.pending || {};
+    D.pending.match = m;
+    D.pending.base = m.template_id;
+    D.pending.baseName = m.name;
+    D.pending.chosen = !!chosen;
+    D.pending.override = D.pending.override || previewOverride(D.pending.text || '');
+    hideStages();
+    var box = $('dictMatchStep');
+    if (!box) return;
+    box.hidden = false;
+    var tier = m.tier || 'auto';
+    var diff = buildPreviewDiff(D.pending.base, D.pending.override || {});
+    D.pending.diff = diff;
+    var html = matchHead(m, chosen)
+      + '<div class="dict-section-title">配置差异 <span>' + (Object.keys(diff).length ? ('共 ' + Object.keys(diff).length + ' 项，保存后叠加到基础模板') : '描述里还没有可量化参数') + '</span></div>'
+      + '<ul class="dict-diff">' + diffHTML(diff) + '</ul>'
+      + '<div class="dict-section-title">匹配依据 <span>来自行业别名 / 关键词 / 规则</span></div>'
+      + '<ul class="dict-reasons">' + ((m.reasons || []).length ? m.reasons.map(function (r) { return '<li>' + esc(r) + '</li>'; }).join('') : '<li>规则命中，暂无更多依据</li>') + '</ul>';
+    if (tier === 'confirm' && !chosen) {
+      html += '<div class="dict-form-status" style="color:#fde68a;background:rgba(251,191,36,.08);border-color:rgba(251,191,36,.3)">置信度还不够高：请你点「就用这套」确认后才会保存，不会直接覆盖。</div>';
+    }
+    html += '<div class="dict-modal-actions">'
+      + '<button type="button" class="primary" data-act="save">就用这套</button>'
+      + '<button type="button" data-act="edit">我改一下</button>'
+      + '<button type="button" class="danger" data-act="notme">这不是我</button>'
+      + '</div><div id="dictNotMeBox" hidden>' + candidatesHTML(m) + '</div>';
+    box.innerHTML = html;
+    var sub = $('dictModalSub');
+    if (sub) sub.textContent = tier === 'auto' ? 'AI 已按名称和描述匹配基础行业，并列出准备叠加的配置差异。' : 'AI 给出基础行业猜测和依据；你确认后才会保存。';
+  }
+  function askQuestions(m) {
+    var qs = (m.fallback_questions || []).slice(0, 3);
+    while (qs.length < 3) qs.push(['客户一般多久到店？', '客单价大概多少？', '客户更多在地图搜还是刷短视频？'][qs.length]);
+    return qs;
+  }
+  function showAsk(m) {
+    D.pending = D.pending || {};
+    D.pending.match = m;
+    D.pending.base = m.template_id;
+    D.pending.baseName = m.name;
+    D.pending.override = previewOverride(D.pending.text || '');
+    D.pending.ask = true;
+    hideStages();
+    var box = $('dictAskStep'); if (!box) return;
+    box.hidden = false;
+    var qs = askQuestions(m);
+    var base = byId(m.template_id) || {};
+    var html = matchHead(m, false)
+      + '<div class="dict-form-status" style="color:#fde68a;background:rgba(251,191,36,.08);border-color:rgba(251,191,36,.3)">行业字典对「' + esc(D.pending.name) + '」不敢直接套用。回答下面 3 个问题，我会基于《' + esc(m.name) + '》生成一份自己的 override，不改字典原配置。</div>'
+      + '<div class="dict-ask-list">'
+      + '<label class="dict-field"><span class="dict-ask-q"><i>1</i>' + esc(qs[0]) + '</span>'
+      + '<select data-ask="when"><option value="1,3|15">当天 / 3 天内到店（SLA 15 分钟）</option><option value="3,7|30">3-7 天到店（SLA 30 分钟）</option><option value="7,15|60">7-15 天到店（SLA 60 分钟）</option><option value="15,45|120">15 天以上（SLA 120 分钟）</option></select></label>'
+      + '<label class="dict-field"><span class="dict-ask-q"><i>2</i>' + esc(qs[1]) + '</span><input type="number" data-ask="ticket" min="0" step="1" inputmode="decimal" placeholder="例如 ' + esc(fmtNum(base.avg_ticket || 300)) + ' 元"></label>'
+      + '<label class="dict-field"><span class="dict-ask-q"><i>3</i>' + esc(qs[2]) + '</span><select data-ask="channel"><option value="map">地图搜（高德 / 百度地图）</option><option value="video">刷短视频（抖音 / 视频号 / 小红书）</option><option value="both">两边都重要</option></select></label>'
+      + '</div>'
+      + '<div class="dict-form-status ok">会先生成自定义行业，基础模板仍是《' + esc(m.name) + '》；保存后出现在「＋ 我的自定义」，可随时回滚。</div>'
+      + '<div class="dict-modal-actions"><button type="button" class="primary" data-act="ask-save">用回答生成我的配置</button><button type="button" class="danger" data-act="ask-notme">这不是我</button></div>'
+      + '<div id="dictAskNotMe" hidden>' + candidatesHTML(m) + '</div>';
+    box.innerHTML = html;
+    var sub = $('dictModalSub');
+    if (sub) sub.textContent = '先不套用。回答 3 个问题后，用你的回答构造自定义 override。';
+  }
+  function previewOverride(text) {
+    var s = String(text || '');
+    var o = {};
+    var m = s.match(/(?:客单价|客单|均价|人均(?:消费)?)\s*(?:为|是|约|大概|[:：])?\s*(\d+(?:\.\d+)?)\s*(?:元|块|rmb)?/i);
+    if (m) o.avg_ticket = Number(m[1]);
+    m = s.match(/(?:半衰期|热度半衰期|内容半衰期|时效)\s*(?:为|是|约|大概|[:：])?\s*(\d+(?:\.\d+)?)\s*(?:小时|h)/i);
+    if (m) o.half_life_hours = Number(m[1]);
+    m = s.match(/(?:屏蔽词|负面词|黑名单|排除词)\s*[:：]?\s*([^\n。；;]+)/);
+    if (m) {
+      var arr = splitWords(m[1]);
+      if (arr.length) o.negative_words_append = arr;
+    }
+    m = s.match(/(?:意向词|关键词|想搜)\s*[:：]?\s*([^\n。；;]+)/);
+    if (m) {
+      var arr2 = splitWords(m[1]);
+      if (arr2.length) o.intent_words_append = arr2;
+    }
+    m = s.match(/(?:服务半径|覆盖半径)\s*(?:为|是|约|大概|[:：])?\s*(\d+(?:\.\d+)?)\s*(?:公里|km)/i);
+    if (m) o.service_radius_km = Number(m[1]);
+    return o;
+  }
+  function doMatch() {
+    var nameEl = $('dictCustomName'), descEl = $('dictCustomDesc');
+    var name = String((nameEl && nameEl.value) || '').trim();
+    var text = String((descEl && descEl.value) || '').trim();
+    if (name.length < 2) {
+      setFormStatus('至少输入 2 个字的行业 / 门店名，例如：宠物殡葬', 'bad');
+      if (nameEl) nameEl.focus();
+      return;
+    }
+    var btn = $('dictMatchBtn');
+    if (btn) { btn.disabled = true; btn.textContent = '⏳ AI 匹配中…'; }
+    setFormStatus('正在让行业字典匹配基础行业、置信度和配置差异…');
+    D.pending = { name: name, text: text };
+    D.matchCache = null;
+    req('/industry/match', {
+      method: 'POST', headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ text: (name + ' ' + text).trim() })
+    }, 25000).then(function (m) {
+      if (!m || !m.template_id) throw new Error((m && m.hint) || '没有匹配到合适的基础行业');
+      D.pending.match = m;
+      D.pending.override = previewOverride(text);
+      D.pending.base = m.template_id;
+      D.pending.baseName = m.name;
+      setFormStatus('');
+      if (m.tier === 'ask') showAsk(m); else showMatch(m, false);
+    }).catch(function (e) {
+      setFormStatus('匹配失败：' + (e.message || '网络异常') + '。可以直接点「我改一下」选基础行业后保存。', 'bad');
+    }).then(function () {
+      if (btn) { btn.disabled = false; btn.textContent = '🤖 让 AI 匹配行业'; }
+    });
+  }
+  function createCustom(baseId, override, quiet) {
+    var p = D.pending || {};
+    var name = p.name || '';
+    var text = p.text || '';
+    if (!name) { setFormStatus('请先填写行业名', 'bad'); return Promise.reject(new Error('缺少行业名')); }
+    if (!baseId) { setFormStatus('请先选择基础行业', 'bad'); return Promise.reject(new Error('缺少基础行业')); }
+    var btn = q('[data-act="save"],[data-act="ask-save"],[data-act="edit-save"]', $('dictModal'));
+    var oldTxt = btn ? btn.textContent : '';
+    if (btn) { btn.disabled = true; btn.textContent = '⏳ 保存中…'; }
+    function done() {
+      if (btn) { btn.disabled = false; btn.textContent = oldTxt || '保存'; }
+    }
+    return req('/industry/custom', {
+      method: 'POST', headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ workspace_id: D.ws || undefined, name: name, text: text, base_template: baseId, override: override || {} })
+    }, 25000).then(function (d) {
+      if (!d || !d.ok) throw new Error((d && (d.hint || d.error)) || '保存失败');
+      var cid = d.custom_id;
+      return loadCustoms().then(function () {
+        D.filter = 'custom';
+        D.renderChips();
+        closeCustom();
+        D.select(cid, true);
+        renderChips(); render();
+        var n = d.diff ? Object.keys(d.diff).length : 0;
+        toast('已保存「' + name + '」到我的自定义 · v' + (d.version || 1) + ' · diff ' + n + ' 项', 'ok');
+        setTimeout(function () { if (window.WB_TPL_SCROLL && window.WB_TPL_SCROLL.reveal) window.WB_TPL_SCROLL.reveal(); }, 80);
+        return true;
+      });
+    }).catch(function (e) {
+      if ($('dictModal') && !$('dictModal').hidden) setFormStatus('保存失败：' + (e.message || '网络异常'), 'bad');
+      toast(e.message || '自定义行业保存失败', 'bad');
+      return false;
+    }).then(function (v) { done(); return v; });
+  }
+  function showEditor(ctx, backStage) {
+    D.editorCtx = ctx;
+    D.lastStage = backStage || '';
+    hideStages();
+    var box = $('dictEditStep'); if (!box) return;
+    box.hidden = false;
+    var base = byId(ctx.base) || {};
+    var html = '<div class="dict-match-head"><span class="dict-match-ico">✏️</span><div><b>我改一下：' + esc(ctx.name || '自定义行业') + '</b><span>基础模板《' + esc(base.name || ctx.base) + '》· 只写入你的自定义配置，不改字典</span></div><span class="dict-tier confirm">逐项设置</span></div>'
+      + '<div class="dict-section-title">高级设置 <span>客单价 / 评分权重 / 半衰期 / SLA / 意向词 / 黑名单 / 钩子 / 表单字段</span></div>'
+      + '<div id="dictEditFields">' + editorFieldsHTML(base, ctx.override || {}) + '</div>'
+      + '<div class="dict-modal-actions"><button type="button" class="primary" data-act="edit-save">💾 保存为我的自定义</button><button type="button" data-act="edit-reset">↺ 恢复模板默认</button><button type="button" data-act="edit-back">返回匹配结果</button></div>';
+    box.innerHTML = html;
+    var sub = $('dictModalSub');
+    if (sub) sub.textContent = '逐项修改后会保存成你的自定义行业；保存后可以回滚到之前的快照。';
+  }
+  function askSave() {
+    var box = $('dictAskStep'); if (!box) return;
+    var when = (q('[data-ask="when"]', box) || {}).value || '1,3|15';
+    var parts = when.split('|');
+    var days = parts[0].split(',').map(Number);
+    var sla = Number(parts[1]) || 15;
+    var ticket = numOrNull((q('[data-ask="ticket"]', box) || {}).value);
+    var channel = (q('[data-ask="channel"]', box) || {}).value || 'both';
+    var channels = channel === 'map' ? ['高德/百度地图'] : (channel === 'video' ? ['抖音', '视频号', '小红书'] : ['抖音', '视频号', '高德/百度地图']);
+    var ov = { t_decision_days: days, sla: { s: sla }, channels: channels };
+    if (ticket != null) ov.avg_ticket = ticket;
+    var base = D.pending.base;
+    createCustom(base, ov, true).catch(function () {});
+  }
+  function saveMainCustom() {
+    var c = D.selectedCustom; if (!c) return;
+    var container = $('dictMainEditor'); if (!container) return;
+    var ov = collectEditor(container);
+    var btn = q('[data-main-save]', $('dictCustomFields'));
+    if (btn) { btn.disabled = true; btn.textContent = '⏳ 保存中…'; }
+    req('/industry/custom/' + encodeURIComponent(c.custom_id), {
+      method: 'PUT', headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ workspace_id: D.ws || undefined, override: ov })
+    }, 25000).then(function (d) {
+      var v = d && d.version ? d.version : (c.version || 1) + 1;
+      return loadCustoms().then(function () {
+        D.filter = 'custom'; D.renderChips();
+        D.select(c.custom_id, true);
+        render(); toast('已保存自定义配置 · v' + v + '（可回滚）', 'ok');
+      });
+    }).catch(function (e) {
+      toast(e.message || '保存失败', 'bad');
+    }).then(function () {
+      if (btn) { btn.disabled = false; btn.textContent = '💾 保存修改'; }
+    });
+  }
+  function resetMain() {
+    if (D.selectedCustom) {
+      var ed = $('dictMainEditor');
+      if (ed) {
+        fillEditorBase(ed, D.selectedCustom.base_template);
+        toast('已填回模板默认值，点「保存修改」生效', 'ok');
+      }
+      return;
+    }
+    if (!D.selected) return;
+    D.bgmOverride = '';
+    if (typeof window.__WB_DICT_SET_DURATION === 'function') window.__WB_DICT_SET_DURATION(D.duration);
+    var sel = $('dictBgmSel'); if (sel) sel.value = '';
+    renderLock();
+    toast('已恢复字典默认：' + D.duration + ' 秒 / BGM ' + (D.bgm || '默认'), 'ok');
+  }
+  function rollback() {
+    var c = D.selectedCustom; if (!c) return;
+    var sel = $('dictSnapSel'); var v = sel ? Number(sel.value) : 0;
+    if (!v) { toast('没有可回滚的快照版本', 'warn'); return; }
+    if (!confirm('回滚到 v' + v + '？会生成一个新版本，当前配置不会丢（保留在快照里）。')) return;
+    var btn = $('dictRollbackBtn');
+    if (btn) { btn.disabled = true; btn.textContent = '⏳ 回滚中…'; }
+    req('/industry/custom/' + encodeURIComponent(c.custom_id) + '/rollback', {
+      method: 'POST', headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ workspace_id: D.ws || undefined, version: v })
+    }, 25000).then(function (d) {
+      toast((d && d.message) || ('已回滚到 v' + v), 'ok');
+      return loadCustoms().then(function () {
+        D.filter = 'custom'; D.renderChips();
+        D.select(c.custom_id, true); render();
+      });
+    }).catch(function (e) {
+      toast(e.message || '回滚失败', 'bad');
+    }).then(function () {
+      if (btn) { btn.disabled = false; btn.textContent = '回滚'; }
+    });
+  }
+  function resolveCustom(c, quiet) {
+    if (!c || !c.custom_id) return;
+    req('/industry/resolve', {
+      method: 'POST', headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ workspace_id: D.ws || undefined, custom_id: c.custom_id })
+    }, 20000).then(function (cfg) {
+      if (!cfg) return;
+      D.resolved[c.custom_id] = cfg;
+      if (D.selectedKey !== c.custom_id) return;
+      D.selected = cfg;
+      D.selectedName = cfg.name || c.name;
+      D.duration = Number((cfg.video || {}).duration) || D.duration;
+      D.bgm = (cfg.video || {}).bgm || D.bgm;
+      if (typeof window.__WB_DICT_SET_DURATION === 'function') window.__WB_DICT_SET_DURATION(D.duration);
+      D.render(); renderLock(); renderAdvanced(); renderFork();
+      var h = $('tplHint'); if (h) h.textContent = '已选：' + D.selectedName;
+    }).catch(function (e) {
+      if (!quiet) toast('读取自定义配置失败：' + (e.message || '网络异常'), 'warn');
+    });
+  }
+
+  /* ---------- 分叉 / 下一步 ---------- */
+  function renderFork() {
+    var f = $('dictFork'); if (!f) return;
+    if (!D.selected) { f.hidden = true; return; }
+    f.hidden = false;
+    var id = D.selectedCustom ? D.selectedCustom.base_template : D.selectedKey;
+    id = id || D.selectedKey;
+    var extra = D.selectedCustom ? ('&custom_id=' + encodeURIComponent(D.selectedKey)) : '';
+    var geo = $('dictForkGeo');
+    var lead = $('dictForkLead');
+    if (geo) geo.href = '/ai-nav/geo/?industry=' + encodeURIComponent(id) + extra;
+    if (lead) lead.href = '/ai-nav/leadgen/?industry=' + encodeURIComponent(id) + extra;
+  }
+
+  /* ---------- 事件绑定 ---------- */
+  function bind() {
+    var chips = $('dictChips');
+    if (chips) chips.addEventListener('click', function (e) {
+      var b = e.target && e.target.closest ? e.target.closest('[data-group]') : null;
+      if (b) {
+        D.filter = b.getAttribute('data-group') || 'all';
+        renderChips(); D._lastFilter = ''; D.render();
+        var g = $('tplGrid'); if (g) g.scrollTop = 0;
+        if (window.WB_TPL_SCROLL && window.WB_TPL_SCROLL.update) setTimeout(window.WB_TPL_SCROLL.update, 40);
+        return;
+      }
+      if (e.target && e.target.closest && e.target.closest('#dictOpenCustom')) openCustom();
+    });
+    var grid = $('tplGrid');
+    if (grid) grid.addEventListener('click', function (e) {
+      if (!D.active) return;
+      if (e.target && e.target.closest && e.target.closest('[data-open-custom]')) { openCustom(); return; }
+      var card = e.target && e.target.closest ? e.target.closest('[data-tpl]') : null;
+      if (!card) return;
+      e.preventDefault();
+      if (e.stopImmediatePropagation) e.stopImmediatePropagation();
+      D.select(card.getAttribute('data-tpl'), false);
+    }, true);
+    var modal = $('dictModal');
+    if (modal) {
+      modal.addEventListener('click', function (e) {
+        if (e.target === modal) { closeCustom(); return; }
+        var b = e.target && e.target.closest ? e.target.closest('[data-act]') : null;
+        if (b) {
+          var act = b.getAttribute('data-act');
+          if (act === 'save') createCustom(D.pending.base, D.pending.override || {}, true);
+          else if (act === 'edit') showEditor({ name: D.pending.name, base: D.pending.base, override: D.pending.override || {} }, 'match');
+          else if (act === 'notme') { var box = $('dictNotMeBox'); if (box) box.hidden = !box.hidden; }
+          else if (act === 'ask-save') askSave();
+          else if (act === 'ask-notme') { var ab = $('dictAskNotMe'); if (ab) ab.hidden = !ab.hidden; }
+          else if (act === 'edit-save') {
+            var ed = $('dictEditFields');
+            var ctx = D.editorCtx || { base: D.pending && D.pending.base };
+            if (ed && ctx && ctx.base) {
+              var ov = collectEditor(ed);
+              createCustom(ctx.base, ov, true);
+            } else {
+              setFormStatus('请先选择基础行业再保存', 'bad');
+            }
+          } else if (act === 'edit-reset') {
+            var ef = $('dictEditFields');
+            if (ef) fillEditorBase(ef, (D.editorCtx && D.editorCtx.base) || (D.pending && D.pending.base));
+            setFormStatus('已填回基础模板默认值；点「保存为我的自定义」才生效。', 'ok');
+          } else if (act === 'edit-back') {
+            if (D.lastStage === 'ask') showAsk(D.pending.match); else showMatch(D.pending.match, D.pending.chosen);
+          }
+          return;
+        }
+        var baseBtn = e.target.closest('[data-base]');
+        if (baseBtn) {
+          var bid = baseBtn.getAttribute('data-base');
+          var m = D.pending && D.pending.match;
+          if (m) {
+            var item = byId(bid);
+            var mm = Object.assign({}, m, { template_id: bid, name: (item && item.name) || bid, tier: 'confirm', confidence: 1, reasons: ['手动指定基础模板：' + ((item && item.name) || bid)] });
+            D.pending.base = bid; D.pending.baseName = mm.name; D.pending.chosen = true;
+            showMatch(mm, true);
+          }
+          return;
+        }
+      });
+      modal.addEventListener('change', function (e) {
+        var sel = e.target && e.target.closest ? e.target.closest('[data-base-all]') : null;
+        if (sel && sel.value) {
+          var item = byId(sel.value);
+          var m = D.pending && D.pending.match;
+          if (m) {
+            var mm = Object.assign({}, m, { template_id: sel.value, name: (item && item.name) || sel.value, tier: 'confirm', confidence: 1, reasons: ['手动指定基础模板：' + ((item && item.name) || sel.value)] });
+            D.pending.base = sel.value; D.pending.baseName = mm.name; D.pending.chosen = true;
+            showMatch(mm, true);
+          }
+        }
+      });
+    }
+    var modalClose = $('dictModalClose'); if (modalClose) modalClose.addEventListener('click', closeCustom);
+    var matchBtn = $('dictMatchBtn'); if (matchBtn) matchBtn.addEventListener('click', doMatch);
+    var nameEl = $('dictCustomName');
+    if (nameEl) nameEl.addEventListener('keydown', function (e) { if (e.key === 'Enter') { e.preventDefault(); doMatch(); } });
+    var bgmSel = $('dictBgmSel');
+    if (bgmSel) {
+      bgmSel.addEventListener('focus', function () { this._dictFocus = true; });
+      bgmSel.addEventListener('blur', function () { this._dictFocus = false; });
+      bgmSel.addEventListener('change', function () {
+        D.bgmOverride = this.value || '';
+        if (D.selectedCustom) {
+          var eb = $('dictMainEditor');
+          var s2 = eb ? eb.querySelector('[data-ed="video_bgm"]') : null;
+          if (s2 && this.value) s2.value = this.value;
+        }
+        renderLock();
+      });
+    }
+    var resetBtn = $('dictResetBtn'); if (resetBtn) resetBtn.addEventListener('click', resetMain);
+    var rollbackBtn = $('dictRollbackBtn'); if (rollbackBtn) rollbackBtn.addEventListener('click', rollback);
+    var customFields = $('dictCustomFields');
+    if (customFields) customFields.addEventListener('click', function (e) {
+      var b = e.target && e.target.closest ? e.target.closest('[data-main-save]') : null;
+      if (b) saveMainCustom();
+    });
+    var fork = $('dictFork');
+    if (fork) fork.addEventListener('click', function (e) {
+      var b = e.target && e.target.closest ? e.target.closest('[data-fork="video"]') : null;
+      if (!b) return;
+      var step = document.querySelector('.wb-step[data-step="2"]');
+      if (step) step.click();
+    });
+    document.addEventListener('keydown', function (e) {
+      if (e.key === 'Escape' && modal && !modal.hidden) closeCustom();
+    });
+    // durChips 的点击由主脚本处理；这里只监听改变后刷新锁定区（主脚本会调用 renderDur -> D.renderDur）。
+    var dur = $('durChips');
+    if (dur) dur.addEventListener('click', function () { setTimeout(renderLock, 0); });
+    // 认证完成后刷新 workspace 自定义行业
+    document.addEventListener('auth:change', function () {
+      var w = workspaceId();
+      if (w && w !== D.ws) {
+        D.ws = w;
+        loadCustoms().then(function () { if (D.active) { renderChips(); render(); } }).catch(function () {});
+      }
+    });
+    setTimeout(function () {
+      var w = workspaceId();
+      if (w && w !== D.ws) {
+        D.ws = w;
+        loadCustoms().then(function () { if (D.active) { renderChips(); render(); } }).catch(function () {});
+      }
+    }, 900);
+  }
+
+  function boot() {
+    bind();
+    load();
+  }
+  if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', boot);
+  else boot();
+})();
+
+</script>
 <script>
 /* WB_WORKBENCH controller */
 /* 星籁剪辑创作工作台 · 6 步流程控制器（新增，不覆盖既有脚本） */
@@ -5387,6 +6751,7 @@ if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',
   }
   function matCount() { return document.querySelectorAll('#matList .mat').length; }
   function tplName() {
+    if (window.WB_DICT && window.WB_DICT.selectedName) return String(window.WB_DICT.selectedName);
     var el = document.querySelector('#tplGrid .tpl-card.on .tpl-name');
     if (el) return el.textContent.trim();
     var h = $('tplHint');
@@ -5394,6 +6759,7 @@ if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',
     return '门店开业引流';
   }
   function currentTplId() {
+    if (window.WB_DICT && window.WB_DICT.selectedKey) return String(window.WB_DICT.selectedKey);
     var el = document.querySelector('#tplGrid .tpl-card.on');
     return el ? (el.getAttribute('data-tpl') || '') : '';
   }
@@ -6186,6 +7552,7 @@ if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',
   /* ---------------- AI 生成行业素材（studio_gen，2026-11-18 追加） ---------------- */
   function wbGenEl(id) { return document.getElementById(id); }
   function wbGenIndustryName() {
+    if (window.WB_DICT && window.WB_DICT.selectedName) return String(window.WB_DICT.selectedName);
     var cfg = WB.industry;
     if (cfg) {
       var nm = String(cfg.name || '').trim();

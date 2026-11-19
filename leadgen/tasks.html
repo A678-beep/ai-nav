@@ -1,0 +1,1008 @@
+<!doctype html>
+<html lang="zh-CN" data-page="leadgen">
+<head><meta name="robots" content="noindex,nofollow"><meta name="googlebot" content="noindex,nofollow">
+<meta charset="utf-8">
+<!--xl-theme-start-->
+<script>(function(){try{var k="xl_theme",v=localStorage.getItem(k),m=(v==="dark"||v==="light"||v==="auto")?v:"auto",q=window.matchMedia?window.matchMedia("(prefers-color-scheme: light)"):null,t=(m==="auto")?((q&&q.matches)?"light":"dark"):m,d=document.documentElement;d.setAttribute("data-theme",t);d.setAttribute("data-theme-mode",m);d.style.colorScheme=t}catch(e){document.documentElement.setAttribute("data-theme","dark")}})();</script>
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<link rel="icon" href="data:,">
+<title>获客任务中心 · 关键词任务卡片 · 星籁 AI</title>
+<meta name="description" content="获客任务中心：按关键词建任务卡片，定时或手动运行公开搜索索引（知乎/百度知道/贴吧等），结果自动回流线索池；互动只做评论/私信话术草稿与曝光提醒，系统不自动发送，每任务每日最多 3 次。">
+<link rel="canonical" href="https://a678-beep.github.io/ai-nav/leadgen/tasks.html">
+<style>
+:root{
+  --bg:#070a10;--bg2:#0b0f17;--card:#0f1622;--card2:#121a28;--line:rgba(148,163,184,.14);
+  --txt:#e8eef8;--txt2:#9fb0c7;--txt3:#6b7c94;--cyan:#38bdf8;--violet:#8b5cf6;
+  --lime:#34d399;--amber:#fbbf24;--red:#f87171;--pink:#f472b6;
+  --shadow:0 18px 44px -32px rgba(0,0,0,.8);
+}
+html[data-theme="light"]{
+  --bg:#f5f7fb;--bg2:#eef2f8;--card:#ffffff;--card2:#f8fafc;--line:#e2e8f0;
+  --txt:#0f172a;--txt2:#475569;--txt3:#64748b;--cyan:#0284c7;--violet:#7c3aed;
+  --lime:#059669;--amber:#b45309;--red:#dc2626;--pink:#db2777;
+  --shadow:0 18px 44px -34px rgba(15,23,42,.35);
+}
+*{box-sizing:border-box}
+html,body{margin:0;padding:0}
+body{background:radial-gradient(900px 460px at 84% -10%,rgba(56,189,248,.12),transparent 60%),
+  radial-gradient(760px 420px at 10% 6%,rgba(139,92,246,.10),transparent 60%),var(--bg);
+  color:var(--txt);font:14px/1.55 -apple-system,BlinkMacSystemFont,"Segoe UI","PingFang SC","Microsoft YaHei",sans-serif;
+  min-height:100vh;overflow-x:clip}
+html[data-theme="light"] body{background:radial-gradient(900px 460px at 84% -10%,rgba(56,189,248,.16),transparent 60%),
+  radial-gradient(760px 420px at 10% 6%,rgba(124,58,237,.10),transparent 60%),var(--bg)}
+a{color:inherit;text-decoration:none}
+button{font-family:inherit}
+.wrap{max-width:1180px;margin:0 auto;padding:22px 18px 72px;min-width:0}
+@media(min-width:1180px){.wrap{max-width:none;padding:24px 32px 72px}}
+@media(min-width:1650px){.wrap{padding:26px 48px 80px}}
+@media(max-width:760px){.wrap{padding:14px 14px 56px}}
+@media(max-width:390px){.wrap{padding:12px 12px 52px}}
+
+/* ---------- 顶部 ---------- */
+.tk-head{display:flex;align-items:flex-start;justify-content:space-between;gap:20px;flex-wrap:wrap;margin:2px 0 18px}
+.tk-back{display:inline-flex;align-items:center;gap:6px;font-size:12.5px;color:var(--txt2);
+  border:1px solid var(--line);border-radius:99px;padding:5px 11px;margin-bottom:12px;background:var(--card)}
+.tk-back:hover{color:var(--cyan);border-color:rgba(56,189,248,.5)}
+.tk-eyebrow{font-size:11px;letter-spacing:.16em;color:var(--txt3);font-weight:700;margin-bottom:6px}
+.tk-head h1{font-size:27px;line-height:1.2;margin:0 0 8px;letter-spacing:-.4px}
+.tk-head h1 span{background:linear-gradient(90deg,var(--cyan),var(--violet));-webkit-background-clip:text;background-clip:text;
+  -webkit-text-fill-color:transparent}
+.tk-sub{margin:0;max-width:760px;color:var(--txt2);font-size:13px}
+.tk-head-actions{display:flex;align-items:center;gap:10px;flex-wrap:wrap}
+.tk-pill{display:inline-flex;align-items:center;gap:6px;font-size:12px;color:var(--txt2);
+  border:1px solid var(--line);border-radius:99px;padding:5px 11px;background:var(--card);white-space:nowrap}
+.tk-pill .dot{width:7px;height:7px;border-radius:50%;background:var(--amber)}
+.tk-pill.ok .dot{background:var(--lime);box-shadow:0 0 0 3px rgba(52,211,153,.15)}
+.tk-pill.bad .dot{background:var(--red)}
+
+/* ---------- 按钮 ---------- */
+.tk-btn{appearance:none;border:1px solid var(--line);background:var(--card);color:var(--txt);
+  border-radius:10px;padding:8px 14px;font-size:13px;font-weight:600;cursor:pointer;
+  display:inline-flex;align-items:center;justify-content:center;gap:6px;transition:.16s;white-space:nowrap}
+.tk-btn:hover{border-color:rgba(56,189,248,.45);color:var(--cyan);transform:translateY(-1px)}
+.tk-btn:disabled{opacity:.5;cursor:not-allowed;transform:none}
+.tk-btn.primary{background:linear-gradient(135deg,var(--cyan),var(--violet));border:0;
+  color:#04121c;box-shadow:0 10px 26px -16px rgba(56,189,248,.9)}
+.tk-btn.primary:hover{color:#04121c;filter:brightness(1.06)}
+html[data-theme="light"] .tk-btn.primary{color:#fff}
+.tk-btn.sm{padding:5px 10px;font-size:12px;border-radius:8px}
+.tk-btn.danger{color:var(--red);border-color:rgba(248,113,113,.28)}
+.tk-btn.danger:hover{background:rgba(248,113,113,.08);border-color:rgba(248,113,113,.55);color:var(--red)}
+.tk-btn.ghost{background:transparent}
+
+/* ---------- 今日汇总 ---------- */
+.tk-summary{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:12px;margin-bottom:18px}
+.tk-sum{position:relative;background:linear-gradient(180deg,var(--card2),var(--card));border:1px solid var(--line);
+  border-radius:15px;padding:14px 16px;box-shadow:var(--shadow);min-width:0;overflow:hidden}
+.tk-sum::after{content:"";position:absolute;right:-24px;top:-24px;width:78px;height:78px;border-radius:50%;
+  background:radial-gradient(circle,rgba(56,189,248,.16),transparent 70%)}
+.tk-sum b{display:block;font-size:26px;line-height:1.1;letter-spacing:-.5px;margin-bottom:4px}
+.tk-sum span{font-size:12.5px;color:var(--txt2)}
+.tk-sum em{display:block;font-style:normal;font-size:11px;color:var(--txt3);margin-top:5px}
+.tk-sum:nth-child(1) b{color:var(--cyan)}
+.tk-sum:nth-child(2) b{color:var(--violet)}
+.tk-sum:nth-child(3) b{color:var(--lime)}
+.tk-sum:nth-child(4) b{color:var(--amber)}
+@media(max-width:900px){.tk-summary{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media(max-width:390px){.tk-summary{gap:8px}.tk-sum{padding:11px 12px;border-radius:12px}.tk-sum b{font-size:21px}.tk-sum span{font-size:11.5px}.tk-sum em{display:none}}
+
+/* ---------- 工具条 ---------- */
+.tk-toolbar{display:flex;align-items:center;gap:10px;flex-wrap:wrap;margin:4px 0 12px}
+.tk-toolbar h2{font-size:15px;margin:0;font-weight:800}
+.tk-count{font-size:12px;color:var(--txt3)}
+.tk-toolbar .sp{flex:1}
+.tk-note{font-size:11.5px;color:var(--txt3)}
+.tk-banner{display:flex;gap:10px;align-items:flex-start;border:1px solid rgba(56,189,248,.22);
+  background:rgba(56,189,248,.06);color:var(--txt2);border-radius:12px;padding:10px 13px;font-size:12.5px;margin-bottom:14px}
+.tk-banner b{color:var(--txt)}
+.tk-banner .ic{flex:0 0 auto}
+
+/* ---------- 卡片网格 ---------- */
+.tk-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:16px;align-items:start}
+@media(max-width:1080px){.tk-grid{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media(max-width:720px){.tk-grid{grid-template-columns:minmax(0,1fr)}}
+.tk-card{background:linear-gradient(180deg,var(--card2),var(--card));border:1px solid var(--line);
+  border-radius:16px;padding:15px 15px 12px;box-shadow:var(--shadow);min-width:0;display:flex;flex-direction:column;gap:10px;
+  position:relative;overflow:hidden}
+.tk-card.off{opacity:.78}
+.tk-card.running{border-color:rgba(56,189,248,.55);box-shadow:0 0 0 1px rgba(56,189,248,.26),0 18px 40px -28px rgba(56,189,248,.7)}
+.tk-card::before{content:"";position:absolute;left:0;top:0;height:3px;width:100%;
+  background:linear-gradient(90deg,var(--cyan),var(--violet));opacity:.7}
+.tk-card.off::before{background:var(--txt3);opacity:.35}
+.tk-card-h{display:flex;align-items:flex-start;gap:10px;min-width:0}
+.tk-title{font-size:15.5px;font-weight:800;line-height:1.35;margin:0;min-width:0;overflow-wrap:anywhere}
+.tk-subline{display:flex;align-items:center;gap:6px;flex-wrap:wrap;margin-top:4px}
+.tk-badge{font-size:10.5px;padding:2px 7px;border-radius:99px;border:1px solid var(--line);color:var(--txt2);
+  background:rgba(148,163,184,.07);white-space:nowrap}
+.tk-badge.manual{color:var(--amber);border-color:rgba(251,191,36,.3);background:rgba(251,191,36,.08)}
+.tk-badge.plat{color:var(--cyan);border-color:rgba(56,189,248,.26);background:rgba(56,189,248,.07)}
+.tk-badge.on{color:var(--lime);border-color:rgba(52,211,153,.3);background:rgba(52,211,153,.08)}
+.tk-badge.offb{color:var(--txt3)}
+.tk-switch{position:relative;display:inline-flex;width:38px;height:22px;flex:0 0 auto;margin-left:auto}
+.tk-switch input{position:absolute;opacity:0;width:100%;height:100%;margin:0;cursor:pointer;z-index:2}
+.tk-switch i{position:absolute;inset:0;border-radius:99px;background:rgba(148,163,184,.28);transition:.18s}
+.tk-switch i::after{content:"";position:absolute;left:3px;top:3px;width:16px;height:16px;border-radius:50%;
+  background:#fff;transition:.18s;box-shadow:0 1px 4px rgba(0,0,0,.35)}
+.tk-switch input:checked+i{background:linear-gradient(135deg,var(--cyan),var(--violet))}
+.tk-switch input:checked+i::after{transform:translateX(16px)}
+.tk-switch input:focus-visible+i{outline:2px solid var(--cyan);outline-offset:2px}
+
+.tk-kws{display:flex;flex-wrap:wrap;gap:6px;min-width:0}
+.tk-chip{font-size:11.5px;padding:3px 8px;border-radius:8px;border:1px solid var(--line);
+  background:rgba(148,163,184,.06);color:var(--txt2);max-width:100%;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.tk-chip.more{cursor:pointer;color:var(--cyan);border-color:rgba(56,189,248,.3);background:transparent}
+.tk-kws .tk-chip.hide{display:none}
+.tk-kws.expanded .tk-chip.hide{display:inline-block}
+.tk-kws.expanded .tk-chip.more{display:none}
+
+.tk-stats{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:6px;border-top:1px dashed var(--line);
+  border-bottom:1px dashed var(--line);padding:9px 0;margin:1px 0}
+.tk-stat{text-align:center;min-width:0}
+.tk-stat b{display:block;font-size:16px;line-height:1.2;letter-spacing:-.3px}
+.tk-stat span{font-size:10.5px;color:var(--txt3);display:block;white-space:nowrap}
+.tk-stat:nth-child(1) b{color:var(--cyan)}
+.tk-stat:nth-child(2) b{color:var(--violet)}
+.tk-stat:nth-child(3) b{color:var(--lime)}
+.tk-stat:nth-child(4) b{color:var(--amber)}
+.tk-meta{display:flex;justify-content:space-between;gap:8px;font-size:11px;color:var(--txt3);flex-wrap:wrap}
+.tk-meta b{color:var(--txt2);font-weight:600}
+.tk-err{font-size:11.5px;color:var(--red);background:rgba(248,113,113,.08);border:1px solid rgba(248,113,113,.22);
+  border-radius:8px;padding:6px 8px;overflow-wrap:anywhere}
+
+.tk-runbar{display:none;flex-direction:column;gap:6px;border:1px solid rgba(56,189,248,.24);
+  background:rgba(56,189,248,.05);border-radius:10px;padding:8px 9px}
+.tk-runbar.show{display:flex}
+.tk-bar{height:6px;border-radius:99px;background:rgba(148,163,184,.18);overflow:hidden}
+.tk-bar i{display:block;height:100%;width:0;border-radius:99px;background:linear-gradient(90deg,var(--cyan),var(--violet));
+  transition:width .35s ease}
+.tk-runmeta{display:flex;justify-content:space-between;gap:6px;font-size:10.8px;color:var(--txt2);flex-wrap:wrap}
+.tk-runmeta b{color:var(--txt)}
+.tk-runmeta .pct{color:var(--cyan);font-weight:700}
+
+.tk-actions{display:flex;gap:6px;flex-wrap:wrap;margin-top:auto;padding-top:2px}
+.tk-actions .tk-btn{flex:1 1 auto;min-width:0}
+
+.tk-empty{border:1px dashed var(--line);border-radius:16px;padding:44px 20px;text-align:center;color:var(--txt2);
+  background:var(--card);margin-top:4px}
+.tk-empty .big{font-size:34px;margin-bottom:8px}
+.tk-empty b{color:var(--txt);display:block;font-size:16px;margin-bottom:6px}
+.tk-empty p{margin:0 0 16px;font-size:13px}
+
+.tk-foot{margin-top:26px;border-top:1px solid var(--line);padding-top:14px;color:var(--txt3);font-size:11.5px;line-height:1.7}
+.tk-foot b{color:var(--txt2)}
+
+/* ---------- 弹窗 ---------- */
+.tk-modal{position:fixed;inset:0;z-index:80;display:none;align-items:flex-start;justify-content:center;
+  padding:24px 14px;overflow-y:auto;background:rgba(3,6,12,.66);backdrop-filter:blur(6px)}
+.tk-modal.open{display:flex}
+.tk-dialog{width:min(720px,100%);background:var(--card);border:1px solid var(--line);border-radius:18px;
+  box-shadow:0 40px 90px -40px rgba(0,0,0,.8);margin:auto;overflow:hidden}
+.tk-dialog-h{display:flex;align-items:center;gap:10px;padding:16px 18px;border-bottom:1px solid var(--line);
+  background:linear-gradient(180deg,var(--card2),var(--card));position:sticky;top:0;z-index:2}
+.tk-dialog-h h3{margin:0;font-size:16px;flex:1}
+.tk-x{appearance:none;border:0;background:transparent;color:var(--txt3);font-size:22px;line-height:1;cursor:pointer;padding:2px 6px;border-radius:8px}
+.tk-x:hover{color:var(--txt);background:rgba(148,163,184,.12)}
+.tk-dialog-b{padding:16px 18px 4px;max-height:calc(100vh - 210px);overflow-y:auto}
+.tk-sec{border:1px solid var(--line);border-radius:13px;padding:13px 14px;margin-bottom:13px;background:var(--card2)}
+.tk-sec h4{margin:0 0 10px;font-size:13.5px;display:flex;align-items:center;gap:8px}
+.tk-sec h4 .no{width:20px;height:20px;border-radius:7px;display:grid;place-items:center;font-size:11px;
+  background:linear-gradient(135deg,rgba(56,189,248,.2),rgba(139,92,246,.2));color:var(--cyan);font-weight:800}
+.tk-sec h4 em{font-style:normal;font-size:11px;color:var(--txt3);font-weight:400;margin-left:auto}
+.tk-field{margin-bottom:11px}
+.tk-field:last-child{margin-bottom:2px}
+.tk-field>label{display:block;font-size:12px;color:var(--txt2);margin-bottom:5px;font-weight:600}
+.tk-field .hint{font-weight:400;color:var(--txt3);font-size:11px;margin-left:6px}
+.tk-input,.tk-textarea,.tk-select{width:100%;background:var(--bg);border:1px solid var(--line);color:var(--txt);
+  border-radius:9px;padding:9px 11px;font-size:13px;font-family:inherit;outline:none;transition:.15s}
+.tk-input:focus,.tk-textarea:focus,.tk-select:focus{border-color:rgba(56,189,248,.6);
+  box-shadow:0 0 0 3px rgba(56,189,248,.12)}
+.tk-textarea{min-height:86px;resize:vertical;line-height:1.6}
+.tk-row{display:flex;gap:10px;flex-wrap:wrap}
+.tk-row>.tk-field{flex:1 1 160px;min-width:0}
+.tk-chips{display:flex;flex-wrap:wrap;gap:7px}
+.tk-pick{position:relative;display:inline-flex}
+.tk-pick input{position:absolute;opacity:0;width:100%;height:100%;margin:0;cursor:pointer;z-index:2}
+.tk-pick span{font-size:12px;padding:6px 11px;border-radius:99px;border:1px solid var(--line);
+  background:var(--bg);color:var(--txt2);transition:.15s;white-space:nowrap}
+.tk-pick input:checked+span{color:var(--cyan);border-color:rgba(56,189,248,.6);
+  background:rgba(56,189,248,.12);box-shadow:0 0 0 1px rgba(56,189,248,.35) inset}
+.tk-pick input:focus-visible+span{outline:2px solid var(--cyan);outline-offset:2px}
+.tk-radio{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:8px}
+@media(max-width:560px){.tk-radio{grid-template-columns:minmax(0,1fr)}}
+.tk-radio .tk-pick{display:block}
+.tk-radio .tk-pick span{display:block;text-align:left;padding:9px 11px;border-radius:11px;line-height:1.45;white-space:normal}
+.tk-radio .tk-pick b{display:block;font-size:12.5px;color:var(--txt);margin-bottom:2px}
+.tk-radio .tk-pick small{display:block;font-size:10.5px;color:var(--txt3)}
+.tk-radio .tk-pick input:checked+span small{color:var(--txt2)}
+
+.tk-preset{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:8px}
+@media(max-width:560px){.tk-preset{grid-template-columns:minmax(0,1fr)}}
+.tk-preset .tk-pick{display:block}
+.tk-preset .tk-pick span{display:block;text-align:left;padding:9px 10px;border-radius:11px;white-space:normal;line-height:1.45}
+.tk-preset .tk-pick b{display:block;font-size:12px;color:var(--txt);margin-bottom:3px}
+.tk-preset .tk-pick small{display:block;font-size:10.5px;color:var(--txt3);line-height:1.45}
+.tk-preset .tk-pick input:checked+span small{color:var(--txt2)}
+.tk-preset .tk-pick em{font-style:normal;color:var(--amber);font-size:10px}
+
+.tk-warn{display:flex;gap:8px;align-items:flex-start;font-size:11.5px;color:var(--amber);
+  background:rgba(251,191,36,.08);border:1px solid rgba(251,191,36,.24);border-radius:9px;padding:8px 10px;line-height:1.6}
+.tk-formerr{display:none;font-size:12px;color:var(--red);background:rgba(248,113,113,.08);
+  border:1px solid rgba(248,113,113,.24);border-radius:9px;padding:8px 10px;margin-bottom:10px}
+.tk-formerr.show{display:block}
+.tk-dialog-f{display:flex;align-items:center;gap:10px;padding:13px 18px;border-top:1px solid var(--line);
+  background:var(--card);position:sticky;bottom:0}
+.tk-dialog-f .sp{flex:1}
+.tk-dialog-f .tk-note{max-width:52%}
+
+/* ---------- toast ---------- */
+.tk-toast{position:fixed;left:50%;bottom:26px;transform:translate(-50%,16px);z-index:120;
+  background:#0b1220;color:#e8eef8;border:1px solid rgba(148,163,184,.22);border-radius:12px;
+  padding:10px 16px;font-size:13px;box-shadow:0 20px 50px -20px rgba(0,0,0,.8);opacity:0;pointer-events:none;
+  transition:.22s;max-width:min(520px,calc(100vw - 28px));text-align:center}
+.tk-toast.show{opacity:1;transform:translate(-50%,0)}
+.tk-toast.ok{border-color:rgba(52,211,153,.5)}
+.tk-toast.warn{border-color:rgba(251,191,36,.55)}
+.tk-toast.err{border-color:rgba(248,113,113,.55)}
+html[data-theme="light"] .tk-toast{background:#fff;color:#0f172a;border-color:#e2e8f0;box-shadow:0 20px 50px -24px rgba(15,23,42,.35)}
+
+@media(max-width:390px){
+  .tk-head h1{font-size:22px}
+  .tk-head-actions{width:100%}
+  .tk-head-actions .tk-btn{flex:1}
+  .tk-card{padding:13px 12px 10px;border-radius:14px}
+  .tk-actions .tk-btn{font-size:11.5px;padding:5px 8px}
+  .tk-dialog-b{padding:12px 12px 2px}
+  .tk-dialog-h,.tk-dialog-f{padding:12px}
+}
+</style>
+<link rel="stylesheet" href="../assets/theme-light.css">
+<script defer src="../assets/theme.js"></script>
+<link rel="stylesheet" href="../assets/site-shell.css">
+</head>
+<body>
+<!-- 原顶部导航：site-shell 会隐藏并替换为左侧栏 + 细顶栏，保留以兼容无 JS 场景 -->
+<div class="top"><div class="top-in">
+  <a class="brand" href="/ai-nav/"><span class="logo">✦</span>星籁 AI <span class="bs">商家获客</span></a>
+  <nav>
+    <a href="/ai-nav/">AI 导航</a>
+    <a href="/ai-nav/studio/">短视频工作台</a>
+    <a href="/ai-nav/leadgen/" class="on">AI 获客</a>
+    <a href="/ai-nav/geo/">🌍 GEO 推广</a>
+    <a href="/ai-nav/travel/">出行导航</a>
+    <a href="/ai-nav/select-ai/">智能选型</a>
+    <a href="/ai-nav/radar/">工具雷达</a>
+  </nav>
+</div></div>
+
+<main class="wrap">
+  <header class="tk-head">
+    <div>
+      <a class="tk-back" href="./index.html">← 返回 AI 获客</a>
+      <div class="tk-eyebrow">LEADGEN · TASK CENTER</div>
+      <h1>获客<span>任务中心</span></h1>
+      <p class="tk-sub">按关键词建任务卡片，定时 / 手动跑公开搜索索引，命中结果自动回流线索池。
+        互动只做「话术准备 + 跳转原文」，系统绝不自动评论、私信或关注。</p>
+    </div>
+    <div class="tk-head-actions">
+      <span class="tk-pill" id="apiState"><span class="dot"></span><span id="apiStateText">检测后端…</span></span>
+      <button type="button" class="tk-btn primary" id="btnNew">＋ 新建任务</button>
+    </div>
+  </header>
+
+  <section class="tk-summary" aria-label="今日汇总">
+    <div class="tk-sum"><b id="sumTasks">0</b><span>今日任务</span><em>启用中的任务卡片</em></div>
+    <div class="tk-sum"><b id="sumRuns">0</b><span>运行次数</span><em>今日公开索引检索次数</em></div>
+    <div class="tk-sum"><b id="sumLeads">0</b><span>新增线索</span><em>已回流到线索池</em></div>
+    <div class="tk-sum"><b id="sumFollows">0</b><span>新增关注</span><em>人工标记触达 / 回复</em></div>
+  </section>
+
+  <div class="tk-banner">
+    <span class="ic">🛡</span>
+    <div><b>合规底线：</b>只检索 Serper 返回的公开索引摘要（知乎 / 百度知道 / 贴吧 / 小红书公开笔记 / 大众点评 / 58），
+      不抓取登录内容、不模拟登录、不自动评论 / 私信 / 关注；每任务每日最多 3 次，结果仅供人工打开原文判断。</div>
+  </div>
+
+  <div class="tk-toolbar">
+    <h2>任务卡片</h2>
+    <span class="tk-count" id="taskCount">0 张</span>
+    <span class="sp"></span>
+    <span class="tk-note" id="refreshNote">自动刷新中…</span>
+    <button type="button" class="tk-btn sm ghost" id="btnRefresh">刷新</button>
+  </div>
+
+  <section class="tk-grid" id="taskGrid" aria-live="polite"></section>
+
+  <div class="tk-empty" id="emptyState" hidden>
+    <div class="big">🗂️</div>
+    <b>还没有任务卡片</b>
+    <p>建一张「关键词 + 平台」的任务卡，到点自动跑公开索引，命中结果会回流线索池。</p>
+    <button type="button" class="tk-btn primary" id="btnNew2">＋ 新建第一个任务</button>
+  </div>
+
+  <footer class="tk-foot">
+    <b>机制说明：</b>任务卡片只调用公开搜索索引，运行结果写入 leadgen 线索池（source=task:&lt;任务ID&gt;）；
+    评论 / 私信话术与曝光提醒均为草稿，需商家本人打开原文后人工执行。
+    <br><b>额度：</b>每个任务每日 1-3 次（默认 3），超限会提示「今日次数已用完」，次日 00:00 恢复。
+    任务卡片与运行记录存放于服务端 data/leadgen_tasks/。
+  </footer>
+</main>
+
+<!-- 新建 / 编辑 弹窗 -->
+<div class="tk-modal" id="modal" aria-hidden="true">
+  <div class="tk-dialog" role="dialog" aria-modal="true" aria-labelledby="modalTitle">
+    <div class="tk-dialog-h">
+      <h3 id="modalTitle">新建任务</h3>
+      <button type="button" class="tk-x" id="modalClose" aria-label="关闭">×</button>
+    </div>
+    <div class="tk-dialog-b">
+      <div class="tk-formerr" id="formErr"></div>
+
+      <section class="tk-sec">
+        <h4><span class="no">1</span>基础信息 <em>决定“找哪类需求、在哪些平台找”</em></h4>
+        <div class="tk-field">
+          <label for="fName">配置名称</label>
+          <input class="tk-input" id="fName" maxlength="40" placeholder="例如：燕郊除甲醛">
+        </div>
+        <div class="tk-field">
+          <label>平台多选 <span class="hint">最多 4 个，只检索公开索引</span></label>
+          <div class="tk-chips" id="fPlatforms"></div>
+        </div>
+        <div class="tk-field">
+          <label>互动类型 <span class="hint">均需人工执行，系统不会自动发送</span></label>
+          <div class="tk-radio" id="fInteraction">
+            <label class="tk-pick"><input type="radio" name="interaction" value="comment" checked>
+              <span><b>评论跟进</b>生成评论回复草稿，打开原文人工发布<small>人工执行</small></span></label>
+            <label class="tk-pick"><input type="radio" name="interaction" value="dm">
+              <span><b>私信话术</b>生成私信开场白草稿，人工复制发送<small>人工执行</small></span></label>
+            <label class="tk-pick"><input type="radio" name="interaction" value="exposure">
+              <span><b>曝光提醒</b>生成内容发布待办，人工发布<small>人工执行</small></span></label>
+          </div>
+        </div>
+      </section>
+
+      <section class="tk-sec">
+        <h4><span class="no">2</span>搜索配置 <em>关键词越口语化，越容易命中真实提问</em></h4>
+        <div class="tk-row">
+          <div class="tk-field">
+            <label for="fIndustry">行业 <span class="hint">选填，用于 AI 帮写与意向判断</span></label>
+            <input class="tk-input" id="fIndustry" maxlength="30" placeholder="除甲醛">
+          </div>
+          <div class="tk-field">
+            <label for="fCity">城市 / 区域 <span class="hint">选填，如 燕郊 / 北京朝阳</span></label>
+            <input class="tk-input" id="fCity" maxlength="20" placeholder="燕郊">
+          </div>
+        </div>
+        <div class="tk-field">
+          <label for="fKeywords">搜索关键词 <span class="hint">每行 1 个，最多 10 个</span></label>
+          <textarea class="tk-textarea" id="fKeywords" placeholder="燕郊除甲醛 求推荐&#10;燕郊除甲醛 哪家好&#10;燕郊除甲醛 多少钱"></textarea>
+          <div style="display:flex;align-items:center;gap:8px;flex-wrap:wrap;margin-top:7px">
+            <button type="button" class="tk-btn sm" id="btnAi">✨ AI 帮写</button>
+            <span class="tk-note" id="aiHint">输入行业 + 城市，生成 10 个口语化关键词（求推荐 / 哪家好 / 多少钱 / 避雷）</span>
+          </div>
+        </div>
+        <div class="tk-row">
+          <div class="tk-field">
+            <label for="fDaily">每日运行次数 <span class="hint">1-3 次，防滥用与成本失控</span></label>
+            <select class="tk-select" id="fDaily">
+              <option value="3" selected>3 次（默认）</option>
+              <option value="2">2 次</option>
+              <option value="1">1 次</option>
+            </select>
+          </div>
+          <div class="tk-field">
+            <label for="fTime">运行时间 <span class="hint">每天到点自动运行</span></label>
+            <input class="tk-input" id="fTime" type="time" value="09:00">
+          </div>
+        </div>
+      </section>
+
+      <section class="tk-sec">
+        <h4><span class="no">3</span>回复配置 <em>只生成草稿，人工审核后再发</em></h4>
+        <div class="tk-field">
+          <label>预设话术 <span class="hint">三选一，会写进线索的跟进草稿</span></label>
+          <div class="tk-preset" id="fPreset"></div>
+        </div>
+        <div class="tk-warn">
+          <span>⚠️</span>
+          <div>合规提示：不得自动评论 / 私信 / 关注，不得刷屏或群发；话术为 AI 草稿，请按平台规则人工修改后本人发送。
+            禁止广告法极限词与绝对化承诺。</div>
+        </div>
+      </section>
+    </div>
+    <div class="tk-dialog-f">
+      <span class="tk-note">保存后可在卡片上「运行」立即试跑一次</span>
+      <span class="sp"></span>
+      <button type="button" class="tk-btn ghost" id="modalCancel">取消</button>
+      <button type="button" class="tk-btn primary" id="modalSave">保存任务</button>
+    </div>
+  </div>
+</div>
+
+<div class="tk-toast" id="toast" role="status" aria-live="polite"></div>
+
+<script defer src="../assets/site-shell.js"></script>
+<script>
+(function () {
+  'use strict';
+
+  var API_BASE = /(^|\.)github\.io$/i.test(location.hostname)
+    ? 'https://xinglaiai.com/ai-nav/api' : '/ai-nav/api';
+  var API = API_BASE + '/leadgen/tasks';
+
+  var state = {
+    ws: '',
+    tasks: [],
+    stats: {},
+    platforms: [],
+    templates: [],
+    apiState: 'pending',
+    modalTask: null,
+    running: {},
+    pollTimer: null,
+    refreshTimer: null,
+    aiBusy: false
+  };
+
+  function $(id) { return document.getElementById(id); }
+  function esc(s) {
+    return String(s == null ? '' : s).replace(/[&<>"']/g, function (c) {
+      return {'&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;'}[c];
+    });
+  }
+  function num(v) { var n = parseInt(v, 10); return isNaN(n) ? 0 : n; }
+
+  function wsId() {
+    var q = '';
+    try {
+      var m = location.search.match(/[?&]workspace_id=([^&]+)/);
+      if (m) q = decodeURIComponent(m[1]);
+    } catch (e) {}
+    if (q) return q;
+    var au = (window.XLAuth && window.XLAuth.token && window.XLAuth.token()) ? window.XLAuth.user() : null;
+    if (au && au.workspace_id) return au.workspace_id;
+    var id = '';
+    try { id = localStorage.getItem('leadgen_ws') || ''; } catch (e) {}
+    if (!id) {
+      id = 'ws-' + Date.now().toString(36) + Math.random().toString(36).slice(2, 7);
+      try { localStorage.setItem('leadgen_ws', id); } catch (e2) {}
+    }
+    return id;
+  }
+
+  function toast(msg, kind) {
+    var t = $('toast');
+    if (!t) return;
+    t.textContent = msg;
+    t.className = 'tk-toast show ' + (kind || '');
+    clearTimeout(toast._t);
+    toast._t = setTimeout(function () { t.className = 'tk-toast'; }, 3200);
+  }
+
+  function api(path, opt) {
+    opt = opt || {};
+    var ctrl = window.AbortController ? new AbortController() : null;
+    var timer = null;
+    if (ctrl) timer = setTimeout(function () { try { ctrl.abort(); } catch (e) {} }, opt.timeout || 30000);
+    var init = {method: opt.method || 'GET', headers: {}};
+    if (opt.body !== undefined) {
+      init.body = JSON.stringify(opt.body);
+      init.headers['Content-Type'] = 'application/json';
+    }
+    try {
+      var tk = window.XLAuth && window.XLAuth.token && window.XLAuth.token();
+      if (tk) init.headers['Authorization'] = 'Bearer ' + tk;
+    } catch (e) {}
+    if (ctrl) init.signal = ctrl.signal;
+    return fetch(opt.url || (API + path), init).then(function (r) {
+      if (timer) clearTimeout(timer);
+      return r.text().then(function (tx) {
+        var d = null;
+        try { d = JSON.parse(tx); } catch (e) {}
+        if (!d) d = {ok: false, error: 'bad_json', hint: '接口返回异常（HTTP ' + r.status + '）'};
+        d._status = r.status;
+        if (d.ok === false && !d.error) d.error = 'http_' + r.status;
+        return d;
+      });
+    }).catch(function (ex) {
+      if (timer) clearTimeout(timer);
+      return {ok: false, error: 'network', hint: '网络异常：' + (ex && ex.message ? ex.message : ex)};
+    });
+  }
+
+  function setApiState(kind, text) {
+    state.apiState = kind;
+    var p = $('apiState');
+    if (!p) return;
+    p.className = 'tk-pill ' + (kind === 'ok' ? 'ok' : (kind === 'bad' ? 'bad' : ''));
+    $('apiStateText').textContent = text;
+  }
+
+  function platformName(key) {
+    for (var i = 0; i < state.platforms.length; i++) {
+      if (state.platforms[i].key === key) return state.platforms[i].name;
+    }
+    return key;
+  }
+
+  /* ---------------- 渲染 ---------------- */
+  function renderSummary() {
+    var s = state.stats || {};
+    $('sumTasks').textContent = num(s.today_tasks);
+    $('sumRuns').textContent = num(s.today_runs);
+    $('sumLeads').textContent = num(s.today_leads);
+    $('sumFollows').textContent = num(s.today_follows);
+  }
+
+  function cardHtml(t) {
+    var kws = t.keywords || [];
+    var chips = '';
+    for (var i = 0; i < kws.length; i++) {
+      var cls = i >= 3 ? ' hide' : '';
+      chips += '<span class="tk-chip' + cls + '" title="' + esc(kws[i]) + '">' + esc(kws[i]) + '</span>';
+    }
+    if (kws.length > 3) {
+      chips += '<button type="button" class="tk-chip more" data-more="' + esc(t.id) + '">+' + (kws.length - 3) + '</button>';
+    }
+    var plats = '';
+    var pnames = t.platform_names && t.platform_names.length ? t.platform_names : (t.platforms || []);
+    for (var j = 0; j < pnames.length; j++) {
+      plats += '<span class="tk-badge plat">' + esc(platformName(pnames[j]) || pnames[j]) + '</span>';
+    }
+    var st = t.stats || {};
+    var enabled = t.enabled !== false;
+    var running = state.running[t.id];
+    var last = t.last_run_at ? esc(t.last_run_at) : '尚未运行';
+    var next = t.next_run_at ? esc(t.next_run_at) : (enabled ? '待计算' : '已暂停');
+    return '' +
+      '<article class="tk-card ' + (enabled ? '' : 'off ') + (running ? 'running' : '') + '" data-task="' + esc(t.id) + '">' +
+        '<div class="tk-card-h">' +
+          '<div style="min-width:0;flex:1">' +
+            '<h3 class="tk-title">' + esc(t.name) + '</h3>' +
+            '<div class="tk-subline">' +
+              plats +
+              '<span class="tk-badge manual">' + esc(t.interaction_label || '评论跟进') + ' · 人工执行</span>' +
+              '<span class="tk-badge ' + (enabled ? 'on' : 'offb') + '">' + (enabled ? '运行中' : '已暂停') + '</span>' +
+            '</div>' +
+          '</div>' +
+          '<label class="tk-switch" title="' + (enabled ? '暂停任务' : '启动任务') + '">' +
+            '<input type="checkbox" data-toggle="' + esc(t.id) + '"' + (enabled ? ' checked' : '') + ' aria-label="启停任务">' +
+            '<i></i>' +
+          '</label>' +
+        '</div>' +
+        '<div class="tk-kws" data-kws="' + esc(t.id) + '">' + chips + '</div>' +
+        '<div class="tk-stats">' +
+          '<div class="tk-stat"><b>' + num(st.daily_runs) + '</b><span>累计运行</span></div>' +
+          '<div class="tk-stat"><b>' + num(st.today_runs) + '</b><span>今日运行</span></div>' +
+          '<div class="tk-stat"><b>' + num(st.today_leads) + '</b><span>今日线索</span></div>' +
+          '<div class="tk-stat"><b>' + num(st.today_follows) + '</b><span>今日关注</span></div>' +
+        '</div>' +
+        '<div class="tk-meta"><span>上次运行：<b>' + last + '</b></span><span>下次：<b>' + next + '</b></span></div>' +
+        (t.last_error ? '<div class="tk-err">最近错误：' + esc(t.last_error) + '</div>' : '') +
+        '<div class="tk-runbar' + (running ? ' show' : '') + '" data-runbar="' + esc(t.id) + '">' +
+          '<div class="tk-bar"><i style="width:' + (running ? num(running.progress) : 0) + '%"></i></div>' +
+          '<div class="tk-runmeta">' +
+            '<span>已扫描 <b>' + (running ? num(running.scanned) : 0) + '</b></span>' +
+            '<span>新发现 <b>' + (running ? num(running.found) : 0) + '</b></span>' +
+            '<span>导入 <b>' + (running ? num(running.imported) : 0) + '</b></span>' +
+            '<span class="pct">' + (running ? num(running.progress) : 0) + '%</span>' +
+          '</div>' +
+        '</div>' +
+        '<div class="tk-actions">' +
+          '<button type="button" class="tk-btn sm primary" data-run="' + esc(t.id) + '"' + (running ? ' disabled' : '') + '>▶ 运行</button>' +
+          '<button type="button" class="tk-btn sm" data-toggle-btn="' + esc(t.id) + '">' + (enabled ? '⏸ 暂停' : '▶ 启动') + '</button>' +
+          '<button type="button" class="tk-btn sm" data-edit="' + esc(t.id) + '">编辑</button>' +
+          '<button type="button" class="tk-btn sm" data-copy="' + esc(t.id) + '">复制</button>' +
+          '<button type="button" class="tk-btn sm danger" data-del="' + esc(t.id) + '">删除</button>' +
+        '</div>' +
+      '</article>';
+  }
+
+  function render() {
+    var grid = $('taskGrid');
+    if (!grid) return;
+    var list = state.tasks || [];
+    grid.innerHTML = list.map(cardHtml).join('');
+    var empty = $('emptyState');
+    if (empty) empty.hidden = list.length > 0;
+    $('taskCount').textContent = list.length + ' 张';
+    renderSummary();
+    Object.keys(state.running || {}).forEach(function (tid) {
+      var r = state.running[tid];
+      if (r) paintRun(tid, r);
+    });
+  }
+
+  function paintRun(tid, r) {
+    var card = document.querySelector('[data-task="' + tid + '"]');
+    if (!card) return;
+    var bar = card.querySelector('[data-runbar]');
+    if (!bar) return;
+    bar.classList.add('show');
+    var pct = Math.max(0, Math.min(100, num(r.progress)));
+    var fill = bar.querySelector('.tk-bar i');
+    if (fill) fill.style.width = pct + '%';
+    var spans = bar.querySelectorAll('.tk-runmeta b');
+    if (spans.length >= 3) {
+      spans[0].textContent = num(r.scanned);
+      spans[1].textContent = num(r.found);
+      spans[2].textContent = num(r.imported);
+    }
+    var p = bar.querySelector('.pct');
+    if (p) p.textContent = pct + '%';
+    card.classList.add('running');
+  }
+
+  /* ---------------- 数据 ---------------- */
+  function load(opt) {
+    opt = opt || {};
+    return api('/?workspace_id=' + encodeURIComponent(state.ws)).then(function (d) {
+      if (d && d.ok) {
+        state.tasks = d.tasks || [];
+        state.stats = d.stats || {};
+        state.platforms = d.platforms || state.platforms;
+        state.templates = d.templates || state.templates;
+        setApiState('ok', '后端已连接');
+        render();
+        if (!opt.silent) refreshNote('已更新 ' + new Date().toLocaleTimeString());
+      } else if (d && d._status === 404) {
+        setApiState('bad', '接口未上线');
+        toast(d.hint || '任务中心接口未上线（404）', 'err');
+      } else {
+        setApiState('bad', '后端异常');
+        if (!opt.silent) toast((d && (d.hint || d.error)) || '加载失败', 'err');
+      }
+      return d;
+    });
+  }
+
+  var refreshNoteTimer = null;
+  function refreshNote(text) {
+    var el = $('refreshNote');
+    if (!el) return;
+    el.textContent = text;
+    clearTimeout(refreshNoteTimer);
+    refreshNoteTimer = setTimeout(function () {
+      if (el) el.textContent = '自动刷新中…';
+    }, 4000);
+  }
+
+  /* ---------------- 运行 ---------------- */
+  function pollRun(tid, runId) {
+    var tries = 0;
+    function step() {
+      api('/runs/' + encodeURIComponent(runId) + '?workspace_id=' + encodeURIComponent(state.ws))
+        .then(function (d) {
+          var r = (d && d.run) || null;
+          if (!r) { finishRun(tid, null); return; }
+          state.running[tid] = r;
+          paintRun(tid, r);
+          if (r.status === 'done' || r.status === 'failed') {
+            finishRun(tid, r);
+            return;
+          }
+          tries++;
+          if (tries < 120) {
+            state.pollTimer = setTimeout(step, 1500);
+          } else {
+            finishRun(tid, r);
+          }
+        });
+    }
+    step();
+  }
+
+  function finishRun(tid, r) {
+    delete state.running[tid];
+    if (!r) {
+      toast('运行记录不存在', 'err');
+      load({silent: true});
+      return;
+    }
+    if (r.status === 'done') {
+      toast('运行完成：扫描 ' + num(r.scanned) + ' 条，发现 ' + num(r.found) + ' 条，导入 ' + num(r.imported) + ' 条', 'ok');
+    } else {
+      toast('运行失败：' + (r.error || '未知错误'), 'err');
+    }
+    load({silent: true});
+  }
+
+  function runTask(tid) {
+    var card = document.querySelector('[data-task="' + tid + '"]');
+    var btn = card ? card.querySelector('[data-run]') : null;
+    if (btn) { btn.disabled = true; btn.textContent = '运行中…'; }
+    state.running[tid] = {progress: 0, scanned: 0, found: 0, imported: 0, status: 'running'};
+    render();
+    api('/' + encodeURIComponent(tid) + '/run', {method: 'POST', body: {workspace_id: state.ws}})
+      .then(function (d) {
+        if (d && d.ok && d.run_id) {
+          toast('已开始运行，正在检索公开索引…', 'ok');
+          pollRun(tid, d.run_id);
+          return;
+        }
+        delete state.running[tid];
+        render();
+        var msg = (d && (d.hint || d.message || d.error)) || '运行失败';
+        if (d && d._status === 429) {
+          toast('今日次数已用完：' + (d.hint || ''), 'warn');
+        } else {
+          toast(msg, 'err');
+        }
+        load({silent: true});
+      });
+  }
+
+  /* ---------------- 操作 ---------------- */
+  function toggleTask(tid, enabled) {
+    api('/' + encodeURIComponent(tid) + '/toggle', {method: 'POST', body: {workspace_id: state.ws, enabled: !!enabled}})
+      .then(function (d) {
+        if (d && d.ok) {
+          toast(enabled ? '任务已启动' : '任务已暂停', 'ok');
+        } else {
+          toast((d && (d.hint || d.error)) || '操作失败', 'err');
+        }
+        load({silent: true});
+      });
+  }
+
+  function copyTask(tid) {
+    api('/' + encodeURIComponent(tid) + '/copy', {method: 'POST', body: {workspace_id: state.ws}})
+      .then(function (d) {
+        if (d && d.ok) {
+          toast(d.note || ('已复制：' + d.name), 'ok');
+          load({silent: true});
+        } else {
+          toast((d && (d.hint || d.error)) || '复制失败', 'err');
+        }
+      });
+  }
+
+  function deleteTask(tid) {
+    var t = findTask(tid);
+    if (!confirm('删除任务「' + (t ? t.name : tid) + '」？\n已回流到线索池的线索会保留，仅删除卡片与运行记录。')) return;
+    api('/' + encodeURIComponent(tid) + '?workspace_id=' + encodeURIComponent(state.ws), {method: 'DELETE'})
+      .then(function (d) {
+        if (d && d.ok) {
+          toast('任务已删除', 'ok');
+          load({silent: true});
+        } else {
+          toast((d && (d.hint || d.error)) || '删除失败', 'err');
+        }
+      });
+  }
+
+  function findTask(tid) {
+    for (var i = 0; i < state.tasks.length; i++) if (state.tasks[i].id === tid) return state.tasks[i];
+    return null;
+  }
+
+  /* ---------------- 弹窗 ---------------- */
+  var PRESETS = [
+    {id: 'warm', name: '温暖共情式', desc: '先共情再给判断，适合评论区第一次回复', interaction: 'comment'},
+    {id: 'expert', name: '专业解答式', desc: '给 3 条判断标准，专业感更强，不硬推', interaction: 'comment'},
+    {id: 'case', name: '同城案例式', desc: '用同城案例破冰，适合私信开场', interaction: 'dm'}
+  ];
+
+  function buildPickers() {
+    var host = $('fPlatforms');
+    if (!host) return;
+    var list = state.platforms && state.platforms.length ? state.platforms : [
+      {key: 'zhihu', name: '知乎'}, {key: 'baidu_zhidao', name: '百度知道'},
+      {key: 'tieba', name: '百度贴吧'}, {key: 'xiaohongshu', name: '小红书'},
+      {key: 'dianping', name: '大众点评'}, {key: '58', name: '58同城'}
+    ];
+    host.innerHTML = list.map(function (p) {
+      return '<label class="tk-pick"><input type="checkbox" name="platform" value="' + esc(p.key) + '">' +
+        '<span>' + esc(p.name) + '</span></label>';
+    }).join('');
+    var ph = $('fPreset');
+    if (ph) {
+      ph.innerHTML = PRESETS.map(function (p, i) {
+        return '<label class="tk-pick"><input type="radio" name="preset" value="' + esc(p.id) + '"' + (i === 0 ? ' checked' : '') + '>' +
+          '<span><b>' + esc(p.name) + '</b><small>' + esc(p.desc) + '</small><em>人工执行</em></span></label>';
+      }).join('');
+    }
+  }
+
+  function openModal(task) {
+    state.modalTask = task || null;
+    $('modalTitle').textContent = task ? '编辑任务' : '新建任务';
+    $('modalSave').textContent = task ? '保存修改' : '创建任务';
+    $('formErr').className = 'tk-formerr';
+    $('formErr').textContent = '';
+    $('fName').value = task ? (task.name || '') : '';
+    $('fIndustry').value = task ? (task.industry || '') : '';
+    $('fCity').value = task ? (task.city || '') : '';
+    $('fKeywords').value = task ? (task.keywords || []).join('\n') : '';
+    $('fDaily').value = String(task && task.schedule ? (task.schedule.daily_limit || 3) : 3);
+    $('fTime').value = (task && task.schedule && task.schedule.time) || '09:00';
+    $('aiHint').textContent = '输入行业 + 城市，生成 10 个口语化关键词（求推荐 / 哪家好 / 多少钱 / 避雷）';
+    buildPickers();
+    var plats = (task && task.platforms) || [];
+    var boxes = $('fPlatforms').querySelectorAll('input[name="platform"]');
+    for (var i = 0; i < boxes.length; i++) {
+      boxes[i].checked = plats.indexOf(boxes[i].value) >= 0;
+    }
+    if (!plats.length) {
+      var defs = ['zhihu', 'baidu_zhidao', 'tieba'];
+      for (var k = 0; k < boxes.length; k++) {
+        if (defs.indexOf(boxes[k].value) >= 0) boxes[k].checked = true;
+      }
+    }
+    var it = (task && task.interaction) || 'comment';
+    var radios = $('fInteraction').querySelectorAll('input[name="interaction"]');
+    for (var r = 0; r < radios.length; r++) radios[r].checked = (radios[r].value === it);
+    var pr = (task && task.preset) || 'warm';
+    var presets = $('fPreset').querySelectorAll('input[name="preset"]');
+    for (var q = 0; q < presets.length; q++) presets[q].checked = (presets[q].value === pr);
+    $('modal').classList.add('open');
+    $('modal').setAttribute('aria-hidden', 'false');
+    setTimeout(function () { try { $('fName').focus(); } catch (e) {} }, 30);
+  }
+
+  function closeModal() {
+    $('modal').classList.remove('open');
+    $('modal').setAttribute('aria-hidden', 'true');
+    state.modalTask = null;
+  }
+
+  function formError(msg) {
+    var el = $('formErr');
+    el.textContent = msg;
+    el.className = 'tk-formerr show';
+  }
+
+  function collectForm() {
+    var name = ($('fName').value || '').trim();
+    if (!name) return {err: '请填写配置名称'};
+    var boxes = $('fPlatforms').querySelectorAll('input[name="platform"]:checked');
+    var platforms = [];
+    for (var i = 0; i < boxes.length; i++) platforms.push(boxes[i].value);
+    if (!platforms.length) return {err: '请至少选择 1 个平台'};
+    if (platforms.length > 4) platforms = platforms.slice(0, 4);
+    var raw = ($('fKeywords').value || '').split(/[\n,，、;；]+/);
+    var keywords = [];
+    for (var j = 0; j < raw.length; j++) {
+      var w = raw[j].trim();
+      if (w && keywords.indexOf(w) < 0) keywords.push(w.slice(0, 40));
+    }
+    if (!keywords.length) return {err: '请至少填写 1 个搜索关键词'};
+    if (keywords.length > 10) keywords = keywords.slice(0, 10);
+    var it = 'comment';
+    var radios = $('fInteraction').querySelectorAll('input[name="interaction"]');
+    for (var r = 0; r < radios.length; r++) if (radios[r].checked) it = radios[r].value;
+    var preset = 'warm';
+    var ps = $('fPreset').querySelectorAll('input[name="preset"]');
+    for (var p = 0; p < ps.length; p++) if (ps[p].checked) preset = ps[p].value;
+    var daily = num($('fDaily').value) || 3;
+    if (daily < 1) daily = 1;
+    if (daily > 3) daily = 3;
+    var tm = ($('fTime').value || '09:00').trim();
+    if (!/^\d{1,2}:\d{2}$/.test(tm)) tm = '09:00';
+    return {
+      body: {
+        workspace_id: state.ws,
+        name: name,
+        platforms: platforms,
+        keywords: keywords,
+        interaction: it,
+        schedule: {daily_limit: daily, time: tm},
+        preset: preset,
+        industry: ($('fIndustry').value || '').trim(),
+        city: ($('fCity').value || '').trim()
+      }
+    };
+  }
+
+  function saveModal() {
+    var c = collectForm();
+    if (c.err) { formError(c.err); return; }
+    var editing = state.modalTask;
+    var btn = $('modalSave');
+    btn.disabled = true;
+    btn.textContent = '保存中…';
+    var req = editing
+      ? api('/' + encodeURIComponent(editing.id), {method: 'PUT', body: c.body})
+      : api('/', {method: 'POST', body: c.body});
+    req.then(function (d) {
+      btn.disabled = false;
+      btn.textContent = editing ? '保存修改' : '创建任务';
+      if (d && d.ok) {
+        closeModal();
+        toast(editing ? '任务已更新' : '任务已创建，可点「运行」立即试跑', 'ok');
+        load({silent: true});
+      } else {
+        formError((d && (d.hint || d.error)) || '保存失败，请重试');
+      }
+    });
+  }
+
+  function aiKeywords() {
+    if (state.aiBusy) return;
+    var industry = ($('fIndustry').value || '').trim();
+    var city = ($('fCity').value || '').trim();
+    if (!industry) { formError('先填写行业（如：除甲醛），再让 AI 帮写关键词'); return; }
+    state.aiBusy = true;
+    var btn = $('btnAi');
+    btn.disabled = true;
+    btn.textContent = '生成中…';
+    api('/ai-keywords', {method: 'POST', body: {industry: industry, city: city, count: 10}, timeout: 60000})
+      .then(function (d) {
+        state.aiBusy = false;
+        btn.disabled = false;
+        btn.textContent = '✨ AI 帮写';
+        if (d && d.ok && d.keywords && d.keywords.length) {
+          $('fKeywords').value = d.keywords.join('\n');
+          $('aiHint').textContent = (d.source === 'deepseek' ? 'DeepSeek' : '行业字典') + ' 已生成 ' +
+            d.keywords.length + ' 个关键词，可在此基础上手动改写';
+          toast('已生成 ' + d.keywords.length + ' 个口语化关键词', 'ok');
+        } else {
+          formError((d && (d.hint || d.error)) || 'AI 帮写失败，请手动填写关键词');
+        }
+      });
+  }
+
+  /* ---------------- 事件 ---------------- */
+  function bind() {
+    $('btnNew').addEventListener('click', function () { openModal(null); });
+    var b2 = $('btnNew2');
+    if (b2) b2.addEventListener('click', function () { openModal(null); });
+    $('modalClose').addEventListener('click', closeModal);
+    $('modalCancel').addEventListener('click', closeModal);
+    $('modalSave').addEventListener('click', saveModal);
+    $('btnAi').addEventListener('click', aiKeywords);
+    $('btnRefresh').addEventListener('click', function () { load(); });
+    $('modal').addEventListener('click', function (e) {
+      if (e.target === $('modal')) closeModal();
+    });
+    document.addEventListener('keydown', function (e) {
+      if (e.key === 'Escape' && $('modal').classList.contains('open')) closeModal();
+    });
+
+    $('taskGrid').addEventListener('click', function (e) {
+      var el = e.target;
+      while (el && el !== $('taskGrid') && !el.getAttribute) el = el.parentNode;
+      var more = el.getAttribute && el.getAttribute('data-more');
+      if (more) {
+        var box = document.querySelector('[data-kws="' + more + '"]');
+        if (box) box.classList.toggle('expanded');
+        return;
+      }
+      var run = el.getAttribute && el.getAttribute('data-run');
+      if (run) { runTask(run); return; }
+      var tb = el.getAttribute && el.getAttribute('data-toggle-btn');
+      if (tb) {
+        var t = findTask(tb);
+        toggleTask(tb, !(t && t.enabled !== false));
+        return;
+      }
+      var ed = el.getAttribute && el.getAttribute('data-edit');
+      if (ed) { var te = findTask(ed); if (te) openModal(te); return; }
+      var cp = el.getAttribute && el.getAttribute('data-copy');
+      if (cp) { copyTask(cp); return; }
+      var dl = el.getAttribute && el.getAttribute('data-del');
+      if (dl) { deleteTask(dl); return; }
+    });
+
+    $('taskGrid').addEventListener('change', function (e) {
+      var el = e.target;
+      var tid = el.getAttribute && el.getAttribute('data-toggle');
+      if (tid) toggleTask(tid, el.checked);
+    });
+  }
+
+  function boot() {
+    state.ws = wsId();
+    bind();
+    buildPickers();
+    load();
+    state.refreshTimer = setInterval(function () {
+      if (!$('modal').classList.contains('open') && !Object.keys(state.running).length) load({silent: true});
+    }, 20000);
+  }
+
+  if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', boot);
+  else boot();
+})();
+</script>
+</body>
+</html>

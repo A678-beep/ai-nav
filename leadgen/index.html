@@ -799,6 +799,142 @@ html[data-theme="light"] .wf-batch-lead{color:#075985}
   .tbl-wrap th.wfs,.tbl-wrap td.wfs{width:32px}
 }
 
+/* ---------- ⚡ 一句话找客户（leadgen_express） ---------- */
+.xpr-find-card{grid-column:1/-1;background:linear-gradient(135deg,rgba(56,189,248,.13),rgba(139,92,246,.1) 55%,rgba(52,211,153,.07));
+  border-color:rgba(56,189,248,.42);position:relative;overflow:hidden}
+.xpr-find-card::after{content:"";position:absolute;right:-40px;top:-60px;width:180px;height:180px;border-radius:50%;
+  background:radial-gradient(circle,rgba(56,189,248,.24),transparent 68%);pointer-events:none}
+.xpr-find-card .fc-h{flex-wrap:wrap}
+.xpr-find-card .fc-tag{font-size:10.5px;font-weight:800;letter-spacing:.04em;color:#04121c;background:linear-gradient(135deg,#7dd3fc,#a78bfa);
+  border-radius:999px;padding:2px 8px;line-height:1.8}
+.xpr-find-card b{font-size:16px}
+.xpr-find-card .fc-cta{font-size:12.5px}
+html[data-theme="light"] .xpr-find-card .fc-tag{color:#fff;background:linear-gradient(135deg,#0369a1,#6d28d9)}
+.xpr-modal .modal-in{max-width:680px}
+.xpr-step{display:flex;gap:6px;align-items:center;flex-wrap:wrap;margin:4px 0 12px}
+.xpr-step span{font-size:11px;color:var(--wf-ink3);border:1px solid var(--wf-line);border-radius:999px;padding:3px 9px;line-height:1.6}
+.xpr-step span.on{color:#9ae6ff;border-color:rgba(56,189,248,.5);background:rgba(56,189,248,.1)}
+.xpr-label{display:flex;align-items:center;justify-content:space-between;gap:8px;font-size:12.5px;font-weight:800;color:var(--wf-ink2);margin:12px 0 6px}
+.xpr-label em{font-style:normal;font-weight:500;font-size:11px;color:var(--wf-ink3)}
+.xpr-chips{display:flex;gap:6px;flex-wrap:wrap}
+.xpr-chip{border:1px solid var(--wf-line);background:var(--wf-soft);color:var(--wf-ink2);border-radius:999px;
+  padding:6px 11px;font:inherit;font-size:12.5px;cursor:pointer;min-height:32px;line-height:1.4;transition:.14s}
+.xpr-chip:hover{border-color:rgba(56,189,248,.45);color:var(--wf-ink)}
+.xpr-chip.on{border-color:rgba(56,189,248,.6);background:rgba(56,189,248,.14);color:#9ae6ff;font-weight:700}
+.xpr-chip.dim{opacity:.55;cursor:not-allowed;text-decoration:none}
+.xpr-chip.dim small{font-size:10px;color:var(--wf-ink3);margin-left:2px}
+html[data-theme="light"] .xpr-chip.on{color:#075985}
+html[data-theme="light"] .xpr-chip.on{background:rgba(3,105,161,.1)}
+.xpr-input{width:100%;min-height:88px;resize:vertical;background:var(--wf-soft);border:1px solid var(--wf-line);
+  color:var(--wf-ink);border-radius:14px;padding:11px 13px;font:inherit;font-size:14px;line-height:1.8;outline:none}
+.xpr-input:focus{border-color:rgba(56,189,248,.6);box-shadow:0 0 0 3px rgba(56,189,248,.12)}
+.xpr-examples{display:flex;gap:6px;flex-wrap:wrap;margin-top:8px}
+.xpr-examples button{border:1px dashed var(--wf-line);background:transparent;color:var(--wf-ink2);border-radius:999px;
+  padding:5px 10px;font:inherit;font-size:11.5px;cursor:pointer;line-height:1.5}
+.xpr-examples button:hover{color:#9ae6ff;border-color:rgba(56,189,248,.45)}
+.xpr-actions{display:flex;gap:8px;align-items:center;flex-wrap:wrap;margin-top:14px}
+.xpr-actions .hint{font-size:11.5px;color:var(--wf-ink3);margin-left:auto}
+.xpr-parse{font-size:12px;color:var(--wf-ink2);background:var(--wf-soft2);border:1px dashed var(--wf-line);
+  border-radius:12px;padding:8px 11px;line-height:1.9;margin-top:10px}
+.xpr-parse b{color:#9ae6ff}
+.xpr-parse .q{color:#fde68a}
+.xpr-progress{margin-top:12px;border:1px solid rgba(56,189,248,.32);border-radius:14px;padding:11px 13px;background:rgba(56,189,248,.06)}
+.xpr-bar{height:8px;border-radius:999px;background:rgba(148,163,184,.22);overflow:hidden;margin:8px 0}
+.xpr-bar i{display:block;height:100%;width:0;border-radius:999px;background:linear-gradient(90deg,#38bdf8,#34d399);transition:width .35s}
+.xpr-stats{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:6px;margin-top:6px}
+.xpr-stats div{background:var(--wf-soft);border:1px solid var(--wf-line);border-radius:10px;padding:6px 8px;text-align:center}
+.xpr-stats b{display:block;font-size:18px;color:#9ae6ff;line-height:1.2;font-variant-numeric:tabular-nums}
+.xpr-stats span{display:block;font-size:10.5px;color:var(--wf-ink3)}
+.xpr-done{border:1px solid rgba(52,211,153,.42);background:rgba(52,211,153,.08);border-radius:14px;padding:11px 13px;line-height:1.9;font-size:13px}
+.xpr-done b{color:#6ee7b7;font-size:16px}
+.xpr-done .row{gap:8px;margin-top:10px;flex-wrap:wrap}
+.xpr-err{border:1px solid rgba(248,113,113,.4);background:rgba(248,113,113,.08);border-radius:12px;padding:10px 12px;
+  font-size:12.5px;color:#fecaca;line-height:1.8;margin-top:10px}
+html[data-theme="light"] .xpr-err{color:#991b1b}
+
+/* ③ 漏斗条 */
+.xpr-funnel{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:6px;border:1px solid var(--wf-line);
+  border-radius:16px;background:linear-gradient(135deg,rgba(56,189,248,.07),rgba(139,92,246,.05));padding:10px}
+.xpr-fn{position:relative;min-width:0;border-radius:11px;background:var(--wf-soft);border:1px solid var(--wf-line);
+  padding:8px 6px;text-align:center;cursor:pointer;font-family:inherit;color:inherit;transition:.15s}
+.xpr-fn:hover{border-color:rgba(56,189,248,.45);background:var(--wf-soft2)}
+.xpr-fn b{display:block;font-size:19px;color:#9ae6ff;line-height:1.2;font-variant-numeric:tabular-nums}
+.xpr-fn span{display:block;font-size:11px;color:var(--wf-ink2);font-weight:700}
+.xpr-fn em{display:block;font-style:normal;font-size:10px;color:var(--wf-ink3);margin-top:1px;font-variant-numeric:tabular-nums}
+.xpr-fn.arrow::before{content:"›";position:absolute;right:-7px;top:50%;transform:translateY(-50%);color:var(--wf-ink3);font-size:15px;z-index:1}
+html[data-theme="light"] .xpr-fn b{color:#075985}
+
+/* 详情抽屉 */
+.xpr-drawer{position:fixed;inset:0;z-index:86;background:rgba(3,7,14,.66);backdrop-filter:blur(4px);display:flex;justify-content:flex-end}
+.xpr-drawer[hidden]{display:none}
+.xpr-drawer-in{width:min(440px,100vw);height:100%;overflow:auto;background:linear-gradient(180deg,#111a29,#0a1018);
+  border-left:1px solid rgba(56,189,248,.3);padding:16px 16px 26px;box-shadow:-30px 0 70px -24px rgba(0,0,0,.8)}
+html[data-theme="light"] .xpr-drawer-in{background:linear-gradient(180deg,#ffffff,#f5f9fd)}
+.xpr-dh{display:flex;align-items:flex-start;gap:8px;position:sticky;top:-16px;z-index:2;padding:10px 0 8px;
+  background:linear-gradient(180deg,#111a29 70%,rgba(17,26,41,0));margin:-10px 0 6px}
+html[data-theme="light"] .xpr-dh{background:linear-gradient(180deg,#ffffff 70%,rgba(255,255,255,0))}
+.xpr-dh h3{margin:0;font-size:16px;flex:1;min-width:0}
+.xpr-x{border:1px solid var(--wf-line);background:var(--wf-soft);color:var(--wf-ink2);width:32px;height:32px;
+  border-radius:10px;cursor:pointer;font-size:17px;line-height:1;flex:0 0 auto}
+.xpr-dh .meta{font-size:11px;color:var(--wf-ink3);margin-top:3px}
+.xpr-src{border:1px solid var(--wf-line);border-radius:12px;background:var(--wf-soft);padding:10px 11px;font-size:12.5px;
+  color:var(--wf-ink2);line-height:1.85;margin-top:9px;word-break:break-word}
+.xpr-src .t{font-weight:800;color:var(--wf-ink);font-size:13px;margin-bottom:3px}
+.xpr-need{border:1px solid rgba(56,189,248,.3);background:rgba(56,189,248,.07);border-radius:12px;padding:10px 11px;
+  font-size:12.5px;line-height:1.8;margin-top:9px}
+.xpr-need b{color:#9ae6ff}
+.xpr-total{display:flex;align-items:baseline;gap:8px;margin:12px 0 6px;padding:10px 12px;border-radius:12px;
+  border:1px solid rgba(52,211,153,.34);background:rgba(52,211,153,.07)}
+.xpr-total b{font-size:30px;line-height:1;color:#6ee7b7;font-variant-numeric:tabular-nums}
+.xpr-total span{font-size:11.5px;color:var(--wf-ink3)}
+.xpr-dims{display:flex;flex-direction:column;gap:7px;margin-top:4px}
+.xpr-dim{display:grid;grid-template-columns:64px minmax(0,1fr) 30px;gap:7px;align-items:center;font-size:11.5px;color:var(--wf-ink2)}
+.xpr-dim .bar{height:6px;border-radius:999px;background:rgba(148,163,184,.2);overflow:hidden}
+.xpr-dim .bar i{display:block;height:100%;border-radius:999px;background:linear-gradient(90deg,#38bdf8,#8b5cf6)}
+.xpr-dim b{font-size:11.5px;color:var(--wf-ink);text-align:right;font-variant-numeric:tabular-nums}
+.xpr-dim.low .bar i{background:linear-gradient(90deg,#64748b,#94a3b8)}
+.xpr-dtags{display:flex;gap:5px;flex-wrap:wrap;margin:10px 0 4px}
+.xpr-dtags span{font-size:11px;border:1px solid rgba(56,189,248,.32);background:rgba(56,189,248,.08);color:#9ae6ff;
+  border-radius:999px;padding:2px 8px;line-height:1.8}
+html[data-theme="light"] .xpr-dtags span{color:#075985}
+.xpr-da{display:flex;gap:6px;flex-wrap:wrap;margin-top:12px;padding-top:11px;border-top:1px dashed var(--wf-line)}
+.xpr-da .btn,.xpr-da a.btn{flex:1 1 40%;justify-content:center;text-align:center;text-decoration:none}
+.xpr-fb{font-size:11px;color:var(--wf-ink3);margin-top:8px;min-height:16px}
+.xpr-fb.ok{color:#6ee7b7}
+html[data-theme="light"] .xpr-fb.ok{color:#047857}
+
+/* ⑤ AI 今日策略 + 成本 */
+.xpr-advice{border:1px solid rgba(139,92,246,.34);background:linear-gradient(135deg,rgba(139,92,246,.1),rgba(56,189,248,.06));border-radius:16px}
+.xpr-advice .wf-card-head{font-size:15.5px}
+.xpr-advice .sum{font-size:13px;color:var(--wf-ink);line-height:1.9;margin:2px 0 8px}
+.xpr-advice .ci{font-size:12px;color:var(--wf-ink2);margin-bottom:8px}
+.xpr-advice .ci b{color:#c4b5fd}
+html[data-theme="light"] .xpr-advice .ci b{color:#6d28d9}
+.xpr-advice ol{margin:6px 0 0;padding-left:20px;font-size:13px;line-height:1.95;color:var(--wf-ink2)}
+.xpr-advice ol li{margin-bottom:4px}
+.xpr-advice .tags{display:flex;gap:5px;flex-wrap:wrap;margin-top:9px}
+.xpr-advice .tags span{font-size:11px;border:1px solid var(--wf-line);border-radius:999px;padding:2px 8px;color:var(--wf-ink2);line-height:1.8}
+.xpr-advice .ft{display:flex;align-items:center;gap:8px;flex-wrap:wrap;margin-top:10px}
+.xpr-cost{font-size:11.5px;color:var(--wf-ink3);display:flex;gap:8px;align-items:center;flex-wrap:wrap;margin-top:4px}
+.xpr-cost b{color:#9ae6ff;font-variant-numeric:tabular-nums}
+html[data-theme="light"] .xpr-cost b{color:#075985}
+.xpr-loading{font-size:12.5px;color:var(--wf-ink2);padding:8px 0}
+@media(max-width:760px){
+  .xpr-funnel{grid-template-columns:repeat(5,minmax(0,1fr));gap:4px;padding:7px 5px;border-radius:13px}
+  .xpr-fn{padding:7px 2px;border-radius:9px}
+  .xpr-fn b{font-size:16px}.xpr-fn span{font-size:10px}.xpr-fn em{font-size:9px}
+  .xpr-fn.arrow::before{display:none}
+  .xpr-stats b{font-size:16px}
+  .xpr-drawer-in{width:100vw;border-left:0}
+  .xpr-card .fc-h{gap:7px}
+  .xpr-advice ol{font-size:12.5px}
+}
+@media(max-width:390px){
+  .xpr-stats{grid-template-columns:repeat(3,minmax(0,1fr));gap:4px}
+  .xpr-stats b{font-size:15px}
+  .xpr-stats span{font-size:9.5px}
+  .xpr-actions .hint{width:100%;margin-left:0}
+}
 </style>
 <link rel="stylesheet" href="../assets/site-shell.css">
 </head>
@@ -929,6 +1065,11 @@ html[data-theme="light"] .wf-batch-lead{color:#075985}
           <span class="sh-badge">三选一</span>
         </div>
         <div class="find-grid">
+          <div class="find-card xpr-find-card" data-find="express" role="button" tabindex="0" aria-label="一句话找客户">
+            <span class="fc-h"><span class="fc-ico">⚡</span><span class="fc-tt"><b>一句话找客户</b><em>说人话 → AI 拆需求 → 公开索引找线索</em></span><span class="fc-tag">NEW</span></span>
+            <p>把「城市 + 预算 + 时间 + 要什么 + 不要什么」说一句，AI 自动解析、检索公开问答索引，再按七维打分挑出值得联系的人。<b>只搜公开索引，不爬平台正文、不自动私信。</b></p>
+            <span class="fc-cta">⚡ 说一句需求，开始找客户 →</span>
+          </div>
           <div class="find-card on" data-find="intent" role="button" tabindex="0" aria-label="意向客户：问答和评论">
             <span class="fc-h"><span class="fc-ico">🎯</span><span class="fc-tt"><b>意向客户（问答/评论）</b><em>优先推荐：真实在问的人</em></span></span>
             <p>从知乎、百度知道、贴吧等公开问答和评论区，找「求推荐 / 多少钱 / 能预约吗」的个人提问，AI 自动判定高意向。</p>
@@ -946,6 +1087,13 @@ html[data-theme="light"] .wf-batch-lead{color:#075985}
           </div>
         </div>
         <div class="find-body" id="findBody">
+          <div class="find-pane" data-findpane="express">
+            <div class="fp-meta" id="xprMeta">⚡ 一句话找客户：AI 先拆解需求（城市/区县/预算/时间/排除词），再检索公开搜索索引；每条线索按七维打分，只把「值得联系」的推给你。</div>
+            <div class="fp-actions">
+              <button type="button" class="btn" id="xprOpen">⚡ 说一句需求，开始找客户</button>
+              <span class="hint">平台可选百度知道 / 知乎 / 贴吧等公开问答；抖音、小红书灰显，仅通过公开搜索索引尝试，不保证有量。</span>
+            </div>
+          </div>
           <div class="find-pane on" data-findpane="intent">
             <div class="fp-meta" id="wfIntentMeta">正在读取商家配置…</div>
             <div class="fp-actions">
@@ -1028,6 +1176,13 @@ html[data-theme="light"] .wf-batch-lead{color:#075985}
           <div class="sh-t"><h2>筛客户</h2><p>这一步做什么：按优先级、意向、来源筛选，打开画像/标签/备注核实，把真正要跟进的人挑出来；勾选后可批量生成话术。</p></div>
           <span class="sh-badge">线索库</span>
         </div>
+        <div class="xpr-funnel" id="xprFunnel" role="group" aria-label="获客漏斗：浏览→相关→有意向→值得联系→已联系">
+          <button type="button" class="xpr-fn arrow" data-xpr-funnel="scanned"><b>—</b><span>浏览</span><em>公开索引命中</em></button>
+          <button type="button" class="xpr-fn arrow" data-xpr-funnel="relevant"><b>—</b><span>相关</span><em>去重后线索</em></button>
+          <button type="button" class="xpr-fn arrow" data-xpr-funnel="intent"><b>—</b><span>有意向</span><em>意向阶段≥60</em></button>
+          <button type="button" class="xpr-fn arrow" data-xpr-funnel="worth"><b>—</b><span>值得联系</span><em>总分≥55</em></button>
+          <button type="button" class="xpr-fn" data-xpr-funnel="contacted"><b>—</b><span>已联系</span><em>人工标记</em></button>
+        </div>
         <div class="filter-hero">
           <label class="wf-switch"><input type="checkbox" id="wfHighOnly"><span class="sw"></span><span>只看高意向</span><span class="sw-tip">明确需求词 · 评分≥6</span></label>
           <div class="batchbar">
@@ -1072,6 +1227,7 @@ html[data-theme="light"] .wf-batch-lead{color:#075985}
               <option value="">全部来源</option><option value="lbs_poi">LBS 找客</option>
               <option value="manual">手动导入</option><option value="csv">CSV</option><option value="search">公开搜索</option>
               <option value="intent_search">意向问答</option>
+              <option value="express">一句话找客</option>
             </select>
             <select id="fPriority" aria-label="按优先级筛选">
               <option value="">全部优先级</option><option value="1">P1 最高</option><option value="2">P2</option>
@@ -1167,6 +1323,15 @@ html[data-theme="light"] .wf-batch-lead{color:#075985}
         </div>
         <ul class="advice" id="adviceOut"></ul>
       </section>
+        <section class="card glow xpr-advice" id="xprAdviceCard">
+          <div class="wf-card-head">🧠 AI 今日策略 <span class="badge pot" id="xprAdviceBadge">读取消…</span></div>
+          <div id="xprAdviceOut"><div class="xpr-loading">正在读取今天线索的共性与沟通建议…</div></div>
+          <div class="ft">
+            <button type="button" class="btn line sm" id="xprAdviceRefresh">↻ 重新生成</button>
+            <span class="hint">基于当天一句话找客线索；AI 只出建议，发送前人工核对，不群发。</span>
+          </div>
+        </section>
+        <div class="xpr-cost" id="xprCost" aria-live="polite">今日 AI 成本读取中…</div>
         <div class="row" style="gap:8px;flex-wrap:wrap">
           <button type="button" class="btn line sm" id="wfExportStats">⬇ 导出线索数据 CSV</button>
           <a class="btn ghost sm" href="/ai-nav/geo/">🌍 去 GEO 推广页</a>
@@ -1463,6 +1628,66 @@ html[data-theme="light"] .wf-batch-lead{color:#075985}
       <p class="hint" style="margin-top:10px">结果只保存公开标题/摘要/链接；发布时间以搜索引擎返回为准，未给日期的标注「日期未知」。每条都附「打开原文」和可复制的跟进话术。</p>
     </div>
   </div>
+</div>
+
+<div class="modal xpr-modal" id="expressModal" hidden>
+  <div class="modal-in" role="dialog" aria-modal="true" aria-labelledby="xprTitle">
+    <h3 id="xprTitle">⚡ 一句话找客户</h3>
+    <p class="m-sub">用大白话说你要找谁。AI 拆成城市/区县、预算、时间、服务和排除词，再检索公开搜索索引（百度知道、知乎、贴吧等），逐条按七维打分。<b>不抓平台私有内容、不登录、不自动私信。</b></p>
+    <div class="xpr-step" id="xprSteps" aria-hidden="true"><span class="on">1 说需求</span><span>2 检索打分</span><span>3 筛选跟进</span></div>
+    <div id="xprForm">
+      <div class="xpr-label">平台 <em>最多 4 个；抖音 / 小红书灰显 = 仅通过公开搜索索引尝试</em></div>
+      <div class="xpr-chips" id="xprPlatforms" role="group" aria-label="选择公开索引平台"></div>
+      <div class="xpr-label">一句话需求 <em>建议：城市+区县 · 预算 · 最近多久 · 要什么 · 不要什么</em></div>
+      <textarea class="xpr-input" id="xprText" maxlength="300" placeholder="例如：重点找杭州滨江、预算5万以上、最近一个月要装修的，不要同行">重点找杭州滨江、预算5万以上、最近一个月要装修的，不要同行</textarea>
+      <div class="xpr-examples" id="xprExamples" aria-label="快速插入">
+        <button type="button" data-xpr-insert="杭州滨江">杭州滨江</button>
+        <button type="button" data-xpr-insert="预算5万以上">预算5万+</button>
+        <button type="button" data-xpr-insert="最近一个月">最近1个月</button>
+        <button type="button" data-xpr-insert="不要同行">不要同行</button>
+        <button type="button" data-xpr-insert="要装修的">要装修</button>
+      </div>
+      <div class="xpr-label" style="margin-top:10px">行业模板 <em>来自行业字典，一键填入需求示例</em></div>
+      <div style="display:flex;gap:6px;align-items:center">
+        <select class="inp" id="xprTpl" aria-label="选择行业模板" style="flex:1 1 auto;min-height:40px;max-width:none"><option value="">加载行业模板…</option></select>
+        <button type="button" class="btn line sm" id="xprTplFill">填入</button>
+      </div>
+      <div class="xpr-parse" id="xprParse" hidden></div>
+      <div class="xpr-actions">
+        <button type="button" class="btn" id="xprStart">⚡ 开始找客户</button>
+        <button type="button" class="btn line" id="xprClose">关闭</button>
+        <span class="hint">只检索公开索引 · 不登录 · 不自动私信</span>
+      </div>
+      <div id="xprErr"></div>
+    </div>
+    <div class="xpr-progress" id="xprProgress" hidden>
+      <div style="display:flex;justify-content:space-between;gap:8px;align-items:center;font-size:13px;font-weight:800">
+        <span id="xprPhase">正在检索公开索引…</span><span id="xprPct" style="color:#9ae6ff">0%</span>
+      </div>
+      <div class="xpr-bar"><i id="xprBar"></i></div>
+      <div class="xpr-stats">
+        <div><b id="xprScanned">0</b><span>已扫描</span></div>
+        <div><b id="xprFound">0</b><span>新发现</span></div>
+        <div><b id="xprEta">—</b><span>预计剩余</span></div>
+      </div>
+      <div class="xpr-actions">
+        <button type="button" class="btn line sm" id="xprPause">暂 停</button>
+        <button type="button" class="btn line sm" id="xprStop">停 止</button>
+        <span class="hint" id="xprRunHint">暂停/停止在每条公开查询之间生效</span>
+      </div>
+    </div>
+    <div id="xprResult"></div>
+  </div>
+</div>
+
+<div class="xpr-drawer" id="xprDrawer" hidden>
+  <aside class="xpr-drawer-in" role="dialog" aria-modal="true" aria-labelledby="xprDrawerTitle">
+    <div class="xpr-dh">
+      <div style="flex:1;min-width:0"><h3 id="xprDrawerTitle">线索七维详情</h3><div class="meta" id="xprDrawerMeta"></div></div>
+      <button type="button" class="xpr-x" id="xprDrawerClose" aria-label="关闭详情">×</button>
+    </div>
+    <div id="xprDrawerBody"></div>
+  </aside>
 </div>
 
 <script>
@@ -2317,6 +2542,12 @@ html[data-theme="light"] .wf-batch-lead{color:#075985}
       url: o.url || '',
       why: o.why || o.intent_why || o.reason || '',
       intent_meta: o.intent_meta || null,
+      dims: (o.dims && typeof o.dims === 'object') ? o.dims : null,
+      need_summary: o.need_summary || '',
+      express: !!o.express,
+      express_parsed: o.express_parsed || null,
+      express_budget: o.express_budget || null,
+      express_timeline_days: o.express_timeline_days || 0,
       lbs: o.lbs || null,
       contacted: !!o.contacted
     };
@@ -2394,7 +2625,7 @@ html[data-theme="light"] .wf-batch-lead{color:#075985}
   function leadTags(l) { return Array.isArray(l.tags) ? l.tags : []; }
   function leadNotes(l) { return Array.isArray(l.notes) ? l.notes : []; }
   function sourceLabel(src) {
-    var map = { lbs_poi: 'LBS 找客', manual: '手动导入', csv: 'CSV 导入', search: '公开搜索', intent_search: '意向问答', onsite: '本站留言', official: '官方 API', '评论区': '评论区' };
+    var map = { lbs_poi: 'LBS 找客', manual: '手动导入', csv: 'CSV 导入', search: '公开搜索', intent_search: '意向问答', express: '一句话找客', onsite: '本站留言', official: '官方 API', '评论区': '评论区' };
     return map[src] || src || '—';
   }
   function syncPlatformFilter() {
@@ -2682,10 +2913,11 @@ html[data-theme="light"] .wf-batch-lead{color:#075985}
           (String(l.text).length > 34 ? '<button type="button" class="more-btn" data-expand="' + esc(l.id) + '">' + (open ? '收起' : '展开') + '</button>' : '') + '</td>' +
           '<td><span class="source-badge">' + esc(src) + '</span></td>' +
           '<td><span class="badge ' + (hi ? 'hi' : 'pot') + '" title="' + (hi && l.demand ? '高意向且命中询价/预约/求推荐等强需求词' : '高意向=明确需求词：评分≥6 或命中询价/预约/求推荐等词') + '">' + (hi ? (l.demand ? '高意向·需求' : '高意向') : '潜在') + '</span></td>' +
-          '<td><span class="score' + (hi ? ' hi' : '') + '">' + esc(l.score) + '</span><span style="color:var(--xl-txt2);font-size:11px">/10</span></td>' +
+          '<td><span class="score' + (hi ? ' hi' : '') + '">' + esc(l.score) + '</span><span style="color:var(--xl-txt2);font-size:11px">/' + (l.express ? '100' : '10') + '</span></td>' +
           '<td>' + priorityBadge(l) + '</td>' +
           '<td class="tag-cell">' + tagChips(l, false) + (note ? '<span class="latest-note">📝 ' + esc(note.length > 26 ? note.slice(0, 26) + '…' : note) + '</span>' : '') + '</td>' +
           '<td class="act"><button type="button" class="mini" data-detail="' + esc(l.id) + '">' + (S.detail[l.id] ? '收起' : '详情') + '</button>' +
+          (l.dims ? '<button type="button" class="mini" data-express-detail="' + esc(l.id) + '" title="查看七维打分与反馈">七维</button>' : '') +
           '<button type="button" class="mini" data-script="' + esc(l.id) + '">生成话术</button>' +
           '<button type="button" class="mini warm" data-contact="' + esc(l.id) + '"' + (l.contacted ? ' disabled' : '') + '>' + (l.contacted ? '已联系' : '标记已联系') + '</button></td>' +
           '</tr>' + (S.detail[l.id] ? detailRow(l) : '');
@@ -6043,6 +6275,589 @@ html[data-theme="light"] .wf-batch-lead{color:#075985}
   else window.addEventListener('load', function () { setTimeout(boot, 0); });
 })();
 
+// ================= ⚡ 一句话找客户（leadgen_express 前端） =================
+(function () {
+  'use strict';
+  var API = /(^|\.)github\.io$/i.test(location.hostname) ? 'https://xinglaiai.com/ai-nav/api/leadgen' : '/ai-nav/api/leadgen';
+  var LS_FB = 'leadgen_xpr_fb_v1';
+  var PLATS = [
+    { key: 'baidu_zhidao', name: '百度知道' },
+    { key: 'zhihu', name: '知乎' },
+    { key: 'tieba', name: '百度贴吧' },
+    { key: 'xiaohongshu', name: '小红书', dim: true, note: '通过公开搜索索引尝试，量少' },
+    { key: 'douyin', name: '抖音', dim: true, note: '通过公开搜索索引尝试，量少' },
+    { key: 'dianping', name: '大众点评' },
+    { key: '58', name: '58同城' }
+  ];
+  var DIMS = [
+    ['intent_stage', '意向阶段'], ['purchase_stage', '购买阶段'], ['urgency', '紧迫度'],
+    ['closeness', '距离/区域'], ['match', '需求匹配'], ['contactability', '可联系性'],
+    ['buying_signal', '购买信号']
+  ];
+  var EX = {
+    platforms: ['baidu_zhidao', 'zhihu'], taskId: null, timer: null, paused: false,
+    parsed: null, busy: false, lastTask: null, templates: null, drawerLead: null,
+    funnelAt: 0, adviceAt: 0, costAt: 0
+  };
+
+  function $(id) { return document.getElementById(id); }
+  function esc(v) {
+    return String(v == null ? '' : v).replace(/&/g, '&amp;').replace(/</g, '&lt;')
+      .replace(/>/g, '&gt;').replace(/"/g, '&quot;');
+  }
+  function toast(msg) {
+    var t = $('toast'); if (!t) return;
+    t.textContent = msg; t.className = 'show';
+    clearTimeout(toast._t); toast._t = setTimeout(function () { t.className = ''; }, 3000);
+  }
+  function wsId() {
+    var au = (window.XLAuth && window.XLAuth.token && window.XLAuth.token()) ? window.XLAuth.user() : null;
+    if (au && au.workspace_id) return au.workspace_id;
+    var st = null;
+    try { st = window.__LG && window.__LG.state ? window.__LG.state() : null; } catch (e) {}
+    if (st && st.workspace) return st.workspace;
+    var id = '';
+    try { id = localStorage.getItem('leadgen_ws') || ''; } catch (e) {}
+    if (!id) {
+      id = 'ws-' + Date.now().toString(36) + Math.random().toString(36).slice(2, 7);
+      try { localStorage.setItem('leadgen_ws', id); } catch (e2) {}
+    }
+    return id;
+  }
+  function api(path, opt) {
+    opt = opt || {};
+    var ctrl = window.AbortController ? new AbortController() : null;
+    var timer = null;
+    if (ctrl) timer = setTimeout(function () { try { ctrl.abort(); } catch (e) {} }, opt.timeout || 20000);
+    var init = { method: opt.method || 'GET', headers: {} };
+    if (opt.body) { init.body = JSON.stringify(opt.body); init.headers['Content-Type'] = 'application/json'; }
+    try { var tk = window.XLAuth && window.XLAuth.token && window.XLAuth.token(); if (tk) init.headers['Authorization'] = 'Bearer ' + tk; } catch (e) {}
+    if (ctrl) init.signal = ctrl.signal;
+    return fetch(opt.url || (API + path), init).then(function (r) {
+      if (timer) clearTimeout(timer);
+      return r.text().then(function (tx) {
+        var d = null; try { d = JSON.parse(tx); } catch (e) {}
+        if (!d) return { ok: false, error: 'bad_json', hint: '接口返回异常（HTTP ' + r.status + '）', http_status: r.status };
+        if (!r.ok && d.ok === undefined) d.ok = false;
+        d.http_status = r.status;
+        return d;
+      });
+    }).catch(function () {
+      if (timer) clearTimeout(timer);
+      return { ok: false, error: 'network', hint: '网络异常或超时，请稍后重试' };
+    });
+  }
+  function pct(n) { return Math.max(0, Math.min(100, Math.round(n))); }
+  function fmtMoney(v) { var n = Number(v || 0); return n >= 0.01 ? n.toFixed(2) : n.toFixed(4); }
+  function fmtNum(v) { return String(Number(v || 0)).replace(/\B(?=(\d{3})+(?!\d))/g, ','); }
+
+  /* ---------------- 平台 / 解析预览 ---------------- */
+  function renderPlatforms() {
+    var box = $('xprPlatforms'); if (!box) return;
+    box.innerHTML = PLATS.map(function (p) {
+      var on = EX.platforms.indexOf(p.key) >= 0;
+      return '<button type="button" class="xpr-chip' + (on ? ' on' : '') + (p.dim ? ' dim' : '') +
+        '" data-xpr-plat="' + p.key + '" aria-pressed="' + (on ? 'true' : 'false') + '" title="' +
+        esc(p.note || ('公开搜索索引：' + p.name)) + '">' + esc(p.name) +
+        (p.dim ? '<small>公开索引</small>' : '') + '</button>';
+    }).join('');
+  }
+  function renderParsed(p) {
+    var box = $('xprParse'); if (!box) return;
+    if (!p) { box.hidden = true; box.innerHTML = ''; return; }
+    var parts = [];
+    parts.push('城市 <b>' + esc(p.city || '未识别') + '</b>');
+    parts.push('区县 <b>' + esc((p.districts || []).join('、') || '不限') + '</b>');
+    if (p.budget_min || p.budget_max) {
+      parts.push('预算 <b>' + (p.budget_min ? fmtNum(p.budget_min) + '元以上' : '') +
+        (p.budget_max ? (p.budget_min ? '、' : '') + fmtNum(p.budget_max) + '元以内' : '') + '</b>');
+    }
+    if (p.timeline_days) parts.push('时间 <b>最近 ' + p.timeline_days + ' 天</b>');
+    parts.push('行业 <b>' + esc(p.industry || '未识别') + '</b>');
+    if ((p.services || []).length) parts.push('服务 <b>' + esc(p.services.join('、')) + '</b>');
+    if ((p.exclude_terms || []).length) parts.push('排除 <b>' + esc(p.exclude_terms.join('、')) + '</b>');
+    parts.push('置信度 <b>' + Math.round((Number(p.confidence) || 0) * 100) + '%</b>');
+    var qs = p.questions || [];
+    box.innerHTML = parts.join(' · ') + (qs.length ? '<br><span class="q">还需要确认：' + qs.map(esc).join('；') + '</span>' : '');
+    box.hidden = false;
+  }
+  function setPhase(txt, p) {
+    if ($('xprPhase')) $('xprPhase').textContent = txt;
+    if (typeof p === 'number') {
+      if ($('xprPct')) $('xprPct').textContent = pct(p) + '%';
+      if ($('xprBar')) $('xprBar').style.width = pct(p) + '%';
+    }
+  }
+  function showErr(msg, qs) {
+    var box = $('xprErr'); if (!box) return;
+    box.innerHTML = msg ? '<div class="xpr-err">' + esc(msg) + (qs && qs.length ? '<br>补充：' + qs.map(esc).join('；') : '') + '</div>' : '';
+  }
+  function setBusy(on) {
+    EX.busy = !!on;
+    var b = $('xprStart'); if (b) { b.disabled = !!on; b.textContent = on ? '处理中…' : '⚡ 开始找客户'; }
+  }
+
+  /* ---------------- 模板 ---------------- */
+  function loadTemplates() {
+    if (EX.templates) return;
+    api('/express/templates?workspace_id=' + encodeURIComponent(wsId()), { timeout: 15000 }).then(function (r) {
+      if (!r || !r.ok) {
+        var sel0 = $('xprTpl');
+        if (sel0) sel0.innerHTML = '<option value="">模板接口未就绪（可手动输入需求）</option>';
+        return;
+      }
+      EX.templates = r.industries || [];
+      var sel = $('xprTpl'); if (!sel) return;
+      sel.innerHTML = '<option value="">选择行业模板…</option>' + EX.templates.map(function (t, i) {
+        return '<option value="' + i + '">' + esc(t.name) + (t.source === 'industry_dict' ? '' : '（兜底）') + '</option>';
+      }).join('');
+    });
+  }
+
+  /* ---------------- 打开 / 关闭 ---------------- */
+  function openModal() {
+    var m = $('expressModal'); if (!m) return;
+    m.hidden = false;
+    document.body.style.overflow = 'hidden';
+    renderPlatforms();
+    loadTemplates();
+    EX.taskId = null; EX.lastTask = null; EX.paused = false;
+    var pr = $('xprProgress'); if (pr) pr.hidden = true;
+    var res = $('xprResult'); if (res) res.innerHTML = '';
+    var err = $('xprErr'); if (err) err.innerHTML = '';
+    setBusy(false);
+  }
+  function closeModal() {
+    var m = $('expressModal'); if (!m) return;
+    m.hidden = true;
+    document.body.style.overflow = '';
+    if (EX.timer) { clearTimeout(EX.timer); EX.timer = null; }
+  }
+
+  /* ---------------- 任务进度 ---------------- */
+  function updateProgress(t) {
+    var pr = $('xprProgress'); if (pr) pr.hidden = false;
+    var phase = t.phase || t.status || 'running';
+    var label = phase === 'searching' ? '正在检索公开索引…'
+      : phase === 'scoring' ? '正在给线索打七维分…'
+        : phase === 'parsing' ? '正在解析需求…'
+          : phase === 'cancelling' ? '正在停止…' : '处理中…';
+    if (EX.paused && t.status === 'running') label = '已暂停（后台在每条查询之间等待）';
+    var total = Number(t.queries_total || 0), done = Number(t.queries_done || 0);
+    var p = 8;
+    if (phase === 'searching') p = 10 + (total ? Math.min(74, done / total * 74) : 30);
+    else if (phase === 'scoring') p = 88;
+    else if (phase === 'done') p = 100;
+    setPhase(label, p);
+    if ($('xprScanned')) $('xprScanned').textContent = fmtNum(t.scanned || 0);
+    if ($('xprFound')) $('xprFound').textContent = fmtNum(t.found || 0);
+    if ($('xprEta')) {
+      var eta = Number(t.eta || 0);
+      $('xprEta').textContent = t.status === 'running' ? (eta > 0 ? '约 ' + eta + ' 秒' : '即将完成') : '—';
+    }
+  }
+  function pollTask(n) {
+    if (!EX.taskId) return;
+    var id = EX.taskId;
+    api('/express/task/' + encodeURIComponent(id), { timeout: 20000 }).then(function (t) {
+      if (t && t.ok === undefined && (t.id || t.status)) t.ok = true;
+      if (!t || !t.ok) {
+        if ((n || 0) < 2) { EX.timer = setTimeout(function () { pollTask((n || 0) + 1); }, 1500); return; }
+        setPhase('查询进度失败', 0);
+        showErr(t && t.hint ? t.hint : '无法获取任务进度，请稍后在③筛选里查看线索库');
+        return;
+      }
+      EX.lastTask = t;
+      updateProgress(t);
+      if (t.status === 'running' || t.status === 'cancelling') {
+        EX.timer = setTimeout(function () { pollTask(0); }, 1400);
+      } else if (t.status === 'done') {
+        taskDone(t);
+      } else if (t.status === 'cancelled') {
+        setPhase('已停止', 100);
+        var pr = $('xprProgress'); if (pr) pr.hidden = true;
+        var res = $('xprResult');
+        if (res) res.innerHTML = '<div class="xpr-err">已停止本次检索。已写入的线索仍保留在③筛选里。</div>';
+      } else {
+        setPhase('任务失败', 0);
+        showErr((t && (t.note || t.hint)) || '任务失败，请稍后重试');
+      }
+    });
+  }
+  function taskDone(t) {
+    if (EX.timer) { clearTimeout(EX.timer); EX.timer = null; }
+    setPhase('完成', 100);
+    var pr = $('xprProgress'); if (pr) pr.hidden = true;
+    var n = Number(t.relevant != null ? t.relevant : (t.leads || []).length) || 0;
+    var worth = Number(t.worth || 0), intent = Number(t.intent || 0), scanned = Number(t.scanned || 0);
+    var leadList = t.leads || [];
+    var box = $('xprResult');
+    if (box) {
+      box.innerHTML = '<div class="xpr-done">✅ 本次找到 <b>' + n + '</b> 条，其中值得联系 <b>' + worth + '</b> 条' +
+        '<br><span style="font-size:12px;color:var(--wf-ink3)">扫描 ' + fmtNum(scanned) + ' 条公开结果 · 有意向 ' + intent +
+        ' 条 · 用时 ' + (t.elapsed_ms ? (t.elapsed_ms / 1000).toFixed(1) + ' 秒' : '—') +
+        ' · 平台 ' + esc((t.platforms || []).map(function (k) { var p = PLATS.filter(function (x) { return x.key === k; })[0]; return p ? p.name : k; }).join('/')) + '</span>' +
+        '<div class="row"><button type="button" class="btn sm" data-xpr-goto3="1">去第③步筛选 →</button>' +
+        '<button type="button" class="btn line sm" data-xpr-again="1">再找一批</button></div></div>';
+    }
+    toast('本次找到 ' + n + ' 条，其中值得联系 ' + worth + ' 条');
+    try { window.dispatchEvent(new CustomEvent('lg:import', { detail: { source: 'express', n: n, high: intent } })); } catch (e) {}
+    if (window.__LG && window.__LG.refresh) { try { window.__LG.refresh(); } catch (e2) {} }
+    loadFunnel(true); loadCost(true);
+    EX.adviceAt = 0;
+    loadAdvice(true);
+    setTimeout(function () {
+      closeModal();
+      var rail = document.querySelector('.rail-step[data-goto="3"]');
+      if (rail) rail.click();
+    }, 1400);
+  }
+
+  /* ---------------- 开始 ---------------- */
+  function start() {
+    if (EX.busy) return;
+    var text = ($('xprText') && $('xprText').value || '').trim();
+    if (!text) { showErr('请先输入一句获客需求，例如：重点找杭州滨江、预算5万以上、最近一个月要装修的'); return; }
+    if (!EX.platforms.length) { showErr('至少选择 1 个公开索引平台'); return; }
+    showErr('');
+    setBusy(true);
+    var res = $('xprResult'); if (res) res.innerHTML = '';
+    var pr = $('xprProgress'); if (pr) pr.hidden = false;
+    $('xprScanned').textContent = '0'; $('xprFound').textContent = '0'; $('xprEta').textContent = '解析中';
+    setPhase('正在解析需求…', 6);
+    api('/express/parse', {
+      method: 'POST', timeout: 90000,
+      body: { workspace_id: wsId(), text: text }
+    }).then(function (r) {
+      if (!r || !r.ok) {
+        setBusy(false); setPhase('解析失败', 0); if (pr) pr.hidden = true;
+        showErr((r && (r.hint || r.error)) || '解析失败，请稍后重试');
+        return;
+      }
+      var p = r.parsed || {};
+      EX.parsed = p;
+      renderParsed(p);
+      var qs = p.questions || [];
+      if (!p.city || !p.industry) {
+        setBusy(false); setPhase('需要补充信息', 0); if (pr) pr.hidden = true;
+        showErr('还缺关键信息：' + (!p.city ? '城市/区县 ' : '') + (!p.industry ? '行业/服务 ' : '') + '，请补充后再开始。', qs);
+        return;
+      }
+      setPhase('正在启动任务…', 10);
+      return api('/express/run', {
+        method: 'POST', timeout: 25000,
+        body: {
+          workspace_id: wsId(), text: text, platforms: EX.platforms.slice(),
+          limit: 20, parsed: p
+        }
+      }).then(function (rr) {
+        if (!rr || !rr.ok) {
+          setBusy(false); if (pr) pr.hidden = true; setPhase('启动失败', 0);
+          showErr((rr && (rr.hint || rr.error)) || '任务启动失败，请稍后重试');
+          return;
+        }
+        EX.taskId = rr.task_id;
+        if (rr.parsed) { EX.parsed = rr.parsed; renderParsed(rr.parsed); }
+        setBusy(false);
+        setPhase('任务已启动', 10);
+        pollTask(0);
+      });
+    }).catch(function (e) {
+      setBusy(false); if (pr) pr.hidden = true; setPhase('网络异常', 0);
+      showErr('网络异常，请稍后重试');
+    });
+  }
+
+  /* ---------------- 漏斗 ---------------- */
+  function loadFunnel(force) {
+    var now = Date.now();
+    if (!force && EX.funnelAt && now - EX.funnelAt < 15000) return;
+    EX.funnelAt = now;
+    api('/funnel?workspace_id=' + encodeURIComponent(wsId()) + '&days=1', { timeout: 15000 }).then(function (r) {
+      if (!r || !r.ok) return;
+      var keys = ['scanned', 'relevant', 'intent', 'worth', 'contacted'];
+      var rates = r.rates || {};
+      var rateKey = { scanned: '', relevant: 'scanned_to_relevant', intent: 'relevant_to_intent', worth: 'intent_to_worth', contacted: 'worth_to_contacted' };
+      keys.forEach(function (k) {
+        var b = document.querySelector('[data-xpr-funnel="' + k + '"] b');
+        var e = document.querySelector('[data-xpr-funnel="' + k + '"] em');
+        if (b) b.textContent = fmtNum(r[k] || 0);
+        if (e) {
+          if (k === 'scanned') e.textContent = '公开索引命中';
+          else e.textContent = '转化 ' + (Number(rates[rateKey[k]] || 0)).toFixed(0) + '%';
+        }
+      });
+      var f = $('xprFunnel');
+      if (f) f.title = '当日一句话找客漏斗：浏览 ' + (r.scanned || 0) + ' → 相关 ' + (r.relevant || 0) +
+        ' → 有意向 ' + (r.intent || 0) + ' → 值得联系 ' + (r.worth || 0) + ' → 已联系 ' + (r.contacted || 0);
+    });
+  }
+
+  /* ---------------- 抽屉 ---------------- */
+  function fbStore() {
+    try { return JSON.parse(localStorage.getItem(LS_FB) || '{}') || {}; } catch (e) { return {}; }
+  }
+  function fbSave(id, val) {
+    var m = fbStore(); m[id] = val;
+    try { localStorage.setItem(LS_FB, JSON.stringify(m)); } catch (e) {}
+  }
+  function scriptFor(l) {
+    var st = null; try { st = window.__LG && window.__LG.state ? window.__LG.state() : null; } catch (e) {}
+    var c = (st && st.config) || {};
+    var city = c.city || (EX.parsed && EX.parsed.city) || '本地';
+    var dist = (c.districts || [])[0] || (EX.parsed && (EX.parsed.districts || [])[0]) || '';
+    var ind = (EX.parsed && EX.parsed.industry) || c.industry || '本地服务';
+    var need = l.need_summary || l.why || l.text || '';
+    if (need.length > 50) need = need.slice(0, 50) + '…';
+    return '您好，看到您在问「' + need + '」。我们就在' + city + dist + '做' + ind +
+      '，可以先发您价格和档期，合适再约，不合适也不打扰～';
+  }
+  function copyText(txt) {
+    if (navigator.clipboard && navigator.clipboard.writeText) {
+      navigator.clipboard.writeText(txt).then(function () { toast('话术已复制，去原平台人工发送'); }, function () { fallbackCopy(txt); });
+    } else fallbackCopy(txt);
+  }
+  function fallbackCopy(txt) {
+    try {
+      var ta = document.createElement('textarea'); ta.value = txt;
+      ta.style.position = 'fixed'; ta.style.opacity = '0'; document.body.appendChild(ta);
+      ta.select(); document.execCommand('copy'); document.body.removeChild(ta);
+      toast('话术已复制，去原平台人工发送');
+    } catch (e) { toast('复制失败，请手动选择文本'); }
+  }
+  function openDrawer(id) {
+    var lead = null;
+    try { lead = window.__LG && window.__LG.leadById ? window.__LG.leadById(id) : null; } catch (e) {}
+    if (!lead && EX.lastTask) {
+      (EX.lastTask.leads || []).forEach(function (x) { if (x.id === id) lead = x; });
+    }
+    if (!lead) { toast('线索已更新，请刷新后重试'); return; }
+    EX.drawerLead = lead;
+    var dims = lead.dims || {};
+    var score = Number(lead.score || 0);
+    var fb = fbStore();
+    var body = $('xprDrawerBody');
+    var meta = $('xprDrawerMeta');
+    if (meta) meta.textContent = (lead.platform || '公开网页') + ' · ' + (lead.time || '日期未知') + ' · ' +
+      (lead.express ? '一句话找客' : '公开线索');
+    if ($('xprDrawerTitle')) $('xprDrawerTitle').textContent = lead.express ? '一句话找客 · 七维详情' : '线索详情';
+    var dimHtml = DIMS.map(function (d) {
+      var v = Math.max(0, Math.min(100, Number(dims[d[0]] || 0)));
+      return '<div class="xpr-dim' + (v < 50 ? ' low' : '') + '"><span>' + d[1] + '</span>' +
+        '<div class="bar"><i style="width:' + v + '%"></i></div><b>' + v + '</b></div>';
+    }).join('');
+    var tags = (lead.tags || []).map(function (t) { return '<span>' + esc(t) + '</span>'; }).join('');
+    var fbState = fb[lead.id];
+    body.innerHTML =
+      '<div class="xpr-src"><div class="t">' + esc(lead.title || lead.text || '公开提问') + '</div>' +
+      esc(lead.text || lead.snippet || '') + '</div>' +
+      (lead.need_summary ? '<div class="xpr-need"><b>AI 提炼需求：</b>' + esc(lead.need_summary) + '</div>' : '') +
+      '<div class="xpr-total"><b>' + score + '</b><span>总分 / 100 · ' +
+      (score >= 75 ? '值得优先联系' : score >= 55 ? '可跟进' : '先观察') + '</span></div>' +
+      (dims.intent_stage != null ? '<div class="xpr-dims">' + dimHtml + '</div>' : '<div class="hint">该线索没有七维数据（可能是旧数据）</div>') +
+      (tags ? '<div class="xpr-dtags">' + tags + '</div>' : '') +
+      '<div class="xpr-da">' +
+      (lead.url ? '<a class="btn line sm" href="' + esc(lead.url) + '" target="_blank" rel="noopener nofollow">↗ 去原文</a>' : '') +
+      '<button type="button" class="btn line sm" data-xpr-copy="1">复制话术</button>' +
+      '<button type="button" class="btn sm" data-xpr-fb="1" data-accurate="1"' + (fbState != null ? ' disabled' : '') + '>判断准确</button>' +
+      '<button type="button" class="btn line sm" data-xpr-fb="1" data-accurate="0"' + (fbState != null ? ' disabled' : '') + '>判断有误</button>' +
+      '</div>' +
+      '<div class="xpr-fb' + (fbState != null ? ' ok' : '') + '" id="xprFb">' +
+      (fbState != null ? '已反馈：判断' + (fbState ? '准确' : '有误') + '，感谢！' : '反馈会累计用于后续调权重；同一线索只记一次。') + '</div>';
+    var dr = $('xprDrawer'); if (dr) { dr.hidden = false; document.body.style.overflow = 'hidden'; }
+  }
+  function closeDrawer() {
+    var dr = $('xprDrawer'); if (dr) dr.hidden = true;
+    if ($('expressModal') && $('expressModal').hidden) document.body.style.overflow = '';
+    EX.drawerLead = null;
+  }
+  function sendFeedback(accurate) {
+    var l = EX.drawerLead; if (!l) return;
+    var fb = fbStore();
+    if (fb[l.id] != null) { toast('这条已反馈过'); return; }
+    api('/leads/' + encodeURIComponent(l.id) + '/feedback', {
+      method: 'POST', timeout: 15000,
+      body: { workspace_id: wsId(), accurate: !!accurate, note: '' }
+    }).then(function (r) {
+      if (!r || !r.ok) {
+        toast((r && (r.hint || r.error)) || '反馈失败，请稍后重试');
+        return;
+      }
+      fbSave(l.id, !!accurate);
+      var el = $('xprFb');
+      if (el) { el.className = 'xpr-fb ok'; el.textContent = '已反馈：判断' + (accurate ? '准确' : '有误') + '，感谢！'; }
+      document.querySelectorAll('[data-xpr-fb]').forEach(function (b) { b.disabled = true; });
+      toast(accurate ? '已记录：判断准确' : '已记录：判断有误，会用于调权重');
+    });
+  }
+
+  /* ---------------- 今日策略 / 成本 ---------------- */
+  function loadAdvice(force) {
+    var out = $('xprAdviceOut'); if (!out) return;
+    var now = Date.now();
+    if (!force && EX.adviceAt && now - EX.adviceAt < 60000) return;
+    EX.adviceAt = now;
+    if (force) out.innerHTML = '<div class="xpr-loading">正在让 AI 总结今天线索的共性…</div>';
+    api('/daily-advice?workspace_id=' + encodeURIComponent(wsId()) + (force ? '&force=1' : ''), { timeout: 90000 }).then(function (r) {
+      if (!r || !r.ok) {
+        out.innerHTML = '<div class="xpr-err">AI 策略暂不可用：' + esc((r && (r.hint || r.error)) || '接口未就绪') + '</div>';
+        return;
+      }
+      var badge = $('xprAdviceBadge');
+      if (badge) {
+        badge.textContent = (r.source === 'deepseek' ? '在线 AI' : '规则兜底') + (r.cached ? ' · 10分钟缓存' : '');
+        badge.className = 'badge ' + (r.source === 'deepseek' ? 'ok' : 'pot');
+      }
+      var advice = r.advice || [];
+      out.innerHTML = '<div class="sum">' + esc(r.summary || '') + '</div>' +
+        (r.common_intent ? '<div class="ci">共性需求：<b>' + esc(r.common_intent) + '</b></div>' : '') +
+        (advice.length ? '<ol>' + advice.map(function (x) { return '<li>' + esc(x) + '</li>'; }).join('') + '</ol>' : '') +
+        ((r.top_tags || []).length ? '<div class="tags">' + r.top_tags.map(function (t) { return '<span>' + esc(t) + '</span>'; }).join('') + '</div>' : '');
+    });
+  }
+  function loadCost(force) {
+    var box = $('xprCost'); if (!box) return;
+    var now = Date.now();
+    if (!force && EX.costAt && now - EX.costAt < 30000) return;
+    EX.costAt = now;
+    api('/cost?workspace_id=' + encodeURIComponent(wsId()) + '&days=1', { timeout: 15000 }).then(function (r) {
+      if (!r || !r.ok) { box.textContent = '今日 AI 成本读取失败'; return; }
+      var model = r.by_model || {};
+      var parts = [];
+      if (model.flash) parts.push('flash ' + fmtNum(model.flash.requests || 0) + ' 次');
+      if (model.pro) parts.push('pro ' + fmtNum(model.pro.requests || 0) + ' 次');
+      box.innerHTML = '今日 AI 成本 <b>¥' + fmtMoney(r.cost_cny) + '</b>（请求 ' + fmtNum(r.requests || 0) + ' 次' +
+        (r.tokens ? ' · ' + fmtNum(r.tokens) + ' tokens' : '') + (parts.length ? ' · ' + parts.join(' / ') : '') + '）';
+      box.title = '按 DeepSeek usage 的 prompt/completion tokens 计价；flash 与 pro 分档。';
+    });
+  }
+
+  /* ---------------- 绑定 ---------------- */
+  function bind() {
+    var open1 = $('xprOpen');
+    if (open1) open1.addEventListener('click', function (e) { e.preventDefault(); openModal(); });
+    var card = document.querySelector('.find-card[data-find="express"]');
+    if (card) {
+      card.addEventListener('click', function (e) {
+        if (e.target.closest && e.target.closest('a,button')) return;
+        openModal();
+      });
+      card.addEventListener('keydown', function (e) {
+        if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); openModal(); }
+      });
+    }
+    var close = $('xprClose'); if (close) close.addEventListener('click', closeModal);
+    var startBtn = $('xprStart'); if (startBtn) startBtn.addEventListener('click', start);
+    var ta = $('xprText');
+    if (ta) {
+      ta.addEventListener('keydown', function (e) {
+        if ((e.ctrlKey || e.metaKey) && e.key === 'Enter') { e.preventDefault(); start(); }
+      });
+    }
+    var plats = $('xprPlatforms');
+    if (plats) plats.addEventListener('click', function (e) {
+      var b = e.target.closest ? e.target.closest('[data-xpr-plat]') : null; if (!b) return;
+      var k = b.getAttribute('data-xpr-plat');
+      var i = EX.platforms.indexOf(k);
+      if (i >= 0) EX.platforms.splice(i, 1);
+      else {
+        if (EX.platforms.length >= 4) { toast('最多选 4 个平台（每次最多 12 组公开查询）'); return; }
+        EX.platforms.push(k);
+        var p = PLATS.filter(function (x) { return x.key === k; })[0];
+        if (p && p.dim) toast(p.name + '：仅通过公开搜索索引尝试，可能没有结果');
+      }
+      renderPlatforms();
+    });
+    var ex = $('xprExamples');
+    if (ex) ex.addEventListener('click', function (e) {
+      var b = e.target.closest ? e.target.closest('[data-xpr-insert]') : null; if (!b) return;
+      var v = b.getAttribute('data-xpr-insert');
+      var el = $('xprText'); if (!el) return;
+      el.value = (el.value || '').trim() ? (el.value.replace(/[，,；;]\s*$/, '') + '、' + v) : (v + '，');
+      el.focus();
+    });
+    var tplFill = $('xprTplFill');
+    if (tplFill) tplFill.addEventListener('click', function () {
+      var sel = $('xprTpl'); if (!sel || !EX.templates) { toast('模板还没加载好'); return; }
+      var t = EX.templates[Number(sel.value)];
+      if (!t) { toast('先选一个行业模板'); return; }
+      if ($('xprText')) { $('xprText').value = t.example || ''; $('xprText').focus(); }
+      toast('已填入「' + t.name + '」示例，可再改预算/时间');
+    });
+    var pause = $('xprPause');
+    if (pause) pause.addEventListener('click', function () {
+      if (!EX.taskId) return;
+      EX.paused = !EX.paused;
+      pause.textContent = EX.paused ? '继 续' : '暂 停';
+      api('/express/task/' + encodeURIComponent(EX.taskId) + '/pause', {
+        method: 'POST', timeout: 12000, body: { paused: EX.paused }
+      }).then(function (r) {
+        if (!r || !r.ok) { toast('暂停失败，任务仍在继续'); return; }
+        setPhase(EX.paused ? '已暂停（后台在每条查询之间等待）' : '已继续检索…', EX.paused ? 45 : 50);
+      });
+    });
+    var stop = $('xprStop');
+    if (stop) stop.addEventListener('click', function () {
+      if (!EX.taskId) return;
+      api('/express/task/' + encodeURIComponent(EX.taskId) + '/cancel', {
+        method: 'POST', timeout: 12000, body: {}
+      }).then(function (r) {
+        if (r && r.ok) { setPhase('正在停止…', 92); toast('已请求停止，当前查询结束后退出'); }
+        else toast((r && r.hint) || '停止失败');
+      });
+    });
+    document.addEventListener('click', function (e) {
+      var g = e.target.closest ? e.target.closest('[data-xpr-goto3]') : null;
+      if (g) { closeModal(); var rail = document.querySelector('.rail-step[data-goto="3"]'); if (rail) rail.click(); return; }
+      var ag = e.target.closest ? e.target.closest('[data-xpr-again]') : null;
+      if (ag) { var res = $('xprResult'); if (res) res.innerHTML = ''; start(); return; }
+      var d = e.target.closest ? e.target.closest('[data-express-detail]') : null;
+      if (d) { openDrawer(d.getAttribute('data-express-detail')); return; }
+      var cp = e.target.closest ? e.target.closest('[data-xpr-copy]') : null;
+      if (cp) { if (EX.drawerLead) copyText(scriptFor(EX.drawerLead)); return; }
+      var fb = e.target.closest ? e.target.closest('[data-xpr-fb]') : null;
+      if (fb) { sendFeedback(fb.getAttribute('data-accurate') === '1'); return; }
+      var step3 = e.target.closest ? e.target.closest('.rail-step[data-goto="3"],[data-goto="3"]') : null;
+      if (step3) { setTimeout(function () { loadFunnel(true); }, 300); }
+      var step5 = e.target.closest ? e.target.closest('.rail-step[data-goto="5"],[data-goto="5"]') : null;
+      if (step5) { setTimeout(function () { loadAdvice(false); loadCost(true); }, 300); }
+    });
+    var dclose = $('xprDrawerClose'); if (dclose) dclose.addEventListener('click', closeDrawer);
+    var drawer = $('xprDrawer');
+    if (drawer) drawer.addEventListener('click', function (e) { if (e.target === drawer) closeDrawer(); });
+    var modal = $('expressModal');
+    if (modal) modal.addEventListener('click', function (e) { if (e.target === modal) closeModal(); });
+    document.addEventListener('keydown', function (e) {
+      if (e.key !== 'Escape') return;
+      var dr = $('xprDrawer'); if (dr && !dr.hidden) { closeDrawer(); return; }
+      var m = $('expressModal'); if (m && !m.hidden) closeModal();
+    });
+    window.addEventListener('lg:leads', function () { loadFunnel(false); });
+    var refresh = $('xprAdviceRefresh');
+    if (refresh) refresh.addEventListener('click', function () { loadAdvice(true); });
+    var f = $('xprFunnel');
+    if (f) f.addEventListener('click', function (e) {
+      var b = e.target.closest ? e.target.closest('[data-xpr-funnel]') : null;
+      if (!b) return;
+      var k = b.getAttribute('data-xpr-funnel');
+      var txt = { scanned: '浏览：公开搜索索引命中条数', relevant: '相关：去重后写入线索库的条数',
+        intent: '有意向：七维中意向阶段≥60 的条数', worth: '值得联系：有意向且总分≥55 的条数',
+        contacted: '已联系：人工标记过触达的条数' }[k];
+      toast(txt || '');
+    });
+  }
+
+  function init() {
+    if (!$('expressModal')) return;
+    renderPlatforms();
+    bind();
+    loadTemplates();
+    setTimeout(function () { loadFunnel(false); }, 1200);
+    setTimeout(function () { loadAdvice(false); loadCost(false); }, 2600);
+  }
+  if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', init);
+  else init();
+})();
 </script>
 </body>
 </html>
