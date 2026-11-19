@@ -1,0 +1,758 @@
+/* 星籁 AI · 全站左侧竖向侧边栏外壳
+ * 由 assets/site-shell.js 构建 DOM；本文件负责布局与深浅色主题。
+ * 作用域统一加 html.xl-shell，JS 失败时原顶部导航保持可用。 */
+
+html.xl-shell {
+  --xl-sbw: 220px;
+  --xl-topbar-h: 52px;
+  --xl-gutter: clamp(18px, 4vw, 56px);
+  --xl-sb-bg: #0a101a;
+  --xl-sb-bg2: #0d1420;
+  --xl-sb-line: rgba(148, 163, 184, .14);
+  --xl-sb-line-soft: rgba(148, 163, 184, .08);
+  --xl-sb-txt: #c7d2e1;
+  --xl-sb-dim: #77869c;
+  --xl-sb-hover: rgba(148, 163, 184, .09);
+  --xl-sb-active-bg: rgba(56, 189, 248, .13);
+  --xl-sb-active-line: #38bdf8;
+  --xl-sb-active-txt: #e0f2fe;
+  --xl-sb-brand-txt: #f1f5f9;
+  --xl-top-bg: rgba(8, 12, 20, .84);
+  --xl-top-txt: #a9b7ca;
+  --xl-top-strong: #e2e8f0;
+  --xl-top-line: rgba(148, 163, 184, .13);
+  --xl-focus: rgba(56, 189, 248, .5);
+  --xl-sb-shadow: 18px 0 44px -30px rgba(0, 0, 0, .7);
+  background: #070a10;
+  scrollbar-color: rgba(148, 163, 184, .25) transparent;
+}
+
+/* 浅色主题：跟随全站 html[data-theme="light"] */
+html.xl-shell[data-theme="light"] {
+  --xl-sb-bg: #ffffff;
+  --xl-sb-bg2: #f8fafc;
+  --xl-sb-line: #e5eaf2;
+  --xl-sb-line-soft: #eef2f7;
+  --xl-sb-txt: #46556b;
+  --xl-sb-dim: #8593a8;
+  --xl-sb-hover: #f1f5f9;
+  --xl-sb-active-bg: #eaf5ff;
+  --xl-sb-active-line: #0ea5e9;
+  --xl-sb-active-txt: #075985;
+  --xl-sb-brand-txt: #0f1b2d;
+  --xl-top-bg: rgba(255, 255, 255, .88);
+  --xl-top-txt: #64748b;
+  --xl-top-strong: #0f172a;
+  --xl-top-line: #e5eaf2;
+  --xl-focus: rgba(2, 132, 199, .45);
+  --xl-sb-shadow: 18px 0 44px -34px rgba(15, 23, 42, .28);
+  background: #f4f7fb;
+}
+
+html.xl-shell.xl-sb-collapsed { --xl-sbw: 64px; }
+
+/* ---------- 页面整体让位：左侧栏 + 细顶栏 ---------- */
+html.xl-shell body {
+  margin-left: var(--xl-sbw) !important;
+  padding-top: var(--xl-topbar-h) !important;
+  min-width: 0;
+}
+html.xl-shell.xl-shell-ready body {
+  transition: margin-left .22s cubic-bezier(.4, 0, .2, 1);
+}
+
+/* 原顶部导航全部移除（JS 会把登录/主题按钮迁入侧栏） */
+html.xl-shell body > .top,
+html.xl-shell body > header.top,
+html.xl-shell body > .topbar,
+html.xl-shell body > header.topbar { display: none !important; }
+
+/* 生成页的 sticky 子导航避开细顶栏 */
+html.xl-shell .wb-steps { top: 60px; }
+html.xl-shell .stepnav { top: 66px; }
+html.xl-shell .wb-side { top: 124px; }
+
+/* ---------- 左侧边栏 ---------- */
+.xl-sb {
+  position: fixed;
+  inset: 0 auto 0 0;
+  width: var(--xl-sbw);
+  z-index: 58;
+  display: flex;
+  flex-direction: column;
+  background: linear-gradient(180deg, var(--xl-sb-bg2), var(--xl-sb-bg) 44%);
+  border-right: 1px solid var(--xl-sb-line);
+  box-shadow: var(--xl-sb-shadow);
+  color: var(--xl-sb-txt);
+  font-family: inherit;
+  font-size: 13.5px;
+  line-height: 1.4;
+  box-sizing: border-box;
+  transition: width .22s cubic-bezier(.4, 0, .2, 1), transform .24s cubic-bezier(.4, 0, .2, 1);
+  -webkit-font-smoothing: antialiased;
+}
+.xl-sb * { box-sizing: border-box; }
+.xl-sb a { color: inherit; text-decoration: none; }
+
+.xl-sb-top {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  min-height: 68px;
+  padding: 12px 14px;
+  border-bottom: 1px solid var(--xl-sb-line-soft);
+  flex: 0 0 auto;
+}
+.xl-sb-brand {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  min-width: 0;
+  color: var(--xl-sb-brand-txt);
+}
+.xl-sb-mark {
+  flex: 0 0 auto;
+  width: 34px;
+  height: 34px;
+  display: grid;
+  place-items: center;
+  border-radius: 10px;
+  background: linear-gradient(135deg, #38bdf8, #8b5cf6);
+  color: #04121d;
+  font-weight: 900;
+  font-size: 17px;
+  box-shadow: 0 6px 18px -6px rgba(56, 189, 248, .55);
+}
+.xl-sb-brandtext { display: flex; flex-direction: column; min-width: 0; }
+.xl-sb-brandtext b {
+  font-size: 15px;
+  font-weight: 800;
+  letter-spacing: .01em;
+  white-space: nowrap;
+}
+.xl-sb-brandtext small {
+  margin-top: 1px;
+  font-size: 9.5px;
+  font-weight: 600;
+  letter-spacing: .16em;
+  color: var(--xl-sb-dim);
+  white-space: nowrap;
+  text-transform: uppercase;
+}
+.xl-sb-close-mobile {
+  display: none;
+  margin-left: auto;
+  width: 34px;
+  height: 34px;
+  border: 1px solid var(--xl-sb-line);
+  border-radius: 9px;
+  background: transparent;
+  color: var(--xl-sb-txt);
+  cursor: pointer;
+  align-items: center;
+  justify-content: center;
+  padding: 0;
+}
+.xl-sb-close-mobile:hover { background: var(--xl-sb-hover); }
+
+.xl-sb-nav {
+  flex: 1 1 auto;
+  min-height: 0;
+  overflow-y: auto;
+  overflow-x: hidden;
+  padding: 10px 10px 14px;
+  scrollbar-width: thin;
+}
+.xl-sb-group {
+  padding: 10px 10px 6px;
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: .14em;
+  color: var(--xl-sb-dim);
+  text-transform: uppercase;
+  white-space: nowrap;
+}
+.xl-sb-group + .xl-sb-group { margin-top: 8px; }
+.xl-sb-link {
+  position: relative;
+  display: flex;
+  align-items: center;
+  gap: 11px;
+  min-height: 40px;
+  padding: 0 11px;
+  margin: 2px 0;
+  border-radius: 9px;
+  color: var(--xl-sb-txt);
+  font-weight: 550;
+  transition: background .15s, color .15s;
+  white-space: nowrap;
+}
+.xl-sb-link:hover { background: var(--xl-sb-hover); color: var(--xl-sb-brand-txt); }
+.xl-sb-link:focus-visible { outline: 2px solid var(--xl-focus); outline-offset: 1px; }
+.xl-sb-link.is-active {
+  background: var(--xl-sb-active-bg);
+  color: var(--xl-sb-active-txt);
+  font-weight: 700;
+}
+.xl-sb-link.is-active::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 9px;
+  bottom: 9px;
+  width: 3px;
+  border-radius: 0 3px 3px 0;
+  background: var(--xl-sb-active-line);
+}
+.xl-sb-ico {
+  flex: 0 0 auto;
+  width: 20px;
+  height: 20px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--xl-sb-dim);
+  transition: color .15s;
+}
+.xl-sb-ico svg { width: 19px; height: 19px; display: block; }
+.xl-sb-link:hover .xl-sb-ico { color: var(--xl-sb-active-line); }
+.xl-sb-link.is-active .xl-sb-ico { color: var(--xl-sb-active-line); }
+.xl-sb-label {
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.xl-sb-badge {
+  margin-left: auto;
+  font-size: 9.5px;
+  font-weight: 700;
+  line-height: 1;
+  padding: 4px 5px;
+  border-radius: 5px;
+  color: #7dd3fc;
+  background: rgba(56, 189, 248, .14);
+  border: 1px solid rgba(56, 189, 248, .2);
+}
+html.xl-shell[data-theme="light"] .xl-sb-badge { color: #0369a1; background: #e0f2fe; border-color: #bae6fd; }
+
+.xl-sb-foot {
+  flex: 0 0 auto;
+  border-top: 1px solid var(--xl-sb-line);
+  padding: 10px;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+.xl-sb-auth { position: relative; }
+.xl-sb-auth .auth-slot { display: block; width: 100%; margin: 0; }
+.xl-sb-auth .auth-link {
+  width: 100%;
+  min-height: 38px;
+  padding: 0 11px;
+  border: 1px solid transparent !important;
+  border-radius: 9px !important;
+  background: transparent !important;
+  color: var(--xl-sb-txt) !important;
+  box-shadow: none !important;
+  justify-content: flex-start;
+  gap: 10px;
+  font-size: 13.5px;
+  font-weight: 550;
+}
+.xl-sb-auth .auth-link:hover { background: var(--xl-sb-hover) !important; color: var(--xl-sb-brand-txt) !important; }
+.xl-sb-auth .auth-link::before {
+  content: "👤";
+  width: 20px;
+  text-align: center;
+  font-size: 15px;
+  filter: grayscale(.25);
+}
+.xl-sb-auth .auth-me::before { content: "👤"; }
+.xl-sb-auth .auth-menu {
+  left: calc(100% + 10px);
+  right: auto;
+  top: auto;
+  bottom: 0;
+  z-index: 70;
+  min-width: 208px;
+}
+.xl-sb-auth .auth-menu .who b { white-space: normal; }
+.xl-sb-theme { display: flex; }
+.xl-sb-theme .xl-theme-btn,
+.xl-sb-theme .xl-theme-btn:hover {
+  width: 100%;
+  min-height: 38px;
+  margin: 0 !important;
+  padding: 0 11px !important;
+  border: 1px solid transparent !important;
+  border-radius: 9px !important;
+  background: transparent !important;
+  color: var(--xl-sb-txt) !important;
+  box-shadow: none !important;
+  justify-content: flex-start;
+  gap: 9px;
+  font-size: 13.5px !important;
+  font-weight: 550 !important;
+}
+.xl-sb-theme .xl-theme-btn:hover {
+  background: var(--xl-sb-hover) !important;
+  color: var(--xl-sb-brand-txt) !important;
+}
+.xl-sb-theme .xl-theme-btn .xl-t-ico { font-size: 16px !important; width: 20px; text-align: center; filter: grayscale(.2); }
+.xl-sb-theme .xl-theme-btn .xl-t-full,
+.xl-sb-theme .xl-theme-btn .xl-t-short { display: inline !important; }
+.xl-sb-theme .xl-theme-btn .xl-t-short { display: none !important; }
+
+.xl-sb-collapse {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  width: 100%;
+  min-height: 38px;
+  padding: 0 11px;
+  border: 1px solid transparent;
+  border-radius: 9px;
+  background: transparent;
+  color: var(--xl-sb-dim);
+  font: inherit;
+  font-size: 13px;
+  font-weight: 550;
+  text-align: left;
+  cursor: pointer;
+  transition: background .15s, color .15s;
+}
+.xl-sb-collapse:hover { background: var(--xl-sb-hover); color: var(--xl-sb-brand-txt); }
+.xl-sb-collapse:focus-visible { outline: 2px solid var(--xl-focus); outline-offset: 1px; }
+.xl-sb-collapse svg { width: 19px; height: 19px; flex: 0 0 auto; transition: transform .22s; }
+.xl-sb-collapse .xl-sb-collapse-label { flex: 1; white-space: nowrap; }
+.xl-sb-collapse kbd {
+  font: inherit;
+  font-size: 10px;
+  padding: 2px 5px;
+  border: 1px solid var(--xl-sb-line);
+  border-radius: 4px;
+  color: var(--xl-sb-dim);
+}
+
+/* 折叠态：64px 图标栏 */
+html.xl-shell.xl-sb-collapsed .xl-sb-top { padding: 12px 15px; justify-content: center; }
+html.xl-shell.xl-sb-collapsed .xl-sb-brandtext,
+html.xl-shell.xl-sb-collapsed .xl-sb-label,
+html.xl-shell.xl-sb-collapsed .xl-sb-group,
+html.xl-shell.xl-sb-collapsed .xl-sb-badge,
+html.xl-shell.xl-sb-collapsed .xl-sb-collapse-label,
+html.xl-shell.xl-sb-collapsed .xl-sb-collapse kbd,
+html.xl-shell.xl-sb-collapsed .xl-sb-close-mobile { display: none !important; }
+html.xl-shell.xl-sb-collapsed .xl-sb-nav { padding: 10px 8px 14px; }
+html.xl-shell.xl-sb-collapsed .xl-sb-link { justify-content: center; padding: 0; gap: 0; min-height: 42px; }
+html.xl-shell.xl-sb-collapsed .xl-sb-foot { padding: 10px 8px; align-items: stretch; }
+html.xl-shell.xl-sb-collapsed .xl-sb-auth .auth-link,
+html.xl-shell.xl-sb-collapsed .xl-sb-theme .xl-theme-btn,
+html.xl-shell.xl-sb-collapsed .xl-sb-collapse { justify-content: center; padding: 0 !important; gap: 0; }
+html.xl-shell.xl-sb-collapsed .xl-sb-auth .auth-link { font-size: 0 !important; }
+html.xl-shell.xl-sb-collapsed .xl-sb-auth .auth-link::before { font-size: 15px; width: auto; }
+html.xl-shell.xl-sb-collapsed .xl-sb-theme .xl-theme-btn .xl-t-full,
+html.xl-shell.xl-sb-collapsed .xl-sb-theme .xl-theme-btn .xl-t-short { display: none !important; }
+html.xl-shell.xl-sb-collapsed .xl-sb-collapse svg { transform: rotate(180deg); }
+html.xl-shell.xl-sb-collapsed .xl-sb-auth .auth-link::before { width: auto; }
+html.xl-shell.xl-sb-collapsed .xl-sb-auth .auth-menu { left: calc(100% + 8px); bottom: 0; }
+html.xl-shell.xl-sb-collapsed .xl-sb-close-mobile { display: none !important; }
+
+/* ---------- 细顶栏 ---------- */
+.xl-topbar {
+  position: fixed;
+  top: 0;
+  left: var(--xl-sbw);
+  right: 0;
+  height: var(--xl-topbar-h);
+  z-index: 54;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 0 20px;
+  box-sizing: border-box;
+  background: var(--xl-top-bg);
+  border-bottom: 1px solid var(--xl-top-line);
+  color: var(--xl-top-txt);
+  backdrop-filter: blur(16px) saturate(1.15);
+  -webkit-backdrop-filter: blur(16px) saturate(1.15);
+  transition: left .22s cubic-bezier(.4, 0, .2, 1);
+  font-family: inherit;
+}
+.xl-topbar * { box-sizing: border-box; }
+.xl-hamburger {
+  display: none;
+  width: 38px;
+  height: 38px;
+  margin-left: -8px;
+  border: 1px solid transparent;
+  border-radius: 9px;
+  background: transparent;
+  color: var(--xl-top-strong);
+  align-items: center;
+  justify-content: center;
+  padding: 0;
+  cursor: pointer;
+}
+.xl-hamburger:hover { background: var(--xl-sb-hover); }
+.xl-hamburger svg { width: 21px; height: 21px; }
+.xl-crumb {
+  display: flex;
+  align-items: center;
+  gap: 9px;
+  min-width: 0;
+  font-size: 13px;
+  white-space: nowrap;
+}
+.xl-crumb-home {
+  color: var(--xl-top-txt);
+  text-decoration: none;
+  font-weight: 700;
+  letter-spacing: .01em;
+  flex: 0 0 auto;
+}
+.xl-crumb-home:hover { color: var(--xl-top-strong); }
+.xl-crumb-sep { color: var(--xl-sb-dim); opacity: .7; flex: 0 0 auto; }
+.xl-crumb-now {
+  color: var(--xl-top-strong);
+  font-weight: 650;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  max-width: min(62vw, 760px);
+}
+.xl-topbar-actions { margin-left: auto; display: flex; align-items: center; gap: 8px; flex: 0 0 auto; }
+.xl-topbar-collapse {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 34px;
+  height: 34px;
+  border: 1px solid var(--xl-top-line);
+  border-radius: 8px;
+  background: transparent;
+  color: var(--xl-top-txt);
+  cursor: pointer;
+  padding: 0;
+  transition: background .15s, color .15s;
+}
+.xl-topbar-collapse:hover { background: var(--xl-sb-hover); color: var(--xl-top-strong); }
+.xl-topbar-collapse:focus-visible,
+.xl-hamburger:focus-visible,
+.xl-sb-close-mobile:focus-visible { outline: 2px solid var(--xl-focus); outline-offset: 1px; }
+.xl-topbar-collapse svg { width: 18px; height: 18px; transition: transform .22s; }
+html.xl-shell.xl-sb-collapsed .xl-topbar-collapse svg { transform: rotate(180deg); }
+
+.xl-sb-overlay {
+  display: none;
+  position: fixed;
+  inset: 0;
+  z-index: 56;
+  background: rgba(2, 6, 14, .62);
+  backdrop-filter: blur(3px);
+  -webkit-backdrop-filter: blur(3px);
+  opacity: 0;
+  transition: opacity .2s;
+}
+html.xl-sb-open .xl-sb-overlay { display: block; opacity: 1; }
+
+/* ---------- 文章 / 教程阅读页：修复“大片空白 + 内容挤右” ---------- */
+@media (max-width: 1099.98px) {
+  html.xl-shell.xl-reader body > main {
+    padding-left: var(--xl-gutter) !important;
+    padding-right: var(--xl-gutter) !important;
+  }
+}
+
+@media (min-width: 1100px) {
+  html.xl-shell.xl-reader body > main {
+    max-width: none !important;
+    margin: 0 !important;
+    padding: 26px var(--xl-gutter) 72px !important;
+  }
+  html.xl-shell.xl-reader body > main > .bread,
+  html.xl-shell.xl-reader body > main > h1,
+  html.xl-shell.xl-reader body > main > .meta,
+  html.xl-shell.xl-reader body > main > article.content,
+  html.xl-shell.xl-reader body > main > .sec,
+  html.xl-shell.xl-reader body > main > .related,
+  html.xl-shell.xl-reader body > main > footer {
+    max-width: 860px !important;
+    margin-left: auto !important;
+    margin-right: auto !important;
+  }
+  html.xl-shell.xl-reader body > main > footer { clear: both; }
+}
+
+@media (min-width: 1360px) {
+  html.xl-shell.xl-reader body > main {
+    display: grid;
+    grid-template-columns: minmax(0, 860px) 220px;
+    column-gap: clamp(28px, 3.4vw, 56px);
+    justify-content: center;
+    align-content: start;
+  }
+  html.xl-shell.xl-reader body > main > .bread,
+  html.xl-shell.xl-reader body > main > h1,
+  html.xl-shell.xl-reader body > main > .meta,
+  html.xl-shell.xl-reader body > main > article.content,
+  html.xl-shell.xl-reader body > main > .sec,
+  html.xl-shell.xl-reader body > main > .related,
+  html.xl-shell.xl-reader body > main > footer {
+    grid-column: 1;
+    max-width: 860px !important;
+    margin-left: 0 !important;
+    margin-right: 0 !important;
+  }
+  html.xl-shell.xl-reader body > main > footer { grid-column: 1 / -1; max-width: none !important; }
+  html.xl-shell.xl-reader body > main > #toc {
+    grid-column: 2;
+    grid-row: 1 / span 18;
+    align-self: start;
+    position: sticky !important;
+    top: calc(var(--xl-topbar-h) + 16px) !important;
+    right: auto !important;
+    width: 100% !important;
+    max-height: calc(100vh - var(--xl-topbar-h) - 40px);
+    margin: 0 !important;
+    z-index: 5;
+  }
+}
+@media (min-width: 1100px) and (max-width: 1359.98px) {
+  html.xl-shell.xl-reader body > main > #toc { display: none !important; }
+}
+@media (max-width: 1279.98px) {
+  html.xl-shell #toc { display: none !important; }
+}
+
+/* 阅读页正文：更舒适的行宽与字号 */
+html.xl-shell.xl-reader article.content { font-size: 16px; line-height: 1.85; }
+
+/* ---------- 其它页面族：让内容区适配侧栏 ---------- */
+/* 生成页（首页、分类、工具、文章）主容器不越过侧栏 */
+html.xl-shell body { overflow-x: clip; }
+
+/* studio / leadgen / geo 等 .top 页面的满宽工作台保持铺满剩余宽度 */
+html.xl-shell .wb-wrap { max-width: 1680px; }
+
+/* 账号 / 套餐 / 后台：隐藏原 topbar 后，认证卡片垂直居中不贴顶 */
+html.xl-shell .topbar { display: none !important; }
+
+/* ---------- 平板 / 手机抽屉 ---------- */
+@media (max-width: 1099.98px) {
+  html.xl-shell { --xl-sbw: 0px; }
+  html.xl-shell body {
+    margin-left: 0 !important;
+    padding-top: var(--xl-topbar-h) !important;
+  }
+  html.xl-shell.xl-sb-collapsed { --xl-sbw: 0px; }
+  .xl-sb {
+    width: min(288px, 86vw);
+    transform: translateX(-102%);
+    box-shadow: none;
+    border-right: 0;
+    z-index: 58;
+  }
+  .xl-sb-top { min-height: 64px; }
+  .xl-sb-close-mobile { display: inline-flex; }
+  html.xl-sb-open .xl-sb {
+    transform: none;
+    box-shadow: 0 0 60px rgba(0, 0, 0, .45);
+    border-right: 1px solid var(--xl-sb-line);
+  }
+  html.xl-sb-open { overflow: hidden; }
+  html.xl-sb-open body { overflow: hidden !important; }
+  .xl-topbar { left: 0; padding: 0 12px; }
+  .xl-hamburger { display: inline-flex; }
+  .xl-topbar-collapse { display: none; }
+  .xl-crumb { font-size: 12.5px; gap: 7px; }
+  .xl-crumb-home { display: none; }
+  .xl-crumb-sep { display: none; }
+  .xl-crumb-now { max-width: calc(100vw - 92px); }
+
+  /* 移动端抽屉始终展示完整文字（折叠偏好只影响桌面） */
+  html.xl-shell.xl-sb-collapsed .xl-sb-top { padding: 12px 14px; justify-content: flex-start; }
+  html.xl-shell.xl-sb-collapsed .xl-sb-brandtext,
+  html.xl-shell.xl-sb-collapsed .xl-sb-label,
+  html.xl-shell.xl-sb-collapsed .xl-sb-group,
+  html.xl-shell.xl-sb-collapsed .xl-sb-collapse-label { display: flex !important; }
+  html.xl-shell.xl-sb-collapsed .xl-sb-brandtext { display: flex !important; }
+  html.xl-shell.xl-sb-collapsed .xl-sb-label { display: inline !important; }
+  html.xl-shell.xl-sb-collapsed .xl-sb-group { display: block !important; }
+  html.xl-shell.xl-sb-collapsed .xl-sb-link { justify-content: flex-start; padding: 0 11px; gap: 11px; }
+  html.xl-shell.xl-sb-collapsed .xl-sb-nav { padding: 10px 10px 14px; }
+  html.xl-shell.xl-sb-collapsed .xl-sb-foot { padding: 10px; }
+  html.xl-shell.xl-sb-collapsed .xl-sb-auth .auth-link,
+  html.xl-shell.xl-sb-collapsed .xl-sb-theme .xl-theme-btn { justify-content: flex-start; padding: 0 11px !important; gap: 10px; }
+  html.xl-shell.xl-sb-collapsed .xl-sb-theme .xl-theme-btn .xl-t-full { display: inline !important; }
+  html.xl-shell.xl-sb-collapsed .xl-sb-collapse { display: none; }
+  html.xl-shell.xl-sb-collapsed .xl-sb-close-mobile { display: inline-flex !important; }
+  .xl-sb-auth .auth-menu {
+    position: fixed !important;
+    left: 16px;
+    right: 16px;
+    bottom: 88px;
+    top: auto;
+    min-width: 0;
+  }
+  html.xl-shell .wb-steps { top: 58px; }
+  html.xl-shell .stepnav { top: 58px; }
+  html.xl-shell .wb-side { top: 0; position: static; }
+}
+
+@media (max-width: 480px) {
+  .xl-sb { width: min(276px, 88vw); }
+  .xl-topbar { height: 50px; }
+  html.xl-shell { --xl-topbar-h: 50px; }
+  .xl-crumb { font-size: 12px; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .xl-sb, .xl-topbar, .xl-sb-overlay, html.xl-shell body, .xl-sb-collapse svg, .xl-topbar-collapse svg {
+    transition: none !important;
+  }
+}
+
+@media print {
+  .xl-sb, .xl-topbar, .xl-sb-overlay { display: none !important; }
+  html.xl-shell body { margin-left: 0 !important; padding-top: 0 !important; }
+}
+
+/* ---------- 隔离页面全局标签样式（nav / header / a / button 等） ---------- */
+#xlSidebar .xl-sb-nav {
+  display: flex;
+  flex-direction: column;
+  flex-wrap: nowrap;
+  align-items: stretch;
+  gap: 0;
+  margin: 0;
+  padding: 10px 10px 14px;
+  width: auto;
+  height: auto;
+  overflow-y: auto;
+  overflow-x: hidden;
+  min-width: 0;
+}
+#xlSidebar .xl-sb-links { display: block; margin: 0; padding: 0; }
+#xlSidebar .xl-sb-link {
+  display: flex;
+  flex: 0 0 auto;
+  align-items: center;
+  justify-content: flex-start;
+  width: 100%;
+  min-width: 0;
+  margin: 2px 0;
+  padding: 0 11px;
+  border: 0;
+  border-radius: 9px;
+  white-space: nowrap;
+  color: var(--xl-sb-txt);
+  font-size: 13.5px;
+  font-weight: 550;
+  line-height: 1.4;
+  text-decoration: none;
+}
+#xlSidebar .xl-sb-link:hover { color: var(--xl-sb-brand-txt); background: var(--xl-sb-hover); }
+#xlSidebar .xl-sb-link.is-active { color: var(--xl-sb-active-txt); background: var(--xl-sb-active-bg); font-weight: 700; }
+#xlSidebar .xl-sb-link.is-active::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 9px;
+  bottom: 9px;
+  width: 3px;
+  border-radius: 0 3px 3px 0;
+  background: var(--xl-sb-active-line);
+}
+#xlSidebar .xl-sb-group {
+  display: block;
+  margin: 0;
+  padding: 10px 10px 6px;
+  font-size: 10px;
+  font-weight: 700;
+  line-height: 1.4;
+  letter-spacing: .14em;
+  color: var(--xl-sb-dim);
+  white-space: nowrap;
+}
+#xlSidebar .xl-sb-brand { display: flex; align-items: center; gap: 10px; color: var(--xl-sb-brand-txt); text-decoration: none; }
+#xlSidebar .xl-sb-brandtext { display: flex; flex-direction: column; }
+#xlSidebar button { font-family: inherit; }
+#xlSidebar .xl-sb-theme .xl-theme-btn {
+  display: flex;
+  width: 100%;
+  min-height: 38px;
+  margin: 0 !important;
+  padding: 0 11px !important;
+  justify-content: flex-start;
+  border: 1px solid transparent !important;
+  border-radius: 9px !important;
+  background: transparent !important;
+  color: var(--xl-sb-txt) !important;
+  box-shadow: none !important;
+  font-size: 13.5px !important;
+  font-weight: 550 !important;
+}
+#xlSidebar .xl-sb-theme .xl-theme-btn .xl-t-ico { display: inline-flex; width: 20px; justify-content: center; }
+#xlSidebar .xl-sb-theme .xl-theme-btn .xl-t-full { display: inline !important; }
+#xlSidebar .xl-sb-theme .xl-theme-btn .xl-t-short { display: none !important; }
+html.xl-shell.xl-sb-collapsed #xlSidebar .xl-sb-theme .xl-theme-btn .xl-t-full,
+html.xl-shell.xl-sb-collapsed #xlSidebar .xl-sb-theme .xl-theme-btn .xl-t-short { display: none !important; }
+
+#xlTopbar {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  height: var(--xl-topbar-h);
+  margin: 0;
+  padding: 0 20px;
+  position: fixed;
+  top: 0;
+  left: var(--xl-sbw);
+  right: 0;
+  z-index: 54;
+  border-top: 0;
+  border-left: 0;
+  border-right: 0;
+  border-bottom: 1px solid var(--xl-top-line);
+  border-radius: 0;
+  color: var(--xl-top-txt);
+}
+#xlTopbar .xl-crumb { display: flex; align-items: center; gap: 9px; margin: 0; padding: 0; min-width: 0; white-space: nowrap; font-size: 13px; }
+#xlTopbar .xl-crumb-home { color: var(--xl-top-txt); text-decoration: none; font-weight: 700; }
+#xlTopbar .xl-crumb-now { display: inline; color: var(--xl-top-strong); font-weight: 650; overflow: hidden; text-overflow: ellipsis; max-width: min(62vw, 760px); }
+#xlTopbar .xl-topbar-actions { display: flex; align-items: center; gap: 8px; margin-left: auto; }
+#xlTopbar .xl-topbar-collapse {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 34px;
+  height: 34px;
+  margin: 0;
+  padding: 0;
+  border: 1px solid var(--xl-top-line);
+  border-radius: 8px;
+  background: transparent;
+  color: var(--xl-top-txt);
+  cursor: pointer;
+}
+#xlTopbar .xl-hamburger { display: none; }
+
+@media (max-width: 1099.98px) {
+  #xlTopbar { left: 0; padding: 0 12px; gap: 8px; }
+  #xlTopbar .xl-hamburger { display: inline-flex; }
+  #xlTopbar .xl-topbar-collapse { display: none; }
+  #xlTopbar .xl-crumb-home,
+  #xlTopbar .xl-crumb-sep { display: none; }
+  #xlTopbar .xl-crumb-now { max-width: calc(100vw - 92px); }
+  #xlTopbar .xl-crumb { font-size: 12.5px; }
+  #xlTopbar .xl-hamburger { display: inline-flex; }
+  #xlTopbar .xl-topbar-collapse { display: none; }
+  #xlSidebar .xl-sb-collapse { display: none !important; }
+  html.xl-shell.xl-sb-collapsed #xlSidebar .xl-sb-theme .xl-theme-btn .xl-t-full { display: inline !important; }
+  html.xl-shell.xl-sb-collapsed #xlSidebar .xl-sb-theme .xl-theme-btn .xl-t-short { display: none !important; }
+  html.xl-shell.xl-sb-collapsed #xlSidebar .xl-sb-auth .auth-link { font-size: 13.5px !important; padding: 0 11px !important; justify-content: flex-start; }
+  html.xl-shell.xl-sb-collapsed #xlSidebar .xl-sb-link { padding: 0 11px; justify-content: flex-start; }
+  html.xl-shell.xl-sb-collapsed #xlSidebar .xl-sb-nav { padding: 10px 10px 14px; }
+  html.xl-shell.xl-sb-collapsed #xlSidebar .xl-sb-foot { padding: 10px; }
+}
+

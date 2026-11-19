@@ -542,6 +542,230 @@ footer.site a:hover{color:#fff;border-color:rgba(148,163,184,.4)}
 <link rel="stylesheet" href="../assets/theme-light.css">
 <script defer src="../assets/theme.js"></script>
 <!--xl-theme-end-->
+<style id="wf-style">
+/* ================= 5 步获客工作流（重排新增，只加不改旧样式） ================= */
+.wf{
+  --wf-soft:rgba(255,255,255,.035);
+  --wf-soft2:rgba(255,255,255,.07);
+  --wf-line:rgba(148,163,184,.18);
+  --wf-ink:#e8eef8;
+  --wf-ink2:#9fb0c7;
+  --wf-ink3:#6b7c94;
+  --wf-acc:#38bdf8;
+  --wf-acc2:#8b5cf6;
+  --wf-good:#34d399;
+  --wf-bar:rgba(10,18,30,.98);
+}
+html[data-theme="light"] .wf{
+  --wf-soft:rgba(15,23,42,.035);
+  --wf-soft2:rgba(15,23,42,.07);
+  --wf-line:rgba(15,23,42,.14);
+  --wf-ink:#0f1c2e;
+  --wf-ink2:#334155;
+  --wf-ink3:#64748b;
+  --wf-acc:#0369a1;
+  --wf-acc2:#6d28d9;
+  --wf-good:#047857;
+  --wf-bar:#ffffff;
+}
+
+/* ---------- 顶部目标条 ---------- */
+.goalbar{margin:20px 0 16px;padding:16px 18px;border:1px solid var(--wf-line);border-radius:20px;
+  background:linear-gradient(180deg,rgba(16,24,38,.92),rgba(10,15,25,.92));
+  box-shadow:0 30px 70px -44px rgba(2,8,20,.95)}
+html[data-theme="light"] .goalbar{background:linear-gradient(180deg,#ffffff,#f6f9fc);box-shadow:0 18px 44px -32px rgba(15,23,42,.35)}
+.gb-top{display:flex;gap:16px;justify-content:space-between;align-items:flex-start;flex-wrap:wrap}
+.gb-intro{min-width:0;max-width:660px}
+.goalbar .eyebrow{margin-bottom:10px}
+.goalbar h1{font-size:clamp(22px,3.1vw,31px);margin:0 0 7px;text-align:left}
+html[data-theme="light"] .goalbar h1 span{background:none;-webkit-text-fill-color:currentColor;color:#0b5f92}
+.pane .row .inp.grow{width:auto;flex:1 1 160px}
+.gb-goal{margin:0;color:var(--wf-ink2);font-size:13.5px;line-height:1.75}
+.goalbar .hero-meta{justify-content:flex-end;margin:0}
+.gb-stats{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:10px;margin-top:14px}
+.gcard{border:1px solid var(--wf-line);border-radius:14px;padding:10px 12px;background:var(--wf-soft);min-width:0;position:relative}
+.gcard b{display:block;font-size:25px;line-height:1.15;color:#9ae6ff;font-variant-numeric:tabular-nums;letter-spacing:-.01em}
+.gcard.hi b{color:#fca5a5}
+.gcard.ok b{color:#6ee7b7}
+.gcard span{display:block;font-size:12.5px;font-weight:700;color:var(--wf-ink);margin-top:2px}
+.gcard em{display:block;font-style:normal;font-size:11px;color:var(--wf-ink3);line-height:1.5;margin-top:1px}
+.g-demo{position:absolute;top:8px;right:10px;font-style:normal;font-size:10px;color:#fde68a;border:1px solid rgba(251,191,36,.35);border-radius:999px;padding:0 6px;line-height:1.7}
+html[data-theme="light"] .gcard b{color:#075985}
+html[data-theme="light"] .gcard.hi b{color:#b91c1c}
+html[data-theme="light"] .gcard.ok b{color:#047857}
+
+/* ---------- 左侧步骤栏 ---------- */
+.workspace.wf{display:grid;grid-template-columns:1fr;gap:14px;margin-top:14px;align-items:start}
+@media(min-width:1100px){.workspace.wf{grid-template-columns:220px minmax(0,1fr);gap:22px}}
+.steprail{display:flex;flex-direction:column;gap:5px;min-width:0;position:sticky;top:78px;align-self:start;
+  margin:0;width:auto;justify-self:stretch;overflow:visible}
+.rail-h{font-size:11px;letter-spacing:.18em;color:var(--wf-ink3);padding:2px 6px 7px;text-transform:uppercase}
+.rail-step{display:flex;align-items:center;gap:10px;text-align:left;padding:9px 10px;border-radius:12px;border:1px solid transparent;
+  background:transparent;color:var(--wf-ink2);font-family:inherit;cursor:pointer;min-height:56px;transition:.16s;position:relative;width:100%}
+.rail-step:hover{background:var(--wf-soft2);color:var(--wf-ink)}
+.rail-step:focus-visible{outline:2px solid #7dd3fc;outline-offset:2px}
+.rail-step.on{background:linear-gradient(135deg,rgba(56,189,248,.16),rgba(139,92,246,.14));border-color:rgba(56,189,248,.42);color:#dff3ff}
+html[data-theme="light"] .rail-step.on{color:#0b3a56;background:linear-gradient(135deg,rgba(56,189,248,.14),rgba(139,92,246,.1))}
+.rail-step .rs-no{width:26px;height:26px;flex:0 0 auto;border-radius:8px;display:grid;place-items:center;font-size:12.5px;font-weight:800;
+  background:var(--wf-soft2);color:var(--wf-ink2);border:1px solid var(--wf-line)}
+.rail-step.on .rs-no{background:linear-gradient(135deg,#38bdf8,#8b5cf6);color:#04121c;border-color:transparent}
+.rail-step.done .rs-no{background:rgba(52,211,153,.18);color:#a7f3d0;border-color:rgba(52,211,153,.42)}
+html[data-theme="light"] .rail-step.done .rs-no{color:#047857;background:rgba(52,211,153,.16)}
+.rail-step .rs-t{display:flex;flex-direction:column;min-width:0;line-height:1.35}
+.rail-step .rs-t b{font-size:13.5px;font-weight:800}
+.rail-step .rs-t em{font-style:normal;font-size:11px;color:var(--wf-ink3);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.rail-step .rs-tick{margin-left:auto;font-size:13px;font-weight:900;color:var(--wf-good);opacity:0;line-height:1}
+.rail-step.done .rs-tick{opacity:1}
+.rail-step.locked{opacity:.45}
+.rail-step.locked:hover{opacity:.62}
+.rail-sep{height:1px;background:var(--wf-line);margin:8px 4px}
+.rail-progress{font-size:11.5px;color:var(--wf-ink3);padding:8px 6px 0;display:flex;flex-direction:column;gap:6px}
+.rp-bar{height:5px;border-radius:999px;background:var(--wf-soft2);overflow:hidden}
+.rp-bar i{display:block;height:100%;background:linear-gradient(90deg,#38bdf8,#34d399);width:0;transition:width .25s}
+
+/* ---------- 步骤面板 ---------- */
+.stepmain{min-width:0}
+.pane{display:none}
+.pane.on{display:flex;flex-direction:column;gap:14px}
+@media (prefers-reduced-motion:no-preference){.pane.on{animation:wfIn .2s ease}}
+@keyframes wfIn{from{opacity:.35;transform:translateY(4px)}to{opacity:1;transform:none}}
+.step-h{display:flex;gap:12px;align-items:flex-start;flex-wrap:wrap;padding:2px 2px 0}
+.sh-no{width:38px;height:38px;border-radius:12px;flex:0 0 auto;display:grid;place-items:center;font-size:17px;font-weight:900;
+  background:linear-gradient(135deg,#38bdf8,#8b5cf6);color:#04121c}
+html[data-theme="light"] .sh-no{color:#ffffff}
+.sh-t{min-width:0;flex:1 1 260px}
+.sh-t h2{margin:0 0 3px;font-size:20px;letter-spacing:-.01em;line-height:1.3}
+.sh-t p{margin:0;font-size:13px;color:var(--wf-ink2);line-height:1.75;max-width:780px}
+.sh-badge{margin-left:auto;font-size:12px;border:1px solid var(--wf-line);color:var(--wf-ink2);border-radius:999px;padding:4px 10px;white-space:nowrap;align-self:center}
+.sh-badge.ok{color:#a7f3d0;border-color:rgba(52,211,153,.42);background:rgba(52,211,153,.1)}
+.sh-badge.warn{color:#fde68a;border-color:rgba(251,191,36,.4);background:rgba(251,191,36,.09)}
+html[data-theme="light"] .sh-badge.ok{color:#047857}
+html[data-theme="light"] .sh-badge.warn{color:#92400e}
+.pane .sec-h .sec-no{display:none}
+.pane .card{margin:0}
+
+/* ---------- ② 找客户：三选一 ---------- */
+.find-grid{display:grid;grid-template-columns:1fr;gap:10px}
+@media(min-width:760px){.find-grid{grid-template-columns:repeat(3,minmax(0,1fr))}}
+.find-card{text-align:left;border:1px solid var(--wf-line);background:var(--wf-soft);border-radius:16px;padding:14px;color:var(--wf-ink);
+  cursor:pointer;font-family:inherit;transition:.16s;min-width:0;display:flex;flex-direction:column;gap:7px}
+.find-card:hover{border-color:rgba(56,189,248,.45);background:var(--wf-soft2)}
+.find-card:focus-visible{outline:2px solid #7dd3fc;outline-offset:2px}
+.find-card.on{border-color:rgba(56,189,248,.55);box-shadow:inset 0 0 0 1px rgba(56,189,248,.22);background:linear-gradient(135deg,rgba(56,189,248,.1),rgba(139,92,246,.08))}
+.find-card .fc-h{display:flex;align-items:center;gap:9px}
+.find-card .fc-ico{font-size:22px;line-height:1;flex:0 0 auto}
+.find-card .fc-tt{display:flex;flex-direction:column;min-width:0;line-height:1.35}
+.find-card b{font-size:14.5px;display:block;line-height:1.4}
+.find-card em{font-style:normal;font-size:11.5px;color:var(--wf-ink3)}
+.find-card p{margin:0;font-size:12.5px;color:var(--wf-ink2);line-height:1.75}
+.find-card .fc-cta{margin-top:auto;font-size:12px;font-weight:800;color:#7dd3fc}
+html[data-theme="light"] .find-card .fc-cta{color:#0369a1}
+.find-body{border:1px solid var(--wf-line);border-radius:16px;background:var(--wf-soft);padding:14px;min-width:0}
+.find-pane{display:none}
+.find-pane.on{display:block}
+.find-body .lead-panel{padding:0}
+.find-body .mine-batch{margin:0;border:0;background:transparent;padding:0}
+.fp-actions{display:flex;gap:8px;align-items:center;flex-wrap:wrap;margin-top:12px}
+.fp-meta{font-size:12.5px;color:var(--wf-ink2);line-height:1.85;background:var(--wf-soft2);border:1px dashed var(--wf-line);border-radius:12px;padding:9px 11px;margin-top:10px}
+.fp-meta b{color:var(--wf-ink)}
+
+/* ---------- 导入结果提示 ---------- */
+.import-notice{display:flex;gap:10px;align-items:center;flex-wrap:wrap;border:1px solid rgba(52,211,153,.42);
+  background:rgba(52,211,153,.09);color:#bbf7d0;border-radius:14px;padding:10px 14px;font-size:13px;line-height:1.7}
+.import-notice b{font-size:15px;color:#6ee7b7}
+.import-notice .btn{margin-left:auto}
+html[data-theme="light"] .import-notice{color:#065f46;border-color:rgba(5,150,105,.35);background:rgba(16,185,129,.08)}
+html[data-theme="light"] .import-notice b{color:#047857}
+.import-bar{position:fixed;left:50%;bottom:18px;transform:translate(-50%,30px);z-index:95;display:flex;gap:12px;align-items:center;
+  background:var(--wf-bar);border:1px solid rgba(52,211,153,.5);box-shadow:0 22px 54px -22px rgba(0,0,0,.8);border-radius:16px;
+  padding:10px 14px;opacity:0;pointer-events:none;transition:.24s;max-width:calc(100vw - 24px);font-size:13px;color:var(--wf-ink)}
+.import-bar b{color:#34d399;font-size:15px}
+html[data-theme="light"] .import-bar b{color:#047857}
+.import-bar.show{opacity:1;transform:translate(-50%,0);pointer-events:auto}
+.import-bar .btn{flex:0 0 auto}
+
+/* ---------- ③ 筛选 ---------- */
+.filter-hero{display:flex;gap:10px;align-items:center;flex-wrap:wrap;justify-content:space-between;
+  border:1px solid rgba(248,113,113,.32);background:linear-gradient(135deg,rgba(248,113,113,.08),rgba(56,189,248,.05));
+  border-radius:14px;padding:10px 14px}
+.wf-switch{display:inline-flex;align-items:center;gap:9px;font-size:13.5px;font-weight:800;color:#fecaca;cursor:pointer;user-select:none;position:relative}
+html[data-theme="light"] .wf-switch{color:#b91c1c}
+.wf-switch input{position:absolute;opacity:0;width:1px;height:1px}
+.wf-switch .sw{width:40px;height:22px;border-radius:999px;background:rgba(148,163,184,.35);position:relative;transition:.18s;flex:0 0 auto}
+.wf-switch .sw::after{content:"";position:absolute;left:3px;top:3px;width:16px;height:16px;border-radius:50%;background:#fff;transition:.18s;box-shadow:0 1px 4px rgba(0,0,0,.45)}
+.wf-switch input:checked+.sw{background:linear-gradient(135deg,#38bdf8,#34d399)}
+.wf-switch input:checked+.sw::after{left:21px}
+.wf-switch input:focus-visible+.sw{outline:2px solid #7dd3fc;outline-offset:2px}
+.wf-switch .sw-tip{font-weight:500;font-size:11.5px;color:var(--wf-ink2)}
+.batchbar{display:flex;gap:8px;align-items:center;flex-wrap:wrap;font-size:12.5px;color:var(--wf-ink2)}
+.batchbar b{color:#fde68a}
+html[data-theme="light"] .batchbar b{color:#92400e}
+.tbl-wrap th.wfs,.tbl-wrap td.wfs{width:38px;text-align:center;padding-left:6px;padding-right:2px}
+.tbl-wrap .wfs input[type=checkbox]{width:17px;height:17px;min-height:17px;accent-color:#38bdf8;cursor:pointer;vertical-align:middle}
+.tbl-wrap tr.sel-on>td{background:rgba(56,189,248,.07)}
+.next-hint{font-size:12.5px;color:var(--wf-ink3);display:flex;gap:6px;align-items:center;flex-wrap:wrap}
+.next-hint button{border:0;background:transparent;color:#7dd3fc;font:inherit;cursor:pointer;text-decoration:underline;padding:0}
+html[data-theme="light"] .next-hint button{color:#0369a1}
+
+/* ---------- ④ 跟进 / ⑤ 复盘 / 更多工具 ---------- */
+.wf-card-head{font-size:15.5px;font-weight:800;margin:0 0 10px;display:flex;align-items:center;gap:8px;flex-wrap:wrap}
+.wf-card-head .badge{margin-left:auto}
+.wf-reach-card{padding:16px}
+.wf-batch-title{font-size:13px;font-weight:700;color:var(--wf-ink);margin:0 0 10px;line-height:1.7}
+.wf-batch-lead{font-size:12.5px;font-weight:800;color:#9ae6ff;margin:14px 0 8px;padding:6px 10px;border-left:3px solid #38bdf8;background:var(--wf-soft2);border-radius:0 8px 8px 0}
+html[data-theme="light"] .wf-batch-lead{color:#075985}
+.tool-grid{display:grid;grid-template-columns:1fr;gap:10px}
+@media(min-width:720px){.tool-grid{grid-template-columns:repeat(3,minmax(0,1fr))}}
+@media(min-width:1100px){.tool-grid{grid-template-columns:repeat(5,minmax(0,1fr))}}
+.tool-card{display:flex;flex-direction:column;gap:3px;border:1px solid var(--wf-line);background:var(--wf-soft);border-radius:14px;
+  padding:12px;color:var(--wf-ink);text-decoration:none;font-size:14px;font-weight:800;cursor:pointer;font-family:inherit;text-align:left;min-width:0;transition:.16s}
+.tool-card:hover{border-color:rgba(56,189,248,.45);background:var(--wf-soft2)}
+.tool-card:focus-visible{outline:2px solid #7dd3fc;outline-offset:2px}
+.tool-card em{font-style:normal;font-size:11.5px;color:var(--wf-ink3);font-weight:500}
+.wf-fold{border:1px solid var(--wf-line);border-radius:16px;background:var(--wf-soft);padding:0 14px}
+.wf-fold>summary{cursor:pointer;padding:12px 0;font-size:13.5px;font-weight:800;color:var(--wf-ink2);list-style:none;display:flex;align-items:center;gap:8px;line-height:1.6}
+.wf-fold>summary::-webkit-details-marker{display:none}
+.wf-fold>summary::before{content:"▸";font-size:11px;color:var(--wf-ink3);transition:.16s}
+.wf-fold[open]>summary::before{transform:rotate(90deg)}
+.wf-fold[open]>summary{color:var(--wf-ink);border-bottom:1px dashed var(--wf-line);margin-bottom:12px}
+.wf-fold .card{border:0;background:transparent;box-shadow:none;padding:0 0 14px}
+.wf-fold.sm{padding:0 12px}
+.wf-fold.sm>summary{padding:10px 0;font-size:12.5px}
+.wf-sub{min-width:0}
+.wf-empty-tip{font-size:12.5px;color:var(--wf-ink2);border:1px dashed var(--wf-line);border-radius:12px;padding:10px 12px;line-height:1.8}
+.wf-empty-tip b{color:#fde68a}
+
+/* ---------- 手机 ---------- */
+@media(max-width:1099px){
+  .steprail{flex-direction:row;overflow-x:auto;gap:6px;position:sticky;top:60px;z-index:25;align-self:stretch;
+    background:linear-gradient(180deg,rgba(7,10,16,.97),rgba(7,10,16,.86));backdrop-filter:blur(14px);
+    padding:8px 2px 10px;margin:0 -2px;border-bottom:1px solid var(--wf-line);scrollbar-width:none;-webkit-overflow-scrolling:touch}
+  .steprail::-webkit-scrollbar{display:none}
+  .rail-h,.rail-sep,.rail-progress{display:none}
+  .rail-step{flex:0 0 auto;min-width:134px;width:auto;min-height:50px;padding:8px 10px}
+  .rail-step .rs-t em{font-size:10.5px}
+  html[data-theme="light"] .steprail{background:linear-gradient(180deg,rgba(246,248,251,.98),rgba(246,248,251,.9))}
+}
+@media(max-width:760px){
+  .goalbar{padding:14px;border-radius:16px}
+  .goalbar h1{font-size:21px}
+  .gb-top{gap:10px}
+  .goalbar .hero-meta{justify-content:flex-start}
+  .gb-stats{gap:6px}
+  .gcard{padding:8px 6px;text-align:center}
+  .gcard b{font-size:19px}
+  .gcard em{display:none}
+  .g-demo{top:5px;right:5px}
+  .step-h .sh-t h2{font-size:18px}
+  .find-grid{grid-template-columns:1fr}
+  .filter-hero{flex-direction:column;align-items:flex-start}
+  .import-bar{left:8px;right:8px;bottom:10px;transform:translate(0,30px);max-width:none;font-size:12.5px;padding:9px 11px}
+  .import-bar.show{transform:none}
+  .tbl-wrap th.wfs,.tbl-wrap td.wfs{width:32px}
+}
+
+</style>
+<link rel="stylesheet" href="../assets/site-shell.css">
 </head>
 <body>
 <div class="top"><div class="top-in">
@@ -558,24 +782,63 @@ footer.site a:hover{color:#fff;border-color:rgba(148,163,184,.4)}
 </div></div>
 
 <main class="wrap">
-  <header class="hero">
-    <div class="eyebrow">LEADGEN · LOCAL BUSINESS</div>
-    <h1>AI 获客：把<span>「谁在问、问什么」</span>变成可触达的客户</h1>
-    <p class="lead">配置行业与区域 → AI 拆解获客需求 → 找到意向客户 → 生成合规话术 → 复盘优化</p>
-    <div class="hero-meta">
-      <span class="pill" id="apiState"><span class="dot"></span>正在检测后端服务…</span>
-      <span class="pill">仅采集公开信息</span>
-      <span class="pill">不自动发送 · 不刷量</span>
+  <header class="goalbar" id="wfGoal">
+    <div class="gb-top">
+      <div class="gb-intro">
+        <div class="eyebrow">LEADGEN · 5 步获客工作流</div>
+        <h1>AI 获客：<span>找到真实高意向客户</span></h1>
+        <p class="gb-goal">🎯 目标：找到真实高意向客户 —— ① 配置商家 → ② 找客户 → ③ 筛客户 → ④ 跟进 → ⑤ 复盘</p>
+      </div>
+      <div class="hero-meta gb-meta">
+        <span class="pill" id="apiState"><span class="dot"></span>正在检测后端服务…</span>
+        <span class="pill">仅采集公开信息</span>
+        <span class="pill">不自动发送 · 不刷量</span>
+        <a class="pill" href="/ai-nav/geo/">🌍 GEO 推广</a>
+      </div>
     </div>
-    <div class="hero-meta" style="margin-bottom:10px"><a class="pill" href="/ai-nav/geo/" style="border-color:rgba(139,92,246,.4);color:#ddd6fe;background:rgba(139,92,246,.1)">🌍 GEO 推广优化</a></div>
-    <div class="flow">
-      <span>① 配置商家</span><span>② 一句话需求</span><span>③ 意向客户</span><span>④ 合规话术</span><span>⑤ 数据复盘</span><span>⑥ 行业打法</span>
+    <div class="gb-stats" aria-label="今日获客数据">
+      <div class="gcard"><b id="wfStatNew">0</b><span>今日新线索</span><em>今天新增的公开线索</em><i class="g-demo" id="wfStatDemo" hidden>示例</i></div>
+      <div class="gcard hi"><b id="wfStatHigh">0</b><span>高意向</span><em>含询价 / 预约 / 求推荐</em></div>
+      <div class="gcard ok"><b id="wfStatReach">0</b><span>已触达</span><em>人工发送后手动标记</em></div>
     </div>
   </header>
 
-  <div class="workspace">
-    <!-- ============ 左栏：配置 + 需求 ============ -->
-    <aside class="col-left">
+  <div class="workspace wf" id="wfWorkspace">
+    <nav class="steprail" id="wfRail" aria-label="获客工作流步骤">
+      <div class="rail-h">获客流程</div>
+      <button type="button" class="rail-step on" data-goto="1" aria-current="step">
+        <span class="rs-no">1</span><span class="rs-t"><b>配置商家</b><em>行业 · 城市 · 关键词</em></span><span class="rs-tick">✓</span>
+      </button>
+      <button type="button" class="rail-step" data-goto="2">
+        <span class="rs-no">2</span><span class="rs-t"><b>找客户</b><em>意向 / 周边 / 关键词</em></span><span class="rs-tick">✓</span>
+      </button>
+      <button type="button" class="rail-step" data-goto="3">
+        <span class="rs-no">3</span><span class="rs-t"><b>筛客户</b><em>高意向 · 画像 · 标签</em></span><span class="rs-tick">✓</span>
+      </button>
+      <button type="button" class="rail-step" data-goto="4">
+        <span class="rs-no">4</span><span class="rs-t"><b>跟进</b><em>话术 · 触达 · 回复</em></span><span class="rs-tick">✓</span>
+      </button>
+      <button type="button" class="rail-step" data-goto="5">
+        <span class="rs-no">5</span><span class="rs-t"><b>复盘</b><em>指标 · 建议 · 导出</em></span><span class="rs-tick">✓</span>
+      </button>
+      <div class="rail-sep"></div>
+      <button type="button" class="rail-step" data-goto="6">
+        <span class="rs-no">＋</span><span class="rs-t"><b>更多工具</b><em>内容 · Skill · 客服 · GEO</em></span>
+      </button>
+      <div class="rail-progress">
+        <span id="wfProgressTxt">0 / 5 步完成</span>
+        <div class="rp-bar"><i id="wfProgressBar"></i></div>
+      </div>
+    </nav>
+
+    <div class="stepmain" id="wfStepMain">
+      <!-- ① 配置商家 -->
+      <section class="pane on" data-pane="1" id="wfPane1">
+        <div class="step-h">
+          <span class="sh-no">①</span>
+          <div class="sh-t"><h2>配置商家</h2><p>这一步做什么：告诉 AI 你做什么行业、服务哪片区域、用哪些词和平台找客户。保存后显示「已就绪 ✓」，后面 4 步都按这套配置执行。</p></div>
+          <span class="sh-badge warn" id="wfCfgState">未保存</span>
+        </div>
       <section class="card glow" id="sec-config">
         <div class="sec-h"><span class="sec-no">2</span><h2>商家配置中心</h2><span class="tag">先配这一栏</span></div>
         <p class="sec-sub">行业 + 城市区县 + 业务关键词 + 获客平台，决定后面所有拆解、线索和话术的方向。配置只保存在本机浏览器，可随时改。</p>
@@ -620,97 +883,43 @@ footer.site a:hover{color:#fff;border-color:rgba(148,163,184,.4)}
           <p class="hint" style="margin:6px 0 0">公开搜索 Key 统一配置在服务器（<code>/etc/ai-nav-api.env</code> 的 <code>SERPER_API_KEY</code>），本机无需填写；按钮显示「需配置 Key」时请联系管理员。</p>
         </details>
       </section>
-
-      <section class="card" id="sec-demand">
-        <div class="sec-h"><span class="sec-no">3</span><h2>一句话获客需求</h2><span class="tag">用大白话说</span></div>
-        <p class="sec-sub">不知道怎么写？直接说“我要找什么样的客户”。AI 会拆成客群、搜索范围、关键词和风险提示。</p>
-        <textarea id="demandInp" maxlength="300" placeholder="例如：我想找北京朝阳区 25-40 岁、最近在问火锅团购和亲子套餐的顾客，主要从抖音和小红书找。"></textarea>
-        <div class="row" style="margin-top:9px">
-          <button type="button" class="btn" id="doDecompose" style="flex:1 1 150px">🧠 AI 拆解</button>
-          <button type="button" class="btn line" id="sampleDemand" style="flex:0 0 auto">用示例</button>
-        </div>
-        <div class="hint" style="margin-top:8px">拆解结果会出现在右侧，可一键把关键词加入配置。</div>
-      </section>
-    </aside>
-
-    <!-- ============ 右栏：结果 ============ -->
-    <div class="col-right">
-      <!-- 拆解结果 -->
-      <section class="card glow" id="sec-decompose">
-        <div class="sec-h"><span class="sec-no">3</span><h2>AI 拆解结果</h2><span class="tag" id="decomposeTag">目标客群 · 搜索范围 · 关键词 · 风险</span></div>
-        <div id="decomposeOut">
-          <div class="empty" id="decomposeEmpty">还没有拆解结果。<br>在左侧写一句获客需求，点「🧠 AI 拆解」。</div>
-        </div>
+        <p class="next-hint">保存后 → <button type="button" data-goto="2">去第 ② 步找客户</button></p>
       </section>
 
-      <!-- 意向客户列表 + LBS 找客 -->
-      <section class="card" id="sec-leads">
-        <div class="sec-h"><span class="sec-no">4</span><h2>意向客户列表</h2><span class="tag" id="leadsCount">0 条</span></div>
-        <div class="lead-tabs" role="tablist" aria-label="线索视图">
-          <button type="button" class="lead-tab on" data-ltab="lib" role="tab" aria-selected="true">📋 线索库</button>
-          <button type="button" class="lead-tab" data-ltab="lbs" role="tab" aria-selected="false">📍 LBS 找客</button>
+      <!-- ② 找客户 -->
+      <section class="pane" data-pane="2" id="wfPane2">
+        <div class="step-h">
+          <span class="sh-no">②</span>
+          <div class="sh-t"><h2>找客户</h2><p>这一步做什么：从公开信息里找到「正在问、正在找」的真实个人客户。三种方式选一种开始，挖到的线索自动进入第 ③ 步。</p></div>
+          <span class="sh-badge">三选一</span>
         </div>
-        <div class="lead-panel" id="libPanel">
-          <p class="sec-sub">三种来源：粘贴评论区/私信文字让 AI 解析；导入 CSV；或用高德 LBS 找周边客户。只处理公开可见内容。</p>
-          <div class="import-grid">
-            <button type="button" class="import-btn" id="btnPaste"><i>📋</i><div>粘贴采集内容<span>评论区 / 私信 / 群聊记录</span></div></button>
-            <button type="button" class="import-btn" id="btnCsv"><i>📥</i><div>导入 CSV<span>昵称,平台,原文,时间,来源</span></div></button>
-            <button type="button" class="import-btn" id="btnMining" aria-label="公开搜索挖掘"><i>🔎</i><div>公开搜索挖掘<span class="mine-badge" id="miningBadge">检测中…</span></div></button>
+        <div class="find-grid">
+          <div class="find-card on" data-find="intent" role="button" tabindex="0" aria-label="意向客户：问答和评论">
+            <span class="fc-h"><span class="fc-ico">🎯</span><span class="fc-tt"><b>意向客户（问答/评论）</b><em>优先推荐：真实在问的人</em></span></span>
+            <p>从知乎、百度知道、贴吧等公开问答和评论区，找「求推荐 / 多少钱 / 能预约吗」的个人提问，AI 自动判定高意向。</p>
+            <span class="fc-cta">平台多选 + 时间范围 → 挖掘</span>
           </div>
-          <input type="file" id="csvFile" accept=".csv,text/csv" class="sr" aria-label="选择 CSV 文件">
-          <div id="miningOut"></div>
-          <div class="mine-batch" id="mineBatchBox">
-            <div class="mb-h">🧩 批量关键词挖掘 <span class="hint" style="font-weight:400">一行一个关键词，最多 10 个；顺序调用公开搜索，自动去重</span></div>
-            <textarea id="mineBatch" maxlength="800" aria-label="批量关键词" placeholder="北京通州 开荒保洁 求推荐&#10;北京通州 深度保洁 多少钱&#10;北京通州 家政保洁 哪家好"></textarea>
-            <div class="row" style="margin-top:8px">
-              <button type="button" class="btn sm" id="doMineBatch">🚀 开始批量挖掘</button>
-              <span class="hint" id="mineBatchMeta">0 / 10 个关键词</span>
+          <div class="find-card" data-find="lbs" role="button" tabindex="0" aria-label="LBS 周边客户">
+            <span class="fc-h"><span class="fc-ico">📍</span><span class="fc-tt"><b>LBS 周边客户</b><em>门店 1-5 公里</em></span></span>
+            <p>按地址、关键词和半径调用高德公开 POI，过滤同行后勾选导入，适合到店/上门生意。</p>
+            <span class="fc-cta">填地址 + 半径 → 找周边</span>
+          </div>
+          <div class="find-card" data-find="kw" role="button" tabindex="0" aria-label="关键词挖掘">
+            <span class="fc-h"><span class="fc-ico">🔎</span><span class="fc-tt"><b>关键词挖掘</b><em>批量 10 组关键词</em></span></span>
+            <p>把「城市 + 区县 + 服务 + 求推荐」这类关键词丢给公开搜索索引，一次最多挖 10 组。</p>
+            <span class="fc-cta">关键词 + 城市 → 挖掘</span>
+          </div>
+        </div>
+        <div class="find-body" id="findBody">
+          <div class="find-pane on" data-findpane="intent">
+            <div class="fp-meta" id="wfIntentMeta">正在读取商家配置…</div>
+            <div class="fp-actions">
+              <button type="button" class="btn" id="wfOpenIntent">🎯 挖掘意向客户</button>
+              <span class="hint">弹窗里可多选平台（最多 4 个）和时间范围（24 小时 / 7 天 / 30 天）；结果只保存公开标题/摘要/链接。</span>
             </div>
-            <div id="mineBatchMsg"></div>
           </div>
-          <div class="filters">
-            <select id="fPlatform" aria-label="按平台筛选"><option value="">全部平台</option></select>
-            <select id="fIntent" aria-label="按意向等级筛选">
-              <option value="">全部意向</option><option value="high">高意向</option><option value="potential">潜在</option>
-            </select>
-            <input class="inp" id="fKw" placeholder="关键词 / 昵称 / 标签 / 地址" aria-label="关键词筛选">
-          </div>
-          <div class="filters2">
-            <select id="fSource" aria-label="按来源筛选">
-              <option value="">全部来源</option><option value="lbs_poi">LBS 找客</option>
-              <option value="manual">手动导入</option><option value="csv">CSV</option><option value="search">公开搜索</option>
-              <option value="intent_search">意向问答</option>
-            </select>
-            <select id="fPriority" aria-label="按优先级筛选">
-              <option value="">全部优先级</option><option value="1">P1 最高</option><option value="2">P2</option>
-              <option value="3">P3</option><option value="4">P4</option><option value="5">P5 最低</option>
-            </select>
-            <select id="fSort" aria-label="排序方式">
-              <option value="priority">按优先级</option><option value="score">按评分</option><option value="created_at">按时间</option>
-            </select>
-          </div>
-          <div class="row between" style="margin-top:10px">
-            <button type="button" class="btn line sm" id="btnExport">⬇ 导出 CSV</button>
-            <span class="hint">导出当前筛选/排序结果；含画像、标签、备注</span>
-          </div>
-          <div class="tbl-wrap">
-            <table>
-              <thead><tr><th>昵称</th><th>平台</th><th>原文</th><th>来源</th><th>意向</th><th>评分</th><th>优先级</th><th>标签 / 备注</th><th>操作</th></tr></thead>
-              <tbody id="leadsBody"><tr><td colspan="9"><div class="empty">暂无线索，从上面的方式导入，或切到「📍 LBS 找客」按地图找客户。</div></td></tr></tbody>
-            </table>
-          </div>
-          <div class="pager" aria-label="线索分页">
-            <button type="button" id="pgPrev">‹ 上一页</button>
-            <span id="pgInfo">0 / 1（共 0 条）</span>
-            <button type="button" id="pgNext">下一页 ›</button>
-            <span class="hint" id="leadsHint">评分 1-10；优先级 P1 最高、P5 最低。鼠标悬停 P 徽标看画像。</span>
-          </div>
-          <div class="row between" style="margin-top:6px">
-            <span class="hint">仅展示公开来源线索，联系前请人工核实。</span>
-            <button type="button" class="btn line sm" id="clearLeads">清空列表</button>
-          </div>
-        </div>
-        <div class="lead-panel" id="lbsPanel" hidden>
+          <div class="find-pane" data-findpane="lbs">
+        <div class="lead-panel" id="lbsPanel">
           <p class="sec-sub">输入城市/区县/中心点与关键词，调用高德官方周边搜索拉公开 POI；过滤自身与同行后，勾选导入线索库并生成客户画像。</p>
           <div class="lbs-form">
             <div class="fg"><label class="fl" for="lbsCity">城市</label><input class="inp" id="lbsCity" maxlength="20" placeholder="如：北京"></div>
@@ -738,9 +947,127 @@ footer.site a:hover{color:#fff;border-color:rgba(148,163,184,.4)}
             <button type="button" class="btn" id="lbsImport" disabled>⬇ 导入线索库</button>
           </div>
         </div>
+          </div>
+          <div class="find-pane" data-findpane="kw">
+          <div class="mine-batch" id="mineBatchBox">
+            <div class="mb-h">🧩 批量关键词挖掘 <span class="hint" style="font-weight:400">一行一个关键词，最多 10 个；顺序调用公开搜索，自动去重</span></div>
+            <textarea id="mineBatch" maxlength="800" aria-label="批量关键词" placeholder="北京通州 开荒保洁 求推荐&#10;北京通州 深度保洁 多少钱&#10;北京通州 家政保洁 哪家好"></textarea>
+            <div class="row" style="margin-top:8px">
+              <button type="button" class="btn sm" id="doMineBatch">🚀 开始批量挖掘</button>
+              <span class="hint" id="mineBatchMeta">0 / 10 个关键词</span>
+            </div>
+            <div id="mineBatchMsg"></div>
+          </div>
+            <div class="fp-actions">
+              <button type="button" class="btn line sm" id="wfOpenMine">🔍 单关键词挖掘</button>
+              <span class="hint">单次最多导入 10 条公开结果；批量会自动去重并累计条数。</span>
+            </div>
+          </div>
+        </div>
+        <div class="import-notice" id="wfImportNotice" hidden></div>
+        <p class="next-hint">没有线索？<b>换更口语的关键词</b>（如「火锅 求推荐」）、<b>扩大区域</b>，或把时间范围放宽到 30 天。</p>
+        <details class="wf-fold"><summary>🧠 不知道搜什么？让 AI 拆一句获客需求</summary>
+      <section class="card" id="sec-demand">
+        <div class="sec-h"><span class="sec-no">3</span><h2>一句话获客需求</h2><span class="tag">用大白话说</span></div>
+        <p class="sec-sub">不知道怎么写？直接说“我要找什么样的客户”。AI 会拆成客群、搜索范围、关键词和风险提示。</p>
+        <textarea id="demandInp" maxlength="300" placeholder="例如：我想找北京朝阳区 25-40 岁、最近在问火锅团购和亲子套餐的顾客，主要从抖音和小红书找。"></textarea>
+        <div class="row" style="margin-top:9px">
+          <button type="button" class="btn" id="doDecompose" style="flex:1 1 150px">🧠 AI 拆解</button>
+          <button type="button" class="btn line" id="sampleDemand" style="flex:0 0 auto">用示例</button>
+        </div>
+        <div class="hint" style="margin-top:8px">拆解结果会出现在右侧，可一键把关键词加入配置。</div>
+      </section>
+      <section class="card glow" id="sec-decompose">
+        <div class="sec-h"><span class="sec-no">3</span><h2>AI 拆解结果</h2><span class="tag" id="decomposeTag">目标客群 · 搜索范围 · 关键词 · 风险</span></div>
+        <div id="decomposeOut">
+          <div class="empty" id="decomposeEmpty">还没有拆解结果。<br>在左侧写一句获客需求，点「🧠 AI 拆解」。</div>
+        </div>
+      </section>
+        </details>
       </section>
 
-      <!-- 话术工坊 -->
+      <!-- ③ 筛客户 -->
+      <section class="pane" data-pane="3" id="wfPane3">
+        <div class="step-h">
+          <span class="sh-no">③</span>
+          <div class="sh-t"><h2>筛客户</h2><p>这一步做什么：按优先级、意向、来源筛选，打开画像/标签/备注核实，把真正要跟进的人挑出来；勾选后可批量生成话术。</p></div>
+          <span class="sh-badge">线索库</span>
+        </div>
+        <div class="filter-hero">
+          <label class="wf-switch"><input type="checkbox" id="wfHighOnly"><span class="sw"></span><span>只看高意向</span><span class="sw-tip">含询价 / 预约 / 求推荐</span></label>
+          <div class="batchbar">
+            <span id="wfSelCount">已选 0 条</span>
+            <button type="button" class="btn sm" id="wfBatchScript">生成话术</button>
+            <button type="button" class="btn line sm" id="wfSelClear">清空选择</button>
+          </div>
+        </div>
+      <section class="card" id="sec-leads">
+        <div class="sec-h"><h2>线索列表</h2><span class="tag" id="leadsCount">0 条</span></div>
+        <div class="lead-panel" id="libPanel">
+          <details class="wf-fold sm"><summary>📥 已有内容导入：粘贴评论区 / 导入 CSV / 公开搜索</summary>
+          <p class="sec-sub">三种来源：粘贴评论区/私信文字让 AI 解析；导入 CSV；或用高德 LBS 找周边客户。只处理公开可见内容。</p>
+          <div class="import-grid">
+            <button type="button" class="import-btn" id="btnPaste"><i>📋</i><div>粘贴采集内容<span>评论区 / 私信 / 群聊记录</span></div></button>
+            <button type="button" class="import-btn" id="btnCsv"><i>📥</i><div>导入 CSV<span>昵称,平台,原文,时间,来源</span></div></button>
+            <button type="button" class="import-btn" id="btnMining" aria-label="公开搜索挖掘"><i>🔎</i><div>公开搜索挖掘<span class="mine-badge" id="miningBadge">检测中…</span></div></button>
+          </div>
+          <input type="file" id="csvFile" accept=".csv,text/csv" class="sr" aria-label="选择 CSV 文件">
+          <div id="miningOut"></div>
+          </details>
+          <div class="filters">
+            <select id="fPlatform" aria-label="按平台筛选"><option value="">全部平台</option></select>
+            <select id="fIntent" aria-label="按意向等级筛选">
+              <option value="">全部意向</option><option value="high">高意向</option><option value="potential">潜在</option>
+            </select>
+            <input class="inp" id="fKw" placeholder="关键词 / 昵称 / 标签 / 地址" aria-label="关键词筛选">
+          </div>
+          <div class="filters2">
+            <select id="fSource" aria-label="按来源筛选">
+              <option value="">全部来源</option><option value="lbs_poi">LBS 找客</option>
+              <option value="manual">手动导入</option><option value="csv">CSV</option><option value="search">公开搜索</option>
+              <option value="intent_search">意向问答</option>
+            </select>
+            <select id="fPriority" aria-label="按优先级筛选">
+              <option value="">全部优先级</option><option value="1">P1 最高</option><option value="2">P2</option>
+              <option value="3">P3</option><option value="4">P4</option><option value="5">P5 最低</option>
+            </select>
+            <select id="fSort" aria-label="排序方式">
+              <option value="priority">按优先级</option><option value="score">按评分</option><option value="created_at">按时间</option>
+            </select>
+          </div>
+          <div class="row between" style="margin-top:10px">
+            <button type="button" class="btn line sm" id="btnExport">⬇ 导出 CSV</button>
+            <span class="hint">导出当前筛选/排序结果；含画像、标签、备注</span>
+          </div>
+          <div class="tbl-wrap">
+            <table>
+              <thead><tr><th class="wfs"><input type="checkbox" id="wfSelAll" aria-label="全选当前页线索"></th><th>昵称</th><th>平台</th><th>原文</th><th>来源</th><th>意向</th><th>评分</th><th>优先级</th><th>标签 / 备注</th><th>操作</th></tr></thead>
+              <tbody id="leadsBody"><tr><td colspan="10"><div class="empty">暂无线索，从上面的方式导入，或切到「📍 LBS 找客」按地图找客户。</div></td></tr></tbody>
+            </table>
+          </div>
+          <div class="pager" aria-label="线索分页">
+            <button type="button" id="pgPrev">‹ 上一页</button>
+            <span id="pgInfo">0 / 1（共 0 条）</span>
+            <button type="button" id="pgNext">下一页 ›</button>
+            <span class="hint" id="leadsHint">评分 1-10；优先级 P1 最高、P5 最低。鼠标悬停 P 徽标看画像。</span>
+          </div>
+          <div class="row between" style="margin-top:6px">
+            <span class="hint">仅展示公开来源线索，联系前请人工核实。</span>
+            <button type="button" class="btn line sm" id="clearLeads">清空列表</button>
+          </div>
+        </div>
+      </section>
+        <p class="next-hint">没有线索？换关键词或扩大区域 → <button type="button" data-goto="2">回到 ② 找客户</button></p>
+      </section>
+
+      <!-- ④ 跟进 -->
+      <section class="pane" data-pane="4" id="wfPane4">
+        <div class="step-h">
+          <span class="sh-no">④</span>
+          <div class="sh-t"><h2>跟进</h2><p>这一步做什么：复制合规话术，去原平台人工发送；发完在这里登记触达，有回复就记下来，再用承接页留资。</p></div>
+          <span class="sh-badge warn">人工发送</span>
+        </div>
+        <div class="notice warn"><span class="n-ico">✋</span><div><b>人工发送，勿刷屏</b>：系统只生成话术、不代发不群发；同一客户 7 天内最多打扰 1 次，先确认对方公开表达过需求。</div></div>
       <section class="card" id="sec-scripts">
         <div class="sec-h"><span class="sec-no">5</span><h2>话术工坊</h2><span class="tag">3 条差异化 · 合规检查</span></div>
         <p class="sec-sub">按意向等级生成 3 条不同角度的话术，自动做合规检查（命中词高亮 + 替换建议）。<b style="color:var(--xl-warn)">需商家手动发送</b>，系统不会代发。</p>
@@ -754,8 +1081,21 @@ footer.site a:hover{color:#fff;border-color:rgba(148,163,184,.4)}
         <div id="scriptOut"><div class="empty">先在客户列表点「生成话术」，或直接点上面的按钮。</div></div>
         <div id="cadenceOut"></div>
       </section>
+        <div class="card glow wf-reach-card" id="wfReachCard">
+          <div class="wf-card-head">📈 触达登记与回复记录 <span class="badge pot">人工发送后登记</span></div>
+          <p class="sec-sub" style="margin:0 0 10px">把「谁、用什么渠道、发了哪条话术」登记下来，回复后回到这里记录；下方还能拿到承接页留资链接。</p>
+          <div id="wfReachSlot"></div>
+        </div>
+        <p class="next-hint">跟进完 → <button type="button" data-goto="5">去第 ⑤ 步复盘</button></p>
+      </section>
 
-      <!-- 数据复盘 -->
+      <!-- ⑤ 复盘 -->
+      <section class="pane" data-pane="5" id="wfPane5">
+        <div class="step-h">
+          <span class="sh-no">⑤</span>
+          <div class="sh-t"><h2>复盘</h2><p>这一步做什么：看 6 个指标和 AI 建议，判断哪个平台/关键词值得加码，把下周动作定下来。</p></div>
+          <span class="sh-badge">数据复盘</span>
+        </div>
       <section class="card" id="sec-stats">
         <div class="sec-h"><span class="sec-no">6</span><h2>数据复盘</h2><span class="tag" id="statsTag">示例数据</span></div>
         <p class="sec-sub">6 个指标看投入产出：抓了多少、几个真高意向、触达和回复多少、最终成线索几条、花了多少成本。</p>
@@ -777,8 +1117,12 @@ footer.site a:hover{color:#fff;border-color:rgba(148,163,184,.4)}
         <h4 style="margin:16px 0 0;font-size:13.5px;color:var(--xl-accent)">AI 优化建议（可执行清单）</h4>
         <ul class="advice" id="adviceOut"></ul>
       </section>
-
-      <!-- 行业打法 -->
+        <div class="row" style="gap:8px;flex-wrap:wrap">
+          <button type="button" class="btn line sm" id="wfExportStats">⬇ 导出线索数据 CSV</button>
+          <a class="btn ghost sm" href="/ai-nav/geo/">🌍 去 GEO 推广页</a>
+          <span class="hint">CSV 含画像、标签、备注，可直接给运营/店长。</span>
+        </div>
+        <details class="wf-fold"><summary>📈 行业打法（目标客群 / 平台优先级 / 关键词包 / 选题）</summary>
       <section class="card glow" id="sec-playbook">
         <div class="sec-h"><span class="sec-no">7</span><h2>行业打法</h2><span class="tag" id="pbTag">按行业</span></div>
         <p class="sec-sub">选好行业后，这里给出该行业的获客 playbook：目标客群、平台优先级、关键词包、话术要点、内容选题和发布时间。</p>
@@ -788,8 +1132,8 @@ footer.site a:hover{color:#fff;border-color:rgba(148,163,184,.4)}
         </div>
         <div id="playbookOut"><div class="empty">选择行业后自动加载打法。</div></div>
       </section>
-
-      <!-- AI 经营智能体 -->
+        </details>
+        <details class="wf-fold"><summary>🤖 AI 经营智能体（周报 / 团购套餐 / 评论回复 / 发布时间）</summary>
       <section class="card glow" id="sec-agent">
         <div class="sec-h"><span class="sec-no">8</span><h2>🤖 AI 经营智能体</h2><span class="tag" id="agentTag">P1 · 5 项</span></div>
         <p class="sec-sub">同城关键词作战计划、流量高峰发布时间、团购套餐、评论/私信回复、经营周报。AI 只出初稿，人工核对价格与资质后再发布；接口异常时会明确提示并支持重试，不影响页面其它功能。</p>
@@ -854,8 +1198,24 @@ footer.site a:hover{color:#fff;border-color:rgba(148,163,184,.4)}
           </div>
         </div>
       </section>
+        </details>
+      </section>
 
-      <!-- Skill 市场 / 集成 -->
+      <!-- 更多工具 -->
+      <section class="pane" data-pane="6" id="wfPane6">
+        <div class="step-h">
+          <span class="sh-no">＋</span>
+          <div class="sh-t"><h2>更多工具</h2><p>原功能都收在这里：内容工坊、知识库、Skill 市场、客服渠道、GEO 推广和合规说明。</p></div>
+          <span class="sh-badge">原功能保留</span>
+        </div>
+        <div class="tool-grid">
+          <button type="button" class="tool-card" data-tool="content">🎨 内容工坊<em>爆款模板 + 文案包</em></button>
+          <button type="button" class="tool-card" data-tool="kb">📚 知识库<em>BM25 检索片段</em></button>
+          <button type="button" class="tool-card" data-tool="skill">🧩 Skill 市场<em>流程复用 / 克隆</em></button>
+          <button type="button" class="tool-card" data-tool="cs">💬 客服渠道<em>企微活码 / 抖音私信</em></button>
+          <a class="tool-card" href="/ai-nav/geo/">🌍 GEO 推广<em>AI 搜索优化</em></a>
+        </div>
+        <div class="wf-sub" id="wfContentSlot"></div>
       <section class="card glow" id="sec-skillhub">
         <div class="sec-h"><span class="sec-no">9</span><h2>🧩 Skill 市场 / 🔌 集成 / 💬 客服与渠道</h2><span class="tag" id="skillTag">流程复制</span></div>
         <p class="sec-sub">把跑通的获客流程存成 Skill，一键复用到新门店 / 新行业：内置 12 个行业模板，支持私有 / 团队 / 公开可见；集成把线索导入与触达事件推送到企业微信、通用 webhook 或 CRM；客服与渠道支持企微活码/欢迎语、抖音私信草稿与 AI 自动回复。</p>
@@ -962,8 +1322,6 @@ footer.site a:hover{color:#fff;border-color:rgba(148,163,184,.4)}
           </div>
         </div>
       </section>
-
-      <!-- 合规提示 -->
       <section class="card legal" id="sec-compliance">
         <div class="sec-h"><span class="sec-no">10</span><h2>合规提示</h2><span class="tag">必读</span></div>
         <p class="sec-sub">以下红线不做突破，出现争议时以本页约定为准。</p>
@@ -974,9 +1332,11 @@ footer.site a:hover{color:#fff;border-color:rgba(148,163,184,.4)}
         </div>
         <div class="notice safe" style="margin-top:10px"><span class="n-ico">ℹ️</span><div>AI 生成的文案与话术由算法辅助产出，发布前请按平台规则自检，并在需要时标注「AI 辅助生成」；最终内容责任由发布方承担。</div></div>
       </section>
+      </section>
     </div>
   </div>
 </main>
+
 
 <footer class="site">
   © <span id="year">2026</span> 星籁 AI 工具导航 · xinglaiai.com 版权所有 · 未经许可禁止镜像/采集/商业转载<br>
@@ -1164,6 +1524,7 @@ footer.site a:hover{color:#fff;border-color:rgba(148,163,184,.4)}
   function esc(v) { return String(v == null ? '' : v).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;'); }
   function uniq(a) { var o = []; a.forEach(function (x) { if (x && o.indexOf(x) < 0) o.push(x); }); return o; }
   function nowText() { var d = new Date(); return (d.getMonth() + 1) + '月' + d.getDate() + '日 ' + ('0' + d.getHours()).slice(-2) + ':' + ('0' + d.getMinutes()).slice(-2); }
+  function wfEmit(name, detail) { try { window.dispatchEvent(new CustomEvent(name, { detail: detail || null })); } catch (e) {} }
   function toast(msg) {
     var t = $('toast'); if (!t) return;
     t.textContent = msg; t.className = 'show';
@@ -1535,6 +1896,7 @@ footer.site a:hover{color:#fff;border-color:rgba(148,163,184,.4)}
         INTENT.last = r;
         $('intentMsg').innerHTML = '';
         renderIntentResults(r);
+        wfEmit('lg:import', { source: 'intent_search', n: (r.count != null ? r.count : (r.leads || []).length), high: (r.leads || []).filter(function (x) { return x.intent_level === 'high'; }).length });
         markApi('ok');
         toast('已找到 ' + (r.count || 0) + ' 条意向提问，已写入线索库');
         S.filter.source = 'intent_search';
@@ -1577,6 +1939,7 @@ footer.site a:hover{color:#fff;border-color:rgba(148,163,184,.4)}
         var hits = n + dup;
         $('mineMsg').innerHTML = '<div class="notice safe"><span class="n-ico">✅</span><div><b>已导入 ' + n + ' 条到线索库</b>' + (dup > 0 ? '（本次公开搜索命中 ' + hits + ' 条，其中 ' + dup + ' 条此前已在库已跳过）' : '') + '。来源标记为「公开搜索」，下方线索库已刷新。</div></div>';
         renderMineResults(r);
+        wfEmit('lg:import', { source: 'search', n: mineCount(r), high: (r.leads || []).filter(function (x) { return (x.intent || x.level) === 'high'; }).length });
         markApi('ok');
         loadServerStats();
         loadServerLeads().then(afterMineRefresh);
@@ -1628,7 +1991,7 @@ footer.site a:hover{color:#fff;border-color:rgba(148,163,184,.4)}
     var btn = $('doMineBatch');
     var old = btn ? btn.textContent : '🚀 开始批量挖掘';
     if (btn) { btn.disabled = true; btn.textContent = '批量挖掘中…'; }
-    var st = { total: 0, ok: 0, zero: 0, failed: 0, rows: [], stopped: false, done: 0 };
+    var st = { total: 0, ok: 0, zero: 0, failed: 0, high: 0, rows: [], stopped: false, done: 0 };
     var idx = 0;
     function rowsHtml() {
       if (!st.rows.length) return '';
@@ -1655,6 +2018,7 @@ footer.site a:hover{color:#fff;border-color:rgba(148,163,184,.4)}
         $('mineBatchMsg').innerHTML = '<div class="notice safe"><span class="n-ico">✅</span><div><b>' + esc(summary) + '</b>。已写入线索库，可在线索列表查看。</div></div>' + rowsHtml();
       }
       toast(summary);
+      wfEmit('lg:import', { source: 'search', n: st.total, high: st.high || 0 });
       markApi('ok');
       loadServerStats();
       if (st.total > 0) loadServerLeads().then(afterMineRefresh); else loadServerLeads();
@@ -1667,6 +2031,7 @@ footer.site a:hover{color:#fff;border-color:rgba(148,163,184,.4)}
         var n = mineCount(r);
         if (r && r.ok) {
           st.total += n; st.ok++;
+          st.high += (r.leads || []).filter(function (x) { return (x.intent || x.level) === 'high'; }).length;
           if (n === 0) st.zero++;
           st.rows.push({ q: q, n: n, ok: true });
         } else if (isQuota(r)) {
@@ -1709,6 +2074,7 @@ footer.site a:hover{color:#fff;border-color:rgba(148,163,184,.4)}
     S.config.city = ($('cityInp').value || '').trim();
     S.savedAt = nowText();
     try { localStorage.setItem(LS_CFG, JSON.stringify({ industry: S.config.industry, city: S.config.city, districts: S.config.districts, keywords: S.config.keywords, platforms: S.config.platforms, searchKey: S.config.searchKey, savedAt: S.savedAt })); } catch (e) {}
+    wfEmit('lg:cfg', { savedAt: S.savedAt });
     var m = $('cfgMeta'); if (m) m.textContent = '配置已保存（本机浏览器）· ' + S.savedAt + ' · 行业 ' + S.config.industry + ' / ' + (S.config.city || '未填城市') + ' / ' + S.config.platforms.length + ' 个平台';
   }
   function currentIndustry() {
@@ -1948,6 +2314,7 @@ footer.site a:hover{color:#fff;border-color:rgba(148,163,184,.4)}
       if (!dup) { S.leads.unshift(l); added++; }
     });
     S.demo = false;
+    wfEmit('lg:merged', { added: added });
     return added;
   }
 
@@ -2036,7 +2403,7 @@ footer.site a:hover{color:#fff;border-color:rgba(148,163,184,.4)}
     var noteHtml = notes.length ? notes.slice(-5).map(function (n) {
       return '<div class="note-item">' + esc(n.text || '') + (n.created_at ? ' <span style="color:var(--xl-txt2)">· ' + esc(n.created_at) + '</span>' : '') + '</div>';
     }).join('') : '<span class="hint">暂无备注</span>';
-    return '<tr class="lead-detail" data-detail-row="' + esc(l.id) + '"><td colspan="9"><div class="lead-detail-in">' +
+    return '<tr class="lead-detail" data-detail-row="' + esc(l.id) + '"><td colspan="10"><div class="lead-detail-in">' +
       '<div class="detail-grid">' +
       d('客户类型', p.customer_type) + d('优先级', 'P' + leadPriority(l) + '（1 最高）') +
       d('需求推测', p.need_guess) + d('紧迫度', p.urgency) +
@@ -2073,7 +2440,7 @@ footer.site a:hover{color:#fff;border-color:rgba(148,163,184,.4)}
     var list = all.slice((S.pager.page - 1) * size, S.pager.page * size);
     var tag = $('leadsCount'); if (tag) tag.textContent = total + ' 条' + (S.demo ? ' · 示例' : '');
     if (!list.length) {
-      body.innerHTML = '<tr><td colspan="9"><div class="empty">' + (S.leads.length ? '当前筛选条件下没有线索，换个平台/来源/优先级或关键词试试。' : '暂无线索，从上面的方式导入，或切到「📍 LBS 找客」按地图找客户。') + '</div></td></tr>';
+      body.innerHTML = '<tr><td colspan="10"><div class="empty">' + (S.leads.length ? '当前筛选条件下没有线索，换个平台/来源/优先级或关键词试试。' : '暂无线索，从上面的方式导入，或切到「📍 LBS 找客」按地图找客户。') + '</div></td></tr>';
     } else {
       body.innerHTML = list.map(function (l) {
         var open = !!S.expanded[l.id];
@@ -2081,6 +2448,7 @@ footer.site a:hover{color:#fff;border-color:rgba(148,163,184,.4)}
         var note = latestNote(l);
         var src = sourceLabel(l.source);
         return '<tr data-lead="' + esc(l.id) + '">' +
+          '<td class="wfs"><input type="checkbox" class="lead-sel" data-sel="' + esc(l.id) + '" aria-label="选择线索"></td>' +
           '<td class="nick">' + esc(l.nickname) + (l.contacted ? '<br><span class="badge done">已联系</span>' : '') + '</td>' +
           '<td>' + esc(l.platform) + '</td>' +
           '<td class="text"><div class="' + (open ? 'txt-open' : 'txt-clip') + '">' + esc(l.text) + '</div>' +
@@ -2175,6 +2543,7 @@ footer.site a:hover{color:#fff;border-color:rgba(148,163,184,.4)}
     out.innerHTML = html;
     out._scripts = scripts;
     renderCadence(res.cadence);
+    wfEmit('lg:scripts');
   }
   function renderCadence(c) {
     var out = $('cadenceOut'); if (!out) return;
@@ -2869,6 +3238,7 @@ footer.site a:hover{color:#fff;border-color:rgba(148,163,184,.4)}
       S.leads = (r.leads || r.items || []).map(function (x) { return mkLead(x); });
       S.demo = false; S.pager.page = 1;
       syncPlatformFilter(); renderLeads();
+      wfEmit('lg:leads');
       var h = $('leadsHint');
       if (h) h.textContent = '已从服务器载入 ' + S.leads.length + ' 条线索（工作区 ' + wsId() + '）；可按平台/来源/意向/优先级/关键词筛选，并导出 CSV。';
     }).catch(function () {});
@@ -3246,6 +3616,7 @@ footer.site a:hover{color:#fff;border-color:rgba(148,163,184,.4)}
     });
     S.pager.page = Math.min(S.pager.page, Math.max(1, Math.ceil(filteredLeads().length / S.pager.size)));
     renderLeads();
+    wfEmit('lg:leads');
   }
   function addTag(lid) {
     var inp = document.querySelector('[data-tag-input="' + lid + '"]');
@@ -3311,6 +3682,7 @@ footer.site a:hover{color:#fff;border-color:rgba(148,163,184,.4)}
   }
 
   function lbsShowTab(name) {
+    if (!document.querySelector('.lead-tab')) { return; }
     Array.prototype.forEach.call(document.querySelectorAll('.lead-tab'), function (t) {
       var on = t.getAttribute('data-ltab') === name;
       t.classList.toggle('on', on); t.setAttribute('aria-selected', on ? 'true' : 'false');
@@ -4094,6 +4466,15 @@ footer.site a:hover{color:#fff;border-color:rgba(148,163,184,.4)}
     }).catch(function () { markApi('pending'); });
   }
 
+  window.__LG = {
+    state: function () { return S; },
+    leadById: leadById,
+    scriptVariants: scriptVariants,
+    complianceCheck: complianceCheck,
+    genScriptsFor: genScriptsFor,
+    refresh: function () { loadServerLeads(); loadServerStats(); }
+  };
+
   if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', init); else init();
 })();
 </script>
@@ -4807,6 +5188,7 @@ footer.site a:hover{color:#fff;border-color:rgba(148,163,184,.4)}
       btn.disabled = false; btn.textContent = old;
       if (!d.ok) { toast(d.hint || '登记失败'); return; }
       toast('已记录人工触达，等待客户回复');
+      try { window.dispatchEvent(new CustomEvent('lg:reach')); } catch (e) {}
       loadReach(true);
     }).catch(function () {
       btn.disabled = false; btn.textContent = old;
@@ -4903,6 +5285,460 @@ footer.site a:hover{color:#fff;border-color:rgba(148,163,184,.4)}
 
 </script>
 <!-- LGX-CONTENT-END -->
+<script defer src="../assets/site-shell.js"></script>
 <script defer src="../assets/auth.js"></script>
+<div class="import-bar" id="wfImportBar" role="status" aria-live="polite"></div>
+<script>
+/* 星籁 AI 获客 · 5 步工作流外壳（只做重排/导航/汇总，不改原有功能） */
+(function () {
+  'use strict';
+  var LS_STEP = 'leadgen_wf_step';
+  var LS_DONE = 'leadgen_wf_done';
+  var WF = { step: 1, done: {}, sel: {}, known: {}, flags: {}, ready: false, booted: false };
+  var TIP = null;
+
+  function $(id) { return document.getElementById(id); }
+  function qa(sel, root) { return Array.prototype.slice.call((root || document).querySelectorAll(sel)); }
+  function esc(v) {
+    return String(v == null ? '' : v).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
+  }
+  function state() { try { return window.__LG && window.__LG.state ? window.__LG.state() : null; } catch (e) { return null; } }
+  function cfgObj() { try { return JSON.parse(localStorage.getItem('leadgen_cfg_v1') || '{}') || {}; } catch (e) { return {}; } }
+  function cfgReady() { var c = cfgObj(); return !!(c.savedAt || (c.industry && c.city)); }
+  function isMobile() { return window.matchMedia && window.matchMedia('(max-width:1099px)').matches; }
+
+  function wfToast(msg) {
+    var t = $('toast'); if (!t) { try { console.log(msg); } catch (e) {} return; }
+    t.textContent = msg;
+    t.classList.add('show');
+    if (TIP) clearTimeout(TIP);
+    TIP = setTimeout(function () { t.classList.remove('show'); }, 2400);
+  }
+
+  function saveDone() {
+    try { localStorage.setItem(LS_DONE, JSON.stringify(WF.done)); } catch (e) {}
+  }
+  function loadDone() {
+    try {
+      var d = JSON.parse(localStorage.getItem(LS_DONE) || '{}');
+      if (d && typeof d === 'object') { WF.done = d; }
+    } catch (e) {}
+  }
+  function markDone(n) {
+    n = Number(n); if (!(n >= 1 && n <= 5)) return;
+    if (WF.done['' + n]) return;
+    WF.done['' + n] = true;
+    saveDone();
+    var b = document.querySelector('.rail-step[data-goto="' + n + '"]');
+    if (b) b.classList.add('done');
+    renderProgress();
+  }
+  function renderProgress() {
+    var n = 0;
+    for (var i = 1; i <= 5; i++) { if ((i === 1 && cfgReady()) || WF.done['' + i]) n++; }
+    if (cfgReady()) markDoneRaw(1);
+    var txt = $('wfProgressTxt'), bar = $('wfProgressBar');
+    if (txt) txt.textContent = n + ' / 5 步完成';
+    if (bar) bar.style.width = Math.round((n / 5) * 100) + '%';
+  }
+  function markDoneRaw(n) {
+    if (WF.done['' + n]) return;
+    WF.done['' + n] = true;
+    saveDone();
+    var b = document.querySelector('.rail-step[data-goto="' + n + '"]');
+    if (b) b.classList.add('done');
+  }
+
+  function renderCfgState() {
+    var ready = cfgReady();
+    var badge = $('wfCfgState');
+    if (badge) {
+      badge.textContent = ready ? '已就绪 ✓' : '未保存';
+      badge.className = 'sh-badge ' + (ready ? 'ok' : 'warn');
+    }
+    qa('.rail-step').forEach(function (b) {
+      var n = Number(b.getAttribute('data-goto'));
+      b.classList.toggle('locked', n >= 2 && n <= 5 && !ready);
+    });
+    if (ready) markDoneRaw(1);
+    renderProgress();
+  }
+
+  function todayMatch(v) {
+    var s = String(v || '').trim(); if (!s) return false;
+    var d = new Date();
+    var m = s.match(/^(\d{4})-(\d{1,2})-(\d{1,2})/);
+    if (m) return Number(m[1]) === d.getFullYear() && Number(m[2]) === d.getMonth() + 1 && Number(m[3]) === d.getDate();
+    var m2 = s.match(/(\d{1,2})月(\d{1,2})日/);
+    if (m2) return Number(m2[1]) === d.getMonth() + 1 && Number(m2[2]) === d.getDate();
+    return false;
+  }
+  function renderStats() {
+    var st = state(); if (!st) return;
+    var leads = st.leads || [];
+    var high = 0, reached = 0, today = 0;
+    leads.forEach(function (l) {
+      if (l.intent === 'high') high++;
+      if (l.contacted) reached++;
+      if (todayMatch(l.created_at) || todayMatch(l.time)) today++;
+    });
+    var tt = st.serverStats && st.serverStats.totals;
+    if (tt) {
+      high = Math.max(high, Number(tt.high || 0));
+      reached = Math.max(reached, Number(tt.contacted || 0));
+    }
+    var a = $('wfStatNew'), b = $('wfStatHigh'), c = $('wfStatReach');
+    if (a) a.textContent = today;
+    if (b) b.textContent = high;
+    if (c) c.textContent = reached;
+    var demo = $('wfStatDemo');
+    if (demo) demo.hidden = !st.demo;
+  }
+
+  function findPane(name) {
+    qa('.find-card').forEach(function (c) { c.classList.toggle('on', c.getAttribute('data-find') === name); });
+    qa('.find-pane').forEach(function (p) { p.classList.toggle('on', p.getAttribute('data-findpane') === name); });
+  }
+
+  function selectFind(name) {
+    findPane(name);
+    var body = $('findBody');
+    if (body && isMobile()) { try { body.scrollIntoView({ behavior: 'smooth', block: 'start' }); } catch (e) {} }
+    if (name === 'intent') openIntent();
+  }
+
+  function openIntent() {
+    var btn = $('btnMining');
+    if (!btn) { wfToast('挖掘入口未加载，请刷新页面'); return; }
+    btn.click();
+    setTimeout(function () {
+      var tab = $('mtabIntent');
+      if (tab) tab.click();
+      var ind = $('intentIndustry');
+      if (ind && !ind.value) { ind.value = (state() && state().config && state().config.industry) || ''; }
+    }, 60);
+  }
+
+  function goStep(n, opts) {
+    opts = opts || {};
+    n = Number(n) || 1;
+    if (n >= 2 && n <= 5 && !cfgReady() && !opts.force) {
+      wfToast('先完成第 ① 步：保存商家配置后再找客户');
+      n = 1;
+    }
+    WF.step = n;
+    try { localStorage.setItem(LS_STEP, String(n)); } catch (e) {}
+    qa('.rail-step').forEach(function (b) {
+      var on = Number(b.getAttribute('data-goto')) === n;
+      b.classList.toggle('on', on);
+      if (on) b.setAttribute('aria-current', 'step'); else b.removeAttribute('aria-current');
+    });
+    qa('.pane').forEach(function (p) { p.classList.toggle('on', Number(p.getAttribute('data-pane')) === n); });
+    if (n === 3 || n === 2) { var mm = $('miningModal'); if (mm) mm.hidden = true; var pm = $('pasteModal'); if (pm) pm.hidden = true; }
+    if (n === 4) ensureReach();
+    if (n === 5) {
+      markDone(5);
+      var dl = $('dimLoad');
+      if (dl && !WF.flags.dim) { WF.flags.dim = true; setTimeout(function () { try { dl.click(); } catch (e) {} }, 80); }
+    }
+    if (n === 2) renderIntentMeta();
+    hideImportBar();
+    if (!opts.silent) {
+      var anchor = isMobile() ? $('wfWorkspace') : $('wfGoal');
+      if (anchor) {
+        var y = anchor.getBoundingClientRect().top + (window.pageYOffset || document.documentElement.scrollTop) - (isMobile() ? 70 : 72);
+        try { window.scrollTo({ top: y, behavior: 'smooth' }); } catch (e) { window.scrollTo(0, y); }
+      }
+    }
+    if (isMobile()) {
+      var act = document.querySelector('.rail-step.on');
+      if (act && act.scrollIntoView) { try { act.scrollIntoView({ block: 'nearest', inline: 'center' }); } catch (e) {} }
+    }
+  }
+
+  function renderIntentMeta() {
+    var box = $('wfIntentMeta'); if (!box) return;
+    var st = state(), c = (st && st.config) || cfgObj();
+    var ind = c.industry || (st && st.config && st.config.industry) || '未设置行业';
+    var city = c.city || '未设置城市';
+    var dist = (c.districts || []).slice(0, 3).join('、');
+    var plats = (c.platforms || []).join(' / ');
+    box.innerHTML = '当前配置：<b>' + esc(ind) + '</b> · ' + esc(city) + (dist ? ' · ' + esc(dist) : '') +
+      (plats ? '<br>获客平台：' + esc(plats) : '') +
+      '<br>挖掘时还能在弹窗里多选平台（最多 4 个）和时间范围（24 小时 / 7 天 / 30 天）。';
+  }
+
+  function ensureReach() {
+    if (WF.flags.reach) return;
+    var b = $('lgxReachReload');
+    if (!b) return;
+    if (!window.__LGX_WIRED) {
+      WF.flags.reachTries = (WF.flags.reachTries || 0) + 1;
+      if (WF.flags.reachTries < 40) setTimeout(ensureReach, 250);
+      return;
+    }
+    WF.flags.reach = true;
+    try { b.click(); } catch (e) {}
+    var m = $('lgxMagnetRun');
+    if (m) { try { m.click(); } catch (e2) {} }
+  }
+
+  /* ---------- 导入结果统一提示 ---------- */
+  function hideImportBar() {
+    var bar = $('wfImportBar');
+    if (bar) bar.classList.remove('show');
+  }
+  function showImport(n, high) {
+    if (!n) return;
+    var msg = '本次导入 <b>' + n + '</b> 条，其中高意向 <b>' + (high || 0) + '</b> 条';
+    var inline = $('wfImportNotice');
+    if (inline) {
+      inline.innerHTML = '✅ ' + msg + '<button type="button" class="btn sm" data-goto="3">去筛选 →</button>';
+      inline.hidden = false;
+    }
+    var bar = $('wfImportBar');
+    if (bar) {
+      bar.innerHTML = '<span>✅ ' + msg + '</span><button type="button" class="btn sm" data-goto="3">去筛选 →</button>';
+      bar.classList.add('show');
+      if (WF.flags.barTimer) clearTimeout(WF.flags.barTimer);
+      WF.flags.barTimer = setTimeout(hideImportBar, 15000);
+    }
+  }
+  function onImport(detail) {
+    var d = detail || {};
+    var st = state(), leads = (st && st.leads) || [];
+    var n = Number(d.n || 0), high = (d.high != null ? Number(d.high) : -1);
+    if (d.added != null) {
+      n = Number(d.added) || 0;
+      high = leads.slice(0, n).filter(function (l) { return l.intent === 'high'; }).length;
+    }
+    if (!n && high < 0) return;
+    showImport(n, high < 0 ? 0 : high);
+    if (n) markDone(2);
+    renderStats();
+  }
+
+  /* ---------- 交叉功能：内容工作台 / Skill / 客服 ---------- */
+  function moveLgxOnce() {
+    var sec = $('sec-content');
+    if (!sec) return false;
+    var slot = $('wfContentSlot');
+    if (slot && sec.parentNode !== slot) slot.appendChild(sec);
+    var reach = sec.querySelector('[data-lgxpanel="reach"]');
+    var rslot = $('wfReachSlot');
+    if (reach && rslot && reach.parentNode !== rslot) {
+      rslot.appendChild(reach);
+      reach.hidden = false;
+      if (!WF.flags.reachObs && window.MutationObserver) {
+        WF.flags.reachObs = new MutationObserver(function () {
+          if (reach.hidden) reach.hidden = false;
+        });
+        WF.flags.reachObs.observe(reach, { attributes: true, attributeFilter: ['hidden'] });
+      }
+    }
+    var tab = sec.querySelector('[data-lgxtab="reach"]');
+    if (tab && tab.parentNode) tab.parentNode.removeChild(tab);
+    var jump = $('lgxJump');
+    if (jump && !jump.__wf) {
+      jump.__wf = true;
+      jump.addEventListener('click', function (e) {
+        e.preventDefault();
+        goStep(6);
+        activateLgx('make');
+      });
+    }
+    if (WF.step === 4) ensureReach();
+    return true;
+  }
+  function pollLgx(tries) {
+    if (WF.flags.lgx) return;
+    if (moveLgxOnce()) { WF.flags.lgx = true; return; }
+    if (tries < 60) setTimeout(function () { pollLgx(tries + 1); }, 150);
+  }
+  function activateLgx(name) {
+    goStep(6, { silent: true });
+    var b = document.querySelector('[data-lgxtab="' + name + '"]');
+    if (b) b.click();
+    var sec = $('sec-content');
+    if (sec) setTimeout(function () { try { sec.scrollIntoView({ behavior: 'smooth', block: 'start' }); } catch (e) {} }, 80);
+  }
+  function activateWs(name) {
+    var b = document.querySelector('[data-wstab="' + name + '"]');
+    if (b) b.click();
+    var sec = $('sec-skillhub');
+    if (sec) setTimeout(function () { try { sec.scrollIntoView({ behavior: 'smooth', block: 'start' }); } catch (e) {} }, 80);
+    var slot = sec;
+    if (slot) setTimeout(function () { try { slot.scrollIntoView({ behavior: 'smooth', block: 'start' }); } catch (e) {} }, 80);
+  }
+
+  /* ---------- ③ 筛选 / 批量 ---------- */
+  function syncSelection() {
+    var count = Object.keys(WF.sel).length;
+    qa('#leadsBody .lead-sel').forEach(function (cb) {
+      var id = cb.getAttribute('data-sel');
+      cb.checked = !!WF.sel[id];
+      var tr = cb.closest('tr');
+      if (tr) tr.classList.toggle('sel-on', !!WF.sel[id]);
+    });
+    var txt = $('wfSelCount');
+    if (txt) txt.textContent = '已选 ' + count + ' 条';
+    var all = $('wfSelAll');
+    if (all) {
+      var boxes = qa('#leadsBody .lead-sel');
+      all.checked = boxes.length > 0 && boxes.every(function (cb) { return cb.checked; });
+    }
+  }
+  function applyHighOnly(on) {
+    var f = $('fIntent');
+    if (!f) return;
+    f.value = on ? 'high' : '';
+    f.dispatchEvent(new Event('change', { bubbles: true }));
+    markDone(3);
+  }
+  function batchGenerate() {
+    var ids = Object.keys(WF.sel);
+    if (!ids.length) { wfToast('先勾选要跟进的线索（可点表头全选）'); return; }
+    if (!window.__LG || !window.__LG.leadById || !window.__LG.scriptVariants) { wfToast('页面脚本未就绪，请刷新重试'); return; }
+    var ids2 = ids.slice(0, 10);
+    var leads = ids2.map(function (id) { try { return window.__LG.leadById(id); } catch (e) { return null; } }).filter(Boolean);
+    if (!leads.length) { wfToast('选中的线索已不在列表里'); return; }
+    var scripts = [], blocks = [];
+    leads.forEach(function (l) {
+      var vs = [];
+      try { vs = window.__LG.scriptVariants(l, l.intent) || []; } catch (e) { vs = []; }
+      var inner = '';
+      vs.forEach(function (v, k) {
+        var i = scripts.length;
+        scripts.push({ level: v.level || '跟进话术', text: v.text || '' });
+        inner += '<div class="script"><div class="script-h"><span class="lvl">' + (k + 1) + '</span><b>' + esc(v.level || ('话术 ' + (k + 1))) + '</b>' +
+          '<span class="badge pot">针对 ' + esc(l.nickname) + '</span></div>' +
+          '<div class="script-txt">' + esc(v.text || '') + '</div>' +
+          '<div class="script-ft"><button type="button" class="mini" data-copy="' + i + '">复制</button>' +
+          '<button type="button" class="mini ok" data-save-script="' + i + '">保存到话术库</button></div></div>';
+      });
+      blocks.push('<div class="wf-batch-lead">' + esc(l.nickname) + ' · ' + esc(l.platform || '—') + ' · ' +
+        (l.intent === 'high' ? '高意向' : '潜在') + (l.score ? ' · ' + esc(l.score) + '/10' : '') + '</div>' + inner);
+    });
+    var out = $('scriptOut');
+    if (!out) return;
+    out._scripts = scripts;
+    out.innerHTML = '<div class="wf-batch-title">已为 <b>' + leads.length + '</b> 条线索各生成 ' +
+      (blocks.length ? '3' : '0') + ' 条话术。复制后到原平台<span style="color:#fde68a">人工发送</span>，发完回第 ④ 步登记触达。</div>' +
+      '<div class="script-list">' + blocks.join('') + '</div>';
+    markDone(3);
+    goStep(4);
+    wfToast('已生成 ' + scripts.length + ' 条跟进话术，去人工发送');
+  }
+
+  /* ---------- 事件绑定 ---------- */
+  function bind() {
+    document.addEventListener('click', function (e) {
+      var t = e.target.closest ? e.target.closest('[data-goto]') : null;
+      if (t && !t.classList.contains('rail-step')) {
+        e.preventDefault();
+        goStep(t.getAttribute('data-goto'));
+        return;
+      }
+      var card = e.target.closest ? e.target.closest('[data-find]') : null;
+      if (card) { selectFind(card.getAttribute('data-find')); return; }
+      var tool = e.target.closest ? e.target.closest('[data-tool]') : null;
+      if (tool) {
+        e.preventDefault();
+        var name = tool.getAttribute('data-tool');
+        if (name === 'content' || name === 'kb') activateLgx(name === 'kb' ? 'kb' : 'make');
+        else if (name === 'skill' || name === 'cs') activateWs(name);
+        return;
+      }
+    });
+    qa('.rail-step').forEach(function (b) {
+      b.addEventListener('click', function () { goStep(b.getAttribute('data-goto')); });
+    });
+    function on(id, ev, fn) { var el = $(id); if (el) el.addEventListener(ev, fn); }
+    on('wfOpenIntent', 'click', function (e) { e.preventDefault(); openIntent(); });
+    on('wfOpenMine', 'click', function (e) {
+      e.preventDefault();
+      var b = $('btnMining'); if (!b) return;
+      b.click();
+      setTimeout(function () { var t = $('mtabKw'); if (t) t.click(); }, 60);
+    });
+    on('wfHighOnly', 'change', function () { applyHighOnly(this.checked); });
+    on('fIntent', 'change', function () {
+      var sw = $('wfHighOnly');
+      if (sw) sw.checked = this.value === 'high';
+    });
+    on('wfSelAll', 'change', function () {
+      var on2 = this.checked;
+      qa('#leadsBody .lead-sel').forEach(function (cb) {
+        var id = cb.getAttribute('data-sel');
+        if (on2) WF.sel[id] = true; else delete WF.sel[id];
+      });
+      syncSelection();
+    });
+    on('wfBatchScript', 'click', batchGenerate);
+    on('wfSelClear', 'click', function () { WF.sel = {}; syncSelection(); });
+    on('wfExportStats', 'click', function () { var b = $('btnExport'); if (b) b.click(); else wfToast('导出按钮未加载'); });
+    document.addEventListener('change', function (e) {
+      var cb = e.target.closest ? e.target.closest('.lead-sel') : null;
+      if (!cb) return;
+      var id = cb.getAttribute('data-sel');
+      if (cb.checked) WF.sel[id] = true; else delete WF.sel[id];
+      syncSelection();
+    });
+    // 数据变化
+    window.addEventListener('lg:leads', function () { renderStats(); syncSelection(); autoDone(); });
+    window.addEventListener('lg:merged', function (e) { onImport(e.detail); renderStats(); });
+    window.addEventListener('lg:import', function (e) { onImport(e.detail); renderStats(); });
+    window.addEventListener('lg:scripts', function () { markDone(3); });
+    window.addEventListener('lg:reach', function () {
+      markDone(4);
+      if (window.__LG && window.__LG.refresh) { try { window.__LG.refresh(); } catch (e) {} }
+      renderStats();
+    });
+    window.addEventListener('lg:cfg', function () { renderCfgState(); renderIntentMeta(); });
+    // 线索表重渲染后恢复选择状态
+    var body = $('leadsBody');
+    if (body && window.MutationObserver) {
+      WF.flags.obs = new MutationObserver(function () { syncSelection(); renderStats(); });
+      WF.flags.obs.observe(body, { childList: true });
+    }
+    // 首次线索载入后自动勾掉第 2 步
+    autoDone();
+  }
+
+  function autoDone() {
+    var st = state(); if (!st) return;
+    var leads = st.leads || [];
+    if (leads.length && !st.demo) { markDoneRaw(2); renderProgress(); }
+    if (leads.some(function (l) { return l.contacted; })) { markDoneRaw(4); }
+    WF.known = {};
+    leads.forEach(function (l) { WF.known[l.id] = 1; });
+  }
+
+  function boot() {
+    if (WF.booted) return;
+    WF.booted = true;
+    loadDone();
+    qa('.rail-step').forEach(function (b) {
+      var n = Number(b.getAttribute('data-goto'));
+      if (n >= 1 && n <= 5 && (WF.done['' + n] || (n === 1 && cfgReady()))) b.classList.add('done');
+    });
+    renderCfgState();
+    renderIntentMeta();
+    renderStats();
+    bind();
+    var saved = 1;
+    try { saved = Number(localStorage.getItem(LS_STEP) || '1') || 1; } catch (e) { saved = 1; }
+    if (saved < 1 || saved > 6) saved = 1;
+    goStep(saved, { silent: true, force: true });
+    pollLgx(0);
+    setTimeout(function () { pollLgx(0); }, 2000);
+    setTimeout(function () { pollLgx(0); renderStats(); }, 5000);
+  }
+
+  if (document.readyState === 'complete') setTimeout(boot, 0);
+  else window.addEventListener('load', function () { setTimeout(boot, 0); });
+})();
+
+</script>
 </body>
 </html>
