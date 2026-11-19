@@ -145,6 +145,16 @@
 
   var aside = el('aside', 'xl-sb');
   aside.id = 'xlSidebar';
+  /* 兜底：即使样式表加载慢/被页面样式覆盖，侧栏也固定在视口左上，不会随内容下移 */
+  aside.style.position = 'fixed';
+  aside.style.top = '0';
+  aside.style.bottom = '0';
+  aside.style.left = '0';
+  aside.style.height = '100vh';
+  aside.style.zIndex = '58';
+  aside.style.display = 'flex';
+  aside.style.flexDirection = 'column';
+  aside.style.justifyContent = 'flex-start';
   aside.setAttribute('aria-label', '全站侧边导航');
   aside.innerHTML =
     '<div class="xl-sb-top">' +
@@ -172,6 +182,11 @@
   overlay.id = 'xlSbOverlay';
   overlay.setAttribute('aria-hidden', 'true');
 
+  topbar.style.position = 'fixed';
+  topbar.style.top = '0';
+  topbar.style.left = '0';
+  topbar.style.right = '0';
+  topbar.style.zIndex = '59';
   body.insertBefore(topbar, body.firstChild);
   body.appendChild(overlay);
   body.appendChild(aside);

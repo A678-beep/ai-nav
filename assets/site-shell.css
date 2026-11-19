@@ -80,6 +80,7 @@ html.xl-shell .wb-side { top: 124px; }
   z-index: 58;
   display: flex;
   flex-direction: column;
+  justify-content: flex-start;
   background: linear-gradient(180deg, var(--xl-sb-bg2), var(--xl-sb-bg) 44%);
   border-right: 1px solid var(--xl-sb-line);
   box-shadow: var(--xl-sb-shadow);
