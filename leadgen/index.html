@@ -2826,7 +2826,8 @@ html[data-theme="light"] .wf-batch-lead{color:#075985}
     S.leads.forEach(function (l) { if (l.demand) demand++; });
     var strict = serverStrictHigh();
     var strictTxt = (strict == null) ? '<b>服务端未返回</b>' : '<b>' + strict + ' 条</b>';
-    el.innerHTML = '严格高意向 ' + strictTxt + ' ｜ 明确需求 <b>' + demand + ' 条</b>（共 <b>' + total + ' 条</b>）';
+    var html = '严格高意向 ' + strictTxt + ' ｜ 明确需求 <b>' + demand + ' 条</b>（共 <b>' + total + ' 条</b>）';
+    if (el.innerHTML !== html) el.innerHTML = html;
   }
   function renderStats(res, pending) {
     var out = $('metricsOut'); if (!out) return;
