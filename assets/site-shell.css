@@ -762,3 +762,17 @@ html.xl-shell.xl-sb-collapsed #xlSidebar .xl-sb-theme .xl-theme-btn .xl-t-short 
   html.xl-shell.xl-sb-collapsed #xlSidebar .xl-sb-foot { padding: 10px; }
 }
 
+
+/* ---------- embed 模式：整页嵌入 iframe 时隐藏站壳、内容占满（2026-11-19 追加） ---------- */
+html.xl-shell.xl-embed body {
+  margin-left: 0 !important;
+  padding-top: 0 !important;
+}
+html.xl-embed .xl-topbar,
+html.xl-embed .xl-sb,
+html.xl-embed .xl-sb-overlay,
+html.xl-embed body > .top,
+html.xl-embed body > header.top { display: none !important; }
+html.xl-embed .wb-steps { top: 0; }
+html.xl-embed .stepnav { top: 0; }
+html.xl-embed .wb-side { top: 16px; }

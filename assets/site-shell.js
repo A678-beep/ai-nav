@@ -41,6 +41,16 @@
     return p.replace(/^\/+/, '');
   }
 
+  /* ---------- embed 模式（如 /autoedit/?embed=1）：整页嵌入 iframe 时隐藏站壳 ----------
+     只保留页面内容；html.xl-embed 的让位样式见 site-shell.css 末尾。
+     非 embed 模式（直链打开）一切照旧。 */
+  var EMBED = /(?:^|[?&])embed=1(?:&|$)/.test(location.search) || window.self !== window.top;
+  if (EMBED) {
+    html.classList.add('xl-embed');
+    try { window.__XL_EMBED__ = true; } catch (e) {}
+    return;
+  }
+
   /* ---------- 图标 ---------- */
   function svg(inner) {
     return '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" ' +
@@ -69,7 +79,6 @@
   var NAV = [
     { key: 'home', label: 'AI 导航', href: ROOT, ico: ICO.home },
     { key: 'studio', label: '短视频工作台', href: ROOT + 'studio/', ico: ICO.studio },
-    { key: 'autoedit', label: '全自动剪辑', href: ROOT + 'autoedit/', ico: ICO.autoedit },
     { key: 'ads', label: 'AI 投放优化获客', href: ROOT + 'ads/', ico: ICO.ads },
     { key: 'leadgen', label: '线索台账', href: ROOT + 'leadgen/', ico: ICO.leadgen },
     { key: 'geo', label: 'GEO 推广', href: ROOT + 'geo3/', ico: ICO.geo },
@@ -88,7 +97,9 @@
     var seg = rel.split('/')[0].replace(/\.html$/, '');
     if (seg === 'account' || seg === 'admin' || seg === 'store') return null;
     if (seg === 'geo2') return 'geo';
-    if (seg === 'studio' || seg === 'autoedit' || seg === 'leadgen' || seg === 'ads' || seg === 'geo' || seg === 'travel' ||
+    /* 入口合并：自动剪辑已并入短视频工作台，进入 autoedit 时高亮「短视频工作台」 */
+    if (seg === 'autoedit') return 'studio';
+    if (seg === 'studio' || seg === 'leadgen' || seg === 'ads' || seg === 'geo' || seg === 'travel' ||
         seg === 'select-ai' || seg === 'radar') return seg;
     if (seg === 'pricing') return 'pricing';
     if (seg === 'tools' || seg === 'tool') return 'tools';

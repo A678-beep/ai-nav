@@ -4,6 +4,7 @@
 <meta charset="utf-8">
 <!--xl-theme-start-->
 <script>(function(){try{var k="xl_theme",v=localStorage.getItem(k),m=(v==="dark"||v==="light"||v==="auto")?v:"auto";var q=window.matchMedia?window.matchMedia("(prefers-color-scheme: light)"):null,t=(m==="auto")?((q&&q.matches)?"light":"dark"):m,d=document.documentElement;d.setAttribute("data-theme",t);d.setAttribute("data-theme-mode",m);d.style.colorScheme=t}catch(e){document.documentElement.setAttribute("data-theme","dark")}})();</script>
+<script>(function(){try{var m=/(?:^|[?&])embed=1(?:&|$)/.test(location.search)||window.self!==window.top;if(m){document.documentElement.classList.add('xl-embed');window.__AE_EMBED__=true;}}catch(e){}})();</script>
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
 <link rel="icon" href="data:,">
 <title>AI 全自动剪辑工作台 · 一句话出片 · 星籁 AI</title>
@@ -491,6 +492,60 @@ html[data-theme="light"][data-page="autoedit"] .ae-modal{background:rgba(15,23,4
 .ae-foot a{color:var(--ae-cyan-2);text-decoration:underline;text-underline-offset:3px}
 .ae-foot .sep{opacity:.5}
 
+
+/* ---------- 数字人口播 / 试听配音 / 播放音量（体验修复新增） ---------- */
+.ae-avatar-switch{display:flex;align-items:flex-start;gap:11px;padding:11px 13px;border-radius:13px;border:1px solid var(--ae-line);background:var(--ae-panel-3);cursor:pointer;user-select:none;min-width:0;transition:.15s}
+.ae-avatar-switch:hover{border-color:var(--ae-line-2)}
+.ae-avatar-switch.on{border-color:var(--ae-line-cyan);background:var(--ae-grad-primary-soft);box-shadow:inset 0 0 0 1px rgba(56,189,248,.12)}
+.ae-avatar-switch input{position:absolute;width:1px;height:1px;opacity:0;pointer-events:none}
+.ae-avatar-switch .sw-track{flex:0 0 auto;width:42px;height:24px;border-radius:999px;border:1px solid var(--ae-line-2);background:var(--ae-panel);position:relative;transition:.18s;margin-top:2px}
+.ae-avatar-switch .sw-track i{position:absolute;left:3px;top:3px;width:16px;height:16px;border-radius:50%;background:var(--ae-txt3);transition:.18s}
+.ae-avatar-switch.on .sw-track{background:var(--ae-grad-primary);border-color:transparent}
+.ae-avatar-switch.on .sw-track i{left:21px;background:#fff}
+.ae-avatar-switch .sw-txt{min-width:0;display:flex;flex-direction:column;gap:2px}
+.ae-avatar-switch .sw-txt b{font-size:13.2px;font-weight:800}
+.ae-avatar-switch .sw-txt i{font-style:normal;font-size:11.6px;color:var(--ae-txt3);line-height:1.5}
+.ae-avatar-box{margin-top:9px;padding:12px;border-radius:13px;border:1px dashed var(--ae-line-2);background:var(--ae-panel-3)}
+.ae-avatar-box .ae-hint b{color:var(--ae-amber-2)}
+.ae-avatar-drop{display:flex;align-items:center;gap:12px;cursor:pointer;min-width:0}
+.ae-avatar-drop:hover .ae-avatar-ico,.ae-avatar-drop.over .ae-avatar-ico{border-color:var(--ae-cyan);background:rgba(56,189,248,.12)}
+.ae-avatar-ico{flex:0 0 auto;width:54px;height:54px;border-radius:13px;display:grid;place-items:center;font-size:24px;background:var(--ae-grad-primary-soft);border:1px solid var(--ae-line-cyan);transition:.15s}
+.ae-avatar-drop img{flex:0 0 auto;width:86px;height:86px;object-fit:cover;border-radius:11px;border:1px solid var(--ae-line-cyan);background:#000}
+.ae-avatar-drop .tx{min-width:0;flex:1 1 auto}
+.ae-avatar-drop .tx b{display:block;font-size:13px;font-weight:800}
+.ae-avatar-drop .tx span{display:block;font-size:11.6px;color:var(--ae-txt3);line-height:1.55;overflow-wrap:anywhere}
+.ae-avatar-drop .tx small{display:inline-block;margin-top:5px;font-size:10.8px;color:var(--ae-txt3);border:1px solid var(--ae-line);border-radius:999px;padding:2px 8px}
+.ae-avatar-meta{display:flex;align-items:center;gap:8px;flex-wrap:wrap;margin-top:9px;font-size:11.7px;color:var(--ae-txt3);min-width:0}
+.ae-avatar-meta>span{flex:1 1 180px;min-width:0;overflow-wrap:anywhere}
+.ae-avatar-card{display:flex;gap:14px;align-items:flex-start;padding:14px 15px;border-radius:16px;border:1px solid rgba(139,92,246,.4);background:linear-gradient(135deg,rgba(139,92,246,.12),var(--ae-panel));margin:0 0 14px;flex-wrap:wrap;min-width:0}
+.ae-avatar-clip-video{flex:0 0 auto;width:174px;max-width:100%;aspect-ratio:9/16;border-radius:12px;overflow:hidden;background:#000;border:1px solid var(--ae-line);display:block;object-fit:cover}
+.ae-avatar-clip-body{flex:1 1 220px;min-width:0;display:flex;flex-direction:column;gap:6px}
+.ae-avatar-clip-body h3{font-size:15px;font-weight:800;display:flex;align-items:center;gap:7px;flex-wrap:wrap}
+.ae-avatar-clip-body .ae-hint{line-height:1.6}
+.ae-avatar-clip-note{display:inline-flex;align-items:center;gap:5px;font-size:11.2px;font-weight:700;color:var(--ae-violet-2);background:rgba(139,92,246,.12);border:1px solid rgba(139,92,246,.36);border-radius:999px;padding:3px 9px;align-self:flex-start;white-space:normal;line-height:1.5}
+.ae-avatar-clip-actions{display:flex;gap:7px;flex-wrap:wrap;margin-top:3px}
+.ae-avatar-clip-actions .ae-btn{min-height:32px;padding:0 11px;font-size:12px;border-radius:9px}
+.ae-avatar-err{padding:13px 14px;border-radius:13px;border:1px solid rgba(248,113,113,.42);background:var(--ae-err-bg);color:#fecaca;font-size:12.4px;display:flex;gap:9px;align-items:center;flex-wrap:wrap;width:100%}
+html[data-theme="light"][data-page="autoedit"] .ae-avatar-err{color:#9f1239}
+.ae-sound-bar{display:flex;align-items:center;gap:9px;flex-wrap:wrap;margin-top:9px}
+.ae-sound-btn{display:inline-flex;align-items:center;gap:6px;min-height:34px;padding:0 11px;border-radius:9px;border:1px solid var(--ae-line);background:var(--ae-panel-3);color:var(--ae-txt);font-size:12px;font-weight:800;cursor:pointer;font-family:inherit}
+.ae-sound-btn:hover{border-color:var(--ae-line-cyan);color:var(--ae-cyan-2)}
+.ae-sound-btn[aria-pressed="true"]{color:var(--ae-amber-2);border-color:rgba(251,191,36,.42);background:var(--ae-warn-bg)}
+.ae-sound-bar input[type=range]{flex:1 1 120px;min-width:92px;max-width:220px;accent-color:var(--ae-cyan);height:22px;cursor:pointer}
+.ae-vol-num{font-size:11.6px;color:var(--ae-txt3);font-variant-numeric:tabular-nums;white-space:nowrap}
+.ae-tts-bar{display:flex;align-items:center;gap:8px;flex-wrap:wrap;margin-top:9px;padding-top:9px;border-top:1px dashed var(--ae-line)}
+.ae-tts-voice{width:auto;min-width:142px;flex:0 1 auto;min-height:34px;font-size:12px;padding:0 9px;border-radius:9px}
+.ae-tts-bar .ae-hint{flex:1 1 160px;min-width:0}
+.ae-tts-audio{display:flex;align-items:center;gap:9px;flex-wrap:wrap;margin-top:9px;padding:9px 11px;border-radius:11px;border:1px solid var(--ae-line);background:var(--ae-panel-3)}
+.ae-tts-audio audio{flex:1 1 220px;min-width:180px;height:36px;max-width:100%}
+.ae-tts-dur{font-size:11.6px;color:var(--ae-txt3);font-variant-numeric:tabular-nums;white-space:nowrap}
+.ae-audio-warn{margin-top:9px;padding:9px 11px;border-radius:10px;border:1px solid rgba(251,191,36,.42);background:var(--ae-warn-bg);color:var(--ae-amber-2);font-size:12px;line-height:1.55;display:flex;gap:7px;align-items:flex-start}
+.ae-avatar-shotlist{margin-top:9px;padding:10px 12px;border-radius:11px;border:1px solid var(--ae-line);background:var(--ae-panel-3);font-size:11.8px;color:var(--ae-txt2);line-height:1.6}
+.ae-avatar-shotlist b{color:var(--ae-txt);font-size:12px;display:block;margin-bottom:4px}
+.ae-avatar-shotlist ol{margin:0;padding-left:18px;display:flex;flex-direction:column;gap:2px}
+.ae-avatar-shotlist li{overflow-wrap:anywhere}
+.ae-tts-loading{display:inline-block;width:12px;height:12px;border:2px solid rgba(56,189,248,.28);border-top-color:var(--ae-cyan);border-radius:50%;animation:aeSpin .8s linear infinite;vertical-align:-2px;margin-right:5px}
+
 /* ---------- 响应式 ---------- */
 @media (max-width:1080px){
   .ae-board{grid-template-columns:1fr}
@@ -553,6 +608,11 @@ html[data-theme="light"][data-page="autoedit"] .ae-modal{background:rgba(15,23,4
   .ae-foot{flex-direction:column;align-items:flex-start}
   .ae-prog{width:100%}
   .ae-modal-card{width:100%}
+  .ae-avatar-card{flex-direction:column}
+  .ae-avatar-clip-video{width:100%;max-width:220px}
+  .ae-tts-bar .ae-btn{flex:1 1 auto}
+  .ae-tts-voice{flex:1 1 100%;width:100%}
+  .ae-sound-bar input[type=range]{max-width:none}
 }
 @media (max-width:400px){
   .ae-wrap{padding-left:11px;padding-right:11px}
@@ -589,6 +649,29 @@ html[data-theme="light"][data-page="autoedit"] .ae-playbtn{background:rgba(15,23
 html[data-theme="light"][data-page="autoedit"] .ae-prog-stages li.on{background:rgba(2,132,199,.07);border-color:rgba(2,132,199,.24)}
 html[data-theme="light"][data-page="autoedit"] .ae-exp-progress{border-color:var(--ae-line)}
 html[data-theme="light"][data-page="autoedit"] .ae-skill-art .sk-badge{background:rgba(15,23,42,.42)}
+
+/* ---------- embed 模式（/autoedit/?embed=1 或 iframe 内）：只保留剪辑内容 ---------- */
+html.xl-embed body{margin-left:0!important;padding-top:0!important}
+html.xl-embed .xl-topbar,
+html.xl-embed .xl-sb,
+html.xl-embed .xl-sb-overlay,
+html.xl-embed body > .top,
+html.xl-embed body > header.top{display:none!important}
+html.xl-embed .ae-wrap{padding-top:64px}
+.ae-back-studio{position:fixed;left:14px;top:14px;z-index:120;display:inline-flex;align-items:center;gap:6px;min-height:42px;padding:0 14px;border-radius:11px;border:1px solid rgba(56,189,248,.5);background:rgba(8,14,24,.92);color:#dff3ff;font-size:13px;font-weight:700;cursor:pointer;font-family:inherit;box-shadow:0 10px 30px -14px rgba(0,0,0,.85);-webkit-backdrop-filter:blur(8px);backdrop-filter:blur(8px)}
+.ae-back-studio:hover{background:rgba(56,189,248,.18);border-color:rgba(56,189,248,.85)}
+.ae-back-studio[hidden]{display:none!important}
+html[data-theme="light"] .ae-back-studio{background:rgba(255,255,255,.96);color:#075985}
+.ae-back-hint{display:none;margin:10px 0 0;padding:9px 11px;border:1px solid rgba(52,211,153,.35);background:rgba(52,211,153,.08);border-radius:10px;font-size:12px;line-height:1.7;color:#a7f3d0}
+html.xl-embed .ae-back-hint{display:block}
+html[data-theme="light"] .ae-back-hint{color:#047857;background:rgba(52,211,153,.1)}
+.ae-back-hint .ae-back-btn{display:inline-flex;align-items:center;justify-content:center;margin-top:7px;min-height:36px;padding:0 12px;border-radius:9px;border:1px solid rgba(52,211,153,.5);background:rgba(52,211,153,.14);color:#d1fae5;font-size:12.5px;font-weight:700;cursor:pointer;font-family:inherit}
+html[data-theme="light"] .ae-back-hint .ae-back-btn{color:#065f46}
+.ae-back-hint .ae-back-btn:hover{background:rgba(52,211,153,.24)}
+@media (max-width:640px){
+ .ae-back-studio{left:10px;top:10px;min-height:38px;padding:0 10px;font-size:12px}
+ html.xl-embed .ae-wrap{padding-top:56px}
+}
 </style>
 <link rel="stylesheet" href="../assets/theme-light.css">
 <script defer src="../assets/theme.js"></script>
@@ -597,6 +680,7 @@ html[data-theme="light"][data-page="autoedit"] .ae-skill-art .sk-badge{backgroun
 <link rel="stylesheet" href="../assets/site-shell.css">
 </head>
 <body>
+<button type="button" class="ae-back-studio" id="aeBackStudio" hidden>← 返回工作台</button>
 <div class="top"><div class="top-in">
   <a class="brand" href="/ai-nav/"><span class="logo">星</span>星籁 AI <span class="bs">全自动剪辑</span></a>
   <nav>
@@ -683,7 +767,7 @@ html[data-theme="light"][data-page="autoedit"] .ae-skill-art .sk-badge{backgroun
           <div class="ae-file-body"><b id="aeFileName">—</b><span id="aeFileMeta">—</span></div>
           <button type="button" class="ae-mini danger" id="btnFileRemove">移除</button>
         </div>
-        <p class="ae-hint" style="margin-top:9px">上传后，AI 会把录音转成文字并排出镜头；成片预览仍为演示占位，真实成片需接入成片服务。</p>
+        <p class="ae-hint" style="margin-top:9px">上传后，AI 会把录音转成文字并排出镜头；导出渲染完成后，第 3 步可播放带声音的真实成片。</p>
       </div>
 
       <div class="ae-opts">
@@ -734,6 +818,32 @@ html[data-theme="light"][data-page="autoedit"] .ae-skill-art .sk-badge{backgroun
             </div>
           </div>
         </div>
+
+        <div class="ae-opt full">
+          <span class="ae-field-label">🧑 数字人口播（可选） <small>上传一张照片当主播画面，AI 配好口播音轨</small></span>
+          <label class="ae-avatar-switch" id="aeAvatarSwitch" for="aeAvatarOn">
+            <input type="checkbox" id="aeAvatarOn">
+            <span class="sw-track" aria-hidden="true"><i></i></span>
+            <span class="sw-txt"><b>开启数字人口播</b><i>适合门店老板 / 主播出镜：照片 + 口播音轨生成一段数字人片段</i></span>
+          </label>
+          <div class="ae-avatar-box" id="aeAvatarBox" hidden>
+            <div class="ae-avatar-drop" id="aeAvatarDrop" role="button" tabindex="0" aria-label="上传数字人照片">
+              <img id="aeAvatarPreview" alt="数字人照片预览" hidden>
+              <span class="ae-avatar-ico" id="aeAvatarIco" aria-hidden="true">🧑</span>
+              <div class="tx">
+                <b id="aeAvatarTip">上传一张真人照片</b>
+                <span>建议正面半身照、脸部清晰、光线均匀；支持 JPG / PNG / WebP</span>
+                <small>最大 10MB · 照片仅用于生成数字人片段</small>
+              </div>
+            </div>
+            <input type="file" id="aeAvatarFile" accept="image/jpeg,image/png,image/webp" hidden>
+            <div class="ae-avatar-meta" id="aeAvatarMeta" hidden>
+              <span id="aeAvatarFileMeta">—</span>
+              <button type="button" class="ae-mini danger" id="btnAvatarRemove">移除照片</button>
+            </div>
+            <p class="ae-hint" style="margin-top:9px">照片将作为口播主播画面，<b>暂不支持口型同步</b>（一期：静态照片 + 口播音轨）；生成后可在导演板预览数字人片段。</p>
+          </div>
+        </div>
       </div>
 
       <div class="ae-cta-row">
@@ -763,6 +873,7 @@ html[data-theme="light"][data-page="autoedit"] .ae-skill-art .sk-badge{backgroun
         </div>
       </div>
     </div>
+    <div id="aeAvatarCard" hidden></div>
     <div class="ae-summary" id="aeSummary"></div>
     <div class="ae-card ae-timeline-card">
       <div class="ae-card-head">
@@ -823,17 +934,38 @@ html[data-theme="light"][data-page="autoedit"] .ae-skill-art .sk-badge{backgroun
         <div class="ae-player-wrap">
           <div class="ae-player" id="aePlayer" aria-label="成片预览（演示）">
             <canvas id="aeCanvas" width="540" height="960"></canvas>
-            <video id="aeVideo" playsinline preload="metadata" hidden></video>
+            <video id="aeVideo" controls playsinline preload="metadata" hidden></video>
+            <video id="aeAvatarVideo" controls playsinline preload="metadata" hidden></video>
             <button type="button" class="ae-playbtn" id="aePlayBtn" aria-label="播放演示预览">▶</button>
           </div>
         </div>
-        <div class="ae-player-bar">
+        <div class="ae-player-bar" id="aePlayerBar">
           <button type="button" class="ae-playtoggle" id="aePlayToggle">▶ 播放</button>
           <div class="ae-player-track"><i id="aePlayerFill"></i></div>
           <span class="ae-player-time" id="aePlayerTime">0:00 / 0:00</span>
         </div>
+        <div class="ae-sound-bar">
+          <button type="button" class="ae-sound-btn" id="aeMuteBtn" aria-pressed="false" title="静音 / 取消静音"><span id="aeMuteIco" aria-hidden="true">🔊</span><span id="aeMuteTxt">音量开</span></button>
+          <input type="range" id="aeVolume" min="0" max="100" step="5" value="100" aria-label="预览音量">
+          <span class="ae-vol-num" id="aeVolNum">100%</span>
+        </div>
+        <div class="ae-tts-bar">
+          <button type="button" class="ae-btn sm" id="btnTtsPreview">🔊 试听配音</button>
+          <select class="ae-select ae-tts-voice" id="aeTtsVoice" aria-label="试听配音音色">
+            <option value="女声·亲切自然">女声 · 亲切自然</option>
+            <option value="男声·稳重专业">男声 · 稳重专业</option>
+            <option value="女声·活泼种草">女声 · 活泼种草</option>
+          </select>
+          <span class="ae-hint" id="aeTtsHint">用成片同一套配音生成 MP3，可换音色重试</span>
+        </div>
+        <div class="ae-tts-audio" id="aeTtsAudioWrap" hidden>
+          <audio id="aeTtsAudio" controls preload="metadata"></audio>
+          <span class="ae-tts-dur" id="aeTtsDur"></span>
+        </div>
+        <div class="ae-audio-warn" id="aeAudioWarn" hidden></div>
+        <div class="ae-avatar-shotlist" id="aeAvatarShotList" hidden></div>
         <div class="ae-player-meta" id="aePlayerMeta"></div>
-        <p class="ae-note" id="aePlayNote" style="margin-top:9px">当前为演示占位预览（AI 会按导演板自动播放镜头效果）；接入成片成片服务后，这里会播放真实视频。</p>
+        <p class="ae-note" id="aePlayNote" style="margin-top:9px">当前为演示占位预览（AI 会按导演板自动播放镜头效果）；导出成片后这里会切换为带声音的真实视频。</p>
       </div>
       <div class="ae-side-stack">
         <div class="ae-card ae-side-card">
@@ -861,11 +993,13 @@ html[data-theme="light"][data-page="autoedit"] .ae-skill-art .sk-badge{backgroun
           </div>
           <div class="ae-exp-done" id="expDone" hidden>
             <div class="done-h"><span class="ok">✓</span><span>导出完成</span><small id="expDoneMeta">1080P · MP4</small></div>
-            <div class="ae-url"><code id="expUrl">/ai-nav/autoedit/demo/placeholder.mp4</code><button type="button" class="ae-btn sm" id="btnCopyUrl">复制地址</button></div>
+            <div class="ae-url"><code id="expUrl">/ai-nav/autoedit/demo/placeholder.mp4</code><button type="button" class="ae-btn sm" id="btnCopyUrl">复制链接</button></div>
             <div class="ae-exp-actions">
               <button type="button" class="ae-btn sm primary" id="btnDownload">下载成片</button>
+              <button type="button" class="ae-btn sm" id="btnPlayOnline">在线播放</button>
               <button type="button" class="ae-btn sm" id="btnReexport">重新导出</button>
             </div>
+            <p class="ae-back-hint" id="aeBackHint">💡 <b>带回工作台：</b>成片已生成，可点左上角「← 返回工作台」回到工作台继续处理或发布。<b>本页不会自动下载</b>；需要文件请点「下载成片」。<br><button type="button" class="ae-back-btn" id="aeBackHintBtn">← 带回工作台</button></p>
             <p class="ae-exp-note" id="expNote">演示模式：这里是演示占位地址；真实成片需接入成片服务后生成。</p>
           </div>
           <div class="ae-fail" id="expFail" hidden><div class="fx" id="expFailMsg">导出失败</div><button type="button" class="ae-btn sm" id="btnExpRetry">重试</button></div>
@@ -1004,6 +1138,32 @@ function apiBase() {
     if (i >= 0) return location.origin + p.slice(0, i) + '/api/autoedit';
     return location.origin + API_ROOT;
   } catch (e) { return API_ROOT; }
+}
+
+/* ---------------- embed 模式：← 返回工作台 ---------------- */
+function aeIsEmbed() {
+  try { return !!(window.__AE_EMBED__ || document.documentElement.classList.contains('xl-embed')); } catch (e) { return false; }
+}
+function aeBackToStudio() {
+  var embedded = false;
+  try { embedded = !!(window.parent && window.parent !== window); } catch (e) { embedded = false; }
+  if (embedded) {
+    /* 在 studio 的全屏弹层 iframe 里：通知父页关闭弹层（=回到工作台） */
+    try { window.parent.postMessage({ type: 'xl-autoedit-back', source: 'autoedit' }, location.origin); } catch (e) {}
+    return;
+  }
+  try {
+    var ref = document.referrer || '';
+    if (ref && ref.indexOf(location.origin + '/ai-nav/') === 0 && history.length > 1) { history.back(); return; }
+  } catch (e) {}
+  try { location.href = '/ai-nav/studio/'; } catch (e) { try { location.href = '../studio/'; } catch (e2) {} }
+}
+function bindEmbed() {
+  var b = $('aeBackStudio');
+  var hb = $('aeBackHintBtn');
+  if (hb) hb.addEventListener('click', aeBackToStudio);
+  if (!aeIsEmbed()) return;
+  if (b) { b.hidden = false; b.addEventListener('click', aeBackToStudio); }
 }
 
 /* ---------------- 类型 / 行业 / 素材 ---------------- */
@@ -1161,7 +1321,11 @@ var state = {
   savedSkills: loadSavedSkills(),
   player: { playing: false, t: 0, raf: null, ready: false },
   exportTimer: null,
-  detectDone: false
+  detectDone: false,
+  sound: { muted: false, volume: 100 },
+  tts: { busy: false, url: '', path: '', duration: 0, voice: '' },
+  avatar: { enabled: false, name: '', size: 0, previewUrl: '', dataUrl: '', busy: false },
+  avatarGenerating: false
 };
 if (typeof window.matchMedia === 'function') {
   try { /* 跟随系统主题由全站 theme.js 处理 */ } catch (e) {}
@@ -1393,6 +1557,333 @@ function apiFetch(path, opts) {
   });
 }
 
+/* ==================================================================
+   真实播放 / 试听配音 / 音量 / 数字人口播（体验修复新增）
+   ================================================================== */
+function normalizeMediaUrl(u) {
+  if (!u) return '';
+  var s = String(u);
+  if (/^https?:\/\//i.test(s) || s.indexOf('data:') === 0 || s.indexOf('blob:') === 0) return s;
+  try { return new URL(s, location.origin).href; } catch (e) { return s; }
+}
+function setVideoEl(el, url) {
+  if (!el) return;
+  if (!url) {
+    el.hidden = true;
+    try { el.pause(); } catch (e) {}
+    el.removeAttribute('data-url');
+    el.removeAttribute('src');
+    return;
+  }
+  if (el.getAttribute('data-url') !== url) {
+    try { el.pause(); } catch (e) {}
+    el.setAttribute('data-url', url);
+    el.src = url;
+    try { el.load(); } catch (e) {}
+  }
+  el.hidden = false;
+  applySound();
+}
+function activeVideoEl() {
+  var v = $('aeVideo');
+  if (v && !v.hidden && v.getAttribute('src')) return v;
+  var a = $('aeAvatarVideo');
+  if (a && !a.hidden && a.getAttribute('src')) return a;
+  return null;
+}
+function probeMedia(url) {
+  if (!url) return Promise.resolve({ ok: false, status: 0, contentType: '' });
+  try {
+    return fetch(url, { method: 'HEAD', cache: 'no-store' }).then(function (r) {
+      return { ok: r.ok, status: r.status, contentType: String(r.headers.get('content-type') || '').toLowerCase() };
+    }, function () { return { ok: false, status: 0, contentType: '' }; });
+  } catch (e) { return Promise.resolve({ ok: false, status: 0, contentType: '' }); }
+}
+function tryPlayAudio(audio) {
+  if (!audio) return;
+  try {
+    var pr = audio.play();
+    if (pr && pr.catch) pr.catch(function () {});
+  } catch (e) {}
+}
+function applySound() {
+  var vol = clamp(state.sound.volume, 0, 100) / 100;
+  var muted = !!state.sound.muted;
+  ['aeVideo', 'aeAvatarVideo', 'aeTtsAudio'].forEach(function (id) {
+    var el = $(id);
+    if (!el) return;
+    try { el.volume = vol; el.muted = muted; } catch (e) {}
+  });
+  if ($('aeMuteBtn')) $('aeMuteBtn').setAttribute('aria-pressed', muted ? 'true' : 'false');
+  if ($('aeMuteIco')) $('aeMuteIco').textContent = (muted || vol === 0) ? '🔇' : (vol < 0.5 ? '🔉' : '🔊');
+  if ($('aeMuteTxt')) $('aeMuteTxt').textContent = muted ? '已静音' : '音量开';
+  if ($('aeVolNum')) $('aeVolNum').textContent = Math.round(vol * 100) + '%';
+  var slider = $('aeVolume');
+  if (slider) {
+    var want = String(Math.round(vol * 100));
+    if (slider.value !== want) slider.value = want;
+  }
+}
+function toggleMute() {
+  state.sound.muted = !state.sound.muted;
+  if (!state.sound.muted && state.sound.volume <= 0) state.sound.volume = 70;
+  applySound();
+  toast(state.sound.muted ? '预览已静音' : '预览声音已打开', 'ok', 1600);
+}
+function bindSound() {
+  ['aeVideo', 'aeAvatarVideo'].forEach(function (id) {
+    var el = $(id);
+    if (!el) return;
+    el.addEventListener('volumechange', function () {
+      var v = Math.round((Number(el.volume) || 0) * 100);
+      var m = !!el.muted;
+      if (Math.abs(v - state.sound.volume) > 1 || m !== state.sound.muted) {
+        state.sound.volume = v; state.sound.muted = m;
+        applySound();
+      }
+    });
+    el.addEventListener('play', function () { state.player.playing = true; updatePlayerUI(); });
+    el.addEventListener('pause', function () { if (!el.ended) { state.player.playing = false; updatePlayerUI(); } });
+    el.addEventListener('ended', function () { state.player.playing = false; updatePlayerUI(); });
+    el.addEventListener('timeupdate', function () {
+      if (!el.hidden) { state.player.t = el.currentTime || 0; updatePlayerUI(); }
+    });
+  });
+}
+
+/* ---------------- 试听配音（/tts 真实音频） ---------------- */
+function ttsGenerate(text, voice) {
+  var t = cleanText(text || '');
+  if (!t) return Promise.reject(new Error('没有可配音的文字'));
+  if (t.length > 480) t = t.slice(0, 480);
+  if (state.mode !== 'live') return Promise.reject(new Error('AI 服务未连接'));
+  return apiFetch('/tts', { method: 'POST', timeout: 30000, body: { text: t, voice: voice || state.input.voice, rate: 1 } }).then(function (d) {
+    if (!d || !d.audio_url) throw new Error('配音接口没有返回音频地址');
+    var path = String(d.audio_url);
+    return { url: normalizeMediaUrl(path), path: path, duration: Number(d.duration) || 0, voice: d.voice_label || voice };
+  });
+}
+function ttsUseResult(r, voice) {
+  state.tts = { busy: false, url: r.url, path: r.path, duration: r.duration, voice: voice || r.voice };
+  if ($('aeTtsAudioWrap')) $('aeTtsAudioWrap').hidden = false;
+  var audio = $('aeTtsAudio');
+  if (audio) { audio.src = r.url; applySound(); tryPlayAudio(audio); }
+  if ($('aeTtsDur')) $('aeTtsDur').textContent = (r.duration ? '时长 ' + r.duration.toFixed(1) + ' 秒' : '已生成') + ' · ' + (voice || r.voice || '');
+}
+function previewTts() {
+  if (state.tts.busy) return;
+  var p = state.project;
+  var text = p ? cleanText(p.transcript || '') : cleanText($('aeText') ? $('aeText').value : '');
+  if (!text) { toast('先写一段文案或生成视频，再试听配音', 'warn'); return; }
+  if (text.length > 300) text = text.slice(0, 300);
+  var voice = ($('aeTtsVoice') && $('aeTtsVoice').value) || state.input.voice;
+  if (state.mode !== 'live') { toast('当前为演示数据，无法生成真实配音；AI 服务连接后可试听 MP3', 'warn', 3600); return; }
+  state.tts.busy = true;
+  var btn = $('btnTtsPreview');
+  if (btn) { btn.disabled = true; btn.innerHTML = '<span class="ae-tts-loading"></span>生成中…'; }
+  if ($('aeTtsHint')) $('aeTtsHint').textContent = '正在用「' + voice + '」生成配音，约 2-5 秒…';
+  ttsGenerate(text, voice).then(function (r) {
+    ttsUseResult(r, voice);
+    if (btn) { btn.disabled = false; btn.textContent = '🔊 试听配音'; }
+    if ($('aeTtsHint')) $('aeTtsHint').textContent = '试听地址：' + r.path + '（可换音色重试）';
+    toast('试听配音已生成：' + (r.duration ? r.duration.toFixed(1) + ' 秒' : '已就绪'), 'ok', 2600);
+  }).catch(function (e) {
+    state.tts.busy = false;
+    if (btn) { btn.disabled = false; btn.textContent = '🔊 试听配音'; }
+    if ($('aeTtsHint')) $('aeTtsHint').textContent = '生成失败：' + ((e && e.message) || '请稍后重试') + '，可换音色重试';
+    toast('试听配音生成失败：' + ((e && e.message) || '请稍后重试'), 'err', 3600);
+  });
+}
+
+/* ---------------- 数字人口播 ---------------- */
+function fmtSize(bytes) {
+  bytes = Number(bytes) || 0;
+  if (bytes >= 1024 * 1024) return (bytes / 1024 / 1024).toFixed(1) + ' MB';
+  return Math.max(1, Math.round(bytes / 1024)) + ' KB';
+}
+function updateAvatarUI() {
+  var on = !!state.avatar.enabled;
+  var sw = $('aeAvatarSwitch');
+  if (sw) sw.classList.toggle('on', on);
+  if ($('aeAvatarOn')) $('aeAvatarOn').checked = on;
+  if ($('aeAvatarBox')) $('aeAvatarBox').hidden = !on;
+  var img = $('aeAvatarPreview'), ico = $('aeAvatarIco');
+  var has = !!state.avatar.previewUrl;
+  if (img) {
+    if (has) { if (img.getAttribute('src') !== state.avatar.previewUrl) img.src = state.avatar.previewUrl; img.hidden = false; }
+    else { img.hidden = true; img.removeAttribute('src'); }
+  }
+  if (ico) ico.hidden = has;
+  if ($('aeAvatarMeta')) $('aeAvatarMeta').hidden = !state.avatar.name;
+  if ($('aeAvatarFileMeta')) {
+    $('aeAvatarFileMeta').textContent = state.avatar.name
+      ? (state.avatar.name + ' · ' + fmtSize(state.avatar.size) + (state.avatar.dataUrl ? ' · 已压缩就绪' : ' · 正在处理…'))
+      : '—';
+  }
+  if ($('aeAvatarTip')) $('aeAvatarTip').textContent = state.avatar.name ? '照片已就绪，可点击更换' : '上传一张真人照片';
+}
+function readFileAsDataUrl(file) {
+  return new Promise(function (resolve, reject) {
+    var fr = new FileReader();
+    fr.onload = function () { resolve(String(fr.result || '')); };
+    fr.onerror = function () { reject(new Error('读取照片失败')); };
+    fr.readAsDataURL(file);
+  });
+}
+function shrinkImage(dataUrl, maxSide, quality) {
+  return new Promise(function (resolve) {
+    var img = new Image();
+    img.onload = function () {
+      try {
+        var w = img.naturalWidth || img.width, h = img.naturalHeight || img.height;
+        var k = Math.min(1, (maxSide || 900) / Math.max(1, Math.max(w, h)));
+        var cw = Math.max(2, Math.round(w * k)), ch = Math.max(2, Math.round(h * k));
+        var c = document.createElement('canvas');
+        c.width = cw; c.height = ch;
+        c.getContext('2d').drawImage(img, 0, 0, cw, ch);
+        resolve(c.toDataURL('image/jpeg', quality || 0.84));
+      } catch (e) { resolve(dataUrl); }
+    };
+    img.onerror = function () { resolve(dataUrl); };
+    img.src = dataUrl;
+  });
+}
+function handleAvatarFile(file) {
+  if (!file) return;
+  var name = file.name || '数字人照片';
+  var okType = /^image\//.test(file.type || '') || /\.(jpe?g|png|webp)$/i.test(name);
+  if (!okType) { toast('只支持 JPG / PNG / WebP 照片', 'warn', 3200); return; }
+  if (file.size > 10 * 1024 * 1024) { toast('照片超过 10MB，请压缩或换一张（≤10MB）', 'warn', 3600); return; }
+  state.avatar.name = name;
+  state.avatar.size = file.size;
+  state.avatar.dataUrl = '';
+  try { if (state.avatar.previewUrl && state.avatar.previewUrl.indexOf('blob:') === 0) URL.revokeObjectURL(state.avatar.previewUrl); } catch (e) {}
+  state.avatar.previewUrl = URL.createObjectURL(file);
+  state.avatar.enabled = true;
+  updateAvatarUI();
+  renderAvatarCard();
+  toast('照片已收到，正在压缩处理…', 'ok', 1800);
+  readFileAsDataUrl(file).then(function (raw) { return shrinkImage(raw, 900, 0.84); }).then(function (small) {
+    if (state.avatar.name !== name) return;
+    state.avatar.dataUrl = small;
+    updateAvatarUI();
+    var kb = Math.max(1, Math.round((small.length - (small.indexOf(',') + 1)) * 0.75 / 1024));
+    if (kb > 1600) toast('照片压缩后约 ' + kb + 'KB，可能超出上传上限，建议换一张小一点的图', 'warn', 4200);
+    else toast('照片已就绪：' + name + '（压缩后约 ' + kb + 'KB）', 'ok', 2600);
+  }).catch(function () { toast('照片读取失败，请换一张', 'warn'); });
+}
+function removeAvatar() {
+  try { if (state.avatar.previewUrl && state.avatar.previewUrl.indexOf('blob:') === 0) URL.revokeObjectURL(state.avatar.previewUrl); } catch (e) {}
+  state.avatar = { enabled: false, name: '', size: 0, previewUrl: '', dataUrl: '', busy: false };
+  if ($('aeAvatarFile')) $('aeAvatarFile').value = '';
+  updateAvatarUI();
+  if (state.project && state.project.avatar) { state.project.avatar = null; }
+  renderAvatarCard();
+  if (state.step === 3) prepareStep3();
+  toast('已移除数字人照片，回到普通模式', 'ok', 2600);
+}
+function setAvatarEnabled(on) {
+  state.avatar.enabled = !!on;
+  updateAvatarUI();
+  if (!on) {
+    if (state.project && state.project.avatar) state.project.avatar = null;
+    renderAvatarCard();
+    if (state.step === 3) prepareStep3();
+    toast('已关闭数字人口播，回到普通成片模式', 'ok', 2400);
+  } else {
+    toast('已开启数字人口播：请上传一张主播照片', 'ok', 2400);
+    if ($('aeAvatarDrop')) { try { $('aeAvatarDrop').focus(); } catch (e) {} }
+  }
+}
+function buildAvatarClip(text, input, onNote) {
+  return new Promise(function (resolve, reject) {
+    if (!state.avatar.dataUrl) { reject(new Error('还没有上传数字人照片')); return; }
+    var t = cleanText(text || '');
+    if (!t) { reject(new Error('没有可用于数字人配音的文字')); return; }
+    if (t.length > 480) t = t.slice(0, 480);
+    if (onNote) onNote('正在用「' + (input.voice || '女声·亲切自然') + '」生成数字人口播配音…');
+    ttsGenerate(t, input.voice).then(function (tts) {
+      if (onNote) onNote('正在合成数字人片段（照片 + 口播音轨，未做口型同步）…');
+      return apiFetch('/avatar', {
+        method: 'POST', timeout: 120000,
+        body: {
+          file: state.avatar.dataUrl,
+          audio_url: tts.path,
+          voice: input.voice || '女声·亲切自然',
+          options: { aspect: input.aspect || '9:16', motion: 'slow_push_in' }
+        }
+      }).then(function (d) {
+        var clip = d && (d.avatar_clip_url || d.video_url);
+        if (!clip) throw new Error('数字人接口没有返回视频地址');
+        return {
+          clipUrl: normalizeMediaUrl(clip),
+          downloadUrl: normalizeMediaUrl(d.download_url || clip),
+          coverUrl: normalizeMediaUrl(d.cover || ''),
+          duration: Number(d.duration) || 0,
+          note: d.note || '照片+口播音轨（未做口型同步）',
+          voice: input.voice || '女声·亲切自然',
+          audioUrl: tts.url,
+          createdAt: Date.now()
+        };
+      });
+    }).then(function (clip) { resolve(clip); }).catch(function (e) { reject(e); });
+  });
+}
+function renderAvatarCard(errMsg) {
+  var box = $('aeAvatarCard');
+  if (!box) return;
+  var p = state.project;
+  var av = (p && p.avatar) || null;
+  var waiting = !!(state.avatarGenerating && p);
+  if (!p || (!av && !waiting && !errMsg && !(state.avatar.enabled && state.avatar.dataUrl))) {
+    box.hidden = true; box.innerHTML = ''; return;
+  }
+  box.hidden = false;
+  if (waiting) {
+    box.innerHTML = '<div class="ae-avatar-card"><div class="ae-avatar-clip-body"><h3>🧑 数字人口播 · 生成中…</h3><p class="ae-hint">正在生成配音并合成数字人片段（照片 + 口播音轨），大约 10-30 秒。</p></div></div>';
+    return;
+  }
+  if (errMsg) {
+    box.innerHTML = '<div class="ae-avatar-card"><div class="ae-avatar-err"><span aria-hidden="true">⚠️</span><div style="flex:1 1 220px;min-width:0">数字人片段生成失败：' + esc(errMsg) + '</div><button type="button" class="ae-btn sm" id="btnAvatarRetry" style="flex:0 0 auto">重试生成</button></div></div>';
+    return;
+  }
+  if (!av) {
+    box.innerHTML = '<div class="ae-avatar-card"><div class="ae-avatar-clip-body"><h3>🧑 数字人口播 · 待生成</h3><p class="ae-hint">已上传照片，生成成片时会同步生成数字人片段；也可以点下面按钮单独生成。</p><div class="ae-avatar-clip-actions"><button type="button" class="ae-btn sm primary" id="btnAvatarGenNow">现在生成数字人片段</button></div></div></div>';
+    return;
+  }
+  box.innerHTML = '<div class="ae-avatar-card">' +
+    '<video class="ae-avatar-clip-video" id="aeAvatarClip" controls playsinline preload="metadata"' + (av.coverUrl ? ' poster="' + esc(av.coverUrl) + '"' : '') + ' src="' + esc(av.clipUrl) + '"></video>' +
+    '<div class="ae-avatar-clip-body">' +
+      '<h3>🧑 数字人口播片段 <span class="ae-sum-chip live"><span class="dot"></span>已生成</span></h3>' +
+      '<span class="ae-avatar-clip-note">照片 + 口播音轨（未做口型同步）</span>' +
+      '<p class="ae-hint">时长 ' + (av.duration ? av.duration.toFixed(1) + ' 秒' : '—') + ' · 音色 ' + esc(av.voice || '') + '<br>' + esc(av.note || '照片+口播音轨（未做口型同步）') + '</p>' +
+      '<div class="ae-avatar-clip-actions">' +
+        '<a class="ae-btn sm" href="' + esc(av.downloadUrl || av.clipUrl) + '" target="_blank" rel="noopener" download="数字人片段.mp4">下载片段</a>' +
+        '<button type="button" class="ae-btn sm ghost" id="btnAvatarRegen">重新生成</button>' +
+      '</div>' +
+    '</div>' +
+    '</div>';
+}
+function retryAvatar() {
+  if (!state.project || state.avatarGenerating) return;
+  if (!state.avatar.dataUrl) { toast('先上传一张数字人照片', 'warn'); return; }
+  state.avatarGenerating = true;
+  renderAvatarCard();
+  buildAvatarClip(state.project.transcript || '', { voice: state.project.voice, aspect: state.project.aspect }, function (note) {
+    toast(note, 'ok', 2200);
+  }).then(function (clip) {
+    state.avatarGenerating = false;
+    state.project.avatar = clip;
+    renderAvatarCard();
+    if (state.step === 3) prepareStep3();
+    toast('数字人片段已生成，可在上方预览', 'ok', 2800);
+  }).catch(function (e) {
+    state.avatarGenerating = false;
+    renderAvatarCard((e && e.message) || '请稍后重试');
+    toast('数字人片段生成失败：' + ((e && e.message) || '请稍后重试'), 'err', 3800);
+  });
+}
+
 function setMode(mode) {
   state.mode = mode;
   var pill = $('modePill'), txt = $('modeText'), foot = $('footMode');
@@ -1532,16 +2023,44 @@ function removeFile() {
   var fi = $('aeFile'); if (fi) fi.value = '';
 }
 function tryVoice(voice) {
-  try {
-    if (!('speechSynthesis' in window)) { toast('当前浏览器不支持试听，生成后可换音色', 'warn'); return; }
-    window.speechSynthesis.cancel();
-    var u = new SpeechSynthesisUtterance(VOICE_LINES[voice] || VOICE_LINES['女声·亲切自然']);
-    u.lang = 'zh-CN';
-    u.rate = voice.indexOf('活泼') >= 0 ? 1.12 : (voice.indexOf('男') === 0 ? 0.94 : 1.0);
-    u.pitch = voice.indexOf('男') === 0 ? 0.85 : 1.1;
-    window.speechSynthesis.speak(u);
-    toast('正在试听「' + voice + '」（浏览器语音，仅示意）', 'ok', 2200);
-  } catch (e) { toast('试听暂时不可用，可生成后用「改配音」换音色', 'warn'); }
+  voice = voice || state.input.voice;
+  var ta = $('aeText');
+  var text = cleanText(ta ? ta.value : '');
+  if (text.length < 2) text = VOICE_LINES[voice] || VOICE_LINES['女声·亲切自然'];
+  if (text.length > 200) text = text.slice(0, 200);
+  var btns = $$('.v-play[data-try-voice]');
+  var picked = null;
+  btns.forEach(function (b) {
+    if (b.getAttribute('data-try-voice') === voice) picked = b;
+  });
+  function busy(on) {
+    btns.forEach(function (b) {
+      b.disabled = !!on;
+      b.textContent = (on && b === picked) ? '生成中…' : '▶ 试听';
+    });
+  }
+  if (state.mode !== 'live') {
+    try {
+      if (!('speechSynthesis' in window)) { toast('当前为演示数据，浏览器不支持试听；连接 AI 服务后可试听真实配音', 'warn'); return; }
+      window.speechSynthesis.cancel();
+      var u = new SpeechSynthesisUtterance(text);
+      u.lang = 'zh-CN';
+      u.rate = voice.indexOf('活泼') >= 0 ? 1.1 : (voice.indexOf('男') === 0 ? 0.95 : 1.0);
+      u.pitch = voice.indexOf('男') === 0 ? 0.86 : 1.08;
+      window.speechSynthesis.speak(u);
+      toast('演示模式：用浏览器语音试听「' + voice + '」；连接服务后为真实配音', 'warn', 3000);
+    } catch (e) { toast('试听暂时不可用，生成后可在第 3 步试听配音', 'warn'); }
+    return;
+  }
+  busy(true);
+  ttsGenerate(text, voice).then(function (r) {
+    busy(false);
+    ttsUseResult(r, voice);
+    toast('正在试听「' + voice + '」配音' + (r.duration ? '（' + r.duration.toFixed(1) + ' 秒）' : ''), 'ok', 2600);
+  }).catch(function (e) {
+    busy(false);
+    toast('试听配音生成失败：' + ((e && e.message) || '请稍后重试'), 'err', 3600);
+  });
 }
 function currentInput(override) {
   var o = override || {};
@@ -1665,6 +2184,7 @@ function renderProject() {
   if (!state.project) return;
   state.style = state.project.style || state.style;
   renderSummary(); renderLegend(); renderTimeline(); renderShots(); setStyleUI(state.style);
+  renderAvatarCard();
   drawCoverCanvas();
   resetExportUI();
   if (state.step === 3) prepareStep3();
@@ -2008,10 +2528,11 @@ function cancelGenerate() {
   state.genCancel = true;
   state.genToken++;
   state.genBusy = false;
+  state.avatarGenerating = false;
   closeProgress();
   toast('已取消生成，可以改改文案再来', 'warn');
 }
-function applyGenerated(raw, input) {
+function applyGenerated(raw, input, extra) {
   var segs = (raw.segments || []).slice();
   if (!segs.length) return false;
   var project = {
@@ -2024,12 +2545,13 @@ function applyGenerated(raw, input) {
     createdAt: Date.now(),
     transcript: input.media ? (input.transcript || '') : cleanText(input.text),
     segments: segs,
-    plan: raw.plan || {}
+    plan: raw.plan || {},
+    avatar: (extra && extra.avatar) ? extra.avatar : null
   };
   state.project = project;
   retime();
   state.selectedSeg = segs[0].id;
-  state.exportState = { quality: state.exportState.quality || '1080p', status: 'idle', progress: 0, url: '', cover: '' };
+  state.exportState = { quality: state.exportState.quality || '1080p', status: 'idle', progress: 0, url: '', downloadUrl: '', cover: '' };
   state.coverVariant = 0;
   if ($('aeCaption')) $('aeCaption').value = captionFor(project.industry, 'douyin');
   addQuota();
@@ -2058,6 +2580,19 @@ function startGenerate(opts) {
     switchInputKind('media');
     return;
   }
+  var avatarWanted = !!state.avatar.enabled;
+  if (avatarWanted) {
+    if (!state.avatar.dataUrl) {
+      toast('已开启数字人口播：请先上传一张主播照片，或关闭该开关', 'warn', 3800);
+      if ($('aeAvatarBox')) $('aeAvatarBox').hidden = false;
+      try { $('aeAvatarDrop').focus(); } catch (e) {}
+      return;
+    }
+    if (state.mode !== 'live') {
+      avatarWanted = false;
+      toast('演示数据模式暂不支持数字人；已按普通模式生成，连接 AI 服务后可生成数字人', 'warn', 4200);
+    }
+  }
   var mediaNote = input.kind === 'media';
   if (mediaNote) {
     input.transcript = (INDUSTRY[input.industry] || INDUSTRY['除甲醛']).sample;
@@ -2083,15 +2618,31 @@ function startGenerate(opts) {
       return n;
     }).catch(function () { liveFailed = true; return null; });
   }
+  /* 数字人：先生成 TTS，再调 /avatar，和分镜生成并行跑 */
+  var avatarPromise = null;
+  if (avatarWanted) {
+    state.avatarGenerating = true;
+    var avatarText = input.kind === 'media' ? (input.transcript || '') : cleanText(input.text);
+    avatarPromise = Promise.resolve().then(function () {
+      return buildAvatarClip(avatarText, input, function (note) {
+        if ($('aeProgNoteText')) $('aeProgNoteText').textContent = note;
+      });
+    }).catch(function (e) {
+      return { error: (e && e.message) || '数字人片段生成失败' };
+    });
+  } else {
+    state.avatarGenerating = false;
+  }
   openProgress(
     opts.skillName ? '正在套用 Skill：' + opts.skillName : (opts.regen ? 'AI 正在重新排片' : 'AI 正在为你排片'),
     state.mode === 'live' ? '正在连接 AI 服务，请稍候。' : '整个过程大约 30 秒，你可以先去倒杯水。'
   );
+  if (avatarWanted && $('aeProgSub')) $('aeProgSub').textContent = '正在生成分镜与数字人口播片段，请稍候。';
   var started = Date.now();
   var stageNotes = [
     '正在听懂你的文案，找出重点句…',
     '正在为每个镜头匹配门店画面…',
-    '正在用「' + input.voice + '」生成配音…',
+    '正在用「' + input.voice + '」生成配音' + (avatarWanted ? '与数字人片段' : '') + '…',
     '正在把画面、字幕和配音合成成片…'
   ];
   var capFor = function () { return state.mode === 'live' ? 92 : 100; };
@@ -2104,30 +2655,46 @@ function startGenerate(opts) {
     updateProgress(progress, stage, stageNotes[stage]);
   }, 90);
   var waiters = [delay(minDelay)];
-  if (livePromise) waiters.push(livePromise);
+  var liveSlot = null, avatarSlot = null;
+  if (livePromise) { liveSlot = waiters.length; waiters.push(livePromise); }
+  if (avatarPromise) { avatarSlot = waiters.length; waiters.push(avatarPromise); }
   Promise.all(waiters).then(function (arr) {
     if (token !== state.genToken || state.genCancel) return;
     if (liveFailed && state.mode === 'live') {
       setMode('demo');
       toast('AI 服务暂时不可用，已切换为演示数据继续生成', 'warn', 3600);
     }
-    var apiResult = arr[1] || null;
+    var apiResult = liveSlot != null ? (arr[liveSlot] || null) : null;
+    var avatarResult = avatarSlot != null ? (arr[avatarSlot] || null) : null;
     var result = apiResult || mockResult;
     if (result && result.__source === 'live') setMode('live');
-    updateProgress(100, 3, '完成！导演板已经排好了。');
+    updateProgress(100, 3, avatarWanted ? '完成！导演板与数字人片段都已排好。' : '完成！导演板已经排好了。');
     if (state.genTimer) { clearInterval(state.genTimer); state.genTimer = null; }
     return delay(360).then(function () {
       if (token !== state.genToken || state.genCancel) return;
       closeProgress();
       state.genBusy = false;
-      var ok = applyGenerated(result, input);
+      var ok = applyGenerated(result, input, { avatar: (avatarResult && !avatarResult.error) ? avatarResult : null });
+      state.avatarGenerating = false;
       if (!ok) { toast('生成结果为空，请重试', 'err'); return; }
-      if (mediaNote) toast('演示模式：已用行业示例文字模拟听写，已排好 ' + state.project.segments.length + ' 个镜头', 'warn', 3400);
-      else toast('已排好 ' + state.project.segments.length + ' 个镜头，去导演板看看', 'ok', 2400);
+      if (avatarWanted) {
+        if (avatarResult && avatarResult.error) {
+          toast('数字人片段生成失败：' + avatarResult.error + '（可稍后在导演板重试）', 'warn', 5600);
+        } else if (avatarResult) {
+          toast('已排好 ' + state.project.segments.length + ' 个镜头 + 数字人片段，去导演板看看', 'ok', 2800);
+        } else {
+          toast('已排好 ' + state.project.segments.length + ' 个镜头，去导演板看看', 'ok', 2400);
+        }
+      } else if (mediaNote) {
+        toast('已用行业示例文字模拟听写，排好 ' + state.project.segments.length + ' 个镜头', 'warn', 3400);
+      } else {
+        toast('已排好 ' + state.project.segments.length + ' 个镜头，去导演板看看', 'ok', 2400);
+      }
       goStep(opts.jumpStep || 2);
     });
   }).catch(function () {
     if (token !== state.genToken) return;
+    state.avatarGenerating = false;
     if (state.genTimer) { clearInterval(state.genTimer); state.genTimer = null; }
     closeProgress();
     state.genBusy = false;
@@ -2389,12 +2956,9 @@ function updatePlayerUI() {
 }
 function playPlayer() {
   if (!state.project) return;
-  var video = $('aeVideo');
-  if (video && !video.hidden) {
-    try {
-      var pr = video.play();
-      if (pr && pr.catch) pr.catch(function () {});
-    } catch (e) {}
+  var video = activeVideoEl();
+  if (video) {
+    try { var pr = video.play(); if (pr && pr.catch) pr.catch(function () {}); } catch (e) {}
     state.player.playing = true;
     updatePlayerUI();
     var vLoop = function () {
@@ -2432,8 +2996,8 @@ function playPlayer() {
 function pausePlayer() {
   state.player.playing = false;
   if (state.player.raf) { try { cancelAnimationFrame(state.player.raf); } catch (e) {} state.player.raf = null; }
-  var v = $('aeVideo');
-  if (v && !v.hidden) { try { v.pause(); } catch (e) {} }
+  var video = activeVideoEl();
+  if (video) { try { video.pause(); } catch (e) {} }
   updatePlayerUI();
 }
 function togglePlay() {
@@ -2444,31 +3008,68 @@ function togglePlay() {
 function prepareStep3() {
   var p = state.project;
   if (!p) return;
-  if ($('aePlayer')) $('aePlayer').className = 'ae-player' + (p.aspect === '16:9' ? ' a-16x9' : p.aspect === '1:1' ? ' a-1x1' : '');
+  var player = $('aePlayer');
+  if (player) player.className = 'ae-player' + (p.aspect === '16:9' ? ' a-16x9' : p.aspect === '1:1' ? ' a-1x1' : '');
   if ($('playerAspect')) $('playerAspect').textContent = aspectLabel(p.aspect);
-  var video = $('aeVideo'), canvas = $('aeCanvas');
-  if (p.videoUrl && video && canvas) {
-    video.hidden = false; canvas.style.display = 'none';
-    if (video.src !== p.videoUrl) { try { video.src = p.videoUrl; } catch (e) {} }
-    if ($('playerPill')) { $('playerPill').className = 'ae-pill-tag live'; $('playerPill').textContent = '真实成片'; }
-    if ($('aePlayNote')) $('aePlayNote').textContent = '正在播放成片预览；导出后可下载 MP4。';
-  } else if (video && canvas) {
-    video.hidden = true; canvas.style.display = 'block';
+  var video = $('aeVideo'), avatarVid = $('aeAvatarVideo'), canvas = $('aeCanvas');
+  var hasReal = !!(p.videoUrl && String(p.videoUrl).indexOf('/demo/') < 0);
+  var avatar = (p.avatar && p.avatar.clipUrl) ? p.avatar : null;
+  pausePlayer();
+  if (hasReal) {
+    if (canvas) canvas.style.display = 'none';
+    setVideoEl(avatarVid, '');
+    setVideoEl(video, p.videoUrl);
+    if ($('aePlayBtn')) $('aePlayBtn').hidden = true;
+    if ($('aePlayerBar')) $('aePlayerBar').hidden = true;
+    if ($('aeAvatarShotList')) $('aeAvatarShotList').hidden = true;
+    if ($('playerPill')) { $('playerPill').className = 'ae-pill-tag live'; $('playerPill').textContent = '真实成片 · 有声'; }
+    if ($('aePlayNote')) {
+      $('aePlayNote').textContent = avatar
+        ? '真实成片已就绪：带配音与背景音乐，可直接拖动进度、调音量。数字人片段为独立素材（后台暂未合成进成片），可在导演板单独预览 / 下载。'
+        : '真实成片已就绪：带配音与背景音乐，可直接拖动进度、调音量；导出卡片可下载或复制链接。';
+    }
+  } else if (avatar) {
+    if (canvas) canvas.style.display = 'none';
+    setVideoEl(video, '');
+    setVideoEl(avatarVid, avatar.clipUrl);
+    if ($('aePlayBtn')) $('aePlayBtn').hidden = true;
+    if ($('aePlayerBar')) $('aePlayerBar').hidden = true;
+    if ($('aeAvatarShotList')) {
+      $('aeAvatarShotList').hidden = false;
+      $('aeAvatarShotList').innerHTML = '<b>成片镜头文案（' + p.segments.length + ' 个镜头，导出后合成完整成片）</b><ol>' +
+        p.segments.slice(0, 8).map(function (s) { return '<li>' + esc(s.text || '') + '</li>'; }).join('') + '</ol>';
+    }
+    if ($('playerPill')) { $('playerPill').className = 'ae-pill-tag live'; $('playerPill').textContent = '数字人片段'; }
+    if ($('aePlayNote')) $('aePlayNote').textContent = '当前播放数字人片段（照片 + 口播音轨，未做口型同步）。点「开始导出」渲染完整成片后，这里会切换为带声音的真实成片。';
+  } else {
+    setVideoEl(video, '');
+    setVideoEl(avatarVid, '');
+    if (canvas) canvas.style.display = 'block';
+    if ($('aePlayBtn')) $('aePlayBtn').hidden = false;
+    if ($('aePlayerBar')) $('aePlayerBar').hidden = false;
+    if ($('aeAvatarShotList')) $('aeAvatarShotList').hidden = true;
     if ($('playerPill')) { $('playerPill').className = 'ae-pill-tag'; $('playerPill').textContent = '演示占位'; }
-    if ($('aePlayNote')) $('aePlayNote').textContent = '当前为演示占位预览（AI 会按导演板自动播放镜头效果）；接入成片成片服务后，这里会播放真实视频。';
+    if ($('aePlayNote')) $('aePlayNote').textContent = '当前为演示占位预览（AI 会按导演板自动播放镜头效果）；点「开始导出」渲染完成后，这里会播放带声音的真实成片。';
   }
   if ($('aePlayerMeta')) {
     $('aePlayerMeta').innerHTML = '<span class="ae-sum-chip">' + p.segments.length + ' 个镜头</span>' +
       '<span class="ae-sum-chip">' + Math.round(p.plan.duration) + ' 秒</span>' +
       '<span class="ae-sum-chip">' + esc(aspectLabel(p.aspect)) + '</span>' +
-      '<span class="ae-sum-chip">' + esc(p.voice) + '</span>';
+      '<span class="ae-sum-chip">' + esc(p.voice) + '</span>' +
+      (avatar ? '<span class="ae-sum-chip live"><span class="dot"></span>数字人片段</span>' : '');
+  }
+  if ($('aeTtsVoice')) $('aeTtsVoice').value = p.voice || state.input.voice || '女声·亲切自然';
+  if ($('aeTtsHint')) {
+    $('aeTtsHint').textContent = state.tts.url
+      ? '试听地址：' + (state.tts.path || '') + '（可换音色重试）'
+      : '用成片同一套配音生成 MP3，可换音色重试';
   }
   if ($('aeCaption') && !cleanText($('aeCaption').value)) $('aeCaption').value = captionFor(p.industry, 'douyin');
   if (!state.player.t || state.player.t > p.plan.duration) state.player.t = 0;
+  applySound();
   updatePlayerUI();
-  requestAnimationFrame(function () { sizeCanvas(); drawFrame(state.player.t); });
+  if (!hasReal && !avatar) requestAnimationFrame(function () { sizeCanvas(); drawFrame(state.player.t); });
 }
-
 /* ==================================================================
    第 3 步：导出
    ================================================================== */
@@ -2498,6 +3099,7 @@ function resetExportUI() {
   if ($('expProgress')) $('expProgress').hidden = true;
   if ($('expDone')) $('expDone').hidden = true;
   if ($('expFail')) $('expFail').hidden = true;
+  if ($('aeAudioWarn')) $('aeAudioWarn').hidden = true;
   if ($('expFill')) $('expFill').style.width = '0%';
   if ($('expPct')) $('expPct').textContent = '0%';
   if ($('expStatus')) $('expStatus').textContent = '正在准备素材';
@@ -2517,25 +3119,56 @@ function updateExpUI(pct) {
   if ($('expStage')) $('expStage').textContent = st.d;
 }
 function placeholderUrl() { return '/ai-nav/autoedit/demo/autoedit_' + (state.exportState.quality || '1080p') + '.mp4'; }
-function finishExport(url, cover) {
+function finishExport(url, cover, task) {
+  var real = !!(url && String(url).indexOf('/demo/') < 0);
   state.exportState.status = 'done';
   state.exportState.progress = 100;
-  state.exportState.url = url || placeholderUrl();
+  state.exportState.url = real ? normalizeMediaUrl(url) : (url || placeholderUrl());
+  state.exportState.downloadUrl = normalizeMediaUrl((task && task.download_url) || '') || state.exportState.url;
   state.exportState.cover = cover || '';
+  state.exportState.task = task || null;
   updateExpUI(100);
   if (state.exportTimer) { clearInterval(state.exportTimer); state.exportTimer = null; }
   if ($('btnExport')) { $('btnExport').disabled = true; $('btnExport').textContent = '导出完成'; }
   if ($('expProgress')) $('expProgress').hidden = false;
   if ($('expDone')) $('expDone').hidden = false;
   if ($('expUrl')) $('expUrl').textContent = state.exportState.url;
-  if ($('expDoneMeta') && state.project) $('expDoneMeta').textContent = String(state.exportState.quality).toUpperCase() + ' · MP4 · ' + Math.round(state.project.plan.duration) + ' 秒';
+  if ($('expDoneMeta') && state.project) {
+    var meta = String(state.exportState.quality).toUpperCase() + ' · MP4 · ' + Math.round(state.project.plan.duration) + ' 秒';
+    if (real && task && task.duration) meta = String(state.exportState.quality).toUpperCase() + ' · MP4 · ' + Number(task.duration).toFixed(1) + ' 秒';
+    $('expDoneMeta').textContent = meta;
+  }
   if ($('expNote')) {
-    $('expNote').textContent = (state.mode === 'live' && state.exportState.url.indexOf('/demo/') < 0)
-      ? '导出完成：可下载 MP4，或复制文案到平台发布。'
+    $('expNote').textContent = real
+      ? '导出完成：真实成片地址已生成，可直接播放 / 下载 / 复制链接；发布前请人工确认内容。'
       : '演示模式：这里是演示占位地址，真实成片需接入成片服务后生成（页面其他交互不受影响）。';
   }
-  if (cover && $('aeCoverImg')) $('aeCoverImg').src = cover;
-  toast('导出完成', 'ok', 2400);
+  if (real && state.project) {
+    state.project.videoUrl = state.exportState.url;
+    if (cover) state.project.videoCover = normalizeMediaUrl(cover);
+    prepareStep3();
+    verifyRenderVideo(state.exportState.url, task);
+  }
+  if (cover && $('aeCoverImg')) $('aeCoverImg').src = normalizeMediaUrl(cover);
+  toast(real ? '导出完成：已生成可播放的真实成片' : '导出完成', 'ok', 2600);
+}
+function verifyRenderVideo(url, task) {
+  var warn = $('aeAudioWarn');
+  var bad = !!(task && (task.voice_ok === false || task.voice_fallback === true || (task.has_audio === false)));
+  if (warn) {
+    if (bad) {
+      warn.hidden = false;
+      warn.innerHTML = '<span aria-hidden="true">⚠️</span><div><b>该版本音轨为空（配音回退为静音），请重新生成。</b>点「重新导出」再渲染一次；若连续出现，可换一个音色或把文案缩短。</div>';
+    } else {
+      warn.hidden = true;
+    }
+  }
+  if (bad) toast('该版本无音轨，请重新生成', 'warn', 4600);
+  probeMedia(url).then(function (info) {
+    if (info && info.status && info.contentType && info.contentType.indexOf('video') < 0) {
+      toast('成片地址返回的内容不是视频（' + info.contentType + '），请重新导出', 'warn', 4600);
+    }
+  });
 }
 function failExport(msg) {
   state.exportState.status = 'error';
@@ -2576,12 +3209,16 @@ function pollRender(taskId, started) {
     if (isFinite(pct)) {
       if (pct >= 0 && pct <= 1 && pct !== 1) pct = pct * 100;
       updateExpUI(pct);
+      if ($('expStage')) {
+        var stageTxt = (d && d.stage) ? String(d.stage) : '';
+        if (stageTxt) $('expStage').textContent = '后台渲染中：' + stageTxt;
+      }
     }
     var st = String((d && d.status) || '').toLowerCase();
-    if (st === 'done' || st === 'success' || st === 'succeeded' || (d && d.url)) { finishExport(d.url || '', d.cover || ''); return; }
-    if (st === 'failed' || st === 'error') { failExport((d && (d.hint || d.message)) || '成片合成失败，请重试'); return; }
-    if (Date.now() - started > 180000) { failExport('导出时间有点久，请重试'); return; }
-    setTimeout(function () { pollRender(taskId, started); }, 900);
+    if (st === 'done' || st === 'success' || st === 'succeeded' || (d && d.url)) { finishExport(d.url || '', d.cover || '', d); return; }
+    if (st === 'failed' || st === 'error') { failExport((d && (d.hint || d.error || d.message)) || '成片合成失败，请重试'); return; }
+    if (Date.now() - started > 300000) { failExport('导出时间有点久，请重试'); return; }
+    setTimeout(function () { pollRender(taskId, started); }, 1000);
   }).catch(function () { failExport('导出任务查询失败，请重试'); });
 }
 function startExport() {
@@ -2589,12 +3226,31 @@ function startExport() {
   if (state.exportState.status === 'running') return;
   if (state.exportTimer) { clearInterval(state.exportTimer); state.exportTimer = null; }
   state.exportState.status = 'running';
+  state.exportState.hasVideo = false;
   if ($('expDone')) $('expDone').hidden = true;
   if ($('expFail')) $('expFail').hidden = true;
+  if ($('aeAudioWarn')) $('aeAudioWarn').hidden = true;
   if ($('btnExport')) { $('btnExport').disabled = true; $('btnExport').textContent = '正在导出…'; }
   updateExpUI(0);
-  if (state.mode === 'live' && state.project.source === 'live') liveExport();
-  else demoExport();
+  if (state.mode === 'live') {
+    if (state.project.source === 'live') {
+      liveExport();
+    } else {
+      /* 演示数据来源的工程：先登记到后端，再走真实渲染 */
+      if ($('expStage')) $('expStage').textContent = '正在把工程同步到渲染服务…';
+      apiFetch('/projects', {
+        method: 'POST', timeout: 12000,
+        body: {
+          project_id: state.project.id, name: state.project.industry + '短视频',
+          industry: state.project.industry, aspect: state.project.aspect, style: state.project.style,
+          duration: state.project.plan.duration, segments: state.project.segments, plan: state.project.plan
+        }
+      }).then(function () { state.project.source = 'live'; liveExport(); })
+        .catch(function (e) { failExport('导出失败：' + ((e && e.message) || '工程同步失败，请重试')); });
+    }
+  } else {
+    demoExport();
+  }
 }
 function copyText(text) {
   function legacy() {
@@ -2629,20 +3285,35 @@ function downloadBlob(name, blob) {
 function downloadTextFile(name, text) { return downloadBlob(name, new Blob([text], { type: 'text/plain;charset=utf-8' })); }
 function copyExportUrl() {
   var url = (state.exportState.status === 'done' && state.exportState.url) ? state.exportState.url : placeholderUrl();
-  copyText(url).then(function (ok) { toast(ok ? '地址已复制' : '复制失败，请手动选中地址复制', ok ? 'ok' : 'warn'); });
+  copyText(url).then(function (ok) { toast(ok ? '成片链接已复制' : '复制失败，请手动选中链接复制', ok ? 'ok' : 'warn'); });
 }
 function downloadVideo() {
   if (state.exportState.status !== 'done') { toast('先完成导出，再下载成片', 'warn'); return; }
+  var url = state.exportState.downloadUrl || state.exportState.url;
+  if (!url || String(url).indexOf('/demo/') >= 0) {
+    toast('演示模式不提供真实视频文件：可先下载封面；渲染出真实成片后可下载 MP4。', 'warn', 3800);
+    return;
+  }
+  var name = '门店短视频-' + (state.project ? state.project.industry : '成片') + '-' + (state.exportState.quality || '1080p') + '.mp4';
+  try {
+    var a = document.createElement('a');
+    a.href = url; a.download = name; a.target = '_blank'; a.rel = 'noopener';
+    document.body.appendChild(a); a.click(); document.body.removeChild(a);
+    toast('已开始下载成片；若浏览器直接打开，请右键另存为', 'ok', 3600);
+  } catch (e) { toast('下载失败，请复制链接手动下载', 'warn'); }
+}
+function playOnline() {
+  if (state.exportState.status !== 'done' || !state.project) { toast('先导出成片，再在线播放', 'warn'); return; }
   var url = state.exportState.url;
-  if (url && url.indexOf('/demo/') < 0) {
-    try {
-      var a = document.createElement('a');
-      a.href = url; a.target = '_blank'; a.rel = 'noopener';
-      document.body.appendChild(a); a.click(); document.body.removeChild(a);
-      toast('已开始下载成片', 'ok');
-    } catch (e) { toast('下载失败，请打开成片地址手动保存', 'warn'); }
-  } else {
-    toast('演示模式不提供真实视频文件：可先下载封面或发布包；接入成片服务后可下载 MP4。', 'warn', 3600);
+  if (!url || String(url).indexOf('/demo/') >= 0) { toast('演示模式没有真实成片，渲染完成后才能在线播放', 'warn', 3200); return; }
+  state.project.videoUrl = url;
+  state.step = 3;
+  prepareStep3();
+  var v = $('aeVideo');
+  if (v) {
+    try { v.scrollIntoView({ behavior: 'smooth', block: 'center' }); } catch (e) {}
+    var pr = v.play(); if (pr && pr.catch) pr.catch(function () {});
+    toast('正在播放真实成片（带声音）', 'ok', 2200);
   }
 }
 function downloadCover() {
@@ -2947,6 +3618,54 @@ function bindUi() {
     var ap = e.target.closest('[data-apply-skill]');
     if (ap) { e.preventDefault(); applySkill(ap.getAttribute('data-apply-skill')); return; }
   });
+  /* 数字人口播 / 试听配音 / 音量（体验修复新增） */
+  if ($('aeAvatarOn')) {
+    $('aeAvatarOn').addEventListener('change', function () { setAvatarEnabled(!!$('aeAvatarOn').checked); });
+  }
+  if ($('aeAvatarDrop')) {
+    $('aeAvatarDrop').addEventListener('click', function () { if ($('aeAvatarFile')) $('aeAvatarFile').click(); });
+    $('aeAvatarDrop').addEventListener('keydown', function (e) {
+      if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); if ($('aeAvatarFile')) $('aeAvatarFile').click(); }
+    });
+    ['dragenter', 'dragover'].forEach(function (ev) {
+      $('aeAvatarDrop').addEventListener(ev, function (e) { e.preventDefault(); $('aeAvatarDrop').classList.add('over'); });
+    });
+    ['dragleave', 'drop'].forEach(function (ev) {
+      $('aeAvatarDrop').addEventListener(ev, function (e) { e.preventDefault(); $('aeAvatarDrop').classList.remove('over'); });
+    });
+    $('aeAvatarDrop').addEventListener('drop', function (e) {
+      var f = e.dataTransfer && e.dataTransfer.files && e.dataTransfer.files[0];
+      if (f) handleAvatarFile(f);
+    });
+  }
+  if ($('aeAvatarFile')) $('aeAvatarFile').addEventListener('change', function () {
+    var f = $('aeAvatarFile').files && $('aeAvatarFile').files[0];
+    if (f) handleAvatarFile(f);
+  });
+  if ($('btnAvatarRemove')) $('btnAvatarRemove').addEventListener('click', function (e) {
+    e.preventDefault(); e.stopPropagation(); removeAvatar();
+  });
+  if ($('aeAvatarCard')) $('aeAvatarCard').addEventListener('click', function (e) {
+    if (!e.target || !e.target.closest) return;
+    if (e.target.closest('#btnAvatarRegen') || e.target.closest('#btnAvatarGenNow') || e.target.closest('#btnAvatarRetry')) {
+      e.preventDefault(); retryAvatar();
+    }
+  });
+  if ($('btnTtsPreview')) $('btnTtsPreview').addEventListener('click', previewTts);
+  if ($('aeTtsVoice')) $('aeTtsVoice').addEventListener('change', function () {
+    state.input.voice = $('aeTtsVoice').value;
+    setVoice(state.input.voice);
+    if (state.project) state.project.voice = state.input.voice;
+    if ($('aeTtsHint')) $('aeTtsHint').textContent = '已切换为「' + state.input.voice + '」，点「试听配音」重新生成';
+  });
+  if ($('aeMuteBtn')) $('aeMuteBtn').addEventListener('click', toggleMute);
+  if ($('aeVolume')) $('aeVolume').addEventListener('input', function () {
+    state.sound.volume = clamp(Number($('aeVolume').value), 0, 100);
+    if (state.sound.volume > 0) state.sound.muted = false;
+    applySound();
+  });
+  if ($('btnPlayOnline')) $('btnPlayOnline').addEventListener('click', playOnline);
+  bindSound();
   /* 键盘 / 窗口 / 主题 */
   document.addEventListener('keydown', function (e) {
     if (e.key !== 'Escape') return;
@@ -2982,7 +3701,10 @@ function boot() {
   updatePlanChip();
   setMode('detecting');
   renderSkillGrid();
+  updateAvatarUI();
+  applySound();
   bindUi();
+  bindEmbed();
   goStep(1, true);
   detectMode();
   if ($('aeCaption')) $('aeCaption').value = captionFor(state.input.industry, 'douyin');

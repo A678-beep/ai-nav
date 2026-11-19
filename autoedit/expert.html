@@ -493,6 +493,13 @@ html[data-theme="light"] .ae-modalrow span{color:#64748b}
 html[data-theme="light"] .ae-progress-txt{color:#64748b}
 .ae-modalactions{display:flex;gap:8px;justify-content:flex-end;margin-top:14px;flex-wrap:wrap}
 .ae-modalactions .ae-btn{height:30px}
+.ae-exp-result{margin-top:10px;padding:10px;border:1px solid rgba(148,163,184,.24);border-radius:11px;background:rgba(2,8,20,.4)}
+html[data-theme="light"] .ae-exp-result{background:#f1f5f9;border-color:#dbe3ee}
+.ae-exp-result video{display:block;width:100%;max-height:300px;border-radius:8px;background:#000;margin:0 auto;outline:none}
+.ae-exp-links{display:flex;gap:7px;flex-wrap:wrap;margin-top:9px;justify-content:center}
+.ae-exp-links .ae-btn{height:28px;font-size:11px;text-decoration:none;display:inline-flex;align-items:center}
+.ae-exp-tip{margin:8px 0 0;font-size:10.5px;line-height:1.6;color:#8ea0b8;text-align:center}
+html[data-theme="light"] .ae-exp-tip{color:#64748b}
 .ae-help{display:grid;grid-template-columns:1fr 1fr;gap:6px 14px;margin:10px 0 2px}
 .ae-help div{display:flex;justify-content:space-between;gap:8px;font-size:11px;padding:4px 0;border-bottom:1px dashed rgba(148,163,184,.16)}
 .ae-help span{color:#9fb0c7}
@@ -738,6 +745,15 @@ html[data-theme="light"] .ae-modal .ae-btn{color:#0f172a;border-color:rgba(15,23
     <div class="ae-modalrow"><span>输出</span><b id="expMeta3">/autoedit/render</b></div>
     <div class="ae-progress"><i id="expBar"></i></div>
     <div class="ae-progress-txt"><span id="expPct">0%</span><span id="expState">准备中</span></div>
+    <div class="ae-exp-result" id="expResult" hidden>
+      <video id="expVideo" controls playsinline preload="metadata"></video>
+      <div class="ae-exp-links">
+        <a class="ae-btn" id="expVideoLink" href="#" target="_blank" rel="noopener">在线打开</a>
+        <button class="ae-btn primary" id="expVideoDownload" type="button" hidden>下载成片</button>
+        <button class="ae-btn" id="expVideoCopy" type="button">复制链接</button>
+      </div>
+      <p class="ae-exp-tip">真实成片由后端 ffmpeg 渲染，带配音与背景音乐；可直接拖动进度 / 调音量。</p>
+    </div>
     <div class="ae-modalactions">
       <button class="ae-btn" id="expDownload" type="button">下载工程 JSON</button>
       <button class="ae-btn primary" id="expClose" type="button">关闭</button>
@@ -970,7 +986,7 @@ html[data-theme="light"] .ae-modal .ae-btn{color:#0f172a;border-color:rgba(15,23
     pps: 62, snap: true, selectedClipId: null, selectedKfId: null,
     kfProp: 'scale', curve: 'easeInOut', safe: false,
     apiOnline: false, dirty: false, saving: false, savedAt: null,
-    exporting: false, autoTimer: null, lastAuto: 0, nlBusy: false,
+    exporting: false, autoTimer: null, lastAuto: 0, nlBusy: false, expPollTimer: null,
     stageW: 0, stageH: 0, fitTry: 0
   };
   var history = { past: [], future: [] };
@@ -1166,6 +1182,12 @@ html[data-theme="light"] .ae-modal .ae-btn{color:#0f172a;border-color:rgba(15,23
       throw e;
     });
   }
+  function absUrl(u) {
+    if (!u) return '';
+    var s = String(u);
+    if (/^https?:\/\//i.test(s) || s.indexOf('data:') === 0 || s.indexOf('blob:') === 0) return s;
+    try { return new URL(s, location.origin).href; } catch (e) { return s; }
+  }
   function saveProject(manual) {
     if (!project) return;
     if (ui.saving) return;
@@ -1184,52 +1206,138 @@ html[data-theme="light"] .ae-modal .ae-btn{color:#0f172a;border-color:rgba(15,23
       apiFetch('/projects/' + project.id, { method: 'PUT', body: JSON.stringify(project) }, 2500).then(function () {
         finish(true, true);
       }).catch(function () {
+        /* 后端在线但工程尚未登记时会 404：只标记本地保存，不降级 API 状态（导出仍走真实渲染） */
         finish(true, false);
-        ui.apiOnline = false;
-        updateMockPill();
       });
     } else {
       setTimeout(function () { finish(true, false); }, 280);
     }
   }
+  function expSetProgress(pct, text) {
+    var bar = $('#expBar'), p = $('#expPct'), st = $('#expState');
+    pct = Math.max(0, Math.min(100, Number(pct) || 0));
+    if (bar) bar.style.width = pct + '%';
+    if (p) p.textContent = Math.round(pct) + '%';
+    if (st && text) st.textContent = text;
+  }
+  function expReset() {
+    if (ui.expTimer) { clearInterval(ui.expTimer); ui.expTimer = null; }
+    if (ui.expPollTimer) { clearTimeout(ui.expPollTimer); ui.expPollTimer = null; }
+    var res = $('#expResult'); if (res) res.hidden = true;
+    var v = $('#expVideo'); if (v) { try { v.pause(); } catch (e) { } }
+    var dl = $('#expVideoDownload'); if (dl) { dl.hidden = true; dl.removeAttribute('data-url'); }
+    var meta = $('#expMeta3');
+    if (meta) meta.textContent = ui.apiOnline ? 'POST /render' : 'mock · 浏览器本地';
+  }
+  function expShowResult(url) {
+    var full = absUrl(url);
+    ui.exporting = false;
+    if (ui.expTimer) { clearInterval(ui.expTimer); ui.expTimer = null; }
+    if (ui.expPollTimer) { clearTimeout(ui.expPollTimer); ui.expPollTimer = null; }
+    var res = $('#expResult'), v = $('#expVideo'), link = $('#expVideoLink');
+    if (v) {
+      if (v.getAttribute('src') !== full) v.src = full;
+      v.hidden = false;
+      try { var pr = v.play(); if (pr && pr.catch) pr.catch(function () { }); } catch (e) { }
+    }
+    if (res) res.hidden = false;
+    if (link) link.href = full;
+    var dl = $('#expVideoDownload');
+    if (dl) { dl.hidden = false; dl.setAttribute('data-url', full); }
+    var meta = $('#expMeta3'); if (meta) meta.textContent = full;
+    var desc = $('#exportDesc'); if (desc) desc.textContent = '渲染完成：真实成片已生成，可直接预览 / 下载 / 复制链接。';
+    expSetProgress(100, '完成');
+    toast('导出完成（API 真实成片）· ' + duration().toFixed(1) + 's', 'ok', 4200);
+  }
+  function expPoll(taskId, started) {
+    ui.expPollTimer = setTimeout(function () {
+      apiFetch('/task/' + encodeURIComponent(taskId), { method: 'GET' }, 15000).then(function (d) {
+        if (!d) throw new Error('任务返回为空');
+        var pct = Number(d.progress);
+        if (isFinite(pct)) {
+          if (pct >= 0 && pct <= 1 && pct !== 1) pct = pct * 100;
+          expSetProgress(pct, '后台渲染：' + (d.stage || d.status || '处理中'));
+        }
+        var st = String(d.status || '').toLowerCase();
+        if (st === 'done' || st === 'success' || st === 'succeeded' || d.url) { expShowResult(d.url || ''); return; }
+        if (st === 'failed' || st === 'error') throw new Error(d.hint || d.error || '渲染失败');
+        if (Date.now() - started > 300000) throw new Error('渲染超时，请重试');
+        expPoll(taskId, started);
+      }).catch(function (e) {
+        ui.exporting = false;
+        if (ui.expTimer) { clearInterval(ui.expTimer); ui.expTimer = null; }
+        if (ui.expPollTimer) { clearTimeout(ui.expPollTimer); ui.expPollTimer = null; }
+        var desc = $('#exportDesc');
+        if (desc) desc.textContent = 'API 导出失败：' + ((e && e.message) || '请稍后重试') + '（可关闭后重试）';
+        expSetProgress(0, '失败');
+        toast('导出失败：' + ((e && e.message) || '请稍后重试'), 'err', 4200);
+      });
+    }, 800);
+  }
+  function mockExport() {
+    var desc = $('#exportDesc');
+    if (desc) desc.textContent = '前端 mock：模拟 1080p H.264 渲染队列';
+    ui.exporting = true;
+    var prog = 0;
+    ui.expTimer = setInterval(function () {
+      prog = Math.min(100, prog + (prog < 60 ? 9 : prog < 90 ? 5 : 2));
+      expSetProgress(prog, prog < 20 ? '准备素材' : prog < 55 ? '合成多轨' : prog < 85 ? '编码 H.264' : prog < 100 ? '写入文件' : '完成');
+      if (prog >= 100) {
+        if (ui.expTimer) { clearInterval(ui.expTimer); ui.expTimer = null; }
+        ui.exporting = false;
+        if (desc) desc.textContent = '导出完成（mock）：四轨已合成为 1080p H.264 模拟成片，可下载工程 JSON 复核。';
+        toast('导出完成（mock）· 1920×1080 · H.264 · ' + duration().toFixed(1) + 's', 'ok', 3800);
+      }
+    }, 120);
+  }
   function runExport() {
     var modal = $('#exportModal');
     if (!modal) return;
     if (ui.exporting) return;
+    expReset();
     ui.exporting = true;
-    var bar = $('#expBar'), pct = $('#expPct'), state = $('#expState'), desc = $('#exportDesc');
-    if (ui.expTimer) { clearInterval(ui.expTimer); ui.expTimer = null; }
-    bar.style.width = '0%';
-    pct.textContent = '0%';
-    state.textContent = '准备中';
-    $('#expMeta2').textContent = fps() + 'fps · ' + duration().toFixed(1) + 's';
-    $('#expMeta3').textContent = ui.apiOnline ? 'POST /render' : 'mock · 浏览器本地';
-    $('#expMeta1').textContent = project.aspect === '9:16' ? '1080×1920 · H.264' : project.aspect === '1:1' ? '1080×1080 · H.264' : project.aspect === '4:5' ? '1080×1350 · H.264' : '1920×1080 · H.264';
+    var desc = $('#exportDesc');
+    if ($('#expMeta2')) $('#expMeta2').textContent = fps() + 'fps · ' + duration().toFixed(1) + 's';
+    if ($('#expMeta3')) $('#expMeta3').textContent = ui.apiOnline ? 'POST /render（真实渲染）' : 'mock · 浏览器本地';
+    if ($('#expMeta1')) $('#expMeta1').textContent = project.aspect === '9:16' ? '1080×1920 · H.264' : project.aspect === '1:1' ? '1080×1080 · H.264' : project.aspect === '4:5' ? '1080×1350 · H.264' : '1920×1080 · H.264';
     modal.hidden = false;
     updateMockPill();
-    $('#exportMockTag').textContent = ui.apiOnline ? 'API' : 'MOCK';
-    var prog = 0;
-    desc.textContent = ui.apiOnline ? '正在提交渲染任务…' : '前端 mock：模拟 1080p H.264 渲染队列';
-    var timer = setInterval(function () {
-      prog = Math.min(100, prog + (prog < 60 ? 9 : prog < 90 ? 5 : 2));
-      bar.style.width = prog + '%';
-      pct.textContent = prog + '%';
-      state.textContent = prog < 20 ? '准备素材' : prog < 55 ? '合成多轨' : prog < 85 ? '编码 H.264' : prog < 100 ? '写入文件' : '完成';
-      if (prog >= 100) {
-        clearInterval(timer);
-        ui.expTimer = null;
-        ui.exporting = false;
-        desc.textContent = ui.apiOnline ? '渲染任务已提交（后端），完成后可在作品列表查看。' : '导出完成（mock）：四轨已合成为 1080p H.264 模拟成片，可下载工程 JSON 复核。';
-        toast('导出完成（' + (ui.apiOnline ? 'API' : 'mock') + '）· 1920×1080 · H.264 · ' + duration().toFixed(1) + 's', 'ok', 3800);
-      }
-    }, 120);
-    ui.expTimer = timer;
-    if (ui.apiOnline) {
-      apiFetch('/render', { method: 'POST', body: JSON.stringify({ project_id: project.id, aspect: project.aspect, fps: project.fps }) }, 2500).catch(function () {
-        ui.apiOnline = false;
-        updateMockPill();
-      });
-    }
+    if ($('#exportMockTag')) $('#exportMockTag').textContent = ui.apiOnline ? 'API' : 'MOCK';
+    expSetProgress(0, '准备中');
+    if (!ui.apiOnline) { mockExport(); return; }
+    if (desc) desc.textContent = '正在提交后端渲染任务（真实 ffmpeg 合成，约 30-90 秒）…';
+    var payload = {
+      project: {
+        id: project.id || ('expert-' + Date.now().toString(36)),
+        name: project.name || '专家端工程',
+        aspect: project.aspect || '16:9',
+        fps: project.fps || 30,
+        duration: duration(),
+        timeline: project.timeline || { duration: duration() },
+        tracks: project.tracks || []
+      },
+      options: { quality: '1080p', aspect: project.aspect || '16:9' }
+    };
+    var t0 = Date.now(), fake = 0;
+    ui.expTimer = setInterval(function () {
+      fake = Math.min(88, fake + (fake < 55 ? 5 : 2));
+      expSetProgress(fake, '渲染引擎排队 / 合成中…');
+    }, 900);
+    apiFetch('/render', { method: 'POST', body: JSON.stringify(payload) }, 30000).then(function (d) {
+      if (!d || !d.task_id) throw new Error('未拿到渲染任务号');
+      if (ui.expTimer) { clearInterval(ui.expTimer); ui.expTimer = null; }
+      if (desc) desc.textContent = '渲染任务已提交：' + d.task_id + '，正在合成成片…';
+      expPoll(d.task_id, t0);
+    }).catch(function (e) {
+      if (ui.expTimer) { clearInterval(ui.expTimer); ui.expTimer = null; }
+      var msg = (e && e.message) || '请稍后重试';
+      ui.apiOnline = false;
+      updateMockPill();
+      if ($('#exportMockTag')) $('#exportMockTag').textContent = 'MOCK';
+      if (desc) desc.textContent = 'API 渲染不可用（' + msg + '），已回退本地模拟导出。';
+      toast('后端渲染不可用，已回退 mock 导出', 'warn', 3800);
+      mockExport();
+    });
   }
   function downloadProject() {
     try {
@@ -3262,13 +3370,42 @@ html[data-theme="light"] .ae-modal .ae-btn{color:#0f172a;border-color:rgba(15,23
     if (exp) exp.addEventListener('click', function (e) { if (e.target === exp) closeExportModal(); });
     var expClose = $('#expClose'); if (expClose) expClose.addEventListener('click', closeExportModal);
     var dl = $('#expDownload'); if (dl) dl.addEventListener('click', downloadProject);
+    var vdl = $('#expVideoDownload');
+    if (vdl) vdl.addEventListener('click', function () {
+      var url = vdl.getAttribute('data-url') || '';
+      if (!url) { toast('还没有可下载的成片', 'warn'); return; }
+      try {
+        var a = document.createElement('a');
+        a.href = url; a.download = '专家端成片-' + Date.now() + '.mp4'; a.target = '_blank'; a.rel = 'noopener';
+        document.body.appendChild(a); a.click(); document.body.removeChild(a);
+        toast('已开始下载成片', 'ok');
+      } catch (e) { toast('下载失败，请复制链接手动下载', 'warn'); }
+    });
+    var vcp = $('#expVideoCopy');
+    if (vcp) vcp.addEventListener('click', function () {
+      var url = ($('#expVideoDownload') && $('#expVideoDownload').getAttribute('data-url')) || '';
+      if (!url) { toast('还没有可复制的成片链接', 'warn'); return; }
+      try {
+        if (navigator.clipboard && navigator.clipboard.writeText) {
+          navigator.clipboard.writeText(url).then(function () { toast('成片链接已复制', 'ok'); }, function () { toast('复制失败，请手动复制', 'warn'); });
+          return;
+        }
+        var ta = document.createElement('textarea');
+        ta.value = url; ta.style.position = 'fixed'; ta.style.left = '-9999px';
+        document.body.appendChild(ta); ta.select(); document.execCommand('copy'); document.body.removeChild(ta);
+        toast('成片链接已复制', 'ok');
+      } catch (e) { toast('复制失败，请手动复制', 'warn'); }
+    });
     var help = $('#helpModal');
     if (help) help.addEventListener('click', function (e) { if (e.target === help) help.hidden = true; });
     var hc = $('#helpClose'); if (hc) hc.addEventListener('click', function () { if (help) help.hidden = true; });
   }
   function closeExportModal() {
     var exp = $('#exportModal');
-    if (ui.expTimer) { clearInterval(ui.expTimer); ui.expTimer = null; ui.exporting = false; }
+    if (ui.expTimer) { clearInterval(ui.expTimer); ui.expTimer = null; }
+    if (ui.expPollTimer) { clearTimeout(ui.expPollTimer); ui.expPollTimer = null; }
+    var v = $('#expVideo'); if (v) { try { v.pause(); } catch (e) { } }
+    ui.exporting = false;
     if (exp) exp.hidden = true;
   }
   function bindNl() {
@@ -3351,16 +3488,20 @@ html[data-theme="light"] .ae-modal .ae-btn{color:#0f172a;border-color:rgba(15,23
       updateSaveChip();
       return;
     }
-    apiFetch('/projects/' + PROJECT_ID, { method: 'GET' }, 1800).then(function (data) {
-      if (!data || !Array.isArray(data.tracks)) throw new Error('bad payload');
+    apiFetch('/health', { method: 'GET' }, 2600).then(function (h) {
+      if (!h || h.ok !== true) throw new Error('bad health');
       ui.apiOnline = true;
       updateMockPill();
-      if (!local) {
-        project = normalizeProject(data);
-        renderAll();
-        fitStage();
-        toast('已从后端载入工程（API 在线）', 'ok');
-      }
+      updateSaveChip();
+      if (local) return;
+      return apiFetch('/projects/' + PROJECT_ID, { method: 'GET' }, 2600).then(function (data) {
+        if (data && Array.isArray(data.tracks)) {
+          project = normalizeProject(data);
+          renderAll();
+          fitStage();
+          toast('已从后端载入工程（API 在线）', 'ok');
+        }
+      }).catch(function () { /* 云端没有该工程时用本地种子工程，导出仍走真实渲染 */ });
     }).catch(function () {
       ui.apiOnline = false;
       updateMockPill();

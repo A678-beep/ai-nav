@@ -1266,6 +1266,139 @@ html[data-theme="light"] .dict-form-status{color:#005079}
  .wb-gen-field{flex:1 1 auto}
 }
 </style>
+<style id="wbMergeCss">
+/* ========== 入口合并 + 素材库中文搜索 + 批量操作（2026-11-19 追加；只新增，不改既有规则） ========== */
+/* 顶部「AI 全自动剪辑」入口 */
+.wb-hero-tools .wb-ae-top{border-color:rgba(139,92,246,.5)!important;background:linear-gradient(135deg,rgba(56,189,248,.16),rgba(139,92,246,.2))!important;color:#e9d5ff!important;font-weight:700}
+.wb-hero-tools .wb-ae-top:hover{border-color:rgba(196,181,253,.8)!important;color:#f5f3ff!important}
+
+/* ③ 创作方式第一张卡：AI 全自动 */
+.wb-ae-card{position:relative;display:flex;gap:14px;align-items:flex-start;flex-wrap:wrap;margin:0 0 14px;padding:16px;border:1px solid rgba(139,92,246,.45);border-radius:16px;background:linear-gradient(135deg,rgba(139,92,246,.16),rgba(56,189,248,.08));cursor:pointer;min-width:0;box-shadow:0 22px 54px -42px rgba(139,92,246,.95);transition:border-color .18s,transform .18s;font-family:inherit;text-align:left;color:var(--txt);width:100%}
+.wb-ae-card:hover,.wb-ae-card:focus-visible{border-color:rgba(196,181,253,.8);transform:translateY(-1px);outline:none}
+.wb-ae-ico{flex:0 0 auto;width:54px;height:54px;display:grid;place-items:center;border-radius:15px;background:rgba(139,92,246,.2);border:1px solid rgba(139,92,246,.45);font-size:27px;line-height:1}
+.wb-ae-main{flex:1 1 300px;min-width:0}
+.wb-ae-main b{display:flex;align-items:center;gap:8px;flex-wrap:wrap;font-size:16.5px;color:#f5f3ff}
+.wb-ae-main b .tag{font-size:10px;background:rgba(139,92,246,.24);color:#ddd6fe;border:1px solid rgba(139,92,246,.45);border-radius:999px;padding:1px 7px;font-weight:700}
+.wb-ae-main p{margin:5px 0 0;font-size:12.5px;color:var(--txt2);line-height:1.66}
+.wb-ae-tags{display:flex;flex-wrap:wrap;gap:6px;margin-top:9px}
+.wb-ae-tags span{font-size:11px;color:#c4b5fd;background:rgba(139,92,246,.1);border:1px solid rgba(139,92,246,.28);border-radius:999px;padding:2px 8px;white-space:nowrap}
+.wb-ae-acts{flex:0 0 auto;display:flex;flex-direction:column;gap:8px;align-items:stretch;align-self:center}
+.wb-ae-open{display:inline-flex;align-items:center;justify-content:center;min-height:46px;padding:0 18px;border-radius:12px;border:1px solid rgba(56,189,248,.6);background:linear-gradient(135deg,#38bdf8,#8b5cf6);color:#04121c;font-size:14px;font-weight:800;cursor:pointer;font-family:inherit;white-space:nowrap}
+.wb-ae-open:hover{filter:brightness(1.06)}
+.wb-ae-new{display:inline-flex;align-items:center;justify-content:center;min-height:38px;padding:0 12px;border-radius:10px;border:1px solid var(--line);background:rgba(15,22,34,.6);color:#bae6fd;font-size:12.5px;text-decoration:none;white-space:nowrap}
+.wb-ae-new:hover{border-color:rgba(56,189,248,.5)}
+html[data-theme="light"] .wb-ae-main b{color:#3b0764}
+html[data-theme="light"] .wb-ae-open{color:#fff}
+html[data-theme="light"] .wb-ae-new{background:#fff;color:#075985}
+@media (max-width:640px){
+ .wb-ae-card{padding:13px;gap:10px}
+ .wb-ae-ico{width:44px;height:44px;font-size:22px;border-radius:12px}
+ .wb-ae-acts{width:100%;flex-direction:row;flex-wrap:wrap}
+ .wb-ae-open{flex:1 1 150px;min-height:44px}
+ .wb-ae-new{flex:1 1 110px}
+}
+
+/* 全屏弹层 iframe：AI 全自动剪辑 */
+.wb-ae-modal{padding:0!important;place-items:stretch!important;background:rgba(2,5,12,.92)!important}
+.wb-ae-shell{display:flex;flex-direction:column;width:100%;height:100%;min-height:0;background:#070a10}
+.wb-ae-bar{display:flex;align-items:center;gap:10px;flex-wrap:wrap;padding:9px 14px;background:#0a111b;border-bottom:1px solid rgba(148,163,184,.18);flex:0 0 auto;min-height:54px}
+.wb-ae-bar b{font-size:14px;color:#e8f6ff;white-space:nowrap}
+.wb-ae-bar .wb-ae-sub{font-size:11.5px;color:#77869c;white-space:nowrap}
+.wb-ae-bar-acts{margin-left:auto;display:flex;gap:8px;align-items:center;flex-wrap:wrap}
+.wb-ae-bar-acts a,.wb-ae-bar-acts button{display:inline-flex;align-items:center;justify-content:center;min-height:38px;padding:0 12px;border-radius:9px;border:1px solid rgba(148,163,184,.3);background:rgba(15,22,34,.8);color:#bae6fd;font-size:12.5px;text-decoration:none;cursor:pointer;font-family:inherit;white-space:nowrap}
+.wb-ae-bar-acts a:hover,.wb-ae-bar-acts button:hover{border-color:rgba(56,189,248,.55)}
+.wb-ae-bar-acts .wb-ae-close{border-color:rgba(251,113,133,.4);color:#fecdd3}
+.wb-ae-frame{flex:1 1 auto;width:100%;height:100%;min-height:0;border:0;background:#070a10;display:block}
+@media (max-width:640px){
+ .wb-ae-bar{padding:7px 10px;gap:6px;min-height:48px}
+ .wb-ae-bar .wb-ae-sub{display:none}
+ .wb-ae-bar-acts a,.wb-ae-bar-acts button{min-height:36px;padding:0 9px;font-size:11.5px}
+}
+
+/* ② 素材库中文搜索 */
+.wb-search{display:flex;flex-direction:column;gap:8px;margin:2px 0 10px;padding:10px 12px;border:1px solid rgba(56,189,248,.28);border-radius:13px;background:linear-gradient(135deg,rgba(56,189,248,.08),rgba(139,92,246,.07));min-width:0}
+.wb-search-row{display:flex;gap:8px;flex-wrap:wrap;align-items:center}
+.wb-search-input{flex:1 1 230px;min-width:0;min-height:44px;background:var(--panel);border:1px solid var(--line);border-radius:10px;color:var(--txt);font-size:13.5px;font-family:inherit;padding:0 12px}
+.wb-search-input:focus{outline:none;border-color:rgba(56,189,248,.65)}
+.wb-search-kind{min-height:44px;background:var(--panel);border:1px solid var(--line);border-radius:10px;color:var(--txt);font-size:13px;font-family:inherit;padding:0 8px;flex:0 0 auto}
+.wb-search-btn{min-height:44px;padding:0 18px;border-radius:10px;border:1px solid rgba(56,189,248,.6);background:linear-gradient(135deg,rgba(56,189,248,.32),rgba(139,92,246,.32));color:#e8f6ff;font-size:13.5px;font-weight:800;cursor:pointer;font-family:inherit;flex:0 0 auto;white-space:nowrap}
+.wb-search-btn:hover{filter:brightness(1.1)}
+.wb-search-btn[disabled]{opacity:.6;cursor:progress}
+.wb-search-hist{display:flex;gap:5px;flex-wrap:wrap;align-items:center;font-size:11.5px;color:var(--txt3);min-width:0}
+.wb-search-hist .lbl{white-space:nowrap}
+.wb-search-hist button{min-height:30px;padding:0 9px;border-radius:999px;border:1px solid rgba(148,163,184,.28);background:rgba(15,22,34,.55);color:#bae6fd;font-size:11.5px;cursor:pointer;font-family:inherit;white-space:nowrap}
+.wb-search-hist button:hover{border-color:rgba(56,189,248,.5)}
+html[data-theme="light"] .wb-search-hist button{background:#fff;color:#075985}
+@media (max-width:640px){
+ .wb-search{padding:9px}
+ .wb-search-input{flex:1 1 100%}
+ .wb-search-kind{flex:1 1 90px}
+ .wb-search-btn{flex:1 1 90px}
+}
+
+/* 搜索结果弹层 */
+.wb-smodal{background:rgba(2,5,12,.82);padding:12px!important}
+.wb-smodal-box{width:min(1060px,100%);max-height:92vh;display:flex;flex-direction:column;gap:9px;background:linear-gradient(180deg,#111a29,#0a111b);border:1px solid rgba(56,189,248,.3);border-radius:16px;padding:13px;box-shadow:0 40px 120px -30px rgba(0,0,0,.9);min-height:0;overflow:hidden}
+.wb-smodal-head{display:flex;align-items:center;gap:10px;flex-wrap:wrap}
+.wb-smodal-tt{flex:1 1 220px;min-width:0}
+.wb-smodal-tt b{display:block;font-size:16px;color:#e8f6ff}
+.wb-smodal-tt span{display:block;font-size:11.5px;color:var(--txt3);margin-top:2px;overflow:hidden;text-overflow:ellipsis}
+.wb-smodal-x{flex:0 0 auto;width:40px;height:40px;border-radius:50%;border:1px solid var(--line);background:rgba(7,10,16,.8);color:#cbd5e1;font-size:16px;cursor:pointer;font-family:inherit}
+.wb-smodal-note{font-size:12px;color:#bae6fd;background:rgba(56,189,248,.08);border:1px solid rgba(56,189,248,.22);border-radius:9px;padding:7px 10px;line-height:1.6;overflow-wrap:anywhere}
+.wb-smodal-note.err{color:#fecaca;border-color:rgba(248,113,113,.4);background:rgba(248,113,113,.08)}
+.wb-smodal-chips{display:flex;gap:5px;flex-wrap:wrap;align-items:center;min-width:0}
+.wb-smodal-chips .lbl{font-size:11.5px;color:var(--txt3);white-space:nowrap}
+.wb-smodal-chips button{min-height:30px;padding:0 9px;border-radius:999px;border:1px solid rgba(139,92,246,.35);background:rgba(139,92,246,.1);color:#ddd6fe;font-size:11.5px;cursor:pointer;font-family:inherit;white-space:nowrap}
+.wb-smodal-chips button:hover{border-color:rgba(196,181,253,.7)}
+.wb-smodal-body{flex:1 1 auto;min-height:0;overflow:auto;padding:2px}
+.wb-sgrid{display:grid;grid-template-columns:repeat(auto-fill,minmax(148px,1fr));gap:8px}
+.wb-scard{position:relative;border:1px solid var(--line);border-radius:10px;overflow:hidden;background:rgba(9,14,24,.72);cursor:pointer;min-width:0}
+.wb-scard.on{border-color:rgba(56,189,248,.75);box-shadow:0 0 0 1px rgba(56,189,248,.35)}
+.wb-simg{position:relative;height:98px;background:#05080f;display:grid;place-items:center;overflow:hidden}
+.wb-simg img{width:100%;height:100%;object-fit:cover;display:block}
+.wb-simg .wb-sico{font-size:26px}
+.wb-scheck{position:absolute;left:6px;top:6px;z-index:2;display:flex;align-items:center;justify-content:center;width:28px;height:28px;border-radius:8px;background:rgba(2,6,14,.75);border:1px solid rgba(148,163,184,.35)}
+.wb-scheck input{width:16px;height:16px;accent-color:#38bdf8;cursor:pointer}
+.wb-skind{position:absolute;right:6px;top:6px;z-index:2;font-size:10px;padding:1px 6px;border-radius:6px;background:rgba(2,6,14,.8);color:#c4b5fd;white-space:nowrap}
+.wb-smeta{padding:5px 6px 6px;font-size:10.5px;color:var(--txt3);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.wb-smeta b{display:block;color:#dbe7f6;font-size:11px;font-weight:600;overflow:hidden;text-overflow:ellipsis}
+.wb-sempty{width:100%;border:1px dashed rgba(148,163,184,.3);border-radius:11px;padding:22px 14px;text-align:center;color:var(--txt3);font-size:12.5px;line-height:1.7}
+.wb-sempty b{display:block;color:#dbe7f6;font-size:14px;margin-bottom:4px}
+.wb-sloading{display:flex;gap:9px;align-items:center;justify-content:center;padding:40px 10px;color:#7dd3fc;font-size:13px}
+.wb-sloading .sp{width:16px;height:16px;border:2px solid rgba(56,189,248,.35);border-top-color:#38bdf8;border-radius:50%;animation:wbGenSpin .8s linear infinite;display:inline-block}
+.wb-smodal-foot{display:flex;gap:7px;align-items:center;flex-wrap:wrap;border-top:1px solid rgba(148,163,184,.16);padding-top:9px;flex:0 0 auto}
+.wb-smodal-count{font-size:12.5px;color:#7dd3fc;font-weight:800;white-space:nowrap}
+.wb-smodal-foot .btn-line,.wb-smodal-foot .btn-main{min-height:40px}
+.wb-smodal-foot .wb-simport{margin-left:auto}
+html[data-theme="light"] .wb-smodal-box{background:#fff}
+html[data-theme="light"] .wb-smodal-tt b{color:#0f1b2d}
+html[data-theme="light"] .wb-smodal-chips button{background:rgba(139,92,246,.08);color:#5b21b6}
+html[data-theme="light"] .wb-smodal-x{background:#fff;color:#334155}
+html[data-theme="light"] .wb-smodal-note{color:#075985}
+@media (max-width:640px){
+ .wb-smodal{padding:0!important;place-items:stretch!important}
+ .wb-smodal-box{max-height:100vh;width:100%;border-radius:0;padding:10px}
+ .wb-sgrid{grid-template-columns:repeat(auto-fill,minmax(118px,1fr));gap:6px}
+ .wb-simg{height:86px}
+ .wb-smodal-foot{flex-wrap:nowrap;overflow-x:auto;padding-bottom:2px}
+ .wb-smodal-foot>*{flex:0 0 auto}
+ .wb-smodal-foot .wb-simport{margin-left:0}
+}
+
+/* 素材库批量操作工具栏 */
+.wb-bulkbar{display:flex;gap:6px;align-items:center;flex-wrap:wrap;margin:0 0 10px;padding:7px 9px;border:1px solid var(--line);border-radius:11px;background:rgba(9,14,24,.5);min-width:0}
+.wb-bulk-count{font-size:12.5px;color:#7dd3fc;font-weight:800;white-space:nowrap}
+.wb-bulkbar .btn-line{min-height:38px;padding:0 11px;font-size:12.5px;white-space:nowrap}
+.wb-bulkbar .btn-line.danger{color:#fca5a5;border-color:rgba(251,113,133,.36);background:rgba(251,113,133,.07)}
+.wb-bulkbar .btn-line.danger:hover{background:rgba(251,113,133,.15)}
+.wb-bulkbar .btn-line[disabled]{opacity:.5;cursor:not-allowed}
+html[data-theme="light"] .wb-bulkbar{background:rgba(255,255,255,.75)}
+@media (max-width:640px){
+ .wb-bulkbar{flex-wrap:nowrap;overflow-x:auto;-webkit-overflow-scrolling:touch;scrollbar-width:thin}
+ .wb-bulkbar>*{flex:0 0 auto}
+ .wb-bulkbar .wb-bulk-count{position:sticky;left:0;z-index:1;background:var(--panel);padding:4px 8px 4px 2px;border-radius:8px}
+}
+</style>
 <link rel="stylesheet" href="../assets/site-shell.css">
 </head><body>
 <div class="top"><div class="top-in">
@@ -1292,6 +1425,7 @@ html[data-theme="light"] .dict-form-status{color:#005079}
    <div class="draft-bar"><span class="save-state" id="saveState" hidden>已自动保存</span><span class="save-tip">输入会自动保存，刷新/关掉再打开也不丢</span></div>
   </div>
   <div class="wb-hero-tools">
+   <button type="button" class="link-btn wb-ae-top" id="wbAutoeditTop" title="一句话/文案直接出片，无需逐段剪辑">🤖 AI 全自动剪辑</button>
    <a class="wb-desk-btn" href="./desktop.html" target="_blank" rel="noopener">🖥 星籁剪辑桌面版</a>
    <button type="button" class="link-btn" id="helpBtn">❓ 帮助</button>
    <button type="button" class="link-btn" id="guideBtn">👀 新手引导</button>
@@ -1411,6 +1545,20 @@ html[data-theme="light"] .dict-form-status{color:#005079}
        <div class="wb-gen-note" id="wbGenNote" hidden></div>
       </div>
 
+      <!-- 素材库中文搜索（studio_search，2026-11-19） -->
+      <div class="wb-search" id="wbSearchBox">
+       <div class="wb-search-row">
+        <input type="text" class="wb-search-input" id="wbSearchInput" maxlength="80" autocomplete="off" spellcheck="false" placeholder="🔍 搜素材：中文即可，如 汽车维修 / 除甲醛 / 家政 / 化妆" aria-label="素材搜索关键词">
+        <select class="wb-search-kind" id="wbSearchKind" aria-label="搜索素材类型">
+         <option value="image" selected>图片</option>
+         <option value="video">视频</option>
+         <option value="both">图片+视频</option>
+        </select>
+        <button type="button" class="wb-search-btn" id="wbSearchBtn">搜索图库</button>
+       </div>
+       <div class="wb-search-hist" id="wbSearchHist"><span class="lbl">热门搜索：</span></div>
+      </div>
+
      <div class="wb-asset-toolbar">
       <div class="wb-filters" id="wbAssetFilters" role="tablist" aria-label="素材类型筛选">
        <button type="button" data-filter="all" class="on">全部</button>
@@ -1421,6 +1569,13 @@ html[data-theme="light"] .dict-form-status{color:#005079}
       <button type="button" class="btn-line" id="wbAssetUploadBtn">⬆ 上传素材</button>
       <input type="file" id="wbAssetFile" accept="image/jpeg,image/png,image/webp,video/mp4,video/quicktime,audio/mpeg,audio/wav,audio/mp4,audio/x-m4a,audio/m4a" multiple hidden>
       <span class="wb-asset-count" id="wbAssetCount">正在读取素材库…</span>
+     </div>
+     <div class="wb-bulkbar" id="wbBulkBar" aria-label="素材批量操作">
+      <span class="wb-bulk-count" id="wbBulkCount">已选 0</span>
+      <button type="button" class="btn-line" id="wbBulkAll" title="勾选当前筛选下的全部素材">全选</button>
+      <button type="button" class="btn-line" id="wbBulkNone" title="清空所有勾选">全不选</button>
+      <button type="button" class="btn-line" id="wbBulkTimeline" title="把勾选的图片/视频加入自由剪辑时间轴">＋ 批量加入时间轴</button>
+      <button type="button" class="btn-line danger" id="wbBulkDelete" title="删除勾选的素材（服务端文件与 sidecar 一并删除）">🗑 删除选中</button>
      </div>
      <div class="wb-note" id="wbAssetNotice" hidden></div>
      <div class="wb-asset-grid" id="wbAssetGrid"></div>
@@ -1471,6 +1626,19 @@ html[data-theme="light"] .dict-form-status{color:#005079}
    </section>
 
    <section class="wb-pane" data-step="3" id="wbPane3" hidden>
+    <!-- ③ 第一张卡：AI 全自动（一句话/文案 → 成片），点击在本页全屏弹层嵌入 /autoedit/?embed=1 -->
+    <section class="wb-ae-card" id="wbAeCard" tabindex="0" role="button" aria-label="AI 全自动：一句话或文案直接生成成片">
+     <span class="wb-ae-ico" aria-hidden="true">🤖</span>
+     <div class="wb-ae-main">
+      <b>🤖 AI 全自动 <span class="tag">第一张卡 · NEW</span></b>
+      <p>一句话 / 一段文案 → 成片：粘贴文案或上传口播，AI 自动排镜头、配音、加字幕，几分钟出片。不想折腾模板、只想快点发一条的商家，点这张卡就行。</p>
+      <div class="wb-ae-tags"><span>🗣 会说话就会剪</span><span>🪄 一句话改片</span><span>🔒 不会自动发布</span></div>
+     </div>
+     <div class="wb-ae-acts">
+      <button type="button" class="wb-ae-open" id="wbAeOpen">立即进入 →</button>
+      <a class="wb-ae-new" id="wbAeNew" href="/ai-nav/autoedit/" target="_blank" rel="noopener">↗ 新窗口打开</a>
+     </div>
+    </section>
     <div class="wb-mode-intro"><b>③ 先选创作方式</b><span>不管用哪种，都走 素材 → 生成 → 预览 → 修改 → 导出；只显示当前方式，不再堆折叠面板。</span></div>
     <div class="wb-tabs" id="wbModeTabs" role="tablist" aria-label="创作方式">
      <button type="button" class="wb-tab on" data-mode="template" role="tab" aria-selected="true">🎞 模板成片</button>
@@ -1927,6 +2095,44 @@ html[data-theme="light"] .dict-form-status{color:#005079}
 </div>
 
 <div id="toast" class="toast" role="status" aria-live="polite" hidden></div>
+
+<!-- 全屏弹层：AI 全自动剪辑（/autoedit/?embed=1，iframe 内隐藏站壳侧栏/顶部） -->
+<div class="modal wb-ae-modal" id="wbAeModal" hidden>
+ <div class="wb-ae-shell" role="dialog" aria-modal="true" aria-label="AI 全自动剪辑">
+  <div class="wb-ae-bar">
+   <b>🤖 AI 全自动剪辑</b><span class="wb-ae-sub">一句话 / 文案 → 成片 · 不会自动发布</span>
+   <div class="wb-ae-bar-acts">
+    <a href="/ai-nav/autoedit/" target="_blank" rel="noopener" id="wbAeNew2">↗ 新窗口打开</a>
+    <button type="button" class="wb-ae-close" id="wbAeClose">✕ 关闭</button>
+   </div>
+  </div>
+  <iframe class="wb-ae-frame" id="wbAeFrame" src="about:blank" title="AI 全自动剪辑工作台（一句话/文案 → 成片）" allow="autoplay; fullscreen; microphone; clipboard-write"></iframe>
+ </div>
+</div>
+
+<!-- 素材库图库搜索弹层（中文搜索 → 勾选 → 一键加入素材库） -->
+<div class="modal wb-smodal" id="wbSearchModal" hidden>
+ <div class="wb-smodal-box" role="dialog" aria-modal="true" aria-labelledby="wbSearchTitle">
+  <div class="wb-smodal-head">
+   <div class="wb-smodal-tt"><b id="wbSearchTitle">🔍 搜素材</b><span id="wbSearchMeta">支持中文，如「汽车维修」「除甲醛」「家政」「化妆」</span></div>
+   <button type="button" class="wb-smodal-x" id="wbSearchClose" aria-label="关闭搜索">✕</button>
+  </div>
+  <div class="wb-smodal-note" id="wbSearchNote" hidden></div>
+  <div class="wb-smodal-chips" id="wbSearchChips"></div>
+  <div class="wb-smodal-body">
+   <div class="wb-sgrid" id="wbSearchGrid"></div>
+   <div class="wb-sempty" id="wbSearchEmpty" hidden><b>换个词试试</b><span id="wbSearchEmptyTxt">试试下面这些：</span></div>
+   <div class="wb-sloading" id="wbSearchLoading" hidden><span class="sp"></span><span>正在向 Pixabay 搜索真实素材…</span></div>
+  </div>
+  <div class="wb-smodal-foot">
+   <span class="wb-smodal-count" id="wbSearchSelCount">已选 0</span>
+   <button type="button" class="btn-line" id="wbSearchAll">全选</button>
+   <button type="button" class="btn-line" id="wbSearchNone">全不选</button>
+   <button type="button" class="btn-main small wb-simport" id="wbSearchImport" disabled>＋ 加入素材库</button>
+   <button type="button" class="btn-line" id="wbSearchClose2">关闭</button>
+  </div>
+ </div>
+</div>
 
 <script>
 (function(){
@@ -7083,7 +7289,12 @@ if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',
     if (count) count.textContent = WB.assets.length + ' 个素材 · 已勾选 ' + selCount();
     if (!arr.length) {
       g.innerHTML = '';
-      if (empty) { empty.hidden = false; empty.innerHTML = '<b>素材库还是空的</b>上传图片 / 视频 / 音频后，会统一出现在这里；没有素材也可以先用「自动配素材」。'; }
+      if (empty) {
+        empty.hidden = false;
+        empty.innerHTML = WB.assets.length
+          ? '<b>当前筛选下没有素材</b>换个筛选（全部 / 图片 / 视频 / 音频）看看。'
+          : '<b>素材库还是空的</b>上传图片 / 视频 / 音频后，会统一出现在这里；没有素材也可以先用「自动配素材」。';
+      }
       return;
     }
     if (empty) empty.hidden = true;
@@ -7125,6 +7336,11 @@ if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',
     var bc = $('batchSelCount'); if (bc) bc.textContent = String(selCount());
     var bbtn = $('batchEditStart');
     if (bbtn && !WB.batchActive) bbtn.disabled = selCount() < 2;
+    var bcount = $('wbBulkCount'); if (bcount) bcount.textContent = '已选 ' + selCount();
+    var bAll = $('wbBulkAll'); if (bAll) bAll.disabled = filteredAssets().length === 0;
+    var bNone = $('wbBulkNone'); if (bNone) bNone.disabled = selCount() === 0;
+    var bDel = $('wbBulkDelete'); if (bDel) bDel.disabled = selCount() === 0;
+    var bTl = $('wbBulkTimeline'); if (bTl) bTl.disabled = selCount() === 0;
     updateStepHints();
     syncSummary();
   }
@@ -7225,6 +7441,385 @@ if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',
         toast('已删除：' + (a.name || a.url), 'ok');
       }).catch(function (e) { toast('删除失败：' + (e.message || e), 'bad'); });
     }
+  }
+
+  /* ---------------- AI 全自动剪辑（入口合并，2026-11-19） ---------------- */
+  var AE_EMBED_URL = '/ai-nav/autoedit/?embed=1';
+  function openAeModal() {
+    var m = $('wbAeModal'), f = $('wbAeFrame');
+    if (!m || !f) { try { window.open('/ai-nav/autoedit/', '_blank', 'noopener'); } catch (e) {} return; }
+    var cur = f.getAttribute('src') || '';
+    if (cur === '' || cur === 'about:blank') f.setAttribute('src', AE_EMBED_URL);
+    m.hidden = false;
+    try { document.body.style.overflow = 'hidden'; } catch (e) {}
+    setTimeout(function () { try { f.focus(); } catch (e) {} }, 80);
+  }
+  function closeAeModal() {
+    var m = $('wbAeModal'); if (!m) return;
+    m.hidden = true;
+    try { document.body.style.overflow = ''; } catch (e) {}
+  }
+  function bindAeEntry() {
+    var top = $('wbAutoeditTop');
+    if (top) top.addEventListener('click', openAeModal);
+    var card = $('wbAeCard');
+    if (card) {
+      card.addEventListener('click', function (e) {
+        var t = e.target;
+        if (t && t.closest && t.closest('a')) return;
+        openAeModal();
+      });
+      card.addEventListener('keydown', function (e) {
+        if (e.key === 'Enter' || e.key === ' ' || e.key === 'Spacebar') { e.preventDefault(); openAeModal(); }
+      });
+    }
+    var op = $('wbAeOpen');
+    if (op) op.addEventListener('click', function (e) { e.stopPropagation(); openAeModal(); });
+    var nw = $('wbAeNew');
+    if (nw) nw.addEventListener('click', function (e) { e.stopPropagation(); });
+    var cl = $('wbAeClose');
+    if (cl) cl.addEventListener('click', closeAeModal);
+    var m = $('wbAeModal');
+    if (m) m.addEventListener('click', function (e) { if (e.target === m) closeAeModal(); });
+    /* autoedit 弹层里点「← 返回工作台」→ 父页收到消息后关闭全屏弹层 */
+    window.addEventListener('message', function (e) {
+      if (e.origin && e.origin !== location.origin) return;
+      if (e.data && e.data.type === 'xl-autoedit-back') closeAeModal();
+    });
+  }
+
+  /* ---------------- 素材库：中文图库搜索（studio_search） ---------------- */
+  var LS_SEARCH_HIST = 'studio_wb_search_hist_v1';
+  var SEARCH = { q: '', kind: 'image', items: [], sel: {}, suggestions: [], note: '' };
+  var SEARCH_HOT = ['汽车维修', '除甲醛', '家政', '化妆', '装修', '婚庆', '搬家', '咖啡店', '花店', '健身', '宠物', '教培'];
+  function searchHist() {
+    try {
+      var a = JSON.parse(read(LS_SEARCH_HIST, '[]') || '[]');
+      if (!Array.isArray(a)) return [];
+      return a.filter(function (x) { return typeof x === 'string' && x; }).slice(0, 8);
+    } catch (e) { return []; }
+  }
+  function pushSearchHist(q) {
+    q = String(q || '').trim();
+    if (!q) return;
+    var a = searchHist().filter(function (x) { return x !== q; });
+    a.unshift(q);
+    write(LS_SEARCH_HIST, JSON.stringify(a.slice(0, 8)));
+    renderSearchHist();
+  }
+  function renderSearchHist() {
+    var h = $('wbSearchHist'); if (!h) return;
+    var hist = searchHist();
+    var list = hist.length ? hist : SEARCH_HOT.slice(0, 6);
+    h.innerHTML = '<span class="lbl">' + (hist.length ? '最近搜索：' : '热门搜索：') + '</span>'
+      + list.map(function (w) { return '<button type="button" data-sk="' + esc(w) + '">' + esc(w) + '</button>'; }).join('');
+  }
+  function showSearchNote(msg, err) {
+    var n = $('wbSearchNote'); if (!n) return;
+    if (!msg) { n.hidden = true; n.textContent = ''; n.className = 'wb-smodal-note'; return; }
+    n.hidden = false; n.innerHTML = msg; n.className = 'wb-smodal-note' + (err ? ' err' : '');
+  }
+  function openSearchModal() {
+    var m = $('wbSearchModal'); if (!m) return;
+    m.hidden = false;
+    try { document.body.style.overflow = 'hidden'; } catch (e) {}
+  }
+  function closeSearchModal() {
+    var m = $('wbSearchModal'); if (!m) return;
+    m.hidden = true;
+    try { document.body.style.overflow = ''; } catch (e) {}
+  }
+  function updateSearchSel() {
+    var n = 0;
+    for (var k in SEARCH.sel) if (SEARCH.sel[k]) n++;
+    var c = $('wbSearchSelCount'); if (c) c.textContent = '已选 ' + n;
+    var b = $('wbSearchImport');
+    if (b) { b.disabled = n === 0; b.textContent = n ? ('＋ 加入素材库（' + n + '）') : '＋ 加入素材库'; }
+  }
+  function renderSearchChips(list) {
+    var c = $('wbSearchChips'); if (!c) return;
+    var arr = (Array.isArray(list) && list.length) ? list : SEARCH_HOT;
+    c.innerHTML = '<span class="lbl">' + (SEARCH.items.length ? '换个词试试：' : '没搜到？试试这些：') + '</span>'
+      + arr.slice(0, 12).map(function (w) { return '<button type="button" data-sq="' + esc(w) + '">' + esc(w) + '</button>'; }).join('');
+  }
+  function renderSearchResults(d) {
+    var grid = $('wbSearchGrid'), empty = $('wbSearchEmpty'), meta = $('wbSearchMeta');
+    var items = SEARCH.items;
+    if (!items.length) {
+      if (grid) grid.innerHTML = '';
+      if (empty) empty.hidden = false;
+      if (meta) meta.textContent = '关键词「' + SEARCH.q + '」没有找到匹配素材';
+      showSearchNote('😕 ' + esc((d && d.note) || '没有搜到匹配素材，换个词试试。'), true);
+      renderSearchChips((d && d.suggestions) || SEARCH_HOT);
+      updateSearchSel();
+      return;
+    }
+    if (empty) empty.hidden = true;
+    var kindTxt = SEARCH.kind === 'video' ? '视频' : SEARCH.kind === 'both' ? '图片+视频' : '图片';
+    if (meta) meta.textContent = '找到 ' + items.length + ' 个 Pixabay ' + kindTxt + '素材 · 勾选后一键加入素材库';
+    showSearchNote('✅ ' + esc((d && d.note) || '按关键词检索完成') + '<br>授权：Pixabay Content License（免费商用、无需署名）。', false);
+    renderSearchChips((d && d.suggestions) || SEARCH_HOT);
+    var html = [];
+    for (var i = 0; i < items.length; i++) {
+      var it = items[i];
+      var thumb = it.thumb ? '<img src="' + esc(it.thumb) + '" alt="" loading="lazy" referrerpolicy="no-referrer">'
+        : '<span class="wb-sico">' + (it.kind === 'video' ? '🎞️' : '🖼️') + '</span>';
+      var dim = (it.w && it.h) ? (it.w + '×' + it.h) : (it.kind === 'video' ? (it.duration ? (Math.round(it.duration) + ' 秒') : '视频') : '图片');
+      html.push('<div class="wb-scard' + (SEARCH.sel[i] ? ' on' : '') + '" data-si="' + i + '" data-url="' + esc(it.url) + '" data-kind="' + esc(it.kind) + '" role="checkbox" aria-checked="' + (SEARCH.sel[i] ? 'true' : 'false') + '" tabindex="0">'
+        + '<label class="wb-scheck" title="勾选加入素材库"><input type="checkbox" data-scheck="1"' + (SEARCH.sel[i] ? ' checked' : '') + '></label>'
+        + '<span class="wb-skind">' + (it.kind === 'video' ? '视频' : '图片') + '</span>'
+        + '<div class="wb-simg">' + thumb + '</div>'
+        + '<div class="wb-smeta"><b>' + esc(it.kind === 'video' ? '视频素材' : '图片素材') + '</b>' + esc(dim) + ' · ' + esc(it.term || 'pixabay') + '</div>'
+        + '</div>');
+    }
+    if (grid) grid.innerHTML = html.join('');
+    updateSearchSel();
+  }
+  function runAssetSearch(q) {
+    q = String(q || ($('wbSearchInput') ? $('wbSearchInput').value : '') || '').trim();
+    if (!q) {
+      toast('先输入搜索词，比如「汽车维修」「除甲醛」', 'warn');
+      try { $('wbSearchInput').focus(); } catch (e) {}
+      return;
+    }
+    var kind = ($('wbSearchKind') || {}).value || 'image';
+    openSearchModal();
+    if ($('wbSearchInput')) $('wbSearchInput').value = q;
+    SEARCH.q = q; SEARCH.kind = kind; SEARCH.items = []; SEARCH.sel = {}; SEARCH.suggestions = [];
+    setText('wbSearchTitle', '🔍 搜索：' + q);
+    setText('wbSearchMeta', '正在检索 Pixabay 真实素材（中文会先映射成英文）…');
+    showSearchNote('', false);
+    var grid = $('wbSearchGrid'); if (grid) grid.innerHTML = '';
+    var empty = $('wbSearchEmpty'); if (empty) empty.hidden = true;
+    var chips = $('wbSearchChips'); if (chips) chips.innerHTML = '';
+    var load = $('wbSearchLoading'); if (load) load.hidden = false;
+    var btn = $('wbSearchBtn'); if (btn) { btn.disabled = true; btn.textContent = '搜索中…'; }
+    updateSearchSel();
+    api('/studio/assets/search?q=' + encodeURIComponent(q) + '&kind=' + encodeURIComponent(kind), {}, 90000).then(function (d) {
+      SEARCH.items = (d && d.items) || [];
+      SEARCH.note = (d && d.note) || '';
+      SEARCH.suggestions = (d && d.suggestions) || [];
+      pushSearchHist(q);
+      renderSearchResults(d);
+    }).catch(function (e) {
+      SEARCH.items = [];
+      var g = $('wbSearchGrid'); if (g) g.innerHTML = '';
+      var em = $('wbSearchEmpty');
+      if (em) { em.hidden = false; em.innerHTML = '<b>搜索失败</b><span>换个词试试，或检查网络后再点搜索。</span>'; }
+      setText('wbSearchMeta', '搜索失败');
+      showSearchNote('❌ ' + esc(e && e.message ? e.message : '网络异常'), true);
+      renderSearchChips(SEARCH_HOT);
+      updateSearchSel();
+    }).then(function () {
+      var l = $('wbSearchLoading'); if (l) l.hidden = true;
+      var b = $('wbSearchBtn'); if (b) { b.disabled = false; b.textContent = '搜索图库'; }
+    });
+  }
+  function toggleSearchItem(i, on) {
+    i = String(i);
+    if (on) SEARCH.sel[i] = true; else delete SEARCH.sel[i];
+    var card = document.querySelector('#wbSearchGrid .wb-scard[data-si="' + i + '"]');
+    if (card) {
+      card.className = 'wb-scard' + (SEARCH.sel[i] ? ' on' : '');
+      card.setAttribute('aria-checked', SEARCH.sel[i] ? 'true' : 'false');
+      var cb = card.querySelector('[data-scheck]');
+      if (cb) cb.checked = !!SEARCH.sel[i];
+    }
+    updateSearchSel();
+  }
+  function importSearchSel() {
+    var picks = [];
+    for (var k in SEARCH.sel) {
+      if (!SEARCH.sel[k]) continue;
+      var it = SEARCH.items[Number(k)];
+      if (!it) continue;
+      picks.push({ url: it.url, kind: it.kind, w: it.w, h: it.h, tags: it.tags,
+                   term: it.term, page: it.page, pixabay_id: it.pixabay_id, duration: it.duration });
+    }
+    if (!picks.length) { toast('先勾选要加入的素材', 'warn'); return; }
+    var btn = $('wbSearchImport');
+    if (btn) { btn.disabled = true; btn.textContent = '正在入库…'; }
+    showSearchNote('⏳ 正在把 ' + picks.length + ' 个素材下载到本站素材库（写入 uploads/gen/ + sidecar）…', false);
+    api('/studio/assets/search/import', {
+      method: 'POST', headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ items: picks, q: SEARCH.q })
+    }, 180000).then(function (d) {
+      var arr = (d && d.assets) || [];
+      for (var i = 0; i < arr.length; i++) if (arr[i].url) WB.sel[arr[i].url] = true;
+      persistSel();
+      loadAssets();
+      syncSummary();
+      toast('已加入素材库 ' + arr.length + ' 个素材', arr.length ? 'ok' : 'warn');
+      showSearchNote('✅ ' + esc((d && d.note) || '已加入素材库') + '；已自动勾选，可在下方素材库继续批量操作。', false);
+      SEARCH.sel = {};
+      updateSearchSel();
+      var notice = $('wbAssetNotice');
+      if (notice) { notice.hidden = false; notice.textContent = '图库搜索已加入 ' + arr.length + ' 个素材（已自动勾选，可批量加入时间轴或删除选中）。'; }
+      setTimeout(closeSearchModal, 900);
+    }).catch(function (e) {
+      showSearchNote('❌ 加入素材库失败：' + esc(e && e.message ? e.message : '网络异常'), true);
+    }).then(function () {
+      var b = $('wbSearchImport');
+      if (b) { b.textContent = '＋ 加入素材库'; }
+      updateSearchSel();
+    });
+  }
+  function bindSearch() {
+    var btn = $('wbSearchBtn');
+    if (btn) btn.addEventListener('click', function () { runAssetSearch(); });
+    var input = $('wbSearchInput');
+    if (input) input.addEventListener('keydown', function (e) {
+      if (e.key === 'Enter') { e.preventDefault(); runAssetSearch(); }
+    });
+    var kind = $('wbSearchKind');
+    if (kind) kind.addEventListener('change', function () {
+      if (SEARCH.q && !$('wbSearchModal').hidden) runAssetSearch(SEARCH.q);
+    });
+    var hist = $('wbSearchHist');
+    if (hist) hist.addEventListener('click', function (e) {
+      var b = e.target && e.target.closest ? e.target.closest('[data-sk]') : null;
+      if (!b) return;
+      var w = b.getAttribute('data-sk') || '';
+      if ($('wbSearchInput')) $('wbSearchInput').value = w;
+      runAssetSearch(w);
+    });
+    var clo = $('wbSearchClose'); if (clo) clo.addEventListener('click', closeSearchModal);
+    var clo2 = $('wbSearchClose2'); if (clo2) clo2.addEventListener('click', closeSearchModal);
+    var sm = $('wbSearchModal');
+    if (sm) sm.addEventListener('click', function (e) { if (e.target === sm) closeSearchModal(); });
+    var chips = $('wbSearchChips');
+    if (chips) chips.addEventListener('click', function (e) {
+      var b = e.target && e.target.closest ? e.target.closest('[data-sq]') : null;
+      if (!b) return;
+      var w = b.getAttribute('data-sq') || '';
+      if ($('wbSearchInput')) $('wbSearchInput').value = w;
+      runAssetSearch(w);
+    });
+    var grid = $('wbSearchGrid');
+    if (grid) {
+      grid.addEventListener('change', function (e) {
+        var cb = e.target && e.target.closest ? e.target.closest('[data-scheck]') : null;
+        if (!cb) return;
+        var card = cb.closest('.wb-scard');
+        if (card) toggleSearchItem(card.getAttribute('data-si'), cb.checked);
+      });
+      grid.addEventListener('click', function (e) {
+        var card = e.target && e.target.closest ? e.target.closest('.wb-scard') : null;
+        if (!card) return;
+        if (e.target && e.target.closest && e.target.closest('[data-scheck]')) return;
+        var i = card.getAttribute('data-si');
+        toggleSearchItem(i, !SEARCH.sel[i]);
+      });
+      grid.addEventListener('keydown', function (e) {
+        if (e.key !== ' ' && e.key !== 'Enter') return;
+        var card = e.target && e.target.closest ? e.target.closest('.wb-scard') : null;
+        if (!card) return;
+        e.preventDefault();
+        var i = card.getAttribute('data-si');
+        toggleSearchItem(i, !SEARCH.sel[i]);
+      });
+    }
+    var all = $('wbSearchAll');
+    if (all) all.addEventListener('click', function () {
+      for (var i = 0; i < SEARCH.items.length; i++) SEARCH.sel[i] = true;
+      renderSearchResults({ note: SEARCH.note, suggestions: SEARCH.suggestions });
+    });
+    var none = $('wbSearchNone');
+    if (none) none.addEventListener('click', function () {
+      SEARCH.sel = {};
+      renderSearchResults({ note: SEARCH.note, suggestions: SEARCH.suggestions });
+    });
+    var imp = $('wbSearchImport');
+    if (imp) imp.addEventListener('click', importSearchSel);
+    renderSearchHist();
+  }
+
+  /* ---------------- 素材库：全选 / 全不选 / 批量加入时间轴 / 批量删除 ---------------- */
+  function bulkSelectAll() {
+    var arr = filteredAssets();
+    for (var i = 0; i < arr.length; i++) WB.sel[arr[i].url] = true;
+    persistSel(); renderAssets(); updateSelUI();
+    toast('已全选 ' + arr.length + ' 个素材' + (WB.filter === 'all' ? '' : '（当前筛选）'), 'ok');
+  }
+  function bulkClearAll() {
+    clearSel();
+    toast('已取消全部勾选', 'ok');
+  }
+  function bulkTimeline() {
+    if (!window.__WB_ADD_TIMELINE) { toast('自由剪辑还没准备好，请刷新页面', 'warn'); return; }
+    var arr = [];
+    for (var i = 0; i < WB.assets.length; i++) {
+      var a = WB.assets[i];
+      if (WB.sel[a.url] && (a._kind === 'image' || a._kind === 'video')) arr.push(a);
+    }
+    if (!arr.length) { toast('先勾选图片或视频素材，再批量加入时间轴', 'warn'); return; }
+    arr = arr.slice(0, 20);
+    var ok = 0, idx = 0;
+    function next() {
+      if (idx >= arr.length) {
+        setMode('timeline'); goStep(3, true);
+        toast('已把 ' + ok + ' 段素材加入自由剪辑时间轴', ok ? 'ok' : 'warn');
+        return;
+      }
+      var a = arr[idx++];
+      var p = null;
+      try { p = window.__WB_ADD_TIMELINE(a); } catch (e) { p = null; }
+      Promise.resolve(p).then(function (r) { if (r) ok++; }).catch(function () {}).then(next);
+    }
+    next();
+  }
+  function bulkDelete() {
+    var arr = [];
+    for (var i = 0; i < WB.assets.length; i++) {
+      var a = WB.assets[i];
+      if (WB.sel[a.url]) arr.push(a);
+    }
+    if (!arr.length) { toast('先勾选要删除的素材', 'warn'); return; }
+    if (!window.confirm('删除选中的 ' + arr.length + ' 个素材？\n服务端文件与 sidecar 会一并删除，删除后不可恢复。')) return;
+    var before = WB.assets.length;
+    var okN = 0, failN = 0, idx = 0;
+    var notice = $('wbAssetNotice');
+    if (notice) { notice.hidden = false; notice.textContent = '正在删除 ' + arr.length + ' 个素材…'; }
+    function done() {
+      WB.assets = WB.assets.filter(function (x) { return !WB.sel[x.url]; });
+      for (var j = 0; j < arr.length; j++) delete WB.sel[arr[j].url];
+      persistSel(); renderAssets(); updateSelUI(); syncSummary();
+      var after = WB.assets.length;
+      if (notice) {
+        notice.hidden = false;
+        notice.textContent = '批量删除完成：成功 ' + okN + ' 个' + (failN ? ('，失败 ' + failN + ' 个') : '')
+          + '；素材库数量 ' + before + ' → ' + after + '（服务端文件与 sidecar 已删除，列表已刷新，勾选已清零）。';
+      }
+      toast('已删除 ' + okN + ' 个素材' + (failN ? ('，' + failN + ' 个失败') : ''), okN ? 'ok' : 'bad');
+    }
+    function next() {
+      if (idx >= arr.length) { done(); return; }
+      var a = arr[idx++];
+      var q = '/assets?url=' + encodeURIComponent(a.url);
+      if (ws()) q += '&workspace_id=' + encodeURIComponent(ws());
+      api(q, { method: 'DELETE' }, 25000).then(function (d) {
+        if (!d || !d.ok) throw new Error((d && d.hint) || '删除失败');
+        okN++;
+      }).catch(function () { failN++; }).then(next);
+    }
+    next();
+  }
+  function bindBulk() {
+    var all = $('wbBulkAll'); if (all) all.addEventListener('click', bulkSelectAll);
+    var none = $('wbBulkNone'); if (none) none.addEventListener('click', bulkClearAll);
+    var tl = $('wbBulkTimeline'); if (tl) tl.addEventListener('click', bulkTimeline);
+    var del = $('wbBulkDelete'); if (del) del.addEventListener('click', bulkDelete);
+  }
+  function bindMergeExtras() {
+    bindAeEntry();
+    bindSearch();
+    bindBulk();
+    document.addEventListener('keydown', function (e) {
+      if (e.key !== 'Escape') return;
+      var sm = $('wbSearchModal'), am = $('wbAeModal');
+      if (sm && !sm.hidden) { closeSearchModal(); return; }
+      if (am && !am.hidden) { closeAeModal(); }
+    });
   }
 
   /* ---------------- 批量剪辑 ---------------- */
@@ -7737,7 +8332,7 @@ if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',
       var f = document.querySelector('#wbAssetFilters [data-filter="' + WB.filter + '"]');
       if (f) { var fs = document.querySelectorAll('#wbAssetFilters [data-filter]'); for (var i = 0; i < fs.length; i++) fs[i].className = fs[i] === f ? 'on' : ''; }
     } catch (e) {}
-    bindSteps(); bindModes(); bindIndustry(); bindAssets(); bindBatch(); bindSide();
+    bindSteps(); bindModes(); bindIndustry(); bindAssets(); bindMergeExtras(); bindBatch(); bindSide();
     observePreview();
     updateAutoMatNote();
     setMode(WB.mode, true); setBatchMode(WB.batchMode, true);
