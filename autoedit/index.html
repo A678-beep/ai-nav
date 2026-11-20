@@ -1103,7 +1103,7 @@ html[data-theme="light"] .ae-cj-snippet{background:rgba(2,132,199,.05)}
             </button>
             <button type="button" class="ae-presenter-card" id="aePresenterChanjing" data-presenter="chanjing" role="radio" aria-checked="false" aria-disabled="false">
               <span class="p-ico" aria-hidden="true">🎬</span><b>AI 数字人 A（换背景版 / 定制形象）<span class="ae-rec-tag">NEW</span></b>
-              <i id="aeCjNote">正在读取数字人服务配置…</i><small>选 AI 数字人形象 + 背景 + 音色，真口播数字人自动合成进成片（2.1 积分/秒）</small>
+              <i id="aeCjNote">正在读取数字人服务配置…</i><small>选 AI 数字人形象 + 背景 + 音色，真口播数字人自动合成进成片（0.5 积分/秒）</small>
             </button>
           </div>
 
@@ -1183,7 +1183,7 @@ html[data-theme="light"] .ae-cj-snippet{background:rgba(2,132,199,.05)}
           <div class="ae-presenter-panel" id="aePresenterChanjingPanel" hidden>
             <div class="ae-cj-head">
               <b>🎬 AI 数字人 A（换背景版） · 数字人服务（换背景 / 定制形象）</b>
-              <span class="ae-cj-price-chip" id="aeCjPriceChip">2.1 积分/秒（15 秒约 32 积分）</span>
+              <span class="ae-cj-price-chip" id="aeCjPriceChip">0.5 积分/秒（15 秒约 7.5 积分）</span>
             </div>
             <p class="ae-cj-sub">选平台公共形象（如 文昊 / 晓洁 / 婉茹…）→ 选背景（纯色 / 门店图 / 不换）→ 按整片文案用 AI 配音合成真口播数字人，自动合成进成片（成片配音复用该口播音轨，口型不错位）。想要专属形象做「定制专属形象」，由客服开通后出现在这里。</p>
             <div class="ae-cj-row"><span class="lb">① 选形象</span><span class="ae-tiny" id="aeCjPersonHint">正在加载形象…</span></div>
@@ -1216,8 +1216,8 @@ html[data-theme="light"] .ae-cj-snippet{background:rgba(2,132,199,.05)}
               <button type="button" class="ae-btn sm ghost" id="aeCjVoiceBtn">▶ 试听第 1 步音色</button>
             </div>
             <div class="ae-cj-snippet-row">
-              <button type="button" class="ae-btn sm" id="aeCjSampleBtn">🎬 生成 3 秒预览（约 6 积分）</button>
-              <span class="ae-tiny" id="aeCjSampleHint">导出前先看真实口播效果：AI 数字人 A 按当前形象 + 背景合成 3 秒数字人样片（约 6 积分），仅预览、不计入成片</span>
+              <button type="button" class="ae-btn sm" id="aeCjSampleBtn">🎬 生成 3 秒预览（约 1.5 积分）</button>
+              <span class="ae-tiny" id="aeCjSampleHint">导出前先看真实口播效果：AI 数字人 A 按当前形象 + 背景合成 3 秒数字人样片（约 1.5 积分），仅预览、不计入成片</span>
             </div>
             <div class="ae-cj-snippet" id="aeCjSampleWrap" hidden>
               <video id="aeCjSampleVideo" controls playsinline preload="metadata"></video>
@@ -1227,7 +1227,7 @@ html[data-theme="light"] .ae-cj-snippet{background:rgba(2,132,199,.05)}
               <button type="button" class="ae-btn primary" id="aeCjGenBtn">🎬 生成含数字人的成片</button>
               <span class="ae-tiny" id="aeCjGenHint">按成片配音时长生成数字人视频，字幕 / 图表仍由我们叠加；积分可在账户页充值 / 兑换</span>
             </div>
-            <p class="ae-cj-hint" id="aeCjFootnote">💰 2.1 积分/秒 × 数字人视频时长（15 秒成片约 32 积分；数字人视频通常比成片略短），实际扣费以积分明细为准。<br>⚠️ 内容需过合规审核（文案不合规会失败并给中文原因）；成品链接会过期，已自动转存本站。当前对「上传音频」一律审核不通过，所以口播由 AI 配音文本模式合成（音色选高性价比音色最稳）。</p>
+            <p class="ae-cj-hint" id="aeCjFootnote">💰 0.5 积分/秒 × 数字人视频时长（15 秒成片约 7.5 积分；数字人视频通常比成片略短），实际扣费以积分明细为准。<br>⚠️ 内容需过合规审核（文案不合规会失败并给中文原因）；成品链接会过期，已自动转存本站。当前对「上传音频」一律审核不通过，所以口播由 AI 配音文本模式合成（音色选高性价比音色最稳）。</p>
           </div>
 
 
@@ -2665,7 +2665,7 @@ function presenterLayoutLabel(l) { return l === 'pip' ? '右下画中画' : '铺
    - 背景：纯色 / 上传门店图（先传本站拿到公网 URL）/ 不换（形象自带）
    - 音频：复用整片 TTS 配音（第 1 步音色，音画同源）；导出时先合成数字人视频再合成进成片
    ================================================================== */
-var CJ_DEFAULT_PPS = 0.03;     /* 2.1 积分/秒 */
+var CJ_DEFAULT_PPS = 0.03; /* 0.5 积分/秒 */     /* 0.5 积分/秒 */
 var CJ_DEFAULT_CNY = 7.1;      /* 1 上游点券 ≈ ¥7.1 ≈ 71 积分 */
 
 function cjOptions() {
@@ -2691,7 +2691,7 @@ function cjPriceInfo(sec) {
   var s = Number(sec) || currentDurationSeconds();
   var ptc = Math.round(pps * s * 100) / 100;
   return { sec: s, pps: pps, cnyPerPtc: cnyPer, ptc: ptc, cny: Math.round(ptc * cnyPer * 10) / 10,
-    ppsPts: Math.round(pps * 71 * 10) / 10, pts: Math.round(ptc * 71) };
+    ppsPts: Math.round(pps * 16.7 * 10) / 10, pts: Math.round(ptc * 16.7) };
 }
 function cjPriceHtml() {
   var i = cjPriceInfo(currentDurationSeconds());
@@ -2833,7 +2833,7 @@ function updateChanjingUI() {
   }
   if ($('aeCjNote')) {
     $('aeCjNote').textContent = configured
-      ? ('AI 数字人 A 已就绪 · 2.1 积分/秒 · ' + cjPersonsData().length + ' 个形象可选')
+      ? ('AI 数字人 A 已就绪 · 0.5 积分/秒 · ' + cjPersonsData().length + ' 个形象可选')
       : ('待配置：' + ((o.hint) || '请联系客服开通 Key'));
   }
   var panel = $('aePresenterChanjingPanel');
@@ -3041,7 +3041,7 @@ function cjShowSnippet(snip) {
   if ($('aeCjSampleTitle')) $('aeCjSampleTitle').textContent = '3 秒真实预览 · ' + (snip.person || 'AI 数字人 A（换背景版）');
   if ($('aeCjSampleMeta')) {
     $('aeCjSampleMeta').textContent = (snip.duration ? (Number(snip.duration).toFixed(1) + ' 秒 · ') : '') +
-      (snip.cost_ptc ? ('本次约 ' + Math.round(Number(snip.cost_ptc) * 71) + ' 积分 · ') : '') +
+      (snip.cost_ptc ? ('本次约 ' + Math.round(Number(snip.cost_ptc) * 16.7) + ' 积分 · ') : '') +
       (snip.at ? ('生成于 ' + new Date(snip.at).toLocaleTimeString('zh-CN', { hour: '2-digit', minute: '2-digit' })) : '') +
       ' · 仅预览，不计入成片';
   }
@@ -3052,10 +3052,10 @@ function cjSyncSnippetUI() {
   var wrap = $('aeCjSampleWrap'), btn = $('aeCjSampleBtn');
   if (snip && snip.url && snip.key === cjSnippetKey()) {
     cjShowSnippet(snip);
-    if (btn && !cj.snippetBusy) btn.textContent = '🔁 重新生成 3 秒预览（再扣约 6 积分）';
+    if (btn && !cj.snippetBusy) btn.textContent = '🔁 重新生成 3 秒预览（再扣约 1.5 积分）';
   } else {
     if (wrap) wrap.hidden = true;
-    if (btn && !cj.snippetBusy) btn.textContent = '🎬 生成 3 秒预览（约 6 积分）';
+    if (btn && !cj.snippetBusy) btn.textContent = '🎬 生成 3 秒预览（约 1.5 积分）';
   }
 }
 function cjGenerateSnippet() {
@@ -3098,14 +3098,14 @@ function cjGenerateSnippet() {
     cj.snippet = snip;
     if (btn) { btn.disabled = false; }
     cjShowSnippet(snip);
-    if (btn) btn.textContent = '🔁 重新生成 3 秒预览（再扣约 6 积分）';
+    if (btn) btn.textContent = '🔁 重新生成 3 秒预览（再扣约 1.5 积分）';
     if ($('aeCjSampleHint')) {
       $('aeCjSampleHint').textContent = '已生成真实 3 秒样片（本次 ' + cjSnippetCostText(snip.duration || 3) + '）· 仅用于预览，导出成片按整片时长计费';
     }
     toast('3 秒预览已生成：点视频可播放真实口播效果', 'ok', 3600);
   }).catch(function (e) {
     cj.snippetBusy = false;
-    if (btn) { btn.disabled = false; btn.textContent = oldLabel || '🎬 生成 3 秒预览（约 6 积分）'; }
+    if (btn) { btn.disabled = false; btn.textContent = oldLabel || '🎬 生成 3 秒预览（约 1.5 积分）'; }
     var data = e && e.data;
     var msg = (data && (data.hint || data.detail)) || (e && e.message) || '请稍后重试';
     if ($('aeCjSampleHint')) $('aeCjSampleHint').textContent = '生成失败：' + msg;
@@ -3536,7 +3536,7 @@ function setPresenterMode(mode, opts) {
       upload: '已选「上传口播视频」：可开启绿幕抠像，把背景换成我们的素材',
       lipsync: '已选「真口型数字人」：上传 5–20 秒正面出镜视频，生成时自动合成真口型出镜（按秒计费）',
       photo_lipsync: '已选「照片口型数字人（真口型）」：上传一张正脸清晰照片，生成时会先做缓慢推近再合成真口型（只有嘴型动，按秒计费）',
-      chanjing: '已选「AI 数字人 A（换背景版）」：挑好形象和背景，导出时会先合成真口播数字人视频再合成进成片（2.1 积分/秒）'    };
+      chanjing: '已选「AI 数字人 A（换背景版）」：挑好形象和背景，导出时会先合成真口播数字人视频再合成进成片（0.5 积分/秒）'    };
     toast(tips[mode] || '已切换出镜方式', 'ok', 2400);
   }
 }
@@ -3561,7 +3561,7 @@ function showCjUpgrade() {
   var hint = co.hint || '当前未开通该数字人能力，请联系客服';
   if (!co.configured) { toast('当前数字人服务暂不可用，请联系客服', 'warn', 6000); return; }
   var list = co.persons || [];
-  toast('AI 数字人 A（换背景版）可用（' + list.length + ' 个形象 · 2.1 积分/秒）：选形象 + 背景后，导出时先合成数字人视频再合成进成片', 'ok', 4600);
+  toast('AI 数字人 A（换背景版）可用（' + list.length + ' 个形象 · 0.5 积分/秒）：选形象 + 背景后，导出时先合成数字人视频再合成进成片', 'ok', 4600);
 }
 function loadPresenterOptions() {
   return apiFetch('/presenter/options', { timeout: 7000 }).then(function (d) {
@@ -3600,7 +3600,7 @@ function loadPresenterOptions() {
       cjCard.setAttribute('aria-disabled', cjReady ? 'false' : 'true');
       if ($('aeCjNote')) {
         $('aeCjNote').textContent = cjReady
-          ? ('AI 数字人 A 已就绪 · 2.1 积分/秒 · ' + ((cjo.persons || []).length) + ' 个形象可选')
+          ? ('AI 数字人 A 已就绪 · 0.5 积分/秒 · ' + ((cjo.persons || []).length) + ' 个形象可选')
           : (cjo
             ? ('待配置：' + (cjo.hint || '请联系客服开通 Key'))
             : '数字人服务暂不可用，请稍后再试');
@@ -4389,7 +4389,7 @@ function avatarCardMeta() {
     return {
       mode: mode, isLipsync: false,
       title: 'AI 数字人 A（换背景版）（导出时合成）',
-      chipText: 'AI 数字人 A（换背景版） · 2.1 积分/秒',
+      chipText: 'AI 数字人 A（换背景版） · 0.5 积分/秒',
       shotNote: '导出时先合成真口播数字人视频，再合成进成片'
     };
   }
