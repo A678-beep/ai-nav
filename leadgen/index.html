@@ -2767,7 +2767,7 @@ html[data-theme="light"] .amb-fold{background:rgba(255,255,255,.75);color:#3b4a5
   function leadTags(l) { return Array.isArray(l.tags) ? l.tags : []; }
   function leadNotes(l) { return Array.isArray(l.notes) ? l.notes : []; }
   function sourceLabel(src) {
-    var map = { lbs_poi: 'LBS 找客', manual: '手动导入', csv: 'CSV 导入', search: '公开搜索', intent_search: '意向问答', express: '一句话找客', onsite: '本站留言', official: '官方 API', '评论区': '评论区' };
+    var map = { lbs_poi: 'LBS 找客', manual: '手动导入', csv: 'CSV 导入', search: '公开搜索', intent_search: '意向问答', express: '一句话找客', onsite: '本站留言', official: '官方 API', '评论区': '评论区', cs_chat: 'AI 客服' };
     return map[src] || src || '—';
   }
   function syncPlatformFilter() {

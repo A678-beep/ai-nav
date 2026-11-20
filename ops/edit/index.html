@@ -629,6 +629,11 @@ html[data-page="ops-edit"] .xl-sb-theme{display:none!important}
           <span class="mi"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M6 3.5h12v17l-3-2-3 2-3-2z"/><path d="M9 8h6M9 11.5h6M9 15h4"/></svg></span>
           <span class="ml">发票管理</span>
         </button>
+        <button class="oe-menu-item" type="button" data-tab="csai" role="tab" aria-selected="false">
+          <span class="mi"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M21 11.6a8.4 8.4 0 0 1-8.6 8.3 9.3 9.3 0 0 1-3.4-.6L4 21l1.4-4.2a8.2 8.2 0 0 1-1-4A8.4 8.4 0 0 1 13 4.5a8.4 8.4 0 0 1 8 7.1z"/><path d="M8.4 11.5h.01M12 11.5h.01M15.6 11.5h.01"/></svg></span>
+          <span class="ml">AI 客服</span>
+          <span class="mb" id="oeCsAiBadge" hidden>0</span>
+        </button>
       </nav>
       <div class="oe-menu-sep" aria-hidden="true"></div>
       <div class="oe-menu-foot">
@@ -656,6 +661,7 @@ html[data-page="ops-edit"] .xl-sb-theme{display:none!important}
       <div class="oe-body" id="oeBody">
         <section class="oe-panel" data-panel="credits" id="panel-credits" hidden></section>
         <section class="oe-panel" data-panel="invoices" id="panel-invoices" hidden></section>
+        <section class="oe-panel" data-panel="csai" id="panel-csai" hidden></section>
         <!-- ================= 1. 运营总览 ================= -->
         <section class="oe-panel" data-panel="overview" id="panel-overview">
           <div class="oe-stats" id="ovStats">
@@ -1174,7 +1180,8 @@ html[data-page="ops-edit"] .xl-sb-theme{display:none!important}
     stats: { label: '数据统计', crumb: '数据统计', sub: '成片数量、时长、失败率与商家使用排行；成本为估算口径。' },
     plans: { label: '套餐权限', crumb: '套餐权限', sub: '四档套餐功能矩阵：内容理解 / 演示视频 / Skill / 批量 / 优先算力 / 多轨 / 关键帧 / 自定义素材库。' },
     credits: { label: '积分管理', crumb: '积分管理', sub: '给客户充积分、按用量扣积分；用户端 0.3–0.8 积分/秒、渲染 2 积分/条；后台看真实成本/毛利与总户余额。' },
-    invoices: { label: '发票管理', crumb: '发票管理', sub: '客户开票申请：人工开票（填发票号/上传 PDF）、驳回、自动开票；导出 CSV 给代账公司/开票平台。' }
+    invoices: { label: '发票管理', crumb: '发票管理', sub: '客户开票申请：人工开票（填发票号/上传 PDF）、驳回、自动开票；导出 CSV 给代账公司/开票平台。' },
+    csai: { label: 'AI 客服', crumb: 'AI 智能客服', sub: '知识库（三层来源）/ 网页挂件会话 / 留资转人工 / 未命中问题池 / 成交漏斗 / 成本看板；P0 网页渠道，企微抖音官方接口 P1 预留。' }
 
   };
 
@@ -1953,7 +1960,8 @@ html[data-page="ops-edit"] .xl-sb-theme{display:none!important}
     stats: function (force) { return Promise.all([ensureStats(force), ensureOverview(force), ensureLibrary(force)]); },
     plans: function (force) { return ensurePlans(force); },
     credits: function () { return Promise.resolve(); },
-    invoices: function () { return Promise.resolve(); }
+    invoices: function () { return Promise.resolve(); },
+    csai: function () { return Promise.resolve(); }
   };
   var TAB_RENDERERS = {};
 
@@ -2844,6 +2852,7 @@ html[data-page="ops-edit"] .xl-sb-theme{display:none!important}
   TAB_RENDERERS.plans = function () { renderPlans(); };
   TAB_RENDERERS.credits = function () { if (window.XLCreditsOps) window.XLCreditsOps.render(); };
   TAB_RENDERERS.invoices = function () { if (window.XLInvoicesOps) window.XLInvoicesOps.render(); };
+  TAB_RENDERERS.csai = function () { if (window.XLCsAiOps) window.XLCsAiOps.render(); };
   function ensurePlanMatrix() {
     var planIds = (state.plans || []).map(function (p) { return p.id; });
     if (!planIds.length) planIds = ['free', 'basic', 'pro', 'enterprise'];
@@ -3951,6 +3960,7 @@ html[data-page="ops-edit"] .xl-sb-theme{display:none!important}
 })();
 </script>
   <script defer src="../../assets/credits-ops.js"></script>
+<script defer src="../../assets/cs-ai-ops.js?v=20261120a"></script>
 </body>
 </html>
 
