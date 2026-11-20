@@ -372,6 +372,11 @@ html[data-theme="light"][data-page="autoedit"] .ae-fail{color:#9f1239}
 .ae-thumb .ae-thumb-tagx{position:absolute;left:7px;bottom:5px;font-size:9.5px;font-weight:900;color:#fff;text-shadow:0 1px 5px rgba(0,0,0,.5);letter-spacing:.03em}
 .ae-thumb .ae-thumb-scan{position:absolute;right:7px;top:7px;bottom:7px;width:26px;display:flex;gap:2px;align-items:flex-end;justify-content:flex-end;opacity:.85}
 .ae-thumb .ae-thumb-scan i{display:block;width:3px;background:rgba(255,255,255,.85);border-radius:2px}
+/* 蝉镜数字人：第②步镜头卡缩略图显示所选形象封面 + 「蝉镜」小标 */
+.ae-thumb.tt-cj::before{background:linear-gradient(135deg,#0b1220,#0f172a)}
+.ae-thumb.tt-cj::after{background:linear-gradient(0deg,rgba(3,7,18,.66),rgba(3,7,18,.04) 62%)}
+.ae-thumb.tt-cj img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:center 30%;display:block;z-index:1}
+.ae-thumb.tt-cj .ae-cj-thumb-tag{position:absolute;left:5px;bottom:5px;z-index:3;padding:1px 6px;border-radius:999px;font-size:9.4px;font-weight:900;color:#e0f2fe;background:rgba(3,105,161,.8);border:1px solid rgba(56,189,248,.55);text-shadow:0 1px 4px rgba(0,0,0,.45)}
 .tt-voiceover{--tc1:#0ea5e9;--tc2:#2563eb;--tagc:#7dd3fc;--tagbg:rgba(56,189,248,.13);--tagbd:rgba(56,189,248,.36);--lgc:#38bdf8}
 .tt-chart{--tc1:#8b5cf6;--tc2:#d946ef;--tagc:#c4b5fd;--tagbg:rgba(139,92,246,.14);--tagbd:rgba(139,92,246,.38);--lgc:#a78bfa}
 .tt-steps{--tc1:#34d399;--tc2:#059669;--tagc:#6ee7b7;--tagbg:rgba(52,211,153,.13);--tagbd:rgba(52,211,153,.36);--lgc:#34d399}
@@ -807,9 +812,26 @@ html[data-theme="light"] .ae-bg-note{color:#475569}
 .ae-cj-preview{display:flex;gap:10px;margin-top:9px;align-items:center}
 .ae-cj-preview[hidden]{display:none}
 .ae-cj-preview video{width:92px;height:164px;object-fit:cover;border-radius:9px;border:1px solid var(--ae-line-2);background:#05080f;flex:0 0 auto}
-@media(max-width:640px){.ae-cj-persons{grid-template-columns:repeat(2,minmax(0,1fr))}}
+/* 蝉镜：定制形象空位（客户专属形象由运营开通） */
+.ae-cj-person.ae-cj-empty{border:1.5px dashed var(--ae-line-cyan);background:rgba(56,189,248,.05);cursor:pointer}
+.ae-cj-person.ae-cj-empty:hover{border-color:var(--ae-cyan);background:rgba(56,189,248,.1)}
+.ae-cj-person.ae-cj-empty .ph{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:4px;background:transparent}
+.ae-cj-person.ae-cj-empty .empty-plus{font-size:26px;font-weight:300;line-height:1;color:var(--ae-cyan);opacity:.9}
+.ae-cj-person.ae-cj-empty .empty-txt{font-size:10.2px;font-weight:800;color:var(--ae-txt2);text-align:center;padding:0 6px;line-height:1.35}
+.ae-cj-person.ae-cj-empty .nm{color:var(--ae-cyan)}
+/* 蝉镜：3 秒预览样片 */
+.ae-cj-snippet-row{display:flex;gap:8px;flex-wrap:wrap;align-items:center;margin-top:9px}
+.ae-cj-snippet{display:flex;gap:10px;margin-top:9px;padding:9px;border-radius:12px;border:1px solid var(--ae-line-cyan);background:rgba(56,189,248,.06);align-items:center}
+.ae-cj-snippet[hidden]{display:none}
+.ae-cj-snippet video{width:104px;height:185px;object-fit:contain;border-radius:9px;border:1px solid var(--ae-line-2);background:#05080f;flex:0 0 auto}
+.ae-cj-snippet .tx{display:flex;flex-direction:column;gap:4px;min-width:0}
+.ae-cj-snippet .tx b{font-size:12.2px}
+.ae-cj-snippet .tx span{font-size:11px;color:var(--ae-txt3);line-height:1.55}
+@media(max-width:640px){.ae-cj-persons{grid-template-columns:repeat(2,minmax(0,1fr))}.ae-cj-snippet video{width:84px;height:150px}}
 html[data-theme="light"] .ae-cj-person{background:#fff}
+html[data-theme="light"] .ae-cj-person.ae-cj-empty{background:rgba(2,132,199,.05)}
 html[data-theme="light"] .ae-cj-price{background:rgba(2,132,199,.06)}
+html[data-theme="light"] .ae-cj-snippet{background:rgba(2,132,199,.05)}
 </style>
 <link rel="stylesheet" href="../assets/theme-light.css">
 <script defer src="../assets/theme.js"></script>
@@ -1077,7 +1099,7 @@ html[data-theme="light"] .ae-cj-price{background:rgba(2,132,199,.06)}
               <b>🎬 蝉镜数字人 · 302.AI（换背景 / 定制形象）</b>
               <span class="ae-cj-price-chip" id="aeCjPriceChip">0.03 PTC/秒 ≈ ¥0.21/秒</span>
             </div>
-            <p class="ae-cj-sub">选本公司定制形象或蝉镜公共形象 → 选背景（纯色 / 门店图 / 不换）→ 蝉镜按整片文案用 TTS 合成真口播数字人，自动合成进成片（成片配音复用该口播音轨，口型不错位）。</p>
+            <p class="ae-cj-sub">选蝉镜公共形象（如 文昊 / 晓洁 / 婉茹…）→ 选背景（纯色 / 门店图 / 不换）→ 蝉镜按整片文案用 TTS 合成真口播数字人，自动合成进成片（成片配音复用该口播音轨，口型不错位）。想要专属形象做「定制专属形象」，由运营开通后出现在这里。</p>
             <div class="ae-cj-row"><span class="lb">① 选形象</span><span class="ae-tiny" id="aeCjPersonHint">正在加载形象…</span></div>
             <div class="ae-cj-persons" id="aeCjPersons" role="radiogroup" aria-label="选择蝉镜数字人形象"></div>
             <div class="ae-cj-preview" id="aeCjPreviewWrap" hidden>
@@ -1106,6 +1128,14 @@ html[data-theme="light"] .ae-cj-price{background:rgba(2,132,199,.06)}
             <div class="ae-cj-row">
               <span class="lb">③ 音色</span><span id="aeCjVoice">蝉镜 TTS 口播音色（第 1 步选蝉镜音色可指定）</span>
               <button type="button" class="ae-btn sm ghost" id="aeCjVoiceBtn">▶ 试听第 1 步音色</button>
+            </div>
+            <div class="ae-cj-snippet-row">
+              <button type="button" class="ae-btn sm" id="aeCjSampleBtn">🎬 生成 3 秒预览（约 0.1 PTC）</button>
+              <span class="ae-tiny" id="aeCjSampleHint">导出前先看真实口播效果：蝉镜按当前形象 + 背景合成 3 秒数字人样片（约 0.09 PTC ≈ ¥0.6），仅预览、不计入成片</span>
+            </div>
+            <div class="ae-cj-snippet" id="aeCjSampleWrap" hidden>
+              <video id="aeCjSampleVideo" controls playsinline preload="metadata"></video>
+              <div class="tx"><b id="aeCjSampleTitle">3 秒预览</b><span id="aeCjSampleMeta">—</span></div>
             </div>
             <div class="ae-cj-actions">
               <button type="button" class="ae-btn primary" id="aeCjGenBtn">🎬 生成含数字人的成片</button>
@@ -2584,6 +2614,8 @@ function cjPriceHtml() {
 function cjPersonsData() {
   var o = cjOptions() || {};
   var list = (o.persons && o.persons.length) ? o.persons : (state.presenter.cj.persons || []);
+  /* 已下线的本公司定制形象（后端 hidden/deleted）不在产品端出现 */
+  list = list.filter(function (p) { return p && !p.hidden; });
   state.presenter.cj.persons = list;
   return list;
 }
@@ -2608,7 +2640,7 @@ function setCjPerson(pid) {
   invalidatePresenterExport();
   updateChanjingUI();
   var p = cjSelectedPerson();
-  if (p) toast('已选蝉镜形象：' + p.name + (p.source === 'public' ? '（公共形象）' : '（本公司定制形象）'), 'ok', 2200);
+  if (p) toast('已选蝉镜形象：' + p.name + (p.source === 'public' ? '（公共形象）' : '（客户定制形象）'), 'ok', 2200);
 }
 function setCjBgMode(mode) {
   mode = (mode === 'image' || mode === 'none') ? mode : 'color';
@@ -2639,6 +2671,12 @@ function setCjBgColor(color) {
   invalidatePresenterExport();
   updateChanjingUI();
 }
+function cjEmptySlotHtml() {
+  return '<button type="button" class="ae-cj-person ae-cj-empty" id="aeCjCustomSlot" aria-label="定制专属形象（由运营开通）">' +
+    '<span class="ph"><span class="empty-plus" aria-hidden="true">＋</span>' +
+    '<span class="empty-txt">定制专属形象</span></span>' +
+    '<span class="nm">上传照片 / 视频</span><span class="meta">由运营开通 · 联系运营</span></button>';
+}
 function renderCjPersons() {
   var box = $('aeCjPersons');
   if (!box) return;
@@ -2647,9 +2685,9 @@ function renderCjPersons() {
   if (!list.length) {
     box.innerHTML = '<div class="ae-tiny" style="grid-column:1/-1;padding:6px 2px">' +
       (cjConfigured()
-        ? '还没有可用形象：请运营到 /ops/edit/「302.AI 蝉镜」选择默认形象，或定制一个新形象后刷新'
-        : '蝉镜未配置 302.AI Key：请运营到 /ops/edit/「302.AI 蝉镜」保存 Key 后刷新') + '</div>';
-    if ($('aeCjPersonHint')) $('aeCjPersonHint').textContent = '暂无形象';
+        ? '还没有可用形象：请运营到 /ops/edit/「302.AI 蝉镜」刷新形象列表后重试'
+        : '蝉镜未配置 302.AI Key：请运营到 /ops/edit/「302.AI 蝉镜」保存 Key 后刷新') + '</div>' + cjEmptySlotHtml();
+    if ($('aeCjPersonHint')) $('aeCjPersonHint').textContent = '暂无可用公共形象';
     return;
   }
   var html = list.map(function (p) {
@@ -2661,18 +2699,20 @@ function renderCjPersons() {
     var meta = p.source === 'public'
       ? ((p.gender || '形象') + ' · ' + (Number(p.width) || 1080) + '×' + (Number(p.height) || 1920) +
          (p.supports_bg_replace === false ? '' : ' · 可换背景'))
-      : '本公司形象 · 训练背景';
+      : '客户专属形象 · 由运营开通';
     var on = p.id === cur;
     return '<button type="button" class="ae-cj-person' + (on ? ' on' : '') + '" data-cjperson="' + esc(p.id) +
       '" role="radio" aria-checked="' + (on ? 'true' : 'false') + '" aria-label="' + esc(p.name) + '">' +
       '<span class="ph">' + badge + img + fall + '<span class="on-dot">✓</span></span>' +
       '<span class="nm">' + esc(p.name) + '</span><span class="meta">' + esc(meta) + '</span></button>';
   }).join('');
-  box.innerHTML = html;
+  box.innerHTML = html + cjEmptySlotHtml();
   if ($('aeCjPersonHint')) {
     var sel = cjSelectedPerson();
+    var customN = list.filter(function (x) { return x.source === 'custom'; }).length;
     $('aeCjPersonHint').textContent = (sel ? ('已选「' + sel.name + '」') : '请点选一个形象') +
-      ' · 共 ' + list.length + ' 个（本公司定制 ' + list.filter(function (x) { return x.source === 'custom'; }).length + '）';
+      ' · 共 ' + list.length + ' 个' + (customN ? ('（客户定制 ' + customN + '）') : '公共形象') +
+      '；定制专属形象需联系运营上传素材训练';
   }
   var pv = $('aeCjPreviewVideo'), pvWrap = $('aeCjPreviewWrap');
   if (pv && pvWrap) {
@@ -2692,6 +2732,9 @@ function renderCjPersons() {
     }
   }
 }
+function cjClickCustomSlot() {
+  toast('定制专属形象：请联系运营上传照片 / 视频训练（运营后台 /ops/edit/「302.AI 蝉镜」），训练完成会出现在这里；本页不做自动训练，避免误扣费。', 'warn', 6200);
+}
 function updateChanjingUI() {
   var o = cjOptions() || {};
   var cj = state.presenter.cj = state.presenter.cj || {};
@@ -2709,9 +2752,18 @@ function updateChanjingUI() {
   var panel = $('aePresenterChanjingPanel');
   if (panel) panel.hidden = presenterModeOf() !== 'chanjing';
   var list = cjPersonsData();
-  if (!cj.personId && list.length) cj.personId = o.default_person_id || list[0].id;
+  var defId = o.default_person_id || '';
+  function cjDefaultPick() {
+    var pubs = list.filter(function (x) { return x.source === 'public'; });
+    /* 产品默认：优先运营指定的公共形象，其次第一个公共形象；仅在没有公共形象时才用定制形象 */
+    if (defId && pubs.some(function (x) { return x.id === defId; })) return defId;
+    if (pubs.length) return pubs[0].id;
+    if (defId && list.some(function (x) { return x.id === defId; })) return defId;
+    return (list[0] || {}).id || '';
+  }
+  if (!cj.personId && list.length) cj.personId = cjDefaultPick();
   if (cj.personId && list.length && !list.some(function (x) { return x.id === cj.personId; })) {
-    cj.personId = o.default_person_id || list[0].id;
+    cj.personId = cjDefaultPick();
   }
   renderCjPersons();
   /* 背景 */
@@ -2758,7 +2810,7 @@ function updateChanjingUI() {
     var selP = cjSelectedPerson();
     var cjCustomBg = !!(selP && selP.source === 'custom');
     $('aeCjBgHint').innerHTML = cjCustomBg && bg.mode !== 'none'
-      ? '<span style="color:#fbbf24">⚠️ 302 对「本公司定制形象」不替换训练素材背景：换背景请选公共形象（公共形象原生支持换背景）。</span>'
+      ? '<span style="color:#fbbf24">⚠️ 302 对「客户定制形象」不替换训练素材背景：换背景请选公共形象（公共形象原生支持换背景）。</span>'
       : (bg.mode === 'image' ? '门店 / 场景图会先上传本站再交给蝉镜铺满做背景'
         : (bg.mode === 'none' ? '不换背景：使用形象自带背景（蝉镜默认底）'
           : '纯色品牌底；推荐深色更显专业（公共形象原生支持换背景）'));
@@ -2786,9 +2838,20 @@ function updateChanjingUI() {
         : (bg.mode === 'image' && !bg.imageUrl ? '请先上传门店图背景'
           : '按成片配音时长生成数字人视频，字幕 / 图表仍由我们叠加'));
   }
+  /* 选中形象 / 换背景后，同步第②步缩略图 + 第③步 canvas 预览（函数声明提升，先调用安全） */
+  try { cjPreviewChanged(); } catch (e) {}
 }
 function syncCjProject() {
   if (state.project) state.project.presenter = presenterSpecForRender();
+}
+/* 蝉镜形象 / 背景变化后：刷新第②步镜头缩略图、第③步 canvas 预览、3 秒预览状态 */
+function cjPreviewChanged() {
+  try { syncCjProject(); } catch (e) {}
+  try {
+    if (state.project && state.step === 2) { renderTimeline(); renderShots(); }
+    if (state.project && state.step === 3) { refreshDhPreviewChrome(); }
+  } catch (e) {}
+  try { if (state.presenter && state.presenter.mode === 'chanjing') cjSyncSnippetUI(); } catch (e) {}
 }
 function handleCjBgImageFile(file) {
   if (!file) return;
@@ -2869,10 +2932,102 @@ function tryCjVoice() {
     toast('试听生成失败：' + ((e && e.message) || '请稍后重试'), 'err', 3800);
   });
 }
+/* ---------------- 蝉镜 3 秒预览样片（真实合成，约 0.1 PTC，仅预览） ---------------- */
+function cjSnippetKey() {
+  var cj = state.presenter.cj || {};
+  var bg = cj.bg || {};
+  return [cj.personId || '', bg.mode || 'color', bg.color || '', bg.imageUrl || ''].join('|');
+}
+function cjSnippetCostText(sec) {
+  var pi = cjPriceInfo(Number(sec) || 3);
+  return '约 ' + pi.ptc.toFixed(2) + ' PTC（≈¥' + pi.cny.toFixed(1) + '）';
+}
+function cjShowSnippet(snip) {
+  if (!snip || !snip.url) return;
+  var wrap = $('aeCjSampleWrap'), v = $('aeCjSampleVideo');
+  if (wrap) wrap.hidden = false;
+  if (v && v.getAttribute('data-url') !== snip.url) {
+    v.setAttribute('data-url', snip.url);
+    v.src = snip.url;
+    try { v.load(); } catch (e) {}
+  }
+  if ($('aeCjSampleTitle')) $('aeCjSampleTitle').textContent = '3 秒真实预览 · ' + (snip.person || '蝉镜数字人');
+  if ($('aeCjSampleMeta')) {
+    $('aeCjSampleMeta').textContent = (snip.duration ? (Number(snip.duration).toFixed(1) + ' 秒 · ') : '') +
+      (snip.cost_ptc ? ('本次约 ' + Number(snip.cost_ptc).toFixed(2) + ' PTC · ') : '') +
+      (snip.at ? ('生成于 ' + new Date(snip.at).toLocaleTimeString('zh-CN', { hour: '2-digit', minute: '2-digit' })) : '') +
+      ' · 仅预览，不计入成片';
+  }
+}
+function cjSyncSnippetUI() {
+  var cj = state.presenter.cj || {};
+  var snip = cj.snippet;
+  var wrap = $('aeCjSampleWrap'), btn = $('aeCjSampleBtn');
+  if (snip && snip.url && snip.key === cjSnippetKey()) {
+    cjShowSnippet(snip);
+    if (btn && !cj.snippetBusy) btn.textContent = '🔁 重新生成 3 秒预览（再扣约 0.1 PTC）';
+  } else {
+    if (wrap) wrap.hidden = true;
+    if (btn && !cj.snippetBusy) btn.textContent = '🎬 生成 3 秒预览（约 0.1 PTC）';
+  }
+}
+function cjGenerateSnippet() {
+  var cj = state.presenter.cj = state.presenter.cj || {};
+  if (cj.snippetBusy) return;
+  var p = cjSelectedPerson();
+  if (!p) { toast('请先选一个蝉镜数字人形象', 'warn', 3200); return; }
+  var o = cjOptions() || {};
+  if (!o.configured) { toast('蝉镜未配置 302.AI Key：' + (o.hint || '请运营在 /ops/edit/ 配置'), 'warn', 5200); return; }
+  if (state.mode !== 'live') { toast('当前未连接 AI 服务：连接后可生成真实 3 秒预览；现在可先看第③步形象预览', 'warn', 4600); return; }
+  var bg = cj.bg || {};
+  if (bg.mode === 'image' && !bg.imageUrl) { toast('已选「上传图片背景」：请先上传门店图，再生成 3 秒预览', 'warn', 4000); return; }
+  var costTxt = cjSnippetCostText(3);
+  if (cj.snippet && cj.snippet.url && cj.snippet.key === cjSnippetKey()) {
+    var okGo = window.confirm ? window.confirm('该形象 + 背景已经生成过 3 秒预览（可免费重播）。\n重新生成会再调用 302 合成一次，' + costTxt + '。\n\n确定重新生成吗？') : true;
+    if (!okGo) { cjShowSnippet(cj.snippet); return; }
+  }
+  cj.snippetBusy = true;
+  var btn = $('aeCjSampleBtn');
+  var oldLabel = btn ? btn.textContent : '';
+  if (btn) { btn.disabled = true; btn.innerHTML = '<span class="ae-tts-loading"></span>蝉镜合成中…'; }
+  if ($('aeCjSampleHint')) $('aeCjSampleHint').textContent = '正在提交蝉镜合成 3 秒样片（' + costTxt + '，通常 20–60 秒）…';
+  var body = {
+    person_id: p.id,
+    bg_mode: bg.mode || 'color',
+    bg_color: bg.color || '',
+    bg_image_url: bg.imageUrl || ''
+  };
+  apiFetch('/chanjing/preview', { method: 'POST', timeout: 180000, body: body }).then(function (d) {
+    cj.snippetBusy = false;
+    if (!d || !d.video_url) throw new Error('蝉镜没有返回预览视频地址，请稍后重试');
+    var snip = {
+      url: normalizeMediaUrl(d.video_url),
+      person: d.person_name || p.name,
+      duration: Number(d.duration) || 0,
+      cost_ptc: Number(d.cost_ptc) || 0,
+      key: cjSnippetKey(),
+      at: Date.now()
+    };
+    cj.snippet = snip;
+    if (btn) { btn.disabled = false; }
+    cjShowSnippet(snip);
+    if (btn) btn.textContent = '🔁 重新生成 3 秒预览（再扣约 0.1 PTC）';
+    if ($('aeCjSampleHint')) {
+      $('aeCjSampleHint').textContent = '已生成真实 3 秒样片（本次 ' + cjSnippetCostText(snip.duration || 3) + '）· 仅用于预览，导出成片按整片时长计费';
+    }
+    toast('3 秒预览已生成：点视频可播放真实口播效果', 'ok', 3600);
+  }).catch(function (e) {
+    cj.snippetBusy = false;
+    if (btn) { btn.disabled = false; btn.textContent = oldLabel || '🎬 生成 3 秒预览（约 0.1 PTC）'; }
+    var data = e && e.data;
+    var msg = (data && (data.hint || data.detail)) || (e && e.message) || '请稍后重试';
+    if ($('aeCjSampleHint')) $('aeCjSampleHint').textContent = '生成失败：' + msg;
+    toast('3 秒预览生成失败：' + msg, 'err', 6200);
+  });
+}
 function cjSpecForRender() {
   var cj = state.presenter.cj || {};
-  if (!cj.personId) return null;
-  var bg = cj.bg || {};
+  if (!cj.personId) return null;  var bg = cj.bg || {};
   var spec = { mode: 'chanjing', layout: 'full', person_id: cj.personId };
   if (bg.mode === 'image') {
     if (!bg.imageUrl) return null;
@@ -4796,6 +4951,27 @@ function thumbInner(type, idx) {
 function thumbHtml(type, idx) {
   return '<div class="ae-thumb tt-' + type + '">' + thumbInner(type, idx) + '</div>';
 }
+/* 蝉镜模式：镜头缩略图用所选形象封面 + 「蝉镜」小标替代纯色占位（镜头文本 / 时长不变） */
+function cjThumbSrc() {
+  if (presenterModeOf() !== 'chanjing') return '';
+  var p = cjSelectedPerson();
+  if (!p) return '';
+  var c = String(p.cover || '').trim();
+  return c ? normalizeMediaUrl(c) : '';
+}
+function shotThumbHtml(type, idx) {
+  var cv = cjThumbSrc();
+  if (cv) {
+    return '<div class="ae-thumb tt-' + type + ' tt-cj">' +
+      '<img src="' + esc(cv) + '" alt="蝉镜数字人形象" loading="lazy" onerror="this.style.display=\'none\'">' +
+      '<span class="ae-cj-thumb-tag">蝉镜</span></div>';
+  }
+  var html = thumbHtml(type, idx);
+  if (presenterModeOf() === 'chanjing') {
+    html = html.replace(/<\/div>$/, '<span class="ae-cj-thumb-tag">蝉镜</span></div>');
+  }
+  return html;
+}
 function typeTag(type) {
   var T = TYPES[type] || TYPES.voiceover;
   return '<span class="ae-type tt-' + type + '">' + T.ico + ' ' + T.label + '</span>';
@@ -4831,7 +5007,7 @@ function renderTimeline() {
   var html = state.project.segments.map(function (s, i) {
     var w = clamp(Math.round(s.dur * 22), 100, 192);
     return '<button type="button" class="ae-clip' + (state.selectedSeg === s.id ? ' on' : '') + '" data-seg="' + s.id + '" style="--w:' + w + 'px" aria-label="镜头 ' + (i + 1) + ' ' + TYPES[s.type].label + '">' +
-      '<div class="ae-thumb tt-' + s.type + '">' + thumbInner(s.type, i) + '</div>' +
+      shotThumbHtml(s.type, i) +
       '<div class="ae-clip-body">' +
         '<div class="ae-clip-top"><span class="ae-clip-index">镜头 ' + pad2(i + 1) + '</span><span class="ae-clip-dur">' + s.dur.toFixed(1) + 's</span></div>' +
         '<div class="ae-clip-type">' + typeTag(s.type) + '</div>' +
@@ -4846,7 +5022,7 @@ function renderShots() {
   if (!state.project || !$('aeShotList')) return;
   var html = state.project.segments.map(function (s, i) {
     return '<div class="ae-shot' + (state.selectedSeg === s.id ? ' on' : '') + '" data-seg="' + s.id + '">' +
-      '<div class="ae-shot-thumb">' + thumbHtml(s.type, i) + '</div>' +
+      '<div class="ae-shot-thumb">' + shotThumbHtml(s.type, i) + '</div>' +
       '<div class="ae-shot-body">' +
         '<div class="ae-shot-head"><span class="ae-shot-idx">镜头 ' + pad2(i + 1) + '</span>' + typeTag(s.type) +
           '<span class="ae-shot-time">' + fmtTime(s.start) + '–' + fmtTime(s.end) + '</span>' +
@@ -5641,7 +5817,7 @@ var _dhRedrawTimer = null;
 
 function dhPresenterMode() {
   var m = presenterModeOf();
-  return (m === 'photo' || m === 'photo_lipsync' || m === 'lipsync' || m === 'upload') ? m : 'none';
+  return (m === 'photo' || m === 'photo_lipsync' || m === 'lipsync' || m === 'upload' || m === 'chanjing') ? m : 'none';
 }
 function dhPhotoSrc() {
   var m = dhPresenterMode();
@@ -5667,6 +5843,7 @@ function dhPreviewKind() {
 }
 function dhHasPreview() { return !!dhPreviewKind(); }
 function dhBadgeLines() {
+  if (dhPresenterMode() === 'chanjing') return ['蝉镜数字人预览', '导出后生成真人口播视频'];
   return dhPresenterMode() === 'upload'
     ? ['数字人预览', '（成片里会用这段出镜视频）']
     : ['数字人预览', '（导出的成片里会开口说话）'];
@@ -5732,6 +5909,178 @@ function drawCoverMedia(ctx, media, W, H) {
   var k = Math.max(W / mw, H / mh);
   var dw = mw * k, dh = mh * k;
   try { ctx.drawImage(media, (W - dw) / 2, (H - dh) / 2, dw, dh); } catch (e) {}
+}
+/* ---------------- 蝉镜数字人：形象封面 + 背景预览（只影响第③步 canvas，导出逻辑不动） ---------------- */
+var DH_CJ = { src: '', img: null, videoSrc: '', video: null, videoReady: false };
+var DH_CJ_BG = { src: '', img: null };
+function cjPreviewPerson() {
+  if (presenterModeOf() !== 'chanjing') return null;
+  return cjSelectedPerson();
+}
+function cjCoverUrl() {
+  var p = cjPreviewPerson();
+  if (!p) return '';
+  var c = String(p.cover || '').trim();
+  return c ? normalizeMediaUrl(c) : '';
+}
+function cjPersonPreviewVideoUrl() {
+  var p = cjPreviewPerson();
+  if (!p) return '';
+  var v = String(p.preview_url || p.display_url || '').trim();
+  return v ? normalizeMediaUrl(v) : '';
+}
+/* 当前蝉镜背景口径：纯色 / 门店图 / 形象自带（与导出时 cjSpecForRender 保持一致） */
+function cjSceneBg() {
+  var cj = state.presenter.cj || {};
+  var bg = cj.bg || {};
+  var mode = bg.mode || 'color';
+  if (mode === 'image') {
+    var src = bg.imagePreview || (bg.imageUrl ? normalizeMediaUrl(bg.imageUrl) : '');
+    return { mode: 'image', src: src || '',
+             label: bg.imageUrl ? ('门店图' + (bg.imageName ? '「' + bg.imageName + '」' : '')) : '门店图（未上传）' };
+  }
+  if (mode === 'none') return { mode: 'none', color: '', label: '形象自带背景' };
+  var color = String(bg.color || '#0B1B2B').toUpperCase();
+  return { mode: 'color', color: color, label: '纯色 ' + color };
+}
+function ensureCjAssets() {
+  var cover = cjCoverUrl();
+  if (cover) {
+    if (DH_CJ.src !== cover) {
+      DH_CJ.src = cover;
+      var im = new Image();
+      im.onload = function () { if (DH_CJ.img === im) scheduleDhRedraw(); };
+      im.onerror = function () {
+        if (DH_CJ.img === im) { DH_CJ.img = null; DH_CJ.src = ''; scheduleDhRedraw(); }
+      };
+      im.src = cover;
+      DH_CJ.img = im;
+    }
+  } else if (DH_CJ.img) {
+    DH_CJ.img = null; DH_CJ.src = '';
+  }
+  /* 客户定制形象可能没有封面：退用 registry 预览视频首帧 */
+  var vsrc = cover ? '' : cjPersonPreviewVideoUrl();
+  if (vsrc) {
+    if (DH_CJ.videoSrc !== vsrc) {
+      DH_CJ.videoSrc = vsrc; DH_CJ.videoReady = false;
+      var v = document.createElement('video');
+      v.muted = true; v.playsInline = true; v.preload = 'auto';
+      v.addEventListener('loadeddata', function () { DH_CJ.videoReady = true; scheduleDhRedraw(); });
+      v.addEventListener('seeked', function () { DH_CJ.videoReady = true; scheduleDhRedraw(); });
+      v.addEventListener('error', function () { scheduleDhRedraw(); });
+      v.src = vsrc;
+      try { v.load(); } catch (e) {}
+      try { v.currentTime = 0.1; } catch (e) {}
+      DH_CJ.video = v;
+    }
+  } else if (DH_CJ.video) {
+    try { DH_CJ.video.removeAttribute('src'); DH_CJ.video.load(); } catch (e) {}
+    DH_CJ.video = null; DH_CJ.videoSrc = ''; DH_CJ.videoReady = false;
+  }
+  /* 背景图 */
+  var bg = cjSceneBg();
+  var bsrc = bg.mode === 'image' ? (bg.src || '') : '';
+  if (bsrc) {
+    if (DH_CJ_BG.src !== bsrc) {
+      DH_CJ_BG.src = bsrc;
+      var bim = new Image();
+      bim.onload = function () { if (DH_CJ_BG.img === bim) scheduleDhRedraw(); };
+      bim.onerror = function () {
+        if (DH_CJ_BG.img === bim) { DH_CJ_BG.img = null; DH_CJ_BG.src = ''; scheduleDhRedraw(); }
+      };
+      bim.src = bsrc;
+      DH_CJ_BG.img = bim;
+    }
+  } else if (DH_CJ_BG.img) {
+    DH_CJ_BG.img = null; DH_CJ_BG.src = '';
+  }
+}
+function cjMediaReady() {
+  var im = DH_CJ.img;
+  if (im && im.complete && im.naturalWidth) return im;
+  var v = DH_CJ.video;
+  if (v && DH_CJ.videoReady && v.videoWidth) return v;
+  return null;
+}
+function drawCjBg(ctx, W, H) {
+  var bg = cjSceneBg();
+  ctx.fillStyle = '#05080f'; ctx.fillRect(0, 0, W, H);
+  if (bg.mode === 'image') {
+    var im = DH_CJ_BG.img;
+    if (im && im.complete && im.naturalWidth) drawCoverMedia(ctx, im, W, H);
+    return bg;
+  }
+  if (bg.mode === 'color') {
+    ctx.fillStyle = bg.color || '#0B1B2B';
+    ctx.fillRect(0, 0, W, H);
+    drawGlow(ctx, W * 0.5, H * 0.2, W * 0.72, 'rgba(255,255,255,.16)');
+    drawGlow(ctx, W * 0.5, H * 1.0, W * 0.82, 'rgba(0,0,0,.36)');
+    return bg;
+  }
+  var g = ctx.createLinearGradient(0, 0, W, H);
+  g.addColorStop(0, '#0b1220'); g.addColorStop(0.55, '#111c2d'); g.addColorStop(1, '#05080f');
+  ctx.fillStyle = g; ctx.fillRect(0, 0, W, H);
+  drawGlow(ctx, W * 0.5, H * 0.2, W * 0.7, 'rgba(56,189,248,.12)');
+  return bg;
+}
+function drawCjPerson(ctx, W, H) {
+  var media = cjMediaReady();
+  if (!media) return false;
+  var mw = media.videoWidth || media.naturalWidth || 1;
+  var mh = media.videoHeight || media.naturalHeight || 1;
+  var k = Math.min(W / mw, H / mh);   /* contain：保证人物全身 / 脸完整，不裁切 */
+  var dw = mw * k, dh = mh * k;
+  var dx = (W - dw) / 2, dy = H - dh;
+  try { ctx.drawImage(media, dx, dy, dw, dh); } catch (e) { return false; }
+  return true;
+}
+function drawCjMissing(ctx, W, H, pad, person, bg) {
+  var name = (person && person.name) || '蝉镜形象';
+  var lines = ['已选蝉镜形象，导出后在此播放真人口播', '形象：' + name + ' · 背景：' + ((bg && bg.label) || '—')];
+  var fs = Math.round(clamp(W * 0.036, 11, 19));
+  var maxW = W - pad * 2;
+  ctx.font = '800 ' + fs + 'px "Microsoft YaHei",sans-serif';
+  var w1 = Math.min(maxW - fs * 2.2, ctx.measureText(lines[0]).width);
+  ctx.font = '600 ' + Math.round(fs * 0.72) + 'px "Microsoft YaHei",sans-serif';
+  var w2 = Math.min(maxW - fs * 2.2, ctx.measureText(lines[1]).width);
+  var boxW = Math.max(w1, w2) + fs * 2.2;
+  var boxH = fs * 3.9;
+  var bx = (W - boxW) / 2, by = H * 0.6 - boxH / 2;
+  ctx.save();
+  try { ctx.setLineDash([Math.max(4, fs * 0.5), Math.max(3, fs * 0.35)]); } catch (e) {}
+  roundRect(ctx, bx, by, boxW, boxH, fs * 0.9);
+  ctx.fillStyle = 'rgba(3,10,20,.66)'; ctx.fill();
+  ctx.strokeStyle = 'rgba(56,189,248,.6)'; ctx.lineWidth = Math.max(1, W * 0.0025); ctx.stroke();
+  try { ctx.setLineDash([]); } catch (e) {}
+  ctx.textAlign = 'center';
+  ctx.font = '800 ' + fs + 'px "Microsoft YaHei",sans-serif';
+  ctx.fillStyle = '#e8eef8';
+  ctx.fillText(lines[0], W / 2, by + fs * 1.7);
+  ctx.font = '600 ' + Math.round(fs * 0.72) + 'px "Microsoft YaHei",sans-serif';
+  ctx.fillStyle = 'rgba(186,230,253,.85)';
+  ctx.fillText(lines[1], W / 2, by + fs * 2.9);
+  ctx.restore();
+  ctx.textAlign = 'left';
+}
+function drawCjInfoLine(ctx, W, H, pad) {
+  var person = cjPreviewPerson();
+  if (!person) return;
+  var bg = cjSceneBg();
+  var cj = state.presenter.cj || {};
+  var tip = (cj.snippet && cj.snippet.url && cj.snippet.key === cjSnippetKey()) ? ' · 已生成 3 秒真实预览' : '';
+  var txt = '形象：' + (person.name || '蝉镜形象') + ' · 背景：' + bg.label + tip;
+  var fs = Math.round(clamp(W * 0.029, 9.5, 13.5));
+  ctx.font = '700 ' + fs + 'px "Microsoft YaHei",sans-serif';
+  var maxW = W - pad * 2;
+  var tw = Math.min(maxW - fs * 2, ctx.measureText(txt).width);
+  var bw = tw + fs * 2, bh = fs * 2.15;
+  var bx = pad, by = H - H * 0.135 - bh;
+  roundRect(ctx, bx, by, bw, bh, bh / 2);
+  ctx.fillStyle = 'rgba(3,10,20,.62)'; ctx.fill();
+  ctx.strokeStyle = 'rgba(56,189,248,.42)'; ctx.lineWidth = Math.max(1, W * 0.002); ctx.stroke();
+  ctx.fillStyle = '#bae6fd'; ctx.textAlign = 'left';
+  ctx.fillText(txt, bx + fs, by + bh * 0.68, tw);
 }
 function drawDhBadge(ctx, W, pad) {
   var lines = dhBadgeLines();
@@ -5804,10 +6153,28 @@ function drawFrame(t) {
   var pad = Math.round(W * 0.075);
   ensureDhAssets();
   var dhMode = dhPresenterMode();
-  var dhKind = dhPreviewKind();
-  var dhNeedAsset = (dhMode !== 'none') && !dhKind;
+  var cjMode = dhMode === 'chanjing';
+  var dhKind = cjMode ? '' : dhPreviewKind();
+  var dhNeedAsset = (dhMode !== 'none' && !cjMode) && !dhKind;
   var dhMedia = dhKind ? dhMediaReady() : null;
-  if (dhKind) {
+  var cjPerson = cjMode ? cjPreviewPerson() : null;
+  var cjBg = cjMode ? cjSceneBg() : null;
+  var cjNoCover = false;
+  if (cjMode) {
+    /* 蝉镜数字人：先画背景（纯色 / 门店图），再画所选形象封面，最后压暗保证文字可读 */
+    ensureCjAssets();
+    cjBg = drawCjBg(ctx, W, H);
+    if (!drawCjPerson(ctx, W, H)) {
+      cjNoCover = true;
+      drawCjMissing(ctx, W, H, pad, cjPerson, cjBg);
+    }
+    var ovCj = ctx.createLinearGradient(0, 0, 0, H);
+    ovCj.addColorStop(0, 'rgba(3,7,18,.66)');
+    ovCj.addColorStop(0.22, 'rgba(3,7,18,.06)');
+    ovCj.addColorStop(0.66, 'rgba(3,7,18,.04)');
+    ovCj.addColorStop(1, 'rgba(3,7,18,.82)');
+    ctx.fillStyle = ovCj; ctx.fillRect(0, 0, W, H);
+  } else if (dhKind) {
     /* 有照片 / 视频：直接绘制用户素材做预览（cover 裁剪、居中） */
     ctx.fillStyle = '#05080f'; ctx.fillRect(0, 0, W, H);
     if (dhMedia) {
@@ -5855,6 +6222,8 @@ function drawFrame(t) {
   }
   /* 左上角镜头类型标签 */
   var bFont = Math.round(Math.max(10, W * 0.04));
+  /* 蝉镜选了形象但封面还没加载 / 没有封面：让位给虚线提示，避免与镜头文案重叠 */
+  if (cjMode && cjNoCover) dhNeedAsset = true;
   ctx.font = '800 ' + bFont + 'px "Microsoft YaHei",sans-serif';
   var label = ' ' + (TYPES[type] ? TYPES[type].ico + ' ' + TYPES[type].label : '画面') + ' ';
   var labelW = ctx.measureText(label).width + bFont * 1.2;
@@ -5863,7 +6232,7 @@ function drawFrame(t) {
   ctx.fillStyle = '#ffffff';
   ctx.textAlign = 'left';
   ctx.fillText(label, pad + bFont * 0.5, pad + bFont * 1.35);
-  if (dhKind) {
+  if (cjMode || dhKind) {
     drawDhBadge(ctx, W, pad);
   } else {
     ctx.textAlign = 'right';
@@ -5873,13 +6242,14 @@ function drawFrame(t) {
     ctx.textAlign = 'left';
   }
   /* 镜头文案（已选数字人但还没上传素材时，让位给上传提示，避免文字重叠） */
+  var hasDhLayer = cjMode || !!dhKind;
   if (!dhNeedAsset) {
-    var fs = Math.round(clamp(Math.min(W, H) * (dhKind ? 0.06 : 0.072), 14, 40));
+    var fs = Math.round(clamp(Math.min(W, H) * (hasDhLayer ? 0.06 : 0.072), 14, 40));
     ctx.font = '800 ' + fs + 'px "Microsoft YaHei",sans-serif';
     var maxW = W - pad * 2;
-    var lines = wrapCanvasText(ctx, seg.text || '转场', maxW).slice(0, dhKind ? 3 : 4);
+    var lines = wrapCanvasText(ctx, seg.text || '转场', maxW).slice(0, hasDhLayer ? 3 : 4);
     var lh = fs * 1.42;
-    var startY = H * (dhKind ? 0.74 : 0.55) - (lines.length * lh) / 2 + fs;
+    var startY = H * (hasDhLayer ? 0.74 : 0.55) - (lines.length * lh) / 2 + fs;
     if (seg.emphasis && lines.length) {
       ctx.fillStyle = 'rgba(251,191,36,.26)';
       ctx.fillRect(pad * 0.86, startY - fs * 1.02, Math.min(maxW, ctx.measureText(lines[0]).width + fs * 0.3), fs * 1.26);
@@ -5888,20 +6258,23 @@ function drawFrame(t) {
     ctx.fillStyle = '#f8fbff';
     for (var li = 0; li < lines.length; li++) ctx.fillText(lines[li], pad, startY + li * lh);
     ctx.shadowBlur = 0;
-    if (!dhKind) {
+    if (!hasDhLayer) {
       ctx.font = '500 ' + Math.round(clamp(fs * 0.34, 10, 15)) + 'px "Microsoft YaHei",sans-serif';
       ctx.fillStyle = 'rgba(255,255,255,.72)';
       var hint = (seg.broll || '').slice(0, 30);
       ctx.fillText('画面：' + hint, pad, H - H * 0.15);
     }
   }
+  if (cjMode) drawCjInfoLine(ctx, W, H, pad);
   var barY = H - H * 0.095, barW = W - pad * 2;
   ctx.fillStyle = 'rgba(255,255,255,.2)'; ctx.fillRect(pad, barY, barW, Math.max(3, H * 0.006));
   ctx.fillStyle = pal[2] || '#7dd3fc';
   ctx.fillRect(pad, barY, barW * clamp(t / total, 0, 1), Math.max(3, H * 0.006));
   ctx.font = '600 ' + Math.round(Math.max(9, W * 0.028)) + 'px "Microsoft YaHei",sans-serif';
   ctx.fillStyle = 'rgba(255,255,255,.72)';
-  ctx.fillText(fmtTime(t) + ' / ' + fmtTime(total) + (dhKind ? ' · 数字人预览 · 成片导出后开口' : ' · 星籁 AI 演示预览'), pad, H - H * 0.045);
+  ctx.fillText(fmtTime(t) + ' / ' + fmtTime(total) +
+    (cjMode ? ' · 蝉镜数字人预览 · 成片导出后生成'
+      : (dhKind ? ' · 数字人预览 · 成片导出后开口' : ' · 星籁 AI 演示预览')), pad, H - H * 0.045);
 }
 /* 数字人素材/选择变化时，刷新第 3 步预览画布与顶部状态 */
 function refreshDhPreviewChrome() {
@@ -5912,7 +6285,7 @@ function refreshDhPreviewChrome() {
   var dh = dhHasPreview();
   var cjPres = (state.project.presenter && state.project.presenter.mode === 'chanjing') ? state.project.presenter : null;
   if ($('playerPill')) {
-    if (cjPres) { $('playerPill').className = 'ae-pill-tag live'; $('playerPill').textContent = '蝉镜数字人 · 导出后合成'; }
+    if (cjPres) { $('playerPill').className = 'ae-pill-tag live'; $('playerPill').textContent = '蝉镜数字人预览 · 成片导出后生成'; }
     else if (dh) { $('playerPill').className = 'ae-pill-tag live'; $('playerPill').textContent = '数字人预览 · 成片导出后开口'; }
     else { $('playerPill').className = 'ae-pill-tag'; $('playerPill').textContent = '演示占位 · 导出后为真实成片'; }
   }
@@ -5921,7 +6294,12 @@ function refreshDhPreviewChrome() {
     var pres = (pr && pr.mode && pr.mode !== 'none') ? pr : null;
     var presLayout = (pres && pres.layout) || 'full';
     if (cjPres) {
-      $('aePlayNote').textContent = '已选「蝉镜数字人（302.AI）」：导出成片时会先把整片配音交给蝉镜合成真口播数字人视频（约 20–90 秒），再合成进成片；渲染完成后这里切换为真实成片，可播放 / 下载。';
+      var cjp = cjPreviewPerson();
+      var cjbg = cjSceneBg();
+      var cjsnip = (state.presenter.cj && state.presenter.cj.snippet) || null;
+      $('aePlayNote').textContent = '第③步为蝉镜数字人预览：形象「' + ((cjp && cjp.name) || '蝉镜形象') + '」· 背景：' + cjbg.label +
+        '。可以点上方「生成 3 秒预览」看真实口播效果' + (cjsnip && cjsnip.url ? '（已生成，可免费重播）' : '（约 0.1 PTC）') +
+        '；导出成片时会先把整片配音交给蝉镜合成真口播数字人视频（约 20–90 秒），再合成进成片，渲染完成后这里切换为真实成片，可播放 / 下载。';
     } else if (dh) {
       var modeTxt = dhPresenterMode() === 'upload' ? '上传口播视频'
         : (dhPresenterMode() === 'lipsync' ? '真口型数字人（视频）' : '照片口型数字人');
@@ -6904,6 +7282,8 @@ function bindUi() {
   /* 蝉镜数字人（302.AI）面板交互 */
   if ($('aeCjPersons')) {
     $('aeCjPersons').addEventListener('click', function (e) {
+      var empty = e.target.closest ? e.target.closest('#aeCjCustomSlot') : null;
+      if (empty) { cjClickCustomSlot(); return; }
       var b = e.target.closest ? e.target.closest('[data-cjperson]') : null;
       if (b) setCjPerson(b.getAttribute('data-cjperson'));
     });
@@ -6934,6 +7314,7 @@ function bindUi() {
   });
   if ($('aeCjBgRemove')) $('aeCjBgRemove').addEventListener('click', function (e) { e.preventDefault(); e.stopPropagation(); removeCjBgImage(); });
   if ($('aeCjVoiceBtn')) $('aeCjVoiceBtn').addEventListener('click', tryCjVoice);
+  if ($('aeCjSampleBtn')) $('aeCjSampleBtn').addEventListener('click', cjGenerateSnippet);
   if ($('aeCjGenBtn')) $('aeCjGenBtn').addEventListener('click', startCjExport);
   if ($('btnTtsPreview')) $('btnTtsPreview').addEventListener('click', previewTts);
   if ($('aeTtsVoice')) $('aeTtsVoice').addEventListener('change', function () {

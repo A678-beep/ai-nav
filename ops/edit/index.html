@@ -3793,8 +3793,9 @@ html[data-page="ops-edit"] .xl-sb-theme{display:none!important}
       '<button type="button" class="oe-btn" data-302-act="refreshpersons">刷新形象</button>' +
       '<button type="button" class="oe-btn primary" data-302-act="saveperson">保存为产品默认</button></div>' +
       '<p class="oe-tiny" style="margin:0 0 6px">产品端「自动剪辑 → 出镜方式 → 🎬 蝉镜数字人」默认使用该形象；' +
-      '列表 = 本公司定制形象（data/chanjing_registry.json）+ 302 公共形象前 20 个。' +
-      '不指定时产品自动取第一个已就绪定制形象，其次公共形象。蝉镜接口不支持照片直出；照片口播请用 Hedra / 阿里云。</p>' +
+      '列表 = 302 公共形象前 20 个（本公司定制形象已从产品下线，客户专属形象由运营上传素材训练、' +
+      '训练完成后会出现在产品形象列表里）。不指定时产品自动取第一个公共形象（如 文昊）。' +
+      '蝉镜接口不支持照片直出；照片口播请用 Hedra / 阿里云。</p>' +
       '<p class="oe-tiny" style="margin:4px 0 0">蝉镜：' + esc((cj && cj.note) || '') + '<br>' +
       esc((cj && cj.price_note) || '') + '<br>Hedra：' + esc((hd && hd.note) || '') + '<br>' +
       esc((hd && hd.price_note) || '') + '<br>' +
@@ -3811,20 +3812,11 @@ html[data-page="ops-edit"] .xl-sb-theme{display:none!important}
     var sel = $('#oe302Person');
     if (!sel) return;
     var cur = sel.getAttribute('data-current') || '';
-    var custom = (data && data.custom) || [];
     var pub = (data && data.public) || [];
-    var html = '<option value="">（不指定：自动取第一个可用形象）</option>';
-    if (custom.length) {
-      html += '<optgroup label="本公司定制形象（推荐）">';
-      custom.forEach(function (it) {
-        var ready = (it.status === 2 || it.status === 'done');
-        html += '<option value="' + esc(it.id) + '"' + (it.id === cur ? ' selected' : '') + '>' +
-          esc(it.name || it.id) + (ready ? ' · 已就绪' : ' · 制作中') + '</option>';
-      });
-      html += '</optgroup>';
-    }
+    /* 2026-11-20 产品口径：默认形象只从「302 公共形象」里选；本公司定制形象已下线 */
+    var html = '<option value="">（未选择：产品自动用第一个公共形象）</option>';
     if (pub.length) {
-      html += '<optgroup label="302 公共形象">';
+      html += '<optgroup label="302 公共形象（可选为产品默认）">';
       pub.forEach(function (it) {
         var fig = (it.figures && it.figures[0]) || {};
         html += '<option value="' + esc(it.id) + '"' + (it.id === cur ? ' selected' : '') + '>【公共】' +

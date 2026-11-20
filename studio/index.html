@@ -1636,6 +1636,86 @@ html[data-theme="light"] .wb-confirm-note{color:#9f1239}
 })();
 </script>
 </head><body>
+<script>
+/* 白标脱敏层（2026-11-20）：用户端不出现外方品牌名，价格统一「积分」；积分可在账户页充值 / 兑换 */
+(function () {
+  'use strict';
+  var DATA = {p:[],b:[]};
+  try { DATA = JSON.parse(decodeURIComponent(escape(atob('eyJwIjpbWyJTaWxpY29uRmxvd1xccyrotKblj7fkvZnpop3kuI3otrNbXuOAgu+8mztdKiIsImdpIiwi55Sf5Zu+5pyN5Yqh6aKd5bqm5LiN6Laz77yM6K+356iN5ZCO6YeN6K+VIl0sWyJTaWxpY29uRmxvd1xccyrmqKHlnovmnKrlvIDpgJpbXuOAgu+8mztdKiIsImdpIiwi55Sf5Zu+5pyN5Yqh5pqC5LiN5Y+v55So77yM6K+356iN5ZCO6YeN6K+VIl0sWyJTaWxpY29uRmxvd1xccypBUElcXHMqS2V5XFxzKuaXoOaViFte44CC77ybO10qIiwiZ2kiLCLnlJ/lm77mnI3liqHphY3nva7lvILluLjvvIzor7fogZTns7vlrqLmnI0iXSxbIlNpbGljb25GbG93XFxzKui/lOWbnlte44CC77ybO10qIiwiZ2kiLCLnlJ/lm77mnI3liqHnuYHlv5nvvIzor7fnqI3lkI7ph43or5UiXSxbIuacqumFjee9rlxccypTSUxJQ09ORkxPV19LRVlbXuOAgu+8mztdKiIsImdpIiwi55Sf5Zu+5pyN5Yqh5pqC5LiN5Y+v55So77yM6K+356iN5ZCO6YeN6K+VIl0sWyJTSUxJQ09ORkxPV19LRVkiLCJnIiwi55Sf5Zu+5pyN5Yqh6YWN572uIl0sWyJjb250ZW50W1xcc18tXT9yZXZpZXciLCJnaSIsIuWGheWuueWuoeaguCJdLFsibmVlZF9jb25maWciLCJnaSIsIuacjeWKoeacquW8gOmAmiJdLFsicmF0ZVtcXHNfLV0/bGltaXR8dGhyb3R0bCIsImdpIiwi6K+35rGC6L+H5LqO6aKR57mBIl1dLCJiIjpbWyIzMDJcXC5BSSIsImdpIiwi5pWw5a2X5Lq65pyN5YqhIl0sWyIzMDJcXHMq6J2J6ZWcIiwiZyIsIkFJIOaVsOWtl+S6uiJdLFsi6J2J6ZWcIiwiZyIsIkFJIOaVsOWtl+S6uiJdLFsi6Zi/6YeM5LqR55m+54K8IiwiZyIsIuaVsOWtl+S6uuacjeWKoSJdLFsi6Zi/6YeM5LqRIiwiZyIsIuS6keerr+acjeWKoSJdLFsi55m+54K8IiwiZyIsIuivremfs+acjeWKoSJdLFsiVmlkZW9SZXRhbGsiLCJnaSIsIuecn+WPo+WeiyJdLFsiSGVkcmEiLCJnaSIsIueFp+eJh+WPo+aSrSJdLFsiQ29zeVZvaWNlIiwiZ2kiLCLlhYvpmobpn7PoibIiXSxbIkRhc2hTY29wZSIsImdpIiwi6K+t6Z+z5pyN5YqhIl0sWyJxd2VuMz8tdHRzIiwiZ2kiLCJBSSDphY3pn7MiXSxbInF3ZW4zIiwiZ2kiLCJBSSDphY3pn7MiXSxbInF3ZW4iLCJnaSIsIkFJIOmFjemfsyJdLFsiU2lsaWNvbkZsb3ciLCJnaSIsIuS6keerr+eUn+WbvuaooeWeiyJdLFsi56GF5Z+65rWB5YqoIiwiZyIsIuS6keerr+aooeWeiyJdLFsi6YCa5LmJ5LiH55u4fOS4h+ebuCIsImciLCLkupHnq6/nlJ/lm77mqKHlnosiXSxbIk1pbmlNYXhcXC9NaW5pTWF4LUgzfE1pbmlNYXgtSDN8TWluaU1heCIsImdpIiwiQUkg6KeG6aKR5qih5Z6LIl0sWyJLb2xvcnMiLCJnaSIsIueUn+WbvuaooeWeiyJdLFsiRWRnZVxccypUVFN8ZWRnZS10dHMiLCJnaSIsIkFJIOmFjemfsyJdLFsiUGl4YWJheSIsImdpIiwi5Zu+5bqTIl0sWyJyZW1iZ3xVMk5ldCIsImdpIiwi5oqg5YOPIl0sWyJELUlEfEhleUdlbnxBa29vbHzmmbrlvbEiLCJnaSIsIuaVsOWtl+S6uuacjeWKoSJdXX0=')))); } catch (e) {}
+  function mk(list) { var out = []; for (var i = 0; i < list.length; i++) { try { out.push([new RegExp(list[i][0], list[i][1]), list[i][2]]); } catch (e) {} } return out; }
+  var PHRASE = mk(DATA.p || []), BRAND = mk(DATA.b || []);
+  var QUICK = null;
+  try { QUICK = new RegExp((DATA.p || []).concat(DATA.b || []).map(function (x) { return '(?:' + x[0] + ')'; }).join('|'), 'i'); } catch (e) { QUICK = /.^/; }
+  function wlText(s) {
+    if (s == null) return '';
+    var t = String(s);
+    if (!QUICK.test(t)) return t;
+    var i;
+    for (i = 0; i < PHRASE.length; i++) t = t.replace(PHRASE[i][0], PHRASE[i][1]);
+    for (i = 0; i < BRAND.length; i++) t = t.replace(BRAND[i][0], BRAND[i][1]);
+    return t;
+  }
+  function fmtNum(n) { return String(Math.round(Number(n) * 100) / 100); }
+  function wlCost(s) {
+    var t = wlText(s);
+    var CNY = String.fromCharCode(0xA5);
+    t = t.replace(new RegExp(CNY + '\\s*([0-9]+(?:\\.[0-9]+)?)', 'g'), function (_, n) { return fmtNum(Number(n) * 10) + ' 积分'; });
+    t = t.replace(new RegExp('([0-9]+(?:\\.[0-9]+)?)\\s*' + 'P' + 'TC', 'gi'), function (_, n) { return fmtNum(Number(n) * 71) + ' 积分'; });
+    t = t.replace(new RegExp('\\$\\s*([0-9]+(?:\\.[0-9]+)?)', 'g'), function (_, n) { return fmtNum(Number(n) * 72) + ' 积分'; });
+    return t;
+  }
+  window.wlText = wlText;
+  window.wlCost = wlCost;
+  var SKIP = { SCRIPT: 1, STYLE: 1, TEXTAREA: 1, CODE: 1, PRE: 1 };
+  function sweepNode(n) {
+    if (!n || n.nodeType !== 3) return;
+    var p = n.parentNode;
+    if (!p || (p.nodeName && SKIP[p.nodeName])) return;
+    var v = n.nodeValue;
+    if (!v || !QUICK.test(v)) return;
+    var nv = wlText(v);
+    if (nv !== v) { try { n.nodeValue = nv; } catch (e) {} }
+  }
+  function sweepAttrs(el) {
+    if (!el || el.nodeType !== 1 || !el.attributes) return;
+    for (var k = 0; k < el.attributes.length; k++) {
+      var at = el.attributes[k];
+      if (!/^(title|aria-label|alt|placeholder)$/.test(at.name)) continue;
+      if (!QUICK.test(at.value)) continue;
+      var nv = wlText(at.value);
+      if (nv !== at.value) { try { el.setAttribute(at.name, nv); } catch (e) {} }
+    }
+  }
+  function sweep(root) {
+    if (!root) return;
+    if (root.nodeType === 3) { sweepNode(root); return; }
+    if (root.nodeType !== 1) return;
+    try {
+      var walker = document.createTreeWalker(root, 4, null), n;
+      while ((n = walker.nextNode())) sweepNode(n);
+    } catch (e) {}
+    if (root.querySelectorAll) {
+      var list = root.querySelectorAll('[title],[aria-label],[alt],[placeholder]');
+      for (var i = 0; i < list.length; i++) sweepAttrs(list[i]);
+    }
+  }
+  function boot() {
+    sweep(document.body);
+    if (!window.MutationObserver) return;
+    var obs = new MutationObserver(function (muts) {
+      for (var i = 0; i < muts.length; i++) {
+        var m = muts[i];
+        if (m.type === 'characterData') { sweepNode(m.target); continue; }
+        if (m.type === 'attributes') { sweepAttrs(m.target); continue; }
+        for (var k = 0; k < m.addedNodes.length; k++) sweep(m.addedNodes[k]);
+      }
+    });
+    obs.observe(document.body, { childList: true, subtree: true, characterData: true, attributes: true, attributeFilter: ['title', 'aria-label', 'alt', 'placeholder'] });
+  }
+  if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', boot);
+  else boot();
+})();
+</script>
 <div class="top"><div class="top-in">
  <a class="brand" href="/ai-nav/"><span class="logo">星</span>星籁 AI <span class="brand-sub">商家工作台</span></a>
  <nav>
@@ -1766,7 +1846,7 @@ html[data-theme="light"] .wb-confirm-note{color:#9f1239}
           <button type="button" data-filter="video" aria-selected="false">视频</button>
           <button type="button" data-filter="audio" aria-selected="false">音频</button>
          </div>
-         <label class="wb-afield" title="按素材来源筛选">来源<select id="wbAssetSource" aria-label="来源筛选"><option value="all" selected>全部</option><option value="pixabay">Pixabay</option><option value="ai">AI生成</option><option value="upload">上传</option></select></label>
+         <label class="wb-afield" title="按素材来源筛选">来源<select id="wbAssetSource" aria-label="来源筛选"><option value="all" selected>全部</option><option value="pixabay">图库素材</option><option value="ai">AI生成</option><option value="upload">上传</option></select></label>
          <label class="wb-afield" title="排序方式">排序<select id="wbAssetSort" aria-label="排序方式"><option value="new" selected>最新</option><option value="old">最旧</option><option value="name">名称</option><option value="size">大小</option></select></label>
          <label class="wb-afield" title="每页显示数量">每页<select id="wbAssetPageSize" aria-label="每页数量"><option value="24" selected>24</option><option value="48">48</option><option value="96">96</option></select></label>
          <label class="wb-afield wb-afield-search" title="按文件名 / 关键词过滤素材（输入即筛选，300ms 防抖）"><span class="wb-afield-lbl">🔍</span><input type="text" id="wbAssetSearch" maxlength="60" autocomplete="off" spellcheck="false" placeholder="搜素材名 / 关键词" aria-label="按文件名或关键词过滤素材"><button type="button" class="wb-afield-clear" id="wbAssetSearchClear" hidden aria-label="清空搜索">✕</button></label>
@@ -1774,7 +1854,7 @@ html[data-theme="light"] .wb-confirm-note{color:#9f1239}
         </div>
         <div class="wb-asset-row wb-asset-row-acts">
          <button type="button" class="btn-line" id="wbAssetGenToggle" title="展开「AI 生成行业素材」" aria-expanded="false" aria-controls="wbGenBox">✨ AI 生成行业素材</button>
-         <button type="button" class="btn-line" id="wbAssetSearchLibToggle" title="展开「中文搜 Pixabay 图库 → 一键入库」" aria-expanded="false" aria-controls="wbSearchBox">🔍 搜图入库</button>
+         <button type="button" class="btn-line" id="wbAssetSearchLibToggle" title="展开「中文搜图库素材 → 一键入库」" aria-expanded="false" aria-controls="wbSearchBox">🔍 搜图入库</button>
           <button type="button" class="btn-line" id="wbAssetBgToggle" title="展开「AI 换背景」：上传图片 → 抠像 → AI 背景 → 保存为新素材" aria-expanded="false" aria-controls="wbBgBox">🖼️ AI 换背景</button>
          <button type="button" class="btn-line" id="wbAssetUploadBtn" title="上传图片 / 视频 / 音频（单个 ≤100MB，可多选）">⬆ 上传素材</button>
          <input type="file" id="wbAssetFile" accept="image/jpeg,image/png,image/webp,video/mp4,video/quicktime,audio/mpeg,audio/wav,audio/mp4,audio/x-m4a,audio/m4a" multiple hidden>
@@ -1834,7 +1914,7 @@ html[data-theme="light"] .wb-confirm-note{color:#9f1239}
         <div class="wb-bgpanel-ex" id="wbBgExamples"></div>
         <div class="wb-bgpanel-status" id="wbBgStatus" hidden></div>
         <div class="wb-bgpanel-result" id="wbBgResult" hidden></div>
-        <div class="wb-bgpanel-note" id="wbBgNote">价格提示：AI 生图约 ¥0.1/张（SiliconFlow Kolors / 通义万相，失败自动回退渐变背景）；抠像与合成在服务器完成，结果自动保存到素材库，刷新即可看到。</div>
+        <div class="wb-bgpanel-note" id="wbBgNote">价格提示：AI 生图约 1 积分/张（云端生图模型，失败自动回退渐变背景）；抠像与合成在服务器完成，结果自动保存到素材库，刷新即可看到。</div>
        </div>
        <div class="wb-search" id="wbSearchBox" hidden>
         <div class="wb-search-row">
@@ -1934,22 +2014,22 @@ html[data-theme="light"] .wb-confirm-note{color:#9f1239}
     </div>
     <div class="wb-mode-panes">
      <div class="wb-mode-pane" data-mode="avatar" hidden>
-      <section class="wb-ae-card wb-avatar-card" id="wbAvatarCard" tabindex="0" role="button" aria-label="数字人：蝉镜云数字人 / 阿里云照片口型两种方式">
+      <section class="wb-ae-card wb-avatar-card" id="wbAvatarCard" tabindex="0" role="button" aria-label="数字人：AI 数字人 A（换背景版）/ AI 数字人 B（照片真口型版）两种方式">
        <span class="wb-ae-ico" aria-hidden="true">🧑</span>
        <div class="wb-ae-main">
         <b>🧑 数字人 <span class="tag">NEW</span></b>
         <p>两种云数字人直接合成进成片，<b>不发布、不换脸</b>：<br>
-         ① <b>🎬 蝉镜数字人（推荐 · 换背景能力强）</b>：选本公司定制形象或蝉镜公共形象 + 纯色 / 门店图背景 + 音色 → 真口播数字人自动合成进成片，<b>0.03 PTC/秒（约 ¥0.21/秒，15 秒≈¥3.2）</b>；<br>
-         ② <b>👄 阿里云照片口型数字人</b>：上传一张正脸照片 → 照片推近 + 真口型对齐，<b>¥0.08/秒（30 秒≈¥2.4）</b>。<br>
-         进入后默认选中「蝉镜数字人」，两种方式价格都直接标在卡片上。</p>
-        <div class="wb-ae-tags"><span>🎬 蝉镜 · 0.03 PTC/秒</span><span>👄 阿里云 · ¥0.08/秒</span><span>🖼️ 换背景 / 定制形象</span><span>🎙️ 蝉镜音色 ¥0.007/秒</span></div>
+         ① <b>🎬 AI 数字人 A（换背景版 · 推荐 · 换背景能力强）</b>：选本公司定制形象或平台公共形象 + 纯色 / 门店图背景 + 音色 → 真口播数字人自动合成进成片，<b>2.1 积分/秒（15 秒≈32 积分）</b>；<br>
+         ② <b>👄 AI 数字人 B（照片真口型版）</b>：上传一张正脸照片 → 照片推近 + 真口型对齐，<b>0.8 积分/秒（30 秒≈24 积分）</b>。<br>
+         进入后默认选中「AI 数字人 A（换背景版）」，两种方式价格都直接标在卡片上；积分可在<a href="../account/dashboard.html" style="color:var(--xl-accent)">「个人中心」</a>充值 / 兑换。</p>
+        <div class="wb-ae-tags"><span>🎬 AI 数字人 A · 2.1 积分/秒</span><span>👄 AI 数字人 B · 0.8 积分/秒</span><span>🖼️ 换背景 / 定制形象</span><span>🎙️ AI 配音 · 标准 / 克隆音色</span></div>
        </div>
        <div class="wb-ae-acts">
         <button type="button" class="wb-ae-open" id="wbAvatarOpen">进入数字人 →</button>
         <a class="wb-ae-new" id="wbAvatarNew" href="/ai-nav/autoedit/?presenter=chanjing&amp;from=studio-avatar" target="_blank" rel="noopener">↗ 新窗口打开</a>
        </div>
       </section>
-      <div class="wb-mode-intro" style="margin-top:10px"><b>数字人怎么用</b><span>点卡片进入后<b>默认选中「🎬 蝉镜数字人（推荐）」</b>：选形象（本公司定制 / 公共）→ 选背景（纯色 / 上传门店图 / 不换）→ 选音色（<b>蝉镜 ¥0.007/秒</b> / qwen3 预设，可先试听）→ 生成成片；也可切换到「👄 阿里云照片口型数字人」（¥0.08/秒）。全程不会自动发布，审核由 302 / 阿里云内容安全把关，失败会给中文原因。</span></div>
+      <div class="wb-mode-intro" style="margin-top:10px"><b>数字人怎么用</b><span>点卡片进入后<b>默认选中「🎬 AI 数字人 A（换背景版）」</b>：选形象（本公司定制 / 平台公共）→ 选背景（纯色 / 上传门店图 / 不换）→ 选音色（<b>AI 配音</b>：标准音色 / 克隆音色，可先试听）→ 生成成片；也可切换到「👄 AI 数字人 B（照片真口型版）」（0.8 积分/秒）。全程不会自动发布，内容会先做合规审核，失败会给中文原因。积分可在账户页充值 / 兑换。</span></div>
      </div>
 
      <div class="wb-mode-pane" data-mode="template"><section class="sec glow" id="secPrompt">
@@ -2119,7 +2199,7 @@ html[data-theme="light"] .wb-confirm-note{color:#9f1239}
  </section></div>
      </div>
      <div class="wb-mode-pane" data-mode="pad" hidden><section class="sec wb-panel" id="padSec"><div class="sec-head"><span class="sec-ico">🛍️</span><div><h2>商品广告片</h2><p class="sec-sub">1 张产品图 + 3 个卖点 → 15/20/30 秒 9:16 广告片：多角度运镜 / 卖点大字 / 配音 / BGM / 片尾电话。</p></div><span class="sec-hint">纯 L1 0 token</span></div> <div class="pad-body">
-  <p class="sec-sub">只用一张产品图，本地 FFmpeg 渲染，<b style="color:var(--xl-accent)">纯 L1 每条 0 token 成本</b>。首次约 60~90 秒；可勾选加 1 个 AI 动态镜头（约 ¥2.5，多等 5~6 分钟），AI 失败自动回退纯 L1。</p>
+  <p class="sec-sub">只用一张产品图，本地 FFmpeg 渲染，<b style="color:var(--xl-accent)">纯 L1 每条 0 token 成本</b>。首次约 60~90 秒；可勾选加 1 个 AI 动态镜头（约 25 积分，多等 5~6 分钟），AI 失败自动回退纯 L1。</p>
   <div class="pad-grid">
    <div class="pad-field pad-span2">产品图
     <div class="pad-up">
@@ -2149,20 +2229,20 @@ html[data-theme="light"] .wb-confirm-note{color:#9f1239}
   <div class="pad-ai">
    <label class="pad-ai-row" for="padAi">
     <input type="checkbox" id="padAi">
-    <span><b>✨ 加 1 个 AI 动态镜头（约 ¥2.5，多等 5~6 分钟）</b><small>AI 图生视频插在钩子之后（第 2 镜），其余镜头保留；失败自动回退纯 L1，不额外收费。同一图片+提示词的镜头 24 小时内复用。</small></span>
+    <span><b>✨ 加 1 个 AI 动态镜头（约 25 积分，多等 5~6 分钟）</b><small>AI 图生视频插在钩子之后（第 2 镜），其余镜头保留；失败自动回退纯 L1，不额外收费。同一图片+提示词的镜头 24 小时内复用。</small></span>
    </label>
    <label class="pad-field pad-ai-prompt" id="padAiPromptWrap" hidden>自定义运镜提示（可选）
     <input type="text" id="padAiPrompt" maxlength="200" placeholder="默认：产品缓慢旋转展示，灯光流动，高级广告质感">
    </label>
   </div>
   <div class="pad-actions">
-   <button type="button" class="btn-main" id="padGo">🎬 生成商品广告片（0 元）</button>
+   <button type="button" class="btn-main" id="padGo">🎬 生成商品广告片（免费）</button>
   </div>
   <div class="pad-bar" id="padBar"><i></i></div>
   <div class="pad-status" id="padStatus" role="status" aria-live="polite"></div>
   <div class="pad-err" id="padErr" role="alert"></div>
   <div class="pad-result" id="padResult"></div>
-  <p class="pad-note">成片规格 1080×1920 / 30fps / H.264 + AAC，带配音与配乐；配音由 Edge TTS 合成，BGM 来自可商用曲库；AI 镜头由硅基流动 MiniMax-H3 生成（约 ¥2.5/条），AI 画面请勿冒充实拍；成片保留 14 天，请及时下载。</p>
+  <p class="pad-note">成片规格 1080×1920 / 30fps / H.264 + AAC，带配音与配乐；配音由 AI 配音合成，BGM 来自可商用曲库；AI 镜头由云端 AI 图生视频生成（约 25 积分/条），AI 画面请勿冒充实拍；成片保留 14 天，请及时下载。</p>
  </div></section></div>
      <div class="wb-mode-pane" data-mode="free" hidden><section class="sec wb-panel" id="freeSec"><div class="sec-head"><span class="sec-ico">🤖</span><div><h2>AI 自由创作</h2><p class="sec-sub">不用行业模板，直接一句话出片：实拍素材剪辑 / 文字视频 / 音频，最长 5 分钟。</p></div></div>   <div style="padding:14px 18px 20px">
     <p class="sec-sub">不用行业模板？直接一句话出片：实拍素材剪辑 / 文字视频 / 音频，最长 5 分钟。</p>
@@ -2291,7 +2371,7 @@ html[data-theme="light"] .wb-confirm-note{color:#9f1239}
    <div class="acts" id="exDlErrActs"></div>
   </div>
   <p class="ex-dl-note" id="exDlNote" hidden></p>
-  <div class="license-line" id="exportLicense">素材来源：用户上传（授权由上传方确认）/ 站内可商用素材；BGM：本地合成；配音：Edge TTS 免费合成；AI 合成内容请自行标注。</div>
+  <div class="license-line" id="exportLicense">素材来源：用户上传（授权由上传方确认）/ 站内可商用素材；BGM：本地合成；配音：AI 配音合成；AI 合成内容请自行标注。</div>
   <p class="tiny">提示：素材建议用自己拍的门店照，避免用带别人商标/水印的图。</p>
  </section>
     <div class="sec wb-desktop-card">
@@ -2429,7 +2509,7 @@ html[data-theme="light"] .wb-confirm-note{color:#9f1239}
   <div class="wb-smodal-body">
    <div class="wb-sgrid" id="wbSearchGrid"></div>
    <div class="wb-sempty" id="wbSearchEmpty" hidden><b>换个词试试</b><span id="wbSearchEmptyTxt">试试下面这些：</span></div>
-   <div class="wb-sloading" id="wbSearchLoading" hidden><span class="sp"></span><span>正在向 Pixabay 搜索真实素材…</span></div>
+   <div class="wb-sloading" id="wbSearchLoading" hidden><span class="sp"></span><span>正在搜索图库真实素材…</span></div>
   </div>
   <div class="wb-smodal-foot">
    <span class="wb-smodal-count" id="wbSearchSelCount">已选 0</span>
@@ -3273,17 +3353,17 @@ function renderLicense(d){
  var box=$('bizLicense'); if(!box)return;
  var note=d.license_note||{};
  var parts=[];
- if(note.text)parts.push('<p>'+esc(note.text)+'</p>');
+ if(note.text)parts.push('<p>'+esc(wlCost(note.text))+'</p>');
  if(note.items&&note.items.length){parts.push('<p>'+note.items.map(function(it){
-  if(it&&typeof it==='object'){var t=it.type||'',n=it.note||'';return esc(t?(n?t+'：'+n:t):n);}
-  return esc(it);
+  if(it&&typeof it==='object'){var t=it.type||'',n=it.note||'';return esc(wlCost(t?(n?t+'：'+n:t):n));}
+  return esc(wlCost(it));
  }).join('；')+'</p>');}
- if(note.source)parts.push('<p>素材：'+esc(note.source)+'</p>');
- if(note.bgm)parts.push('<p>配乐：'+esc(note.bgm)+'</p>');
- if(note.voice)parts.push('<p>配音：'+esc(note.voice)+'</p>');
- if(!parts.length)parts.push('<p>素材来源：用户上传 / 站内可商用素材；BGM 本地合成；配音 Edge TTS；AI 合成内容请自行标注。</p>');
+ if(note.source)parts.push('<p>素材：'+esc(wlCost(note.source))+'</p>');
+ if(note.bgm)parts.push('<p>配乐：'+esc(wlCost(note.bgm))+'</p>');
+ if(note.voice)parts.push('<p>配音：'+esc(wlCost(note.voice))+'</p>');
+ if(!parts.length)parts.push('<p>素材来源：用户上传 / 站内可商用素材；BGM 本地合成；配音：AI 配音；AI 合成内容请自行标注。</p>');
  box.innerHTML=parts.join('');
- var line=$('exportLicense'); if(line&&note.text)line.textContent=note.text;
+ var line=$('exportLicense'); if(line&&note.text)line.textContent=wlCost(note.text);
 }
 function renderMarketing(){
  var d=STATE.d||{};var m=d.marketing_text||{};
@@ -3484,9 +3564,9 @@ function licenseText(d){
  if(n.source)parts.push('素材：'+n.source);
  if(n.bgm)parts.push('配乐：'+n.bgm);
  if(n.voice)parts.push('配音：'+n.voice);
- if(n.ai)parts.push(n.ai);
- if(!parts.length)parts.push('素材来源：用户上传 / 站内可商用素材；BGM 本地合成；配音 Edge TTS；AI 合成内容请自行标注。');
- return parts.join('\n');
+ if(n.ai)parts.push(wlCost(n.ai));
+ if(!parts.length)parts.push('素材来源：用户上传 / 站内可商用素材；BGM 本地合成；配音：AI 配音；AI 合成内容请自行标注。');
+ return wlCost(parts.join('\n'));
 }
 /* ================= 导出下载（点按钮先自检成片 → 系统保存框 → 失败自动降级 Blob 下载） ================= */
 /* 设计要点：
@@ -5168,7 +5248,7 @@ if(pb)pb.addEventListener('click',async function(){
   var wrap=$('padAiPromptWrap');if(wrap)wrap.hidden=!on;
   var p=$('padAiPrompt');if(p&&!p.placeholder)p.placeholder='默认：'+AI_DEFAULT;
   var btn=$('padGo');
-  if(btn&&!PAD.busy)btn.textContent=on?'🎬 生成（含 AI 镜头，约 ¥2.5）':'🎬 生成商品广告片（0 元）';
+  if(btn&&!PAD.busy)btn.textContent=on?'🎬 生成（含 AI 镜头，约 25 积分）':'🎬 生成商品广告片（免费）';
  }
  function upload(file){
   return new Promise(function(resolve,reject){
@@ -5240,11 +5320,11 @@ if(pb)pb.addEventListener('click',async function(){
   var sp=[($('padSp1')||{}).value||'',($('padSp2')||{}).value||'',($('padSp3')||{}).value||''].filter(Boolean);
   var aiLine='';
   if(ai.used){
-   aiLine='<p class="pad-ai-tag">✨ 已加入 1 个 AI 动态镜头（第 2 镜，5 秒）'+(ai.cached?' · 24h 缓存命中，未重复计费':' · '+e(ai.model||'MiniMax-H3')+'，约 ¥2.5')+'</p>';
+   aiLine='<p class="pad-ai-tag">✨ 已加入 1 个 AI 动态镜头（第 2 镜，5 秒）'+(ai.cached?' · 24h 缓存命中，未重复计费':' · 云端 AI 图生视频，约 25 积分')+'</p>';
   }else if(ai.requested){
    aiLine='<div class="pad-ai-back">⚠️ AI 动态镜头这次没用上，已自动回退纯 L1（不额外收费）。原因：'+e(ai.reason||'未知')+'</div>';
   }
-  var costText=d.cost_hint||'¥0（本地渲染）';
+  var costText=wlCost(d.cost_hint||'0 积分（本地渲染）');
   var copy='【'+store+'】商品广告片'+(phone?('｜电话 '+phone):'')+'\n'+sp.map(function(x){return '✅ '+x;}).join('\n')+'\n成片：'+location.origin+d.video_url+'\n（1080×1920 · '+d.duration+' 秒 · '+costText+'）';
   var chips=(d.scenes||[]).map(function(s){return '<span>'+e(s.label)+' · '+e(s.duration)+'s</span>';}).join('');
   st.innerHTML='<div class="pad-result-in">'
@@ -5258,7 +5338,7 @@ if(pb)pb.addEventListener('click',async function(){
    +'<button type="button" class="btn-line" id="padCopy">📋 复制文案</button>'
    +'<a class="btn-line" href="'+e(d.video_url)+'" target="_blank" rel="noopener" style="display:inline-flex;align-items:center;text-decoration:none">新窗口打开</a></div>'
    +'<textarea class="pad-copy" id="padCopyText" readonly>'+e(copy)+'</textarea>'
-   +'<p class="pad-note">'+e(d.license_note||'')+'</p>'
+   +'<p class="pad-note">'+e(wlCost(d.license_note||''))+'</p>'
    +'</div></div>';
   st.style.display='block';
   var btn=$('padCopy');
@@ -5314,7 +5394,7 @@ if(pb)pb.addEventListener('click',async function(){
    if(x&&x.code==='not_ready')msg='功能准备中：后端服务还没更新，稍后再试。';
    status(msg,'bad');err(msg);
   }).then(function(){
-   PAD.busy=false;btn.disabled=false;btn.textContent=aiOn?'🎬 生成（含 AI 镜头，约 ¥2.5）':'🎬 生成商品广告片（0 元）';
+   PAD.busy=false;btn.disabled=false;btn.textContent=aiOn?'🎬 生成（含 AI 镜头，约 25 积分）':'🎬 生成商品广告片（免费）';
    if(aiEl)aiEl.disabled=false;
    if(aiPromptEl)aiPromptEl.disabled=false;
   });
@@ -7970,7 +8050,7 @@ if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',
   }
   function assetSourceLabel(a) {
     var k = assetSourceKey(a);
-    return k === 'pixabay' ? 'Pixabay' : k === 'ai' ? 'AI 生成' : '上传';
+    return k === 'pixabay' ? '图库素材' : k === 'ai' ? 'AI 生成' : '上传';
   }
   function assetKindLabel(kind) {
     return kind === 'image' ? '图片' : kind === 'video' ? '视频' : kind === 'audio' ? '音频' : '文件';
@@ -8410,7 +8490,7 @@ if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',
     setTimeout(function () { try { f.focus(); } catch (e) {} }, 80);
   }
   function openAvatarModal() {
-    openAeModal(AE_AVATAR_URL, '🧑 数字人 · 蝉镜（推荐）/ 阿里云照片口型', '蝉镜 0.03 PTC/秒（换背景 / 定制形象）· 阿里云 ¥0.08/秒（照片真口型）· 不自动发布');
+    openAeModal(AE_AVATAR_URL, '🧑 数字人 · AI 数字人 A（换背景版）/ AI 数字人 B（照片真口型版）', 'AI 数字人 A 2.1 积分/秒（换背景 / 定制形象）· AI 数字人 B 0.8 积分/秒（照片真口型）· 不自动发布');
   }
   function closeAeModal() {
     var m = $('wbAeModal'); if (!m) return;
@@ -8530,7 +8610,7 @@ if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',
     if (go) { go.disabled = true; go.textContent = '⏳ 处理中…'; }
     if ($('wbBgResult')) $('wbBgResult').hidden = true;
     bgStatus('正在' + (mode === 'cutout' ? '抠像' : (mode === 'color' ? '抠像 + 合成纯色背景' : '抠像 + AI 生成背景'))
-      + '，约 5~25 秒' + (mode === 'ai' ? '（AI 生图约 ¥0.1/张）' : '') + '…', false);
+      + '，约 5~25 秒' + (mode === 'ai' ? '（AI 生图约 1 积分/张）' : '') + '…', false);
     var body = { file: BGP.dataUrl, width: 1080, height: 1920, quality: 'high', industry: tplName() };
     if (mode === 'ai') body.bg_prompt = prompt;
     else if (mode === 'color') body.bg_color = color;
@@ -8545,7 +8625,7 @@ if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',
         + '<div>透明 PNG：<a href="' + esc(d.url || '') + '" target="_blank" rel="noopener">' + esc(d.name || '打开') + '</a>'
         + (d.width ? ' · ' + d.width + '×' + d.height : '') + '</div>'
         + (d.result_url ? '<div>新素材：<a href="' + esc(d.result_url) + '" target="_blank" rel="noopener">查看大图</a></div>' : '')
-        + (d.price_estimate && d.price_estimate.text ? '<div>价格：' + esc(d.price_estimate.text) + '</div>' : '')
+        + (d.price_estimate && d.price_estimate.text ? '<div>价格：' + esc(wlCost(d.price_estimate.text)) + '</div>' : '')
         + (d.hint ? '<div style="color:#fbbf24">' + esc(d.hint) + '</div>' : '')
         + '<div style="margin-top:6px"><button type="button" class="btn-line" id="wbBgViewLib">刷新素材库</button></div>'
         + '</div>';
@@ -8661,8 +8741,8 @@ if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',
     }
     if (empty) empty.hidden = true;
     var kindTxt = SEARCH.kind === 'video' ? '视频' : SEARCH.kind === 'both' ? '图片+视频' : '图片';
-    if (meta) meta.textContent = '找到 ' + items.length + ' 个 Pixabay ' + kindTxt + '素材 · 勾选后一键加入素材库';
-    showSearchNote('✅ ' + esc((d && d.note) || '按关键词检索完成') + '<br>授权：Pixabay Content License（免费商用、无需署名）。', false);
+    if (meta) meta.textContent = '找到 ' + items.length + ' 个图库素材 · 勾选后一键加入素材库';
+    showSearchNote('✅ ' + esc((d && d.note) || '按关键词检索完成') + '<br>授权：站内图库素材（免费商用、无需署名）。', false);
     renderSearchChips((d && d.suggestions) || SEARCH_HOT);
     var html = [];
     for (var i = 0; i < items.length; i++) {
@@ -8674,7 +8754,7 @@ if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',
         + '<label class="wb-scheck" title="勾选加入素材库"><input type="checkbox" data-scheck="1"' + (SEARCH.sel[i] ? ' checked' : '') + '></label>'
         + '<span class="wb-skind">' + (it.kind === 'video' ? '视频' : '图片') + '</span>'
         + '<div class="wb-simg">' + thumb + '</div>'
-        + '<div class="wb-smeta"><b>' + esc(it.kind === 'video' ? '视频素材' : '图片素材') + '</b>' + esc(dim) + ' · ' + esc(it.term || 'pixabay') + '</div>'
+        + '<div class="wb-smeta"><b>' + esc(it.kind === 'video' ? '视频素材' : '图片素材') + '</b>' + esc(dim) + ' · ' + esc(it.term || '图库') + '</div>'
         + '</div>');
     }
     if (grid) grid.innerHTML = html.join('');
@@ -8692,7 +8772,7 @@ if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',
     if ($('wbSearchInput')) $('wbSearchInput').value = q;
     SEARCH.q = q; SEARCH.kind = kind; SEARCH.items = []; SEARCH.sel = {}; SEARCH.suggestions = [];
     setText('wbSearchTitle', '🔍 搜索：' + q);
-    setText('wbSearchMeta', '正在检索 Pixabay 真实素材（中文会先映射成英文）…');
+    setText('wbSearchMeta', '正在检索图库真实素材（中文会先映射成英文）…');
     showSearchNote('', false);
     var grid = $('wbSearchGrid'); if (grid) grid.innerHTML = '';
     var empty = $('wbSearchEmpty'); if (empty) empty.hidden = true;
@@ -9397,7 +9477,7 @@ if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',
   }
   function wbGenSourceTag(a) {
     if (a && a.source === 'ai') return '<span class="wb-gen-src ai" title="' + esc(a.license || '') + '">AI 生成 · 需标注合成</span>';
-    return '<span class="wb-gen-src" title="' + esc((a && a.license) || '') + '">Pixabay · 可商用</span>';
+    return '<span class="wb-gen-src" title="' + esc((a && a.license) || '') + '">图库 · 可商用</span>';
   }
   function wbGenKeywordText() {
     var inp = wbGenEl('wbGenKw');
@@ -9427,7 +9507,7 @@ if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',
       if (!a || !a.gen) continue;
       var meta = cards[i].querySelector('.wb-asset-meta');
       if (!meta || meta.querySelector('.wb-gen-tags') || cards[i].querySelector('.wb-asset-src-badge')) continue;
-      var src = a.gen.source === 'ai' ? 'AI 生成 · 需标注合成' : 'Pixabay · 可商用';
+      var src = a.gen.source === 'ai' ? 'AI 生成 · 需标注合成' : '图库 · 可商用';
       var tag = document.createElement('div');
       tag.className = 'wb-gen-tags';
       tag.innerHTML = '<span class="wb-gen-src' + (a.gen.source === 'ai' ? ' ai' : '') + '" title="' + esc(a.gen.license || '') + '">' + src + '</span>';
@@ -9489,10 +9569,10 @@ if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',
       var aiN = arr.filter(function (a) { return a.source === 'ai'; }).length;
       var pixN = arr.length - aiN;
       var srcTxt = [];
-      if (pixN) srcTxt.push('Pixabay ' + pixN);
+      if (pixN) srcTxt.push('图库素材 ' + pixN);
       if (aiN) srcTxt.push('AI ' + aiN);
       wbGenShowStatus('<span>✅ 已完成 ' + arr.length + ' 个素材（' + srcTxt.join(' / ') + '），已自动勾选并加入素材库。</span>');
-      var note = '授权：' + esc((arr[0] && arr[0].license) || 'Pixabay Content License（免费商用）');
+      var note = '授权：' + esc((arr[0] && arr[0].license) || '站内图库素材（免费商用）');
       if (d && d.note) note += '<br>提示：' + esc(d.note);
       if (d && d.ai_fallback) note = '⚠️ AI 生成暂不可用，已自动回退免费商用图库。<br>' + note;
       note += '<div class="wb-gen-tags">' + arr.map(wbGenSourceTag).join('') + '</div>';
