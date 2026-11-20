@@ -838,6 +838,50 @@ html[data-theme="light"] .ae-cj-snippet{background:rgba(2,132,199,.05)}
 <!--xl-theme-end-->
 <link rel="stylesheet" href="../assets/auth-nav.css">
 <link rel="stylesheet" href="../assets/site-shell.css?v=20261119x">
+
+<script id="xl-auth-fetch">
+/* 2026-11-19: 给所有 /ai-nav/api/ 请求自动带上登录 token，后台才能按账号套餐计额度（否则按匿名免费额度算） */
+(function () {
+  function tok() {
+    try { return localStorage.getItem('xl_token') || sessionStorage.getItem('xl_token') || ''; }
+    catch (e) { return ''; }
+  }
+  var of = window.fetch;
+  if (of) {
+    window.fetch = function (input, init) {
+      try {
+        var url = typeof input === 'string' ? input : ((input && input.url) || '');
+        if (url && /\/ai-nav\/api\//.test(url)) {
+          init = init || {};
+          var h = new Headers(init.headers || {});
+          if (!h.has('Authorization')) {
+            var t = tok();
+            if (t) h.set('Authorization', 'Bearer ' + t);
+          }
+          init.headers = h;
+          if (!init.credentials) init.credentials = 'same-origin';
+        }
+      } catch (e) {}
+      return of.call(this, input, init);
+    };
+  }
+  var ox = XMLHttpRequest.prototype.open;
+  var osh = XMLHttpRequest.prototype.send;
+  XMLHttpRequest.prototype.open = function (m, u) {
+    this.__xlUrl = u || '';
+    return ox.apply(this, arguments);
+  };
+  XMLHttpRequest.prototype.send = function () {
+    try {
+      if (this.__xlUrl && /\/ai-nav\/api\//.test(this.__xlUrl)) {
+        var t = tok();
+        if (t) this.setRequestHeader('Authorization', 'Bearer ' + t);
+      }
+    } catch (e) {}
+    return osh.apply(this, arguments);
+  };
+})();
+</script>
 </head>
 <body>
 <script>
