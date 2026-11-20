@@ -21,7 +21,7 @@
   window.__XL_AE_CREDITS__ = true;
 
   var ACCOUNT_URL = '/ai-nav/account/dashboard.html#creditsCard';
-  var state = { balance: null, estimate: null, enough: true, loading: false, lastAt: 0, err: '' };
+  var state = { balance: null, estimate: null, enough: true, loading: false, lastAt: 0, err: '', isAdmin: false };
   var MODE_NAMES = { chanjing: '数字人 · 换背景版', lipsync: '数字人 · 真口型', photo_lipsync: '数字人 · 照片口播' };
 
   function $(s, r) { return (r || document).querySelector(s); }
@@ -100,6 +100,21 @@
     var est = state.estimate || {};
     var bal = state.balance;
     var parts = [];
+    if (state.isAdmin) {
+      /* 内部账号（老板/管理员）：平台自己的账号不跟自己收费 —— 免扣积分，只记录成本 */
+      parts.push('<span class="xl-ae-admin-chip">💎 内部账号 · 免扣积分</span>');
+      if (est.credits != null) {
+        parts.push('<span style="color:#e0f2fe">本次预估：<b>' + fmt(est.credits) + '</b> 积分'
+          + '<span style="color:var(--ae-txt3,#94a3b8);font-size:11.5px">（仅记录成本，导出不扣减 · ' + fmt(dur) + ' 秒 · '
+          + esc(MODE_NAMES[mode] || '无数字人') + ' + 成片渲染）</span></span>');
+      }
+      parts.push('<a href="' + ACCOUNT_URL + '" target="_blank" rel="noopener" style="color:var(--ae-cyan,#38bdf8);text-decoration:underline;margin-left:auto">积分明细</a>');
+      panel.innerHTML = parts.join(' ');
+      panel.style.borderColor = 'rgba(52,211,153,.55)';
+      panel.style.background = '#0e1726';
+      panel.style.backgroundImage = 'linear-gradient(180deg,rgba(52,211,153,.10),rgba(56,189,248,.06))';
+      return;
+    }
     parts.push('<span>💎 积分余额：<b style="color:#7dd3fc;font-size:15px">' + (bal == null ? '—' : fmt(bal)) + '</b> 积分</span>');
     if (est.credits != null) {
       var detail = (est.items || []).map(function (it) { return esc(it.label) + ' ' + fmt(it.credits) + ' 积分'; }).join(' + ');
@@ -113,6 +128,8 @@
       parts.push('<a href="' + ACCOUNT_URL + '" target="_blank" rel="noopener" style="color:var(--ae-cyan,#38bdf8);text-decoration:underline;margin-left:auto">积分明细 / 充值</a>');
     }
     panel.innerHTML = parts.join(' ');
+    panel.style.background = '#0e1726';
+    panel.style.backgroundImage = 'linear-gradient(180deg,rgba(56,189,248,.10),rgba(139,92,246,.07))';
     panel.style.borderColor = state.enough === false ? 'rgba(248,113,113,.55)' : 'rgba(56,189,248,.35)';
   }
 
@@ -128,9 +145,11 @@
         body: { duration_seconds: dur, presenter_mode: mode === 'none' ? 'none' : mode, render: true }
       })
     ]).then(function (arr) {
+      state.isAdmin = !!(arr[0] && (arr[0].is_admin || arr[0].admin_exempt));
       state.balance = Number(arr[0].balance || 0);
       state.estimate = arr[1] || {};
-      state.enough = state.balance + 1e-6 >= Number(state.estimate.credits || 0);
+      state.enough = !!(state.estimate && state.estimate.enough) ||
+        state.balance + 1e-6 >= Number(state.estimate.credits || 0) || state.isAdmin;
       state.err = '';
       state.lastAt = Date.now();
       render();
@@ -144,12 +163,12 @@
     }).then(function () { state.loading = false; });
   }
 
-  /* 生成前拦截（双保险）：余额不足时阻止导出并引导充值 */
+  /* 生成前拦截（双保险）：余额不足时阻止导出并引导充值；内部账号（admin 免扣）不拦 */
   document.addEventListener('click', function (ev) {
     var t = ev.target;
     var hit = t && t.closest ? t.closest('#btnExport, #btnCjGenBtn, #btnExpRetry, #btnReexport') : null;
     if (!hit) return;
-    if (state.enough === false) {
+    if (state.enough === false && !state.isAdmin) {
       ev.preventDefault();
       ev.stopImmediatePropagation();
       toast('积分不足，请先充值：本次约需 ' + fmt((state.estimate || {}).credits) + ' 积分，当前余额 ' + fmt(state.balance) + ' 积分', 'warn', 6000);
@@ -178,7 +197,7 @@
         try { url = typeof input === 'string' ? input : (input && input.url) || ''; } catch (e) {}
         return _fetch.call(this, input, init).then(function (res) {
           try {
-            if (res && res.status === 402 && /\/render|\/lipsync/.test(url)) {
+            if (res && res.status === 402 && /\/render|\/lipsync/.test(url) && !state.isAdmin) {
               res.clone().json().then(function (d) {
                 if (d && d.error === 'insufficient_credits') {
                   toast((d.hint || '积分不足，请充值') + '（需 ' + fmt(d.need) + ' 积分，当前 ' + fmt(d.balance) + '）', 'warn', 6500);
@@ -196,6 +215,17 @@
   } catch (e) {}
 
   function boot() {
+    /* 内部账号免扣样式（注入一次；不依赖页面 CSS 版本） */
+    try {
+      if (!document.getElementById('xlAeAdminChipCss')) {
+        var st = document.createElement('style');
+        st.id = 'xlAeAdminChipCss';
+        st.textContent = '.xl-ae-admin-chip{display:inline-flex;align-items:center;gap:5px;padding:2px 9px;'
+          + 'border-radius:999px;border:1px solid rgba(52,211,153,.6);background:rgba(52,211,153,.14);'
+          + 'color:#6ee7b7;font-weight:800;font-size:12.5px;white-space:nowrap}';
+        (document.head || document.documentElement).appendChild(st);
+      }
+    } catch (e) {}
     ensurePanel();
     setTimeout(function () { refresh(); }, 600);
     setInterval(function () {

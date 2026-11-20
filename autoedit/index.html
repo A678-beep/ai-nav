@@ -832,6 +832,67 @@ html[data-theme="light"] .ae-cj-person{background:#fff}
 html[data-theme="light"] .ae-cj-person.ae-cj-empty{background:rgba(2,132,199,.05)}
 html[data-theme="light"] .ae-cj-price{background:rgba(2,132,199,.06)}
 html[data-theme="light"] .ae-cj-snippet{background:rgba(2,132,199,.05)}
+
+/* ================= 2026-11-20 新增：第①步 AI 改写（4 个风格版本） ================= */
+.ae-text-tools{display:flex;gap:7px;align-items:center;flex-wrap:wrap;justify-content:flex-end}
+.ae-rewrite-btn{display:inline-flex;align-items:center;gap:6px;padding:6px 13px;border-radius:999px;cursor:pointer;
+  border:1px solid rgba(139,92,246,.55);background:linear-gradient(135deg,rgba(139,92,246,.24),rgba(56,189,248,.16));
+  color:#e9d5ff;font-weight:800;font-size:12.5px;line-height:1.2;transition:transform .16s,box-shadow .16s,border-color .16s}
+.ae-rewrite-btn:hover{border-color:rgba(167,139,250,.95);box-shadow:0 8px 20px -10px rgba(139,92,246,.85);transform:translateY(-1px)}
+.ae-rewrite-btn:focus-visible{outline:2px solid #a78bfa;outline-offset:2px}
+.ae-rewrite-btn:disabled{opacity:.6;cursor:wait;transform:none}
+html[data-theme="light"] .ae-rewrite-btn{color:#5b21b6;background:linear-gradient(135deg,rgba(139,92,246,.14),rgba(56,189,248,.12));border-color:rgba(139,92,246,.42)}
+.ae-rw-card{width:min(100%,760px);max-height:min(88vh,920px);overflow:auto;text-align:left;position:relative}
+.ae-rw-head{display:flex;align-items:flex-start;justify-content:space-between;gap:12px}
+.ae-rw-head h3{font-size:20px}
+.ae-rw-sub{font-size:12.5px;color:var(--ae-txt2);line-height:1.65;margin-top:6px}
+.ae-rw-close{flex:0 0 auto;width:32px;height:32px;border-radius:10px;border:1px solid var(--ae-line-2);background:transparent;color:var(--ae-txt2);font-size:15px;cursor:pointer}
+.ae-rw-close:hover{color:#fff;border-color:var(--ae-cyan)}
+.ae-rw-list{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px;margin-top:14px}
+.ae-rw-item{display:flex;flex-direction:column;gap:8px;padding:12px;border-radius:14px;border:1px solid var(--ae-line-2);
+  background:linear-gradient(180deg,rgba(56,189,248,.07),rgba(139,92,246,.05));min-width:0}
+.ae-rw-item:hover{border-color:rgba(56,189,248,.55)}
+.ae-rw-item-top{display:flex;align-items:center;gap:7px;flex-wrap:wrap}
+.ae-rw-tag{display:inline-flex;align-items:center;gap:4px;padding:2px 9px;border-radius:999px;font-size:11.5px;font-weight:900;
+  border:1px solid rgba(56,189,248,.5);background:rgba(56,189,248,.12);color:#7dd3fc}
+.ae-rw-item.steady .ae-rw-tag{border-color:rgba(96,165,250,.5);background:rgba(96,165,250,.12);color:#93c5fd}
+.ae-rw-item.friendly .ae-rw-tag{border-color:rgba(52,211,153,.5);background:rgba(52,211,153,.12);color:#6ee7b7}
+.ae-rw-item.promo .ae-rw-tag{border-color:rgba(251,191,36,.5);background:rgba(251,191,36,.12);color:#fcd34d}
+.ae-rw-item.short .ae-rw-tag{border-color:rgba(244,114,182,.5);background:rgba(244,114,182,.12);color:#f9a8d4}
+.ae-rw-desc{font-size:10.8px;color:var(--ae-txt3)}
+.ae-rw-text{font-size:12.8px;line-height:1.75;color:var(--ae-txt);white-space:pre-wrap;word-break:break-word;flex:1 1 auto}
+.ae-rw-item-foot{display:flex;align-items:center;justify-content:space-between;gap:8px;margin-top:2px}
+.ae-rw-chars{font-size:10.8px;color:var(--ae-txt3)}
+.ae-rw-loading{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px;margin-top:14px}
+.ae-rw-skel{height:150px;border-radius:14px;border:1px solid var(--ae-line-2);
+  background:linear-gradient(100deg,rgba(148,163,184,.08) 20%,rgba(148,163,184,.2) 40%,rgba(148,163,184,.08) 60%);
+  background-size:220% 100%;animation:aeRwPulse 1.15s ease-in-out infinite}
+@keyframes aeRwPulse{0%{background-position:120% 0}100%{background-position:-120% 0}}
+.ae-rw-err{margin-top:12px;padding:10px 12px;border-radius:11px;border:1px solid rgba(248,113,113,.5);background:rgba(248,113,113,.1);color:#fca5a5;font-size:12.5px;line-height:1.6}
+.ae-rw-foot{display:flex;align-items:center;justify-content:space-between;gap:10px;flex-wrap:wrap;margin-top:14px;padding-top:12px;border-top:1px solid var(--ae-line)}
+.ae-rw-note{font-size:11px;color:var(--ae-txt3);line-height:1.55;flex:1 1 220px}
+.ae-rw-foot-actions{display:flex;gap:8px;flex-wrap:wrap}
+@media(max-width:640px){.ae-rw-list,.ae-rw-loading{grid-template-columns:1fr}.ae-rw-card{max-height:92vh}.ae-rw-head h3{font-size:18px}}
+
+/* ================= 2026-11-20 新增：第③步 数字人动态预览 + 3 秒口型预览 ================= */
+.ae-cj-quick{display:flex;gap:10px;align-items:center;flex-wrap:wrap;margin:0 0 10px;padding:10px 12px;border-radius:13px;
+  border:1px solid rgba(52,211,153,.45);background:linear-gradient(135deg,rgba(52,211,153,.12),rgba(56,189,248,.08))}
+.ae-cj-quick[hidden]{display:none!important}
+.ae-cj-quick-btn{font-weight:900;box-shadow:0 10px 24px -14px rgba(56,189,248,.9)}
+.ae-cj-quick-hint{font-size:11.2px;color:var(--ae-txt2);line-height:1.55;flex:1 1 220px}
+.ae-cj-inline{position:absolute;inset:0;z-index:6;background:#000;display:flex;align-items:stretch}
+.ae-cj-inline[hidden]{display:none!important}
+.ae-cj-inline video{width:100%;height:100%;object-fit:contain;background:#000;display:block}
+.ae-cj-inline-tag{position:absolute;left:8px;top:8px;z-index:2;max-width:calc(100% - 128px);padding:3px 7px;border-radius:999px;
+  background:rgba(3,10,20,.78);border:1px solid rgba(52,211,153,.6);color:#6ee7b7;font-size:10px;font-weight:800;line-height:1.35}
+.ae-cj-inline-bar{position:absolute;right:8px;top:8px;z-index:3;display:flex;gap:5px}
+.ae-cj-inline-bar .ae-mini{background:rgba(3,10,20,.78);border:1px solid rgba(148,163,184,.5);color:#e2e8f0;border-radius:9px;padding:4px 7px;font-size:10px;cursor:pointer}
+.ae-cj-inline-bar .ae-mini:hover{border-color:var(--ae-cyan);color:#fff}
+.ae-cj-inline-note{position:absolute;left:8px;right:8px;bottom:8px;z-index:2;padding:6px 10px;border-radius:10px;
+  background:rgba(3,10,20,.72);border:1px solid rgba(148,163,184,.35);color:#bae6fd;font-size:10.5px;line-height:1.45;text-align:left}
+html[data-theme="light"] .ae-cj-quick{background:linear-gradient(135deg,rgba(5,150,105,.08),rgba(2,132,199,.07))}
+html[data-theme="light"] .ae-cj-inline-note{color:#e0f2fe}
+@media(max-width:640px){.ae-cj-quick{padding:8px 10px}.ae-cj-quick-hint{font-size:10.8px}}
 </style>
 <link rel="stylesheet" href="../assets/theme-light.css">
 <script defer src="../assets/theme.js"></script>
@@ -1038,6 +1099,9 @@ html[data-theme="light"] .ae-cj-snippet{background:rgba(2,132,199,.05)}
         <div class="ae-text-meta">
           <span class="ae-char" id="aeChar">0 / 2000 字</span>
           <div class="ae-text-tools">
+            <button type="button" class="ae-rewrite-btn" id="btnAiRewrite" aria-haspopup="dialog" title="AI 一次给出 4 个不同风格版本，挑一个直接用">
+              <span class="rw-ico" aria-hidden="true">✨</span><span id="btnAiRewriteTx">AI 帮我写</span>
+            </button>
             <button type="button" class="ae-linkbtn" id="btnSample">用一段除甲醛示例</button>
             <button type="button" class="ae-linkbtn" id="btnClear">清空</button>
           </div>
@@ -1260,8 +1324,8 @@ html[data-theme="light"] .ae-cj-snippet{background:rgba(2,132,199,.05)}
               <button type="button" class="ae-btn sm ghost" id="aeCjVoiceBtn">▶ 试听第 1 步音色</button>
             </div>
             <div class="ae-cj-snippet-row">
-              <button type="button" class="ae-btn sm" id="aeCjSampleBtn">🎬 生成 3 秒预览（约 1.5 积分）</button>
-              <span class="ae-tiny" id="aeCjSampleHint">导出前先看真实口播效果：AI 数字人 A 按当前形象 + 背景合成 3 秒数字人样片（约 1.5 积分），仅预览、不计入成片</span>
+              <button type="button" class="ae-btn sm" id="aeCjSampleBtn">🎬 先看口型效果（3 秒，约 1.5 积分）</button>
+              <span class="ae-tiny" id="aeCjSampleHint">真实云端合成 3 秒数字人样片（含 AI 配音），生成后在第 3 步内联播放；仅预览、不计入成片（每工作区 10 分钟限流保护）</span>
             </div>
             <div class="ae-cj-snippet" id="aeCjSampleWrap" hidden>
               <video id="aeCjSampleVideo" controls playsinline preload="metadata"></video>
@@ -1406,11 +1470,25 @@ html[data-theme="light"] .ae-cj-snippet{background:rgba(2,132,199,.05)}
           <span class="ae-pill-tag" id="playerPill">演示占位 · 导出后为真实成片</span>
           <span class="ae-player-aspect" id="playerAspect">9:16 竖屏</span>
         </div>
+        <!-- 数字人（换背景版）：先看口型效果（3 秒真实样片，老板要求移到第③步显眼位置） -->
+        <div class="ae-cj-quick" id="aeCjQuickRow" hidden>
+          <button type="button" class="ae-btn primary ae-cj-quick-btn" id="aeCjQuickBtn">🎬 先看口型效果（3 秒，约 1.5 积分）</button>
+          <span class="ae-cj-quick-hint" id="aeCjQuickHint">用当前形象 + 背景真实合成 3 秒数字人样片（带声音），先看嘴型和镜头运动；仅预览、不计入成片。</span>
+        </div>
         <div class="ae-player-wrap">
           <div class="ae-player" id="aePlayer" aria-label="成片预览（演示）">
             <canvas id="aeCanvas" width="540" height="960"></canvas>
             <video id="aeVideo" controls playsinline preload="metadata" hidden></video>
             <video id="aeAvatarVideo" controls playsinline preload="metadata" hidden></video>
+            <div class="ae-cj-inline" id="aeCjInlineWrap" hidden>
+              <video id="aeCjInlineVideo" controls playsinline preload="metadata"></video>
+              <span class="ae-cj-inline-tag">真实生成片 · 3 秒口型预览（非最终成片）</span>
+              <div class="ae-cj-inline-bar">
+                <button type="button" class="ae-mini" id="aeCjInlineReplay">🔄 重新生成</button>
+                <button type="button" class="ae-mini" id="aeCjInlineClose">✕ 关闭</button>
+              </div>
+              <div class="ae-cj-inline-note" id="aeCjInlineNote">这条是云端真实合成的 3 秒数字人样片（含 AI 配音）；导出成片时会按整片文案生成完整口型视频再合成进成片。</div>
+            </div>
             <button type="button" class="ae-playbtn" id="aePlayBtn" aria-label="播放演示预览">▶</button>
           </div>
         </div>
@@ -1560,6 +1638,32 @@ html[data-theme="light"] .ae-cj-snippet{background:rgba(2,132,199,.05)}
       <button type="button" class="ae-btn ghost" id="btnUpgradeClose">明天再来</button>
     </div>
     <p class="ae-note" style="margin-top:12px">演示页面：升级不会产生真实扣费。</p>
+  </div>
+</div>
+
+<!-- 第①步 AI 改写：4 个不同风格版本（老板需求 2026-11-20） -->
+<div class="ae-modal" id="aeRewriteModal" hidden>
+  <div class="ae-modal-card ae-rw-card" role="dialog" aria-modal="true" aria-labelledby="aeRwTitle">
+    <div class="ae-rw-head">
+      <div>
+        <h3 id="aeRwTitle">✨ AI 改写 · 挑一个版本直接用</h3>
+        <p class="ae-rw-sub" id="aeRwSub">AI 一次给出 4 个不同风格的口播版本（每版 ≤200 字），点「用这版」直接替换输入框；价格 / 承诺请以门店实际情况为准。</p>
+      </div>
+      <button type="button" class="ae-rw-close" id="aeRwClose" aria-label="关闭 AI 改写">✕</button>
+    </div>
+    <div class="ae-rw-list" id="aeRwList" hidden></div>
+    <div class="ae-rw-loading" id="aeRwLoading" hidden>
+      <div class="ae-rw-skel"></div><div class="ae-rw-skel"></div>
+      <div class="ae-rw-skel"></div><div class="ae-rw-skel"></div>
+    </div>
+    <div class="ae-rw-err" id="aeRwErr" hidden></div>
+    <div class="ae-rw-foot">
+      <span class="ae-rw-note" id="aeRwFootNote">AI 生成，需人工确认（价格/承诺以门店为准）· 已自动过滤极限词 · 默认免费（仅记成本）</span>
+      <div class="ae-rw-foot-actions">
+        <button type="button" class="ae-btn sm" id="aeRwAgain">🔄 再生成一批</button>
+        <button type="button" class="ae-btn sm ghost" id="aeRwCancel">取消</button>
+      </div>
+    </div>
   </div>
 </div>
 <div class="ae-toast" id="aeToast" role="status" aria-live="polite"></div>
@@ -2885,8 +2989,12 @@ function updateChanjingUI() {
   var list = cjPersonsData();
   var defId = o.default_person_id || '';
   function cjDefaultPick() {
-    var pubs = list.filter(function (x) { return x.source === 'public'; });
-    /* 产品默认：优先运营指定的公共形象，其次第一个公共形象；仅在没有公共形象时才用定制形象 */
+    /* 产品默认（老板要求）：优先「文昊」等运营指定的公共男士形象 → 运营默认形象 → 第一个公共形象；
+       没有用户选择时（本地不持久化选择）都走这里，避免默认出现女性形象。 */
+    var pubs = list.filter(function (x) { return x.source === 'public' && x.ready !== false; });
+    for (var wi = 0; wi < pubs.length; wi++) {
+      if (String(pubs[wi].name || '').indexOf('文昊') >= 0) return pubs[wi].id;
+    }
     if (defId && pubs.some(function (x) { return x.id === defId; })) return defId;
     if (pubs.length) return pubs[0].id;
     if (defId && list.some(function (x) { return x.id === defId; })) return defId;
@@ -3063,7 +3171,7 @@ function tryCjVoice() {
     toast('试听生成失败：' + ((e && e.message) || '请稍后重试'), 'err', 3800);
   });
 }
-/* ---------------- AI 数字人 A 3 秒预览样片（真实合成，约 6 积分，仅预览） ---------------- */
+/* ---------------- AI 数字人 A 3 秒口型样片（真实云端合成，约 1.5 积分，仅预览；生成后第③步内联播放） ---------------- */
 function cjSnippetKey() {
   var cj = state.presenter.cj || {};
   var bg = cj.bg || {};
@@ -3072,6 +3180,57 @@ function cjSnippetKey() {
 function cjSnippetCostText(sec) {
   var pi = cjPriceInfo(Number(sec) || 3);
   return '约 ' + pi.pts + ' 积分';
+}
+function cjSnippetBtnLabel(has) {
+  return has ? '▶ 播放 3 秒口型效果（已生成）' : '🎬 先看口型效果（3 秒，约 1.5 积分）';
+}
+function cjSetSnippetBusy(busy, txt) {
+  ['aeCjSampleBtn', 'aeCjQuickBtn'].forEach(function (id) {
+    var b = $(id);
+    if (!b) return;
+    b.disabled = !!busy;
+    if (busy) b.innerHTML = '<span class="ae-tts-loading"></span>' + (txt || '云端合成中…');
+  });
+}
+function cjSyncSnippetButtons() {
+  var cj = state.presenter.cj || {};
+  var snip = cj.snippet;
+  var has = !!(snip && snip.url && snip.key === cjSnippetKey());
+  if (cj.snippetBusy) return;
+  ['aeCjSampleBtn', 'aeCjQuickBtn'].forEach(function (id) {
+    var b = $(id);
+    if (b) b.textContent = cjSnippetBtnLabel(has);
+  });
+  var hint = has
+    ? '已生成真实 3 秒口型样片：点按钮直接播放（不重复扣费）；要换一批再点样片上的「🔄 重新生成」'
+    : '用当前形象 + 背景真实合成 3 秒数字人样片（含 AI 配音），先看嘴型和镜头运动；仅预览、不计入成片。';
+  if ($('aeCjQuickHint')) $('aeCjQuickHint').textContent = hint;
+  if ($('aeCjSampleHint')) {
+    $('aeCjSampleHint').textContent = hint + '（每工作区 10 分钟限流保护）';
+  }
+}
+function cjShowInlineSnippet(snip) {
+  var inline = $('aeCjInlineWrap'), iv = $('aeCjInlineVideo'), canvas = $('aeCanvas');
+  if (!inline || !iv) return;
+  if (iv.getAttribute('data-url') !== snip.url) {
+    iv.setAttribute('data-url', snip.url);
+    iv.src = snip.url;
+    try { iv.load(); } catch (e) {}
+  }
+  inline.hidden = false;
+  if (canvas) canvas.style.display = 'none';
+  if ($('aePlayBtn')) $('aePlayBtn').hidden = true;
+  if ($('aeCjInlineNote')) {
+    $('aeCjInlineNote').textContent = '真实生成片：' +
+      (snip.duration ? (Number(snip.duration).toFixed(1) + ' 秒 · ') : '') +
+      (snip.person ? ('形象「' + snip.person + '」· ') : '') +
+      '云端真实合成（含 AI 配音），仅用于预览、不计入成片；导出成片时会按整片文案生成完整口型视频再合成进成片。';
+  }
+  if ($('playerPill')) {
+    $('playerPill').className = 'ae-pill-tag live';
+    $('playerPill').textContent = '真实生成片 · 3 秒口型预览（非最终成片）';
+  }
+  try { var pr = iv.play(); if (pr && pr.catch) pr.catch(function () {}); } catch (e) {}
 }
 function cjShowSnippet(snip) {
   if (!snip || !snip.url) return;
@@ -3089,39 +3248,49 @@ function cjShowSnippet(snip) {
       (snip.at ? ('生成于 ' + new Date(snip.at).toLocaleTimeString('zh-CN', { hour: '2-digit', minute: '2-digit' })) : '') +
       ' · 仅预览，不计入成片';
   }
+  /* 第③步内联播放真实生成片（老板要求：点按钮后就能看到真实口型效果） */
+  cjShowInlineSnippet(snip);
 }
 function cjSyncSnippetUI() {
   var cj = state.presenter.cj || {};
   var snip = cj.snippet;
-  var wrap = $('aeCjSampleWrap'), btn = $('aeCjSampleBtn');
-  if (snip && snip.url && snip.key === cjSnippetKey()) {
+  var wrap = $('aeCjSampleWrap');
+  var has = !!(snip && snip.url && snip.key === cjSnippetKey());
+  if (has) {
     cjShowSnippet(snip);
-    if (btn && !cj.snippetBusy) btn.textContent = '🔁 重新生成 3 秒预览（再扣约 1.5 积分）';
   } else {
     if (wrap) wrap.hidden = true;
-    if (btn && !cj.snippetBusy) btn.textContent = '🎬 生成 3 秒预览（约 1.5 积分）';
+    if (cjHideInlineSnippet && $('aeCjInlineWrap') && !$('aeCjInlineWrap').hidden) cjHideInlineSnippet();
   }
+  cjSyncSnippetButtons();
 }
-function cjGenerateSnippet() {
+function updateCjQuickUI() {
+  var row = $('aeCjQuickRow');
+  var on = presenterModeOf() === 'chanjing' && cjConfigured();
+  if (row) row.hidden = !on;
+  if (on) cjSyncSnippetButtons();
+}
+function cjGenerateSnippet(force) {
   var cj = state.presenter.cj = state.presenter.cj || {};
   if (cj.snippetBusy) return;
   var p = cjSelectedPerson();
   if (!p) { toast('请先选一个 AI 数字人形象', 'warn', 3200); return; }
   var o = cjOptions() || {};
   if (!o.configured) { toast('当前数字人服务暂未开通，请联系客服', 'warn', 5200); return; }
-  if (state.mode !== 'live') { toast('当前未连接 AI 服务：连接后可生成真实 3 秒预览；现在可先看第③步形象预览', 'warn', 4600); return; }
+  if (state.mode !== 'live') { toast('当前未连接 AI 服务：连接后可生成真实 3 秒口型样片；现在可先看第③步动态预览', 'warn', 4600); return; }
   var bg = cj.bg || {};
-  if (bg.mode === 'image' && !bg.imageUrl) { toast('已选「上传图片背景」：请先上传门店图，再生成 3 秒预览', 'warn', 4000); return; }
+  if (bg.mode === 'image' && !bg.imageUrl) { toast('已选「上传图片背景」：请先上传门店图，再生成 3 秒样片', 'warn', 4000); return; }
   var costTxt = cjSnippetCostText(3);
-  if (cj.snippet && cj.snippet.url && cj.snippet.key === cjSnippetKey()) {
-    var okGo = window.confirm ? window.confirm('该形象 + 背景已经生成过 3 秒预览（可免费重播）。\n重新生成会再调用 云端合成一次，' + costTxt + '。\n\n确定重新生成吗？') : true;
-    if (!okGo) { cjShowSnippet(cj.snippet); return; }
+  if (!force && cj.snippet && cj.snippet.url && cj.snippet.key === cjSnippetKey()) {
+    /* 已生成且形象/背景没变：直接播放，不重复调用云端（省钱） */
+    cjShowSnippet(cj.snippet);
+    if (state.step !== 3) toast('已生成过 3 秒口型样片：在第 3 步可直接播放；要重新生成请点样片上的「🔄 重新生成」', 'ok', 4200);
+    return;
   }
   cj.snippetBusy = true;
-  var btn = $('aeCjSampleBtn');
-  var oldLabel = btn ? btn.textContent : '';
-  if (btn) { btn.disabled = true; btn.innerHTML = '<span class="ae-tts-loading"></span>AI 数字人 A合成中…'; }
-  if ($('aeCjSampleHint')) $('aeCjSampleHint').textContent = '正在提交AI 数字人 A合成 3 秒样片（' + costTxt + '，通常 20–60 秒）…';
+  cjSetSnippetBusy(true, '云端合成中…');
+  if ($('aeCjSampleHint')) $('aeCjSampleHint').textContent = '正在提交云端合成 3 秒样片（' + costTxt + '，通常 20–60 秒）…';
+  if ($('aeCjQuickHint')) $('aeCjQuickHint').textContent = '正在云端合成 3 秒真实样片…（通常 20–60 秒，请稍候）';
   var body = {
     person_id: p.id,
     bg_mode: bg.mode || 'color',
@@ -3130,7 +3299,7 @@ function cjGenerateSnippet() {
   };
   apiFetch('/chanjing/preview', { method: 'POST', timeout: 180000, body: body }).then(function (d) {
     cj.snippetBusy = false;
-    if (!d || !d.video_url) throw new Error('AI 数字人 A没有返回预览视频地址，请稍后重试');
+    if (!d || !d.video_url) throw new Error('云端没有返回预览视频地址，请稍后重试');
     var snip = {
       url: normalizeMediaUrl(d.video_url),
       person: d.person_name || p.name,
@@ -3140,20 +3309,19 @@ function cjGenerateSnippet() {
       at: Date.now()
     };
     cj.snippet = snip;
-    if (btn) { btn.disabled = false; }
+    cjSetSnippetBusy(false);
     cjShowSnippet(snip);
-    if (btn) btn.textContent = '🔁 重新生成 3 秒预览（再扣约 1.5 积分）';
-    if ($('aeCjSampleHint')) {
-      $('aeCjSampleHint').textContent = '已生成真实 3 秒样片（本次 ' + cjSnippetCostText(snip.duration || 3) + '）· 仅用于预览，导出成片按整片时长计费';
-    }
-    toast('3 秒预览已生成：点视频可播放真实口播效果', 'ok', 3600);
+    cjSyncSnippetButtons();
+    toast('3 秒口型样片已生成：正在第 3 步内联播放真实生成片', 'ok', 4200);
   }).catch(function (e) {
     cj.snippetBusy = false;
-    if (btn) { btn.disabled = false; btn.textContent = oldLabel || '🎬 生成 3 秒预览（约 1.5 积分）'; }
+    cjSetSnippetBusy(false);
+    cjSyncSnippetButtons();
     var data = e && e.data;
     var msg = (data && (data.hint || data.detail)) || (e && e.message) || '请稍后重试';
     if ($('aeCjSampleHint')) $('aeCjSampleHint').textContent = '生成失败：' + msg;
-    toast('3 秒预览生成失败：' + msg, 'err', 6200);
+    if ($('aeCjQuickHint')) $('aeCjQuickHint').textContent = '生成失败：' + msg;
+    toast('3 秒口型样片生成失败：' + msg, 'err', 6200);
   });
 }
 function cjSpecForRender() {
@@ -3522,7 +3690,24 @@ try {
       cj.personId = String(pid || '');
       if (state.project) state.project.presenter = presenterSpecForRender();
     },
-    cjBg: function () { return { mode: (state.presenter.cj.bg || {}).mode, color: (state.presenter.cj.bg || {}).color, imageUrl: (state.presenter.cj.bg || {}).imageUrl }; }
+    cjBg: function () { return { mode: (state.presenter.cj.bg || {}).mode, color: (state.presenter.cj.bg || {}).color, imageUrl: (state.presenter.cj.bg || {}).imageUrl }; },
+    cjPreviewVideo: function () { return cjPersonPreviewVideoUrl(); },
+    cjSnippet: function () { cjGenerateSnippet(false); },
+    cjState: function () {
+      var cj = state.presenter.cj || {};
+      return { personId: cj.personId, person: (cjSelectedPerson() || {}).name || '',
+               snippet: cj.snippet || null, busy: !!cj.snippetBusy,
+               inlineVisible: !!($('aeCjInlineWrap') && !$('aeCjInlineWrap').hidden) };
+    },
+    cjPreviewState: function () {
+      var v = DH_CJ.video;
+      return { hasVideo: !!v, ready: !!DH_CJ.videoReady,
+               paused: v ? !!v.paused : null,
+               currentTime: v ? Math.round((v.currentTime || 0) * 1000) / 1000 : null,
+               animating: !!DH_CJ.animTimer,
+               hasCover: !!(DH_CJ.img && DH_CJ.img.complete && DH_CJ.img.naturalWidth) };
+    },
+    openRewrite: function () { if (window.__XL_AE_REWRITE__) window.__XL_AE_REWRITE__.open(); }
   };
 } catch (e) {}
 
@@ -3547,7 +3732,10 @@ function setPresenterMode(mode, opts) {
     var cj = state.presenter.cj = state.presenter.cj || {};
     if (!cj.personId) {
       var list = co.persons || [];
-      cj.personId = co.default_person_id || (list[0] && list[0].id) || '';
+      /* 默认优先「文昊」（公共男士形象），其次运营默认形象 / 第一个形象（老板要求示例统一男性） */
+      var pubs0 = list.filter(function (x) { return x && x.source === 'public' && x.ready !== false; });
+      var male0 = pubs0.filter(function (x) { return String(x.name || '').indexOf('文昊') >= 0; })[0];
+      cj.personId = (male0 && male0.id) || co.default_person_id || (pubs0[0] && pubs0[0].id) || (list[0] && list[0].id) || '';
     }
   } else if (mode === 'lipsync' || mode === 'photo_lipsync') {
     var li = (state.presenterOptions && state.presenterOptions.lipsync) || {};
@@ -5822,7 +6010,7 @@ function goStep(n, fromBoot) {
   if ($('stepWhyText')) $('stepWhyText').textContent = STEP_WHY[n];
   if (n === 2) renderProject();
   if (n === 3) prepareStep3();
-  if (n !== 3) pausePlayer();
+  if (n !== 3) { pausePlayer(); cjStopCanvasPreview(); cjPauseInlineSnippet(); }
   if (!fromBoot) {
     try { $('aeSteps').scrollIntoView({ behavior: 'smooth', block: 'start' }); } catch (e) {}
   }
@@ -6000,7 +6188,7 @@ function dhPreviewKind() {
 }
 function dhHasPreview() { return !!dhPreviewKind(); }
 function dhBadgeLines() {
-  if (dhPresenterMode() === 'chanjing') return ['AI 数字人 A（换背景版）预览', '导出后生成真人口播视频'];
+  if (dhPresenterMode() === 'chanjing') return ['数字人动态预览（非最终口型）', '导出后生成真人口型视频'];
   return dhPresenterMode() === 'upload'
     ? ['数字人预览', '（成片里会用这段出镜视频）']
     : ['数字人预览', '（导出的成片里会开口说话）'];
@@ -6068,7 +6256,7 @@ function drawCoverMedia(ctx, media, W, H) {
   try { ctx.drawImage(media, (W - dw) / 2, (H - dh) / 2, dw, dh); } catch (e) {}
 }
 /* ---------------- AI 数字人 A（换背景版）：形象封面 + 背景预览（只影响第③步 canvas，导出逻辑不动） ---------------- */
-var DH_CJ = { src: '', img: null, videoSrc: '', video: null, videoReady: false };
+var DH_CJ = { src: '', img: null, videoSrc: '', video: null, videoReady: false, animTimer: null };
 var DH_CJ_BG = { src: '', img: null };
 function cjPreviewPerson() {
   if (presenterModeOf() !== 'chanjing') return null;
@@ -6083,7 +6271,9 @@ function cjCoverUrl() {
 function cjPersonPreviewVideoUrl() {
   var p = cjPreviewPerson();
   if (!p) return '';
-  var v = String(p.preview_url || p.display_url || '').trim();
+  /* 后端 /presenter/options 对蝉镜公共形象返回 preview_video_url（webm 动态预览）；
+     兼容旧字段 preview_url / display_url（mp4 演示片）；定制形象没有则为空 → 退回封面 */
+  var v = String(p.preview_video_url || p.preview_url || p.display_url || '').trim();
   return v ? normalizeMediaUrl(v) : '';
 }
 /* 当前AI 数字人 A背景口径：纯色 / 门店图 / 形象自带（与导出时 cjSpecForRender 保持一致） */
@@ -6116,22 +6306,38 @@ function ensureCjAssets() {
   } else if (DH_CJ.img) {
     DH_CJ.img = null; DH_CJ.src = '';
   }
-  /* 客户定制形象可能没有封面：退用 registry 预览视频首帧 */
-  var vsrc = cover ? '' : cjPersonPreviewVideoUrl();
+  /* 第③步「会动」的数字人预览：有官方动态预览视频（蝉镜公共形象 preview_video_url）时，
+     用隐藏 <video muted loop> 播放并按帧 drawImage 到 canvas；没有则退回封面静图。 */
+  var vsrc = cjPersonPreviewVideoUrl();
   if (vsrc) {
     if (DH_CJ.videoSrc !== vsrc) {
+      cjStopCanvasPreview();
       DH_CJ.videoSrc = vsrc; DH_CJ.videoReady = false;
       var v = document.createElement('video');
-      v.muted = true; v.playsInline = true; v.preload = 'auto';
-      v.addEventListener('loadeddata', function () { DH_CJ.videoReady = true; scheduleDhRedraw(); });
-      v.addEventListener('seeked', function () { DH_CJ.videoReady = true; scheduleDhRedraw(); });
-      v.addEventListener('error', function () { scheduleDhRedraw(); });
+      v.muted = true; v.loop = true; v.playsInline = true; v.preload = 'auto';
+      v.setAttribute('muted', ''); v.setAttribute('playsinline', '');
+      v.addEventListener('loadeddata', function () {
+        DH_CJ.videoReady = true;
+        try { var pr = v.play(); if (pr && pr.catch) pr.catch(function () {}); } catch (e) {}
+        scheduleDhRedraw(); cjStartCanvasPreview();
+      });
+      v.addEventListener('error', function () {
+        /* 动态预览加载失败：退回封面静图，不报错打断预览 */
+        DH_CJ.videoReady = false;
+        cjStopCanvasPreview();
+        scheduleDhRedraw();
+      });
       v.src = vsrc;
       try { v.load(); } catch (e) {}
-      try { v.currentTime = 0.1; } catch (e) {}
       DH_CJ.video = v;
+    } else if (DH_CJ.video) {
+      if (DH_CJ.video.paused) {
+        try { var pr2 = DH_CJ.video.play(); if (pr2 && pr2.catch) pr2.catch(function () {}); } catch (e) {}
+      }
+      if (DH_CJ.videoReady) cjStartCanvasPreview();
     }
   } else if (DH_CJ.video) {
+    cjStopCanvasPreview();
     try { DH_CJ.video.removeAttribute('src'); DH_CJ.video.load(); } catch (e) {}
     DH_CJ.video = null; DH_CJ.videoSrc = ''; DH_CJ.videoReady = false;
   }
@@ -6153,11 +6359,46 @@ function ensureCjAssets() {
     DH_CJ_BG.img = null; DH_CJ_BG.src = '';
   }
 }
+function cjStartCanvasPreview() {
+  /* 约 11fps 重绘画布（按视频当前帧 drawImage），足够看出人物 / 镜头运动，又不占用太多 CPU */
+  if (DH_CJ.animTimer) return;
+  DH_CJ.animTimer = setInterval(function () {
+    if (state.step !== 3 || presenterModeOf() !== 'chanjing' || ($('step3') && $('step3').hidden)) {
+      cjStopCanvasPreview();
+      return;
+    }
+    var v = DH_CJ.video;
+    if (!v || !DH_CJ.videoReady || v.paused) return;
+    drawFrame(state.player.t);
+  }, 90);
+}
+function cjStopCanvasPreview() {
+  if (DH_CJ.animTimer) { try { clearInterval(DH_CJ.animTimer); } catch (e) {} DH_CJ.animTimer = null; }
+  if (DH_CJ.video) { try { DH_CJ.video.pause(); } catch (e) {} }
+}
+/* 第③步：真实 3 秒样片「内联播放」（覆盖在画布上）；关闭后回到动态预览 */
+function cjHideInlineSnippet() {
+  var inline = $('aeCjInlineWrap'), iv = $('aeCjInlineVideo'), canvas = $('aeCanvas');
+  if (inline) inline.hidden = true;
+  if (iv) { try { iv.pause(); } catch (e) {} }
+  if (canvas) canvas.style.display = 'block';
+  if ($('aePlayBtn')) $('aePlayBtn').hidden = false;
+  if (state.step === 3 && state.project) {
+    refreshDhPreviewChrome();
+    if (presenterModeOf() === 'chanjing') { ensureCjAssets(); drawFrame(state.player.t); }
+  }
+}
+function cjPauseInlineSnippet() {
+  var iv = $('aeCjInlineVideo');
+  if (iv && !iv.paused) { try { iv.pause(); } catch (e) {} }
+}
 function cjMediaReady() {
-  var im = DH_CJ.img;
-  if (im && im.complete && im.naturalWidth) return im;
+  /* 第③步「会动」的关键：动态预览视频就绪时优先画视频当前帧（逐帧 drawImage）；
+     视频没就绪/没有动态片时才退回封面静图。（之前封面优先，导致用户看到的是静图） */
   var v = DH_CJ.video;
   if (v && DH_CJ.videoReady && v.videoWidth) return v;
+  var im = DH_CJ.img;
+  if (im && im.complete && im.naturalWidth) return im;
   return null;
 }
 function drawCjBg(ctx, W, H) {
@@ -6225,8 +6466,10 @@ function drawCjInfoLine(ctx, W, H, pad) {
   if (!person) return;
   var bg = cjSceneBg();
   var cj = state.presenter.cj || {};
-  var tip = (cj.snippet && cj.snippet.url && cj.snippet.key === cjSnippetKey()) ? ' · 已生成 3 秒真实预览' : '';
-  var txt = '形象：' + (person.name || 'AI 数字人形象') + ' · 背景：' + bg.label + tip;
+  var pv = cjPersonPreviewVideoUrl();
+  var tip = pv ? ' · 动态预览（非最终口型）'
+    : ((cj.snippet && cj.snippet.url && cj.snippet.key === cjSnippetKey()) ? ' · 已生成 3 秒真实预览' : ' · 无动态预览，显示封面');
+  var txt = '数字人：' + (person.name || 'AI 数字人形象') + ' · 背景：' + bg.label + tip;
   var fs = Math.round(clamp(W * 0.029, 9.5, 13.5));
   ctx.font = '700 ' + fs + 'px "Microsoft YaHei",sans-serif';
   var maxW = W - pad * 2;
@@ -6430,7 +6673,7 @@ function drawFrame(t) {
   ctx.font = '600 ' + Math.round(Math.max(9, W * 0.028)) + 'px "Microsoft YaHei",sans-serif';
   ctx.fillStyle = 'rgba(255,255,255,.72)';
   ctx.fillText(fmtTime(t) + ' / ' + fmtTime(total) +
-    (cjMode ? ' · AI 数字人 A（换背景版）预览 · 成片导出后生成'
+    (cjMode ? ' · 数字人动态预览（非最终口型）· 导出后生成真人口型视频'
       : (dhKind ? ' · 数字人预览 · 成片导出后开口' : ' · 星籁 AI 演示预览')), pad, H - H * 0.045);
 }
 /* 数字人素材/选择变化时，刷新第 3 步预览画布与顶部状态 */
@@ -6442,7 +6685,13 @@ function refreshDhPreviewChrome() {
   var dh = dhHasPreview();
   var cjPres = (state.project.presenter && state.project.presenter.mode === 'chanjing') ? state.project.presenter : null;
   if ($('playerPill')) {
-    if (cjPres) { $('playerPill').className = 'ae-pill-tag live'; $('playerPill').textContent = 'AI 数字人 A 预览 · 成片导出后生成'; }
+    if (cjPres) {
+      var _cjHasPv = !!cjPersonPreviewVideoUrl();
+      $('playerPill').className = 'ae-pill-tag live';
+      $('playerPill').textContent = _cjHasPv
+        ? '数字人动态预览（非最终口型）· 导出后生成真人口型视频'
+        : '数字人预览（该形象无动态片，显示封面）· 导出后生成真人口型视频';
+    }
     else if (dh) { $('playerPill').className = 'ae-pill-tag live'; $('playerPill').textContent = '数字人预览 · 成片导出后开口'; }
     else { $('playerPill').className = 'ae-pill-tag'; $('playerPill').textContent = '演示占位 · 导出后为真实成片'; }
   }
@@ -6454,9 +6703,14 @@ function refreshDhPreviewChrome() {
       var cjp = cjPreviewPerson();
       var cjbg = cjSceneBg();
       var cjsnip = (state.presenter.cj && state.presenter.cj.snippet) || null;
-      $('aePlayNote').textContent = '第③步为AI 数字人 A（换背景版）预览：形象「' + ((cjp && cjp.name) || 'AI 数字人形象') + '」· 背景：' + cjbg.label +
-        '。可以点上方「生成 3 秒预览」看真实口播效果' + (cjsnip && cjsnip.url ? '（已生成，可免费重播）' : '（约 6 积分）') +
-        '；导出成片时会先把整片配音交给AI 数字人 A合成真口播数字人视频（约 20–90 秒），再合成进成片，渲染完成后这里切换为真实成片，可播放 / 下载。';
+      $('aePlayNote').textContent = '第③步为「数字人动态预览（非最终口型）」：形象「' +
+        ((cjp && cjp.name) || 'AI 数字人形象') + '」· 背景：' + cjbg.label +
+        (cjPersonPreviewVideoUrl()
+          ? '，正在循环播放该形象的官方动态预览（能看出人物 / 镜头在动，但嘴型不是最终成片口型）。'
+          : '（该形象暂无可播放的动态预览片，先显示封面图）。') +
+        ' 可以点上方「🎬 先看口型效果（3 秒）」内联播放真实生成的 3 秒口型样片' +
+        (cjsnip && cjsnip.url ? '（已生成，可直接播放，不重复扣费）' : '（约 1.5 积分）') +
+        '；导出成片时会按整片文案再生成本次真人口型视频并合成进成片（约 20–90 秒），渲染完成后这里切换为真实成片。';
     } else if (dh) {
       var modeTxt = dhPresenterMode() === 'upload' ? '上传口播视频'
         : (dhPresenterMode() === 'lipsync' ? '真口型数字人（视频）' : '照片口型数字人');
@@ -6549,6 +6803,12 @@ function prepareStep3() {
       : (pres && pres.mode === 'chanjing' ? 'AI 数字人 A（换背景版）（数字人服务）出镜'
         : (pres && pres.mode === 'upload' ? '上传口播视频出镜' : '照片数字人（免费推近·不做口型）出镜'))));
   pausePlayer();
+  updateCjQuickUI();
+  /* 每次进入第③步默认显示「数字人动态预览」画布；3 秒真实样片由按钮/生成后内联播放覆盖 */
+  var _iw0 = $('aeCjInlineWrap');
+  if (_iw0) _iw0.hidden = true;
+  var _iv0 = $('aeCjInlineVideo');
+  if (_iv0) { try { _iv0.pause(); } catch (e) {} }
   if (hasReal) {
     if (canvas) canvas.style.display = 'none';
     setVideoEl(avatarVid, '');
@@ -6618,6 +6878,7 @@ function prepareStep3() {
   applySound();
   updatePlayerUI();
   if (!hasReal && !avatar) requestAnimationFrame(function () { sizeCanvas(); drawFrame(state.player.t); });
+  updateCjQuickUI();
 }
 /* ==================================================================
    第 3 步：导出
@@ -7471,7 +7732,20 @@ function bindUi() {
   });
   if ($('aeCjBgRemove')) $('aeCjBgRemove').addEventListener('click', function (e) { e.preventDefault(); e.stopPropagation(); removeCjBgImage(); });
   if ($('aeCjVoiceBtn')) $('aeCjVoiceBtn').addEventListener('click', tryCjVoice);
-  if ($('aeCjSampleBtn')) $('aeCjSampleBtn').addEventListener('click', cjGenerateSnippet);
+  if ($('aeCjSampleBtn')) $('aeCjSampleBtn').addEventListener('click', function () { cjGenerateSnippet(false); });
+  /* 第③步显眼位置：先看口型效果（3 秒真实样片）→ 内联播放；已生成则直接播放不重复扣费 */
+  if ($('aeCjQuickBtn')) $('aeCjQuickBtn').addEventListener('click', function () {
+    var cj = state.presenter.cj || {};
+    var snip = cj.snippet;
+    if (snip && snip.url && snip.key === cjSnippetKey()) { cjShowSnippet(snip); return; }
+    cjGenerateSnippet(false);
+  });
+  if ($('aeCjInlineClose')) $('aeCjInlineClose').addEventListener('click', cjHideInlineSnippet);
+  if ($('aeCjInlineReplay')) $('aeCjInlineReplay').addEventListener('click', function () {
+    var costTxt = cjSnippetCostText(3);
+    var okGo = window.confirm ? window.confirm('重新生成 3 秒口型样片会再调用一次云端合成（' + costTxt + '），确定吗？') : true;
+    if (okGo) cjGenerateSnippet(true);
+  });
   if ($('aeCjGenBtn')) $('aeCjGenBtn').addEventListener('click', startCjExport);
   if ($('btnTtsPreview')) $('btnTtsPreview').addEventListener('click', previewTts);
   if ($('aeTtsVoice')) $('aeTtsVoice').addEventListener('change', function () {
@@ -7558,6 +7832,226 @@ function boot() {
 if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', boot);
 else boot();
 
+})();
+</script>
+<script>
+/* ==================================================================
+   第①步「AI 改写 / AI 帮我写」：一次给 4 个不同风格版本（2026-11-20 老板需求）
+   - 独立小组件，不侵入上面主逻辑；只读写 #aeText / #aeIndustry，选版本后替换输入框
+   - 后端 POST /autoedit/rewrite：4 版（稳重专业 / 亲切口语 / 促销转化 / 简洁有力），每版 ≤200 字
+   - 默认免费（只记 tokens 成本）；失败给中文原因；每工作区 10 分钟 20 次限流
+   ================================================================== */
+(function () {
+  'use strict';
+  var $ = function (id) { return document.getElementById(id); };
+  var STYLES = [
+    { id: 'steady', style: '稳重专业', desc: '正式、可信，适合门店 / 工程介绍' },
+    { id: 'friendly', style: '亲切口语', desc: '像老板跟客户聊天，接地气、好懂' },
+    { id: 'promo', style: '促销转化', desc: '有钩子 + 行动号召，不夸大、不用极限词' },
+    { id: 'short', style: '简洁有力', desc: '30–50 字短版，适合短视频开头' }
+  ];
+  var cache = { text: null, industry: null, versions: [] };
+  var busy = false;
+
+  function apiBase() {
+    try {
+      var qs = new URLSearchParams(location.search);
+      var ov = qs.get('api_base') || qs.get('api');
+      if (ov) return String(ov).replace(/\/+$/, '');
+    } catch (e) {}
+    try { var saved = localStorage.getItem('ae_api_base'); if (saved) return String(saved).replace(/\/+$/, ''); } catch (e) {}
+    var p = location.pathname, i = p.indexOf('/autoedit/');
+    if (i >= 0) return location.origin + p.slice(0, i) + '/api/autoedit';
+    return '/ai-nav/api/autoedit';
+  }
+  function toast(msg, kind, ms) {
+    var t = $('aeToast');
+    if (!t) return;
+    t.textContent = msg;
+    t.className = 'ae-toast show' + (kind ? ' ' + kind : '');
+    clearTimeout(toast._tm);
+    toast._tm = setTimeout(function () { t.className = 'ae-toast'; }, ms || 3800);
+  }
+  function textarea() { return $('aeText'); }
+  function industry() {
+    var s = $('aeIndustry');
+    return s && s.value ? String(s.value) : '除甲醛';
+  }
+  function curText() { var ta = textarea(); return ta ? String(ta.value || '') : ''; }
+  function syncBtnLabel() {
+    var tx = $('btnAiRewriteTx');
+    if (!tx) return;
+    var has = !!curText().trim();
+    tx.textContent = has ? 'AI 改写' : 'AI 帮我写';
+    var btn = $('btnAiRewrite');
+    if (btn) btn.setAttribute('aria-label', has ? 'AI 改写：生成 4 个专业版本' : 'AI 帮我写：按行业生成 4 个版本');
+  }
+  function applyText(t) {
+    var ta = textarea();
+    if (!ta) return;
+    ta.value = t;
+    try { ta.dispatchEvent(new Event('input', { bubbles: true })); } catch (e) {}
+    try { ta.focus(); ta.setSelectionRange(t.length, t.length); } catch (e) {}
+    syncBtnLabel();
+  }
+  function show(el, yes) { if (el) el.hidden = !yes; }
+  function el(tag, cls, txt) {
+    var e = document.createElement(tag);
+    if (cls) e.className = cls;
+    if (txt != null) e.textContent = txt;
+    return e;
+  }
+  function renderSkeleton() {
+    var box = $('aeRwLoading');
+    if (!box) return;
+    if (!box.children.length) {
+      for (var i = 0; i < 4; i++) box.appendChild(el('div', 'ae-rw-skel'));
+    }
+    show(box, true);
+  }
+  function renderVersions(versions, filtered) {
+    var list = $('aeRwList');
+    if (!list) return;
+    list.innerHTML = '';
+    var note = $('aeRwFootNote');
+    if (note) note.textContent = 'AI 生成，需人工确认（价格/承诺以门店为准）· 已自动过滤极限词 · 默认免费（仅记成本）';
+    (versions || []).forEach(function (v, idx) {
+      var item = el('div', 'ae-rw-item ' + (v.id || ''));
+      var top = el('div', 'ae-rw-item-top');
+      top.appendChild(el('span', 'ae-rw-tag', v.style || (STYLES[idx] || {}).style || ('版本 ' + (idx + 1))));
+      var desc = v.desc || (STYLES[idx] || {}).desc || '';
+      if (desc) top.appendChild(el('span', 'ae-rw-desc', desc));
+      item.appendChild(top);
+      item.appendChild(el('div', 'ae-rw-text', v.text || ''));
+      var foot = el('div', 'ae-rw-item-foot');
+      foot.appendChild(el('span', 'ae-rw-chars', (v.chars || String(v.text || '').length) + ' 字'));
+      var use = el('button', 'ae-btn sm primary', '用这版');
+      use.type = 'button';
+      use.setAttribute('data-rw-use', String(idx));
+      use.addEventListener('click', function () {
+        applyText(v.text || '');
+        close();
+        toast('已替换为「' + (v.style || 'AI') + '」版本（' + String(v.text || '').length + ' 字），价格 / 承诺请按门店实际改一下', 'ok', 4600);
+      });
+      foot.appendChild(use);
+      item.appendChild(foot);
+      list.appendChild(item);
+    });
+    show(list, true);
+    if (filtered && filtered.length) {
+      if (note) note.textContent = 'AI 生成，需人工确认（价格/承诺以门店为准）· 已自动过滤极限词：' + filtered.join('、') + ' · 默认免费（仅记成本）';
+    }
+  }
+  function setBusy(b) {
+    busy = !!b;
+    var btn = $('btnAiRewrite');
+    if (btn) { btn.disabled = b; }
+    syncBtnLabel();
+    var again = $('aeRwAgain');
+    if (again) again.disabled = b;
+  }
+  function setErr(msg) {
+    var box = $('aeRwErr');
+    if (!box) return;
+    if (!msg) { show(box, false); box.textContent = ''; return; }
+    box.textContent = msg;
+    show(box, true);
+  }
+  function generate() {
+    if (busy) return;
+    var text = curText().trim();
+    var ind = industry();
+    setErr('');
+    renderSkeleton();
+    show($('aeRwList'), false);
+    setBusy(true);
+    if ($('aeRwSub')) {
+      $('aeRwSub').textContent = text
+        ? '正在把这段文案改写成 4 个不同风格的口播版本（每版 ≤200 字，通常 5–20 秒）…'
+        : '你还没写文案：正在按行业「' + ind + '」生成 4 个不同风格的口播版本（每版 ≤200 字）…';
+    }
+    var payload = { text: text, industry: ind, versions: 4 };
+    var ctrl = (typeof AbortController !== 'undefined') ? new AbortController() : null;
+    var timer = setTimeout(function () { try { ctrl && ctrl.abort(); } catch (e) {} }, 150000);
+    fetch(apiBase() + '/rewrite', {
+      method: 'POST', headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
+      body: JSON.stringify(payload), cache: 'no-store', signal: ctrl ? ctrl.signal : undefined
+    }).then(function (res) {
+      clearTimeout(timer);
+      return res.text().then(function (txt) {
+        var d = {};
+        try { d = txt ? JSON.parse(txt) : {}; } catch (e) { d = {}; }
+        if (!res.ok || !d || d.ok === false) {
+          var ne = new Error((d && (d.hint || d.detail || d.error)) || ('HTTP ' + res.status));
+          ne.status = res.status; ne.data = d; throw ne;
+        }
+        return d;
+      });
+    }).then(function (d) {
+      var versions = (d && d.versions) || [];
+      if (!versions.length) throw new Error('AI 没有返回可用版本，请再生成一批');
+      cache = { text: text, industry: ind, versions: versions };
+      show($('aeRwLoading'), false);
+      renderVersions(versions, d.filtered || []);
+      setBusy(false);
+      if ($('aeRwSub')) {
+        $('aeRwSub').textContent = 'AI 生成了 ' + versions.length + ' 个不同风格版本（每版 ≤200 字）；点「用这版」直接替换输入框，不满意可「再生成一批」。';
+      }
+    }).catch(function (e) {
+      clearTimeout(timer);
+      show($('aeRwLoading'), false);
+      setBusy(false);
+      var data = e && e.data;
+      var msg = (data && (data.hint || data.detail)) || (e && e.message) || 'AI 改写失败，请稍后重试';
+      setErr('生成失败：' + msg + (e && e.status === 429 ? '（限流保护，稍后可再试）' : ''));
+    });
+  }
+  function open() {
+    var modal = $('aeRewriteModal');
+    if (!modal) return;
+    setErr('');
+    var text = curText().trim();
+    var ind = industry();
+    var same = cache.versions.length && cache.text === text && cache.industry === ind;
+    if (same) {
+      show($('aeRwLoading'), false);
+      renderVersions(cache.versions, []);
+      if ($('aeRwSub')) {
+        $('aeRwSub').textContent = 'AI 生成了 ' + cache.versions.length + ' 个不同风格版本（每版 ≤200 字）；点「用这版」直接替换输入框，不满意可「再生成一批」。';
+      }
+    } else {
+      if ($('aeRwList')) { $('aeRwList').innerHTML = ''; show($('aeRwList'), false); }
+      generate();
+    }
+    modal.hidden = false;
+    document.body.style.overflow = 'hidden';
+    setTimeout(function () { var b = $('aeRwAgain'); if (b) { try { b.focus(); } catch (e) {} } }, 80);
+  }
+  function close() {
+    var modal = $('aeRewriteModal');
+    if (modal) modal.hidden = true;
+    document.body.style.overflow = '';
+    setBusy(false);
+  }
+  window.__XL_AE_REWRITE__ = { open: open, close: close, generate: generate };
+  function boot() {
+    var btn = $('btnAiRewrite');
+    if (btn) btn.addEventListener('click', open);
+    var again = $('aeRwAgain');
+    if (again) again.addEventListener('click', generate);
+    var closeBtn = $('aeRwClose'), cancelBtn = $('aeRwCancel');
+    if (closeBtn) closeBtn.addEventListener('click', close);
+    if (cancelBtn) cancelBtn.addEventListener('click', close);
+    var modal = $('aeRewriteModal');
+    if (modal) modal.addEventListener('click', function (e) { if (e.target === modal) close(); });
+    var ta = textarea();
+    if (ta) ta.addEventListener('input', syncBtnLabel);
+    var indSel = $('aeIndustry');
+    if (indSel) indSel.addEventListener('change', syncBtnLabel);
+    syncBtnLabel();
+  }
+  if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', boot);
+  else boot();
 })();
 </script>
 <script defer src="../assets/site-shell.js?v=20261119x"></script>
