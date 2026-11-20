@@ -1,0 +1,183 @@
+<!doctype html>
+<html lang="zh-CN" data-page="gov-demo-doc">
+<head>
+<meta charset="utf-8">
+<!--xl-theme-start-->
+<script>(function(){try{var k="xl_theme",v=localStorage.getItem(k),m=(v==="dark"||v==="light"||v==="auto")?v:"auto",q=window.matchMedia?window.matchMedia("(prefers-color-scheme: light)"):null,t=(m==="auto")?((q&&q.matches)?"light":"dark"):m,d=document.documentElement;d.setAttribute("data-theme",t);d.setAttribute("data-theme-mode",m);d.style.colorScheme=t}catch(e){document.documentElement.setAttribute("data-theme","dark")}})();</script>
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="theme-color" content="#0b1017">
+<meta name="color-scheme" content="dark light">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='10' fill='%231f5c99'/%3E%3Cpath d='M32 12 48 18v11c0 9-6.5 15.5-16 19.5C22.5 44.5 16 38 16 29V18Z' fill='none' stroke='%23fff' stroke-width='3.5'/%3E%3Cpath d='m25 30 5.5 5.5L40 25' fill='none' stroke='%23fff' stroke-width='3.5' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E">
+<title>公文助手 · 原型演示 · 星籁政务</title>
+<meta name="description" content="星籁政务原型演示：公文助手。输入文种（通知/请示/报告）、事由与要点，生成结构完整的公文骨架，附格式模板与人工复核清单。演示环境，示例数据。">
+<meta name="robots" content="noindex,follow">
+<link rel="canonical" href="https://xinglaiai.com/ai-nav/gov/demo/doc.html">
+<link rel="stylesheet" href="../gov.css?v=20261120b">
+<script defer src="../../assets/theme.js"></script>
+<script defer src="demo.js?v=20261120b"></script>
+<!--xl-theme-end-->
+</head>
+<body>
+
+<header class="gvx-head">
+  <div class="gvx-head-in">
+    <a class="gvx-brand" href="../" aria-label="星籁政务">
+      <span class="gvx-mark">政</span>
+      <span class="gvx-brandtext"><b>星籁政务</b><small>政企智能体平台 · 演示环境</small></span>
+    </a>
+    <nav class="gvx-nav" aria-label="主导航">
+      <a href="../">方案</a>
+      <a href="../#scenes">六大场景</a>
+      <a href="../security.html">安全与保密</a>
+      <a href="./" class="on">原型演示</a>
+      <a href="../#contact">联系我们</a>
+    </nav>
+    <div class="gvx-head-r">
+      <button type="button" class="gvx-theme xl-theme-btn" id="gvThemeBtn" aria-label="切换主题" title="切换主题">
+        <span class="xl-t-ico" aria-hidden="true">🌓</span><span class="gvx-theme-txt xl-t-full">自动</span>
+      </button>
+      <a class="gvx-enter" href="../security.html">安全演示 →</a>
+      <button type="button" class="gvx-menu-btn" id="gvMenuBtn" aria-label="打开导航" aria-expanded="false">☰</button>
+    </div>
+  </div>
+  <div class="gvx-mobile" id="gvMobileNav">
+    <div class="in">
+      <a href="../">方案</a>
+      <a href="../#scenes">六大场景</a>
+      <a href="../security.html">安全与保密</a>
+      <a href="./" class="on">原型演示</a>
+      <a href="../#contact">联系我们</a>
+    </div>
+  </div>
+</header>
+
+<div class="gvx-deploynote">
+  <div class="gv-wrap">
+    <span class="i">ℹ️</span>
+    <span>当前为<strong>星籁政务演示环境</strong>；正式交付将<b>私有化部署到贵单位内网 / 政务云</b>，<b>独立域名与独立运维</b>。</span>
+  </div>
+</div>
+
+<div class="gv-demo-page" id="gvDocPage">
+  <div class="gv-demo-head">
+    <a class="gv-demo-back" href="./">← 返回原型演示列表</a>
+    <h1>📄 公文助手</h1>
+    <p class="sub">选择文种（通知 / 请示 / 报告），填写事由与要点，生成结构完整的公文骨架：标题、主送机关、正文（缘由 / 事项 / 结语）、落款与日期，并提供格式模板与人工复核清单。</p>
+    <div class="tags">
+      <span class="gv-tag ok">3 种文种</span>
+      <span class="gv-tag">格式模板</span>
+      <span class="gv-tag">可复制</span>
+      <span class="gv-tag warn">AI 生成，需人工复核</span>
+    </div>
+  </div>
+
+  <div class="gv-demo-banner">
+    <span class="i">⚠️</span>
+    <div>演示环境 · 示例数据 · 不含任何真实政务数据
+      <small>示例中的单位、事由、数据均为虚构；生成的公文仅供演示，不代替正式公文，须经人工复核与签批流程。</small>
+    </div>
+  </div>
+
+  <div class="gv-demo-grid">
+    <section class="gv-panel">
+      <h2><span class="n">1</span>填写要素</h2>
+      <p class="cap">文种决定行文方向与结构：通知（平行/下行）、请示（上行）、报告（上行）。</p>
+      <div class="gv-form-area">
+        <div class="gv-chips" id="gvDocSamples">
+          <button class="gv-chip" type="button" data-doc="notice">示例：防汛演练通知</button>
+          <button class="gv-chip" type="button" data-doc="request">示例：采购终端请示</button>
+          <button class="gv-chip" type="button" data-doc="report">示例：政务服务工作报告</button>
+        </div>
+        <div class="gv-field">
+          <label for="gvDocType">文种 <span class="req">*</span></label>
+          <select class="gv-select" id="gvDocType">
+            <option value="notice">通知（部署工作 / 告知事项）</option>
+            <option value="request">请示（向上级请求批准）</option>
+            <option value="report">报告（汇报工作 / 反映情况）</option>
+          </select>
+        </div>
+        <div class="gv-field full">
+          <label for="gvDocReason">事由 <span class="req">*</span></label>
+          <input class="gv-input" id="gvDocReason" type="text" maxlength="120" placeholder="例如：部署 2026 年防汛应急演练工作">
+        </div>
+        <div class="gv-field full">
+          <label for="gvDocPoints">要点（一行一条，用分号或换行分隔）</label>
+          <textarea class="gv-textarea" id="gvDocPoints" maxlength="600" placeholder="例如：演练时间 6 月 15 日；各科室派 2 人参加；6 月 10 日前报名单"></textarea>
+        </div>
+        <div class="gv-field">
+          <label for="gvDocSender">发文单位</label>
+          <input class="gv-input" id="gvDocSender" type="text" maxlength="60" placeholder="例如：江州市应急管理局">
+        </div>
+        <div class="gv-field">
+          <label for="gvDocReceiver">主送机关</label>
+          <input class="gv-input" id="gvDocReceiver" type="text" maxlength="80" placeholder="例如：局属各处室">
+        </div>
+        <div class="actions" style="display:flex;gap:10px;align-items:center;flex-wrap:wrap">
+          <button class="gv-btn primary" type="button" id="gvDocDraft">生成公文骨架 →</button>
+          <span class="hint" style="font-size:11.5px;color:var(--gv-txt3)">每 IP 20 次 / 10 分钟 · 每日演示额度 300 次</span>
+        </div>
+      </div>
+    </section>
+
+    <section class="gv-panel">
+      <h2><span class="n">2</span>生成结果</h2>
+      <p class="cap">结构 + 完整文本 + 格式模板 + 复核清单；正文可直接复制到 OA 再人工修改。</p>
+      <div class="gv-result" id="gvDocResult">
+        <div class="gv-placeholder"><span class="big">📝</span>填写左侧要素后点击「生成公文骨架」，<br>这里会显示标题、主送、正文结构、格式提示与复核清单。</div>
+      </div>
+    </section>
+  </div>
+
+  <div class="gv-demo-foot">
+    <b>演示说明：</b>演示环境 · 示例数据 · 不含任何真实政务数据。本页真实调用模型生成公文骨架，
+    AI 生成内容须经人工复核，不代替正式公文流程。调用限制：每 IP 20 次 / 10 分钟，每日演示额度 300 次。
+    <div style="margin-top:10px" class="gv-demo-scale">
+      <a href="policy.html">政策问答助手 →</a><a href="ticket.html">12345 工单分派 →</a><a href="../security.html">安全与保密 →</a>
+    </div>
+  </div>
+</div>
+
+<footer class="gvx-foot" id="contact">
+  <div class="gv-wrap">
+    <div class="gvx-foot-cols">
+      <div class="about">
+        <div class="b"><span class="gvx-mark">政</span><b>星籁政务</b></div>
+        <p>政企智能体平台 · 私有化部署 · 信创适配。<br>当前为星籁政务演示环境；正式交付将私有化部署到贵单位内网 / 政务云，独立域名与独立运维。</p>
+      </div>
+      <div>
+        <h5>产品</h5>
+        <ul>
+          <li><a href="../#scenes">六大场景</a></li>
+          <li><a href="../#arch">技术架构</a></li>
+          <li><a href="../#compliance">合规进度</a></li>
+          <li><a href="../#security">安全与保密</a></li>
+        </ul>
+      </div>
+      <div>
+        <h5>演示</h5>
+        <ul>
+          <li><a href="policy.html">政策问答助手</a></li>
+          <li><a href="doc.html">公文助手</a></li>
+          <li><a href="ticket.html">12345 工单分派</a></li>
+          <li><a href="../security.html">安全与保密演示</a></li>
+        </ul>
+      </div>
+      <div>
+        <h5>联系与备案</h5>
+        <ul>
+          <li>公司主体：待补充</li>
+          <li>服务邮箱：<a href="mailto:1374988488@qq.com">1374988488@qq.com</a></li>
+          <li>服务热线：待补充</li>
+          <li>ICP 备案号：备案中</li>
+        </ul>
+      </div>
+    </div>
+    <div class="gvx-foot-bar">
+      <span>© 2026 星籁政务 · 政企智能体平台 · 演示环境</span>
+      <span>演示环境 · 示例数据 · 不含任何真实政务数据</span>
+    </div>
+  </div>
+</footer>
+
+</body>
+</html>

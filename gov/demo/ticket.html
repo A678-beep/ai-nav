@@ -1,0 +1,167 @@
+<!doctype html>
+<html lang="zh-CN" data-page="gov-demo-ticket">
+<head>
+<meta charset="utf-8">
+<!--xl-theme-start-->
+<script>(function(){try{var k="xl_theme",v=localStorage.getItem(k),m=(v==="dark"||v==="light"||v==="auto")?v:"auto",q=window.matchMedia?window.matchMedia("(prefers-color-scheme: light)"):null,t=(m==="auto")?((q&&q.matches)?"light":"dark"):m,d=document.documentElement;d.setAttribute("data-theme",t);d.setAttribute("data-theme-mode",m);d.style.colorScheme=t}catch(e){document.documentElement.setAttribute("data-theme","dark")}})();</script>
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="theme-color" content="#0b1017">
+<meta name="color-scheme" content="dark light">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='10' fill='%231f5c99'/%3E%3Cpath d='M32 12 48 18v11c0 9-6.5 15.5-16 19.5C22.5 44.5 16 38 16 29V18Z' fill='none' stroke='%23fff' stroke-width='3.5'/%3E%3Cpath d='m25 30 5.5 5.5L40 25' fill='none' stroke='%23fff' stroke-width='3.5' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E">
+<title>12345 工单分派 · 原型演示 · 星籁政务</title>
+<meta name="description" content="星籁政务原型演示：12345 工单分派。输入市民诉求，输出承办部门、问题类型、紧急度、回复模板与是否回访，结构化输出可对接工单系统。演示环境，示例数据。">
+<meta name="robots" content="noindex,follow">
+<link rel="canonical" href="https://xinglaiai.com/ai-nav/gov/demo/ticket.html">
+<link rel="stylesheet" href="../gov.css?v=20261120b">
+<script defer src="../../assets/theme.js"></script>
+<script defer src="demo.js?v=20261120b"></script>
+<!--xl-theme-end-->
+</head>
+<body>
+
+<header class="gvx-head">
+  <div class="gvx-head-in">
+    <a class="gvx-brand" href="../" aria-label="星籁政务">
+      <span class="gvx-mark">政</span>
+      <span class="gvx-brandtext"><b>星籁政务</b><small>政企智能体平台 · 演示环境</small></span>
+    </a>
+    <nav class="gvx-nav" aria-label="主导航">
+      <a href="../">方案</a>
+      <a href="../#scenes">六大场景</a>
+      <a href="../security.html">安全与保密</a>
+      <a href="./" class="on">原型演示</a>
+      <a href="../#contact">联系我们</a>
+    </nav>
+    <div class="gvx-head-r">
+      <button type="button" class="gvx-theme xl-theme-btn" id="gvThemeBtn" aria-label="切换主题" title="切换主题">
+        <span class="xl-t-ico" aria-hidden="true">🌓</span><span class="gvx-theme-txt xl-t-full">自动</span>
+      </button>
+      <a class="gvx-enter" href="../security.html">安全演示 →</a>
+      <button type="button" class="gvx-menu-btn" id="gvMenuBtn" aria-label="打开导航" aria-expanded="false">☰</button>
+    </div>
+  </div>
+  <div class="gvx-mobile" id="gvMobileNav">
+    <div class="in">
+      <a href="../">方案</a>
+      <a href="../#scenes">六大场景</a>
+      <a href="../security.html">安全与保密</a>
+      <a href="./" class="on">原型演示</a>
+      <a href="../#contact">联系我们</a>
+    </div>
+  </div>
+</header>
+
+<div class="gvx-deploynote">
+  <div class="gv-wrap">
+    <span class="i">ℹ️</span>
+    <span>当前为<strong>星籁政务演示环境</strong>；正式交付将<b>私有化部署到贵单位内网 / 政务云</b>，<b>独立域名与独立运维</b>。</span>
+  </div>
+</div>
+
+<div class="gv-demo-page" id="gvTicketPage">
+  <div class="gv-demo-head">
+    <a class="gv-demo-back" href="./">← 返回原型演示列表</a>
+    <h1>🎫 12345 工单分派</h1>
+    <p class="sub">贴一条市民诉求，AI 输出承办部门、问题类型、紧急度、建议回复模板与是否需要回访；结构化 JSON 可直接对接 12345 工单系统。</p>
+    <div class="tags">
+      <span class="gv-tag ok">结构化输出</span>
+      <span class="gv-tag">部门 / 紧急度</span>
+      <span class="gv-tag">回复模板</span>
+      <span class="gv-tag warn">AI 生成，需人工复核</span>
+    </div>
+  </div>
+
+  <div class="gv-demo-banner">
+    <span class="i">⚠️</span>
+    <div>演示环境 · 示例数据 · 不含任何真实政务数据
+      <small>诉求内容、部门名称、回复模板均为虚构演示；实际分派以 12345 工单系统与部门职责清单为准，须人工复核。</small>
+    </div>
+  </div>
+
+  <div class="gv-demo-grid">
+    <section class="gv-panel">
+      <h2><span class="n">1</span>输入市民诉求</h2>
+      <p class="cap">可直接点示例诉求，也可以粘贴一条自己的（虚构）诉求。无需登录；演示额度有限。</p>
+      <div class="gv-form-area">
+        <div class="gv-chips" id="gvTicketChips">
+          <button class="gv-chip" type="button">我们小区门口共享单车乱停放，把消防通道都堵住了，晚上救护车都进不来。</button>
+          <button class="gv-chip" type="button">建筑工地凌晨两点还在打桩施工，噪音很大，家里老人孩子根本睡不着。</button>
+          <button class="gv-chip" type="button">我想咨询一下新生儿医保怎么办理，需要带什么材料？</button>
+        </div>
+        <div class="gv-field">
+          <label for="gvTicketText">诉求内容</label>
+          <textarea class="gv-textarea" id="gvTicketText" maxlength="500" style="min-height:120px" placeholder="例如：楼下餐饮店油烟直排，我们家窗户根本没法开，希望赶紧处理。"></textarea>
+        </div>
+        <div class="actions" style="display:flex;gap:10px;align-items:center;flex-wrap:wrap">
+          <button class="gv-btn primary" type="button" id="gvTicketGo">智能分派 →</button>
+          <span class="hint" style="font-size:11.5px;color:var(--gv-txt3)">每 IP 20 次 / 10 分钟 · 每日演示额度 300 次</span>
+        </div>
+        <div class="gv-alert info" style="margin-top:0">
+          <span>💡</span>
+          <div>涉及消防通道、燃气、停水停电等公共安全诉求，紧急度会自动标为「紧急」并建议 30 分钟内回访。</div>
+        </div>
+      </div>
+    </section>
+
+    <section class="gv-panel">
+      <h2><span class="n">2</span>分派结果</h2>
+      <p class="cap">承办部门、问题分类、紧急度、回复模板、是否回访，结构化展示。</p>
+      <div class="gv-result" id="gvTicketResult">
+        <div class="gv-placeholder"><span class="big">🧾</span>提交诉求后，这里会显示承办部门、紧急度、回复模板与回访建议。<br>可复制回复模板直接回复市民。</div>
+      </div>
+    </section>
+  </div>
+
+  <div class="gv-demo-foot">
+    <b>演示说明：</b>演示环境 · 示例数据 · 不含任何真实政务数据。本页真实调用模型做结构化分派，
+    分派结果仅供演示，须人工复核。调用限制：每 IP 20 次 / 10 分钟，每日演示额度 300 次。
+    <div style="margin-top:10px" class="gv-demo-scale">
+      <a href="policy.html">政策问答助手 →</a><a href="doc.html">公文助手 →</a><a href="../security.html">安全与保密 →</a>
+    </div>
+  </div>
+</div>
+
+<footer class="gvx-foot" id="contact">
+  <div class="gv-wrap">
+    <div class="gvx-foot-cols">
+      <div class="about">
+        <div class="b"><span class="gvx-mark">政</span><b>星籁政务</b></div>
+        <p>政企智能体平台 · 私有化部署 · 信创适配。<br>当前为星籁政务演示环境；正式交付将私有化部署到贵单位内网 / 政务云，独立域名与独立运维。</p>
+      </div>
+      <div>
+        <h5>产品</h5>
+        <ul>
+          <li><a href="../#scenes">六大场景</a></li>
+          <li><a href="../#arch">技术架构</a></li>
+          <li><a href="../#compliance">合规进度</a></li>
+          <li><a href="../#security">安全与保密</a></li>
+        </ul>
+      </div>
+      <div>
+        <h5>演示</h5>
+        <ul>
+          <li><a href="policy.html">政策问答助手</a></li>
+          <li><a href="doc.html">公文助手</a></li>
+          <li><a href="ticket.html">12345 工单分派</a></li>
+          <li><a href="../security.html">安全与保密演示</a></li>
+        </ul>
+      </div>
+      <div>
+        <h5>联系与备案</h5>
+        <ul>
+          <li>公司主体：待补充</li>
+          <li>服务邮箱：<a href="mailto:1374988488@qq.com">1374988488@qq.com</a></li>
+          <li>服务热线：待补充</li>
+          <li>ICP 备案号：备案中</li>
+        </ul>
+      </div>
+    </div>
+    <div class="gvx-foot-bar">
+      <span>© 2026 星籁政务 · 政企智能体平台 · 演示环境</span>
+      <span>演示环境 · 示例数据 · 不含任何真实政务数据</span>
+    </div>
+  </div>
+</footer>
+
+</body>
+</html>

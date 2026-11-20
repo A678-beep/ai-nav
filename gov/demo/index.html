@@ -1,0 +1,154 @@
+<!doctype html>
+<html lang="zh-CN" data-page="gov-demo">
+<head>
+<meta charset="utf-8">
+<!--xl-theme-start-->
+<script>(function(){try{var k="xl_theme",v=localStorage.getItem(k),m=(v==="dark"||v==="light"||v==="auto")?v:"auto",q=window.matchMedia?window.matchMedia("(prefers-color-scheme: light)"):null,t=(m==="auto")?((q&&q.matches)?"light":"dark"):m,d=document.documentElement;d.setAttribute("data-theme",t);d.setAttribute("data-theme-mode",m);d.style.colorScheme=t}catch(e){document.documentElement.setAttribute("data-theme","dark")}})();</script>
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="theme-color" content="#0b1017">
+<meta name="color-scheme" content="dark light">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='10' fill='%231f5c99'/%3E%3Cpath d='M32 12 48 18v11c0 9-6.5 15.5-16 19.5C22.5 44.5 16 38 16 29V18Z' fill='none' stroke='%23fff' stroke-width='3.5'/%3E%3Cpath d='m25 30 5.5 5.5L40 25' fill='none' stroke='%23fff' stroke-width='3.5' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E">
+<title>原型演示 · 星籁政务 · 政企智能体平台</title>
+<meta name="description" content="星籁政务 · 政企智能体平台 3 个可在线体验原型：政策问答助手、公文助手、12345 工单分派。演示环境，示例数据，不含任何真实政务数据。">
+<meta name="robots" content="noindex,follow">
+<link rel="canonical" href="https://xinglaiai.com/ai-nav/gov/demo/">
+<!-- TODO(独立域名)：正式交付阶段迁至 gov.xinglaiai.com。 -->
+<link rel="stylesheet" href="../gov.css?v=20261120b">
+<script defer src="../../assets/theme.js"></script>
+<script defer src="../gov.js?v=20261120b"></script>
+<!--xl-theme-end-->
+</head>
+<body>
+
+<header class="gvx-head">
+  <div class="gvx-head-in">
+    <a class="gvx-brand" href="../" aria-label="星籁政务">
+      <span class="gvx-mark">政</span>
+      <span class="gvx-brandtext"><b>星籁政务</b><small>政企智能体平台 · 演示环境</small></span>
+    </a>
+    <nav class="gvx-nav" aria-label="主导航">
+      <a href="../">方案</a>
+      <a href="../#scenes">六大场景</a>
+      <a href="../security.html">安全与保密</a>
+      <a href="./" class="on">原型演示</a>
+      <a href="../#contact">联系我们</a>
+    </nav>
+    <div class="gvx-head-r">
+      <button type="button" class="gvx-theme xl-theme-btn" id="gvThemeBtn" aria-label="切换主题" title="切换主题">
+        <span class="xl-t-ico" aria-hidden="true">🌓</span><span class="gvx-theme-txt xl-t-full">自动</span>
+      </button>
+      <a class="gvx-enter" href="policy.html">开始体验 →</a>
+      <button type="button" class="gvx-menu-btn" id="gvMenuBtn" aria-label="打开导航" aria-expanded="false">☰</button>
+    </div>
+  </div>
+  <div class="gvx-mobile" id="gvMobileNav">
+    <div class="in">
+      <a href="../">方案</a>
+      <a href="../#scenes">六大场景</a>
+      <a href="../security.html">安全与保密</a>
+      <a href="./" class="on">原型演示</a>
+      <a href="../#contact">联系我们</a>
+    </div>
+  </div>
+</header>
+
+<div class="gvx-deploynote">
+  <div class="gv-wrap">
+    <span class="i">ℹ️</span>
+    <span>当前为<strong>星籁政务演示环境</strong>；正式交付将<b>私有化部署到贵单位内网 / 政务云</b>，<b>独立域名与独立运维</b>，数据不出贵单位边界。</span>
+  </div>
+</div>
+
+<div class="gv-demo-page" style="max-width:1180px;padding-top:24px">
+  <div class="gv-demo-head">
+    <a class="gv-demo-back" href="../">← 返回政企智能体方案页</a>
+    <h1>原型演示</h1>
+    <p class="sub">3 个可在线体验的政企智能体原型，真实调用后端知识库与模型。选择任意一个进入体验；每次调用计入演示额度。</p>
+    <div class="tags">
+      <span class="gv-tag ok">RAG 真问答</span>
+      <span class="gv-tag">公文 3 文种</span>
+      <span class="gv-tag">工单结构化分派</span>
+      <span class="gv-tag warn">演示环境 · 示例数据</span>
+    </div>
+  </div>
+
+  <div class="gv-demo-banner">
+    <span class="i">⚠️</span>
+    <div>演示环境 · 示例数据 · 不含任何真实政务数据
+      <small>示例政策为虚构的「江州市」样例；所有 AI 输出均标注「AI 生成，需人工复核」，不构成办事依据。</small>
+    </div>
+  </div>
+
+  <div class="gv-demo-entries" style="margin-top:18px">
+    <a class="gv-demo" href="policy.html">
+      <div class="n"><span class="num">1</span>政策问答助手</div>
+      <p>问「中小企业补贴怎么申报」，看答案如何带政策原文引用；问知识库外的问题，看它如何提示转人工。</p>
+      <span class="go">进入演示 →</span>
+    </a>
+    <a class="gv-demo" href="doc.html">
+      <div class="n"><span class="num">2</span>公文助手</div>
+      <p>选「通知 / 请示 / 报告」，填事由与要点，生成结构完整的公文骨架 + 格式模板 + 人工复核清单。</p>
+      <span class="go">进入演示 →</span>
+    </a>
+    <a class="gv-demo" href="ticket.html">
+      <div class="n"><span class="num">3</span>12345 工单分派</div>
+      <p>贴一条市民诉求，输出承办部门、问题类型、紧急度、回复模板与是否回访，结构化可直接对接工单系统。</p>
+      <span class="go">进入演示 →</span>
+    </a>
+  </div>
+
+  <div class="gv-notice" style="margin-top:18px">
+    <span class="i">🛡️</span>
+    <div><b>建议先看安全演示：</b>数据流边界、权限矩阵与审计日志，是政府客户最关心的部分。
+      <a href="../security.html" style="color:var(--gv-cyan);font-weight:700">打开安全与保密演示 →</a></div>
+  </div>
+
+  <div class="gv-demo-foot">
+    <b>演示说明：</b>演示环境 · 示例数据 · 不含任何真实政务数据。调用限制：每 IP 20 次 / 10 分钟，每日演示额度 300 次。
+  </div>
+</div>
+
+<footer class="gvx-foot" id="contact">
+  <div class="gv-wrap">
+    <div class="gvx-foot-cols">
+      <div class="about">
+        <div class="b"><span class="gvx-mark">政</span><b>星籁政务</b></div>
+        <p>政企智能体平台 · 私有化部署 · 信创适配。<br>当前为星籁政务演示环境；正式交付将私有化部署到贵单位内网 / 政务云，独立域名与独立运维。</p>
+      </div>
+      <div>
+        <h5>产品</h5>
+        <ul>
+          <li><a href="../#scenes">六大场景</a></li>
+          <li><a href="../#arch">技术架构</a></li>
+          <li><a href="../#compliance">合规进度</a></li>
+          <li><a href="../#security">安全与保密</a></li>
+        </ul>
+      </div>
+      <div>
+        <h5>演示</h5>
+        <ul>
+          <li><a href="policy.html">政策问答助手</a></li>
+          <li><a href="doc.html">公文助手</a></li>
+          <li><a href="ticket.html">12345 工单分派</a></li>
+          <li><a href="../security.html">安全与保密演示</a></li>
+        </ul>
+      </div>
+      <div>
+        <h5>联系与备案</h5>
+        <ul>
+          <li>公司主体：待补充</li>
+          <li>服务邮箱：<a href="mailto:1374988488@qq.com">1374988488@qq.com</a></li>
+          <li>服务热线：待补充</li>
+          <li>ICP 备案号：备案中</li>
+        </ul>
+      </div>
+    </div>
+    <div class="gvx-foot-bar">
+      <span>© 2026 星籁政务 · 政企智能体平台 · 演示环境</span>
+      <span>演示环境 · 示例数据 · 不含任何真实政务数据</span>
+    </div>
+  </div>
+</footer>
+
+</body>
+</html>

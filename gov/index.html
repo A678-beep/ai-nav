@@ -1,0 +1,576 @@
+<!doctype html>
+<html lang="zh-CN" data-page="gov">
+<head>
+<meta charset="utf-8">
+<!--xl-theme-start-->
+<script>(function(){try{var k="xl_theme",v=localStorage.getItem(k),m=(v==="dark"||v==="light"||v==="auto")?v:"auto",q=window.matchMedia?window.matchMedia("(prefers-color-scheme: light)"):null,t=(m==="auto")?((q&&q.matches)?"light":"dark"):m,d=document.documentElement;d.setAttribute("data-theme",t);d.setAttribute("data-theme-mode",m);d.style.colorScheme=t}catch(e){document.documentElement.setAttribute("data-theme","dark")}})();</script>
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="theme-color" content="#0b1017">
+<meta name="color-scheme" content="dark light">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='10' fill='%231f5c99'/%3E%3Cpath d='M32 12 48 18v11c0 9-6.5 15.5-16 19.5C22.5 44.5 16 38 16 29V18Z' fill='none' stroke='%23fff' stroke-width='3.5'/%3E%3Cpath d='m25 30 5.5 5.5L40 25' fill='none' stroke='%23fff' stroke-width='3.5' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E">
+<title>星籁政务 · 政企智能体平台 · 私有化部署 · 信创适配</title>
+<meta name="description" content="星籁政务 · 政企智能体平台（演示环境）：面向政府、央国企、事业单位，数据不出域、私有化部署、信创适配；提供政策问答、公文助手、12345 工单分派 3 个可在线体验原型。演示数据为虚构示例，不含任何真实政务数据。">
+<meta name="keywords" content="星籁政务,政企智能体,政务AI,私有化部署,信创,政策问答,公文助手,12345工单分派,知识库">
+<meta name="robots" content="noindex,follow">
+<link rel="canonical" href="https://xinglaiai.com/ai-nav/gov/">
+<!-- TODO(独立域名)：正式交付阶段迁至 gov.xinglaiai.com（独立证书 / 独立运维 / 独立备案）；当前阶段仍在主域名下做独立视觉与独立导航，不配置子域名。 -->
+<link rel="stylesheet" href="gov.css?v=20261120b">
+<script defer src="../assets/theme.js"></script>
+<script defer src="gov.js?v=20261120b"></script>
+<!--xl-theme-end-->
+</head>
+<body>
+
+<!-- ================= 独立政务版头 ================= -->
+<header class="gvx-head">
+  <div class="gvx-head-in">
+    <a class="gvx-brand" href="./" aria-label="星籁政务">
+      <span class="gvx-mark">政</span>
+      <span class="gvx-brandtext"><b>星籁政务</b><small>政企智能体平台 · 演示环境</small></span>
+    </a>
+    <nav class="gvx-nav" aria-label="主导航">
+      <a href="./" class="on">方案</a>
+      <a href="#scenes">六大场景</a>
+      <a href="security.html">安全与保密</a>
+      <a href="demo/">原型演示</a>
+      <a href="#contact">联系我们</a>
+    </nav>
+    <div class="gvx-head-r">
+      <button type="button" class="gvx-theme xl-theme-btn" id="gvThemeBtn" aria-label="切换主题" title="切换主题">
+        <span class="xl-t-ico" aria-hidden="true">🌓</span><span class="gvx-theme-txt xl-t-full">自动</span>
+      </button>
+      <a class="gvx-enter" href="demo/">进入演示 →</a>
+      <button type="button" class="gvx-menu-btn" id="gvMenuBtn" aria-label="打开导航" aria-expanded="false">☰</button>
+    </div>
+  </div>
+  <div class="gvx-mobile" id="gvMobileNav">
+    <div class="in">
+      <a href="./">方案</a>
+      <a href="#scenes">六大场景</a>
+      <a href="security.html">安全与保密</a>
+      <a href="demo/">原型演示</a>
+      <a href="#contact">联系我们</a>
+    </div>
+  </div>
+</header>
+
+<!-- 演示环境说明（先融后拆：当前同域名演示，正式交付私有化 + 独立域名） -->
+<div class="gvx-deploynote">
+  <div class="gv-wrap">
+    <span class="i">ℹ️</span>
+    <span>当前为<strong>星籁政务演示环境</strong>（与商业站共用底座、独立视觉与独立导航）；正式交付将<b>私有化部署到贵单位内网 / 政务云</b>，<b>独立域名与独立运维</b>，数据不出贵单位边界。</span>
+  </div>
+</div>
+
+<!-- ================= 顶部锚点 ================= -->
+<div class="gv-anchors" id="gvAnchors">
+  <div class="gv-wrap in">
+    <a href="#security" class="hot">🛡️ 安全与保密</a>
+    <a href="#scenes">六大场景</a>
+    <a href="#arch">技术架构</a>
+    <a href="#compliance">合规进度</a>
+    <a href="#try">进入演示</a>
+    <a href="#demo-cta">预约演示</a>
+    <span class="right"><a href="security.html" class="gv-btn sm">安全演示 ↗</a></span>
+  </div>
+</div>
+
+<!-- ================= Hero ================= -->
+<header class="gv-hero">
+  <div class="gv-wrap">
+    <div class="gv-hero-top">
+      <span class="gv-pill"><span class="dot"></span>星籁政务 <b>· 演示环境</b></span>
+      <span class="gv-pill">私有化部署</span>
+      <span class="gv-pill">信创适配（规划中）</span>
+      <span class="gv-pill">等保三级（规划中）</span>
+    </div>
+    <h1>数据不出域，让 AI 在政务内网里<em>安全落地</em></h1>
+    <p class="sub">面向 <b>政府 / 央国企 / 事业单位</b> 的政企智能体平台：政策知识库 + Agent 编排 + 国产模型网关 + 全链路审计。
+      支持 <b>完全物理隔离 / 政务云专属区 / 信创一体机</b> 三种部署，<b>数据不出域、我们不接触数据</b>。</p>
+    <div class="gv-cta-row">
+      <a class="gv-btn primary lg" href="demo/">进入演示 →</a>
+      <a class="gv-btn lg" href="#security">先看安全与保密 🛡️</a>
+      <a class="gv-btn lg" href="#demo-cta">预约演示</a>
+    </div>
+    <div class="gv-hero-note">
+      <span class="gv-tag warn">演示环境 · 示例数据</span>
+      <span><b>本演示不含任何真实政务数据</b>；示例政策为虚构的「江州市」样例，等保 / 密评 / 信创 / 算法备案均为「规划中」，尚未取得正式证书。</span>
+    </div>
+    <div class="gv-kpis">
+      <div class="gv-kpi"><div class="v">100%<span>内网</span></div><div class="l">数据不出域，模型与知识库本地部署</div></div>
+      <div class="gv-kpi"><div class="v">3 种<span>部署模式</span></div><div class="l">物理隔离 / 政务云专属区 / 信创一体机</div></div>
+      <div class="gv-kpi"><div class="v">180 天<span>审计</span></div><div class="l">登录、问答、导出、配置变更全量留痕</div></div>
+      <div class="gv-kpi"><div class="v">6 大<span>政务场景</span></div><div class="l">问答 / 办事引导 / 公文 / 政策 / 工单 / 合同</div></div>
+    </div>
+  </div>
+</header>
+
+<!-- ================= 安全与保密（第一原则） ================= -->
+<section class="gv-section" id="security">
+  <div class="gv-wrap">
+    <div class="gv-sec-hero">
+      <div class="in">
+        <span class="gv-kicker">Security First · 安全与保密</span>
+        <h2 style="margin-top:10px">政府最担心的不是模型能力，而是<em>数据泄密</em>——所以安全与保密放在第一位</h2>
+        <p class="desc">平台部署在客户内网 / 政务云专属区，知识库、模型、日志全部在边界内流转。
+          我们不接触客户数据、不留存原始对话、不允许任何跨租户访问。</p>
+        <div class="gv-commit">
+          <div class="gv-commit-card">
+            <div class="hd"><i>🔒</i>不接触涉密数据</div>
+            <p>平台只处理客户授权范围内的业务数据。涉密数据不入库、不出域，部署与运维全程在客户边界内完成。</p>
+            <div class="ck">✓ 涉密数据物理隔离 · 运维远程不可见</div>
+          </div>
+          <div class="gv-commit-card">
+            <div class="hd"><i>🗂️</i>不留存客户数据</div>
+            <p>支持全量私有化部署；默认不留存原始对话，日志按客户策略留存与到期清理（默认 180 天可配置）。</p>
+            <div class="ck">✓ 数据留存策略客户可控 · 支持一键清理</div>
+          </div>
+          <div class="gv-commit-card">
+            <div class="hd"><i>🧱</i>不跨租户访问</div>
+            <p>租户级数据隔离 + RBAC/ABAC 双重校验；任何跨租户、跨部门的越权访问都会被拒绝并计入审计。</p>
+            <div class="ck">✓ 隔离 + 拒绝 + 留痕 三件套</div>
+          </div>
+        </div>
+
+        <!-- 数据不出域一图流 -->
+        <div class="gv-flow">
+          <div class="gv-flow-head">
+            <h4>一图流：数据不出域（客户内网 / 政务云专属区）</h4>
+            <span class="gv-tag ok">全部在边界内</span>
+          </div>
+          <svg viewBox="0 0 1080 320" role="img" aria-label="数据不出域架构图：用户在客户内网经由零信任网关访问智能体平台与本地模型网关，互联网与公有云大模型被隔离">
+            <defs>
+              <linearGradient id="gvFlowBg" x1="0" y1="0" x2="1" y2="1">
+                <stop offset="0" stop-color="rgba(47,111,179,.14)"/>
+                <stop offset="1" stop-color="rgba(47,111,179,.04)"/>
+              </linearGradient>
+              <marker id="gvArrow" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6.5" markerHeight="6.5" orient="auto-start-reverse">
+                <path d="M0 0 10 5 0 10z" fill="currentColor"/>
+              </marker>
+              <marker id="gvArrowRed" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6.5" markerHeight="6.5" orient="auto-start-reverse">
+                <path d="M0 0 10 5 0 10z" fill="#d97a7a"/>
+              </marker>
+            </defs>
+            <rect x="14" y="18" width="762" height="284" rx="14" fill="url(#gvFlowBg)" stroke="rgba(91,155,213,.55)" stroke-width="1.6" stroke-dasharray="7 6"/>
+            <text x="34" y="46" fill="#5b9bd5" font-size="14" font-weight="700" font-family="inherit">客户内网 / 政务云专属区 · 数据不出域</text>
+            <text x="34" y="66" fill="#8b9cab" font-size="11.5" font-family="inherit">零信任网关 · 国密传输 · 租户隔离 · 全量审计</text>
+            <g font-family="inherit">
+              <rect x="40" y="112" width="150" height="96" rx="10" fill="#151e29" stroke="rgba(148,163,184,.34)"/>
+              <text x="115" y="148" text-anchor="middle" fill="#e9eef4" font-size="14" font-weight="700">办事群众 / 企业</text>
+              <text x="115" y="171" text-anchor="middle" fill="#a3b2c2" font-size="11">政务大厅 · 12345 · App</text>
+              <text x="115" y="190" text-anchor="middle" fill="#78899b" font-size="10.5">终端在内网访问</text>
+
+              <rect x="218" y="112" width="150" height="96" rx="10" fill="#151e29" stroke="rgba(91,155,213,.5)"/>
+              <text x="293" y="148" text-anchor="middle" fill="#e9eef4" font-size="14" font-weight="700">零信任网关</text>
+              <text x="293" y="171" text-anchor="middle" fill="#a3b2c2" font-size="11">身份 + 设备 + 上下文</text>
+              <text x="293" y="190" text-anchor="middle" fill="#78899b" font-size="10.5">国密 SM2/SM3/SM4</text>
+
+              <rect x="396" y="112" width="150" height="96" rx="10" fill="#151e29" stroke="rgba(91,155,213,.5)"/>
+              <text x="471" y="148" text-anchor="middle" fill="#e9eef4" font-size="14" font-weight="700">智能体平台</text>
+              <text x="471" y="171" text-anchor="middle" fill="#a3b2c2" font-size="11">知识库 · Agent 编排</text>
+              <text x="471" y="190" text-anchor="middle" fill="#78899b" font-size="10.5">权限 · 审计 · 脱敏</text>
+
+              <rect x="574" y="112" width="150" height="96" rx="10" fill="#151e29" stroke="rgba(141,158,196,.5)"/>
+              <text x="649" y="148" text-anchor="middle" fill="#e9eef4" font-size="14" font-weight="700">本地模型网关</text>
+              <text x="649" y="171" text-anchor="middle" fill="#a3b2c2" font-size="11">DeepSeek / 国产模型</text>
+              <text x="649" y="190" text-anchor="middle" fill="#78899b" font-size="10.5">内网推理，不上传</text>
+            </g>
+            <g color="#5b9bd5" stroke="#5b9bd5" stroke-width="1.8" fill="none">
+              <line x1="190" y1="160" x2="214" y2="160" marker-end="url(#gvArrow)"/>
+              <line x1="368" y1="160" x2="392" y2="160" marker-end="url(#gvArrow)"/>
+              <line x1="546" y1="160" x2="570" y2="160" marker-end="url(#gvArrow)"/>
+            </g>
+            <g color="#5cb88c" fill="none" stroke="#5cb88c" stroke-width="1.4" stroke-dasharray="5 5" opacity=".8">
+              <path d="M471 208 C471 246 649 246 649 214" marker-end="url(#gvArrow)"/>
+            </g>
+            <text x="560" y="262" text-anchor="middle" fill="#5cb88c" font-size="10.5" font-family="inherit">结构化结果回传 · 原文不外流</text>
+            <rect x="838" y="106" width="196" height="108" rx="12" fill="rgba(217,122,122,.07)" stroke="rgba(217,122,122,.5)" stroke-width="1.5" stroke-dasharray="6 5"/>
+            <g font-family="inherit">
+              <text x="936" y="140" text-anchor="middle" fill="#d97a7a" font-size="14" font-weight="700">互联网 / 公有云大模型</text>
+              <text x="936" y="164" text-anchor="middle" fill="#b08a8f" font-size="11">数据一旦出网即不可控</text>
+              <text x="936" y="186" text-anchor="middle" fill="#d97a7a" font-size="12" font-weight="700">✕ 不出网 · 不使用</text>
+            </g>
+            <g stroke="#d97a7a" stroke-width="2" opacity=".9">
+              <line x1="746" y1="160" x2="812" y2="160" stroke-dasharray="5 5" marker-end="url(#gvArrowRed)"/>
+              <line x1="779" y1="146" x2="797" y2="174"/>
+              <line x1="797" y1="146" x2="779" y2="174"/>
+            </g>
+            <text x="940" y="250" text-anchor="middle" fill="#78899b" font-size="10.5" font-family="inherit">仅当客户明确授权并完成安全评估后，可选外网专线通道</text>
+          </svg>
+          <div class="legend">
+            <span><i style="background:#5b9bd5"></i>客户边界（数据不出域）</span>
+            <span><i style="background:#5b9bd5"></i>内网数据流</span>
+            <span><i style="background:#8d9ec4"></i>本地模型推理</span>
+            <span><i style="background:#d97a7a"></i>禁止出网路径</span>
+          </div>
+        </div>
+
+        <div class="gv-subhead"><h3>部署模式：按客户安全等级三选一</h3><span class="gv-tag">均可完全离线运行</span></div>
+        <div class="gv-deploy">
+          <div class="gv-deploy-card">
+            <div class="name">🔐 完全物理隔离 <span class="gv-tag">最高安全</span></div>
+            <p>整套平台与模型部署在客户独立机房，内外网物理隔离；数据不出机房，运维人员上门或经审批的离线运维。</p>
+            <div class="meta"><span>涉密 / 高敏感单位</span><span>内网用户</span><span>数据 0 出域</span></div>
+          </div>
+          <div class="gv-deploy-card">
+            <div class="name">☁️ 政务云专属区 <span class="gv-tag ok">推荐</span></div>
+            <p>部署在政务云专属资源池，VPC 隔离 + 国密通道；与政务外网统一身份对接，数据不出政务云。</p>
+            <div class="meta"><span>省市级政务部门</span><span>政务外网用户</span><span>等保合规基础</span></div>
+          </div>
+          <div class="gv-deploy-card">
+            <div class="name">📦 信创一体机 <span class="gv-tag">开箱即用</span></div>
+            <p>软硬一体交付，预装信创操作系统与国产模型；适配鲲鹏 / 海光 / 飞腾 + 麒麟 / 统信（规划中），现场通电即用。</p>
+            <div class="meta"><span>区县 / 事业单位</span><span>内网 + 专线</span><span>交付周期短</span></div>
+          </div>
+        </div>
+
+        <div class="gv-subhead"><h3>安全能力矩阵</h3><span class="gv-tag warn">标注「规划中」的项尚未取得证书，不作为资质承诺</span></div>
+        <div class="gv-matrix">
+          <div class="gv-mx"><div class="ic">ZT</div><div><div class="t">零信任访问 <span class="gv-tag ok">已实现（演示）</span></div><div class="d">设备 + 身份 + 上下文持续校验，不默认信任内网</div></div></div>
+          <div class="gv-mx"><div class="ic">RB</div><div><div class="t">RBAC + ABAC 权限 <span class="gv-tag ok">已实现（演示）</span></div><div class="d">角色权限叠加数据属性（部门 / 密级 / 地域）</div></div></div>
+          <div class="gv-mx"><div class="ic">密</div><div><div class="t">国密加密 <span class="gv-tag ok">已实现（演示）</span></div><div class="d">SM2/SM3/SM4 传输与存储加密，支持国密 SSL</div></div></div>
+          <div class="gv-mx"><div class="ic">脱</div><div><div class="t">数据脱敏 <span class="gv-tag ok">已实现（演示）</span></div><div class="d">手机号、身份证、地址等字段访问即脱敏</div></div></div>
+          <div class="gv-mx"><div class="ic">水</div><div><div class="t">水印与溯源 <span class="gv-tag ok">已实现（演示）</span></div><div class="d">导出文件带隐式水印，可追溯导出人与时间</div></div></div>
+          <div class="gv-mx"><div class="ic">审</div><div><div class="t">审计留存 180 天 <span class="gv-tag ok">已实现（演示）</span></div><div class="d">登录、问答、导出、配置变更全量留痕</div></div></div>
+          <div class="gv-mx"><div class="ic">模</div><div><div class="t">模型本地化 <span class="gv-tag ok">已实现（演示）</span></div><div class="d">支持 DeepSeek / 通义 / 文心等国产模型私有化部署</div></div></div>
+          <div class="gv-mx"><div class="ic">防</div><div><div class="t">提示注入防护 <span class="gv-tag ok">已实现（演示）</span></div><div class="d">输入指令劫持检测 + 知识库边界约束</div></div></div>
+          <div class="gv-mx"><div class="ic">等</div><div><div class="t">等保三级 <span class="gv-tag warn">规划中</span></div><div class="d">按等保 2.0 三级要求设计，测评规划中</div></div></div>
+          <div class="gv-mx"><div class="ic">评</div><div><div class="t">商用密码应用安全性评估（密评）<span class="gv-tag warn">规划中</span></div><div class="d">国密改造与密评规划中，尚未取得证书</div></div></div>
+        </div>
+        <div class="gv-notice">
+          <span class="i">🛡️</span>
+          <div><b>怎么验证？</b> 我们提供可交互的「安全演示」页：看数据流边界、切换角色试权限、查看审计日志与脱敏效果。
+            <a href="security.html" style="color:var(--gv-cyan);font-weight:700">打开安全演示 →</a></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ================= 六大场景 ================= -->
+<section class="gv-section tight" id="scenes">
+  <div class="gv-wrap">
+    <div class="gv-sechead">
+      <span class="gv-kicker">Scenarios · 六大政务场景</span>
+      <h2 class="gv-h2">从「答一句」到「办成一件事」的<em>政务智能体</em></h2>
+      <p class="gv-lead">知识库打底、Agent 编排串联流程、模型网关统一接入国产模型。下面 3 个场景已做成可在线体验的原型，其余场景提供方案演示。</p>
+    </div>
+    <div class="gv-scenes">
+      <article class="gv-scene live">
+        <div class="top"><div class="ic">🏛️</div><span class="gv-tag ok">在线体验</span></div>
+        <h3>政务问答 / 政策咨询</h3>
+        <p>基于政策知识库的 RAG 问答，答案带政策依据引用与置信度；知识库外的问题自动提示转人工，不编造。</p>
+        <div class="foot"><span class="gv-tag">RAG + 引用</span><span class="gv-tag">转人工</span><a class="arrow" href="demo/policy.html">体验 →</a></div>
+      </article>
+      <article class="gv-scene">
+        <div class="top"><div class="ic">🧭</div><span class="gv-tag">方案演示</span></div>
+        <h3>办事引导（数字人）</h3>
+        <p>把办事指南拆成步骤，数字人语音引导 + 材料清单核对，减少窗口重复咨询；支持大厅大屏与移动端。</p>
+        <div class="foot"><span class="gv-tag">数字人</span><span class="gv-tag">步骤引导</span><span class="arrow" style="color:var(--gv-txt3)">方案 →</span></div>
+      </article>
+      <article class="gv-scene live">
+        <div class="top"><div class="ic">📄</div><span class="gv-tag ok">在线体验</span></div>
+        <h3>公文助手</h3>
+        <p>输入文种、事由、要点，生成通知 / 请示 / 报告骨架，附格式模板与人工复核清单，可复制到 OA。</p>
+        <div class="foot"><span class="gv-tag">通知/请示/报告</span><span class="gv-tag">需人工复核</span><a class="arrow" href="demo/doc.html">体验 →</a></div>
+      </article>
+      <article class="gv-scene live">
+        <div class="top"><div class="ic">📚</div><span class="gv-tag ok">可用政策问答体验</span></div>
+        <h3>政策解读</h3>
+        <p>长政策一键拆成「谁能办、办什么、怎么办、什么时候办」要点卡片，面向企业群众做白话解读。</p>
+        <div class="foot"><span class="gv-tag">要点拆解</span><span class="gv-tag">白话解读</span><a class="arrow" href="demo/policy.html">体验 →</a></div>
+      </article>
+      <article class="gv-scene live">
+        <div class="top"><div class="ic">🎫</div><span class="gv-tag ok">在线体验</span></div>
+        <h3>12345 工单分派</h3>
+        <p>市民诉求 → 承办部门 / 问题类型 / 紧急度 / 回复模板 / 是否回访，结构化输出可直接对接工单系统。</p>
+        <div class="foot"><span class="gv-tag">部门分派</span><span class="gv-tag">紧急度</span><a class="arrow" href="demo/ticket.html">体验 →</a></div>
+      </article>
+      <article class="gv-scene">
+        <div class="top"><div class="ic">📑</div><span class="gv-tag">方案演示</span></div>
+        <h3>合同与制度审查</h3>
+        <p>合同条款风险提示、制度文件一致性比对；输出风险点清单与修改建议，最终由法务 / 业务人工确认。</p>
+        <div class="foot"><span class="gv-tag">风险清单</span><span class="gv-tag">人工确认</span><span class="arrow" style="color:var(--gv-txt3)">方案 →</span></div>
+      </article>
+    </div>
+  </div>
+</section>
+
+<!-- ================= 技术架构 ================= -->
+<section class="gv-section tight" id="arch">
+  <div class="gv-wrap">
+    <div class="gv-sechead">
+      <span class="gv-kicker">Architecture · 技术架构</span>
+      <h2 class="gv-h2">知识库 → Agent 编排 → 模型网关 → 渠道 → <em>审计</em></h2>
+      <p class="gv-lead">全链路可私有化：检索与生成都在客户边界内完成；模型可替换为国产模型或客户自建模型；每一步都留审计。</p>
+    </div>
+    <div class="gv-arch">
+      <svg viewBox="0 0 1120 470" role="img" aria-label="政企智能体技术架构：渠道层、Agent 编排层、模型网关层、知识库层、审计与安全层">
+        <defs>
+          <marker id="gvA2" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="5.5" markerHeight="5.5" orient="auto-start-reverse">
+            <path d="M0 0 10 5 0 10z" fill="#5b9bd5"/>
+          </marker>
+        </defs>
+        <g font-family="inherit">
+          <rect x="16" y="14" width="1088" height="78" rx="10" fill="rgba(91,155,213,.07)" stroke="rgba(91,155,213,.26)"/>
+          <text x="36" y="44" fill="#5b9bd5" font-size="12.5" font-weight="700">渠道层</text>
+          <text x="36" y="66" fill="#78899b" font-size="10.5">统一接入，按角色授权</text>
+          <g fill="#111923" stroke="rgba(148,163,184,.32)">
+            <rect x="150" y="30" width="150" height="46" rx="7"/><rect x="318" y="30" width="150" height="46" rx="7"/>
+            <rect x="486" y="30" width="150" height="46" rx="7"/><rect x="654" y="30" width="150" height="46" rx="7"/>
+            <rect x="822" y="30" width="150" height="46" rx="7"/><rect x="990" y="30" width="100" height="46" rx="7"/>
+          </g>
+          <g fill="#dde6ef" font-size="12" text-anchor="middle">
+            <text x="225" y="59">政务大厅终端</text><text x="393" y="59">12345 热线坐席</text>
+            <text x="561" y="59">政务 App / 小程序</text><text x="729" y="59">企业服务云</text>
+            <text x="897" y="59">数字人大屏</text><text x="1040" y="59">OA 系统</text>
+          </g>
+          <rect x="16" y="108" width="1088" height="86" rx="10" fill="rgba(141,158,196,.07)" stroke="rgba(141,158,196,.28)"/>
+          <text x="36" y="138" fill="#8d9ec4" font-size="12.5" font-weight="700">Agent 编排层</text>
+          <text x="36" y="160" fill="#78899b" font-size="10.5">意图路由 · 工具调用 · 流程编排</text>
+          <g fill="#111923" stroke="rgba(141,158,196,.36)">
+            <rect x="150" y="124" width="140" height="54" rx="7"/><rect x="304" y="124" width="140" height="54" rx="7"/>
+            <rect x="458" y="124" width="140" height="54" rx="7"/><rect x="612" y="124" width="140" height="54" rx="7"/>
+            <rect x="766" y="124" width="140" height="54" rx="7"/><rect x="920" y="124" width="170" height="54" rx="7"/>
+          </g>
+          <g fill="#e3e7f0" font-size="11.5" text-anchor="middle">
+            <text x="220" y="147">政策问答 Agent</text><text x="220" y="166" font-size="10" fill="#8b93a8">RAG · 引用 · 转人工</text>
+            <text x="374" y="147">办事引导 Agent</text><text x="374" y="166" font-size="10" fill="#8b93a8">步骤 · 材料清单</text>
+            <text x="528" y="147">公文助手</text><text x="528" y="166" font-size="10" fill="#8b93a8">文种模板 · 复核</text>
+            <text x="682" y="147">政策解读</text><text x="682" y="166" font-size="10" fill="#8b93a8">要点拆解 · 白话</text>
+            <text x="836" y="147">工单分派</text><text x="836" y="166" font-size="10" fill="#8b93a8">部门 · 紧急度</text>
+            <text x="1005" y="147">合同/制度审查</text><text x="1005" y="166" font-size="10" fill="#8b93a8">风险点 · 比对</text>
+          </g>
+          <rect x="16" y="210" width="1088" height="82" rx="10" fill="rgba(79,143,190,.07)" stroke="rgba(79,143,190,.28)"/>
+          <text x="36" y="240" fill="#4f8fbe" font-size="12.5" font-weight="700">模型网关（国产模型）</text>
+          <text x="36" y="262" fill="#78899b" font-size="10.5">统一路由 · 调用次数计量 · 内容安全</text>
+          <g fill="#111923" stroke="rgba(79,143,190,.36)">
+            <rect x="196" y="226" width="170" height="50" rx="7"/><rect x="382" y="226" width="170" height="50" rx="7"/>
+            <rect x="568" y="226" width="190" height="50" rx="7"/><rect x="774" y="226" width="200" height="50" rx="7"/>
+            <rect x="990" y="226" width="100" height="50" rx="7"/>
+          </g>
+          <g fill="#dfeaf4" font-size="11.5" text-anchor="middle">
+            <text x="281" y="256">DeepSeek（私有化）</text><text x="467" y="256">通义千问 / 文心一言</text>
+            <text x="663" y="256">客户自建 / 本地微调模型</text><text x="874" y="256">Embedding（bge-m3）</text>
+            <text x="1040" y="256">模型路由</text>
+          </g>
+          <rect x="16" y="308" width="1088" height="78" rx="10" fill="rgba(111,168,220,.07)" stroke="rgba(111,168,220,.28)"/>
+          <text x="36" y="338" fill="#6fa8dc" font-size="12.5" font-weight="700">知识库层</text>
+          <text x="36" y="360" fill="#78899b" font-size="10.5">切片 · 关键词 · 向量 · 权限标签</text>
+          <g fill="#111923" stroke="rgba(111,168,220,.36)">
+            <rect x="196" y="324" width="180" height="46" rx="7"/><rect x="392" y="324" width="180" height="46" rx="7"/>
+            <rect x="588" y="324" width="180" height="46" rx="7"/><rect x="784" y="324" width="180" height="46" rx="7"/>
+            <rect x="980" y="324" width="110" height="46" rx="7"/>
+          </g>
+          <g fill="#dde6ef" font-size="11.5" text-anchor="middle">
+            <text x="286" y="352">政策文件库</text><text x="482" y="352">办事指南库</text>
+            <text x="678" y="352">制度 / 合同库</text><text x="874" y="352">FAQ / 问答对</text>
+            <text x="1035" y="352">对外资料</text>
+          </g>
+          <rect x="16" y="402" width="1088" height="56" rx="10" fill="rgba(215,169,74,.06)" stroke="rgba(215,169,74,.3)"/>
+          <text x="36" y="435" fill="#d7a94a" font-size="12.5" font-weight="700">审计与安全（贯穿全链路）</text>
+          <g fill="#e7dcc3" font-size="11.5">
+            <text x="330" y="435">统一审计 180 天</text><text x="500" y="435">RBAC + ABAC</text>
+            <text x="648" y="435">国密加密</text><text x="762" y="435">脱敏 / 水印</text>
+            <text x="900" y="435">提示注入防护</text><text x="1040" y="435">数据不出域</text>
+          </g>
+        </g>
+      </svg>
+      <div class="gv-arch-cap">
+        <span><i style="background:#5b9bd5"></i>渠道层：统一入口 + 角色授权</span>
+        <span><i style="background:#8d9ec4"></i>Agent 编排：意图路由与流程串联</span>
+        <span><i style="background:#4f8fbe"></i>模型网关：国产模型统一接入</span>
+        <span><i style="background:#6fa8dc"></i>知识库：切片 + 向量 + 权限标签</span>
+        <span><i style="background:#d7a94a"></i>审计与安全：贯穿所有层</span>
+      </div>
+    </div>
+    <div class="gv-notice">
+      <span class="i">🧩</span>
+      <div>复用星籁已积累的 RAG 能力（切片 / 关键词 + embedding 混合检索）与模型调用链路，<b>不绑定单一模型</b>；
+        可切换为政务云内自建模型，接口契约保持一致。</div>
+    </div>
+  </div>
+</section>
+
+<!-- ================= 合规进度 ================= -->
+<section class="gv-section tight" id="compliance">
+  <div class="gv-wrap">
+    <div class="gv-sechead">
+      <span class="gv-kicker">Compliance · 合规进度</span>
+      <h2 class="gv-h2">合规进度<em>如实标注</em>：已实现的写已实现，规划中的写规划中</h2>
+      <p class="gv-lead">我们不把「规划中」包装成「已通过」。下方四项均按当前真实进度标注，合作前可提供逐项说明。</p>
+    </div>
+    <div class="gv-comp-grid">
+      <div class="gv-comp">
+        <div class="top"><span class="ic">🛡️</span><span class="gv-tag warn">规划中</span></div>
+        <div class="nm">等保三级</div>
+        <p>按等保 2.0 三级要求做架构设计与安全加固，测评与备案规划中，尚未取得测评报告。</p>
+      </div>
+      <div class="gv-comp">
+        <div class="top"><span class="ic">🔑</span><span class="gv-tag warn">规划中</span></div>
+        <div class="nm">商用密码应用安全性评估（密评）</div>
+        <p>支持 SM2/SM3/SM4 国密算法与国密 SSL；密评改造与测评规划中，尚未取得密评报告。</p>
+      </div>
+      <div class="gv-comp">
+        <div class="top"><span class="ic">💻</span><span class="gv-tag warn">规划中</span></div>
+        <div class="nm">信创适配</div>
+        <p>规划适配鲲鹏 / 海光 / 飞腾 + 麒麟 / 统信；当前演示环境未做信创整机认证。</p>
+      </div>
+      <div class="gv-comp">
+        <div class="top"><span class="ic">📋</span><span class="gv-tag warn">规划中</span></div>
+        <div class="nm">算法备案</div>
+        <p>拟按生成式 AI 服务管理要求完成算法备案与内容安全评估；当前为内部演示环境。</p>
+      </div>
+    </div>
+    <div class="gv-disclaimer">
+      <span>⚠️</span>
+      <div><b>如实说明：</b>以上四项均未取得正式证书 / 测评报告，页面与材料中统一标注为「规划中」，不作为资质承诺；
+        合作推进时可提供安全设计说明与整改计划，具体以双方签署的合同与安全责任约定为准。</div>
+    </div>
+  </div>
+</section>
+
+<!-- ================= 进入演示 ================= -->
+<section class="gv-section tight" id="try">
+  <div class="gv-wrap">
+    <div class="gv-sechead">
+      <span class="gv-kicker">Live Demo · 进入演示</span>
+      <h2 class="gv-h2">3 个<em>可在线体验</em>的原型，现在就能点开试</h2>
+      <p class="gv-lead">真实调用后端知识库与模型（演示环境），无需登录即可体验；每次调用计入演示额度（每 IP 20 次 / 10 分钟，每日 300 次）。所有输出均标注「AI 生成，需人工复核」。</p>
+    </div>
+    <div class="gv-demo-entries">
+      <a class="gv-demo" href="demo/policy.html">
+        <div class="n"><span class="num">1</span>政策问答助手</div>
+        <p>问「中小企业补贴怎么申报」，看答案如何带政策原文引用；问知识库外的问题，看它如何提示转人工。</p>
+        <span class="go">进入演示 →</span>
+      </a>
+      <a class="gv-demo" href="demo/doc.html">
+        <div class="n"><span class="num">2</span>公文助手</div>
+        <p>选「通知 / 请示 / 报告」，填事由与要点，生成结构完整的公文骨架 + 格式模板 + 人工复核清单。</p>
+        <span class="go">进入演示 →</span>
+      </a>
+      <a class="gv-demo" href="demo/ticket.html">
+        <div class="n"><span class="num">3</span>12345 工单分派</div>
+        <p>贴一条市民诉求，输出承办部门、问题类型、紧急度、回复模板与是否回访，结构化可直接对接工单系统。</p>
+        <span class="go">进入演示 →</span>
+      </a>
+    </div>
+    <div class="gv-notice">
+      <span class="i">⚠️</span>
+      <div><b>演示环境 · 示例数据 · 不含任何真实政务数据。</b>本演示使用虚构示例数据（江州市示例政策），
+        AI 生成内容仅供演示、<b>需人工复核</b>，不构成办事依据。</div>
+    </div>
+  </div>
+</section>
+
+<!-- ================= 预约演示 ================= -->
+<section class="gv-section" id="demo-cta">
+  <div class="gv-wrap">
+    <div class="gv-cta">
+      <div class="in">
+        <div>
+          <span class="gv-kicker">Book a demo · 预约演示</span>
+          <h2 style="margin-top:10px">约一次 <em style="color:var(--gv-cyan);font-style:normal">内网演示</em></h2>
+          <p class="desc">我们会用贵单位的真实场景（例如政策问答 / 公文 / 工单）做一次沙盘演示，并给出私有化部署与安全方案建议。</p>
+          <ul class="points">
+            <li><span class="ck">✓</span>演示环境与数据隔离，不涉及真实政务数据</li>
+            <li><span class="ck">✓</span>可选完全物理隔离 / 政务云专属区 / 信创一体机</li>
+            <li><span class="ck">✓</span>正式交付私有化部署到贵单位内网 / 政务云，独立域名与独立运维</li>
+          </ul>
+        </div>
+        <form class="gv-form" id="gvLeadForm" novalidate>
+          <div class="gv-field">
+            <label for="gvName">称呼<span class="req">*</span></label>
+            <input class="gv-input" id="gvName" name="name" type="text" maxlength="30" placeholder="如：王主任" autocomplete="name">
+          </div>
+          <div class="gv-field">
+            <label for="gvPhone">手机号<span class="req">*</span></label>
+            <input class="gv-input" id="gvPhone" name="phone" type="tel" maxlength="11" inputmode="numeric" placeholder="用于回复演示安排" autocomplete="tel">
+          </div>
+          <div class="gv-field">
+            <label for="gvOrg">单位 / 部门</label>
+            <input class="gv-input" id="gvOrg" name="org" type="text" maxlength="80" placeholder="如：XX市政务服务中心">
+          </div>
+          <div class="gv-field">
+            <label for="gvRole">职务 / 角色</label>
+            <input class="gv-input" id="gvRole" name="role" type="text" maxlength="40" placeholder="如：信息中心主任">
+          </div>
+          <div class="gv-field">
+            <label for="gvCity">所在城市</label>
+            <input class="gv-input" id="gvCity" name="city" type="text" maxlength="40" placeholder="如：杭州">
+          </div>
+          <div class="gv-field">
+            <label for="gvDemo">想看的场景</label>
+            <select class="gv-select" id="gvDemo" name="demo">
+              <option value="政策问答">政策问答 / 政策解读</option>
+              <option value="公文助手">公文助手</option>
+              <option value="12345 工单分派">12345 工单分派</option>
+              <option value="办事引导（数字人）">办事引导（数字人）</option>
+              <option value="合同与制度审查">合同与制度审查</option>
+              <option value="整体方案">整体方案 / 私有化部署</option>
+            </select>
+          </div>
+          <div class="gv-field full">
+            <label for="gvNeed">具体需求（选填）</label>
+            <textarea class="gv-textarea" id="gvNeed" name="need" maxlength="300" placeholder="例如：想在政务云部署政策问答，需对接现有知识库，关注数据不出域与等保合规。"></textarea>
+          </div>
+          <label class="gv-consent" for="gvConsent">
+            <input id="gvConsent" name="consent" type="checkbox">
+            <span>我同意星籁政务就本次演示与我联系，信息仅用于演示安排，不会用于其他用途。</span>
+          </label>
+          <div class="actions">
+            <button class="gv-btn primary lg" type="submit" id="gvSubmit">提交预约 →</button>
+            <span class="hint" id="gvFormHint">演示环境：表单仅写入演示线索表，不对外发送。</span>
+          </div>
+          <div class="msg" id="gvFormMsg" role="status"></div>
+        </form>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ================= 独立政务版页脚 ================= -->
+<footer class="gvx-foot" id="contact">
+  <div class="gv-wrap">
+    <div class="gvx-foot-cols">
+      <div class="about">
+        <div class="b"><span class="gvx-mark">政</span><b>星籁政务</b></div>
+        <p>政企智能体平台 · 私有化部署 · 信创适配。<br>当前为星籁政务演示环境；正式交付将私有化部署到贵单位内网 / 政务云，独立域名与独立运维。</p>
+      </div>
+      <div>
+        <h5>产品</h5>
+        <ul>
+          <li><a href="./#scenes">六大场景</a></li>
+          <li><a href="./#arch">技术架构</a></li>
+          <li><a href="./#compliance">合规进度</a></li>
+          <li><a href="./#security">安全与保密</a></li>
+        </ul>
+      </div>
+      <div>
+        <h5>演示</h5>
+        <ul>
+          <li><a href="demo/policy.html">政策问答助手</a></li>
+          <li><a href="demo/doc.html">公文助手</a></li>
+          <li><a href="demo/ticket.html">12345 工单分派</a></li>
+          <li><a href="security.html">安全与保密演示</a></li>
+        </ul>
+      </div>
+      <div>
+        <h5>联系与备案</h5>
+        <ul>
+          <li>公司主体：待补充</li>
+          <li>服务邮箱：<a href="mailto:1374988488@qq.com">1374988488@qq.com</a></li>
+          <li>服务热线：待补充</li>
+          <li>ICP 备案号：备案中</li>
+        </ul>
+      </div>
+    </div>
+    <div class="gvx-foot-bar">
+      <span>© 2026 星籁政务 · 政企智能体平台 · 演示环境</span>
+      <span>演示环境 · 示例数据 · 不含任何真实政务数据 · 等保三级 / 密评 / 信创适配 / 算法备案均为「规划中」</span>
+    </div>
+  </div>
+</footer>
+
+</body>
+</html>
