@@ -1934,19 +1934,22 @@ html[data-theme="light"] .wb-confirm-note{color:#9f1239}
     </div>
     <div class="wb-mode-panes">
      <div class="wb-mode-pane" data-mode="avatar" hidden>
-      <section class="wb-ae-card wb-avatar-card" id="wbAvatarCard" tabindex="0" role="button" aria-label="数字人：上传照片或视频生成数字人口播">
+      <section class="wb-ae-card wb-avatar-card" id="wbAvatarCard" tabindex="0" role="button" aria-label="数字人：蝉镜云数字人 / 阿里云照片口型两种方式">
        <span class="wb-ae-ico" aria-hidden="true">🧑</span>
        <div class="wb-ae-main">
         <b>🧑 数字人 <span class="tag">NEW</span></b>
-        <p>上传照片或视频生成数字人口播，可选克隆音色。进入后<b>默认选中「照片口型数字人（真口型）」</b>：照片先做缓慢推近、再合成真口型（免费「照片推近·不做口型」仍可选）；也可以上传一段正面口播视频，AI 自动对口型并合成进成片。出镜画面还能一键换 AI 背景（门店前台 / 温馨客厅 / 专业影棚）。</p>
-        <div class="wb-ae-tags"><span>🖼️ 照片生成数字人</span><span>👄 默认真口型对齐</span><span>🎙️ 蝉镜音色 ¥0.007/秒</span><span>🖼️ AI 换背景</span></div>
+        <p>两种云数字人直接合成进成片，<b>不发布、不换脸</b>：<br>
+         ① <b>🎬 蝉镜数字人（推荐 · 换背景能力强）</b>：选本公司定制形象或蝉镜公共形象 + 纯色 / 门店图背景 + 音色 → 真口播数字人自动合成进成片，<b>0.03 PTC/秒（约 ¥0.21/秒，15 秒≈¥3.2）</b>；<br>
+         ② <b>👄 阿里云照片口型数字人</b>：上传一张正脸照片 → 照片推近 + 真口型对齐，<b>¥0.08/秒（30 秒≈¥2.4）</b>。<br>
+         进入后默认选中「蝉镜数字人」，两种方式价格都直接标在卡片上。</p>
+        <div class="wb-ae-tags"><span>🎬 蝉镜 · 0.03 PTC/秒</span><span>👄 阿里云 · ¥0.08/秒</span><span>🖼️ 换背景 / 定制形象</span><span>🎙️ 蝉镜音色 ¥0.007/秒</span></div>
        </div>
        <div class="wb-ae-acts">
         <button type="button" class="wb-ae-open" id="wbAvatarOpen">进入数字人 →</button>
-        <a class="wb-ae-new" id="wbAvatarNew" href="/ai-nav/autoedit/?presenter=photo_lipsync&amp;from=studio-avatar" target="_blank" rel="noopener">↗ 新窗口打开</a>
+        <a class="wb-ae-new" id="wbAvatarNew" href="/ai-nav/autoedit/?presenter=chanjing&amp;from=studio-avatar" target="_blank" rel="noopener">↗ 新窗口打开</a>
        </div>
       </section>
-      <div class="wb-mode-intro" style="margin-top:10px"><b>数字人怎么用</b><span>点卡片进入后<b>默认选中「照片口型数字人（真口型）」</b>（免费「照片推近·不做口型」仍可选）→ 上传正脸照片（或切「真口型数字人」上传 5–20 秒口播视频）→ 选音色（<b>蝉镜性价比音色 ¥0.007/秒</b> / qwen3 预设）→ 导出成片；① 出镜方式里还能选「AI 换背景」。全程不会自动发布。</span></div>
+      <div class="wb-mode-intro" style="margin-top:10px"><b>数字人怎么用</b><span>点卡片进入后<b>默认选中「🎬 蝉镜数字人（推荐）」</b>：选形象（本公司定制 / 公共）→ 选背景（纯色 / 上传门店图 / 不换）→ 选音色（<b>蝉镜 ¥0.007/秒</b> / qwen3 预设，可先试听）→ 生成成片；也可切换到「👄 阿里云照片口型数字人」（¥0.08/秒）。全程不会自动发布，审核由 302 / 阿里云内容安全把关，失败会给中文原因。</span></div>
      </div>
 
      <div class="wb-mode-pane" data-mode="template"><section class="sec glow" id="secPrompt">
@@ -8393,7 +8396,7 @@ if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',
 
   /* ---------------- AI 全自动剪辑（入口合并，2026-11-19） ---------------- */
   var AE_EMBED_URL = '/ai-nav/autoedit/?embed=1';
-  var AE_AVATAR_URL = '/ai-nav/autoedit/?embed=1&presenter=photo_lipsync&from=studio-avatar';
+  var AE_AVATAR_URL = '/ai-nav/autoedit/?embed=1&presenter=chanjing&from=studio-avatar';
   function openAeModal(url, title, sub) {
     var m = $('wbAeModal'), f = $('wbAeFrame');
     if (typeof url !== 'string' || !url) url = AE_EMBED_URL;
@@ -8407,8 +8410,7 @@ if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',
     setTimeout(function () { try { f.focus(); } catch (e) {} }, 80);
   }
   function openAvatarModal() {
-    openAeModal(AE_AVATAR_URL, '🧑 数字人 · 照片 / 视频生成数字人口播',
-      '上传照片或视频生成数字人口播 · 可选克隆音色 · 支持 AI 换背景 · 不自动发布');
+    openAeModal(AE_AVATAR_URL, '🧑 数字人 · 蝉镜（推荐）/ 阿里云照片口型', '蝉镜 0.03 PTC/秒（换背景 / 定制形象）· 阿里云 ¥0.08/秒（照片真口型）· 不自动发布');
   }
   function closeAeModal() {
     var m = $('wbAeModal'); if (!m) return;

@@ -3786,10 +3786,15 @@ html[data-page="ops-edit"] .xl-sb-theme{display:none!important}
       '</select>' +
       '<button type="button" class="oe-btn primary" data-302-act="setdefault">切换默认</button>' +
       '<span class="oe-tiny">当前：<b>' + esc(LAST.default_provider || '—') + '</b></span></div>' +
-      '<div style="display:flex;align-items:center;gap:6px;flex-wrap:wrap;margin-bottom:6px">' +
-      '<input class="oe-input" id="oe302Person" style="flex:1 1 280px" placeholder="蝉镜默认数字人形象 id（C-...，可选：让 provider 层不训练直接复用）" value="' + esc(opts.person_id || '') + '">' +
-      '<button type="button" class="oe-btn" data-302-act="saveperson">保存形象 id</button>' +
-      '<span class="oe-tiny">蝉镜接口不支持照片直出；照片口播请用 Hedra。未填形象 id 时上传人物视频会自动训练（30 秒–5 分钟、需带音轨）</span></div>' +
+      '<div style="display:flex;align-items:center;gap:6px;flex-wrap:wrap;margin-bottom:4px">' +
+      '<span class="oe-tiny" style="font-weight:700">🎬 蝉镜默认形象</span>' +
+      '<select class="oe-select" id="oe302Person" style="flex:1 1 320px;max-width:560px" data-current="' + esc(opts.person_id || '') + '">' +
+      '<option value="">加载形象列表中…</option></select>' +
+      '<button type="button" class="oe-btn" data-302-act="refreshpersons">刷新形象</button>' +
+      '<button type="button" class="oe-btn primary" data-302-act="saveperson">保存为产品默认</button></div>' +
+      '<p class="oe-tiny" style="margin:0 0 6px">产品端「自动剪辑 → 出镜方式 → 🎬 蝉镜数字人」默认使用该形象；' +
+      '列表 = 本公司定制形象（data/chanjing_registry.json）+ 302 公共形象前 20 个。' +
+      '不指定时产品自动取第一个已就绪定制形象，其次公共形象。蝉镜接口不支持照片直出；照片口播请用 Hedra / 阿里云。</p>' +
       '<p class="oe-tiny" style="margin:4px 0 0">蝉镜：' + esc((cj && cj.note) || '') + '<br>' +
       esc((cj && cj.price_note) || '') + '<br>Hedra：' + esc((hd && hd.note) || '') + '<br>' +
       esc((hd && hd.price_note) || '') + '<br>' +
@@ -3802,11 +3807,50 @@ html[data-page="ops-edit"] .xl-sb-theme{display:none!important}
     box.style.display = 'block';
     box.innerHTML = '<b>302.AI 连接测试（' + (okAll ? '全部通过' : '部分失败') + '）</b><br>' + lines.join('<br>');
   }
+  function fillCjPersons(data) {
+    var sel = $('#oe302Person');
+    if (!sel) return;
+    var cur = sel.getAttribute('data-current') || '';
+    var custom = (data && data.custom) || [];
+    var pub = (data && data.public) || [];
+    var html = '<option value="">（不指定：自动取第一个可用形象）</option>';
+    if (custom.length) {
+      html += '<optgroup label="本公司定制形象（推荐）">';
+      custom.forEach(function (it) {
+        var ready = (it.status === 2 || it.status === 'done');
+        html += '<option value="' + esc(it.id) + '"' + (it.id === cur ? ' selected' : '') + '>' +
+          esc(it.name || it.id) + (ready ? ' · 已就绪' : ' · 制作中') + '</option>';
+      });
+      html += '</optgroup>';
+    }
+    if (pub.length) {
+      html += '<optgroup label="302 公共形象">';
+      pub.forEach(function (it) {
+        var fig = (it.figures && it.figures[0]) || {};
+        html += '<option value="' + esc(it.id) + '"' + (it.id === cur ? ' selected' : '') + '>【公共】' +
+          esc(it.name || it.id) + (it.gender ? ' · ' + esc(it.gender) : '') +
+          (fig.width ? ' · ' + fig.width + '×' + fig.height : '') + '</option>';
+      });
+      html += '</optgroup>';
+    }
+    sel.innerHTML = html;
+    if (!cur) sel.value = '';
+  }
+  function loadCjPersons() {
+    var sel = $('#oe302Person');
+    if (!sel) return Promise.resolve();
+    sel.innerHTML = '<option value="">加载形象列表中…</option>';
+    return api('GET', '/chanjing/persons?source=all&page_size=20', null, 45000)
+      .then(function (d) { fillCjPersons(d || {}); })
+      .catch(function (e) {
+        if (sel) sel.innerHTML = '<option value="">形象列表加载失败：' + esc(errText(e)) + '</option>';
+      });
+  }
   function load() {
     if (!inject()) return;
     var box = $('#oe302Body');
     if (box) box.innerHTML = '<div class="oe-tiny">加载中…</div>';
-    api('GET', '/lipsync/providers', null, 12000).then(render).catch(function (e) {
+    api('GET', '/lipsync/providers', null, 12000).then(render).then(loadCjPersons).catch(function (e) {
       if ($('#oe302Body')) $('#oe302Body').innerHTML =
         '<p class="oe-tiny" style="color:#fca5a5">加载失败：' + esc(errText(e)) + '（需要管理员登录）</p>';
     });
@@ -3869,8 +3913,13 @@ html[data-page="ops-edit"] .xl-sb-theme{display:none!important}
     var el = $('#oe302Person');
     var pid = el ? el.value.trim() : '';
     btn.disabled = true;
+    var label = '';
+    if (el && el.selectedIndex >= 0) label = el.options[el.selectedIndex].textContent || '';
     api('POST', '/lipsync/config', { provider: 'chanjing', person_id: pid, enabled: true }, 20000)
-      .then(function () { toast(pid ? ('已保存蝉镜默认形象：' + pid) : '已清空蝉镜默认形象', 'ok'); load(); })
+      .then(function () {
+        toast(pid ? ('已保存蝉镜默认形象：' + (label || pid)) : '已清空蝉镜默认形象（产品将自动选第一个可用形象）', 'ok');
+        load();
+      })
       .catch(function (e) { toast('保存失败：' + errText(e), 'warn'); })
       .then(function () { btn.disabled = false; });
   }
@@ -3883,6 +3932,7 @@ html[data-page="ops-edit"] .xl-sb-theme{display:none!important}
     if (act === 'savekey') { saveKey(t); return; }
     if (act === 'setdefault') { setDefault(t); return; }
     if (act === 'saveperson') { savePerson(t); return; }
+    if (act === 'refreshpersons') { loadCjPersons(); return; }
     var tab = t.closest ? t.closest('.oe-menu-item[data-tab]') : null;
     if (tab && tab.getAttribute('data-tab') === 'compute') setTimeout(load, 150);
   });
