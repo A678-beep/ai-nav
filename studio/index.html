@@ -1946,7 +1946,7 @@ html[data-theme="light"] .wb-confirm-note{color:#9f1239}
         <a class="wb-ae-new" id="wbAvatarNew" href="/ai-nav/autoedit/?presenter=photo_lipsync&amp;from=studio-avatar" target="_blank" rel="noopener">↗ 新窗口打开</a>
        </div>
       </section>
-      <div class="wb-mode-intro" style="margin-top:10px"><b>数字人怎么用</b><span>点卡片进入后<b>默认选中「照片口型数字人（真口型）」</b>（免费「照片推近·不做口型」仍可选）→ 上传正脸照片（或切「真口型数字人」上传 5–20 秒口播视频）→ 选音色（老板克隆 / <b>蝉镜性价比音色 ¥0.007/秒</b> / qwen3 预设）→ 导出成片；① 出镜方式里还能选「AI 换背景」。全程不会自动发布。</span></div>
+      <div class="wb-mode-intro" style="margin-top:10px"><b>数字人怎么用</b><span>点卡片进入后<b>默认选中「照片口型数字人（真口型）」</b>（免费「照片推近·不做口型」仍可选）→ 上传正脸照片（或切「真口型数字人」上传 5–20 秒口播视频）→ 选音色（<b>蝉镜性价比音色 ¥0.007/秒</b> / qwen3 预设）→ 导出成片；① 出镜方式里还能选「AI 换背景」。全程不会自动发布。</span></div>
      </div>
 
      <div class="wb-mode-pane" data-mode="template"><section class="sec glow" id="secPrompt">
@@ -2749,7 +2749,7 @@ function staticBlock(){
 function guardStatic(){if(STATIC_SITE){staticBlock();return true;}return false;}
 
 /* ================= 模板 ================= */
-var TPL_EMOJI={"store_open":"🏬","restaurant":"🍲","auto_care":"🚗","housekeeping":"🧹","beauty":"💅","education":"🎓","fitness":"🏋️","pet-care":"🐾","hotel-stay":"🏨","coffee-tea":"☕","fashion-store":"👗","baby-care":"🍼","dental":"🦷","photo-studio":"📸","renovation":"🛠️","moving-clean":"🧹","car-beauty":"🚙","ktv-bar":"🎤","bookstore":"📚","flower-bakery":"💐","fresh-fruit":"🍓","driving-school":"🚘","maternity":"🤱","pharmacy-optical":"💊"};
+var TPL_EMOJI={"store_open":"🏬","restaurant":"🍲","auto_care":"🚗","housekeeping":"🧹","beauty":"💅","education":"🎓","fitness":"🏋️","pet-care":"🐾","hotel-stay":"🏨","coffee-tea":"☕","fashion-store":"👗","baby-care":"🍼","dental":"🦷","photo-studio":"📸","renovation":"🛠️","moving-clean":"🧹","car-beauty":"🚙","ktv-bar":"🎤","bookstore":"📚","flower-bakery":"💐","fresh-fruit":"🍓","driving-school":"🚘","maternity":"🤱","pharmacy-optical":"💊","appliance-repair":"🔧","makeup-training":"💄"};
 var TPL_FALLBACK=[
  {"id":"store_open","name":"门店开业引流","industry":"零售 / 餐饮 / 生活服务门店","description":"开业酬宾、到店礼、限时折扣，节奏明快，3 秒抓人，适合发朋友圈/抖音拉客到店。","default_duration":20,"bgm":{"style":"轻快","label":"轻快流行（尤克里里/拍手）"}},
  {"id":"restaurant","name":"餐饮菜品宣传","industry":"餐厅 / 火锅 / 烧烤 / 小吃 / 咖啡","description":"招牌菜特写、锅气与食欲感，突出食材新鲜和性价比，适合新菜上市、套餐团购。","default_duration":15,"bgm":{"style":"温馨","label":"温馨钢琴（舒缓铺底）"}},
@@ -2774,7 +2774,9 @@ var TPL_FALLBACK=[
  {"id":"fresh-fruit","name":"水果生鲜店","industry":"水果 / 生鲜 / 蔬菜 / 社区团购","description":"产地、新鲜度和试吃，突出当日到货，适合新店、应季水果、社区团购。","default_duration":15,"bgm":{"style":"轻快","label":"轻快流行（尤克里里/拍手）"}},
  {"id":"driving-school","name":"驾校 / 二手车","industry":"驾校 / 陪练 / 二手车 / 汽车销售","description":"教练、班型、车况和试驾，突出省心透明，适合招生季、二手车专场。","default_duration":30,"bgm":{"style":"大气","label":"大气弦乐（低沉推进）"}},
  {"id":"maternity","name":"月子中心 / 月嫂","industry":"月子中心 / 月嫂 / 产后修复 / 育婴","description":"护理团队、餐食、环境和服务，突出安心专业，适合预约参观、产前咨询。","default_duration":30,"bgm":{"style":"温馨","label":"温馨钢琴（舒缓铺底）"}},
- {"id":"pharmacy-optical","name":"药店 / 眼镜店","industry":"药店 / 眼镜 / 验光 / 视力健康","description":"验光、镜片、药师咨询和店内环境，突出专业与便利，适合配镜、体检、换季。","default_duration":20,"bgm":{"style":"温馨","label":"温馨钢琴（舒缓铺底）"}}
+ {"id":"pharmacy-optical","name":"药店 / 眼镜店","industry":"药店 / 眼镜 / 验光 / 视力健康","description":"验光、镜片、药师咨询和店内环境，突出专业与便利，适合配镜、体检、换季。","default_duration":20,"bgm":{"style":"温馨","label":"温馨钢琴（舒缓铺底）"}},
+ {"id":"appliance-repair","name":"家电维修 / 清洗","industry":"空调 / 洗衣机 / 冰箱 / 热水器 / 家电清洗","description":"上门检测、先报价再动手、修不好不收费，适合家电维修、深度清洗、以旧换新。","default_duration":20,"bgm":{"style":"轻快","label":"轻快流行（尤克里里/拍手）"}},
+ {"id":"makeup-training","name":"化妆培训 / 形象设计","industry":"新娘妆 / 影楼妆 / 个人形象 / 零基础培训","description":"学员改妆前后、老师一对一带练、作品与接单，适合招生季、体验课、毕业作品。","default_duration":15,"bgm":{"style":"轻快","label":"轻快流行（尤克里里/拍手）"}}
 ];
 function findTpl(id){
  for(var i=0;i<STATE.templates.length;i++){if(STATE.templates[i].id===id)return STATE.templates[i];}
@@ -2855,12 +2857,24 @@ function loadTemplates(){
 
 /* ================= 示例 ================= */
 var EXAMPLES=[
- '新店开业，全场 8.8 折，进店送招牌小菜，地址在万达广场一楼，本周末两天',
- '招牌酸菜鱼双人餐 69 元，现杀现做，到店再送冰粉，中午晚上都能用',
- '精洗加打蜡 39.9 元，20 分钟交车，透明报价，不办卡也能用',
- '开荒保洁 3 小时 199 元，阿姨自带工具、有健康证，先看现场再报价',
- '新客皮肤检测加补水护理 99 元，先检测再定方案，不满意不推荐办卡',
- '少儿编程体验课 2 节 9.9 元，小班 6 人，周末可约，先试听再报名'
+ '新房除甲醛，先检测再治理，7 天复检不达标免费重做，六环内免费上门检测',
+ '开荒保洁 3 小时 199 元，阿姨持证上岗、自带工具，做完当面验收',
+ '金牌月嫂见面会，本周六到店，预约送待产包，持证母婴护理 5 年以上',
+ '同城搬家 99 元起，楼层费明码标价，家具包毛毯，搬完当面清点',
+ '宠物洗护首单 5 折，猫咪狗狗分开洗，一宠一巾，全程可看监控',
+ '空调清洗 59 元，洗衣机冰箱热水器同享活动价，修不好不收费',
+ '免费上门量房 + 出 3D 方案，整装立减 5000，合同写清增项',
+ '精洗加打蜡 39.9 元，20 分钟交车，无尘施工间，贴膜质保 5 年',
+ '新客健身体验课 9.9 元，到店送体测 + 训练计划，私教 10 节送 2 节',
+ '新客美甲单色 39 元，美发洗剪吹 29 元，工具一客一消毒',
+ '新店开业全场 8.8 折，进店送招牌小菜，本周末两天，万达广场一楼',
+ '写真体验 99 元含妆造 + 3 张精修，独立影棚，拍完现场选片',
+ '化妆体验课 9.9 元，报名全科班立减 800 送全套工具，小班一对一',
+ '免费口腔检查 + 拍片，洗牙 99 元，正畸咨询免挂号费',
+ '开业花篮买一送一，情人节花束 99 元起，同城 2 小时送达',
+ '验光配镜 99 元起，专业验光师，镜片质保一年',
+ '少儿编程体验课 2 节 9.9 元，小班 6 人，周末可约，先试听再报名',
+ '本地师傅上门维修，先检测再报价，明码标价不临时加价'
 ];
 function renderExamples(){
  var g=$('bizExamples'); if(!g)return;
@@ -8580,7 +8594,7 @@ if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',
   /* ---------------- 素材库：中文图库搜索（studio_search） ---------------- */
   var LS_SEARCH_HIST = 'studio_wb_search_hist_v1';
   var SEARCH = { q: '', kind: 'image', items: [], sel: {}, suggestions: [], note: '' };
-  var SEARCH_HOT = ['汽车维修', '除甲醛', '家政', '化妆', '装修', '婚庆', '搬家', '咖啡店', '花店', '健身', '宠物', '教培'];
+  var SEARCH_HOT = ['汽车维修', '除甲醛', '家政', '保洁', '月嫂', '家电维修', '化妆', '装修', '婚庆', '搬家', '咖啡店', '花店', '健身', '宠物', '教培', '牙科', '眼镜', '摄影'];
   function searchHist() {
     try {
       var a = JSON.parse(read(LS_SEARCH_HIST, '[]') || '[]');

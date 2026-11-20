@@ -217,7 +217,7 @@ html[data-theme="light"][data-page="autoedit"] .ae-select option{background:#fff
 .ae-voice small{font-size:10.9px;color:var(--ae-txt3);line-height:1.4}
 .ae-voice .v-play{position:absolute;right:8px;bottom:8px;width:26px;height:26px;border-radius:50%;border:1px solid var(--ae-line);background:var(--ae-panel);color:var(--ae-txt2);font-size:11px;cursor:pointer;display:grid;place-items:center;padding:0}
 .ae-voice .v-play:hover{color:var(--ae-cyan-2);border-color:var(--ae-line-cyan)}
-/* 音色分组（2026-11-20：推荐音色（老板克隆）/ 蝉镜性价比音色 / qwen3 预设） */
+/* 音色分组（2026-11-20：蝉镜性价比音色 / qwen3 预设 / 真人克隆；空组自动隐藏） */
 .ae-voice-group{grid-column:1/-1;display:flex;align-items:center;gap:8px;margin:5px 0 0;padding-top:4px;font-size:11.6px;font-weight:800;color:var(--ae-txt2);letter-spacing:.02em}
 .ae-voice-group:first-child{margin-top:0;padding-top:0}
 .ae-voice-group::after{content:"";flex:1;height:1px;background:var(--ae-line)}
@@ -548,6 +548,17 @@ html[data-theme="light"][data-page="autoedit"] .ae-avatar-err{color:#9f1239}
 .ae-tts-bar{display:flex;align-items:center;gap:8px;flex-wrap:wrap;margin-top:9px;padding-top:9px;border-top:1px dashed var(--ae-line)}
 .ae-tts-voice{width:auto;min-width:142px;flex:0 1 auto;min-height:34px;font-size:12px;padding:0 9px;border-radius:9px}
 .ae-tts-bar .ae-hint{flex:1 1 160px;min-width:0}
+.ae-engine-hint{display:inline-flex;align-items:center;gap:6px;flex:1 1 100%;min-width:0;font-size:11.2px;font-weight:700;line-height:1.5;color:var(--ae-txt2)}
+.ae-engine-hint::before{content:"";flex:0 0 auto;width:6px;height:6px;border-radius:50%;background:var(--ae-cyan);box-shadow:0 0 7px rgba(56,189,248,.65)}
+.ae-engine-hint.on{color:var(--ae-lime-2);background:var(--ae-ok-bg);border:1px solid rgba(52,211,153,.32);border-radius:9px;padding:3px 9px}
+.ae-engine-hint.on::before{background:var(--ae-lime);box-shadow:0 0 8px rgba(52,211,153,.85)}
+.ae-example-chips{display:flex;flex-wrap:wrap;gap:7px;margin-top:9px}
+.ae-chips-head{display:flex;flex-wrap:wrap;align-items:center;gap:8px;flex:1 1 100%;font-size:11.6px;line-height:1.5;color:var(--ae-txt3)}
+.ae-chips-head b{color:var(--ae-txt2);font-weight:800}
+.ae-chip-rec{display:inline-flex;align-items:center;gap:4px;font-size:10.8px;font-weight:700;color:var(--ae-cyan-2);background:rgba(56,189,248,.09);border:1px solid rgba(56,189,248,.28);border-radius:999px;padding:1px 8px;white-space:nowrap}
+.ae-ex-chip{flex:0 1 auto;max-width:100%;border:1px dashed var(--ae-line-2);background:var(--ae-panel-3);color:var(--ae-txt2);border-radius:10px;padding:6px 10px;font-size:11.6px;line-height:1.45;cursor:pointer;font-family:inherit;text-align:left;overflow-wrap:anywhere;transition:.15s}
+.ae-ex-chip:hover{border-style:solid;border-color:var(--ae-line-cyan);color:var(--ae-txt);background:var(--ae-grad-primary-soft)}
+.ae-ex-chip:active{transform:translateY(1px)}
 .ae-tts-audio{display:flex;align-items:center;gap:9px;flex-wrap:wrap;margin-top:9px;padding:9px 11px;border-radius:11px;border:1px solid var(--ae-line);background:var(--ae-panel-3)}
 .ae-tts-audio audio{flex:1 1 220px;min-width:180px;height:36px;max-width:100%}
 .ae-tts-dur{font-size:11.6px;color:var(--ae-txt3);font-variant-numeric:tabular-nums;white-space:nowrap}
@@ -841,6 +852,7 @@ html[data-theme="light"] .ae-bg-note{color:#475569}
             <button type="button" class="ae-linkbtn" id="btnClear">清空</button>
           </div>
         </div>
+        <div class="ae-example-chips" id="aeExampleChips" aria-label="按行业切换的示例文案"></div>
       </div>
 
       <div class="ae-input-pane" id="paneMedia" hidden>
@@ -864,11 +876,21 @@ html[data-theme="light"] .ae-bg-note{color:#475569}
           <span class="ae-field-label">你的行业 <small>选对行业，AI 更懂该拍什么画面</small></span>
           <select class="ae-select" id="aeIndustry" aria-label="选择行业">
             <option value="除甲醛">除甲醛（新房 / 新车 / 办公室）</option>
-            <option value="家政服务">家政服务（保洁 / 月嫂 / 保姆）</option>
-            <option value="化妆培训">化妆培训（新娘妆 / 影楼妆 / 个人形象）</option>
-            <option value="餐饮门店">餐饮门店（餐厅 / 小吃 / 饮品）</option>
-            <option value="美业门店">美业门店（美容 / 美发 / 美甲）</option>
-            <option value="其他本地服务">其他本地服务</option>
+            <option value="家政服务">家政服务（保洁 / 家电清洗 / 保姆）</option>
+            <option value="月嫂育儿">月嫂育儿（月嫂 / 育儿嫂 / 月子中心）</option>
+            <option value="搬家服务">搬家服务（居民搬家 / 公司搬迁 / 长途）</option>
+            <option value="宠物店">宠物店（洗护 / 美容 / 寄养 / 宠物医院）</option>
+            <option value="维修家电">维修家电（空调 / 洗衣机 / 冰箱 / 热水器）</option>
+            <option value="装修公司">装修公司（整装 / 全屋定制 / 旧房翻新）</option>
+            <option value="汽车美容">汽车美容 / 汽修（洗美 / 保养 / 贴膜 / 维修）</option>
+            <option value="健身私教">健身私教（健身房 / 瑜伽 / 普拉提）</option>
+            <option value="美业门店">美业门店（美容 / 美发 / 美甲 / 皮肤管理）</option>
+            <option value="餐饮门店">餐饮门店（餐厅 / 小吃 / 饮品 / 烘焙）</option>
+            <option value="摄影写真">摄影写真（写真 / 婚纱 / 全家福 / 证件照）</option>
+            <option value="化妆培训">化妆培训 / 教培托育（新娘妆 / 早教 / 兴趣班）</option>
+            <option value="牙科诊所">牙科诊所（洗牙 / 正畸 / 种植 / 儿牙）</option>
+            <option value="鲜花店">鲜花店（鲜花 / 花束 / 开业花篮 / 节日预订）</option>
+            <option value="其他本地服务">其他本地服务（眼镜配镜 / 维修 / 多种上门服务）</option>
           </select>
         </div>
         <div class="ae-opt">
@@ -1137,7 +1159,7 @@ html[data-theme="light"] .ae-bg-note{color:#475569}
     <div class="ae-preview-grid">
       <div class="ae-card ae-player-card">
         <div class="ae-player-top">
-          <span class="ae-pill-tag" id="playerPill">演示占位</span>
+          <span class="ae-pill-tag" id="playerPill">演示占位 · 导出后为真实成片</span>
           <span class="ae-player-aspect" id="playerAspect">9:16 竖屏</span>
         </div>
         <div class="ae-player-wrap">
@@ -1165,6 +1187,7 @@ html[data-theme="light"] .ae-bg-note{color:#475569}
             <option value="qwen:Neil" data-engine="qwen">Neil（男·稳重）</option>
             <option value="qwen:Chelsie" data-engine="qwen">Chelsie（女·元气）</option>
           </select>
+          <span class="ae-engine-hint" id="aeTtsEngineHint">当前：Cherry（qwen3-tts）· 蝉镜更省：¥0.007/秒</span>
           <span class="ae-hint" id="aeTtsHint">用成片同一套配音生成 MP3，可换音色重试</span>
         </div>
         <div class="ae-tts-audio" id="aeTtsAudioWrap" hidden>
@@ -1174,7 +1197,7 @@ html[data-theme="light"] .ae-bg-note{color:#475569}
         <div class="ae-audio-warn" id="aeAudioWarn" hidden></div>
         <div class="ae-avatar-shotlist" id="aeAvatarShotList" hidden></div>
         <div class="ae-player-meta" id="aePlayerMeta"></div>
-        <p class="ae-note" id="aePlayNote" style="margin-top:9px">当前为演示占位预览（AI 会按导演板自动播放镜头效果）；导出成片后这里会切换为带声音的真实视频。</p>
+        <p class="ae-note" id="aePlayNote" style="margin-top:9px">当前为演示占位预览（AI 会按导演板自动播放镜头效果）；上传数字人照片后这里会显示数字人，导出成片后切换为带声音的真实视频。</p>
       </div>
       <div class="ae-side-stack">
         <div class="ae-card ae-side-card">
@@ -1297,9 +1320,9 @@ html[data-theme="light"] .ae-bg-note{color:#475569}
 </div>
 <div class="ae-toast" id="aeToast" role="status" aria-live="polite"></div>
 <!-- 阿里云百炼语音接入（dashvoice.py）：音色列表 GET /voice/list（12 个 qwen3-tts 预设 + 我的 CosyVoice 克隆音色）；
-     克隆音色合成 engine=cosy&voice=cosy:<voice_id>；推荐音色 ★ 老板本人（星籁）；qwen 失败自动回退 edge-tts -->
+     克隆音色合成 engine=cosy&voice=cosy:<voice_id>；qwen 失败自动回退 edge-tts -->
 <script>
-/* 语音能力标记（供部署核对）：voice/list | engine=cosy | ★ 老板本人（星籁） */
+/* 语音能力标记（供部署核对）：voice/list | engine=chanjing | qwen3 预设 / Cherry 默认 */
 /* ==================================================================
    AI 全自动剪辑工作台 · 商家端逻辑
    后端未就绪时自动使用本机演示数据（页面显示「演示数据」）。
@@ -1400,78 +1423,550 @@ var TYPES = {
 var LEGEND_ORDER = ['voiceover', 'chart', 'steps', 'emphasis', 'transition', 'broll', 'compare'];
 
 var INDUSTRY = {
-  '除甲醛': {
-    sample: '除甲醛别急着入住。先上门检测甲醛浓度。再按污染程度定制治理方案。7 天后上门复检。复检不达标，免费再处理。北京六环内免费上门检测。专业设备现场出结果。',
-    pads: ['治理材料母婴安全，家里有宝宝也放心。', '复检合格再交房，不达标免费再处理。', '北京六环内免费上门检测，提前预约即可。'],
-    scenes: ['小区门头 / 业主家门口实拍', '检测仪在房间内读数特写', '治理师傅喷枪作业中景', '治理前后浓度对比字幕卡', '复检报告与客户合影', '客服微信预约界面'],
-    coverTitle: ['除甲醛', '别急着入住'],
-    coverSub: '检测 · 治理 · 复检，一次说清',
-    captions: {
-      douyin: '新房入住前，除甲醛一定要先检测再治理！我们上门检测→定制方案→7 天复检，不达标免费再处理。北京六环内免费上门，评论区扣「检测」帮你安排～ #除甲醛 #新房入住 #甲醛检测 #北京除甲醛',
-      xiaohongshu: '装修完多久能住？先做一次甲醛检测再决定！\n📌 检测 → 定制治理 → 7 天复检\n📌 复检不达标免费再处理\n📌 北京六环内免费上门检测\n有需要的姐妹评论区扣「检测」～ #除甲醛 #新房除甲醛 #北京装修 #入住前检测',
-      meituan: '【除甲醛 · 上门检测】专业设备现场检测甲醛浓度，按污染程度定制治理方案，7 天后复检，不达标免费再处理。北京六环内可预约免费上门检测，点击咨询档期。'
-    }
+ "除甲醛": {
+  "sample": "除甲醛别急着入住。先上门检测甲醛浓度。再按污染程度定制治理方案。7 天后上门复检。复检不达标，免费再处理。北京六环内免费上门检测。专业设备现场出结果。",
+  "pads": [
+   "治理材料母婴安全，家里有宝宝也放心。",
+   "复检合格再交房，不达标免费再处理。",
+   "北京六环内免费上门检测，提前预约即可。"
+  ],
+  "scenes": [
+   "小区门头 / 业主家门口实拍",
+   "检测仪在房间内读数特写",
+   "治理师傅喷枪作业中景",
+   "治理前后浓度对比字幕卡",
+   "复检报告与客户合影",
+   "客服微信预约界面"
+  ],
+  "coverTitle": [
+   "除甲醛",
+   "别急着入住"
+  ],
+  "coverSub": "检测 · 治理 · 复检，一次说清",
+  "captions": {
+   "douyin": "新房入住前，除甲醛一定要先检测再治理！我们上门检测→定制方案→7 天复检，不达标免费再处理。北京六环内免费上门，评论区扣「检测」帮你安排～ #除甲醛 #新房入住 #甲醛检测 #北京除甲醛",
+   "xiaohongshu": "装修完多久能住？先做一次甲醛检测再决定！\n📌 检测 → 定制治理 → 7 天复检\n📌 复检不达标免费再处理\n📌 北京六环内免费上门检测\n有需要的姐妹评论区扣「检测」～ #除甲醛 #新房除甲醛 #北京装修 #入住前检测",
+   "meituan": "【除甲醛 · 上门检测】专业设备现场检测甲醛浓度，按污染程度定制治理方案，7 天后复检，不达标免费再处理。北京六环内可预约免费上门检测，点击咨询档期。"
   },
-  '家政服务': {
-    sample: '找家政最怕不放心。我们阿姨持证上岗，服务前先沟通需求，上门自带工具，做完当面验收。不满意可以免费返工，长期客户还能固定阿姨。先预约再上门，时间你定。',
-    pads: ['保洁按平米报价，明码标价不临时加价。', '阿姨健康证、培训证齐全，服务更放心。', '北京城区可预约当天上门，提前沟通时间。'],
-    scenes: ['小区门口与保洁工具包', '阿姨穿工服进门换鞋套', '厨房油污清洁前后对比', '客户当面验收签字', '客服预约聊天界面', '客户好评截图'],
-    coverTitle: ['家政上门', '放心托付'],
-    coverSub: '持证上岗 · 当面验收 · 不满意返工',
-    captions: {
-      douyin: '请家政最怕遇到不靠谱的阿姨？我们阿姨持证上岗，上门自带工具，做完当面验收，不满意免费返工。北京城区可约当天上门，评论区扣「家政」给你安排～ #家政服务 #北京家政 #保洁 #月嫂',
-      xiaohongshu: '终于找到让人放心的家政阿姨了😭\n✅ 持证上岗 ✅ 自带工具 ✅ 当面验收\n不满意还能免费返工，长期客户可以固定阿姨～\n北京城区可约，评论区扣「家政」～ #家政 #保洁 #北京生活 #懒人福音',
-      meituan: '【家政上门 · 持证阿姨】保洁 / 月嫂 / 保姆，服务前沟通需求，上门自带工具，做完当面验收，不满意免费返工。北京城区可预约，点击咨询可约时间。'
-    }
+  "examples": [
+   "新店开业：北京六环内免费上门检测，前 20 名预约再送一次复检",
+   "限时套餐：治理直降 800，母婴安全材料，7 天复检不达标免费再处理",
+   "门店介绍：专业除甲醛团队，检测仪现场出结果，治理过程全程可看",
+   "服务流程：预约上门 → 检测出报告 → 定制治理 → 7 天复检 → 交付"
+  ],
+  "voice": "男声·稳重专业",
+  "style": "稳重专业"
+ },
+ "家政服务": {
+  "sample": "找家政最怕不放心。我们阿姨持证上岗，服务前先沟通需求，上门自带工具，做完当面验收。不满意可以免费返工，长期客户还能固定阿姨。先预约再上门，时间你定。",
+  "pads": [
+   "保洁按平米报价，明码标价不临时加价。",
+   "阿姨健康证、培训证齐全，服务更放心。",
+   "北京城区可预约当天上门，提前沟通时间。"
+  ],
+  "scenes": [
+   "小区门口与保洁工具包",
+   "阿姨穿工服进门换鞋套",
+   "厨房油污清洁前后对比",
+   "客户当面验收签字",
+   "客服预约聊天界面",
+   "客户好评截图"
+  ],
+  "coverTitle": [
+   "家政上门",
+   "放心托付"
+  ],
+  "coverSub": "持证上岗 · 当面验收 · 不满意返工",
+  "captions": {
+   "douyin": "请家政最怕遇到不靠谱的阿姨？我们阿姨持证上岗，上门自带工具，做完当面验收，不满意免费返工。北京城区可约当天上门，评论区扣「家政」给你安排～ #家政服务 #北京家政 #保洁 #月嫂",
+   "xiaohongshu": "终于找到让人放心的家政阿姨了😭\n✅ 持证上岗 ✅ 自带工具 ✅ 当面验收\n不满意还能免费返工，长期客户可以固定阿姨～\n北京城区可约，评论区扣「家政」～ #家政 #保洁 #北京生活 #懒人福音",
+   "meituan": "【家政上门 · 持证阿姨】保洁 / 保姆 / 家电清洗，服务前沟通需求，上门自带工具，做完当面验收，不满意免费返工。北京城区可预约，点击咨询可约时间。"
   },
-  '化妆培训': {
-    sample: '化妆前后的差距能有多大？学员零基础来，老师一对一手把手教，从底妆到眼妆一步一步练。毕业有作品集，接单还能推荐客源。这周报名送全套化妆工具。',
-    pads: ['小班教学，每个人都能上手练。', '老师是剧组跟妆出身，经验丰富。', '周末班、晚班都有，上班也能学。'],
-    scenes: ['学员素颜面对镜头', '化妆刷上妆特写', '老师一对一手把手示范', '妆前妆后左右分屏', '学员作品集翻页', '报名咨询聊天界面'],
-    coverTitle: ['化妆前后', '差距有多大'],
-    coverSub: '零基础 · 一对一 · 学完能接单',
-    captions: {
-      douyin: '化妆前后的差距到底能有多大？学员零基础来，老师一对一手把手教，从底妆到眼妆一步步练，毕业还有作品集！这周报名送全套化妆工具～ #化妆培训 #零基础学化妆 #新娘妆 #变美',
-      xiaohongshu: '素颜到精致妆容，只差一个对的老师✨\n💄 零基础一对一教学\n💄 从底妆到眼妆一步步练\n💄 学完有作品集，还能推荐接单\n这周报名送全套化妆工具，姐妹们冲！ #化妆培训 #学化妆 #新娘妆 #变美日常',
-      meituan: '【化妆培训 · 零基础班】一对一手把手教学，从底妆到眼妆系统练习，毕业有作品集，可推荐接单。周末班、晚班可选，本周报名送全套化妆工具，点击咨询课程。'
-    }
+  "examples": [
+   "新店开业：开荒保洁首单 199 元，阿姨持证上岗、自带工具",
+   "限时特惠：深度保洁 3 小时 299 元，做完当面验收，不满意免费返工",
+   "门店介绍：十年本地家政团队，保洁 / 保姆 / 家电清洗都能约",
+   "服务流程：电话沟通需求 → 上门看现场报价 → 按时上门 → 验收回访"
+  ],
+  "voice": "女声·亲切自然",
+  "style": "亲切口语"
+ },
+ "月嫂育儿": {
+  "sample": "请月嫂最怕不专业。我们的月嫂持证上岗，母婴护理经验五年以上。上户先做宝宝喂养记录，每天给宝妈做月子餐和恢复护理，有问题随时沟通。想找育儿嫂也可以先来面谈。",
+  "pads": [
+   "月嫂均持母婴护理证，上户前可视频面试。",
+   "月子餐按体质搭配，宝妈恢复更安心。",
+   "不满意可申请换人，服务期内有督导回访。"
+  ],
+  "scenes": [
+   "月嫂抱着宝宝轻拍哄睡",
+   "月子餐摆盘特写",
+   "母婴护理证与经验介绍",
+   "宝妈与月嫂沟通画面",
+   "宝宝抚触洗澡实操",
+   "客户评价与回访记录"
+  ],
+  "coverTitle": [
+   "金牌月嫂",
+   "安心坐月子"
+  ],
+  "coverSub": "持证上岗 · 母婴护理 · 不满意换人",
+  "captions": {
+   "douyin": "请月嫂一定要提前看证件和经验！我们月嫂持证上岗，母婴护理经验 5 年以上，上户做喂养记录、月子餐和产后护理，不满意可申请换人。北京可预约面谈，评论区扣「月嫂」～ #月嫂 #育儿嫂 #月子中心 #新手妈妈",
+   "xiaohongshu": "新手妈妈别焦虑，好月嫂能省一半心❤️\n✅ 持证上岗 ✅ 5 年以上经验\n✅ 月子餐按体质搭配 ✅ 不满意可换人\n北京可预约面谈，评论区扣「月嫂」～ #月嫂 #育儿嫂 #产后恢复 #宝妈日常",
+   "meituan": "【月嫂 / 育儿嫂】持证上岗，母婴护理经验 5 年以上，提供月子餐、宝宝护理和产后恢复服务，不满意可申请换人。点击咨询可预约面谈。"
   },
-  '餐饮门店': {
-    sample: '这家店每天只做三件事：新鲜食材、现点现做、分量给足。招牌菜一天能卖一百多份，来晚了要排队。新客到店报暗号送一份小菜，中午晚上都能来。',
-    pads: ['明档厨房，干净看得见。', '周边三公里可外卖到家。', '人均三十多，朋友小聚很合适。'],
-    scenes: ['门店招牌与热气腾腾的厨房', '招牌菜出锅特写', '食材新鲜到店画面', '食客用餐满足表情', '菜单与价格牌', '外卖打包画面'],
-    coverTitle: ['这家小店', '一吃就记住'],
-    coverSub: '新鲜食材 · 现点现做 · 分量给足',
-    captions: {
-      douyin: '这家店每天只做三件事：新鲜食材、现点现做、分量给足！招牌菜一天卖一百多份，来晚了真要排队。新客报暗号送小菜，中午晚上都能来～ #本地美食 #探店 #美食推荐 #同城好店',
-      xiaohongshu: '藏在街边的宝藏小店，被我找到了！\n🍜 新鲜食材 现点现做\n🍜 分量给足 人均三十多\n🍜 新客报暗号送一份小菜\n来晚了真的要排队，建议错峰去～ #探店 #本地美食 #宝藏小店 #吃货日常',
-      meituan: '【到店有礼】新鲜食材、现点现做、分量给足，招牌菜一天卖一百多份。新客到店报暗号送小菜，中午晚上都可来。点击查看菜单和位置。'
-    }
+  "examples": [
+   "月嫂见面会：本周六到店，金牌月嫂现场聊育儿经，预约送待产包",
+   "限时优惠：月子中心前 10 名签约立减 2000，送产后修复体验",
+   "门店介绍：持证月嫂 / 育儿嫂，母婴护理经验 5 年以上",
+   "服务流程：需求沟通 → 匹配月嫂 → 到岗试工 → 定期回访"
+  ],
+  "voice": "女声·亲切自然",
+  "style": "亲切口语"
+ },
+ "搬家服务": {
+  "sample": "搬家最怕临时加价。我们先电话问清楼层、距离和大件数量，再给明码报价。师傅统一着装，带毛毯和打包材料，按约定时间到达。搬完按清单当面清点，损坏照价赔偿。",
+  "pads": [
+   "楼层费、拆装费提前说清，不临时加价。",
+   "师傅统一着装，家具家电有保护措施。",
+   "同城当天可约，急单可加急安排。"
+  ],
+  "scenes": [
+   "搬家货车与师傅团队",
+   "家具包裹毛毯保护",
+   "楼道搬运过程",
+   "新家摆放到位",
+   "报价单明细特写",
+   "客户验收确认"
+  ],
+  "coverTitle": [
+   "同城搬家",
+   "明码标价"
+  ],
+  "coverSub": "按时到达 · 保护到位 · 当面清点",
+  "captions": {
+   "douyin": "搬家最怕坐地起价？我们先问清楼层、距离和大件，再给明细报价，楼层费拆装费提前说清。师傅统一着装，家具包毛毯，搬完当面清点，损坏照价赔偿。同城当天可约～ #搬家 #同城搬家 #搬家公司 #北京搬家",
+   "xiaohongshu": "搬家不踩坑的经验分享👇\n✅ 先报价再动手，不临时加价\n✅ 家具包毛毯，大件有保护\n✅ 搬完当面清点，损坏照价赔偿\n同城当天可约，评论区扣「搬家」～ #搬家 #搬家攻略 #同城生活 #北京搬家",
+   "meituan": "【同城搬家】电话问清楼层、距离和大件后给明细报价，楼层费拆装费提前说明；师傅统一着装、家具包毛毯，搬完当面清点，损坏照价赔偿。点击咨询可约时间。"
   },
-  '美业门店': {
-    sample: '做美甲最怕做完就后悔。我们先看手型再选色，试色满意再上手，做完让你检查细节。甲油胶用的是可卸的，不伤甲。新客做单色还有体验价。',
-    pads: ['工具一客一消毒，卫生放心。', '不满意可免费补做，售后有保障。', '预约到店不用等位，时间更自由。'],
-    scenes: ['门店环境与色卡墙', '美甲师修甲特写', '试色对比画面', '成品手部特写', '工具消毒柜画面', '预约界面与价格表'],
-    coverTitle: ['做完不后悔', '的美甲店'],
-    coverSub: '先试色 · 再上手 · 不满意补做',
-    captions: {
-      douyin: '做美甲最怕做完就后悔？我们先看手型再选色，试色满意再上手，做完让你检查每个细节！新客单色还有体验价～ #美甲 #美甲店 #同城美甲 #变美',
-      xiaohongshu: '做美甲不踩雷的秘诀：先试色再上手💅\n✅ 看手型选色 ✅ 试色满意再上手\n✅ 做完检查细节 ✅ 不满意免费补做\n新客单色有体验价，姐妹们冲！ #美甲 #美甲款式 #变美日常 #同城探店',
-      meituan: '【美甲体验价】先看手型再选色，试色满意再上手，做完检查细节，不满意可免费补做。工具一客一消毒，新客单色体验价，点击预约到店。'
-    }
+  "examples": [
+   "新店开业：同城搬家 99 元起，楼层费明码标价不临时加价",
+   "限时优惠：居民搬家满 500 减 100，再送打包纸箱",
+   "门店介绍：本地搬家队，居民 / 公司 / 长途都能搬，师傅统一着装",
+   "服务流程：电话报价 → 上门看货 → 按时到达 → 搬运摆放 → 当面验收"
+  ],
+  "voice": "男声·稳重专业",
+  "style": "亲切口语"
+ },
+ "宠物店": {
+  "sample": "带毛孩子洗护最怕交叉感染。我们一宠一巾，洗护间独立，猫咪狗狗分开操作。洗护前先做皮肤检查，有耳螨、皮癣会提前告诉你。全程可以看监控，洗完拍照发给你。",
+  "pads": [
+   "洗护用品温和不刺激，敏感肌也能用。",
+   "一宠一巾一消毒，猫咪狗狗分开洗。",
+   "可预约上门接送，节前洗护提前约。"
+  ],
+  "scenes": [
+   "毛孩子进店摇尾巴",
+   "独立洗护间操作",
+   "洗护前后对比特写",
+   "美容造型完成展示",
+   "一宠一巾消毒柜",
+   "客户接宠合影"
+  ],
+  "coverTitle": [
+   "毛孩子洗护",
+   "干净又放心"
+  ],
+  "coverSub": "一宠一巾 · 独立洗护 · 全程可看",
+  "captions": {
+   "douyin": "带毛孩子洗护最怕交叉感染！我们一宠一巾、猫咪狗狗分开洗，洗护前先做皮肤检查，全程可看监控，洗完拍照发你。节前洗护提前约，评论区扣「洗护」～ #宠物店 #宠物洗护 #宠物美容 #铲屎官",
+   "xiaohongshu": "毛孩子洗护终于找到放心的店了🐶🐱\n✅ 一宠一巾 ✅ 猫咪狗狗分开\n✅ 先皮肤检查再洗护 ✅ 全程可看监控\n节前洗护提前约，评论区扣「洗护」～ #宠物 #宠物美容 #铲屎官日常 #养宠经验",
+   "meituan": "【宠物洗护 · 美容】一宠一巾，猫咪狗狗分开操作，洗护前做皮肤检查，全程可看监控，洗完拍照反馈。节前洗护建议提前预约，点击咨询档期。"
   },
-  '其他本地服务': {
-    sample: '找本地师傅，最怕报价不透明。我们先上门看现场，再给明细报价，做多少算多少，不临时加价。做完当面验收，有问题随时找我们。',
-    pads: ['本地师傅就近上门，响应快。', '明码标价，先报价再动手。', '质保期内免费返修，售后省心。'],
-    scenes: ['师傅上门看现场', '明细报价单特写', '施工过程实拍', '完工验收画面', '质保卡与联系方式', '客户好评截图'],
-    coverTitle: ['本地师傅', '靠谱上门'],
-    coverSub: '先报价 · 再动手 · 做完验收',
-    captions: {
-      douyin: '找本地师傅最怕报价不透明？我们先上门看现场，再给明细报价，做多少算多少，不临时加价！做完当面验收，有问题随时找我们～ #本地服务 #同城师傅 #上门维修 #靠谱推荐',
-      xiaohongshu: '终于找到报价透明的本地师傅了！\n✅ 先上门看现场 ✅ 明细报价再动手\n✅ 不临时加价 ✅ 做完当面验收\n质保期内免费返修，本地就近上门～ #本地服务 #上门服务 #同城生活 #生活小妙招',
-      meituan: '【本地上门服务】先上门看现场再给明细报价，做多少算多少，不临时加价；做完当面验收，质保期内免费返修。点击咨询可约时间。'
-    }
-  }
+  "examples": [
+   "新店开业：宠物洗护首单 5 折，猫咪狗狗都能洗",
+   "节前特惠：洗护 + 美容套餐 88 元，再送驱虫一次",
+   "门店介绍：独立洗护间，一宠一巾，全程可看监控",
+   "服务流程：预约到店 → 体检登记 → 洗护美容 → 交付反馈"
+  ],
+  "voice": "女声·活泼种草",
+  "style": "活泼种草"
+ },
+ "维修家电": {
+  "sample": "家电坏了别急着换新。我们先上门检测，把故障原因和费用说清楚，你同意再修。常用配件当天带齐，修完当场试机。修不好不收费，换的配件有质保。",
+  "pads": [
+   "先检测再报价，不乱换配件。",
+   "常用配件当天带齐，多数故障一次修好。",
+   "修完当场试机，配件有质保。"
+  ],
+  "scenes": [
+   "师傅上门检测家电",
+   "拆机检查故障点",
+   "配件更换特写",
+   "修好试机运行",
+   "收费明细展示",
+   "质保卡与回执"
+  ],
+  "coverTitle": [
+   "家电维修",
+   "先报价再动手"
+  ],
+  "coverSub": "上门检测 · 不乱换件 · 修不好不收费",
+  "captions": {
+   "douyin": "家电坏了别急着换新！我们上门先检测，故障原因和费用说清楚再修，常用配件当天带齐，修完当场试机，修不好不收费、换件有质保。评论区扣「维修」帮你安排～ #家电维修 #空调维修 #洗衣机维修 #同城师傅",
+   "xiaohongshu": "家电维修避坑指南👇\n✅ 先检测再报价，不乱换配件\n✅ 常用配件当天带齐\n✅ 修完当场试机，配件有质保\n修不好不收费，评论区扣「维修」～ #家电维修 #生活小妙招 #同城服务 #租房日常",
+   "meituan": "【家电维修】空调 / 洗衣机 / 冰箱 / 热水器上门检测，先报价再动手，不乱换配件；修完当场试机，修不好不收费，更换配件有质保。点击咨询可约时间。"
+  },
+  "examples": [
+   "新店开业：空调清洗 59 元，洗衣机 / 冰箱 / 热水器同享活动价",
+   "限时优惠：加氟 + 清洗套餐立减 80，修不好不收费",
+   "师傅介绍：十年维修经验，上门先检测再报价，不乱换配件",
+   "服务流程：电话报修 → 上门检测 → 报价确认 → 维修 → 质保回访"
+  ],
+  "voice": "男声·稳重专业",
+  "style": "稳重专业"
+ },
+ "装修公司": {
+  "sample": "装修最怕增项和拖工期。我们先免费上门量房，出平面方案和明细报价，合同里写清增项规则。自有施工队按节点进场，水电、泥木、油漆每个阶段都请业主验收。",
+  "pads": [
+   "合同写清增项规则，不临时加价。",
+   "自有施工队，工地随时可参观。",
+   "按节点验收，逾期有赔付约定。"
+  ],
+  "scenes": [
+   "设计师上门量房",
+   "3D 效果图展示",
+   "水电施工规范走线",
+   "工地节点验收",
+   "材料品牌与合同",
+   "完工实景对比"
+  ],
+  "coverTitle": [
+   "装修不增项",
+   "节点可验收"
+  ],
+  "coverSub": "免费量房 · 明细报价 · 自有施工队",
+  "captions": {
+   "douyin": "装修最怕增项和拖工期？我们免费上门量房，出平面方案和明细报价，合同写清增项规则；自有施工队按节点进场，水电泥木每个阶段都请业主验收。评论区扣「装修」领报价单～ #装修 #装修避坑 #全屋定制 #北京装修",
+   "xiaohongshu": "装修不踩坑的关键：合同写清楚！\n✅ 免费量房出方案\n✅ 明细报价，增项规则写进合同\n✅ 自有施工队，节点验收\n评论区扣「装修」领报价单～ #装修 #装修日记 #全屋定制 #装修避坑",
+   "meituan": "【装修 / 全屋定制】免费上门量房，出平面方案与明细报价，合同写清增项规则；自有施工队按节点施工，水电泥木各阶段可验收。点击咨询预约量房。"
+  },
+  "examples": [
+   "新店开业：免费上门量房 + 出 3D 方案，整装立减 5000",
+   "限时活动：全屋定制满 3 万送全屋保洁 + 甲醛检测",
+   "公司介绍：自有施工队，工地随时可参观，合同写清增项",
+   "服务流程：量房设计 → 出方案报价 → 签约开工 → 节点验收 → 交付"
+  ],
+  "voice": "男声·稳重专业",
+  "style": "稳重专业"
+ },
+ "汽车美容": {
+  "sample": "洗车打蜡别只看价格。我们无尘施工间，洗美和维修分区。施工前先检查车漆，有划痕会提前拍照说明。项目明码标价，做完交车当面验收，贴膜有质保卡。",
+  "pads": [
+   "无尘施工间，车漆施工更放心。",
+   "报价透明，不做隐形消费。",
+   "洗美、保养、维修一站式。"
+  ],
+  "scenes": [
+   "车辆进店精洗",
+   "无尘车间贴膜施工",
+   "车漆打蜡效果对比",
+   "内饰深度清洁",
+   "交车钥匙与质保卡",
+   "客户提车合影"
+  ],
+  "coverTitle": [
+   "汽车美容",
+   "精洗打蜡"
+  ],
+  "coverSub": "无尘施工 · 透明报价 · 贴膜质保",
+  "captions": {
+   "douyin": "洗车打蜡别只看价格！我们无尘施工间，洗美维修分区，施工前先检查车漆、有划痕提前拍照说明，项目明码标价，做完交车当面验收，贴膜有质保卡。评论区扣「洗车」领体验价～ #汽车美容 #洗车 #汽车保养 #贴膜",
+   "xiaohongshu": "车漆养护真的要看施工环境🚗\n✅ 无尘施工间 ✅ 先检查车漆再施工\n✅ 明码标价不隐形消费 ✅ 贴膜有质保\n评论区扣「洗车」领体验价～ #汽车美容 #洗车日常 #汽车贴膜 #爱车养护",
+   "meituan": "【汽车美容 / 汽修】精洗打蜡、内饰清洁、贴膜、保养维修一站式；无尘施工间，施工前检查车漆，项目明码标价，贴膜有质保。点击咨询可预约。"
+  },
+  "examples": [
+   "新店开业：精洗 + 打蜡 39.9 元，20 分钟交车",
+   "限时特惠：全车贴膜 1999 起，质保 5 年，前 10 名送内饰清洗",
+   "门店介绍：无尘施工间，透明报价，洗美 / 保养 / 维修一站式",
+   "服务流程：预约到店 → 车辆检查 → 项目确认 → 施工 → 交车验收"
+  ],
+  "voice": "男声·稳重专业",
+  "style": "稳重专业"
+ },
+ "健身私教": {
+  "sample": "减肥别只会饿肚子。我们先做体测，看清基础代谢和体脂率，教练按你的目标排训练和饮食计划。每周练三次，动作有人纠正，一个月复测看变化。现在到店送一次体态评估。",
+  "pads": [
+   "先体测再定计划，不盲目加练。",
+   "教练持证上岗，动作全程纠正。",
+   "月卡 / 次卡灵活选，不强制年卡。"
+  ],
+  "scenes": [
+   "体测仪数据解读",
+   "教练示范标准动作",
+   "器械训练中景",
+   "学员前后对比",
+   "训练计划表特写",
+   "团课氛围画面"
+  ],
+  "coverTitle": [
+   "科学减脂",
+   "私教带练"
+  ],
+  "coverSub": "先体测 · 再定计划 · 不盲目加练",
+  "captions": {
+   "douyin": "减肥别只会饿肚子！先做体测看清基础代谢和体脂率，教练按目标排训练和饮食计划，动作有人纠正，一个月复测看变化。到店送体态评估，评论区扣「体验」～ #健身 #私教 #减脂 #北京健身房",
+   "xiaohongshu": "减脂不是饿出来的，是练对+吃对💪\n✅ 先体测再定计划\n✅ 教练全程纠正动作\n✅ 月卡次卡灵活选\n到店送体态评估，评论区扣「体验」～ #健身 #减脂日常 #私教课 #自律",
+   "meituan": "【健身私教】先做体测评估，教练按目标定制训练和饮食计划，动作全程纠正，每月复测；月卡、次卡灵活选。点击咨询可约体验课。"
+  },
+  "examples": [
+   "新店开业：体验课 9.9 元，到店送体测 + 训练计划",
+   "限时促销：私教 10 节送 2 节，团课月卡 299 元",
+   "教练介绍：持证私教，先体测再定方案，不盲目加练",
+   "服务流程：体测评估 → 目标沟通 → 定制计划 → 训练打卡 → 阶段复测"
+  ],
+  "voice": "男声·稳重专业",
+  "style": "稳重专业"
+ },
+ "美业门店": {
+  "sample": "做美甲最怕做完就后悔。我们先看手型再选色，试色满意再上手，做完让你检查细节。甲油胶用的是可卸的，不伤甲。美发先沟通脸型和发质，烫染前做测试。新客还有体验价。",
+  "pads": [
+   "工具一客一消毒，卫生放心。",
+   "不满意可免费补做，售后有保障。",
+   "预约到店不用等位，时间更自由。"
+  ],
+  "scenes": [
+   "门店环境与色卡墙",
+   "美甲师修甲特写",
+   "试色对比画面",
+   "成品手部特写",
+   "美发烫染前后对比",
+   "预约界面与价格表"
+  ],
+  "coverTitle": [
+   "做完不后悔",
+   "的美甲店"
+  ],
+  "coverSub": "先试色 · 再上手 · 不满意补做",
+  "captions": {
+   "douyin": "做美甲最怕做完就后悔？我们先看手型再选色，试色满意再上手，做完让你检查每个细节！新客单色还有体验价～ #美甲 #美甲店 #同城美甲 #变美",
+   "xiaohongshu": "做美甲不踩雷的秘诀：先试色再上手💅\n✅ 看手型选色 ✅ 试色满意再上手\n✅ 做完检查细节 ✅ 不满意免费补做\n新客单色有体验价，姐妹们冲！ #美甲 #美甲款式 #变美日常 #同城探店",
+   "meituan": "【美甲 / 美发体验价】先看手型再选色，试色满意再上手，做完检查细节，不满意可免费补做。工具一客一消毒，新客有体验价，点击预约到店。"
+  },
+  "examples": [
+   "新店开业：新客美甲单色 39 元，美发洗剪吹 29 元",
+   "限时套餐：皮肤管理三次卡 399 元，再送一次肩颈放松",
+   "门店介绍：工具一客一消毒，先看方案再动手，不满意免费补做",
+   "服务流程：预约到店 → 面诊沟通 → 项目操作 → 效果确认 → 售后回访"
+  ],
+  "voice": "女声·活泼种草",
+  "style": "活泼种草"
+ },
+ "餐饮门店": {
+  "sample": "这家店每天只做三件事：新鲜食材、现点现做、分量给足。招牌菜一天能卖一百多份，来晚了要排队。新客到店报暗号送一份小菜，中午晚上都能来。",
+  "pads": [
+   "明档厨房，干净看得见。",
+   "周边三公里可外卖到家。",
+   "人均三十多，朋友小聚很合适。"
+  ],
+  "scenes": [
+   "门店招牌与热气腾腾的厨房",
+   "招牌菜出锅特写",
+   "食材新鲜到店画面",
+   "食客用餐满足表情",
+   "菜单与价格牌",
+   "外卖打包画面"
+  ],
+  "coverTitle": [
+   "这家小店",
+   "一吃就记住"
+  ],
+  "coverSub": "新鲜食材 · 现点现做 · 分量给足",
+  "captions": {
+   "douyin": "这家店每天只做三件事：新鲜食材、现点现做、分量给足！招牌菜一天卖一百多份，来晚了真要排队。新客报暗号送小菜，中午晚上都能来～ #本地美食 #探店 #美食推荐 #同城好店",
+   "xiaohongshu": "藏在街边的宝藏小店，被我找到了！\n🍜 新鲜食材 现点现做\n🍜 分量给足 人均三十多\n🍜 新客报暗号送一份小菜\n来晚了真的要排队，建议错峰去～ #探店 #本地美食 #宝藏小店 #吃货日常",
+   "meituan": "【到店有礼】新鲜食材、现点现做、分量给足，招牌菜一天卖一百多份。新客到店报暗号送小菜，中午晚上都可来。点击查看菜单和位置。"
+  },
+  "examples": [
+   "新店开业：全场 8.8 折，进店再送招牌小菜",
+   "限时套餐：双人餐 69 元，现点现做，中午晚上都能用",
+   "门店介绍：明档厨房，食材当天到店，人均三十多",
+   "服务流程：选座点单 → 现做上菜 → 用餐服务 → 结账开票"
+  ],
+  "voice": "女声·活泼种草",
+  "style": "活泼种草"
+ },
+ "摄影写真": {
+  "sample": "拍写真最怕成片不像自己。我们先聊风格，再按你的脸型和气质定妆造。拍摄时摄影师会带你摆动作，不用尴尬。拍完现场选片，精修不满意可以免费重修。",
+  "pads": [
+   "妆造师跟妆，拍摄全程不用自己补妆。",
+   "独立影棚，服装一客一消毒。",
+   "现场选片，精修不满意免费重修。"
+  ],
+  "scenes": [
+   "影棚灯光布置",
+   "妆造师上妆特写",
+   "摄影师引导动作",
+   "拍摄花絮与成片对比",
+   "选片电脑屏幕",
+   "精修成片相册"
+  ],
+  "coverTitle": [
+   "拍出高级感",
+   "的写真"
+  ],
+  "coverSub": "妆造跟拍 · 现场选片 · 精修重修",
+  "captions": {
+   "douyin": "拍写真最怕成片不像自己？我们先聊风格，按脸型和气质定妆造，拍摄时动作有人带，拍完现场选片，精修不满意免费重修。档期有限，评论区扣「写真」～ #摄影写真 #写真 #婚纱照 #同城摄影",
+   "xiaohongshu": "写真拍出高级感的秘诀在这里📸\n✅ 先聊风格再定妆造\n✅ 摄影师全程引导动作\n✅ 现场选片，精修不满意重修\n评论区扣「写真」领档期～ #写真 #摄影 #婚纱照 #变美日常",
+   "meituan": "【写真 / 婚纱摄影】先沟通风格与妆造，独立影棚拍摄，摄影师全程引导，拍完现场选片，精修不满意可免费重修。点击咨询档期与套餐。"
+  },
+  "examples": [
+   "新店开业：写真体验 99 元，含妆造 + 3 张精修",
+   "节日特惠：全家福套餐立减 300，前 10 名再送相册",
+   "工作室介绍：独立影棚 + 专业妆造，拍完现场选片",
+   "服务流程：预约档期 → 沟通风格 → 妆造拍摄 → 选片精修 → 交付"
+  ],
+  "voice": "女声·活泼种草",
+  "style": "活泼种草"
+ },
+ "化妆培训": {
+  "sample": "化妆前后的差距能有多大？学员零基础来，老师一对一手把手教，从底妆到眼妆一步一步练。毕业有作品集，接单还能推荐客源。这周报名送全套化妆工具。",
+  "pads": [
+   "小班教学，每个人都能上手练。",
+   "老师是剧组跟妆出身，经验丰富。",
+   "周末班、晚班都有，上班也能学。"
+  ],
+  "scenes": [
+   "学员素颜面对镜头",
+   "化妆刷上妆特写",
+   "老师一对一手把手示范",
+   "妆前妆后左右分屏",
+   "学员作品集翻页",
+   "报名咨询聊天界面"
+  ],
+  "coverTitle": [
+   "化妆前后",
+   "差距有多大"
+  ],
+  "coverSub": "零基础 · 一对一 · 学完能接单",
+  "captions": {
+   "douyin": "化妆前后的差距到底能有多大？学员零基础来，老师一对一手把手教，从底妆到眼妆一步步练，毕业还有作品集！这周报名送全套化妆工具～ #化妆培训 #零基础学化妆 #新娘妆 #变美",
+   "xiaohongshu": "素颜到精致妆容，只差一个对的老师✨\n💄 零基础一对一教学\n💄 从底妆到眼妆一步步练\n💄 学完有作品集，还能推荐接单\n这周报名送全套化妆工具，姐妹们冲！ #化妆培训 #学化妆 #新娘妆 #变美日常",
+   "meituan": "【化妆培训 · 零基础班】一对一手把手教学，从底妆到眼妆系统练习，毕业有作品集，可推荐接单。周末班、晚班可选，本周报名送全套化妆工具，点击咨询课程。"
+  },
+  "examples": [
+   "新店开业：化妆体验课 9.9 元，送一次修眉",
+   "限时优惠：报名全科班立减 800，送全套化妆工具",
+   "培训介绍：小班一对一，老师跟妆出身，学完有作品集",
+   "课程流程：基础底妆 → 眼妆进阶 → 造型实操 → 作品拍摄 → 结业推荐"
+  ],
+  "voice": "女声·活泼种草",
+  "style": "活泼种草"
+ },
+ "牙科诊所": {
+  "sample": "看牙最怕又贵又疼。我们先做口腔检查、拍片，把问题和方案讲清楚，价格提前告知。治疗过程有麻醉，器械一人一消毒。治疗后医生会约复诊，跟踪恢复情况。",
+  "pads": [
+   "独立诊室，器械一人一消毒。",
+   "方案和价格提前说清，不临时加项。",
+   "儿童齿科有耐心，家长可陪同。"
+  ],
+  "scenes": [
+   "诊所前台与环境",
+   "医生口腔检查特写",
+   "拍片影像解读",
+   "洗牙操作画面",
+   "器械消毒流程展示",
+   "儿童就诊安抚画面"
+  ],
+  "coverTitle": [
+   "看牙不踩坑",
+   "先检查再报价"
+  ],
+  "coverSub": "独立诊室 · 一人一消毒 · 方案先讲清",
+  "captions": {
+   "douyin": "看牙最怕又贵又疼？我们先做口腔检查和拍片，把问题和方案讲清楚、价格提前告知，治疗有麻醉，器械一人一消毒，治疗后约复诊跟踪。评论区扣「看牙」帮你约检查～ #牙科 #洗牙 #正畸 #口腔健康",
+   "xiaohongshu": "看牙不踩坑的流程分享🦷\n✅ 先检查拍片再定方案\n✅ 价格提前告知不临时加项\n✅ 器械一人一消毒\n评论区扣「看牙」帮你约检查～ #牙科 #洗牙 #口腔护理 #正畸",
+   "meituan": "【口腔检查】洗牙 / 正畸 / 儿牙 / 种植咨询，先检查拍片再讲方案，价格提前告知；独立诊室，器械一人一消毒。点击咨询可约检查。"
+  },
+  "examples": [
+   "新店开业：免费口腔检查 + 拍片，洗牙 99 元",
+   "限时活动：正畸咨询免挂号费，儿童涂氟 59 元",
+   "诊所介绍：独立诊室，器械一人一消毒，医生资质可查",
+   "就诊流程：预约挂号 → 检查拍片 → 方案沟通 → 治疗 → 复诊回访"
+  ],
+  "voice": "女声·亲切自然",
+  "style": "稳重专业"
+ },
+ "鲜花店": {
+  "sample": "买花最怕图片与实物不符。我们每天清晨到花市选花，花材当天用。订花先看当天实拍，再确认花材和包装。同城两小时送达，节日订单提前预订不耽误。",
+  "pads": [
+   "花材当天到店，不卖隔夜花。",
+   "下单前可看当天实拍，不货不对板。",
+   "同城两小时送达，节日提前订。"
+  ],
+  "scenes": [
+   "鲜花到店整理花材",
+   "花艺师包花特写",
+   "花束成品展示",
+   "门店花墙与价目牌",
+   "同城配送出发",
+   "收花人惊喜表情"
+  ],
+  "coverTitle": [
+   "今天的花",
+   "新鲜到店"
+  ],
+  "coverSub": "当天花材 · 实拍确认 · 同城速达",
+  "captions": {
+   "douyin": "买花最怕图片和实物不符！我们清晨到花市选花，花材当天用，下单前可以先看当天实拍，同城两小时送达，节日订单提前订不耽误～ #鲜花 #花店 #同城鲜花 #送花",
+   "xiaohongshu": "买花不踩雷的小技巧💐\n✅ 下单前看当天实拍\n✅ 花材当天到店不卖隔夜\n✅ 同城两小时送达\n节日花束提前订，评论区扣「订花」～ #鲜花 #花束 #送花日常 #仪式感",
+   "meituan": "【鲜花预订】每天清晨到花市选花，下单前可看当天实拍，同城两小时送达；节日花束、开业花篮建议提前预订。点击咨询可看当天花材。"
+  },
+  "examples": [
+   "新店开业：开业花篮买一送一，到店再领一支玫瑰",
+   "节日预售：情人节花束 99 元起，提前订送到家",
+   "门店介绍：每日鲜花到店，可定制花束，同城 2 小时送达",
+   "订购流程：选款沟通 → 确认花材 → 制作 → 同城配送 → 售后反馈"
+  ],
+  "voice": "女声·活泼种草",
+  "style": "活泼种草"
+ },
+ "其他本地服务": {
+  "sample": "找本地师傅，最怕报价不透明。我们先上门看现场，再给明细报价，做多少算多少，不临时加价。做完当面验收，有问题随时找我们。",
+  "pads": [
+   "本地师傅就近上门，响应快。",
+   "明码标价，先报价再动手。",
+   "质保期内免费返修，售后省心。"
+  ],
+  "scenes": [
+   "师傅上门看现场",
+   "明细报价单特写",
+   "施工过程实拍",
+   "完工验收画面",
+   "质保卡与联系方式",
+   "客户好评截图"
+  ],
+  "coverTitle": [
+   "本地师傅",
+   "靠谱上门"
+  ],
+  "coverSub": "先报价 · 再动手 · 做完验收",
+  "captions": {
+   "douyin": "找本地师傅最怕报价不透明？我们先上门看现场，再给明细报价，做多少算多少，不临时加价！做完当面验收，有问题随时找我们～ #本地服务 #同城师傅 #上门维修 #靠谱推荐",
+   "xiaohongshu": "终于找到报价透明的本地师傅了！\n✅ 先上门看现场 ✅ 明细报价再动手\n✅ 不临时加价 ✅ 做完当面验收\n质保期内免费返修，本地就近上门～ #本地服务 #上门服务 #同城生活 #生活小妙招",
+   "meituan": "【本地上门服务】先上门看现场再给明细报价，做多少算多少，不临时加价；做完当面验收，质保期内免费返修。点击咨询可约时间。"
+  },
+  "examples": [
+   "新店开业：本地师傅上门，首次服务立减 30",
+   "限时优惠：维修 / 安装 / 清洗套餐 8 折，明码标价",
+   "服务介绍：本地师傅就近上门，先报价再动手",
+   "服务流程：电话咨询 → 上门看现场 → 明细报价 → 施工 → 验收回访"
+  ],
+  "voice": "男声·稳重专业",
+  "style": "亲切口语"
+ }
 };
 
 var MATERIALS = [
@@ -1546,6 +2041,7 @@ var state = {
   sound: { muted: false, volume: 100 },
   tts: { busy: false, url: '', path: '', duration: 0, voice: '' },
   voiceCatalog: { presets: [], cloned: [], loaded: false, error: '' },
+  voiceTouched: false,
   avatar: { enabled: false, name: '', size: 0, previewUrl: '', dataUrl: '', busy: false },
   avatarGenerating: false,
   presenter: { mode: 'none', layout: 'full', chroma: false,
@@ -2022,6 +2518,7 @@ function updatePresenterUI() {
   updateLipsyncPanel();
   if ($('aeBgBox')) $('aeBgBox').hidden = (mode === 'none');
   updateBgUI();
+  if (state.step === 3 && state.project) refreshDhPreviewChrome();
 }
 
 function presenterSpecForRender() {
@@ -2059,7 +2556,17 @@ var BG_EXAMPLES_BY_INDUSTRY = {
   '电商零售': ['专业影棚白底', '现代简约产品台', '明亮直播间'],
   '汽车服务': ['专业汽车工位', '明亮汽车展厅', '工具墙实景'],
   '房产中介': ['现代公寓客厅', '明亮样板间', '城市落地窗'],
-  '健身运动': ['专业健身工作室', '明亮器械区', '阳光运动场']
+  '健身运动': ['专业健身工作室', '明亮器械区', '阳光运动场'],
+  '月嫂育儿': ['温馨母婴房', '干净婴儿房', '暖光客厅'],
+  '搬家服务': ['整洁新家客厅', '明亮楼道', '搬家货车与纸箱'],
+  '宠物店': ['干净宠物洗护间', '明亮宠物店前台', '温馨撸猫区'],
+  '维修家电': ['整洁家电维修台', '明亮厨房实景', '工具墙工作台'],
+  '装修公司': ['现代简约样板间', '明亮客厅', '全屋定制衣帽间'],
+  '汽车美容': ['专业汽车工位', '无尘贴膜车间', '明亮汽车展厅'],
+  '健身私教': ['专业健身工作室', '明亮器械区', '私教训练区'],
+  '摄影写真': ['专业摄影影棚', '明亮纯色背景棚', '复古实景棚'],
+  '牙科诊所': ['干净牙科诊室', '明亮诊所前台', '专业诊疗设备'],
+  '鲜花店': ['明亮花店前台', '鲜花陈列墙', '温馨包花台']
 };
 function bgModeOf() { return (state.presenter.bg && state.presenter.bg.mode) || 'none'; }
 function bgExamplesForIndustry() {
@@ -3273,6 +3780,44 @@ function upgradeDemo() {
 function exampleFor(industry) {
   return (INDUSTRY[industry] || INDUSTRY['除甲醛']).sample;
 }
+function industryDef(name) {
+  return INDUSTRY[name] || INDUSTRY['除甲醛'];
+}
+/* 第①步输入框下方：按所选行业动态切换的示例 chips（新店开业 / 促销 / 门店介绍 / 服务流程） */
+function renderIndustryChips() {
+  var box = $('aeExampleChips');
+  if (!box) return;
+  var name = state.input.industry || '除甲醛';
+  var ind = industryDef(name);
+  var list = (ind.examples && ind.examples.length) ? ind.examples : [ind.sample];
+  var rec = [];
+  if (ind.voice) rec.push('推荐音色：' + ind.voice);
+  if (ind.style) rec.push('风格：' + ind.style);
+  box.innerHTML = '<div class="ae-chips-head"><b>「' + esc(name) + '」示例</b><span>点一下直接填进文案</span>' +
+    (rec.length ? '<span class="ae-chip-rec">💡 ' + esc(rec.join(' · ')) + '</span>' : '') + '</div>' +
+    list.map(function (t, i) {
+      return '<button type="button" class="ae-ex-chip" data-ae-ex="' + i + '">' + esc(t) + '</button>';
+    }).join('');
+}
+function fillIndustryExample(idx) {
+  var ind = industryDef(state.input.industry);
+  var list = (ind.examples && ind.examples.length) ? ind.examples : [ind.sample];
+  var text = list[idx];
+  if (!text) return;
+  if ($('aeText')) { $('aeText').value = text; updateChar(); try { $('aeText').focus(); } catch (e) {} }
+  toast('已填入「' + (state.input.industry || '除甲醛') + '」示例，把店名和优惠改成你的即可', 'ok', 2600);
+}
+function updateIndustrySelection(name) {
+  state.input.industry = name;
+  if ($('aeIndustry') && $('aeIndustry').value !== name) {
+    var has = false;
+    for (var i = 0; i < $('aeIndustry').options.length; i++) if ($('aeIndustry').options[i].value === name) { has = true; break; }
+    if (has) $('aeIndustry').value = name;
+  }
+  if ($('btnSample')) $('btnSample').textContent = '用一段' + name + '示例';
+  if ($('aeText')) $('aeText').placeholder = '例如：' + exampleFor(name);
+  renderIndustryChips();
+}
 function updateChar() {
   var ta = $('aeText');
   var n = ta ? ta.value.length : 0;
@@ -3337,6 +3882,7 @@ function setVoice(v) {
     }
   }
   updateVoicePriceHint();
+  updateTtsEngineHint(want);
 }
 function setStyleUI(style) {
   $$('#aeStyles .ae-style-btn').forEach(function (b) {
@@ -3449,6 +3995,34 @@ function updateVoicePriceHint() {
     : (eng === 'qwen' ? 'qwen3-tts-flash：约 0.8 元/万字符（约 ¥0.005/60字）'
       : (eng === 'cosy' ? 'CosyVoice 克隆音色按量计费' : 'edge-tts 免费回退'));
 }
+/* 默认音色：qwen:Cherry（旧版真人克隆已下线；groups.boss 为空时自动隐藏） */
+function defaultVoiceId() { return 'qwen:Cherry'; }
+function voiceEngineLabel(eng) {
+  return eng === 'chanjing' ? '蝉镜 TTS' : eng === 'cosy' ? 'CosyVoice 克隆' : eng === 'edge' ? 'edge-tts' : 'qwen3-tts';
+}
+function chanjingVoiceAvailable() {
+  var groups = voiceGroups();
+  if (!groups) return true;
+  for (var i = 0; i < groups.length; i++) {
+    if (groups[i] && groups[i].key === 'chanjing' && (groups[i].voices || []).length) return true;
+  }
+  return false;
+}
+/* 试听按钮旁的引擎提示：选蝉镜时高亮绿色；未选时给出「当前音色 + 蝉镜更省」 */
+function updateTtsEngineHint(voice) {
+  var el = $('aeTtsEngineHint');
+  if (!el) return;
+  var v = voice || (($('aeTtsVoice') && $('aeTtsVoice').value) || state.input.voice || 'qwen:Cherry');
+  var eng = voiceEngineOf(v);
+  if (eng === 'chanjing') {
+    el.className = 'ae-engine-hint on';
+    el.textContent = '已选蝉镜音色 · ¥0.007/秒，将用于成片';
+    return;
+  }
+  el.className = 'ae-engine-hint';
+  el.textContent = '当前：' + voiceText(v) + '（' + voiceEngineLabel(eng) + '）' + (chanjingVoiceAvailable() ? ' · 蝉镜更省：¥0.007/秒' : '');
+}
+
 function updateVoiceHint() {
   var hint = $('aeTtsHint');
   if (!hint) return;
@@ -3457,11 +4031,11 @@ function updateVoiceHint() {
     return !(c && (c.ready || c.status === 'OK'));
   }).length;
   if (state.tts && state.tts.url) return;
-  var txt = '用成片同一套配音生成音频（推荐老板克隆 / 蝉镜 ¥0.007/秒 / qwen3 预设），可换音色重试';
+  var txt = '用成片同一套配音生成音频（推荐 qwen3 预设 / 蝉镜 ¥0.007/秒），可换音色重试';
   if (pending > 0) txt += '；' + pending + ' 个克隆音色部署中，请稍后（通常 1~5 分钟）';
   hint.textContent = txt;
 }
-/* 第 1 步音色卡片：按 推荐音色（老板克隆）/ 蝉镜性价比音色 / qwen3 预设 分组渲染 */
+/* 第 1 步音色卡片：按 qwen3 预设 / 蝉镜性价比音色 / 其他克隆分组渲染（空组自动隐藏） */
 function renderVoiceCards() {
   var box = $('aeVoices');
   if (!box) return;
@@ -3471,7 +4045,7 @@ function renderVoiceCards() {
   var html = '';
   groups.forEach(function (g) {
     var voices = (g.voices || []).slice();
-    var icon = g.key === 'boss' ? '👤' : (g.key === 'chanjing' ? '💰' : '🎙️');
+    var icon = g.key === 'chanjing' ? '💰' : '🎙️';
     if (g.key === 'qwen') voices = voices.slice(0, 6);
     if (g.key === 'chanjing') {
       var clones = voices.filter(function (v) { return v.kind === 'clone'; });
@@ -3494,8 +4068,7 @@ function renderVoiceCards() {
         desc = (v.kind === 'clone' ? '克隆音色 · ' : '公共音色 · ') + '¥0.007/秒（按合成时长）';
         extra = ' is-cj';
       } else if (g.key === 'boss') {
-        desc = '老板本人克隆 · CosyVoice 按量计费';
-        if (v.featured) nm = '★ ' + nm;
+        desc = '真人克隆 · CosyVoice 按量计费';
       }
       html += '<div class="ae-voice' + extra + '" data-voice="' + esc(id) + '" role="radio" aria-checked="false" tabindex="-1">' +
         '<span class="ae-voice-top"><span class="v-ico">' + icon + '</span><b>' + esc(nm) + '</b></span>' +
@@ -3535,7 +4108,7 @@ function renderVoiceSelect() {
           if (!v.voice_id) return;
           var ready = !!(v.ready || v.status === 'OK');
           html += '<option value="cosy:' + esc(v.voice_id) + '" data-engine="cosy"' + (ready ? '' : ' disabled') + '>' +
-            (v.featured ? '★ ' : '') + esc(v.name || v.voice_id) + (ready ? ' · 已就绪' : '（部署中，请稍后）') + '</option>';
+            esc(v.name || v.voice_id) + (ready ? '· 已就绪' : '（部署中，请稍后）') + '</option>';
           return;
         }
         if (g.key === 'chanjing') {
@@ -3575,6 +4148,7 @@ function renderVoiceSelect() {
   sel.value = want;
   updateVoiceHint();
   updateVoicePriceHint();
+  updateTtsEngineHint(want);
 }
 
 
@@ -3588,11 +4162,14 @@ function loadVoiceList() {
       price_hints: (d && d.price_hints) || {},
       loaded: true, error: ''
     };
+    /* 默认音色固定 qwen:Cherry（旧版真人克隆已下线；groups.boss 为空时下面渲染会自动隐藏该组） */
+    if (!state.voiceTouched && !state.project) state.input.voice = defaultVoiceId();
     renderVoiceCards();
     renderVoiceSelect();
   }).catch(function (e) {
     state.voiceCatalog = { presets: [], cloned: [], groups: [], loaded: false, error: (e && e.message) || 'load_failed' };
     if ($('aeTtsHint')) $('aeTtsHint').textContent = '音色目录加载失败，暂用默认音色（' + ((e && e.message) || '网络异常') + '）';
+    updateTtsEngineHint();
   });
 }
 function tryVoice(voice) {
@@ -4485,6 +5062,158 @@ function sizeCanvas() {
   c.height = Math.round(h * dpr);
   c._w = w; c._h = h; c._dpr = dpr;
 }
+/* ---------------- 第 3 步 canvas：数字人预览（用户照片 / 出镜视频首帧） ----------------
+   只影响预览画布：导出 / 渲染逻辑完全不动。 */
+var DH_PHOTO = { src: '', img: null };
+var DH_VIDEO = { src: '', el: null, ready: false };
+var _dhRedrawTimer = null;
+
+function dhPresenterMode() {
+  var m = presenterModeOf();
+  return (m === 'photo' || m === 'photo_lipsync' || m === 'lipsync' || m === 'upload') ? m : 'none';
+}
+function dhPhotoSrc() {
+  var m = dhPresenterMode();
+  if (m !== 'photo' && m !== 'photo_lipsync') return '';
+  return state.avatar.previewUrl || state.avatar.dataUrl || '';
+}
+function dhVideoSrc() {
+  var m = dhPresenterMode();
+  if (m === 'lipsync') {
+    return state.presenter.lipsyncVideoUrl ||
+      (state.presenter.lipsyncVideoPath ? normalizeMediaUrl(state.presenter.lipsyncVideoPath) : '');
+  }
+  if (m === 'upload') {
+    return state.presenter.videoPreviewUrl || state.presenter.videoUrlRaw ||
+      (state.presenter.videoPath ? normalizeMediaUrl(state.presenter.videoPath) : '');
+  }
+  return '';
+}
+function dhPreviewKind() {
+  if (dhPhotoSrc()) return 'photo';
+  if (dhVideoSrc()) return 'video';
+  return '';
+}
+function dhHasPreview() { return !!dhPreviewKind(); }
+function dhBadgeLines() {
+  return dhPresenterMode() === 'upload'
+    ? ['数字人预览', '（成片里会用这段出镜视频）']
+    : ['数字人预览', '（导出的成片里会开口说话）'];
+}
+function dhMissingText() {
+  var m = dhPresenterMode();
+  if (m === 'photo' || m === 'photo_lipsync') return ['上传照片后这里会显示数字人', '选「照片口型数字人」再上传一张正脸清晰照片'];
+  if (m === 'lipsync') return ['上传出镜视频后这里会显示数字人', '选「真口型数字人」再上传 5–20 秒正面视频'];
+  if (m === 'upload') return ['上传口播视频后这里会显示数字人', '上传后成片会合成这段出镜视频'];
+  return [];
+}
+function scheduleDhRedraw() {
+  if (_dhRedrawTimer) return;
+  _dhRedrawTimer = setTimeout(function () {
+    _dhRedrawTimer = null;
+    if (state.step === 3 && state.project) { sizeCanvas(); drawFrame(state.player.t); }
+  }, 80);
+}
+function ensureDhAssets() {
+  var ps = dhPhotoSrc();
+  if (ps) {
+    if (DH_PHOTO.src !== ps) {
+      DH_PHOTO.src = ps;
+      var im = new Image();
+      im.onload = function () { if (DH_PHOTO.img === im) scheduleDhRedraw(); };
+      im.onerror = function () { scheduleDhRedraw(); };
+      im.src = ps;
+      DH_PHOTO.img = im;
+    }
+  } else if (DH_PHOTO.img) {
+    DH_PHOTO.img = null; DH_PHOTO.src = '';
+  }
+  var vs = dhVideoSrc();
+  if (vs) {
+    if (DH_VIDEO.src !== vs) {
+      DH_VIDEO.src = vs;
+      DH_VIDEO.ready = false;
+      var v = document.createElement('video');
+      v.muted = true; v.playsInline = true; v.preload = 'auto';
+      v.addEventListener('loadeddata', function () { DH_VIDEO.ready = true; scheduleDhRedraw(); });
+      v.addEventListener('seeked', function () { DH_VIDEO.ready = true; scheduleDhRedraw(); });
+      v.addEventListener('error', function () { scheduleDhRedraw(); });
+      v.src = vs;
+      try { v.load(); } catch (e) {}
+      try { v.currentTime = 0.05; } catch (e) {}
+      DH_VIDEO.el = v;
+    }
+  } else if (DH_VIDEO.el) {
+    try { DH_VIDEO.el.removeAttribute('src'); DH_VIDEO.el.load(); } catch (e) {}
+    DH_VIDEO.el = null; DH_VIDEO.src = ''; DH_VIDEO.ready = false;
+  }
+}
+function dhMediaReady() {
+  var im = DH_PHOTO.img;
+  if (im && im.complete && im.naturalWidth) return im;
+  var v = DH_VIDEO.el;
+  if (v && DH_VIDEO.ready && v.videoWidth) return v;
+  return null;
+}
+function drawCoverMedia(ctx, media, W, H) {
+  var mw = media.videoWidth || media.naturalWidth || media.width || 1;
+  var mh = media.videoHeight || media.naturalHeight || media.height || 1;
+  var k = Math.max(W / mw, H / mh);
+  var dw = mw * k, dh = mh * k;
+  try { ctx.drawImage(media, (W - dw) / 2, (H - dh) / 2, dw, dh); } catch (e) {}
+}
+function drawDhBadge(ctx, W, pad) {
+  var lines = dhBadgeLines();
+  var fs = Math.round(clamp(W * 0.026, 8.5, 13));
+  ctx.font = '800 ' + fs + 'px "Microsoft YaHei",sans-serif';
+  var tw = 0;
+  for (var i = 0; i < lines.length; i++) tw = Math.max(tw, ctx.measureText(lines[i]).width);
+  var bpad = fs * 0.9;
+  var bw = tw + bpad * 2 + fs * 1.35;
+  var bh = lines.length * fs * 1.42 + fs * 0.7;
+  var bx = W - pad - bw, by = pad;
+  if (bx < pad) bx = pad;
+  roundRect(ctx, bx, by, bw, bh, Math.min(bh / 2, fs * 1.2));
+  ctx.fillStyle = 'rgba(3,10,20,.72)'; ctx.fill();
+  ctx.strokeStyle = 'rgba(52,211,153,.55)'; ctx.lineWidth = Math.max(1, W * 0.0022); ctx.stroke();
+  ctx.beginPath();
+  ctx.arc(bx + bpad + fs * 0.22, by + bh / 2, Math.max(2, fs * 0.3), 0, Math.PI * 2);
+  ctx.fillStyle = '#34d399'; ctx.fill();
+  ctx.textAlign = 'left';
+  var lineH = fs * 1.42;
+  var ty = by + bh / 2 - (lines.length - 1) * lineH / 2 + fs * 0.34;
+  for (var j = 0; j < lines.length; j++) {
+    ctx.font = (j === 0 ? '800 ' : '600 ') + (j === 0 ? fs : Math.round(fs * 0.86)) + 'px "Microsoft YaHei",sans-serif';
+    ctx.fillStyle = j === 0 ? '#6ee7b7' : 'rgba(167,243,208,.9)';
+    ctx.fillText(lines[j], bx + bpad + fs * 1.05, ty + j * lineH);
+  }
+}
+function drawDhMissing(ctx, W, H, pad) {
+  var lines = dhMissingText();
+  if (!lines.length) return;
+  var fs = Math.round(clamp(W * 0.04, 12, 20));
+  var maxW = W - pad * 2;
+  ctx.font = '800 ' + fs + 'px "Microsoft YaHei",sans-serif';
+  var t0w = Math.min(maxW - fs * 2.2, ctx.measureText(lines[0]).width);
+  var boxW = t0w + fs * 2.2;
+  var boxH = fs * 3.9;
+  var bx = (W - boxW) / 2, by = H * 0.66 - boxH / 2;
+  ctx.save();
+  try { ctx.setLineDash([Math.max(4, fs * 0.5), Math.max(3, fs * 0.35)]); } catch (e) {}
+  roundRect(ctx, bx, by, boxW, boxH, fs * 0.9);
+  ctx.fillStyle = 'rgba(3,10,20,.55)'; ctx.fill();
+  ctx.strokeStyle = 'rgba(148,163,184,.55)'; ctx.lineWidth = Math.max(1, W * 0.0025); ctx.stroke();
+  try { ctx.setLineDash([]); } catch (e) {}
+  ctx.textAlign = 'center';
+  ctx.font = '800 ' + fs + 'px "Microsoft YaHei",sans-serif';
+  ctx.fillStyle = '#e8eef8';
+  ctx.fillText(lines[0], W / 2, by + fs * 1.7);
+  ctx.font = '600 ' + Math.round(fs * 0.78) + 'px "Microsoft YaHei",sans-serif';
+  ctx.fillStyle = 'rgba(232,238,248,.72)';
+  ctx.fillText(lines[1] || '', W / 2, by + fs * 2.85);
+  ctx.restore();
+  ctx.textAlign = 'left';
+}
 function drawFrame(t) {
   if (!state.project || !$('aeCanvas') || !$('step3') || $('step3').hidden) return;
   var c = $('aeCanvas');
@@ -4502,25 +5231,58 @@ function drawFrame(t) {
   var type = seg.type || 'voiceover';
   var pal = PLAYER_PALETTES[type] || PLAYER_PALETTES.voiceover;
   var pad = Math.round(W * 0.075);
-  var g = ctx.createLinearGradient(0, 0, W, H);
-  g.addColorStop(0, pal[0]); g.addColorStop(0.55, pal[1]); g.addColorStop(1, '#05080f');
-  ctx.fillStyle = g; ctx.fillRect(0, 0, W, H);
-  drawGlow(ctx, W * 0.78, H * 0.16, W * 0.6, 'rgba(255,255,255,.2)');
-  drawGlow(ctx, W * 0.12, H * 0.96, W * 0.72, 'rgba(0,0,0,.36)');
-  ctx.globalAlpha = 0.16;
-  ctx.strokeStyle = pal[2] || '#38bdf8'; ctx.lineWidth = Math.max(1, W * 0.0025);
-  for (var i = 0; i < 7; i++) {
-    ctx.beginPath();
-    ctx.moveTo(0, H * 0.12 + i * H * 0.11);
-    ctx.lineTo(W, H * 0.12 + i * H * 0.11 - W * 0.08);
-    ctx.stroke();
+  ensureDhAssets();
+  var dhMode = dhPresenterMode();
+  var dhKind = dhPreviewKind();
+  var dhNeedAsset = (dhMode !== 'none') && !dhKind;
+  var dhMedia = dhKind ? dhMediaReady() : null;
+  if (dhKind) {
+    /* 有照片 / 视频：直接绘制用户素材做预览（cover 裁剪、居中） */
+    ctx.fillStyle = '#05080f'; ctx.fillRect(0, 0, W, H);
+    if (dhMedia) {
+      drawCoverMedia(ctx, dhMedia, W, H);
+    } else {
+      var g0 = ctx.createLinearGradient(0, 0, W, H);
+      g0.addColorStop(0, '#0b1220'); g0.addColorStop(0.6, '#0f172a'); g0.addColorStop(1, '#05080f');
+      ctx.fillStyle = g0; ctx.fillRect(0, 0, W, H);
+      drawGlow(ctx, W * 0.78, H * 0.16, W * 0.6, 'rgba(56,189,248,.2)');
+      /* 素材已选、首帧还在解码：短暂显示加载提示（不要误报“未上传”） */
+      ctx.textAlign = 'center';
+      ctx.font = '700 ' + Math.round(clamp(W * 0.034, 11, 16)) + 'px "Microsoft YaHei",sans-serif';
+      ctx.fillStyle = 'rgba(232,238,248,.82)';
+      ctx.fillText(dhKind === 'video' ? '视频首帧加载中…' : '数字人预览加载中…', W / 2, H * 0.66);
+      ctx.textAlign = 'left';
+    }
+    var ov = ctx.createLinearGradient(0, 0, 0, H);
+    ov.addColorStop(0, 'rgba(3,7,18,.74)');
+    ov.addColorStop(0.24, 'rgba(3,7,18,.10)');
+    ov.addColorStop(0.68, 'rgba(3,7,18,.08)');
+    ov.addColorStop(1, 'rgba(3,7,18,.84)');
+    ctx.fillStyle = ov; ctx.fillRect(0, 0, W, H);
+  } else {
+    var g = ctx.createLinearGradient(0, 0, W, H);
+    g.addColorStop(0, pal[0]); g.addColorStop(0.55, pal[1]); g.addColorStop(1, '#05080f');
+    ctx.fillStyle = g; ctx.fillRect(0, 0, W, H);
+    drawGlow(ctx, W * 0.78, H * 0.16, W * 0.6, 'rgba(255,255,255,.2)');
+    drawGlow(ctx, W * 0.12, H * 0.96, W * 0.72, 'rgba(0,0,0,.36)');
+    ctx.globalAlpha = 0.16;
+    ctx.strokeStyle = pal[2] || '#38bdf8'; ctx.lineWidth = Math.max(1, W * 0.0025);
+    for (var i = 0; i < 7; i++) {
+      ctx.beginPath();
+      ctx.moveTo(0, H * 0.12 + i * H * 0.11);
+      ctx.lineTo(W, H * 0.12 + i * H * 0.11 - W * 0.08);
+      ctx.stroke();
+    }
+    ctx.globalAlpha = 1;
+    ctx.textAlign = 'right';
+    ctx.font = '900 ' + Math.round(W * 0.2) + 'px "Microsoft YaHei",sans-serif';
+    ctx.fillStyle = 'rgba(255,255,255,.07)';
+    ctx.fillText(pad2(idx + 1), W - pad * 0.5, H * 0.3);
+    ctx.textAlign = 'left';
+    /* 选了数字人但还没上传素材：给出明确提示，避免用户以为数字人没生效 */
+    if (dhMode !== 'none' && !dhKind) drawDhMissing(ctx, W, H, pad);
   }
-  ctx.globalAlpha = 1;
-  ctx.textAlign = 'right';
-  ctx.font = '900 ' + Math.round(W * 0.2) + 'px "Microsoft YaHei",sans-serif';
-  ctx.fillStyle = 'rgba(255,255,255,.07)';
-  ctx.fillText(pad2(idx + 1), W - pad * 0.5, H * 0.3);
-  ctx.textAlign = 'left';
+  /* 左上角镜头类型标签 */
   var bFont = Math.round(Math.max(10, W * 0.04));
   ctx.font = '800 ' + bFont + 'px "Microsoft YaHei",sans-serif';
   var label = ' ' + (TYPES[type] ? TYPES[type].ico + ' ' + TYPES[type].label : '画面') + ' ';
@@ -4528,37 +5290,77 @@ function drawFrame(t) {
   roundRect(ctx, pad, pad, labelW, bFont * 2, bFont);
   ctx.fillStyle = 'rgba(0,0,0,.36)'; ctx.fill();
   ctx.fillStyle = '#ffffff';
-  ctx.fillText(label, pad + bFont * 0.5, pad + bFont * 1.35);
-  ctx.textAlign = 'right';
-  ctx.font = '600 ' + Math.round(Math.max(9, W * 0.032)) + 'px "Microsoft YaHei",sans-serif';
-  ctx.fillStyle = 'rgba(255,255,255,.55)';
-  ctx.fillText('AI 演示预览', W - pad, pad + bFont * 1.4);
   ctx.textAlign = 'left';
-  var fs = Math.round(clamp(Math.min(W, H) * 0.072, 16, 42));
-  ctx.font = '800 ' + fs + 'px "Microsoft YaHei",sans-serif';
-  var maxW = W - pad * 2;
-  var lines = wrapCanvasText(ctx, seg.text || '转场', maxW).slice(0, 4);
-  var lh = fs * 1.42;
-  var startY = H * 0.55 - (lines.length * lh) / 2 + fs;
-  if (seg.emphasis && lines.length) {
-    ctx.fillStyle = 'rgba(251,191,36,.26)';
-    ctx.fillRect(pad * 0.86, startY - fs * 1.02, Math.min(maxW, ctx.measureText(lines[0]).width + fs * 0.3), fs * 1.26);
+  ctx.fillText(label, pad + bFont * 0.5, pad + bFont * 1.35);
+  if (dhKind) {
+    drawDhBadge(ctx, W, pad);
+  } else {
+    ctx.textAlign = 'right';
+    ctx.font = '600 ' + Math.round(Math.max(9, W * 0.032)) + 'px "Microsoft YaHei",sans-serif';
+    ctx.fillStyle = 'rgba(255,255,255,.55)';
+    ctx.fillText('AI 演示预览', W - pad, pad + bFont * 1.4);
+    ctx.textAlign = 'left';
   }
-  ctx.shadowColor = 'rgba(0,0,0,.6)'; ctx.shadowBlur = fs * 0.32;
-  ctx.fillStyle = '#f8fbff';
-  for (var li = 0; li < lines.length; li++) ctx.fillText(lines[li], pad, startY + li * lh);
-  ctx.shadowBlur = 0;
-  ctx.font = '500 ' + Math.round(clamp(fs * 0.34, 10, 15)) + 'px "Microsoft YaHei",sans-serif';
-  ctx.fillStyle = 'rgba(255,255,255,.72)';
-  var hint = (seg.broll || '').slice(0, 30);
-  ctx.fillText('画面：' + hint, pad, H - H * 0.15);
+  /* 镜头文案（已选数字人但还没上传素材时，让位给上传提示，避免文字重叠） */
+  if (!dhNeedAsset) {
+    var fs = Math.round(clamp(Math.min(W, H) * (dhKind ? 0.06 : 0.072), 14, 40));
+    ctx.font = '800 ' + fs + 'px "Microsoft YaHei",sans-serif';
+    var maxW = W - pad * 2;
+    var lines = wrapCanvasText(ctx, seg.text || '转场', maxW).slice(0, dhKind ? 3 : 4);
+    var lh = fs * 1.42;
+    var startY = H * (dhKind ? 0.74 : 0.55) - (lines.length * lh) / 2 + fs;
+    if (seg.emphasis && lines.length) {
+      ctx.fillStyle = 'rgba(251,191,36,.26)';
+      ctx.fillRect(pad * 0.86, startY - fs * 1.02, Math.min(maxW, ctx.measureText(lines[0]).width + fs * 0.3), fs * 1.26);
+    }
+    ctx.shadowColor = 'rgba(0,0,0,.6)'; ctx.shadowBlur = fs * 0.32;
+    ctx.fillStyle = '#f8fbff';
+    for (var li = 0; li < lines.length; li++) ctx.fillText(lines[li], pad, startY + li * lh);
+    ctx.shadowBlur = 0;
+    if (!dhKind) {
+      ctx.font = '500 ' + Math.round(clamp(fs * 0.34, 10, 15)) + 'px "Microsoft YaHei",sans-serif';
+      ctx.fillStyle = 'rgba(255,255,255,.72)';
+      var hint = (seg.broll || '').slice(0, 30);
+      ctx.fillText('画面：' + hint, pad, H - H * 0.15);
+    }
+  }
   var barY = H - H * 0.095, barW = W - pad * 2;
   ctx.fillStyle = 'rgba(255,255,255,.2)'; ctx.fillRect(pad, barY, barW, Math.max(3, H * 0.006));
   ctx.fillStyle = pal[2] || '#7dd3fc';
   ctx.fillRect(pad, barY, barW * clamp(t / total, 0, 1), Math.max(3, H * 0.006));
   ctx.font = '600 ' + Math.round(Math.max(9, W * 0.028)) + 'px "Microsoft YaHei",sans-serif';
   ctx.fillStyle = 'rgba(255,255,255,.72)';
-  ctx.fillText(fmtTime(t) + ' / ' + fmtTime(total) + ' · 星籁 AI 演示预览', pad, H - H * 0.045);
+  ctx.fillText(fmtTime(t) + ' / ' + fmtTime(total) + (dhKind ? ' · 数字人预览 · 成片导出后开口' : ' · 星籁 AI 演示预览'), pad, H - H * 0.045);
+}
+/* 数字人素材/选择变化时，刷新第 3 步预览画布与顶部状态 */
+function refreshDhPreviewChrome() {
+  if (!state.project || !$('step3') || $('step3').hidden) return;
+  var hasReal = !!(state.project.videoUrl && String(state.project.videoUrl).indexOf('/demo/') < 0);
+  var avatar = (state.project.avatar && state.project.avatar.clipUrl) ? state.project.avatar : null;
+  if (hasReal || avatar) return; /* 真实视频 / 数字人样片分支由 prepareStep3 处理 */
+  var dh = dhHasPreview();
+  if ($('playerPill')) {
+    if (dh) { $('playerPill').className = 'ae-pill-tag live'; $('playerPill').textContent = '数字人预览 · 成片导出后开口'; }
+    else { $('playerPill').className = 'ae-pill-tag'; $('playerPill').textContent = '演示占位 · 导出后为真实成片'; }
+  }
+  if ($('aePlayNote')) {
+    var pr = state.project.presenter;
+    var pres = (pr && pr.mode && pr.mode !== 'none') ? pr : null;
+    var presLayout = (pres && pres.layout) || 'full';
+    if (dh) {
+      var modeTxt = dhPresenterMode() === 'upload' ? '上传口播视频'
+        : (dhPresenterMode() === 'lipsync' ? '真口型数字人（视频）' : '照片口型数字人');
+      $('aePlayNote').textContent = '第③步为数字人预览（' + modeTxt + ' · ' + (presLayout === 'pip' ? '右下画中画' : '铺满背景') +
+        '）：导出成片后数字人会开口说话；点「开始导出」渲染完成后这里切换为真实成片。';
+    } else if (pres) {
+      $('aePlayNote').textContent = '已选数字人出镜（' + (presLayout === 'pip' ? '右下画中画' : '铺满背景') +
+        '）：请先上传照片 / 视频，上传后这里会显示数字人预览；点「开始导出」后成片会真实合成数字人。';
+    } else {
+      $('aePlayNote').textContent = '当前为演示占位预览（AI 会按导演板自动播放镜头效果）；导出成片后这里会切换为带声音的真实视频。';
+    }
+  }
+  sizeCanvas();
+  drawFrame(state.player.t);
 }
 function updatePlayerUI() {
   var p = state.project;
@@ -4673,11 +5475,8 @@ function prepareStep3() {
     if ($('aePlayBtn')) $('aePlayBtn').hidden = false;
     if ($('aePlayerBar')) $('aePlayerBar').hidden = false;
     if ($('aeAvatarShotList')) $('aeAvatarShotList').hidden = true;
-    if ($('playerPill')) { $('playerPill').className = 'ae-pill-tag'; $('playerPill').textContent = '演示占位'; }
-    if ($('aePlayNote')) $('aePlayNote').textContent = pres
-      ? '已选数字人出镜（' + (pres.mode === 'upload' ? (pres.chroma ? '上传口播视频 · 绿幕抠像' : '上传口播视频')
-        : (pres.mode === 'lipsync' ? '真口型数字人（上传视频）' : (pres.mode === 'photo_lipsync' ? '照片口型数字人（照片推近 + 真口型）' : '照片数字人'))) + ' · ' + (presLayout === 'pip' ? '右下画中画' : '铺满背景') + '）：点「开始导出」后成片会真实合成数字人，导出即最终版。'
-      : '当前为演示占位预览（AI 会按导演板自动播放镜头效果）；点「开始导出」渲染完成后，这里会播放带声音的真实成片。';
+    /* 预览占位：若已选数字人且已有照片/视频，直接绘制成数字人预览；否则显示演示占位 */
+    refreshDhPreviewChrome();
   }
   if ($('aePlayerMeta')) {
     $('aePlayerMeta').innerHTML = '<span class="ae-sum-chip">' + p.segments.length + ' 个镜头</span>' +
@@ -4697,6 +5496,7 @@ function prepareStep3() {
     }
     if (vFound) vsel.value = wantV;
   }
+  if ($('aeTtsVoice')) updateTtsEngineHint($('aeTtsVoice').value || '');
   if ($('aeTtsHint')) {
     $('aeTtsHint').textContent = state.tts.url
       ? '试听地址：' + (state.tts.path || '') + '（可换音色重试）'
@@ -5127,10 +5927,10 @@ function applySkill(id) {
   var s = findSkill(id);
   if (!s) return;
   var industry = INDUSTRY[s.industry] ? s.industry : '除甲醛';
-  if ($('aeIndustry')) $('aeIndustry').value = industry;
-  state.input.industry = industry;
+  updateIndustrySelection(industry);
   setDuration(s.duration || 30);
   setAspect(s.aspect || '9:16');
+  state.voiceTouched = true;
   setVoice(s.voice || '女声·亲切自然');
   state.style = s.style || '稳重专业';
   setStyleUI(state.style);
@@ -5220,12 +6020,17 @@ function bindUi() {
     if ($('aeText')) { $('aeText').value = exampleFor(state.input.industry); updateChar(); $('aeText').focus(); }
     toast('已填入示例文案，可直接点「开始生成视频」', 'ok', 2200);
   });
+  if ($('aeExampleChips')) $('aeExampleChips').addEventListener('click', function (e) {
+    var b = e.target.closest ? e.target.closest('[data-ae-ex]') : null;
+    if (!b) return;
+    fillIndustryExample(Number(b.getAttribute('data-ae-ex')));
+  });
   if ($('btnClear')) $('btnClear').addEventListener('click', function () {
     if ($('aeText')) { $('aeText').value = ''; updateChar(); $('aeText').focus(); }
   });
   if ($('aeIndustry')) $('aeIndustry').addEventListener('change', function () {
-    state.input.industry = $('aeIndustry').value;
-    if ($('btnSample')) $('btnSample').textContent = '用一段' + state.input.industry + '示例';
+    updateIndustrySelection($('aeIndustry').value);
+    toast('已切换行业：' + state.input.industry + '，下方示例已同步', 'ok', 2000);
   });
   $$('#aeDurations .ae-pill').forEach(function (b) {
     b.addEventListener('click', function () { setDuration(b.getAttribute('data-duration')); });
@@ -5238,11 +6043,11 @@ function bindUi() {
       var tryBtn = e.target.closest('.v-play');
       if (tryBtn) { e.preventDefault(); e.stopPropagation(); tryVoice(tryBtn.getAttribute('data-try-voice')); return; }
       var vb = e.target.closest('.ae-voice');
-      if (vb) setVoice(vb.getAttribute('data-voice'));
+      if (vb) { state.voiceTouched = true; setVoice(vb.getAttribute('data-voice')); }
     });
     $('aeVoices').addEventListener('keydown', function (e) {
       var vb = e.target.closest('.ae-voice');
-      if (vb && (e.key === 'Enter' || e.key === ' ')) { e.preventDefault(); setVoice(vb.getAttribute('data-voice')); }
+      if (vb && (e.key === 'Enter' || e.key === ' ')) { e.preventDefault(); state.voiceTouched = true; setVoice(vb.getAttribute('data-voice')); }
     });
   }
   if ($('aeDrop')) {
@@ -5486,9 +6291,11 @@ function bindUi() {
     var v = $('aeTtsVoice').value;
     var eng = voiceEngineOf(v);
     var label = voiceText(v);
+    state.voiceTouched = true;
     state.input.voice = v;
     setVoice(v);
     if (state.project) state.project.voice = v;
+    updateTtsEngineHint(v);
     var engLabel = eng === 'cosy' ? 'CosyVoice 克隆音色（按量计费）'
       : (eng === 'chanjing' ? '蝉镜 TTS（¥0.007/秒）'
         : (eng === 'edge' ? 'edge-tts' : 'qwen3-tts 高品质配音（约 ¥0.005/60字）'));
@@ -5533,7 +6340,8 @@ function boot() {
   setVoice(state.input.voice || '女声·亲切自然');
   setStyleUI(state.style);
   updateChar();
-  if ($('btnSample')) $('btnSample').textContent = '用一段' + state.input.industry + '示例';
+  updateIndustrySelection(state.input.industry || '除甲醛');
+  updateTtsEngineHint();
   updatePlanChip();
   setMode('detecting');
   renderSkillGrid();
