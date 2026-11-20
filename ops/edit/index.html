@@ -620,6 +620,15 @@ html[data-page="ops-edit"] .xl-sb-theme{display:none!important}
           <span class="mi"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="5.5" width="18" height="13" rx="2.4"/><path d="M3 10h18"/><path d="M6.5 14.5h4M14 14.5h3.5"/></svg></span>
           <span class="ml">套餐权限</span>
         </button>
+
+        <button class="oe-menu-item" type="button" data-tab="credits" role="tab" aria-selected="false">
+          <span class="mi"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><ellipse cx="12" cy="6.5" rx="7.5" ry="3"/><path d="M4.5 6.5v5c0 1.7 3.4 3 7.5 3s7.5-1.3 7.5-3v-5"/><path d="M4.5 11.5v5c0 1.7 3.4 3 7.5 3s7.5-1.3 7.5-3v-5"/></svg></span>
+          <span class="ml">积分管理</span>
+        </button>
+        <button class="oe-menu-item" type="button" data-tab="invoices" role="tab" aria-selected="false">
+          <span class="mi"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M6 3.5h12v17l-3-2-3 2-3-2z"/><path d="M9 8h6M9 11.5h6M9 15h4"/></svg></span>
+          <span class="ml">发票管理</span>
+        </button>
       </nav>
       <div class="oe-menu-sep" aria-hidden="true"></div>
       <div class="oe-menu-foot">
@@ -645,6 +654,8 @@ html[data-page="ops-edit"] .xl-sb-theme{display:none!important}
       <div class="oe-notice" id="oeNotice" hidden></div>
 
       <div class="oe-body" id="oeBody">
+        <section class="oe-panel" data-panel="credits" id="panel-credits" hidden></section>
+        <section class="oe-panel" data-panel="invoices" id="panel-invoices" hidden></section>
         <!-- ================= 1. 运营总览 ================= -->
         <section class="oe-panel" data-panel="overview" id="panel-overview">
           <div class="oe-stats" id="ovStats">
@@ -1161,7 +1172,10 @@ html[data-page="ops-edit"] .xl-sb-theme{display:none!important}
     skills: { label: 'Skill 配置', crumb: 'Skill 配置', sub: '下发全局 Skill：选模板 + 默认时长 / 画幅 / 配音音色 / 风格，商家端一键复用。' },
     compute: { label: '算力与任务', crumb: '算力与任务', sub: '近 7 天算力消耗与渲染任务；支持失败重试，并说明并发与排队策略。' },
     stats: { label: '数据统计', crumb: '数据统计', sub: '成片数量、时长、失败率与商家使用排行；成本为估算口径。' },
-    plans: { label: '套餐权限', crumb: '套餐权限', sub: '四档套餐功能矩阵：内容理解 / 演示视频 / Skill / 批量 / 优先算力 / 多轨 / 关键帧 / 自定义素材库。' }
+    plans: { label: '套餐权限', crumb: '套餐权限', sub: '四档套餐功能矩阵：内容理解 / 演示视频 / Skill / 批量 / 优先算力 / 多轨 / 关键帧 / 自定义素材库。' },
+    credits: { label: '积分管理', crumb: '积分管理', sub: '给客户充积分、按用量扣积分；用户端 0.3–0.8 积分/秒、渲染 2 积分/条；后台看真实成本/毛利与总户余额。' },
+    invoices: { label: '发票管理', crumb: '发票管理', sub: '客户开票申请：人工开票（填发票号/上传 PDF）、驳回、自动开票；导出 CSV 给代账公司/开票平台。' }
+
   };
 
   var TYPE_META = {
@@ -1937,7 +1951,9 @@ html[data-page="ops-edit"] .xl-sb-theme{display:none!important}
     skills: function (force) { return ensureSkills(force); },
     compute: function (force) { return Promise.all([ensureOverview(force), ensureStats(force), ensureProjects(force)]); },
     stats: function (force) { return Promise.all([ensureStats(force), ensureOverview(force), ensureLibrary(force)]); },
-    plans: function (force) { return ensurePlans(force); }
+    plans: function (force) { return ensurePlans(force); },
+    credits: function () { return Promise.resolve(); },
+    invoices: function () { return Promise.resolve(); }
   };
   var TAB_RENDERERS = {};
 
@@ -2826,6 +2842,8 @@ html[data-page="ops-edit"] .xl-sb-theme{display:none!important}
      渲染：套餐权限
      ============================================================ */
   TAB_RENDERERS.plans = function () { renderPlans(); };
+  TAB_RENDERERS.credits = function () { if (window.XLCreditsOps) window.XLCreditsOps.render(); };
+  TAB_RENDERERS.invoices = function () { if (window.XLInvoicesOps) window.XLInvoicesOps.render(); };
   function ensurePlanMatrix() {
     var planIds = (state.plans || []).map(function (p) { return p.id; });
     if (!planIds.length) planIds = ['free', 'basic', 'pro', 'enterprise'];
@@ -3932,6 +3950,7 @@ html[data-page="ops-edit"] .xl-sb-theme{display:none!important}
   else setTimeout(load, 700);
 })();
 </script>
+  <script defer src="../../assets/credits-ops.js"></script>
 </body>
 </html>
 

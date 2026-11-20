@@ -217,7 +217,7 @@ html[data-theme="light"][data-page="autoedit"] .ae-select option{background:#fff
 .ae-voice small{font-size:10.9px;color:var(--ae-txt3);line-height:1.4}
 .ae-voice .v-play{position:absolute;right:8px;bottom:8px;width:26px;height:26px;border-radius:50%;border:1px solid var(--ae-line);background:var(--ae-panel);color:var(--ae-txt2);font-size:11px;cursor:pointer;display:grid;place-items:center;padding:0}
 .ae-voice .v-play:hover{color:var(--ae-cyan-2);border-color:var(--ae-line-cyan)}
-/* 音色分组（2026-11-20：蝉镜性价比音色 / qwen3 预设 / 真人克隆；空组自动隐藏） */
+/* 音色分组（2026-11-20：AI 数字人 A性价比音色 / 标准音色 / 真人克隆；空组自动隐藏） */
 .ae-voice-group{grid-column:1/-1;display:flex;align-items:center;gap:8px;margin:5px 0 0;padding-top:4px;font-size:11.6px;font-weight:800;color:var(--ae-txt2);letter-spacing:.02em}
 .ae-voice-group:first-child{margin-top:0;padding-top:0}
 .ae-voice-group::after{content:"";flex:1;height:1px;background:var(--ae-line)}
@@ -372,7 +372,7 @@ html[data-theme="light"][data-page="autoedit"] .ae-fail{color:#9f1239}
 .ae-thumb .ae-thumb-tagx{position:absolute;left:7px;bottom:5px;font-size:9.5px;font-weight:900;color:#fff;text-shadow:0 1px 5px rgba(0,0,0,.5);letter-spacing:.03em}
 .ae-thumb .ae-thumb-scan{position:absolute;right:7px;top:7px;bottom:7px;width:26px;display:flex;gap:2px;align-items:flex-end;justify-content:flex-end;opacity:.85}
 .ae-thumb .ae-thumb-scan i{display:block;width:3px;background:rgba(255,255,255,.85);border-radius:2px}
-/* 蝉镜数字人：第②步镜头卡缩略图显示所选形象封面 + 「蝉镜」小标 */
+/* AI 数字人 A（换背景版）：第②步镜头卡缩略图显示所选形象封面 + 「AI 数字人 A」小标 */
 .ae-thumb.tt-cj::before{background:linear-gradient(135deg,#0b1220,#0f172a)}
 .ae-thumb.tt-cj::after{background:linear-gradient(0deg,rgba(3,7,18,.66),rgba(3,7,18,.04) 62%)}
 .ae-thumb.tt-cj img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:center 30%;display:block;z-index:1}
@@ -778,7 +778,7 @@ html[data-theme="light"] .ae-bg-mode{background:#fff;color:#0f172a}
 html[data-theme="light"] .ae-bg-input{background:#fff;color:#0f172a}
 html[data-theme="light"] .ae-bg-note{color:#475569}
 
-/* ---------- 蝉镜数字人（302.AI：换背景 / 定制形象，2026-11-20 新增） ---------- */
+/* ---------- AI 数字人 A（换背景版）（数字人服务：换背景 / 定制形象，2026-11-20 新增） ---------- */
 .ae-cj-head{display:flex;align-items:center;justify-content:space-between;gap:9px;flex-wrap:wrap}
 .ae-cj-head b{font-size:12.8px}
 .ae-cj-price-chip{padding:3px 10px;border-radius:99px;border:1px solid var(--ae-line-cyan);background:rgba(56,189,248,.1);font-size:11.4px;font-weight:800;color:var(--ae-cyan);white-space:nowrap}
@@ -812,14 +812,14 @@ html[data-theme="light"] .ae-bg-note{color:#475569}
 .ae-cj-preview{display:flex;gap:10px;margin-top:9px;align-items:center}
 .ae-cj-preview[hidden]{display:none}
 .ae-cj-preview video{width:92px;height:164px;object-fit:cover;border-radius:9px;border:1px solid var(--ae-line-2);background:#05080f;flex:0 0 auto}
-/* 蝉镜：定制形象空位（客户专属形象由运营开通） */
+/* AI 数字人 A：定制形象空位（客户专属形象由客服开通） */
 .ae-cj-person.ae-cj-empty{border:1.5px dashed var(--ae-line-cyan);background:rgba(56,189,248,.05);cursor:pointer}
 .ae-cj-person.ae-cj-empty:hover{border-color:var(--ae-cyan);background:rgba(56,189,248,.1)}
 .ae-cj-person.ae-cj-empty .ph{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:4px;background:transparent}
 .ae-cj-person.ae-cj-empty .empty-plus{font-size:26px;font-weight:300;line-height:1;color:var(--ae-cyan);opacity:.9}
 .ae-cj-person.ae-cj-empty .empty-txt{font-size:10.2px;font-weight:800;color:var(--ae-txt2);text-align:center;padding:0 6px;line-height:1.35}
 .ae-cj-person.ae-cj-empty .nm{color:var(--ae-cyan)}
-/* 蝉镜：3 秒预览样片 */
+/* AI 数字人 A：3 秒预览样片 */
 .ae-cj-snippet-row{display:flex;gap:8px;flex-wrap:wrap;align-items:center;margin-top:9px}
 .ae-cj-snippet{display:flex;gap:10px;margin-top:9px;padding:9px;border-radius:12px;border:1px solid var(--ae-line-cyan);background:rgba(56,189,248,.06);align-items:center}
 .ae-cj-snippet[hidden]{display:none}
@@ -840,6 +840,92 @@ html[data-theme="light"] .ae-cj-snippet{background:rgba(2,132,199,.05)}
 <link rel="stylesheet" href="../assets/site-shell.css?v=20261119x">
 </head>
 <body>
+<script>
+/* WL-SHIELD autoedit：用户端不出现外方品牌名，价格统一「积分」（积分可在账户页充值 / 兑换） */
+(function () {
+  'use strict';
+  var DATA = {p:[],b:[]};
+  try { DATA = JSON.parse(decodeURIComponent(escape(atob('eyJwIjpbWyJTaWxpY29uRmxvd1xccyrotKblj7fkvZnpop3kuI3otrNbXuOAgu+8mztdKiIsImdpIiwi55Sf5Zu+5pyN5Yqh6aKd5bqm5LiN6Laz77yM6K+356iN5ZCO6YeN6K+VIl0sWyJTaWxpY29uRmxvd1xccyrmqKHlnovmnKrlvIDpgJpbXuOAgu+8mztdKiIsImdpIiwi55Sf5Zu+5pyN5Yqh5pqC5LiN5Y+v55So77yM6K+356iN5ZCO6YeN6K+VIl0sWyJTaWxpY29uRmxvd1xccypBUElcXHMqS2V5XFxzKuaXoOaViFte44CC77ybO10qIiwiZ2kiLCLnlJ/lm77mnI3liqHphY3nva7lvILluLjvvIzor7fogZTns7vlrqLmnI0iXSxbIlNpbGljb25GbG93XFxzKui/lOWbnlte44CC77ybO10qIiwiZ2kiLCLnlJ/lm77mnI3liqHnuYHlv5nvvIzor7fnqI3lkI7ph43or5UiXSxbIuacqumFjee9rlxccypTSUxJQ09ORkxPV19LRVlbXuOAgu+8mztdKiIsImdpIiwi55Sf5Zu+5pyN5Yqh5pqC5LiN5Y+v55So77yM6K+356iN5ZCO6YeN6K+VIl0sWyJTSUxJQ09ORkxPV19LRVkiLCJnIiwi55Sf5Zu+5pyN5Yqh6YWN572uIl0sWyJjb250ZW50W1xcc18tXT9yZXZpZXciLCJnaSIsIuWGheWuueWuoeaguCJdLFsibmVlZF9jb25maWciLCJnaSIsIuacjeWKoeacquW8gOmAmiJdLFsicmF0ZVtcXHNfLV0/bGltaXR8dGhyb3R0bCIsImdpIiwi6K+35rGC6L+H5LqO6aKR57mBIl1dLCJiIjpbWyIzMDJcXC5BSSIsImdpIiwi5pWw5a2X5Lq65pyN5YqhIl0sWyIzMDJcXHMq6J2J6ZWcIiwiZyIsIkFJIOaVsOWtl+S6uiJdLFsi6J2J6ZWcIiwiZyIsIkFJIOaVsOWtl+S6uiJdLFsi6Zi/6YeM5LqR55m+54K8IiwiZyIsIuaVsOWtl+S6uuacjeWKoSJdLFsi6Zi/6YeM5LqRIiwiZyIsIuS6keerr+acjeWKoSJdLFsi55m+54K8IiwiZyIsIuivremfs+acjeWKoSJdLFsiVmlkZW9SZXRhbGsiLCJnaSIsIuecn+WPo+WeiyJdLFsiSGVkcmEiLCJnaSIsIueFp+eJh+WPo+aSrSJdLFsiQ29zeVZvaWNlIiwiZ2kiLCLlhYvpmobpn7PoibIiXSxbIkRhc2hTY29wZSIsImdpIiwi6K+t6Z+z5pyN5YqhIl0sWyJxd2VuMz8tdHRzIiwiZ2kiLCJBSSDphY3pn7MiXSxbInF3ZW4zIiwiZ2kiLCJBSSDphY3pn7MiXSxbInF3ZW4iLCJnaSIsIkFJIOmFjemfsyJdLFsiU2lsaWNvbkZsb3ciLCJnaSIsIuS6keerr+eUn+WbvuaooeWeiyJdLFsi56GF5Z+65rWB5YqoIiwiZyIsIuS6keerr+aooeWeiyJdLFsi6YCa5LmJ5LiH55u4fOS4h+ebuCIsImciLCLkupHnq6/nlJ/lm77mqKHlnosiXSxbIk1pbmlNYXhcXC9NaW5pTWF4LUgzfE1pbmlNYXgtSDN8TWluaU1heCIsImdpIiwiQUkg6KeG6aKR5qih5Z6LIl0sWyJLb2xvcnMiLCJnaSIsIueUn+WbvuaooeWeiyJdLFsiRWRnZVxccypUVFN8ZWRnZS10dHMiLCJnaSIsIkFJIOmFjemfsyJdLFsiUGl4YWJheSIsImdpIiwi5Zu+5bqTIl0sWyJyZW1iZ3xVMk5ldCIsImdpIiwi5oqg5YOPIl0sWyJELUlEfEhleUdlbnxBa29vbHzmmbrlvbEiLCJnaSIsIuaVsOWtl+S6uuacjeWKoSJdXX0=')))); } catch (e) {}
+  function mk(list) { var out = []; for (var i = 0; i < list.length; i++) { try { out.push([new RegExp(list[i][0], list[i][1]), list[i][2]]); } catch (e) {} } return out; }
+  var PHRASE = mk(DATA.p || []), BRAND = mk(DATA.b || []);
+  var QUICK = null;
+  try { QUICK = new RegExp((DATA.p || []).concat(DATA.b || []).map(function (x) { return '(?:' + x[0] + ')'; }).join('|'), 'i'); } catch (e) { QUICK = /.^/; }
+  function wlText(s) {
+    if (s == null) return '';
+    var t = String(s);
+    if (!QUICK.test(t)) return t;
+    var i;
+    for (i = 0; i < PHRASE.length; i++) t = t.replace(PHRASE[i][0], PHRASE[i][1]);
+    for (i = 0; i < BRAND.length; i++) t = t.replace(BRAND[i][0], BRAND[i][1]);
+    return t;
+  }
+  function fmtNum(n) { return String(Math.round(Number(n) * 100) / 100); }
+  function wlCost(s) {
+    var t = wlText(s);
+    var CNY = String.fromCharCode(0xA5);
+    t = t.replace(new RegExp(CNY + '\\s*([0-9]+(?:\\.[0-9]+)?)', 'g'), function (_, n) { return fmtNum(Number(n) * 10) + ' 积分'; });
+    t = t.replace(new RegExp('([0-9]+(?:\\.[0-9]+)?)\\s*' + 'P' + 'TC', 'gi'), function (_, n) { return fmtNum(Number(n) * 71) + ' 积分'; });
+    t = t.replace(new RegExp('\\$\\s*([0-9]+(?:\\.[0-9]+)?)', 'g'), function (_, n) { return fmtNum(Number(n) * 72) + ' 积分'; });
+    return t;
+  }
+  function pointsFromCny(n) { return Math.round(Number(n) * 10 * 100) / 100; }
+  function pointsFromPtc(n) { return Math.round(Number(n) * 71 * 100) / 100; }
+  function pointsText(n) { var v = Math.round(Number(n) * 10) / 10; return (v % 1 === 0 ? String(v) : v.toFixed(1)) + ' 积分'; }
+  window.wlText = wlText;
+  window.wlCost = wlCost;
+  window.pointsFromCny = pointsFromCny;
+  window.pointsFromPtc = pointsFromPtc;
+  window.pointsText = pointsText;
+  var SKIP = { SCRIPT: 1, STYLE: 1, TEXTAREA: 1, CODE: 1, PRE: 1 };
+  function sweepNode(n) {
+    if (!n || n.nodeType !== 3) return;
+    var p = n.parentNode;
+    if (!p || (p.nodeName && SKIP[p.nodeName])) return;
+    var v = n.nodeValue;
+    if (!v || !QUICK.test(v)) return;
+    var nv = wlText(v);
+    if (nv !== v) { try { n.nodeValue = nv; } catch (e) {} }
+  }
+  function sweepAttrs(el) {
+    if (!el || el.nodeType !== 1 || !el.attributes) return;
+    for (var k = 0; k < el.attributes.length; k++) {
+      var at = el.attributes[k];
+      if (!/^(title|aria-label|alt|placeholder)$/.test(at.name)) continue;
+      if (!QUICK.test(at.value)) continue;
+      var nv = wlText(at.value);
+      if (nv !== at.value) { try { el.setAttribute(at.name, nv); } catch (e) {} }
+    }
+  }
+  function sweep(root) {
+    if (!root) return;
+    if (root.nodeType === 3) { sweepNode(root); return; }
+    if (root.nodeType !== 1) return;
+    try {
+      var walker = document.createTreeWalker(root, 4, null), n;
+      while ((n = walker.nextNode())) sweepNode(n);
+    } catch (e) {}
+    if (root.querySelectorAll) {
+      var list = root.querySelectorAll('[title],[aria-label],[alt],[placeholder]');
+      for (var i = 0; i < list.length; i++) sweepAttrs(list[i]);
+    }
+  }
+  function boot() {
+    sweep(document.body);
+    if (!window.MutationObserver) return;
+    var obs = new MutationObserver(function (muts) {
+      for (var i = 0; i < muts.length; i++) {
+        var m = muts[i];
+        if (m.type === 'characterData') { sweepNode(m.target); continue; }
+        if (m.type === 'attributes') { sweepAttrs(m.target); continue; }
+        for (var k = 0; k < m.addedNodes.length; k++) sweep(m.addedNodes[k]);
+      }
+    });
+    obs.observe(document.body, { childList: true, subtree: true, characterData: true, attributes: true, attributeFilter: ['title', 'aria-label', 'alt', 'placeholder'] });
+  }
+  if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', boot);
+  else boot();
+})();
+</script>
 <button type="button" class="ae-back-studio" id="aeBackStudio" hidden>← 返回工作台</button>
 <div class="top"><div class="top-in">
   <a class="brand" href="/ai-nav/"><span class="logo">星</span>星籁 AI <span class="bs">全自动剪辑</span></a>
@@ -971,9 +1057,9 @@ html[data-theme="light"] .ae-cj-snippet{background:rgba(2,132,199,.05)}
         </div>
         <div class="ae-opt full">
           <span class="ae-field-label">配音音色 <small>不满意随时能换，不用重新录</small>
-            <span class="ae-voice-price" id="aeVoicePriceHint">约 ¥0.005/60字</span></span>
+            <span class="ae-voice-price" id="aeVoicePriceHint">约 0.1 积分/60字</span></span>
           <div class="ae-voices" id="aeVoices" role="radiogroup" aria-label="选择配音音色">
-            <div class="ae-voice-group">qwen3 预设音色<span class="ae-voice-group-price">约 ¥0.005/60字</span></div>
+            <div class="ae-voice-group">标准音色<span class="ae-voice-group-price">约 0.1 积分/60字</span></div>
             <div class="ae-voice on" data-voice="女声·亲切自然" role="radio" aria-checked="true" tabindex="0">
               <span class="ae-voice-top"><span class="v-ico">👩</span><b>女声 · 亲切自然</b></span>
               <small>像邻居大姐介绍，适合家政 / 除甲醛</small>
@@ -1005,19 +1091,19 @@ html[data-theme="light"] .ae-cj-snippet{background:rgba(2,132,199,.05)}
             </button>
             <button type="button" class="ae-presenter-card" data-presenter="upload" role="radio" aria-checked="false">
               <span class="p-ico" aria-hidden="true">📹</span><b>上传口播视频 / 外部数字人</b>
-              <i>自己的口播，或腾讯智影 / HeyGen 导出的数字人</i><small>支持绿幕自动抠像，背景换成我们的素材</small>
+              <i>自己的口播，或外部数字人工具 导出的数字人</i><small>支持绿幕自动抠像，背景换成我们的素材</small>
             </button>
             <button type="button" class="ae-presenter-card" id="aePresenterLipsync" data-presenter="lipsync" role="radio" aria-checked="false" aria-disabled="false">
               <span class="p-ico" aria-hidden="true">👄</span><b>真口型数字人（上传视频）</b>
-              <i id="aeLipsyncNote">正在读取数字人供应商配置…</i><small>阿里云百炼 VideoRetalk：上传一段正面出镜视频，自动对口型，按秒计费</small>
+              <i id="aeLipsyncNote">正在读取数字人服务配置…</i><small>真口型数字人（换口型版）：上传一段正面出镜视频，自动对口型，按秒计费</small>
             </button>
             <button type="button" class="ae-presenter-card" id="aePresenterPhotoLipsync" data-presenter="photo_lipsync" role="radio" aria-checked="false" aria-disabled="false">
               <span class="p-ico" aria-hidden="true">🖼️</span><b>照片口型数字人（真口型）<span class="ae-rec-tag">推荐</span></b>
-              <i id="aePhotoLsNote">正在读取数字人供应商配置…</i><small>上传一张正脸照片：先做缓慢推近视频，再合成真口型（只有嘴型动），按秒计费</small>
+              <i id="aePhotoLsNote">正在读取数字人服务配置…</i><small>上传一张正脸照片：先做缓慢推近视频，再合成真口型（只有嘴型动），按秒计费</small>
             </button>
             <button type="button" class="ae-presenter-card" id="aePresenterChanjing" data-presenter="chanjing" role="radio" aria-checked="false" aria-disabled="false">
-              <span class="p-ico" aria-hidden="true">🎬</span><b>蝉镜数字人（换背景 / 定制形象）<span class="ae-rec-tag">NEW</span></b>
-              <i id="aeCjNote">正在读取 302.AI 蝉镜配置…</i><small>选蝉镜形象 + 背景 + 音色，真口播数字人自动合成进成片（0.03 PTC/秒）</small>
+              <span class="p-ico" aria-hidden="true">🎬</span><b>AI 数字人 A（换背景版 / 定制形象）<span class="ae-rec-tag">NEW</span></b>
+              <i id="aeCjNote">正在读取数字人服务配置…</i><small>选 AI 数字人形象 + 背景 + 音色，真口播数字人自动合成进成片（2.1 积分/秒）</small>
             </button>
           </div>
 
@@ -1037,7 +1123,7 @@ html[data-theme="light"] .ae-cj-snippet{background:rgba(2,132,199,.05)}
               <button type="button" class="ae-mini danger" id="btnAvatarRemove">移除照片</button>
             </div>
             <p class="ae-hint" id="aeAvatarPanelHint" style="margin-top:9px">照片会作为成片出镜画面：铺满背景时做全屏（模糊放大 + 前景清晰居中），画中画时放底部圆角框；<b>暂不支持口型同步</b>（真口型请选「照片口型数字人」）。</p>
-            <p class="ae-lipsync-price" id="aePhotoLsPrice" hidden>价格预估：<b>约 ¥0.08/秒</b> · <b>30 秒约 ¥2.40</b><small>阿里云百炼 VideoRetalk，照片推近 + 真口型，按成片时长估算</small></p>
+            <p class="ae-lipsync-price" id="aePhotoLsPrice" hidden>价格预估：<b>约 0.8 积分/秒</b> · <b>30 秒约 24 积分</b><small>真口型数字人（换口型版），照片推近 + 真口型，按成片时长估算</small></p>
           </div>
 
           <div class="ae-presenter-panel" id="aePresenterUploadPanel" hidden>
@@ -1046,7 +1132,7 @@ html[data-theme="light"] .ae-cj-snippet{background:rgba(2,132,199,.05)}
               <div class="tx">
                 <b id="aeVideoTip">上传一段口播视频 / 外部数字人视频</b>
                 <span>支持 MP4 / MOV / WebM，建议 5~15 秒、说话人清晰；原视频声音会被 AI 配音替换</span>
-                <small>最大 80MB · 腾讯智影 / HeyGen 请导出绿幕视频并开启绿幕抠像</small>
+                <small>最大 80MB · 外部数字人工具 请导出绿幕视频并开启绿幕抠像</small>
               </div>
             </div>
             <input type="file" id="aeVideoFile" accept="video/mp4,video/quicktime,video/webm" hidden>
@@ -1077,7 +1163,7 @@ html[data-theme="light"] .ae-cj-snippet{background:rgba(2,132,199,.05)}
               <span class="ae-avatar-ico" id="aeLipsyncIco" aria-hidden="true">👄</span>
               <div class="tx">
                 <b id="aeLipsyncTip">需上传一段 5–20 秒正面出镜视频（首次一次，后续复用）</b>
-                <span>正面近景、人脸清晰、光线均匀；支持 MP4 / MOV / WebM，5–20 秒真人出镜（阿里云需能检出人脸）</span>
+                <span>正面近景、人脸清晰、光线均匀；支持 MP4 / MOV / WebM，5–20 秒真人出镜（需能检出人脸）</span>
                 <small id="aeLipsyncDropNote">最大 80MB · 上传一次后本机记住，后续生成直接复用</small>
               </div>
             </div>
@@ -1087,27 +1173,27 @@ html[data-theme="light"] .ae-cj-snippet{background:rgba(2,132,199,.05)}
               <button type="button" class="ae-mini danger" id="btnLipsyncRemove">移除视频</button>
             </div>
             <div class="ae-upload-prog" id="aeLipsyncProg" hidden><span id="aeLipsyncProgTxt">正在上传…</span><div class="bar"><i id="aeLipsyncProgFill"></i></div></div>
-            <p class="ae-lipsync-price" id="aeLipsyncPrice">价格预估：<b>约 ¥0.08/秒</b> · <b>30 秒约 ¥2.40</b><small>阿里云百炼 VideoRetalk，按成片时长估算，真实扣费以账单为准</small></p>
+            <p class="ae-lipsync-price" id="aeLipsyncPrice">价格预估：<b>约 0.8 积分/秒</b> · <b>30 秒约 24 积分</b><small>真口型数字人（换口型版），按成片时长估算，真实扣费以账单为准</small></p>
             <ul class="ae-lipsync-steps">
-              <li>生成流程：TTS 配音（用所选音色）→ 提交真口型合成（阿里云 VideoRetalk，约 20~90 秒）→ 真口型片段合成进出镜成片</li>
-              <li>失败会给中文原因（未配置 / 阿里云限流 / 视频无人脸）并可点「重试」，每次只提交一次真口型任务、不重复扣费</li>
+              <li>生成流程：TTS 配音（用所选音色）→ 提交真口型合成（真口型数字人（换口型版），约 20~90 秒）→ 真口型片段合成进出镜成片</li>
+              <li>失败会给中文原因（未配置 / 数字人服务繁忙 / 视频无人脸）并可点「重试」，每次只提交一次真口型任务、不重复扣费</li>
             </ul>
           </div>
 
           <div class="ae-presenter-panel" id="aePresenterChanjingPanel" hidden>
             <div class="ae-cj-head">
-              <b>🎬 蝉镜数字人 · 302.AI（换背景 / 定制形象）</b>
-              <span class="ae-cj-price-chip" id="aeCjPriceChip">0.03 PTC/秒 ≈ ¥0.21/秒</span>
+              <b>🎬 AI 数字人 A（换背景版） · 数字人服务（换背景 / 定制形象）</b>
+              <span class="ae-cj-price-chip" id="aeCjPriceChip">2.1 积分/秒（15 秒约 32 积分）</span>
             </div>
-            <p class="ae-cj-sub">选蝉镜公共形象（如 文昊 / 晓洁 / 婉茹…）→ 选背景（纯色 / 门店图 / 不换）→ 蝉镜按整片文案用 TTS 合成真口播数字人，自动合成进成片（成片配音复用该口播音轨，口型不错位）。想要专属形象做「定制专属形象」，由运营开通后出现在这里。</p>
+            <p class="ae-cj-sub">选平台公共形象（如 文昊 / 晓洁 / 婉茹…）→ 选背景（纯色 / 门店图 / 不换）→ 按整片文案用 AI 配音合成真口播数字人，自动合成进成片（成片配音复用该口播音轨，口型不错位）。想要专属形象做「定制专属形象」，由客服开通后出现在这里。</p>
             <div class="ae-cj-row"><span class="lb">① 选形象</span><span class="ae-tiny" id="aeCjPersonHint">正在加载形象…</span></div>
-            <div class="ae-cj-persons" id="aeCjPersons" role="radiogroup" aria-label="选择蝉镜数字人形象"></div>
+            <div class="ae-cj-persons" id="aeCjPersons" role="radiogroup" aria-label="选择AI 数字人形象"></div>
             <div class="ae-cj-preview" id="aeCjPreviewWrap" hidden>
               <video id="aeCjPreviewVideo" controls playsinline preload="none"></video>
-              <span class="ae-tiny" id="aeCjPreviewLabel">形象官方预览（302 蝉镜提供）</span>
+              <span class="ae-tiny" id="aeCjPreviewLabel">形象官方预览（AI 数字人 A提供）</span>
             </div>
             <div class="ae-cj-row"><span class="lb">② 背景</span><span class="ae-tiny" id="aeCjBgHint">默认纯色品牌底；也可上传门店图</span></div>
-            <div class="ae-cj-bg-modes" id="aeCjBgModes" role="group" aria-label="选择蝉镜数字人背景">
+            <div class="ae-cj-bg-modes" id="aeCjBgModes" role="group" aria-label="选择AI 数字人 A（换背景版）背景">
               <button type="button" class="ae-bg-mode on" data-cjbg="color">纯色<small>品牌底色</small></button>
               <button type="button" class="ae-bg-mode" data-cjbg="image">上传图片<small>门店实景</small></button>
               <button type="button" class="ae-bg-mode" data-cjbg="none">不换<small>形象自带</small></button>
@@ -1126,12 +1212,12 @@ html[data-theme="light"] .ae-cj-snippet{background:rgba(2,132,199,.05)}
             </div>
             <p class="ae-cj-price" id="aeCjPrice">价格预估：正在计算…</p>
             <div class="ae-cj-row">
-              <span class="lb">③ 音色</span><span id="aeCjVoice">蝉镜 TTS 口播音色（第 1 步选蝉镜音色可指定）</span>
+              <span class="lb">③ 音色</span><span id="aeCjVoice">AI 配音 口播音色（第 1 步选高性价比音色可指定）</span>
               <button type="button" class="ae-btn sm ghost" id="aeCjVoiceBtn">▶ 试听第 1 步音色</button>
             </div>
             <div class="ae-cj-snippet-row">
-              <button type="button" class="ae-btn sm" id="aeCjSampleBtn">🎬 生成 3 秒预览（约 0.1 PTC）</button>
-              <span class="ae-tiny" id="aeCjSampleHint">导出前先看真实口播效果：蝉镜按当前形象 + 背景合成 3 秒数字人样片（约 0.09 PTC ≈ ¥0.6），仅预览、不计入成片</span>
+              <button type="button" class="ae-btn sm" id="aeCjSampleBtn">🎬 生成 3 秒预览（约 6 积分）</button>
+              <span class="ae-tiny" id="aeCjSampleHint">导出前先看真实口播效果：AI 数字人 A 按当前形象 + 背景合成 3 秒数字人样片（约 6 积分），仅预览、不计入成片</span>
             </div>
             <div class="ae-cj-snippet" id="aeCjSampleWrap" hidden>
               <video id="aeCjSampleVideo" controls playsinline preload="metadata"></video>
@@ -1139,9 +1225,9 @@ html[data-theme="light"] .ae-cj-snippet{background:rgba(2,132,199,.05)}
             </div>
             <div class="ae-cj-actions">
               <button type="button" class="ae-btn primary" id="aeCjGenBtn">🎬 生成含数字人的成片</button>
-              <span class="ae-tiny" id="aeCjGenHint">按成片配音时长生成数字人视频，字幕 / 图表仍由我们叠加</span>
+              <span class="ae-tiny" id="aeCjGenHint">按成片配音时长生成数字人视频，字幕 / 图表仍由我们叠加；积分可在账户页充值 / 兑换</span>
             </div>
-            <p class="ae-cj-hint" id="aeCjFootnote">💰 0.03 PTC/秒 × 数字人视频时长（15 秒成片约 0.45 PTC ≈ ¥3.2；数字人视频通常比成片略短），真实扣费以 302.AI 账单为准。<br>⚠️ 内容需过 302 内容安全审核（文案不合规会失败并给中文原因）；302 成品链接会过期，已自动转存本站。302 目前对「上传音频」一律审核不通过，所以口播由蝉镜 TTS 文本模式合成（音色选蝉镜音色最稳）。</p>
+            <p class="ae-cj-hint" id="aeCjFootnote">💰 2.1 积分/秒 × 数字人视频时长（15 秒成片约 32 积分；数字人视频通常比成片略短），实际扣费以积分明细为准。<br>⚠️ 内容需过合规审核（文案不合规会失败并给中文原因）；成品链接会过期，已自动转存本站。当前对「上传音频」一律审核不通过，所以口播由 AI 配音文本模式合成（音色选高性价比音色最稳）。</p>
           </div>
 
 
@@ -1171,7 +1257,7 @@ html[data-theme="light"] .ae-cj-snippet{background:rgba(2,132,199,.05)}
               <div class="ae-bg-ex" id="aeBgExamples"></div>
               <div class="ae-bg-actions">
                 <button type="button" class="ae-btn sm primary" id="aeBgGenBtn">✨ 生成背景预览</button>
-                <span class="ae-hint" id="aeBgGenStatus">AI 生图约 ¥0.1/张，失败自动回退渐变背景</span>
+                <span class="ae-hint" id="aeBgGenStatus">AI 生图约 1 积分/张，失败自动回退渐变背景</span>
               </div>
             </div>
             <div class="ae-bg-preview" id="aeBgPreview" hidden>
@@ -1301,7 +1387,7 @@ html[data-theme="light"] .ae-cj-snippet{background:rgba(2,132,199,.05)}
             <option value="qwen:Neil" data-engine="qwen">Neil（男·稳重）</option>
             <option value="qwen:Chelsie" data-engine="qwen">Chelsie（女·元气）</option>
           </select>
-          <span class="ae-engine-hint" id="aeTtsEngineHint">当前：Cherry（qwen3-tts）· 蝉镜更省：¥0.007/秒</span>
+          <span class="ae-engine-hint" id="aeTtsEngineHint">当前：Cherry（标准音色）· 高性价比音色更省：0.1 积分/秒</span>
           <span class="ae-hint" id="aeTtsHint">用成片同一套配音生成 MP3，可换音色重试</span>
         </div>
         <div class="ae-tts-audio" id="aeTtsAudioWrap" hidden>
@@ -1330,7 +1416,7 @@ html[data-theme="light"] .ae-cj-snippet{background:rgba(2,132,199,.05)}
           </div>
           <div class="ae-btn-row">
             <button type="button" class="ae-btn primary" id="btnExport">开始导出</button>
-            <span class="ae-hint" id="expHint">导出后可下载，或复制文案去平台发布</span>
+            <span class="ae-hint" id="expHint">导出后可下载，或复制文案去平台发布；按用量扣积分，积分可在账户页充值 / 兑换</span>
           </div>
           <div class="ae-exp-progress" id="expProgress" hidden>
             <div class="ae-exp-head"><b id="expStatus">正在准备素材</b><span id="expPct">0%</span></div>
@@ -1433,10 +1519,10 @@ html[data-theme="light"] .ae-cj-snippet{background:rgba(2,132,199,.05)}
   </div>
 </div>
 <div class="ae-toast" id="aeToast" role="status" aria-live="polite"></div>
-<!-- 阿里云百炼语音接入（dashvoice.py）：音色列表 GET /voice/list（12 个 qwen3-tts 预设 + 我的 CosyVoice 克隆音色）；
-     克隆音色合成 engine=cosy&voice=cosy:<voice_id>；qwen 失败自动回退 edge-tts -->
+<!-- 真口型数字人语音接入（dashvoice.py）：音色列表 GET /voice/list（12 个 AI 配音 预设 + 我的 克隆音色 克隆音色）；
+     克隆音色合成 engine=cosy&voice=cosy:<voice_id>；qwen 失败自动回退 系统配音 -->
 <script>
-/* 语音能力标记（供部署核对）：voice/list | engine=chanjing | qwen3 预设 / Cherry 默认 */
+/* 语音能力标记（供部署核对）：voice/list | engine=chanjing | 标准音色 / Cherry 默认 */
 /* ==================================================================
    AI 全自动剪辑工作台 · 商家端逻辑
    后端未就绪时自动使用本机演示数据（页面显示「演示数据」）。
@@ -1488,7 +1574,7 @@ function apiBase() {
     return location.origin + API_ROOT;
   } catch (e) { return API_ROOT; }
 }
-/* 百炼语音接口（/voice/list、/voice/preview...）：与 autoedit 同源，仅末段不同 */
+/* AI 配音接口（/voice/list、/voice/preview...）：与 autoedit 同源，仅末段不同 */
 var VOICE_API_ROOT = '/ai-nav/api/voice';
 function voiceBase() {
   try {
@@ -2546,7 +2632,7 @@ function previewTts() {
   if (btn) { btn.disabled = true; btn.innerHTML = '<span class="ae-tts-loading"></span>生成中…'; }
   var vname = voiceText(voice);
   var veng = voiceEngineOf(voice);
-  var engLabel = veng === 'chanjing' ? '蝉镜 TTS ¥0.007/秒' : (veng === 'cosy' ? 'CosyVoice 克隆音色' : 'qwen3-tts');
+  var engLabel = veng === 'chanjing' ? '高性价比音色（0.1 积分/秒）' : (veng === 'cosy' ? '克隆音色' : '标准音色');
   if ($('aeTtsHint')) $('aeTtsHint').textContent = '正在用「' + vname + '」生成配音（' + engLabel +
     (veng === 'chanjing' ? '，约 5-20 秒' : '，约 1-3 秒') + '）…';
   ttsGenerate(text, voice).then(function (r) {
@@ -2574,13 +2660,13 @@ function presenterLayoutOf() { return (state.presenter && state.presenter.layout
 function presenterLayoutLabel(l) { return l === 'pip' ? '右下画中画' : '铺满背景'; }
 
 /* ==================================================================
-   蝉镜数字人（302.AI chanjing_provider，2026-11-20 产品接入）
-   - 形象：本公司定制形象（registry）+ 蝉镜公共形象（前 6 个，带缩略图/官方预览）
+   AI 数字人 A（换背景版）（数字人服务 chanjing_provider，2026-11-20 产品接入）
+   - 形象：本公司定制形象（registry）+ AI 数字人 A公共形象（前 6 个，带缩略图/官方预览）
    - 背景：纯色 / 上传门店图（先传本站拿到公网 URL）/ 不换（形象自带）
    - 音频：复用整片 TTS 配音（第 1 步音色，音画同源）；导出时先合成数字人视频再合成进成片
    ================================================================== */
-var CJ_DEFAULT_PPS = 0.03;     /* 0.03 PTC/秒 */
-var CJ_DEFAULT_CNY = 7.1;      /* 1 PTC ≈ ¥7.1 */
+var CJ_DEFAULT_PPS = 0.03;     /* 2.1 积分/秒 */
+var CJ_DEFAULT_CNY = 7.1;      /* 1 上游点券 ≈ ¥7.1 ≈ 71 积分 */
 
 function cjOptions() {
   return (state.presenterOptions && state.presenterOptions.chanjing) || state.presenter.cj.options || null;
@@ -2604,12 +2690,13 @@ function cjPriceInfo(sec) {
   if (!isFinite(cnyPer) || cnyPer <= 0) cnyPer = CJ_DEFAULT_CNY;
   var s = Number(sec) || currentDurationSeconds();
   var ptc = Math.round(pps * s * 100) / 100;
-  return { sec: s, pps: pps, cnyPerPtc: cnyPer, ptc: ptc, cny: Math.round(ptc * cnyPer * 10) / 10 };
+  return { sec: s, pps: pps, cnyPerPtc: cnyPer, ptc: ptc, cny: Math.round(ptc * cnyPer * 10) / 10,
+    ppsPts: Math.round(pps * 71 * 10) / 10, pts: Math.round(ptc * 71) };
 }
 function cjPriceHtml() {
   var i = cjPriceInfo(currentDurationSeconds());
-  return '价格预估：<b>0.03 PTC/秒 × ' + i.sec + ' 秒 ≈ ' + i.ptc.toFixed(2) + ' PTC</b>（约 ¥' + i.cny.toFixed(1) + '）' +
-    '<small>按数字人视频时长（≈ 成片配音时长）计费；真实扣费以 302.AI 账单为准</small>';
+  return '价格预估：<b>' + i.ppsPts + ' 积分/秒 × ' + i.sec + ' 秒 ≈ ' + i.pts + ' 积分</b>' +
+    '<small>按数字人视频时长（≈ 成片配音时长）扣积分；积分可在账户页充值 / 兑换</small>';
 }
 function cjPersonsData() {
   var o = cjOptions() || {};
@@ -2640,7 +2727,7 @@ function setCjPerson(pid) {
   invalidatePresenterExport();
   updateChanjingUI();
   var p = cjSelectedPerson();
-  if (p) toast('已选蝉镜形象：' + p.name + (p.source === 'public' ? '（公共形象）' : '（客户定制形象）'), 'ok', 2200);
+  if (p) toast('已选 AI 数字人形象：' + p.name + (p.source === 'public' ? '（公共形象）' : '（客户定制形象）'), 'ok', 2200);
 }
 function setCjBgMode(mode) {
   mode = (mode === 'image' || mode === 'none') ? mode : 'color';
@@ -2672,10 +2759,10 @@ function setCjBgColor(color) {
   updateChanjingUI();
 }
 function cjEmptySlotHtml() {
-  return '<button type="button" class="ae-cj-person ae-cj-empty" id="aeCjCustomSlot" aria-label="定制专属形象（由运营开通）">' +
+  return '<button type="button" class="ae-cj-person ae-cj-empty" id="aeCjCustomSlot" aria-label="定制专属形象（由客服开通）">' +
     '<span class="ph"><span class="empty-plus" aria-hidden="true">＋</span>' +
     '<span class="empty-txt">定制专属形象</span></span>' +
-    '<span class="nm">上传照片 / 视频</span><span class="meta">由运营开通 · 联系运营</span></button>';
+    '<span class="nm">上传照片 / 视频</span><span class="meta">由客服开通 · 联系客服</span></button>';
 }
 function renderCjPersons() {
   var box = $('aeCjPersons');
@@ -2685,8 +2772,8 @@ function renderCjPersons() {
   if (!list.length) {
     box.innerHTML = '<div class="ae-tiny" style="grid-column:1/-1;padding:6px 2px">' +
       (cjConfigured()
-        ? '还没有可用形象：请运营到 /ops/edit/「302.AI 蝉镜」刷新形象列表后重试'
-        : '蝉镜未配置 302.AI Key：请运营到 /ops/edit/「302.AI 蝉镜」保存 Key 后刷新') + '</div>' + cjEmptySlotHtml();
+        ? '还没有可用形象：请联系客服开通后重试'
+        : '当前数字人服务暂未开通，请联系客服开通后重试') + '</div>' + cjEmptySlotHtml();
     if ($('aeCjPersonHint')) $('aeCjPersonHint').textContent = '暂无可用公共形象';
     return;
   }
@@ -2699,7 +2786,7 @@ function renderCjPersons() {
     var meta = p.source === 'public'
       ? ((p.gender || '形象') + ' · ' + (Number(p.width) || 1080) + '×' + (Number(p.height) || 1920) +
          (p.supports_bg_replace === false ? '' : ' · 可换背景'))
-      : '客户专属形象 · 由运营开通';
+      : '客户专属形象 · 由客服开通';
     var on = p.id === cur;
     return '<button type="button" class="ae-cj-person' + (on ? ' on' : '') + '" data-cjperson="' + esc(p.id) +
       '" role="radio" aria-checked="' + (on ? 'true' : 'false') + '" aria-label="' + esc(p.name) + '">' +
@@ -2712,7 +2799,7 @@ function renderCjPersons() {
     var customN = list.filter(function (x) { return x.source === 'custom'; }).length;
     $('aeCjPersonHint').textContent = (sel ? ('已选「' + sel.name + '」') : '请点选一个形象') +
       ' · 共 ' + list.length + ' 个' + (customN ? ('（客户定制 ' + customN + '）') : '公共形象') +
-      '；定制专属形象需联系运营上传素材训练';
+      '；定制专属形象需联系客服上传素材训练';
   }
   var pv = $('aeCjPreviewVideo'), pvWrap = $('aeCjPreviewWrap');
   if (pv && pvWrap) {
@@ -2733,7 +2820,7 @@ function renderCjPersons() {
   }
 }
 function cjClickCustomSlot() {
-  toast('定制专属形象：请联系运营上传照片 / 视频训练（运营后台 /ops/edit/「302.AI 蝉镜」），训练完成会出现在这里；本页不做自动训练，避免误扣费。', 'warn', 6200);
+  toast('定制专属形象：请联系客服上传照片 / 视频训练，训练完成会出现在这里；本页不做自动训练。', 'warn', 6200);
 }
 function updateChanjingUI() {
   var o = cjOptions() || {};
@@ -2746,8 +2833,8 @@ function updateChanjingUI() {
   }
   if ($('aeCjNote')) {
     $('aeCjNote').textContent = configured
-      ? ('302.AI 蝉镜已配置 · 0.03 PTC/秒 · ' + cjPersonsData().length + ' 个形象可选')
-      : ('待配置：' + ((o.hint) || '请运营在 /ops/edit/ 302 卡片保存 Key'));
+      ? ('AI 数字人 A 已就绪 · 2.1 积分/秒 · ' + cjPersonsData().length + ' 个形象可选')
+      : ('待配置：' + ((o.hint) || '请联系客服开通 Key'));
   }
   var panel = $('aePresenterChanjingPanel');
   if (panel) panel.hidden = presenterModeOf() !== 'chanjing';
@@ -2810,33 +2897,33 @@ function updateChanjingUI() {
     var selP = cjSelectedPerson();
     var cjCustomBg = !!(selP && selP.source === 'custom');
     $('aeCjBgHint').innerHTML = cjCustomBg && bg.mode !== 'none'
-      ? '<span style="color:#fbbf24">⚠️ 302 对「客户定制形象」不替换训练素材背景：换背景请选公共形象（公共形象原生支持换背景）。</span>'
-      : (bg.mode === 'image' ? '门店 / 场景图会先上传本站再交给蝉镜铺满做背景'
-        : (bg.mode === 'none' ? '不换背景：使用形象自带背景（蝉镜默认底）'
+      ? '<span style="color:#fbbf24">⚠️ 当前对「客户定制形象」不替换训练素材背景：换背景请选公共形象（公共形象原生支持换背景）。</span>'
+      : (bg.mode === 'image' ? '门店 / 场景图会先上传本站再交给AI 数字人 A铺满做背景'
+        : (bg.mode === 'none' ? '不换背景：使用形象自带背景（AI 数字人 A默认底）'
           : '纯色品牌底；推荐深色更显专业（公共形象原生支持换背景）'));
   }
   /* 价格 / 音色 / 生成按钮 */
   if ($('aeCjPrice')) $('aeCjPrice').innerHTML = cjPriceHtml();
   if ($('aeCjPriceChip')) {
     var pi = cjPriceInfo(currentDurationSeconds());
-    $('aeCjPriceChip').textContent = '0.03 PTC/秒 · ' + pi.sec + ' 秒 ≈ ' + pi.ptc.toFixed(2) + ' PTC（¥' + pi.cny.toFixed(1) + '）';
+    $('aeCjPriceChip').textContent = pi.ppsPts + ' 积分/秒 · ' + pi.sec + ' 秒 ≈ ' + pi.pts + ' 积分';
   }
   var v = (state.project && state.project.voice) || state.input.voice;
   var isCjVoice = voiceEngineOf(v) === 'chanjing';
   if ($('aeCjVoice')) {
     $('aeCjVoice').textContent = isCjVoice
-      ? ('蝉镜 TTS：' + voiceText(v) + '（将用于成片口播）')
-      : ('默认蝉镜 TTS 音色（第 1 步当前是「' + voiceText(v) + '」；想指定音色可选「蝉镜·性价比音色」）');
+      ? ('AI 配音：' + voiceText(v) + '（将用于成片口播）')
+      : ('默认 AI 配音音色（第 1 步当前是「' + voiceText(v) + '」；想指定音色可选「高性价比音色」）');
   }
   if ($('aeCjVoiceBtn')) $('aeCjVoiceBtn').disabled = state.mode !== 'live';
   if ($('aeCjGenBtn')) {
     $('aeCjGenBtn').disabled = !configured || !cj.personId || (bg.mode === 'image' && !bg.imageUrl);
   }
   if ($('aeCjGenHint')) {
-    $('aeCjGenHint').textContent = !configured ? '需运营先配置 302.AI 蝉镜 Key'
+    $('aeCjGenHint').textContent = !configured ? '当前服务暂未开通，请联系客服'
       : (!cj.personId ? '请先选一个形象'
         : (bg.mode === 'image' && !bg.imageUrl ? '请先上传门店图背景'
-          : '按成片配音时长生成数字人视频，字幕 / 图表仍由我们叠加'));
+          : '按成片配音时长生成数字人视频，字幕 / 图表仍由我们叠加；积分可在账户页充值 / 兑换'));
   }
   /* 选中形象 / 换背景后，同步第②步缩略图 + 第③步 canvas 预览（函数声明提升，先调用安全） */
   try { cjPreviewChanged(); } catch (e) {}
@@ -2844,7 +2931,7 @@ function updateChanjingUI() {
 function syncCjProject() {
   if (state.project) state.project.presenter = presenterSpecForRender();
 }
-/* 蝉镜形象 / 背景变化后：刷新第②步镜头缩略图、第③步 canvas 预览、3 秒预览状态 */
+/* AI 数字人形象 / 背景变化后：刷新第②步镜头缩略图、第③步 canvas 预览、3 秒预览状态 */
 function cjPreviewChanged() {
   try { syncCjProject(); } catch (e) {}
   try {
@@ -2886,7 +2973,7 @@ function handleCjBgImageFile(file) {
       syncCjProject();
       invalidatePresenterExport();
       if (state.step === 3) prepareStep3();
-      toast('门店图已上传就绪，导出时作为蝉镜背景', 'ok', 2800);
+      toast('门店图已上传就绪，导出时作为AI 数字人 A背景', 'ok', 2800);
     } else {
       bg.imageUrl = '';
       updateChanjingUI();
@@ -2917,7 +3004,7 @@ function tryCjVoice() {
   var btn = $('aeCjVoiceBtn');
   if (btn) { btn.disabled = true; btn.textContent = '生成中…'; }
   var eng = voiceEngineOf(voice);
-  toast('正在用「' + voiceText(voice) + '」生成试听（' + (eng === 'chanjing' ? '蝉镜 TTS 约 5-20 秒' : '约 1-3 秒') + '）…', 'ok', 3000);
+  toast('正在用「' + voiceText(voice) + '」生成试听（' + (eng === 'chanjing' ? '高性价比音色 约 5-20 秒' : '约 1-3 秒') + '）…', 'ok', 3000);
   ttsGenerate('你好，欢迎使用星籁 AI 数字人，这是一段试听配音。', voice).then(function (r) {
     if (btn) { btn.disabled = false; btn.textContent = '▶ 重新试听'; }
     try {
@@ -2932,7 +3019,7 @@ function tryCjVoice() {
     toast('试听生成失败：' + ((e && e.message) || '请稍后重试'), 'err', 3800);
   });
 }
-/* ---------------- 蝉镜 3 秒预览样片（真实合成，约 0.1 PTC，仅预览） ---------------- */
+/* ---------------- AI 数字人 A 3 秒预览样片（真实合成，约 6 积分，仅预览） ---------------- */
 function cjSnippetKey() {
   var cj = state.presenter.cj || {};
   var bg = cj.bg || {};
@@ -2940,7 +3027,7 @@ function cjSnippetKey() {
 }
 function cjSnippetCostText(sec) {
   var pi = cjPriceInfo(Number(sec) || 3);
-  return '约 ' + pi.ptc.toFixed(2) + ' PTC（≈¥' + pi.cny.toFixed(1) + '）';
+  return '约 ' + pi.pts + ' 积分';
 }
 function cjShowSnippet(snip) {
   if (!snip || !snip.url) return;
@@ -2951,10 +3038,10 @@ function cjShowSnippet(snip) {
     v.src = snip.url;
     try { v.load(); } catch (e) {}
   }
-  if ($('aeCjSampleTitle')) $('aeCjSampleTitle').textContent = '3 秒真实预览 · ' + (snip.person || '蝉镜数字人');
+  if ($('aeCjSampleTitle')) $('aeCjSampleTitle').textContent = '3 秒真实预览 · ' + (snip.person || 'AI 数字人 A（换背景版）');
   if ($('aeCjSampleMeta')) {
     $('aeCjSampleMeta').textContent = (snip.duration ? (Number(snip.duration).toFixed(1) + ' 秒 · ') : '') +
-      (snip.cost_ptc ? ('本次约 ' + Number(snip.cost_ptc).toFixed(2) + ' PTC · ') : '') +
+      (snip.cost_ptc ? ('本次约 ' + Math.round(Number(snip.cost_ptc) * 71) + ' 积分 · ') : '') +
       (snip.at ? ('生成于 ' + new Date(snip.at).toLocaleTimeString('zh-CN', { hour: '2-digit', minute: '2-digit' })) : '') +
       ' · 仅预览，不计入成片';
   }
@@ -2965,32 +3052,32 @@ function cjSyncSnippetUI() {
   var wrap = $('aeCjSampleWrap'), btn = $('aeCjSampleBtn');
   if (snip && snip.url && snip.key === cjSnippetKey()) {
     cjShowSnippet(snip);
-    if (btn && !cj.snippetBusy) btn.textContent = '🔁 重新生成 3 秒预览（再扣约 0.1 PTC）';
+    if (btn && !cj.snippetBusy) btn.textContent = '🔁 重新生成 3 秒预览（再扣约 6 积分）';
   } else {
     if (wrap) wrap.hidden = true;
-    if (btn && !cj.snippetBusy) btn.textContent = '🎬 生成 3 秒预览（约 0.1 PTC）';
+    if (btn && !cj.snippetBusy) btn.textContent = '🎬 生成 3 秒预览（约 6 积分）';
   }
 }
 function cjGenerateSnippet() {
   var cj = state.presenter.cj = state.presenter.cj || {};
   if (cj.snippetBusy) return;
   var p = cjSelectedPerson();
-  if (!p) { toast('请先选一个蝉镜数字人形象', 'warn', 3200); return; }
+  if (!p) { toast('请先选一个 AI 数字人形象', 'warn', 3200); return; }
   var o = cjOptions() || {};
-  if (!o.configured) { toast('蝉镜未配置 302.AI Key：' + (o.hint || '请运营在 /ops/edit/ 配置'), 'warn', 5200); return; }
+  if (!o.configured) { toast('当前数字人服务暂未开通，请联系客服', 'warn', 5200); return; }
   if (state.mode !== 'live') { toast('当前未连接 AI 服务：连接后可生成真实 3 秒预览；现在可先看第③步形象预览', 'warn', 4600); return; }
   var bg = cj.bg || {};
   if (bg.mode === 'image' && !bg.imageUrl) { toast('已选「上传图片背景」：请先上传门店图，再生成 3 秒预览', 'warn', 4000); return; }
   var costTxt = cjSnippetCostText(3);
   if (cj.snippet && cj.snippet.url && cj.snippet.key === cjSnippetKey()) {
-    var okGo = window.confirm ? window.confirm('该形象 + 背景已经生成过 3 秒预览（可免费重播）。\n重新生成会再调用 302 合成一次，' + costTxt + '。\n\n确定重新生成吗？') : true;
+    var okGo = window.confirm ? window.confirm('该形象 + 背景已经生成过 3 秒预览（可免费重播）。\n重新生成会再调用 云端合成一次，' + costTxt + '。\n\n确定重新生成吗？') : true;
     if (!okGo) { cjShowSnippet(cj.snippet); return; }
   }
   cj.snippetBusy = true;
   var btn = $('aeCjSampleBtn');
   var oldLabel = btn ? btn.textContent : '';
-  if (btn) { btn.disabled = true; btn.innerHTML = '<span class="ae-tts-loading"></span>蝉镜合成中…'; }
-  if ($('aeCjSampleHint')) $('aeCjSampleHint').textContent = '正在提交蝉镜合成 3 秒样片（' + costTxt + '，通常 20–60 秒）…';
+  if (btn) { btn.disabled = true; btn.innerHTML = '<span class="ae-tts-loading"></span>AI 数字人 A合成中…'; }
+  if ($('aeCjSampleHint')) $('aeCjSampleHint').textContent = '正在提交AI 数字人 A合成 3 秒样片（' + costTxt + '，通常 20–60 秒）…';
   var body = {
     person_id: p.id,
     bg_mode: bg.mode || 'color',
@@ -2999,7 +3086,7 @@ function cjGenerateSnippet() {
   };
   apiFetch('/chanjing/preview', { method: 'POST', timeout: 180000, body: body }).then(function (d) {
     cj.snippetBusy = false;
-    if (!d || !d.video_url) throw new Error('蝉镜没有返回预览视频地址，请稍后重试');
+    if (!d || !d.video_url) throw new Error('AI 数字人 A没有返回预览视频地址，请稍后重试');
     var snip = {
       url: normalizeMediaUrl(d.video_url),
       person: d.person_name || p.name,
@@ -3011,14 +3098,14 @@ function cjGenerateSnippet() {
     cj.snippet = snip;
     if (btn) { btn.disabled = false; }
     cjShowSnippet(snip);
-    if (btn) btn.textContent = '🔁 重新生成 3 秒预览（再扣约 0.1 PTC）';
+    if (btn) btn.textContent = '🔁 重新生成 3 秒预览（再扣约 6 积分）';
     if ($('aeCjSampleHint')) {
       $('aeCjSampleHint').textContent = '已生成真实 3 秒样片（本次 ' + cjSnippetCostText(snip.duration || 3) + '）· 仅用于预览，导出成片按整片时长计费';
     }
     toast('3 秒预览已生成：点视频可播放真实口播效果', 'ok', 3600);
   }).catch(function (e) {
     cj.snippetBusy = false;
-    if (btn) { btn.disabled = false; btn.textContent = oldLabel || '🎬 生成 3 秒预览（约 0.1 PTC）'; }
+    if (btn) { btn.disabled = false; btn.textContent = oldLabel || '🎬 生成 3 秒预览（约 6 积分）'; }
     var data = e && e.data;
     var msg = (data && (data.hint || data.detail)) || (e && e.message) || '请稍后重试';
     if ($('aeCjSampleHint')) $('aeCjSampleHint').textContent = '生成失败：' + msg;
@@ -3044,10 +3131,10 @@ function cjSpecForRender() {
 function startCjExport() {
   var o = cjOptions() || {};
   if (!o.configured) {
-    toast('蝉镜数字人需先在运营后台配置 302.AI Key：' + (o.hint || ''), 'warn', 5600);
+    toast('当前数字人服务暂未开通，请联系客服', 'warn', 5600);
     return;
   }
-  if (!state.presenter.cj.personId) { toast('先选一个蝉镜数字人形象', 'warn', 3200); return; }
+  if (!state.presenter.cj.personId) { toast('先选一个 AI 数字人形象', 'warn', 3200); return; }
   var bg = state.presenter.cj.bg || {};
   if (bg.mode === 'image' && !bg.imageUrl) { toast('已选「上传图片背景」：请先上传一张门店图', 'warn', 3600); return; }
   if (!state.project) {
@@ -3055,7 +3142,7 @@ function startCjExport() {
     try { if ($('aeText')) $('aeText').scrollIntoView({ behavior: 'smooth', block: 'center' }); } catch (e) {}
     return;
   }
-  if (state.mode !== 'live') { toast('演示数据模式无法调用蝉镜数字人，请连接 AI 服务后重试', 'warn', 4200); return; }
+  if (state.mode !== 'live') { toast('演示数据模式无法调用AI 数字人 A（换背景版），请连接 AI 服务后重试', 'warn', 4200); return; }
   state.presenter.mode = 'chanjing';
   state.presenter.layout = 'full';
   if (state.project) state.project.presenter = presenterSpecForRender();
@@ -3116,7 +3203,7 @@ function updatePresenterUI() {
   if ($('aePresenterLayoutHint')) {
     var isC = mode === 'upload' && !!v.chroma;
     $('aePresenterLayoutHint').textContent = mode === 'chanjing'
-      ? '蝉镜数字人固定「铺满背景」：形象 + 背景由 302 合成整段视频，标题 / 字幕 / 图表叠在上层。'
+      ? 'AI 数字人 A（换背景版）固定「铺满背景」：形象 + 背景由 云端合成整段视频，标题 / 字幕 / 图表叠在上层。'
       : (isC
         ? '绿幕抠像默认「铺满背景」：数字人站在我们的素材背景里说话，文字 / 图表叠在上层；也可以改「右下画中画」。'
         : (mode === 'upload'
@@ -3234,7 +3321,7 @@ function updateBgUI() {
     $('aeBgModeHint').textContent = mode === 'none' ? '不换背景：保留原来的出镜画面'
       : (mode === 'color' ? '纯色背景：抠出人像叠到品牌底色上'
         : (mode === 'image' ? '上传图片：抠出人像叠到你的门店 / 场景图上'
-          : 'AI 生成：一句话生成 1080x1920 场景背景，约 ¥0.1/张'));
+          : 'AI 生成：一句话生成 1080x1920 场景背景，约 1 积分/张'));
   }
   if ($('aeBgRowColor')) $('aeBgRowColor').className = 'ae-bg-row' + (mode === 'color' ? ' show' : '');
   if ($('aeBgRowImage')) $('aeBgRowImage').className = 'ae-bg-row' + (mode === 'image' ? ' show' : '');
@@ -3285,8 +3372,8 @@ function updateBgUI() {
     if (mode === 'none') parts = [];
     else if (mode === 'ai') {
       if (bg.aiFallback) parts.push('<span class="warn">AI 生图失败，已回退渐变背景</span>' + (bg.aiHint ? '：' + esc(bg.aiHint) : ''));
-      else if (bg.aiUrl) parts.push('AI 背景已生成（' + esc(bg.aiProvider === 'siliconflow' ? '硅基流动 Kolors' : bg.aiProvider === 'dashscope' ? '通义万相' : bg.aiProvider || 'AI') + (bg.aiElapsed ? ' · ' + bg.aiElapsed + ' 秒' : '') + '），导出时直接复用，不重复扣费');
-      else parts.push('输入一句场景描述，点「生成背景预览」先看效果（约 ¥0.1/张）；不预览直接导出也会自动生成');
+      else if (bg.aiUrl) parts.push('AI 背景已生成（' + esc(aiProviderLabel(bg.aiProvider)) + (bg.aiElapsed ? ' · ' + bg.aiElapsed + ' 秒' : '') + '），导出时直接复用，不重复扣费');
+      else parts.push('输入一句场景描述，点「生成背景预览」先看效果（约 1 积分/张）；不预览直接导出也会自动生成');
     } else if (mode === 'image') {
       parts.push(bg.imageName ? ('导出时把抠出的人像叠到「' + esc(bg.imageName) + '」上（背景图随本次渲染上传，不占公网素材位）') : '先选择一张门店 / 场景图片');
     } else if (mode === 'color') {
@@ -3301,7 +3388,7 @@ function updateBgUI() {
   if ($('aeBgGenStatus')) {
     $('aeBgGenStatus').textContent = bg.generating
       ? (bg.progress || '正在调用 AI 生图…')
-      : (mode === 'ai' ? ('AI 生图约 ¥0.1/张' + (bg.aiUrl ? ' · 已有预览可复用' : '')) : 'AI 生图约 ¥0.1/张，失败自动回退渐变背景');
+      : (mode === 'ai' ? ('AI 生图约 1 积分/张' + (bg.aiUrl ? ' · 已有预览可复用' : '')) : 'AI 生图约 1 积分/张，失败自动回退渐变背景');
   }
   if (mode !== 'none' && $('aePresenterLayoutHint')) {
     $('aePresenterLayoutHint').textContent = '已开启 AI 换背景：出片时先抠出人像再叠到新背景上，布局固定「铺满背景」（标题 / 字幕 / 图表仍在上层）。';
@@ -3314,7 +3401,7 @@ function generateAiBg() {
   if (prompt.length < 2) { toast('先写一句背景描述，例如：明亮门店前台', 'warn', 3000); return; }
   bg.prompt = prompt;
   bg.generating = true;
-  bg.progress = '正在调用 AI 生图（SiliconFlow Kolors / 通义万相）…';
+  bg.progress = '正在调用云端 AI 生图…';
   updateBgUI();
   var t0 = Date.now();
   apiFetch('/bg/generate', {
@@ -3333,7 +3420,7 @@ function generateAiBg() {
     syncBgProject();
     invalidatePresenterExport();
     if (bg.aiFallback) toast('AI 生图失败，已回退渐变背景：' + (d.hint || ''), 'warn', 6200);
-    else toast('AI 背景已生成（' + (d.provider === 'siliconflow' ? '硅基流动 Kolors' : d.provider === 'dashscope' ? '通义万相' : d.provider) + ' · ' + bg.aiElapsed + ' 秒 · 约 ¥0.1）', 'ok', 3600);
+    else toast('AI 背景已生成（' + aiProviderLabel(d.provider) + ' · ' + bg.aiElapsed + ' 秒 · 约 1 积分）', 'ok', 3600);
   }).catch(function (e) {
     bg.generating = false;
     bg.progress = '';
@@ -3449,7 +3536,7 @@ function setPresenterMode(mode, opts) {
       upload: '已选「上传口播视频」：可开启绿幕抠像，把背景换成我们的素材',
       lipsync: '已选「真口型数字人」：上传 5–20 秒正面出镜视频，生成时自动合成真口型出镜（按秒计费）',
       photo_lipsync: '已选「照片口型数字人（真口型）」：上传一张正脸清晰照片，生成时会先做缓慢推近再合成真口型（只有嘴型动，按秒计费）',
-      chanjing: '已选「蝉镜数字人」：挑好形象和背景，导出时会先合成真口播数字人视频再合成进成片（0.03 PTC/秒）'    };
+      chanjing: '已选「AI 数字人 A（换背景版）」：挑好形象和背景，导出时会先合成真口播数字人视频再合成进成片（2.1 积分/秒）'    };
     toast(tips[mode] || '已切换出镜方式', 'ok', 2400);
   }
 }
@@ -3463,18 +3550,18 @@ function setPresenterLayout(layout) {
 }
 function showLipsyncUpgrade() {
   var li = (state.presenterOptions && state.presenterOptions.lipsync) || {};
-  var hint = li.hint || '需在运营后台配置数字人 API（阿里云百炼 / D-ID / HeyGen / Akool / 自定义 HTTP）';
+  var hint = li.hint || '当前未开通该数字人能力，请联系客服';
   var price = li.price_estimate_30s || {};
   if (!li.configured) { toast('真口型数字人：' + hint, 'warn', 5600); return; }
-  toast('真口型数字人可用（' + (li.provider_name || li.provider || '数字人 API') +
+  toast('真口型数字人可用（' + neutralProviderName(li.provider_name || li.provider || '真口型数字人') +
         (price.text ? '，' + price.text : '') + '）：上传正面出镜视频后，出片时会先合成真口型片段再合成进成片', 'ok', 4200);
 }
 function showCjUpgrade() {
   var co = cjOptions() || {};
-  var hint = co.hint || '需在运营后台 /ops/edit/「302.AI 蝉镜 / Hedra」配置 302.AI Key';
-  if (!co.configured) { toast('蝉镜数字人：' + hint, 'warn', 6000); return; }
+  var hint = co.hint || '当前未开通该数字人能力，请联系客服';
+  if (!co.configured) { toast('当前数字人服务暂不可用，请联系客服', 'warn', 6000); return; }
   var list = co.persons || [];
-  toast('蝉镜数字人可用（' + list.length + ' 个形象 · 0.03 PTC/秒）：选形象 + 背景后，导出时先合成数字人视频再合成进成片', 'ok', 4600);
+  toast('AI 数字人 A（换背景版）可用（' + list.length + ' 个形象 · 2.1 积分/秒）：选形象 + 背景后，导出时先合成数字人视频再合成进成片', 'ok', 4600);
 }
 function loadPresenterOptions() {
   return apiFetch('/presenter/options', { timeout: 7000 }).then(function (d) {
@@ -3488,22 +3575,22 @@ function loadPresenterOptions() {
       card.setAttribute('aria-disabled', ready ? 'false' : 'true');
       if ($('aeLipsyncNote')) {
         $('aeLipsyncNote').textContent = ready
-          ? ('已配置 ' + (li.provider_name || li.provider || '数字人 API') + (price.text ? ' · ' + price.text : ''))
-          : '需在运营后台配置数字人 API';
+          ? ('已开通 · 真口型数字人 · ' + (Number(price.price_per_sec) > 0 ? ('约 ' + Math.round(Number(price.price_per_sec) * 10 * 10) / 10 + ' 积分/秒') : '按秒扣积分'))
+          : '当前未开通该数字人能力，请联系客服';
       }
       var pc = $('aePresenterPhotoLipsync');
       if (pc) {
         pc.disabled = !ready;
         pc.setAttribute('aria-disabled', ready ? 'false' : 'true');
         if ($('aePhotoLsNote')) $('aePhotoLsNote').textContent = ready
-          ? ('已配置 ' + (li.provider_name || li.provider || '数字人 API') + ' · 照片推近 + 真口型')
-          : '需在运营后台配置数字人 API';
+          ? ('已开通 · 真口型数字人（照片版）· 按秒扣积分')
+          : '当前未开通该数字人能力，请联系客服';
       }
       if (!ready && (presenterModeOf() === 'lipsync' || presenterModeOf() === 'photo_lipsync')) {
         setPresenterMode('none', { silent: true });
       }
     }
-    /* 302.AI 蝉镜数字人：Key 状态 / 可选形象（定制 + 公共）/ 价格 */
+    /* 数字人服务数字人：Key 状态 / 可选形象（定制 + 公共）/ 价格 */
     var cjo = (d && d.chanjing) || null;
     state.presenter.cj.options = cjo;
     var cjCard = $('aePresenterChanjing');
@@ -3513,10 +3600,10 @@ function loadPresenterOptions() {
       cjCard.setAttribute('aria-disabled', cjReady ? 'false' : 'true');
       if ($('aeCjNote')) {
         $('aeCjNote').textContent = cjReady
-          ? ('302.AI 蝉镜已配置 · 0.03 PTC/秒 · ' + ((cjo.persons || []).length) + ' 个形象可选')
+          ? ('AI 数字人 A 已就绪 · 2.1 积分/秒 · ' + ((cjo.persons || []).length) + ' 个形象可选')
           : (cjo
-            ? ('待配置：' + (cjo.hint || '请运营在 /ops/edit/ 302 卡片保存 Key'))
-            : '蝉镜接口暂不可用（后端未升级 / 未重启），重启后自动出现');
+            ? ('待配置：' + (cjo.hint || '请联系客服开通 Key'))
+            : '数字人服务暂不可用，请稍后再试');
       }
       if (cjReady) updateChanjingUI();
       if (!cjReady && presenterModeOf() === 'chanjing') setPresenterMode('none', { silent: true });
@@ -3535,8 +3622,8 @@ function applyUrlPreset() {
   var wantBg = cleanText(qs.get('bg') || '');
   var wantPrompt = cleanText(qs.get('bg_prompt') || '');
   var from = cleanText(qs.get('from') || '');
-  /* 从工作台「③ 数字人」卡片进来：默认「蝉镜数字人」（换背景 / 定制形象，推荐）；
-     蝉镜未配置时退回「照片口型数字人（真口型）」，都没有配置时退回免费照片版。 */
+  /* 从工作台「③ 数字人」卡片进来：默认「AI 数字人 A（换背景版）」（换背景 / 定制形象，推荐）；
+     AI 数字人 A未配置时退回「照片口型数字人（真口型）」，都没有配置时退回免费照片版。 */
   if (!want && from === 'studio-avatar') want = 'chanjing';
   if (!want && !wantBg) { _urlPresetApplied = true; return; }
   /* 数字人相关入口要等 /presenter/options 返回后再决定（否则会误降级到照片口型）：留给数据就绪回调处理 */
@@ -3549,7 +3636,7 @@ function applyUrlPreset() {
     if (!co.configured) {
       var li0 = (state.presenterOptions && state.presenterOptions.lipsync) || {};
       var fallback = (li0.configured !== false) ? 'photo_lipsync' : 'photo';
-      toast('蝉镜数字人暂不可用（' + (co.hint || '302.AI Key 未配置') + '），已默认切到' +
+      toast('AI 数字人 A（换背景版）暂不可用（' + (co.hint || '数字人服务 Key 未配置') + '），已默认切到' +
         (fallback === 'photo_lipsync' ? '「照片口型数字人」' : '「照片数字人」'), 'warn', 5600);
       setPresenterMode(fallback, { silent: true });
     } else {
@@ -3573,7 +3660,7 @@ function applyUrlPreset() {
     var box = document.getElementById('aePresenterGrid');
     if (box) box.scrollIntoView({ behavior: 'smooth', block: 'center' });
   } catch (e) {}
-  var label = want === 'chanjing' ? '蝉镜数字人（换背景 / 定制形象）' : (want === 'photo_lipsync' ? '照片口型数字人（真口型）' : (want === 'lipsync' ? '真口型数字人' : (want === 'photo' ? '照片数字人（免费推近·不做口型）' : (want === 'upload' ? '上传口播视频' : '出镜'))));
+  var label = want === 'chanjing' ? 'AI 数字人 A（换背景版 / 定制形象）' : (want === 'photo_lipsync' ? '照片口型数字人（真口型）' : (want === 'lipsync' ? '真口型数字人' : (want === 'photo' ? '照片数字人（免费推近·不做口型）' : (want === 'upload' ? '上传口播视频' : '出镜'))));
   if (want) toast('已按入口默认展开「' + label + '」' + (from === 'studio-avatar' ? '（数字人创作方式）' : '') + (want === 'chanjing' ? '，挑好形象和背景后导出成片即可' : '，上传素材后即可生成'), 'ok', 3800);
 }
 
@@ -3584,6 +3671,16 @@ function applyUrlPreset() {
      （后端先做照片推近视频，再调 lipsync 适配层，最后合成进出镜成片）
    ================================================================== */
 var LS_PROVIDER = 'aliyun_videoretalk';
+function aiProviderLabel(p) {
+  if (p === 'siliconflow' || p === 'dashscope') return '云端生图模型';
+  var t = wlText(String(p || ''));
+  return t || 'AI';
+}
+function neutralProviderName(name) {
+  var t = wlText(String(name || ''));
+  if (!t || /[a-z_]{4,}/i.test(t.replace(/[\u4e00-\u9fa5]/g, ''))) return '真口型数字人';
+  return t;
+}
 var LS_STORE_KEY = 'ae_lipsync_src_v1';
 var LS_LAST_COST = '';
 
@@ -3594,13 +3691,13 @@ function lipsyncPriceInfo() {
   if (!isFinite(pps) || pps <= 0) pps = 0.08;
   var dur = Number(state.input.duration) || 30;
   var amount = Math.round(pps * dur * 100) / 100;
-  var name = pr.provider_name || li.provider_name || li.provider || '阿里云百炼 VideoRetalk';
+  var name = pr.provider_name || li.provider_name || li.provider || '真口型数字人（换口型版）';
   return { pps: pps, dur: dur, amount: amount, provider: name, configured: li.configured !== false };
 }
 function lipsyncPriceHtml(prefix) {
   var i = lipsyncPriceInfo();
-  return (prefix || '价格预估：') + '<b>约 ¥' + i.pps.toFixed(2) + '/秒</b> · <b>' + i.dur + ' 秒约 ¥' + i.amount.toFixed(2) + '</b>' +
-    '<small>' + esc(i.provider) + ' · 按成片时长估算，真实扣费以账单为准</small>';
+  return (prefix || '价格预估：') + '<b>约 ' + i.ppsPts + ' 积分/秒</b> · <b>' + i.dur + ' 秒约 ' + i.points + ' 积分</b>' +
+    '<small>' + esc(i.provider) + ' · 按成片时长估算；积分可在账户页充值 / 兑换</small>';
 }
 function updateLipsyncPanel() {
   var p = state.presenter;
@@ -3670,37 +3767,37 @@ function lipsyncErrText(e) {
   var hint = String(d.hint || d.detail || (e && e.message) || '');
   var blob = (code + ' ' + hint).toLowerCase();
   if (code === 'budget_exceeded' || blob.indexOf('预算') >= 0) {
-    return '今日数字人预算已用尽：' + (hint || '请明天再试或联系运营调整每日预算');
+    return '今日数字人可用额度已用完，请明天再试或联系客服';
   }
   if (status === 429 || code === 'rate_limited' || blob.indexOf('throttl') >= 0 || blob.indexOf('限流') >= 0) {
-    return '阿里云限流，请稍后重试';
+    return '数字人服务繁忙，请稍后重试';
   }
-  if (status === 501 || code === 'need_config') return '需在运营后台配置数字人 API：' + (hint || '未配置任何数字人供应商');
+  if (status === 501 || code === 'need_config') return '当前未开通该数字人能力，请联系客服';
   if (blob.indexOf('facenotmatch') >= 0 || blob.indexOf('人脸') >= 0) {
     return state.presenter.mode === 'photo_lipsync'
       ? '照片里没有检出人脸：请换一张正脸清晰照片（避免侧脸 / 遮挡 / 多人合影）'
       : '视频里没有检出人脸：请上传 5–20 秒正面近景出镜视频';
   }
   if (blob.indexOf('invalidurl') >= 0 || blob.indexOf('download') >= 0 || blob.indexOf('无法下载') >= 0) {
-    return '阿里云无法下载出镜素材：请确认视频/音频公网可访问后重试';
+    return '无法读取出镜素材：请确认视频/音频公网可访问后重试';
   }
   if (status === 504 || code === 'timeout') return '真口型合成超时，请稍后重试（任务可能仍在生成）';
-  if (status === 400 || code.indexOf('bad_') === 0) return '输入不合规：' + (hint || '视频/照片需清晰、2–120 秒，音频需 2–120 秒');
-  return hint || '真口型合成失败，请稍后重试';
+  if (status === 400 || code.indexOf('bad_') === 0) return '输入不符合要求：' + wlText(hint || '视频/照片需清晰、2–120 秒，音频需 2–120 秒');
+  return wlText(hint) || '真口型合成失败，请稍后重试';
 }
 function mapTaskErrText(msg) {
   var s = String(msg || '');
   var blob = s.toLowerCase();
-  if (blob.indexOf('throttl') >= 0 || blob.indexOf('限流') >= 0 || blob.indexOf('rate limit') >= 0) return '阿里云限流，请稍后重试';
+  if (blob.indexOf('throttl') >= 0 || blob.indexOf('限流') >= 0 || blob.indexOf('rate limit') >= 0) return '数字人服务繁忙，请稍后重试';
   if (blob.indexOf('facenotmatch') >= 0 || blob.indexOf('人脸') >= 0) {
     return state.presenter.mode === 'photo_lipsync'
       ? '照片里没有检出人脸：请换一张正脸清晰照片（避免侧脸 / 遮挡 / 多人合影）'
       : '视频里没有检出人脸：请上传 5–20 秒正面近景出镜视频';
   }
-  if (blob.indexOf('need_config') >= 0 || blob.indexOf('配置数字人') >= 0) return '需在运营后台配置数字人 API：' + s;
+  if (blob.indexOf('need_config') >= 0 || blob.indexOf('配置数字人') >= 0) return '当前未开通该数字人能力，请联系客服';
   var m = s.match(/^PRESENTER_FAILED\|(.*)$/s);
-  if (m) return '真口型数字人合成失败：' + m[1];
-  return s || '真口型合成失败，请稍后重试';
+  if (m) return '真口型数字人合成失败：' + wlText(m[1]);
+  return wlText(s) || '真口型合成失败，请稍后重试';
 }
 function lipsyncRateStr() {
   var p = state.project;
@@ -3756,7 +3853,7 @@ function lipsyncPoll(jobId, started) {
           return;
         }
         var pct = 18 + Math.min(21, Math.round(elp / 3500));
-        setLipsyncStage('真口型合成中（' + (st === 'queued' ? '排队中' : '阿里云处理中') + '，已等 ' + Math.round(elp / 1000) + ' 秒）…', pct);
+        setLipsyncStage('真口型合成中（' + (st === 'queued' ? '排队中' : '服务处理中') + '，已等 ' + Math.round(elp / 1000) + ' 秒）…', pct);
         setTimeout(tick, 2500);
       }).catch(function (e) {
         lastErr = e;
@@ -3782,19 +3879,19 @@ function lipsyncExport(body, pr) {
   setLipsyncStage('正在生成逐镜头配音（与成片同一套 TTS 声音，保证口型对齐）…', 6);
   buildLipsyncVoice(project.segments || [], voice, lipsyncRateStr()).then(function (vo) {
     p.lipsyncAudioUrl = normalizeMediaUrl(vo.path);
-    setLipsyncStage('配音就绪（' + vo.duration.toFixed(1) + ' 秒），正在提交真口型合成（阿里云 VideoRetalk）…', 16);
+    setLipsyncStage('配音就绪（' + vo.duration.toFixed(1) + ' 秒），正在提交真口型合成…', 16);
     return lipsyncSubmit(videoUrl, p.lipsyncAudioUrl, Math.max(2, Math.round(vo.duration)));
   }).then(function (sub) {
     p.lipsyncJobId = (sub && sub.job_id) || '';
     var est = (sub && sub.cost_estimate && (sub.cost_estimate.text || sub.cost_estimate.amount)) || '';
-    setLipsyncStage('真口型任务已提交 ' + p.lipsyncJobId + (est ? '（' + est + '）' : '') + '，阿里云处理中…', 18);
+    setLipsyncStage('真口型任务已提交 ' + p.lipsyncJobId + (est ? '（' + est + '）' : '') + '，服务处理中…', 18);
     return lipsyncPoll(p.lipsyncJobId);
   }).then(function (job) {
     var clip = (job && (job.url || job.video_url)) || '';
     if (!clip) throw { status: 502, code: 'no_url', data: { hint: '真口型任务完成但没有返回视频地址' } };
     p.lipsyncClipUrl = clip;
     var cost = (job && job.cost_estimate) || {};
-    p.lipsyncCost = cost.text || (cost.amount != null ? ('¥' + Number(cost.amount).toFixed(2)) : '');
+    p.lipsyncCost = wlCost(cost.text) || (cost.amount != null ? pointsText(pointsFromCny(cost.amount)) : '');
     LS_LAST_COST = p.lipsyncCost || '';
     setLipsyncStage('真口型片段已生成，开始合成出镜成片…', 40);
     /* 片段已由统一层计费一次；再以 upload 出镜管线合成进成片（与 presenter=lipsync 同一合成管线，
@@ -3821,7 +3918,7 @@ function photoLipsyncExport(body, pr) {
   state.presenter.lipsyncCost = '';
   setLipsyncStage('正在生成逐镜头配音（与成片同一套 TTS 声音）…', 6);
   buildLipsyncVoice(state.project.segments || [], voice, lipsyncRateStr()).then(function (vo) {
-    setLipsyncStage('配音就绪（' + vo.duration.toFixed(1) + ' 秒），正在提交「照片推近 + 真口型」合成（阿里云 VideoRetalk，约 30~120 秒）…', 14);
+    setLipsyncStage('配音就绪（' + vo.duration.toFixed(1) + ' 秒），正在提交「照片推近 + 真口型」合成（约 30~120 秒）…', 14);
     body.presenter = {
       mode: 'photo_lipsync',
       photo: photo,
@@ -3977,7 +4074,7 @@ function handleLipsyncVideoFile(file) {
     probe.preload = 'metadata';
     probe.onloadedmetadata = function () {
       var d = Number(probe.duration) || 0;
-      if (d && d < 2) { if (!done) { done = true; if (timer) clearTimeout(timer); try { URL.revokeObjectURL(objUrl); } catch (e) {} } toast('视频太短（' + d.toFixed(1) + ' 秒）：阿里云要求 >2 秒，建议 5–20 秒正面出镜', 'warn', 5200); return; }
+      if (d && d < 2) { if (!done) { done = true; if (timer) clearTimeout(timer); try { URL.revokeObjectURL(objUrl); } catch (e) {} } toast('视频太短（' + d.toFixed(1) + ' 秒）：要求 >2 秒，建议 5–20 秒正面出镜', 'warn', 5200); return; }
       if (d > 120) { if (!done) { done = true; if (timer) clearTimeout(timer); try { URL.revokeObjectURL(objUrl); } catch (e) {} } toast('视频太长（' + Math.round(d) + ' 秒）：最长 120 秒，建议 5–20 秒', 'warn', 5200); return; }
       finish(false, (d && (d < 5 || d > 20)) ? ('提示：视频 ' + d.toFixed(1) + ' 秒，推荐 5–20 秒正面出镜；可继续上传') : '');
     };
@@ -4291,8 +4388,8 @@ function avatarCardMeta() {
   if (mode === 'chanjing') {
     return {
       mode: mode, isLipsync: false,
-      title: '蝉镜数字人（导出时合成）',
-      chipText: '蝉镜数字人 · 0.03 PTC/秒',
+      title: 'AI 数字人 A（换背景版）（导出时合成）',
+      chipText: 'AI 数字人 A（换背景版） · 2.1 积分/秒',
       shotNote: '导出时先合成真口播数字人视频，再合成进成片'
     };
   }
@@ -4336,7 +4433,7 @@ function renderAvatarCard(errMsg) {
       '<h3>🎬 ' + meta.title + ' ' + chip + '</h3>' +
       '<span class="ae-avatar-clip-note">' + (cjs ? ('形象：' + esc(sel ? sel.name : '未选') + ' · ' + esc(bgTxt)) : '尚未选择形象 / 背景') + '</span>' +
       '<p class="ae-hint">成片导出时会先按整片配音合成真口播数字人视频（约 20–90 秒），再合成进成片。价格预估：<b>' +
-      cjpi.ptc.toFixed(2) + ' PTC（约 ¥' + cjpi.cny.toFixed(1) + '）</b> · ' + cjpi.sec + ' 秒 × 0.03 PTC/秒。' +
+      cjpi.pts + ' 积分</b> · ' + cjpi.sec + ' 秒 × ' + cjpi.ppsPts + ' 积分/秒。' +
       (state.exportState.status === 'done' && state.exportState.url ? '<br>✅ 含数字人的成片已生成，可在第 3 步播放 / 下载。' : '') + '</p>' +
       '<div class="ae-avatar-clip-actions"><button type="button" class="ae-btn sm primary" id="btnAvatarGenNow">' +
       (running ? '正在合成…' : '去生成含数字人的成片') + '</button></div>' +
@@ -4373,7 +4470,7 @@ function renderAvatarCard(errMsg) {
       '<h3>🧑 ' + meta.title + ' ' + chip + '</h3>' +
       '<span class="ae-avatar-clip-note">' + (readyL ? '导出成片时自动合成真口型，并合进背景 / 画中画' : '尚未上传' + needTxt) + '</span>' +
       '<p class="ae-hint">' + (readyL
-        ? '真口型按秒计费（阿里云 VideoRetalk 约 ¥0.08/秒，30 秒约 ¥2.40），点「开始导出」后生成的就是真口型版；导出完成后可在第 3 步预览 / 下载。'
+        ? '真口型按秒计费（真口型数字人（换口型版） 约 0.8 积分/秒，30 秒约 24 积分），点「开始导出」后生成的就是真口型版；导出完成后可在第 3 步预览 / 下载。'
         : '先上传' + needTxt + '，导出成片时会自动合成真口型版。') + '</p>' +
       '</div></div>';
     return;
@@ -4622,7 +4719,7 @@ function removeFile() {
   if ($('aeDrop')) $('aeDrop').hidden = false;
   var fi = $('aeFile'); if (fi) fi.value = '';
 }
-/* ---------------- 百炼音色目录（/voice/list：qwen3-tts 预设 + CosyVoice 克隆） ---------------- */
+/* ---------------- 语音服务音色目录（/voice/list：AI 配音 预设 + 克隆音色 克隆） ---------------- */
 var VOICE_LABEL_TO_QWEN = {
   '女声·亲切自然': 'qwen:Cherry',
   '男声·稳重专业': 'qwen:Neil',
@@ -4655,9 +4752,9 @@ function voiceEngineOf(voice) {
   return 'qwen';
 }
 var VOICE_PRICE_TEXT = {
-  qwen: '约 ¥0.005/60字',
-  cosy: 'CosyVoice 按量计费',
-  chanjing: '¥0.007/秒',
+  qwen: '约 0.1 积分/60字',
+  cosy: '按用量扣积分',
+  chanjing: '0.1 积分/秒',
   edge: '免费'
 };
 function voiceGroups() {
@@ -4681,10 +4778,10 @@ function voiceText(voice) {
   var bare = v.replace(/^(cosy:|cj:)/, '');
   for (var i = 0; i < all.length; i++) {
     var it = all[i] || {};
-    if (it.id === v || it.voice_id === v || it.voice_id === bare || it.voice === v) return it.name || v;
+    if (it.id === v || it.voice_id === v || it.voice_id === bare || it.voice === v) return voiceDisplayName(it, v) || v;
   }
   if (v.indexOf('cosy:') === 0) return '我的克隆音色';
-  if (v.indexOf('cj:') === 0) return '蝉镜音色';
+  if (v.indexOf('cj:') === 0) return '高性价比音色';
   if (VOICE_LABEL_TO_QWEN[v]) return v;
   if (/^qwen:/.test(v)) return v.slice(5);
   if (/^(cosy:|cosyvoice-)/.test(v)) return '我的克隆音色';
@@ -4699,15 +4796,15 @@ function updateVoicePriceHint() {
   if (!el) return;
   var eng = voiceEngineOf(state.input.voice);
   var t = VOICE_PRICE_TEXT[eng] || '';
-  el.textContent = (eng === 'chanjing' ? '蝉镜 ' : '') + t;
-  el.title = eng === 'chanjing' ? '302.AI 蝉镜 TTS：¥0.007/秒（按合成音频时长计费）'
-    : (eng === 'qwen' ? 'qwen3-tts-flash：约 0.8 元/万字符（约 ¥0.005/60字）'
-      : (eng === 'cosy' ? 'CosyVoice 克隆音色按量计费' : 'edge-tts 免费回退'));
+  el.textContent = t;
+  el.title = eng === 'chanjing' ? '高性价比音色：0.1 积分/秒（按合成音频时长计费）'
+    : (eng === 'qwen' ? '标准音色：约 0.1 积分/60字'
+      : (eng === 'cosy' ? '克隆音色：按用量扣积分' : '系统配音（免费）'));
 }
 /* 默认音色：qwen:Cherry（旧版真人克隆已下线；groups.boss 为空时自动隐藏） */
 function defaultVoiceId() { return 'qwen:Cherry'; }
 function voiceEngineLabel(eng) {
-  return eng === 'chanjing' ? '蝉镜 TTS' : eng === 'cosy' ? 'CosyVoice 克隆' : eng === 'edge' ? 'edge-tts' : 'qwen3-tts';
+  return eng === 'chanjing' ? '高性价比音色' : eng === 'cosy' ? '克隆音色' : eng === 'edge' ? '系统配音' : '标准音色';
 }
 function chanjingVoiceAvailable() {
   var groups = voiceGroups();
@@ -4717,7 +4814,7 @@ function chanjingVoiceAvailable() {
   }
   return false;
 }
-/* 试听按钮旁的引擎提示：选蝉镜时高亮绿色；未选时给出「当前音色 + 蝉镜更省」 */
+/* 试听按钮旁的引擎提示：选高性价比音色时高亮绿色；未选时给出「当前音色 + 高性价比音色更省」 */
 function updateTtsEngineHint(voice) {
   var el = $('aeTtsEngineHint');
   if (!el) return;
@@ -4725,11 +4822,11 @@ function updateTtsEngineHint(voice) {
   var eng = voiceEngineOf(v);
   if (eng === 'chanjing') {
     el.className = 'ae-engine-hint on';
-    el.textContent = '已选蝉镜音色 · ¥0.007/秒，将用于成片';
+    el.textContent = '已选高性价比音色 · 0.1 积分/秒，将用于成片';
     return;
   }
   el.className = 'ae-engine-hint';
-  el.textContent = '当前：' + voiceText(v) + '（' + voiceEngineLabel(eng) + '）' + (chanjingVoiceAvailable() ? ' · 蝉镜更省：¥0.007/秒' : '');
+  el.textContent = '当前：' + voiceText(v) + '（' + voiceEngineLabel(eng) + '）' + (chanjingVoiceAvailable() ? ' · 高性价比音色更省积分' : '');
 }
 
 function updateVoiceHint() {
@@ -4740,11 +4837,27 @@ function updateVoiceHint() {
     return !(c && (c.ready || c.status === 'OK'));
   }).length;
   if (state.tts && state.tts.url) return;
-  var txt = '用成片同一套配音生成音频（推荐 qwen3 预设 / 蝉镜 ¥0.007/秒），可换音色重试';
+  var txt = '用成片同一套配音生成音频（推荐标准音色 / 高性价比音色），可换音色重试';
   if (pending > 0) txt += '；' + pending + ' 个克隆音色部署中，请稍后（通常 1~5 分钟）';
   hint.textContent = txt;
 }
-/* 第 1 步音色卡片：按 qwen3 预设 / 蝉镜性价比音色 / 其他克隆分组渲染（空组自动隐藏） */
+/* 第 1 步音色卡片：按 标准音色 / AI 数字人 A性价比音色 / 其他克隆分组渲染（空组自动隐藏） */
+var VOICE_GROUP_LABEL = { boss: '推荐音色', chanjing: '高性价比音色', qwen: '标准音色' };
+function voiceGroupLabel(key, fallback) {
+  if (VOICE_GROUP_LABEL[key]) return VOICE_GROUP_LABEL[key];
+  return wlText(String(fallback || key || '音色'));
+}
+function voiceGroupPrice(key) {
+  if (key === 'chanjing' || key === 'boss') return '按用量扣积分';
+  return '约 0.1 积分/60字';
+}
+function voiceDisplayName(v, fallback) {
+  var t = wlText(String((v && (v.name || v.audio_name)) || ''));
+  var id = String((v && (v.id || v.voice_id)) || fallback || '');
+  if (/302|voice|^[0-9a-z][0-9a-z_-]{5,}$/i.test(t)) t = '';
+  if (!t) t = (/^(cj:|xl-)/.test(id) || /^[0-9a-z][0-9a-z_-]{5,}$/i.test(id)) ? '平台音色' : wlText(fallback || id || '音色');
+  return t;
+}
 function renderVoiceCards() {
   var box = $('aeVoices');
   if (!box) return;
@@ -4754,7 +4867,7 @@ function renderVoiceCards() {
   var html = '';
   groups.forEach(function (g) {
     var voices = (g.voices || []).slice();
-    var icon = g.key === 'chanjing' ? '💰' : '🎙️';
+    var icon = '🎙️';
     if (g.key === 'qwen') voices = voices.slice(0, 6);
     if (g.key === 'chanjing') {
       var clones = voices.filter(function (v) { return v.kind === 'clone'; });
@@ -4762,22 +4875,22 @@ function renderVoiceCards() {
       voices = clones.concat(publics);
     }
     if (!voices.length) return;
-    var glabel = g.label || g.key;
-    var gprice = (g.price_hint && glabel.indexOf(g.price_hint) < 0) ? g.price_hint : '';
+    var glabel = voiceGroupLabel(g.key, g.label);
+    var gprice = voiceGroupPrice(g.key);
     html += '<div class="ae-voice-group">' + esc(glabel) +
       (gprice ? '<span class="ae-voice-group-price">' + esc(gprice) + '</span>' : '') + '</div>';
     voices.forEach(function (v) {
       var id = v.id || (g.key === 'qwen' ? ('qwen:' + (v.voice || '')) :
         (v.voice_id ? (g.key === 'boss' ? 'cosy:' : 'cj:') + v.voice_id : ''));
       if (!id) return;
-      var nm = v.name || v.audio_name || id;
+      var nm = voiceDisplayName(v, id);
       var desc = v.desc || '';
       var extra = '';
       if (g.key === 'chanjing') {
-        desc = (v.kind === 'clone' ? '克隆音色 · ' : '公共音色 · ') + '¥0.007/秒（按合成时长）';
+        desc = (v.kind === 'clone' ? '克隆音色 · ' : '公共音色 · ') + '按用量扣积分';
         extra = ' is-cj';
       } else if (g.key === 'boss') {
-        desc = '真人克隆 · CosyVoice 按量计费';
+        desc = '真人克隆 · 按用量扣积分';
       }
       html += '<div class="ae-voice' + extra + '" data-voice="' + esc(id) + '" role="radio" aria-checked="false" tabindex="-1">' +
         '<span class="ae-voice-top"><span class="v-ico">' + icon + '</span><b>' + esc(nm) + '</b></span>' +
@@ -4803,34 +4916,34 @@ function renderVoiceSelect() {
     groups.forEach(function (g) {
       var voices = g.voices || [];
       if (!voices.length) return;
-      var glabel = g.label || g.key;
-      var gprice = (g.price_hint && glabel.indexOf(g.price_hint) < 0) ? g.price_hint : '';
+      var glabel = voiceGroupLabel(g.key, g.label);
+      var gprice = voiceGroupPrice(g.key);
       html += '<optgroup label="' + esc(glabel) +
         (gprice ? ' · ' + esc(gprice) : '') + '">';
       voices.forEach(function (v) {
         if (g.key === 'qwen') {
           if (!v.id) return;
-          html += '<option value="' + esc(v.id) + '" data-engine="qwen">' + esc(v.name || v.voice) + '</option>';
+          html += '<option value="' + esc(v.id) + '" data-engine="qwen">' + esc(voiceDisplayName(v, v.voice)) + '</option>';
           return;
         }
         if (g.key === 'boss') {
           if (!v.voice_id) return;
           var ready = !!(v.ready || v.status === 'OK');
           html += '<option value="cosy:' + esc(v.voice_id) + '" data-engine="cosy"' + (ready ? '' : ' disabled') + '>' +
-            esc(v.name || v.voice_id) + (ready ? '· 已就绪' : '（部署中，请稍后）') + '</option>';
+            esc(voiceDisplayName(v, v.voice_id)) + (ready ? '· 已就绪' : '（部署中，请稍后）') + '</option>';
           return;
         }
         if (g.key === 'chanjing') {
           if (!v.id) return;
           var tag = v.kind === 'clone' ? ' · 克隆' : (v.kind === 'public' ? ' · 公共' : '');
           html += '<option value="' + esc(v.id) + '" data-engine="chanjing">' +
-            esc(v.name || v.audio_name || v.voice_id) + tag + '</option>';
+            esc(voiceDisplayName(v, v.voice_id)) + tag + '</option>';
         }
       });
       html += '</optgroup>';
     });
   } else {
-    /* 旧后端兜底：qwen 预设 + CosyVoice 克隆 */
+    /* 旧后端兜底：标准音色 + 克隆音色 克隆 */
     if (cloned.length) {
       html += '<optgroup label="推荐音色（真人克隆）">' + cloned.map(function (c) {
         var ready = !!(c.ready || c.status === 'OK');
@@ -4838,7 +4951,7 @@ function renderVoiceSelect() {
           (c.featured ? '★ ' : '') + esc(c.name || c.voice_id) + '</option>';
       }).join('') + '</optgroup>';
     }
-    html += '<optgroup label="qwen3 预设音色">' + presets.map(function (p) {
+    html += '<optgroup label="标准音色">' + presets.map(function (p) {
       return '<option value="' + esc(p.id) + '" data-engine="qwen">' + esc(p.name) + '</option>';
     }).join('') + '</optgroup>';
   }
@@ -4951,7 +5064,7 @@ function thumbInner(type, idx) {
 function thumbHtml(type, idx) {
   return '<div class="ae-thumb tt-' + type + '">' + thumbInner(type, idx) + '</div>';
 }
-/* 蝉镜模式：镜头缩略图用所选形象封面 + 「蝉镜」小标替代纯色占位（镜头文本 / 时长不变） */
+/* AI 数字人 A模式：镜头缩略图用所选形象封面 + 「AI 数字人 A」小标替代纯色占位（镜头文本 / 时长不变） */
 function cjThumbSrc() {
   if (presenterModeOf() !== 'chanjing') return '';
   var p = cjSelectedPerson();
@@ -4963,12 +5076,12 @@ function shotThumbHtml(type, idx) {
   var cv = cjThumbSrc();
   if (cv) {
     return '<div class="ae-thumb tt-' + type + ' tt-cj">' +
-      '<img src="' + esc(cv) + '" alt="蝉镜数字人形象" loading="lazy" onerror="this.style.display=\'none\'">' +
-      '<span class="ae-cj-thumb-tag">蝉镜</span></div>';
+      '<img src="' + esc(cv) + '" alt="AI 数字人形象" loading="lazy" onerror="this.style.display=\'none\'">' +
+      '<span class="ae-cj-thumb-tag">AI 数字人 A</span></div>';
   }
   var html = thumbHtml(type, idx);
   if (presenterModeOf() === 'chanjing') {
-    html = html.replace(/<\/div>$/, '<span class="ae-cj-thumb-tag">蝉镜</span></div>');
+    html = html.replace(/<\/div>$/, '<span class="ae-cj-thumb-tag">AI 数字人 A</span></div>');
   }
   return html;
 }
@@ -5504,11 +5617,11 @@ function startGenerate(opts) {
   } else if (pmode === 'chanjing') {
     var cjopt = cjOptions() || {};
     if (!cjopt.configured) {
-      toast('蝉镜数字人未配置 302.AI Key：' + (cjopt.hint || '请运营在 /ops/edit/ 302 卡片保存'), 'warn', 5200);
+      toast('AI 数字人 A（换背景版）未配置数字人服务：' + (cjopt.hint || '请联系客服开通'), 'warn', 5200);
       return;
     }
     if (!state.presenter.cj.personId) {
-      toast('已选「蝉镜数字人」：请先在下方面板里挑一个形象', 'warn', 4000);
+      toast('已选「AI 数字人 A（换背景版）」：请先在下方面板里挑一个形象', 'warn', 4000);
       try { if ($('aePresenterChanjingPanel')) $('aePresenterChanjingPanel').scrollIntoView({ behavior: 'smooth', block: 'center' }); } catch (e) {}
       return;
     }
@@ -5843,7 +5956,7 @@ function dhPreviewKind() {
 }
 function dhHasPreview() { return !!dhPreviewKind(); }
 function dhBadgeLines() {
-  if (dhPresenterMode() === 'chanjing') return ['蝉镜数字人预览', '导出后生成真人口播视频'];
+  if (dhPresenterMode() === 'chanjing') return ['AI 数字人 A（换背景版）预览', '导出后生成真人口播视频'];
   return dhPresenterMode() === 'upload'
     ? ['数字人预览', '（成片里会用这段出镜视频）']
     : ['数字人预览', '（导出的成片里会开口说话）'];
@@ -5910,7 +6023,7 @@ function drawCoverMedia(ctx, media, W, H) {
   var dw = mw * k, dh = mh * k;
   try { ctx.drawImage(media, (W - dw) / 2, (H - dh) / 2, dw, dh); } catch (e) {}
 }
-/* ---------------- 蝉镜数字人：形象封面 + 背景预览（只影响第③步 canvas，导出逻辑不动） ---------------- */
+/* ---------------- AI 数字人 A（换背景版）：形象封面 + 背景预览（只影响第③步 canvas，导出逻辑不动） ---------------- */
 var DH_CJ = { src: '', img: null, videoSrc: '', video: null, videoReady: false };
 var DH_CJ_BG = { src: '', img: null };
 function cjPreviewPerson() {
@@ -5929,7 +6042,7 @@ function cjPersonPreviewVideoUrl() {
   var v = String(p.preview_url || p.display_url || '').trim();
   return v ? normalizeMediaUrl(v) : '';
 }
-/* 当前蝉镜背景口径：纯色 / 门店图 / 形象自带（与导出时 cjSpecForRender 保持一致） */
+/* 当前AI 数字人 A背景口径：纯色 / 门店图 / 形象自带（与导出时 cjSpecForRender 保持一致） */
 function cjSceneBg() {
   var cj = state.presenter.cj || {};
   var bg = cj.bg || {};
@@ -6036,8 +6149,8 @@ function drawCjPerson(ctx, W, H) {
   return true;
 }
 function drawCjMissing(ctx, W, H, pad, person, bg) {
-  var name = (person && person.name) || '蝉镜形象';
-  var lines = ['已选蝉镜形象，导出后在此播放真人口播', '形象：' + name + ' · 背景：' + ((bg && bg.label) || '—')];
+  var name = (person && person.name) || 'AI 数字人形象';
+  var lines = ['已选 AI 数字人形象，导出后在此播放真人口播', '形象：' + name + ' · 背景：' + ((bg && bg.label) || '—')];
   var fs = Math.round(clamp(W * 0.036, 11, 19));
   var maxW = W - pad * 2;
   ctx.font = '800 ' + fs + 'px "Microsoft YaHei",sans-serif';
@@ -6069,7 +6182,7 @@ function drawCjInfoLine(ctx, W, H, pad) {
   var bg = cjSceneBg();
   var cj = state.presenter.cj || {};
   var tip = (cj.snippet && cj.snippet.url && cj.snippet.key === cjSnippetKey()) ? ' · 已生成 3 秒真实预览' : '';
-  var txt = '形象：' + (person.name || '蝉镜形象') + ' · 背景：' + bg.label + tip;
+  var txt = '形象：' + (person.name || 'AI 数字人形象') + ' · 背景：' + bg.label + tip;
   var fs = Math.round(clamp(W * 0.029, 9.5, 13.5));
   ctx.font = '700 ' + fs + 'px "Microsoft YaHei",sans-serif';
   var maxW = W - pad * 2;
@@ -6161,7 +6274,7 @@ function drawFrame(t) {
   var cjBg = cjMode ? cjSceneBg() : null;
   var cjNoCover = false;
   if (cjMode) {
-    /* 蝉镜数字人：先画背景（纯色 / 门店图），再画所选形象封面，最后压暗保证文字可读 */
+    /* AI 数字人 A（换背景版）：先画背景（纯色 / 门店图），再画所选形象封面，最后压暗保证文字可读 */
     ensureCjAssets();
     cjBg = drawCjBg(ctx, W, H);
     if (!drawCjPerson(ctx, W, H)) {
@@ -6222,7 +6335,7 @@ function drawFrame(t) {
   }
   /* 左上角镜头类型标签 */
   var bFont = Math.round(Math.max(10, W * 0.04));
-  /* 蝉镜选了形象但封面还没加载 / 没有封面：让位给虚线提示，避免与镜头文案重叠 */
+  /* AI 数字人 A选了形象但封面还没加载 / 没有封面：让位给虚线提示，避免与镜头文案重叠 */
   if (cjMode && cjNoCover) dhNeedAsset = true;
   ctx.font = '800 ' + bFont + 'px "Microsoft YaHei",sans-serif';
   var label = ' ' + (TYPES[type] ? TYPES[type].ico + ' ' + TYPES[type].label : '画面') + ' ';
@@ -6273,7 +6386,7 @@ function drawFrame(t) {
   ctx.font = '600 ' + Math.round(Math.max(9, W * 0.028)) + 'px "Microsoft YaHei",sans-serif';
   ctx.fillStyle = 'rgba(255,255,255,.72)';
   ctx.fillText(fmtTime(t) + ' / ' + fmtTime(total) +
-    (cjMode ? ' · 蝉镜数字人预览 · 成片导出后生成'
+    (cjMode ? ' · AI 数字人 A（换背景版）预览 · 成片导出后生成'
       : (dhKind ? ' · 数字人预览 · 成片导出后开口' : ' · 星籁 AI 演示预览')), pad, H - H * 0.045);
 }
 /* 数字人素材/选择变化时，刷新第 3 步预览画布与顶部状态 */
@@ -6285,7 +6398,7 @@ function refreshDhPreviewChrome() {
   var dh = dhHasPreview();
   var cjPres = (state.project.presenter && state.project.presenter.mode === 'chanjing') ? state.project.presenter : null;
   if ($('playerPill')) {
-    if (cjPres) { $('playerPill').className = 'ae-pill-tag live'; $('playerPill').textContent = '蝉镜数字人预览 · 成片导出后生成'; }
+    if (cjPres) { $('playerPill').className = 'ae-pill-tag live'; $('playerPill').textContent = 'AI 数字人 A 预览 · 成片导出后生成'; }
     else if (dh) { $('playerPill').className = 'ae-pill-tag live'; $('playerPill').textContent = '数字人预览 · 成片导出后开口'; }
     else { $('playerPill').className = 'ae-pill-tag'; $('playerPill').textContent = '演示占位 · 导出后为真实成片'; }
   }
@@ -6297,9 +6410,9 @@ function refreshDhPreviewChrome() {
       var cjp = cjPreviewPerson();
       var cjbg = cjSceneBg();
       var cjsnip = (state.presenter.cj && state.presenter.cj.snippet) || null;
-      $('aePlayNote').textContent = '第③步为蝉镜数字人预览：形象「' + ((cjp && cjp.name) || '蝉镜形象') + '」· 背景：' + cjbg.label +
-        '。可以点上方「生成 3 秒预览」看真实口播效果' + (cjsnip && cjsnip.url ? '（已生成，可免费重播）' : '（约 0.1 PTC）') +
-        '；导出成片时会先把整片配音交给蝉镜合成真口播数字人视频（约 20–90 秒），再合成进成片，渲染完成后这里切换为真实成片，可播放 / 下载。';
+      $('aePlayNote').textContent = '第③步为AI 数字人 A（换背景版）预览：形象「' + ((cjp && cjp.name) || 'AI 数字人形象') + '」· 背景：' + cjbg.label +
+        '。可以点上方「生成 3 秒预览」看真实口播效果' + (cjsnip && cjsnip.url ? '（已生成，可免费重播）' : '（约 6 积分）') +
+        '；导出成片时会先把整片配音交给AI 数字人 A合成真口播数字人视频（约 20–90 秒），再合成进成片，渲染完成后这里切换为真实成片，可播放 / 下载。';
     } else if (dh) {
       var modeTxt = dhPresenterMode() === 'upload' ? '上传口播视频'
         : (dhPresenterMode() === 'lipsync' ? '真口型数字人（视频）' : '照片口型数字人');
@@ -6389,7 +6502,7 @@ function prepareStep3() {
   var presLayout = (taskPres && taskPres.layout) || (pres && pres.layout) || 'full';
   var presLabel = (taskPres && taskPres.label) || (pres && pres.mode === 'lipsync' ? '真口型数字人出镜'
     : (pres && pres.mode === 'photo_lipsync' ? '照片口型数字人（真口型）出镜'
-      : (pres && pres.mode === 'chanjing' ? '蝉镜数字人（302.AI）出镜'
+      : (pres && pres.mode === 'chanjing' ? 'AI 数字人 A（换背景版）（数字人服务）出镜'
         : (pres && pres.mode === 'upload' ? '上传口播视频出镜' : '照片数字人（免费推近·不做口型）出镜'))));
   pausePlayer();
   if (hasReal) {
@@ -6540,10 +6653,10 @@ function finishExport(url, cover, task) {
       : '演示模式：这里是演示占位地址，真实成片需接入成片服务后生成（页面其他交互不受影响）。';
     var costTxt = '';
     if (real && tp && tp.mode === 'chanjing' && tp.chanjing && tp.chanjing.cost_ptc) {
-      costTxt = tp.chanjing.price_hint || ('302 蝉镜 ' + Number(tp.chanjing.cost_ptc).toFixed(2) + ' PTC');
+      costTxt = wlCost(tp.chanjing.price_hint) || ('约 ' + Math.round(Number(tp.chanjing.cost_ptc) * 71) + ' 积分');
     } else if (real && tp && tp.lipsync_cost) {
       var lc = tp.lipsync_cost;
-      costTxt = lc.text || (lc.amount != null ? ('¥' + Number(lc.amount).toFixed(2)) : '');
+      costTxt = wlCost(lc.text) || (lc.amount != null ? pointsText(pointsFromCny(lc.amount)) : '');
     }
     if (!costTxt && real && state.presenter && state.presenter.lipsyncCost &&
         (state.presenter.mode === 'lipsync' || state.presenter.mode === 'photo_lipsync')) {
@@ -6551,8 +6664,8 @@ function finishExport(url, cover, task) {
     }
     if (costTxt) {
       note += (tp && tp.mode === 'chanjing')
-        ? ' 蝉镜数字人合成费用：' + costTxt + '（302.AI 账单为准）。'
-        : ' 真口型合成费用：' + costTxt + '（估算，以供应商账单为准）。';
+        ? ' AI 数字人合成扣积分：' + costTxt + '。'
+        : ' 真口型合成扣积分：' + costTxt + '。';
     }
     $('expNote').textContent = note;
   }
@@ -6614,11 +6727,11 @@ function liveExport() {
   if (mode === 'lipsync') { lipsyncExport(body, pr); return; }
   if (mode === 'photo_lipsync') { photoLipsyncExport(body, pr); return; }
   if (mode === 'chanjing') {
-    /* 蝉镜数字人：形象 + 背景交给后端，后端先生成整片配音 → 302 合成数字人视频 → 复用出镜管线出成片 */
+    /* AI 数字人 A（换背景版）：形象 + 背景交给后端，后端先生成整片配音 → 云端合成数字人视频 → 复用出镜管线出成片 */
     var cjs = cjSpecForRender();
-    if (!cjs || !cjs.person_id) { failExport('蝉镜数字人缺少形象：请回到第 1 步出镜方式里选择一个形象'); return; }
+    if (!cjs || !cjs.person_id) { failExport('AI 数字人缺少形象：请回到第 1 步出镜方式里选择一个形象'); return; }
     var cjo = cjOptions() || {};
-    if (!cjo.configured) { failExport('蝉镜数字人未配置 302.AI Key：' + (cjo.hint || '请运营在 /ops/edit/ 302 卡片保存')); return; }
+    if (!cjo.configured) { failExport('当前数字人服务未开通，请联系客服'); return; }
     body.presenter = {
       mode: 'chanjing', layout: 'full',
       person_id: cjs.person_id,
@@ -6628,9 +6741,9 @@ function liveExport() {
     };
     var cjpi = cjPriceInfo(currentDurationSeconds());
     if ($('expStage')) {
-      $('expStage').textContent = '蝉镜数字人合成中：先生成整片配音，再提交 302 合成数字人视频（约 20–90 秒）…';
+      $('expStage').textContent = 'AI 数字人合成中：先生成整片配音，再合成数字人视频（约 20–90 秒）…';
     }
-    if ($('expStatus')) $('expStatus').textContent = '正在合成蝉镜数字人 · 预计 ' + cjpi.ptc.toFixed(2) + ' PTC（约 ¥' + cjpi.cny.toFixed(1) + '）';
+    if ($('expStatus')) $('expStatus').textContent = '正在合成 AI 数字人 · 预计 ' + cjpi.pts + ' 积分';
     submitRenderBody(body, 0);
     return;
   }
@@ -6670,15 +6783,15 @@ function renderRequestFail(e) {
   var data = e && e.data;
   var errCode = data && (data.error || '');
   if ((e && e.status === 501) || errCode === 'need_config' || errCode === 'lipsync_unavailable') {
-    var hint = (data && (data.hint || data.detail)) || '需在运营后台配置数字人 API（阿里云百炼 / D-ID / HeyGen / Akool / 自定义 HTTP）';
-    failExport('需开通数字人 API：' + hint);
-    toast('真口型数字人需开通数字人 API：' + hint, 'warn', 6000);
+    var hint = (data && (data.hint || data.detail)) || '当前未开通该数字人能力，请联系客服';
+    failExport('当前未开通该数字人能力，请联系客服');
+    toast('当前未开通该数字人能力，请联系客服', 'warn', 6000);
     return;
   }
   if (errCode === 'need_person' || errCode === 'bad_person' || errCode === 'person_not_ready') {
-    var cjh = (data && (data.hint || data.detail)) || '蝉镜形象不可用：请重新选择形象';
-    failExport('蝉镜数字人：' + cjh);
-    toast('蝉镜数字人：' + cjh, 'warn', 6200);
+    var cjh = (data && (data.hint || data.detail)) || 'AI 数字人形象不可用：请重新选择形象';
+    failExport('AI 数字人：' + cjh);
+    toast('AI 数字人：' + cjh, 'warn', 6200);
     return;
   }
   failExport('导出失败：' + ((data && (data.hint || data.detail)) || (e && e.message) || '请重试'));
@@ -7279,7 +7392,7 @@ function bindUi() {
       e.preventDefault(); retryAvatar();
     }
   });
-  /* 蝉镜数字人（302.AI）面板交互 */
+  /* AI 数字人 A（换背景版）（数字人服务）面板交互 */
   if ($('aeCjPersons')) {
     $('aeCjPersons').addEventListener('click', function (e) {
       var empty = e.target.closest ? e.target.closest('#aeCjCustomSlot') : null;
@@ -7326,9 +7439,9 @@ function bindUi() {
     setVoice(v);
     if (state.project) state.project.voice = v;
     updateTtsEngineHint(v);
-    var engLabel = eng === 'cosy' ? 'CosyVoice 克隆音色（按量计费）'
-      : (eng === 'chanjing' ? '蝉镜 TTS（¥0.007/秒）'
-        : (eng === 'edge' ? 'edge-tts' : 'qwen3-tts 高品质配音（约 ¥0.005/60字）'));
+    var engLabel = eng === 'cosy' ? '克隆音色（按用量扣积分）'
+      : (eng === 'chanjing' ? '高性价比音色（0.1 积分/秒）'
+        : (eng === 'edge' ? '系统配音' : '标准音色（约 0.1 积分/60字）'));
     if ($('aeTtsHint')) $('aeTtsHint').textContent = '已切换为「' + label + '」（' + engLabel + '），点「试听配音」重新生成';
   });
   if ($('aeMuteBtn')) $('aeMuteBtn').addEventListener('click', toggleMute);
@@ -7389,7 +7502,7 @@ function boot() {
     var tries = 0;
     function tryApplyUrlPreset() {
       if (_urlPresetApplied) return;
-      /* 配置接口可能较慢（要拉蝉镜形象列表）：最多等 ~8 秒，等不到再按旧逻辑兜底 */
+      /* 配置接口可能较慢（要拉AI 数字人形象列表）：最多等 ~8 秒，等不到再按旧逻辑兜底 */
       if (!state.presenterOptions && tries < 40) { tries++; setTimeout(tryApplyUrlPreset, 200); return; }
       applyUrlPreset();
     }
@@ -7405,5 +7518,7 @@ else boot();
 </script>
 <script defer src="../assets/site-shell.js?v=20261119x"></script>
 <script defer src="../assets/auth.js"></script>
+<script>window.XL_CREDITS_AUTOEDIT = true;</script>
+<script defer src="../assets/credits-autoedit.js"></script>
 </body>
 </html>
