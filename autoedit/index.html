@@ -1325,7 +1325,7 @@ html[data-theme="light"] .ae-cj-inline-note{color:#e0f2fe}
             </div>
             <div class="ae-cj-snippet-row">
               <button type="button" class="ae-btn sm" id="aeCjSampleBtn">🎬 先看口型效果（3 秒，约 1.5 积分）</button>
-              <span class="ae-tiny" id="aeCjSampleHint">真实云端合成 3 秒数字人样片（含 AI 配音），生成后在第 3 步内联播放；仅预览、不计入成片（每工作区 10 分钟限流保护）</span>
+              <span class="ae-tiny" id="aeCjSampleHint">真实云端合成 3 秒数字人样片（含 AI 配音），生成后在第 3 步内联播放；仅预览、不计入成片（20 秒内仅可生成一次，避免重复扣费）</span>
             </div>
             <div class="ae-cj-snippet" id="aeCjSampleWrap" hidden>
               <video id="aeCjSampleVideo" controls playsinline preload="metadata"></video>
@@ -2960,6 +2960,8 @@ function renderCjPersons() {
         try { pv.removeAttribute('src'); pv.load(); } catch (e) {}
         pv.src = abs;
       }
+      /* 封面海报：未点播放时不再是黑块（小细节） */
+      try { var _poster = sel2.cover ? normalizeMediaUrl(sel2.cover) : ''; if (_poster && pv.getAttribute('poster') !== _poster) pv.setAttribute('poster', _poster); } catch (eP) {}
       pvWrap.hidden = false;
       if ($('aeCjPreviewLabel')) $('aeCjPreviewLabel').textContent = '形象官方预览 · ' + (sel2.name || '');
     } else {
@@ -3064,8 +3066,8 @@ function updateChanjingUI() {
   var isCjVoice = voiceEngineOf(v) === 'chanjing';
   if ($('aeCjVoice')) {
     $('aeCjVoice').textContent = isCjVoice
-      ? ('AI 配音：' + voiceText(v) + '（将用于成片口播）')
-      : ('默认 AI 配音音色（第 1 步当前是「' + voiceText(v) + '」；想指定音色可选「高性价比音色」）');
+      ? ('AI 配音：' + voiceText(v) + '（成片 / 试听 / 3 秒样片同一音色）')
+      : ('将自动使用默认蝉镜音色（第 1 步的「' + voiceText(v) + '」不用于数字人；选「高性价比音色」可指定）');
   }
   if ($('aeCjVoiceBtn')) $('aeCjVoiceBtn').disabled = state.mode !== 'live';
   if ($('aeCjGenBtn')) {
@@ -3152,7 +3154,8 @@ function removeCjBgImage() {
 }
 function tryCjVoice() {
   if (state.mode !== 'live') { toast('当前未连接 AI 服务，无法试听配音', 'warn', 3000); return; }
-  var voice = (state.project && state.project.voice) || state.input.voice;
+  var _ensuredVoice = ensureCjVoiceForChanjing({ silent: false });
+  var voice = _ensuredVoice || (state.project && state.project.voice) || state.input.voice;
   var btn = $('aeCjVoiceBtn');
   if (btn) { btn.disabled = true; btn.textContent = '生成中…'; }
   var eng = voiceEngineOf(voice);
@@ -3175,7 +3178,8 @@ function tryCjVoice() {
 function cjSnippetKey() {
   var cj = state.presenter.cj || {};
   var bg = cj.bg || {};
-  return [cj.personId || '', bg.mode || 'color', bg.color || '', bg.imageUrl || ''].join('|');
+  var v = (state.project && state.project.voice) || state.input.voice || '';
+  return [cj.personId || '', bg.mode || 'color', bg.color || '', bg.imageUrl || '', String(v)].join('|');
 }
 function cjSnippetCostText(sec) {
   var pi = cjPriceInfo(Number(sec) || 3);
@@ -3206,7 +3210,7 @@ function cjSyncSnippetButtons() {
     : '用当前形象 + 背景真实合成 3 秒数字人样片（含 AI 配音），先看嘴型和镜头运动；仅预览、不计入成片。';
   if ($('aeCjQuickHint')) $('aeCjQuickHint').textContent = hint;
   if ($('aeCjSampleHint')) {
-    $('aeCjSampleHint').textContent = hint + '（每工作区 10 分钟限流保护）';
+    $('aeCjSampleHint').textContent = hint + '（20 秒内仅可生成一次，避免重复扣费）';
   }
 }
 function cjShowInlineSnippet(snip) {
@@ -3224,6 +3228,7 @@ function cjShowInlineSnippet(snip) {
     $('aeCjInlineNote').textContent = '真实生成片：' +
       (snip.duration ? (Number(snip.duration).toFixed(1) + ' 秒 · ') : '') +
       (snip.person ? ('形象「' + snip.person + '」· ') : '') +
+      (snip.voice ? ('音色「' + snip.voice + '」· ') : '') +
       '云端真实合成（含 AI 配音），仅用于预览、不计入成片；导出成片时会按整片文案生成完整口型视频再合成进成片。';
   }
   if ($('playerPill')) {
@@ -3244,7 +3249,8 @@ function cjShowSnippet(snip) {
   if ($('aeCjSampleTitle')) $('aeCjSampleTitle').textContent = '3 秒真实预览 · ' + (snip.person || 'AI 数字人 A（换背景版）');
   if ($('aeCjSampleMeta')) {
     $('aeCjSampleMeta').textContent = (snip.duration ? (Number(snip.duration).toFixed(1) + ' 秒 · ') : '') +
-      (snip.cost_ptc ? ('本次约 ' + Math.round(Number(snip.cost_ptc) * 16.7) + ' 积分 · ') : '') +
+      (snip.voice ? ('音色：' + snip.voice + ' · ') : '') +
+      (snip.cost_ptc ? ('本次约 ' + (Math.round(Number(snip.cost_ptc) * 167) / 10) + ' 积分 · ') : '') +
       (snip.at ? ('生成于 ' + new Date(snip.at).toLocaleTimeString('zh-CN', { hour: '2-digit', minute: '2-digit' })) : '') +
       ' · 仅预览，不计入成片';
   }
@@ -3291,8 +3297,10 @@ function cjGenerateSnippet(force) {
   cjSetSnippetBusy(true, '云端合成中…');
   if ($('aeCjSampleHint')) $('aeCjSampleHint').textContent = '正在提交云端合成 3 秒样片（' + costTxt + '，通常 20–60 秒）…';
   if ($('aeCjQuickHint')) $('aeCjQuickHint').textContent = '正在云端合成 3 秒真实样片…（通常 20–60 秒，请稍候）';
+  var _cjVoiceId = ensureCjVoiceForChanjing({ silent: false });
   var body = {
     person_id: p.id,
+    voice: _cjVoiceId || ((state.project && state.project.voice) || state.input.voice || ''),
     bg_mode: bg.mode || 'color',
     bg_color: bg.color || '',
     bg_image_url: bg.imageUrl || ''
@@ -3304,6 +3312,7 @@ function cjGenerateSnippet(force) {
       url: normalizeMediaUrl(d.video_url),
       person: d.person_name || p.name,
       duration: Number(d.duration) || 0,
+      voice: d.voice_name || '',
       cost_ptc: Number(d.cost_ptc) || 0,
       key: cjSnippetKey(),
       at: Date.now()
@@ -3729,6 +3738,7 @@ function setPresenterMode(mode, opts) {
     state.presenter.mode = 'chanjing';
     state.avatar.enabled = false;
     state.presenter.layout = 'full';
+    try { ensureCjVoiceForChanjing({ silent: !!opts.silent }); } catch (e0) {}
     var cj = state.presenter.cj = state.presenter.cj || {};
     if (!cj.personId) {
       var list = co.persons || [];
@@ -5046,6 +5056,46 @@ function chanjingVoiceAvailable() {
   }
   return false;
 }
+/* 蝉镜数字人音色一致性（2026-11-21）：数字人口播只能由蝉镜 TTS 合成（成片配音=数字人音轨）。
+   第 1 步若还是标准音色（如 Cherry），成片 / 试听 / 3 秒样片会各自落到不同声音 → 自动切到高性价比音色。 */
+function cjFirstVoiceId() {
+  var groups = voiceGroups() || [];
+  for (var i = 0; i < groups.length; i++) {
+    var g = groups[i] || {};
+    if (g.key !== 'chanjing') continue;
+    var vs = g.voices || [];
+    for (var j = 0; j < vs.length; j++) {
+      var v = vs[j] || {};
+      if (v.ready === false) continue;
+      if (v.id) return String(v.id);
+      if (v.voice_id) return 'cj:' + String(v.voice_id);
+    }
+  }
+  return '';
+}
+function ensureCjVoiceForChanjing(opts) {
+  opts = opts || {};
+  if (presenterModeOf() !== 'chanjing') return '';
+  var cur = (state.project && state.project.voice) || state.input.voice || '';
+  if (voiceEngineOf(cur) === 'chanjing') return cur;
+  var id = cjFirstVoiceId();
+  if (!id) return '';
+  state.voiceTouched = true;
+  state.input.voice = id;
+  if (state.project) state.project.voice = id;
+  try { setVoice(id); } catch (e) {}
+  if (state.project) state.project.voice = id;
+  /* 直接刷新「③ 音色」行：本函数可能在 updateChanjingUI 之后才执行（音色目录异步加载），不刷新会显示旧口径 */
+  try {
+    if ($('aeCjVoice')) $('aeCjVoice').textContent = 'AI 配音：' + voiceText(id) + '（成片 / 试听 / 3 秒样片同一音色）';
+    if ($('aeCjSampleHint')) {
+      var _h = '用当前形象 + 背景真实合成 3 秒数字人样片（含 AI 配音），先看嘴型和镜头运动；仅预览、不计入成片。（20 秒内仅可生成一次，避免重复扣费）';
+      $('aeCjSampleHint').textContent = _h;
+    }
+  } catch (e2) {}
+  if (!opts.silent) toast('数字人口播音色已切换为「' + voiceText(id) + '」：成片、试听、3 秒样片使用同一音色', 'ok', 5600);
+  return id;
+}
 /* 试听按钮旁的引擎提示：选高性价比音色时高亮绿色；未选时给出「当前音色 + 高性价比音色更省」 */
 function updateTtsEngineHint(voice) {
   var el = $('aeTtsEngineHint');
@@ -5220,6 +5270,7 @@ function loadVoiceList() {
     if (!state.voiceTouched && !state.project) state.input.voice = defaultVoiceId();
     renderVoiceCards();
     renderVoiceSelect();
+    try { if (presenterModeOf() === 'chanjing') ensureCjVoiceForChanjing({ silent: true }); } catch (e1) {}
   }).catch(function (e) {
     state.voiceCatalog = { presets: [], cloned: [], groups: [], loaded: false, error: (e && e.message) || 'load_failed' };
     if ($('aeTtsHint')) $('aeTtsHint').textContent = '音色目录加载失败，暂用默认音色（' + ((e && e.message) || '网络异常') + '）';
@@ -7205,6 +7256,14 @@ function copyExportUrl() {
     toast('成片链接已选中，按 Ctrl+C 复制', 'warn', 3600);
   });
 }
+function renderDlUrl(u) {
+  /* 成片下载改走 OSS 签名网关：仅当 URL 指向 autoedit 成片目录时返回 /dlr 地址，否则返回 '' */
+  try {
+    var p = new URL(u, location.origin).pathname;
+    var m = p.match(/^\/ai-nav\/studio\/files\/autoedit\/render\/([^\/]+\.(?:mp4|mov|m4v|webm|jpg|jpeg|png))$/i);
+    return m ? '/ai-nav/api/dlr?f=' + encodeURIComponent(m[1]) : '';
+  } catch (e) { return ''; }
+}
 function downloadVideo() {
   if (state.exportState.status !== 'done') { toast('先完成导出，再下载成片', 'warn'); return; }
   var url = state.exportState.downloadUrl || state.exportState.url;
@@ -7213,25 +7272,35 @@ function downloadVideo() {
     return;
   }
   var name = '门店短视频-' + (state.project ? state.project.industry : '成片') + '-' + (state.exportState.quality || '1080p') + '.mp4';
-  try {
-    /* 直接用 <a download> 触发浏览器原生下载（同源 + 后端 ?download=1 会加 attachment 头），边下边存不占内存 */
-    var a = document.createElement('a');
-    a.href = url; a.download = name; a.rel = 'noopener';
-    document.body.appendChild(a); a.click(); document.body.removeChild(a);
-    toast('已开始下载成片；若浏览器直接打开，请右键另存为', 'ok', 3600);
-  } catch (e) {
-    /* 个别浏览器拦截时退回 fetch → Blob 保存 */
+  var start = function (target) {
     try {
-      fetch(url, { credentials: 'same-origin', cache: 'no-store' }).then(function (r) {
-        if (!r.ok) throw new Error('HTTP ' + r.status);
-        return r.blob();
-      }).then(function (blob) {
-        if (!blob || !blob.size) throw new Error('空文件');
-        downloadBlob(name, blob);
-        toast('成片已开始下载', 'ok', 3000);
-      }).catch(function () { toast('下载失败，请复制链接手动下载', 'warn'); });
-    } catch (e2) { toast('下载失败，请复制链接手动下载', 'warn'); }
-  }
+      /* 直接用 <a download> 触发浏览器原生下载（走 OSS 302 时附件名由后端签名头决定），边下边存不占内存 */
+      var a = document.createElement('a');
+      a.href = target; a.download = name; a.rel = 'noopener';
+      document.body.appendChild(a); a.click(); document.body.removeChild(a);
+      toast('已开始下载成片；若浏览器直接打开，请右键另存为', 'ok', 3600);
+    } catch (e) {
+      /* 个别浏览器拦截时退回 fetch → Blob 保存 */
+      try {
+        fetch(target, { credentials: 'same-origin', cache: 'no-store' }).then(function (r) {
+          if (!r.ok) throw new Error('HTTP ' + r.status);
+          return r.blob();
+        }).then(function (blob) {
+          if (!blob || !blob.size) throw new Error('空文件');
+          downloadBlob(name, blob);
+          toast('成片已开始下载', 'ok', 3000);
+        }).catch(function () { toast('下载失败，请复制链接手动下载', 'warn'); });
+      } catch (e2) { toast('下载失败，请复制链接手动下载', 'warn'); }
+    }
+  };
+  var dlUrl = renderDlUrl(url);
+  if (!dlUrl) { start(url); return; }
+  /* 能力探测：网关重启后上线；未上线/探测失败时保持原下载逻辑（不破坏线上下载） */
+  fetch('/ai-nav/api/dlr?health=1', { cache: 'no-store' }).then(function (r) {
+    return r.ok ? r.json() : null;
+  }).then(function (d) {
+    start(d && d.ok ? dlUrl : url);
+  }, function () { start(url); });
 }
 function playOnline() {
   if (state.exportState.status !== 'done' || !state.project) { toast('先导出成片，再在线播放', 'warn'); return; }

@@ -1047,12 +1047,24 @@ details.tips ul{margin:8px 0 0;padding-left:20px;line-height:1.75}
     el.addEventListener('pointercancel', function () { dragging = false; });
   }
 
+  function copyFallback(url) {
+    /* 浏览器未允许自动复制（非 https / 无焦点 / 内嵌 webview）时，把链接放进临时框并提示手动复制，不再只弹一串 URL */
+    try {
+      var ta = document.createElement('textarea');
+      ta.value = url; ta.style.position = 'fixed'; ta.style.opacity = '0';
+      document.body.appendChild(ta); ta.focus(); ta.select();
+      var ok = false;
+      try { ok = document.execCommand('copy'); } catch (e) {}
+      document.body.removeChild(ta);
+      toast(ok ? '下载链接已复制（1 小时内有效）' : '浏览器未允许自动复制，请手动复制下载链接：' + url);
+    } catch (e) { toast('浏览器未允许自动复制，请手动复制下载链接：' + url); }
+  }
   function copyLink() {
     var url = location.origin + (S.status && S.status.output && S.status.output.download_url ? S.status.output.download_url : (API + '/wm/download?id=' + S.taskId));
     var done = function () { toast('下载链接已复制（1 小时内有效）'); };
     if (navigator.clipboard && navigator.clipboard.writeText) {
-      navigator.clipboard.writeText(url).then(done).catch(function () { toast(url); });
-    } else { toast(url); }
+      navigator.clipboard.writeText(url).then(done).catch(function () { copyFallback(url); });
+    } else { copyFallback(url); }
   }
 
   function cancelTask() {
