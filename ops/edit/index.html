@@ -603,6 +603,11 @@ html[data-page="ops-edit"] .xl-sb-theme{display:none!important}
           <span class="ml">素材库管理</span>
           <span class="mb" id="oeLibBadge" hidden>0</span>
         </button>
+        <button class="oe-menu-item" type="button" data-tab="assetlib" role="tab" aria-selected="false">
+          <span class="mi"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M4 7.5l8-3.5 8 3.5-8 3.5z"/><path d="M4 12l8 3.5 8-3.5"/><path d="M4 16.5L12 20l8-3.5"/></svg></span>
+          <span class="ml">商用素材库</span>
+          <span class="mb" id="oeAssetBadge" hidden>0</span>
+        </button>
         <button class="oe-menu-item" type="button" data-tab="skills" role="tab" aria-selected="false">
           <span class="mi"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3.6l1.9 4.6 4.9.4-3.7 3.2 1.1 4.8-4.2-2.5-4.2 2.5 1.1-4.8-3.7-3.2 4.9-.4z"/></svg></span>
           <span class="ml">Skill 配置</span>
@@ -639,6 +644,11 @@ html[data-page="ops-edit"] .xl-sb-theme{display:none!important}
           <span class="ml">政企智能体</span>
           <span class="mb" id="oeGovBadge" hidden>0</span>
         </button>
+        <button class="oe-menu-item" type="button" data-tab="license" role="tab" aria-selected="false">
+          <span class="mi"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="9.5" width="16" height="10" rx="2.2"/><path d="M8 9.5V7a4 4 0 0 1 8 0v2.5"/><path d="M12 13.2v3"/></svg></span>
+          <span class="ml">软件授权</span>
+          <span class="mb" id="oeLicenseBadge" hidden>0</span>
+        </button>
       </nav>
       <div class="oe-menu-sep" aria-hidden="true"></div>
       <div class="oe-menu-foot">
@@ -668,6 +678,7 @@ html[data-page="ops-edit"] .xl-sb-theme{display:none!important}
         <section class="oe-panel" data-panel="invoices" id="panel-invoices" hidden></section>
         <section class="oe-panel" data-panel="csai" id="panel-csai" hidden></section>
         <section class="oe-panel" data-panel="gov" id="panel-gov" hidden></section>
+        <section class="oe-panel" data-panel="license" id="panel-license" hidden></section>
         <!-- ================= 1. 运营总览 ================= -->
         <section class="oe-panel" data-panel="overview" id="panel-overview">
           <div class="oe-stats" id="ovStats">
@@ -736,6 +747,9 @@ html[data-page="ops-edit"] .xl-sb-theme{display:none!important}
             </section>
           </div>
         </section>
+
+        <!-- ================= 1.5 商用素材库（免费可商用素材库，asset_api.py） ================= -->
+        <section class="oe-panel" data-panel="assetlib" id="panel-assetlib" hidden></section>
 
         <!-- ================= 2. 素材库管理 ================= -->
         <section class="oe-panel" data-panel="library" id="panel-library" hidden>
@@ -962,6 +976,7 @@ html[data-page="ops-edit"] .xl-sb-theme{display:none!important}
 
 <script defer src="../../assets/site-shell.js?v=20261119x"></script>
 <script defer src="../../assets/auth.js"></script>
+<script defer src="../../assets/assets-ops.js?v=20261121a"></script>
 <script>
 
 (function () {
@@ -1188,7 +1203,9 @@ html[data-page="ops-edit"] .xl-sb-theme{display:none!important}
     credits: { label: '积分管理', crumb: '积分管理', sub: '给客户充积分、按用量扣积分；用户端 0.3–0.8 积分/秒、渲染 2 积分/条；后台看真实成本/毛利与总户余额。' },
     invoices: { label: '发票管理', crumb: '发票管理', sub: '客户开票申请：人工开票（填发票号/上传 PDF）、驳回、自动开票；导出 CSV 给代账公司/开票平台。' },
     csai: { label: 'AI 客服', crumb: 'AI 智能客服', sub: '知识库（三层来源）/ 网页挂件会话 / 留资转人工 / 未命中问题池 / 成交漏斗 / 成本看板；P0 网页渠道，企微抖音官方接口 P1 预留。' },
-    gov: { label: '政企智能体', crumb: '政企智能体', sub: '对外方案页 / 安全与保密 / 3 个原型（政策问答 · 公文助手 · 工单分派）；示例政策知识库管理、检索测试、问答日志、未命中问题池、预约演示线索、安全与审计。' }
+    gov: { label: '政企智能体', crumb: '政企智能体', sub: '对外方案页 / 安全与保密 / 3 个原型（政策问答 · 公文助手 · 工单分派）；示例政策知识库管理、检索测试、问答日志、未命中问题池、预约演示线索、安全与审计。' },
+    assetlib: { label: '商用素材库', crumb: '商用素材库', sub: '免费可商用素材库（图片/视频/音乐/音效/字体）：素材总览 / 行业统计 / 抓取任务 / 审核下架 / 授权台账 / 使用统计 / 行业素材包。' },
+    license: { label: '软件授权', crumb: '软件授权', sub: '星籁剪辑独立销售授权：License Key 生成/吊销/延长/加座、设备指纹绑定（≤座位数）、心跳续期与签名 Token、远程功能开关、异常多 IP 自动封禁告警、隐形溯源水印。' }
 
   };
 
@@ -1969,7 +1986,8 @@ html[data-page="ops-edit"] .xl-sb-theme{display:none!important}
     credits: function () { return Promise.resolve(); },
     invoices: function () { return Promise.resolve(); },
     csai: function () { return Promise.resolve(); },
-    gov: function () { return Promise.resolve(); }
+    gov: function () { return Promise.resolve(); },
+    license: function () { return Promise.resolve(); }
   };
   var TAB_RENDERERS = {};
 
@@ -2862,6 +2880,16 @@ html[data-page="ops-edit"] .xl-sb-theme{display:none!important}
   TAB_RENDERERS.invoices = function () { if (window.XLInvoicesOps) window.XLInvoicesOps.render(); };
   TAB_RENDERERS.csai = function () { if (window.XLCsAiOps) window.XLCsAiOps.render(); };
   TAB_RENDERERS.gov = function () { if (window.XLGovOps) window.XLGovOps.render(); };
+  TAB_RENDERERS.license = function () { if (window.XLLicenseOps) window.XLLicenseOps.render(); };
+  TAB_META.assetlib = TAB_META.assetlib || { label: '商用素材库', crumb: '商用素材库', sub: '免费可商用素材库：素材总览 / 行业统计 / 抓取任务 / 审核下架 / 授权台账 / 使用统计。' };
+  TAB_LOADERS.assetlib = function () { return Promise.resolve(); };
+  TAB_RENDERERS.assetlib = function () {
+    try {
+      if (window.XLAssetsOps) window.XLAssetsOps.render(document.getElementById('panel-assetlib'));
+      var badge = document.getElementById('oeAssetBadge');
+      if (badge && window.XLAssetsOps) badge.hidden = true;
+    } catch (e) { }
+  };
   function ensurePlanMatrix() {
     var planIds = (state.plans || []).map(function (p) { return p.id; });
     if (!planIds.length) planIds = ['free', 'basic', 'pro', 'enterprise'];
@@ -3971,6 +3999,7 @@ html[data-page="ops-edit"] .xl-sb-theme{display:none!important}
   <script defer src="../../assets/credits-ops.js"></script>
 <script defer src="../../assets/cs-ai-ops.js?v=20261120a"></script>
 <script defer src="../../assets/gov-ops.js?v=20261120a"></script>
+<script defer src="../../assets/license-ops.js?v=20261121b"></script>
 </body>
 </html>
 
