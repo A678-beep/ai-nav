@@ -1,0 +1,372 @@
+<!DOCTYPE html>
+<html lang="zh-CN" data-page="a">
+<head>
+<meta charset="UTF-8">
+<!--xl-theme-start-->
+<script>(function(){try{var k="xl_theme",v=localStorage.getItem(k),m=(v==="dark"||v==="light"||v==="auto")?v:"auto",q=window.matchMedia?window.matchMedia("(prefers-color-scheme: light)"):null,t=(m==="auto")?((q&&q.matches)?"light":"dark"):m,d=document.documentElement;d.setAttribute("data-theme",t);d.setAttribute("data-theme-mode",m);d.style.colorScheme=t}catch(e){document.documentElement.setAttribute("data-theme","dark")}})();</script>
+
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>AI 抠头发 实战：飞发、刘海与深色背景 · 星籁</title>
+<meta name="description" content="上周接了组模特图，200 张，全要换纯色背景。头发长、逆光、深棕发色，丢进在线抠图一站处理，发梢全糊成锯齿。我试了三条路线，最后才把边缘压到能交付的程度。同一批图里飞发最少和最多的一张，阈值能差 0.12，统一设一个值一">
+<meta name="keywords" content="AI 抠头发, 头发 抠图, 发丝 边缘, 批量 抠图, 抠头发 参数 怎么设, 头发 抠图 边缘 发白">
+<meta name="robots" content="noindex,nofollow"><meta name="googlebot" content="noindex,nofollow">
+
+<link rel="canonical" href="https://xinglaiai.com/ai-nav/a/image-60-ai-hair-cutout-method.html">
+<meta property="og:type" content="article">
+<meta property="og:title" content="AI 抠头发 实战：飞发、刘海与深色背景">
+<meta property="og:description" content="上周接了组模特图，200 张，全要换纯色背景。头发长、逆光、深棕发色，丢进在线抠图一站处理，发梢全糊成锯齿。我试了三条路线，最后才把边缘压到能交付的程度。同一批图里飞发最少和最多的一张，阈值能差 0.12，统一设一个值一">
+<meta property="og:url" content="https://xinglaiai.com/ai-nav/a/image-60-ai-hair-cutout-method.html">
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "Article", "headline": "AI 抠头发 实战：飞发、刘海与深色背景", "inLanguage": "zh-CN", "datePublished": "2026-11-21", "author": {"@type": "Organization", "name": "星籁 Stellara"}, "publisher": {"@type": "Organization", "name": "星籁 Stellara"}, "mainEntityOfPage": "https://xinglaiai.com/ai-nav/a/image-60-ai-hair-cutout-method.html", "articleSection": "图像生成", "wordCount": 800, "dateModified": "2026-11-21", "keywords": "AI 抠头发, 头发 抠图, 发丝 边缘, 批量 抠图, 抠头发 参数 怎么设, 头发 抠图 边缘 发白"}</script>
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "首页", "item": "https://xinglaiai.com/ai-nav/"}, {"@type": "ListItem", "position": 2, "name": "图像生成", "item": "https://xinglaiai.com/ai-nav/#/articles"}, {"@type": "ListItem", "position": 3, "name": "AI 抠头发 实战：飞发、刘海与深色背景", "item": "https://xinglaiai.com/ai-nav/a/image-60-ai-hair-cutout-method.html"}]}</script>
+<style>
+:root{--bg:#080b12;--panel:#111827;--line:#1f2937;--txt:#e6edf7;--txt2:#9aa8bd;--txt3:#6b7a90;--cyan:#5ad1ff;--violet:#a78bfa}
+*{box-sizing:border-box}body{margin:0;background:radial-gradient(900px 500px at 82% -8%,rgba(90,209,255,.16),transparent 60%),var(--bg);color:var(--txt);font-family:"Microsoft YaHei","PingFang SC",system-ui,sans-serif;line-height:1.8}
+a{color:inherit;text-decoration:none}
+.top{position:sticky;top:0;backdrop-filter:blur(12px);background:rgba(8,11,18,.85);border-bottom:1px solid var(--line)}
+.top-in{max-width:900px;margin:0 auto;padding:12px 20px;display:flex;align-items:center;gap:10px}
+.logo{display:flex;align-items:center;gap:9px;font-weight:800}
+.logo .mark{width:30px;height:30px;border-radius:9px;background:linear-gradient(135deg,var(--cyan),var(--violet));display:grid;place-items:center;color:#04121c;font-weight:900}
+.top-in .nav-leadgen{margin-left:auto;color:var(--txt2);font-size:13px;padding:5px 10px;border:1px solid var(--line);border-radius:8px;white-space:nowrap}
+.top-in .nav-leadgen:hover{color:var(--txt);border-color:rgba(90,209,255,.45)}
+.top-in .back{margin-left:8px;color:var(--txt2);font-size:13px}
+main{max-width:900px;margin:0 auto;padding:28px 20px 60px}
+h1{font-size:28px;line-height:1.4;margin:8px 0 10px}
+.meta{color:var(--txt3);font-size:12.5px;margin-bottom:22px;display:flex;gap:8px;flex-wrap:wrap}
+.content{font-size:15.5px;color:#cfd9e6}
+.content h2{font-size:20px;color:var(--txt);margin:28px 0 10px}
+.content h3{font-size:17px;color:var(--txt);margin:22px 0 8px}
+.content p{margin:12px 0}
+.content li{margin:6px 0}
+.content code{background:rgba(120,180,255,.12);padding:1px 6px;border-radius:5px;font-family:Consolas,monospace;font-size:13px}
+.content pre{background:#0a1018;border:1px solid var(--line);border-radius:10px;padding:12px;overflow:auto}
+.content blockquote{border-left:3px solid var(--cyan);padding:4px 14px;color:var(--txt2);margin:16px 0}
+.ad-slot{margin:26px 0;min-height:100px;border:1px dashed rgba(120,140,170,.35);border-radius:12px;display:flex;align-items:center;justify-content:center;color:var(--txt3);font-size:12px;text-align:center;background:rgba(17,24,39,.55)}
+.ad-slot small{display:block;font-size:10.5px;opacity:.7}
+.bread{color:var(--txt3);font-size:12.5px;margin-bottom:6px}
+.bread a{color:var(--cyan)}
+footer{border-top:1px solid var(--line);color:var(--txt3);font-size:12.5px;text-align:center;padding:20px}
+.related{margin:34px 0 10px;border-top:1px solid var(--line);padding-top:18px}.related h2{font-size:16px;color:var(--txt);margin:0 0 10px}.related ul{list-style:none;padding:0;margin:0}.related li{margin:8px 0}.related a{color:var(--cyan);font-size:14px}
+.tool-link{margin:14px 0 0}
+.tlinks a{display:inline-block;margin:0 8px 8px 0;padding:6px 12px;border:1px solid rgba(90,209,255,.25);border-radius:8px;font-size:13px;color:var(--cyan);background:rgba(90,209,255,.06)}
+.tlinks a:hover{background:rgba(90,209,255,.15)}
+.sec{margin:26px 0}
+.sec h2{font-size:17px;color:var(--txt);margin:0 0 10px}
+.tool-link a{display:inline-block;font-size:13px;color:var(--txt2);border:1px solid var(--line);border-radius:8px;padding:7px 12px}
+.tool-link a:hover{color:var(--txt);border-color:rgba(90,209,255,.45)}
+.top-in .back{padding:6px 0}
+.bread a{display:inline-block;padding:6px 0}
+.sec li a{display:inline-block;padding:5px 0}
+.sib a{padding:8px 12px}
+.cats a{display:inline-block;margin:0 8px 8px 0;padding:6px 12px;border:1px solid var(--line);border-radius:8px;font-size:13px;color:var(--txt2)}
+.cats a:hover{color:var(--txt);border-color:rgba(90,209,255,.45)}
+.cats h2{font-size:17px;margin:22px 0 10px}
+.tcards{display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:10px;margin:6px 0 4px}
+.tcard{border:1px solid var(--line);border-radius:10px;padding:12px 14px;background:rgba(255,255,255,.02)}
+.tc-top{display:flex;justify-content:space-between;align-items:center;gap:8px}
+.tc-top b{font-size:14px;color:var(--txt)}
+.tc-top a{text-decoration:none}
+.tc-go{font-size:12px;color:var(--cyan);white-space:nowrap}
+.tc-d{margin:6px 0 0;font-size:12.5px;color:var(--txt3);line-height:1.5}
+.tc-lim{margin:6px 0 0;font-size:12px;color:var(--txt2)}
+.tnote{font-size:12px;color:var(--txt3);margin:8px 0 0}
+@media(max-width:640px){.tcards{grid-template-columns:1fr}.tc-top a{min-height:34px;display:inline-flex;align-items:center}}
+@media(max-width:640px){h1{font-size:22px}main{padding:20px 16px 40px}
+.related a,.tlinks a,.tool-link a,footer a,.sib a{min-height:36px;display:inline-flex;align-items:center}
+.list a{padding:14px 14px}
+td a{display:inline-block;padding:8px 0}
+.note a{display:inline-block;padding:7px 0}
+}
+
+/* ============ UI 升级 2026-11：更专业 / 更智能 ============ */
+:root{
+  --bg:#070a10; --bg2:#0a0f18; --panel:#0f1622; --panel2:#131c2b;
+  --line:rgba(148,163,184,.14); --line2:rgba(148,163,184,.22);
+  --txt:#e8eef8; --txt2:#9fb0c7; --txt3:#6b7c94;
+  --cyan:#38bdf8; --violet:#8b5cf6; --lime:#34d399;
+  --r:16px; --r-sm:11px;
+  --shadow:0 10px 30px -12px rgba(0,0,0,.7);
+  --shadow-lg:0 24px 60px -20px rgba(2,8,20,.9);
+}
+body{
+  background:
+    radial-gradient(900px 480px at 78% -10%,rgba(56,189,248,.10),transparent 60%),
+    radial-gradient(760px 420px at 12% 8%,rgba(139,92,246,.10),transparent 60%),
+    linear-gradient(180deg,var(--bg) 0%,var(--bg2) 100%);
+  background-attachment:fixed;
+  font-feature-settings:"tnum" 1,"ss01" 1;
+  -webkit-font-smoothing:antialiased;
+}
+body::before{
+  content:"";position:fixed;inset:0;pointer-events:none;z-index:0;
+  background-image:linear-gradient(rgba(148,163,184,.045) 1px,transparent 1px),
+                   linear-gradient(90deg,rgba(148,163,184,.045) 1px,transparent 1px);
+  background-size:64px 64px;
+  mask-image:radial-gradient(ellipse at 50% 0%,#000 30%,transparent 78%);
+  -webkit-mask-image:radial-gradient(ellipse at 50% 0%,#000 30%,transparent 78%);
+}
+.wrap,.top-in{position:relative;z-index:1}
+
+/* 顶栏 */
+.top{background:rgba(7,10,16,.72);border-bottom:1px solid var(--line);backdrop-filter:blur(18px) saturate(140%)}
+.top-in{height:62px;gap:18px}
+.brand{font-weight:800;letter-spacing:.2px}
+.brand small{color:var(--txt3);font-weight:600;letter-spacing:.14em}
+.top a{color:var(--txt2);font-size:13.5px;padding:8px 12px;border-radius:10px;transition:.18s}
+.top a:hover{color:var(--txt);background:rgba(148,163,184,.10)}
+.top .btn,.top .nav-cta{background:linear-gradient(135deg,var(--cyan),#6366f1);color:#04121c;font-weight:700;border-radius:10px;padding:8px 15px}
+.top .nav-cta:hover{filter:brightness(1.08)}
+
+/* Hero */
+.hero{padding:74px 0 40px;text-align:center}
+.eyebrow{
+  display:inline-flex;align-items:center;gap:8px;
+  font-size:11.5px;letter-spacing:.22em;color:#7dd3fc;
+  border:1px solid rgba(56,189,248,.28);background:rgba(56,189,248,.07);
+  padding:6px 14px;border-radius:999px;margin-bottom:20px;
+}
+.hero h1{
+  font-size:clamp(32px,4.4vw,56px);line-height:1.14;letter-spacing:-.02em;
+  font-weight:800;margin:0 0 16px;color:var(--txt);
+}
+.hero h1 span{
+  background:linear-gradient(120deg,#7dd3fc 0%,#a78bfa 60%,#7dd3fc 100%);
+  -webkit-background-clip:text;background-clip:text;color:transparent;
+}
+.hero .lead,.hero p.sub{max-width:720px;margin:0 auto;color:var(--txt2);font-size:16px;line-height:1.75}
+
+/* 数据条 */
+.stats,.stat-row{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;max-width:860px;margin:30px auto 6px}
+.stat,.stat-card{
+  background:linear-gradient(180deg,rgba(19,27,42,.9),rgba(12,18,28,.9));
+  border:1px solid var(--line);border-radius:var(--r);padding:16px 18px;text-align:left;
+}
+.stat b,.stat-card b{display:block;font-size:26px;font-weight:800;color:#fff;letter-spacing:-.02em}
+.stat span,.stat-card span{font-size:12.5px;color:var(--txt3)}
+
+/* 搜索 */
+.search,.searchbox{position:relative;max-width:640px;margin:26px auto 0}
+.search input,.searchbox input{
+  width:100%;height:54px;border-radius:14px;border:1px solid var(--line2);
+  background:rgba(13,20,32,.9);color:var(--txt);font-size:15px;padding:0 118px 0 48px;outline:none;transition:.2s;
+}
+.search input:focus{border-color:rgba(56,189,248,.55);box-shadow:0 0 0 4px rgba(56,189,248,.12)}
+.search kbd,.searchbox kbd{
+  position:absolute;right:14px;top:15px;font-size:11.5px;color:var(--txt3);
+  border:1px solid var(--line2);border-radius:7px;padding:4px 8px;background:rgba(148,163,184,.07)
+}
+
+/* 分区标题 */
+.sec-head{display:flex;align-items:flex-end;gap:12px;margin:44px 0 18px}
+.sec-head h2{margin:0;font-size:21px;letter-spacing:-.01em;display:flex;align-items:center;gap:10px}
+.sec-head h2::before{content:"";width:4px;height:19px;border-radius:3px;background:linear-gradient(180deg,var(--cyan),var(--violet))}
+.sec-head .more{margin-left:auto;font-size:13px;color:var(--cyan)}
+
+/* 工具卡片 */
+.card{
+  background:linear-gradient(180deg,rgba(20,28,43,.86),rgba(12,18,28,.86));
+  border:1px solid var(--line);border-radius:var(--r);padding:18px;
+  transition:transform .22s cubic-bezier(.2,.8,.2,1),border-color .22s,box-shadow .22s;
+}
+.card:hover{transform:translateY(-4px);border-color:rgba(56,189,248,.42);box-shadow:var(--shadow-lg)}
+.card h3{font-size:15.5px;font-weight:700;color:var(--txt)}
+.card h3 i{width:30px;height:30px;border-radius:9px;font-size:13px;
+  background:linear-gradient(135deg,rgba(56,189,248,.22),rgba(139,92,246,.22));
+  border:1px solid rgba(148,163,184,.18);color:#cfe9ff}
+.card p{font-size:12.8px;line-height:1.65;color:var(--txt2)}
+.card .go{font-weight:600}
+.card .tagline{background:rgba(148,163,184,.08);border-radius:999px;padding:3px 9px;color:var(--txt3)}
+
+/* 分类胶囊 */
+.cats,.chips{display:flex;flex-wrap:wrap;gap:9px;margin:0 0 22px}
+.cats a,.chips a,.chips button{
+  font-size:13px;padding:9px 15px;border-radius:999px;border:1px solid var(--line);
+  background:rgba(15,22,34,.7);color:var(--txt2);transition:.18s
+}
+.cats a:hover,.chips a:hover{border-color:rgba(56,189,248,.45);color:#dff3ff;background:rgba(56,189,248,.08)}
+.cats a.on,.chips .on{background:linear-gradient(135deg,rgba(56,189,248,.16),rgba(139,92,246,.16));border-color:rgba(56,189,248,.45);color:#e8f7ff}
+
+/* 文章列表 */
+.art,.art-row,.list-item{border-bottom:1px solid var(--line);padding:16px 2px;transition:.16s}
+.art:hover,.art-row:hover,.list-item:hover{background:rgba(56,189,248,.045)}
+.art h3,.art-row h3{font-size:15.5px;margin:0 0 6px;line-height:1.5}
+
+/* 正文页增强 */
+.content{font-size:15.5px;line-height:1.9;color:#cdd8e6}
+.content h2{
+  font-size:20.5px;margin:34px 0 12px;padding-left:12px;position:relative;color:#fff;letter-spacing:-.01em
+}
+.content h2::before{content:"";position:absolute;left:0;top:4px;bottom:4px;width:3px;border-radius:2px;
+  background:linear-gradient(180deg,var(--cyan),var(--violet))}
+.content p{margin:0 0 16px}
+.content ul,.content ol{padding-left:22px;margin:0 0 18px}
+.content li{margin:6px 0}
+.content blockquote{margin:20px 0;padding:14px 18px;border-left:3px solid var(--cyan);
+  background:rgba(56,189,248,.06);border-radius:0 10px 10px 0;color:#bcd3e6}
+.content table{width:100%;border-collapse:collapse;margin:18px 0;font-size:14px}
+.content th{background:rgba(148,163,184,.08);text-align:left;padding:10px 12px;border:1px solid var(--line)}
+.content td{padding:10px 12px;border:1px solid var(--line);color:var(--txt2)}
+.content tr:hover td{background:rgba(56,189,248,.04)}
+.content code{background:rgba(148,163,184,.12);padding:2px 6px;border-radius:6px;font-size:.92em}
+.content pre{background:#0a1120;border:1px solid var(--line);border-radius:12px;padding:14px 16px;overflow:auto}
+
+/* 文中工具卡 / 广告位 */
+.tcard,.tcards .tcard{background:linear-gradient(180deg,rgba(20,28,43,.9),rgba(12,18,28,.9));
+  border:1px solid var(--line);border-radius:14px;transition:.2s}
+.tcard:hover{border-color:rgba(56,189,248,.4);transform:translateY(-2px)}
+.ad-bottom{border-radius:14px}
+
+/* 页脚 */
+footer{border-top:1px solid var(--line);margin-top:48px;padding:26px 0 40px;color:var(--txt3);font-size:12.5px;line-height:1.9}
+footer a{color:var(--txt2)}
+
+/* 阅读进度条（文章页） */
+#rp{position:fixed;top:0;left:0;height:2px;width:0;z-index:60;
+  background:linear-gradient(90deg,var(--cyan),var(--violet));transition:width .1s linear}
+
+/* 移动端 */
+@media (max-width:760px){
+  .hero{padding:44px 0 24px}
+  .hero h1{font-size:31px;line-height:1.22}
+  .hero .lead,.hero p.sub{font-size:14.5px}
+  .stats,.stat-row{grid-template-columns:repeat(2,1fr);gap:10px}
+  .stat b{font-size:22px}
+  .search input,.searchbox input{height:50px;font-size:14px;padding-right:96px}
+  .sec-head{margin:32px 0 14px}
+  .content{font-size:15px;line-height:1.85}
+  .content h2{font-size:18.5px;margin:28px 0 10px}
+}
+
+/* 阅读宽度与页面节奏 */
+body>main{max-width:1000px;margin:0 auto;padding:0 22px 48px}
+article.content{max-width:820px;margin:0 auto}
+article.content p{letter-spacing:.01em}
+.crumb,.breadcrumb,.meta.crumb{font-size:12.5px;color:var(--txt3);margin:18px 0 14px}
+.crumb a,.breadcrumb a{color:var(--txt2)}
+@media (max-width:760px){body>main{padding:0 16px 40px}}
+
+/* 移动端布局修正 */
+@media (max-width:760px){
+  .top-in{height:56px;flex-wrap:nowrap;overflow-x:auto;overflow-y:hidden;gap:6px;padding:0 12px;
+    -webkit-overflow-scrolling:touch;scrollbar-width:none}
+  .top-in::-webkit-scrollbar{display:none}
+  .brand{font-size:15.5px;white-space:nowrap;flex:0 0 auto}
+  .brand small{display:none}
+  .top a{padding:7px 11px;font-size:13px;white-space:nowrap;flex:0 0 auto}
+  .hero{padding:30px 0 18px}
+  .eyebrow{display:none}
+  .hero h1{font-size:27px;line-height:1.28;letter-spacing:-.015em;margin-bottom:12px}
+  .hero .lead,.hero p.sub{font-size:14px;line-height:1.7}
+  .stats,.stat-row{grid-template-columns:repeat(2,1fr);gap:9px;margin-top:22px}
+  .stat,.stat-card{padding:13px 14px}
+  .stat b,.stat-card b{font-size:22px}
+  .stat span,.stat-card span{font-size:11.5px}
+  .search,.searchbox{margin-top:18px}
+  .search input,.searchbox input{height:48px;padding:0 16px 0 42px;font-size:14px}
+  .search kbd,.searchbox kbd{display:none}
+  .sec-head{margin:30px 0 12px}
+  .sec-head h2{font-size:18px}
+  .cats,.chips{gap:8px}
+  .cats a,.chips a,.chips button{font-size:12.5px;padding:8px 12px}
+  .card{padding:15px}
+  footer{margin-top:36px;padding:22px 0 34px}
+}
+
+/* 头部品牌不再换行 */
+.brand{flex:0 0 auto;display:inline-flex;align-items:center;gap:9px;white-space:nowrap}
+.brand>div{display:inline-flex;align-items:center;gap:9px;white-space:nowrap}
+.brand span,.brand b{white-space:nowrap}
+@media (max-width:760px){
+  .top-in{gap:4px;padding:0 10px}
+  .brand{margin-right:6px}
+  .brand>div{flex-direction:row}
+  .top a{padding:6px 9px;font-size:12.5px}
+  .hero h1{font-size:25px;padding:0 10px}
+  .hero .lead{padding:0 12px}
+}
+
+/* WB_WIDE_UNIFY 满屏工作台（仅 ≥1180px 生效，移动端维持原样） */
+@media (min-width:1180px){
+  .top-in{max-width:none;padding-left:32px;padding-right:32px}
+  body>main{max-width:none;padding:0 32px 56px}
+  body>main > .bread,
+  body>main > h1,
+  body>main > .meta,
+  body>main > article.content{max-width:820px;margin-left:auto;margin-right:auto}
+  body>main > .sec.tcards-sec,
+  body>main > .related{max-width:1080px;margin-left:auto;margin-right:auto}
+  body>main > .related ul{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));column-gap:28px}
+}
+</style>
+<link rel="stylesheet" href="../assets/auth-nav.css">
+<link rel="stylesheet" href="../assets/theme-light.css">
+<script defer src="../assets/theme.js"></script>
+<!--xl-theme-end-->
+<link rel="stylesheet" href="../assets/site-shell.css">
+</head>
+<body>
+<header class="top"><div class="top-in">
+  <a class="logo" href="../index.html"><span class="mark">✦</span>星籁 AI 导航</a>
+  <a class="nav-leadgen" href="/ai-nav/leadgen/">AI 获客</a>
+  <a class="back" href="../index.html">← 返回首页</a>
+</div></header>
+<main>
+  <div class="bread"><a href="../index.html">首页</a> / <a href="../image/index.html">图像生成</a></div>
+  <h1>AI 抠头发 实战：飞发、刘海与深色背景</h1>
+  <div class="meta"><span>图像生成</span><span>·</span><span>更新于 2026-11-21</span><span>·</span><span>AI 抠头发, 头发 抠图, 发丝 边缘, 批量 抠图, 抠头发 参数 怎么设, 头发 抠图 边缘 发白</span></div>
+  <article class="content"><p>上周接了组模特图，200 张，全要换纯色背景。头发长、逆光、深棕发色，丢进在线抠图一站处理，发梢全糊成锯齿。我试了三条路线，最后才把边缘压到能交付的程度。同一批图里飞发最少和最多的一张，阈值能差 0.12，统一设一个值一定有一半返工。这篇讲 AI 抠头发 的三层参数，从整体掩膜到发丝补笔，数值都能直接抄。</p>
+<h2>一、先分清三种头发，参数完全不同</h2>
+<p>短发贴头皮的，整体掩膜一次到位，误差在 1 像素内；长发披肩的，飞发和发梢要分开处理；刘海和半透明的，必须用 alpha 通道而不是二值掩膜。我用 RMBG-2.0 出基础掩膜，输入 2048×2048，阈值先设 0.5；长发降到 0.42 才能保住细发丝，短发提到 0.58 正好收掉背景噪点。深发配深底是最难的组合，色差低于 8 个灰阶几乎分不开，得先在 Lightroom 里把阴影提 15 再抠。飞散发梢最多能数出 40 根细丝，逐根描不现实，只能靠阈值一次保住。这也是 抠头发 参数 怎么设 里最容易忽略的一条：阈值服从发长，不服从工具默认值。</p>
+<h2>二、Photoshop 三步把边缘压回来</h2>
+<div class="ad-slot" data-ad="article-mid"><div>广告位（文章中部）<small>AdSense / 广告联盟代码插入点 · 建议 728×90 / 移动端 320×100</small></div><!-- 在这里粘贴广告代码 --></div>
+<p>第一步，载入选区进选择并遮住：智能半径 6px、羽化 0.4px、对比度 15%、移动边缘 -5%，整体先收 1 像素。第二步，用调整边缘画笔沿发梢描一圈，半径 12px、画笔不透明度 70%，只补飞出去的那几根。第三步，输出到新图层做去边 2px，再用吸管在头发边缘取中间色、3px 画笔轻扫一遍，消除发白。去边这 2 像素是处理 头发 抠图 边缘 发白 最省事的办法。白衬衫最容易连衣领一起选中，勾选颜色识别、取样半径压到 5px 能避开。整套下来，200 张里约 30 张需要手动补笔，每张 40 秒；先跑 10 张小样确认参数，再跑全量。</p>
+<h2>三、批量与避坑</h2>
+<p>批量走 Python 加 rembg：输出必须 PNG 保留 alpha，别用 JPG，压一次边缘就锯齿。单张 2048 约 6 秒，200 张 20 分钟，8G 显存够用。四个坑记一下：一，别用二值掩膜换浅色背景，发丝会缺一角；二，导出前把背景填纯白检查，任何灰边都会暴露；三，逆光照片 AI 抠头发 容易把发光发丝当背景删掉，宁可用画笔补 10 根，也别让掩膜硬扩；四，换背景后统一做 3px 内阴影，颜色取背景色，边缘就不像贴上去的。同一套 抠头发 参数 怎么设 的答案换组片子就不灵，所以小样必须先跑。验收只做两件事：放大 200% 看发梢断点，填充 50% 灰看 1 像素白边。</p>
+<h2>总结</h2>
+<p>我的顺序固定成三步：先按发长选阈值，再用选择并遮住收边缘，最后统一去边和白色背景检查。头发 抠图 边缘 发白 的根源多半是背景色残留，而不是掩膜不准。AI 抠头发 能省掉八成手工，剩下的两成是发梢和逆光，只能靠画笔和 40 秒的耐心。</p></article>
+  
+  <section class="related"><h2>同类教程</h2><ul><li><a href="image-01-midjourney-v7-character-consistency.html">Midjourney v7 角色一致性实战</a></li><li><a href="image-02-stable-diffusion-3-5-inpainting.html">Stable Diffusion 3.5局部重绘</a></li><li><a href="image-03-flux1-dev-low-vram-quantization.html">Flux.1 dev 低显存 量化：三档取舍</a></li><li><a href="image-04-jimeng-ai-ecommerce-hero-image.html">即梦 AI 电商主图：白底出图六坑</a></li><li><a href="image-05-kling-image-to-image-chinese-style.html">可灵 图生图 国风插画：转绘强度 0.55 实测</a></li></ul><p class="tool-link"><a href="../index.html">查看 图像生成 工具与其它教程 →</a> <a href="../t/errors/">AI 报错解决 →</a> <a href="../t/params/">参数与配置 →</a></p></section>
+  <footer>© 2026 星籁 AI 工具导航 · xinglaiai.com 版权所有 · 未经许可禁止镜像/采集/商业转载 · <a href="/ai-nav/radar/">工具雷达</a> &middot; <a href="/ai-nav/select-ai/">智能选型</a> &middot; <a href="/ai-nav/studio/">AI 创作工坊</a> &middot; <a href="/ai-nav/leadgen/">AI 获客</a> &middot; <a href="/ai-nav/travel/">出行导航</a> &middot; <a href="../privacy.html">隐私政策</a> · <a href="../pricing/">套餐定价</a> &middot; <a href="../sitemap.xml">站点地图</a></footer>
+<script>
+(function(){
+  if (window.__ux) return; window.__ux = 1;
+  function mk(tag, css, html){ var e=document.createElement(tag); e.style.cssText=css; if(html) e.innerHTML=html; return e; }
+  var top = mk('button','position:fixed;right:18px;bottom:80px;z-index:50;width:44px;height:44px;border-radius:12px;border:1px solid rgba(148,163,184,.25);background:var(--xl-panel);color:var(--xl-accent);font-size:18px;cursor:pointer;display:none;backdrop-filter:blur(10px)','↑');
+  top.title='回到顶部'; top.onclick=function(){window.scrollTo({top:0,behavior:'smooth'})}; document.body.appendChild(top);
+  var rp = mk('div','position:fixed;top:0;left:0;height:2px;width:0;z-index:60;background:linear-gradient(90deg,#38bdf8,#8b5cf6);transition:width .1s linear'); document.body.appendChild(rp);
+  var last=0;
+  window.addEventListener('scroll',function(){
+    var h=document.documentElement, p=h.scrollTop/((h.scrollHeight-h.clientHeight)||1);
+    rp.style.width=(p*100).toFixed(1)+'%';
+    top.style.display=h.scrollTop>600?'block':'none';
+  },{passive:true});
+  document.addEventListener('keydown',function(e){
+    if((e.ctrlKey||e.metaKey)&&(e.key==='k'||e.key==='K')){
+      var i=document.querySelector('input[type=search], .search input, .searchbox input, #q');
+      if(i){ e.preventDefault(); i.focus(); if(i.select) i.select(); }
+    }
+  });
+  function buildTOC(){
+    if(window.innerWidth<1280) return;
+    if(document.getElementById('toc')) return;
+    var c=document.querySelector('article.content')||document.querySelector('.content');
+    if(!c) return;
+    var hs=c.querySelectorAll('h2');
+    if(hs.length<2) return;
+    var box=mk('div','position:fixed;right:22px;top:110px;width:206px;max-height:70vh;overflow:auto;font-size:12.5px;line-height:1.6;background:var(--xl-panel);border:1px solid rgba(148,163,184,.16);border-radius:12px;padding:12px 14px;backdrop-filter:blur(10px);z-index:40');
+    var t='<div style="color:var(--xl-txt2);font-weight:700;margin-bottom:6px">本文目录</div>';
+    for(var k=0;k<hs.length;k++){
+      if(!hs[k].id) hs[k].id='sec-'+k;
+      t+='<a href="#'+hs[k].id+'" style="display:block;color:var(--xl-txt2);text-decoration:none;padding:3px 0">'+hs[k].textContent.slice(0,24)+'</a>';
+    }
+    box.innerHTML=t; document.body.appendChild(box);
+  }
+  try{ new MutationObserver(function(){setTimeout(buildTOC,350)}).observe(document.body,{childList:true,subtree:true}); }catch(e){}
+  setTimeout(buildTOC,900);
+})();
+</script>
+
+</main>
+<script defer src="../assets/site-shell.js"></script>
+<script defer src="../assets/auth.js"></script>
+</body>
+</html>
