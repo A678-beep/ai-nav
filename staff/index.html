@@ -1,0 +1,479 @@
+<!doctype html>
+<html lang="zh-CN" data-page="staff-boss">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="color-scheme" content="light dark">
+<meta name="theme-color" content="#0b1220">
+<title>老板工作台 · AI 员工中台 · 星籁 AI</title>
+<meta name="robots" content="noindex,nofollow">
+<meta name="googlebot" content="noindex,nofollow">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns=%27http://www.w3.org/2000/svg%27 viewBox=%270 0 64 64%27%3E%3Crect width=%2764%27 height=%2764%27 rx=%2714%27 fill=%27%230b1220%27/%3E%3Ctext x=%2732%27 y=%2742%27 font-size=%2730%27 text-anchor=%27middle%27 fill=%27%2338bdf8%27%3E%E2%9A%A1%3C/text%3E%3C/svg%3E">
+<link rel="stylesheet" href="../assets/auth.css">
+<style>
+:root{
+  --bg:#f4f7fb; --bg2:#ffffff; --panel:#ffffff; --line:#e3e9f2; --txt:#111827; --txt2:#4b5563; --txt3:#8b98ab;
+  --cyan:#0ea5e9; --violet:#7c3aed; --lime:#059669; --amber:#d97706; --red:#dc2626;
+  --okbg:#e8f7ef; --warnbg:#fff4e0; --badbg:#fdeaea; --infobg:#e8f1fd; --soft:#f7f9fd;
+  --shadow:0 8px 30px -18px rgba(16,24,40,.25); --radius:16px;
+}
+@media (prefers-color-scheme: dark){
+  :root{
+    --bg:#080d16; --bg2:#0b1220; --panel:#0e1726; --line:#1e2b3d; --txt:#e8eef7; --txt2:#a8b6c9; --txt3:#6b7f98;
+    --cyan:#38bdf8; --violet:#a78bfa; --lime:#34d399; --amber:#fbbf24; --red:#fb7185;
+    --okbg:rgba(52,211,153,.12); --warnbg:rgba(251,191,36,.12); --badbg:rgba(251,113,133,.12); --infobg:rgba(56,189,248,.12);
+    --soft:rgba(148,163,184,.07); --shadow:0 10px 34px -20px rgba(0,0,0,.8);
+  }
+}
+*{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+body::before{display:none}
+html,body{margin:0;padding:0}
+body{
+  background:radial-gradient(800px 380px at 88% -8%,rgba(14,165,233,.10),transparent 60%),var(--bg);
+  color:var(--txt); font:14px/1.62 -apple-system,BlinkMacSystemFont,"PingFang SC","Hiragino Sans GB","Microsoft YaHei",sans-serif;
+  min-height:100vh; padding-bottom:calc(78px + env(safe-area-inset-bottom));
+}
+a{color:inherit;text-decoration:none}
+button{font-family:inherit}
+.wrap{max-width:760px;margin:0 auto;padding:0 14px}
+header.top{position:sticky;top:0;z-index:20;backdrop-filter:blur(12px);background:color-mix(in srgb,var(--bg) 82%,transparent);border-bottom:1px solid var(--line)}
+.top-in{display:flex;align-items:center;gap:10px;padding:12px 0}
+.logo{width:34px;height:34px;border-radius:10px;display:grid;place-items:center;background:linear-gradient(135deg,var(--cyan),var(--violet));color:#fff;font-size:17px;flex:none}
+.top-l{flex:1;min-width:0}
+.top-l b{display:block;font-size:15px;letter-spacing:.2px}
+.top-l span{display:block;color:var(--txt3);font-size:11px;margin-top:-2px}
+.pill{display:inline-flex;align-items:center;gap:5px;font-size:11px;border:1px solid var(--line);border-radius:999px;padding:4px 9px;color:var(--txt2);background:var(--soft);white-space:nowrap}
+.dot{width:7px;height:7px;border-radius:50%;background:var(--lime);box-shadow:0 0 0 3px color-mix(in srgb,var(--lime) 18%,transparent)}
+.dot.bad{background:var(--red);box-shadow:0 0 0 3px color-mix(in srgb,var(--red) 18%,transparent)}
+.dot.warn{background:var(--amber);box-shadow:0 0 0 3px color-mix(in srgb,var(--amber) 18%,transparent)}
+main{padding-top:14px}
+.card{background:var(--panel);border:1px solid var(--line);border-radius:var(--radius);box-shadow:var(--shadow);padding:14px;margin-bottom:12px}
+.card-h{display:flex;align-items:center;justify-content:space-between;gap:8px;margin-bottom:8px}
+.card-h h2{font-size:14px;margin:0;display:flex;align-items:center;gap:6px}
+.card-h .sub{font-size:11px;color:var(--txt3)}
+.brief{font-size:14px;color:var(--txt)}
+.brief h1,.brief h2,.brief h3{font-size:14px;margin:12px 0 6px}
+.brief ul{margin:4px 0 8px;padding-left:18px}
+.brief li{margin:2px 0}
+.brief p{margin:6px 0}
+.brief blockquote{margin:8px 0;padding:6px 10px;border-left:3px solid var(--cyan);background:var(--infobg);border-radius:0 8px 8px 0;color:var(--txt2);font-size:12px}
+.brief code{background:var(--soft);padding:1px 5px;border-radius:5px;font-size:12px}
+.brief table{width:100%;border-collapse:collapse;font-size:12px;margin:8px 0;display:block;overflow-x:auto}
+.brief th,.brief td{border:1px solid var(--line);padding:5px 7px;text-align:left;vertical-align:top}
+.brief th{background:var(--soft);white-space:nowrap}
+.muted{color:var(--txt3);font-size:12px}
+.empty{color:var(--txt3);font-size:13px;text-align:center;padding:16px 6px}
+.appr{border:1px solid color-mix(in srgb,var(--amber) 45%,var(--line));background:var(--warnbg);border-radius:12px;padding:10px 12px;margin-bottom:8px}
+.appr b{display:block;font-size:13px;margin-bottom:2px}
+.appr .meta{color:var(--txt2);font-size:11px;margin-bottom:6px}
+.acts{display:flex;gap:8px;flex-wrap:wrap;margin-top:8px}
+.btn{border:1px solid var(--line);background:var(--bg2);color:var(--txt);border-radius:10px;padding:8px 14px;font-size:13px;cursor:pointer;min-height:38px}
+.btn:active{transform:scale(.98)}
+.btn.primary{background:linear-gradient(135deg,var(--cyan),var(--violet));border:0;color:#fff;font-weight:600}
+.btn.ok{background:var(--lime);border:0;color:#fff}
+.btn.bad{background:var(--red);border:0;color:#fff}
+.btn.ghost{background:transparent}
+.btn[disabled]{opacity:.55;cursor:not-allowed}
+.quick{display:flex;gap:8px;flex-wrap:wrap;margin:6px 0 10px}
+.chip{border:1px solid var(--line);background:var(--soft);border-radius:999px;padding:6px 12px;font-size:12px;color:var(--txt2);cursor:pointer}
+textarea,input,select{width:100%;font:inherit;color:var(--txt);background:var(--bg2);border:1px solid var(--line);border-radius:10px;padding:10px;outline:none}
+textarea{min-height:84px;resize:vertical}
+textarea:focus,input:focus,select:focus{border-color:var(--cyan);box-shadow:0 0 0 3px color-mix(in srgb,var(--cyan) 16%,transparent)}
+.timeline{display:flex;flex-direction:column;gap:8px}
+.tl{display:flex;gap:10px;align-items:flex-start;padding:7px 0;border-bottom:1px dashed var(--line)}
+.tl:last-child{border-bottom:0}
+.tl .ico{width:30px;height:30px;border-radius:9px;background:var(--soft);display:grid;place-items:center;flex:none;font-size:15px}
+.tl .bd{flex:1;min-width:0}
+.tl .bd b{font-size:13px;display:block;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.tl .bd span{font-size:11px;color:var(--txt3);display:block}
+.tl .tag{font-size:10px;border-radius:6px;padding:2px 7px;white-space:nowrap}
+.t-done{background:var(--okbg);color:var(--lime)}
+.t-blocked{background:var(--warnbg);color:var(--amber)}
+.t-failed{background:var(--badbg);color:var(--red)}
+.t-running{background:var(--infobg);color:var(--cyan)}
+.t-pending{background:var(--soft);color:var(--txt2)}
+.todo li{font-size:13px;margin:4px 0}
+.reports .r{border-bottom:1px dashed var(--line);padding:9px 0;cursor:pointer}
+.reports .r:last-child{border-bottom:0}
+.reports .r b{font-size:13px;display:block}
+.reports .r span{font-size:11px;color:var(--txt3)}
+.modal-mask{position:fixed;inset:0;z-index:60;background:rgba(4,8,15,.62);display:none;align-items:flex-end;justify-content:center;padding:0}
+.modal-mask.on{display:flex}
+.modal{background:var(--panel);width:100%;max-width:760px;max-height:88vh;overflow:auto;border-radius:18px 18px 0 0;padding:16px 16px calc(20px + env(safe-area-inset-bottom));border:1px solid var(--line)}
+.modal h1,.modal h2,.modal h3{font-size:15px;margin:12px 0 6px}
+.toast-box{position:fixed;left:50%;bottom:calc(92px + env(safe-area-inset-bottom));transform:translateX(-50%);z-index:99;display:flex;flex-direction:column;gap:8px;align-items:center;pointer-events:none}
+.toast{background:#111827;color:#fff;font-size:13px;padding:9px 16px;border-radius:999px;box-shadow:0 10px 30px rgba(0,0,0,.3);max-width:86vw}
+.toast.ok{background:#047857}.toast.bad{background:#b91c1c}
+.gate{max-width:420px;margin:12vh auto;text-align:center;padding:26px 18px}
+.gate .logo{width:56px;height:56px;border-radius:16px;font-size:26px;margin:0 auto 12px}
+.gate h1{font-size:18px;margin:0 0 6px}
+.gate p{color:var(--txt2);font-size:13px;margin:0 0 16px}
+.bottombar{position:fixed;left:0;right:0;bottom:0;z-index:30;background:color-mix(in srgb,var(--bg2) 92%,transparent);backdrop-filter:blur(10px);border-top:1px solid var(--line);padding:8px 14px calc(8px + env(safe-area-inset-bottom));display:flex;gap:8px}
+.bottombar .btn{flex:1}
+mark{background:color-mix(in srgb,var(--amber) 30%,transparent);color:inherit;border-radius:4px;padding:0 3px}
+@media (min-width:700px){ body{padding-bottom:20px}.bottombar{display:none}.wrap{padding:0 18px} }
+</style>
+</head>
+<body>
+<header class="top">
+  <div class="wrap top-in">
+    <div class="logo">⚡</div>
+    <div class="top-l">
+      <b>老板工作台</b>
+      <span>AI 员工中台 · 星籁 AI</span>
+    </div>
+    <span class="pill" id="enginePill"><span class="dot" id="engineDot"></span><span id="engineText">连接中…</span></span>
+  </div>
+</header>
+
+<main class="wrap" id="app">
+  <div class="card" id="loadingCard"><div class="empty">正在加载员工晨报…</div></div>
+</main>
+
+<div class="bottombar">
+  <button class="btn" type="button" id="btnRefresh">↻ 刷新</button>
+  <button class="btn primary" type="button" id="btnDispatch">＋ 一键派活</button>
+</div>
+
+<div class="modal-mask" id="modalMask">
+  <div class="modal" id="modalBody"></div>
+</div>
+<div class="toast-box" id="toastBox"></div>
+
+<script src="../assets/auth.js"></script>
+<script>
+(function () {
+  'use strict';
+  var $ = function (s, r) { return (r || document).querySelector(s); };
+  var app = $('#app');
+  var state = { data: null, timer: null, busy: false };
+
+  function esc(s) { return window.XLAuth ? XLAuth.esc(s) : String(s == null ? '' : s); }
+  function toast(msg, kind) {
+    var box = $('#toastBox');
+    var el = document.createElement('div');
+    el.className = 'toast' + (kind ? ' ' + kind : '');
+    el.textContent = msg;
+    box.appendChild(el);
+    setTimeout(function () { el.style.opacity = '0'; el.style.transition = '.25s'; setTimeout(function () { el.remove(); }, 260); }, 2600);
+  }
+  function errText(e) {
+    if (!e) return '操作失败';
+    if (e.status === 401) return '登录已失效，请重新登录';
+    if (e.status === 403) return '仅老板（admin）可见';
+    return (e.data && (e.data.hint || e.data.message || e.data.error)) || e.message || '请求失败';
+  }
+  function api(path, opts) {
+    if (!window.XLAuth) return Promise.reject(new Error('auth.js 未加载'));
+    return XLAuth.api(path, opts);
+  }
+  function fmtTime(s) { return s ? String(s).slice(5, 16) : ''; }
+  function money(n) { n = Number(n || 0); return '¥' + (n >= 1 ? n.toFixed(2) : n.toFixed(4)); }
+
+  /* ---------------- 极简 Markdown（先转义，防 XSS） ---------------- */
+  function md(src) {
+    var text = String(src || '');
+    var lines = text.split('\n');
+    var out = [], inUl = false, inTable = false;
+    function inline(s) {
+      s = esc(s);
+      s = s.replace(/\*\*([^*]+)\*\*/g, '<b>$1</b>');
+      s = s.replace(/`([^`]+)`/g, '<code>$1</code>');
+      s = s.replace(/\[([^\]]+)\]\((https?:[^)\s]+)\)/g, '<a href="$2" target="_blank" rel="noopener">$1</a>');
+      return s;
+    }
+    function closeUl() { if (inUl) { out.push('</ul>'); inUl = false; } }
+    function closeTable() { if (inTable) { out.push('</table>'); inTable = false; } }
+    for (var i = 0; i < lines.length; i++) {
+      var ln = lines[i];
+      if (/^\s*\|/.test(ln) && /\|\s*$/.test(ln)) {
+        if (/^\s*\|[\s:|-]+\|\s*$/.test(ln)) continue;
+        var cells = ln.replace(/^\s*\|/, '').replace(/\|\s*$/, '').split('|');
+        if (!inTable) { closeUl(); out.push('<table>'); inTable = true; out.push('<tr>' + cells.map(function (c) { return '<th>' + inline(c.trim()) + '</th>'; }).join('') + '</tr>'); }
+        else out.push('<tr>' + cells.map(function (c) { return '<td>' + inline(c.trim()) + '</td>'; }).join('') + '</tr>');
+        continue;
+      }
+      closeTable();
+      if (/^\s*[-*]\s+/.test(ln)) {
+        if (!inUl) { out.push('<ul>'); inUl = true; }
+        out.push('<li>' + inline(ln.replace(/^\s*[-*]\s+/, '')) + '</li>');
+        continue;
+      }
+      closeUl();
+      if (/^\s*####\s+/.test(ln)) { out.push('<h3>' + inline(ln.replace(/^\s*####\s+/, '')) + '</h3>'); continue; }
+      if (/^\s*###\s+/.test(ln)) { out.push('<h3>' + inline(ln.replace(/^\s*###\s+/, '')) + '</h3>'); continue; }
+      if (/^\s*##\s+/.test(ln)) { out.push('<h2>' + inline(ln.replace(/^\s*##\s+/, '')) + '</h2>'); continue; }
+      if (/^\s*>\s?/.test(ln)) { out.push('<blockquote>' + inline(ln.replace(/^\s*>\s?/, '')) + '</blockquote>'); continue; }
+      if (!ln.trim()) { out.push(''); continue; }
+      out.push('<p>' + inline(ln) + '</p>');
+    }
+    closeUl(); closeTable();
+    return out.join('\n');
+  }
+
+  /* ---------------- 登录/权限门 ---------------- */
+  function gate(html) {
+    app.innerHTML = '<div class="card gate">' + html + '</div>';
+  }
+  function loginGate() {
+    var next = encodeURIComponent(location.pathname + location.search);
+    gate('<div class="logo">⚡</div><h1>老板工作台</h1><p>AI 员工等你拍板。请先用老板（admin）账号登录。</p>' +
+      '<a class="btn primary" style="display:block" href="../account/index.html?next=' + next + '">去登录</a>' +
+      '<p style="margin-top:14px" class="muted">员工状态同步自服务器，换电脑登录即可继续。</p>');
+  }
+  function forbiddenGate() {
+    gate('<div class="logo">🔒</div><h1>仅老板可见</h1><p>当前账号不是管理员（admin）。请切换到老板账号查看员工晨报与待拍板事项。</p>' +
+      '<a class="btn" style="display:block" href="../account/index.html?next=' + encodeURIComponent(location.pathname) + '">切换账号</a>');
+  }
+
+  /* ---------------- 渲染 ---------------- */
+  function statusTag(s) {
+    var map = { done: ['t-done', '完成'], failed: ['t-failed', '失败'], blocked: ['t-blocked', '待拍板'], running: ['t-running', '执行中'], pending: ['t-pending', '排队'], rejected: ['t-failed', '已驳回'], cancelled: ['t-pending', '已取消'] };
+    var m = map[s] || ['t-pending', s || '未知'];
+    return '<span class="tag ' + m[0] + '">' + esc(m[1]) + '</span>';
+  }
+  function staffIcon(id) {
+    var map = { patrol: '🛡️', cs_qa: '👩‍💼', researcher: '🔎', data_ops: '📊', secretary: '🗂️', video_gen: '🎬', video_edit: '✂️', dev: '💻', geo_opt: '📍', lead_reception: '💬', sales: '💰', exception_reporter: '🚨' };
+    return map[id] || '🤖';
+  }
+  function render() {
+    var d = state.data || {};
+    var eng = d.engine || {};
+    var counts = d.counts || {};
+    var brief = d.brief || null;
+    var apprs = d.approvals || [];
+    var dyn = d.dynamics || [];
+    var todo = d.todo || [];
+    var mail = d.mail || {};
+    var mailCfg = mail.config || {};
+    var html = [];
+
+    // 今日简报
+    html.push('<section class="card">');
+    html.push('<div class="card-h"><h2>📰 今日简报</h2><span class="sub">' + esc(d.now ? d.now.slice(5, 16) : '') + '</span></div>');
+    if (brief) {
+      html.push('<div class="brief" id="briefBox">' + md(brief.content_md || brief.summary || '') + '</div>');
+      html.push('<div class="muted" style="margin-top:6px">来自「值班秘书」 · ' + esc(brief.title || '') + ' · ' + esc(fmtTime(brief.created_at)) + '</div>');
+    } else {
+      html.push('<div class="empty">还没有简报。等员工跑完第一轮（或点下方「一键派活」）。</div>');
+    }
+    html.push('</section>');
+
+    // 待拍板
+    html.push('<section class="card">');
+    html.push('<div class="card-h"><h2>✋ 待拍板</h2><span class="sub">' + apprs.length + ' 项</span></div>');
+    if (!apprs.length) html.push('<div class="empty">没有需要老板审批的事项 👍</div>');
+    apprs.forEach(function (a) {
+      var kind = a.approval_kind || (a.approval && a.approval.kind) || '任务';
+      var preview = '';
+      try {
+        var p = (a.approval && a.approval.payload) || {};
+        if (p.docs || p.rules) preview = '知识库草稿：' + (p.docs || []).length + ' 文档 / ' + (p.rules || []).length + ' 问答';
+      } catch (e) {}
+      html.push('<div class="appr" data-id="' + esc(a.id) + '">' +
+        '<b>' + esc(a.title || a.id) + '</b>' +
+        '<div class="meta">' + esc(kind) + (preview ? ' · ' + esc(preview) : '') + ' · ' + esc(fmtTime(a.created_at)) + ' · 员工：' + esc(a.staff_id) + '</div>' +
+        '<div class="acts">' +
+        '<button class="btn ok" type="button" data-approve="' + esc(a.id) + '">✅ 通过并执行</button>' +
+        '<button class="btn bad" type="button" data-reject="' + esc(a.id) + '">✖ 驳回</button>' +
+        '<button class="btn ghost" type="button" data-view-task="' + esc(a.id) + '">看详情</button>' +
+        '</div></div>');
+    });
+    html.push('</section>');
+
+    // 员工动态
+    html.push('<section class="card">');
+    html.push('<div class="card-h"><h2>👥 员工动态</h2><span class="sub">最近执行</span></div>');
+    if (!dyn.length) html.push('<div class="empty">暂无执行记录</div>');
+    else {
+      html.push('<div class="timeline">');
+      dyn.slice(0, 10).forEach(function (r) {
+        html.push('<div class="tl"><div class="ico">' + staffIcon(r.staff_id) + '</div><div class="bd">' +
+          '<b>' + esc(r.name || r.staff_id) + '：' + esc(r.output_summary || r.error || '执行中') + '</b>' +
+          '<span>' + esc(fmtTime(r.started_at)) + ' · 耗时 ' + Math.round((r.duration_ms || 0) / 1000) + 's · ' + money(r.cost_cny) + '</span></div>' +
+          statusTag(r.status) + '</div>');
+      });
+      html.push('</div>');
+    }
+    html.push('</section>');
+
+    // 今日待办
+    html.push('<section class="card">');
+    html.push('<div class="card-h"><h2>📌 今日待办</h2><span class="sub">排队/执行中</span></div>');
+    if (!todo.length) html.push('<div class="empty">队列已清空</div>');
+    else {
+      html.push('<ul class="todo" style="padding-left:18px;margin:0">');
+      todo.slice(0, 8).forEach(function (t) {
+        html.push('<li>' + esc(t.title) + ' <span class="muted">· ' + esc(t.staff_id) + ' · ' + esc(fmtTime(t.created_at)) + '</span></li>');
+      });
+      html.push('</ul>');
+    }
+    html.push('</section>');
+
+    // 报告库
+    var reports = [];
+    try { reports = state.reports || []; } catch (e) { reports = []; }
+    html.push('<section class="card">');
+    html.push('<div class="card-h"><h2>📚 报告回溯</h2><span class="sub">服务器保存</span></div>');
+    if (!reports.length) html.push('<div class="empty">暂无报告</div>');
+    else {
+      html.push('<div class="reports">');
+      reports.slice(0, 8).forEach(function (r) {
+        html.push('<div class="r" data-report="' + esc(r.id) + '"><b>' + esc(r.title || r.kind) + '</b><span>' + esc(fmtTime(r.created_at)) + ' · ' + esc(r.staff_id) + '</span></div>');
+      });
+      html.push('</div>');
+    }
+    html.push('</section>');
+
+    // 系统状态
+    html.push('<section class="card">');
+    html.push('<div class="card-h"><h2>⚙️ 系统状态</h2><span class="sub">服务器唯一真相源</span></div>');
+    html.push('<div class="muted" style="font-size:12px;line-height:1.9">' +
+      '引擎：' + (eng.running ? '运行中' : '未运行/待启动') + (eng.last_beat ? ' · 心跳 ' + esc(fmtTime(eng.last_beat)) : '') + '<br>' +
+      '任务：待办 ' + (counts.approvals || 0) + ' 待拍板 · 今日 ' + (counts.tasks_today || 0) + ' 个 · 完成 ' + ((d.counts && d.counts.tasks_total) || 0) + ' 累计<br>' +
+      '邮件：' + (mailCfg.configured ? 'SMTP 已配置' : '未配置') + ' · 待发送 ' + (mail.pending || 0) + ' 封 · 收件 ' + esc((mailCfg.to || []).join(',')) + '<br>' +
+      '管理台：<a href="../ops/edit/staff.html" style="color:var(--cyan)">/ai-nav/ops/edit/staff.html</a>' +
+      '</div>');
+    html.push('</section>');
+
+    app.innerHTML = html.join('');
+    // 顶部状态
+    var pill = $('#enginePill'), dot = $('#engineDot'), txt = $('#engineText');
+    dot.className = 'dot' + (eng.running ? '' : ' bad');
+    txt.textContent = eng.running ? '引擎在线' : '引擎待启动';
+    if (pill) pill.title = eng.last_beat ? ('心跳 ' + eng.last_beat) : '';
+  }
+
+  /* ---------------- 数据 ---------------- */
+  function loadAll() {
+    if (state.busy) return;
+    state.busy = true;
+    Promise.all([
+      api('/staff/boss/summary', { timeout: 20000 }),
+      api('/staff/reports?limit=10', { timeout: 20000 }).catch(function () { return { items: [] }; })
+    ]).then(function (res) {
+      state.data = res[0] || {};
+      state.reports = (res[1] && res[1].items) || [];
+      render();
+    }).catch(function (e) {
+      if (e && e.status === 401) return loginGate();
+      if (e && e.status === 403) return forbiddenGate();
+      app.innerHTML = '<div class="card"><div class="empty">加载失败：' + esc(errText(e)) + '</div><div class="acts"><button class="btn" onclick="location.reload()">重试</button></div></div>';
+    }).then(function () { state.busy = false; });
+  }
+
+  /* ---------------- 弹窗 ---------------- */
+  function openModal(html) {
+    $('#modalBody').innerHTML = html +
+      '<div class="acts" style="margin-top:14px"><button class="btn" type="button" id="modalClose">关闭</button></div>';
+    $('#modalMask').classList.add('on');
+    var c = $('#modalClose');
+    if (c) c.onclick = closeModal;
+  }
+  function closeModal() { $('#modalMask').classList.remove('on'); }
+  $('#modalMask').addEventListener('click', function (e) { if (e.target === $('#modalMask')) closeModal(); });
+
+  function viewTask(id) {
+    api('/staff/tasks/' + encodeURIComponent(id)).then(function (d) {
+      var t = d.task || {};
+      var mdText = '';
+      try { mdText = (t.result_obj && (t.result_obj.report_md || t.result_obj.summary)) || ''; } catch (e) {}
+      var approval = '';
+      try {
+        var ap = (t.approval && t.approval.payload) || {};
+        if (ap.docs || ap.rules) {
+          approval = '<h3>待审批内容</h3><ul>' +
+            (ap.docs || []).map(function (x) { return '<li>📄 ' + esc(x.title || '') + '：' + esc(String(x.content || '').slice(0, 120)) + '</li>'; }).join('') +
+            (ap.rules || []).map(function (x) { return '<li>💬 ' + esc(x.question || '') + ' → ' + esc(String(x.answer || '').slice(0, 100)) + '</li>'; }).join('') + '</ul>';
+        }
+      } catch (e) {}
+      var runs = (t.runs || []).map(function (r) {
+        return '<li>' + esc(fmtTime(r.started_at)) + ' · ' + esc(r.status) + ' · ' + Math.round((r.duration_ms || 0) / 1000) + 's · 工具 ' + (r.tool_calls || 0) + ' 次 · ' + money(r.cost_cny) + ' · ' + esc(String(r.output_summary || r.error || '').slice(0, 160)) + '</li>';
+      }).join('');
+      openModal('<h2>' + esc(t.title || id) + '</h2>' +
+        '<div class="muted">状态：' + esc(t.status) + ' · 员工：' + esc(t.staff_id) + ' · 创建 ' + esc(fmtTime(t.created_at)) + '</div>' +
+        approval +
+        (mdText ? '<h3>结果</h3><div class="brief">' + md(mdText) + '</div>' : '') +
+        (runs ? '<h3>执行日志</h3><ul style="padding-left:18px">' + runs + '</ul>' : ''));
+    }).catch(function (e) { toast('加载失败：' + errText(e), 'bad'); });
+  }
+
+  function viewReport(id) {
+    api('/staff/reports/' + encodeURIComponent(id)).then(function (d) {
+      var r = d.report || {};
+      openModal('<h2>' + esc(r.title || id) + '</h2><div class="muted">' + esc(r.staff_id) + ' · ' + esc(fmtTime(r.created_at)) + '</div><div class="brief">' + md(r.content_md || r.summary || '') + '</div>');
+    }).catch(function (e) { toast('加载失败：' + errText(e), 'bad'); });
+  }
+
+  function dispatch() {
+    openModal('<h2>一键派活</h2><div class="muted">用一句话说清楚要什么，员工中台会自动分派给最合适的 AI 员工（服务器执行，换电脑不影响）。</div>' +
+      '<textarea id="dispatchText" placeholder="例如：汇总一下昨天的经营数据和异常，给我一份 3 分钟能看完的汇报"></textarea>' +
+      '<div class="quick">' +
+      '<span class="chip" data-fill="巡检一下服务器和备份，有风险马上告诉我">巡检服务器</span>' +
+      '<span class="chip" data-fill="质检最近 7 天客服会话，给知识库补全建议">质检客服</span>' +
+      '<span class="chip" data-fill="汇总昨日经营数据，出一份经营日报">经营日报</span>' +
+      '<span class="chip" data-fill="调研本周全球 AI Agent 和视频生成新工具，给引入建议">全球情报</span>' +
+      '</div>' +
+      '<button class="btn primary" type="button" id="dispatchGo" style="width:100%">派给 AI 员工</button>');
+    Array.prototype.forEach.call(document.querySelectorAll('[data-fill]'), function (b) {
+      b.onclick = function () { var t = $('#dispatchText'); if (t) t.value = b.getAttribute('data-fill'); };
+    });
+    var go = $('#dispatchGo');
+    go.onclick = function () {
+      var text = ($('#dispatchText') || {}).value || '';
+      if (!text.trim()) { toast('先写一句要派的工作', 'bad'); return; }
+      go.disabled = true;
+      api('/staff/dispatch', { method: 'POST', body: { text: text.trim() }, timeout: 30000 }).then(function (d) {
+        toast('已派给「' + (d.staff_name || d.staff_id) + '」，稍后刷新看结果', 'ok');
+        closeModal(); setTimeout(loadAll, 800);
+      }).catch(function (e) { toast('派活失败：' + errText(e), 'bad'); }).then(function () { go.disabled = false; });
+    };
+  }
+
+  /* ---------------- 事件 ---------------- */
+  document.addEventListener('click', function (e) {
+    var t = e.target;
+    if (!t || !t.getAttribute) return;
+    var v;
+    if ((v = t.getAttribute('data-approve'))) {
+      if (!confirm('通过后员工会立刻执行这个高风险动作（如写入知识库草稿），确定？')) return;
+      t.disabled = true;
+      api('/staff/tasks/' + encodeURIComponent(v) + '/approve', { method: 'POST', body: { note: '老板手机页一键通过' }, timeout: 30000 })
+        .then(function (d) { toast('已通过' + (d.status === 'pending' ? '，等待执行' : '并执行完成'), 'ok'); closeModal(); setTimeout(loadAll, 600); })
+        .catch(function (e) { toast('通过失败：' + errText(e), 'bad'); t.disabled = false; });
+      return;
+    }
+    if ((v = t.getAttribute('data-reject'))) {
+      var reason = prompt('驳回原因（可留空）：', '');
+      if (reason === null) return;
+      t.disabled = true;
+      api('/staff/tasks/' + encodeURIComponent(v) + '/reject', { method: 'POST', body: { reason: reason }, timeout: 20000 })
+        .then(function () { toast('已驳回', 'ok'); closeModal(); setTimeout(loadAll, 500); })
+        .catch(function (e) { toast('驳回失败：' + errText(e), 'bad'); t.disabled = false; });
+      return;
+    }
+    if ((v = t.getAttribute('data-view-task'))) { viewTask(v); return; }
+    if ((v = t.getAttribute('data-report'))) { viewReport(v); return; }
+  });
+  $('#btnRefresh').onclick = function () { loadAll(); toast('已刷新'); };
+  $('#btnDispatch').onclick = dispatch;
+  document.addEventListener('visibilitychange', function () { if (!document.hidden) loadAll(); });
+  setInterval(function () { if (!document.hidden) loadAll(); }, 60000);
+
+  /* ---------------- 启动 ---------------- */
+  if (!window.XLAuth) {
+    gate('<div class="logo">⚡</div><h1>组件加载失败</h1><p>请刷新页面重试。</p>');
+    return;
+  }
+  if (!XLAuth.token()) { loginGate(); return; }
+  var cached = XLAuth.user();
+  if (cached && !XLAuth.isAdmin(cached)) { forbiddenGate(); return; }
+  XLAuth.refresh().then(function (u) {
+    if (!u) return loginGate();
+    if (!XLAuth.isAdmin(u)) return forbiddenGate();
+    loadAll();
+  });
+})();
+</script>
+</body>
+</html>

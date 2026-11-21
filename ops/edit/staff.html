@@ -1,0 +1,944 @@
+<!doctype html>
+<html lang="zh-CN" data-page="staff-ops">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="color-scheme" content="dark">
+<meta name="theme-color" content="#070b12">
+<title>AI 员工中台 · 运营管理台 · 星籁 AI</title>
+<meta name="robots" content="noindex,nofollow">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns=%27http://www.w3.org/2000/svg%27 viewBox=%270 0 64 64%27%3E%3Crect width=%2764%27 height=%2764%27 rx=%2714%27 fill=%27%23070b12%27/%3E%3Ctext x=%2732%27 y=%2744%27 font-size=%2732%27 text-anchor=%27middle%27%3E%F0%9F%A4%96%3C/text%3E%3C/svg%3E">
+<style>
+:root{
+  --bg:#070b12; --bg2:#0a101b; --panel:#0c1421; --panel2:#101a2b; --line:rgba(148,163,184,.15); --line2:rgba(148,163,184,.28);
+  --txt:#e7edf6; --txt2:#a0b1c7; --txt3:#6b7f98; --soft:rgba(148,163,184,.06);
+  --cyan:#38bdf8; --blue:#60a5fa; --violet:#a78bfa; --lime:#34d399; --amber:#fbbf24; --orange:#fb923c; --red:#fb7185;
+  --okbg:rgba(52,211,153,.12); --warnbg:rgba(251,191,36,.12); --badbg:rgba(251,113,133,.12); --infobg:rgba(56,189,248,.12);
+  --radius:14px; --shadow:0 18px 44px -30px rgba(0,0,0,.85);
+}
+*{box-sizing:border-box}
+html,body{margin:0;padding:0}
+body{background:radial-gradient(1100px 520px at 82% -10%,rgba(56,189,248,.075),transparent 60%),radial-gradient(900px 480px at 8% 4%,rgba(167,139,250,.06),transparent 62%),var(--bg);
+  color:var(--txt);font:13.5px/1.6 -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"PingFang SC","Hiragino Sans GB","Microsoft YaHei",sans-serif;min-height:100vh}
+a{color:inherit;text-decoration:none}
+button{font-family:inherit}
+input,select,textarea{font:inherit;color:var(--txt);background:var(--bg2);border:1px solid var(--line2);border-radius:9px;padding:8px 10px;outline:none;width:100%}
+textarea{resize:vertical;min-height:90px;line-height:1.55}
+input:focus,select:focus,textarea:focus{border-color:var(--cyan);box-shadow:0 0 0 3px rgba(56,189,248,.14)}
+.layout{display:flex;min-height:100vh}
+aside{width:214px;flex:none;border-right:1px solid var(--line);background:linear-gradient(180deg,rgba(12,20,33,.9),rgba(8,13,22,.9));position:sticky;top:0;height:100vh;display:flex;flex-direction:column}
+.brand{display:flex;align-items:center;gap:9px;padding:16px 14px;border-bottom:1px solid var(--line)}
+.brand .lg{width:34px;height:34px;border-radius:10px;display:grid;place-items:center;background:linear-gradient(135deg,var(--cyan),var(--violet));font-size:17px}
+.brand b{font-size:14px;display:block;line-height:1.25}
+.brand span{font-size:10px;color:var(--txt3);letter-spacing:.14em}
+nav{flex:1;overflow:auto;padding:10px 8px}
+.nav-item{display:flex;align-items:center;gap:9px;width:100%;text-align:left;background:transparent;border:0;color:var(--txt2);padding:9px 10px;border-radius:10px;cursor:pointer;font-size:13px;margin-bottom:2px}
+.nav-item:hover{background:var(--soft);color:var(--txt)}
+.nav-item.on{background:var(--infobg);color:var(--cyan);box-shadow:inset 0 0 0 1px rgba(56,189,248,.2)}
+.nav-item .ico{width:18px;text-align:center}
+.nav-item .badge{margin-left:auto;font-size:10px;background:var(--warnbg);color:var(--amber);border-radius:999px;padding:1px 7px}
+.aside-foot{padding:10px 12px;border-top:1px solid var(--line);font-size:11px;color:var(--txt3);line-height:1.7}
+main{flex:1;min-width:0;padding:16px 20px 40px}
+.head{display:flex;align-items:flex-start;gap:12px;flex-wrap:wrap;margin-bottom:14px}
+.head h1{font-size:19px;margin:0 0 2px;display:flex;align-items:center;gap:8px}
+.head p{margin:0;color:var(--txt3);font-size:12px}
+.head-r{margin-left:auto;display:flex;gap:8px;align-items:center;flex-wrap:wrap}
+.pill{display:inline-flex;align-items:center;gap:6px;font-size:11.5px;border:1px solid var(--line);border-radius:999px;padding:5px 10px;background:var(--soft);color:var(--txt2);white-space:nowrap}
+.dot{width:7px;height:7px;border-radius:50%;background:var(--lime);box-shadow:0 0 0 3px var(--okbg)}
+.dot.bad{background:var(--red);box-shadow:0 0 0 3px var(--badbg)}
+.btn{display:inline-flex;align-items:center;gap:6px;border:1px solid var(--line2);background:var(--panel2);color:var(--txt);border-radius:9px;padding:7px 13px;font-size:12.5px;cursor:pointer;white-space:nowrap}
+.btn:hover{border-color:var(--line2);background:var(--panel)}
+.btn.primary{background:linear-gradient(135deg,var(--cyan),var(--violet));border:0;color:#06121f;font-weight:700}
+.btn.ok{background:var(--lime);border:0;color:#052e20;font-weight:700}
+.btn.bad{background:var(--red);border:0;color:#3d0713;font-weight:700}
+.btn.ghost{background:transparent}
+.btn.sm{padding:4px 9px;font-size:11.5px;border-radius:8px}
+.btn[disabled]{opacity:.5;cursor:not-allowed}
+.cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(160px,1fr));gap:10px;margin-bottom:14px}
+.kpi{background:var(--panel);border:1px solid var(--line);border-radius:var(--radius);padding:12px 14px;box-shadow:var(--shadow)}
+.kpi .lb{font-size:11.5px;color:var(--txt3);display:flex;justify-content:space-between}
+.kpi .v{font-size:23px;font-weight:700;margin-top:4px;font-variant-numeric:tabular-nums}
+.kpi .ft{font-size:11px;color:var(--txt3);margin-top:2px}
+.panel{background:var(--panel);border:1px solid var(--line);border-radius:var(--radius);padding:14px;margin-bottom:14px;box-shadow:var(--shadow)}
+.panel-h{display:flex;align-items:center;gap:10px;margin-bottom:10px;flex-wrap:wrap}
+.panel-h h2{font-size:14px;margin:0}
+.panel-h .sub{font-size:11.5px;color:var(--txt3)}
+.panel-h .right{margin-left:auto;display:flex;gap:8px;flex-wrap:wrap}
+.staff-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(250px,1fr));gap:10px}
+.staff-card{border:1px solid var(--line);border-radius:12px;padding:12px;background:var(--panel2)}
+.staff-card .top{display:flex;align-items:center;gap:9px}
+.staff-card .av{width:36px;height:36px;border-radius:10px;background:var(--soft);display:grid;place-items:center;font-size:18px}
+.staff-card .nm{font-weight:700;font-size:13.5px}
+.staff-card .rl{font-size:11px;color:var(--txt3)}
+.staff-card .sched{font-size:11px;color:var(--txt2);margin-top:8px;line-height:1.5}
+.staff-card .meta{font-size:11px;color:var(--txt3);margin-top:6px}
+.staff-card .acts{margin-top:9px;display:flex;gap:6px;flex-wrap:wrap}
+table{width:100%;border-collapse:collapse;font-size:12px}
+th,td{text-align:left;padding:7px 8px;border-bottom:1px solid var(--line);vertical-align:top}
+th{color:var(--txt3);font-weight:500;font-size:11px;white-space:nowrap}
+tr:hover td{background:var(--soft)}
+.tag{display:inline-block;font-size:10.5px;border-radius:6px;padding:1px 7px;white-space:nowrap}
+.t-done{background:var(--okbg);color:var(--lime)} .t-failed{background:var(--badbg);color:var(--red)}
+.t-blocked{background:var(--warnbg);color:var(--amber)} .t-running{background:var(--infobg);color:var(--cyan)}
+.t-pending{background:var(--soft);color:var(--txt2)} .t-cancelled,.t-rejected{background:var(--soft);color:var(--txt3)}
+.filters{display:flex;gap:6px;flex-wrap:wrap;margin-bottom:10px}
+.filters .btn.on{background:var(--infobg);border-color:rgba(56,189,248,.35);color:var(--cyan)}
+.mono{font-family:ui-monospace,SFMono-Regular,Consolas,monospace;font-size:11px}
+.muted{color:var(--txt3);font-size:11.5px}
+.empty{text-align:center;color:var(--txt3);padding:26px 8px;font-size:12.5px}
+.two{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+@media (max-width:900px){.two{grid-template-columns:1fr}}
+.md{font-size:13px;line-height:1.72;color:var(--txt)}
+.md h1,.md h2,.md h3{font-size:14px;margin:13px 0 6px;color:var(--txt)}
+.md ul{margin:4px 0 8px;padding-left:18px}.md li{margin:2px 0}
+.md p{margin:6px 0}
+.md blockquote{margin:8px 0;padding:6px 10px;border-left:3px solid var(--cyan);background:var(--infobg);border-radius:0 8px 8px 0;color:var(--txt2);font-size:12px}
+.md code{background:var(--soft);padding:1px 5px;border-radius:5px;font-size:11.5px}
+.md table{margin:8px 0;font-size:12px;display:block;overflow-x:auto}
+.md th,.md td{border:1px solid var(--line);padding:5px 7px}
+.md a{color:var(--cyan)}
+.modal-mask{position:fixed;inset:0;z-index:80;background:rgba(3,7,13,.72);display:none;align-items:flex-start;justify-content:center;padding:4vh 16px;overflow:auto}
+.modal-mask.on{display:flex}
+.modal{background:var(--panel);border:1px solid var(--line2);border-radius:16px;width:100%;max-width:900px;padding:18px 20px;box-shadow:0 30px 80px -30px #000}
+.modal-h{display:flex;align-items:center;gap:10px;margin-bottom:10px}
+.modal-h h2{font-size:15px;margin:0}.modal-h .right{margin-left:auto;display:flex;gap:6px}
+.toast-box{position:fixed;right:18px;bottom:18px;z-index:99;display:flex;flex-direction:column;gap:8px;align-items:flex-end}
+.toast{background:#111a29;border:1px solid var(--line2);color:var(--txt);font-size:12.5px;padding:9px 15px;border-radius:10px;box-shadow:0 12px 34px rgba(0,0,0,.4)}
+.toast.ok{border-color:rgba(52,211,153,.5)}.toast.bad{border-color:rgba(251,113,133,.55)}
+.gate{max-width:440px;margin:12vh auto;text-align:center;padding:30px 22px}
+.gate .lg{width:58px;height:58px;border-radius:16px;background:linear-gradient(135deg,var(--cyan),var(--violet));display:grid;place-items:center;font-size:27px;margin:0 auto 14px}
+.gate h1{font-size:18px;margin:0 0 6px}.gate p{color:var(--txt2);font-size:12.5px;margin:0 0 16px}
+.gate .btn{justify-content:center;width:100%}
+.form-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.form-grid .full{grid-column:1/-1}
+label.fl{display:block;font-size:11.5px;color:var(--txt3);margin:9px 0 4px}
+.switch{display:inline-flex;align-items:center;gap:7px;font-size:12px;color:var(--txt2);cursor:pointer}
+.actions-row{display:flex;gap:8px;flex-wrap:wrap;margin-top:10px}
+.kv{display:grid;grid-template-columns:130px 1fr;gap:4px 10px;font-size:12px}.kv b{color:var(--txt3);font-weight:400}
+@media (max-width:860px){
+  aside{display:none}
+  main{padding:12px 12px 40px}
+  .head h1{font-size:17px}
+}
+</style>
+</head>
+<body>
+<div class="layout">
+  <aside>
+    <div class="brand"><div class="lg">🤖</div><div><b>AI 员工中台</b><span>OPS · STAFF</span></div></div>
+    <nav id="nav">
+      <button class="nav-item on" data-tab="overview"><span class="ico">📊</span>总览</button>
+      <button class="nav-item" data-tab="staff"><span class="ico">👥</span>员工与排班</button>
+      <button class="nav-item" data-tab="tasks"><span class="ico">🗃️</span>任务看板</button>
+      <button class="nav-item" data-tab="approvals"><span class="ico">✋</span>人工审批<span class="badge" id="navAppr" hidden>0</span></button>
+      <button class="nav-item" data-tab="reports"><span class="ico">📚</span>报告回溯</button>
+      <button class="nav-item" data-tab="messages"><span class="ico">📨</span>消息/汇报</button>
+      <button class="nav-item" data-tab="mail"><span class="ico">✉️</span>邮件汇报</button>
+      <button class="nav-item" data-tab="memory"><span class="ico">🧠</span>长期记忆</button>
+      <button class="nav-item" data-tab="audit"><span class="ico">🧾</span>审计日志</button>
+      <button class="nav-item" data-tab="data"><span class="ico">💾</span>导出/迁移</button>
+    </nav>
+    <div class="aside-foot">
+      <div id="footEngine">引擎：检测中…</div>
+      <div id="footWho">—</div>
+      <div style="margin-top:6px">v1.0 · 内部员工系统（仅 admin）</div>
+    </div>
+  </aside>
+  <main>
+    <div class="head">
+      <div>
+        <h1 id="pageTitle">🤖 AI 员工中台 <span class="pill">内部使用</span></h1>
+        <p id="pageSub">任务板 + 角色员工 + 定时/事件调度 + 工具白名单 + 日志/KPI + 人工审批。数据以服务器为唯一真相源。</p>
+      </div>
+      <div class="head-r">
+        <span class="pill" id="enginePill"><span class="dot" id="engineDot"></span><span id="engineText">检测中…</span></span>
+        <a class="btn ghost" href="../../staff/" target="_blank" rel="noopener">老板手机页 ↗</a>
+        <a class="btn ghost" href="../edit/" target="_blank" rel="noopener">剪辑运营台 ↗</a>
+        <button class="btn" id="btnRefresh">↻ 刷新</button>
+      </div>
+    </div>
+    <div id="content"><div class="panel"><div class="empty">加载中…</div></div></div>
+  </main>
+</div>
+<div class="modal-mask" id="modalMask"><div class="modal" id="modalBody"></div></div>
+<div class="toast-box" id="toastBox"></div>
+<script src="../../assets/auth.js"></script>
+<script>
+(function () {
+  'use strict';
+  var $ = function (s, r) { return (r || document).querySelector(s); };
+  var $$ = function (s, r) { return Array.prototype.slice.call((r || document).querySelectorAll(s)); };
+  var content = $('#content');
+  var state = { tab: 'overview', overview: null, staff: [], taskFilter: 'all', reports: [], reportFilter: '', busy: false, timer: null };
+
+  function esc(s) { return window.XLAuth ? XLAuth.esc(s) : String(s == null ? '' : s); }
+  function toast(msg, kind) {
+    var box = $('#toastBox');
+    var el = document.createElement('div');
+    el.className = 'toast' + (kind ? ' ' + kind : '');
+    el.textContent = msg;
+    box.appendChild(el);
+    setTimeout(function () { el.style.opacity = '0'; el.style.transition = '.3s'; setTimeout(function () { el.remove(); }, 320); }, 3200);
+  }
+  function errText(e) {
+    if (!e) return '操作失败';
+    if (e.status === 401) return '登录已失效，请重新登录';
+    if (e.status === 403) return '需要管理员（老板）权限';
+    return (e.data && (e.data.hint || e.data.message || e.data.error)) || e.message || '请求失败';
+  }
+  function api(path, opts) {
+    if (!window.XLAuth) return Promise.reject(new Error('auth.js 未加载'));
+    return XLAuth.api(path, opts);
+  }
+  function fmt(s) { return s ? String(s).slice(0, 16) : '—'; }
+  function money(n) { n = Number(n || 0); return '¥' + (n >= 1 ? n.toFixed(2) : n.toFixed(4)); }
+  function statusTag(s) {
+    var map = { done: 't-done', failed: 't-failed', blocked: 't-blocked', running: 't-running', pending: 't-pending', rejected: 't-rejected', cancelled: 't-cancelled' };
+    var label = { done: '完成', failed: '失败', blocked: '待审批', running: '执行中', pending: '排队', rejected: '已驳回', cancelled: '已取消' };
+    return '<span class="tag ' + (map[s] || 't-pending') + '">' + esc(label[s] || s) + '</span>';
+  }
+  function staffName(id) {
+    var s = (state.staff || []).filter(function (x) { return x.id === id; })[0];
+    return s ? s.name : (id || '—');
+  }
+  function staffIcon(id) {
+    var map = { patrol: '🛡️', cs_qa: '👩‍💼', researcher: '🔎', data_ops: '📊', secretary: '🗂️', video_gen: '🎬', video_edit: '✂️', dev: '💻', geo_opt: '📍', lead_reception: '💬', sales: '💰', exception_reporter: '🚨' };
+    return map[id] || '🤖';
+  }
+
+  /* ---------- Markdown ---------- */
+  function md(src) {
+    var lines = String(src || '').split('\n'), out = [], inUl = false, inTable = false;
+    function inline(s) {
+      s = esc(s);
+      s = s.replace(/\*\*([^*]+)\*\*/g, '<b>$1</b>');
+      s = s.replace(/`([^`]+)`/g, '<code>$1</code>');
+      s = s.replace(/\[([^\]]+)\]\((https?:[^)\s]+)\)/g, '<a href="$2" target="_blank" rel="noopener">$1</a>');
+      return s;
+    }
+    function closeUl() { if (inUl) { out.push('</ul>'); inUl = false; } }
+    function closeTable() { if (inTable) { out.push('</table>'); inTable = false; } }
+    for (var i = 0; i < lines.length; i++) {
+      var ln = lines[i];
+      if (/^\s*\|/.test(ln) && /\|\s*$/.test(ln)) {
+        if (/^\s*\|[\s:|-]+\|\s*$/.test(ln)) continue;
+        var cells = ln.replace(/^\s*\|/, '').replace(/\|\s*$/, '').split('|');
+        if (!inTable) { closeUl(); out.push('<table>'); inTable = true; out.push('<tr>' + cells.map(function (c) { return '<th>' + inline(c.trim()) + '</th>'; }).join('') + '</tr>'); }
+        else out.push('<tr>' + cells.map(function (c) { return '<td>' + inline(c.trim()) + '</td>'; }).join('') + '</tr>');
+        continue;
+      }
+      closeTable();
+      if (/^\s*[-*]\s+/.test(ln)) { if (!inUl) { out.push('<ul>'); inUl = true; } out.push('<li>' + inline(ln.replace(/^\s*[-*]\s+/, '')) + '</li>'); continue; }
+      closeUl();
+      if (/^\s*#{2,4}\s+/.test(ln)) { out.push('<h3>' + inline(ln.replace(/^\s*#{2,4}\s+/, '')) + '</h3>'); continue; }
+      if (/^\s*>\s?/.test(ln)) { out.push('<blockquote>' + inline(ln.replace(/^\s*>\s?/, '')) + '</blockquote>'); continue; }
+      if (!ln.trim()) { out.push(''); continue; }
+      out.push('<p>' + inline(ln) + '</p>');
+    }
+    closeUl(); closeTable();
+    return out.join('\n');
+  }
+
+  /* ---------- 登录门 ---------- */
+  function gate(html) { content.innerHTML = '<div class="panel gate">' + html + '</div>'; }
+  function loginGate() {
+    var next = encodeURIComponent(location.pathname + location.search);
+    gate('<div class="lg">🤖</div><h1>AI 员工中台</h1><p>请先用老板（admin）账号登录。员工与任务数据都在服务器，换电脑登录即可继续。</p>' +
+      '<a class="btn primary" href="../../account/index.html?next=' + next + '">去登录</a>');
+  }
+  function forbiddenGate() {
+    gate('<div class="lg">🔒</div><h1>仅内部（老板）可见</h1><p>当前账号不是管理员，无法查看员工任务与成本数据。本系统为客户智能体业务预留了 tenant_type=client 的隔离位，P2 再开放。</p>' +
+      '<a class="btn" href="../../account/index.html?next=' + encodeURIComponent(location.pathname) + '">切换账号</a>');
+  }
+
+  /* ---------- 数据加载 ---------- */
+  function load(force) {
+    if (state.busy) return;
+    state.busy = true;
+    api('/staff/overview', { timeout: 25000 }).then(function (d) {
+      state.overview = d;
+      state.staff = d.staff || [];
+      renderEngine(d);
+      var path = state.tab;
+      if (path === 'overview' || !state.staff.length) return renderOverview();
+      if (path === 'staff') return renderStaff();
+      if (path === 'tasks') return renderTasks(force);
+      if (path === 'approvals') return renderApprovals();
+      if (path === 'reports') return renderReports();
+      if (path === 'messages') return renderMessages();
+      if (path === 'mail') return renderMail();
+      if (path === 'memory') return renderMemory();
+      if (path === 'audit') return renderAudit();
+      if (path === 'data') return renderData();
+    }).catch(function (e) {
+      if (e && e.status === 401) return loginGate();
+      if (e && e.status === 403) return forbiddenGate();
+      content.innerHTML = '<div class="panel"><div class="empty">加载失败：' + esc(errText(e)) + '</div><div class="actions-row"><button class="btn" onclick="location.reload()">重试</button></div></div>';
+    }).then(function () { state.busy = false; });
+  }
+  function renderEngine(d) {
+    var eng = d.engine || {};
+    var dot = $('#engineDot'), txt = $('#engineText'), pill = $('#enginePill');
+    dot.className = 'dot' + (eng.running ? '' : ' bad');
+    txt.textContent = eng.running ? '引擎在线' : '引擎未运行';
+    pill.title = eng.last_beat ? '最后心跳：' + eng.last_beat : '等待 systemctl start ai-nav-staff';
+    $('#footEngine').textContent = '引擎：' + (eng.running ? '在线' : '未运行') + (eng.last_beat ? ' · ' + eng.last_beat.slice(5, 16) : '');
+    var appr = (d.approvals || []).length;
+    var badge = $('#navAppr');
+    if (badge) { badge.hidden = !appr; badge.textContent = appr; }
+  }
+
+  /* ---------- 总览 ---------- */
+  function renderOverview() {
+    var d = state.overview || {};
+    var counts = d.counts || {};
+    var kpi = d.kpi_days || [];
+    var todayCost = 0, todayTasks = 0;
+    (d.staff || []).forEach(function (s) { var k = s.kpi_today || {}; todayCost += Number(k.cost_cny || 0); todayTasks += Number(k.runs || 0); });
+    var appr = d.approvals || [];
+    var html = [];
+    html.push('<div class="cards">' +
+      kpiCard('今日任务', todayTasks, '累计 ' + (counts.tasks_total || 0), '📋') +
+      kpiCard('今日成本', money(todayCost), 'DeepSeek + 搜索', '💰') +
+      kpiCard('待审批', appr.length, '高风险动作', '✋') +
+      kpiCard('在岗员工', (counts.staff_enabled || 0) + '/' + (counts.staff_total || 0), 'P0 启用 5 个', '👥') +
+      kpiCard('报告总数', counts.reports_total || 0, '服务器可回溯', '📚') +
+      kpiCard('邮件待发', ((d.mail || {}).pending || 0), (d.mail || {}).config && d.mail.config.configured ? 'SMTP 已配置' : 'SMTP 未配置', '✉️') +
+      '</div>');
+    // 员工状态
+    html.push('<div class="panel"><div class="panel-h"><h2>员工状态</h2><span class="sub">启用/排班/最近执行</span>' +
+      '<span class="right"><button class="btn primary" data-act="new-task">＋ 手动派活</button></span></div><div class="staff-grid">');
+    (d.staff || []).forEach(function (s) {
+      var sch = (s.schedule || {}).slots || [];
+      var schedText = sch.map(function (x) { return (x.title || '') + '（' + x.cron + '）'; }).join('；') || '未排班（P1）';
+      var lr = s.last_run || {};
+      html.push('<div class="staff-card">' +
+        '<div class="top"><div class="av">' + staffIcon(s.id) + '</div><div><div class="nm">' + esc(s.name) + ' ' +
+        (s.enabled ? '<span class="tag t-done">启用</span>' : '<span class="tag t-pending">停用</span>') + '</div>' +
+        '<div class="rl">' + esc(s.role) + ' · ' + esc((s.cfg || {}).enabled_stage || 'P0') + '</div></div></div>' +
+        '<div class="sched">' + esc(schedText) + '</div>' +
+        '<div class="meta">最近：' + (lr.started_at ? esc(fmt(lr.started_at)) + ' · ' + esc(lr.status || '') + ' · ' + money(lr.cost_cny) : '暂无执行') + '</div>' +
+        '<div class="acts"><button class="btn sm" data-act="edit-staff" data-id="' + esc(s.id) + '">编辑</button>' +
+        '<button class="btn sm" data-act="toggle-staff" data-id="' + esc(s.id) + '" data-en="' + (s.enabled ? '0' : '1') + '">' + (s.enabled ? '停用' : '启用') + '</button>' +
+        '<button class="btn sm" data-act="task-for" data-id="' + esc(s.id) + '">派任务</button></div></div>');
+    });
+    html.push('</div></div>');
+    // 最近任务 + 最近报告
+    html.push('<div class="two">');
+    html.push('<div class="panel"><div class="panel-h"><h2>最近任务</h2><span class="right"><button class="btn sm" data-tab="tasks">全部 →</button></span></div>' + taskTable((d.tasks_recent || []).slice(0, 8), true) + '</div>');
+    html.push('<div class="panel"><div class="panel-h"><h2>最近报告</h2><span class="right"><button class="btn sm" data-tab="reports">全部 →</button></span></div>' + reportList((d.reports_recent || []).slice(0, 8)) + '</div>');
+    html.push('</div>');
+    // 7 日 KPI
+    html.push('<div class="panel"><div class="panel-h"><h2>近 7 日员工产出 / 成本</h2><span class="sub">KPI 每日落库</span></div>' + kpiTable(kpi) + '</div>');
+    content.innerHTML = html.join('');
+  }
+  function kpiCard(lb, v, ft, ico) {
+    return '<div class="kpi"><div class="lb"><span>' + ico + ' ' + esc(lb) + '</span></div><div class="v">' + esc(String(v)) + '</div><div class="ft">' + esc(ft) + '</div></div>';
+  }
+  function taskTable(items, compact) {
+    if (!items || !items.length) return '<div class="empty">暂无任务</div>';
+    var rows = items.map(function (t) {
+      var cost = 0;
+      try { cost = JSON.parse(t.cost_json || '{}').cost_cny || 0; } catch (e) {}
+      return '<tr><td>' + statusTag(t.status) + '</td><td><b>' + esc(t.title || t.id) + '</b><div class="muted">' + esc(staffName(t.staff_id)) + ' · ' + esc(fmt(t.created_at)) + '</div></td>' +
+        '<td>' + esc(t.kind || '') + '</td><td>' + (compact ? '' : money(cost)) + '</td>' +
+        '<td><button class="btn sm" data-act="view-task" data-id="' + esc(t.id) + '">详情</button></td></tr>';
+    }).join('');
+    return '<table><thead><tr><th>状态</th><th>任务</th><th>类型</th>' + (compact ? '' : '<th>成本</th>') + '<th></th></tr></thead><tbody>' + rows + '</tbody></table>';
+  }
+  function reportList(items) {
+    if (!items || !items.length) return '<div class="empty">暂无报告</div>';
+    return '<div>' + items.map(function (r) {
+      return '<div style="padding:8px 0;border-bottom:1px dashed var(--line)"><b style="font-size:12.5px;cursor:pointer" data-act="view-report" data-id="' + esc(r.id) + '">' + esc(r.title || r.kind) + '</b>' +
+        '<div class="muted">' + esc(staffName(r.staff_id) || r.staff_id) + ' · ' + esc(fmt(r.created_at)) + ' · ' + esc(r.kind) + '</div></div>';
+    }).join('') + '</div>';
+  }
+  function kpiTable(rows) {
+    if (!rows || !rows.length) return '<div class="empty">暂无 KPI 数据</div>';
+    return '<table><thead><tr><th>日期</th><th>执行</th><th>完成</th><th>失败</th><th>成本</th></tr></thead><tbody>' +
+      rows.map(function (r) { return '<tr><td>' + esc(r.day) + '</td><td>' + (r.runs || 0) + '</td><td>' + (r.done || 0) + '</td><td>' + (r.failed || 0) + '</td><td>' + money(r.cost) + '</td></tr>'; }).join('') +
+      '</tbody></table>';
+  }
+
+  /* ---------- 员工与排班 ---------- */
+  function renderStaff() {
+    var d = state.overview || {};
+    var html = ['<div class="panel"><div class="panel-h"><h2>员工与排班</h2><span class="sub">P0 启用 5 个：巡检 / 客服质检 / 内容研究 / 数据运营 / 值班秘书；其余 7 个已建档待 P1 接入。prompt 只有 admin 能改（已审计）。</span></div>'];
+    html.push('<div class="staff-grid">');
+    (d.staff || []).forEach(function (s) {
+      var tools = (s.tools || []).join('、');
+      var memCount = (d.memory_counts || {})[s.id] || 0;
+      html.push('<div class="staff-card">' +
+        '<div class="top"><div class="av">' + staffIcon(s.id) + '</div><div><div class="nm">' + esc(s.name) + '</div><div class="rl">' + esc(s.role) + ' · ' + (s.enabled ? '启用' : '停用') + '</div></div></div>' +
+        '<div class="sched"><b style="color:var(--txt2)">工具白名单：</b>' + esc(tools || '—') + '</div>' +
+        '<div class="sched"><b style="color:var(--txt2)">排班：</b>' + esc(JSON.stringify(s.schedule || {})) + '</div>' +
+        '<div class="meta">技能：' + esc((s.skills || []).join('、') || '—') + '</div>' +
+        '<div class="acts"><button class="btn sm" data-act="edit-staff" data-id="' + esc(s.id) + '">编辑 prompt/排班/工具</button>' +
+        '<button class="btn sm" data-act="toggle-staff" data-id="' + esc(s.id) + '" data-en="' + (s.enabled ? '0' : '1') + '">' + (s.enabled ? '停用' : '启用') + '</button></div></div>');
+    });
+    html.push('</div></div>');
+    content.innerHTML = html.join('');
+  }
+
+  /* ---------- 任务看板 ---------- */
+  function renderTasks() {
+    var filters = [['all', '全部'], ['pending', '待办'], ['running', '进行中'], ['approval', '待审批'], ['done', '已完成'], ['failed', '失败']];
+    var html = ['<div class="panel"><div class="panel-h"><h2>任务看板</h2><span class="sub">单并发队列 · 状态机 pending→running→done/failed/blocked</span>' +
+      '<span class="right"><button class="btn primary" data-act="new-task">＋ 手动派活</button><button class="btn" data-act="dispatch">自然语言派活</button></span></div>'];
+    html.push('<div class="filters">' + filters.map(function (f) {
+      return '<button class="btn sm' + (state.taskFilter === f[0] ? ' on' : '') + '" data-act="task-filter" data-f="' + f[0] + '">' + f[1] + '</button>';
+    }).join('') + '</div><div id="taskList"><div class="empty">加载中…</div></div></div>');
+    content.innerHTML = html.join('');
+    loadTasks();
+  }
+  function loadTasks() {
+    var f = state.taskFilter;
+    var status = f === 'all' ? '' : (f === 'approval' ? 'approval' : f);
+    api('/staff/tasks?status=' + encodeURIComponent(status) + '&limit=80', { timeout: 20000 }).then(function (d) {
+      var box = $('#taskList');
+      if (!box) return;
+      if (!d.items || !d.items.length) { box.innerHTML = '<div class="empty">没有任务</div>'; return; }
+      box.innerHTML = '<table><thead><tr><th>状态</th><th>任务</th><th>员工</th><th>类型</th><th>优先级</th><th>时间</th><th></th></tr></thead><tbody>' +
+        d.items.map(function (t) {
+          return '<tr><td>' + statusTag(t.status) + '</td><td><b>' + esc(t.title || t.id) + '</b><div class="muted mono">' + esc(t.id) + '</div></td>' +
+            '<td>' + esc(staffName(t.staff_id)) + '</td><td>' + esc(t.kind) + '</td><td>' + esc(String(t.priority)) + '</td><td class="muted">' + esc(fmt(t.created_at)) + '</td>' +
+            '<td><button class="btn sm" data-act="view-task" data-id="' + esc(t.id) + '">详情</button></td></tr>';
+        }).join('') + '</tbody></table>';
+    }).catch(function (e) { var box = $('#taskList'); if (box) box.innerHTML = '<div class="empty">加载失败：' + esc(errText(e)) + '</div>'; });
+  }
+
+  /* ---------- 审批 ---------- */
+  function renderApprovals() {
+    var apprs = (state.overview || {}).approvals || [];
+    var html = ['<div class="panel"><div class="panel-h"><h2>人工审批</h2><span class="sub">高风险动作（写知识库/对外发送/部署/支付/删除）绝不会自动执行；通过后立即执行并留痕。</span></div>'];
+    if (!apprs.length) html.push('<div class="empty">没有待审批事项 👍</div>');
+    apprs.forEach(function (a) {
+      var ap = a.approval || {};
+      var payload = ap.payload || {};
+      var preview = '';
+      if (payload.docs || payload.rules) {
+        preview = '<div class="muted" style="margin:6px 0">知识库草稿：' + (payload.docs || []).length + ' 文档 / ' + (payload.rules || []).length + ' 问答（通过后写入 cs_ai.db，enabled=0 草稿态）</div>' +
+          '<ul style="margin:4px 0 0;padding-left:18px;font-size:12px">' +
+          (payload.docs || []).map(function (x) { return '<li>📄 <b>' + esc(x.title) + '</b>：' + esc(String(x.content || '').slice(0, 110)) + '…</li>'; }).join('') +
+          (payload.rules || []).map(function (x) { return '<li>💬 <b>' + esc(x.question) + '</b> → ' + esc(String(x.answer || '').slice(0, 100)) + '…</li>'; }).join('') + '</ul>';
+      } else {
+        preview = '<pre class="mono" style="white-space:pre-wrap;max-height:180px;overflow:auto;background:var(--bg2);padding:8px;border-radius:8px">' + esc(JSON.stringify(ap, null, 1)) + '</pre>';
+      }
+      html.push('<div style="border:1px solid rgba(251,191,36,.4);background:var(--warnbg);border-radius:12px;padding:12px;margin-bottom:10px">' +
+        '<b>' + esc(a.title || a.id) + '</b> <span class="tag t-blocked">待审批</span>' +
+        '<div class="muted">' + esc(a.approval_kind || ap.kind || '') + ' · 员工：' + esc(staffName(a.staff_id)) + ' · ' + esc(fmt(a.created_at)) + ' · ' + esc(a.id) + '</div>' +
+        preview +
+        '<div class="actions-row"><button class="btn ok" data-act="approve" data-id="' + esc(a.id) + '">✅ 通过并执行</button>' +
+        '<button class="btn bad" data-act="reject" data-id="' + esc(a.id) + '">✖ 驳回</button>' +
+        '<button class="btn" data-act="view-task" data-id="' + esc(a.id) + '">看任务详情</button></div></div>');
+    });
+    html.push('</div>');
+    content.innerHTML = html.join('');
+  }
+
+  /* ---------- 报告 ---------- */
+  function renderReports() {
+    var kinds = [['', '全部'], ['daily_brief', '老板晨报'], ['patrol_brief', '巡检简报'], ['cs_qa_daily', '客服质检'], ['biz_daily', '经营日报'], ['weekly_intel', '每周情报'], ['patrol_alert', '巡检告警']];
+    var html = ['<div class="panel"><div class="panel-h"><h2>报告回溯</h2><span class="sub">所有员工产出存服务器（staff_reports + data/staff/reports），可邮件发送</span></div>'];
+    html.push('<div class="filters">' + kinds.map(function (k) {
+      return '<button class="btn sm' + (state.reportFilter === k[0] ? ' on' : '') + '" data-act="report-filter" data-f="' + k[0] + '">' + k[1] + '</button>';
+    }).join('') + '</div><div id="reportList"><div class="empty">加载中…</div></div></div>');
+    content.innerHTML = html.join('');
+    loadReports();
+  }
+  function loadReports() {
+    api('/staff/reports?limit=60' + (state.reportFilter ? '&kind=' + encodeURIComponent(state.reportFilter) : ''), { timeout: 20000 }).then(function (d) {
+      var box = $('#reportList');
+      if (!box) return;
+      if (!d.items || !d.items.length) { box.innerHTML = '<div class="empty">暂无报告</div>'; return; }
+      box.innerHTML = '<table><thead><tr><th>时间</th><th>员工</th><th>报告</th><th>类型</th><th></th></tr></thead><tbody>' +
+        d.items.map(function (r) {
+          return '<tr><td class="muted">' + esc(fmt(r.created_at)) + '</td><td>' + esc(staffName(r.staff_id) || r.staff_id) + '</td>' +
+            '<td><b style="cursor:pointer" data-act="view-report" data-id="' + esc(r.id) + '">' + esc(r.title || r.kind) + '</b><div class="muted">' + esc(String(r.summary || '').slice(0, 120)) + '</div></td>' +
+            '<td>' + esc(r.kind) + '</td>' +
+            '<td><button class="btn sm" data-act="view-report" data-id="' + esc(r.id) + '">查看</button><button class="btn sm" data-act="email-report" data-id="' + esc(r.id) + '">邮件</button></td></tr>';
+        }).join('') + '</tbody></table>';
+    }).catch(function (e) { var box = $('#reportList'); if (box) box.innerHTML = '<div class="empty">加载失败：' + esc(errText(e)) + '</div>'; });
+  }
+
+  /* ---------- 消息 ---------- */
+  function renderMessages() {
+    api('/staff/messages?limit=50', { timeout: 20000 }).then(function (d) {
+      var items = d.items || [];
+      var html = ['<div class="panel"><div class="panel-h"><h2>消息 / 汇报</h2><span class="sub">员工向老板的站内汇报（邮件之外的第二通道）</span></div>'];
+      if (!items.length) html.push('<div class="empty">暂无消息</div>');
+      else {
+        html.push('<table><thead><tr><th>时间</th><th>来自</th><th>类型</th><th>标题</th><th></th></tr></thead><tbody>');
+        items.forEach(function (m) {
+          html.push('<tr><td class="muted">' + esc(fmt(m.created_at)) + '</td><td>' + esc(m.from_staff || '—') + '</td><td>' + esc(m.kind) + (m.to_boss ? ' <span class="tag t-blocked">给老板</span>' : '') + '</td>' +
+            '<td>' + esc(m.title) + '</td><td><button class="btn sm" data-act="view-message" data-id="' + esc(m.id) + '">查看</button></td></tr>');
+        });
+        html.push('</tbody></table>');
+      }
+      html.push('<div id="msgDetail"></div></div>');
+      content.innerHTML = html.join('');
+      state.messages = items;
+    }).catch(function (e) { content.innerHTML = '<div class="panel"><div class="empty">加载失败：' + esc(errText(e)) + '</div></div>'; });
+  }
+
+  /* ---------- 邮件 ---------- */
+  function renderMail() {
+    api('/staff/mail/config', { timeout: 20000 }).then(function (d) {
+      var cfg = d.config || {};
+      var src = cfg.source || {};
+      var html = ['<div class="panel"><div class="panel-h"><h2>邮件汇报</h2><span class="sub">' + esc(d.policy || '') + '</span></div>'];
+      html.push('<div class="two"><div>');
+      html.push('<div class="panel" style="background:var(--bg2);margin-bottom:10px"><b>发送纪律</b>' +
+        '<div class="muted" style="margin-top:6px">今日已发 <b style="color:var(--lime)">' + (d.sent_today || 0) + '</b> / 上限 ' + (cfg.daily_limit || 3) + ' 封 · ' +
+        (cfg.paused ? '<span style="color:var(--amber)">已暂停全部邮件</span>' : '<span style="color:var(--lime)">发送中</span>') + '</div>' +
+        '<div class="actions-row"><button class="btn ' + (cfg.paused ? 'ok' : 'bad') + '" data-act="toggle-mail-pause" data-paused="' + (cfg.paused ? '0' : '1') + '">' + (cfg.paused ? '恢复邮件发送' : '暂停全部邮件') + '</button>' +
+        '<button class="btn" data-act="mail-cleanup">归档测试/重复邮件</button></div>' +
+        '<div class="muted" style="margin-top:6px">例行报告合并为每天 1 封「每日简报」；异常同类 1 小时合并；每周情报每周 1 封；测试邮件只手动。</div></div>');
+      html.push('<label class="fl">SMTP 主机</label><input id="mailHost" value="' + esc(cfg.host || '') + '">');
+      html.push('<div class="form-grid"><div><label class="fl">端口</label><input id="mailPort" value="' + esc(String(cfg.port || 465)) + '"></div><div><label class="fl">SSL</label><select id="mailSsl"><option value="1"' + (cfg.ssl ? ' selected' : '') + '>是</option><option value="0"' + (!cfg.ssl ? ' selected' : '') + '>否</option></select></div></div>');
+      html.push('<label class="fl">账号</label><input id="mailUser" value="' + esc(cfg.user || '') + '">');
+      html.push('<label class="fl">授权码（只写不读，' + (cfg.password_set ? '已配置' : '未配置') + (src.password === 'env' ? ' · env 优先' : '') + '）</label><input id="mailPass" type="password" placeholder="' + (cfg.password_set ? '留空=不修改' : '请输入授权码') + '">');
+      html.push('<label class="fl">收件人（逗号分隔，默认 STAFF_MAIL_TO）</label><input id="mailTo" value="' + esc((cfg.to || []).join(',')) + '">');
+      html.push('<div class="form-grid"><div><label class="fl">每日最多发送封数</label><input id="mailDailyLimit" value="' + esc(String(cfg.daily_limit || 3)) + '"></div><div><label class="fl">暂停开关</label><select id="mailPaused"><option value="0"' + (!cfg.paused ? ' selected' : '') + '>发送中</option><option value="1"' + (cfg.paused ? ' selected' : '') + '>暂停全部</option></select></div></div>');
+      html.push('<label class="fl">通知开关</label><div style="display:flex;gap:14px;flex-wrap:wrap">' +
+        notifyBox('daily_brief', '每日简报', cfg) + notifyBox('weekly_intel', '每周情报', cfg) + notifyBox('alerts', '异常告警', cfg) + notifyBox('reports', '其它报告', cfg) + '</div>');
+      html.push('<div class="actions-row"><button class="btn primary" data-act="save-mail">保存配置</button><button class="btn" data-act="test-mail">发送测试邮件（手动）</button></div>');
+      html.push('<div class="muted" style="margin-top:8px">状态：' + (cfg.configured ? '已配置' : '未配置') + ' · 来源 host=' + esc(src.host || 'default') + ' / password=' + esc(src.password || 'none') + ' / to=' + esc(src.to || 'default') + '</div>');
+      html.push('</div><div>');
+      html.push('<h3 style="font-size:12.5px;color:var(--txt2);margin:4px 0 8px">邮件记录（outbox，最近 30 条）</h3>');
+      html.push('<div id="mailOutbox">' + mailTable(d.outbox || []) + '</div>');
+      html.push('</div></div></div>');
+      content.innerHTML = html.join('');
+    }).catch(function (e) { content.innerHTML = '<div class="panel"><div class="empty">加载失败：' + esc(errText(e)) + '</div></div>'; });
+  }
+  function notifyBox(key, label, cfg) {
+    var on = (cfg.notify || {})[key] !== false;
+    return '<label class="switch"><input type="checkbox" id="notify_' + key + '" style="width:auto" ' + (on ? 'checked' : '') + '> ' + label + '</label>';
+  }
+  function mailTable(items) {
+    if (!items || !items.length) return '<div class="empty">暂无邮件</div>';
+    var tag = { sent: 't-done', pending: 't-blocked', failed: 't-failed', archived: 't-cancelled', disabled: 't-cancelled' };
+    var label = { sent: '已发送', pending: '待发送', failed: '失败', archived: '已归档', disabled: '已停用' };
+    return '<table><thead><tr><th>状态</th><th>类型</th><th>主题</th><th>收件人</th><th>时间</th><th>操作</th></tr></thead><tbody>' + items.map(function (m) {
+      return '<tr><td><span class="tag ' + (tag[m.status] || 't-pending') + '">' + esc(label[m.status] || m.status) + '</span></td>' +
+        '<td class="muted">' + esc(m.kind || '') + '</td>' +
+        '<td>' + esc(String(m.subject || '').slice(0, 60)) +
+        (m.error ? '<div class="muted" style="color:var(--amber)">' + esc(String(m.error).slice(0, 70)) + '</div>' : '') +
+        (m.dedupe_key ? '<div class="muted mono" style="font-size:10px">dedupe:' + esc(m.dedupe_key) + '</div>' : '') + '</td>' +
+        '<td class="muted">' + esc(m.to_email || '') + '</td>' +
+        '<td class="muted">' + esc(fmt(m.created_at)) + (m.sent_at ? '<div class="muted">发送 ' + esc(fmt(m.sent_at)) + '</div>' : '') + '</td>' +
+        '<td>' + (m.status !== 'sent' && m.status !== 'archived' ? '<button class="btn sm" data-act="mail-retry" data-id="' + esc(m.id) + '">重发</button>' : '') +
+        (m.status === 'pending' ? '<button class="btn sm" data-act="mail-disable" data-id="' + esc(m.id) + '">停用</button>' : '') + '</td></tr>';
+    }).join('') + '</tbody></table>';
+  }
+
+  /* ---------- 长期记忆 ---------- */
+  function renderMemory() {
+    api('/staff/memory', { timeout: 20000 }).then(function (d) {
+      var items = d.items || [];
+      var html = ['<div class="panel"><div class="panel-h"><h2>长期记忆</h2><span class="sub">偏好 / 规则 / 决策：员工每次执行会读取（全局 + 本岗位）</span></div>'];
+      html.push('<div class="two"><div><h3 style="font-size:12.5px;margin:0 0 8px;color:var(--txt2)">新增记忆</h3>' +
+        '<label class="fl">岗位（留空=全局）</label><input id="memStaff" placeholder="如 secretary，留空为全局">' +
+        '<label class="fl">类别</label><input id="memCat" value="rule" placeholder="rule/preference/decision/intel">' +
+        '<label class="fl">Key</label><input id="memKey" placeholder="如 汇报风格">' +
+        '<label class="fl">内容</label><textarea id="memVal" placeholder="如：老板喜欢结论先行、3 分钟能看完"></textarea>' +
+        '<div class="actions-row"><button class="btn primary" data-act="save-memory">保存记忆</button></div></div><div>' +
+        '<h3 style="font-size:12.5px;margin:0 0 8px;color:var(--txt2)">现有记忆（' + items.length + '）</h3>' +
+        '<div style="max-height:520px;overflow:auto"><table><thead><tr><th>岗位</th><th>Key</th><th>内容</th><th></th></tr></thead><tbody>' +
+        items.map(function (m) {
+          return '<tr><td>' + esc(m.staff_id || '全局') + '</td><td>' + esc(m.key) + '<div class="muted">' + esc(m.category) + '</div></td>' +
+            '<td>' + esc(String(m.value || '').slice(0, 180)) + '</td><td><button class="btn sm" data-act="del-memory" data-id="' + esc(m.id) + '">删</button></td></tr>';
+        }).join('') + '</tbody></table></div></div></div></div>');
+      content.innerHTML = html.join('');
+    }).catch(function (e) { content.innerHTML = '<div class="panel"><div class="empty">加载失败：' + esc(errText(e)) + '</div></div>'; });
+  }
+
+  /* ---------- 审计 ---------- */
+  function renderAudit() {
+    api('/staff/audit?limit=200', { timeout: 20000 }).then(function (d) {
+      var items = d.items || [];
+      var html = ['<div class="panel"><div class="panel-h"><h2>审计日志</h2><span class="sub">所有写操作：任务/审批/改 prompt/记忆/邮件配置/导入导出/worker</span></div>'];
+      html.push('<table><thead><tr><th>时间</th><th>操作者</th><th>动作</th><th>对象</th><th>详情</th></tr></thead><tbody>' +
+        items.map(function (a) {
+          return '<tr><td class="muted mono">' + esc(fmt(a.created_at)) + '</td><td>' + esc(a.actor) + ' <span class="tag t-pending">' + esc(a.actor_type) + '</span></td>' +
+            '<td>' + esc(a.action) + '</td><td class="mono">' + esc(a.target || '') + '</td><td class="muted mono">' + esc(JSON.stringify(a.detail || {}).slice(0, 180)) + '</td></tr>';
+        }).join('') + '</tbody></table></div>');
+      content.innerHTML = html.join('');
+    }).catch(function (e) { content.innerHTML = '<div class="panel"><div class="empty">加载失败：' + esc(errText(e)) + '</div></div>'; });
+  }
+
+  /* ---------- 数据/迁移 ---------- */
+  function renderData() {
+    var d = state.overview || {};
+    var html = ['<div class="panel"><div class="panel-h"><h2>数据导出 / 迁移</h2><span class="sub">服务器为唯一真相源：staff.db + data/staff 报告 + 每日备份 + 每周 OSS 异地备份</span></div>'];
+    html.push('<div class="two"><div><h3 style="font-size:13px">一键导出（员工配置/任务/记忆/报告）</h3>' +
+      '<p class="muted">导出包含 JSON + 报告 Markdown（不含 SMTP 授权码与 worker token）。换电脑/换服务器用导入恢复。</p>' +
+      '<div class="actions-row"><button class="btn primary" data-act="export-json">导出 JSON</button><button class="btn" data-act="export-zip">导出 ZIP</button></div>' +
+      '<h3 style="font-size:13px;margin-top:18px">导入恢复（合并模式，导入前自动备份 staff.db）</h3>' +
+      '<input type="file" id="importFile" accept=".json,.zip" style="padding:8px;background:var(--bg2)">' +
+      '<div class="actions-row"><button class="btn" data-act="import-file">导入所选文件</button></div>' +
+      '<h3 style="font-size:13px;margin-top:18px">local worker（可选执行器）</h3>' +
+      '<p class="muted">老板电脑可选安装 local worker：通过 HTTPS 从服务器拉本地任务、回传结果；服务器仍是唯一真相源，换电脑重新注册即可。</p>' +
+      '<input id="workerName" placeholder="设备名，如 老板-MacBook / 办公室主机" style="margin-bottom:8px">' +
+      '<div class="actions-row"><button class="btn" data-act="create-worker">生成 worker token（只显示一次）</button></div>' +
+      '<div id="workerResult" class="mono" style="margin-top:8px"></div></div>' +
+      '<div><h3 style="font-size:13px">当前数据量</h3><div class="kv">' +
+      '<b>员工</b><span>' + (d.counts ? d.counts.staff_total : '—') + ' 个（启用 ' + (d.counts ? d.counts.staff_enabled : '—') + '）</span>' +
+      '<b>任务</b><span>' + (d.counts ? d.counts.tasks_total : '—') + ' 个</span>' +
+      '<b>执行日志</b><span>' + (d.counts ? d.counts.runs_total : '—') + ' 条</span>' +
+      '<b>报告</b><span>' + (d.counts ? d.counts.reports_total : '—') + ' 份</span>' +
+      '<b>消息</b><span>' + (d.counts ? d.counts.messages_total : '—') + ' 条</span>' +
+      '<b>数据库</b><span class="mono">/opt/ai-nav-api/staff.db</span>' +
+      '<b>报告目录</b><span class="mono">/opt/ai-nav-api/data/staff/reports</span>' +
+      '<b>每日备份</b><span>现有 backup_daily.sh 自动快照 staff.db + 打包 data/staff（保留 14 天）</span>' +
+      '<b>异地备份</b><span>oss_backup_weekly.sh 每周一 09:00 上传阿里云 OSS（保留 8 周）</span>' +
+      '</div></div></div></div>');
+    content.innerHTML = html.join('');
+  }
+
+  /* ---------- 弹窗 ---------- */
+  function openModal(html, width) {
+    var m = $('#modalBody');
+    m.style.maxWidth = width || '900px';
+    m.innerHTML = '<div class="modal-h"><h2>' + (html.title || '') + '</h2><div class="right"><button class="btn sm" id="modalClose">关闭</button></div></div>' + html.body;
+    $('#modalMask').classList.add('on');
+    var c = $('#modalClose');
+    if (c) c.onclick = closeModal;
+    return m;
+  }
+  function closeModal() { $('#modalMask').classList.remove('on'); }
+  $('#modalMask').addEventListener('click', function (e) { if (e.target === $('#modalMask')) closeModal(); });
+
+  function newTaskModal(presetStaff) {
+    var staff = state.staff || [];
+    var opts = staff.map(function (s) {
+      return '<option value="' + esc(s.id) + '"' + (presetStaff === s.id ? ' selected' : '') + '>' + staffIcon(s.id) + ' ' + esc(s.name) + (s.enabled ? '' : '（停用）') + '</option>';
+    }).join('');
+    var m = openModal({ title: '手动派活', body:
+      '<div class="form-grid"><div><label class="fl">员工</label><select id="ntStaff">' + opts + '</select></div>' +
+      '<div><label class="fl">优先级</label><select id="ntPriority"><option value="3">普通</option><option value="4">高</option><option value="5">紧急</option><option value="2">低</option></select></div>' +
+      '<div class="full"><label class="fl">任务标题</label><input id="ntTitle" placeholder="如：汇总昨日经营数据并给 3 条建议"></div>' +
+      '<div class="full"><label class="fl">任务输入（自然语言 / JSON）</label><textarea id="ntInput" placeholder="写清楚要什么、口径、截止时间"></textarea></div>' +
+      '<div><label class="fl">执行位置</label><select id="ntExecutor"><option value="server">服务器（默认）</option><option value="local">老板电脑 local worker（可选）</option></select></div>' +
+      '<div><label class="fl">高风险（必须审批后才执行）</label><label class="switch"><input type="checkbox" id="ntApproval" style="width:auto"> 进入待审批</label></div></div>' +
+      '<div class="actions-row"><button class="btn primary" id="ntGo">创建任务</button></div>' });
+    $('#ntGo').onclick = function () {
+      var body = {
+        staff_id: $('#ntStaff').value,
+        title: $('#ntTitle').value.trim(),
+        input: $('#ntInput').value.trim(),
+        priority: parseInt($('#ntPriority').value, 10),
+        executor: $('#ntExecutor').value,
+        approval_required: $('#ntApproval').checked
+      };
+      if (!body.title) { toast('先写任务标题', 'bad'); return; }
+      this.disabled = true;
+      api('/staff/tasks', { method: 'POST', body: body, timeout: 30000 }).then(function (d) {
+        toast('任务已创建：' + d.task_id + (d.status === 'blocked' ? '（待审批）' : ''), 'ok');
+        closeModal(); load(true);
+      }).catch(function (e) { toast('创建失败：' + errText(e), 'bad'); this.disabled = false; });
+    };
+  }
+
+  function dispatchModal() {
+    openModal({ title: '自然语言派活', body:
+      '<p class="muted">写一句自然语言，系统按语义路由到最合适的员工（也可以只针对某个员工手动派活）。</p>' +
+      '<textarea id="dpText" placeholder="例如：巡检一下服务器和备份，把风险整理成 3 条给我；顺便看看昨天经营数据。"></textarea>' +
+      '<div class="actions-row"><button class="btn primary" id="dpGo">智能派活</button></div>' });
+    $('#dpGo').onclick = function () {
+      var text = $('#dpText').value.trim();
+      if (!text) { toast('先写要派的工作', 'bad'); return; }
+      this.disabled = true;
+      var btn = this;
+      api('/staff/dispatch', { method: 'POST', body: { text: text }, timeout: 40000 }).then(function (d) {
+        toast('已派给「' + (d.staff_name || d.staff_id) + '」：' + d.task_id, 'ok');
+        closeModal(); load(true);
+      }).catch(function (e) { toast('派活失败：' + errText(e), 'bad'); btn.disabled = false; });
+    };
+  }
+
+  function viewTaskModal(id) {
+    api('/staff/tasks/' + encodeURIComponent(id), { timeout: 25000 }).then(function (d) {
+      var t = d.task || {};
+      var res = t.result_obj || {};
+      var approval = t.approval || {};
+      var html = '<div class="kv" style="margin-bottom:10px">' +
+        '<b>状态</b><span>' + statusTag(t.status) + ' ' + esc(t.status) + '</span>' +
+        '<b>员工</b><span>' + esc(staffName(t.staff_id)) + ' · ' + esc(t.staff_id) + '</span>' +
+        '<b>任务ID</b><span class="mono">' + esc(t.id) + '</span>' +
+        '<b>类型/优先级</b><span>' + esc(t.kind) + ' · P' + esc(String(t.priority)) + '</span>' +
+        '<b>时间</b><span>' + esc(fmt(t.created_at)) + ' → ' + esc(fmt(t.finished_at)) + '</span>' +
+        '<b>审批</b><span>' + (t.approval_required ? (t.approved_by ? '已由 ' + esc(t.approved_by) + ' 审批' : '待审批') : '无需') + '</span>' +
+        '<b>输入</b><span class="mono" style="white-space:pre-wrap">' + esc(String(typeof t.input_obj === 'string' ? t.input_obj : JSON.stringify(t.input_obj || {}, null, 1))) + '</span>' +
+        '</div>';
+      if (t.error) html += '<div class="panel" style="border-color:rgba(251,113,133,.4)"><b>错误</b><pre class="mono" style="white-space:pre-wrap">' + esc(t.error) + '</pre></div>';
+      if (approval && approval.kind) {
+        html += '<div class="panel" style="border-color:rgba(251,191,36,.4)"><b>待审批动作：' + esc(approval.kind) + '</b><pre class="mono" style="white-space:pre-wrap;max-height:260px;overflow:auto">' + esc(JSON.stringify(approval, null, 1)) + '</pre>' +
+          (t.status === 'blocked' ? '<div class="actions-row"><button class="btn ok" data-act="approve" data-id="' + esc(t.id) + '">✅ 通过并执行</button><button class="btn bad" data-act="reject" data-id="' + esc(t.id) + '">✖ 驳回</button></div>' : '') + '</div>';
+      }
+      if (res.report_id) html += '<div class="actions-row"><button class="btn sm" data-act="view-report" data-id="' + esc(res.report_id) + '">查看报告</button><button class="btn sm" data-act="email-report" data-id="' + esc(res.report_id) + '">邮件发送</button></div>';
+      if (res.data && Object.keys(res.data).length) {
+        html += '<div class="panel"><b>结构化结果 data</b><pre class="mono" style="white-space:pre-wrap;max-height:220px;overflow:auto">' + esc(JSON.stringify(res.data, null, 1).slice(0, 5000)) + '</pre></div>';
+      }
+      if (res.report_md) html += '<div class="panel"><b>报告正文</b><div class="md">' + md(res.report_md) + '</div></div>';
+      var runs = (t.runs || []).map(function (r) {
+        var tools = (r.tools || []).map(function (x) {
+          return '<li>' + esc(x.name) + ' · ' + (x.ok ? '✅' : '❌') + ' · ' + (x.ms || 0) + 'ms' + (x.error ? ' · ' + esc(x.error) : '') + '</li>';
+        }).join('');
+        return '<div style="border-bottom:1px dashed var(--line);padding:8px 0"><b>' + esc(fmt(r.started_at)) + '</b> ' + statusTag(r.status) +
+          ' <span class="muted">耗时 ' + Math.round((r.duration_ms || 0) / 1000) + 's · tokens ' + (r.tokens_in || 0) + '+' + (r.tokens_out || 0) + ' · ' + money(r.cost_cny) + '</span>' +
+          (tools ? '<ul style="margin:4px 0;padding-left:18px;font-size:11.5px">' + tools + '</ul>' : '') +
+          (r.output_summary ? '<div class="muted">' + esc(r.output_summary) + '</div>' : '') + '</div>';
+      }).join('');
+      if (runs) html += '<div class="panel"><b>执行日志（staff_runs）</b>' + runs + '</div>';
+      var actions = '<div class="actions-row">';
+      if (t.status === 'failed' || t.status === 'rejected' || t.status === 'cancelled') actions += '<button class="btn" data-act="retry" data-id="' + esc(t.id) + '">重试</button>';
+      if (t.status === 'pending' || t.status === 'blocked') actions += '<button class="btn bad" data-act="cancel" data-id="' + esc(t.id) + '">取消</button>';
+      actions += '</div>';
+      html += actions;
+      openModal({ title: esc(t.title || t.id), body: html });
+    }).catch(function (e) { toast('加载失败：' + errText(e), 'bad'); });
+  }
+
+  function viewReportModal(id) {
+    api('/staff/reports/' + encodeURIComponent(id), { timeout: 20000 }).then(function (d) {
+      var r = d.report || {};
+      openModal({ title: esc(r.title || r.id), body:
+        '<div class="muted">' + esc(staffName(r.staff_id) || r.staff_id) + ' · ' + esc(r.kind) + ' · ' + esc(fmt(r.created_at)) + ' · ' + esc(r.file_path || '') + '</div>' +
+        '<div class="md" style="margin-top:10px">' + md(r.content_md || r.summary || '') + '</div>' +
+        '<div class="actions-row"><button class="btn" data-act="email-report" data-id="' + esc(r.id) + '">邮件发送</button></div>' });
+    }).catch(function (e) { toast('加载失败：' + errText(e), 'bad'); });
+  }
+
+  function viewMessageModal(id) {
+    var m = (state.messages || []).filter(function (x) { return x.id === id; })[0];
+    if (!m) return;
+    openModal({ title: esc(m.title), body: '<div class="muted">' + esc(m.from_staff) + ' · ' + esc(m.kind) + ' · ' + esc(fmt(m.created_at)) + '</div><div class="md" style="margin-top:10px">' + md(m.body_md || m.body || '') + '</div>' });
+  }
+
+  function editStaffModal(id) {
+    var s = (state.staff || []).filter(function (x) { return x.id === id; })[0];
+    if (!s) return;
+    openModal({ title: '编辑员工 · ' + s.name + '（仅 admin，审计留痕）', body:
+      '<div class="form-grid"><div><label class="fl">姓名</label><input id="esName" value="' + esc(s.name) + '"></div>' +
+      '<div><label class="fl">启用</label><select id="esEnabled"><option value="1"' + (s.enabled ? ' selected' : '') + '>启用</option><option value="0"' + (!s.enabled ? ' selected' : '') + '>停用</option></select></div>' +
+      '<div class="full"><label class="fl">角色 Prompt（员工不能改自己的 prompt，只有 admin 能改）</label><textarea id="esPrompt" style="min-height:180px">' + esc(s.prompt || '') + '</textarea></div>' +
+      '<div class="full"><label class="fl">工具白名单（JSON 数组）</label><input id="esTools" value="' + esc(JSON.stringify(s.tools || [])) + '"></div>' +
+      '<div class="full"><label class="fl">排班 schedule（JSON：slots/timeout/retry）</label><textarea id="esSchedule" style="min-height:120px">' + esc(JSON.stringify(s.schedule || {}, null, 1)) + '</textarea></div>' +
+      '<div class="full"><label class="fl">cfg（JSON：report_kind/notify_alert/boss_message/priority）</label><textarea id="esCfg" style="min-height:90px">' + esc(JSON.stringify(s.cfg || {}, null, 1)) + '</textarea></div></div>' +
+      '<div class="actions-row"><button class="btn primary" id="esGo">保存</button></div>' });
+    $('#esGo').onclick = function () {
+      var body = { id: s.id, name: $('#esName').value.trim(), enabled: parseInt($('#esEnabled').value, 10) === 1 ? 1 : 0, prompt: $('#esPrompt').value };
+      try { body.tools = JSON.parse($('#esTools').value); } catch (e) { toast('工具白名单 JSON 解析失败', 'bad'); return; }
+      try { body.schedule = JSON.parse($('#esSchedule').value); } catch (e) { toast('排班 JSON 解析失败', 'bad'); return; }
+      try { body.cfg = JSON.parse($('#esCfg').value); } catch (e) { body.cfg = s.cfg; }
+      this.disabled = true;
+      var btn = this;
+      api('/staff/update', { method: 'POST', body: body, timeout: 20000 }).then(function () {
+        toast('已保存（审计已记录）', 'ok'); closeModal(); load(true);
+      }).catch(function (e) { toast('保存失败：' + errText(e), 'bad'); btn.disabled = false; });
+    };
+  }
+
+  function confirmDo(msg, fn, btn) {
+    if (!confirm(msg)) return;
+    if (btn) btn.disabled = true;
+    fn().catch(function (e) { toast('操作失败：' + errText(e), 'bad'); if (btn) btn.disabled = false; });
+  }
+
+  /* ---------- 导出/导入 ---------- */
+  function downloadExport(fmt) {
+    var token = XLAuth.token();
+    fetch(XLAuth.apiBase + '/staff/export?format=' + fmt, { headers: { 'Authorization': 'Bearer ' + token } })
+      .then(function (res) {
+        if (!res.ok) throw new Error('HTTP ' + res.status);
+        return res.blob().then(function (blob) {
+          var a = document.createElement('a');
+          a.href = URL.createObjectURL(blob);
+          a.download = 'staff-export-' + new Date().toISOString().slice(0, 19).replace(/[:T]/g, '') + (fmt === 'json' ? '.json' : '.zip');
+          document.body.appendChild(a); a.click();
+          setTimeout(function () { URL.revokeObjectURL(a.href); a.remove(); }, 1500);
+          toast('已开始下载导出包', 'ok');
+        });
+      }).catch(function (e) { toast('导出失败：' + e.message, 'bad'); });
+  }
+  function importSelected() {
+    var f = ($('#importFile') || {}).files && $('#importFile').files[0];
+    if (!f) { toast('先选择 JSON/ZIP 文件', 'bad'); return; }
+    var isZip = /\.zip$/i.test(f.name);
+    var reader = new FileReader();
+    reader.onload = function () {
+      var body;
+      if (isZip) {
+        var bytes = new Uint8Array(reader.result);
+        var bin = '';
+        for (var i = 0; i < bytes.length; i++) bin += String.fromCharCode(bytes[i]);
+        body = { zip_b64: btoa(bin) };
+      } else {
+        try { body = { data: JSON.parse(reader.result) }; } catch (e) { toast('JSON 解析失败', 'bad'); return; }
+      }
+      if (!confirm('导入会合并覆盖同 ID 数据（导入前服务器会自动备份 staff.db），确认？')) return;
+      api('/staff/import', { method: 'POST', body: body, timeout: 120000 }).then(function (d) {
+        toast('导入完成：' + JSON.stringify((d.result || {}).tables || {}), 'ok'); load(true);
+      }).catch(function (e) { toast('导入失败：' + errText(e), 'bad'); });
+    };
+    if (isZip) reader.readAsArrayBuffer(f); else reader.readAsText(f, 'utf-8');
+  }
+
+  /* ---------- 事件 ---------- */
+  document.addEventListener('click', function (e) {
+    var t = e.target;
+    if (!t || !t.getAttribute) return;
+    var act = t.getAttribute('data-act'), id = t.getAttribute('data-id'), v;
+    if ((v = t.getAttribute('data-tab'))) { switchTab(v); return; }
+    if (!act) return;
+    if (act === 'new-task') return newTaskModal();
+    if (act === 'dispatch') return dispatchModal();
+    if (act === 'task-for') return newTaskModal(id);
+    if (act === 'view-task') return viewTaskModal(id);
+    if (act === 'view-report') return viewReportModal(id);
+    if (act === 'view-message') return viewMessageModal(id);
+    if (act === 'edit-staff') return editStaffModal(id);
+    if (act === 'toggle-staff') {
+      var en = t.getAttribute('data-en') === '1';
+      return confirmDo((en ? '启用' : '停用') + '「' + staffName(id) + '」？', function () {
+        return api('/staff/toggle', { method: 'POST', body: { id: id, enabled: en }, timeout: 20000 }).then(function () { toast(en ? '已启用' : '已停用', 'ok'); load(true); });
+      }, t);
+    }
+    if (act === 'approve') {
+      return confirmDo('通过后员工会立刻执行该高风险动作（已审计）。确认通过？', function () {
+        return api('/staff/tasks/' + encodeURIComponent(id) + '/approve', { method: 'POST', body: { note: '后台一键通过' }, timeout: 40000 }).then(function (d) {
+          toast('已通过' + (d.status === 'pending' ? '，等待引擎执行' : '并执行完成'), 'ok'); closeModal(); load(true);
+        });
+      }, t);
+    }
+    if (act === 'reject') {
+      var reason = prompt('驳回原因（可留空）：', '');
+      if (reason === null) return;
+      return confirmDo('驳回该待审批任务？', function () {
+        return api('/staff/tasks/' + encodeURIComponent(id) + '/reject', { method: 'POST', body: { reason: reason }, timeout: 20000 }).then(function () { toast('已驳回', 'ok'); closeModal(); load(true); });
+      }, t);
+    }
+    if (act === 'retry') return confirmDo('重试该任务？', function () {
+      return api('/staff/tasks/' + encodeURIComponent(id) + '/retry', { method: 'POST', body: {}, timeout: 20000 }).then(function () { toast('已重新入队', 'ok'); closeModal(); load(true); });
+    }, t);
+    if (act === 'cancel') return confirmDo('取消该任务？', function () {
+      return api('/staff/tasks/' + encodeURIComponent(id) + '/cancel', { method: 'POST', body: {}, timeout: 20000 }).then(function () { toast('已取消', 'ok'); closeModal(); load(true); });
+    }, t);
+    if (act === 'task-filter') { state.taskFilter = t.getAttribute('data-f'); renderTasks(); return; }
+    if (act === 'report-filter') { state.reportFilter = t.getAttribute('data-f'); renderReports(); return; }
+    if (act === 'email-report') {
+      return confirmDo('把该报告发到老板邮箱（' + (((state.overview || {}).mail || {}).config || {}).to + '）？', function () {
+        return api('/staff/reports/' + encodeURIComponent(id) + '/email', { method: 'POST', body: {}, timeout: 40000 }).then(function (d) {
+          toast(d.send_result && d.send_result.sent ? '邮件已发送' : '已入 outbox（待发送/待配置）', d.send_result && d.send_result.sent ? 'ok' : 'bad');
+        });
+      }, t);
+    }
+    if (act === 'save-mail') {
+      var body = {
+        enabled: true, host: $('#mailHost').value.trim(), port: parseInt($('#mailPort').value, 10) || 465,
+        ssl: $('#mailSsl').value === '1', user: $('#mailUser').value.trim(),
+        to: $('#mailTo').value.trim(), password: $('#mailPass').value,
+        paused: $('#mailPaused').value === '1',
+        daily_limit: parseInt($('#mailDailyLimit').value, 10) || 3,
+        notify: {
+          daily_brief: $('#notify_daily_brief').checked, weekly_intel: $('#notify_weekly_intel').checked,
+          alerts: $('#notify_alerts').checked, reports: $('#notify_reports').checked
+        }
+      };
+      t.disabled = true;
+      api('/staff/mail/config', { method: 'POST', body: body, timeout: 20000 }).then(function (d) {
+        toast('邮件配置已保存' + (d.config.env_configured ? '（env 凭据优先）' : ''), 'ok'); renderMail();
+      }).catch(function (e) { toast('保存失败：' + errText(e), 'bad'); t.disabled = false; });
+      return;
+    }
+    if (act === 'toggle-mail-pause') {
+      var paused = t.getAttribute('data-paused') === '1';
+      return api('/staff/mail/pause', { method: 'POST', body: { paused: paused }, timeout: 20000 }).then(function () {
+        toast(paused ? '已暂停全部邮件' : '已恢复邮件发送', 'ok'); renderMail();
+      }).catch(function (e) { toast('操作失败：' + errText(e), 'bad'); });
+    }
+    if (act === 'mail-cleanup') {
+      return confirmDo('把现有历史测试/刷屏邮件全部标记归档（保留记录可审计，不计入业务邮件与每日上限）？', function () {
+        return api('/staff/mail/cleanup', { method: 'POST', body: { all_records: true }, timeout: 20000 }).then(function (d) {
+          toast('已归档：' + JSON.stringify((d.result || {})), 'ok'); renderMail();
+        });
+      }, t);
+    }
+    if (act === 'mail-disable') {
+      return api('/staff/mail/outbox/' + encodeURIComponent(id) + '/disable', { method: 'POST', body: {}, timeout: 20000 }).then(function () {
+        toast('该邮件已停用，不再发送', 'ok'); renderMail();
+      }).catch(function (e) { toast('停用失败：' + errText(e), 'bad'); });
+    }
+    if (act === 'test-mail') {
+      t.disabled = true;
+      api('/staff/mail/test', { method: 'POST', body: {}, timeout: 40000 }).then(function (d) {
+        toast(d.ok ? '测试邮件已发送到 ' + (d.recipients || []).join(',') : '未发送：' + (d.hint || d.error || ''), d.ok ? 'ok' : 'bad');
+        renderMail();
+      }).catch(function (e) { toast('测试失败：' + errText(e), 'bad'); t.disabled = false; });
+      return;
+    }
+    if (act === 'mail-retry') {
+      return api('/staff/mail/outbox/' + encodeURIComponent(id) + '/retry', { method: 'POST', body: {}, timeout: 40000 }).then(function (d) {
+        toast(d.send_result && d.send_result.sent ? '已补发' : '仍待发送（检查 SMTP 配置）', d.send_result && d.send_result.sent ? 'ok' : 'bad'); renderMail();
+      }).catch(function (e) { toast('重试失败：' + errText(e), 'bad'); });
+    }
+    if (act === 'save-memory') {
+      var mb = { staff_id: $('#memStaff').value.trim(), category: $('#memCat').value.trim() || 'rule', key: $('#memKey').value.trim(), value: $('#memVal').value.trim() };
+      if (!mb.key) { toast('Key 必填', 'bad'); return; }
+      return api('/staff/memory', { method: 'POST', body: mb, timeout: 20000 }).then(function () { toast('记忆已保存', 'ok'); renderMemory(); }).catch(function (e) { toast('保存失败：' + errText(e), 'bad'); });
+    }
+    if (act === 'del-memory') {
+      return confirmDo('删除该记忆？', function () {
+        return api('/staff/memory/delete', { method: 'POST', body: { id: id }, timeout: 20000 }).then(function () { toast('已删除', 'ok'); renderMemory(); });
+      }, t);
+    }
+    if (act === 'export-json') { downloadExport('json'); return; }
+    if (act === 'export-zip') { downloadExport('zip'); return; }
+    if (act === 'import-file') { importSelected(); return; }
+    if (act === 'create-worker') {
+      var name = ($('#workerName').value || '老板电脑').trim();
+      return api('/staff/workers/create', { method: 'POST', body: { name: name }, timeout: 20000 }).then(function (d) {
+        $('#workerResult').innerHTML = 'worker_id: ' + esc(d.worker_id) + '<br>token: <b style="color:var(--amber)">' + esc(d.token) + '</b><br><span class="muted">保存到本机 staff_worker.json（token 只显示这一次）</span>';
+        toast('worker 已创建', 'ok');
+      }).catch(function (e) { toast('创建失败：' + errText(e), 'bad'); });
+    }
+  });
+
+  function switchTab(tab) {
+    state.tab = tab;
+    $$('#nav .nav-item').forEach(function (b) { b.classList.toggle('on', b.getAttribute('data-tab') === tab); });
+    var meta = {
+      overview: ['🤖 AI 员工中台', '任务板 + 角色员工 + 定时/事件调度 + 工具白名单 + 日志/KPI + 人工审批。数据以服务器为唯一真相源。'],
+      staff: ['👥 员工与排班', 'P0 启用 5 个岗位；其余 7 个已建档待 P1。prompt 只有 admin 能改。'],
+      tasks: ['🗃️ 任务看板', '单并发队列、超时、重试；任务状态机 pending→running→done/failed/blocked。'],
+      approvals: ['✋ 人工审批', '高风险动作必须人工通过；通过/驳回全部审计留痕。'],
+      reports: ['📚 报告回溯', '员工产出（简报/周报/经营日报/建议）存服务器，可回溯、可邮件发送。'],
+      messages: ['📨 消息 / 汇报', '员工向老板的站内汇报通道（手机页同步可见）。'],
+      mail: ['✉️ 邮件汇报', '每日晨报 / 每周情报 / 异常告警自动发邮件；未配置时留在 outbox 待发送。'],
+      memory: ['🧠 长期记忆', '偏好 / 规则 / 决策，员工每次执行会读取。'],
+      audit: ['🧾 审计日志', '所有写操作留痕：任务、审批、prompt、记忆、邮件配置、导入导出。'],
+      data: ['💾 导出 / 迁移', '一键导出导入 + local worker；服务器为唯一真相源，换电脑可恢复。']
+    }[tab] || ['AI 员工中台', ''];
+    $('#pageTitle').innerHTML = meta[0] + ' <span class="pill">内部使用</span>';
+    $('#pageSub').textContent = meta[1];
+    if (tab === 'overview') return load(true);
+    load(true);
+  }
+
+  /* ---------- 启动 ---------- */
+  if (!window.XLAuth) { gate('<div class="lg">🤖</div><h1>组件加载失败</h1><p>请刷新页面。</p>'); return; }
+  if (!XLAuth.token()) { loginGate(); return; }
+  var cu = XLAuth.user();
+  if (cu && !XLAuth.isAdmin(cu)) { forbiddenGate(); return; }
+  XLAuth.refresh().then(function (u) {
+    if (!u) return loginGate();
+    if (!XLAuth.isAdmin(u)) return forbiddenGate();
+    var who = $('#footWho'); if (who) who.textContent = '管理员：' + (u.name || u.phone || 'admin');
+    load(true);
+    state.timer = setInterval(function () { if (!document.hidden && (state.tab === 'overview' || state.tab === 'approvals')) load(false); }, 30000);
+  });
+})();
+</script>
+</body>
+</html>
