@@ -654,6 +654,11 @@ html[data-page="ops-edit"] .xl-sb-theme{display:none!important}
           <span class="ml">软件授权</span>
           <span class="mb" id="oeLicenseBadge" hidden>0</span>
         </button>
+        <button class="oe-menu-item" type="button" data-tab="tplmarket" role="tab" aria-selected="false">
+          <span class="mi"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="3.2" y="4.5" width="17.6" height="15" rx="2.2"/><path d="M8.4 4.5v15"/><path d="m11.4 13.4 2.2-3.1 1.7 2.1 1.5-1.6"/><circle cx="12.9" cy="8.4" r="1.1"/></svg></span>
+          <span class="ml">模板市场</span>
+          <span class="mb" id="oeTplmBadge" hidden>0</span>
+        </button>
       </nav>
       <div class="oe-menu-sep" aria-hidden="true"></div>
       <div class="oe-menu-foot">
@@ -684,6 +689,7 @@ html[data-page="ops-edit"] .xl-sb-theme{display:none!important}
         <section class="oe-panel" data-panel="csai" id="panel-csai" hidden></section>
         <section class="oe-panel" data-panel="gov" id="panel-gov" hidden></section>
         <section class="oe-panel" data-panel="license" id="panel-license" hidden></section>
+        <section class="oe-panel" data-panel="tplmarket" id="panel-tplmarket" hidden></section>
         <!-- ================= 1. 运营总览 ================= -->
         <section class="oe-panel" data-panel="overview" id="panel-overview">
           <div class="oe-stats" id="ovStats">
@@ -1210,7 +1216,8 @@ html[data-page="ops-edit"] .xl-sb-theme{display:none!important}
     csai: { label: 'AI 客服', crumb: 'AI 智能客服', sub: '知识库（三层来源）/ 网页挂件会话 / 留资转人工 / 未命中问题池 / 成交漏斗 / 成本看板；P0 网页渠道，企微抖音官方接口 P1 预留。' },
     gov: { label: '政企智能体', crumb: '政企智能体', sub: '对外方案页 / 安全与保密 / 3 个原型（政策问答 · 公文助手 · 工单分派）；示例政策知识库管理、检索测试、问答日志、未命中问题池、预约演示线索、安全与审计。' },
     assetlib: { label: '商用素材库', crumb: '商用素材库', sub: '免费可商用素材库（图片/视频/音乐/音效/字体）：素材总览 / 行业统计 / 抓取任务 / 审核下架 / 授权台账 / 使用统计 / 行业素材包。' },
-    license: { label: '软件授权', crumb: '软件授权', sub: '星籁剪辑独立销售授权：License Key 生成/吊销/延长/加座、设备指纹绑定（≤座位数）、心跳续期与签名 Token、远程功能开关、异常多 IP 自动封禁告警、隐形溯源水印。' }
+    license: { label: '软件授权', crumb: '软件授权', sub: '星籁剪辑独立销售授权：License Key 生成/吊销/延长/加座、设备指纹绑定（≤座位数）、心跳续期与签名 Token、远程功能开关、异常多 IP 自动封禁告警、隐形溯源水印。' },
+    tplmarket: { label: '模板市场', crumb: '模板市场', sub: '30 行业 × 7 场景原创模板：新建/编辑（脚本骨架 JSON / 字幕样式 / BGM / 时长 / 可商用 / 热度）、上下架、热度调整与套用统计；用户端 /templates/ 实时生效。' }
 
   };
 
@@ -1992,7 +1999,8 @@ html[data-page="ops-edit"] .xl-sb-theme{display:none!important}
     invoices: function () { return Promise.resolve(); },
     csai: function () { return Promise.resolve(); },
     gov: function () { return Promise.resolve(); },
-    license: function () { return Promise.resolve(); }
+    license: function () { return Promise.resolve(); },
+    tplmarket: function () { return Promise.resolve(); }
   };
   var TAB_RENDERERS = {};
 
@@ -2886,6 +2894,7 @@ html[data-page="ops-edit"] .xl-sb-theme{display:none!important}
   TAB_RENDERERS.csai = function () { if (window.XLCsAiOps) window.XLCsAiOps.render(); };
   TAB_RENDERERS.gov = function () { if (window.XLGovOps) window.XLGovOps.render(); };
   TAB_RENDERERS.license = function () { if (window.XLLicenseOps) window.XLLicenseOps.render(); };
+  TAB_RENDERERS.tplmarket = function () { if (window.XLTplMarketOps) window.XLTplMarketOps.render(); };
   TAB_META.assetlib = TAB_META.assetlib || { label: '商用素材库', crumb: '商用素材库', sub: '免费可商用素材库：素材总览 / 行业统计 / 抓取任务 / 审核下架 / 授权台账 / 使用统计。' };
   TAB_LOADERS.assetlib = function () { return Promise.resolve(); };
   TAB_RENDERERS.assetlib = function () {
@@ -4005,6 +4014,7 @@ html[data-page="ops-edit"] .xl-sb-theme{display:none!important}
 <script defer src="../../assets/cs-ai-ops.js?v=20261120a"></script>
 <script defer src="../../assets/gov-ops.js?v=20261120a"></script>
 <script defer src="../../assets/license-ops.js?v=20261121b"></script>
+<script defer src="../../assets/templates-ops.js?v=20261122a"></script>
 </body>
 </html>
 

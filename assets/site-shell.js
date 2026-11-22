@@ -78,6 +78,7 @@
   var ICO = {
     home: svg('<path d="M3 10.7 12 3l9 7.7"/><path d="M5.4 9.2V21h13.2V9.2"/><path d="M9.4 21v-6.2h5.2V21"/>'),
     studio: svg('<rect x="3" y="5.5" width="12.5" height="13" rx="2.2"/><path d="m15.5 10 5.5-3.2v10.4L15.5 14"/>'),
+    templates: svg('<rect x="3.2" y="4.5" width="17.6" height="15" rx="2.2"/><path d="M8.4 4.5v15"/><path d="m11.4 13.4 2.2-3.1 1.7 2.1 1.5-1.6"/><circle cx="12.9" cy="8.4" r="1.1"/>'),
     autoedit: svg('<rect x="3" y="5.5" width="12.5" height="13" rx="2.2"/><path d="m15.5 10 5.5-3.2v10.4L15.5 14"/><path d="M6.4 9.2h4M6.4 12h4M6.4 14.8h2.6"/><path d="m18.6 6.2.9 2.1 2.1.9-2.1.9-.9 2.1-.9-2.1-2.1-.9 2.1-.9.9-2.1Z" stroke-width="1.2"/>'),
     leadgen: svg('<circle cx="12" cy="12" r="8.2"/><circle cx="12" cy="12" r="4.4"/><circle cx="12" cy="12" r="1.2" fill="currentColor" stroke="none"/>'),
     ads: svg('<path d="M3.4 10.6v2.8a1.4 1.4 0 0 0 1.4 1.4h2.6l4.1 3.1V6.1L7.4 9.2H4.8a1.4 1.4 0 0 0-1.4 1.4Z"/><path d="M15.2 8.6a5 5 0 0 1 0 6.8"/><path d="M18 6.1a8.6 8.6 0 0 1 0 11.8"/>'),
@@ -98,6 +99,7 @@
   var NAV = [
     { key: 'home', label: 'AI 导航', href: ROOT, ico: ICO.home },
     { key: 'studio', label: '短视频工作台', href: ROOT + 'studio/', ico: ICO.studio },
+    { key: 'templates', label: '模板市场', href: ROOT + 'templates/', ico: ICO.templates },
     { key: 'ads', label: 'AI 投放优化获客', href: ROOT + 'ads/', ico: ICO.ads },
     { key: 'leadgen', label: '线索台账', href: ROOT + 'leadgen/', ico: ICO.leadgen },
     { key: 'geo', label: 'GEO 推广', href: ROOT + 'geo3/', ico: ICO.geo },
@@ -117,6 +119,7 @@
     var seg = rel.split('/')[0].replace(/\.html$/, '');
     if (seg === 'account' || seg === 'admin' || seg === 'store') return null;
     if (seg === 'geo2') return 'geo';
+    if (seg === 'templates') return 'templates';
     /* 入口合并：自动剪辑已并入短视频工作台，进入 autoedit 时高亮「短视频工作台」 */
     if (seg === 'autoedit') return 'studio';
     if (seg === 'studio' || seg === 'leadgen' || seg === 'ads' || seg === 'geo' || seg === 'travel' ||
