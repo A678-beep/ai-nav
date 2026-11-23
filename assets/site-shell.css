@@ -1,4 +1,4 @@
-/* 星籁 AI · 全站左侧竖向侧边栏外壳
+﻿/* 星籁 AI · 全站左侧竖向侧边栏外壳
  * 由 assets/site-shell.js 构建 DOM；本文件负责布局与深浅色主题。
  * 作用域统一加 html.xl-shell，JS 失败时原顶部导航保持可用。 */
 
@@ -54,6 +54,7 @@ html.xl-shell.xl-sb-collapsed { --xl-sbw: 64px; }
 /* ---------- 页面整体让位：左侧栏 + 细顶栏 ---------- */
 html.xl-shell body {
   margin-left: var(--xl-sbw) !important;
+  min-height: 100vh;
   padding-top: var(--xl-topbar-h) !important;
   min-width: 0;
 }

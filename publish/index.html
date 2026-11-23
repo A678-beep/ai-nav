@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html lang="zh-CN" data-page="publish">
-<head><meta name="robots" content="noindex,nofollow"><meta name="googlebot" content="noindex,nofollow">
+<head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
 <meta name="color-scheme" content="dark">
@@ -438,6 +438,24 @@ audio{max-width:100%;height:34px}
 }
 @media(prefers-reduced-motion:reduce){*{animation-duration:.001ms!important;transition-duration:.001ms!important}}
 </style>
+
+<!-- 2026-11-23 新页面收口：SEO + 站壳导航（可回滚，备份见 _qa_backup_20261123） -->
+<meta name="keywords" content="短剧发行,短剧发行中心,短剧上架,平台规格,海外字幕,短剧发行包,短剧SOP">
+<meta name="robots" content="noindex,nofollow"><meta name="googlebot" content="noindex,nofollow">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="星籁 AI">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:title" content="短剧发行中心 · 发行向导/平台规格/海外字幕 · 星籁 AI">
+<meta property="og:description" content="星籁短剧发行中心：短剧列表、分步发行向导、6 大平台发布清单、发行包下载、多语言字幕与配音、发行数据看板与全流程 SOP。不做自动发布与爬虫，所有平台发布由人工完成。">
+<meta property="og:url" content="https://xinglaiai.com/ai-nav/publish/">
+<meta property="og:image" content="https://xinglaiai.com/ai-nav/assets/og/publish.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="短剧发行中心 · 发行向导/平台规格/海外字幕 · 星籁 AI">
+<meta name="twitter:description" content="星籁短剧发行中心：短剧列表、分步发行向导、6 大平台发布清单、发行包下载、多语言字幕与配音、发行数据看板与全流程 SOP。不做自动发布与爬虫，所有平台发布由人工完成。">
+<meta name="twitter:image" content="https://xinglaiai.com/ai-nav/assets/og/publish.png">
+<link rel="stylesheet" href="../assets/site-shell.css">
 </head>
 <body>
 <a class="skip" href="#main">跳到主内容</a>
@@ -1189,7 +1207,7 @@ function distDisplayStatus(it){
   if (it.status === 'processing') return { key: 'processing', label: '打包中', cls: 'tag amber' };
   return { key: 'ready', label: '待发布', cls: 'tag cyan' };
 }
-function fileType(name){
+function fileType(name, mime){
   var n = String(name || '').toLowerCase();
   if (/\.(mp4|mov|m4v|mkv|webm)$/.test(n)) return { key: 'video', label: '视频', icon: '🎬' };
   if (/\.(jpg|jpeg|png|webp|svg|gif)$/.test(n)) return { key: 'cover', label: '封面', icon: '🖼' };
@@ -1197,7 +1215,26 @@ function fileType(name){
   if (/\.json$/.test(n)) return { key: 'meta', label: 'metadata', icon: '🧾' };
   if (/\.(md|txt|pdf|docx?)$/.test(n)) return { key: 'readme', label: '发行说明', icon: '📘' };
   if (/\.zip$/.test(n)) return { key: 'zip', label: '发行包', icon: '📦' };
+  var m = String(mime || '').toLowerCase();
+  if (/^video\//.test(m)) return { key: 'video', label: '视频', icon: '🎬' };
+  if (/^image\//.test(m)) return { key: 'cover', label: '封面', icon: '🖼' };
+  if (/subtitle|text\/vtt/.test(m)) return { key: 'subtitle', label: '字幕', icon: '💬' };
+  if (/json/.test(m)) return { key: 'meta', label: 'metadata', icon: '🧾' };
+  if (/zip/.test(m)) return { key: 'zip', label: '发行包', icon: '📦' };
+  if (/^text\//.test(m)) return { key: 'readme', label: '文本', icon: '📘' };
   return { key: 'other', label: '其他', icon: '📄' };
+}
+/* 统一文件列表：兼容 ["a/b.mp4"] 与 [{name,type,size}]（后端 v2 为对象数组） */
+function normalizeFileList(arr){
+  var out = [];
+  (arr || []).forEach(function(f){
+    if (f == null) return;
+    if (typeof f === 'string') { if (f) out.push({ name: f, type: '', size: 0 }); return; }
+    var name = f.name || f.filename || f.path || f.rel_path || '';
+    if (!name) return;
+    out.push({ name: name, type: f.type || f.mime || '', size: Number(f.size || f.bytes || 0) });
+  });
+  return out;
 }
 /* ============================================================
    API 适配层（真实接口优先，未就绪自动降级演示数据）
@@ -1214,9 +1251,10 @@ var API_BASE = (function(){
 var FORCE_MOCK = (function(){
   try { return new URLSearchParams(location.search).get('mock') === '1'; } catch (e) { return false; }
 })();
+var CAP_NAMES = { list: '短剧列表', dists: '发行记录', distribute: '发行打包', stats: '数据回填', translate: '多语言字幕' };
 var apiState = {
   mode: FORCE_MOCK ? 'mock' : 'checking',
-  caps: { list: false, dists: false, distribute: false, stats: false, translate: false },
+  caps: { list: null, dists: null, distribute: null, stats: null, translate: null },
   checkedAt: 0,
   lastError: ''
 };
@@ -1289,7 +1327,7 @@ function normDist(it){
     zip_url: it.zip_url || it.download_url || '',
     zip_size: Number(it.zip_size || 0),
     filename: it.filename || '',
-    files: Array.isArray(it.files) ? it.files : [],
+    files: normalizeFileList(it.files),
     created_at: it.created_at || it.updated_at || '',
     updated_at: it.updated_at || it.created_at || '',
     zip_demo: !!it.zip_demo
@@ -1475,12 +1513,14 @@ function realDistribute(payload){
     var merged = {};
     for (var k in raw) merged[k] = raw[k];
     if (j.download_url && !merged.zip_url) merged.zip_url = j.download_url;
+    if (j.zip_url && !merged.zip_url) merged.zip_url = j.zip_url;
+    if ((!merged.files || !merged.files.length) && j.files) merged.files = j.files;
     var d = normDist(merged);
     d.drama_title = dramaTitle(d.drama_id);
     d.drama_id = String(payload.drama_id);
     apiState.caps.distribute = true;
     updateModeUI();
-    return { distribution: d, zip_url: d.zip_url || j.download_url || '', files: d.files };
+    return { distribution: d, zip_url: d.zip_url || j.download_url || j.zip_url || '', files: d.files };
   }).catch(function(e){
     apiState.caps.distribute = false;
     updateModeUI();
@@ -1528,7 +1568,11 @@ function realTranslate(dramaId, langs, voice){
       return {
         lang: it.lang,
         episodes: (it.episodes || []).map(function(ep){
-          return { no: ep.no, title: ep.title || ('第 ' + ep.no + ' 集'), srt_url: ep.srt_url || '', vtt_url: ep.vtt_url || '', dub_url: ep.dub_url || '' };
+          return {
+            no: ep.no, title: ep.title || ('第 ' + ep.no + ' 集'),
+            srt_url: ep.srt_url || '', vtt_url: ep.vtt_url || '', dub_url: ep.dub_url || '',
+            cues: Array.isArray(ep.cues) ? ep.cues : null
+          };
         }),
         zip_url: it.subtitle_zip_url || ''
       };
@@ -1548,7 +1592,7 @@ function retryApi(){
     var live = apiState.caps.list || apiState.caps.dists;
     apiState.mode = live ? 'live' : 'mock';
     updateModeUI();
-    toast(live ? ('已连接真实接口（' + capCount() + '/5 项就绪）') : '接口仍未就绪，继续使用演示数据', live ? 'ok' : 'warn');
+    toast(live ? '已连接真实接口' : '接口仍未就绪，继续使用演示数据', live ? 'ok' : 'warn');
   });
 }
 /* ============================================================
@@ -1596,16 +1640,20 @@ function updateModeUI(){
     return;
   }
   if (apiState.mode === 'live') {
+    var missing = [];
+    for (var k in apiState.caps) { if (apiState.caps[k] === false) missing.push(k); }
     badge.className = 'badge-ver live';
-    tx.textContent = '真实接口 ' + liveCount + '/5';
-    if (liveCount >= 5) {
-      banner.hidden = true;
-    } else {
+    tx.textContent = missing.length ? '真实接口 · 部分联调' : '真实接口已连接';
+    if (missing.length) {
       banner.hidden = false;
       banner.className = 'banner info';
-      banner.innerHTML = '<span>ℹ</span><span><b>部分接口联调中</b> · 已就绪 ' + liveCount + '/5 项，未就绪功能自动使用<b>演示数据</b>（不写入服务器）。</span>' +
+      banner.innerHTML = '<span>ℹ</span><span><b>部分接口未就绪</b> · ' +
+        missing.map(function(x){ return esc(CAP_NAMES[x] || x); }).join('、') +
+        ' 暂用<b>演示数据</b>（不写入服务器）；接口上线后点重试即可切换。</span>' +
         '<span class="bb"><button type="button" class="btn ghost sm" data-act="retryApi">重试接口</button></span>';
       bindCopy(banner);
+    } else {
+      banner.hidden = true;
     }
     return;
   }
@@ -1710,7 +1758,7 @@ function renderDramas(){
   root.innerHTML =
     '<div class="panel">' +
       '<div class="panel-h"><h2>我的短剧 <small>成片库 · 可发行状态一目了然</small></h2>' +
-        '<div class="ph-right">' + (!apiState.caps.list ? '<span class="tag amber">演示数据 · 联调中</span>' : '') +
+        '<div class="ph-right">' + (apiState.caps.list === false ? '<span class="tag amber">演示数据 · 联调中</span>' : '') +
         '<button type="button" class="btn ghost sm" data-act="reloadDramas">↻ 刷新列表</button>' +
         '<button type="button" class="btn sm" data-act="startDist">开始发行向导 →</button></div></div>' +
       '<div class="panel-sub">从「AI 短剧」生成的成片自动同步；状态含草稿 / 渲染中 / 已出片。点击「开始发行」进入 4 步向导。</div>' +
@@ -2137,7 +2185,7 @@ function renderWizardStep1(){
       '<span>已选：</span><b>' + (d ? '《' + esc(d.title) + '》' : '未选剧') + '</b><span>·</span><b>' + esc(p.name) + '</b><span>·</span><b>' + esc(langById(W.lang).name) + '</b><span>·</span><b>' + esc(W.ratio) + '</b>' +
       '<span class="muted">（生成后可在第 2 步下载发行包）</span>' +
     '</div>' +
-    '<div class="wiz-nav"><span class="muted" style="font-size:12px">演示模式下打包约 3–5 秒；真实接口 20–90 秒。</span>' +
+    '<div class="wiz-nav"><span class="muted" style="font-size:12px">' + (apiState.mode === 'mock' ? '演示模式下打包约 3–5 秒；真实接口 20–90 秒。' : '真实接口打包约 20–90 秒（首次冷启约 69 秒，命中缓存约 10 秒）。') + '</span>' +
       '<div class="right"><button type="button" class="btn" data-act="genPackage">下一步：生成发行包 →</button></div></div>' +
   '</div>';
 }
@@ -2159,21 +2207,21 @@ function renderWizardStep2(){
           '<div class="prog-meta"><span id="wizProgPct">' + (W.progress && W.progress.indeterminate ? '处理中…' : clampPct(W.progress ? W.progress.pct : 0) + '%') + '</span><span id="wizProgNote">' + esc(W.progress ? W.progress.note : '') + '</span></div>' +
           '<div class="loading-line" style="margin-top:12px"><span class="spin"></span>正在打包视频/封面/字幕/metadata/发行说明，请勿关闭页面…</div>' +
           '<ul class="stages" id="wizStages" style="margin-top:12px">' + stages + '</ul>' +
-          '<div class="notice amber">⚠ <span>真实接口最长等待 180 秒；若接口未就绪会自动降级为<b>演示包</b>并标注「联调中」，不影响继续走发布清单。</span></div>' +
+          '<div class="notice amber">⚠ <span>真实接口最长等待 180 秒（首次冷启约 69 秒）；失败时会提示并允许改用<b>演示包</b>继续，不影响走发布清单。</span></div>' +
         '</div>' +
       '</div>';
   }
   if (W.pkg) {
     var dist = W.pkg.distribution;
-    var files = (W.pkg.entries || []).map(function(e){ return { name: e.name, size: new Blob([e.data]).size }; });
-    if (!files.length) files = (dist.files || []).map(function(n){ return { name: n, size: 0 }; });
+    var files = (W.pkg.entries || []).map(function(e){ return { name: e.name, type: '', size: new Blob([e.data]).size }; });
+    if (!files.length) files = normalizeFileList(dist.files);
     var total = files.reduce(function(a, f){ return a + (f.size || 0); }, 0);
     var rows = files.map(function(f){
-      var t = fileType(f.name);
+      var t = fileType(f.name, f.type);
       return '<tr><td>' + esc(f.name) + '</td><td class="ftype">' + t.icon + ' ' + t.label + '</td><td class="num">' + (f.size ? fmtSize(f.size) : '—') + '</td></tr>';
     }).join('');
     var typeCounts = {};
-    files.forEach(function(f){ var t = fileType(f.name); typeCounts[t.label] = (typeCounts[t.label] || 0) + 1; });
+    files.forEach(function(f){ var t = fileType(f.name, f.type); typeCounts[t.label] = (typeCounts[t.label] || 0) + 1; });
     var typeChips = Object.keys(typeCounts).map(function(k){ return '<span class="tag cyan">' + esc(k) + ' ×' + typeCounts[k] + '</span>'; }).join('');
     return '<div class="panel">' +
         '<div class="panel-h"><h2>第 2 步 · 发行包已生成 <small>' + esc(p.name) + ' · ' + esc(langById(W.lang).name) + ' · ' + ratio + '</small></h2>' +
@@ -2431,6 +2479,9 @@ function downloadPackage(){
     return;
   }
   var url = pkg.zip_url || pkg.distribution.zip_url;
+  if (!url && pkg.distribution.id && apiState.mode === 'live') {
+    url = API_BASE + '/distributions/' + encodeURIComponent(pkg.distribution.id) + '/download';
+  }
   if (url) { downloadUrl(url, pkg.distribution.filename || ''); return; }
   if (pkg.entries) { downloadBlob(buildZip(pkg.entries), pkg.distribution.filename || '发行包.zip'); return; }
   toast('接口未返回下载地址，请重新生成', 'err');
@@ -2636,7 +2687,7 @@ function renderDashboard(){
   root.innerHTML =
     '<div class="panel">' +
       '<div class="panel-h"><h2>发行记录看板 <small>各平台 / 语言 / 播放 / 状态 · 汇总</small></h2>' +
-        '<div class="ph-right">' + (!apiState.caps.dists ? '<span class="tag amber">演示数据 · 联调中</span>' : '') +
+        '<div class="ph-right">' + (apiState.caps.dists === false ? '<span class="tag amber">演示数据 · 联调中</span>' : '') +
         '<button type="button" class="btn ghost sm" data-act="exportCsv">导出 CSV</button>' +
         '<button type="button" class="btn ghost sm" data-act="reloadDists">↻ 刷新</button>' +
         '<button type="button" class="btn sm" data-act="startDist">新建发行 →</button></div></div>' +
@@ -2810,12 +2861,12 @@ function renderTranslateResult(){
   var preview = '';
   if (TR.previewCues && TR.previewCues.length) {
     var first = langById(TR.result[0].lang);
-    preview = '<div class="panel"><div class="panel-h"><h2>字幕预览 <small>演示语料 · ' + esc(first.name) + ' · 第 1 集</small></h2></div>' +
+    preview = '<div class="panel"><div class="panel-h"><h2>字幕预览 <small>' + (TR.mock ? '演示语料' : '接口字幕') + ' · ' + esc(first.name) + ' · 第 1 集</small></h2></div>' +
       '<div class="table-wrap" style="border:0"><table class="cue-table"><thead><tr><th>时间</th><th>中文原文</th><th>' + esc(first.name) + ' 译文</th></tr></thead><tbody>' +
       TR.previewCues.map(function(c){
         return '<tr><td class="tc">' + esc(fmtClock(c.start)).slice(3) + ' → ' + esc(fmtClock(c.end)).slice(3) + '</td><td class="zh">' + esc(c.zh) + '</td><td class="tr" dir="' + (first.id === 'ar' ? 'rtl' : 'ltr') + '">' + esc(c.text) + '</td></tr>';
       }).join('') +
-      '</tbody></table></div><div class="muted" style="font-size:11.5px;margin-top:6px">演示语料为固定台词，用于验证时间轴/编码/下载链路；真实字幕以剧本翻译为准。</div></div>';
+      '</tbody></table></div><div class="muted" style="font-size:11.5px;margin-top:6px">' + (TR.mock ? '演示语料为固定台词，用于验证时间轴/编码/下载链路；真实字幕以剧本翻译为准。' : '字幕由后端翻译生成，可下载 SRT/VTT 后人工校对。') + '</div></div>';
   }
   var dub = '';
   if (TR.voice) {
@@ -2875,6 +2926,10 @@ function runTranslate(){
     TR.running = false;
     TR.result = items.map(function(it){ it.mock = false; return it; });
     TR.previewCues = null;
+    if (TR.result.length && TR.result[0].episodes && TR.result[0].episodes.length) {
+      var ep0 = TR.result[0].episodes[0];
+      if (ep0.cues && ep0.cues.length) TR.previewCues = ep0.cues;
+    }
     renderTranslateResult();
     toast('多语言字幕已生成', 'ok');
   }).catch(function(e){
@@ -3151,5 +3206,7 @@ window.__PUBLISH_DEBUG__ = {
 boot();
 })();
 </script>
+
+<script defer src="../assets/site-shell.js"></script>
 </body>
 </html>

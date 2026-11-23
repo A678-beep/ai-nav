@@ -135,6 +135,12 @@
 
   function refresh(force) {
     if (state.loading) return;
+    /* 2026-11-23：未登录不请求 /api/credits，避免匿名访问产生 401 控制台报错 */
+    if (!(window.XLAuth && XLAuth.token && XLAuth.token())) {
+      var np = ensurePanel();
+      if (np) np.innerHTML = '<span style="color:var(--ae-txt3,#94a3b8)">💎 <a href="' + ACCOUNT_URL + '" style="color:#7dd3fc">登录</a>后可查看积分余额与本次预估（不影响生成）</span>';
+      return;
+    }
     state.loading = true;
     var mode = modeOf();
     var dur = durationOf();

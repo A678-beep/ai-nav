@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>AI 直播助播（合规版）· 星籁 AI</title>
 <meta name="description" content="真人主播在场 + AI 实时助播：提词、话术补充、弹幕摘要与建议回复、节奏提醒与复盘。合规版，不做无人直播、不规避平台检测、不伪装真人。">
-<meta name="robots" content="noindex,nofollow">
+<meta name="robots" content="noindex,nofollow"><meta name="googlebot" content="noindex,nofollow">
 <meta name="theme-color" content="#070a10">
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%23070a10'/%3E%3Cpath d='M18 44V20h6v10h16V20h6v24h-6V36H24v8z' fill='%235ad1ff'/%3E%3C/svg%3E">
 <style>
@@ -194,6 +194,33 @@ footer b{color:var(--txt2)}
   .brand small{display:none}
   footer{padding:0 12px}
 }
+</style>
+
+<!-- 2026-11-23 新页面收口：SEO + 站壳导航（可回滚，备份见 _qa_backup_20261123） -->
+<meta name="keywords" content="AI直播助播,直播提词器,直播话术,弹幕摘要,直播复盘,合规助播">
+<link rel="canonical" href="https://xinglaiai.com/ai-nav/live/">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="星籁 AI">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:title" content="AI 直播助播（合规版）· 星籁 AI">
+<meta property="og:description" content="真人主播在场 + AI 实时助播：提词、话术补充、弹幕摘要与建议回复、节奏提醒与复盘。合规版，不做无人直播、不规避平台检测、不伪装真人。">
+<meta property="og:url" content="https://xinglaiai.com/ai-nav/live/">
+<meta property="og:image" content="https://xinglaiai.com/ai-nav/assets/og/live.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="AI 直播助播（合规版）· 星籁 AI">
+<meta name="twitter:description" content="真人主播在场 + AI 实时助播：提词、话术补充、弹幕摘要与建议回复、节奏提醒与复盘。合规版，不做无人直播、不规避平台检测、不伪装真人。">
+<meta name="twitter:image" content="https://xinglaiai.com/ai-nav/assets/og/live.png">
+<link rel="stylesheet" href="../assets/site-shell.css">
+<style id="xl-shell-live-fix">
+/* 2026-11-23 站壳适配：合规条下移到细顶栏之下；原顶栏控件迁入细顶栏（见页尾脚本） */
+html.xl-shell body{padding-top:calc(var(--cfh, 72px) + var(--xl-topbar-h, 52px))!important}
+html.xl-shell .cf{top:var(--xl-topbar-h, 52px);z-index:57}
+@media (min-width:1100px){html.xl-shell .cf{left:var(--xl-sbw, 220px)}}
+html.xl-shell .xl-topbar-actions .pill{max-width:220px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+html.xl-shell .xl-topbar-actions .btn.sm{font-size:12px;padding:4px 9px;border-radius:8px;margin-left:0}
+@media (max-width:1099.98px){html.xl-shell .xl-topbar-actions .pill{display:none}}
 </style>
 </head>
 <body>
@@ -1054,6 +1081,30 @@ footer b{color:var(--txt2)}
     console.warn('[live-copilot] init failed', err);
     window.__LIVE_ERRORS__.push('init:' + String(err));
   }
+})();
+</script>
+
+<script defer src="../assets/site-shell.js"></script>
+<script>
+/* 2026-11-23 站壳适配：把原顶栏的「合规说明 / 接口设置 / 服务状态 / 直播计时」迁到细顶栏，保持可点 */
+(function () {
+  function move() {
+    var bar = document.querySelector('.xl-topbar-actions');
+    if (!bar || bar.getAttribute('data-live-moved')) return !!bar;
+    var hs = document.querySelectorAll('header.top .pill');
+    for (var i = 0; i < hs.length; i++) bar.insertBefore(hs[i], bar.firstChild);
+    var g = document.getElementById('btnGuide'), s = document.getElementById('btnSettings');
+    if (g) bar.insertBefore(g, bar.firstChild);
+    if (s) bar.insertBefore(s, bar.firstChild);
+    bar.setAttribute('data-live-moved', '1');
+    return true;
+  }
+  try {
+    if (!move()) {
+      var n = 0;
+      (function tick() { if (move() || ++n > 60) return; setTimeout(tick, 120); })();
+    }
+  } catch (e) {}
 })();
 </script>
 </body>

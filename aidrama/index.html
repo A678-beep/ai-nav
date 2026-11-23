@@ -1,9 +1,9 @@
 <!DOCTYPE html>
 <html lang="zh-CN">
-<head><meta name="robots" content="noindex,nofollow"><meta name="googlebot" content="noindex,nofollow">
+<head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>星籁 AI · AI 短剧（内测）</title>
+<title>AI 短剧 · 输入主题生成剧本分镜 · 星籁 AI</title>
 <style>
   :root{--bg:#0b1020;--card:#131a2e;--line:#26314d;--txt:#e8edf7;--sub:#8ea0c2;--acc:#22d3ee;--acc2:#6366f1;--ok:#22c55e;--warn:#f59e0b;--err:#ef4444}
   *{box-sizing:border-box}
@@ -20,6 +20,9 @@
   .theme{flex:2 1 320px!important}
   button{cursor:pointer;border:0;border-radius:9px;padding:10px 16px;font:inherit;font-weight:600;color:#04121a;background:linear-gradient(135deg,var(--acc),var(--acc2))}
   button:disabled{opacity:.5;cursor:not-allowed}
+button:hover:not(:disabled){filter:brightness(1.12);box-shadow:0 6px 18px -10px rgba(34,211,238,.65)}
+button:active:not(:disabled){transform:translateY(1px)}
+button.ghost:hover:not(:disabled){border-color:#22d3ee;color:#a5f3fc;filter:none;box-shadow:none}
   .ghost{background:transparent;color:var(--txt);border:1px solid var(--line);font-weight:500}
   .tip{color:var(--sub);font-size:12px;margin-top:10px}
   .tag{display:inline-block;background:#0e2a33;color:var(--acc);border:1px solid #164e63;border-radius:999px;padding:1px 9px;font-size:12px;margin-right:6px}
@@ -36,6 +39,27 @@
   .foot{color:var(--sub);font-size:12px;margin-top:18px;border-top:1px dashed var(--line);padding-top:12px}
   a{color:var(--acc)}
 </style>
+
+<!-- 2026-11-23 新页面收口：SEO + 站壳导航（可回滚，备份见 _qa_backup_20261123） -->
+<meta name="description" content="星籁 AI 短剧：输入主题，AI 生成多集结构化剧本与分镜（每集 5-8 镜），一键出片：可商用素材 + AI 配音 + 字幕，成片带「AI 生成」标注，内测免费。">
+<meta name="keywords" content="AI短剧,AI短剧生成,短剧剧本生成,短剧分镜,一键出片,AI配音字幕">
+<link rel="canonical" href="https://xinglaiai.com/ai-nav/aidrama/">
+<meta name="robots" content="noindex,nofollow"><meta name="googlebot" content="noindex,nofollow">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="星籁 AI">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:title" content="AI 短剧 · 输入主题生成剧本分镜 · 星籁 AI">
+<meta property="og:description" content="星籁 AI 短剧：输入主题，AI 生成多集结构化剧本与分镜（每集 5-8 镜），一键出片：可商用素材 + AI 配音 + 字幕，成片带「AI 生成」标注，内测免费。">
+<meta property="og:url" content="https://xinglaiai.com/ai-nav/aidrama/">
+<meta property="og:image" content="https://xinglaiai.com/ai-nav/assets/og/aidrama.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="AI 短剧 · 输入主题生成剧本分镜 · 星籁 AI">
+<meta name="twitter:description" content="星籁 AI 短剧：输入主题，AI 生成多集结构化剧本与分镜（每集 5-8 镜），一键出片：可商用素材 + AI 配音 + 字幕，成片带「AI 生成」标注，内测免费。">
+<meta name="twitter:image" content="https://xinglaiai.com/ai-nav/assets/og/aidrama.png">
+<link rel="stylesheet" href="../assets/site-shell.css">
+<link rel="icon" href="data:image/svg+xml,%3Csvg%20xmlns='http://www.w3.org/2000/svg'%20viewBox='0%200%2064%2064'%3E%3Crect%20width='64'%20height='64'%20rx='14'%20fill='%23070a10'/%3E%3Cpath%20d='M32%2012l5.6%2013.6L51%2031l-13.4%205.4L32%2050l-5.6-13.6L13%2031l13.4-5.4z'%20fill='%2338bdf8'/%3E%3C/svg%3E">
 </head>
 <body>
 <div class="wrap">
@@ -185,8 +209,8 @@
           setMsg(st, '完成｜时长 ' + j.duration + 's｜' + (j.size / 1048576).toFixed(2) + 'MB｜渲染 ' + (j.elapsed || 0) + 's｜费用 ¥0（内测免费）', 'ok');
           var url = j.video_url || j.url;
           vd.innerHTML = '<video controls playsinline src="' + esc(url) + '"></video>' +
-            '<div class="scene"><a href="' + esc(url) + '?download=1" target="_blank">下载该集成片</a>　' +
-            '<a href="' + esc(j.cover_url || '') + '" target="_blank">封面</a></div>';
+            '<div class="scene"><a href="' + esc(url) + '?download=1" target="_blank" rel="noopener">下载该集成片</a>　' +
+            '<a href="' + esc(j.cover_url || '') + '" target="_blank" rel="noopener">封面</a></div>';
         } else if (j.status === 'failed') {
           clearInterval(timer);
           setMsg(st, j.hint || j.error || '渲染失败', 'err');
@@ -211,5 +235,7 @@
   });
 })();
 </script>
+
+<script defer src="../assets/site-shell.js"></script>
 </body>
 </html>
