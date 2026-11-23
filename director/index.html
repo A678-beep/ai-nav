@@ -1,0 +1,937 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="description" content="星籁 AI 导演编排器：输入分镜脚本，按标准/高级/旗舰档逐镜路由 Wan、Seedance、Kling、Veo 等模型，实时预估成本与降级警告，异步生成成片并导出可编辑工程包。">
+<meta name="keywords" content="AI导演,导演编排器,分镜生成,AI影视,模型路由,AI短剧,成片工程包">
+<link rel="canonical" href="https://xinglaiai.com/ai-nav/director/">
+<meta name="robots" content="noindex,nofollow"><meta name="googlebot" content="noindex,nofollow">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="星籁 AI">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:title" content="AI 导演编排器 · 逐镜路由顶级模型 · 星籁 AI">
+<meta property="og:description" content="输入分镜脚本 → 逐镜路由模型 → 预估成本/降级警告 → 后台生成 → 成片 + 可编辑工程包。">
+<meta property="og:url" content="https://xinglaiai.com/ai-nav/director/">
+<meta property="og:image" content="https://xinglaiai.com/ai-nav/assets/og/smartcut.png">
+<meta name="twitter:card" content="summary_large_image">
+<title>AI 导演编排器 · 星籁 AI</title>
+<link rel="stylesheet" href="../assets/site-shell.css">
+<link rel="stylesheet" href="../assets/auth-gate.css">
+<script src="../assets/auth-gate.js" data-mode="banner"></script>
+<link rel="icon" href="data:image/svg+xml,%3Csvg%20xmlns='http://www.w3.org/2000/svg'%20viewBox='0%200%2064%2064'%3E%3Crect%20width='64'%20height='64'%20rx='14'%20fill='%23070a10'/%3E%3Cpath%20d='M32%2012l5.6%2013.6L51%2031l-13.4%205.4L32%2050l-5.6-13.6L13%2031l13.4-5.4z'%20fill='%2338bdf8'/%3E%3C/svg%3E">
+<style>
+:root{
+  --dp-bg:#060a14;--dp-card:#0c1526;--dp-card2:#0a1120;--dp-line:rgba(148,163,184,.16);
+  --dp-txt:#e9effc;--dp-sub:#8ba0c4;--dp-dim:#5d6f90;--dp-pri:#4f8cff;--dp-pri2:#38bdf8;
+  --dp-ok:#34d399;--dp-warn:#fbbf24;--dp-bad:#f87171;--dp-mono:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;
+}
+*{box-sizing:border-box}
+html,body{background:var(--dp-bg)}
+body{margin:0;color:var(--dp-txt);font:14.5px/1.62 -apple-system,"PingFang SC","Microsoft YaHei",system-ui,sans-serif;
+  background:radial-gradient(1100px 520px at 18% -12%,rgba(30,58,138,.30),transparent 62%),
+             radial-gradient(900px 460px at 92% -6%,rgba(14,116,144,.18),transparent 60%),var(--dp-bg);
+  min-height:100vh}
+.dp-wrap{max-width:1400px;margin:0 auto;padding:24px 22px 80px}
+.dp-hero{display:flex;gap:18px;align-items:flex-end;justify-content:space-between;flex-wrap:wrap;margin:4px 0 18px}
+.dp-hero h1{margin:0 0 6px;font-size:26px;letter-spacing:.01em;font-weight:800;
+  background:linear-gradient(96deg,#f3f8ff,#9ec5ff 46%,#67e8f9);-webkit-background-clip:text;background-clip:text;color:transparent}
+.dp-hero .lead{margin:0;color:var(--dp-sub);font-size:13.5px;max-width:760px}
+.dp-hero .lead b{color:#cfe0ff;font-weight:600}
+.dp-badges{display:flex;gap:8px;flex-wrap:wrap;align-items:center}
+.badge{display:inline-flex;align-items:center;gap:6px;padding:4px 10px;border-radius:999px;font-size:12px;
+  border:1px solid var(--dp-line);background:rgba(148,163,184,.08);color:#b9c9e6;white-space:nowrap}
+.badge i{width:7px;height:7px;border-radius:50%;background:var(--dp-dim);display:inline-block;flex:0 0 auto}
+.badge.ok{color:#a7f3d0;border-color:rgba(52,211,153,.32);background:rgba(52,211,153,.08)}
+.badge.ok i{background:var(--dp-ok);box-shadow:0 0 8px rgba(52,211,153,.9)}
+.badge.warn{color:#fde68a;border-color:rgba(251,191,36,.34);background:rgba(251,191,36,.08)}
+.badge.warn i{background:var(--dp-warn)}
+.badge.bad{color:#fecaca;border-color:rgba(248,113,113,.34);background:rgba(248,113,113,.08)}
+.badge.bad i{background:var(--dp-bad)}
+.badge.info{color:#bfdbfe;border-color:rgba(96,165,250,.32);background:rgba(96,165,250,.1)}
+.dp-layout{display:grid;grid-template-columns:384px minmax(0,1fr);gap:18px;align-items:start}
+@media(max-width:1180px){.dp-layout{grid-template-columns:1fr}}
+.card{background:linear-gradient(178deg,var(--dp-card),var(--dp-card2));border:1px solid var(--dp-line);
+  border-radius:16px;padding:16px 16px 18px;box-shadow:0 18px 46px -34px #000}
+.card h2{margin:0 0 12px;font-size:15px;display:flex;align-items:center;gap:8px;color:#eaf1ff}
+.card h2 .num{width:22px;height:22px;border-radius:7px;display:grid;place-items:center;font-size:12px;
+  color:#dbeafe;background:linear-gradient(160deg,rgba(79,140,255,.4),rgba(56,189,248,.16));border:1px solid rgba(96,165,250,.3)}
+.card h2 small{margin-left:auto;color:var(--dp-dim);font-weight:400;font-size:11.5px}
+label.f{display:block;color:var(--dp-sub);font-size:12.5px;margin:11px 0 5px}
+input.f,select.f,textarea.f{width:100%;background:#080f1d;border:1px solid var(--dp-line);color:var(--dp-txt);
+  border-radius:9px;padding:9px 11px;outline:none;font:inherit;font-size:13.5px;transition:border-color .15s,box-shadow .15s}
+input.f:focus,select.f:focus,textarea.f:focus{border-color:rgba(79,140,255,.65);box-shadow:0 0 0 3px rgba(79,140,255,.14)}
+textarea.f{min-height:84px;resize:vertical;line-height:1.6}
+textarea.code{font-family:var(--dp-mono);font-size:12.5px;min-height:220px;line-height:1.65}
+.row{display:flex;gap:10px;flex-wrap:wrap}
+.row>.col{flex:1 1 0;min-width:120px}
+.hint{color:var(--dp-dim);font-size:12px;line-height:1.55;margin-top:8px}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:7px;border:0;border-radius:10px;
+  padding:10px 16px;font:inherit;font-weight:600;font-size:13.5px;cursor:pointer;color:#fff;
+  background:linear-gradient(180deg,var(--dp-pri),#3566d9);box-shadow:0 12px 26px -14px rgba(79,140,255,.85);
+  transition:filter .15s,transform .1s}
+.btn:hover:not(:disabled){filter:brightness(1.12)}
+.btn:active:not(:disabled){transform:translateY(1px)}
+.btn:disabled{opacity:.45;cursor:not-allowed;box-shadow:none}
+.btn.ghost{background:rgba(148,163,184,.1);border:1px solid var(--dp-line);color:#cfe0ff;box-shadow:none;font-weight:500}
+.btn.ghost:hover:not(:disabled){border-color:rgba(125,211,252,.4)}
+.btn.sm{padding:7px 11px;font-size:12.5px;border-radius:8px}
+.btn.cyan{background:linear-gradient(180deg,#0ea5c6,#0d7f9c);box-shadow:0 12px 26px -14px rgba(14,165,198,.8)}
+.tabs{display:flex;gap:4px;padding:4px;background:rgba(148,163,184,.07);border:1px solid var(--dp-line);
+  border-radius:11px;margin-bottom:14px;overflow:auto;scrollbar-width:none}
+.tabs::-webkit-scrollbar{display:none}
+.tabs button{flex:0 0 auto;border:0;background:transparent;color:var(--dp-sub);padding:8px 14px;border-radius:8px;
+  font:inherit;font-size:13px;cursor:pointer;white-space:nowrap;transition:background .15s,color .15s}
+.tabs button:hover{color:#dbeafe}
+.tabs button.on{background:linear-gradient(180deg,rgba(79,140,255,.3),rgba(79,140,255,.16));color:#eaf3ff;font-weight:600;
+  box-shadow:inset 0 0 0 1px rgba(125,211,252,.25)}
+.pane{display:none}.pane.on{display:block;animation:dpFade .2s ease}
+@keyframes dpFade{from{opacity:0;transform:translateY(4px)}to{opacity:1;transform:none}}
+/* 档位 */
+.tier-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-top:6px}
+.tier{position:relative;border:1px solid var(--dp-line);border-radius:11px;padding:9px 8px 8px;cursor:pointer;
+  background:#080f1d;text-align:center;transition:border-color .15s,background .15s}
+.tier input{position:absolute;opacity:0;pointer-events:none}
+.tier .t{font-weight:700;font-size:13px;color:#dbe7fb}
+.tier .p{font-size:11px;color:var(--dp-dim);margin-top:2px;font-family:var(--dp-mono)}
+.tier.on{border-color:rgba(79,140,255,.7);background:rgba(79,140,255,.12);box-shadow:0 0 0 1px rgba(79,140,255,.25) inset}
+.tier.on .t{color:#fff}
+/* 分镜行 */
+.shot-rows{display:flex;flex-direction:column;gap:9px;max-height:330px;overflow:auto;padding-right:3px;margin-top:4px}
+.shot-row{border:1px solid var(--dp-line);border-radius:10px;padding:9px;background:#070e1b}
+.shot-row .head{display:flex;align-items:center;gap:8px;margin-bottom:6px}
+.shot-row .no{font-family:var(--dp-mono);font-size:11.5px;color:#8fb4ff;background:rgba(79,140,255,.14);
+  border-radius:6px;padding:1px 7px;border:1px solid rgba(79,140,255,.25)}
+.shot-row .del{margin-left:auto;border:0;background:transparent;color:#64748b;cursor:pointer;font-size:15px;padding:2px 6px;border-radius:6px}
+.shot-row .del:hover{color:#f87171;background:rgba(248,113,113,.1)}
+.shot-row .duo{display:grid;grid-template-columns:1fr 86px;gap:6px}
+.shot-row .tri{display:grid;grid-template-columns:1fr 76px;gap:6px;margin-top:6px}
+.shot-row input,.shot-row select{background:#0a1322;border:1px solid var(--dp-line);color:var(--dp-txt);
+  border-radius:7px;padding:6px 8px;font:inherit;font-size:12.5px;outline:none;width:100%}
+.shot-row input:focus,.shot-row select:focus{border-color:rgba(79,140,255,.6)}
+/* 统计 */
+.stats{display:grid;grid-template-columns:repeat(auto-fit,minmax(122px,1fr));gap:9px}
+.stat{border:1px solid var(--dp-line);border-radius:11px;padding:10px 12px;background:#080f1d}
+.stat .k{font-size:11.5px;color:var(--dp-dim)}
+.stat .v{font-size:19px;font-weight:800;font-family:var(--dp-mono);margin-top:2px;color:#eaf2ff}
+.stat .v small{font-size:12px;color:var(--dp-sub);font-weight:500;margin-left:2px}
+.stat.good .v{color:var(--dp-ok)}.stat.warn .v{color:var(--dp-warn)}.stat.bad .v{color:var(--dp-bad)}
+/* 警告 */
+.warns{border:1px solid rgba(251,191,36,.3);border-radius:11px;background:rgba(251,191,36,.06);padding:11px 13px;margin:12px 0}
+.warns .wt{color:#fde68a;font-weight:700;font-size:12.5px;display:flex;align-items:center;gap:7px;margin-bottom:6px}
+.warns ul{margin:0;padding-left:18px;color:#e6d5a8;font-size:12.5px;line-height:1.7}
+.warns ul li::marker{color:var(--dp-warn)}
+/* 镜头卡片 */
+.shot-cards{display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:10px;margin-top:12px}
+.shot-card{border:1px solid var(--dp-line);border-radius:12px;padding:12px;background:#081020;position:relative;overflow:hidden}
+.shot-card::before{content:'';position:absolute;inset:0 auto 0 0;width:3px;background:linear-gradient(180deg,var(--dp-pri),var(--dp-pri2));opacity:.85}
+.shot-card .top{display:flex;align-items:center;gap:7px;margin-bottom:6px}
+.shot-card .sid{font-family:var(--dp-mono);font-size:12px;color:#93c5fd;background:rgba(59,130,246,.14);
+  border:1px solid rgba(96,165,250,.28);padding:1px 7px;border-radius:6px}
+.shot-card .type{font-size:11.5px;color:#c4b5fd;background:rgba(139,92,246,.12);border:1px solid rgba(167,139,250,.26);
+  padding:1px 7px;border-radius:6px}
+.shot-card .cost{margin-left:auto;font-family:var(--dp-mono);font-size:13px;color:#fde68a;font-weight:700}
+.shot-card .desc{color:#cfdbf2;font-size:12.8px;line-height:1.6;min-height:42px;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
+.shot-card .line{color:#8ba0c4;font-size:12px;margin-top:3px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.shot-card .meta{display:flex;flex-wrap:wrap;gap:6px;margin-top:8px;font-size:11.5px;color:#9db0d2}
+.shot-card .meta span{background:rgba(148,163,184,.08);border:1px solid rgba(148,163,184,.14);border-radius:6px;padding:1px 6px}
+.shot-card .route{display:flex;align-items:center;gap:6px;margin-top:8px;padding-top:8px;border-top:1px dashed rgba(148,163,184,.16);
+  font-size:12px;color:#a9c3ea;flex-wrap:wrap}
+.shot-card .route b{color:#dbeafe;font-weight:600}
+.shot-card .down{margin-top:7px;font-size:11.5px;color:#fca5a5;line-height:1.55}
+.shot-card .reason{margin-top:7px;font-size:11.5px;color:#7f92b3;line-height:1.55}
+/* 表格 */
+.tbl{width:100%;border-collapse:collapse;font-size:13px}
+.tbl th{text-align:left;color:var(--dp-dim);font-weight:500;font-size:11.5px;padding:7px 9px;border-bottom:1px solid var(--dp-line);white-space:nowrap}
+.tbl td{padding:8px 9px;border-bottom:1px solid rgba(148,163,184,.09);color:#cfdcf3;vertical-align:middle}
+.tbl tr:last-child td{border-bottom:0}
+.tbl .mono{font-family:var(--dp-mono);font-size:12.5px}
+.tbl .r{text-align:right}
+/* 模型矩阵 */
+.cap-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(250px,1fr));gap:10px;margin-top:10px}
+.model-card{border:1px solid var(--dp-line);border-radius:12px;padding:12px;background:#081020}
+.model-card .mt{display:flex;align-items:center;gap:8px;flex-wrap:wrap}
+.model-card .mt b{font-size:13.5px;color:#eaf2ff}
+.model-card .vend{font-size:11.5px;color:var(--dp-dim);margin-top:3px}
+.model-card .price{font-family:var(--dp-mono);color:#fde68a;font-size:12.5px;margin-top:7px;line-height:1.6}
+.model-card .note{font-size:11.5px;color:#7f92b3;margin-top:5px;line-height:1.55}
+.model-card .res{display:flex;gap:5px;flex-wrap:wrap;margin-top:6px}
+.model-card .res span{font-size:11px;font-family:var(--dp-mono);color:#93c5fd;background:rgba(59,130,246,.1);
+  border:1px solid rgba(96,165,250,.22);border-radius:5px;padding:0 5px}
+/* 定价 */
+.price-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:11px}
+.price-card{border:1px solid var(--dp-line);border-radius:13px;padding:14px;background:linear-gradient(170deg,#0b1527,#081020);position:relative}
+.price-card.hot{border-color:rgba(79,140,255,.5);box-shadow:0 0 40px -26px rgba(79,140,255,.8)}
+.price-card .pt{font-size:14px;font-weight:700;color:#eaf2ff;display:flex;align-items:center;gap:7px}
+.price-card .pd{font-size:11.8px;color:var(--dp-dim);margin:5px 0 9px;min-height:34px;line-height:1.5}
+.price-card .per{font-family:var(--dp-mono);font-size:22px;font-weight:800;color:#fde68a}
+.price-card .per small{font-size:11.5px;color:var(--dp-sub);font-weight:500}
+.price-line{display:flex;justify-content:space-between;font-size:12.5px;color:#a9bcd8;margin-top:6px;
+  padding-top:6px;border-top:1px dashed rgba(148,163,184,.13)}
+.price-line b{color:#eaf2ff;font-family:var(--dp-mono);font-weight:600}
+/* 进度 */
+.progress{height:9px;border-radius:6px;background:#0a1424;border:1px solid var(--dp-line);overflow:hidden;margin:10px 0}
+.progress>i{display:block;height:100%;width:0;border-radius:6px;transition:width .45s ease;
+  background:linear-gradient(90deg,var(--dp-pri),#8bb0ff 55%,var(--dp-pri2))}
+.task-head{display:flex;align-items:center;gap:10px;flex-wrap:wrap}
+.task-head .st{font-size:14px;font-weight:700}
+.shot-rt{display:grid;grid-template-columns:52px 84px 1fr 92px 66px;gap:8px;align-items:center;
+  padding:8px 10px;border:1px solid var(--dp-line);border-radius:9px;background:#081020;margin-top:7px;font-size:12.5px}
+@media(max-width:860px){.shot-rt{grid-template-columns:46px 78px 1fr;}.shot-rt .hide-sm{display:none}}
+.shot-rt .vid{font-family:var(--dp-mono);color:#93c5fd;font-size:12px}
+.shot-rt .stt{font-size:11.8px}
+.shot-rt .r{text-align:right;font-family:var(--dp-mono);color:#fde68a}
+.empty{border:1px dashed rgba(148,163,184,.24);border-radius:13px;padding:30px 20px;text-align:center;color:var(--dp-dim);background:rgba(148,163,184,.03)}
+.empty .ei{font-size:28px;opacity:.75}
+.empty b{display:block;color:#b9c9e6;font-size:14px;margin:8px 0 4px}
+.empty p{margin:0;font-size:12.5px}
+.loading{display:flex;align-items:center;gap:9px;color:var(--dp-sub);font-size:13px;padding:16px 2px}
+.spinner{width:15px;height:15px;border-radius:50%;border:2px solid rgba(148,163,184,.25);border-top-color:var(--dp-pri2);
+  animation:dpSpin .8s linear infinite;flex:0 0 auto}
+@keyframes dpSpin{to{transform:rotate(360deg)}}
+.errbox{border:1px solid rgba(248,113,113,.35);background:rgba(248,113,113,.07);color:#fecaca;
+  border-radius:11px;padding:11px 13px;font-size:12.8px;line-height:1.6}
+.errbox b{color:#fee2e2}
+.mono{font-family:var(--dp-mono)}
+.kv{display:flex;gap:6px;flex-wrap:wrap;font-size:12.2px;color:#9db0d2;margin-top:6px}
+.kv span{background:rgba(148,163,184,.08);border:1px solid rgba(148,163,184,.14);border-radius:6px;padding:1px 7px}
+.video-box{margin-top:12px;border:1px solid var(--dp-line);border-radius:13px;overflow:hidden;background:#000}
+.video-box video{display:block;width:100%;max-height:520px;background:#000}
+.done-bar{display:flex;gap:10px;flex-wrap:wrap;margin-top:12px}
+.dp-note{margin-top:18px;border:1px solid rgba(148,163,184,.14);border-radius:13px;padding:13px 15px;
+  background:rgba(148,163,184,.035);color:#7f92b3;font-size:12px;line-height:1.75}
+.dp-note b{color:#a9bcd8}
+.copy{background:rgba(148,163,184,.08);border:1px solid var(--dp-line);color:#a9bcd8;cursor:pointer;
+  border-radius:7px;padding:2px 8px;font-size:11px;margin-left:6px}
+.copy:hover{color:#dbeafe;border-color:rgba(125,211,252,.4)}
+@media(max-width:560px){
+  .dp-wrap{padding:16px 12px 60px}
+  .dp-hero h1{font-size:21px}
+  .tier-grid{grid-template-columns:1fr}
+  .shot-cards{grid-template-columns:1fr}
+  .stat .v{font-size:17px}
+}
+html[data-theme="light"] body{background:#f4f7fc;color:#0f172a}
+html[data-theme="light"] .card,html[data-theme="light"] .stat,html[data-theme="light"] .model-card,
+html[data-theme="light"] .price-card,html[data-theme="light"] .shot-card,html[data-theme="light"] .shot-rt{background:#fff;border-color:#dbe4f0}
+html[data-theme="light"] input.f,html[data-theme="light"] select.f,html[data-theme="light"] textarea.f,
+html[data-theme="light"] .shot-row input,html[data-theme="light"] .shot-row select{background:#f8fafc;color:#0f172a}
+html[data-theme="light"] .tier{background:#f8fafc}
+html[data-theme="light"] .lead,html[data-theme="light"] .hint,html[data-theme="light"] .pd{color:#55637a}
+html[data-theme="light"] .shot-card .desc,html[data-theme="light"] .tbl td{color:#334155}
+</style>
+</head>
+<body>
+<div class="dp-wrap">
+  <div class="dp-hero">
+    <div>
+      <h1>AI 导演编排器</h1>
+      <p class="lead">输入分镜脚本 → 按 <b>标准 / 高级 / 旗舰</b> 档逐镜路由顶级模型 → 先看 <b>路由/成本/降级警告</b>，再一键后台生成 → 成片 + 可编辑工程包。<span style="color:#6f84a8">计划阶段零成本，不调用厂商。</span></p>
+      <div class="dp-badges" style="margin-top:10px">
+        <span class="badge" id="hBadge"><i></i>连接中…</span>
+        <span class="badge info" id="hTasks">任务 —</span>
+        <span class="badge info" id="hConc">并发 —</span>
+        <span class="badge info" id="hModel">模型 —</span>
+        <span class="badge" id="hLogin" style="display:none"><i></i>未登录</span>
+      </div>
+    </div>
+    <div class="dp-badges">
+      <a class="btn ghost sm" href="../monitor/">导演监视器 →
+      </a>
+    </div>
+  </div>
+
+  <div class="dp-layout">
+    <!-- 输入 -->
+    <div class="card">
+      <h2><span class="num">1</span>分镜与档位<small>零成本生成计划</small></h2>
+      <div class="tabs" style="margin-bottom:10px">
+        <button type="button" class="on" id="tabForm">表单</button>
+        <button type="button" id="tabJson">JSON</button>
+      </div>
+      <div id="paneForm">
+        <label class="f">项目标题</label>
+        <input class="f" id="fTitle" value="外卖箱里的秘密 · 第 1 集" placeholder="例：外卖箱里的秘密 · 第 1 集">
+        <div class="row">
+          <div class="col">
+            <label class="f">画幅</label>
+            <select class="f" id="fAspect">
+              <option value="9:16" selected>9:16 竖屏</option>
+              <option value="16:9">16:9 横屏</option>
+              <option value="1:1">1:1 方屏</option>
+              <option value="3:4">3:4</option>
+              <option value="4:5">4:5</option>
+            </select>
+          </div>
+          <div class="col">
+            <label class="f">风格</label>
+            <select class="f" id="fStyle">
+              <option>电影感写实</option>
+              <option>都市短剧</option>
+              <option>悬疑冷调</option>
+              <option>国漫插画</option>
+              <option>广告质感</option>
+              <option>纪录片纪实</option>
+            </select>
+          </div>
+        </div>
+        <label class="f">档位（单镜参考成本随厂商价格实时估算）</label>
+        <div class="tier-grid" id="tierGrid">
+          <label class="tier on" data-tier="standard"><input type="radio" name="tier" value="standard" checked>
+            <div class="t">标准档</div><div class="p" id="pStandard">¥0.85/镜</div></label>
+          <label class="tier" data-tier="pro"><input type="radio" name="tier" value="pro">
+            <div class="t">高级档</div><div class="p" id="pPro">—</div></label>
+          <label class="tier" data-tier="master"><input type="radio" name="tier" value="master">
+            <div class="t">旗舰档</div><div class="p" id="pMaster">—</div></label>
+        </div>
+        <div class="row" style="margin-top:11px">
+          <div class="col">
+            <label class="f">预算上限（元，小额试跑）</label>
+            <input class="f" id="fBudget" type="number" min="0" step="1" value="10">
+          </div>
+          <div class="col">
+            <label class="f">每批镜数</label>
+            <select class="f" id="fBatch">
+              <option value="6" selected>6（推荐）</option>
+              <option value="4">4</option>
+              <option value="8">8</option>
+              <option value="10">10</option>
+            </select>
+          </div>
+        </div>
+        <label class="f" style="display:flex;align-items:center;gap:8px">分镜镜头 <span class="hint" style="margin:0">（描述 + 时长 + 类型）</span>
+          <button type="button" class="btn ghost sm" id="btnAddShot" style="margin-left:auto">+ 加一镜</button>
+        </label>
+        <div class="shot-rows" id="shotRows"></div>
+        <div class="row" style="margin-top:10px">
+          <button type="button" class="btn ghost sm" id="btnDemo">载入示例</button>
+          <button type="button" class="btn ghost sm" id="btnClear">清空</button>
+        </div>
+      </div>
+      <div id="paneJson" class="pane" style="display:none">
+        <label class="f">分镜脚本 JSON（script.shots[]：scene/action/line/dur/type）</label>
+        <textarea class="f code" id="fJson" spellcheck="false"></textarea>
+        <div class="hint">支持 <span class="mono">{script:{shots:[...]}}</span> 或直接 shots/scenes 数组；单任务上限 80 镜。</div>
+        <button type="button" class="btn ghost sm" id="btnJsonDemo" style="margin-top:8px">填入示例 JSON</button>
+      </div>
+      <div class="row" style="margin-top:14px">
+        <button type="button" class="btn" id="btnPlan" style="flex:1">生成路由计划（免费）</button>
+      </div>
+      <div class="row" style="margin-top:8px">
+        <button type="button" class="btn cyan" id="btnRun" style="flex:1" disabled>开始生成（按计划扣费）</button>
+      </div>
+      <div class="hint" id="planHint">先点「生成路由计划」查看每镜模型与预估成本；计划不产生费用。</div>
+    </div>
+
+    <!-- 结果 -->
+    <div>
+      <div class="tabs" id="mainTabs">
+        <button type="button" class="on" data-pane="plan">路由计划</button>
+        <button type="button" data-pane="task">生成任务</button>
+        <button type="button" data-pane="models">模型能力矩阵</button>
+        <button type="button" data-pane="pricing">三档定价</button>
+      </div>
+
+      <div class="pane on" id="panePlan">
+        <div id="planEmpty" class="empty">
+          <div class="ei">🎬</div>
+          <b>还没有路由计划</b>
+          <p>左侧填好分镜与档位，点「生成路由计划」；这里会给出每镜路由模型、预估成本和降级警告。</p>
+        </div>
+        <div id="planLoading" class="loading" style="display:none"><span class="spinner"></span>正在打标 + 路由 + 估算（零成本）…</div>
+        <div id="planResult" style="display:none">
+          <div class="card" style="margin-bottom:14px">
+            <h2><span class="num">◎</span>计划总览<small id="planTime"></small></h2>
+            <div class="stats" id="planStats"></div>
+            <div id="planBadges" class="kv"></div>
+            <div id="planWarns"></div>
+            <div class="hint" id="planPricingNote"></div>
+          </div>
+          <div class="card">
+            <h2><span class="num">#</span>逐镜检查<small>路由模型 / 预估成本 / 降级警告</small></h2>
+            <div class="shot-cards" id="planShots"></div>
+          </div>
+        </div>
+        <div id="planError" style="display:none"></div>
+      </div>
+
+      <div class="pane" id="paneTask">
+        <div id="taskEmpty" class="empty">
+          <div class="ei">📡</div>
+          <b>还没有生成任务</b>
+          <p>生成路由计划后点「开始生成」，任务会在后台按批生成；本页自动轮询进度，关掉页面再打开也会续上。</p>
+        </div>
+        <div id="taskResult" style="display:none"></div>
+      </div>
+
+      <div class="pane" id="paneModels">
+        <div id="modelsLoading" class="loading"><span class="spinner"></span>加载模型能力矩阵…</div>
+        <div id="modelsBody" style="display:none"></div>
+      </div>
+
+      <div class="pane" id="panePricing">
+        <div id="pricingLoading" class="loading"><span class="spinner"></span>加载三档定价…</div>
+        <div id="pricingBody" style="display:none"></div>
+      </div>
+
+      <div class="dp-note">
+        <b>说明：</b>「计划」为纯本地路由计算，不调用任何厂商、不产生费用；「开始生成」才会真实调用模型并可能产生费用，预算上限会作为硬闸（超限中止，已生成镜头保留）。
+        当前档位优先使用已实测模型，目标模型未配置/未开通时自动降级并在计划中显式标注，不会静默换模型。成片带「AI 生成」标识，工程包内含授权与 AI 标识清单。
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+(function(){
+  'use strict';
+  var $ = function(id){ return document.getElementById(id); };
+  var API = (window.XLGate && window.XLGate.API_BASE) || '/ai-nav/api';
+  var gate = window.XLGate || null;
+  var LS_PLAN = 'xl_director_last_plan';
+  var LS_TASK = 'xl_director_last_task';
+  var state = { plan:null, planInput:null, task:null, taskTimer:null, models:null, pricing:null, busy:false };
+
+  function esc(s){ return String(s==null?'':s).replace(/[&<>"']/g,function(c){return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c];}); }
+  function money(v){ if(v==null||v==='') return '—'; var n=Number(v); if(!isFinite(n)) return '—'; return (Math.round(n*100)/100).toFixed(2).replace(/\.00$/,''); }
+  function toast(msg,kind){ if(gate&&gate.toast) gate.toast(msg,kind); else console.log('[director]',msg); }
+
+  function apiJSON(path, opts){
+    opts = opts || {};
+    if(opts.body != null){
+      opts.headers = Object.assign({'Content-Type':'application/json','Accept':'application/json'}, opts.headers||{});
+      opts.body = JSON.stringify(opts.body);
+    }
+    return fetch(API+path, opts).then(function(r){
+      return r.text().then(function(t){
+        var d = null;
+        try{ d = t?JSON.parse(t):null; }catch(e){ d = {ok:false,error:'BAD_JSON',raw:t.slice(0,300)}; }
+        if(!r.ok || (d && d.ok===false)){
+          var msg = (d && (d.hint || d.message || d.error)) || ('HTTP '+r.status);
+          var err = new Error(msg); err.status=r.status; err.code=(d&&d.error)||('HTTP_'+r.status); err.data=d; throw err;
+        }
+        return d;
+      });
+    });
+  }
+
+  /* ---------- 分镜表单 ---------- */
+  function shotRow(data){
+    data = data || {};
+    var wrap = document.createElement('div');
+    wrap.className='shot-row';
+    wrap.innerHTML =
+      '<div class="head"><span class="no">S01</span>'+
+        '<span class="hint" style="margin:0;font-size:11.5px">描述/动作 + 台词 + 时长 + 类型</span>'+
+        '<button type="button" class="del" title="删除此镜">✕</button></div>'+
+      '<div class="duo"><input class="sd" placeholder="镜头描述：雨夜，外卖箱特写，雨水划过箱盖" value="'+esc(data.desc||'')+'">'+
+        '<input class="st" placeholder="类型" list="shotTypes" value="'+esc(data.type||'')+'"></div>'+
+      '<div class="tri"><input class="sl" placeholder="台词（可空）" value="'+esc(data.line||'')+'">'+
+        '<input class="sn" type="number" min="1.5" max="30" step="0.5" title="时长（秒）" value="'+(data.dur||5)+'"></div>';
+    wrap.querySelector('.del').addEventListener('click', function(){ wrap.remove(); renumber(); });
+    return wrap;
+  }
+  var SHOT_TYPES=['','对话','口型','人物特写','动作','空镜','场景','产品'];
+  function ensureDatalist(){
+    if(document.getElementById('shotTypes')) return;
+    var dl=document.createElement('datalist'); dl.id='shotTypes';
+    SHOT_TYPES.forEach(function(t){ if(!t) return; var o=document.createElement('option'); o.value=t; dl.appendChild(o); });
+    document.body.appendChild(dl);
+  }
+  function renumber(){
+    var rows = $('shotRows').querySelectorAll('.shot-row');
+    for(var i=0;i<rows.length;i++){
+      var no=rows[i].querySelector('.no');
+      if(no) no.textContent='S'+String(i+1).padStart(2,'0');
+    }
+  }
+  function addShotRow(data){ ensureDatalist(); $('shotRows').appendChild(shotRow(data)); renumber(); }
+  function fillShots(list){
+    $('shotRows').innerHTML='';
+    (list||[]).forEach(function(s){ addShotRow(s); });
+    if(!list||!list.length) addShotRow({});
+  }
+  function collectShots(){
+    var rows=[].slice.call($('shotRows').querySelectorAll('.shot-row'));
+    return rows.map(function(r,i){
+      var desc=r.querySelector('.sd').value.trim();
+      var line=r.querySelector('.sl').value.trim();
+      var type=r.querySelector('.st').value.trim();
+      var dur=Number(r.querySelector('.sn').value)||5;
+      var o={no:i+1,id:'S'+(i+1),scene:desc,desc:desc,line:line,dur:dur};
+      if(type) o.type=type;
+      return o;
+    }).filter(function(s){ return s.scene; });
+  }
+  function selectedTier(){
+    var r=$('tierGrid').querySelector('input[name=tier]:checked');
+    return r?r.value:'standard';
+  }
+
+  var DEMO_SHOTS=[
+    {desc:'雨夜，老城区巷口，外卖箱上的雨珠特写，路灯昏黄',line:'',dur:4,type:'空镜'},
+    {desc:'外卖员陈默推门进店，抬头看见柜台后的旧照片，眼神一滞',line:'这张照片……哪来的？',dur:5,type:'人物特写'},
+    {desc:'老板从后厨探头，笑着遮住照片，手心压着抽屉',line:'看错了，后厨忙，快送单去。',dur:5,type:'对话'},
+    {desc:'陈默骑着电动车冲进雨幕，后视镜里店门灯光慢慢变暗',line:'',dur:4,type:'动作'},
+    {desc:'手机屏幕亮起，一条陌生短信：你哥那晚，也在送外卖',line:'（短信音）',dur:4,type:'产品'},
+    {desc:'陈默猛地刹车，雨水顺着头盔流下，他回头望向巷子尽头',line:'我得查清楚。',dur:5,type:'口型'}
+  ];
+
+  function planInputFromForm(){
+    var shots=collectShots();
+    return {
+      tier:selectedTier(),
+      budget_cny: Number($('fBudget').value)||0,
+      aspect: $('fAspect').value,
+      style: $('fStyle').value,
+      title: $('fTitle').value.trim()||'AI 导演成片',
+      script:{title:$('fTitle').value.trim()||'AI 导演成片', aspect:$('fAspect').value, style:$('fStyle').value, shots:shots}
+    };
+  }
+  function planInputFromJson(){
+    var raw=$('fJson').value.trim();
+    if(!raw) throw new Error('JSON 为空，请先填入分镜脚本');
+    var d;
+    try{ d=JSON.parse(raw); }catch(e){ throw new Error('JSON 解析失败：'+e.message); }
+    var input={tier:selectedTier(), budget_cny:Number($('fBudget').value)||0,
+      aspect:$('fAspect').value, style:$('fStyle').value, title:$('fTitle').value.trim()||'AI 导演成片'};
+    if(d && d.script) input.script=d.script;
+    else if(d && (d.shots||d.scenes)) input.script=d;
+    else throw new Error('JSON 需包含 script.shots / shots / scenes 列表');
+    return input;
+  }
+
+  /* ---------- 计划渲染 ---------- */
+  function planInputForRun(){
+    return {
+      plan: state.plan,
+      tier: state.plan.tier,
+      budget_cny: state.planInput ? state.planInput.budget_cny : Number($('fBudget').value)||0,
+      batch_size: Number($('fBatch').value)||6,
+      transition: 'none'
+    };
+  }
+  function renderPlan(plan, input){
+    state.plan=plan; state.planInput=input;
+    try{ localStorage.setItem(LS_PLAN, JSON.stringify({plan:plan,input:input,ts:Date.now()})); }catch(e){}
+    $('planEmpty').style.display='none';
+    $('planLoading').style.display='none';
+    $('planError').style.display='none';
+    $('planResult').style.display='block';
+    $('planTime').textContent = plan.created_at ? ('生成于 '+plan.created_at) : '';
+    var budgetTxt = plan.budget_cny==null ? '不设上限' : ('¥'+money(plan.budget_cny));
+    var budgetOk = plan.budget_ok!==false;
+    $('planStats').innerHTML =
+      stat('镜头数', plan.shot_count, '镜')+
+      stat('总时长', plan.total_duration, '秒')+
+      stat('预估成本', '¥'+money(plan.total_est_cost), plan.total_est_cost_low_bound?'下界':'', plan.total_est_cost_low_bound?'warn':(budgetOk?'good':'bad'))+
+      stat('预算上限', budgetTxt, '', budgetOk?'':'bad')+
+      stat('画幅', plan.aspect, '')+
+      stat('档位', plan.tier_label||plan.tier, '');
+    var badges=[];
+    badges.push('<span>画布 '+esc((plan.canvas||{}).width||'?')+'×'+esc((plan.canvas||{}).height||'?')+' @'+esc((plan.canvas||{}).fps||25)+'fps</span>');
+    badges.push('<span>质量 '+(plan.canvas&&plan.canvas.quality||'—')+'</span>');
+    badges.push('<span>风格 '+esc(plan.style||'—')+'</span>');
+    if(plan.models_used){
+      Object.keys(plan.models_used).forEach(function(k){
+        var arr=plan.models_used[k]||[];
+        if(arr.length) badges.push('<span>'+esc(k)+'：'+arr.map(esc).join(' / ')+'</span>');
+      });
+    }
+    badges.push('<span>版本 '+esc(plan.version||'')+'</span>');
+    $('planBadges').innerHTML=badges.join('');
+    var warns=(plan.warnings||[]);
+    if(warns.length){
+      $('planWarns').innerHTML='<div class="warns"><div class="wt">⚠ 降级 / 成本警告（'+warns.length+'）</div><ul>'+
+        warns.map(function(w){return '<li>'+esc(w)+'</li>';}).join('')+'</ul></div>';
+    }else{
+      $('planWarns').innerHTML='<div class="kv" style="margin:10px 0 4px"><span style="color:#a7f3d0;border-color:rgba(52,211,153,.3)">✓ 无降级警告：计划内模型均可用</span></div>';
+    }
+    $('planPricingNote').textContent = plan.pricing_note || '';
+    // 逐镜
+    $('planShots').innerHTML=(plan.shots||[]).map(function(s){
+      var down=(s.downgraded_from||[]).map(function(d){return esc(d.model)+'（'+esc(d.status)+'）';}).join('、');
+      var statusCls = s.route_status==='ready'?'ok':(s.route_status==='configured'?'info':'warn');
+      return '<div class="shot-card">'+
+        '<div class="top"><span class="sid">'+esc(s.id||('S'+s.no))+'</span>'+
+          '<span class="type">'+esc(s.shot_type||'场景')+'</span>'+
+          '<span class="cost">¥'+money(s.est_cost)+'</span></div>'+
+        '<div class="desc">'+esc(s.desc||'—')+'</div>'+
+        (s.line?'<div class="line">🎙 '+esc(s.line)+'</div>':'')+
+        '<div class="meta"><span>'+esc(s.duration)+'s</span><span>生成 '+esc(s.gen_duration||s.duration)+'s</span>'+
+          '<span>'+esc(s.image_resolution||'')+'</span><span>一致性 '+esc(s.consistency||'—')+'</span></div>'+
+        '<div class="route">路由 <b>'+esc(s.model_label||s.model||'—')+'</b>'+
+          '<span class="badge '+statusCls+'" style="padding:1px 7px;font-size:11px">'+esc(s.resolution||'')+' · '+routeStatusLabel(s.route_status)+'</span></div>'+
+        (down?'<div class="down">降级：目标 '+esc(s.target_model||'')+' 不可用，已降级自 '+down+'</div>':'')+
+        '<div class="reason">'+esc(s.reason||'')+'</div>'+
+      '</div>';
+    }).join('');
+    // 运行按钮
+    var canRun = !(plan.budget_ok===false);
+    $('btnRun').disabled = !canRun || state.busy;
+    $('planHint').innerHTML = canRun
+      ? '计划已就绪：预计 ¥'+money(plan.total_est_cost)+' / '+plan.shot_count+' 镜。点「开始生成」将真实调用模型。'
+      : '<span style="color:#fca5a5">预估成本超出预算上限，请调高预算或降档后再生成。</span>';
+    // 切到计划 tab
+    switchMainTab('plan');
+  }
+  function routeStatusLabel(s){
+    return {ready:'已实测',configured:'已配置',needs_activation:'待开通',not_configured:'未配置',blocked:'不可用'}[s]||s||'—';
+  }
+  function stat(k,v,unit,cls){
+    return '<div class="stat '+(cls||'')+'"><div class="k">'+esc(k)+'</div><div class="v">'+esc(v)+(unit?'<small>'+esc(unit)+'</small>':'')+'</div></div>';
+  }
+
+  /* ---------- 任务 ---------- */
+  function taskStatusLabel(t){
+    return {queued:'排队中',running:'生成中',done:'已完成',partial:'部分完成',failed:'失败',aborted_budget:'预算中止'}[t]||t||'—';
+  }
+  function taskStatusCls(t){
+    return {queued:'info',running:'info',done:'ok',partial:'warn',failed:'bad',aborted_budget:'warn'}[t]||'';
+  }
+  function renderTask(task){
+    state.task=task;
+    $('taskEmpty').style.display='none';
+    $('taskResult').style.display='block';
+    var st=task.status, pct=Number(task.progress||0);
+    if(task.task_id){ try{ localStorage.setItem(LS_TASK, task.task_id); }catch(e){} }
+    var cost = (task.actual_cost_cny!=null?task.actual_cost_cny:(task.cost&&task.cost.total_cny))||0;
+    var est = (task.est_cost!=null?task.est_cost:(state.plan&&state.plan.total_est_cost))||null;
+    var shots=task.shots||[];
+    var html='';
+    html+='<div class="card" style="margin-bottom:14px">'+
+      '<div class="task-head"><span class="badge '+taskStatusCls(st)+'"><i></i>'+taskStatusLabel(st)+'</span>'+
+      '<span class="mono" style="color:#7f92b3;font-size:12px">任务 '+esc(task.task_id||task.id||'')+'</span>'+
+      '<span class="badge info" style="margin-left:auto">'+esc(task.tier_label||task.tier||'')+'</span>'+
+      (st==='running'||st==='queued'?'<button type="button" class="btn ghost sm" id="btnRefreshTask">刷新</button>':'')+
+      '</div>'+
+      '<div class="progress" style="margin-top:12px"><i style="width:'+Math.max(2,Math.min(100,pct))+'%"></i></div>'+
+      '<div class="kv"><span>进度 '+esc(pct)+'%</span><span>'+esc(task.stage_label||task.stage||'')+'</span>'+
+        '<span>镜头 '+(task.shots_ok||0)+'/'+(task.total_shots||shots.length||0)+' 可用</span>'+
+        (task.shots_failed?'<span style="color:#fca5a5">失败 '+task.shots_failed+'</span>':'')+
+        (task.retries_total?'<span>重试 '+task.retries_total+'</span>':'')+
+        '<span>已花 ¥'+money(cost)+(est!=null?' / 预估 ¥'+money(est):'')+'</span>'+
+        '<span>预算 ¥'+money(task.budget_cny)+'</span>'+
+        (task.elapsed?'<span>耗时 '+esc(task.elapsed)+'s</span>':'')+'</div>'+
+      (function(){
+        var errs=task.errors||[];
+        if(!errs.length) return '';
+        return '<div class="errbox" style="margin-top:11px"><b>任务提示</b><br>'+errs.map(function(e){
+          return '· '+esc(e.hint||e.error||JSON.stringify(e));}).join('<br>')+'</div>';
+      })()+
+      (task.video_url?'<div class="video-box"><video controls playsinline src="'+esc(task.video_url)+'"></video></div>'+
+        '<div class="done-bar"><a class="btn" href="'+esc(task.video_url)+'" target="_blank" rel="noopener">下载成片</a>'+
+        (task.pack_url?'<a class="btn ghost" href="'+esc(task.pack_url)+'" target="_blank" rel="noopener">下载工程包（zip）</a>':'')+
+        (task.pack_id?'<span class="badge info">工程包 '+esc(task.pack_id)+'</span>':'')+
+        '</div>':'')+
+    '</div>';
+    // 每镜状态
+    if(shots.length){
+      html+='<div class="card"><h2><span class="num">#</span>每镜状态<small>视频 / 成本 / 重试</small></h2>';
+      shots.forEach(function(s){
+        var ss=s.status||'pending';
+        var cls=ss==='ok'?'badge ok':(ss==='failed'?'badge bad':'badge');
+        var label={ok:'可用',failed:'失败',generating:'生成中',pending:'未开始',skipped:'跳过'}[ss]||ss;
+        html+='<div class="shot-rt">'+
+          '<span class="vid">S'+String(s.no||'').padStart(2,'0')+'</span>'+
+          '<span class="'+cls+'">'+esc(label)+(s.retries?' · 重试'+s.retries:'')+'</span>'+
+          '<span class="stt">'+esc(s.model||s.model_label||'')+(s.resolution?' · '+esc(s.resolution):'')+
+            (s.error?' <span style="color:#fca5a5">'+esc(s.error)+'</span>':'')+'</span>'+
+          '<span class="r hide-sm">¥'+money(s.cost_cny)+'</span>'+
+          '<span class="hide-sm" style="text-align:right">'+(s.video_url?'<a href="'+esc(s.video_url)+'" target="_blank" rel="noopener" style="color:#7dd3fc;text-decoration:none">看片</a>':'—')+'</span>'+
+        '</div>';
+      });
+      html+='</div>';
+    }
+    $('taskResult').innerHTML=html;
+    var rf=$('btnRefreshTask'); if(rf) rf.addEventListener('click', function(){ pollTaskOnce(); });
+  }
+  function stopPoll(){ if(state.taskTimer){ clearInterval(state.taskTimer); state.taskTimer=null; } }
+  function pollTaskOnce(){
+    var tid=(state.task&&(state.task.task_id||state.task.id))||null;
+    if(!tid){ try{ tid=localStorage.getItem(LS_TASK); }catch(e){} }
+    if(!tid) return Promise.resolve();
+    return apiJSON('/director/task/'+encodeURIComponent(tid)).then(function(t){
+      renderTask(t);
+      var st=t.status;
+      if(['done','partial','failed','aborted_budget'].indexOf(st)>=0){ stopPoll(); }
+      return t;
+    }).catch(function(e){
+      stopPoll();
+      if(e.code==='task_not_found'||e.status===404){
+        $('taskEmpty').style.display='block';
+        $('taskResult').style.display='none';
+        toast('上次任务已过期（保留 24h），可重新生成','warn');
+      }else if(e.code!=='AUTH_REQUIRED'){
+        toast('查询任务失败：'+e.message,'bad');
+      }
+    });
+  }
+  function startPoll(){
+    stopPoll();
+    pollTaskOnce();
+    state.taskTimer=setInterval(function(){
+      pollTaskOnce().catch(function(){});
+    },3000);
+  }
+
+  /* ---------- 模型矩阵 ---------- */
+  function renderModels(d){
+    state.models=d;
+    var html='';
+    var provs=d.providers||[];
+    html+='<div class="card" style="margin-bottom:14px"><h2><span class="num">☁</span>厂商接入状态<small>'+esc(d.generated_at||'')+'</small></h2><div class="kv">'+
+      provs.map(function(p){
+        var cls=p.configured?'ok':'warn';
+        return '<span class="badge '+cls+'" title="'+esc(p.hint_cn||'')+'"><i></i>'+esc(p.label||p.vendor)+' · '+(p.configured?'已接入':'未配置')+'</span>';
+      }).join('')+'</div>';
+    var lim=d.limits||{};
+    html+='<div class="kv"><span>单任务 ≤'+esc(lim.max_shots_per_task||80)+' 镜</span><span>生成并发 ≤'+esc(lim.max_concurrency||3)+'</span>'+
+      '<span>批大小 '+(lim.batch_size_default||6)+'–'+(lim.max_batch||10)+'</span><span>任务保留 '+(lim.task_ttl_seconds?Math.round(lim.task_ttl_seconds/3600):24)+'h</span>'+
+      '<span>建议 '+(lim.recommended_shots_per_episode||[]).join('–')+' 镜/集</span></div>';
+    html+='<div class="hint">'+esc(lim.note||'')+'</div></div>';
+
+    var groups=[['i2v','视频生成'],['image_gen','关键帧生图'],['tts','配音 TTS'],['lipsync','口型同步']];
+    var caps=d.capabilities||{};
+    groups.forEach(function(g){
+      var list=(d.models||[]).filter(function(m){return m.capability===g[0];});
+      if(!list.length) return;
+      html+='<div class="card" style="margin-bottom:14px"><h2><span class="num">'+g[1].charAt(0)+'</span>'+g[1]+'<small>'+esc(caps[g[0]]||'')+'</small></h2><div class="cap-grid">';
+      list.forEach(function(m){
+        var statusCls={ready:'ok',configured:'info',needs_activation:'warn',not_configured:'bad'}[m.status]||'';
+        var statusLabel={ready:'已实测',configured:'已配置',needs_activation:'待开通',not_configured:'未配置'}[m.status]||m.status;
+        var price='';
+        if(m.price && typeof m.price==='object'){
+          price=Object.keys(m.price).map(function(k){return k+'：¥'+m.price[k];}).join(' · ')+' <span style="color:#7f92b3">'+(m.price_unit||'')+'</span>';
+        }else{ price=m.price_unit||'—'; }
+        html+='<div class="model-card"><div class="mt"><b>'+esc(m.label||m.id)+'</b><span class="badge '+statusCls+'"><i></i>'+statusLabel+'</span></div>'+
+          '<div class="vend">'+esc(m.vendor_label||m.vendor||'')+' · <span class="mono">'+esc(m.api_model||m.id)+'</span></div>'+
+          '<div class="price">'+price+'</div>'+
+          ((m.resolutions||[]).length?'<div class="res">'+m.resolutions.map(function(r){return '<span>'+esc(r)+'</span>';}).join('')+'</div>':'')+
+          (m.audio?'<div class="kv"><span>原生音频</span></div>':'')+
+          '<div class="note">'+esc(m.hint_cn||m.price_note||'')+'</div></div>';
+      });
+      html+='</div></div>';
+    });
+    // 路由矩阵
+    var rm=d.routing_matrix||{};
+    html+='<div class="card"><h2><span class="num">⇄</span>档位路由矩阵<small>候选链顺序 = 降级顺序</small></h2>';
+    Object.keys(rm).forEach(function(tk){
+      var cfg=rm[tk]||{};
+      var label={standard:'标准档',pro:'高级档',master:'旗舰档'}[tk]||tk;
+      var parts=['video','image','tts','lipsync'].map(function(kind){
+        var arr=cfg[kind]||[];
+        if(!arr.length) return '';
+        return '<div style="margin-top:6px"><span style="color:#8ba0c4;font-size:12px">'+esc(kind)+'：</span>'+
+          arr.map(function(x){return '<span class="badge '+(x.status==='ready'?'ok':(x.status==='configured'?'info':'warn'))+'" style="margin:2px 4px 2px 0"><i></i>'+esc(x.model)+' · '+esc(x.resolution||'')+'</span>';}).join('')+'</div>';
+      }).join('');
+      html+='<div style="border:1px solid var(--dp-line);border-radius:11px;padding:11px 12px;margin-top:9px;background:#081020"><b style="color:#dbeafe">'+label+'</b>'+parts+'</div>';
+    });
+    html+='</div>';
+    $('modelsLoading').style.display='none';
+    $('modelsBody').style.display='block';
+    $('modelsBody').innerHTML=html;
+    // 档位价格标签
+    var tiers=(d.tier_pricing&&d.tier_pricing.tiers)||{};
+    if(tiers.standard&&tiers.standard.per_shot_cny!=null) $('pStandard').textContent='¥'+money(tiers.standard.per_shot_cny)+'/镜';
+    if(tiers.pro&&tiers.pro.per_shot_cny!=null) $('pPro').textContent='¥'+money(tiers.pro.per_shot_cny)+'/镜';
+    if(tiers.master&&tiers.master.per_shot_cny!=null) $('pMaster').textContent='¥'+money(tiers.master.per_shot_cny)+'/镜';
+    renderPricing(d);
+  }
+  function renderPricing(d){
+    var tp=d.tier_pricing||(d.pricing)||{};
+    var tiers=tp.tiers||{};
+    if(!Object.keys(tiers).length){ $('pricingLoading').innerHTML='<div class="empty"><b>定价数据暂不可用</b><p>请稍后刷新。</p></div>'; return; }
+    var html='<div class="card" style="margin-bottom:14px"><h2><span class="num">¥</span>三档单集成本 / 积分<small>'+esc(tp.assumption||'')+'</small></h2>'+
+      '<div class="hint" style="margin:0 0 10px">'+esc(tp.credit_note||'')+'</div><div class="price-grid">';
+    ['standard','pro','master'].forEach(function(tk){
+      var t=tiers[tk]; if(!t) return;
+      var e120=(t.episode_120s||t.target_episode_120s||{}), e180=(t.episode_180s||t.target_episode_180s||{});
+      var eff=t.effective_models||{};
+      html+='<div class="price-card '+(tk==='standard'?'hot':'')+'">'+
+        '<div class="pt">'+esc(t.label||tk)+'<span class="badge info" style="margin-left:auto">'+(tk==='standard'?'推荐试跑':'')+'</span></div>'+
+        '<div class="pd">'+esc(t.desc||'')+'</div>'+
+        '<div class="per">¥'+money(t.per_shot_cny)+'<small> / 镜（实际路由）</small></div>'+
+        '<div class="price-line"><span>120s 单集（24 镜）</span><b>¥'+money(e120.cost_cny)+(e120.credits!=null?' / '+e120.credits+' 积分':'')+'</b></div>'+
+        '<div class="price-line"><span>180s 单集（36 镜）</span><b>¥'+money(e180.cost_cny)+(e180.credits!=null?' / '+e180.credits+' 积分':'')+'</b></div>'+
+        '<div class="price-line"><span>目标模型</span><b>'+esc(t.target_model||'—')+'</b></div>'+
+        '<div class="price-line"><span>实际视频模型</span><b>'+esc(eff.video||'—')+'</b></div>'+
+        '<div class="price-line"><span>关键帧 / 配音</span><b>'+esc(eff.image||'—')+' / '+esc(eff.tts||'—')+'</b></div>'+
+        ((t.downgraded||[]).length?'<div class="price-line"><span style="color:#fca5a5">降级模型</span><b style="color:#fca5a5">'+t.downgraded.map(function(x){return esc(x.model);}).join('、')+'</b></div>':'')+
+      '</div>';
+    });
+    html+='</div><div class="hint">1 积分 = ¥1（credits.py 口径）；实际结算以积分账单为准，单集成片时长按 5s/镜估算。</div></div>';
+    $('pricingLoading').style.display='none';
+    $('pricingBody').style.display='block';
+    $('pricingBody').innerHTML=html;
+  }
+
+  /* ---------- 交互 ---------- */
+  function switchMainTab(name){
+    var tabs=$('mainTabs').querySelectorAll('button');
+    for(var i=0;i<tabs.length;i++) tabs[i].classList.toggle('on', tabs[i].getAttribute('data-pane')===name);
+    ['plan','task','models','pricing'].forEach(function(k){
+      var el=$('pane'+k.charAt(0).toUpperCase()+k.slice(1));
+      if(el) el.classList.toggle('on', k===name);
+    });
+    if(name==='models' && !state.models) loadModels();
+  }
+  function switchInputTab(json){
+    $('tabForm').classList.toggle('on',!json);
+    $('tabJson').classList.toggle('on',!!json);
+    $('paneForm').style.display=json?'none':'block';
+    $('paneJson').style.display=json?'block':'none';
+    if(json && !$('fJson').value.trim()) fillJsonDemo();
+  }
+  function fillJsonDemo(){
+    var shots=DEMO_SHOTS.map(function(s,i){ return {no:i+1,id:'S'+(i+1),scene:s.desc,action:s.type==='动作'?'跟拍/推近':'',line:s.line,dur:s.dur,type:s.type||undefined}; });
+    $('fJson').value=JSON.stringify({title:$('fTitle').value.trim()||'AI 导演成片',aspect:$('fAspect').value,style:$('fStyle').value,shots:shots},null,2);
+  }
+
+  function doPlan(){
+    if(state.busy) return;
+    var input;
+    try{ input = $('paneJson').style.display!=='none' ? planInputFromJson() : planInputFromForm(); }
+    catch(e){ toast(e.message,'bad'); return; }
+    if(!input.script||!input.script.shots||!input.script.shots.length){ toast('至少需要 1 个镜头描述','bad'); return; }
+    if(input.script.shots.length>80){ toast('单任务最多 80 镜，请拆分','bad'); return; }
+    state.busy=true;
+    $('btnPlan').disabled=true; $('btnRun').disabled=true;
+    $('planEmpty').style.display='none'; $('planResult').style.display='none';
+    $('planError').style.display='none'; $('planLoading').style.display='flex';
+    switchMainTab('plan');
+    $('planHint').textContent='正在生成路由计划（不调用厂商、不产生费用）…';
+    apiJSON('/director/plan',{method:'POST',body:input}).then(function(plan){
+      renderPlan(plan,input);
+      toast('计划完成：'+plan.shot_count+' 镜 / 预估 ¥'+money(plan.total_est_cost),'ok');
+    }).catch(function(e){
+      $('planLoading').style.display='none';
+      if(e.code==='AUTH_REQUIRED'){ $('planError').style.display='block';
+        $('planError').innerHTML='<div class="errbox"><b>需要登录</b><br>生成路由计划会按账号记录额度，请先登录后再试。</div>';
+        $('planHint').textContent='请先登录后使用。'; return; }
+      $('planError').style.display='block';
+      $('planError').innerHTML='<div class="errbox"><b>计划生成失败</b><br>'+esc(e.message)+'</div>';
+      $('planHint').textContent='失败：'+e.message;
+      toast('计划失败：'+e.message,'bad');
+    }).then(function(){
+      state.busy=false; $('btnPlan').disabled=false;
+      var canRun = state.plan && state.plan.budget_ok!==false;
+      $('btnRun').disabled = !canRun;
+    });
+  }
+
+  function doRun(){
+    if(state.busy) return;
+    if(!state.plan){ toast('请先生成路由计划','warn'); return; }
+    if(state.plan.budget_ok===false){ toast('预估成本超出预算，请调高预算或降档','bad'); return; }
+    var body=planInputForRun();
+    var est=state.plan.total_est_cost;
+    if(!confirm('将真实调用模型生成 '+state.plan.shot_count+' 镜，预估 ¥'+money(est)+'（预算 ¥'+money(body.budget_cny)+'）。\n\n确认开始生成？')) return;
+    state.busy=true; $('btnRun').disabled=true;
+    switchMainTab('task');
+    $('taskEmpty').style.display='none';
+    $('taskResult').style.display='block';
+    $('taskResult').innerHTML='<div class="loading"><span class="spinner"></span>正在提交导演任务…</div>';
+    apiJSON('/director/run',{method:'POST',body:body}).then(function(t){
+      renderTask(t);
+      startPoll();
+      toast('任务已进入后台：'+ (t.task_id||''),'ok');
+    }).catch(function(e){
+      $('taskResult').innerHTML='<div class="errbox"><b>提交失败</b><br>'+esc(e.message)+
+        (e.code==='director_busy'?'<br>已有导演任务在跑（2C2G 串行），请稍后刷新任务列表再试。':'')+'</div>';
+      toast('提交失败：'+e.message,'bad');
+      state.busy=false; $('btnRun').disabled=false;
+    });
+  }
+
+  function loadHealth(){
+    return apiJSON('/director/health').then(function(h){
+      $('hBadge').className='badge ok'; $('hBadge').innerHTML='<i></i>服务正常 · '+esc(h.version||'');
+      $('hTasks').textContent='任务 '+(h.tasks&&h.tasks.total||0)+' / 执行中 '+(h.tasks&&h.tasks.active||0);
+      $('hConc').textContent='并发 ≤'+(h.max_concurrency||3);
+      var provs=h.providers||{};
+      var ready=Object.keys(provs).filter(function(k){return provs[k];});
+      $('hModel').textContent='厂商 '+ready.length+'/'+Object.keys(provs).length+' 接入';
+      if(h.ffmpeg===false){ $('hBadge').className='badge warn'; $('hBadge').innerHTML='<i></i>ffmpeg 不可用'; }
+    }).catch(function(e){
+      $('hBadge').className='badge bad'; $('hBadge').innerHTML='<i></i>服务异常'+(e.status?' ('+e.status+')':'');
+    });
+  }
+  function loadModels(){
+    $('modelsLoading').style.display='flex'; $('modelsBody').style.display='none';
+    apiJSON('/director/models').then(function(d){ renderModels(d); }).catch(function(e){
+      $('modelsLoading').innerHTML='<div class="errbox">模型矩阵加载失败：'+esc(e.message)+'</div>';
+    });
+  }
+  function loadPricing(){
+    apiJSON('/director/pricing').then(function(d){ renderPricing({pricing:d.pricing}); }).catch(function(){});
+  }
+  function restoreLast(){
+    try{
+      var raw=localStorage.getItem(LS_PLAN);
+      if(raw){
+        var o=JSON.parse(raw);
+        if(o&&o.plan&&o.plan.shots){
+          state.plan=o.plan; state.planInput=o.input;
+          if(o.input){
+            if(o.input.title) $('fTitle').value=o.input.title;
+            if(o.input.aspect) $('fAspect').value=o.input.aspect;
+            if(o.input.style) $('fStyle').value=o.input.style;
+            if(o.input.budget_cny!=null) $('fBudget').value=o.input.budget_cny;
+            var shots=(o.input.script&&o.input.script.shots)||[];
+            if(shots.length) fillShots(shots.map(function(s){return {desc:s.scene||s.desc||'',line:s.line||'',dur:s.dur||5,type:s.type||''};}));
+            var tr=$('tierGrid').querySelector('input[value="'+(o.input.tier||'standard')+'"]');
+            if(tr){ tr.checked=true; syncTierUI(); }
+          }
+          renderPlan(o.plan,o.input);
+          $('planTime').textContent='已恢复上次计划'+(o.plan.created_at?'（'+o.plan.created_at+'）':'');
+        }
+      }
+      var tid=localStorage.getItem(LS_TASK);
+      if(tid){ startPoll(); switchMainTab('task'); }
+    }catch(e){}
+  }
+  function syncTierUI(){
+    var tiers=$('tierGrid').querySelectorAll('.tier');
+    for(var i=0;i<tiers.length;i++){
+      var inp=tiers[i].querySelector('input');
+      tiers[i].classList.toggle('on', inp&&inp.checked);
+    }
+  }
+
+  /* ---------- 绑定 ---------- */
+  $('tabForm').addEventListener('click',function(){switchInputTab(false);});
+  $('tabJson').addEventListener('click',function(){switchInputTab(true);});
+  $('btnJsonDemo').addEventListener('click',fillJsonDemo);
+  $('btnAddShot').addEventListener('click',function(){addShotRow({});});
+  $('btnClear').addEventListener('click',function(){ $('shotRows').innerHTML=''; addShotRow({}); toast('已清空分镜','ok'); });
+  $('btnDemo').addEventListener('click',function(){ fillShots(DEMO_SHOTS); toast('已载入 6 镜示例','ok'); });
+  $('tierGrid').addEventListener('click',function(ev){
+    var t=ev.target.closest?ev.target.closest('.tier'):null;
+    if(t){ var inp=t.querySelector('input'); if(inp){ inp.checked=true; } syncTierUI(); }
+  });
+  $('btnPlan').addEventListener('click',doPlan);
+  $('btnRun').addEventListener('click',doRun);
+  $('mainTabs').addEventListener('click',function(ev){
+    var b=ev.target.closest?ev.target.closest('button[data-pane]'):null;
+    if(b) switchMainTab(b.getAttribute('data-pane'));
+  });
+
+  // 启动
+  ensureDatalist();
+  if(!$('shotRows').children.length) fillShots(DEMO_SHOTS);
+  loadHealth();
+  loadModels();
+  restoreLast();
+  window.addEventListener('beforeunload', stopPoll);
+  if(gate){
+    gate.onChange(function(){
+      var b=$('hLogin');
+      if(b){ b.style.display=gate.isLoggedIn()?'none':'inline-flex'; }
+    });
+  }
+})();
+</script>
+<script defer src="../assets/site-shell.js?v=20261124a"></script>
+</body>
+</html>

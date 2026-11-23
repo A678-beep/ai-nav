@@ -6,20 +6,20 @@
 <script>(function(){try{var k="xl_theme",v=localStorage.getItem(k),m=(v==="dark"||v==="light"||v==="auto")?v:"auto",q=window.matchMedia?window.matchMedia("(prefers-color-scheme: light)"):null,t=(m==="auto")?((q&&q.matches)?"light":"dark"):m,d=document.documentElement;d.setAttribute("data-theme",t);d.setAttribute("data-theme-mode",m);d.style.colorScheme=t}catch(e){document.documentElement.setAttribute("data-theme","dark")}})();</script>
 
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<title>星籁 AI 工具导航 · 42 个实测 AI 工具 + 370 篇实操教程</title>
-<meta name="description" content="按 7 大分类整理 42 个常用 AI 工具，配 370 篇细分场景教程：对话、绘图、编程、写作、视频音频、商业效率与实用工具，每篇都有可执行的参数与避坑点。">
+<title>星籁 AI 工具导航 · 42 个实测 AI 工具 + 382 篇实操教程</title>
+<meta name="description" content="按 7 大分类整理 42 个常用 AI 工具，配 382 篇细分场景教程：对话、绘图、编程、写作、视频音频、商业效率与实用工具，每篇都有可执行的参数与避坑点。">
 <meta name="keywords" content="AI工具导航,AI工具分类,AI绘画教程,AI编程助手,AI写作工具,AI视频生成,AI效率工具,AI工具实测">
 <meta name="author" content="星籁 Stellara">
 <meta name="robots" content="noindex,nofollow"><meta name="googlebot" content="noindex,nofollow">
 <link rel="canonical" href="https://xinglaiai.com/ai-nav/">
 <meta property="og:type" content="website">
-<meta property="og:title" content="星籁 AI 工具导航 · 42 个实测 AI 工具 + 370 篇实操教程">
-<meta property="og:description" content="7 大分类 42 个 AI 工具，370 篇按细分场景写的实操教程，带参数、带避坑。">
+<meta property="og:title" content="星籁 AI 工具导航 · 42 个实测 AI 工具 + 382 篇实操教程">
+<meta property="og:description" content="7 大分类 42 个 AI 工具，382 篇按细分场景写的实操教程，带参数、带避坑。">
 <meta property="og:locale" content="zh_CN">
 <meta name="twitter:card" content="summary_large_image">
 <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>✦</text></svg>">
 <script type="application/ld+json">
-{"@context":"https://schema.org","@type":"WebSite","name":"星籁 AI 工具导航","description":"7 大分类 42 个 AI 工具与 370 篇细分教程","inLanguage":"zh-CN"}
+{"@context":"https://schema.org","@type":"WebSite","name":"星籁 AI 工具导航","description":"7 大分类 42 个 AI 工具与 382 篇细分教程","inLanguage":"zh-CN"}
 </script>
 <script type="application/ld+json">
 {"@context":"https://schema.org","@type":"Organization","name":"星籁 Stellara","url":"https://xinglaiai.com/ai-nav/","description":"实测型 AI 工具导航与教程站点"}
@@ -504,7 +504,7 @@ function viewArticles(){
   return `
   <section class="hero">
     <div class="eyebrow">TUTORIALS · 100</div>
-    <h1>370 篇<span>细分场景教程</span></h1>
+    <h1>382 篇<span>细分场景教程</span></h1>
     <p class="lead">每篇只解决一个具体问题：参数怎么填、哪一步会翻车、用什么数字验收。点开即读，无需登录。</p>
   </section>
   <div class="latest"><span class="lb">最新更新</span>${allArticles().slice().sort((a,b)=>(b.mtime||0)-(a.mtime||0)).slice(0,6).map(a=>`<a href="a/${esc(a.id)}.html">${esc(a.title)}</a>`).join("")}</div>
@@ -725,7 +725,7 @@ render();
   setTimeout(buildTOC,900);
 })();
 </script>
-<script defer src="assets/site-shell.js?v=20261123"></script>
+<script defer src="assets/site-shell.js?v=20261124a"></script>
 <script defer src="assets/auth.js"></script>
 </body>
 </html>

@@ -170,8 +170,10 @@ footer a{color:var(--txt2)}
 <meta name="twitter:description" content="输入一个主题，30 秒生成一支会动的 PPT / 科技感解说片：大字标题、观点页、数据动效、流程图、片尾 Logo，支持 16:9 与 9:16，可编辑脚本、可选 AI 配音与字幕。">
 <meta name="twitter:image" content="https://xinglaiai.com/ai-nav/assets/og/explainer.png">
 <link rel="stylesheet" href="../assets/site-shell.css">
+<link rel="stylesheet" href="../assets/auth-gate.css">
+<script src="../assets/auth-gate.js" data-mode="mask"></script>
 </head>
-<body>
+<body data-xl-gate="mask">
 <header class="top">
   <div class="top-in">
     <a class="logo" href="/ai-nav/"><span class="mark">✦</span>星籁 AI</a>
@@ -688,6 +690,6 @@ footer a{color:var(--txt2)}
 })();
 </script>
 
-<script defer src="../assets/site-shell.js"></script>
+<script defer src="../assets/site-shell.js?v=20261124a"></script>
 </body>
 </html>

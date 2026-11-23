@@ -1,0 +1,630 @@
+﻿<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>创作中心 · 一句话到可交付成片 · 电影/剧集 15 步向导 · 星籁 AI</title>
+<meta name="description" content="星籁 AI 创作中心：一键成片、AI 短剧全自动、电影/剧集 15 步向导（类型→剧本→角色→分镜→生成→审片→交付→发布）、智能粗剪、文档转视频、模板市场、素材库、直播助播与插件市场，一个入口管理全部创作任务。">
+<meta name="keywords" content="创作中心,AI 短剧,电影向导,剧集制作,分镜,AI 成片,影视工厂,智能粗剪">
+<link rel="canonical" href="https://xinglaiai.com/ai-nav/create/">
+<meta name="robots" content="noindex,nofollow"><meta name="googlebot" content="noindex,nofollow">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="星籁 AI">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:title" content="创作中心 · 星籁 AI 影视工厂">
+<meta property="og:description" content="一键成片 / AI 短剧全自动 / 电影·剧集 15 步向导：从一句话到成片 + 工程包 + QC 报告。">
+<meta property="og:url" content="https://xinglaiai.com/ai-nav/create/">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="stylesheet" href="../assets/site-shell.css">
+<link rel="stylesheet" href="../assets/auth-gate.css">
+<script src="../assets/auth-gate.js" data-mode="banner"></script>
+<link rel="stylesheet" href="assets/console.css?v=20261124c">
+<link rel="icon" href="data:image/svg+xml,%3Csvg%20xmlns='http://www.w3.org/2000/svg'%20viewBox='0%200%2064%2064'%3E%3Crect%20width='64'%20height='64'%20rx='14'%20fill='%23070b13'/%3E%3Crect%20x='12'%20y='14'%20width='40'%20height='10'%20rx='2'%20transform='rotate(-8%2044%2019)'%20fill='%23f5b944'/%3E%3Crect%20x='14'%20y='27'%20width='36'%20height='23'%20rx='3'%20fill='%232dd4bf'/%3E%3C/svg%3E">
+<style>
+/* 创作中心首页专属 */
+.cc-hero-hub{margin-top:2px}
+.hub-hero{
+  position:relative;overflow:hidden;border:1px solid var(--cc-line);border-radius:16px;
+  background:
+    radial-gradient(680px 260px at 12% 0%,rgba(245,185,68,.14),transparent 62%),
+    radial-gradient(620px 300px at 92% 10%,rgba(45,212,191,.12),transparent 62%),
+    linear-gradient(170deg,#101a2b,#0a111d 72%);
+  padding:22px;box-shadow:var(--cc-shadow);margin:0 0 16px;
+}
+html[data-theme="light"] .hub-hero{
+  background:
+    radial-gradient(680px 260px at 12% 0%,rgba(245,185,68,.3),transparent 62%),
+    radial-gradient(620px 300px at 92% 10%,rgba(45,212,191,.2),transparent 62%),
+    linear-gradient(170deg,#fff,#f6f9fe 72%);
+}
+.hub-hero::after{
+  content:"";position:absolute;inset:0;pointer-events:none;opacity:.5;
+  background:repeating-linear-gradient(90deg,rgba(148,163,184,.05) 0 1px,transparent 1px 34px);
+  mask-image:linear-gradient(180deg,#000,transparent 78%);
+  -webkit-mask-image:linear-gradient(180deg,#000,transparent 78%);
+}
+.hub-hero .inner{position:relative;z-index:1;display:flex;gap:22px;align-items:flex-end;justify-content:space-between;flex-wrap:wrap}
+.hub-hero h1{font-size:34px}
+.hub-stats{display:flex;gap:9px;flex-wrap:wrap;margin-top:13px}
+.hub-stat{
+  border:1px solid var(--cc-line);border-radius:10px;padding:7px 11px;background:rgba(148,163,184,.05);
+  font-size:11.5px;color:var(--cc-sub);display:flex;align-items:baseline;gap:6px;
+}
+.hub-stat b{font-family:var(--cc-mono);font-size:15px;color:#f4dfae;font-weight:800}
+html[data-theme="light"] .hub-stat b{color:#8a5305}
+.hub-cta{display:flex;gap:9px;flex-wrap:wrap;margin-top:15px}
+.hub-resume{
+  display:flex;gap:13px;align-items:center;flex-wrap:wrap;border:1px dashed rgba(245,185,68,.34);
+  border-radius:13px;padding:13px 15px;margin:0 0 16px;background:rgba(245,185,68,.05);
+}
+.hub-resume .ri{width:36px;height:36px;border-radius:10px;background:rgba(245,185,68,.16);border:1px solid rgba(245,185,68,.3);display:grid;place-items:center;color:var(--cc-amber);flex:0 0 auto}
+.hub-resume .ri svg{width:18px;height:18px}
+.hub-resume .rt{flex:1;min-width:200px}
+.hub-resume .rt b{display:block;font-size:13.5px}
+.hub-resume .rt small{color:var(--cc-sub);font-size:11.5px}
+.quick-card{
+  display:flex;flex-direction:column;gap:9px;text-decoration:none;min-height:172px;
+  border:1px solid var(--cc-line);border-radius:14px;padding:16px;
+  background:linear-gradient(178deg,var(--cc-panel),var(--cc-panel2));box-shadow:var(--cc-shadow);
+  transition:transform .12s,border-color .15s;position:relative;overflow:hidden;
+}
+.quick-card:hover{transform:translateY(-2px);border-color:rgba(245,185,68,.42)}
+.quick-card::after{content:"";position:absolute;right:-30px;top:-30px;width:120px;height:120px;border-radius:50%;background:radial-gradient(circle,rgba(245,185,68,.12),transparent 70%)}
+.quick-card .qi{width:36px;height:36px;border-radius:10px;display:grid;place-items:center;background:rgba(245,185,68,.12);border:1px solid rgba(245,185,68,.26);color:var(--cc-amber)}
+.quick-card .qi svg{width:19px;height:19px}
+.quick-card h3{margin:0;font-size:15.5px}
+.quick-card p{margin:0;color:var(--cc-sub);font-size:12.2px;line-height:1.6;flex:1}
+.quick-card .go{font-size:12px;color:var(--cc-amber2);font-weight:600;display:inline-flex;align-items:center;gap:5px}
+.quick-card .go svg{width:13px;height:13px}
+.movie-spot{
+  border:1px solid rgba(245,185,68,.28);border-radius:16px;overflow:hidden;
+  background:
+    radial-gradient(720px 300px at 0% 0%,rgba(245,185,68,.14),transparent 60%),
+    linear-gradient(170deg,#101a2b,#0a111d 74%);
+  box-shadow:var(--cc-shadow);position:relative;
+}
+html[data-theme="light"] .movie-spot{background:radial-gradient(720px 300px at 0% 0%,rgba(245,185,68,.22),transparent 60%),linear-gradient(170deg,#fff,#f7faff 74%)}
+.movie-spot .top{display:flex;gap:18px;justify-content:space-between;align-items:flex-start;flex-wrap:wrap;padding:20px 22px 0}
+.movie-spot h2{margin:0 0 6px;font-size:21px;font-weight:900;display:flex;align-items:center;gap:9px;flex-wrap:wrap}
+.movie-spot .lead{margin:0;color:var(--cc-sub);font-size:12.8px;line-height:1.65;max-width:720px}
+.movie-spot .lead b{color:#f3dfae}
+.movie-spot .flow{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:8px;padding:16px 22px 6px}
+.movie-spot .flow .ph{border:1px solid var(--cc-line);border-radius:10px;padding:9px 10px;background:rgba(148,163,184,.04)}
+.movie-spot .flow .ph b{display:block;font-size:12px;color:#ffe4ab;margin-bottom:3px;display:flex;align-items:center;gap:5px}
+html[data-theme="light"] .movie-spot .flow .ph b{color:#8a5305}
+.movie-spot .flow .ph span{font-size:10.8px;color:var(--cc-dim);line-height:1.5;display:block}
+.movie-spot .bottom{display:flex;gap:9px;flex-wrap:wrap;align-items:center;padding:12px 22px 18px}
+.movie-spot .bottom .sp{flex:1}
+@media(max-width:980px){.movie-spot .flow{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media(max-width:600px){.movie-spot .flow{grid-template-columns:minmax(0,1fr) minmax(0,1fr);padding:14px 14px 4px}}
+.drama-panel .form-grid{display:grid;grid-template-columns:minmax(0,2.2fr) repeat(3,minmax(120px,1fr));gap:10px}
+@media(max-width:1100px){.drama-panel .form-grid{grid-template-columns:minmax(0,1fr) minmax(0,1fr)}}
+@media(max-width:600px){.drama-panel .form-grid{grid-template-columns:minmax(0,1fr)}}
+.drama-panel .premise{grid-row:span 2}
+.drama-result{margin-top:14px}
+.drama-result .title{font-size:18px;font-weight:900;color:#f7e6bf;margin:0 0 4px;display:flex;gap:8px;align-items:center;flex-wrap:wrap}
+html[data-theme="light"] .drama-result .title{color:#7c4a03}
+.drama-result .logline{color:var(--cc-sub);font-size:12.8px;line-height:1.7;margin:0 0 10px}
+.chip-list{display:flex;gap:6px;flex-wrap:wrap}
+.chip-list .c{border:1px solid var(--cc-line);background:rgba(148,163,184,.06);border-radius:999px;padding:2px 9px;font-size:11.5px;color:#cad8ee}
+.chip-list .c.gold{border-color:rgba(245,185,68,.32);background:rgba(245,185,68,.09);color:#f3dfae}
+.ep-outline{display:flex;flex-direction:column;gap:6px;margin-top:10px;max-height:260px;overflow:auto;padding-right:4px}
+.ep-outline .ep{border:1px solid var(--cc-line);border-radius:9px;padding:8px 10px;background:rgba(148,163,184,.03);font-size:12px;line-height:1.55}
+.ep-outline .ep b{color:#f3dfae;margin-right:6px}
+html[data-theme="light"] .ep-outline .ep b{color:#8a5305}
+.ep-outline .ep .hook{color:var(--cc-dim);font-size:11px;display:block;margin-top:2px}
+.task-tabs{display:flex;gap:6px;flex-wrap:wrap;margin:0 0 12px}
+.task-tabs button{border:1px solid var(--cc-line);background:rgba(148,163,184,.05);color:var(--cc-sub);border-radius:9px;padding:7px 13px;font:inherit;font-size:12.5px;cursor:pointer;font-weight:600}
+.task-tabs button.on{background:rgba(245,185,68,.14);border-color:rgba(245,185,68,.4);color:#ffe8b8}
+html[data-theme="light"] .task-tabs button.on{color:#7c4a03}
+.task-tabs button .n{font-family:var(--cc-mono);font-size:10.5px;opacity:.75;margin-left:4px}
+.hub-grid-2{display:grid;grid-template-columns:minmax(0,1.55fr) minmax(0,1fr);gap:14px;align-items:start}
+@media(max-width:1180px){.hub-grid-2{grid-template-columns:minmax(0,1fr)}}
+.compliance-foot{
+  margin:22px 0 0;padding:14px 16px;border-radius:12px;border:1px dashed var(--cc-line);
+  color:var(--cc-dim);font-size:11.8px;line-height:1.75;background:rgba(148,163,184,.03);
+}
+.compliance-foot b{color:var(--cc-sub)}
+.compliance-foot .fl{display:flex;gap:7px;align-items:center;font-weight:700;color:#e7cfa0;margin-bottom:5px}
+html[data-theme="light"] .compliance-foot .fl{color:#8a5305}
+.compliance-foot .fl svg{width:14px;height:14px}
+</style>
+</head>
+<body class="cc-body">
+<div class="cc-wrap">
+  <div id="ccTopbar"></div>
+
+  <!-- Hero -->
+  <section class="hub-hero">
+    <div class="inner">
+      <div>
+        <div class="cc-kicker">Creation Studio · 星籁影视工厂</div>
+        <h1>创作中心</h1>
+        <p class="lead" style="margin:0;color:var(--cc-sub);font-size:13.5px;max-width:840px">
+          从<b style="color:#f4e2bb">一句话</b>到<b style="color:#f4e2bb">可交付成片</b>：一键成片、AI 短剧全自动、电影/剧集 15 步向导。
+          每一步都能改、能回退；成片交付工程包 + QC 报告 + EDL/OTIO。AI 生成内容片头片尾烧录标识，发布前人工复核。
+        </p>
+        <div class="hub-stats">
+          <span class="hub-stat">类型模板 <b id="statTypes">9</b> 类</span>
+          <span class="hub-stat">电影向导 <b>15</b> 步</span>
+          <span class="hub-stat">短剧全自动 <b>1–100</b> 集</span>
+          <span class="hub-stat" id="statTasks">渲染任务 <b>—</b></span>
+          <span class="hub-stat" id="statQueue">队列 <b>—</b></span>
+          <span class="hub-stat" id="statRoute">通道 <b>—</b></span>
+        </div>
+        <div class="hub-cta">
+          <a class="cc-btn" href="movie/?mode=simple" id="btnSimple">⚡ 一键成片（简单模式）</a>
+          <a class="cc-btn soft" href="movie/">🎬 打开电影 · 剧集向导（专业 15 步）</a>
+          <a class="cc-btn ghost" href="#drama">📺 AI 短剧全自动</a>
+          <a class="cc-btn ghost" href="#tasks">📋 我的任务</a>
+        </div>
+      </div>
+      <div style="display:flex;flex-direction:column;gap:8px;min-width:220px">
+        <div class="cc-card" style="padding:12px 14px">
+          <div style="font-size:12px;color:var(--cc-sub);margin-bottom:6px">本页能做什么</div>
+          <div style="display:flex;flex-direction:column;gap:5px;font-size:12px;color:#c9d7ec">
+            <span>· 电影 / 剧集：15 步专业向导</span>
+            <span>· AI 短剧：一句话生成故事圣经</span>
+            <span>· 一键成片 / 解说 / 复刻 / 粗剪</span>
+            <span>· 我的任务：进度 · 成本 · 交付</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 继续上次 -->
+  <div class="hub-resume cc-hide" id="resumeCard"></div>
+
+  <div class="cc-shell">
+    <aside id="ccRail" aria-label="创作中心导航"></aside>
+    <main class="cc-main">
+
+      <!-- 快捷创作 -->
+      <section class="cc-sec">
+        <h2 class="cc-sec-title"><span class="tag">Quick Start</span> 快捷创作 <span class="line"></span></h2>
+        <div class="cc-grid cols-3">
+          <a class="quick-card" href="../autoedit/">
+            <span class="qi" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M13.2 2.4 5.4 13.2h5.2L9.6 21.6l8-11.2h-5.4l1-8Z"/></svg></span>
+            <h3>一键成片</h3>
+            <p>导入素材或一句话主题，自动套模板、配音、字幕、配乐，直接出片。适合口播、种草、门店宣传。</p>
+            <span class="go">进入全自动剪辑 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4.5 12h14"/><path d="m13.2 6.6 5.4 5.4-5.4 5.4"/></svg></span>
+          </a>
+          <a class="quick-card" href="../explainer/">
+            <span class="qi" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="3.2" y="4" width="17.6" height="11.6" rx="2"/><path d="M12 15.6v4.4M8.4 20h7.2"/><path d="m7.6 12.2 2.9-3.1 2.2 2.2 3.3-3.7"/></svg></span>
+            <h3>动态解说</h3>
+            <p>把文章 / 主题转成动态解说片：分镜、画面、旁白、字幕一条龙，适合知识科普与产品讲解。</p>
+            <span class="go">进入动态解说 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4.5 12h14"/><path d="m13.2 6.6 5.4 5.4-5.4 5.4"/></svg></span>
+          </a>
+          <a class="quick-card" href="../replicate/">
+            <span class="qi" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="8" y="8" width="12" height="12" rx="2"/><path d="M16 8V5.4A1.4 1.4 0 0 0 14.6 4H5.4A1.4 1.4 0 0 0 4 5.4v9.2A1.4 1.4 0 0 0 5.4 16H8"/><path d="M11.6 14h4.8M14 11.6v4.8"/></svg></span>
+            <h3>爆款复刻</h3>
+            <p>贴一条爆款链接，拆解节奏 / 钩子 / 镜头结构，用你的素材复刻同款结构，避免照抄画面。</p>
+            <span class="go">进入爆款复刻 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4.5 12h14"/><path d="m13.2 6.6 5.4 5.4-5.4 5.4"/></svg></span>
+          </a>
+        </div>
+      </section>
+
+      <!-- 电影·剧集向导 -->
+      <section class="cc-sec">
+        <h2 class="cc-sec-title"><span class="tag">Flagship</span> 电影 · 剧集向导 <span class="line"></span></h2>
+        <div class="movie-spot">
+          <div class="top">
+            <div style="min-width:min(620px,100%)">
+              <h2><span style="font-size:13px;font-weight:800;color:#1b1203;background:linear-gradient(135deg,#ffd479,#f5b944);border-radius:6px;padding:2px 7px">CORE</span> 15 步，把一句话做成电影/剧集</h2>
+              <p class="lead">真实剧组怎么走，页面就怎么走：<b>立项定类型 → 剧本定稿 → 角色/服化道 → 分镜 → 预演 → 预算档位 → 生成 → 审片 → 调色声音字幕 → 成片 → 交付工程包 → 归档 → 发行</b>。简单模式只填一句话就能出片，专业模式每一步都可改、可跳回。</p>
+            </div>
+            <div style="display:flex;gap:8px;flex-wrap:wrap">
+              <a class="cc-btn" href="movie/?mode=simple">⚡ 简单模式：一句话出片</a>
+              <a class="cc-btn soft" href="movie/">🎬 专业模式：15 步全控</a>
+            </div>
+          </div>
+          <div class="flow">
+            <div class="ph"><b>01 立项</b><span>类型 / 一句话故事 / 剧本定稿</span></div>
+            <div class="ph"><b>02 筹备</b><span>角色卡 / 场景服化道 / 分镜表 / 预演</span></div>
+            <div class="ph"><b>03 制作</b><span>档位预算 / 异步生成 / 逐镜 QC</span></div>
+            <div class="ph"><b>04 后期</b><span>审片 / 调色·声音·字幕 / 成片预览</span></div>
+            <div class="ph"><b>05 交付</b><span>工程包 / EDL·OTIO / 保存 / 发布</span></div>
+          </div>
+          <div class="bottom">
+            <span class="cc-pill amber"><i></i>9 类影视模板（电影/剧集/广告…）</span>
+            <span class="cc-pill info">2.39:1 遮幅 · 24fps · -16 LUFS</span>
+            <span class="cc-pill">工程包 project_pack v1（桌面可导入）</span>
+            <span class="cc-pill">QC 报告 + EDL / OTIO / LUT / SRT</span>
+            <span class="sp"></span>
+            <a class="cc-btn ghost sm" href="movie/?task=mm20261123190217-e61ce4">查看已完成样例</a>
+          </div>
+        </div>
+      </section>
+
+      <!-- AI 短剧全自动 -->
+      <section class="cc-sec" id="drama">
+        <h2 class="cc-sec-title"><span class="tag">Auto Drama</span> AI 短剧 · 全自动 <span class="line"></span></h2>
+        <div class="cc-card pad-lg drama-panel">
+          <div class="cc-card-head">
+            <div>
+              <h2>一句话 → 故事圣经 / 角色 / 分集大纲 <span class="cc-pill info">/api/aidrama/auto/*</span></h2>
+              <p class="sub">输入一句 premise，AI 自动生成题材定位、故事圣经、角色表、场景、服化道、分集大纲与合规声明；确认后进 AI 短剧工作台继续分镜与逐集出片（1–100 集，60s–3000s）。</p>
+            </div>
+            <div class="right"><a class="cc-btn ghost sm" href="../aidrama/">打开 AI 短剧工作台 →</a></div>
+          </div>
+          <div class="form-grid">
+            <div class="cc-field premise">
+              <label class="lbl" for="drPremise">一句话 premise <span class="req">*</span></label>
+              <textarea class="cc-textarea" id="drPremise" rows="3" placeholder="例：外卖员在暴雨夜给独居老人送最后一单，发现备注写着「不用敲门」，他还是轻轻敲了门。"></textarea>
+              <p class="hint">4–600 字。AI 依据它生成故事圣经与分集大纲；内容须为虚构原创，不得影射真实人物/企业/事件。</p>
+            </div>
+            <div class="cc-field">
+              <label class="lbl" for="drEpisodes">集数</label>
+              <select class="cc-select" id="drEpisodes"><option value="1">1 集（单集试拍）</option><option value="3" selected>3 集</option><option value="6">6 集</option><option value="12">12 集</option><option value="24">24 集</option></select>
+            </div>
+            <div class="cc-field">
+              <label class="lbl" for="drDuration">单集时长</label>
+              <select class="cc-select" id="drDuration"><option value="60">60 秒</option><option value="120" selected>120 秒</option><option value="180">180 秒</option></select>
+            </div>
+            <div class="cc-field">
+              <label class="lbl" for="drGenre">题材</label>
+              <select class="cc-select" id="drGenre"><option>都市</option><option>甜宠</option><option>悬疑</option><option>家庭</option><option>职场</option><option>古风</option><option>校园</option><option>逆袭</option><option>重生</option><option>复仇</option></select>
+            </div>
+          </div>
+          <div style="display:flex;gap:10px;flex-wrap:wrap;align-items:center">
+            <button type="button" class="cc-btn teal" id="drBtn">✦ 生成故事圣经与分集大纲</button>
+            <button type="button" class="cc-btn ghost" id="drCancel" style="display:none">取消</button>
+            <span class="cc-autosave" id="drState"><i></i>内测免费 · 按真实成本台账记账</span>
+            <span style="margin-left:auto"><a class="cc-btn ghost sm" href="../aidrama/">已有项目？去工作台</a></span>
+          </div>
+          <div class="drama-result cc-hide" id="drResult"></div>
+        </div>
+      </section>
+
+      <!-- 我的任务 -->
+      <section class="cc-sec" id="tasks">
+        <h2 class="cc-sec-title"><span class="tag">My Work</span> 我的任务 / 项目 <span class="line"></span></h2>
+        <div class="hub-grid-2">
+          <div class="cc-card">
+            <div class="cc-card-head">
+              <div>
+                <h3>任务与成片</h3>
+                <p class="sub">电影渲染任务来自 /api/movie/tasks；短剧与本地项目来自本机存档。点「打开」回到向导继续审片、交付。</p>
+              </div>
+              <div class="right"><button type="button" class="cc-btn ghost sm" id="btnRefreshTasks">刷新</button></div>
+            </div>
+            <div class="task-tabs" id="taskTabs">
+              <button type="button" class="on" data-tab="movie">电影渲染任务 <span class="n" id="cntMovie">—</span></button>
+              <button type="button" data-tab="drama">AI 短剧项目 <span class="n" id="cntDrama">—</span></button>
+              <button type="button" data-tab="local">本地电影项目 <span class="n" id="cntLocal">—</span></button>
+            </div>
+            <div id="taskHost"><div class="cc-loading"><span class="cc-spinner"></span>加载任务…</div></div>
+          </div>
+          <div class="cc-card">
+            <div class="cc-card-head"><div><h3>创作资产</h3><p class="sub">模板、素材、插件与积分入口</p></div></div>
+            <div style="display:flex;flex-direction:column;gap:8px">
+              <a class="cc-file" href="../templates/"><span class="fi">TP</span><span class="ft"><b>模板市场</b><small>行业模板 / 一键套用</small></span><span class="go">→</span></a>
+              <a class="cc-file" href="../assets/"><span class="fi">AS</span><span class="ft"><b>素材库</b><small>视频 / 图片 / 音乐 / 音效 / 字体</small></span><span class="go">→</span></a>
+              <a class="cc-file" href="../plugins/"><span class="fi">PL</span><span class="ft"><b>插件市场</b><small>专业插件与 AI 能力扩展</small></span><span class="go">→</span></a>
+              <a class="cc-file" href="../smartcut/"><span class="fi">SC</span><span class="ft"><b>智能粗剪</b><small>长素材自动成片</small></span><span class="go">→</span></a>
+              <a class="cc-file" href="../docvideo/"><span class="fi">DV</span><span class="ft"><b>文档转视频</b><small>PPT / 文档 → 讲解片</small></span><span class="go">→</span></a>
+              <a class="cc-file" href="../account/dashboard.html"><span class="fi">CR</span><span class="ft"><b>我的积分 / 套餐</b><small id="assetCredit">—</small></span><span class="go">→</span></a>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- 合规 -->
+      <div class="compliance-foot">
+        <div class="fl"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3.2 19 6v5.4c0 4.4-2.9 7.5-7 9.4-4.1-1.9-7-5-7-9.4V6l7-2.8Z"/><path d="m8.8 12 2.2 2.2 4.4-4.4"/></svg>AI 内容合规与真人授权提示</div>
+        <b>AI 标识：</b>电影/短剧成片片头或片尾烧录「AI 生成」标识，工程包内附标识与素材清单。<b>真人授权：</b>禁止上传或生成未经授权的真人肖像、声音与商标素材；使用真人形象须取得本人书面授权并留存。<b>虚构声明：</b>人物、企业、事件均为 AI 虚构创作，如有雷同纯属巧合，不得用于影射真实对象。<b>发布：</b>平台不代为发布，需人工复核后到「发行中心」按各平台规范自行送审发布；禁止违法、低俗、侵权用途。
+      </div>
+    </main>
+  </div>
+</div>
+
+<script src="assets/console.js?v=20261124b"></script>
+<script>
+(function () {
+  'use strict';
+  var CC = window.XLCC;
+  var $ = function (s, r) { return (r || document).querySelector(s); };
+  var esc = CC.esc;
+
+  /* ---------- 外壳 ---------- */
+  CC.mountTopbar($('#ccTopbar'));
+  CC.mountRail($('#ccRail'), 'home');
+
+  var state = { health: null, types: 9, tasks: [], tab: 'movie', dramaAbort: null };
+
+  /* ---------- 顶部状态 ---------- */
+  function loadHealth() {
+    CC.api('/movie/health').then(function (h) {
+      state.health = h;
+      var c = (h.db && h.db.counts) || {};
+      $('#statTypes').textContent = h.types || 9;
+      $('#statTasks').innerHTML = '渲染任务 <b>' + ((c.tasks || 0)) + '</b>';
+      var q = h.queue || {};
+      $('#statQueue').innerHTML = '队列 <b>' + (q.queued || 0) + '</b>';
+      var route = h.active_route_label || h.active_route || '—';
+      $('#statRoute').innerHTML = '通道 <b style="font-size:11px">' + esc(String(route).slice(0, 14)) + '</b>';
+      if (h.bailian_arrearage === 'overdue-payment') {
+        var p = $('#statRoute'); p.title = '百炼欠费，图/视频/配音/口型自动走 302 通道';
+      }
+      var st = $('#drState');
+      if (st && h.queue) st.innerHTML = '<i></i>渲染队列 ' + (q.queued || 0) + ' 个 · ' + (h.version || 'movie-mode');
+    }).catch(function () {
+      $('#statRoute').innerHTML = '通道 <b>不可用</b>';
+    });
+    CC.api('/movie/types').then(function (d) {
+      if (d && d.count) { state.types = d.count; $('#statTypes').textContent = d.count; }
+    }).catch(function () {});
+  }
+
+  /* ---------- 继续上次 ---------- */
+  function renderResume() {
+    var movie = CC.store('xl_create_movie_v1');
+    var dramaList = CC.store('xl_create_aidrama_projects_v1') || [];
+    var lastDrama = dramaList[0];
+    var card = $('#resumeCard');
+    var items = [];
+    var movieReal = movie && movie.savedAt && (movie.premise || movie.planId || movie.taskId || (movie.shots || []).some(function (s) { return s && s.scene; }));
+    if (movieReal) {
+      items.push({
+        ico: '🎬', name: '电影项目：' + (movie.title || '未命名影片'),
+        meta: '第 ' + (movie.step || 1) + ' 步 · ' + (movie.typeLabel || movie.type || '电影') + ' · 保存于 ' + CC.fmtTime(movie.savedAt),
+        href: 'movie/?resume=1'
+      });
+    }
+    if (lastDrama && lastDrama.savedAt) {
+      items.push({
+        ico: '📺', name: '短剧项目：' + (lastDrama.title || lastDrama.project_id || '未命名'),
+        meta: (lastDrama.episodes || '—') + ' 集 · 保存于 ' + CC.fmtTime(lastDrama.savedAt),
+        href: '../aidrama/'
+      });
+    }
+    if (!items.length) { card.classList.add('cc-hide'); return; }
+    card.classList.remove('cc-hide');
+    card.innerHTML = items.map(function (it) {
+      return '<span class="ri">' + it.ico + '</span>' +
+        '<span class="rt"><b>' + esc(it.name) + '</b><small>' + esc(it.meta) + '</small></span>' +
+        (it.href ? '<a class="cc-btn sm" href="' + esc(it.href) + '">继续创作</a>' : '');
+    }).join('<span style="width:1px;height:26px;background:var(--cc-line)"></span>');
+  }
+
+  /* ---------- 任务区 ---------- */
+  function statusPill(status, stage) {
+    var m = { queued: 'warn', running: 'info', done: 'ok', failed: 'bad', partial: 'warn', interrupted: 'bad' };
+    var label = { queued: '排队中', running: '生成中', done: '已完成', failed: '失败', partial: '部分完成', interrupted: '已中断（服务重启）' }[status] || status || '—';
+    return '<span class="cc-pill ' + (m[status] || '') + '"><i></i>' + esc(label) + '</span>';
+  }
+
+  function renderTasks() {
+    var host = $('#taskHost');
+    var tab = state.tab;
+    if (tab === 'movie') {
+      if (!state.tasks.length) {
+        host.innerHTML = '<div class="cc-empty"><div class="ei">🎬</div><b>还没有电影渲染任务</b>' +
+          '去<a class="cc-btn link" href="movie/?mode=simple">简单模式</a>用一句话生成一条短片，提交后任务与成片会出现在这里。</div>';
+        return;
+      }
+      var rows = state.tasks.map(function (t) {
+        var pct = Number(t.progress || 0);
+        return '<tr>' +
+          '<td class="idcell">' + esc(String(t.task_id || '').slice(-14)) + '</td>' +
+          '<td>' + statusPill(t.status, t.stage) + '</td>' +
+          '<td style="min-width:160px"><div class="cc-progress thin"><i style="width:' + pct + '%"></i></div><div style="font-size:10.5px;color:var(--cc-dim);margin-top:3px">' + esc(t.stage || '') + ' · ' + pct + '%</div></td>' +
+          '<td class="num">' + CC.fmtMoney(t.cost_cny) + '</td>' +
+          '<td class="num" style="font-size:11px">' + esc(CC.fmtTime(t.created_at)) + '</td>' +
+          '<td class="tight"><a class="cc-btn ghost sm" href="movie/?task=' + encodeURIComponent(t.task_id) + '">打开</a></td>' +
+          '</tr>';
+      }).join('');
+      host.innerHTML = '<div class="cc-table-wrap"><table class="cc-table"><thead><tr>' +
+        '<th>任务</th><th>状态</th><th>进度</th><th>成本</th><th>创建时间</th><th></th>' +
+        '</tr></thead><tbody>' + rows + '</tbody></table></div>' +
+        '<p class="hint" style="font-size:11px;color:var(--cc-dim);margin:8px 0 0">任务为服务端真实渲染队列（2C2G 单机串行，约 8–30 分钟/条）；完成后点「打开」查看成片、QC 与工程包。</p>';
+      return;
+    }
+    if (tab === 'drama') {
+      var list = CC.store('xl_create_aidrama_projects_v1') || [];
+      $('#cntDrama').textContent = list.length;
+      if (!list.length) {
+        host.innerHTML = '<div class="cc-empty"><div class="ei">📺</div><b>还没有 AI 短剧项目</b>在上方「AI 短剧 · 全自动」输入一句话即可生成故事圣经与分集大纲（内测免费）。</div>';
+        return;
+      }
+      host.innerHTML = '<div class="cc-table-wrap"><table class="cc-table"><thead><tr><th>项目</th><th>题材</th><th>集数</th><th>状态</th><th>生成时间</th><th></th></tr></thead><tbody>' +
+        list.map(function (p) {
+          return '<tr><td><b style="color:#f3dfae">' + esc(p.title || '未命名') + '</b><div style="font-size:10.5px;color:var(--cc-dim)" class="cc-mono">' + esc(p.project_id || '') + '</div></td>' +
+            '<td>' + esc(p.genre || '—') + '</td><td class="num">' + esc(p.episodes || '—') + '</td>' +
+            '<td><span class="cc-pill ok"><i></i>大纲已生成</span></td>' +
+            '<td class="num" style="font-size:11px">' + esc(CC.fmtTime(p.savedAt)) + '</td>' +
+            '<td class="tight"><a class="cc-btn ghost sm" href="../aidrama/">去工作台</a> <button class="cc-btn ghost sm" data-del-drama="' + esc(p.project_id || '') + '">删除</button></td></tr>';
+        }).join('') + '</tbody></table></div>';
+      host.querySelectorAll('[data-del-drama]').forEach(function (b) {
+        b.addEventListener('click', function () {
+          var id = b.getAttribute('data-del-drama');
+          var l = (CC.store('xl_create_aidrama_projects_v1') || []).filter(function (x) { return x.project_id !== id; });
+          CC.store('xl_create_aidrama_projects_v1', l);
+          renderTasks(); renderResume();
+          CC.toast('已从本机存档移除（服务端项目仍在工作台）');
+        });
+      });
+      return;
+    }
+    // local
+    var lib = CC.store('xl_create_movie_library_v1') || [];
+    $('#cntLocal').textContent = lib.length;
+    if (!lib.length) {
+      host.innerHTML = '<div class="cc-empty"><div class="ei">💾</div><b>还没有本地电影项目</b>在电影向导第 14 步「保存项目」会把项目 JSON 存在本机（不上传），可随时导出/导入继续编辑。</div>';
+      return;
+    }
+    host.innerHTML = '<div class="cc-table-wrap"><table class="cc-table"><thead><tr><th>项目</th><th>类型</th><th>镜头</th><th>保存时间</th><th></th></tr></thead><tbody>' +
+      lib.map(function (p) {
+        return '<tr><td><b style="color:#f3dfae">' + esc(p.title || '未命名影片') + '</b><div style="font-size:10.5px;color:var(--cc-dim)" class="cc-mono">' + esc(p.id || '') + '</div></td>' +
+          '<td>' + esc(p.typeLabel || p.type || '电影') + '</td><td class="num">' + esc((p.shots || []).length) + '</td>' +
+          '<td class="num" style="font-size:11px">' + esc(CC.fmtTime(p.savedAt)) + '</td>' +
+          '<td class="tight"><a class="cc-btn ghost sm" href="movie/?project=' + encodeURIComponent(p.id || '') + '">继续编辑</a></td></tr>';
+      }).join('') + '</tbody></table></div>';
+  }
+
+  function loadTasks() {
+    CC.api('/movie/tasks?limit=20').then(function (d) {
+      state.tasks = ((d && d.tasks) || []).slice();
+      $('#cntMovie').textContent = state.tasks.length;
+      renderTasks();
+      // 任务表是 DB 快照；对未结束的任务用实时接口校正状态（避免重启/多实例导致的状态滞后）
+      var pending = state.tasks.filter(function (t) { return t.status !== 'done' && t.status !== 'failed'; }).slice(0, 10);
+      if (!pending.length) return;
+      Promise.all(pending.map(function (t) {
+        return CC.api('/movie/task/' + encodeURIComponent(t.task_id)).then(function (live) {
+          if (!live) return null;
+          ['status', 'stage', 'progress', 'cost_cny', 'elapsed'].forEach(function (k) { if (live[k] != null) t[k] = live[k]; });
+          // 服务重启后任务 JSON 可能滞后：长时间无更新的 running/queued 视为已中断
+          var upd = live.updated_at || t.updated_at || t.created_at;
+          var idle = 0;
+          try { idle = upd ? (Date.now() - new Date(String(upd).replace(/-/g, '/')).getTime()) / 60000 : 0; } catch (e) {}
+          if ((t.status === 'running' || t.status === 'queued') && idle > 15) {
+            t.status = 'interrupted';
+            t.stage = '长时间无更新（服务重启/中断），可打开任务重新提交';
+          }
+          return t.task_id;
+        }).catch(function () { return null; });
+      })).then(function () { renderTasks(); });
+    }).catch(function (e) {
+      $('#taskHost').innerHTML = '<div class="cc-note bad"><span class="ico">!</span><div>任务加载失败：' + esc(CC.errText(e)) + '</div></div>';
+    });
+  }
+
+  $('#taskTabs').addEventListener('click', function (ev) {
+    var b = ev.target.closest('button[data-tab]');
+    if (!b) return;
+    state.tab = b.getAttribute('data-tab');
+    $('#taskTabs').querySelectorAll('button').forEach(function (x) { x.classList.toggle('on', x === b); });
+    renderTasks();
+  });
+  $('#btnRefreshTasks').addEventListener('click', function () { loadTasks(); renderTasks(); CC.toast('已刷新任务'); });
+
+  /* ---------- AI 短剧全自动 ---------- */
+  function fmtElapsed(sec) {
+    sec = Math.max(0, Math.floor(sec));
+    return sec >= 60 ? Math.floor(sec / 60) + ' 分 ' + (sec % 60) + ' 秒' : sec + ' 秒';
+  }
+  $('#drBtn').addEventListener('click', function () {
+    if (!CC.requireLogin()) return;
+    var premise = $('#drPremise').value.trim();
+    if (premise.length < 4) { CC.toast('请先写一句 premise（至少 4 个字）', 'warn'); $('#drPremise').focus(); return; }
+    var btn = $('#drBtn'), cancel = $('#drCancel'), rs = $('#drResult');
+    btn.disabled = true; btn.textContent = '生成中…';
+    cancel.style.display = '';
+    $('#drState').innerHTML = '<span class="cc-spinner"></span> AI 正在写故事圣经、角色、场景与分集大纲（约 1–3 分钟）';
+    rs.classList.remove('cc-hide');
+    rs.innerHTML = '<div class="cc-loading"><span class="cc-spinner"></span><span id="drElapsed">已用 0 秒</span></div>';
+    var t0 = Date.now();
+    var timer = setInterval(function () {
+      var el = $('#drElapsed'); if (el) el.textContent = '已用 ' + fmtElapsed((Date.now() - t0) / 1000) + '（LLM 生成中，请勿关闭页面）';
+    }, 1000);
+    var ctrl = window.AbortController ? new AbortController() : null;
+    state.dramaAbort = ctrl;
+    CC.api('/aidrama/auto/outline', {
+      method: 'POST', signal: ctrl ? ctrl.signal : undefined,
+      body: {
+        premise: premise,
+        episodes: Number($('#drEpisodes').value) || 3,
+        duration: Number($('#drDuration').value) || 120,
+        genre: $('#drGenre').value || '都市',
+        ratio: '9:16', tier: 'standard'
+      }
+    }).then(function (d) {
+      clearInterval(timer);
+      btn.disabled = false; btn.textContent = '✦ 生成故事圣经与分集大纲';
+      cancel.style.display = 'none';
+      state.dramaAbort = null;
+      if (!d || !d.ok) throw new Error((d && d.hint) || '生成失败');
+      var p = d.project || {};
+      var chars = d.characters || [];
+      var eps = d.episodes_outline || [];
+      var enc = d.estimate || {};
+      rs.innerHTML =
+        '<div class="cc-card" style="padding:14px">' +
+        '<div class="title">📺 ' + esc(p.title || '未命名短剧') + ' <span class="cc-pill ok"><i></i>故事圣经已生成</span>' +
+        '<span class="cc-pill info">' + esc(p.genre || '') + ' · ' + esc(p.duration_label || (p.duration || 120) + ' 秒') + ' · ' + esc((p.episodes || 0) + ' 集') + '</span></div>' +
+        '<p class="logline">' + esc(d.logline || '') + '</p>' +
+        '<div class="chip-list" style="margin-bottom:10px">' +
+        '<span class="c gold">角色 ' + (d.cast_stats && d.cast_stats.total != null ? d.cast_stats.total : chars.length) + ' 人</span>' +
+        '<span class="c">场景 ' + (d.scenes || []).length + ' 个</span>' +
+        '<span class="c">服化道 ' + (d.wardrobe || []).length + ' 套</span>' +
+        '<span class="c">音乐 ' + (d.music || []).length + ' 条</span>' +
+        '<span class="c">预估成本 ' + CC.fmtMoney((enc.total_cny != null ? enc.total_cny : enc.estimate_cny)) + '</span>' +
+        '<span class="c">AI 标识：已内置</span></div>' +
+        (chars.length ? '<div class="chip-list" style="margin-bottom:10px">' + chars.slice(0, 8).map(function (c) {
+          return '<span class="c">' + esc(c.name || '') + (c.role ? '·' + esc(c.role) : '') + '</span>';
+        }).join('') + '</div>' : '') +
+        (eps.length ? '<div class="ep-outline">' + eps.slice(0, 10).map(function (e) {
+          return '<div class="ep"><b>第 ' + e.no + ' 集 · ' + esc(e.title || '') + '</b>' + esc(e.summary || '') +
+            (e.hook ? '<span class="hook">钩子：' + esc(e.hook) + '</span>' : '') + '</div>';
+        }).join('') + '</div>' : '') +
+        '<div class="cc-note amber" style="margin-top:11px"><span class="ico">!</span><div>' + esc(d.fiction_notice || '本剧所有人物、企业、事件均为 AI 虚构创作，如有雷同纯属巧合。') + '</div></div>' +
+        '<div style="display:flex;gap:8px;flex-wrap:wrap;margin-top:12px">' +
+        '<a class="cc-btn teal" href="../aidrama/">继续：去 AI 短剧工作台做分镜与出片 →</a>' +
+        '<button type="button" class="cc-btn ghost" id="drSave">保存项目到本机</button>' +
+        '<a class="cc-btn ghost" href="../publish/">去发行中心</a>' +
+        '</div></div>';
+      var proj = {
+        project_id: d.project_id, title: p.title, genre: p.genre, episodes: p.episodes,
+        logline: d.logline, savedAt: new Date().toISOString()
+      };
+      $('#drSave').addEventListener('click', function () {
+        var list = CC.store('xl_create_aidrama_projects_v1') || [];
+        list = list.filter(function (x) { return x.project_id !== proj.project_id; });
+        list.unshift(proj);
+        CC.store('xl_create_aidrama_projects_v1', list.slice(0, 30));
+        CC.toast('已保存到本机「我的任务 → AI 短剧项目」', 'ok');
+        state.tab = 'drama';
+        $('#taskTabs').querySelectorAll('button').forEach(function (x) { x.classList.toggle('on', x.getAttribute('data-tab') === 'drama'); });
+        renderTasks(); renderResume();
+      });
+      // 自动存一份，避免误关
+      var auto = CC.store('xl_create_aidrama_projects_v1') || [];
+      auto = auto.filter(function (x) { return x.project_id !== proj.project_id; });
+      auto.unshift(proj);
+      CC.store('xl_create_aidrama_projects_v1', auto.slice(0, 30));
+      $('#drState').innerHTML = '<i></i>已生成并暂存本机（' + esc(p.title || '') + '）';
+      state.tab = 'drama';
+      renderTasks(); renderResume();
+      CC.toast('故事圣经已生成', 'ok');
+    }).catch(function (e) {
+      clearInterval(timer);
+      btn.disabled = false; btn.textContent = '✦ 生成故事圣经与分集大纲';
+      cancel.style.display = 'none';
+      state.dramaAbort = null;
+      if (e && (e.name === 'AbortError' || e.code === 'ABORT_ERR')) { rs.innerHTML = '<div class="cc-note warn"><span class="ico">!</span><div>已取消生成。</div></div>'; return; }
+      if (e && e.authRequired) { rs.innerHTML = '<div class="cc-note bad"><span class="ico">!</span><div>请先登录后再生成（登录后自动回到本页）。<a href="' + esc(CC.loginUrl()) + '">去登录</a></div></div>'; return; }
+      rs.innerHTML = '<div class="cc-note bad"><span class="ico">!</span><div>生成失败：' + esc(CC.errText(e)) + '</div></div>';
+      $('#drState').innerHTML = '<i style="background:var(--cc-bad)"></i>生成失败';
+    });
+  });
+  $('#drCancel').addEventListener('click', function () {
+    if (state.dramaAbort) { try { state.dramaAbort.abort(); } catch (e) {} }
+  });
+
+  /* ---------- 启动 ---------- */
+  loadHealth();
+  loadTasks();
+  renderTasks();
+  renderResume();
+  loadCreditsAsset();
+  function loadCreditsAsset() {
+    CC.loadCredits().then(function (d) {
+      var el = $('#assetCredit');
+      if (!el) return;
+      if (!d) { el.textContent = '登录后查看余额'; return; }
+      var b = Number(d.balance || 0);
+      el.textContent = '余额 ' + CC.fmtCredit(b) + ' 积分 · ' + ((d.plan && d.plan.name) || '') + (d.admin_exempt ? ' · 内部免扣' : '');
+    }).catch(function () {});
+  }
+  document.addEventListener('xl-gate:change', function () { loadCreditsAsset(); });
+  // 支持 #tasks 锚点与 ?tab=tasks
+  if (CC.qs('tab') === 'tasks' || location.hash === '#tasks') {
+    setTimeout(function () { var t = $('#tasks'); if (t) t.scrollIntoView({ behavior: 'smooth', block: 'start' }); }, 300);
+  }
+})();
+</script>
+<script defer src="../assets/site-shell.js?v=20261124a"></script>
+</body>
+</html>

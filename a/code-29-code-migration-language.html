@@ -16,7 +16,7 @@
 <meta property="og:title" content="代码 迁移 语言：Java 转 Go 四步法">
 <meta property="og:description" content="去年把一个 8600 行的 Java 订单服务转成 Go，一共 10 个模块。第一版我直接让 AI 逐文件翻译，编译能过，上线当天就出事：金额按 long 存分，Go 那边有人随手改成 float64，对账差 0.03 ">
 <meta property="og:url" content="https://xinglaiai.com/ai-nav/a/code-29-code-migration-language.html">
-<script type="application/ld+json">{"@context": "https://schema.org", "@type": "Article", "headline": "代码 迁移 语言：Java 转 Go 四步法", "inLanguage": "zh-CN", "datePublished": "2026-11-23", "author": {"@type": "Organization", "name": "星籁 Stellara"}, "publisher": {"@type": "Organization", "name": "星籁 Stellara"}, "mainEntityOfPage": "https://xinglaiai.com/ai-nav/a/code-29-code-migration-language.html", "articleSection": "编程助手", "wordCount": 838, "dateModified": "2026-11-23", "keywords": "代码 迁移 语言, 语义 差异, 黄金 测试, 灰度 上线, 跨语言 代码 迁移, 代码 迁移 测试 方案"}</script>
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "Article", "headline": "代码 迁移 语言：Java 转 Go 四步法", "inLanguage": "zh-CN", "datePublished": "2026-11-24", "author": {"@type": "Organization", "name": "星籁 Stellara"}, "publisher": {"@type": "Organization", "name": "星籁 Stellara"}, "mainEntityOfPage": "https://xinglaiai.com/ai-nav/a/code-29-code-migration-language.html", "articleSection": "编程助手", "wordCount": 838, "dateModified": "2026-11-24", "keywords": "代码 迁移 语言, 语义 差异, 黄金 测试, 灰度 上线, 跨语言 代码 迁移, 代码 迁移 测试 方案"}</script>
 <script type="application/ld+json">{"@context": "https://schema.org", "@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "首页", "item": "https://xinglaiai.com/ai-nav/"}, {"@type": "ListItem", "position": 2, "name": "编程助手", "item": "https://xinglaiai.com/ai-nav/#/articles"}, {"@type": "ListItem", "position": 3, "name": "代码 迁移 语言：Java 转 Go 四步法", "item": "https://xinglaiai.com/ai-nav/a/code-29-code-migration-language.html"}]}</script>
 <style>
 :root{--bg:#080b12;--panel:#111827;--line:#1f2937;--txt:#e6edf7;--txt2:#9aa8bd;--txt3:#6b7a90;--cyan:#5ad1ff;--violet:#a78bfa}
@@ -298,11 +298,11 @@ article.content p{letter-spacing:.01em}
 }
 </style>
 <link rel="stylesheet" href="../assets/auth-nav.css">
+<link rel="icon" href="data:image/svg+xml,%3Csvg%20xmlns='http://www.w3.org/2000/svg'%20viewBox='0%200%2064%2064'%3E%3Crect%20width='64'%20height='64'%20rx='14'%20fill='%23070a10'/%3E%3Cpath%20d='M32%2012l5.6%2013.6L51%2031l-13.4%205.4L32%2050l-5.6-13.6L13%2031l13.4-5.4z'%20fill='%2338bdf8'/%3E%3C/svg%3E">
 <link rel="stylesheet" href="../assets/theme-light.css">
 <script defer src="../assets/theme.js"></script>
 <!--xl-theme-end-->
 <link rel="stylesheet" href="../assets/site-shell.css">
-<link rel="icon" href="data:image/svg+xml,%3Csvg%20xmlns='http://www.w3.org/2000/svg'%20viewBox='0%200%2064%2064'%3E%3Crect%20width='64'%20height='64'%20rx='14'%20fill='%23070a10'/%3E%3Cpath%20d='M32%2012l5.6%2013.6L51%2031l-13.4%205.4L32%2050l-5.6-13.6L13%2031l13.4-5.4z'%20fill='%2338bdf8'/%3E%3C/svg%3E">
 </head>
 <body>
 <header class="top"><div class="top-in">

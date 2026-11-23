@@ -1,63 +1,115 @@
 <!DOCTYPE html>
-<!-- 2026-11-18 leadgen-biz: 年费定价（1980/3980/6980）+ 日均价 / 人工开通上线 -->
 <html lang="zh-CN" data-skin="auth" data-page="pricing">
 <head>
 <meta charset="UTF-8">
 <!--xl-theme-start-->
 <script>(function(){try{var k="xl_theme",v=localStorage.getItem(k),m=(v==="dark"||v==="light"||v==="auto")?v:"auto",q=window.matchMedia?window.matchMedia("(prefers-color-scheme: light)"):null,t=(m==="auto")?((q&&q.matches)?"light":"dark"):m,d=document.documentElement;d.setAttribute("data-theme",t);d.setAttribute("data-theme-mode",m);d.style.colorScheme=t}catch(e){document.documentElement.setAttribute("data-theme","dark")}})();</script>
-
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <link rel="icon" href="data:,">
-<title>年费套餐：日均 ¥5.4 起 · 星籁 AI 获客工具</title>
-<meta name="description" content="星籁 AI 年费套餐：基础版 ¥1980/年（日均 ¥5.4）、专业版 ¥3980/年（日均 ¥10.9）、旗舰版 ¥6980/年（日均 ¥19.1），另有免费体验版。年费一次收取 12 个月，视频 60/200/600 条每月，线索 500/2000/8000 条每月，人工开通、支持开票。">
+<title>套餐定价：商家版 ¥199/月 起 · 星籁剪辑商用版 | 星籁 AI</title>
+<meta name="description" content="星籁剪辑商用版三档订阅：商家版 ¥199/月、专业版 ¥599/月、企业版 ¥2,999/月（年付省 2 个月），含桌面软件、网页 AI 积分、商用素材授权与商用授权；积分包 ¥99/¥299/¥999 起，企业版支持私有化/白标/自定义模型。支持对公转账与开票，在线支付即将开放。">
 <meta name="robots" content="noindex,nofollow"><meta name="googlebot" content="noindex,nofollow">
 <link rel="canonical" href="https://xinglaiai.com/ai-nav/pricing/">
 <link rel="stylesheet" href="../assets/auth.css">
+<link rel="stylesheet" href="../assets/theme-light.css">
+<script defer src="../assets/theme.js"></script>
+<!--xl-theme-end-->
+<link rel="stylesheet" href="../assets/site-shell.css?v=20261123">
 <style>
-.pricing-hero{padding:52px 0 10px;text-align:center}
-.pricing-hero h1{font-size:40px;line-height:1.2;letter-spacing:-.03em;margin:0 0 14px}
+.pricing-hero{padding:46px 0 8px;text-align:center}
+.pricing-hero h1{font-size:40px;line-height:1.18;letter-spacing:-.03em;margin:0 0 14px}
 .pricing-hero h1 em{font-style:normal;background:linear-gradient(90deg,#38bdf8,#8b5cf6);-webkit-background-clip:text;background-clip:text;color:transparent}
-.pricing-hero p{max-width:680px;margin:0 auto;color:var(--txt2);font-size:14.5px;line-height:1.75}
-.pricing-hero .eyebrow{margin-bottom:14px}
-.current-bar{max-width:860px;margin:18px auto 0;padding:11px 16px;border-radius:11px;border:1px solid rgba(56,189,248,.28);background:rgba(56,189,248,.07);font-size:12.5px;color:#bae6fd;line-height:1.7}
-.current-bar a{color:#7dd3fc;text-decoration:underline}
-.current-bar b{color:#e0f2fe}
-.plans{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:15px;margin:26px 0 10px;align-items:stretch}
-.plan{position:relative;display:flex;flex-direction:column;border-radius:18px;border:1px solid var(--line);padding:22px 18px 18px;background:linear-gradient(180deg,rgba(18,27,41,.9),rgba(11,17,27,.95));transition:.2s}
-.plan:hover{transform:translateY(-3px);border-color:rgba(148,163,184,.38);box-shadow:0 18px 44px rgba(0,0,0,.35)}
-.plan.hot{border-color:rgba(56,189,248,.48);box-shadow:0 0 0 1px rgba(56,189,248,.18),0 18px 50px rgba(56,189,248,.1)}
-.plan.current{border-color:rgba(52,211,153,.55);box-shadow:0 0 0 1px rgba(52,211,153,.25),0 18px 50px rgba(52,211,153,.08)}
-.plan .tagline{position:absolute;top:-11px;left:50%;transform:translateX(-50%);padding:3px 12px;border-radius:999px;font-size:11px;font-weight:700;white-space:nowrap;background:linear-gradient(135deg,#38bdf8,#8b5cf6);color:#04121d;letter-spacing:.03em}
-.plan .tagline.green{background:linear-gradient(135deg,#34d399,#38bdf8)}
-.plan-top{padding-bottom:15px;border-bottom:1px solid var(--line);margin-bottom:14px}
-.plan-name{font-size:16px;font-weight:800;margin:0 0 3px;display:flex;align-items:center;gap:7px}
-.plan-desc{font-size:11.5px;color:var(--txt3);margin:0 0 12px;min-height:18px}
-.price{display:flex;align-items:flex-end;gap:4px;line-height:1;margin-bottom:6px;flex-wrap:wrap}
-.price .cur{font-size:17px;font-weight:700;color:var(--txt2);padding-bottom:3px}
-.price .num{font-size:40px;font-weight:800;letter-spacing:-.035em;font-variant-numeric:tabular-nums}
-.price .unit{font-size:12px;color:var(--txt3);padding-bottom:5px}
-.daily{margin:0 0 4px;font-size:12.5px;color:#bae6fd;line-height:1.6}
-.daily b{color:#7dd3fc;font-size:14px;font-variant-numeric:tabular-nums}
-.price-note{font-size:11.5px;color:var(--txt3);min-height:18px;line-height:1.5}
-.plan-cta{margin:12px 0 14px}
-.plan-feats{display:grid;gap:0;font-size:12.5px;margin-top:auto}
-.feat{display:flex;justify-content:space-between;gap:10px;padding:7px 0;border-bottom:1px dashed rgba(148,163,184,.1)}
-.feat:last-child{border-bottom:0}
-.feat .k{color:var(--txt3);white-space:nowrap}
-.feat .v{color:var(--txt);font-weight:600;text-align:right}
-.feat .v.no{color:var(--txt3);font-weight:400}
-.feat .v.yes{color:var(--lime)}
-.plan-foot{font-size:11px;color:var(--txt3);margin-top:11px;min-height:30px;line-height:1.5}
-.notes{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:15px;margin:34px 0 8px}
-.note-card{padding:20px;border-radius:15px;border:1px solid var(--line);background:rgba(15,22,34,.65)}
-.note-card h3{margin:0 0 9px;font-size:14.5px;display:flex;align-items:center;gap:8px}
-.note-card h3 span{display:grid;place-items:center;width:26px;height:26px;border-radius:8px;background:rgba(56,189,248,.1);border:1px solid rgba(56,189,248,.22);font-size:13px}
-.note-card p{margin:0;font-size:12.5px;color:var(--txt2);line-height:1.75}
-.note-card p+p{margin-top:8px}
-.faq-sec{margin:38px 0 0}
-.faq-sec h2{font-size:22px;margin:0 0 6px;letter-spacing:-.02em}
-.faq-sec .sub{color:var(--txt3);font-size:13px;margin:0 0 16px}
-.faq-list{display:grid;gap:9px}
+.pricing-hero p{max-width:720px;margin:0 auto;color:var(--txt2);font-size:14.5px;line-height:1.78}
+.trust-strip{display:flex;align-items:center;justify-content:center;gap:8px;flex-wrap:wrap;margin:20px auto 0;font-size:11.5px;color:var(--txt3)}
+.trust-strip span{padding:4px 10px;border-radius:999px;border:1px solid var(--line);background:rgba(255,255,255,.02)}
+.trust-strip span.warn{color:#fcd34d;border-color:rgba(251,191,36,.35);background:rgba(251,191,36,.07)}
+.status-bar{max-width:880px;margin:16px auto 0;display:flex;align-items:center;justify-content:center;gap:8px;flex-wrap:wrap;font-size:11.5px;color:var(--txt3)}
+.status-bar .dot{width:6px;height:6px;border-radius:50%;background:var(--lime);box-shadow:0 0 8px var(--lime)}
+.status-bar .dot.warn{background:var(--amber);box-shadow:0 0 8px var(--amber)}
+.status-bar a{color:#7dd3fc;text-decoration:underline;text-underline-offset:2px}
+.current-sub{max-width:880px;margin:12px auto 0;padding:10px 16px;border-radius:11px;border:1px solid rgba(52,211,153,.3);background:rgba(52,211,153,.07);font-size:12.5px;color:#a7f3d0;line-height:1.7;text-align:left}
+.current-sub b{color:#d1fae5}
+.billing-toggle{display:flex;align-items:center;justify-content:center;gap:10px;margin:26px 0 6px;flex-wrap:wrap}
+.billing-toggle .seg{display:inline-flex;padding:4px;border-radius:12px;border:1px solid var(--line2);background:rgba(255,255,255,.03)}
+.billing-toggle .seg button{border:0;background:none;color:var(--txt2);font-size:13px;font-weight:700;padding:9px 16px;border-radius:9px;cursor:pointer;min-height:40px}
+.billing-toggle .seg button.on{background:linear-gradient(135deg,rgba(56,189,248,.22),rgba(139,92,246,.22));color:#e0f2fe;box-shadow:inset 0 0 0 1px rgba(56,189,248,.35)}
+.billing-toggle .save{font-size:11.5px;color:#6ee7b7;border:1px solid rgba(52,211,153,.35);background:rgba(52,211,153,.08);border-radius:999px;padding:3px 9px}
+.plans{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:16px;margin:22px 0 8px;align-items:stretch}
+.plan{position:relative;display:flex;flex-direction:column;border-radius:18px;border:1px solid var(--line);padding:24px 20px 18px;background:linear-gradient(180deg,rgba(18,27,41,.92),rgba(11,17,27,.96));transition:.2s}
+.plan:hover{transform:translateY(-3px);border-color:rgba(148,163,184,.4);box-shadow:0 18px 44px rgba(0,0,0,.35)}
+.plan.hot{border-color:rgba(56,189,248,.5);box-shadow:0 0 0 1px rgba(56,189,248,.18),0 18px 50px rgba(56,189,248,.1)}
+.plan .tag,.plan .tag.hot{position:absolute;top:-11px;left:50%;transform:translateX(-50%);padding:3px 12px;border-radius:999px;font-size:11px;font-weight:800;white-space:nowrap;background:linear-gradient(135deg,#38bdf8,#8b5cf6);color:#04121d;letter-spacing:.03em}
+.plan .plan-top{padding-bottom:14px;border-bottom:1px solid var(--line);margin-bottom:13px}
+.plan .plan-name{font-size:17px;font-weight:800;margin:0 0 4px;display:flex;align-items:center;gap:7px}
+.plan .plan-desc{font-size:11.5px;color:var(--txt3);margin:0 0 12px;min-height:34px;line-height:1.55}
+.plan .price{display:flex;align-items:flex-end;gap:3px;line-height:1;margin-bottom:7px;flex-wrap:wrap}
+.plan .price .cur{font-size:17px;font-weight:700;color:var(--txt2);padding-bottom:3px}
+.plan .price .num{font-size:42px;font-weight:800;letter-spacing:-.035em;font-variant-numeric:tabular-nums}
+.plan .price .unit{font-size:12px;color:var(--txt3);padding-bottom:5px}
+.plan .price-note{font-size:11.5px;color:#bae6fd;min-height:20px;line-height:1.55;margin:0}
+.plan .credits-line{font-size:11.5px;color:var(--txt3);margin:9px 0 0}
+.plan .credits-line b{color:var(--txt2)}
+.plan .plan-feats{list-style:none;padding:0;margin:0 0 14px;display:grid;gap:7px;font-size:12.5px;color:var(--txt2)}
+.plan .plan-feats li{position:relative;padding-left:19px;line-height:1.55}
+.plan .plan-feats li::before{content:"✓";position:absolute;left:0;top:0;color:var(--lime);font-weight:800}
+.plan .plan-feats b{color:var(--txt)}
+.plan .plan-cta{margin-top:auto}
+.plan .plan-foot{font-size:10.5px;color:var(--txt3);margin-top:10px;line-height:1.5;min-height:16px}
+.free-band{margin:14px 0 0;display:flex;align-items:center;justify-content:space-between;gap:14px;flex-wrap:wrap;padding:14px 18px;border-radius:14px;border:1px dashed var(--line2);background:rgba(15,22,34,.6)}
+.free-band .t{font-size:13.5px;color:var(--txt2);line-height:1.65}
+.free-band .t b{color:var(--txt)}
+.sec{margin:46px 0 0}
+.sec-head{display:flex;align-items:flex-end;justify-content:space-between;gap:14px;flex-wrap:wrap;margin-bottom:6px}
+.sec-head h2{font-size:24px;margin:0;letter-spacing:-.02em}
+.sec-head .sub{margin:6px 0 0;color:var(--txt3);font-size:13px;line-height:1.7;max-width:760px}
+.sec-head .side{font-size:11.5px;color:var(--txt3)}
+.table-wrap{overflow-x:auto;max-width:100%;border:1px solid var(--line);border-radius:14px;background:rgba(6,10,17,.35);margin-top:16px}
+table.matrix,table.rates,table.quotes{width:100%;border-collapse:collapse;font-size:12.5px;min-width:560px}
+table.matrix th,table.matrix td,table.rates th,table.rates td,table.quotes th,table.quotes td{padding:11px 13px;border-bottom:1px solid rgba(148,163,184,.1);text-align:left;line-height:1.6}
+table.matrix thead th,table.rates thead th,table.quotes thead th{font-size:11px;color:var(--txt3);font-weight:800;letter-spacing:.03em;white-space:nowrap;background:rgba(255,255,255,.02)}
+table.matrix tbody th{font-weight:700;color:var(--txt2);white-space:nowrap;background:rgba(255,255,255,.015)}
+table.matrix tbody td{color:var(--txt2)}
+table.matrix tbody tr:last-child th,table.matrix tbody tr:last-child td,
+table.rates tbody tr:last-child td,table.quotes tbody tr:last-child td{border-bottom:0}
+table.matrix tbody tr:hover td,table.rates tbody tr:hover td{background:rgba(56,189,248,.04)}
+table.rates td.num strong{font-size:14px}
+table.rates .rate-group td{background:rgba(56,189,248,.06);color:#7dd3fc;font-weight:800;font-size:11.5px;letter-spacing:.05em}
+table.quotes td.num b{color:#7dd3fc}
+.packs{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:12px;margin-top:16px}
+.pack{position:relative;display:flex;flex-direction:column;gap:3px;border-radius:15px;border:1px solid var(--line);background:linear-gradient(180deg,rgba(18,27,41,.9),rgba(11,17,27,.95));padding:18px 15px 14px;transition:.18s}
+.pack:hover{transform:translateY(-2px);border-color:rgba(148,163,184,.4)}
+.pack.hot{border-color:rgba(56,189,248,.45);box-shadow:inset 0 0 0 1px rgba(56,189,248,.14)}
+.pack .tag2{position:absolute;right:10px;top:10px;font-size:10px;font-weight:800;color:#7dd3fc;background:rgba(56,189,248,.14);border:1px solid rgba(56,189,248,.3);border-radius:99px;padding:1px 7px}
+.pack .pack-price{font-size:26px;font-weight:800;letter-spacing:-.02em;font-variant-numeric:tabular-nums}
+.pack .pack-credits{font-size:12.5px;color:var(--txt2)}
+.pack .pack-credits b{font-size:17px;color:var(--txt)}
+.pack .pack-bonus{font-size:10.5px;color:#6ee7b7}
+.pack .pack-unit{font-size:10.5px;color:var(--txt3)}
+.pack .pack-note{font-size:10.5px;color:var(--txt3);min-height:30px;line-height:1.5;margin:3px 0 8px}
+.pack .btn{margin-top:auto}
+.note-strip{margin-top:14px;padding:12px 15px;border-radius:12px;border:1px dashed var(--line2);color:var(--txt3);font-size:11.5px;line-height:1.75}
+.note-strip b{color:var(--txt2)}
+.ent-grid{display:grid;grid-template-columns:minmax(0,1.15fr) minmax(0,.85fr);gap:18px;margin-top:16px;align-items:start}
+.ent-left .ent-points{list-style:none;padding:0;margin:14px 0 0;display:grid;gap:8px;font-size:12.5px;color:var(--txt2)}
+.ent-left .ent-points li{padding-left:20px;position:relative;line-height:1.6}
+.ent-left .ent-points li::before{content:"◆";position:absolute;left:0;color:var(--cyan);font-size:10px;top:4px}
+.inq-card{border-radius:16px;border:1px solid var(--line2);background:linear-gradient(180deg,rgba(56,189,248,.07),rgba(139,92,246,.05));padding:20px}
+.inq-card h3{margin:0 0 4px;font-size:17px}
+.inq-card .tiny{margin:0 0 14px}
+.inq-form{display:grid;gap:11px}
+.inq-form label{display:block;font-size:11.5px;color:var(--txt2);margin-bottom:4px;font-weight:600}
+.inq-form .input{min-height:42px;font-size:13px}
+.inq-form textarea.input{min-height:78px;resize:vertical}
+.inq-form .row2{display:grid;grid-template-columns:1fr 1fr;gap:11px}
+.inq-ok{display:none;padding:18px 16px;border-radius:12px;border:1px solid rgba(52,211,153,.4);background:rgba(52,211,153,.08);color:#a7f3d0;font-size:13px;line-height:1.8}
+.inq-ok.on{display:block}
+.steps{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:12px;margin-top:16px}
+.step{padding:17px 15px;border-radius:14px;border:1px solid var(--line);background:rgba(15,22,34,.6)}
+.step .n{display:grid;place-items:center;width:28px;height:28px;border-radius:9px;background:rgba(56,189,248,.12);border:1px solid rgba(56,189,248,.25);font-weight:800;font-size:13px;color:#7dd3fc;margin-bottom:9px}
+.step h4{margin:0 0 5px;font-size:13.5px}
+.step p{margin:0;font-size:11.5px;color:var(--txt3);line-height:1.65}
+.step.warn .n{background:rgba(251,191,36,.12);border-color:rgba(251,191,36,.3);color:#fcd34d}
+.faq-list{display:grid;gap:9px;margin-top:14px}
 .faq-item{border:1px solid var(--line);border-radius:12px;background:rgba(15,22,34,.6);overflow:hidden}
 .faq-q{display:flex;align-items:center;justify-content:space-between;gap:12px;width:100%;min-height:50px;padding:12px 16px;border:0;background:none;color:var(--txt);font-size:13.5px;font-weight:600;text-align:left;cursor:pointer}
 .faq-q:hover{color:var(--cyan)}
@@ -65,48 +117,85 @@
 .faq-item.on .faq-q i{transform:rotate(45deg);color:var(--cyan)}
 .faq-a{display:none;padding:0 16px 15px;color:var(--txt2);font-size:12.5px;line-height:1.8}
 .faq-item.on .faq-a{display:block}
-.pay-strip{display:flex;align-items:center;justify-content:center;gap:9px;flex-wrap:wrap;margin:20px auto 0;font-size:11.5px;color:var(--txt3)}
-.pay-strip span{padding:4px 10px;border-radius:999px;border:1px solid var(--line);background:rgba(255,255,255,.02)}
-.order-summary{display:grid;gap:9px;padding:13px 15px;border-radius:11px;border:1px solid var(--line);background:rgba(6,10,17,.5);margin-bottom:16px}
-.order-summary .li{display:flex;justify-content:space-between;gap:12px;font-size:13px;color:var(--txt2)}
-.order-summary .li b{color:var(--txt);font-variant-numeric:tabular-nums}
-.order-summary .li.total{border-top:1px solid var(--line);padding-top:9px;margin-top:2px}
-.order-summary .li.total b{color:var(--lime);font-size:18px}
+.compliance{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:12px;margin-top:14px}
+.comp{padding:14px 15px;border-radius:12px;border:1px solid var(--line);background:rgba(15,22,34,.55);font-size:11.5px;color:var(--txt3);line-height:1.65}
+.comp b{display:block;color:var(--txt2);font-size:12.5px;margin-bottom:3px}
+.modal .order-summary{display:grid;gap:9px;padding:13px 15px;border-radius:11px;border:1px solid var(--line);background:rgba(6,10,17,.5);margin-bottom:15px}
+.modal .order-summary .li{display:flex;justify-content:space-between;gap:12px;font-size:13px;color:var(--txt2)}
+.modal .order-summary .li b{color:var(--txt);font-variant-numeric:tabular-nums}
+.modal .order-summary .li.total{border-top:1px solid var(--line);padding-top:9px;margin-top:2px}
+.modal .order-summary .li.total b{color:var(--lime);font-size:19px}
 .pay-list{display:grid;gap:8px;margin-top:4px}
 .pay-opt{display:flex;align-items:center;gap:10px;padding:11px 13px;border-radius:10px;border:1px solid var(--line);background:rgba(255,255,255,.02);cursor:pointer;font-size:13px}
 .pay-opt.on{border-color:rgba(56,189,248,.45);background:rgba(56,189,248,.08)}
+.pay-opt.dis{opacity:.6;cursor:not-allowed}
 .pay-opt input{accent-color:#38bdf8;width:17px;height:17px}
 .pay-opt .pn{flex:1;font-weight:600}
 .pay-opt .pd{font-size:10.5px;color:var(--txt3);display:block;font-weight:400}
-.modal .err{margin-top:12px}
-.success-box{text-align:center;padding:8px 0 4px}
-.success-box .big{font-size:42px;line-height:1;margin-bottom:12px}
-.success-box h3{margin-bottom:6px}
+.cycle-opts{display:grid;gap:8px;margin-top:4px}
+.cycle-opt{display:flex;align-items:center;gap:10px;padding:10px 12px;border-radius:10px;border:1px solid var(--line);background:rgba(255,255,255,.02);cursor:pointer;font-size:12.5px}
+.cycle-opt.on{border-color:rgba(56,189,248,.45);background:rgba(56,189,248,.08)}
+.cycle-opt input{accent-color:#38bdf8;width:16px;height:16px}
+.cycle-opt .cn{flex:1;font-weight:600}
+.cycle-opt .cd{font-size:10.5px;color:var(--txt3)}
+.success-box{text-align:center;padding:6px 0 2px}
+.success-box .big{font-size:40px;line-height:1;margin-bottom:10px}
+.success-box h3{margin-bottom:5px}
 .success-box .ordno{display:inline-block;margin:9px 0 4px;padding:5px 12px;border-radius:8px;border:1px dashed var(--line2);background:rgba(255,255,255,.03);font-size:12px;color:var(--cyan)}
-@media(max-width:1000px){
+.success-box .pay-step{margin:14px 0 0;padding:12px 14px;border-radius:11px;border:1px solid var(--line2);background:rgba(6,10,17,.5);font-size:12.5px;color:var(--txt2);line-height:1.8;text-align:left}
+.success-box .pay-step b{color:var(--txt)}
+/* 浅色主题可读性覆盖（主题变量之外的强调色） */
+html[data-theme="light"] .eyebrow{color:#0369a1;border-color:rgba(2,132,199,.3);background:rgba(2,132,199,.08)}
+html[data-theme="light"] .trust-strip span{color:#475569;border-color:rgba(15,23,42,.14);background:rgba(15,23,42,.03)}
+html[data-theme="light"] .trust-strip span.warn{color:#92400e;border-color:rgba(217,119,6,.35);background:rgba(251,191,36,.14)}
+html[data-theme="light"] .status-bar{color:#475569}
+html[data-theme="light"] .status-bar a{color:#0369a1}
+html[data-theme="light"] .current-sub{color:#065f46;border-color:rgba(16,185,129,.35);background:rgba(16,185,129,.08)}
+html[data-theme="light"] .current-sub b{color:#064e3b}
+html[data-theme="light"] .current-sub a{color:#047857}
+html[data-theme="light"] .plan .price-note{color:#0369a1}
+html[data-theme="light"] .billing-toggle .seg button.on{color:#075985}
+html[data-theme="light"] .billing-toggle .save{color:#047857;border-color:rgba(16,185,129,.35);background:rgba(16,185,129,.1)}
+html[data-theme="light"] table.rates .rate-group td{color:#0369a1;background:rgba(56,189,248,.1)}
+html[data-theme="light"] table.quotes td.num b{color:#0369a1}
+html[data-theme="light"] .pack .pack-bonus{color:#047857}
+html[data-theme="light"] .pack .tag2{color:#0369a1;background:rgba(56,189,248,.12);border-color:rgba(56,189,248,.35)}
+html[data-theme="light"] .step .n{color:#0369a1}
+html[data-theme="light"] .step.warn .n{color:#92400e}
+html[data-theme="light"] .success-box .ordno{color:#0369a1}
+html[data-theme="light"] .inq-ok{color:#065f46}
+html[data-theme="light"] .note-strip{color:#475569}
+html[data-theme="light"] .comp{color:#475569}
+html[data-theme="light"] .modal .order-summary .li.total b{color:#047857}
+@media(max-width:1080px){
   .plans{grid-template-columns:repeat(2,minmax(0,1fr))}
-  .notes{grid-template-columns:1fr}
-  .pricing-hero h1{font-size:32px}
+  .packs{grid-template-columns:repeat(3,minmax(0,1fr))}
+  .ent-grid{grid-template-columns:1fr}
+  .steps{grid-template-columns:repeat(2,minmax(0,1fr))}
+  .compliance{grid-template-columns:repeat(2,minmax(0,1fr))}
 }
-@media(max-width:600px){
-  .pricing-hero{padding:34px 0 6px}
+@media(max-width:640px){
+  .pricing-hero{padding:30px 0 4px}
   .pricing-hero h1{font-size:26px}
   .pricing-hero p{font-size:13px}
   .plans{grid-template-columns:1fr;gap:12px}
-  .plan{padding:20px 17px 16px}
-  .price .num{font-size:36px}
-  .notes{gap:10px}
+  .plan{padding:20px 16px 15px}
+  .plan .price .num{font-size:36px}
+  .packs{grid-template-columns:1fr 1fr;gap:9px}
+  .pack{padding:14px 12px 12px}
+  .steps{grid-template-columns:1fr}
+  .compliance{grid-template-columns:1fr}
+  .inq-form .row2{grid-template-columns:1fr}
+  .sec{margin:34px 0 0}
+  .sec-head h2{font-size:20px}
+  .free-band{padding:12px 14px}
 }
 </style>
-<link rel="stylesheet" href="../assets/theme-light.css">
-<script defer src="../assets/theme.js"></script>
-<!--xl-theme-end-->
-<link rel="stylesheet" href="../assets/site-shell.css?v=20261123">
 </head>
 <body>
 <div class="topbar">
   <div class="wrap">
-    <a class="brand" href="../index.html"><span class="mark">✦</span><span>星籁 AI<small>年费套餐</small></span></a>
+    <a class="brand" href="../index.html"><span class="mark">✦</span><span>星籁 AI<small>商用版定价</small></span></a>
     <nav>
       <a href="../index.html">AI 导航</a>
       <a href="../studio/">AI 创作工坊</a>
@@ -120,57 +209,223 @@
 
 <main class="wrap auth-page">
   <section class="pricing-hero">
-    <div class="eyebrow">PRICING · 年费制 · 一年一次</div>
-    <h1>按年付费，<em>日均 ¥5.4 起</em><br>把一整年的获客额度一次配齐</h1>
-    <p>基础版 ¥1980/年、专业版 ¥3980/年、旗舰版 ¥6980/年，另有免费体验版。年费一次收取 12 个月，视频与线索额度按自然月发放；不自动续费，管理员人工开通。</p>
-    <div class="pay-strip"><span>年付 12 个月</span><span>人工客服开通</span><span>微信/支付宝接入中</span><span>支持对公发票</span><span>不自动续费</span></div>
-    <div class="current-bar" id="currentBar" hidden></div>
+    <div class="eyebrow">PRICING · 星籁剪辑商用版 v1</div>
+    <h1>从一条口播到一整部短剧<br><em>按需付费，越用越省</em></h1>
+    <p>桌面专业剪辑 + 网页 AI 全链路 + 商用素材与授权。三档订阅按月/按年付费，每月含积分；不够随时加购积分包。企业版支持私有化、白标与自定义模型。</p>
+    <div class="trust-strip">
+      <span>年付省 2 个月</span><span>对公转账 · 支持开票</span><span>人工开通 1 个工作日内</span><span>私有化 / 白标可选</span><span class="warn">在线支付即将开放</span>
+    </div>
+    <div class="status-bar" id="statusBar"><span class="dot"></span><span id="statusText">正在读取价格表…</span><a href="#faq" hidden id="refreshLink">刷新</a></div>
+    <div class="current-sub" id="currentSub" hidden></div>
   </section>
+
+  <div class="billing-toggle">
+    <div class="seg" role="tablist" aria-label="计费周期">
+      <button type="button" class="on" data-cycle="yearly" role="tab" aria-selected="true">年付</button>
+      <button type="button" data-cycle="monthly" role="tab" aria-selected="false">月付</button>
+    </div>
+    <span class="save">年付 = 10 个月价格，省 2 个月</span>
+  </div>
 
   <section class="plans" id="plans" aria-live="polite">
-    <div class="plan"><div class="skeleton" style="height:22px;margin-bottom:12px"></div><div class="skeleton" style="height:44px;margin-bottom:12px"></div><div class="skeleton" style="height:14px"></div></div>
-    <div class="plan"><div class="skeleton" style="height:22px;margin-bottom:12px"></div><div class="skeleton" style="height:44px;margin-bottom:12px"></div><div class="skeleton" style="height:14px"></div></div>
-    <div class="plan"><div class="skeleton" style="height:22px;margin-bottom:12px"></div><div class="skeleton" style="height:44px;margin-bottom:12px"></div><div class="skeleton" style="height:14px"></div></div>
-    <div class="plan"><div class="skeleton" style="height:22px;margin-bottom:12px"></div><div class="skeleton" style="height:44px;margin-bottom:12px"></div><div class="skeleton" style="height:14px"></div></div>
+<article class="plan" data-plan-id="merchant">
+  
+  <div class="plan-top">
+    <h2 class="plan-name">商家版</h2>
+    <p class="plan-desc">一个人、一台电脑，把商家的短视频和口播做起来</p>
+    <div class="price" data-price><span class="cur">¥</span><span class="num" data-price-num>165.83</span><span class="unit" data-price-unit>/月</span></div>
+    <p class="price-note" data-price-note>年付 ¥1,990（12 个月，省 ¥398）</p>
+    <p class="credits-line">每月含 <b>200 积分</b> · 桌面 2 席位 · 1 路并发</p>
+  </div>
+  <ul class="plan-feats"><li>每月 <b>200 积分</b>，网页 AI 按量计费</li><li>桌面软件：<b>全功能</b>（2 台席位 / 1080P 导出）</li><li>素材授权：<b>标准商用素材库</b>（CC0/免费商用）</li><li>并发 <b>1 路</b> · 工作日工单支持</li><li>商用授权：<b>单主体</b></li><li>适合个体商家、单店、个人创作者</li></ul>
+  <div class="plan-cta"><button class="btn btn-primary btn-block" type="button" data-buy-plan="merchant">立即开通 · 商家版</button></div>
+  <div class="plan-foot">适合个体商家、单店、个人创作者稳定日更</div>
+</article>
+<article class="plan hot" data-plan-id="pro">
+  <div class="tag hot">最受欢迎</div>
+  <div class="plan-top">
+    <h2 class="plan-name">专业版</h2>
+    <p class="plan-desc">工作室/代运营：短剧、爆款复刻、4K 交付一起上</p>
+    <div class="price" data-price><span class="cur">¥</span><span class="num" data-price-num>499.17</span><span class="unit" data-price-unit>/月</span></div>
+    <p class="price-note" data-price-note>年付 ¥5,990（12 个月，省 ¥1,198）</p>
+    <p class="credits-line">每月含 <b>800 积分</b> · 桌面 5 席位 · 3 路并发</p>
+  </div>
+  <ul class="plan-feats"><li>每月 <b>800 积分</b>，AI 短剧/爆款复刻可用</li><li>桌面软件：<b>全功能 + 插件市场/调色/4K</b>（5 台席位）</li><li>素材授权：<b>扩展商用素材包</b>（100 万+）</li><li>并发 <b>3 路</b>（优先队列）· 1v1 服务群</li><li>商用授权：<b>团队</b>（≤5 主体，含代运营）</li><li>开放 API（10 QPS）· 适合工作室/MCN</li></ul>
+  <div class="plan-cta"><button class="btn btn-primary btn-block" type="button" data-buy-plan="pro">立即开通 · 专业版</button></div>
+  <div class="plan-foot">适合影视/短剧工作室、MCN、电商代运营团队</div>
+</article>
+<article class="plan" data-plan-id="enterprise">
+  <div class="tag">可私有化</div>
+  <div class="plan-top">
+    <h2 class="plan-name">企业版</h2>
+    <p class="plan-desc">集团/影视公司：私有部署、白标、自定义模型、SSO</p>
+    <div class="price" data-price><span class="cur">¥</span><span class="num" data-price-num>2,499.17</span><span class="unit" data-price-unit>/月</span></div>
+    <p class="price-note" data-price-note>年付 ¥29,990（12 个月，省 ¥5,998）</p>
+    <p class="credits-line">每月含 <b>5,000 积分</b> · 桌面 20 席位 · 10 路并发</p>
+  </div>
+  <ul class="plan-feats"><li>每月 <b>5,000 积分</b>，可叠加批量积分包</li><li>桌面软件：<b>白标 / 私有部署 / 静默升级</b>（20 席起）</li><li>素材授权：<b>定制素材库 + 专属授权书</b></li><li>并发 <b>10 路</b>（可扩容）· 专属客户成功 7×12</li><li>商用授权：<b>企业/集团</b>（不限主体）</li><li>SSO / 白标 / 自定义模型 / 私有化可选</li></ul>
+  <div class="plan-cta"><button class="btn btn-primary btn-block" type="button" data-buy-plan="enterprise">立即开通 · 企业版</button></div>
+  <div class="plan-foot">适合影视公司、连锁集团、政企与出海团队</div>
+</article>
   </section>
 
-  <section class="notes">
-    <div class="note-card"><h3><span>📊</span>额度怎么算</h3>
-      <p>视频额度按「成功生成一条成片」计 1 条/月；线索额度按「导入/抓取一条有效线索」计 1 条/月。年费套餐每月发放一次，当月未用完不结转。</p>
-      <p>基础版 60 视频 / 500 线索；专业版 200 视频 / 2000 线索；旗舰版 600 视频 / 8000 线索。AI 改写均不限次数，AI 图生视频专业版 5 条/月、旗舰版 20 条/月。</p>
+  <div class="free-band">
+    <div class="t">🎁 <b>免费体验</b>：注册即送 <b>100 积分</b>，可试 1–2 条标准短剧/数字人口播；桌面版可免费剪辑与导出（含水印），不需要绑卡。</div>
+    <a class="btn btn-sm" href="../account/index.html?next=pricing%2Findex.html">免费注册开始</a>
+  </div>
+
+  <section class="sec" id="matrix">
+    <div class="sec-head">
+      <div><h2>三档功能对比</h2><p class="sub">订阅即含桌面软件、每月积分、素材授权与商用授权；企业版可加私有部署、白标、SSO 与自定义模型。</p></div>
+      <div class="side">年付/月付权益一致</div>
     </div>
-    <div class="note-card"><h3><span>⏳</span>年费与到期</h3>
-      <p>年费一次收取 12 个月费用，开通当天生效，到期日 = 开通日 + 12 个月。到期前 7 天个人中心提示；到期后自动回到体验版额度，已生成作品与历史线索不删除。</p>
-      <p>不自动续费、不自动扣款；续费时重新下单，管理员开通后按原到期日顺延 12 个月。</p>
+    <div class="table-wrap"><table class="matrix"><thead><tr><th>功能 / 权益</th><th>商家版</th><th>专业版</th><th>企业版</th></tr></thead><tbody><tr><th scope="row">桌面软件功能</th><td>全功能（单机 2 席位）</td><td>全功能 + 插件市场 / 调色 / 4K（5 席位）</td><td>全功能 + 白标 / 私有部署 / 静默升级（20 席位起）</td></tr><tr><th scope="row">网页 AI 能力</th><td>文案 / 字幕 / 配音 / 数字人</td><td>全部（AI 短剧三档 / 爆款复刻 / 素材生成）</td><td>全部 + 短剧全自动 / 电影模式 / 批量矩阵</td></tr><tr><th scope="row">每月含积分</th><td>200 积分/月</td><td>800 积分/月</td><td>5,000 积分/月（可叠加积分包）</td></tr><tr><th scope="row">素材授权</th><td>标准商用素材库</td><td>扩展商用素材包（100 万+）</td><td>定制素材库 + 专属授权书</td></tr><tr><th scope="row">并发 / 渲染队列</th><td>1 路（普通队列）</td><td>3 路（优先队列）</td><td>10 路（可扩容，专属节点）</td></tr><tr><th scope="row">桌面席位（设备指纹）</th><td>2 台</td><td>5 台</td><td>20 台起</td></tr><tr><th scope="row">支持</th><td>工作日工单</td><td>优先工单 + 1v1 群</td><td>专属客户成功 + 7×12</td></tr><tr><th scope="row">商用授权</th><td>单主体</td><td>团队（≤5 主体）</td><td>企业/集团（不限主体）</td></tr><tr><th scope="row">API / 集成</th><td>—</td><td>开放 API（10 QPS）</td><td>开放 API + SSO + 白标</td></tr><tr><th scope="row">私有化部署 / 自定义模型</th><td>—</td><td>—</td><td>可选（报价）</td></tr></tbody></table></div>
+  </section>
+
+  <section class="sec" id="packs">
+    <div class="sec-head">
+      <div><h2>积分包（可叠加）</h2><p class="sub">1 积分 ≈ ¥1，用于网页 AI 按量计费；积分包余额可跨月使用，买得越多单价越低。套餐内积分当月未用完不结转，先扣套餐积分再扣积分包。</p></div>
+      <div class="side">支持对公转账 / 开票</div>
     </div>
-    <div class="note-card"><h3><span>🧾</span>开票与退款</h3>
-      <p>付款后可联系客服开具电子普通发票或增值税专票，通常 3 个工作日内开出，抬头与税号请在订单备注里提供。</p>
-      <p>未开通订单可取消并全额退款；已开通的年费订单按未使用月份折算退款（扣除已使用月份与已产生的开通成本），特殊活动订单以活动规则为准。</p>
+    <div class="packs" id="packsGrid"><article class="pack">
+  
+  <div class="pack-price">¥99</div>
+  <div class="pack-credits"><b>100</b> 积分</div>
+  <span class="pack-bonus">赠 1.01%（+1 积分）</span>
+  <div class="pack-unit">折合 ¥0.990/积分</div>
+  <div class="pack-note">先试一条短剧/数字人视频</div>
+  <button class="btn btn-sm btn-block" type="button" data-buy-pack="pack_99">购买积分包</button>
+</article>
+<article class="pack hot">
+  <span class="tag2">热销</span>
+  <div class="pack-price">¥299</div>
+  <div class="pack-credits"><b>330</b> 积分</div>
+  <span class="pack-bonus">赠 10.37%（+31 积分）</span>
+  <div class="pack-unit">折合 ¥0.906/积分</div>
+  <div class="pack-note">约 4 集标准短剧或 400 秒口播</div>
+  <button class="btn btn-sm btn-block" type="button" data-buy-pack="pack_299">购买积分包</button>
+</article>
+<article class="pack hot">
+  <span class="tag2">推荐</span>
+  <div class="pack-price">¥999</div>
+  <div class="pack-credits"><b>1,200</b> 积分</div>
+  <span class="pack-bonus">赠 20.12%（+201 积分）</span>
+  <div class="pack-unit">折合 ¥0.833/积分</div>
+  <div class="pack-note">约 15 集标准短剧，团队月度够用</div>
+  <button class="btn btn-sm btn-block" type="button" data-buy-pack="pack_999">购买积分包</button>
+</article>
+<article class="pack">
+  
+  <div class="pack-price">¥2,999</div>
+  <div class="pack-credits"><b>3,900</b> 积分</div>
+  <span class="pack-bonus">赠 30.04%（+901 积分）</span>
+  <div class="pack-unit">折合 ¥0.769/积分</div>
+  <div class="pack-note">约 48 集标准短剧，适合接单工作室</div>
+  <button class="btn btn-sm btn-block" type="button" data-buy-pack="pack_2999">购买积分包</button>
+</article>
+<article class="pack">
+  
+  <div class="pack-price">¥9,999</div>
+  <div class="pack-credits"><b>14,000</b> 积分</div>
+  <span class="pack-bonus">赠 40.01%（+4,001 积分）</span>
+  <div class="pack-unit">折合 ¥0.714/积分</div>
+  <div class="pack-note">批量矩阵/年框客户，单价最低</div>
+  <button class="btn btn-sm btn-block" type="button" data-buy-pack="pack_9999">购买积分包</button>
+</article></div>
+    <div class="note-strip"><b>积分能干什么：</b>数字人口播 0.3–0.8 积分/秒、成片渲染 2 积分/条、标准短剧 80 积分/集、高级 250 积分/集、旗舰 750 积分/集、电影模式 900 积分/分钟。生成失败不扣积分；在线支付即将开放，当前联系客服充值/开通。</div>
+  </section>
+
+  <section class="sec" id="rates">
+    <div class="sec-head">
+      <div><h2>消耗费率表</h2><p class="sub">「已上线计费」为当前自动扣费项（失败退款、重复回调幂等）；「设计费率 · 待接入」为短剧三档/电影模式/插件按次计费的设计价，接入后自动生效。</p></div>
+      <div class="side">1 积分 ≈ ¥1</div>
+    </div>
+    <div class="table-wrap"><table class="rates"><thead><tr><th>计费项</th><th>积分价</th><th>状态</th><th>说明</th></tr></thead><tbody><tr class="rate-group"><td colspan="4">数字人</td></tr><tr><td>数字人 · 换背景版</td><td class="num"><b>0.3</b> 积分/秒</td><td><span class="badge lime">已上线计费</span></td><td></td></tr><tr><td>数字人 · 真口型</td><td class="num"><b>0.8</b> 积分/秒</td><td><span class="badge lime">已上线计费</span></td><td></td></tr><tr><td>数字人 · 照片口播</td><td class="num"><b>0.6</b> 积分/秒</td><td><span class="badge lime">已上线计费</span></td><td></td></tr><tr class="rate-group"><td colspan="4">渲染</td></tr><tr><td>成片渲染</td><td class="num"><b>2</b> 积分/条</td><td><span class="badge lime">已上线计费</span></td><td></td></tr><tr class="rate-group"><td colspan="4">生成</td></tr><tr><td>图生/文生视频 · 标准 5s</td><td class="num"><b>8</b> 积分/条</td><td><span class="badge amber">设计费率 · 待接入</span></td><td></td></tr><tr><td>图生/文生视频 · 高级 5s</td><td class="num"><b>30</b> 积分/条</td><td><span class="badge amber">设计费率 · 待接入</span></td><td></td></tr><tr><td>图生/文生视频 · 旗舰 5s</td><td class="num"><b>50</b> 积分/条</td><td><span class="badge amber">设计费率 · 待接入</span></td><td></td></tr><tr><td>关键帧 / 角色卡生图</td><td class="num"><b>1</b> 积分/张</td><td><span class="badge amber">设计费率 · 待接入</span></td><td></td></tr><tr><td>AI 配音（TTS）</td><td class="num"><b>0.5</b> 积分/百字</td><td><span class="badge amber">设计费率 · 待接入</span></td><td></td></tr><tr class="rate-group"><td colspan="4">短剧</td></tr><tr><td>AI 短剧 · 标准档（30–60s/集）</td><td class="num"><b>80</b> 积分/集</td><td><span class="badge amber">设计费率 · 待接入</span></td><td></td></tr><tr><td>AI 短剧 · 高级档（30–60s/集）</td><td class="num"><b>250</b> 积分/集</td><td><span class="badge amber">设计费率 · 待接入</span></td><td></td></tr><tr><td>AI 短剧 · 旗舰档（30–60s/集）</td><td class="num"><b>750</b> 积分/集</td><td><span class="badge amber">设计费率 · 待接入</span></td><td></td></tr><tr class="rate-group"><td colspan="4">电影</td></tr><tr><td>电影模式（按成片分钟）</td><td class="num"><b>900</b> 积分/分钟</td><td><span class="badge amber">设计费率 · 待接入</span></td><td></td></tr><tr class="rate-group"><td colspan="4">插件</td></tr><tr><td>第三方插件（按次）</td><td class="num"><b>2–10</b> 积分/次</td><td><span class="badge amber">设计费率 · 待接入</span></td><td></td></tr><tr class="rate-group"><td colspan="4">模板</td></tr><tr><td>模板市场单品</td><td class="num"><b>5–50</b> 积分/个</td><td><span class="badge amber">设计费率 · 待接入</span></td><td></td></tr></tbody></table></div>
+  </section>
+
+  <section class="sec" id="enterprise">
+    <div class="sec-head">
+      <div><h2>企业版 · 私有化 / 白标 / 自定义模型</h2><p class="sub">影视公司、连锁集团、政企：数据不出场、品牌白标、自定义模型与专属 SLA，按项目报价（以下为区间，合同价为准）。</p></div>
+      <div class="side">1 个工作日内联系</div>
+    </div>
+    <div class="ent-grid">
+      <div class="ent-left">
+        <div class="table-wrap"><table class="quotes"><thead><tr><th>报价项</th><th>区间 / 价格</th><th>说明</th></tr></thead><tbody><tr><td>企业版 SaaS（10 并发 / 20 席位 / 5,000 积分/月）</td><td class="num"><b>¥2,999/月 或 ¥29,990/年</b></td><td>含 SSO、白标、专属客户成功；可叠加积分包</td></tr><tr><td>私有化部署（含 1 套基础模型 + 部署实施）</td><td class="num"><b>¥15 万–50 万/年</b></td><td>数据不出场；不含 GPU 服务器硬件</td></tr><tr><td>自定义模型 / 微调（单模型）</td><td class="num"><b>¥8 万–30 万/模型</b></td><td>含数据清洗、评测、2 轮迭代；训练数据需授权</td></tr><tr><td>SSO / 白标 / 专属支持（独立采购）</td><td class="num"><b>¥3 万–10 万/年</b></td><td>企业版内已含基础能力；独立采购为增强 SLA</td></tr><tr><td>定制素材库 / 专属授权书</td><td class="num"><b>¥2 万–8 万/年</b></td><td>按素材量与授权范围核价</td></tr><tr><td>年度总盘（参考）</td><td class="num"><b>中小团队 3 万–6 万/年；影视/集团 20 万–80 万/年</b></td><td>按项目报价，合同价为准（待财务/法务复核）</td></tr></tbody></table></div>
+        <ul class="ent-points">
+          <li><b>私有化部署</b>：docker/k8s 交付，模型与素材可内网运行，数据不出场（不含 GPU 硬件）。</li>
+          <li><b>自定义模型</b>：行业模型微调 / 私有模型接入，含数据清洗、评测与 2 轮迭代（训练数据需授权）。</li>
+          <li><b>SSO / 白标</b>：企业登录对接、品牌/域名/登录页替换、静默升级与统一分发。</li>
+          <li><b>专属支持</b>：客户成功 + 7×12 响应 + 季度复盘 + SLA 合同。</li>
+        </ul>
+        <div class="note-strip" style="margin-top:14px"><b>报价说明：</b>企业版 SaaS ¥2,999/月 或 ¥29,990/年；私有化/自定义模型/白标按项目报价，金额受席位、并发、交付范围影响，标注「区间/待验证」的条目需财务复核。</div>
+      </div>
+      <div class="inq-card">
+        <h3>企业版询价</h3>
+        <p class="tiny">留资后销售 1 个工作日内联系（工作日 9:00–18:00）。也可以直接发邮件到 1374988488@qq.com。</p>
+        <form class="inq-form" id="inqForm" novalidate>
+          <div class="err" id="inqErr"></div>
+          <div><label for="inqCompany">公司名称 *</label><input class="input" id="inqCompany" maxlength="120" placeholder="例如：XX 影视文化有限公司" autocomplete="organization"></div>
+          <div class="row2">
+            <div><label for="inqContact">联系人 *</label><input class="input" id="inqContact" maxlength="60" placeholder="姓名" autocomplete="name"></div>
+            <div><label for="inqPhone">手机号</label><input class="input" id="inqPhone" maxlength="30" inputmode="tel" placeholder="用于快速联系"></div>
+          </div>
+          <div><label for="inqEmail">邮箱 *</label><input class="input" id="inqEmail" type="email" maxlength="120" placeholder="接收方案与报价" autocomplete="email"></div>
+          <div><label for="inqScale">团队规模</label>
+            <select class="input" id="inqScale">
+              <option value="">请选择</option>
+              <option>1–5 人</option><option>6–20 人</option><option>21–50 人</option><option>51–200 人</option><option>200 人以上</option>
+            </select>
+          </div>
+          <div><label for="inqNeed">需求说明</label><textarea class="input" id="inqNeed" rows="3" maxlength="1000" placeholder="例如：需要私有化部署 + 20 席 + AI 短剧流水线，预算 30 万/年"></textarea></div>
+          <button class="btn btn-primary btn-block" type="submit" id="inqSubmit">提交询价</button>
+          <div class="inq-ok" id="inqOk"></div>
+        </form>
+      </div>
     </div>
   </section>
 
-  <section class="faq-sec" id="faq">
-    <h2>年费套餐常见问题</h2>
-    <p class="sub">还有没答到的，点右下角联系站长，或直接下人工订单让客服联系你。</p>
-    <div class="faq-list" id="faqList"></div>
+  <section class="sec" id="howto">
+    <div class="sec-head"><div><h2>购买流程</h2><p class="sub">当前微信/支付宝商户号申请中，采用「对公转账 / 联系客服 + 人工开通」，全程可开票；开放在线支付后流程不变、只变付款方式。</p></div></div>
+    <div class="steps">
+      <div class="step"><div class="n">1</div><h4>选择套餐 / 积分包</h4><p>选档位与月付/年付，或在积分包中加购；提交后生成待付款订单（可随时取消）。</p></div>
+      <div class="step warn"><div class="n">2</div><h4>付款（对公 / 客服）</h4><p>提交后客服 1 个工作日内联系，提供对公账户收款信息；在线支付开放前不支持自助在线付款。</p></div>
+      <div class="step"><div class="n">3</div><h4>人工开通</h4><p>确认收款后管理员开通，套餐/积分立即到账；年付到期日=开通日+12 个月。</p></div>
+      <div class="step"><div class="n">4</div><h4>开票与使用</h4><p>到「个人中心 → 申请发票」开电子普票/专票；桌面端登录激活 License 即可使用。</p></div>
+    </div>
+  </section>
+
+  <section class="sec" id="faq">
+    <div class="sec-head"><div><h2>常见问题</h2><p class="sub">还有没答到的，点右下角联系站长或企业版询价留言。</p></div></div>
+    <div class="faq-list" id="faqList"><div class="faq-item"><button class="faq-q" type="button">年付和月付有什么区别？<i>+</i></button><div class="faq-a">年付 = 10 个月价格，一次收取 12 个月（省 2 个月）；月付可按 1/3/6 个月购买。两种方式权益完全相同，年付更划算。</div></div><div class="faq-item"><button class="faq-q" type="button">套餐里的积分怎么用？<i>+</i></button><div class="faq-a">套餐每月发放 200 / 800 / 5,000 积分，用于网页 AI 按量计费（数字人/渲染/短剧/电影模式等），当月未用完不结转；不够可随时加购积分包，积分包余额可跨月使用。</div></div><div class="faq-item"><button class="faq-q" type="button">买完多久能用？<i>+</i></button><div class="faq-a">当前为「对公转账 / 联系客服开通」：提交订单后 1 个工作日内客服联系确认收款，管理员人工开通（通常当天生效），开通后积分与套餐立即到账。</div></div><div class="faq-item"><button class="faq-q" type="button">可以开发票吗？<i>+</i></button><div class="faq-a">可以。支持增值税电子普通发票/专用发票（软件服务费 6%），付款后到「个人中心 → 申请发票」选择充值流水并填写抬头、税号、邮箱，1–3 个工作日开具。</div></div><div class="faq-item"><button class="faq-q" type="button">在线支付什么时候开放？<i>+</i></button><div class="faq-a">微信/支付宝商户号申请中，页面按钮已标注「在线支付即将开放」。开放后可直接在线支付并自动开通，无需人工确认；当前建议对公转账或联系客服。</div></div><div class="faq-item"><button class="faq-q" type="button">能退款吗？<i>+</i></button><div class="faq-a">7 天内未开始使用套餐/未消耗积分可全额退款；已使用按未消耗积分折算（年付按未使用整月折算）；已开票订单需先红冲。积分包已消耗部分不退。</div></div><div class="faq-item"><button class="faq-q" type="button">商用授权范围是什么？<i>+</i></button><div class="faq-a">商家版=1 个经营主体，专业版≤5 个（含代运营客户），企业版不限主体（含子品牌）。授权成片用于商业用途，不得转售软件或素材原始文件；AI 生成内容需按平台规则标识。</div></div><div class="faq-item"><button class="faq-q" type="button">企业版怎么报价？<i>+</i></button><div class="faq-a">企业版 SaaS ¥29,990/年（10 并发 / 20 席位 / 5,000 积分/月）；私有化部署、自定义模型、SSO/白标按项目报价。提交下方「企业版询价」表单，销售 1 个工作日内联系。</div></div><div class="faq-item"><button class="faq-q" type="button">支持哪些桌面功能？<i>+</i></button><div class="faq-a">桌面端提供多轨时间轴、自动字幕、AI 配音、一键成片、1080P/4K 导出、插件市场等（按套餐档位）；桌面 License 按设备指纹绑定，超出席位需解绑或加购。</div></div><div class="faq-item"><button class="faq-q" type="button">套餐到期会怎样？<i>+</i></button><div class="faq-a">到期后网页 AI 与需要订阅的功能暂停，桌面本地剪辑与已导出作品不受影响；到期前 7 天个人中心提醒，续费按原到期日顺延。</div></div></div>
+  </section>
+
+  <section class="sec" id="compliance">
+    <div class="sec-head"><div><h2>发票 / 退款 / 授权</h2><p class="sub">合规要点如下，完整条款以订单合同与《商业化定价方案 v1》为准。</p></div></div>
+    <div class="compliance">
+      <div class="comp"><b>发票</b>电子普通发票 / 增值税专用发票，软件服务费 6%；积分包按实付金额开票，赠送积分不开票；已开票退款需先红冲。</div>
+      <div class="comp"><b>退款</b>7 天内未使用可全额退；已使用按未消耗积分折算（年付按未使用整月）；积分包已消耗部分不退。</div>
+      <div class="comp"><b>商用授权</b>商家版 1 个主体、专业版 ≤5 个、企业版不限；不得转售软件/素材原始文件；AI 内容需标识，禁止违法与未授权肖像/声音克隆。</div>
+      <div class="comp"><b>数据与隐私</b>云端项目保留 90 天可申请删除；私有化部署数据不出场；生成内容版权归用户，平台仅用于服务与合规审计。</div>
+    </div>
   </section>
 </main>
 
 <footer class="site-foot">
   <div class="wrap">
     <a href="../index.html">首页</a><a href="../studio/">AI 创作工坊</a><a href="../leadgen/">AI 获客</a><a href="../account/dashboard.html">个人中心</a><a href="../privacy.html">隐私政策</a><a href="../sitemap.xml">站点地图</a>
-    <div style="margin-top:8px">© 2026 星籁 AI 工具导航 · xinglaiai.com · 套餐价格与额度以本页及订单页为准</div>
+    <div style="margin-top:8px">© 2026 星籁 AI 工具导航 · xinglaiai.com · 套餐与积分价格以本页及订单页为准 · 价格版本 <span id="verFoot">2026-11-23-v1</span></div>
   </div>
 </footer>
 
-<div class="modal-mask" id="orderMask" role="dialog" aria-modal="true" aria-labelledby="orderTitle">
+<div class="modal-mask" id="buyMask" role="dialog" aria-modal="true" aria-labelledby="buyTitle">
   <div class="modal">
-    <button class="modal-close" type="button" id="orderClose" aria-label="关闭">×</button>
-    <div id="orderBody"></div>
+    <button class="modal-close" type="button" id="buyClose" aria-label="关闭">×</button>
+    <div id="buyBody"></div>
   </div>
 </div>
 
-<script defer src="../assets/site-shell.js?v=20261123"></script>
+<script>window.__PRICING_CATALOG__ = {"ok":true,"version":"2026-11-23-v1","currency":"CNY","credit_cny":1.0,"credit_note":"1 积分 ≈ ¥1（展示口径）；套餐内积分按月发放，当月未用完不结转。","billing":{"annual_months":12,"annual_discount_months":2,"monthly_available":true,"annual_note":"年付 = 10 个月价格（省 2 个月），一次收取 12 个月"},"trial":{"name":"免费体验","desc":"注册即送 100 积分，可试 1–2 条标准短剧/数字人视频；桌面版可免费剪辑与导出（含水印）","credits":100,"watermark":true,"cta":"免费注册开始"},"plans":[{"id":"merchant","name":"商家版","tagline":"一个人、一台电脑，把商家的短视频和口播做起来","monthly_cents":19900,"annual_cents":199000,"monthly_equiv_cents":16583,"annual_save_cents":39800,"annual_months":12,"included_credits":200,"seats":2,"max_concurrency":1,"badge":"","highlight":false,"features":{"desktop":"星籁剪辑桌面版全功能（时间轴/多轨/自动字幕/AI 配音/一键成片/1080P 导出）","web_ai":"网页 AI：AI 文案、AI 字幕、AI 配音、数字人口播（按积分计费）","assets":"标准商用素材库（CC0 / 免费商用授权素材 + 字体/音乐清单）","concurrency":"1 路并发","support":"工作日工单（9:00–18:00）","commercial":"单主体商用授权（1 个经营主体）","private":false,"sso":false,"whitelabel":false,"api":false},"foot":"适合个体商家、单店、个人创作者稳定日更"},{"id":"pro","name":"专业版","tagline":"工作室/代运营：短剧、爆款复刻、4K 交付一起上","monthly_cents":59900,"annual_cents":599000,"monthly_equiv_cents":49917,"annual_save_cents":119800,"annual_months":12,"included_credits":800,"seats":5,"max_concurrency":3,"badge":"最受欢迎","highlight":true,"features":{"desktop":"桌面版全功能 + 插件市场（自研 15 个专业插件）、代理/调色/LUT、4K 导出、批量套版","web_ai":"网页 AI 全量：AI 短剧（三档生成）、爆款复刻、素材库 AI 生成、批量矩阵","assets":"扩展商用素材包（100 万+ 素材 + 字体/音乐商用授权清单）","concurrency":"3 路并发（渲染队列优先）","support":"优先工单 + 1v1 服务群","commercial":"团队商用授权（≤5 个经营主体/代运营客户）","private":false,"sso":false,"whitelabel":false,"api":true},"foot":"适合影视/短剧工作室、MCN、电商代运营团队"},{"id":"enterprise","name":"企业版","tagline":"集团/影视公司：私有部署、白标、自定义模型、SSO","monthly_cents":299900,"annual_cents":2999000,"monthly_equiv_cents":249917,"annual_save_cents":599800,"annual_months":12,"included_credits":5000,"seats":20,"max_concurrency":10,"badge":"可私有化","highlight":false,"features":{"desktop":"桌面版全功能 + 私有部署/白标品牌定制 + 企业分发与静默升级通道","web_ai":"网页 AI 全量 + AI 短剧全自动 + 电影模式 + 批量矩阵 + 自定义模型接入","assets":"定制素材库 + 专属授权书 + 私有素材仓","concurrency":"10 路并发（可扩容，渲染节点另议）","support":"专属客户成功 + 7×12 响应 + 季度复盘","commercial":"企业/集团商用授权（不限主体，含子品牌与外包团队）","private":true,"sso":true,"whitelabel":true,"api":true},"foot":"适合影视公司、连锁集团、政企与出海团队"}],"matrix":[{"key":"desktop","label":"桌面软件功能","values":["全功能（单机 2 席位）","全功能 + 插件市场 / 调色 / 4K（5 席位）","全功能 + 白标 / 私有部署 / 静默升级（20 席位起）"]},{"key":"web_ai","label":"网页 AI 能力","values":["文案 / 字幕 / 配音 / 数字人","全部（AI 短剧三档 / 爆款复刻 / 素材生成）","全部 + 短剧全自动 / 电影模式 / 批量矩阵"]},{"key":"credits","label":"每月含积分","values":["200 积分/月","800 积分/月","5,000 积分/月（可叠加积分包）"]},{"key":"assets","label":"素材授权","values":["标准商用素材库","扩展商用素材包（100 万+）","定制素材库 + 专属授权书"]},{"key":"concurrency","label":"并发 / 渲染队列","values":["1 路（普通队列）","3 路（优先队列）","10 路（可扩容，专属节点）"]},{"key":"seats","label":"桌面席位（设备指纹）","values":["2 台","5 台","20 台起"]},{"key":"support","label":"支持","values":["工作日工单","优先工单 + 1v1 群","专属客户成功 + 7×12"]},{"key":"commercial","label":"商用授权","values":["单主体","团队（≤5 主体）","企业/集团（不限主体）"]},{"key":"api","label":"API / 集成","values":["—","开放 API（10 QPS）","开放 API + SSO + 白标"]},{"key":"private","label":"私有化部署 / 自定义模型","values":["—","—","可选（报价）"]}],"packs":[{"id":"pack_99","price_cents":9900,"credits":100,"bonus_pct":1.01,"bonus_credits":1,"effective_cny_per_credit":0.99,"label":"入门包","note":"先试一条短剧/数字人视频"},{"id":"pack_299","price_cents":29900,"credits":330,"bonus_pct":10.37,"bonus_credits":31,"effective_cny_per_credit":0.906,"label":"常用包","note":"约 4 集标准短剧或 400 秒口播"},{"id":"pack_999","price_cents":99900,"credits":1200,"bonus_pct":20.12,"bonus_credits":201,"effective_cny_per_credit":0.833,"label":"专业包","note":"约 15 集标准短剧，团队月度够用"},{"id":"pack_2999","price_cents":299900,"credits":3900,"bonus_pct":30.04,"bonus_credits":901,"effective_cny_per_credit":0.769,"label":"工作室包","note":"约 48 集标准短剧，适合接单工作室"},{"id":"pack_9999","price_cents":999900,"credits":14000,"bonus_pct":40.01,"bonus_credits":4001,"effective_cny_per_credit":0.714,"label":"企业包","note":"批量矩阵/年框客户，单价最低"}],"enterprise":{"title":"企业版 · 私有化 / 定制 / 白标","desc":"影视公司、连锁集团、政企：私有部署、自定义模型、SSO、专属支持与白标交付，按项目报价。","quotes":[{"item":"企业版 SaaS（10 并发 / 20 席位 / 5,000 积分/月）","price":"¥2,999/月 或 ¥29,990/年","note":"含 SSO、白标、专属客户成功；可叠加积分包"},{"item":"私有化部署（含 1 套基础模型 + 部署实施）","price":"¥15 万–50 万/年","note":"数据不出场；不含 GPU 服务器硬件"},{"item":"自定义模型 / 微调（单模型）","price":"¥8 万–30 万/模型","note":"含数据清洗、评测、2 轮迭代；训练数据需授权"},{"item":"SSO / 白标 / 专属支持（独立采购）","price":"¥3 万–10 万/年","note":"企业版内已含基础能力；独立采购为增强 SLA"},{"item":"定制素材库 / 专属授权书","price":"¥2 万–8 万/年","note":"按素材量与授权范围核价"},{"item":"年度总盘（参考）","price":"中小团队 3 万–6 万/年；影视/集团 20 万–80 万/年","note":"按项目报价，合同价为准（待财务/法务复核）"}],"inquiry_fields":["公司名称","联系人","手机号","邮箱","团队规模","需求说明"],"need_quote":true},"channels":[{"id":"manual","name":"对公转账 / 线下开通","enabled":true,"hint":"提交后 1 个工作日内客服联系确认收款，开具电子发票，人工开通（推荐）"},{"id":"wechat","name":"微信支付","enabled":false,"hint":"在线支付即将开放"},{"id":"alipay","name":"支付宝","enabled":false,"hint":"在线支付即将开放"}],"payment_online":false,"payment_note":"微信/支付宝商户号申请中：当前仅支持对公转账 / 联系客服线下开通，页面已标注「在线支付即将开放」。","contact":{"email":"1374988488@qq.com","phone":"","wechat":"","hours":"工作日 9:00–18:00（Asia/Shanghai）"},"faq_version":"v1","updated_at":"2026-11-23","rates":[{"category":"数字人","item":"数字人 · 换背景版","unit":"积分/秒","credits":"0.3","status":"live","note":"已上线计费 · 按实际生成秒数结算，生成失败不扣费"},{"category":"数字人","item":"数字人 · 真口型","unit":"积分/秒","credits":"0.8","status":"live","note":"已上线计费 · 按实际生成秒数结算，失败自动退回"},{"category":"数字人","item":"数字人 · 照片口播","unit":"积分/秒","credits":"0.6","status":"live","note":"已上线计费 · 按实际生成秒数结算，失败自动退回"},{"category":"渲染","item":"成片渲染","unit":"积分/条","credits":"2","status":"live","note":"已上线计费 · 每生成一条成片扣 2 积分，失败不扣"},{"category":"生成","item":"图生/文生视频 · 标准 5s","unit":"积分/条","credits":"8","status":"design","note":"设计费率 · 按条计费（接入后生效）"},{"category":"生成","item":"图生/文生视频 · 高级 5s","unit":"积分/条","credits":"30","status":"design","note":"设计费率 · 按条计费（接入后生效）"},{"category":"生成","item":"图生/文生视频 · 旗舰 5s","unit":"积分/条","credits":"50","status":"design","note":"设计费率 · 按条计费（接入后生效）"},{"category":"生成","item":"关键帧 / 角色卡生图","unit":"积分/张","credits":"1","status":"design","note":"设计费率 · 按张计费（接入后生效）"},{"category":"生成","item":"AI 配音（TTS）","unit":"积分/百字","credits":"0.5","status":"design","note":"设计费率 · 按百字计费（接入后生效）"},{"category":"短剧","item":"AI 短剧 · 标准档（30–60s/集）","unit":"积分/集","credits":"80","status":"design","note":"设计费率 · 按成片集数计费（待接入）"},{"category":"短剧","item":"AI 短剧 · 高级档（30–60s/集）","unit":"积分/集","credits":"250","status":"design","note":"设计费率 · 按成片集数计费（待接入）"},{"category":"短剧","item":"AI 短剧 · 旗舰档（30–60s/集）","unit":"积分/集","credits":"750","status":"design","note":"设计费率 · 按成片集数计费（待接入）"},{"category":"电影","item":"电影模式（按成片分钟）","unit":"积分/分钟","credits":"900","status":"design","note":"设计费率 · 按成片分钟计费（待接入，正式计费前会复核成本）"},{"category":"插件","item":"第三方插件（按次）","unit":"积分/次","credits":"2–10","status":"design","note":"第三方插件按次计费；自研基础插件含在专业版/企业版内"},{"category":"模板","item":"模板市场单品","unit":"积分/个","credits":"5–50","status":"design","note":"订阅用户每月可领 10 个标准模板"}],"notes":["本页为当前生效价格（内测价），标注「设计费率 · 待接入」的条目为后续按次计费能力，接入后自动生效。","套餐内积分按月发放，当月未用完不结转；积分包余额可跨月使用。1 积分 ≈ ¥1。","在线支付即将开放：当前支持对公转账 / 联系客服线下开通，付款后可申请电子发票。","价格调整以本页为准；服务内容与授权范围以订单/合同条款为准。"]};</script>
+<script defer src="../assets/site-shell.js?v=20261124a"></script>
 <script src="../assets/auth.js"></script>
 <script>
 (function () {
@@ -178,240 +433,296 @@
   var $ = function (s, r) { return (r || document).querySelector(s); };
   var $$ = function (s, r) { return Array.prototype.slice.call((r || document).querySelectorAll(s)); };
   var A = window.XLAuth || {};
+  var CAT = window.__PRICING_CATALOG__ || { plans: [], packs: [] };
+  var LIVE = null;
+  var billing = 'yearly';
+  var currentBuy = null;
 
-  var FALLBACK = [
-    { id: 'free', name: '体验版', desc: '先跑通一次完整流程', billing: 'yearly', price_year: 0, daily_price: 0,
-      quotas: { video: 3, lead: 10, copywrite: 3, aivideo: 0 }, features_map: { stores: 1, support: '社区答疑' },
-      features: ['每月 3 条视频', '每月 10 条线索', '3 次 AI 改写', '视频含水印', '1 个门店'], foot: '适合第一次用 AI 做内容的小店' },
-    { id: 'basic', name: '基础版', desc: '一人管一个门店', billing: 'yearly', price_year: 1980, daily_price: 5.42, price_month: 198,
-      quotas: { video: 60, lead: 500, copywrite: -1, aivideo: 0 }, features_map: { stores: 1, support: '工作日客服' },
-      features: ['每月 60 条视频', '每月 500 条线索', 'AI 改写不限次数', '视频去水印', '1 个门店'], foot: '全年额度一次配齐，适合稳定日更' },
-    { id: 'pro', name: '专业版', desc: '有投放、有到店转化', billing: 'yearly', price_year: 3980, daily_price: 10.9, price_month: 398,
-      quotas: { video: 200, lead: 2000, copywrite: -1, aivideo: 5 }, features_map: { stores: 3, support: '优先客服' },
-      features: ['每月 200 条视频', '每月 2000 条线索', 'AI 改写不限次数', 'AI 图生视频 5 条/月', '视频去水印 · 优先队列', '3 个门店'], hot: true, foot: '适合连锁小店和代运营团队' },
-    { id: 'enterprise', name: '旗舰版', desc: '多门店 + 高频投放', billing: 'yearly', price_year: 6980, daily_price: 19.12, price_month: 698,
-      quotas: { video: 600, lead: 8000, copywrite: -1, aivideo: 20 }, features_map: { stores: 5, support: '专属客服' },
-      features: ['每月 600 条视频', '每月 8000 条线索', 'AI 改写不限次数', 'AI 图生视频 20 条/月', '视频去水印 · 优先队列', '5 个门店 · 专属客服'], foot: '多店统一管理，额度最充足' }
-  ];
-  var ORDER_INDEX = { free: 0, basic: 1, pro: 2, enterprise: 3 };
-  var PLANS = FALLBACK.slice();
-
-  var FAQ = [
-    { q: '年费怎么收？和月付有什么区别？', a: '年费一次收取 12 个月，订单月数固定为 12（如基础版 ¥1980/年、专业版 ¥3980/年、旗舰版 ¥6980/年），折合日均约 ¥5.4 / ¥10.9 / ¥19.1，比按月付更省。月付仅作为老客户可选，价格页不主推。' },
-    { q: '视频和线索额度是每月给吗？', a: '是。年费套餐的额度按自然月发放：基础版每月 60 条视频 / 500 条线索，专业版 200 / 2000，旗舰版 600 / 8000；当月未用完不结转到下月。AI 改写均不限次数。' },
-    { q: '下单后多久生效？到期日怎么算？', a: '人工通道：提交订单后联系客服付款，管理员在后台激活，通常当天生效。到期日 = 开通日 + 12 个月；续费时按原到期日顺延 12 个月，不会浪费剩余时间。' },
-    { q: '可以开发票吗？', a: '可以开电子普通发票或增值税专票，付款后联系客服提供抬头、税号与邮箱即可，通常 3 个工作日内开出。年费订单可一次开全年金额。' },
-    { q: '能退款吗？中途升级怎么算？', a: '未开通订单可取消并全额退款；已开通的年费订单按未使用月份折算退款（扣除已使用月份与已产生的开通成本）。中途升级按剩余月份折价补差，由管理员在后台调整。' },
-    { q: '多门店怎么算？会共享额度吗？', a: '体验版/基础版 1 家门店，专业版 3 家，旗舰版 5 家；更多门店请联系客服单独配置。多门店共享同一份年度额度，个人中心可分店查看消耗。' }
-  ];
-
-  function num(v, d) { var n = Number(v); return isFinite(n) ? n : (d || 0); }
-  function money(n) { n = num(n); return n % 1 === 0 ? String(n) : n.toFixed(2); }
-  function planById(id) { return PLANS.filter(function (p) { return p.id === id; })[0] || null; }
-  function isLogged() { return !!(A.token && A.token()); }
-  function userPlan() { var u = A.user ? A.user() : null; return (u && u.plan) ? u.plan : 'free'; }
   function esc(v) { return A.esc ? A.esc(v) : String(v == null ? '' : v).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;'); }
-  function dailyText(p) {
-    var d = num(p.daily_price, 0);
-    return d > 0 ? d.toFixed(1) : '0';
+  function num(v, d) { var n = Number(v); return isFinite(n) ? n : (d || 0); }
+  function money(cents) {
+    var v = num(cents, 0) / 100;
+    if (v % 1 === 0) return String(v).replace(/\B(?=(\d{3})+(?!\d))/g, ',');
+    return v.toFixed(2).replace(/\B(?=(\d{3})+(?!\d))/g, ',');
   }
-  function yearPrice(p) {
-    if (p.price_year != null) return num(p.price_year);
-    if (p.price != null) return num(p.price);
-    return num(p.price_cents) / 100;
+  function fmtInt(n) { return String(num(n, 0)).replace(/\B(?=(\d{3})+(?!\d))/g, ','); }
+  function toast(msg, kind, ms) { if (A.toast) A.toast(msg, kind || 'good', ms || 3600); }
+  function logged() { return !!(A.token && A.token()); }
+  function api(path, opts) {
+    if (!A.api) return Promise.reject(new Error('登录组件加载中'));
+    return A.api(path, opts || {});
   }
-  function quotaOf(p, key) {
-    if (p.quotas && p.quotas[key] != null) return num(p.quotas[key], 0);
-    if (p.limits) {
-      var lk = key === 'copywrite' ? 'rewrite' : key;
-      if (p.limits[lk] != null) return num(p.limits[lk], 0);
-    }
-    return 0;
+  function loginUrl() {
+    return (A.rootUrl ? A.rootUrl('account/index.html') : '../account/index.html') +
+      '?next=' + encodeURIComponent(location.pathname + location.search);
   }
-  function quotaText(n) { if (n < 0) return '不限'; if (n === 0) return '不含'; return n + ' 条/月'; }
-  function featList(p) {
-    if (Array.isArray(p.features)) return p.features;
-    if (Array.isArray(p.features_text)) return p.features_text;
-    return [];
-  }
+  function planById(id) { var l = (LIVE && LIVE.plans) || CAT.plans; for (var i = 0; i < l.length; i++) if (l[i].id === id) return l[i]; return null; }
+  function packById(id) { var l = (LIVE && LIVE.packs) || CAT.packs; for (var i = 0; i < l.length; i++) if (l[i].id === id) return l[i]; return null; }
 
-  function renderCurrentBar() {
-    var bar = $('#currentBar');
-    if (!bar) return;
-    var u = isLogged() && A.user ? A.user() : null;
-    if (!u) { bar.hidden = true; return; }
-    bar.hidden = false;
-    var exp = u.plan_expire_at ? (A.fmtDate ? A.fmtDate(u.plan_expire_at) : u.plan_expire_at) + ' 到期' : '长期有效（体验版）';
-    bar.innerHTML = '当前登录：<b>' + esc(u.business_name || u.name || u.account || '商家') + '</b> · 套餐：<b>' +
-      esc(u.plan_name || (A.planName ? A.planName(u.plan) : u.plan)) + '</b> · ' + esc(exp) +
-      ' · <a href="' + (A.rootUrl ? A.rootUrl('account/dashboard.html') : '../account/dashboard.html') + '">查看额度 →</a>';
-  }
-
-  function renderPlans() {
-    var host = $('#plans');
-    if (!host) return;
-    var cur = userPlan();
-    PLANS.sort(function (a, b) { return (ORDER_INDEX[a.id] == null ? 9 : ORDER_INDEX[a.id]) - (ORDER_INDEX[b.id] == null ? 9 : ORDER_INDEX[b.id]); });
-    host.innerHTML = PLANS.map(function (p) {
-      var isCur = isLogged() && p.id === cur;
-      var hot = p.id === 'pro';
-      var free = p.id === 'free';
-      var yp = yearPrice(p);
-      var cta;
-      if (isCur) cta = '<button class="btn btn-block btn-sm" disabled>当前套餐</button>';
-      else if (free) cta = '<button class="btn btn-block" data-plan="free" data-free="1">' + (isLogged() ? '免费额度已包含' : '免费注册开始') + '</button>';
-      else cta = '<button class="btn btn-primary btn-block" data-plan="' + p.id + '">开通年费 · 年付 12 个月</button>';
-      var tag = isCur ? '<div class="tagline green">当前套餐</div>' : (hot ? '<div class="tagline">最受欢迎</div>' : '');
-      var feats = featList(p);
-      var featHtml = feats.length ? feats.map(function (f) {
-        return '<div class="feat"><span class="k">' + esc(f) + '</span><span class="v yes">✓</span></div>';
-      }).join('') : '';
-      return '' +
-        '<article class="plan' + (hot ? ' hot' : '') + (isCur ? ' current' : '') + '">' + tag +
-          '<div class="plan-top">' +
-            '<h2 class="plan-name">' + esc(p.name || p.id) + '</h2>' +
-            '<p class="plan-desc">' + esc(p.desc || p.tagline || '') + '</p>' +
-            '<div class="price"><span class="cur">¥</span><span class="num">' + money(yp) + '</span><span class="unit">/ 年</span></div>' +
-            '<p class="daily">日均 <b>' + dailyText(p) + '</b> 元/天' + (free ? ' · 永久免费' : ' · 年付 12 个月一次收') + '</p>' +
-            '<div class="price-note">' + (free ? '体验版每月重置额度，不绑定支付方式' : '月付可选 ¥' + money(p.price_month || Math.round(yp / 10)) + '/月（不主推）') + '</div>' +
-          '</div>' +
-          '<div class="plan-cta">' + cta + '</div>' +
-          '<div class="plan-feats">' +
-            '<div class="feat"><span class="k">视频</span><span class="v">' + quotaText(quotaOf(p, 'video')) + '</span></div>' +
-            '<div class="feat"><span class="k">线索</span><span class="v">' + quotaText(quotaOf(p, 'lead')) + '</span></div>' +
-            '<div class="feat"><span class="k">AI 改写</span><span class="v' + (quotaOf(p, 'copywrite') < 0 ? ' yes' : '') + '">' + quotaText(quotaOf(p, 'copywrite')) + '</span></div>' +
-            '<div class="feat"><span class="k">AI 视频</span><span class="v' + (quotaOf(p, 'aivideo') > 0 ? ' yes' : ' no') + '">' + quotaText(quotaOf(p, 'aivideo')) + '</span></div>' +
-            featHtml +
-          '</div>' +
-          '<div class="plan-foot">' + esc(p.foot || '') + '</div>' +
-        '</article>';
-    }).join('');
-
-    $$('[data-plan]', host).forEach(function (b) {
-      b.addEventListener('click', function () {
-        var id = b.getAttribute('data-plan');
-        if (id === 'free') {
-          if (!isLogged()) location.href = (A.rootUrl ? A.rootUrl('account/index.html') : '../account/index.html') + '?next=' + encodeURIComponent(location.pathname);
-          else if (A.toast) A.toast('体验版额度已包含在账号里', 'good');
-          return;
-        }
-        if (!isLogged()) {
-          location.href = (A.rootUrl ? A.rootUrl('account/index.html') : '../account/index.html') + '?next=' + encodeURIComponent(location.pathname);
-          return;
-        }
-        openOrder(planById(id));
-      });
+  /* ---------------- 价格展示 ---------------- */
+  function paintPrices() {
+    var isYear = billing === 'yearly';
+    $$('.plan').forEach(function (card) {
+      var p = planById(card.getAttribute('data-plan-id'));
+      if (!p) return;
+      var big = isYear ? Math.round(num(p.annual_cents, 0) / 12) : num(p.monthly_cents, 0);
+      var elNum = $('[data-price-num]', card), elNote = $('[data-price-note]', card), elUnit = $('[data-price-unit]', card);
+      if (elNum) elNum.textContent = money(big);
+      if (elUnit) elUnit.textContent = '/月';
+      if (elNote) {
+        elNote.innerHTML = isYear
+          ? '年付 ¥' + money(p.annual_cents) + '（12 个月，省 ¥' + money(p.annual_save_cents) + '）'
+          : '月付 ¥' + money(p.monthly_cents) + '/月 · 可选 1/3/6 个月';
+      }
     });
-    renderCurrentBar();
   }
-
-  XLAuth.api('/plans', { auth: false, timeout: 12000 }).then(function (d) {
-    var list = (d && (d.plans || d.list)) || [];
-    if (Array.isArray(list) && list.length) {
-      PLANS = list.map(function (p) {
-        var f = FALLBACK.filter(function (x) { return x.id === p.id; })[0] || {};
-        var q = Object.assign({}, f.quotas, p.quotas || {});
-        return Object.assign({}, f, p, { quotas: q });
+  $$('.billing-toggle .seg button').forEach(function (b) {
+    b.addEventListener('click', function () {
+      billing = b.getAttribute('data-cycle');
+      $$('.billing-toggle .seg button').forEach(function (x) {
+        var on = x === b;
+        x.classList.toggle('on', on);
+        x.setAttribute('aria-selected', on ? 'true' : 'false');
       });
-    }
-    renderPlans();
-  }).catch(function () { renderPlans(); });
+      paintPrices();
+    });
+  });
+  paintPrices();
 
-  $('#faqList').innerHTML = FAQ.map(function (x) {
-    return '<div class="faq-item"><button class="faq-q" type="button">' + esc(x.q) + '<i>+</i></button><div class="faq-a">' + esc(x.a) + '</div></div>';
-  }).join('');
-  $$('.faq-q').forEach(function (b) {
-    b.addEventListener('click', function () { b.parentNode.classList.toggle('on'); });
+  /* ---------------- 价格表状态（实时 API 校验） ---------------- */
+  function priceSig(cat) {
+    try { return JSON.stringify([cat.plans.map(function (p) { return [p.id, p.monthly_cents, p.annual_cents, p.included_credits]; }), cat.packs.map(function (p) { return [p.id, p.price_cents, p.credits]; })]); } catch (e) { return ''; }
+  }
+  function setStatus(text, warn, linkText) {
+    var t = $('#statusText'), d = $('.status-bar .dot'), a = $('#refreshLink');
+    if (t) t.textContent = text;
+    if (d) d.classList.toggle('warn', !!warn);
+    if (a) { if (linkText) { a.hidden = false; a.textContent = linkText; } else a.hidden = true; }
+  }
+  api('/credits/catalog', { auth: false, timeout: 12000 }).then(function (live) {
+    if (!live || !live.ok || !live.plans) throw new Error('bad catalog');
+    LIVE = live;
+    var same = priceSig(live) === priceSig(CAT);
+    setStatus('价格版本 ' + esc(live.version) + ' · ' + (same ? '与页面一致' : '已更新（下单将按最新价校验）'),
+      !same, same ? '' : '刷新页面');
+    var vf = $('#verFoot');
+    if (vf) vf.textContent = live.version;
+    if (!same) {
+      $$('[data-buy-plan],[data-buy-pack]').forEach(function (b) { b.disabled = true; b.title = '价格已更新，请刷新页面'; });
+    }
+  }).catch(function () {
+    // 后端价格表接口未就绪（例：本次升级部署后尚未重启）：页面降级为内置快照，购买按钮引导客服/邮件
+    setStatus('价格接口升级中：当前展示内置价格快照，购买请发邮件到 1374988488@qq.com 或联系客服（对公转账/线下开通）', true);
+    $$('[data-buy-plan],[data-buy-pack]').forEach(function (b) {
+      b.disabled = true;
+      b.title = '在线购买通道升级中：请联系客服对公转账 / 线下开通';
+    });
   });
 
-  /* ---------------- 年费下单 ---------------- */
-  var mask = $('#orderMask'), orderBody = $('#orderBody'), currentPlan = null, channel = 'manual';
+  /* ---------------- 当前订阅 ---------------- */
+  if (logged()) {
+    api('/credits/subscription', { timeout: 12000 }).then(function (d) {
+      var sub = d && d.subscription;
+      if (!sub) return;
+      var box = $('#currentSub');
+      box.hidden = false;
+      box.innerHTML = '当前订阅：<b>' + esc(sub.plan_name) + '</b> · ' + esc(sub.cycle === 'yearly' ? '年付' : '月付') +
+        ' · ' + esc(sub.expires_at) + ' 到期（剩 <b>' + num(sub.days_left) + '</b> 天）· 每月含 <b>' + fmtInt(sub.credits_per_month) + '</b> 积分 · ' +
+        '<a href="' + (A.rootUrl ? A.rootUrl('account/dashboard.html') : '../account/dashboard.html') + '#commerceCard">管理订阅 →</a>';
+    }).catch(function () {});
+  }
 
-  function closeOrder() { if (!mask) return; mask.classList.remove('on'); document.body.style.overflow = ''; }
-  if ($('#orderClose')) $('#orderClose').addEventListener('click', closeOrder);
-  if (mask) mask.addEventListener('click', function (e) { if (e.target === mask) closeOrder(); });
-  document.addEventListener('keydown', function (e) { if (e.key === 'Escape') closeOrder(); });
+  /* ---------------- 购买弹窗 ---------------- */
+  var mask = $('#buyMask'), body = $('#buyBody'), channel = 'manual';
+  function closeBuy() { if (!mask) return; mask.classList.remove('on'); document.body.style.overflow = ''; currentBuy = null; }
+  if ($('#buyClose')) $('#buyClose').addEventListener('click', closeBuy);
+  if (mask) mask.addEventListener('click', function (e) { if (e.target === mask) closeBuy(); });
+  document.addEventListener('keydown', function (e) { if (e.key === 'Escape') closeBuy(); });
 
-  function openOrder(plan) {
-    if (!plan) return;
-    currentPlan = plan;
-    channel = 'manual';
-    renderOrder();
+  function openBuy(kind, id) {
+    if (!logged()) {
+      toast('请先登录，登录后自动回到本页', 'warn', 3200);
+      setTimeout(function () { location.href = loginUrl(); }, 700);
+      return;
+    }
+    var item = kind === 'plan' ? planById(id) : packById(id);
+    if (!item) { toast('该商品已下架，请刷新页面', 'warn'); return; }
+    currentBuy = { kind: kind, item: item, cycle: billing === 'yearly' ? 'yearly' : 'monthly', months: billing === 'yearly' ? 12 : 1 };
+    renderBuy();
     mask.classList.add('on');
     document.body.style.overflow = 'hidden';
   }
 
-  function renderOrder() {
-    var p = currentPlan;
-    if (!p) return;
-    var yp = yearPrice(p);
-    var pays = [
-      ['manual', '人工客服开通', '推荐 · 客服确认收款后开通'],
-      ['wechat', '微信支付', '联系客服开通（接入中）'],
-      ['alipay', '支付宝', '联系客服开通（接入中）']
-    ].map(function (x) {
-      return '<label class="pay-opt ' + (channel === x[0] ? 'on' : '') + '"><input type="radio" name="paych" value="' + x[0] + '"' + (channel === x[0] ? ' checked' : '') + '><span class="pn">' + x[1] + '<span class="pd">' + x[2] + '</span></span>' +
-        (x[0] === 'manual' ? '<span class="badge lime">可用</span>' : '<span class="badge amber">接入中</span>') + '</label>';
-    }).join('');
-    orderBody.innerHTML =
-      '<h3 id="orderTitle">开通 ' + esc(p.name) + ' · 年费</h3>' +
-      '<p class="modal-sub">年付 12 个月，一次收取全年费用；提交后由客服确认收款并开通</p>' +
-      '<div class="order-summary">' +
-        '<div class="li"><span>' + esc(p.name) + ' · 年费（12 个月）</span><b>¥' + money(yp) + '</b></div>' +
-        '<div class="li"><span>折合日均</span><span>¥' + dailyText(p) + '/天</span></div>' +
-        '<div class="li"><span>视频额度</span><span>' + quotaText(quotaOf(p, 'video')) + '</span></div>' +
-        '<div class="li"><span>线索额度</span><span>' + quotaText(quotaOf(p, 'lead')) + '</span></div>' +
-        '<div class="li total"><span>应付</span><b>¥' + money(yp) + '</b></div>' +
-      '</div>' +
-      '<div class="field"><label>支付方式</label><div class="pay-list">' + pays + '</div><div class="hint" id="payHint">' + (channel === 'manual' ? '提交订单后联系客服付款，管理员在后台激活，到期日 = 开通日 + 12 个月。' : '该支付通道接入中，提交后客服会联系你开通。') + '</div></div>' +
-      '<div class="err" id="orderErr"></div>' +
-      '<div class="modal-actions"><button class="btn" type="button" id="orderCancel">再看看</button><button class="btn btn-primary" type="button" id="orderSubmit">提交年费订单</button></div>';
-    $$('input[name=paych]', orderBody).forEach(function (r) {
-      r.addEventListener('change', function () { channel = r.value; renderOrder(); });
-    });
-    var cancel = $('#orderCancel');
-    if (cancel) cancel.addEventListener('click', closeOrder);
-    var submit = $('#orderSubmit');
-    if (submit) submit.addEventListener('click', submitOrder);
+  function calc() {
+    var c = currentBuy;
+    if (!c) return { cents: 0, credits: 0, subtitle: '' };
+    if (c.kind === 'pack') {
+      return { cents: num(c.item.price_cents), credits: num(c.item.credits), subtitle: '积分包 · 一次到账' };
+    }
+    var yearly = c.cycle === 'yearly';
+    var months = yearly ? 12 : num(c.months, 1);
+    var cents = yearly ? num(c.item.annual_cents) : num(c.item.monthly_cents) * months;
+    return {
+      cents: cents, credits: num(c.item.included_credits) * months,
+      subtitle: yearly ? '年付 · 12 个月（省 2 个月）' : '月付 · ' + months + ' 个月'
+    };
   }
 
-  function submitOrder() {
-    var btn = $('#orderSubmit'), errEl = $('#orderErr');
-    if (!btn) return;
-    if (!isLogged()) { closeOrder(); location.href = (A.rootUrl ? A.rootUrl('account/index.html') : '../account/index.html') + '?next=' + encodeURIComponent(location.pathname); return; }
+  function renderBuy() {
+    var c = currentBuy;
+    if (!c) return;
+    var info = calc(), isPlan = c.kind === 'plan';
+    var cycleHtml = '';
+    if (isPlan) {
+      var opts = [['monthly', 1, '月付 1 个月'], ['monthly', 3, '月付 3 个月'], ['monthly', 6, '月付 6 个月'], ['yearly', 12, '年付 12 个月（省 2 个月）']];
+      cycleHtml = '<div class="field"><label>计费周期</label><div class="cycle-opts">' + opts.map(function (o) {
+        var on = (o[2].indexOf('年付') === 0 ? c.cycle === 'yearly' : (c.cycle === 'monthly' && c.months === o[1]));
+        var unit = o[1] === 1 ? '按 ¥' + money(c.item.monthly_cents) + '/月' : (o[1] === 12 ? '一次收取 ¥' + money(c.item.annual_cents) : '¥' + fmtInt(o[1]) + ' × ¥' + money(c.item.monthly_cents) + '/月');
+        return '<label class="cycle-opt' + (on ? ' on' : '') + '"><input type="radio" name="cycle" value="' + o[0] + ':' + o[1] + '"' + (on ? ' checked' : '') + '><span class="cn">' + o[2] + '<span class="cd">' + unit + '</span></span></label>';
+      }).join('') + '</div></div>';
+    }
+    var payHtml = [
+      ['manual', '对公转账 / 联系客服开通', '推荐 · 客服 1 个工作日内确认收款后开通'],
+      ['wechat', '微信支付', '在线支付即将开放'],
+      ['alipay', '支付宝', '在线支付即将开放']
+    ].map(function (x) {
+      var dis = x[0] !== 'manual';
+      return '<label class="pay-opt' + (x[0] === 'manual' ? ' on' : '') + (dis ? ' dis' : '') + '">' +
+        '<input type="radio" name="paych" value="' + x[0] + '"' + (x[0] === 'manual' ? ' checked' : '') + (dis ? ' disabled' : '') + '>' +
+        '<span class="pn">' + x[1] + '<span class="pd">' + x[2] + '</span></span>' +
+        (dis ? '<span class="badge amber">即将开放</span>' : '<span class="badge lime">可用</span>') + '</label>';
+    }).join('');
+    body.innerHTML =
+      '<h3 id="buyTitle">' + (isPlan ? '开通 ' : '购买 ') + esc(c.item.name || c.item.label || '') + '</h3>' +
+      '<p class="modal-sub">' + esc(isPlan ? (c.item.tagline || '') : '积分包余额可跨月使用，可叠加套餐') + '</p>' +
+      '<div class="order-summary">' +
+        '<div class="li"><span>商品</span><b>' + esc(c.item.name || ('积分包 · ' + c.item.label)) + '</b></div>' +
+        '<div class="li"><span>周期</span><b>' + esc(info.subtitle) + '</b></div>' +
+        '<div class="li"><span>到账积分</span><b>' + fmtInt(info.credits) + ' 积分</b></div>' +
+        '<div class="li total"><span>应付金额</span><b>¥' + money(info.cents) + '</b></div>' +
+      '</div>' +
+      cycleHtml +
+      '<div class="field"><label>支付方式</label><div class="pay-list">' + payHtml + '</div>' +
+        '<div class="hint">在线支付即将开放：提交后客服联系确认收款（对公转账），管理员人工开通；支持开具电子普票/专票。</div></div>' +
+      '<div class="field"><label for="buyNote">备注（选填：发票抬头 / 税号 / 期望开通时间）</label><input class="input" id="buyNote" maxlength="200" placeholder="例如：抬头=XX公司；税号=91xxxx"></div>' +
+      '<div class="err" id="buyErr"></div>' +
+      '<div class="modal-actions"><button class="btn" type="button" id="buyCancel">再看看</button>' +
+      '<button class="btn btn-primary" type="button" id="buySubmit">提交订单 · ¥' + money(info.cents) + '</button></div>';
+    $$('input[name=cycle]', body).forEach(function (r) {
+      r.addEventListener('change', function () {
+        var parts = r.value.split(':');
+        c.cycle = parts[0]; c.months = num(parts[1], 1);
+        renderBuy();
+      });
+    });
+    $('#buyCancel').addEventListener('click', closeBuy);
+    $('#buySubmit').addEventListener('click', submitBuy);
+  }
+
+  function submitBuy() {
+    var c = currentBuy, btn = $('#buySubmit'), errEl = $('#buyErr');
+    if (!c || !btn) return;
+    var info = calc();
+    var bodyData = {
+      item_type: c.kind, item_id: c.item.id,
+      cycle: c.kind === 'plan' ? c.cycle : 'once',
+      months: c.kind === 'plan' ? (c.cycle === 'yearly' ? 12 : num(c.months, 1)) : 1,
+      channel: 'manual',
+      client_token: 'pc_' + Date.now() + '_' + Math.random().toString(36).slice(2, 10),
+      amount_cents: info.cents,
+      note: (($('#buyNote') || {}).value || '').trim()
+    };
     errEl.classList.remove('on');
     btn.disabled = true; var old = btn.textContent; btn.textContent = '提交中…';
-    XLAuth.api('/orders', { method: 'POST', body: { plan_id: currentPlan.id, months: 12, channel: channel }, timeout: 20000 })
-      .then(function (d) {
-        var o = d.order || d;
-        renderSuccess(o);
-        if (A.toast) A.toast('年费订单已提交，等待客服开通', 'good', 3200);
-      })
-      .catch(function (e) {
-        btn.disabled = false; btn.textContent = old;
-        errEl.textContent = e.code === 'NOT_READY' ? '订单服务暂时不可用，请稍后再试或直接联系客服' : (e.message || '提交失败，请稍后再试');
-        errEl.classList.add('on');
-      });
+    api('/credits/orders', { method: 'POST', body: bodyData, timeout: 20000 }).then(function (d) {
+      renderSuccess(d && d.order ? d.order : d);
+      toast('订单已提交，等待客服确认收款', 'good', 3600);
+    }).catch(function (e) {
+      btn.disabled = false; btn.textContent = old;
+      var msg = e.code === 'price_mismatch'
+        ? '价格已更新：页面价格与服务器不一致，请刷新页面后重试'
+        : (e.code === 'NOT_READY'
+          ? '在线购买通道升级中：请直接发邮件到 1374988488@qq.com 备注套餐/月数，或联系客服对公转账开通'
+          : (e.status === 401 ? '登录已失效，请重新登录' : (e.message || '提交失败，请稍后再试')));
+      errEl.textContent = msg;
+      errEl.classList.add('on');
+      if (e.code === 'price_mismatch') setTimeout(function () { location.reload(); }, 1600);
+    });
   }
 
   function renderSuccess(o) {
-    var amt = o.amount != null ? o.amount : (num(o.amount_cents) / 100);
-    orderBody.innerHTML =
-      '<div class="success-box"><div class="big">✅</div><h3>年费订单已提交</h3>' +
-      '<p class="modal-sub">客服确认收款后，管理员会在后台开通；到期日从激活当天起算 12 个月。</p>' +
+    o = o || {};
+    var c = currentBuy;
+    var amount = o.amount_cents != null ? o.amount_cents : o.amount_cny * 100;
+    var contact = (CAT.contact && CAT.contact.email) || '1374988488@qq.com';
+    body.innerHTML =
+      '<div class="success-box"><div class="big">✅</div><h3>订单已提交</h3>' +
+      '<p class="modal-sub">客服会在 1 个工作日内联系你确认收款（对公转账），确认后人工开通。</p>' +
       (o.order_no ? '<div class="ordno">订单号：' + esc(o.order_no) + '</div>' : '') +
       '<div class="order-summary" style="text-align:left;margin-top:14px">' +
-        '<div class="li"><span>套餐</span><b>' + esc(o.plan_name || (currentPlan && currentPlan.name) || '') + '</b></div>' +
-        '<div class="li"><span>周期</span><b>12 个月（年费）</b></div>' +
-        '<div class="li"><span>实付</span><b>¥' + (A.money ? A.money(o.amount_cents, amt) : money(amt)) + '</b></div>' +
-        '<div class="li"><span>状态</span><b><span class="badge amber">待处理</span></b></div>' +
+        '<div class="li"><span>商品</span><b>' + esc(o.item_name || (c && (c.item.name || c.item.label)) || '') + '</b></div>' +
+        '<div class="li"><span>金额</span><b>¥' + money(amount) + '</b></div>' +
+        '<div class="li"><span>到账积分</span><b>' + fmtInt(o.credits || calc().credits) + ' 积分</b></div>' +
+        '<div class="li"><span>状态</span><b><span class="badge amber">待付款 / 待开通</span></b></div>' +
       '</div>' +
-      '<div class="modal-actions"><a class="btn" href="' + (A.rootUrl ? A.rootUrl('pricing/index.html') : './') + '">继续看看</a><a class="btn btn-primary" href="' + (A.rootUrl ? A.rootUrl('account/dashboard.html') : '../account/dashboard.html') + '#orders">查看我的订单</a></div>';
-    $$('#orderBody .modal-actions a').forEach(function (a) { a.addEventListener('click', closeOrder); });
+      '<div class="pay-step">📌 <b>下一步：</b><br>1）联系客服付款或获取对公账户（邮箱 <b>' + esc(contact) + '</b>，工作日 9:00–18:00）；<br>2）管理员确认收款后开通，开通后积分/套餐立即到账；<br>3）到「个人中心 → 申请发票」开票。<br><span style="color:var(--txt3)">在线支付即将开放；订单可联系客服取消。</span></div>' +
+      '<div class="modal-actions"><a class="btn" href="' + (A.rootUrl ? A.rootUrl('account/dashboard.html') : '../account/dashboard.html') + '#commerceCard">查看我的订单</a>' +
+      '<a class="btn btn-primary" href="' + (A.rootUrl ? A.rootUrl('pricing/index.html') : './') + '">继续看看</a></div>';
+    $$('#buyBody .modal-actions a').forEach(function (a) { a.addEventListener('click', closeBuy); });
   }
 
-  document.addEventListener('auth:change', function () { renderPlans(); });
-  renderPlans();
+  $$('[data-buy-plan]').forEach(function (b) {
+    b.addEventListener('click', function () { openBuy('plan', b.getAttribute('data-buy-plan')); });
+  });
+  $$('[data-buy-pack]').forEach(function (b) {
+    b.addEventListener('click', function () { openBuy('pack', b.getAttribute('data-buy-pack')); });
+  });
+
+  /* ---------------- FAQ ---------------- */
+  $$('.faq-q').forEach(function (b) {
+    b.addEventListener('click', function () { b.parentNode.classList.toggle('on'); });
+  });
+
+  /* ---------------- 企业版询价表单 ---------------- */
+  var form = $('#inqForm');
+  if (form) {
+    form.addEventListener('submit', function (ev) {
+      ev.preventDefault();
+      var errEl = $('#inqErr'), okEl = $('#inqOk'), btn = $('#inqSubmit');
+      errEl.classList.remove('on');
+      var data = {
+        company: (($('#inqCompany') || {}).value || '').trim(),
+        contact: (($('#inqContact') || {}).value || '').trim(),
+        phone: (($('#inqPhone') || {}).value || '').trim(),
+        email: (($('#inqEmail') || {}).value || '').trim(),
+        team_size: (($('#inqScale') || {}).value || '').trim(),
+        need: (($('#inqNeed') || {}).value || '').trim(),
+        source: 'pricing_enterprise'
+      };
+      if (!data.company) { errEl.textContent = '请填写公司名称'; errEl.classList.add('on'); return; }
+      if (!data.contact) { errEl.textContent = '请填写联系人'; errEl.classList.add('on'); return; }
+      if (!data.email || data.email.indexOf('@') < 0) { errEl.textContent = '请填写正确的邮箱（用于接收方案与报价）'; errEl.classList.add('on'); return; }
+      btn.disabled = true; var old = btn.textContent; btn.textContent = '提交中…';
+      api('/credits/enterprise-inquiry', { method: 'POST', body: data, timeout: 20000 }).then(function (d) {
+        btn.textContent = old; btn.disabled = false;
+        okEl.textContent = (d && d.hint) || '询价已提交：销售会在 1 个工作日内联系你';
+        okEl.classList.add('on');
+        form.reset();
+        toast('询价已提交，销售会尽快联系你', 'good', 4200);
+      }).catch(function (e) {
+        btn.textContent = old; btn.disabled = false;
+        if (e && e.code === 'NOT_READY') {
+          okEl.innerHTML = '询价通道升级中：请直接发送邮件到 <a href="mailto:1374988488@qq.com" style="color:var(--cyan)">1374988488@qq.com</a>' +
+            '（公司名称 / 联系人 / 手机号 / 需求），我们 1 个工作日内联系你。';
+          okEl.classList.add('on');
+          form.reset();
+          return;
+        }
+        errEl.textContent = (e && e.message) || '提交失败，请稍后再试或直接发邮件到 1374988488@qq.com';
+        errEl.classList.add('on');
+      });
+    });
+  }
 })();
 </script>
 </body>

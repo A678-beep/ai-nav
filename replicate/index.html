@@ -180,8 +180,10 @@ footer a{color:var(--txt2)}
 <meta name="twitter:description" content="上传一条参考视频，AI 拆解镜头结构、节奏与文案，生成可编辑复刻模板；用你自己的授权素材换素材出片，不搬运原视频画面。">
 <meta name="twitter:image" content="https://xinglaiai.com/ai-nav/assets/og/replicate.png">
 <link rel="stylesheet" href="../assets/site-shell.css">
+<link rel="stylesheet" href="../assets/auth-gate.css">
+<script src="../assets/auth-gate.js" data-mode="mask"></script>
 </head>
-<body>
+<body data-xl-gate="mask">
 <header class="top">
   <div class="top-in">
     <a class="logo" href="/ai-nav/"><span class="mark">✦</span>星籁 AI</a>
@@ -686,6 +688,6 @@ footer a{color:var(--txt2)}
 })();
 </script>
 
-<script defer src="../assets/site-shell.js"></script>
+<script defer src="../assets/site-shell.js?v=20261124a"></script>
 </body>
 </html>

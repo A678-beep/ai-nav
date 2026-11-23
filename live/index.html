@@ -3,8 +3,8 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<title>AI 直播助播（合规版）· 星籁 AI</title>
-<meta name="description" content="真人主播在场 + AI 实时助播：提词、话术补充、弹幕摘要与建议回复、节奏提醒与复盘。合规版，不做无人直播、不规避平台检测、不伪装真人。">
+<title>AI 直播助播（合规版）· 开播策划 + 实时助播 + 下播复盘 · 星籁 AI</title>
+<meta name="description" content="真人主播在场 + AI 直播助播闭环：开播策划（货盘节奏表/开场钩子/逼单节点/问答预案）、实时助播（提词/弹幕建议回复/冷场刷屏问价提醒/违规词拦截）、下播复盘（观看互动转化估算/话术效果/问题清单/下一场建议）。合规版，不做无人直播、不规避平台检测、不伪装真人。">
 <meta name="robots" content="noindex,nofollow"><meta name="googlebot" content="noindex,nofollow">
 <meta name="theme-color" content="#070a10">
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%23070a10'/%3E%3Cpath d='M18 44V20h6v10h16V20h6v24h-6V36H24v8z' fill='%235ad1ff'/%3E%3C/svg%3E">
@@ -154,6 +154,132 @@ audio[src]{display:block;margin-top:2px}
 .compliance .ci b{color:var(--txt)}
 .bwords{display:flex;gap:5px;flex-wrap:wrap}
 .bwords span{font-size:11px;color:var(--red);border:1px solid rgba(255,122,122,.35);background:rgba(255,122,122,.08);border-radius:999px;padding:1px 8px}
+/* ---------- v2 三 Tab：开播策划 / 实时助播 / 下播复盘 ---------- */
+.tabbar{max-width:1720px;margin:0 auto;padding:10px 16px 0;display:flex;align-items:center;gap:8px;flex-wrap:wrap}
+.tabbar .loop{font-size:11.5px;color:var(--txt3);margin-left:auto;letter-spacing:.3px}
+.tabbar .loop b{color:var(--txt2)}
+.tabbtn{border:1px solid var(--line);background:var(--panel);color:var(--txt2);border-radius:12px;padding:9px 16px;font-size:14px;font-weight:900;letter-spacing:.4px;display:inline-flex;align-items:center;gap:8px;transition:.15s;white-space:nowrap}
+.tabbtn .n{width:20px;height:20px;border-radius:50%;display:grid;place-items:center;background:#0a1019;color:var(--txt3);font-size:11px;border:1px solid var(--line)}
+.tabbtn:hover{border-color:rgba(90,209,255,.55);color:var(--txt)}
+.tabbtn.on{background:linear-gradient(135deg,rgba(90,209,255,.18),rgba(167,139,250,.16));border-color:rgba(90,209,255,.6);color:#fff;box-shadow:0 8px 26px rgba(90,209,255,.12)}
+.tabbtn.on .n{background:var(--cyan);color:#04121c;border-color:transparent}
+.tabpane[hidden]{display:none!important}
+/* ---------- 开播策划 ---------- */
+.plangrid{display:grid;grid-template-columns:360px minmax(0,1fr);gap:14px;align-items:start}
+.panel-title{font-size:15px;font-weight:900;letter-spacing:.4px;display:flex;align-items:center;gap:8px}
+.panel-title .ln{width:3px;height:16px;border-radius:2px;background:linear-gradient(180deg,var(--cyan),var(--violet))}
+.plan-hero{display:flex;align-items:center;gap:10px;flex-wrap:wrap;font-size:12.5px;color:var(--txt2)}
+.plan-hero b{color:var(--txt)}
+.hooks{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:9px}
+.hook{border:1px solid rgba(90,209,255,.28);background:rgba(90,209,255,.06);border-radius:12px;padding:10px 11px}
+.hook .ht{font-size:13.5px;font-weight:800;line-height:1.55;color:#eef6ff}
+.hook .hw{font-size:11px;color:var(--txt3);margin-top:5px;line-height:1.5}
+.tbl-wrap{border:1px solid var(--line);border-radius:12px;overflow:auto;background:#0a1019}
+table.rt{width:100%;border-collapse:collapse;min-width:920px;font-size:12.5px}
+table.rt th{position:sticky;top:0;z-index:1;background:#0d1724;color:var(--txt2);font-size:11.5px;text-align:left;padding:9px 10px;border-bottom:1px solid var(--line);white-space:nowrap}
+table.rt td{padding:9px 10px;border-bottom:1px solid rgba(29,39,53,.72);vertical-align:top;line-height:1.55;color:var(--txt2)}
+table.rt tr:last-child td{border-bottom:0}
+table.rt td .sk{color:var(--txt);font-weight:800}
+table.rt td.time{white-space:nowrap;color:var(--cyan);font-weight:900;font-variant-numeric:tabular-nums}
+table.rt td.talk{color:var(--txt);min-width:170px}
+.stagechip{display:inline-block;border-radius:999px;padding:1px 8px;font-size:11px;font-weight:900;border:1px solid var(--line);color:var(--txt2);white-space:nowrap}
+.stagechip.s开场{color:var(--green);border-color:rgba(84,217,140,.4);background:rgba(84,217,140,.08)}
+.stagechip.s主推讲解,.stagechip.s次推讲解{color:var(--cyan);border-color:rgba(90,209,255,.4);background:rgba(90,209,255,.08)}
+.stagechip.s互动答疑{color:var(--violet);border-color:rgba(167,139,250,.4);background:rgba(167,139,250,.09)}
+.stagechip.s逼单{color:var(--amber);border-color:rgba(245,185,66,.4);background:rgba(245,185,66,.09)}
+.stagechip.s换品{color:#ffb4a2;border-color:rgba(255,180,162,.4);background:rgba(255,180,162,.08)}
+.stagechip.s收尾{color:var(--txt2);border-color:var(--line);background:rgba(150,170,200,.08)}
+.nodegrid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:9px}
+.node{border:1px solid rgba(245,185,66,.3);background:rgba(245,185,66,.05);border-radius:12px;padding:10px 11px}
+.node .nt{font-size:12px;font-weight:900;color:var(--amber)}
+.node .nb{font-size:12.5px;color:var(--txt2);line-height:1.55;margin-top:5px}
+.node .ns{font-size:12px;color:var(--txt);line-height:1.5;margin-top:5px;border-top:1px dashed rgba(245,185,66,.25);padding-top:5px}
+.qa-table{width:100%;border-collapse:collapse;font-size:12.5px}
+.qa-table td{padding:7px 9px;border-bottom:1px solid rgba(29,39,53,.7);vertical-align:top;line-height:1.55}
+.qa-table tr:last-child td{border-bottom:0}
+.qa-table td.q{color:var(--txt);font-weight:800;width:34%}
+.taboos{display:flex;flex-direction:column;gap:6px}
+.taboo{display:flex;gap:8px;font-size:12.5px;color:var(--txt2);line-height:1.55}
+.taboo .no{flex:0 0 auto;color:var(--red);font-weight:900}
+.exportbar{display:flex;gap:8px;flex-wrap:wrap;align-items:center}
+.hist{display:flex;flex-direction:column;gap:7px;max-height:220px;overflow:auto}
+.hist-item{border:1px solid var(--line);background:#0a1019;border-radius:10px;padding:7px 9px;display:flex;align-items:center;gap:8px}
+.hist-item .hm{flex:1;min-width:0}
+.hist-item .hm b{display:block;font-size:12.5px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.hist-item .hm span{font-size:11px;color:var(--txt3)}
+/* ---------- 实时助播 · 互动提醒 / 违规拦截 ---------- */
+.aux{display:grid;grid-template-columns:minmax(0,1.12fr) minmax(0,.88fr);gap:14px;margin-top:14px}
+.mon-status{display:flex;align-items:center;gap:10px;flex-wrap:wrap}
+.mon-lv{font-size:13px;font-weight:900;border-radius:999px;padding:3px 12px;border:1px solid var(--line);color:var(--txt2)}
+.mon-lv.alert{color:var(--red);border-color:rgba(255,122,122,.5);background:rgba(255,122,122,.1)}
+.mon-lv.busy{color:var(--green);border-color:rgba(84,217,140,.5);background:rgba(84,217,140,.1)}
+.mon-lv.quiet{color:var(--amber);border-color:rgba(245,185,66,.5);background:rgba(245,185,66,.1)}
+.alerts{display:flex;flex-direction:column;gap:7px;max-height:230px;overflow:auto}
+.alert{border-radius:11px;padding:9px 11px;border:1px solid var(--line);background:#0a1019;display:flex;gap:9px}
+.alert .ab{flex:0 0 auto;width:22px;height:22px;border-radius:6px;display:grid;place-items:center;font-size:11px;font-weight:900;background:rgba(90,209,255,.16);color:var(--cyan)}
+.alert.warn{border-color:rgba(245,185,66,.45);background:rgba(245,185,66,.06)}
+.alert.warn .ab{background:rgba(245,185,66,.18);color:var(--amber)}
+.alert.danger{border-color:rgba(255,122,122,.5);background:rgba(255,122,122,.07)}
+.alert.danger .ab{background:rgba(255,122,122,.2);color:var(--red)}
+.alert .at{font-size:12.5px;font-weight:900;color:var(--txt)}
+.alert .ad{font-size:12px;color:var(--txt2);line-height:1.5;margin-top:2px}
+.alert .aa{font-size:11.5px;color:var(--txt3);line-height:1.5;margin-top:3px}
+.mon-stats{display:flex;gap:8px;flex-wrap:wrap}
+.mon-stat{border:1px solid var(--line);border-radius:9px;padding:4px 9px;font-size:11.5px;color:var(--txt3);background:#0a1019}
+.mon-stat b{color:var(--txt);font-size:12.5px;margin-left:3px;font-variant-numeric:tabular-nums}
+.guard-row{display:flex;gap:8px;align-items:stretch}
+.guard-row .inp{flex:1}
+.guard-result{font-size:12.5px;line-height:1.6;color:var(--txt2);min-height:20px}
+.guard-result .hit{color:var(--red);font-weight:800}
+.guard-result .fix{color:var(--green);font-weight:700}
+.guard-stat{font-size:11.5px;color:var(--txt3)}
+.guard-stat b{color:var(--amber)}
+/* ---------- 下播复盘 ---------- */
+.revgrid{display:grid;grid-template-columns:400px minmax(0,1fr);gap:14px;align-items:start}
+.metrics{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:8px}
+.metrics .field label{font-size:10.5px}
+.metrics .inp{padding:6px 8px;font-size:13px}
+.scorecard{display:flex;align-items:center;gap:16px;border:1px solid rgba(90,209,255,.3);background:linear-gradient(135deg,rgba(90,209,255,.1),rgba(167,139,250,.08));border-radius:14px;padding:12px 16px}
+.scorebig{font-size:46px;font-weight:900;line-height:1;color:var(--cyan);font-variant-numeric:tabular-nums;text-shadow:0 0 28px rgba(90,209,255,.3)}
+.scorecard .st{font-size:13px;color:var(--txt2);line-height:1.6}
+.scorecard .st b{color:var(--txt);font-size:13.5px}
+.estcards{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:10px}
+.estcard{border:1px solid var(--line);background:#0a1019;border-radius:12px;padding:10px 11px}
+.estcard .ek{font-size:11.5px;color:var(--txt3);font-weight:800;letter-spacing:.5px}
+.estcard .ev{font-size:26px;font-weight:900;color:var(--txt);line-height:1.25;font-variant-numeric:tabular-nums}
+.estcard .ev small{font-size:12px;color:var(--txt2);font-weight:700;margin-left:3px}
+.estcard .em{font-size:11px;color:var(--txt3);line-height:1.5;margin-top:3px}
+.estcard .econf{display:inline-block;border-radius:999px;padding:0 7px;font-size:10.5px;font-weight:900;border:1px solid var(--line);color:var(--txt2);margin-top:5px}
+.estcard .econf.高{color:var(--green);border-color:rgba(84,217,140,.4)}
+.estcard .econf.中{color:var(--amber);border-color:rgba(245,185,66,.4)}
+.estcard .econf.低,.estcard .econf.无{color:var(--red);border-color:rgba(255,122,122,.4)}
+.dims{display:flex;flex-direction:column;gap:8px}
+.dim{display:grid;grid-template-columns:120px minmax(0,1fr) 46px;gap:10px;align-items:center;font-size:12.5px}
+.dim .dn{color:var(--txt);font-weight:800;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.dim .dbar{height:8px;border-radius:999px;background:#0a1019;border:1px solid var(--line);overflow:hidden}
+.dim .dbar i{display:block;height:100%;border-radius:999px;background:linear-gradient(90deg,var(--violet),var(--cyan))}
+.dim .ds{color:var(--txt2);font-weight:900;text-align:right;font-variant-numeric:tabular-nums}
+.dim .dc{grid-column:2 / -1;font-size:11.5px;color:var(--txt3);line-height:1.5;margin-top:-3px}
+.issues{display:flex;flex-direction:column;gap:8px}
+.issue{border:1px solid var(--line);border-radius:12px;padding:10px 12px;background:#0a1019}
+.issue.high{border-color:rgba(255,122,122,.45);background:rgba(255,122,122,.05)}
+.issue.mid{border-color:rgba(245,185,66,.4);background:rgba(245,185,66,.04)}
+.issue .ih{display:flex;align-items:center;gap:8px;flex-wrap:wrap}
+.issue .lv{font-size:11px;font-weight:900;border-radius:999px;padding:1px 8px;border:1px solid var(--line);color:var(--txt2)}
+.issue .lv.high{color:var(--red);border-color:rgba(255,122,122,.5)}
+.issue .lv.mid{color:var(--amber);border-color:rgba(245,185,66,.5)}
+.issue .it{font-size:13px;font-weight:900;color:var(--txt)}
+.issue .ie{font-size:12px;color:var(--txt3);line-height:1.55;margin-top:4px}
+.issue .if{font-size:12.5px;color:var(--txt2);line-height:1.55;margin-top:4px;border-top:1px dashed var(--line);padding-top:4px}
+.acts{display:flex;flex-direction:column;gap:7px;counter-reset:act}
+.act{display:flex;gap:9px;border:1px solid rgba(90,209,255,.24);background:rgba(90,209,255,.05);border-radius:11px;padding:9px 11px}
+.act .an{flex:0 0 auto;width:22px;height:22px;border-radius:50%;display:grid;place-items:center;background:linear-gradient(135deg,var(--cyan),var(--violet));color:#04121c;font-size:11.5px;font-weight:900}
+.act .ax{min-width:0}
+.act .at{font-size:12.5px;font-weight:800;color:var(--txt);line-height:1.55}
+.act .aw{font-size:11.5px;color:var(--txt3);line-height:1.5;margin-top:2px}
+.rev-tips{display:flex;flex-direction:column;gap:5px;font-size:12px;color:var(--txt2);line-height:1.55}
+.rev-tips .rt2{display:flex;gap:7px}
+.rev-tips .rt2 b{color:var(--amber);flex:0 0 auto}
 /* ---------- 模态 / toast ---------- */
 .modal{position:fixed;inset:0;z-index:200;background:rgba(3,6,10,.72);display:none;align-items:center;justify-content:center;padding:20px}
 .modal.open{display:flex}
@@ -175,10 +301,16 @@ footer b{color:var(--txt2)}
   .tele{grid-column:1 / -1;order:-1}
   .bottom{grid-template-columns:1fr 1fr}
   .bottom .rhythm{grid-column:1 / -1}
+  .plangrid,.revgrid{grid-template-columns:1fr}
+  .nodegrid{grid-template-columns:1fr 1fr}
+  .aux{grid-template-columns:1fr}
 }
 @media (max-width:760px){
   body{font-size:14px}
   .wrap{padding:10px 10px 22px}
+  .tabbar{padding:8px 10px 0;gap:6px}
+  .tabbtn{padding:7px 11px;font-size:12.5px}
+  .tabbar .loop{display:none}
   .cf-in{padding:8px 12px;font-size:12px;gap:8px}
   .top-in{padding:8px 12px;gap:9px}
   .title{font-size:16px;width:100%;order:3;flex:1 1 100%}
@@ -193,6 +325,13 @@ footer b{color:var(--txt2)}
   .pill{padding:4px 9px;font-size:11.5px}
   .brand small{display:none}
   footer{padding:0 12px}
+  .hooks{grid-template-columns:1fr}
+  .nodegrid{grid-template-columns:1fr}
+  .metrics{grid-template-columns:1fr 1fr}
+  .estcards{grid-template-columns:1fr}
+  .dim{grid-template-columns:88px minmax(0,1fr) 40px}
+  .scorecard{flex-direction:column;align-items:flex-start}
+  .panel-title{font-size:14px}
 }
 </style>
 
@@ -222,8 +361,10 @@ html.xl-shell .xl-topbar-actions .pill{max-width:220px;overflow:hidden;text-over
 html.xl-shell .xl-topbar-actions .btn.sm{font-size:12px;padding:4px 9px;border-radius:8px;margin-left:0}
 @media (max-width:1099.98px){html.xl-shell .xl-topbar-actions .pill{display:none}}
 </style>
+<link rel="stylesheet" href="../assets/auth-gate.css">
+<script src="../assets/auth-gate.js" data-mode="mask"></script>
 </head>
-<body>
+<body data-xl-gate="mask">
 <!-- 顶部固定合规提示（不可关闭） -->
 <div class="cf" id="cfBanner" role="alert">
   <div class="cf-in">
@@ -236,6 +377,7 @@ html.xl-shell .xl-topbar-actions .btn.sm{font-size:12px;padding:4px 9px;border-r
   <div class="top-in">
     <a class="brand" href="../"><span class="mark">星</span><span>星籁 AI<small>STELLARA AI</small></span></a>
     <div class="title">AI 直播助播 <em>合规版</em></div>
+    <span class="pill">闭环 <b>策划 → 助播 → 复盘</b></span>
     <span class="pill"><span class="dot" id="apiDot"></span><span id="apiText">AI 服务检测中…</span></span>
     <span class="pill">直播 <b id="liveClock">00:00:00</b></span>
     <button class="btn ghost sm" id="btnGuide" type="button">合规说明</button>
@@ -243,7 +385,124 @@ html.xl-shell .xl-topbar-actions .btn.sm{font-size:12px;padding:4px 9px;border-r
   </div>
 </header>
 
-<div class="wrap">
+<!-- ============ 三个 Tab：开播策划 / 实时助播 / 下播复盘 ============ -->
+<nav class="tabbar" id="tabbar" aria-label="功能切换">
+  <button class="tabbtn on" type="button" data-tab="plan"><span class="n">1</span>开播策划</button>
+  <button class="tabbtn" type="button" data-tab="realtime"><span class="n">2</span>实时助播</button>
+  <button class="tabbtn" type="button" data-tab="review"><span class="n">3</span>下播复盘</button>
+  <span class="loop">闭环：<b>策划 → 按节奏表开播 → 下播复盘改进</b> · 真人主播在场</span>
+</nav>
+
+<!-- ============ Tab 1：开播策划 ============ -->
+<div class="wrap tabpane" id="pane-plan" data-pane="plan">
+  <div class="plangrid">
+    <section class="panel" aria-label="开播策划输入">
+      <div class="ph"><h2>① 本场商品 / 活动</h2><span class="sub">策划的起点</span></div>
+      <div class="field"><label for="planName">商品/活动名称</label><input class="inp" id="planName" placeholder="例如：云端护颈枕"></div>
+      <div class="row">
+        <div class="field"><label for="planPrice">价格口径</label><input class="inp" id="planPrice" placeholder="例如：直播间到手 129 元"></div>
+        <div class="field"><label for="planStyle">话术风格</label>
+          <select class="inp" id="planStyle">
+            <option value="专业">专业讲解</option>
+            <option value="亲切">亲切陪聊</option>
+            <option value="促销">促销节奏</option>
+            <option value="憋单">憋单节奏</option>
+          </select>
+        </div>
+      </div>
+      <div class="field"><label for="planPoints">卖点（每行一条）</label><textarea class="inp" id="planPoints" rows="3" placeholder="慢回弹记忆棉&#10;可拆洗针织枕套&#10;30 天试睡"></textarea></div>
+      <div class="row">
+        <div class="field"><label for="planOffers">优惠信息</label><input class="inp" id="planOffers" placeholder="下单送收纳袋，规则以页面为准"></div>
+        <div class="field"><label for="planIndustry">行业</label><input class="inp" id="planIndustry" placeholder="家居"></div>
+      </div>
+      <div class="field"><label for="planProducts">本场货盘（可选，多款时填）</label><textarea class="inp" id="planProducts" rows="2" placeholder="每行一款：名称｜价格｜卖点｜优惠&#10;留空 = 本场单款"></textarea></div>
+      <div class="row">
+        <div class="field"><label for="planDuration">本场时长</label>
+          <select class="inp" id="planDuration">
+            <option value="15">15 分钟</option>
+            <option value="30">30 分钟</option>
+            <option value="60" selected>60 分钟</option>
+            <option value="90">90 分钟</option>
+            <option value="120">120 分钟</option>
+            <option value="180">180 分钟</option>
+            <option value="240">240 分钟</option>
+          </select>
+        </div>
+        <div class="field"><label for="planGoal">本场目标</label>
+          <select class="inp" id="planGoal">
+            <option value="成交转化" selected>成交转化</option>
+            <option value="涨粉互动">涨粉互动</option>
+            <option value="新品发布">新品发布</option>
+            <option value="清库存">清库存</option>
+            <option value="品牌曝光">品牌曝光</option>
+            <option value="答疑维护">答疑维护</option>
+          </select>
+        </div>
+      </div>
+      <div class="field"><label for="planPlatform">平台</label>
+        <select class="inp" id="planPlatform">
+          <option value="抖音" selected>抖音</option>
+          <option value="快手">快手</option>
+          <option value="视频号">视频号</option>
+          <option value="淘宝直播">淘宝直播</option>
+          <option value="京东直播">京东直播</option>
+          <option value="小红书">小红书</option>
+          <option value="其他">其他</option>
+        </select>
+      </div>
+      <div style="display:flex;gap:8px;flex-wrap:wrap">
+        <button class="btn primary" id="planGenBtn" type="button">生成开播策划（含节奏表）</button>
+        <button class="btn ghost" id="planDemoBtn" type="button">载入示例</button>
+      </div>
+      <div class="hint" id="planStatus">填写后生成：货盘节奏表 / 开场钩子 / 逼单节点 / 换品节奏 / 问答预案 / 禁忌提醒，可展示与导出。</div>
+      <div class="ph" style="margin-top:2px"><h2>历史策划</h2><button class="btn sm ghost" id="planHistRefresh" type="button">刷新</button></div>
+      <div class="hist" id="planHist"><div class="hint">还没有历史策划。</div></div>
+      <div class="hint">AI 只做策划与提词辅助，直播由真人主播完成；价格/优惠/库存/时效以平台页面实时显示为准。</div>
+    </section>
+
+    <section class="panel" aria-label="开播策划结果">
+      <div class="panel-title">
+        <span class="ln"></span>开播策划案
+        <span class="tag violet" id="planEngine">未生成</span>
+        <span class="tag green" id="planSafe">合规检查 · 待生成</span>
+        <span style="flex:1"></span>
+        <button class="btn sm ghost" id="planPrintBtn" type="button">打印 / 存 PDF</button>
+      </div>
+      <div class="plan-hero" id="planHero"><span class="hint">左侧填写商品与时长，点「生成开播策划」。</span></div>
+      <div class="exportbar" id="planExportBar" hidden>
+        <button class="btn sm" id="planExportJson" type="button">导出 JSON</button>
+        <button class="btn sm" id="planExportCsv" type="button">导出 CSV</button>
+        <button class="btn sm" id="planExportMd" type="button">导出 Markdown</button>
+        <button class="btn sm primary" id="planLoadBtn" type="button">载入实时助播（按节奏表推进）</button>
+      </div>
+      <div class="panel-title" style="margin-top:4px"><span class="ln"></span>开场钩子</div>
+      <div class="hooks" id="planHooks"><div class="hint">生成后显示 2–4 条可直接念的开场钩子。</div></div>
+      <div class="panel-title" style="margin-top:4px"><span class="ln"></span>货盘节奏表</div>
+      <div class="hint">时间段 / 商品 / 话术重点 / 优惠 / 互动动作 — 主播照表推进，提词器可按此自动轮播。</div>
+      <div class="tbl-wrap"><table class="rt">
+        <thead><tr><th>时间段</th><th>商品</th><th>阶段</th><th>话术重点</th><th>优惠口径</th><th>互动动作</th><th>口播句</th></tr></thead>
+        <tbody id="planTimeline"><tr><td colspan="7" class="hint">暂无</td></tr></tbody>
+      </table></div>
+      <div class="panel-title" style="margin-top:4px"><span class="ln"></span>逼单节点</div>
+      <div class="nodegrid" id="planClosing"><div class="hint">暂无</div></div>
+      <div class="panel-title" style="margin-top:4px"><span class="ln"></span>换品节奏</div>
+      <div class="nodegrid" id="planSwitch"><div class="hint">暂无</div></div>
+      <div class="hint" id="planSwitchNote"></div>
+      <div class="panel-title" style="margin-top:4px"><span class="ln"></span>问答预案</div>
+      <div class="tbl-wrap" style="max-height:320px"><table class="qa-table">
+        <thead><tr><th>观众可能问</th><th>主播口径回答</th></tr></thead>
+        <tbody id="planQA"><tr><td colspan="2" class="hint">暂无</td></tr></tbody>
+      </table></div>
+      <div class="panel-title" style="margin-top:4px"><span class="ln"></span>禁忌提醒</div>
+      <div class="taboos" id="planTaboos"><div class="hint">暂无</div></div>
+      <div class="hint" id="planTabooNote"></div>
+      <div class="hint" id="planCompliance">生成后显示极限词过滤结果、价格承诺风险与 AI 标识提示。</div>
+    </section>
+  </div>
+</div>
+
+<!-- ============ Tab 2：实时助播（原有能力全保留） ============ -->
+<div class="wrap tabpane" id="pane-realtime" data-pane="realtime" hidden>
   <main class="grid">
     <!-- ============ 左：商品/活动信息 + 话术库 ============ -->
     <section class="panel" aria-label="商品与活动信息">
@@ -288,6 +547,7 @@ html.xl-shell .xl-topbar-actions .btn.sm{font-size:12px;padding:4px 9px;border-r
         <span class="tag green" id="safePill">合规检查 · 待生成</span>
         <span class="tele-count" id="segCount">第 0 / 0 段</span>
       </div>
+      <div class="hint" id="planTrack">未载入节奏表：可在「开播策划」生成后点「载入实时助播」，提词器会按节奏表自动推进，并在换品/逼单节点提醒。</div>
       <div class="prompt" id="promptBox">
         <div class="ptitle" id="segTitle">主播提词</div>
         <div class="ptext dim" id="bigText">在左侧填写商品/活动信息，点「生成话术池（≥20 段）」。<br>生成后可空格暂停、→ 下一段、← 上一段，也可自动轮播。</div>
@@ -384,22 +644,122 @@ html.xl-shell .xl-topbar-actions .btn.sm{font-size:12px;padding:4px 9px;border-r
     </div>
   </section>
 
-  <footer>
-    <b>AI 直播助播（合规版）</b> · 定位「真人主播在场 + AI 实时助播」：提词 / 话术补充 / 弹幕摘要与建议回复 / 节奏提醒 / 复盘素材。 ·
-    明确不提供：无人直播、自动挂机、规避平台检测、虚拟声卡自动推流、伪造真人。 ·
-    需真人主播在场，AI 生成内容需按平台规则标识，违者风险自负。 · 内测免费，成本仅记录不扣积分。
-  </footer>
+  <!-- ============ 实时助播增强：互动提醒 + 违规词实时拦截 ============ -->
+  <section class="aux">
+    <div class="panel" aria-label="互动提醒">
+      <div class="ph"><h2>⑥ 互动提醒</h2><span class="tag cyan">冷场 / 刷屏 / 问价密集</span></div>
+      <div class="mon-status">
+        <span class="mon-lv" id="monLevel">等待弹幕</span>
+        <span class="hint" id="monHint">助播过程中每 10 秒自动检测一次，只提醒不自动操作。</span>
+      </div>
+      <div class="alerts" id="monAlerts"><div class="hint">还没有弹幕。粘贴弹幕后会自动分析冷场 / 刷屏 / 问价密集 / 提问密集。</div></div>
+      <div class="mon-stats" id="monStats"></div>
+      <div class="hint">提醒由本地规则计算，不上传弹幕原文；AI 只提醒，不自动回复、不自动挂机。</div>
+    </div>
+    <div class="panel" aria-label="违规词实时拦截">
+      <div class="ph"><h2>⑦ 违规词实时拦截</h2><span class="tag red">极限词 / 价格承诺</span></div>
+      <div class="guard-row">
+        <input class="inp" id="guardInput" placeholder="粘贴要念的话术或弹幕，回车检测">
+        <button class="btn primary" id="guardBtn" type="button">检测</button>
+      </div>
+      <div class="guard-result" id="guardResult">检测结果：极限词自动标出并给修正建议，价格承诺风险单独提示。</div>
+      <div class="guard-stat" id="guardStat">本场已拦截 <b>0</b> 处违规词（AI 回复 / 弹幕 / 手动检测）</div>
+      <div class="hint">拦截为广告法词库 + 规则匹配，仍需主播人工复核，不替代平台审核。</div>
+    </div>
+  </section>
 </div>
+
+<!-- ============ Tab 3：下播复盘 ============ -->
+<div class="wrap tabpane" id="pane-review" data-pane="review" hidden>
+  <div class="revgrid">
+    <section class="panel" aria-label="复盘输入">
+      <div class="ph"><h2>① 本场数据</h2><span class="sub">弹幕记录 + 话术使用 + 成交数据</span></div>
+      <div class="field"><label for="revName">商品/活动名称</label><input class="inp" id="revName" placeholder="例如：云端护颈枕"></div>
+      <div class="field"><label for="revDanmu">弹幕记录（直接粘贴，一行一条，可带时间/昵称）</label>
+        <textarea class="inp" id="revDanmu" rows="7" placeholder="12:00 用户A：这个多少钱&#10;12:01 用户B：能便宜吗&#10;..."></textarea>
+      </div>
+      <div style="display:flex;gap:8px;flex-wrap:wrap;align-items:center">
+        <button class="btn sm" id="revSampleBtn" type="button">粘贴示例弹幕</button>
+        <button class="btn sm ghost" id="revSampleClear" type="button">清空弹幕</button>
+        <span class="hint" id="revDanmuCount" style="align-self:center">已识别 0 条</span>
+      </div>
+      <div class="field"><label for="revScript">话术使用情况</label>
+        <textarea class="inp" id="revScript" rows="3" placeholder="例如：专业讲解 25 段，实际使用 18 段，答疑段临时压缩"></textarea>
+      </div>
+      <div style="display:flex;gap:8px;flex-wrap:wrap">
+        <button class="btn sm" id="revFillScript" type="button">填入当前话术池信息</button>
+      </div>
+      <div class="panel-title" style="margin-top:2px"><span class="ln"></span>成交数据（手填，可留空）</div>
+      <div class="metrics">
+        <div class="field"><label for="revViews">观看人数</label><input class="inp" id="revViews" inputmode="numeric" placeholder="3200"></div>
+        <div class="field"><label for="revPeak">峰值在线</label><input class="inp" id="revPeak" inputmode="numeric" placeholder="186"></div>
+        <div class="field"><label for="revComments">评论/弹幕数</label><input class="inp" id="revComments" inputmode="numeric" placeholder="86"></div>
+        <div class="field"><label for="revLikes">点赞数</label><input class="inp" id="revLikes" inputmode="numeric" placeholder="240"></div>
+        <div class="field"><label for="revFollowers">新增粉丝</label><input class="inp" id="revFollowers" inputmode="numeric" placeholder="31"></div>
+        <div class="field"><label for="revOrders">成交单数</label><input class="inp" id="revOrders" inputmode="numeric" placeholder="27"></div>
+        <div class="field"><label for="revGmv">成交金额（元）</label><input class="inp" id="revGmv" inputmode="numeric" placeholder="3483"></div>
+        <div class="field"><label for="revRefunds">退款/售后</label><input class="inp" id="revRefunds" inputmode="numeric" placeholder="2"></div>
+        <div class="field"><label for="revDuration">时长（分钟）</label><input class="inp" id="revDuration" inputmode="numeric" placeholder="60"></div>
+      </div>
+      <div style="display:flex;gap:8px;flex-wrap:wrap">
+        <button class="btn primary" id="revGenBtn" type="button">生成下播复盘</button>
+        <button class="btn ghost" id="revClearBtn" type="button">清空结果</button>
+      </div>
+      <div class="hint" id="revStatus">至少填写弹幕记录或成交数据之一；未填指标会标注「估算 / 缺失」，不作为考核依据。</div>
+      <div class="ph" style="margin-top:2px"><h2>历史复盘</h2><button class="btn sm ghost" id="revHistRefresh" type="button">刷新</button></div>
+      <div class="hist" id="revHist"><div class="hint">还没有历史复盘。</div></div>
+      <div class="hint">复盘数据保存在服务端本地数据表（脱敏 IP），AI 结论需人工复核。</div>
+    </section>
+
+    <section class="panel" aria-label="复盘结果">
+      <div class="panel-title">
+        <span class="ln"></span>复盘结果
+        <span class="tag violet" id="revEngine">未生成</span>
+        <span style="flex:1"></span>
+        <button class="btn sm ghost" id="revPrintBtn" type="button">打印 / 存 PDF</button>
+      </div>
+      <div class="scorecard" id="revScoreCard">
+        <div class="scorebig" id="revScore">--</div>
+        <div class="st" id="revSummary">左侧填写数据后生成下播复盘：观看/互动/转化估算、话术效果分析、问题清单、下一场改进建议。</div>
+      </div>
+      <div class="panel-title" style="margin-top:4px"><span class="ln"></span>观看 / 互动 / 转化估算</div>
+      <div class="estcards" id="revEstimate"><div class="hint">暂无</div></div>
+      <div class="hint" id="revEstNote"></div>
+      <div class="panel-title" style="margin-top:4px"><span class="ln"></span>话术效果分析</div>
+      <div class="hint" id="revScriptOverall">暂无</div>
+      <div class="dims" id="revDims"><div class="hint">暂无</div></div>
+      <div class="panel-title" style="margin-top:4px"><span class="ln"></span>问题清单</div>
+      <div class="issues" id="revIssues"><div class="hint">暂无</div></div>
+      <div class="panel-title" style="margin-top:4px"><span class="ln"></span>下一场改进建议</div>
+      <div class="acts" id="revActions"><div class="hint">暂无</div></div>
+      <div class="panel-title" style="margin-top:4px"><span class="ln"></span>数据与合规</div>
+      <div class="rev-tips" id="revMeta"><div class="rt2"><b>数据</b><span>暂无</span></div></div>
+      <div class="exportbar" id="revExportBar" hidden>
+        <button class="btn sm" id="revExportJson" type="button">导出 JSON</button>
+        <button class="btn sm" id="revExportTxt" type="button">导出 TXT</button>
+        <button class="btn sm ghost" id="revCopyBtn" type="button">复制结论</button>
+      </div>
+    </section>
+  </div>
+</div>
+
+<footer>
+  <b>AI 直播助播（合规版）· 开播策划 + 实时助播 + 下播复盘</b> · 定位「真人主播在场 + AI 辅助」：开播策划 / 提词 / 弹幕建议回复 / 互动提醒 / 违规词拦截 / 下播复盘。 ·
+  明确不提供：无人直播、自动挂机、规避平台检测、虚拟声卡自动推流、伪造真人。 ·
+  需真人主播在场，AI 生成内容需按平台规则标识，违者风险自负。 · 内测免费，成本仅记录不扣积分。
+</footer>
 
 <!-- 合规说明 -->
 <div class="modal" id="guideModal" role="dialog" aria-modal="true" aria-labelledby="guideTitle">
   <div class="modal-card">
     <h3 id="guideTitle">AI 直播助播（合规版）· 使用须知</h3>
-    <p><b>产品定位：真人主播在场 + AI 实时助播。</b>AI 只做提词、话术补充、弹幕摘要与建议回复、节奏提醒与复盘，直播由真人主播本人完成。</p>
+    <p><b>产品定位：真人主播在场 + AI 直播助播闭环。</b>AI 只做开播策划、提词、话术补充、弹幕建议回复、互动提醒、违规词拦截与下播复盘，直播由真人主播本人完成。</p>
     <ul>
+      <li><b>三个 Tab：</b>① 开播策划（货盘节奏表/开场钩子/逼单节点/换品节奏/问答预案/禁忌提醒，可导出）；② 实时助播（提词、弹幕建议回复、冷场/刷屏/问价提醒、违规词拦截）；③ 下播复盘（观看/互动/转化估算、话术效果、问题清单、下一场建议）。</li>
       <li><b>必须做到：</b>真人主播在场并亲口讲解；AI 生成的话术/建议/语音按平台规则显著标识「AI 生成」；价格、库存、优惠、时效以平台页面实时显示为准。</li>
       <li><b>明令不做：</b>无人直播、自动挂机、规避平台检测、虚拟声卡自动推流、伪造真人（画面/声音）。本页与后端均不提供这些能力。</li>
       <li><b>声音授权：</b>试听合成音仅限本人已授权音色，不得用于对外冒充真人。</li>
+      <li><b>数据说明：</b>复盘估算与 AI 结论仅供复盘参考，需人工复核；策划/复盘存服务端本地数据表（脱敏 IP），不作为平台考核依据。</li>
       <li><b>风险自负：</b>使用 AI 生成内容发布前须人工复核，因违规使用产生的平台处罚与法律责任由使用方自行承担。</li>
     </ul>
     <div class="mfoot"><button class="btn primary" data-close="guideModal" type="button">我知道了</button></div>
@@ -458,11 +818,31 @@ html.xl-shell .xl-topbar-actions .btn.sm{font-size:12px;padding:4px 9px;border-r
     { stage: '结束', title: '合规收尾', text: '本场由真人主播完成，AI 提供提词辅助，内容按平台规则标识；我们下次直播见。', sec: 18 }
   ];
 
+  var DEMO_DANMU = [
+    '12:00 用户A：这个多少钱', '12:01 用户B：能便宜吗', '12:02 用户C：什么时候发货',
+    '12:03 用户D：这个多少钱', '12:04 用户E：材质怎么样，会不会塌', '12:05 用户A：这个多少钱',
+    '12:06 用户F：已拍', '12:07 用户G：有没有优惠券', '12:08 用户B：能便宜吗',
+    '12:09 用户H：多久到货', '12:10 用户I：支持试睡吗', '12:11 用户J：这个多少钱',
+    '12:12 用户K：枕套能拆洗吗', '12:13 用户L：和普通枕头有啥区别', '12:14 用户M：这个多少钱',
+    '12:15 用户N：能便宜点吗', '12:16 用户O：发什么快递', '12:17 用户P：已下单',
+    '12:18 用户Q：这个多少钱', '12:19 用户R：有没有赠品', '12:20 用户S：质量怎么样',
+    '12:21 用户T：什么时候发货', '12:22 用户U：这个多少钱', '12:23 用户V：能便宜吗',
+    '12:24 用户W：支持七天无理由吗', '12:25 用户X：这个多少钱', '12:26 用户Y：已拍两件',
+    '12:27 用户Z：有没有优惠', '12:28 用户A：这个多少钱', '12:29 用户B：能便宜吗',
+    '12:30 用户C：多久到', '12:31 用户D：这个多少钱', '12:32 用户E：材质是记忆棉吗',
+    '12:33 用户F：有没有赠品', '12:34 用户G：这个多少钱', '12:35 用户H：已拍',
+    '12:36 用户I：能便宜吗', '12:37 用户J：这个多少钱', '12:38 用户K：什么时候发货',
+    '12:39 用户L：有没有优惠券', '12:40 用户M：这个多少钱'
+  ].join('\n');
+
   var state = {
     segments: [], idx: 0, playing: false, auto: true,
     segElapsed: 0, tickTimer: null, startedAt: Date.now(),
     replyBusy: false, heat: 40, danmuCount: 0, currentScript: null,
-    rhythmLeft: 300, rhythmPaused: false, rhythmCount: 0
+    rhythmLeft: 300, rhythmPaused: false, rhythmCount: 0,
+    plan: null, track: null, review: null, guardHits: 0,
+    monLog: [], monBusy: false, monTimer: null, tab: 'plan',
+    planHist: [], revHist: []
   };
 
   /* ---------------- 工具 ---------------- */
@@ -582,6 +962,14 @@ html.xl-shell .xl-topbar-actions .btn.sm{font-size:12px;padding:4px 9px;border-r
     timerEl.style.width = Math.min(100, (state.segElapsed / Math.max(1, seg.sec || 25)) * 100).toFixed(1) + '%';
     secEl.textContent = String(seg.sec || 25);
     var flags = [];
+    if (seg.plan_row) {
+      var pr = seg.plan_row;
+      if (pr.talk_points && pr.talk_points.length) {
+        flags.push('<span class="tag cyan">话术重点：' + esc(pr.talk_points.join('；')) + '</span>');
+      }
+      if (pr.offer) { flags.push('<span class="tag amber">优惠口径：' + esc(pr.offer) + '</span>'); }
+      if (pr.interaction) { flags.push('<span class="tag green">互动：' + esc(pr.interaction) + '</span>'); }
+    }
     if (seg.price_risk && seg.price_risk.length) {
       flags.push('<span class="tag amber">价格承诺风险：' + esc(seg.price_risk.join('、')) + '（主播人工确认）</span>');
     }
@@ -592,6 +980,7 @@ html.xl-shell .xl-topbar-actions .btn.sm{font-size:12px;padding:4px 9px;border-r
       flags.push('<span class="tag red">仍有极限词，请修改</span>');
     }
     flagsEl.innerHTML = flags.join('') || '<span class="tag green">合规提词</span>';
+    updatePlanTrack();
   }
   function tickSeg() {
     if (!state.playing || !state.segments.length) { return; }
@@ -622,6 +1011,8 @@ html.xl-shell .xl-topbar-actions .btn.sm{font-size:12px;padding:4px 9px;border-r
     state.idx = (state.idx + 1) % state.segments.length;
     state.segElapsed = 0;
     renderSeg();
+    planOnNode();
+    scheduleMonitor();
   }
   function prevSeg() {
     if (!state.segments.length) { return; }
@@ -715,6 +1106,8 @@ html.xl-shell .xl-topbar-actions .btn.sm{font-size:12px;padding:4px 9px;border-r
   }
   function addDanmu(text) {
     state.danmuCount += 1;
+    state.monLog.push({ text: String(text || '').slice(0, 120), ts: Date.now() });
+    if (state.monLog.length > 60) { state.monLog = state.monLog.slice(-60); }
     var list = $('danmuList');
     var empty = list.querySelector('.hint');
     if (empty) { list.innerHTML = ''; }
@@ -726,6 +1119,7 @@ html.xl-shell .xl-topbar-actions .btn.sm{font-size:12px;padding:4px 9px;border-r
     while (list.children.length > 12) { list.removeChild(list.firstElementChild); }
     list.scrollTop = list.scrollHeight;
     bumpHeat(4);
+    scheduleMonitor();
   }
   function bumpHeat(delta) {
     state.heat = Math.max(0, Math.min(100, state.heat + delta));
@@ -747,6 +1141,19 @@ html.xl-shell .xl-topbar-actions .btn.sm{font-size:12px;padding:4px 9px;border-r
     var replies = data.replies || [];
     var ip = $('intentPill');
     if (ip) { ip.innerHTML = '<span class="tag violet">意图：' + esc(intent) + '</span>' + (offline ? ' <span class="tag amber">本地规则</span>' : ' <span class="tag cyan">AI 建议</span>'); }
+    var alertHtml = '';
+    if (data.danmu_flags && data.danmu_flags.length) {
+      alertHtml = '<div class="alert danger" style="margin-bottom:2px"><span class="ab">×</span><div>' +
+        '<div class="at">弹幕含违规词：' + esc(data.danmu_flags.map(function (h) { return h.word; }).join('、')) + '</div>' +
+        '<div class="ad">不要复读，也不要顺着观众的话做价格/时效承诺。</div></div></div>';
+    }
+    if (data.live_alerts && data.live_alerts.length) {
+      alertHtml += data.live_alerts.map(function (a) {
+        return '<div class="alert ' + esc(a.level || 'info') + '" style="margin-bottom:2px"><span class="ab">!</span><div>' +
+          '<div class="at">' + esc(a.title || '') + '</div><div class="ad">' + esc(a.detail || '') + '</div></div></div>';
+      }).join('');
+    }
+    if (alertHtml) { box.innerHTML = alertHtml; }
     replies.forEach(function (r) {
       var text = typeof r === 'string' ? r : (r.text || '');
       var card = document.createElement('div');
@@ -754,6 +1161,11 @@ html.xl-shell .xl-topbar-actions .btn.sm{font-size:12px;padding:4px 9px;border-r
       var warnHtml = '';
       if (r && r.price_risk && r.price_risk.length) {
         warnHtml = '<span class="warn">价格承诺风险，请人工确认</span>';
+      }
+      var comp = (r && r.compliance) || {};
+      if (comp.count) {
+        warnHtml += '<span class="warn">已拦截极限词 ' + comp.count + ' 处</span>';
+        state.guardHits += comp.count; setGuardStat();
       }
       card.innerHTML =
         '<div class="rt">' + esc(text) + '</div>' +
@@ -768,7 +1180,7 @@ html.xl-shell .xl-topbar-actions .btn.sm{font-size:12px;padding:4px 9px;border-r
       });
       box.appendChild(card);
     });
-    if (!replies.length) { box.innerHTML = '<div class="reply-empty">暂无建议回复，请再试一次。</div>'; }
+    if (!replies.length) { box.innerHTML += '<div class="reply-empty">暂无建议回复，请再试一次。</div>'; }
     var tip = $('replyTip');
     if (tip) {
       tip.innerHTML = (data.tip ? '主播小提示：' + esc(data.tip) + '。' : '') +
@@ -790,9 +1202,10 @@ html.xl-shell .xl-topbar-actions .btn.sm{font-size:12px;padding:4px 9px;border-r
     var list = $('replyList');
     list.innerHTML = '<div class="reply-empty">AI 正在想 1–3 条可直接念的回复…</div>';
     var p = productPayload();
+    var history = (state.monLog || []).slice(-7, -1).map(function (x) { return x.text; });
     api('/reply', {
       method: 'POST', timeout: 60000,
-      body: { danmu: danmu, product: p, history: [] }
+      body: { danmu: danmu, product: p, history: history }
     }).then(function (j) {
       renderReplies(j, false);
       if (st) { st.textContent = '意图：' + (j.intent || '其他') + ' · 建议 ' + (j.replies || []).length + ' 条'; }
@@ -957,8 +1370,16 @@ html.xl-shell .xl-topbar-actions .btn.sm{font-size:12px;padding:4px 9px;border-r
     api('/health', { timeout: 9000 }).then(function (j) {
       if (dot) { dot.className = 'dot ok'; }
       if (txt) {
-        txt.textContent = 'AI 已连通 · ' + (j.llm ? '模型就绪' : '模型未配置') + ' · ' + (j.tts ? 'TTS 就绪' : 'TTS 不可用');
+        var caps = j.capabilities || {};
+        txt.textContent = 'AI 已连通 · ' + (j.llm ? '模型就绪' : '模型未配置') + ' · ' +
+          (j.tts ? 'TTS 就绪' : 'TTS 不可用') + (caps.plan ? ' · 策划+复盘就绪' : ' · 旧版接口');
       }
+      if (!(j.capabilities && j.capabilities.plan)) {
+        planStatus('当前接口为旧版（v' + esc(j.version || '?') + '）：策划/复盘接口待服务重启后可用，实时助播可用。');
+        revStatus('当前接口为旧版（v' + esc(j.version || '?') + '）：复盘接口待服务重启后可用。');
+      }
+      loadPlanHistory();
+      loadReviewHistory();
     }).catch(function (err) {
       if (dot) { dot.className = 'dot bad'; }
       if (txt) { txt.textContent = 'AI 未连通（可先用示例体验）'; }
@@ -969,6 +1390,771 @@ html.xl-shell .xl-topbar-actions .btn.sm{font-size:12px;padding:4px 9px;border-r
   /* ---------------- 模态 ---------------- */
   function openModal(id) { var m = $(id); if (m) { m.classList.add('open'); } }
   function closeModal(id) { var m = $(id); if (m) { m.classList.remove('open'); } }
+
+  /* ======================================================================
+     v2：开播策划 / 下播复盘 / 互动提醒 / 违规词实时拦截
+     ====================================================================== */
+  function switchTab(name) {
+    name = (name === 'realtime' || name === 'review') ? name : 'plan';
+    state.tab = name;
+    Array.prototype.forEach.call(document.querySelectorAll('.tabbtn[data-tab]'), function (b) {
+      var on = b.getAttribute('data-tab') === name;
+      b.classList.toggle('on', on);
+      b.setAttribute('aria-selected', on ? 'true' : 'false');
+    });
+    Array.prototype.forEach.call(document.querySelectorAll('.tabpane'), function (p) {
+      var pane = p.getAttribute('data-pane');
+      if (pane) { p.hidden = pane !== name; }
+    });
+    try { history.replaceState(null, '', location.href.split('#')[0] + '#' + name); } catch (e) {}
+    if (name === 'realtime') { updatePlanTrack(); monitorTick(); }
+    if (name === 'review') { loadReviewHistory(); }
+    try { window.scrollTo(0, 0); } catch (e) {}
+  }
+
+  function planPrefillFromProduct() {
+    var map = [['planName', 'pName'], ['planPrice', 'pPrice'], ['planPoints', 'pPoints'],
+      ['planOffers', 'pOffers'], ['planIndustry', 'pIndustry'], ['planStyle', 'pStyle']];
+    map.forEach(function (pair) {
+      var dst = $(pair[0]), src = $(pair[1]);
+      if (dst && src && !dst.value && src.value) { dst.value = src.value; }
+    });
+    var revName = $('revName');
+    if (revName && !revName.value) { revName.value = ($('pName') || {}).value || ''; }
+  }
+
+  function planPayload() {
+    var products = ($('planProducts').value || '').split(/\n+/).map(function (s) { return s.trim(); }).filter(Boolean).slice(0, 4);
+    var name = ($('planName').value || '').trim() || (($('pName') || {}).value || '').trim();
+    var pts = ($('planPoints').value || '').split(/\n+/).map(function (s) { return s.trim(); }).filter(Boolean);
+    if (!pts.length) {
+      pts = (($('pPoints') || {}).value || '').split(/\n+/).map(function (s) { return s.trim(); }).filter(Boolean);
+    }
+    return {
+      product: {
+        name: name,
+        price: (($('planPrice').value || '').trim() || (($('pPrice') || {}).value || '').trim()),
+        selling_points: pts,
+        offers: (($('planOffers').value || '').trim() || (($('pOffers') || {}).value || '').trim()),
+        banned_words: ($('pBanned').value || '').split(/[、,，;；\s]+/).map(function (s) { return s.trim(); }).filter(Boolean)
+      },
+      industry: ($('planIndustry').value || '').trim(),
+      duration_min: parseInt($('planDuration').value, 10) || 60,
+      goal: $('planGoal').value,
+      platform: $('planPlatform').value,
+      style: $('planStyle').value,
+      products: products
+    };
+  }
+
+  function planStatus(msg, cls) {
+    var el = $('planStatus'); if (!el) { return; }
+    el.innerHTML = msg;
+    el.style.color = cls === 'err' ? 'var(--amber)' : '';
+  }
+
+  function stageClass(stage) {
+    return 'stagechip s' + String(stage || '').replace(/[^\u4e00-\u9fa5]/g, '');
+  }
+
+  function nodeTime(t) {
+    if (t === 0 || t === '0') { return '第 0 分钟'; }
+    var n = Number(t);
+    return isFinite(n) && n > 0 ? '第 ' + n + ' 分钟' : (t || '—');
+  }
+
+  function renderPlan(plan) {
+    state.plan = plan;
+    var engine = plan.engine === 'deepseek' ? 'DeepSeek' : '确定性模板';
+    var comp = plan.compliance || {};
+    var engEl = $('planEngine');
+    if (engEl) { engEl.textContent = engine; engEl.className = 'tag ' + (plan.engine === 'deepseek' ? 'violet' : 'cyan'); }
+    var safeEl = $('planSafe');
+    if (safeEl) {
+      safeEl.textContent = comp.safe ? '合规检查 · 通过' : '合规检查 · 有风险';
+      safeEl.className = 'tag ' + (comp.safe ? 'green' : 'red');
+    }
+    var hero = $('planHero');
+    if (hero) {
+      hero.innerHTML = '<b>' + esc(plan.title || plan.product || '本场策划') + '</b>' +
+        ' <span class="tag cyan">' + esc(plan.goal || '') + '</span>' +
+        ' <span class="tag">' + esc(plan.platform || '') + ' · ' + (plan.duration_min || 0) + ' 分钟</span>' +
+        ' <span class="tag">' + (plan.timeline || []).length + ' 个时段</span>' +
+        ' <span class="tag">' + esc((plan.products || []).join(' / ')) + '</span>' +
+        (plan.plan_id ? ' <span class="hint">ID ' + esc(plan.plan_id) + '</span>' : '');
+    }
+    var box = $('planHooks');
+    if (box) {
+      var hooks = plan.opening_hooks || [];
+      box.innerHTML = hooks.length ? hooks.map(function (h) {
+        return '<div class="hook"><div class="ht">' + esc(h.text || '') + '</div>' +
+          (h.why ? '<div class="hw">为什么有效：' + esc(h.why) + '</div>' : '') + '</div>';
+      }).join('') : '<div class="hint">本次未返回开场钩子。</div>';
+    }
+    var tb = $('planTimeline');
+    if (tb) {
+      var rows = plan.timeline || [];
+      tb.innerHTML = rows.length ? rows.map(function (r) {
+        return '<tr><td class="time">' + esc(r.time_label || (r.t_start + '-' + r.t_end + ' 分钟')) + '</td>' +
+          '<td>' + esc(r.product || '') + '</td>' +
+          '<td><span class="' + stageClass(r.stage) + '">' + esc(r.stage || '') + '</span></td>' +
+          '<td class="talk">' + esc((r.talk_points || []).join('；')) + '</td>' +
+          '<td>' + esc(r.offer || '以页面为准') + '</td>' +
+          '<td>' + esc(r.interaction || '') + '</td>' +
+          '<td class="sk">' + esc(r.script_line || '') + '</td></tr>';
+      }).join('') : '<tr><td colspan="7" class="hint">暂无节奏表。</td></tr>';
+    }
+    var closing = $('planClosing');
+    if (closing) {
+      var cn = plan.closing_nodes || [];
+      closing.innerHTML = cn.length ? cn.map(function (n) {
+        return '<div class="node"><div class="nt">' + nodeTime(n.t) + ' · 逼单</div>' +
+          '<div class="nb">触发：' + esc(n.trigger || '—') + '<br>动作：' + esc(n.action || '—') + '</div>' +
+          (n.script ? '<div class="ns">口播：' + esc(n.script) + '</div>' : '') + '</div>';
+      }).join('') : '<div class="hint">本次未返回逼单节点。</div>';
+    }
+    var sw = $('planSwitch');
+    if (sw) {
+      var sn = plan.switch_rhythm || [];
+      sw.innerHTML = sn.length ? sn.map(function (n) {
+        return '<div class="node"><div class="nt">' + nodeTime(n.t) + ' · 换品</div>' +
+          '<div class="nb">' + esc(n.from || '上一款') + ' → ' + esc(n.to || '下一款') + '</div>' +
+          (n.transition ? '<div class="ns">过渡：' + esc(n.transition) + '</div>' : '') + '</div>';
+      }).join('') : '<div class="hint">单款专场无换品节点；若临时加款按「总结→预告→过渡 2 分钟」执行。</div>';
+    }
+    if ($('planSwitchNote')) { $('planSwitchNote').textContent = plan.switch_note || ''; }
+    var qa = $('planQA');
+    if (qa) {
+      var qs = plan.qa_plan || [];
+      qa.innerHTML = qs.length ? qs.map(function (q) {
+        return '<tr><td class="q">' + esc(q.question || '') + '</td><td>' + esc(q.answer || '') + '</td></tr>';
+      }).join('') : '<tr><td colspan="2" class="hint">暂无问答预案。</td></tr>';
+    }
+    var tabs = $('planTaboos');
+    if (tabs) {
+      var ts = plan.taboo_reminders || [];
+      tabs.innerHTML = ts.length ? ts.map(function (t, i) {
+        return '<div class="taboo"><span class="no">' + (i + 1) + '</span><span>' + esc(t) + '</span></div>';
+      }).join('') : '<div class="hint">暂无禁忌提醒。</div>';
+    }
+    var det = $('planCompliance');
+    if (det) {
+      det.innerHTML = '<b>合规：</b>' + esc(comp.verdict || '') +
+        '；已过滤极限词 <b>' + (comp.fixed_count || 0) + '</b> 处；价格承诺风险 <b>' +
+        (comp.price_risk_count || 0) + '</b> 处' +
+        (comp.price_risk_count ? '（主播人工确认，不要照念承诺）' : '') +
+        '。' + (plan.note ? esc(plan.note) : '') +
+        (comp.ai_notice ? ' ' + esc(comp.ai_notice) : '');
+    }
+    if ($('planTabooNote')) { $('planTabooNote').textContent = plan.taboo_note || ''; }
+    if ($('planExportBar')) { $('planExportBar').hidden = false; }
+    if (comp.fixed_count) { state.guardHits += comp.fixed_count; setGuardStat(); }
+  }
+
+  function genPlan() {
+    var body = planPayload();
+    if (!body.product.name && !(body.products || []).length) {
+      planStatus('请先填写商品/活动名称（或本场货盘）。', 'err');
+      if ($('planName')) { $('planName').focus(); }
+      return;
+    }
+    var btn = $('planGenBtn');
+    if (btn.disabled) { return; }
+    btn.disabled = true;
+    planStatus('生成中…（约 10–30 秒，AI 正在排货盘节奏表）');
+    api('/plan', { method: 'POST', timeout: 180000, body: body }).then(function (j) {
+      if (!j || !j.plan) { throw new Error('AI 未返回策划'); }
+      renderPlan(j.plan);
+      planStatus('已生成节奏表 <b>' + (j.timeline_rows || 0) + '</b> 行 · 引擎 ' + esc(j.engine) +
+        ' · 已保存到数据表 live_plans');
+      toast('开播策划已生成：' + (j.timeline_rows || 0) + ' 行节奏表');
+      loadPlanHistory();
+    }).catch(function (err) {
+      planStatus('生成失败：' + esc(err.message || '网络异常') + '。可先用示例或检查接口设置。', 'err');
+      warn(err);
+    }).finally(function () { btn.disabled = false; });
+  }
+
+  function fillPlanDemo() {
+    var d = DEFAULT_PRODUCT;
+    if (!($('planName').value || '').trim()) { $('planName').value = d.pName; }
+    if (!($('planPrice').value || '').trim()) { $('planPrice').value = d.pPrice; }
+    if (!($('planPoints').value || '').trim()) { $('planPoints').value = d.pPoints; }
+    if (!($('planOffers').value || '').trim()) { $('planOffers').value = d.pOffers; }
+    if (!($('planIndustry').value || '').trim()) { $('planIndustry').value = d.pIndustry; }
+    $('planDuration').value = '60';
+    $('planGoal').value = '成交转化';
+    $('planPlatform').value = '抖音';
+    planStatus('示例已填入：云端护颈枕 / 60 分钟 / 成交转化 / 抖音。点「生成开播策划」即可真跑 AI。');
+  }
+
+  function planToCsv(plan) {
+    var rows = [['时间段', '商品', '阶段', '话术重点', '优惠口径', '互动动作', '口播句']];
+    (plan.timeline || []).forEach(function (r) {
+      rows.push([r.time_label || '', r.product || '', r.stage || '', (r.talk_points || []).join('；'),
+        r.offer || '', r.interaction || '', r.script_line || '']);
+    });
+    return '\ufeff' + rows.map(function (row) {
+      return row.map(function (c) { return '"' + String(c == null ? '' : c).replace(/"/g, '""') + '"'; }).join(',');
+    }).join('\r\n');
+  }
+
+  function planToMd(plan) {
+    var out = [];
+    out.push('# ' + (plan.title || '开播策划') + '\n');
+    out.push('- 商品：' + (plan.products || []).join(' / ') + '　平台：' + plan.platform +
+      '　时长：' + plan.duration_min + ' 分钟　目标：' + plan.goal + '　风格：' + plan.style + '\n');
+    out.push('## 开场钩子');
+    (plan.opening_hooks || []).forEach(function (h, i) { out.push((i + 1) + '. ' + h.text + (h.why ? '（' + h.why + '）' : '')); });
+    out.push('\n## 货盘节奏表\n');
+    out.push('| 时间段 | 商品 | 阶段 | 话术重点 | 优惠口径 | 互动动作 | 口播句 |');
+    out.push('|---|---|---|---|---|---|---|');
+    (plan.timeline || []).forEach(function (r) {
+      out.push('| ' + [r.time_label, r.product, r.stage, (r.talk_points || []).join('；'), r.offer, r.interaction, r.script_line].join(' | ') + ' |');
+    });
+    out.push('\n## 逼单节点');
+    (plan.closing_nodes || []).forEach(function (n) { out.push('- ' + nodeTime(n.t) + '：' + (n.action || '') + '｜口播：' + (n.script || '')); });
+    out.push('\n## 换品节奏');
+    (plan.switch_rhythm || []).forEach(function (n) { out.push('- ' + nodeTime(n.t) + '：' + (n.from || '') + ' → ' + (n.to || '') + '｜' + (n.transition || '')); });
+    out.push('\n## 问答预案');
+    (plan.qa_plan || []).forEach(function (q) { out.push('- Q：' + q.question + '\n  A：' + q.answer); });
+    out.push('\n## 禁忌提醒');
+    (plan.taboo_reminders || []).forEach(function (t) { out.push('- ' + t); });
+    out.push('\n> ' + ((plan.compliance || {}).ai_notice || 'AI 生成内容需按平台规则标识；价格/优惠/时效以平台页面实时显示为准。'));
+    return out.join('\n');
+  }
+
+  function downloadFile(filename, text, mime) {
+    try {
+      var blob = new Blob([text], { type: mime + ';charset=utf-8' });
+      var a = document.createElement('a');
+      a.href = URL.createObjectURL(blob);
+      a.download = filename;
+      document.body.appendChild(a);
+      a.click();
+      setTimeout(function () { try { URL.revokeObjectURL(a.href); a.remove(); } catch (e) {} }, 800);
+      toast('已导出：' + filename);
+      return true;
+    } catch (e) {
+      toast('导出失败：' + (e.message || '浏览器不支持'));
+      return false;
+    }
+  }
+
+  function exportPlan(kind) {
+    if (!state.plan) { toast('还没有策划可导出'); return; }
+    var plan = state.plan;
+    var base = 'live-plan-' + (plan.plan_id || 'draft');
+    if (kind === 'json') { downloadFile(base + '.json', JSON.stringify(plan, null, 1), 'application/json'); }
+    else if (kind === 'csv') { downloadFile(base + '.csv', planToCsv(plan), 'text/csv'); }
+    else if (kind === 'md') { downloadFile(base + '.md', planToMd(plan), 'text/markdown'); }
+  }
+
+  function loadPlanToRealtime() {
+    var plan = state.plan;
+    if (!plan || !(plan.timeline || []).length) { toast('请先生成开播策划'); return; }
+    var segs = (plan.timeline || []).map(function (r, i) {
+      return {
+        id: 'p' + (i + 1),
+        stage: r.stage || '主推讲解',
+        title: (r.time_label || '') + (r.product ? ' · ' + r.product : ''),
+        text: r.script_line || (r.talk_points || []).join('；'),
+        sec: Math.max(10, Math.round(((Number(r.t_end) || 0) - (Number(r.t_start) || 0)) * 60)),
+        compliance: { safe: true, count: 0, hits: [] },
+        price_risk: r.price_risk || [],
+        plan_row: r
+      };
+    });
+    state.track = { plan: plan, startedAt: Date.now(), nodes: buildTrackNodes(plan) };
+    setSegments(segs, { product: plan.product, style: plan.style, count: segs.length, engine: 'plan', at: Date.now() });
+    markEngine('节奏表');
+    var safePill = $('safePill');
+    if (safePill) {
+      var ok = (plan.compliance || {}).safe;
+      safePill.textContent = '合规检查 · ' + (ok ? '通过' : '有风险');
+      safePill.className = 'tag ' + (ok ? 'green' : 'red');
+    }
+    updatePlanTrack();
+    switchTab('realtime');
+    toast('已按节奏表载入提词器：' + segs.length + ' 个时段，自动轮播推进');
+    monitorTick();
+  }
+
+  function buildTrackNodes(plan) {
+    var nodes = [];
+    (plan.timeline || []).forEach(function (r) {
+      if (r.stage === '逼单') { nodes.push({ t: Number(r.t_start) || 0, label: '逼单节点', text: r.interaction || '' }); }
+      if (r.stage === '换品') { nodes.push({ t: Number(r.t_start) || 0, label: '换品节点', text: r.interaction || '' }); }
+    });
+    (plan.closing_nodes || []).forEach(function (n) { nodes.push({ t: Number(n.t) || 0, label: '逼单', text: n.action || n.script || '' }); });
+    (plan.switch_rhythm || []).forEach(function (n) { nodes.push({ t: Number(n.t) || 0, label: '换品', text: n.transition || '' }); });
+    nodes.sort(function (a, b) { return a.t - b.t; });
+    return nodes;
+  }
+
+  function updatePlanTrack() {
+    var el = $('planTrack'); if (!el) { return; }
+    if (!state.track) {
+      el.innerHTML = '未载入节奏表：可在「开播策划」生成后点「载入实时助播」，提词器会按节奏表自动推进，并在换品/逼单节点提醒。';
+      return;
+    }
+    var plan = state.track.plan;
+    var seg = state.segments[state.idx];
+    var row = seg && seg.plan_row;
+    var next = null;
+    if (row) {
+      var t0 = Number(row.t_start) || 0;
+      for (var i = 0; i < state.track.nodes.length; i++) {
+        if (state.track.nodes[i].t >= t0) { next = state.track.nodes[i]; break; }
+      }
+    }
+    var bits = ['<b>节奏表：' + esc(plan.title || plan.product || '本场') + '</b>'];
+    if (row) { bits.push('当前时段 ' + esc(row.time_label || '') + ' · ' + esc(row.stage || '')); }
+    if (row && row.offer) { bits.push('优惠口径：' + esc(row.offer)); }
+    if (row && row.interaction) { bits.push('互动：' + esc(row.interaction)); }
+    if (next) { bits.push('下一节点：' + next.label + '（' + nodeTime(next.t) + '）'); }
+    el.innerHTML = bits.join(' · ');
+  }
+
+  function planOnNode() {
+    if (!state.track) { return; }
+    var seg = state.segments[state.idx];
+    if (!seg || !seg.plan_row) { return; }
+    var r = seg.plan_row;
+    toast(r.time_label + ' · ' + r.stage + (r.interaction ? '｜互动：' + r.interaction : ''));
+    updatePlanTrack();
+  }
+
+  function loadPlanHistory() {
+    api('/plans?limit=8', { timeout: 15000 }).then(function (j) {
+      state.planHist = (j && j.plans) || [];
+      renderPlanHistory();
+    }).catch(function (err) { warn(err); });
+  }
+
+  function renderPlanHistory() {
+    var box = $('planHist'); if (!box) { return; }
+    var arr = state.planHist || [];
+    if (!arr.length) { box.innerHTML = '<div class="hint">还没有历史策划。</div>'; return; }
+    box.innerHTML = '';
+    arr.forEach(function (p) {
+      var div = document.createElement('div');
+      div.className = 'hist-item';
+      div.innerHTML = '<div class="hm"><b>' + esc(p.title || p.product || '未命名策划') + '</b>' +
+        '<span>' + esc((p.goal || '') + ' · ' + (p.duration_min || 0) + ' 分钟 · ' + (p.platform || '')) +
+        ' · ' + esc((p.created_at || '').slice(5, 16)) + ' · 节奏 ' + (p.timeline_rows || 0) + ' 行</span></div>' +
+        '<button class="btn sm" type="button" data-act="load">载入</button>';
+      div.querySelector('[data-act="load"]').addEventListener('click', function () {
+        api('/plan?id=' + encodeURIComponent(p.id), { timeout: 15000 }).then(function (j) {
+          if (j && j.plan) { state.plan = j.plan; renderPlan(j.plan); switchTab('plan'); toast('已载入历史策划'); }
+        }).catch(function (err) { toast('载入失败：' + (err.message || '网络异常')); });
+      });
+      box.appendChild(div);
+    });
+  }
+
+  /* ---------------- 互动提醒 ---------------- */
+  function monLevelText(level) {
+    return { alert: '需处理', busy: '互动活跃', quiet: '偏冷', normal: '平稳' }[level] || '平稳';
+  }
+
+  function renderMonitor(data) {
+    var lv = $('monLevel');
+    if (lv) { lv.className = 'mon-lv ' + (data.level || ''); lv.textContent = '互动提醒 · ' + monLevelText(data.level); }
+    var box = $('monAlerts');
+    var alerts = (data && data.alerts) || [];
+    if (box) {
+      box.innerHTML = alerts.length ? alerts.map(function (a) {
+        return '<div class="alert ' + esc(a.level || 'info') + '"><span class="ab">' +
+          (a.level === 'warn' ? '!' : (a.level === 'danger' ? '×' : 'i')) + '</span><div>' +
+          '<div class="at">' + esc(a.title || '') + '</div>' +
+          '<div class="ad">' + esc(a.detail || '') + '</div>' +
+          (a.action ? '<div class="aa">建议：' + esc(a.action) + '</div>' : '') + '</div></div>';
+      }).join('') : '<div class="hint">暂无提醒。</div>';
+    }
+    var st = (data && data.stats) || {};
+    var statsEl = $('monStats');
+    if (statsEl) {
+      statsEl.innerHTML = '<span class="mon-stat">近窗口弹幕<b>' + (st.count || 0) + '</b></span>' +
+        '<span class="mon-stat">去重<b>' + (st.unique || 0) + '</b></span>' +
+        '<span class="mon-stat">问价占比<b>' + Math.round((st.price_ratio || 0) * 100) + '%</b></span>' +
+        '<span class="mon-stat">提问<b>' + (st.question_n || 0) + '</b></span>' +
+        '<span class="mon-stat">每分钟<b>' + (st.per_min || 0) + '</b></span>';
+    }
+    var hint = $('monHint');
+    if (hint) { hint.textContent = '每 12 秒自动检测 · 最近窗口 ' + ((data && data.stats && data.stats.window_sec) || 90) + ' 秒 · 只提醒不自动操作。'; }
+  }
+
+  function localMonitor() {
+    var now = Date.now();
+    var recent = (state.monLog || []).filter(function (x) { return now - x.ts <= 90000; });
+    var n = recent.length;
+    var counts = {};
+    recent.forEach(function (x) { counts[x.text] = (counts[x.text] || 0) + 1; });
+    var dupMax = 0, dupTotal = 0;
+    Object.keys(counts).forEach(function (k) { if (counts[k] > dupMax) { dupMax = counts[k]; } if (counts[k] > 1) { dupTotal += counts[k]; } });
+    var price = recent.filter(function (x) { return /(多少钱|价格|啥价|便宜|优惠|券|折扣|活动|赠品)/.test(x.text); }).length;
+    var question = recent.filter(function (x) { return /[？?吗呢]|怎么|多少|能不能|可以|哪/.test(x.text); }).length;
+    var alerts = [];
+    var session = (now - state.startedAt) / 1000;
+    if (!n && session >= 75) {
+      alerts.push({ type: 'cold', level: 'warn', title: '冷场提醒（本地规则）', detail: '近 90 秒没有新弹幕。', action: '抛一个低门槛问题或引导扣 1。' });
+    }
+    if (n >= 4 && dupMax >= 3) {
+      alerts.push({ type: 'spam', level: 'warn', title: '刷屏提醒（本地规则）', detail: '同一句最多重复 ' + dupMax + ' 次。', action: '统一回应一次，用扣关键词把节奏带回讲解。' });
+    }
+    if (price >= 3 && n && price / n >= 0.4) {
+      alerts.push({ type: 'price_flood', level: 'warn', title: '问价密集（本地规则）', detail: price + '/' + n + ' 条在问价格或优惠。', action: '集中报一次价格口径（以页面实时显示为准）。' });
+    }
+    if (!alerts.length) {
+      alerts.push({ type: 'normal', level: 'info', title: '互动平稳', detail: '近 90 秒 ' + n + ' 条弹幕。', action: '按节奏表继续，每 5 分钟主动引导互动。' });
+    }
+    return {
+      level: alerts.some(function (a) { return a.level === 'warn'; }) ? 'alert' : (n >= 6 ? 'busy' : (n === 0 ? 'quiet' : 'normal')),
+      alerts: alerts,
+      stats: { count: n, unique: Object.keys(counts).length, price_ratio: n ? price / n : 0, question_n: question, per_min: n * 60 / 90, window_sec: 90 }
+    };
+  }
+
+  function monitorTick() {
+    if (state.tab !== 'realtime' || state.monBusy) { return; }
+    state.monBusy = true;
+    var now = Date.now();
+    var recent = (state.monLog || []).slice(-40).map(function (x) { return { text: x.text, ts: x.ts }; });
+    api('/monitor', {
+      method: 'POST', timeout: 15000,
+      body: { recent: recent, session_sec: Math.round((now - state.startedAt) / 1000), window_sec: 90 }
+    }).then(function (j) {
+      renderMonitor(j);
+    }).catch(function (err) {
+      renderMonitor(localMonitor());
+      warn(err);
+    }).finally(function () { state.monBusy = false; });
+  }
+
+  function scheduleMonitor() {
+    clearTimeout(scheduleMonitor._t);
+    scheduleMonitor._t = setTimeout(function () { if (state.tab === 'realtime') { monitorTick(); } }, 900);
+  }
+
+  /* ---------------- 违规词实时拦截 ---------------- */
+  function setGuardStat() {
+    var el = $('guardStat');
+    if (el) { el.innerHTML = '本场已拦截 <b>' + state.guardHits + '</b> 处违规词（AI 回复 / 弹幕 / 手动检测）'; }
+  }
+
+  function guardCheck(text) {
+    var raw = String(text == null ? (($('guardInput') || {}).value || '') : text).trim();
+    if (!raw) { toast('请先输入或粘贴要检测的文本'); return; }
+    api('/guard', { method: 'POST', timeout: 20000, body: { text: raw, mode: 'script' } }).then(function (j) {
+      var out = $('guardResult');
+      if (!j) { throw new Error('接口无返回'); }
+      if (j.safe) {
+        if (out) { out.innerHTML = '<span class="fix">未发现极限词 / 价格承诺风险</span>，可按此口径人工复核后使用。'; }
+      } else {
+        var words = (j.hits || []).map(function (h) { return '<span class="hit">' + esc(h.word) + '</span>→' + esc(h.suggest || '改客观描述'); }).join('；');
+        var price = (j.price_risks || []).length ? '<br>价格承诺风险：<span class="hit">' + esc((j.price_risks || []).join('、')) + '</span>（不要口头保证，统一说以页面为准）' : '';
+        if (out) {
+          out.innerHTML = '已拦截 <b>' + (j.hit_count || 0) + '</b> 处：' + words + price +
+            '<br>修正建议：<span class="fix">' + esc(j.fixed || '') + '</span>';
+        }
+        state.guardHits += (j.hit_count || 0);
+        setGuardStat();
+      }
+      toast(j.safe ? '未发现违规词' : ('已拦截 ' + j.hit_count + ' 处违规词'));
+    }).catch(function (err) {
+      var out = $('guardResult');
+      if (out) { out.innerHTML = '检测接口暂不可用：' + esc(err.message || '网络异常'); }
+      warn(err);
+    });
+  }
+
+  /* ---------------- 下播复盘 ---------------- */
+  function revNum(id) {
+    var v = String((($(id) || {}).value) || '').replace(/[^\d.-]/g, '');
+    var n = parseFloat(v);
+    return isFinite(n) ? n : 0;
+  }
+
+  function reviewPayload() {
+    return {
+      product: { name: ($('revName').value || '').trim() },
+      danmu_text: $('revDanmu').value || '',
+      script_used: $('revScript').value || '',
+      metrics: {
+        views: revNum('revViews'), peak: revNum('revPeak'), comments: revNum('revComments'),
+        likes: revNum('revLikes'), new_followers: revNum('revFollowers'),
+        orders: revNum('revOrders'), gmv: revNum('revGmv'), refunds: revNum('revRefunds'),
+        duration_min: revNum('revDuration')
+      }
+    };
+  }
+
+  function revStatus(msg, cls) {
+    var el = $('revStatus'); if (!el) { return; }
+    el.innerHTML = msg;
+    el.style.color = cls === 'err' ? 'var(--amber)' : '';
+  }
+
+  function countDanmuLines() {
+    var el = $('revDanmuCount');
+    if (!el) { return; }
+    var n = ($('revDanmu').value || '').split(/\r?\n/).filter(function (s) { return s.trim(); }).length;
+    el.textContent = '已识别 ' + n + ' 条';
+  }
+
+  function fmtPct(v, digits) {
+    if (v == null || !isFinite(v)) { return '—'; }
+    return (v * 100).toFixed(digits == null ? 2 : digits) + '%';
+  }
+
+  function renderReview(rv) {
+    state.review = rv;
+    var eng = $('revEngine');
+    if (eng) { eng.textContent = rv.engine === 'deepseek' ? 'DeepSeek' : '确定性规则'; eng.className = 'tag ' + (rv.engine === 'deepseek' ? 'violet' : 'cyan'); }
+    if ($('revScore')) { $('revScore').textContent = rv.score || '--'; }
+    if ($('revSummary')) {
+      $('revSummary').innerHTML = '<b>' + esc(rv.summary || '暂无结论') + '</b>' +
+        '<div class="hint" style="margin-top:4px">' + esc((rv.note ? '备注：' + rv.note + '；' : '') +
+          '复盘结论由 AI 生成，需人工复核；价格/库存/时效以平台页面为准。') + '</div>';
+    }
+    var est = rv.estimate || {};
+    var v = est.views || {}, i = est.interaction || {}, c = est.conversion || {};
+    var estBox = $('revEstimate');
+    if (estBox) {
+      estBox.innerHTML =
+        '<div class="estcard"><div class="ek">观看人数</div><div class="ev">' + (v.value || 0) + '</div>' +
+        '<div class="em">' + esc((v.source || '') + ' · ' + (v.method || '')) + '</div>' +
+        '<span class="econf ' + esc(v.confidence || '') + '">置信度 ' + esc(v.confidence || '—') + '</span></div>' +
+        '<div class="estcard"><div class="ek">互动（评论/弹幕）</div><div class="ev">' + (i.value || 0) + '<small>条</small></div>' +
+        '<div class="em">互动率 ' + fmtPct(i.rate) + ' · 去重 ' + (i.unique || 0) + ' · ' + esc((i.source || '') + ' · ' + (i.method || '')) + '</div>' +
+        '<span class="econf ' + esc(i.confidence || '') + '">置信度 ' + esc(i.confidence || '—') + '</span></div>' +
+        '<div class="estcard"><div class="ek">转化（成交）</div><div class="ev">' + (c.orders || 0) + '<small>单</small></div>' +
+        '<div class="em">转化率 ' + fmtPct(c.rate) + ' · 客单价 ' + (c.aov == null ? '—' : '¥' + c.aov) +
+        ' · GMV ¥' + (c.gmv || 0) + (c.refund_rate != null ? ' · 退款率 ' + fmtPct(c.refund_rate) : '') + '</div>' +
+        '<span class="econf ' + esc(c.confidence || '') + '">置信度 ' + esc(c.confidence || '—') + '</span></div>';
+    }
+    if ($('revEstNote')) { $('revEstNote').textContent = est.note || ''; }
+    var se = rv.script_effect || {};
+    if ($('revScriptOverall')) { $('revScriptOverall').textContent = se.overall || '暂无话术效果分析。'; }
+    var dims = se.dimensions || [];
+    var dimBox = $('revDims');
+    if (dimBox) {
+      dimBox.innerHTML = dims.length ? dims.map(function (d) {
+        var score = (d.score == null ? '--' : d.score);
+        var pct = d.score == null ? 0 : d.score;
+        return '<div class="dim"><span class="dn">' + esc(d.name || '') + '</span>' +
+          '<span class="dbar"><i style="width:' + pct + '%"></i></span>' +
+          '<span class="ds">' + score + '</span>' +
+          (d.comment ? '<span class="dc">' + esc(d.comment) + '</span>' : '') + '</div>';
+      }).join('') : '<div class="hint">暂无维度分析。</div>';
+    }
+    var issueBox = $('revIssues');
+    if (issueBox) {
+      var issues = rv.issues || [];
+      issueBox.innerHTML = issues.length ? issues.map(function (it) {
+        var lv = it.level || '中';
+        var cls = lv === '高' ? 'high' : (lv === '中' ? 'mid' : '');
+        return '<div class="issue ' + cls + '"><div class="ih"><span class="lv ' + cls + '">' + esc(lv) + '</span>' +
+          '<span class="it">' + esc(it.issue || '') + '</span></div>' +
+          (it.evidence ? '<div class="ie">证据：' + esc(it.evidence) + '</div>' : '') +
+          (it.fix ? '<div class="if">怎么改：' + esc(it.fix) + '</div>' : '') + '</div>';
+      }).join('') : '<div class="hint">未返回问题清单。</div>';
+    }
+    var actBox = $('revActions');
+    if (actBox) {
+      var acts = rv.next_actions || [];
+      actBox.innerHTML = acts.length ? acts.map(function (a, i) {
+        return '<div class="act"><span class="an">' + (i + 1) + '</span><div class="ax">' +
+          '<div class="at">' + esc(a.action || '') + '</div>' +
+          (a.why ? '<div class="aw">为什么：' + esc(a.why) + '</div>' : '') + '</div></div>';
+      }).join('') : '<div class="hint">未返回改进建议。</div>';
+    }
+    var metaBox = $('revMeta');
+    if (metaBox) {
+      var tips = rv.compliance_tips || [];
+      var html = '<div class="rt2"><b>数据</b><span>' + esc(rv.data_quality || '—') + '</span></div>';
+      tips.forEach(function (t) { html += '<div class="rt2"><b>合规</b><span>' + esc(t) + '</span></div>'; });
+      var dc = rv.danmu || {};
+      html += '<div class="rt2"><b>弹幕</b><span>样本 ' + (dc.count || 0) + ' 条 · 去重 ' + (dc.unique || 0) +
+        ' · 问价 ' + (dc.price_n || 0) + ' 条 · 提问 ' + (dc.question_n || 0) + ' 条</span></div>';
+      metaBox.innerHTML = html;
+    }
+    if ($('revExportBar')) { $('revExportBar').hidden = false; }
+  }
+
+  function genReview() {
+    var body = reviewPayload();
+    var hasDanmu = (body.danmu_text || '').trim().length > 0;
+    var hasMetrics = Object.keys(body.metrics).some(function (k) { return body.metrics[k] > 0; });
+    if (!hasDanmu && !hasMetrics && !(body.script_used || '').trim()) {
+      revStatus('至少填写弹幕记录、话术使用、成交数据中的一项再做复盘。', 'err');
+      return;
+    }
+    var btn = $('revGenBtn');
+    if (btn.disabled) { return; }
+    btn.disabled = true;
+    revStatus('生成中…（约 10–30 秒，AI 正在分析弹幕、话术与成交数据）');
+    api('/review', { method: 'POST', timeout: 180000, body: body }).then(function (j) {
+      if (!j || !j.review) { throw new Error('AI 未返回复盘'); }
+      renderReview(j.review);
+      revStatus('已生成复盘 · 评分 <b>' + (j.score || 0) + '</b> · 引擎 ' + esc(j.engine) +
+        ' · 已保存到数据表 live_reviews');
+      toast('下播复盘已生成：评分 ' + (j.score || 0));
+      loadReviewHistory();
+    }).catch(function (err) {
+      revStatus('生成失败：' + esc(err.message || '网络异常') + '。可减少弹幕文本或稍后重试。', 'err');
+      warn(err);
+    }).finally(function () { btn.disabled = false; });
+  }
+
+  function reviewToText(rv) {
+    var out = ['【AI 直播助播 · 下播复盘】', '商品：' + (rv.product || ''), '评分：' + (rv.score || 0), '', '结论：' + (rv.summary || '')];
+    var est = rv.estimate || {};
+    if (est.views) { out.push('观看估算：' + (est.views.value || 0) + '（' + (est.views.source || '') + '）'); }
+    if (est.interaction) { out.push('互动估算：' + (est.interaction.value || 0) + ' 条，互动率 ' + fmtPct(est.interaction.rate)); }
+    if (est.conversion) { out.push('转化估算：' + (est.conversion.orders || 0) + ' 单，转化率 ' + fmtPct(est.conversion.rate) + '，GMV ¥' + (est.conversion.gmv || 0)); }
+    var se = rv.script_effect || {};
+    out.push('', '话术效果：' + (se.overall || ''));
+    (se.dimensions || []).forEach(function (d) { out.push('- ' + d.name + '：' + (d.score == null ? '—' : d.score) + ' 分 ' + (d.comment || '')); });
+    out.push('', '问题清单：');
+    (rv.issues || []).forEach(function (it, i) { out.push((i + 1) + '. [' + it.level + '] ' + it.issue + '（证据：' + (it.evidence || '—') + '；改法：' + (it.fix || '—') + '）'); });
+    out.push('', '下一场改进：');
+    (rv.next_actions || []).forEach(function (a, i) { out.push((i + 1) + '. ' + a.action + (a.why ? '（' + a.why + '）' : '')); });
+    out.push('', '数据完整度：' + (rv.data_quality || '—'));
+    return out.join('\n');
+  }
+
+  function exportReview(kind) {
+    if (!state.review) { toast('还没有复盘可导出'); return; }
+    var base = 'live-review-' + (state.review.review_id || 'draft');
+    if (kind === 'json') { downloadFile(base + '.json', JSON.stringify(state.review, null, 1), 'application/json'); }
+    else { downloadFile(base + '.txt', reviewToText(state.review), 'text/plain'); }
+  }
+
+  function fillReviewSample() {
+    if (!($('revName').value || '').trim()) { $('revName').value = $('planName').value || ($('pName') || {}).value || '云端护颈枕'; }
+    $('revDanmu').value = DEMO_DANMU;
+    if (!($('revScript').value || '').trim()) {
+      $('revScript').value = '按专业讲解风格生成 25 段话术：开场 3 段、产品介绍 8 段、答疑 5 段、逼单 5 段、换品 2 段、结束 2 段；实际使用约 18 段，答疑段临时压缩。';
+    }
+    if (!revNum('revViews')) { $('revViews').value = 3200; }
+    if (!revNum('revPeak')) { $('revPeak').value = 186; }
+    if (!revNum('revComments')) { $('revComments').value = 86; }
+    if (!revNum('revLikes')) { $('revLikes').value = 240; }
+    if (!revNum('revFollowers')) { $('revFollowers').value = 31; }
+    if (!revNum('revOrders')) { $('revOrders').value = 27; }
+    if (!revNum('revGmv')) { $('revGmv').value = 3483; }
+    if (!revNum('revRefunds')) { $('revRefunds').value = 2; }
+    if (!revNum('revDuration')) { $('revDuration').value = 62; }
+    countDanmuLines();
+    revStatus('示例数据已填入（弹幕 41 条 + 成交数据），点「生成下播复盘」即可真跑 AI。');
+  }
+
+  function loadReviewHistory() {
+    api('/reviews?limit=8', { timeout: 15000 }).then(function (j) {
+      state.revHist = (j && j.reviews) || [];
+      renderReviewHistory();
+    }).catch(function (err) { warn(err); });
+  }
+
+  function renderReviewHistory() {
+    var box = $('revHist'); if (!box) { return; }
+    var arr = state.revHist || [];
+    if (!arr.length) { box.innerHTML = '<div class="hint">还没有历史复盘。</div>'; return; }
+    box.innerHTML = '';
+    arr.forEach(function (r) {
+      var div = document.createElement('div');
+      div.className = 'hist-item';
+      div.innerHTML = '<div class="hm"><b>' + esc(r.product || '未命名复盘') + '</b>' +
+        '<span>评分 ' + (r.score || '--') + ' · 弹幕 ' + (r.danmu_count || 0) + ' 条 · ' +
+        esc((r.created_at || '').slice(5, 16)) + '</span></div>' +
+        '<button class="btn sm" type="button" data-act="load">查看</button>';
+      div.querySelector('[data-act="load"]').addEventListener('click', function () {
+        api('/review?id=' + encodeURIComponent(r.id), { timeout: 15000 }).then(function (j) {
+          if (j && j.review) { renderReview(j.review); switchTab('review'); toast('已载入历史复盘'); }
+        }).catch(function (err) { toast('载入失败：' + (err.message || '网络异常')); });
+      });
+      box.appendChild(div);
+    });
+  }
+
+  function copyReviewSummary() {
+    if (!state.review) { toast('还没有复盘可复制'); return; }
+    copyText(reviewToText(state.review));
+  }
+
+  function initV2() {
+    Array.prototype.forEach.call(document.querySelectorAll('.tabbtn[data-tab]'), function (b) {
+      b.addEventListener('click', function () { switchTab(b.getAttribute('data-tab')); });
+    });
+    planPrefillFromProduct();
+    $('planGenBtn').addEventListener('click', genPlan);
+    $('planDemoBtn').addEventListener('click', fillPlanDemo);
+    $('planExportJson').addEventListener('click', function () { exportPlan('json'); });
+    $('planExportCsv').addEventListener('click', function () { exportPlan('csv'); });
+    $('planExportMd').addEventListener('click', function () { exportPlan('md'); });
+    $('planLoadBtn').addEventListener('click', loadPlanToRealtime);
+    $('planPrintBtn').addEventListener('click', function () { try { window.print(); } catch (e) {} });
+    $('planHistRefresh').addEventListener('click', loadPlanHistory);
+
+    $('revGenBtn').addEventListener('click', genReview);
+    $('revSampleBtn').addEventListener('click', fillReviewSample);
+    $('revSampleClear').addEventListener('click', function () { $('revDanmu').value = ''; countDanmuLines(); });
+    $('revDanmu').addEventListener('input', countDanmuLines);
+    $('revFillScript').addEventListener('click', function () {
+      var meta = state.currentScript || {};
+      var n = (state.segments || []).length;
+      if (!n && !meta.product) { toast('还没有话术池，可先在实时助播生成或载入'); return; }
+      $('revScript').value = '话术池 ' + (meta.count || n) + ' 段（' + (meta.product || '') + ' · ' +
+        (meta.engine || '') + '）；实际使用情况请补充：哪些用了、哪些删了、答疑/逼单是否压缩。';
+      toast('已填入当前话术池信息');
+    });
+    $('revExportJson').addEventListener('click', function () { exportReview('json'); });
+    $('revExportTxt').addEventListener('click', function () { exportReview('txt'); });
+    $('revCopyBtn').addEventListener('click', copyReviewSummary);
+    $('revPrintBtn').addEventListener('click', function () { try { window.print(); } catch (e) {} });
+    $('revHistRefresh').addEventListener('click', loadReviewHistory);
+    $('revClearBtn').addEventListener('click', function () {
+      state.review = null;
+      if ($('revScore')) { $('revScore').textContent = '--'; }
+      if ($('revSummary')) { $('revSummary').textContent = '已清空结果，可重新生成。'; }
+      ['revEstimate', 'revDims', 'revIssues', 'revActions'].forEach(function (id) {
+        if ($(id)) { $(id).innerHTML = '<div class="hint">暂无</div>'; }
+      });
+      if ($('revScriptOverall')) { $('revScriptOverall').textContent = '暂无'; }
+      if ($('revMeta')) { $('revMeta').innerHTML = '<div class="rt2"><b>数据</b><span>暂无</span></div>'; }
+      if ($('revEstNote')) { $('revEstNote').textContent = ''; }
+      if ($('revExportBar')) { $('revExportBar').hidden = true; }
+      revStatus('已清空结果。');
+    });
+
+    $('guardBtn').addEventListener('click', function () { guardCheck(); });
+    $('guardInput').addEventListener('keydown', function (e) {
+      if (e.key === 'Enter') { e.preventDefault(); guardCheck(); }
+    });
+
+    state.monTimer = setInterval(monitorTick, 12000);
+    setGuardStat();
+    var initial = 'plan';
+    try {
+      var h = (location.hash || '').replace('#', '');
+      if (h === 'plan' || h === 'realtime' || h === 'review') { initial = h; }
+    } catch (e) {}
+    switchTab(initial);
+    renderPlanHistory();
+    renderReviewHistory();
+    loadPlanHistory();
+    loadReviewHistory();
+    window.__LIVE_V2__ = {
+      state: state, switchTab: switchTab, planMd: function () { return state.plan ? planToMd(state.plan) : ''; },
+      planCsv: function () { return state.plan ? planToCsv(state.plan) : ''; },
+      reviewText: function () { return state.review ? reviewToText(state.review) : ''; },
+      loadPlanToRealtime: loadPlanToRealtime, monitorTick: monitorTick, guardCheck: guardCheck,
+      refreshHist: function () { loadPlanHistory(); loadReviewHistory(); }
+    };
+    window.__LIVE_V2_READY__ = true;
+  }
 
   /* ---------------- 初始化 ---------------- */
   function bind() {
@@ -1034,6 +2220,7 @@ html.xl-shell .xl-topbar-actions .btn.sm{font-size:12px;padding:4px 9px;border-r
     document.addEventListener('keydown', function (e) {
       var tag = (e.target && e.target.tagName) || '';
       if (tag === 'INPUT' || tag === 'TEXTAREA' || tag === 'SELECT' || (e.target && e.target.isContentEditable)) { return; }
+      if (state.tab !== 'realtime') { return; }
       if (e.code === 'Space') { e.preventDefault(); setPlaying(!state.playing); }
       else if (e.key === 'ArrowRight' || e.key === 'ArrowDown') { e.preventDefault(); nextSeg(); }
       else if (e.key === 'ArrowLeft' || e.key === 'ArrowUp') { e.preventDefault(); prevSeg(); }
@@ -1045,9 +2232,11 @@ html.xl-shell .xl-topbar-actions .btn.sm{font-size:12px;padding:4px 9px;border-r
 
     window.addEventListener('beforeunload', function () {
       if (state.tickTimer) { clearInterval(state.tickTimer); }
+      if (state.monTimer) { clearInterval(state.monTimer); }
     });
 
     renderBannedChips();
+    initV2();
     checkApi();
     state.tickTimer = setInterval(function () { tickSeg(); rhythmTick(); clockTick(); }, 1000);
     clockTick();
@@ -1084,7 +2273,7 @@ html.xl-shell .xl-topbar-actions .btn.sm{font-size:12px;padding:4px 9px;border-r
 })();
 </script>
 
-<script defer src="../assets/site-shell.js"></script>
+<script defer src="../assets/site-shell.js?v=20261124a"></script>
 <script>
 /* 2026-11-23 站壳适配：把原顶栏的「合规说明 / 接口设置 / 服务状态 / 直播计时」迁到细顶栏，保持可点 */
 (function () {

@@ -1,0 +1,618 @@
+<!doctype html>
+<html lang="zh-CN" data-page="passport">
+<head><meta name="robots" content="noindex,nofollow"><meta name="googlebot" content="noindex,nofollow">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<link rel="icon" href="data:,">
+<title>授权护照 · 素材/成片/项目全链路可验证 · 星籁 AI</title>
+<meta name="description" content="星籁授权护照（Rights Passport）：为每条素材、成片与项目生成可验证的授权身份证。四层授权链 + SHA-256 指纹 + 哈希链 + Ed25519 签名，客户可一键导出给甲方/平台审核。">
+<meta name="keywords" content="授权护照,素材授权,版权合规,可验证,哈希链,成片交付,星籁">
+<link rel="canonical" href="https://xinglaiai.com/ai-nav/passport/">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="星籁 AI">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:title" content="授权护照 · 素材/成片/项目全链路可验证 · 星籁 AI">
+<meta property="og:description" content="星籁授权护照（Rights Passport）：为每条素材、成片与项目生成可验证的授权身份证。四层授权链 + SHA-256 指纹 + 哈希链 + Ed25519 签名，客户可一键导出给甲方/平台审核。">
+<meta property="og:url" content="https://xinglaiai.com/ai-nav/passport/">
+<meta property="og:image" content="https://xinglaiai.com/ai-nav/assets/og/default.png">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="stylesheet" href="../assets/site-shell.css?v=20261124a">
+<link rel="stylesheet" href="../assets/auth-gate.css">
+<script src="../assets/auth-gate.js" data-mode="mask"></script>
+<style>
+:root{
+  --bg:#060a13; --bg2:#0a1120; --panel:linear-gradient(170deg,#0d1628 0%,#0a1220 60%,#09101c 100%);
+  --line:rgba(96,165,250,.20); --line2:rgba(148,163,184,.14);
+  --txt:#e8eefc; --txt2:#9db0cc; --txt3:#6b7f9e;
+  --cyan:#38bdf8; --cyan2:#7dd3fc; --violet:#8b5cf6; --violet2:#c4b5fd;
+  --ok:#34d399; --ok2:#6ee7b7; --warn:#fbbf24; --err:#fb7185; --blue:#60a5fa;
+  --mono:ui-monospace,SFMono-Regular,Consolas,"Cascadia Mono",monospace;
+  --r:18px; --rs:12px;
+  --shadow:0 30px 70px -34px rgba(2,8,20,.95);
+}
+*{box-sizing:border-box}
+[hidden]{display:none!important}
+html{background:var(--bg);color-scheme:dark}
+body{margin:0;min-height:100vh;color:var(--txt);
+  font:15px/1.65 -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Microsoft YaHei",sans-serif;
+  background:
+    radial-gradient(1100px 520px at 12% -10%,rgba(56,189,248,.13),transparent 60%),
+    radial-gradient(900px 480px at 92% 4%,rgba(139,92,246,.12),transparent 62%),
+    linear-gradient(180deg,#060a13,#05080f 60%,#060a13);
+  -webkit-text-size-adjust:100%;overflow-x:hidden}
+a{color:var(--cyan2);text-decoration:none}
+.wrap{max-width:1200px;margin:0 auto;padding:26px 22px 64px}
+.topbar{display:flex;align-items:center;justify-content:space-between;gap:14px;margin-bottom:6px}
+.brand{display:flex;align-items:center;gap:10px;font-weight:700;letter-spacing:.4px}
+.brand .logo{width:34px;height:34px;border-radius:10px;display:grid;place-items:center;
+  background:linear-gradient(135deg,rgba(56,189,248,.25),rgba(139,92,246,.3));border:1px solid var(--line);
+  box-shadow:0 0 26px -8px rgba(56,189,248,.55);font-size:16px}
+.brand small{display:block;font-weight:500;font-size:11px;color:var(--txt3);letter-spacing:2.4px}
+.nav{display:flex;gap:8px;flex-wrap:wrap}
+.nav a,.nav span{padding:7px 12px;border-radius:999px;border:1px solid var(--line2);font-size:12.5px;color:var(--txt2)}
+.nav a:hover{border-color:var(--cyan);color:var(--cyan2)}
+.hero{margin:22px 0 18px;padding:26px 26px 22px;border:1px solid var(--line);border-radius:22px;
+  background:linear-gradient(120deg,rgba(56,189,248,.08),rgba(139,92,246,.07)),var(--panel);box-shadow:var(--shadow);position:relative;overflow:hidden}
+.hero:before{content:"";position:absolute;inset:-40% -20% auto auto;width:420px;height:420px;border-radius:50%;
+  background:radial-gradient(circle,rgba(56,189,248,.18),transparent 65%);pointer-events:none}
+.hero h1{margin:0 0 8px;font-size:clamp(24px,3.4vw,34px);letter-spacing:.5px;line-height:1.25}
+.hero h1 em{font-style:normal;background:linear-gradient(120deg,#7dd3fc,#c4b5fd 60%,#f0abfc);-webkit-background-clip:text;background-clip:text;color:transparent}
+.hero p{margin:0;color:var(--txt2);max-width:840px;font-size:14px}
+.chainbar{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin-top:18px}
+.chainbar .step{border:1px solid var(--line2);border-radius:12px;padding:10px 12px;background:rgba(8,14,26,.45)}
+.chainbar .step b{display:block;font-size:12px;color:var(--cyan2);letter-spacing:.6px}
+.chainbar .step span{font-size:12px;color:var(--txt3)}
+.tabs{display:flex;gap:8px;margin:14px 0 16px;flex-wrap:wrap}
+.tab{padding:10px 16px;border-radius:12px;border:1px solid var(--line2);background:rgba(11,18,32,.6);
+  color:var(--txt2);font-size:13.5px;cursor:pointer;transition:.18s;font-weight:600}
+.tab.on{border-color:rgba(56,189,248,.55);color:#eaf6ff;background:linear-gradient(135deg,rgba(56,189,248,.16),rgba(139,92,246,.14));
+  box-shadow:0 8px 26px -16px rgba(56,189,248,.8)}
+.grid2{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.15fr);gap:16px;align-items:start}
+.card{border:1px solid var(--line2);border-radius:var(--r);background:var(--panel);box-shadow:var(--shadow);padding:20px 20px 18px}
+.card h2{margin:0 0 4px;font-size:16.5px;letter-spacing:.3px;display:flex;align-items:center;gap:8px}
+.card h2 .dot{width:8px;height:8px;border-radius:50%;background:var(--cyan);box-shadow:0 0 12px var(--cyan)}
+.card .desc{margin:0 0 14px;color:var(--txt3);font-size:12.5px}
+.field{margin-bottom:12px}
+.field label{display:block;font-size:12.5px;color:var(--txt2);margin-bottom:6px;letter-spacing:.3px}
+.field label small{color:var(--txt3);font-weight:400;margin-left:6px}
+input[type=text],textarea,select{width:100%;background:#070d18;border:1px solid var(--line2);border-radius:10px;
+  color:var(--txt);padding:10px 12px;font:inherit;font-size:13.5px;outline:none;transition:.15s}
+input[type=text]:focus,textarea:focus,select:focus{border-color:rgba(56,189,248,.6);box-shadow:0 0 0 3px rgba(56,189,248,.12)}
+textarea{resize:vertical;min-height:74px;font-size:13.5px}
+.row{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;padding:11px 18px;border-radius:11px;
+  border:1px solid transparent;cursor:pointer;font:inherit;font-size:13.5px;font-weight:700;letter-spacing:.3px;transition:.18s}
+.btn:disabled{opacity:.55;cursor:not-allowed}
+.btn.primary{background:linear-gradient(135deg,#38bdf8,#8b5cf6);color:#04121c;box-shadow:0 14px 34px -18px rgba(56,189,248,.9)}
+.btn.primary:hover{filter:brightness(1.06);transform:translateY(-1px)}
+.btn.ghost{background:rgba(12,20,36,.8);border-color:var(--line);color:var(--cyan2)}
+.btn.ghost:hover{border-color:var(--cyan)}
+.btn.soft{background:rgba(56,189,248,.11);border-color:rgba(56,189,248,.35);color:var(--cyan2)}
+.btn.soft:hover{background:rgba(56,189,248,.18)}
+.btn.mini{padding:7px 11px;font-size:12px;border-radius:9px}
+.btn-row{display:flex;gap:9px;flex-wrap:wrap;margin-top:4px}
+.samples{display:flex;gap:8px;flex-wrap:wrap;margin:-4px 0 12px}
+.samples a{font-size:11.5px;padding:4px 9px;border:1px dashed var(--line);border-radius:999px;color:var(--txt2)}
+.samples a:hover{color:var(--cyan2);border-color:var(--cyan)}
+.hint{font-size:12px;color:var(--txt3);margin-top:6px;line-height:1.55}
+.errbox{display:none;margin-top:12px;padding:10px 12px;border-radius:10px;background:rgba(251,113,133,.09);
+  border:1px solid rgba(251,113,133,.35);color:#ffc7d1;font-size:12.5px;white-space:pre-wrap;word-break:break-all}
+.errbox.on{display:block}
+.loading{display:none;align-items:center;gap:9px;color:var(--txt2);font-size:12.5px;margin-top:10px}
+.loading.on{display:flex}
+.spin{width:14px;height:14px;border-radius:50%;border:2px solid rgba(56,189,248,.25);border-top-color:var(--cyan);animation:sp .8s linear infinite}
+@keyframes sp{to{transform:rotate(360deg)}}
+.badge{display:inline-flex;align-items:center;gap:5px;padding:2.5px 9px;border-radius:999px;font-size:11.5px;
+  border:1px solid var(--line2);color:var(--txt2);background:rgba(8,14,26,.6);white-space:nowrap}
+.badge.ok{border-color:rgba(52,211,153,.4);color:var(--ok2);background:rgba(52,211,153,.08)}
+.badge.warn{border-color:rgba(251,191,36,.42);color:#fde68a;background:rgba(251,191,36,.08)}
+.badge.err{border-color:rgba(251,113,133,.42);color:#ffc7d1;background:rgba(251,113,133,.08)}
+.badge.ai{border-color:rgba(139,92,246,.45);color:var(--violet2);background:rgba(139,92,246,.1)}
+.result{display:none;margin-top:16px}
+.result.on{display:block;animation:fade .26s ease}
+@keyframes fade{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:none}}
+.banner{border-radius:13px;padding:13px 15px;border:1px solid var(--line);display:flex;gap:12px;align-items:flex-start;
+  background:linear-gradient(135deg,rgba(56,189,248,.09),rgba(139,92,246,.07));margin-bottom:14px}
+.banner .ico{width:34px;height:34px;border-radius:10px;display:grid;place-items:center;flex:none;font-size:16px;
+  background:rgba(56,189,248,.14);border:1px solid var(--line)}
+.banner b{font-size:14px}
+.banner p{margin:2px 0 0;font-size:12.5px;color:var(--txt2)}
+.kv{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px;margin:12px 0}
+.kv .item{border:1px solid var(--line2);border-radius:11px;padding:10px 12px;background:rgba(7,12,22,.55);min-width:0}
+.kv .item .k{font-size:11px;color:var(--txt3);letter-spacing:.4px;margin-bottom:3px}
+.kv .item .v{font-size:13px;word-break:break-all;line-height:1.5}
+.mono{font-family:var(--mono);font-size:11.5px;letter-spacing:.2px}
+.kpi{display:grid;grid-template-columns:repeat(5,1fr);gap:10px;margin:12px 0 14px}
+.kpi .k{border:1px solid var(--line2);border-radius:12px;padding:10px 12px;background:rgba(7,12,22,.5)}
+.kpi .k span{display:block;font-size:11px;color:var(--txt3)}
+.kpi .k b{font-size:20px;letter-spacing:.5px}
+.kpi .k b.ok{color:var(--ok2)} .kpi .k b.warn{color:var(--warn)} .kpi .k b.vio{color:var(--violet2)}
+.chainlist{display:grid;gap:8px;margin:10px 0}
+.chainlist .li{display:grid;grid-template-columns:76px 1fr;gap:10px;border:1px solid var(--line2);border-radius:11px;
+  padding:9px 12px;background:rgba(8,14,26,.45)}
+.chainlist .li b{font-size:12px;color:var(--cyan2)}
+.chainlist .li span{font-size:12.5px;color:var(--txt2)}
+.tablewrap{overflow:auto;border:1px solid var(--line2);border-radius:12px;margin-top:10px;max-height:430px}
+table{width:100%;border-collapse:collapse;font-size:12.5px;min-width:620px}
+th,td{padding:8px 10px;text-align:left;border-bottom:1px solid rgba(148,163,184,.1);vertical-align:top}
+th{position:sticky;top:0;background:#0b1424;color:var(--txt2);font-weight:600;font-size:11.5px;letter-spacing:.4px;z-index:1}
+tr:last-child td{border-bottom:0}
+.trunc{max-width:240px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.muted{color:var(--txt3);font-size:12px}
+.recent{margin-top:18px}
+.recent h3{font-size:13px;color:var(--txt2);margin:0 0 10px;letter-spacing:.6px}
+.recent-list{display:grid;gap:8px}
+.recent-item{display:flex;justify-content:space-between;gap:12px;align-items:center;border:1px solid var(--line2);
+  border-radius:11px;padding:9px 12px;background:rgba(8,14,26,.5);font-size:12.5px;cursor:pointer}
+.recent-item:hover{border-color:rgba(56,189,248,.45)}
+.recent-item .l{min-width:0}.recent-item code{font-family:var(--mono);font-size:11.5px;color:var(--cyan2)}
+.verify-card{display:none;margin-top:12px;border-radius:12px;padding:13px 15px;border:1px solid var(--line2);background:rgba(7,12,22,.6)}
+.verify-card.on{display:block}
+.verify-card.valid{border-color:rgba(52,211,153,.45);background:linear-gradient(135deg,rgba(52,211,153,.08),rgba(7,12,22,.6))}
+.verify-card.invalid{border-color:rgba(251,113,133,.5);background:linear-gradient(135deg,rgba(251,113,133,.09),rgba(7,12,22,.6))}
+.verify-card h4{margin:0 0 8px;font-size:14px;display:flex;align-items:center;gap:8px}
+.checkline{display:flex;justify-content:space-between;gap:10px;padding:5px 0;border-bottom:1px dashed rgba(148,163,184,.12);font-size:12.5px}
+.checkline:last-child{border-bottom:0}
+.checkline .r{font-weight:700}
+.checkline .r.pass{color:var(--ok2)} .checkline .r.fail{color:#ffb3c0}
+.disclaimer{margin-top:22px;padding:14px 16px;border:1px dashed rgba(148,163,184,.3);border-radius:12px;
+  color:var(--txt3);font-size:12px;line-height:1.7}
+.foot{margin-top:26px;color:var(--txt3);font-size:11.5px;display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap}
+.toast{position:fixed;left:50%;bottom:30px;transform:translate(-50%,20px);opacity:0;pointer-events:none;
+  background:rgba(11,20,36,.96);border:1px solid var(--line);color:var(--txt);padding:10px 18px;border-radius:999px;
+  font-size:12.5px;z-index:1200;transition:.22s;box-shadow:var(--shadow)}
+.toast.on{opacity:1;transform:translate(-50%,0)}
+@media (max-width:960px){.grid2{grid-template-columns:1fr}.chainbar{grid-template-columns:repeat(2,1fr)}}
+@media (max-width:760px){
+  .wrap{padding:16px 13px 48px}
+  .hero{padding:20px 17px;border-radius:18px}
+  .tabs{overflow-x:auto;flex-wrap:nowrap;padding-bottom:2px}
+  .tab{flex:none}
+  .kpi{grid-template-columns:repeat(2,1fr)}
+  .kv{grid-template-columns:1fr}
+  .row{grid-template-columns:1fr}
+  .card{padding:16px 14px}
+  .chainbar{grid-template-columns:1fr 1fr}
+  table{min-width:560px}
+  .btn{width:100%}
+  .btn-row .btn{width:auto;flex:1}
+  .topbar{flex-direction:column;align-items:flex-start}
+}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <div class="topbar">
+    <div class="brand">
+      <div class="logo">🛂</div>
+      <div><div>星籁 · 授权护照</div><small>RIGHTS PASSPORT</small></div>
+    </div>
+    <nav class="nav">
+      <a href="../sandbox/">合规沙盘</a>
+      <a href="../">返回导航</a>
+      <span id="authState">登录后可用</span>
+    </nav>
+  </div>
+
+  <section class="hero">
+    <h1>每条素材，都有一张<em>可验证的授权身份证</em></h1>
+    <p>不是普通许可清单，而是「素材 → 项目 → 成片 → 客户交付」的<strong>全链路可验证护照</strong>：SHA-256 内容指纹 + 台账哈希链 + Ed25519 签名，客户可一键导出给甲方/平台审核，任一方都能独立验真。护照证明授权信息“可查、可证、可追溯”，不构成法律意见。</p>
+    <div class="chainbar">
+      <div class="step"><b>① 素材级</b><span>来源 / 许可 / 署名 / 地域 / 期限 / AI 标记</span></div>
+      <div class="step"><b>② 工程级</b><span>剪辑继承 / 变速混剪 / 署名合并规则</span></div>
+      <div class="step"><b>③ 成片级</b><span>成片指纹 + 字体/音乐/音效 + 平台合规</span></div>
+      <div class="step"><b>④ 验真级</b><span>哈希链 + 数字签名 + 校验码/报告</span></div>
+    </div>
+  </section>
+
+  <div class="tabs">
+    <button class="tab on" id="tabAsset" type="button">① 单素材护照</button>
+    <button class="tab" id="tabProject" type="button">② 整项目批量护照</button>
+    <button class="tab" id="tabVerify" type="button">③ 验真 / 防篡改校验</button>
+  </div>
+
+  <!-- ============ 单素材 ============ -->
+  <div class="grid2" id="panelAsset">
+    <div class="card">
+      <h2><span class="dot"></span>为一条素材生成授权护照</h2>
+      <p class="desc">输入素材库 ID，或粘贴外部素材 URL（会实时下载计算 SHA-256 指纹并登记来源）。</p>
+      <div class="samples">
+        <a href="javascript:void(0)" data-asset="109">示例：图片 #109（Pixabay）</a>
+        <a href="javascript:void(0)" data-asset="143">示例：音乐 #143（CC BY 需署名）</a>
+        <a href="javascript:void(0)" data-asset="6">示例：字体 #6（SIL OFL）</a>
+      </div>
+      <div class="field">
+        <label for="assetId">素材库 ID <small>推荐，真实素材台账</small></label>
+        <input type="text" id="assetId" placeholder="例如 109（图片）/ 143（音乐）/ 6（字体）" autocomplete="off">
+      </div>
+      <div class="field">
+        <label for="assetUrl">或外部素材 URL <small>仅 http/https；单文件 ≤25MB；有 SSRF 防护</small></label>
+        <input type="text" id="assetUrl" placeholder="https://cdn.example.com/asset.jpg" autocomplete="off">
+      </div>
+      <div class="row">
+        <div class="field">
+          <label for="assetProject">使用项目 ID <small>可选</small></label>
+          <input type="text" id="assetProject" placeholder="project / 成片 ID" autocomplete="off">
+        </div>
+        <div class="field">
+          <label for="assetUsage">使用说明 <small>可选</small></label>
+          <input type="text" id="assetUsage" placeholder="如：用于《夜行》片头 00:12" autocomplete="off">
+        </div>
+      </div>
+      <div class="btn-row"><button class="btn primary" id="genAsset" type="button">生成授权护照</button></div>
+      <div class="loading" id="assetLoading"><span class="spin"></span><span>正在读取素材台账并写入哈希链…</span></div>
+      <div class="errbox" id="assetErr"></div>
+      <div class="hint">护照写入只追加台账，任何字段被修改都会导致内容哈希/签名校验失败。</div>
+    </div>
+    <div class="card">
+      <h2><span class="dot"></span>护照详情与验真</h2>
+      <p class="desc">生成后在此查看许可、署名、AI 标识、使用记录与证据哈希。</p>
+      <div class="result" id="assetResult">
+        <div class="banner" id="assetBanner">
+          <div class="ico">🛂</div>
+          <div><b id="assetBannerTitle">护照已生成</b><p id="assetBannerText"></p></div>
+        </div>
+        <div class="kv">
+          <div class="item"><div class="k">护照编号</div><div class="v mono" id="assetPid">—</div></div>
+          <div class="item"><div class="k">授权状态</div><div class="v" id="assetLicStatus">—</div></div>
+          <div class="item"><div class="k">许可类型</div><div class="v" id="assetLicName">—</div></div>
+          <div class="item"><div class="k">是否需署名</div><div class="v" id="assetAttrReq">—</div></div>
+          <div class="item" style="grid-column:1/-1"><div class="k">素材指纹 SHA-256</div><div class="v mono" id="assetSha">—</div></div>
+          <div class="item" style="grid-column:1/-1"><div class="k">署名文本 / 使用要求</div><div class="v" id="assetAttrText">—</div></div>
+          <div class="item" style="grid-column:1/-1"><div class="k">AI 生成标识</div><div class="v" id="assetAi">—</div></div>
+          <div class="item" style="grid-column:1/-1"><div class="k">使用记录（哪个项目/成片用了）</div><div class="v" id="assetUsageList">暂无</div></div>
+          <div class="item" style="grid-column:1/-1"><div class="k">哈希链 / 证据</div><div class="v mono" id="assetChain">—</div></div>
+        </div>
+        <div class="btn-row">
+          <button class="btn soft mini" id="btnVerifyAsset" type="button">校验真伪</button>
+          <button class="btn ghost mini" id="btnDownloadJson" type="button">下载护照 JSON</button>
+          <button class="btn ghost mini" id="btnCopyPid" type="button">复制护照编号</button>
+        </div>
+        <div class="verify-card" id="assetVerifyCard"></div>
+      </div>
+      <div class="hint" id="assetEmpty">还没有生成护照：先在左侧选择素材并点击「生成授权护照」。</div>
+    </div>
+  </div>
+
+  <!-- ============ 整项目 ============ -->
+  <div class="grid2" id="panelProject" hidden>
+    <div class="card">
+      <h2><span class="dot"></span>整项目批量生成护照</h2>
+      <p class="desc">解析真实工程包（project_pack v1）：成片 + 全部素材 + 字体 + 音乐 + 音效一次性生成子护照，打包成可交付的护照 zip。</p>
+      <div class="samples">
+        <a href="javascript:void(0)" data-pack="pk-20261123-3e2bd87c">示例：真实工程包 pk-20261123-3e2bd87c</a>
+      </div>
+      <div class="field">
+        <label for="packId">工程包 ID <small>位于 studio-files/projectpacks</small></label>
+        <input type="text" id="packId" placeholder="pk-xxxxxxxx" autocomplete="off">
+      </div>
+      <div class="row">
+        <div class="field">
+          <label for="projTitle">项目名称 <small>可选，默认取工程包标题</small></label>
+          <input type="text" id="projTitle" placeholder="例如《夜行》交付版" autocomplete="off">
+        </div>
+        <div class="field">
+          <label for="clientName">客户 / 甲方 <small>可选，写入交付护照</small></label>
+          <input type="text" id="clientName" placeholder="例如：XX 品牌 / XX 平台" autocomplete="off">
+        </div>
+      </div>
+      <div class="field">
+        <label for="projUsage">交付物名称 <small>可选</small></label>
+        <input type="text" id="projUsage" placeholder="例如：抖音投放成片 v1" autocomplete="off">
+      </div>
+      <div class="btn-row"><button class="btn primary" id="genProject" type="button">批量生成并打包</button></div>
+      <div class="loading" id="projectLoading"><span class="spin"></span><span>正在解析工程包、计算全部素材指纹并生成子护照（约 2–6 秒）…</span></div>
+      <div class="errbox" id="projectErr"></div>
+      <div class="hint">整项目护照会为每个素材/成片/字体/音乐/音效生成子护照，并用哈希链绑定到项目护照，篡改任一子护照都会被 verify 检出。</div>
+    </div>
+    <div class="card">
+      <h2><span class="dot"></span>项目护照包</h2>
+      <p class="desc">人可读报告（可打印 PDF）+ JSON + 授权清单 + 校验码，全部在 zip 内。</p>
+      <div class="result" id="projectResult">
+        <div class="banner">
+          <div class="ico">📦</div>
+          <div><b id="pkTitle">项目护照已生成</b><p id="pkSub"></p></div>
+        </div>
+        <div class="kpi">
+          <div class="k"><span>素材总数</span><b id="pkTotal">0</b></div>
+          <div class="k"><span>成片</span><b id="pkFilms">0</b></div>
+          <div class="k"><span>已核验授权</span><b class="ok" id="pkVerified">0</b></div>
+          <div class="k"><span>AI 生成</span><b class="vio" id="pkAi">0</b></div>
+          <div class="k"><span>待核验/字体</span><b class="warn" id="pkPending">0</b></div>
+        </div>
+        <div class="chainlist" id="pkChain"></div>
+        <div class="tablewrap"><table><thead><tr><th>角色</th><th>名称</th><th>许可</th><th>状态</th><th>指纹</th></tr></thead><tbody id="pkItems"></tbody></table></div>
+        <div class="btn-row" style="margin-top:12px">
+          <button class="btn primary mini" id="btnZip" type="button">下载护照包 zip</button>
+          <button class="btn ghost mini" id="btnReport" type="button">打开人可读报告</button>
+          <button class="btn soft mini" id="btnVerifyProject" type="button">校验项目护照</button>
+        </div>
+        <div class="verify-card" id="projectVerifyCard"></div>
+      </div>
+      <div class="hint" id="projectEmpty">生成后在这里下载 zip 并校验。</div>
+    </div>
+  </div>
+
+  <!-- ============ 验真 ============ -->
+  <div class="grid2" id="panelVerify" hidden>
+    <div class="card">
+      <h2><span class="dot"></span>验真 / 防篡改校验</h2>
+      <p class="desc">输入护照编号（或从飞书/邮件里收到的编号），系统会重新计算内容哈希、校验哈希链、数字签名与子护照完整性。</p>
+      <div class="field">
+        <label for="verifyId">护照编号</label>
+        <input type="text" id="verifyId" placeholder="pp-a-... / pp-p-..." autocomplete="off">
+      </div>
+      <div class="field">
+        <label for="verifyHash">交付文件 SHA-256 <small>可选：校验成片是不是本护照登记的那一份</small></label>
+        <input type="text" id="verifyHash" placeholder="64 位十六进制" autocomplete="off">
+      </div>
+      <div class="btn-row"><button class="btn primary" id="btnVerify" type="button">开始校验</button></div>
+      <div class="loading" id="verifyLoading"><span class="spin"></span><span>正在重算哈希链与签名…</span></div>
+      <div class="errbox" id="verifyErr"></div>
+      <div class="hint">提示：篡改护照任一字段（许可、署名、指纹）都会导致内容哈希与签名校验失败，面板会给出具体失败项。</div>
+    </div>
+    <div class="card">
+      <h2><span class="dot"></span>校验结果</h2>
+      <p class="desc">可信 = 内容哈希 / 台账链 / 签名 / 子护照全部通过。</p>
+      <div class="verify-card" id="verifyCard"></div>
+      <div class="hint" id="verifyEmpty">还没有校验：在左侧输入护照编号后点击「开始校验」。</div>
+      <div class="recent">
+        <h3>最近生成的护照</h3>
+        <div class="recent-list" id="recentList"><div class="muted">加载中…</div></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="disclaimer">
+    <b>边界说明：</b>授权护照证明「这份素材/成片的授权信息可查、可证、可追溯」，并证明交付文件与护照登记一致；<b>不承诺绝对无版权风险</b>，不构成法律意见。授权规则以素材原始许可条款、生成服务商条款与法务确认为准；AI 生成素材需按《人工智能生成合成内容标识办法》显著标识。高风险行业交付请人工复核。
+  </div>
+  <div class="foot">
+    <span>星籁 AI · 授权护照 v1.0 · SHA-256 哈希链 + Ed25519 签名</span>
+    <span><a href="../sandbox/">去合规沙盘做发布前彩排 →</a></span>
+  </div>
+</div>
+<div class="toast" id="toast"></div>
+<script>
+(function(){
+'use strict';
+/* ---------------- API 地址（与 assets/auth-gate.js 同口径，支持 ?api= 覆盖） ---------------- */
+var API_BASE=(function(){
+  try{
+    var qs=new URLSearchParams(location.search);
+    var ov=qs.get('api');
+    if(ov){try{localStorage.setItem('xl_api_base',ov);}catch(e){} return ov.replace(/\/+$/,'');}
+    var saved=''; try{saved=localStorage.getItem('xl_api_base')||'';}catch(e){}
+    if(saved) return saved.replace(/\/+$/,'');
+    var p=location.pathname,k=p.indexOf('/ai-nav/');
+    if(k>=0) return location.origin+p.slice(0,k)+'/ai-nav/api';
+    if(/^(localhost|127\.0\.0\.1|0\.0\.0\.0)$/i.test(location.hostname)) return '/ai-nav/api';
+    return location.origin+'/ai-nav/api';
+  }catch(e){return '/ai-nav/api';}
+})();
+var $=function(s){return document.querySelector(s);};
+function toast(msg){var t=$('#toast'); if(!t) return; t.textContent=msg; t.classList.add('on'); clearTimeout(t._tm); t._tm=setTimeout(function(){t.classList.remove('on');},2600);}
+function esc(s){return String(s==null?'':s).replace(/[&<>"']/g,function(c){return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c];});}
+function showErr(el,msg){var e=$(el); if(!e) return; e.textContent=String(msg||'请求失败'); e.classList.add('on');}
+function clearErr(el){var e=$(el); if(e){e.textContent=''; e.classList.remove('on');}}
+function loading(el,on){var e=$(el); if(e){ if(on) e.classList.add('on'); else e.classList.remove('on'); }}
+function api(path,opts){
+  opts=opts||{};
+  var init={method:opts.method||'GET',headers:{'Accept':'application/json'},cache:'no-store'};
+  if(opts.body!==undefined){init.headers['Content-Type']='application/json'; init.body=JSON.stringify(opts.body);}
+  return fetch(API_BASE+path,init).then(function(r){
+    return r.text().then(function(txt){
+      var data; try{data=JSON.parse(txt);}catch(e){data={ok:false,error:'bad_response',detail:txt.slice(0,200)};}
+      if(!r.ok||data.ok===false){
+        var msg=(data.hint||data.error||('HTTP '+r.status))+(data.detail?('：'+data.detail):'');
+        var err=new Error(msg); err.data=data; err.status=r.status; throw err;
+      }
+      return data;
+    });
+  });
+}
+function badge(cls,txt){return '<span class="badge '+cls+'">'+esc(txt)+'</span>';}
+function licBadge(status){
+  var m={verified:['ok','已核验可商用'],ai_generated:['ai','AI 生成'],unverified:['warn','待人工核验'],system_font:['warn','字体待核验'],derived:['ok','衍生作品'],derived_with_pending:['warn','衍生（含待核验）'],derived_restricted:['err','衍生（含受限）']};
+  var x=m[status]||['','未知'];
+  return badge(x[0],x[1]);
+}
+var state={asset:null,project:null};
+function setAuthState(){var el=$('#authState'); if(!el) return;
+  var token=''; try{token=localStorage.getItem('xl_token')||sessionStorage.getItem('xl_token')||'';}catch(e){}
+  el.textContent=token?'已登录':'登录后可用（页面已加登录遮罩）';
+}
+document.addEventListener('xl-gate:change',function(ev){try{var el=$('#authState'); if(el&&ev.detail) el.textContent=ev.detail.loggedIn?'已登录':'登录后可用（页面已加登录遮罩）';}catch(e){}});
+setAuthState();
+
+/* ---------------- Tabs ---------------- */
+function switchTab(name){
+  ['Asset','Project','Verify'].forEach(function(n){
+    var t=$('#tab'+n),p=$('#panel'+n);
+    var on=(n.toLowerCase()===name);
+    if(t) t.classList.toggle('on',on);
+    if(p) p.hidden=!on;
+  });
+  if(name==='verify') loadRecent();
+}
+$('#tabAsset').addEventListener('click',function(){switchTab('asset');});
+$('#tabProject').addEventListener('click',function(){switchTab('project');});
+$('#tabVerify').addEventListener('click',function(){switchTab('verify');});
+
+/* ---------------- 单素材 ---------------- */
+document.querySelectorAll('[data-asset]').forEach(function(a){
+  a.addEventListener('click',function(){var id=a.getAttribute('data-asset');$('#assetId').value=id;$('#assetUrl').value='';});
+});
+document.querySelectorAll('[data-pack]').forEach(function(a){
+  a.addEventListener('click',function(){$('#packId').value=a.getAttribute('data-pack');});
+});
+function renderVerifyCard(el,res){
+  var box=$(el); if(!box) return;
+  var ok=!!res.valid;
+  box.className='verify-card on '+(ok?'valid':'invalid');
+  var html='<h4>'+(ok?'✅ 校验通过 · 护照可信':'⛔ 校验失败 · 护照不可信')+'</h4>';
+  html+='<div class="muted" style="margin-bottom:8px">'+esc(res.summary||'')+'</div>';
+  var checks=res.checks||{};
+  Object.keys(checks).forEach(function(k){
+    var c=checks[k]||{};
+    html+='<div class="checkline"><span>'+esc(c.label||k)+(c.detail?(' · '+esc(c.detail)):'')+'</span><span class="r '+(c.ok?'pass':'fail')+'">'+(c.ok?'PASS':'FAIL')+'</span></div>';
+  });
+  if(res.reasons&&res.reasons.length){
+    html+='<div class="muted" style="margin-top:8px">失败原因：'+res.reasons.map(function(r){return esc(r);}).join('；')+'</div>';
+  }
+  html+='<div class="muted" style="margin-top:8px">校验时间：'+esc(res.verify_time||'')+' · 算法：'+esc((res.ledger||{}).signature_alg||'')+' · 台账序号：'+esc((res.ledger||{}).seq||'')+'</div>';
+  box.innerHTML=html;
+}
+function genAsset(){
+  clearErr('#assetErr');
+  var aid=$('#assetId').value.trim(), aurl=$('#assetUrl').value.trim();
+  if(!aid&&!aurl){showErr('#assetErr','请填写素材库 ID，或粘贴外部素材 URL。');return;}
+  var body={project_id:$('#assetProject').value.trim(),note:'页面生成'};
+  if(aid&&!aurl){body.asset_id=aid;}
+  else if(aurl){body.asset_url=aurl;}
+  else{showErr('#assetErr','素材库 ID 与 URL 只能二选一。');return;}
+  var usage=$('#assetUsage').value.trim(); if(usage) body.usage=usage;
+  loading('#assetLoading',true); $('#genAsset').disabled=true;
+  api('/passport/asset',{method:'POST',body:body}).then(function(d){
+    state.asset=d;
+    var p=d.passport||{}, a=p.asset||{}, fp=p.fingerprint||{}, lic=p.license||{}, chain=p.chain_ref||{};
+    $('#assetResult').classList.add('on'); $('#assetEmpty').hidden=true;
+    $('#assetBannerTitle').textContent='护照已生成 · '+((a.title||'').slice(0,40)||'素材');
+    $('#assetBannerText').textContent='护照编号：'+d.passport_id+'；可下载/复制给甲方或平台审核。';
+    $('#assetPid').textContent=d.passport_id;
+    $('#assetLicStatus').innerHTML=licBadge(lic.status)+' '+esc(lic.commercial_ok===true?'可商用':(lic.commercial_ok===false?'不可商用':'商用性未知'));
+    $('#assetLicName').textContent=(lic.name||'—')+(lic.code?('（'+lic.code+'）'):'');
+    $('#assetAttrReq').innerHTML=lic.attribution_required?badge('warn','必须署名'):badge('ok','无需署名');
+    $('#assetSha').textContent=fp.sha256||'（该素材台账缺少指纹）';
+    $('#assetAttrText').textContent=lic.attribution_text||'无';
+    $('#assetAi').innerHTML=p.ai_generated?badge('ai','AI 生成素材')+' '+esc((p.ai_label||{}).note||''):badge('ok','非 AI 生成')+' 素材库授权素材';
+    var us=p.usage||[];
+    $('#assetUsageList').innerHTML=us.length?us.map(function(u){return '· '+esc(u.project_id||'—')+' / '+esc(u.deliverable||u.note||'记录')+'（'+esc(u.recorded_at||'')+'）';}).join('<br>'):'暂无使用记录';
+    $('#assetChain').innerHTML='内容哈希 '+esc((chain.content_hash||'').slice(0,32))+'…<br>链哈希 '+esc((chain.chain_hash||'').slice(0,32))+'…<br>台账 #'+esc(chain.ledger_seq||'')+' · 算法 '+esc(chain.signature_alg||'')+'<br>证据哈希 '+esc((p.evidence||{}).evidence_hash||lic.evidence_hash||'—');
+    if(p.warnings&&p.warnings.length){$('#assetBannerText').textContent+=' 注意：'+p.warnings.join('；');}
+    toast('护照已生成：'+d.passport_id);
+  }).catch(function(e){showErr('#assetErr',e.message||'生成失败');})
+    .then(function(){loading('#assetLoading',false); $('#genAsset').disabled=false;});
+}
+$('#genAsset').addEventListener('click',genAsset);
+$('#btnVerifyAsset').addEventListener('click',function(){
+  if(!state.asset) return;
+  api('/passport/verify/'+encodeURIComponent(state.asset.passport_id)).then(function(d){
+    renderVerifyCard('#assetVerifyCard',d);
+    toast(d.valid?'校验通过：护照未被篡改':'校验失败：护照已被篡改或损坏');
+  }).catch(function(e){showErr('#assetErr',e.message||'校验失败');});
+});
+$('#btnDownloadJson').addEventListener('click',function(){
+  if(!state.asset) return;
+  var blob=new Blob([JSON.stringify(state.asset.passport,null,2)],{type:'application/json'});
+  var a=document.createElement('a'); a.href=URL.createObjectURL(blob);
+  a.download='passport-'+state.asset.passport_id+'.json'; document.body.appendChild(a); a.click();
+  setTimeout(function(){URL.revokeObjectURL(a.href); a.remove();},400);
+  toast('已下载护照 JSON');
+});
+$('#btnCopyPid').addEventListener('click',function(){
+  if(!state.asset) return;
+  var t=state.asset.passport_id;
+  if(navigator.clipboard&&navigator.clipboard.writeText){navigator.clipboard.writeText(t).then(function(){toast('已复制护照编号');},function(){toast(t);});}
+  else{toast(t);}
+});
+
+/* ---------------- 整项目 ---------------- */
+function genProject(){
+  clearErr('#projectErr');
+  var pack=$('#packId').value.trim();
+  if(!pack){showErr('#projectErr','请填写工程包 ID（例如 pk-20261123-3e2bd87c）。');return;}
+  var body={pack_id:pack};
+  var t=$('#projTitle').value.trim(); if(t) body.title=t;
+  var c=$('#clientName').value.trim(); if(c) body.client=c;
+  var u=$('#projUsage').value.trim(); if(u) body.deliverable={name:u};
+  loading('#projectLoading',true); $('#genProject').disabled=true;
+  api('/passport/project',{method:'POST',body:body}).then(function(d){
+    state.project=d;
+    var p=d.passport||{}, b=p.batch||{}, pr=p.project||{}, ls=b.license_stats||{};
+    $('#projectResult').classList.add('on'); $('#projectEmpty').hidden=true;
+    $('#pkTitle').textContent=(pr.title||'项目')+' · 护照包已生成';
+    $('#pkSub').textContent='护照编号 '+d.passport_id+' · '+((d.package||{}).zip_size_human||'')+' · 含 '+(p.child_passports||[]).length+' 张子护照';
+    $('#pkTotal').textContent=b.total||0;
+    $('#pkFilms').textContent=(p.deliverables||[]).length;
+    $('#pkVerified').textContent=ls.verified||0;
+    $('#pkAi').textContent=ls.ai_generated||0;
+    $('#pkPending').textContent=(ls.unverified||0)+(ls.system_font||0);
+    $('#pkChain').innerHTML=(p.rights_chain||[]).map(function(c){
+      return '<div class="li"><b>'+esc(c.layer)+'</b><span>'+esc(c.summary)+'<br><span class="muted">'+esc(c.rule)+'</span></span></div>';
+    }).join('');
+    $('#pkItems').innerHTML=(p.items||[]).map(function(it){
+      var l=it.license||{};
+      return '<tr><td>'+esc(it.role)+'</td><td class="trunc" title="'+esc(it.name)+'">'+esc(it.name)+'</td><td>'+esc(l.name||l.code)+'</td><td>'+licBadge(l.status)+'</td><td class="mono">'+esc((it.sha256||'').slice(0,16)||'—')+'</td></tr>';
+    }).join('')||'<tr><td colspan="5">无素材</td></tr>';
+    toast('项目护照已生成，可下载 zip');
+  }).catch(function(e){showErr('#projectErr',e.message||'生成失败');})
+    .then(function(){loading('#projectLoading',false); $('#genProject').disabled=false;});
+}
+$('#genProject').addEventListener('click',genProject);
+function downloadUrl(rel){return API_BASE+rel;}
+$('#btnZip').addEventListener('click',function(){
+  if(!state.project||!state.project.package) return;
+  var a=document.createElement('a');
+  a.href=downloadUrl(state.project.package.download_url); a.target='_blank'; a.rel='noopener';
+  document.body.appendChild(a); a.click(); a.remove();
+});
+$('#btnReport').addEventListener('click',function(){
+  if(!state.project||!state.project.package) return;
+  window.open(downloadUrl(state.project.package.report_url),'_blank','noopener');
+});
+$('#btnVerifyProject').addEventListener('click',function(){
+  if(!state.project) return;
+  api('/passport/verify/'+encodeURIComponent(state.project.passport_id)).then(function(d){
+    renderVerifyCard('#projectVerifyCard',d);
+    toast(d.valid?'项目护照校验通过':'项目护照校验失败');
+  }).catch(function(e){showErr('#projectErr',e.message||'校验失败');});
+});
+
+/* ---------------- 验真 ---------------- */
+function verifyById(){
+  clearErr('#verifyErr');
+  var pid=$('#verifyId').value.trim();
+  if(!pid){showErr('#verifyErr','请输入护照编号。');return;}
+  var q='';
+  var h=$('#verifyHash').value.trim(); if(h) q='?sha256='+encodeURIComponent(h);
+  loading('#verifyLoading',true); $('#btnVerify').disabled=true;
+  api('/passport/verify/'+encodeURIComponent(pid)+q).then(function(d){
+    renderVerifyCard('#verifyCard',d); $('#verifyEmpty').hidden=true;
+    toast(d.valid?'校验通过：护照可信':'校验失败：不可信');
+  }).catch(function(e){showErr('#verifyErr',e.message||'校验失败');})
+    .then(function(){loading('#verifyLoading',false); $('#btnVerify').disabled=false;});
+}
+$('#btnVerify').addEventListener('click',verifyById);
+function loadRecent(){
+  api('/passport/list?limit=8').then(function(d){
+    var list=d.items||[];
+    var box=$('#recentList');
+    if(!list.length){box.innerHTML='<div class="muted">还没有生成过护照</div>';return;}
+    box.innerHTML=list.map(function(it){
+      return '<div class="recent-item" data-pid="'+esc(it.passport_id)+'"><div class="l">'+
+        '<span class="badge '+(it.passport_type==='project'?'ai':'ok')+'">'+(it.passport_type==='project'?'项目护照':'素材护照')+'</span> '+
+        esc((it.subject_name||'').slice(0,36)||'—')+'<br><code>'+esc(it.passport_id)+'</code> <span class="muted">· '+esc(it.created_at||'')+'</span></div>'+
+        '<span class="badge">台账 #'+esc(it.ledger_seq||'')+'</span></div>';
+    }).join('');
+    Array.prototype.forEach.call(box.querySelectorAll('[data-pid]'),function(el){
+      el.addEventListener('click',function(){$('#verifyId').value=el.getAttribute('data-pid'); verifyById();});
+    });
+  }).catch(function(){var box=$('#recentList'); if(box) box.innerHTML='<div class="muted">最近护照加载失败</div>';});
+}
+
+/* ---------------- 初始化 ---------------- */
+(function init(){
+  try{
+    var qs=new URLSearchParams(location.search);
+    if(qs.get('pid')){$('#verifyId').value=qs.get('pid'); switchTab('verify');}
+    var tab=qs.get('tab');
+    if(tab&&/^(asset|project|verify)$/.test(tab)) switchTab(tab);
+  }catch(e){}
+  loadRecent();
+})();
+window.XLPassport={switchTab:switchTab,genAsset:genAsset,genProject:genProject,verify:verifyById,state:state};
+})();
+</script>
+<script defer src="../assets/site-shell.js?v=20261124a"></script>
+</body>
+</html>

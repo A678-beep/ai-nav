@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+<html lang="zh-CN" data-page="plugins">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="description" content="星籁插件市场：浏览官方自研与第三方插件（调色 / 字幕 / 合成 / 剪辑 / 音频 / 交付 / 剧组），查看参数、权限、兼容与更新日志，一键安装、启用、在线配置与云端运行；配置与运行数据沉淀在星籁账号内，换设备不丢。">
+<meta name="keywords" content="星籁插件市场,插件SDK,视频插件,LUT插件,字幕插件,AI质检插件,调色插件,影视后期插件,插件安装,插件配置">
+<link rel="canonical" href="https://xinglaiai.com/ai-nav/plugins/">
+<meta name="robots" content="noindex,nofollow"><meta name="googlebot" content="noindex,nofollow">
+<meta name="theme-color" content="#070b14">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="星籁 AI">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:title" content="插件市场 · 星籁 AI 插件生态">
+<meta property="og:description" content="官方自研 + 第三方插件：市场浏览、安装启用、参数配置、云端沙箱运行与运行历史。配置随账号走，换电脑不丢。">
+<meta property="og:url" content="https://xinglaiai.com/ai-nav/plugins/">
+<meta property="og:image" content="https://xinglaiai.com/ai-nav/assets/og/smartcut.png">
+<meta name="twitter:card" content="summary_large_image">
+<title>插件市场 · 星籁 AI</title>
+<link rel="icon" href="data:image/svg+xml,%3Csvg%20xmlns='http://www.w3.org/2000/svg'%20viewBox='0%200%2064%2064'%3E%3Crect%20width='64'%20height='64'%20rx='14'%20fill='%23070a10'/%3E%3Cpath%20d='M32%2012l5.6%2013.6L51%2031l-13.4%205.4L32%2050l-5.6-13.6L13%2031l13.4-5.4z'%20fill='%2338bdf8'/%3E%3C/svg%3E">
+<link rel="stylesheet" href="../assets/site-shell.css?v=20261124a">
+<link rel="stylesheet" href="../assets/auth-gate.css">
+<link rel="stylesheet" href="styles.css?v=20261124a">
+<script src="../assets/auth-gate.js" data-mode="banner"></script>
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"WebApplication","name":"星籁插件市场","url":"https://xinglaiai.com/ai-nav/plugins/","applicationCategory":"MultimediaApplication","operatingSystem":"Web","offers":{"@type":"Offer","price":"0","priceCurrency":"CNY"},"description":"星籁 AI 插件生态：官方自研与第三方插件的浏览、安装、启用、配置与云端运行。"}
+</script>
+</head>
+<body>
+<main class="xp" id="xpRoot">
+  <!-- ============ Hero ============ -->
+  <header class="xp-hero">
+    <div class="xp-hero-main">
+      <div class="xp-eyebrow"><span class="xp-dot"></span>PLUGIN ECOSYSTEM · SDK v1</div>
+      <h1>星籁插件市场 <span class="xp-beta">官方自营 + 第三方</span></h1>
+      <p class="xp-lead">调色、字幕、合成、剪辑、音频、交付、剧组全链路的专业插件。浏览参数与权限，<b>一键安装 / 启用</b>，在线改配置、云端沙箱运行；<b>配置与运行数据随账号走</b>，换设备不丢。</p>
+      <div class="xp-hero-pills" id="xpHeroPills">
+        <span class="xp-pill"><i class="ok"></i>沙箱执行：无网络 / 无文件读写</span>
+        <span class="xp-pill"><i class="ok"></i>manifest 校验 + 权限最小化</span>
+        <span class="xp-pill"><i class="ok"></i>审计留痕</span>
+      </div>
+    </div>
+    <div class="xp-hero-actions">
+      <div class="xp-gate-pill" id="xpGatePill"><span class="spin-mini"></span>检测登录态…</div>
+      <div class="xp-actions-line">
+        <button class="xp-btn ghost" type="button" id="xpRefresh">↻ 刷新数据</button>
+        <a class="xp-btn ghost" href="../ops/edit/#/plugins" id="xpOpsLink" hidden>运营后台 · 插件管理 ↗</a>
+      </div>
+    </div>
+  </header>
+
+  <!-- ============ 统计 ============ -->
+  <div class="xp-stats" id="xpStats" aria-live="polite">
+    <div class="xp-stat"><div class="k">市场在架</div><div class="v" id="xpStatMarket">—</div><div class="s" id="xpStatMarketS">官方 + 第三方</div></div>
+    <div class="xp-stat"><div class="k">已安装</div><div class="v" id="xpStatInstalled">—</div><div class="s" id="xpStatInstalledS">本机插件库</div></div>
+    <div class="xp-stat"><div class="k">已启用</div><div class="v" id="xpStatEnabled">—</div><div class="s" id="xpStatEnabledS">可直接运行</div></div>
+    <div class="xp-stat"><div class="k">认证等级</div><div class="v" id="xpStatQuality">—</div><div class="s" id="xpStatQualityS">Gold / Silver / Bronze</div></div>
+  </div>
+
+  <!-- ============ 认证等级说明 ============ -->
+  <div class="xp-legend" id="xpQualityLegend">
+    <span class="lbl" id="xpQualVersion">质量认证 v1.0.2</span>
+    <span class="xp-badge gold">Gold</span><span class="muted">官方精选 · 人工复核</span>
+    <span class="xp-badge silver">Silver</span><span class="muted">专业推荐</span>
+    <span class="xp-badge bronze">Bronze</span><span class="muted">上架门槛 · 质量门禁</span>
+    <span class="xp-badge pending">待认证</span><span class="muted">插件数据未返回 quality_level</span>
+    <button class="xp-btn link" type="button" data-act="quality-note">认证标准说明 ↗</button>
+  </div>
+
+  <!-- ============ 签名状态（H01：不改后端，前端显式展示未签名/签名未知） ============ -->
+  <div class="xp-sigbar" id="xpSigBar">
+    <span class="xp-badge sig-ok">Ed25519</span>
+    <div class="xp-sigbar-main">
+      <b>官方插件已 Ed25519 签名，第三方未签名需谨慎</b>
+      <p>官方自研插件由平台信任链（Ed25519）签名并验签；第三方插件若显示「未签名」或「签名状态未知」，安装 / 启用前请先确认来源与代码，勿直接用于涉及版权与合规的正式交付。</p>
+      <p class="xp-sigbar-meta" id="xpSigMeta">签名状态检测中…</p>
+    </div>
+    <button class="xp-btn link" type="button" data-act="sig-note">签名说明 ↗</button>
+  </div>
+
+  <!-- ============ Tabs ============ -->
+  <nav class="xp-tabs" id="xpTabs" role="tablist" aria-label="插件市场功能">
+    <button class="xp-tab on" type="button" role="tab" data-tab="market" aria-selected="true" id="xpTabMarket">插件市场</button>
+    <button class="xp-tab" type="button" role="tab" data-tab="mine" aria-selected="false" id="xpTabMine">我的插件 <span class="xp-tab-n" id="xpMineCount">—</span></button>
+    <button class="xp-tab" type="button" role="tab" data-tab="upload" aria-selected="false" id="xpTabUpload">上传插件 <span class="xp-lock" id="xpUploadLock">管理员</span></button>
+  </nav>
+
+  <!-- ============ 市场 ============ -->
+  <section class="xp-pane on" id="xpPaneMarket" role="tabpanel" aria-labelledby="xpTabMarket">
+    <div class="xp-toolbar">
+      <div class="xp-search">
+        <span class="xp-search-ico" aria-hidden="true">⌕</span>
+        <input id="xpSearch" type="search" placeholder="搜索插件名称 / 作者 / 能力，如：字幕、LUT、QC" autocomplete="off" aria-label="搜索插件">
+        <button class="xp-clear" type="button" id="xpSearchClear" hidden aria-label="清空搜索">✕</button>
+      </div>
+      <select id="xpSort" class="xp-select" aria-label="排序">
+        <option value="downloads">按下载量</option>
+        <option value="rating">按评分</option>
+        <option value="new">按最新上架</option>
+        <option value="name">按名称</option>
+      </select>
+      <div class="xp-seg" id="xpChannel" role="group" aria-label="渠道筛选">
+        <button class="on" type="button" data-channel="">全部</button>
+        <button type="button" data-channel="1">官方</button>
+        <button type="button" data-channel="0">第三方</button>
+      </div>
+      <span class="xp-result" id="xpMarketResult">加载中…</span>
+    </div>
+    <div class="xp-chips" id="xpCats" role="group" aria-label="插件分类"><span class="xp-chip skeleton-chip"></span></div>
+    <div id="xpMarketBody">
+      <div class="xp-grid" id="xpMarketGrid">
+        <div class="xp-card skeleton-card"></div><div class="xp-card skeleton-card"></div><div class="xp-card skeleton-card"></div>
+        <div class="xp-card skeleton-card"></div><div class="xp-card skeleton-card"></div><div class="xp-card skeleton-card"></div>
+      </div>
+    </div>
+    <div class="xp-pager" id="xpMarketPager" hidden></div>
+    <!-- 官方自研插件（已内置账号，直接启用/配置/运行） -->
+    <section class="xp-official" id="xpOfficialWrap" hidden></section>
+  </section>
+
+  <!-- ============ 我的插件 ============ -->
+  <section class="xp-pane" id="xpPaneMine" role="tabpanel" aria-labelledby="xpTabMine" hidden>
+    <div class="xp-toolbar">
+      <div class="xp-search">
+        <span class="xp-search-ico" aria-hidden="true">⌕</span>
+        <input id="xpMineSearch" type="search" placeholder="搜索已安装插件" autocomplete="off" aria-label="搜索已安装插件">
+      </div>
+      <select id="xpMineStatus" class="xp-select" aria-label="状态筛选">
+        <option value="">全部状态</option>
+        <option value="enabled">已启用</option>
+        <option value="disabled">已禁用</option>
+      </select>
+      <button class="xp-btn ghost sm" type="button" id="xpMineRefresh">↻ 刷新</button>
+      <span class="xp-result" id="xpMineResult">加载中…</span>
+    </div>
+    <div class="xp-notice" id="xpMineNotice" hidden></div>
+    <div id="xpMineBody"></div>
+  </section>
+
+  <!-- ============ 上传插件 ============ -->
+  <section class="xp-pane" id="xpPaneUpload" role="tabpanel" aria-labelledby="xpTabUpload" hidden>
+    <div class="xp-upload-grid" id="xpUploadFormHost">
+      <div class="xp-card">
+        <div class="xp-card-h">
+          <h2><span class="hico">⬆️</span>上传插件 zip</h2>
+          <span class="xp-badge gray" id="xpUploadBadge">管理员</span>
+        </div>
+        <p class="xp-muted">上传插件 zip 后，服务端会先做 manifest 规范校验、zip 安全解包与入口脚本静态安全检查，全部通过才注册；注册后默认<b>未启用</b>，可在「我的插件」启用。</p>
+        <div class="xp-drop" id="xpUploadDrop" tabindex="0" role="button" aria-label="选择或拖拽插件 zip 文件">
+          <div class="xp-drop-ico">📦</div>
+          <div class="xp-drop-t">点击选择 或 拖拽 .zip 到此处</div>
+          <div class="xp-drop-s">zip 根目录需包含 manifest.json；大小 ≤ 8 MB</div>
+          <input type="file" id="xpUploadFile" accept=".zip,application/zip" hidden>
+        </div>
+        <div class="xp-fileinfo" id="xpUploadFileInfo" hidden></div>
+        <div class="xp-form-grid">
+          <label class="xp-field"><span>manifest_sha256（可选，防篡改）</span><input id="xpUploadSha" type="text" placeholder="64 位十六进制" autocomplete="off"></label>
+          <div class="xp-field xp-field-checks">
+            <label class="xp-check"><input type="checkbox" id="xpUploadEnable"> 注册后立即启用</label>
+            <label class="xp-check"><input type="checkbox" id="xpUploadForce"> 覆盖同版本（force）</label>
+          </div>
+        </div>
+        <div class="xp-actions">
+          <button class="xp-btn primary" type="button" id="xpUploadBtn" disabled>校验并注册</button>
+          <button class="xp-btn ghost" type="button" id="xpUploadReset">重置</button>
+        </div>
+        <div id="xpUploadResult"></div>
+      </div>
+      <div class="xp-card">
+        <div class="xp-card-h"><h2><span class="hico">🧾</span>manifest 校验清单</h2></div>
+        <ul class="xp-checklist">
+          <li><b>id</b> 全局唯一：作者.功能，字母开头，仅 A-Za-z0-9._-</li>
+          <li><b>name / version / author / description</b> 必填，version 为 x.y.z</li>
+          <li><b>type</b>：effect / transition / subtitle / audio / workflow / panel / assetpack</li>
+          <li><b>entry</b>：脚本为 .py，panel 为 .html，assetpack 为目录或资源文件</li>
+          <li><b>params</b>：JSON Schema，run 前校验输入</li>
+          <li><b>permissions</b>：仅 config.read / data.read / data.write 生效；网络/文件/子进程等直接拒绝</li>
+          <li><b>api_version</b>：必须为 1 或 1.x；<b>license</b>、<b>price</b> 必填</li>
+        </ul>
+        <div class="xp-warn"><b>安全说明：</b>插件脚本在服务端沙箱内执行（10s 超时、512MB 虚拟地址空间、无网络、无文件系统、非 root）。平台会做静态安全审查，但这不等于对第三方插件功能与效果的背书，请自行评估后再用于生产。</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ 合规说明 ============ -->
+  <footer class="xp-foot">
+    <div class="xp-foot-row">
+      <div class="xp-foot-brand"><span class="mark">✦</span> 星籁 AI · 插件生态</div>
+      <div class="xp-foot-links">
+        <a href="../index.html">AI 导航</a>
+        <a href="../templates/">模板市场</a>
+        <a href="../director/">导演编排器</a>
+        <a href="../monitor/">导演监视器</a>
+        <a href="../privacy.html">隐私与条款</a>
+      </div>
+    </div>
+    <p class="xp-foot-note"><b>合规提示：</b>插件在服务端沙箱内运行，宿主不授予网络与文件系统权限；插件生成的字幕、片尾、调色参数等结果需由使用者复核后再交付。AI 生成内容须遵守《生成式人工智能服务管理暂行办法》等法规及平台规范，不得用于伪造、侵权或规避平台审核；第三方插件版权归作者所有，本平台仅提供分发、运行与数据托管能力。</p>
+    <p class="xp-foot-note dim">SDK v1 · Plugin API v1 · 数据接口 <code>/ai-nav/api/plugins/*</code> · 构建 20261123</p>
+  </footer>
+</main>
+
+<div id="xpModalRoot"></div>
+<div id="xpToastBox" class="xp-toastbox" aria-live="polite"></div>
+
+<script defer src="../assets/site-shell.js?v=20261124a"></script>
+<script defer src="app.js?v=20261124a"></script>
+</body>
+</html>

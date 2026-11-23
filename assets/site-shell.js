@@ -94,6 +94,12 @@
     explainer: svg('<rect x="3.2" y="4" width="17.6" height="11.6" rx="2"/><path d="M12 15.6v4.4M8.4 20h7.2"/><path d="m7.6 12.2 2.9-3.1 2.2 2.2 3.3-3.7"/>'),
     replicate: svg('<rect x="8" y="8" width="12" height="12" rx="2"/><path d="M16 8V5.4A1.4 1.4 0 0 0 14.6 4H5.4A1.4 1.4 0 0 0 4 5.4v9.2A1.4 1.4 0 0 0 5.4 16H8"/><path d="M11.6 14h4.8M14 11.6v4.8"/>'),
     publish: svg('<path d="M20.5 3.5 10.8 13.2"/><path d="M20.5 3.5 14 20.5l-3.2-7.3L3.5 10 20.5 3.5Z"/>'),
+    assets: svg('<rect x="3.5" y="4.5" width="17" height="12.5" rx="2"/><circle cx="8.3" cy="9.2" r="1.25" fill="currentColor" stroke="none"/><path d="m5.6 14.6 3.9-3.9 3 3 2.3-2.3 3.7 3.7"/><path d="M7.6 20.4h8.8"/>'),
+    create: svg('<path d="M3.4 9.6 20.6 6.4l.8 4.2L4.2 13.8z"/><rect x="4" y="13" width="16" height="6.8" rx="1.8"/><path d="m7.6 9.2.9 4.1M11.6 8.5l.9 4.1M15.6 7.8l.9 4.1"/>'),
+    sandbox: svg('<path d="M9.4 3.4h5.2"/><path d="M10 3.4v5.3L5.3 18a1.7 1.7 0 0 0 1.5 2.5h10.4a1.7 1.7 0 0 0 1.5-2.5L14 8.7V3.4"/><path d="M7.3 14.3h9.4"/><path d="M9.6 17.2h1.2M12.6 17.2h1.2"/>'),
+    passport: svg('<rect x="3.4" y="4.8" width="17.2" height="14.4" rx="2.2"/><circle cx="8.5" cy="10.4" r="1.7"/><path d="M5.7 15.8c.4-1.7 1.5-2.6 2.8-2.6s2.4.9 2.8 2.6"/><path d="M13.8 9.2h4M13.8 12.2h4M13.8 15.2h2.5"/>'),
+    director: svg('<path d="M3.2 9.4 20.4 6.2l.9 4.1L4.1 13.5z"/><rect x="4" y="13" width="16" height="6.6" rx="1.6"/><path d="m7.4 8.9.9 3.9M11.4 8.2l.9 3.9M15.4 7.5l.9 3.9"/>'),
+    monitor: svg('<rect x="3" y="4.5" width="18" height="12.5" rx="2"/><path d="M12 17v3.2M8.4 20.2h7.2"/><path d="M6.2 12.4l2.4-2.9 2 2.1 1.8-3 2 3.8 1.6-2.3 1.8 2.3"/>'),
     tools: svg('<rect x="3.5" y="3.5" width="7" height="7" rx="1.6"/><rect x="13.5" y="3.5" width="7" height="7" rx="1.6"/><rect x="3.5" y="13.5" width="7" height="7" rx="1.6"/><rect x="13.5" y="13.5" width="7" height="7" rx="1.6"/>'),
     pricing: svg('<path d="M20.5 13.1 13 20.6a1.8 1.8 0 0 1-2.5 0L3.4 13.5V3.5h10l7.1 7.1a1.7 1.7 0 0 1 0 2.5Z"/><circle cx="7.8" cy="7.8" r="1.3" fill="currentColor" stroke="none"/>'),
     chevL: svg('<path d="m14.5 6-6 6 6 6"/>'),
@@ -105,15 +111,21 @@
 
   var NAV = [
     { key: 'home', label: 'AI 导航', href: ROOT, ico: ICO.home },
+    { key: 'create', label: '创作中心', href: ROOT + 'create/', ico: ICO.create },
     { key: 'studio', label: '短视频工作台', href: ROOT + 'studio/', ico: ICO.studio },
     { key: 'templates', label: '模板市场', href: ROOT + 'templates/', ico: ICO.templates },
+    { key: 'assets', label: '素材库', href: ROOT + 'assets/', ico: ICO.assets },
     { key: 'aidrama', label: 'AI 短剧', href: ROOT + 'aidrama/', ico: ICO.drama },
     { key: 'docvideo', label: '文档转视频', href: ROOT + 'docvideo/', ico: ICO.docvideo },
     { key: 'smartcut', label: '智能粗剪', href: ROOT + 'smartcut/', ico: ICO.smartcut },
     { key: 'explainer', label: '动态解说', href: ROOT + 'explainer/', ico: ICO.explainer },
     { key: 'replicate', label: '爆款复刻', href: ROOT + 'replicate/', ico: ICO.replicate },
     { key: 'live', label: 'AI 直播助播', href: ROOT + 'live/', ico: ICO.live },
+    { key: 'sandbox', label: '合规沙盘', href: ROOT + 'sandbox/', ico: ICO.sandbox },
     { key: 'publish', label: '发行中心', href: ROOT + 'publish/', ico: ICO.publish },
+    { key: 'passport', label: '授权护照', href: ROOT + 'passport/', ico: ICO.passport },
+    { key: 'director', label: '导演编排器', href: ROOT + 'director/', ico: ICO.director },
+    { key: 'monitor', label: '导演监视器', href: ROOT + 'monitor/', ico: ICO.monitor },
     { key: 'ads', label: 'AI 投放优化获客', href: ROOT + 'ads/', ico: ICO.ads },
     { key: 'leadgen', label: '线索台账', href: ROOT + 'leadgen/', ico: ICO.leadgen },
     { key: 'geo', label: 'GEO 推广', href: ROOT + 'geo3/', ico: ICO.geo },
@@ -134,12 +146,15 @@
     if (seg === 'account' || seg === 'admin' || seg === 'store') return null;
     if (seg === 'geo2') return 'geo';
     if (seg === 'templates') return 'templates';
+    if (seg === 'assets') return 'assets';
     /* 入口合并：自动剪辑已并入短视频工作台，进入 autoedit 时高亮「短视频工作台」 */
     if (seg === 'autoedit') return 'studio';
     if (seg === 'studio' || seg === 'leadgen' || seg === 'ads' || seg === 'geo' || seg === 'travel' ||
         seg === 'select-ai' || seg === 'radar' || seg === 'live' ||
         seg === 'aidrama' || seg === 'docvideo' || seg === 'smartcut' || seg === 'explainer' ||
-        seg === 'replicate' || seg === 'publish') return seg;
+        seg === 'replicate' || seg === 'publish' || seg === 'create' ||
+        seg === 'passport' || seg === 'sandbox' ||
+        seg === 'director' || seg === 'monitor') return seg;
     if (seg === 'pricing') return 'pricing';
     if (seg === 'tools' || seg === 'tool') return 'tools';
     if (seg === 'articles') return 'articles';

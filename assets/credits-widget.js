@@ -1,4 +1,4 @@
-/* 星籁 AI · 用户端积分 / 发票组件（account/dashboard.html、account/index.html 引入）
+/* 星籁 AI · 用户端商用套餐 / 积分 / 发票组件（商业化 v1（我的套餐/订单））（account/dashboard.html、account/index.html 引入）
  * 依赖：assets/auth.js（window.XLAuth）
  * 用户端只出现「积分 / 数字人 / 渲染」等中性叫法，不出现任何供应商/成本字段。
  */
@@ -135,7 +135,7 @@
         + '<span class="xlc-badge">' + esc(d.workspace_id || '') + '</span></div>';
       html += '<div class="xlc-metas">'
         + '<div class="xlc-meta"><small>本月消耗</small><b>' + fmt(d.month_consumed) + ' 积分</b></div>'
-        + '<div class="xlc-meta"><small>套餐含积分</small><b>' + fmt(plan.included_credits) + ' 积分/月</b></div>'
+        + '<div class="xlc-meta"><small>账号套餐积分/月</small><b>' + fmt(plan.included_credits) + ' 积分/月</b></div>'
         + '<div class="xlc-meta"><small>计费口径</small><b style="font-size:12px">' + esc(rateText) + '</b></div>'
         + '</div>';
       html += '<div class="xlc-h3">🎁 充值套餐 <span class="xlc-badge">在线支付接入中 · 可联系客服充值</span></div>';
@@ -163,12 +163,146 @@
         });
         html += '</tbody></table></div>';
       }
+      html += '<div style="margin-top:10px;display:flex;gap:8px;flex-wrap:wrap">'
+        + '<button class="xlc-btn ghost" type="button" id="xlcMoreTxns">查看全部消耗明细</button>'
+        + '<a class="xlc-btn ghost" href="' + esc(XLAuth.rootUrl('pricing/index.html')) + '#packs" style="text-decoration:none">购买积分包 →</a></div>'
+        + '<div id="xlcAllTxns"></div>';
       html += '<div class="xlc-note"><b>积分说明：</b>1 积分 ≈ ¥1；充值后即时到账，用于数字人视频与成片渲染等按量付费能力。'
         + '生成失败不扣积分；在线支付通道接入中，暂请联系客服充值。充值积分可用于申请发票（见下方「申请发票」）。</div>';
       body.innerHTML = html;
+      bindAllTxns();
       Array.prototype.forEach.call(body.querySelectorAll('[data-buy]'), function (btn) {
         btn.addEventListener('click', function () {
-          toast('在线支付正在接入中：请联系平台客服充值（提供工作区 ' + (d.workspace_id || '') + ' 与金额），客服确认后即时到账', 'warn', 5600);
+          toast('在线支付即将开放：去定价页提交积分包订单，客服确认收款后开通', 'warn', 4200);
+          setTimeout(function () {
+            location.href = XLAuth.rootUrl('pricing/index.html') + '#packs';
+          }, 700);
+        });
+      });
+    }
+  }
+
+  /* 消耗明细（分页加载 /credits/txns） */
+  var txnState = { page: 0, items: [] };
+  function bindAllTxns() {
+    var btn = $('#xlcMoreTxns');
+    if (!btn) return;
+    btn.addEventListener('click', function () { loadTxnPage(true); });
+  }
+  function loadTxnPage(reset) {
+    var host = $('#xlcAllTxns');
+    if (!host) return;
+    if (reset) { txnState = { page: 0, items: [] }; }
+    var btn = $('#xlcMoreTxns');
+    if (btn) { btn.disabled = true; btn.textContent = '加载中…'; }
+    api('/credits/txns?page=' + (txnState.page + 1) + '&page_size=20', { timeout: 15000 }).then(function (d) {
+      txnState.page += 1;
+      txnState.items = txnState.items.concat((d && d.items) || []);
+      var html = '<div class="xlc-h3">📄 消耗明细（' + txnState.items.length + ' / ' + ((d && d.total) || txnState.items.length) + ' 条）</div>';
+      html += '<div style="overflow:auto"><table class="xlc-table"><thead><tr><th>时间</th><th>类型</th><th class="num">积分</th><th class="num">余额</th><th>说明</th></tr></thead><tbody>';
+      txnState.items.forEach(function (t) {
+        var cls = t.amount < 0 ? 'bad' : (t.type === 'topup' ? 'ok' : '');
+        html += '<tr><td>' + esc(fmtTime(t.created_at)) + '</td><td>' + esc(t.type_label || t.type) + '</td>'
+          + '<td class="num ' + cls + '">' + (t.amount > 0 ? '+' : '') + fmt(t.amount) + '</td>'
+          + '<td class="num">' + fmt(t.balance_after) + '</td><td>' + esc(t.note || t.ref || '') + '</td></tr>';
+      });
+      html += '</tbody></table></div>';
+      host.innerHTML = html;
+      if (btn) {
+        var more = !!(d && d.has_more);
+        btn.disabled = !more;
+        btn.textContent = more ? '加载更多明细' : '已加载全部';
+      }
+    }).catch(function (e) {
+      host.innerHTML = '<div class="xlc-alert">' + esc(errText(e)) + '</div>';
+      if (btn) { btn.disabled = false; btn.textContent = '查看全部消耗明细'; }
+    });
+  }
+
+  /* ---------------------------------------------------------------- 商用套餐 / 购买订单（商业化 v1） */
+  function mountCommerce() {
+    var box = $('#commerceCard');
+    if (!box || box.getAttribute('data-mounted') === '1') return;
+    box.setAttribute('data-mounted', '1');
+    injectStyle();
+    box.classList.add('xlc-sec');
+    box.innerHTML = '<div class="xlc-head"><div><h2>👑 我的套餐（星籁剪辑商用版）</h2>'
+      + '<p class="xlc-sub">商用订阅含桌面软件席位、每月积分、素材授权与商用授权；年付 = 10 个月价格（省 2 个月）。</p></div>'
+      + '<a class="xlc-btn primary" style="text-decoration:none" href="' + esc(XLAuth.rootUrl('pricing/index.html')) + '">购买 / 续费套餐</a></div>'
+      + '<div id="xlcCommerceBody"><div class="xlc-empty">正在读取套餐…</div></div>';
+    var body = $('#xlcCommerceBody');
+    load();
+
+    function load() {
+      body.innerHTML = '<div class="xlc-empty">正在读取套餐…</div>';
+      api('/credits/orders?page_size=8', { timeout: 15000 }).then(function (d) {
+        paint(d || {});
+      }).catch(function (e) {
+        if (e && e.code === 'NOT_READY') {
+          body.innerHTML = '<div class="xlc-alert">商用套餐购买/开通接口正在随本次升级部署（重启后自动可用）。可先'
+            + '<a href="' + esc(XLAuth.rootUrl('pricing/index.html')) + '" style="color:#7dd3fc">查看价格与服务内容</a>。</div>';
+          return;
+        }
+        if (e && e.status === 401) {
+          body.innerHTML = '<div class="xlc-alert">登录后可查看商用套餐与订单。'
+            + '<a class="xlc-btn" href="' + esc(XLAuth.rootUrl('account/index.html')) + '?next=' + encodeURIComponent(location.pathname) + '">去登录</a></div>';
+          return;
+        }
+        body.innerHTML = '<div class="xlc-alert">' + esc(errText(e)) + '</div>';
+      });
+    }
+
+    function paint(d) {
+      var sub = d.subscription || null;
+      var list = d.orders || d.items || [];
+      var html = '';
+      if (sub) {
+        html += '<div class="xlc-bal"><b>' + esc(sub.plan_name) + '</b><span>'
+          + esc(sub.cycle === 'yearly' ? '年付' : '月付') + ' · ' + esc(sub.expires_at || '') + ' 到期（剩 '
+          + Math.max(0, Number(sub.days_left || 0)) + ' 天）</span>'
+          + '<span class="xlc-badge">每月含 ' + fmt(sub.credits_per_month) + ' 积分</span></div>';
+        html += '<div class="xlc-metas">'
+          + '<div class="xlc-meta"><small>桌面席位 / 并发</small><b>' + (sub.seats || '—') + ' 台 / ' + (sub.max_concurrency || '—') + ' 路</b></div>'
+          + '<div class="xlc-meta"><small>订阅开始</small><b><span style="font-size:12px">' + esc(sub.starts_at || '—') + '</span></b></div>'
+          + '<div class="xlc-meta"><small>订单号</small><b style="font-size:12px">' + esc(sub.order_no || '—') + '</b></div></div>';
+      } else {
+        html += '<div class="xlc-empty">还没有开通星籁剪辑商用套餐：开通后桌面席位、每月积分与商用授权立即生效。<br>'
+          + '<a class="xlc-btn primary" style="text-decoration:none;margin-top:10px" href="' + esc(XLAuth.rootUrl('pricing/index.html')) + '">查看三档套餐 →</a></div>';
+      }
+      html += '<div class="xlc-h3">🧾 我的购买订单</div>';
+      if (!list.length) {
+        html += '<div class="xlc-empty">暂无订单：购买套餐/积分包后在这里查看开通进度</div>';
+      } else {
+        html += '<div style="overflow:auto"><table class="xlc-table"><thead><tr><th>订单号</th><th>商品</th><th class="num">金额</th><th>状态</th><th>时间</th><th>操作</th></tr></thead><tbody>';
+        list.forEach(function (o) {
+          var st = o.status || 'pending_payment';
+          var cls = st === 'activated' ? 'ok' : (st === 'pending_payment' ? 'wait' : 'bad');
+          var op = st === 'pending_payment'
+            ? '<button class="xlc-btn ghost" style="min-height:30px;padding:4px 8px" type="button" data-cancel="' + Number(o.id) + '">取消</button>'
+            : (st === 'activated' ? '<span style="color:#6ee7b7;font-size:11.5px">已开通</span>' : '—');
+          html += '<tr><td style="font-size:11px">' + esc(o.order_no || '') + '</td>'
+            + '<td>' + esc(o.item_name || '') + (o.credits ? '（' + fmt(o.credits) + ' 积分）' : '') + '</td>'
+            + '<td class="num">¥' + fmt(o.amount_cny || 0) + '</td>'
+            + '<td><span class="' + cls + '">' + esc(o.status_label || st) + '</span></td>'
+            + '<td style="font-size:11px">' + esc(fmtTime(o.created_at)) + '</td><td>' + op + '</td></tr>';
+        });
+        html += '</tbody></table></div>';
+      }
+      html += '<div class="xlc-note"><b>说明：</b>在线支付即将开放：下单后联系客服对公转账，管理员确认收款后人工开通；开通后套餐/积分立即到账。'
+        + '发票在下方「申请发票」中按实付金额申请；价格见 <a href="' + esc(XLAuth.rootUrl('pricing/index.html')) + '" style="color:#7dd3fc">套餐定价</a>。</div>';
+      body.innerHTML = html;
+      Array.prototype.forEach.call(body.querySelectorAll('[data-cancel]'), function (btn) {
+        btn.addEventListener('click', function () {
+          var oid = btn.getAttribute('data-cancel');
+          if (!window.confirm('确认取消该待付款订单？')) return;
+          btn.disabled = true;
+          api('/credits/orders/' + oid + '/cancel', { method: 'POST', timeout: 15000 }).then(function () {
+            toast('订单已取消', 'good');
+            load();
+          }).catch(function (e) {
+            toast(errText(e), 'warn', 4200);
+            btn.disabled = false;
+          });
         });
       });
     }
@@ -343,6 +477,7 @@
 
   function boot() {
     if (!window.XLAuth) { setTimeout(boot, 250); return; }
+    try { mountCommerce(); } catch (e) { console.warn('[credits-widget] commerce failed', e); }
     try { mountCredits(); } catch (e) { console.warn('[credits-widget] credits failed', e); }
     try { mountInvoices(); } catch (e) { console.warn('[credits-widget] invoices failed', e); }
     try { mountLoginBar(); } catch (e) {}
