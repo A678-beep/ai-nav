@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head><meta name="robots" content="noindex,nofollow"><meta name="googlebot" content="noindex,nofollow">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>星籁 AI · AI 短剧（内测）</title>
+<style>
+  :root{--bg:#0b1020;--card:#131a2e;--line:#26314d;--txt:#e8edf7;--sub:#8ea0c2;--acc:#22d3ee;--acc2:#6366f1;--ok:#22c55e;--warn:#f59e0b;--err:#ef4444}
+  *{box-sizing:border-box}
+  body{margin:0;background:var(--bg);color:var(--txt);font:14px/1.6 -apple-system,BlinkMacSystemFont,"PingFang SC","Microsoft YaHei",sans-serif}
+  .wrap{max-width:880px;margin:0 auto;padding:22px 16px 60px}
+  h1{font-size:22px;margin:0 0 4px}
+  .sub{color:var(--sub);font-size:13px;margin-bottom:18px}
+  .card{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:16px;margin-bottom:14px}
+  .row{display:flex;flex-wrap:wrap;gap:10px}
+  .row>div{flex:1 1 150px;min-width:130px}
+  label{display:block;color:var(--sub);font-size:12px;margin-bottom:5px}
+  input,select,textarea{width:100%;background:#0c1324;border:1px solid var(--line);color:var(--txt);border-radius:9px;padding:9px 10px;font:inherit;outline:none}
+  input:focus,select:focus{border-color:var(--acc)}
+  .theme{flex:2 1 320px!important}
+  button{cursor:pointer;border:0;border-radius:9px;padding:10px 16px;font:inherit;font-weight:600;color:#04121a;background:linear-gradient(135deg,var(--acc),var(--acc2))}
+  button:disabled{opacity:.5;cursor:not-allowed}
+  .ghost{background:transparent;color:var(--txt);border:1px solid var(--line);font-weight:500}
+  .tip{color:var(--sub);font-size:12px;margin-top:10px}
+  .tag{display:inline-block;background:#0e2a33;color:var(--acc);border:1px solid #164e63;border-radius:999px;padding:1px 9px;font-size:12px;margin-right:6px}
+  .ep{border:1px solid var(--line);border-radius:12px;padding:12px;margin:10px 0;background:#0f1526}
+  .ep h3{margin:0 0 6px;font-size:15px}
+  .scene{color:var(--sub);font-size:12px;margin:2px 0}
+  .scene b{color:#c7d2fe;font-weight:500}
+  .status{font-size:12px;color:var(--sub);margin-top:8px;white-space:pre-wrap}
+  video{width:100%;max-height:520px;background:#000;border-radius:10px;margin-top:10px}
+  .hide{display:none!important}
+  .prog{height:6px;background:#0c1324;border-radius:99px;overflow:hidden;margin-top:8px;border:1px solid var(--line)}
+  .prog>i{display:block;height:100%;width:0;background:linear-gradient(90deg,var(--acc),var(--acc2));transition:width .4s}
+  .err{color:var(--err)}.ok{color:var(--ok)}
+  .foot{color:var(--sub);font-size:12px;margin-top:18px;border-top:1px dashed var(--line);padding-top:12px}
+  a{color:var(--acc)}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <h1>星籁 AI · AI 短剧 <span class="tag">内测 · 免费</span></h1>
+  <div class="sub">输入主题 → DeepSeek 生成结构化剧本（多集/5-8 分镜）→ 一键出片（可商用素材 + AI 配音 + 字幕）。成片带「AI 生成」标注。</div>
+
+  <div class="card">
+    <div class="row">
+      <div class="theme"><label>短剧主题</label><input id="theme" placeholder="例如：被顶替的实习生 / 消失的结婚证 / 外卖箱里的秘密"></div>
+      <div><label>集数</label>
+        <select id="episodes"><option>1</option><option>2</option><option selected>3</option><option>5</option><option>8</option><option>10</option></select>
+      </div>
+      <div><label>单集时长</label>
+        <select id="duration"><option value="30" selected>30 秒</option><option value="45">45 秒</option><option value="60">60 秒</option></select>
+      </div>
+      <div><label>画幅</label>
+        <select id="ratio"><option value="9:16" selected>9:16 竖屏</option><option value="16:9">16:9 横屏</option></select>
+      </div>
+      <div><label>风格</label>
+        <select id="style">
+          <option selected>都市</option><option>甜宠</option><option>悬疑</option><option>家庭</option><option>职场</option>
+          <option>古风</option><option>校园</option><option>逆袭</option><option>豪门</option><option>战神</option><option>重生</option><option>乡村</option>
+        </select>
+      </div>
+    </div>
+    <div style="margin-top:12px"><button id="btnScript">生成剧本</button>
+      <span id="scriptMsg" class="tip"></span></div>
+    <div class="prog hide" id="scriptProg"><i></i></div>
+  </div>
+
+  <div class="card hide" id="scriptCard">
+    <div style="font-size:17px;font-weight:700" id="stTitle"></div>
+    <div class="tip" id="stLogline"></div>
+    <div class="tip" id="stChars"></div>
+    <div id="epList"></div>
+    <div style="margin-top:12px;display:flex;gap:10px;flex-wrap:wrap">
+      <button id="btnZip" class="ghost hide">下载整剧 zip（成片+封面+剧本+授权清单）</button>
+      <span id="zipMsg" class="tip"></span>
+    </div>
+  </div>
+
+  <div class="foot">
+    内容为 AI 虚构创作，成片画面带「AI 生成」标注；素材仅取站内已核验可商用素材库（Pixabay 等）。
+    发布前请人工确认，禁止违法、低俗、侵权或影射真实人物/企业/事件的用途。内测期免费，成本仅内部记录。
+  </div>
+</div>
+<script>
+(function () {
+  var API = '/ai-nav/api/aidrama';
+  var state = {dramaId: '', script: null, tasks: {}};
+  function $(id) { return document.getElementById(id); }
+  function esc(s) { return String(s == null ? '' : s).replace(/[&<>"']/g, function (c) { return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]; }); }
+  function setMsg(el, txt, cls) { el.textContent = txt || ''; el.className = 'tip ' + (cls || ''); }
+  function post(path, body) {
+    return fetch(API + path, {method: 'POST', headers: {'Content-Type': 'application/json'}, body: JSON.stringify(body)})
+      .then(function (r) { return r.json().then(function (j) { j._http = r.status; return j; }); });
+  }
+  function get(path) {
+    return fetch(API + path).then(function (r) { return r.json().then(function (j) { j._http = r.status; return j; }); });
+  }
+  function progress(el, pct) {
+    if (!el) return;
+    el.classList.remove('hide');
+    el.querySelector('i').style.width = Math.max(0, Math.min(100, pct)) + '%';
+  }
+
+  $('btnScript').addEventListener('click', function () {
+    var theme = $('theme').value.trim();
+    if (!theme) { setMsg($('scriptMsg'), '请先输入短剧主题', 'err'); $('theme').focus(); return; }
+    var payload = {
+      theme: theme,
+      episodes: parseInt($('episodes').value, 10),
+      duration: parseInt($('duration').value, 10),
+      ratio: $('ratio').value,
+      style: $('style').value
+    };
+    $('btnScript').disabled = true;
+    setMsg($('scriptMsg'), 'DeepSeek 正在写剧本，通常 4-15 秒…');
+    progress($('scriptProg'), 60);
+    post('/script', payload).then(function (j) {
+      progress($('scriptProg'), 100);
+      if (!j.ok) { setMsg($('scriptMsg'), j.hint || j.error || '生成失败', 'err'); return; }
+      state.dramaId = j.drama_id;
+      state.script = j.script || j;
+      setMsg($('scriptMsg'), '剧本已生成（' + (j.engine || '') + ' / ' + (j.gen_seconds || 0) + 's，内测免费）', 'ok');
+      renderScript();
+    }).catch(function (e) {
+      setMsg($('scriptMsg'), '网络异常：' + e, 'err');
+    }).then(function () {
+      $('btnScript').disabled = false;
+      setTimeout(function () { $('scriptProg').classList.add('hide'); }, 800);
+    });
+  });
+
+  function renderScript() {
+    var s = state.script || {};
+    $('scriptCard').classList.remove('hide');
+    $('stTitle').textContent = s.title || '';
+    $('stLogline').textContent = s.logline || '';
+    var chars = (s.characters || []).map(function (c) { return c.name + '（' + (c.role || '') + '）'; }).join('、');
+    $('stChars').textContent = chars ? '角色：' + chars : '';
+    var box = $('epList');
+    box.innerHTML = '';
+    (s.episodes || []).forEach(function (ep) {
+      var div = document.createElement('div');
+      div.className = 'ep';
+      var scenes = (ep.scenes || []).map(function (sc, i) {
+        return '<div class="scene">#' + (i + 1) + ' ' + esc(sc.shot) + '｜' + esc(sc.desc) + ' <b>「' + esc(sc.line) + '」</b> ' + esc(sc.duration) + 's</div>';
+      }).join('');
+      div.innerHTML = '<h3>第 ' + esc(ep.no) + ' 集 · ' + esc(ep.title) + '</h3>' +
+        '<div class="scene">封面字：' + esc(ep.cover_text) + '｜悬念：' + esc(ep.hook) + '</div>' +
+        '<div style="margin:8px 0;max-height:160px;overflow:auto">' + scenes + '</div>' +
+        '<button class="ghost" data-ep="' + esc(ep.no) + '">生成这一集成片</button>' +
+        '<div class="status" id="st-' + esc(ep.no) + '"></div>' +
+        '<div class="prog hide" id="pg-' + esc(ep.no) + '"><i></i></div>' +
+        '<div id="vd-' + esc(ep.no) + '"></div>';
+      box.appendChild(div);
+      div.querySelector('button').addEventListener('click', function () { renderEp(ep, this); });
+    });
+    $('btnZip').classList.remove('hide');
+  }
+
+  function renderEp(ep, btn) {
+    var no = ep.no;
+    var st = $('st-' + no), pg = $('pg-' + no), vd = $('vd-' + no);
+    btn.disabled = true;
+    setMsg(st, '提交渲染…');
+    progress(pg, 3);
+    post('/render', {episode_no: no, script: ep, assets: {}}).then(function (j) {
+      if (!j.ok) { setMsg(st, j.hint || j.error || '提交失败', 'err'); btn.disabled = false; return; }
+      setMsg(st, '任务 ' + j.task_id + ' 已排队（每剧串行，约 1-3 分钟）');
+      poll(j.task_id, no);
+    }).catch(function (e) { setMsg(st, '网络异常：' + e, 'err'); btn.disabled = false; });
+  }
+
+  function poll(tid, no) {
+    var st = $('st-' + no), pg = $('pg-' + no), vd = $('vd-' + no);
+    var t0 = Date.now();
+    var timer = setInterval(function () {
+      get('/task/' + tid).then(function (j) {
+        if (!j.ok) { setMsg(st, j.hint || '任务查询失败', 'err'); clearInterval(timer); return; }
+        var pct = Math.max(5, Math.min(100, j.progress || 0));
+        progress(pg, pct);
+        setMsg(st, (j.stage || '') + ' · ' + pct + '% · 已用 ' + Math.round((Date.now() - t0) / 1000) + 's');
+        if (j.status === 'done') {
+          clearInterval(timer);
+          setMsg(st, '完成｜时长 ' + j.duration + 's｜' + (j.size / 1048576).toFixed(2) + 'MB｜渲染 ' + (j.elapsed || 0) + 's｜费用 ¥0（内测免费）', 'ok');
+          var url = j.video_url || j.url;
+          vd.innerHTML = '<video controls playsinline src="' + esc(url) + '"></video>' +
+            '<div class="scene"><a href="' + esc(url) + '?download=1" target="_blank">下载该集成片</a>　' +
+            '<a href="' + esc(j.cover_url || '') + '" target="_blank">封面</a></div>';
+        } else if (j.status === 'failed') {
+          clearInterval(timer);
+          setMsg(st, j.hint || j.error || '渲染失败', 'err');
+        }
+      }).catch(function () {});
+    }, 4000);
+  }
+
+  $('btnZip').addEventListener('click', function () {
+    if (!state.dramaId) return;
+    setMsg($('zipMsg'), '正在打包（成片+封面+剧本+授权清单）…');
+    get('/download/' + state.dramaId + '?format=json').then(function (j) {
+      if (!j.ok) { setMsg($('zipMsg'), j.hint || '打包失败', 'err'); return; }
+      setMsg($('zipMsg'), 'zip 已生成：' + (j.size / 1048576).toFixed(2) + 'MB');
+      var a = document.createElement('a');
+      a.href = API + '/download/' + state.dramaId;
+      a.download = 'aidrama_' + state.dramaId + '.zip';
+      document.body.appendChild(a);
+      a.click();
+      a.remove();
+    }).catch(function (e) { setMsg($('zipMsg'), '网络异常：' + e, 'err'); });
+  });
+})();
+</script>
+</body>
+</html>

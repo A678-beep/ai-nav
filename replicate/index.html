@@ -1,0 +1,670 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head><meta name="robots" content="noindex,nofollow"><meta name="googlebot" content="noindex,nofollow">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>爆款复刻助手 · 星籁 AI</title>
+<meta name="description" content="上传一条参考视频，AI 拆解镜头结构、节奏与文案，生成可编辑复刻模板；用你自己的授权素材换素材出片，不搬运原视频画面。">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='15' fill='%23070a10'/%3E%3Ctext x='32' y='45' font-size='34' text-anchor='middle' fill='%2338bdf8'%3E%E2%9C%A6%3C/text%3E%3C/svg%3E">
+<style>
+:root{--bg:#070b12;--panel:#0d1420;--panel2:#111b2b;--line:rgba(148,163,184,.18);--txt:#e6eef8;--txt2:#9fb0c6;--txt3:#6b7d96;--cyan:#38bdf8;--cyan2:#22d3ee;--green:#34d399;--amber:#fbbf24;--red:#f87171;--violet:#a78bfa;--radius:14px}
+*{box-sizing:border-box}
+html,body{margin:0;padding:0}
+body{background:radial-gradient(1200px 600px at 15% -10%,rgba(56,189,248,.10),transparent 60%),radial-gradient(900px 500px at 90% 0%,rgba(167,139,250,.08),transparent 55%),var(--bg);color:var(--txt);font-family:-apple-system,BlinkMacSystemFont,"Segoe UI","PingFang SC","Hiragino Sans GB","Microsoft YaHei",sans-serif;font-size:15px;line-height:1.6;-webkit-font-smoothing:antialiased}
+a{color:var(--cyan);text-decoration:none}
+.wrap{max-width:1180px;margin:0 auto;padding:0 20px}
+/* header */
+.top{position:sticky;top:0;z-index:50;backdrop-filter:blur(12px);background:rgba(7,11,18,.82);border-bottom:1px solid var(--line)}
+.top-in{max-width:1180px;margin:0 auto;padding:12px 20px;display:flex;align-items:center;gap:16px;flex-wrap:wrap}
+.logo{display:flex;align-items:center;gap:9px;font-weight:800;font-size:17px;color:var(--txt);letter-spacing:.5px}
+.logo .mark{width:30px;height:30px;border-radius:9px;background:linear-gradient(135deg,#0ea5e9,#6366f1);display:grid;place-items:center;color:#04121c;font-size:16px}
+.top nav{margin-left:auto;display:flex;gap:16px;font-size:13.5px;color:var(--txt2);flex-wrap:wrap}
+.top nav a:hover{color:var(--cyan)}
+.badge-ver{font-size:11.5px;padding:2px 8px;border:1px solid rgba(56,189,248,.4);color:var(--cyan);border-radius:999px;background:rgba(56,189,248,.08)}
+/* hero */
+.hero{padding:38px 0 10px}
+.hero h1{font-size:34px;line-height:1.25;margin:0 0 10px;letter-spacing:.5px}
+.hero h1 em{font-style:normal;background:linear-gradient(92deg,#38bdf8,#a78bfa);-webkit-background-clip:text;background-clip:text;color:transparent}
+.hero p{color:var(--txt2);max-width:760px;margin:0 0 16px;font-size:15px}
+.comply{display:flex;gap:10px;align-items:flex-start;background:rgba(251,191,36,.08);border:1px solid rgba(251,191,36,.32);border-radius:12px;padding:11px 14px;color:#fde68a;font-size:13.5px;margin:14px 0 6px}
+.comply b{color:#fbbf24}
+.comply .ico{flex:0 0 auto;font-size:16px;line-height:1.5}
+.flow{display:flex;gap:10px;flex-wrap:wrap;margin:18px 0 6px;color:var(--txt2);font-size:13px}
+.flow span{padding:5px 12px;border:1px solid var(--line);border-radius:999px;background:rgba(13,20,32,.7)}
+.flow span b{color:var(--cyan);font-weight:700}
+/* cards / sections */
+section.block{background:linear-gradient(180deg,rgba(17,27,43,.85),rgba(13,20,32,.85));border:1px solid var(--line);border-radius:var(--radius);padding:22px 22px 20px;margin:18px 0;box-shadow:0 10px 30px rgba(0,0,0,.18)}
+.block-head{display:flex;align-items:center;gap:10px;flex-wrap:wrap;margin-bottom:14px}
+.block-head h2{font-size:18px;margin:0;letter-spacing:.3px}
+.step-no{width:26px;height:26px;border-radius:8px;display:grid;place-items:center;font-size:13px;font-weight:800;color:#04121c;background:linear-gradient(135deg,var(--cyan),var(--violet))}
+.muted{color:var(--txt3);font-size:12.5px}
+.spacer{flex:1}
+/* buttons */
+.btn{appearance:none;border:1px solid transparent;border-radius:10px;padding:10px 18px;font-size:14.5px;font-weight:700;cursor:pointer;background:linear-gradient(135deg,#38bdf8,#6366f1);color:#04121c;transition:.16s;font-family:inherit}
+.btn:hover{filter:brightness(1.08);transform:translateY(-1px)}
+.btn:disabled{opacity:.5;cursor:not-allowed;transform:none}
+.btn.ghost{background:transparent;border-color:var(--line);color:var(--txt2)}
+.btn.ghost:hover{color:var(--txt);border-color:rgba(56,189,248,.45)}
+.btn.sm{padding:6px 12px;font-size:12.5px;border-radius:8px}
+.btn.green{background:linear-gradient(135deg,#34d399,#22d3ee);color:#04121c}
+/* upload */
+.drop{border:1.5px dashed rgba(56,189,248,.42);border-radius:14px;background:rgba(56,189,248,.05);padding:34px 20px;text-align:center;cursor:pointer;transition:.18s}
+.drop:hover,.drop.over{background:rgba(56,189,248,.11);border-color:var(--cyan)}
+.drop .big{font-size:38px;line-height:1.1;margin-bottom:8px}
+.drop .t1{font-size:16px;font-weight:700;margin-bottom:4px}
+.drop .t2{color:var(--txt3);font-size:13px}
+.refrow{display:flex;gap:18px;align-items:flex-start;margin-top:16px;flex-wrap:wrap}
+.refrow video{width:200px;max-height:300px;border-radius:12px;background:#000;border:1px solid var(--line)}
+.refmeta{font-size:13px;color:var(--txt2)}
+.refmeta b{color:var(--txt)}
+.tip{font-size:12.5px;color:var(--txt3);margin-top:8px}
+/* progress */
+.prog{margin:16px 0 4px;display:none}
+.prog.on{display:block}
+.bar{height:8px;border-radius:99px;background:rgba(148,163,184,.16);overflow:hidden}
+.bar i{display:block;height:100%;width:0;background:linear-gradient(90deg,var(--cyan),var(--violet));border-radius:99px;transition:width .4s}
+.pstage{display:flex;gap:10px;align-items:center;margin-top:9px;font-size:13px;color:var(--txt2)}
+.dot{width:9px;height:9px;border-radius:50%;background:var(--cyan);box-shadow:0 0 0 4px rgba(56,189,248,.16);animation:pulse 1.2s infinite}
+@keyframes pulse{50%{opacity:.35}}
+/* summary */
+.sumgrid{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:12px;margin:6px 0 4px}
+.sum{background:rgba(7,11,18,.55);border:1px solid var(--line);border-radius:12px;padding:12px 14px}
+.sum .k{font-size:12px;color:var(--txt3)}
+.sum .v{font-size:20px;font-weight:800;margin-top:2px}
+.sum .v small{font-size:12px;font-weight:500;color:var(--txt3);margin-left:3px}
+/* ref shots */
+.refshots{display:flex;gap:12px;overflow-x:auto;padding:6px 2px 12px;scrollbar-width:thin}
+.refshot{flex:0 0 150px;background:rgba(7,11,18,.6);border:1px solid var(--line);border-radius:12px;overflow:hidden}
+.refshot img{display:block;width:100%;height:190px;object-fit:cover;background:#000}
+.refshot .m{padding:8px 9px}
+.refshot .m .n{font-size:11.5px;color:var(--txt3)}
+.refshot .m .t{font-size:12px;color:var(--txt2);margin-top:3px;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden;min-height:34px}
+.tag{display:inline-block;font-size:10.5px;padding:1px 7px;border-radius:99px;border:1px solid var(--line);color:var(--txt3);margin:2px 4px 0 0}
+.tag.cyan{color:var(--cyan);border-color:rgba(56,189,248,.4);background:rgba(56,189,248,.08)}
+.tag.green{color:var(--green);border-color:rgba(52,211,153,.4);background:rgba(52,211,153,.08)}
+.tag.amber{color:var(--amber);border-color:rgba(251,191,36,.4);background:rgba(251,191,36,.08)}
+/* copy structure */
+.copybox{display:grid;grid-template-columns:1.1fr 1fr 1.1fr;gap:12px;margin-top:6px}
+.copybox .c{background:rgba(7,11,18,.55);border:1px solid var(--line);border-radius:12px;padding:12px 14px;min-height:86px}
+.copybox .c .k{font-size:12px;color:var(--txt3);margin-bottom:5px}
+.copybox .c .k b{color:var(--cyan)}
+.copybox .c .v{font-size:13px;color:var(--txt2);white-space:pre-wrap}
+@media(max-width:760px){.copybox{grid-template-columns:1fr}}
+/* version tabs */
+.tabs{display:flex;gap:8px;flex-wrap:wrap;margin:4px 0 14px}
+.tab{padding:7px 16px;border-radius:999px;border:1px solid var(--line);background:transparent;color:var(--txt2);font-size:13.5px;cursor:pointer;font-family:inherit}
+.tab.on{border-color:rgba(56,189,248,.6);color:var(--cyan);background:rgba(56,189,248,.10);font-weight:700}
+/* slot cards */
+.slotlist{display:grid;gap:12px}
+.slot{display:grid;grid-template-columns:150px 1fr;gap:14px;background:rgba(7,11,18,.55);border:1px solid var(--line);border-radius:12px;padding:12px}
+.slot .mat{width:150px}
+.slot .thumb{width:150px;height:100px;border-radius:10px;background:#0b1220;border:1px dashed rgba(148,163,184,.3);display:grid;place-items:center;color:var(--txt3);font-size:12px;overflow:hidden;cursor:pointer;text-align:center;line-height:1.3;padding:6px}
+.slot .thumb img{width:100%;height:100%;object-fit:cover}
+.slot .thumb.has{border-style:solid;border-color:rgba(52,211,153,.45)}
+.slot .f{display:flex;flex-direction:column;gap:8px;min-width:0}
+.slot .row{display:flex;gap:8px;align-items:center;flex-wrap:wrap}
+.slot .role{font-size:11px;padding:2px 9px;border-radius:99px;background:rgba(56,189,248,.12);color:var(--cyan);border:1px solid rgba(56,189,248,.35);font-weight:700}
+.slot .role.cta{background:rgba(52,211,153,.12);color:var(--green);border-color:rgba(52,211,153,.4)}
+.slot .role.hook{background:rgba(251,191,36,.12);color:var(--amber);border-color:rgba(251,191,36,.4)}
+.slot input[type=number]{width:72px;background:#0b1220;border:1px solid var(--line);border-radius:8px;color:var(--txt);padding:5px 8px;font-size:13px;font-family:inherit}
+.slot textarea{width:100%;min-height:52px;resize:vertical;background:#0b1220;border:1px solid var(--line);border-radius:8px;color:var(--txt);padding:7px 10px;font-size:13.5px;font-family:inherit;line-height:1.5}
+.slot .ops{margin-left:auto;display:flex;gap:6px}
+.iconbtn{width:30px;height:30px;border-radius:8px;border:1px solid var(--line);background:transparent;color:var(--txt2);cursor:pointer;font-size:14px;line-height:1;font-family:inherit}
+.iconbtn:hover{color:var(--txt);border-color:rgba(56,189,248,.45)}
+.iconbtn.del:hover{color:var(--red);border-color:rgba(248,113,113,.5)}
+/* render options */
+.opts{display:grid;grid-template-columns:repeat(auto-fit,minmax(190px,1fr));gap:12px;margin:14px 0}
+.opt label{display:block;font-size:12px;color:var(--txt3);margin-bottom:5px}
+.opt select,.opt input[type=text]{width:100%;background:#0b1220;border:1px solid var(--line);border-radius:9px;color:var(--txt);padding:9px 11px;font-size:13.5px;font-family:inherit}
+.buildbar{display:flex;gap:12px;align-items:center;flex-wrap:wrap;margin-top:6px}
+/* result */
+.result{display:none;margin-top:16px;grid-template-columns:280px 1fr;gap:18px}
+.result.on{display:grid}
+.result video{width:100%;border-radius:12px;background:#000;border:1px solid var(--line);max-height:500px}
+.result .meta{font-size:13px;color:var(--txt2);line-height:1.9}
+.result .meta b{color:var(--txt)}
+.dlrow{display:flex;gap:10px;flex-wrap:wrap;margin-top:10px}
+pre{background:#070b12;border:1px solid var(--line);border-radius:10px;padding:12px 14px;font-size:12px;color:#9fb0c6;max-height:300px;overflow:auto;white-space:pre-wrap;word-break:break-all;font-family:ui-monospace,Consolas,Monaco,monospace}
+details{margin-top:12px}
+details summary{cursor:pointer;color:var(--txt2);font-size:13px}
+/* drawer */
+.mask{position:fixed;inset:0;background:rgba(0,0,0,.6);backdrop-filter:blur(2px);z-index:90;display:none}
+.mask.on{display:block}
+.drawer{position:fixed;right:0;top:0;bottom:0;width:min(520px,94vw);background:var(--panel);border-left:1px solid var(--line);z-index:95;transform:translateX(100%);transition:.22s;display:flex;flex-direction:column}
+.drawer.on{transform:none}
+.drawer .dh{display:flex;align-items:center;gap:10px;padding:14px 16px;border-bottom:1px solid var(--line)}
+.drawer .dh h3{margin:0;font-size:15.5px}
+.drawer .db{padding:14px 16px;overflow:auto;flex:1}
+.searchrow{display:flex;gap:8px;margin-bottom:12px}
+.searchrow input{flex:1;background:#0b1220;border:1px solid var(--line);border-radius:9px;color:var(--txt);padding:9px 11px;font-size:13.5px;font-family:inherit}
+.matgrid{display:grid;grid-template-columns:repeat(auto-fill,minmax(140px,1fr));gap:10px}
+.matcard{background:#0b1220;border:1px solid var(--line);border-radius:10px;overflow:hidden;cursor:pointer;transition:.15s}
+.matcard:hover{border-color:rgba(56,189,248,.5);transform:translateY(-1px)}
+.matcard img{width:100%;height:92px;object-fit:cover;display:block;background:#111}
+.matcard .mm{padding:7px 8px;font-size:11.5px;color:var(--txt2)}
+.matcard .mm .mt{white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.matcard .mm .md{color:var(--txt3);font-size:10.5px}
+/* toast */
+#toast{position:fixed;left:50%;bottom:32px;transform:translateX(-50%) translateY(20px);opacity:0;pointer-events:none;background:#0f1a2b;border:1px solid rgba(56,189,248,.4);color:var(--txt);padding:11px 18px;border-radius:10px;font-size:13.5px;z-index:120;transition:.22s;max-width:88vw;box-shadow:0 12px 30px rgba(0,0,0,.4)}
+#toast.on{opacity:1;transform:translateX(-50%)}
+#toast.err{border-color:rgba(248,113,113,.55);color:#fecaca}
+footer{color:var(--txt3);font-size:12.5px;padding:26px 0 40px;border-top:1px solid var(--line);margin-top:28px}
+footer .wrap{display:flex;gap:14px;flex-wrap:wrap;align-items:center}
+footer a{color:var(--txt2)}
+@media(max-width:720px){
+ .hero h1{font-size:26px}
+ section.block{padding:16px}
+ .slot{grid-template-columns:1fr}
+ .slot .mat,.slot .thumb{width:100%}
+ .slot .thumb{height:120px}
+ .result.on{grid-template-columns:1fr}
+ .result video{max-height:380px}
+}
+</style>
+</head>
+<body>
+<header class="top">
+  <div class="top-in">
+    <a class="logo" href="/ai-nav/"><span class="mark">✦</span>星籁 AI</a>
+    <span class="badge-ver">爆款复刻 · P0</span>
+    <nav>
+      <a href="/ai-nav/">首页</a>
+      <a href="/ai-nav/studio/">AI 创作工坊</a>
+      <a href="/ai-nav/workbench/">工作台</a>
+      <a href="/ai-nav/assets/">商用素材库</a>
+      <a href="/ai-nav/pricing/">套餐定价</a>
+    </nav>
+  </div>
+</header>
+
+<div class="wrap">
+  <div class="hero">
+    <h1>爆款复刻助手：<em>拆结构，不搬视频</em></h1>
+    <p>上传一条参考视频，AI 自动拆解镜头、节奏、文案结构与字幕样式，生成可编辑的复刻模板；再换成你自己的（或站内商用素材库的）素材，一键出片。默认<strong>不复刻原视频画面</strong>，只借鉴结构与节奏。</p>
+    <div class="comply"><span class="ico">⚠</span><span><b>合规提醒：</b>仅限使用你拥有版权或已获授权的素材（含站内商用素材库）；禁止直接搬运、下载、二次分发他人视频。参考视频仅用于结构分析，原片画面不会进入成片，生成内容需人工确认后发布。</span></div>
+    <div class="flow">
+      <span><b>1</b> 上传参考视频（≤3 分钟）</span>
+      <span><b>2</b> AI 拆解镜头 / 节奏 / 文案</span>
+      <span><b>3</b> 编辑复刻模板</span>
+      <span><b>4</b> 选素材出片</span>
+    </div>
+  </div>
+
+  <!-- 1. 上传 -->
+  <section class="block" id="stepUpload">
+    <div class="block-head"><span class="step-no">1</span><h2>上传参考视频</h2><span class="muted">支持 mp4 / mov / webm，最长 3 分钟</span></div>
+    <div class="drop" id="drop">
+      <div class="big">🎬</div>
+      <div class="t1">点击选择，或把参考视频拖到这里</div>
+      <div class="t2">AI 只分析结构与节奏，不会保存/使用原片画面出片</div>
+      <input type="file" id="fileInput" accept="video/mp4,video/quicktime,video/webm,video/*" style="display:none">
+    </div>
+    <div class="refrow" id="refRow" style="display:none">
+      <video id="refPreview" muted playsinline></video>
+      <div>
+        <div class="refmeta" id="refMeta"></div>
+        <div style="margin-top:14px"><button class="btn" id="btnAnalyze">开始 AI 拆解 →</button></div>
+        <div class="tip">拆解约 20-60 秒：抽帧 → 场景检测（ffmpeg scdet）→ 语音识别（qwen3-asr-flash）→ 结构分析</div>
+      </div>
+    </div>
+    <div class="prog" id="anaProg">
+      <div class="bar"><i id="anaBar"></i></div>
+      <div class="pstage"><span class="dot"></span><span id="anaStatus">正在上传视频…</span></div>
+    </div>
+  </section>
+
+  <!-- 2. 拆解结果 -->
+  <section class="block" id="stepResult" style="display:none">
+    <div class="block-head"><span class="step-no">2</span><h2>AI 拆解结果</h2><span class="muted" id="anaIdLabel"></span></div>
+    <div class="sumgrid">
+      <div class="sum"><div class="k">参考片时长</div><div class="v" id="sumDur">-</div></div>
+      <div class="sum"><div class="k">识别镜头数</div><div class="v" id="sumShots">-</div></div>
+      <div class="sum"><div class="k">平均镜头时长</div><div class="v" id="sumAvg">-</div></div>
+      <div class="sum"><div class="k">节奏</div><div class="v" id="sumPace">-</div></div>
+      <div class="sum"><div class="k">字幕样式猜测</div><div class="v" id="sumSub">-</div></div>
+    </div>
+
+    <h3 style="font-size:14.5px;margin:20px 0 2px;color:var(--txt2)">镜头列表 <span class="muted">（代表帧 / 起止时间 / 景别猜测 / 是否含字幕 / 转写文案）</span></h3>
+    <div class="refshots" id="refShotList"></div>
+
+    <h3 style="font-size:14.5px;margin:14px 0 4px;color:var(--txt2)">文案结构 <span class="muted" id="copyMethod"></span></h3>
+    <div class="copybox">
+      <div class="c"><div class="k"><b>开场钩子</b> · HOOK</div><div class="v" id="copyHook">-</div></div>
+      <div class="c"><div class="k"><b>正文</b> · BODY</div><div class="v" id="copyBody">-</div></div>
+      <div class="c"><div class="k"><b>结尾 CTA</b> · CTA</div><div class="v" id="copyCta">-</div></div>
+    </div>
+
+    <div class="sumgrid" style="margin-top:14px">
+      <div class="sum"><div class="k">字幕策略</div><div class="v" style="font-size:14px" id="subStyle">-</div></div>
+      <div class="sum"><div class="k">节奏与 BGM 建议</div><div class="v" style="font-size:14px" id="bgmHint">-</div></div>
+    </div>
+
+    <details>
+      <summary>查看推荐复刻模板 JSON（可复制给团队/自己存档）</summary>
+      <div style="margin:8px 0"><button class="btn ghost sm" id="btnCopyTpl">复制模板 JSON</button></div>
+      <pre id="templatePre">{}</pre>
+    </details>
+  </section>
+
+  <!-- 3. 模板编辑 + 素材 -->
+  <section class="block" id="stepTemplate" style="display:none">
+    <div class="block-head"><span class="step-no">3</span><h2>复刻模板（可编辑）</h2><span class="muted">可改文案 / 时长，替换素材、删除或调整镜头顺序</span></div>
+    <div class="tabs" id="verTabs">
+      <button class="tab on" data-sec="15">15 秒版 · 4 镜</button>
+      <button class="tab" data-sec="30">30 秒版 · 8 镜</button>
+      <button class="tab" data-sec="60">60 秒版 · 12 镜</button>
+    </div>
+    <div class="buildbar" style="margin-bottom:12px">
+      <button class="btn ghost" id="btnAutoMatch">⚡ 一键匹配站内商用素材</button>
+      <span class="muted">或点每个镜头左侧的素材卡，从素材库挑选 / 上传自己的素材</span>
+    </div>
+    <div class="slotlist" id="slotList"></div>
+
+    <h3 style="font-size:14.5px;margin:22px 0 2px;color:var(--txt2)">出片设置</h3>
+    <div class="opts">
+      <div class="opt"><label>成片时长版本</label><select id="optDuration"><option value="15" selected>15 秒</option><option value="30">30 秒</option><option value="60">60 秒</option></select></div>
+      <div class="opt"><label>配音音色</label><select id="optVoice"><option value="zh-CN-XiaoxiaoNeural">女声·自然（免费）</option><option value="zh-CN-XiaoyiNeural">女声·活泼（免费）</option><option value="zh-CN-YunjianNeural">男声·稳重（免费）</option><option value="zh-CN-YunxiNeural">男声·青年（免费）</option></select></div>
+      <div class="opt"><label>BGM</label><select id="optBgm"><option>轻快</option><option>轻音乐</option><option>温暖钢琴</option><option>科技感</option></select></div>
+      <div class="opt"><label>成片标题</label><input type="text" id="optTitle" maxlength="40" placeholder="爆款复刻成片"></div>
+    </div>
+    <div class="buildbar">
+      <button class="btn green" id="btnBuild">生成复刻成片 🎬</button>
+      <span class="muted">复用站内 autoedit 渲染链（TTS + 逐镜合成 + 字幕 + BGM 混音），约 60-150 秒出片</span>
+    </div>
+    <div class="prog" id="rndProg">
+      <div class="bar"><i id="rndBar"></i></div>
+      <div class="pstage"><span class="dot"></span><span id="rndStage">排队中…</span></div>
+    </div>
+    <div class="result" id="renderResult">
+      <div><video id="outVideo" controls playsinline poster=""></video></div>
+      <div>
+        <div class="meta" id="rndMeta"></div>
+        <div class="dlrow">
+          <a class="btn sm" id="dlLink" href="#" target="_blank" rel="noopener">⬇ 下载成片</a>
+          <button class="btn ghost sm" id="btnAgain">再生成一版</button>
+        </div>
+        <details style="margin-top:14px"><summary>查看 EDL（剪辑清单）</summary><pre id="edlPre">{}</pre></details>
+      </div>
+    </div>
+  </section>
+
+  <footer>
+    <div class="wrap">
+      <span>© 2026 星籁 AI 工具导航 · 爆款复刻助手</span>
+      <span>·</span><span>成片含「AI 生成」标注；不自动发布到任何平台</span>
+      <span class="spacer"></span>
+      <a href="/ai-nav/privacy.html">隐私政策</a><a href="/ai-nav/">返回首页</a>
+    </div>
+  </footer>
+</div>
+
+<div class="mask" id="mask"></div>
+<div class="drawer" id="drawer">
+  <div class="dh"><h3 id="drawerTitle">为镜头选择素材</h3><span class="spacer"></span><button class="iconbtn" id="btnDrawerClose">✕</button></div>
+  <div class="db">
+    <div class="searchrow">
+      <input id="matSearch" placeholder="搜索站内商用素材，如：城市 / 咖啡 / 办公…">
+      <button class="btn sm" id="btnMatSearch">搜索</button>
+    </div>
+    <div style="margin-bottom:10px"><button class="btn ghost sm" id="btnMatUpload">📤 上传我自己的素材</button><input type="file" id="matFileInput" accept="video/*,image/*" style="display:none"></div>
+    <div class="matgrid" id="matGrid"></div>
+    <div class="tip" id="matTip">素材来自站内商用素材库（Pixabay Content License，可商用、免署名）。仅限自有版权/授权素材，禁止搬运他人视频。</div>
+  </div>
+</div>
+<div id="toast"></div>
+
+<script>
+(function () {
+  'use strict';
+  var API = '/ai-nav/api';
+  var state = { file: null, analysis: null, slots: [], materials: {}, duration: 15, taskId: null, timer: null, curSlot: -1, lib: null };
+  var $ = function (id) { return document.getElementById(id); };
+  function esc(s) { return String(s == null ? '' : s).replace(/[&<>"]/g, function (c) { return ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' })[c]; }); }
+  function fmt(n, d) { n = Number(n || 0); return d === 0 ? String(Math.round(n)) : n.toFixed(d == null ? 1 : d); }
+  function toast(msg, isErr) {
+    var t = $('toast'); t.textContent = msg; t.className = 'on' + (isErr ? ' err' : '');
+    clearTimeout(toast._t); toast._t = setTimeout(function () { t.className = ''; }, 3600);
+  }
+  function api(path, opts) {
+    opts = opts || {};
+    opts.headers = Object.assign({}, opts.headers || {});
+    if (opts.body && !(opts.body instanceof FormData)) { opts.headers['Content-Type'] = 'application/json'; opts.body = JSON.stringify(opts.body); }
+    return fetch(API + path, opts).then(function (r) {
+      return r.json().catch(function () { return { ok: false, hint: '服务返回异常（HTTP ' + r.status + '）' }; })
+        .then(function (j) { if (!r.ok || j.ok === false) { throw Object.assign(new Error(j.hint || j.error || ('HTTP ' + r.status)), { data: j }); } return j; });
+    });
+  }
+
+  /* ---------------- 1. 上传 ---------------- */
+  var drop = $('drop'), fi = $('fileInput');
+  drop.addEventListener('click', function () { fi.click(); });
+  drop.addEventListener('dragover', function (e) { e.preventDefault(); drop.classList.add('over'); });
+  drop.addEventListener('dragleave', function () { drop.classList.remove('over'); });
+  drop.addEventListener('drop', function (e) { e.preventDefault(); drop.classList.remove('over'); if (e.dataTransfer.files && e.dataTransfer.files[0]) setFile(e.dataTransfer.files[0]); });
+  fi.addEventListener('change', function () { if (fi.files && fi.files[0]) setFile(fi.files[0]); });
+
+  function setFile(f) {
+    if (!/^video\//.test(f.type || '') && !/\.(mp4|mov|webm|m4v)$/i.test(f.name || '')) { toast('请选择视频文件（mp4/mov/webm）', true); return; }
+    state.file = f;
+    var url = URL.createObjectURL(f);
+    var v = $('refPreview'); v.src = url; v.load();
+    $('refRow').style.display = 'flex';
+    $('refMeta').innerHTML = '已选择：<b>' + esc(f.name) + '</b> · ' + fmt(f.size / 1048576, 1) + ' MB<br><span class="muted">正在读取时长…</span>';
+    v.onloadedmetadata = function () {
+      var d = v.duration;
+      state.refDur = d;
+      var ok = d <= 180.5;
+      $('refMeta').innerHTML = '已选择：<b>' + esc(f.name) + '</b> · ' + fmt(f.size / 1048576, 1) + ' MB<br>视频时长：<b>' + fmt(d, 1) + ' 秒</b> ' + (ok ? '<span class="tag green">≤3 分钟，可拆解</span>' : '<span class="tag amber">超过 3 分钟，请先裁剪</span>');
+      $('btnAnalyze').disabled = !ok;
+    };
+  }
+
+  var ANA_STEPS = [['正在上传视频…', 6], ['抽取视频帧…', 16], ['场景检测（ffmpeg scdet）…', 38], ['语音识别（qwen3-asr-flash）…', 62], ['分析节奏与文案结构…', 80], ['生成复刻模板…', 93]];
+  $('btnAnalyze').addEventListener('click', function () {
+    if (!state.file) { toast('请先选择参考视频', true); return; }
+    if (state.refDur && state.refDur > 180.5) { toast('参考视频最长支持 3 分钟，请先裁剪后再上传', true); return; }
+    var btn = $('btnAnalyze'); btn.disabled = true; btn.textContent = '拆解中…';
+    $('anaProg').classList.add('on');
+    var idx = 0;
+    $('anaBar').style.width = '6%'; $('anaStatus').textContent = ANA_STEPS[0][0];
+    clearInterval(state.timer);
+    state.timer = setInterval(function () {
+      idx = Math.min(idx + 1, ANA_STEPS.length - 1);
+      $('anaBar').style.width = ANA_STEPS[idx][1] + '%';
+      $('anaStatus').textContent = ANA_STEPS[idx][0];
+    }, 4200);
+    var fd = new FormData(); fd.append('file', state.file);
+    api('/upload', { method: 'POST', body: fd }).then(function (up) {
+      if (!up.url) throw new Error('上传失败：' + (up.hint || '未知错误'));
+      $('anaStatus').textContent = 'AI 拆解中（抽帧 / 场景检测 / 语音识别）…';
+      return api('/replicate/analyze', { method: 'POST', body: { video_url: up.url } });
+    }).then(function (ana) {
+      clearInterval(state.timer);
+      $('anaBar').style.width = '100%';
+      $('anaStatus').textContent = '拆解完成 ✓ 用时 ' + fmt(ana.elapsed, 1) + ' 秒，识别到 ' + ana.shot_count + ' 个镜头';
+      state.analysis = ana;
+      renderAnalysis(ana);
+      toast('AI 拆解完成：' + ana.shot_count + ' 个镜头 + 文案结构 + 复刻模板');
+    }).catch(function (err) {
+      clearInterval(state.timer);
+      $('anaProg').classList.remove('on');
+      var hint = (err.data && (err.data.hint || err.data.error)) || err.message || '拆解失败';
+      if (/3 分钟|too_long/.test(hint)) hint = '参考视频最长支持 3 分钟，请先裁剪后再上传';
+      toast('拆解失败：' + hint, true);
+    }).finally(function () {
+      btn.disabled = false; btn.textContent = '重新拆解';
+    });
+  });
+
+  /* ---------------- 2. 渲染拆解结果 ---------------- */
+  function renderAnalysis(ana) {
+    $('stepResult').style.display = 'block';
+    $('stepTemplate').style.display = 'block';
+    $('anaIdLabel').textContent = '分析 ID：' + ana.id;
+    $('sumDur').innerHTML = fmt(ana.video.duration, 1) + '<small>秒</small>';
+    $('sumShots').innerHTML = ana.shot_count + '<small>个</small>';
+    $('sumAvg').innerHTML = fmt(ana.rhythm.avg_shot_duration, 1) + '<small>秒</small>';
+    $('sumPace').textContent = ana.rhythm.pace_zh;
+    var sub = ana.subtitle || {};
+    $('sumSub').innerHTML = sub.has_subtitle ? ('有字幕 · ' + esc(sub.color || '白色')) : '无明显字幕';
+
+    var list = $('refShotList'); list.innerHTML = '';
+    (ana.shots || []).forEach(function (s) {
+      var d = document.createElement('div'); d.className = 'refshot';
+      d.innerHTML = (s.frame_url ? '<img loading="lazy" src="' + esc(s.frame_url) + '" alt="镜头' + s.index + '代表帧">' : '<div style="height:190px;display:grid;place-items:center;color:#6b7d96">无截图</div>') +
+        '<div class="m"><div class="n">镜头 ' + s.index + ' · ' + fmt(s.start, 1) + '-' + fmt(s.end, 1) + 's（' + fmt(s.duration, 1) + 's）</div>' +
+        '<div class="t">' + (s.text ? esc(s.text) : '<span class="muted">（未识别到文案）</span>') + '</div>' +
+        '<div><span class="tag cyan">' + esc(s.shot_size || '景别未知') + '</span><span class="tag ' + (s.subtitle && s.subtitle.has ? 'green' : '') + '">' + (s.subtitle && s.subtitle.has ? '有字幕' : '无字幕') + '</span></div></div>';
+      list.appendChild(d);
+    });
+
+    var cs = ana.copy_structure || {};
+    $('copyHook').textContent = cs.hook || '（未识别到人声，可手动填写开场钩子）';
+    $('copyBody').textContent = (cs.body || []).map(function (b) { return b.text; }).join('\n') || '（正文待补充）';
+    $('copyCta').textContent = cs.cta || '（未识别到 CTA，可手动填写结尾引导）';
+    $('copyMethod').textContent = cs.method ? '· ' + cs.method : '';
+    var st = ana.template && ana.template.subtitle_strategy || {};
+    $('subStyle').textContent = (st.enabled ? '底部居中 · ' + (st.color || '白色') + ' · 字号约画面高 ' + fmt((st.font_size_ratio || 0) * 100, 1) + '%' : '未检测到字幕（可手动开启）');
+    var bgm = ana.template && ana.template.bgm_suggestion || {};
+    $('bgmHint').textContent = (ana.rhythm.pattern || '') + (bgm.name ? '；建议 BGM：' + bgm.name + '（' + (bgm.bpm || '') + '）' : '');
+    $('templatePre').textContent = JSON.stringify(ana.template || {}, null, 2);
+    $('btnCopyTpl').onclick = function () {
+      var txt = $('templatePre').textContent;
+      (navigator.clipboard ? navigator.clipboard.writeText(txt) : Promise.reject()).then(function () { toast('模板 JSON 已复制'); })
+        .catch(function () { toast('复制失败，请手动选择复制', true); });
+    };
+    state.materials = {};
+    setVersion(15);
+    $('stepResult').scrollIntoView({ behavior: 'smooth', block: 'start' });
+  }
+
+  function setVersion(sec) {
+    state.duration = sec;
+    $('optDuration').value = String(sec);
+    var tabs = document.querySelectorAll('#verTabs .tab');
+    for (var i = 0; i < tabs.length; i++) tabs[i].classList.toggle('on', Number(tabs[i].getAttribute('data-sec')) === sec);
+    var tpl = (state.analysis && state.analysis.template) || {};
+    var plan = (tpl.duration_versions || {})[String(sec)] || {};
+    state.slots = JSON.parse(JSON.stringify(plan.slots || []));
+    state.slots.forEach(function (s, i) { if (!s.material && state.materials[i]) s.material = state.materials[i]; });
+    renderSlots();
+  }
+  document.querySelectorAll('#verTabs .tab').forEach(function (t) {
+    t.addEventListener('click', function () {
+      var sec = Number(t.getAttribute('data-sec'));
+      if (sec === state.duration) return;
+      var hadMat = Object.keys(state.materials).length > 0;
+      setVersion(sec);
+      toast('已切换到 ' + sec + ' 秒版模板' + (hadMat ? '（已选素材按镜头序号保留）' : ''));
+    });
+  });
+
+  function renderSlots() {
+    var list = $('slotList'); list.innerHTML = '';
+    state.slots.forEach(function (s, i) {
+      var role = s.role || 'body';
+      var roleZh = role === 'hook' ? '开场钩子' : (role === 'cta' ? '结尾 CTA' : '正文');
+      var card = document.createElement('div'); card.className = 'slot';
+      var mat = state.materials[i] || s.material || null;
+      var matHtml = '<div class="thumb' + (mat ? ' has' : '') + '" data-slot="' + i + '">' +
+        (mat && mat.thumb ? '<img src="' + esc(mat.thumb) + '" alt="素材">' : (mat && mat.url && /^https?:/.test(mat.url) ? '<img src="' + esc(mat.url) + '" alt="素材">' : (mat ? '已选素材<br><span class="muted">' + esc(mat.title || '我的素材') + '</span>' : '＋ 选择素材'))) + '</div>';
+      card.innerHTML = '<div class="mat">' + matHtml + (mat ? '<div class="tip" style="margin:6px 0 0">' + esc(mat.title || '已选素材') + '</div>' : '') + '</div>' +
+        '<div class="f"><div class="row"><span class="role ' + role + '">' + roleZh + '</span>' +
+        '<span class="muted">时长</span><input type="number" min="0.6" step="0.1" value="' + fmt(s.duration, 2) + '" data-i="' + i + '" class="dur">' +
+        '<span class="muted">秒</span><span class="muted">· ' + esc(s.shot_size || '') + '</span>' +
+        '<span class="ops"><button class="iconbtn" data-up="' + i + '" title="上移">↑</button><button class="iconbtn" data-down="' + i + '" title="下移">↓</button><button class="iconbtn del" data-del="' + i + '" title="删除镜头">✕</button></span></div>' +
+        '<textarea data-copy="' + i + '" placeholder="镜头文案（会被配音并作为字幕）">' + esc(s.copy || '') + '</textarea></div>';
+      list.appendChild(card);
+    });
+    list.querySelectorAll('.dur').forEach(function (inp) {
+      inp.addEventListener('change', function () { var i = Number(inp.getAttribute('data-i')); state.slots[i].duration = Math.max(0.6, Number(inp.value || 1)); });
+    });
+    list.querySelectorAll('textarea').forEach(function (ta) {
+      ta.addEventListener('input', function () { var i = Number(ta.getAttribute('data-copy')); state.slots[i].copy = ta.value; });
+    });
+    list.querySelectorAll('[data-up]').forEach(function (b) {
+      b.addEventListener('click', function () { var i = Number(b.getAttribute('data-up')); if (i <= 0) return; swap(i, i - 1); });
+    });
+    list.querySelectorAll('[data-down]').forEach(function (b) {
+      b.addEventListener('click', function () { var i = Number(b.getAttribute('data-down')); if (i >= state.slots.length - 1) return; swap(i, i + 1); });
+    });
+    list.querySelectorAll('[data-del]').forEach(function (b) {
+      b.addEventListener('click', function () {
+        var i = Number(b.getAttribute('data-del'));
+        if (state.slots.length <= 2) { toast('至少保留 2 个镜头', true); return; }
+        state.slots.splice(i, 1);
+        var nm = {}; Object.keys(state.materials).forEach(function (k) { var kk = Number(k); if (kk < i) nm[kk] = state.materials[k]; else if (kk > i) nm[kk - 1] = state.materials[k]; });
+        state.materials = nm; renderSlots();
+      });
+    });
+    list.querySelectorAll('.thumb').forEach(function (th) { th.addEventListener('click', function () { openDrawer(Number(th.getAttribute('data-slot'))); }); });
+  }
+  function swap(a, b) {
+    var t = state.slots[a]; state.slots[a] = state.slots[b]; state.slots[b] = t;
+    var ma = state.materials[a], mb = state.materials[b];
+    if (mb) state.materials[a] = mb; else delete state.materials[a];
+    if (ma) state.materials[b] = ma; else delete state.materials[b];
+    renderSlots();
+  }
+
+  /* ---------------- 3. 素材库 / 上传素材 ---------------- */
+  function keywordsOf(s) {
+    var txt = (s && s.copy) || '';
+    var known = ['城市', '夜景', '咖啡', '办公', '工作', '跑步', '运动', '美食', '公园', '人物', '团队', '街头', '生活', '海边', '旅行', '天空', '开车', '工厂', '门店', '产品', '手机', '电脑', '学习', '宠物'];
+    var hits = known.filter(function (k) { return txt.indexOf(k) >= 0; });
+    if (hits.length) return hits.slice(0, 2).join(' ');
+    if (s && s.role === 'hook') return '人物 表情';
+    if (s && s.role === 'cta') return '团队 微笑';
+    if (s && /近景/.test(s.shot_size || '')) return '人物 特写';
+    return '生活 场景';
+  }
+  function openDrawer(i) {
+    state.curSlot = i; $('mask').classList.add('on'); $('drawer').classList.add('on');
+    $('drawerTitle').textContent = '为镜头 ' + (i + 1) + ' 选择素材';
+    var q = keywordsOf(state.slots[i]);
+    $('matSearch').value = q;
+    searchMaterials(q);
+  }
+  function closeDrawer() { $('mask').classList.remove('on'); $('drawer').classList.remove('on'); }
+  $('btnDrawerClose').addEventListener('click', closeDrawer);
+  $('mask').addEventListener('click', closeDrawer);
+  $('btnMatSearch').addEventListener('click', function () { searchMaterials($('matSearch').value.trim()); });
+  $('matSearch').addEventListener('keydown', function (e) { if (e.key === 'Enter') searchMaterials($('matSearch').value.trim()); });
+  function searchMaterials(q) {
+    $('matGrid').innerHTML = '<div class="muted" style="padding:14px">搜索中…</div>';
+    api('/replicate/library?q=' + encodeURIComponent(q || '') + '&limit=12').then(function (lib) {
+      var items = lib.items || [];
+      if (!items.length) { $('matGrid').innerHTML = '<div class="muted" style="padding:14px">没有匹配素材，换个关键词试试（如：城市 / 咖啡 / 办公 / 人物）</div>'; return; }
+      $('matGrid').innerHTML = items.map(function (it) {
+        return '<div class="matcard" data-id="' + it.id + '" data-thumb="' + esc(it.thumb) + '" data-title="' + esc(it.title || it.title_zh || '') + '">' +
+          '<img loading="lazy" src="' + esc(it.thumb) + '" alt="">' +
+          '<div class="mm"><div class="mt">' + esc(it.title || it.title_zh || ('素材 ' + it.id)) + '</div>' +
+          '<div class="md">' + esc(it.duration_text || '') + ' · ' + esc(it.license || '商用授权') + '</div></div></div>';
+      }).join('');
+      $('matGrid').querySelectorAll('.matcard').forEach(function (c) {
+        c.addEventListener('click', function () {
+          var i = state.curSlot; if (i < 0) return;
+          state.materials[i] = { asset_id: Number(c.getAttribute('data-id')), thumb: c.getAttribute('data-thumb'), title: c.getAttribute('data-title') };
+          state.slots[i].material = state.materials[i];
+          closeDrawer(); renderSlots(); toast('镜头 ' + (i + 1) + ' 已选用素材 #' + state.materials[i].asset_id);
+        });
+      });
+    }).catch(function (err) { $('matGrid').innerHTML = '<div class="muted" style="padding:14px">素材搜索失败：' + esc((err.data && err.data.hint) || err.message) + '</div>'; });
+  }
+  $('btnMatUpload').addEventListener('click', function () { $('matFileInput').click(); });
+  $('matFileInput').addEventListener('change', function () {
+    var f = $('matFileInput').files && $('matFileInput').files[0]; if (!f) return;
+    var i = state.curSlot; if (i < 0) return;
+    toast('正在上传素材…');
+    var fd = new FormData(); fd.append('file', f);
+    api('/upload', { method: 'POST', body: fd }).then(function (up) {
+      if (!up.url) throw new Error(up.hint || '上传失败');
+      state.materials[i] = { url: up.url, title: f.name, thumb: /\.(jpg|jpeg|png|webp)$/i.test(f.name) ? up.url : '' };
+      state.slots[i].material = state.materials[i];
+      closeDrawer(); renderSlots(); toast('已上传并选用你的素材');
+    }).catch(function (err) { toast('素材上传失败：' + ((err.data && err.data.hint) || err.message), true); });
+    $('matFileInput').value = '';
+  });
+
+  $('btnAutoMatch').addEventListener('click', function () {
+    if (!state.slots.length) { toast('请先完成视频拆解', true); return; }
+    var btn = $('btnAutoMatch'); btn.disabled = true; btn.textContent = '匹配中…';
+    var used = {};
+    var chain = Promise.resolve();
+    state.slots.forEach(function (s, i) {
+      chain = chain.then(function () {
+        if (state.materials[i]) return null;
+        var q = keywordsOf(s);
+        return api('/replicate/library?q=' + encodeURIComponent(q) + '&limit=6').then(function (lib) {
+          var items = (lib.items || []).filter(function (it) { return !used[it.id]; });
+          var it = items[0] || (lib.items || [])[0];
+          if (it) { used[it.id] = 1; state.materials[i] = { asset_id: it.id, thumb: it.thumb, title: it.title || it.title_zh || ('素材 ' + it.id) }; state.slots[i].material = state.materials[i]; }
+        }).catch(function () { return null; });
+      });
+    });
+    chain.then(function () {
+      // 兜底：个别关键词没匹配到的镜头，用通用词补齐
+      var fallbacks = ['城市', '生活', '人物', '团队'];
+      var missing = [];
+      state.slots.forEach(function (s, i) { if (!state.materials[i]) missing.push(i); });
+      var c2 = Promise.resolve();
+      missing.forEach(function (i, k) {
+        c2 = c2.then(function () {
+          var q = fallbacks[k % fallbacks.length];
+          return api('/replicate/library?q=' + encodeURIComponent(q) + '&limit=6').then(function (lib) {
+            var items = (lib.items || []).filter(function (it) { return !used[it.id]; });
+            var it = items[0] || (lib.items || [])[0];
+            if (it) { used[it.id] = 1; state.materials[i] = { asset_id: it.id, thumb: it.thumb, title: it.title || it.title_zh || ('素材 ' + it.id) }; state.slots[i].material = state.materials[i]; }
+          }).catch(function () { return null; });
+        });
+      });
+      return c2;
+    }).then(function () { renderSlots(); toast('已为镜头匹配站内商用素材（可逐个替换）'); })
+      .finally(function () { btn.disabled = false; btn.textContent = '⚡ 一键匹配站内商用素材'; });
+  });
+
+  /* ---------------- 4. 出片 ---------------- */
+  $('optDuration').addEventListener('change', function () { setVersion(Number($('optDuration').value)); });
+  $('btnBuild').addEventListener('click', function () {
+    if (!state.analysis) { toast('请先完成视频拆解', true); return; }
+    var missing = [];
+    state.slots.forEach(function (s, i) { if (!state.materials[i]) missing.push(i + 1); });
+    if (missing.length) { toast('第 ' + missing.slice(0, 4).join('、') + ' 个镜头还没有选素材，请先选择或上传你自己的素材', true); openDrawer(missing[0] - 1); return; }
+    var btn = $('btnBuild'); btn.disabled = true; btn.textContent = '提交中…';
+    $('renderResult').classList.remove('on');
+    $('rndProg').classList.add('on');
+    $('rndBar').style.width = '3%'; $('rndStage').textContent = '提交渲染任务…';
+    var slots = state.slots.map(function (s, i) {
+      return { role: s.role || 'body', duration: Number(s.duration || 2), copy: s.copy || '', shot_size: s.shot_size || '', subtitle: s.subtitle !== false, material: state.materials[i] };
+    });
+    api('/replicate/build', { method: 'POST', body: {
+      analysis_id: state.analysis.id, duration: Number($('optDuration').value), slots: slots,
+      voice: $('optVoice').value, bgm: $('optBgm').value,
+      title: $('optTitle').value || '爆款复刻成片'
+    } }).then(function (b) {
+      state.taskId = b.task_id;
+      if (b.edl) $('edlPre').textContent = JSON.stringify(b.edl, null, 2);
+      toast('已提交渲染，预计 ' + (b.estimated_seconds || 90) + ' 秒出片');
+      pollTask();
+    }).catch(function (err) {
+      $('rndProg').classList.remove('on');
+      toast('生成失败：' + ((err.data && err.data.hint) || err.message), true);
+    }).finally(function () { btn.disabled = false; btn.textContent = '生成复刻成片 🎬'; });
+  });
+
+  function pollTask() {
+    if (!state.taskId) return;
+    api('/replicate/task/' + state.taskId).then(function (t) {
+      $('rndBar').style.width = Math.max(3, t.progress || 0) + '%';
+      $('rndStage').textContent = (t.stage || '渲染中') + '… ' + (t.progress || 0) + '%';
+      if (t.edl) $('edlPre').textContent = JSON.stringify(t.edl, null, 2);
+      if (t.status === 'done') {
+        $('rndBar').style.width = '100%'; $('rndStage').textContent = '成片完成 ✓';
+        renderResult(t); toast('成片完成，用时 ' + fmt(t.elapsed, 1) + ' 秒，可预览/下载');
+        return;
+      }
+      if (t.status === 'failed') {
+        $('rndProg').classList.remove('on');
+        toast('渲染失败：' + (t.hint || t.error || '请更换素材后重试'), true);
+        return;
+      }
+      setTimeout(pollTask, 3000);
+    }).catch(function (err) {
+      setTimeout(pollTask, 5000);
+    });
+  }
+  function renderResult(t) {
+    $('renderResult').classList.add('on');
+    var v = $('outVideo'); v.src = t.video_url || ''; v.poster = t.cover || ''; v.load();
+    $('dlLink').href = t.download_url || t.video_url || '#';
+    $('rndMeta').innerHTML = '成片时长：<b>' + fmt(t.duration, 1) + ' 秒</b><br>分辨率：<b>' + (t.width || 720) + '×' + (t.height || 1280) + '</b><br>文件大小：<b>' + fmt((t.size || 0) / 1048576, 1) + ' MB</b><br>渲染耗时：<b>' + fmt(t.elapsed, 1) + ' 秒</b><br><span class="muted">成片含「AI 生成」标注；请人工确认后自行发布</span>';
+    $('renderResult').scrollIntoView({ behavior: 'smooth', block: 'center' });
+  }
+  $('btnAgain').addEventListener('click', function () { $('renderResult').classList.remove('on'); $('rndProg').classList.remove('on'); });
+
+  // 便于自动化验收/调试（不影响正常交互）
+  window.__REPLICATE__ = { state: state, setFile: setFile, api: api };
+})();
+</script>
+</body>
+</html>

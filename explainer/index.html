@@ -1,0 +1,672 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head><meta name="robots" content="noindex,nofollow"><meta name="googlebot" content="noindex,nofollow">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>动态解说 · 发布会视频 · 星籁 AI</title>
+<meta name="description" content="输入一个主题，30 秒生成一支会动的 PPT / 科技感解说片：大字标题、观点页、数据动效、流程图、片尾 Logo，支持 16:9 与 9:16，可编辑脚本、可选 AI 配音与字幕。">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='15' fill='%23070a10'/%3E%3Ctext x='32' y='45' font-size='34' text-anchor='middle' fill='%2338bdf8'%3E%E2%9C%A6%3C/text%3E%3C/svg%3E">
+<style>
+:root{--bg:#070b12;--panel:#0d1420;--panel2:#111b2b;--line:rgba(148,163,184,.18);--txt:#e6eef8;--txt2:#9fb0c6;--txt3:#6b7d96;--cyan:#38bdf8;--cyan2:#22d3ee;--green:#34d399;--amber:#fbbf24;--red:#f87171;--violet:#a78bfa;--radius:14px}
+*{box-sizing:border-box}
+html,body{margin:0;padding:0}
+body{background:radial-gradient(1200px 600px at 15% -10%,rgba(56,189,248,.10),transparent 60%),radial-gradient(900px 500px at 90% 0%,rgba(167,139,250,.08),transparent 55%),var(--bg);color:var(--txt);font-family:-apple-system,BlinkMacSystemFont,"Segoe UI","PingFang SC","Hiragino Sans GB","Microsoft YaHei",sans-serif;font-size:15px;line-height:1.6;-webkit-font-smoothing:antialiased}
+a{color:var(--cyan);text-decoration:none}
+.wrap{max-width:1180px;margin:0 auto;padding:0 20px}
+.top{position:sticky;top:0;z-index:50;backdrop-filter:blur(12px);background:rgba(7,11,18,.82);border-bottom:1px solid var(--line)}
+.top-in{max-width:1180px;margin:0 auto;padding:12px 20px;display:flex;align-items:center;gap:16px;flex-wrap:wrap}
+.logo{display:flex;align-items:center;gap:9px;font-weight:800;font-size:17px;color:var(--txt);letter-spacing:.5px}
+.logo .mark{width:30px;height:30px;border-radius:9px;background:linear-gradient(135deg,#0ea5e9,#6366f1);display:grid;place-items:center;color:#04121c;font-size:16px}
+.top nav{margin-left:auto;display:flex;gap:16px;font-size:13.5px;color:var(--txt2);flex-wrap:wrap}
+.top nav a:hover{color:var(--cyan)}
+.badge-ver{font-size:11.5px;padding:2px 8px;border:1px solid rgba(56,189,248,.4);color:var(--cyan);border-radius:999px;background:rgba(56,189,248,.08)}
+.hero{padding:38px 0 8px}
+.hero h1{font-size:34px;line-height:1.25;margin:0 0 10px;letter-spacing:.5px}
+.hero h1 em{font-style:normal;background:linear-gradient(92deg,#38bdf8,#a78bfa);-webkit-background-clip:text;background-clip:text;color:transparent}
+.hero p{color:var(--txt2);max-width:820px;margin:0 0 14px;font-size:15px}
+.comply{display:flex;gap:10px;align-items:flex-start;background:rgba(251,191,36,.08);border:1px solid rgba(251,191,36,.32);border-radius:12px;padding:11px 14px;color:#fde68a;font-size:13.5px;margin:14px 0 6px}
+.comply b{color:#fbbf24}
+.comply .ico{flex:0 0 auto;font-size:16px;line-height:1.5}
+.flow{display:flex;gap:10px;flex-wrap:wrap;margin:16px 0 4px;color:var(--txt2);font-size:13px}
+.flow span{padding:5px 12px;border:1px solid var(--line);border-radius:999px;background:rgba(13,20,32,.7)}
+.flow span b{color:var(--cyan);font-weight:700}
+section.block{background:linear-gradient(180deg,rgba(17,27,43,.85),rgba(13,20,32,.85));border:1px solid var(--line);border-radius:var(--radius);padding:22px;margin:18px 0;box-shadow:0 10px 30px rgba(0,0,0,.18)}
+.block-head{display:flex;align-items:center;gap:10px;flex-wrap:wrap;margin-bottom:14px}
+.block-head h2{font-size:18px;margin:0;letter-spacing:.3px}
+.step-no{width:26px;height:26px;border-radius:8px;display:grid;place-items:center;font-size:13px;font-weight:800;color:#04121c;background:linear-gradient(135deg,var(--cyan),var(--violet))}
+.muted{color:var(--txt3);font-size:12.5px}
+.spacer{flex:1}
+.btn{appearance:none;border:1px solid transparent;border-radius:10px;padding:11px 20px;font-size:14.5px;font-weight:700;cursor:pointer;background:linear-gradient(135deg,#38bdf8,#6366f1);color:#04121c;transition:.16s;font-family:inherit}
+.btn:hover{filter:brightness(1.08);transform:translateY(-1px)}
+.btn:disabled{opacity:.5;cursor:not-allowed;transform:none}
+.btn.ghost{background:transparent;border-color:var(--line);color:var(--txt2)}
+.btn.ghost:hover{color:var(--txt);border-color:rgba(56,189,248,.45)}
+.btn.sm{padding:6px 12px;font-size:12.5px;border-radius:8px}
+.btn.green{background:linear-gradient(135deg,#34d399,#22d3ee);color:#04121c}
+.formgrid{display:grid;grid-template-columns:1.6fr 1fr;gap:14px}
+.formgrid .full{grid-column:1/-1}
+label.lb{display:block;font-size:12.5px;color:var(--txt3);margin:0 0 6px}
+input.in,select.in,textarea.in{width:100%;background:#0b1220;border:1px solid var(--line);border-radius:10px;color:var(--txt);padding:10px 12px;font-size:14px;font-family:inherit;outline:none}
+input.in:focus,select.in:focus,textarea.in:focus{border-color:rgba(56,189,248,.55);box-shadow:0 0 0 3px rgba(56,189,248,.10)}
+textarea.in{resize:vertical;line-height:1.55}
+.seg{display:flex;gap:8px;flex-wrap:wrap}
+.seg button{appearance:none;border:1px solid var(--line);background:transparent;color:var(--txt2);border-radius:999px;padding:7px 14px;font-size:13px;cursor:pointer;font-family:inherit}
+.seg button.on{border-color:rgba(56,189,248,.65);color:var(--cyan);background:rgba(56,189,248,.10);font-weight:700}
+.aspects{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.aspect{border:1px solid var(--line);border-radius:10px;padding:10px;cursor:pointer;background:#0b1220;text-align:center;font-size:13px;color:var(--txt2)}
+.aspect .frame{display:block;margin:0 auto 6px;border:1.5px solid var(--txt3);border-radius:4px;background:rgba(148,163,184,.08)}
+.aspect[data-a="16:9"] .frame{width:52px;height:29px}
+.aspect[data-a="9:16"] .frame{width:24px;height:43px}
+.aspect.on{border-color:rgba(56,189,248,.65);color:var(--cyan);background:rgba(56,189,248,.10)}
+.styles{display:grid;grid-template-columns:repeat(auto-fit,minmax(170px,1fr));gap:12px}
+.stylecard{border:1px solid var(--line);border-radius:12px;padding:12px;cursor:pointer;background:#0b1220;transition:.16s;position:relative}
+.stylecard:hover{border-color:rgba(56,189,248,.4)}
+.stylecard.on{border-color:rgba(56,189,248,.7);box-shadow:0 0 0 3px rgba(56,189,248,.10)}
+.stylecard .sw{height:56px;border-radius:8px;margin-bottom:9px;position:relative;overflow:hidden}
+.stylecard .sw i{position:absolute;font-style:normal;font-weight:800;font-size:15px;left:12px;bottom:8px;letter-spacing:1px}
+.stylecard .nm{font-weight:800;font-size:14.5px}
+.stylecard .tg{font-size:11.5px;color:var(--txt3);margin-top:2px}
+.tagline{display:flex;gap:8px;align-items:center;flex-wrap:wrap;margin:4px 0 14px}
+.chip{font-size:12px;color:var(--txt2);border:1px solid var(--line);border-radius:999px;padding:3px 10px;background:rgba(13,20,32,.7)}
+.chip b{color:var(--cyan)}
+.examples{display:flex;gap:8px;flex-wrap:wrap;margin-top:12px}
+.examples button{appearance:none;border:1px dashed rgba(56,189,248,.4);background:rgba(56,189,248,.05);color:var(--txt2);border-radius:999px;padding:5px 12px;font-size:12.5px;cursor:pointer;font-family:inherit}
+.examples button:hover{color:var(--cyan);border-style:solid}
+.actions{display:flex;gap:12px;align-items:center;flex-wrap:wrap;margin-top:16px}
+.hintline{color:var(--txt3);font-size:12.5px}
+/* script editor */
+#secEdit{display:none}
+.meta-row{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:12px}
+.pages{display:grid;gap:12px}
+.page{border:1px solid var(--line);border-radius:12px;background:rgba(7,11,18,.45);padding:12px 14px}
+.page .ph{display:flex;gap:8px;align-items:center;flex-wrap:wrap;margin-bottom:8px}
+.ptype{font-size:11px;font-weight:800;letter-spacing:.5px;padding:2px 9px;border-radius:999px;background:rgba(56,189,248,.12);color:var(--cyan);border:1px solid rgba(56,189,248,.35)}
+.ptype.data{background:rgba(52,211,153,.12);color:var(--green);border-color:rgba(52,211,153,.4)}
+.ptype.diagram{background:rgba(167,139,250,.12);color:var(--violet);border-color:rgba(167,139,250,.4)}
+.ptype.quote{background:rgba(251,191,36,.12);color:var(--amber);border-color:rgba(251,191,36,.4)}
+.ptype.end{background:rgba(148,163,184,.14);color:var(--txt2)}
+.pnum{font-size:11.5px;color:var(--txt3)}
+.page .ops{margin-left:auto;display:flex;gap:6px}
+.iconbtn{width:30px;height:30px;border-radius:8px;border:1px solid var(--line);background:transparent;color:var(--txt2);cursor:pointer;font-size:14px;line-height:1;font-family:inherit}
+.iconbtn:hover{color:var(--txt);border-color:rgba(56,189,248,.45)}
+.iconbtn.del:hover{color:var(--red);border-color:rgba(248,113,113,.5)}
+.row{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.row3{display:grid;grid-template-columns:1fr 1fr 1fr;gap:10px}
+.row .full,.row3 .full{grid-column:1/-1}
+.mini{font-size:12px;color:var(--txt3);margin:8px 0 4px}
+.bullet-row{display:flex;gap:8px;margin-bottom:7px}
+.bullet-row input{flex:1}
+.bullet-row .iconbtn{flex:0 0 auto}
+.bar-row{display:grid;grid-template-columns:1.3fr .7fr auto;gap:6px;margin-bottom:6px}
+.stepline{display:grid;grid-template-columns:auto 160px 1fr auto;gap:8px;align-items:center;margin-bottom:6px;color:var(--txt3);font-size:12px}
+details.more{margin-top:8px}
+details.more summary{cursor:pointer;color:var(--txt3);font-size:12.5px}
+/* options */
+.opts{display:grid;grid-template-columns:repeat(auto-fit,minmax(175px,1fr));gap:12px;margin-top:6px}
+.switch{display:flex;align-items:center;gap:8px;font-size:13.5px;color:var(--txt2);cursor:pointer;user-select:none}
+.switch input{appearance:none;width:38px;height:22px;border-radius:999px;background:rgba(148,163,184,.25);position:relative;transition:.16s;cursor:pointer;flex:0 0 auto}
+.switch input:checked{background:linear-gradient(135deg,#38bdf8,#6366f1)}
+.switch input:after{content:"";position:absolute;width:16px;height:16px;border-radius:50%;background:#fff;top:3px;left:3px;transition:.16s}
+.switch input:checked:after{left:19px}
+/* progress */
+.prog{display:none}
+.prog.on{display:block}
+.prog .bar{height:10px;border-radius:99px;background:rgba(148,163,184,.16);overflow:hidden;margin:14px 0 10px}
+.prog .bar i{display:block;height:100%;width:0;background:linear-gradient(90deg,var(--cyan),var(--violet));border-radius:99px;transition:width .45s}
+.pstage{display:flex;gap:10px;align-items:center;font-size:13.5px;color:var(--txt2);flex-wrap:wrap}
+.dot{width:9px;height:9px;border-radius:50%;background:var(--cyan);box-shadow:0 0 0 4px rgba(56,189,248,.16);animation:pulse 1.2s infinite;flex:0 0 auto}
+@keyframes pulse{50%{opacity:.35}}
+.ptip{margin-top:10px;font-size:12.5px;color:var(--txt3)}
+/* result */
+#secResult{display:none}
+.result{display:none;grid-template-columns:minmax(0,1.25fr) minmax(260px,.75fr);gap:18px;align-items:start}
+.result.on{display:grid}
+.vwrap{background:#000;border:1px solid var(--line);border-radius:12px;overflow:hidden;position:relative}
+.vwrap video{display:block;width:100%;max-height:520px;background:#000}
+.vwrap.vertical video{max-height:560px;margin:0 auto;width:auto;max-width:100%}
+.rmeta{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.rm{background:rgba(7,11,18,.55);border:1px solid var(--line);border-radius:10px;padding:10px 12px}
+.rm .k{font-size:11.5px;color:var(--txt3)}
+.rm .v{font-size:16px;font-weight:800;margin-top:2px}
+.rm .v small{font-size:11px;font-weight:500;color:var(--txt3);margin-left:3px}
+.resnote{margin-top:12px;font-size:12.5px;color:var(--txt3);line-height:1.6}
+.resnote b{color:var(--amber)}
+.fail{display:none;background:rgba(248,113,113,.08);border:1px solid rgba(248,113,113,.35);color:#fecaca;border-radius:12px;padding:12px 14px;font-size:13.5px;margin-top:12px}
+.fail.on{display:block}
+footer{color:var(--txt3);font-size:12.5px;padding:26px 0 40px;border-top:1px solid var(--line);margin-top:28px}
+footer .wrap{display:flex;gap:14px;flex-wrap:wrap;align-items:center}
+footer a{color:var(--txt2)}
+#toast{position:fixed;left:50%;bottom:26px;transform:translate(-50%,20px);background:#0f1a2c;border:1px solid rgba(56,189,248,.4);color:var(--txt);padding:10px 16px;border-radius:10px;font-size:13.5px;opacity:0;pointer-events:none;transition:.22s;z-index:99;max-width:88vw;text-align:center}
+#toast.on{opacity:1;transform:translate(-50%,0)}
+#toast.err{border-color:rgba(248,113,113,.55);color:#fecaca}
+@media(max-width:820px){
+  .hero h1{font-size:26px}
+  .formgrid{grid-template-columns:1fr}
+  .result.on{grid-template-columns:1fr}
+  .vwrap video{max-height:380px}
+  .row,.row3{grid-template-columns:1fr}
+  .top nav{width:100%;margin-left:0;gap:12px}
+  section.block{padding:16px}
+  .stepline{grid-template-columns:auto 1fr auto}
+  .stepline .sd{grid-column:2/-1}
+}
+</style>
+</head>
+<body>
+<header class="top">
+  <div class="top-in">
+    <a class="logo" href="/ai-nav/"><span class="mark">✦</span>星籁 AI</a>
+    <span class="badge-ver">动态解说 · POC</span>
+    <nav>
+      <a href="/ai-nav/">首页</a>
+      <a href="/ai-nav/studio/">AI 创作工坊</a>
+      <a href="/ai-nav/workbench/">工作台</a>
+      <a href="/ai-nav/autoedit/">全自动剪辑</a>
+      <a href="/ai-nav/pricing/">套餐定价</a>
+    </nav>
+  </div>
+</header>
+
+<div class="wrap">
+  <div class="hero">
+    <h1>动态解说：<em>输入一个主题，生成一支会动的 PPT</em></h1>
+    <p>对标发布会 / AI 议会类动效讲解片：AI 自动写脚本并把每一页做成「大字标题 + 观点卡片 + 数据动效 + 流程图 + 片尾 Logo」，逐帧渲染成 30–90 秒 MP4，支持 16:9 竖屏双版本，可选 AI 配音与字幕跟随。</p>
+    <div class="comply"><span class="ico">⚠</span><span><b>合规说明：</b>成片每帧带「AI 生成」角标、片尾含完整 AI 生成标识与免责声明；脚本不鼓励绝对化表述，数据页默认标注「示例数据」；发布前请人工核对事实与授权，平台不代发布。</span></div>
+    <div class="flow">
+      <span><b>1</b> 输入主题 / 行业</span>
+      <span><b>2</b> AI 生成脚本（可编辑）</span>
+      <span><b>3</b> 选风格 / 比例 / 配音</span>
+      <span><b>4</b> 逐帧渲染出片</span>
+    </div>
+  </div>
+
+  <!-- 1 主题 -->
+  <section class="block" id="secForm">
+    <div class="block-head"><span class="step-no">1</span><h2>输入主题</h2><span class="muted" id="healthTip">正在检查渲染服务…</span></div>
+    <div class="formgrid">
+      <div class="full">
+        <label class="lb">主题（一句话说清要讲什么，建议 8–24 字）</label>
+        <input class="in" id="fTopic" maxlength="60" placeholder="例如：AI 正在重塑内容生产 / 星籁剪辑 3.0 新品发布">
+      </div>
+      <div>
+        <label class="lb">行业 / 赛道</label>
+        <input class="in" id="fIndustry" maxlength="20" placeholder="例如：餐饮连锁、软件工具、新能源">
+      </div>
+      <div>
+        <label class="lb">目标受众（选填）</label>
+        <input class="in" id="fAudience" maxlength="30" placeholder="例如：品牌市场负责人">
+      </div>
+      <div>
+        <label class="lb">目标时长</label>
+        <div class="seg" id="fDur">
+          <button data-v="30">30 秒</button><button data-v="40" class="on">40 秒</button><button data-v="45">45 秒</button><button data-v="60">60 秒</button>
+        </div>
+      </div>
+      <div>
+        <label class="lb">画面比例</label>
+        <div class="aspects" id="fAspect">
+          <div class="aspect on" data-a="16:9"><span class="frame"></span>16:9 横屏</div>
+          <div class="aspect" data-a="9:16"><span class="frame"></span>9:16 竖屏</div>
+        </div>
+      </div>
+      <div class="full">
+        <label class="lb">视觉风格</label>
+        <div class="styles" id="styleList"><div class="muted">加载风格中…</div></div>
+        <div class="examples" id="exampleList"></div>
+      </div>
+    </div>
+    <div class="actions">
+      <button class="btn" id="btnScript">✨ AI 生成脚本</button>
+      <span class="hintline">先生成脚本，可逐页修改文字后再渲染；AI 脚本约需 10–40 秒。</span>
+    </div>
+  </section>
+
+  <!-- 2 脚本 -->
+  <section class="block" id="secEdit">
+    <div class="block-head"><span class="step-no">2</span><h2>检查并修改脚本</h2><span class="muted" id="scriptMeta"></span></div>
+    <div class="meta-row" id="scriptTags"></div>
+    <div class="pages" id="pageList"></div>
+    <div class="actions" style="margin-top:12px">
+      <button class="btn ghost sm" id="btnAddPoint">＋ 新增观点页</button>
+      <span class="hintline">文字会跟随动画逐行 / 逐字浮现；数据页请保留「示例数据」标注。</span>
+    </div>
+
+    <div class="block-head" style="margin-top:22px"><span class="step-no">3</span><h2>渲染设置</h2><span class="muted">1080p 更清晰；服务器忙时可先用 720p 预览</span></div>
+    <div class="opts">
+      <div>
+        <label class="lb">分辨率</label>
+        <select class="in" id="fRes"><option value="1080p">1080p 高清（推荐）</option><option value="720p">720p 快速预览</option></select>
+      </div>
+      <div>
+        <label class="lb">配音</label>
+        <label class="switch"><input type="checkbox" id="fTts"> AI 配音（edge-tts）</label>
+      </div>
+      <div>
+        <label class="lb">音色</label>
+        <select class="in" id="fVoice"></select>
+      </div>
+      <div>
+        <label class="lb">字幕</label>
+        <label class="switch"><input type="checkbox" id="fSub" checked> 烧录字幕</label>
+      </div>
+    </div>
+    <div class="actions">
+      <button class="btn green" id="btnRender">🎬 生成视频</button>
+      <span class="hintline" id="renderHint">渲染为后台任务，通常 20–90 秒完成，可离开页面稍后回来查看。</span>
+    </div>
+    <div class="fail" id="failBox"></div>
+  </section>
+
+  <!-- 4 进度 / 结果 -->
+  <section class="block prog" id="secProg">
+    <div class="block-head"><span class="step-no">4</span><h2 id="progTitle">正在渲染</h2><span class="muted" id="progMeta"></span></div>
+    <div class="bar"><i id="progBar"></i></div>
+    <div class="pstage"><span class="dot"></span><span id="progStage">任务已提交…</span></div>
+    <div class="ptip">渲染期间请勿关闭页面；若失败，页面会给出中文原因与重试建议。</div>
+  </section>
+
+  <section class="block" id="secResult">
+    <div class="block-head"><span class="step-no">✓</span><h2>成片预览</h2><span class="muted" id="resultMeta"></span></div>
+    <div class="result" id="resultGrid">
+      <div class="vwrap" id="vwrap"><video id="vPlayer" controls playsinline preload="metadata"></video></div>
+      <div>
+        <div class="rmeta" id="rmeta"></div>
+        <div class="actions" style="margin-top:14px">
+          <a class="btn green" id="btnDownload" download>⬇ 下载 MP4</a>
+          <button class="btn ghost" id="btnAgain">再生成一条</button>
+        </div>
+        <div class="resnote">
+          成片含 <b>「AI 生成」角标与片尾声明</b>；数据为示例数据，发布前请人工核对事实、授权与平台规则。需要调整文案可回到上方脚本区修改后重新渲染。
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <footer>
+    <div class="wrap">
+      <span>© 2026 星籁 AI 工具导航 · 动态解说模板引擎</span>
+      <span>·</span><span>程序化渲染 · 不含外部版权素材</span>
+      <span class="spacer"></span>
+      <a href="/ai-nav/privacy.html">隐私政策</a><a href="/ai-nav/">返回首页</a>
+    </div>
+  </footer>
+</div>
+<div id="toast"></div>
+
+<script>
+(function () {
+  'use strict';
+  var $ = function (id) { return document.getElementById(id); };
+  function esc(s) { return String(s == null ? '' : s).replace(/[&<>"]/g, function (c) { return ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' })[c]; }); }
+  function toast(msg, isErr) {
+    var t = $('toast'); t.textContent = msg; t.className = 'on' + (isErr ? ' err' : '');
+    clearTimeout(toast._t); toast._t = setTimeout(function () { t.className = ''; }, 4200);
+  }
+  // 允许本地联调：?api=http://127.0.0.1:18998/explainer
+  var qs = new URLSearchParams(location.search);
+  var EXPL = qs.get('api') || '/ai-nav/api/explainer';
+  var API = { script: EXPL + '/script', render: EXPL + '/render', task: EXPL + '/task/', styles: EXPL + '/styles', examples: EXPL + '/examples', health: EXPL + '/health' };
+
+  function api(path, opts) {
+    opts = opts || {};
+    opts.headers = Object.assign({}, opts.headers || {});
+    if (opts.body && !(opts.body instanceof FormData)) { opts.headers['Content-Type'] = 'application/json'; opts.body = JSON.stringify(opts.body); }
+    return fetch(path, opts).then(function (r) {
+      return r.json().catch(function () { return { ok: false, hint: '服务返回异常（HTTP ' + r.status + '）' }; })
+        .then(function (j) {
+          if (!r.ok || j.ok === false) { throw Object.assign(new Error(j.hint || j.error || ('HTTP ' + r.status)), { data: j }); }
+          return j;
+        });
+    }, function () { throw new Error('网络连接失败，请检查网络后重试。'); });
+  }
+
+  var FALLBACK_STYLES = [
+    { id: 'techblue', name: '科技蓝', tag: '发布会 / 科技产品', desc: '深空蓝 + 青色光晕', colors: { bg: '#050a18', bg2: '#091836', accent: '#38bdf8', accent2: '#a78bfa', text: '#f1f7ff', text2: '#b0c3db' } },
+    { id: 'longjin', name: '中国龙 · 赤金', tag: '品牌 / 招商 / 年度片', desc: '朱砂红 + 鎏金', colors: { bg: '#180705', bg2: '#3a110a', accent: '#ffb830', accent2: '#e23b2e', text: '#fff7e8', text2: '#f0d2b0' } },
+    { id: 'minimal', name: '极简白', tag: '知识 / 职场 / 汇报', desc: '浅灰白 + 深色大字', colors: { bg: '#f6f8fc', bg2: '#e2eaf6', accent: '#2563eb', accent2: '#0d9488', text: '#0f172a', text2: '#334155' } },
+    { id: 'teal', name: '青绿', tag: '新能源 / 大健康 / 增长', desc: '墨绿 + 薄荷青', colors: { bg: '#041a18', bg2: '#083830', accent: '#2dd4bf', accent2: '#a3e635', text: '#edfffa', text2: '#aad0c6' } }
+  ];
+  var FALLBACK_VOICES = [
+    { id: 'zh-CN-YunxiNeural', name: '男声 · 青年' }, { id: 'zh-CN-YunjianNeural', name: '男声 · 沉稳' },
+    { id: 'zh-CN-XiaoxiaoNeural', name: '女声 · 温柔' }, { id: 'zh-CN-XiaoyiNeural', name: '女声 · 活泼' }
+  ];
+  var state = {
+    styles: FALLBACK_STYLES, voices: FALLBACK_VOICES,
+    style: 'techblue', duration: 40, aspect: '16:9',
+    script: null, scriptId: '', taskId: '', timer: null, pollCount: 0
+  };
+
+  function fmtSize(n) { n = Number(n || 0); if (!n) return '—'; return (n / 1048576).toFixed(1) + ' MB'; }
+  function fmtDur(s) { s = Number(s || 0); if (!s) return '—'; return (Math.round(s * 10) / 10) + ' 秒'; }
+  function typeName(t) { return ({ title: '封面', point: '观点', data: '数据', diagram: '流程', quote: '金句', end: '片尾' })[t] || t; }
+
+  /* ---------- 初始化 ---------- */
+  function loadStyles() {
+    return api(API.styles).then(function (j) {
+      if (j.styles && j.styles.length) state.styles = j.styles;
+      if (j.voices && j.voices.length) state.voices = j.voices;
+    }).catch(function () { /* 用内置兜底 */ }).then(function () {
+      renderStyles();
+      var sel = $('fVoice');
+      sel.innerHTML = state.voices.map(function (v) { return '<option value="' + esc(v.id) + '">' + esc(v.name) + (v.desc ? '（' + esc(v.desc) + '）' : '') + '</option>'; }).join('');
+    });
+  }
+  function renderStyles() {
+    $('styleList').innerHTML = state.styles.map(function (s) {
+      var c = s.colors || {};
+      return '<div class="stylecard' + (s.id === state.style ? ' on' : '') + '" data-s="' + esc(s.id) + '">' +
+        '<div class="sw" style="background:linear-gradient(135deg,' + esc(c.bg || '#050a18') + ',' + esc(c.bg2 || '#091836') + ')">' +
+        '<i style="color:' + esc(c.accent || '#38bdf8') + '">Aa 动态解说</i></div>' +
+        '<div class="nm">' + esc(s.name) + '</div><div class="tg">' + esc(s.tag || s.desc || '') + '</div></div>';
+    }).join('');
+    Array.prototype.forEach.call($('styleList').querySelectorAll('.stylecard'), function (el) {
+      el.addEventListener('click', function () {
+        state.style = el.getAttribute('data-s');
+        Array.prototype.forEach.call($('styleList').querySelectorAll('.stylecard'), function (x) { x.classList.toggle('on', x === el); });
+        if (state.script) state.script.style = state.style;
+      });
+    });
+  }
+  function loadExamples() {
+    api(API.examples).then(function (j) {
+      var list = j.examples || [];
+      $('exampleList').innerHTML = list.map(function (e, i) {
+        return '<button data-i="' + i + '">示例 · ' + esc(e.title) + '</button>';
+      }).join('');
+      Array.prototype.forEach.call($('exampleList').querySelectorAll('button'), function (btn) {
+        btn.addEventListener('click', function () {
+          var e = list[Number(btn.getAttribute('data-i'))];
+          if (!e) return;
+          $('fTopic').value = e.topic || e.title || '';
+          $('fIndustry').value = e.industry || '';
+          $('fAudience').value = e.audience || '';
+          setDuration(e.duration || 40);
+          setAspect(e.platform || '16:9');
+          if (e.style) { state.style = e.style; renderStyles(); }
+          toast('已填入示例，点「AI 生成脚本」即可');
+        });
+      });
+    }).catch(function () { $('exampleList').innerHTML = ''; });
+  }
+  function health() {
+    api(API.health).then(function (j) {
+      var ok = j.ok;
+      $('healthTip').innerHTML = ok
+        ? '渲染服务就绪 · Pillow + ffmpeg · 风格 ' + (j.styles || []).length + ' 套 · ' + (j.resolutions || []).join(' / ')
+        : '⚠ 渲染环境不完整（' + (j.pillow ? '' : '缺少 Pillow；') + (j.ffmpeg ? '' : '缺少 ffmpeg；') + '），请联系管理员';
+    }).catch(function () {
+      $('healthTip').textContent = '服务正在上线或网络异常：若刚部署，请等待后端重启后刷新。';
+    });
+  }
+
+  /* ---------- 表单 ---------- */
+  function setDuration(v) {
+    state.duration = Number(v) || 40;
+    Array.prototype.forEach.call($('fDur').querySelectorAll('button'), function (b) { b.classList.toggle('on', Number(b.getAttribute('data-v')) === state.duration); });
+  }
+  function setAspect(a) {
+    state.aspect = a === '9:16' ? '9:16' : '16:9';
+    Array.prototype.forEach.call($('fAspect').querySelectorAll('.aspect'), function (x) { x.classList.toggle('on', x.getAttribute('data-a') === state.aspect); });
+  }
+  $('fDur').addEventListener('click', function (e) { var b = e.target.closest('button'); if (b) setDuration(b.getAttribute('data-v')); });
+  $('fAspect').addEventListener('click', function (e) { var b = e.target.closest('.aspect'); if (b) setAspect(b.getAttribute('data-a')); });
+
+  /* ---------- 生成脚本 ---------- */
+  $('btnScript').addEventListener('click', function () {
+    var topic = $('fTopic').value.trim();
+    if (!topic) { toast('请先输入一个主题，例如「AI 如何重塑餐饮」', true); $('fTopic').focus(); return; }
+    var btn = $('btnScript'); btn.disabled = true; btn.textContent = '⏳ AI 正在写脚本…';
+    $('failBox').className = 'fail';
+    api(API.script, { method: 'POST', body: {
+      topic: topic, industry: $('fIndustry').value.trim(), audience: $('fAudience').value.trim(),
+      duration: state.duration, platform: state.aspect, style: state.style
+    } }).then(function (j) {
+      state.script = j.script || {}; state.scriptId = j.script_id || '';
+      state.script.style = state.style;
+      renderEditor();
+      $('secEdit').style.display = 'block';
+      $('secEdit').scrollIntoView({ behavior: 'smooth', block: 'start' });
+      var note = j.note || '';
+      if (j.llm_ok) toast('脚本已生成（' + (j.script.pages || []).length + ' 页，' + (j.gen_seconds || '?') + ' 秒）');
+      else toast(note || '已用本地模板生成脚本，可手动修改', true);
+    }).catch(function (err) {
+      $('failBox').className = 'fail on'; $('failBox').textContent = '生成脚本失败：' + err.message;
+      toast(err.message, true);
+    }).then(function () { btn.disabled = false; btn.textContent = '✨ AI 生成脚本'; });
+  });
+
+  /* ---------- 脚本编辑器 ---------- */
+  function renderEditor() {
+    var s = state.script || {};
+    var pages = s.pages || [];
+    var tags = [];
+    tags.push('<span class="chip">引擎 <b>' + esc(s.engine === 'deepseek' ? 'DeepSeek' : '本地模板') + '</b></span>');
+    tags.push('<span class="chip">页数 <b>' + pages.length + '</b></span>');
+    tags.push('<span class="chip">目标时长 <b>' + esc(s.duration || state.duration) + ' 秒</b></span>');
+    tags.push('<span class="chip">比例 <b>' + esc(s.platform || state.aspect) + '</b></span>');
+    if (s.est_duration) tags.push('<span class="chip">配音估算 <b>' + esc(s.est_duration) + ' 秒</b></span>');
+    if (s.note) tags.push('<span class="chip" style="color:#fde68a;border-color:rgba(251,191,36,.4)">' + esc(s.note) + '</span>');
+    $('scriptTags').innerHTML = tags.join('');
+    $('scriptMeta').textContent = s.title ? ('《' + s.title + '》— 逐页可编辑') : '逐页可编辑';
+    var html = '';
+    for (var i = 0; i < pages.length; i++) {
+      var p = pages[i] || {};
+      var t = p.type || 'point';
+      html += '<div class="page" data-i="' + i + '">';
+      html += '<div class="ph"><span class="ptype ' + esc(t) + '">' + esc(typeName(t)) + '</span><span class="pnum">第 ' + (i + 1) + ' 页 / ' + esc(t) + '</span>';
+      html += '<span class="ops">' + (t !== 'title' && t !== 'end' ? '<button class="iconbtn del" data-op="del" title="删除本页">✕</button>' : '') + '</span></div>';
+      html += '<div class="row">';
+      if (t === 'title' || t === 'end') {
+        html += field(i, 'title', '标题', p.title || '', 'full');
+        html += field(i, 'subtitle', '副标题', p.subtitle || '', 'full');
+        if (t === 'end') { html += field(i, 'cta', '行动号召（CTA）', p.cta || '', 'full'); }
+        html += field(i, 'kicker', '顶部小标签', p.kicker || '', 'full');
+      } else if (t === 'quote') {
+        html += field(i, 'quote', '金句', p.quote || '', 'full');
+        html += field(i, 'author', '署名', p.author || '');
+      } else {
+        html += field(i, 'title', '本页标题', p.title || '', 'full');
+        if (t === 'data') {
+          var st = p.stat || {};
+          html += '<div><label class="lb">数字</label><input class="in" data-i="' + i + '" data-k="stat.value" type="number" step="0.1" value="' + esc(st.value != null ? st.value : '') + '"></div>';
+          html += field(i, 'stat.suffix', '单位/后缀', st.suffix || '');
+          html += field(i, 'stat.label', '数字说明', st.label || '', 'full');
+          html += '<div class="full"><div class="mini">对比条形（标签 / 数值）</div><div id="bars' + i + '">';
+          (p.bars || []).forEach(function (b, bi) {
+            html += '<div class="bar-row"><input class="in" data-i="' + i + '" data-k="bars.' + bi + '.label" value="' + esc(b.label) + '"><input class="in" data-i="' + i + '" data-k="bars.' + bi + '.value" type="number" step="0.1" value="' + esc(b.value) + '"><button class="iconbtn" data-op="delbar" data-i="' + i + '" data-bi="' + bi + '">✕</button></div>';
+          });
+          html += '</div><button class="btn ghost sm" data-op="addbar" data-i="' + i + '">＋ 加一条</button></div>';
+          html += field(i, 'note', '数据标注（合规提示）', p.note || '示例数据，仅用于演示版式', 'full');
+        } else if (t === 'diagram') {
+          html += '<div class="full"><div class="mini">流程步骤</div><div id="steps' + i + '">';
+          (p.steps || []).forEach(function (st2, si) {
+            html += '<div class="stepline"><span>' + (si + 1) + '</span><input class="in" data-i="' + i + '" data-k="steps.' + si + '.label" placeholder="步骤名" value="' + esc(st2.label) + '"><input class="in sd" data-i="' + i + '" data-k="steps.' + si + '.desc" placeholder="一句话说明" value="' + esc(st2.desc) + '"><button class="iconbtn" data-op="delstep" data-i="' + i + '" data-si="' + si + '">✕</button></div>';
+          });
+          html += '</div><button class="btn ghost sm" data-op="addstep" data-i="' + i + '">＋ 加一步</button></div>';
+        } else {
+          var bullets = p.bullets || [];
+          html += '<div class="full"><div class="mini">要点（2–4 条，每条 ≤18 字）</div><div id="bullets' + i + '">';
+          bullets.forEach(function (b, bi) {
+            html += '<div class="bullet-row"><input class="in" data-i="' + i + '" data-k="bullets.' + bi + '" value="' + esc(b) + '"><button class="iconbtn del" data-op="delbullet" data-i="' + i + '" data-bi="' + bi + '">✕</button></div>';
+          });
+          html += '</div><button class="btn ghost sm" data-op="addbullet" data-i="' + i + '">＋ 加一条</button></div>';
+        }
+      }
+      html += field(i, 'narration', '口播 / 字幕文案', p.narration || '', 'full');
+      var np = p.note && t !== 'data' ? p.note : '';
+      if (t === 'end') html += field(i, 'note', '片尾免责声明', p.note || '', 'full');
+      html += '</div></div>';
+    }
+    $('pageList').innerHTML = html;
+    bindEditor();
+  }
+  function field(i, key, label, val, cls) {
+    return '<div class="' + (cls || '') + '"><label class="lb">' + esc(label) + '</label><input class="in" data-i="' + i + '" data-k="' + esc(key) + '" value="' + esc(val || '') + '"></div>';
+  }
+  function setPath(obj, path, val) {
+    var parts = path.split('.'), o = obj;
+    for (var i = 0; i < parts.length - 1; i++) { var k = parts[i]; if (o[k] == null) o[k] = /^\d+$/.test(parts[i + 1]) ? [] : {}; o = o[k]; }
+    o[parts[parts.length - 1]] = val;
+  }
+  function bindEditor() {
+    if (bindEditor._bound) return;
+    bindEditor._bound = true;
+    var list = $('pageList');
+    list.addEventListener('input', function (e) {
+      var el = e.target; if (!el || !el.dataset || el.dataset.k == null) return;
+      var pi = Number(el.dataset.i); var k = el.dataset.k;
+      var p = (state.script.pages || [])[pi]; if (!p) return;
+      var val = el.value;
+      if (el.type === 'number') val = Number(val || 0);
+      setPath(p, k, val);
+    });
+    list.addEventListener('click', function (e) {
+      var btn = e.target.closest('[data-op]'); if (!btn) return;
+      var op = btn.getAttribute('data-op'); var pi = Number(btn.getAttribute('data-i'));
+      var pages = state.script.pages || []; var p = pages[pi]; if (!p) return;
+      if (op === 'del') { pages.splice(pi, 1); renderEditor(); return; }
+      if (op === 'addbullet') { p.bullets = p.bullets || []; if (p.bullets.length >= 4) { toast('每页最多 4 条要点'); return; } p.bullets.push('新的要点'); }
+      if (op === 'delbullet') { p.bullets.splice(Number(btn.getAttribute('data-bi')), 1); if (!p.bullets.length) p.bullets.push('要点'); }
+      if (op === 'addbar') { p.bars = p.bars || []; if (p.bars.length >= 4) { toast('最多 4 条对比'); return; } p.bars.push({ label: '新对比', value: 50 }); }
+      if (op === 'delbar') { p.bars.splice(Number(btn.getAttribute('data-bi')), 1); if (!p.bars.length) p.bars.push({ label: '对比', value: 50 }); }
+      if (op === 'addstep') { p.steps = p.steps || []; if (p.steps.length >= 4) { toast('流程图最多 4 步'); return; } p.steps.push({ label: '新步骤', desc: '一句话说明' }); }
+      if (op === 'delstep') { p.steps.splice(Number(btn.getAttribute('data-si')), 1); if (!p.steps.length) p.steps.push({ label: '步骤', desc: '' }); }
+      renderEditor();
+    });
+  }
+  $('btnAddPoint').addEventListener('click', function () {
+    if (!state.script) return;
+    state.script.pages.splice(state.script.pages.length - 1, 0, { type: 'point', title: '新增观点', bullets: ['要点一', '要点二', '要点三'], narration: '这里是新观点的口播文案。' });
+    renderEditor(); toast('已新增一页观点，请填写文字');
+  });
+
+  /* ---------- 渲染 ---------- */
+  function buildScript() {
+    var s = state.script || {};
+    s.style = state.style;
+    s.platform = state.aspect;
+    s.duration = state.duration;
+    return s;
+  }
+  $('btnRender').addEventListener('click', function () {
+    if (!state.script) { toast('请先生成脚本', true); return; }
+    var script = buildScript();
+    if (!(script.pages || []).length) { toast('脚本至少需要 1 页', true); return; }
+    var btn = $('btnRender'); btn.disabled = true; btn.textContent = '⏳ 提交渲染…';
+    $('failBox').className = 'fail';
+    api(API.render, { method: 'POST', body: {
+      script: script, style: state.style, aspect: state.aspect,
+      resolution: $('fRes').value, tts: $('fTts').checked, voice: $('fVoice').value,
+      subtitle: $('fSub').checked
+    } }).then(function (j) {
+      state.taskId = j.task_id; state.pollCount = 0;
+      $('secProg').classList.add('on'); $('secResult').classList.remove('on');
+      $('progBar').style.width = '3%'; $('progStage').textContent = '任务已提交，等待渲染…';
+      $('progMeta').textContent = '任务 ' + j.task_id;
+      $('secProg').scrollIntoView({ behavior: 'smooth', block: 'center' });
+      if (j.note) toast(j.note);
+      poll();
+    }).catch(function (err) {
+      $('failBox').className = 'fail on'; $('failBox').textContent = '渲染失败：' + err.message;
+      toast(err.message, true);
+    }).then(function () { btn.disabled = false; btn.textContent = '🎬 生成视频'; });
+  });
+  function poll() {
+    if (!state.taskId) return;
+    api(API.task + encodeURIComponent(state.taskId)).then(function (j) {
+      var t = j.task || {};
+      state.pollCount++;
+      $('progBar').style.width = (t.progress || 2) + '%';
+      $('progStage').textContent = t.stage || '渲染中…';
+      $('progMeta').textContent = '任务 ' + state.taskId + ' · ' + (t.status || '');
+      if (t.status === 'done') {
+        state.timer && clearTimeout(state.timer);
+        $('secProg').classList.remove('on');
+        showResult(t);
+        return;
+      }
+      if (t.status === 'failed' || t.status === 'cancelled') {
+        state.timer && clearTimeout(state.timer);
+        $('secProg').classList.remove('on');
+        $('failBox').className = 'fail on';
+        $('failBox').textContent = '渲染失败：' + (t.error || '未知错误') + (t.hint ? '（' + t.hint + '）' : '');
+        toast(t.hint || '渲染失败，请重试', true);
+        return;
+      }
+      if (state.pollCount > 400) { toast('渲染超时，请稍后到任务列表查看或重新渲染', true); return; }
+      state.timer = setTimeout(poll, 1600);
+    }).catch(function (err) {
+      if (state.pollCount > 6) { $('failBox').className = 'fail on'; $('failBox').textContent = '查询任务失败：' + err.message; return; }
+      state.timer = setTimeout(poll, 2200);
+    });
+  }
+  function showResult(t) {
+    $('secResult').style.display = 'block';
+    var grid = $('resultGrid'); grid.classList.add('on');
+    var vw = $('vwrap');
+    vw.classList.toggle('vertical', (t.height || 0) > (t.width || 0));
+    var v = $('vPlayer'); v.src = t.video_url || ''; v.poster = t.poster_url || '';
+    $('btnDownload').href = t.video_url || '#';
+    var items = [
+      ['成片时长', fmtDur(t.duration), ''],
+      ['分辨率', (t.width || 0) + '×' + (t.height || 0), ''],
+      ['文件大小', fmtSize(t.file_size), ''],
+      ['渲染耗时', fmtDur(t.elapsed), ''],
+      ['视觉风格', (state.styles.filter(function (s) { return s.id === t.style; })[0] || {}).name || t.style || '—', ''],
+      ['配音', t.tts ? 'AI 配音' : (t.tts_note ? '无声（配音失败已回退）' : '无配音'), ''],
+      ['页面数', (t.pages || '—') + ' 页', ''],
+      ['任务状态', t.status === 'done' ? '已完成' : t.status, '']
+    ];
+    $('rmeta').innerHTML = items.map(function (it) {
+      return '<div class="rm"><div class="k">' + esc(it[0]) + '</div><div class="v">' + esc(it[1]) + '</div></div>';
+    }).join('');
+    $('resultMeta').textContent = (t.style ? '风格 ' + t.style : '') + (t.tts ? ' · 含配音' : '') + ' · ' + (t.resolution || '');
+    if (t.tts_note) { $('failBox').className = 'fail on'; $('failBox').style.background = 'rgba(251,191,36,.08)'; $('failBox').style.borderColor = 'rgba(251,191,36,.35)'; $('failBox').style.color = '#fde68a'; $('failBox').textContent = t.tts_note; }
+    $('secResult').scrollIntoView({ behavior: 'smooth', block: 'start' });
+    toast('成片已生成：' + fmtDur(t.duration) + ' · ' + fmtSize(t.file_size));
+  }
+  $('btnAgain').addEventListener('click', function () {
+    state.timer && clearTimeout(state.timer); state.taskId = '';
+    $('secResult').classList.remove('on'); $('secResult').style.display = 'none';
+    var grid = $('resultGrid'); grid.classList.remove('on');
+    var v = $('vPlayer'); v.pause(); v.removeAttribute('src'); v.load();
+    $('secEdit').scrollIntoView({ behavior: 'smooth', block: 'start' });
+  });
+
+  /* ---------- 启动 ---------- */
+  setDuration(40); setAspect('16:9');
+  loadStyles(); loadExamples(); health();
+  // 演示 / 嵌入模式：?video=<成片URL>[&poster=..&duration=..&style=..&pages=..]
+  // 仅用于截图与对外演示已渲染成片，不影响正常创作流程。
+  if (qs.get('video')) {
+    var demo = {
+      video_url: qs.get('video'), poster_url: qs.get('poster') || '',
+      duration: Number(qs.get('duration') || 40), width: Number(qs.get('w') || 1920),
+      height: Number(qs.get('h') || 1080), file_size: Number(qs.get('size') || 0),
+      elapsed: Number(qs.get('elapsed') || 0), style: qs.get('style') || 'techblue',
+      pages: Number(qs.get('pages') || 11), resolution: qs.get('res') || '1080p',
+      tts: qs.get('tts') === '1', tts_note: '', status: 'done'
+    };
+    if (qs.get('duration')) state.script = { title: qs.get('title') || '演示成片', pages: [] };
+    setTimeout(function () { showResult(demo); }, 400);
+  }
+  // 演示 / 截图模式：?example=ex-ai-2026[&view=editor] 直接展示脚本编辑界面
+  if (qs.get('example')) {
+    api(EXPL + '/example', { method: 'POST', body: { id: qs.get('example') } }).then(function (j) {
+      state.script = j.script || {}; state.scriptId = j.script_id || '';
+      state.style = state.script.style || state.style; state.duration = state.script.duration || state.duration;
+      state.aspect = state.script.platform || state.aspect;
+      renderStyles(); renderEditor();
+      $('fTopic').value = state.script.topic || state.script.title || '';
+      $('secEdit').style.display = 'block';
+      if (qs.get('view') === 'editor') {
+        var hp = document.querySelector('.hero'); if (hp) hp.style.display = 'none';
+        $('secForm').style.display = 'none'; $('secEdit').scrollIntoView({ block: 'start' });
+      }
+      setTimeout(function () { $('secEdit').scrollIntoView({ block: 'start' }); }, 300);
+    }).catch(function () { /* 演示模式失败不影响正常使用 */ });
+  }
+})();
+</script>
+</body>
+</html>

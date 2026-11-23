@@ -1,0 +1,1060 @@
+<!DOCTYPE html>
+<html lang="zh-CN" data-page="live">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>AI 直播助播（合规版）· 星籁 AI</title>
+<meta name="description" content="真人主播在场 + AI 实时助播：提词、话术补充、弹幕摘要与建议回复、节奏提醒与复盘。合规版，不做无人直播、不规避平台检测、不伪装真人。">
+<meta name="robots" content="noindex,nofollow">
+<meta name="theme-color" content="#070a10">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%23070a10'/%3E%3Cpath d='M18 44V20h6v10h16V20h6v24h-6V36H24v8z' fill='%235ad1ff'/%3E%3C/svg%3E">
+<style>
+:root{
+  --cfh:72px;
+  --bg:#070a10; --bg2:#0b1018; --panel:#0f1520; --panel2:#111a27; --line:#1d2735;
+  --txt:#e9f0fa; --txt2:#9fb0c6; --txt3:#66788f;
+  --cyan:#5ad1ff; --violet:#a78bfa; --green:#54d98c; --amber:#f5b942; --red:#ff7a7a;
+  --r:16px;
+  --sans:"Microsoft YaHei","PingFang SC","Hiragino Sans GB",system-ui,-apple-system,"Segoe UI",sans-serif;
+}
+*{box-sizing:border-box}
+html,body{margin:0;padding:0;overflow-x:hidden}
+body{
+  padding-top:calc(var(--cfh) + var(--hh, 64px));
+  background:
+    radial-gradient(1100px 560px at 82% -10%,rgba(90,209,255,.13),transparent 60%),
+    radial-gradient(900px 520px at 6% 2%,rgba(167,139,250,.12),transparent 62%),
+    var(--bg);
+  color:var(--txt);font-family:var(--sans);font-size:15px;line-height:1.6;
+  -webkit-font-smoothing:antialiased;
+}
+button,input,select,textarea{font:inherit;color:inherit}
+button{cursor:pointer}
+a{color:inherit;text-decoration:none}
+h2{margin:0}
+/* ---------- 顶部固定合规提示 ---------- */
+.cf{position:fixed;left:0;right:0;top:0;z-index:120;background:linear-gradient(90deg,#3a1216,#4a2410 55%,#3a1216);
+  border-bottom:1px solid rgba(245,185,66,.45);box-shadow:0 8px 26px rgba(0,0,0,.5)}
+.cf-in{max-width:1720px;margin:0 auto;display:flex;align-items:center;gap:12px;padding:10px 18px;font-size:14px;line-height:1.45;color:#ffe3c2}
+.cf-badge{flex:0 0 auto;background:#f5b942;color:#2a1604;font-weight:900;font-size:12px;letter-spacing:1px;border-radius:999px;padding:3px 10px}
+.cf-in b{color:#fff;font-weight:800}
+.cf-warn{color:#ffd166}
+/* ---------- 顶栏 ---------- */
+.top{position:fixed;left:0;right:0;top:var(--cfh);z-index:60;backdrop-filter:blur(14px);background:rgba(7,10,16,.94);border-bottom:1px solid var(--line)}
+.top-in{max-width:1720px;margin:0 auto;display:flex;align-items:center;gap:16px;padding:10px 18px;flex-wrap:wrap}
+.brand{display:flex;align-items:center;gap:9px;font-weight:900;letter-spacing:.3px;font-size:15px;flex:0 0 auto}
+.brand .mark{width:30px;height:30px;border-radius:9px;background:linear-gradient(135deg,var(--cyan),var(--violet));display:grid;place-items:center;color:#04121c;font-weight:900}
+.brand small{display:block;font-size:9px;letter-spacing:2px;color:var(--txt3);font-weight:700}
+.title{font-size:20px;font-weight:900;letter-spacing:.5px;display:flex;align-items:center;gap:8px;flex:1 1 auto}
+.title em{font-style:normal;font-size:11px;font-weight:800;color:#0a1524;background:var(--green);border-radius:999px;padding:2px 8px;letter-spacing:1px}
+.pill{display:inline-flex;align-items:center;gap:7px;border:1px solid var(--line);background:var(--panel);border-radius:999px;padding:5px 12px;font-size:12.5px;color:var(--txt2);white-space:nowrap}
+.pill b{color:var(--txt);font-variant-numeric:tabular-nums}
+.dot{width:8px;height:8px;border-radius:50%;background:var(--amber);box-shadow:0 0 10px currentColor}
+.dot.ok{background:var(--green)}
+.dot.bad{background:var(--red)}
+.btn{border:1px solid var(--line);background:var(--panel2);color:var(--txt);border-radius:11px;padding:8px 13px;font-size:13.5px;font-weight:700;transition:.15s}
+.btn:hover{border-color:var(--cyan);color:var(--cyan)}
+.btn.primary{background:linear-gradient(135deg,var(--cyan),#2fa8dc);border:0;color:#04121c}
+.btn.primary:hover{filter:brightness(1.08);color:#04121c}
+.btn.violet{background:linear-gradient(135deg,var(--violet),#7c5cf0);border:0;color:#0b0817}
+.btn.amber{background:linear-gradient(135deg,var(--amber),#e09b1e);border:0;color:#2a1604}
+.btn.ghost{background:transparent}
+.btn.sm{padding:5px 10px;border-radius:9px;font-size:12px}
+.btn:disabled{opacity:.5;cursor:not-allowed}
+/* ---------- 布局 ---------- */
+.wrap{max-width:1720px;margin:0 auto;padding:14px 16px 26px}
+.grid{display:grid;grid-template-columns:330px minmax(0,1fr) 370px;gap:14px;align-items:stretch}
+.bottom{display:grid;grid-template-columns:minmax(0,1.05fr) minmax(0,.95fr) minmax(0,1.15fr);gap:14px;margin-top:14px}
+.panel{background:linear-gradient(180deg,rgba(17,26,39,.96),rgba(12,18,28,.96));border:1px solid var(--line);border-radius:var(--r);padding:14px;min-width:0;display:flex;flex-direction:column;gap:10px}
+.ph{display:flex;align-items:center;justify-content:space-between;gap:8px;flex-wrap:wrap}
+.ph h2{font-size:15px;font-weight:900;letter-spacing:.4px}
+.ph .sub{font-size:11.5px;color:var(--txt3)}
+.tag{display:inline-block;border-radius:999px;padding:2px 9px;font-size:11px;font-weight:800;border:1px solid var(--line);color:var(--txt2);white-space:nowrap}
+.tag.cyan{color:var(--cyan);border-color:rgba(90,209,255,.45);background:rgba(90,209,255,.09)}
+.tag.violet{color:var(--violet);border-color:rgba(167,139,250,.45);background:rgba(167,139,250,.1)}
+.tag.green{color:var(--green);border-color:rgba(84,217,140,.45);background:rgba(84,217,140,.1)}
+.tag.amber{color:var(--amber);border-color:rgba(245,185,66,.45);background:rgba(245,185,66,.1)}
+.tag.red{color:var(--red);border-color:rgba(255,122,122,.45);background:rgba(255,122,122,.1)}
+/* ---------- 表单 ---------- */
+.field{display:flex;flex-direction:column;gap:5px;min-width:0}
+.field label{font-size:11.5px;color:var(--txt3);font-weight:800;letter-spacing:.5px}
+.inp,textarea.inp,select.inp{width:100%;background:#0a1019;border:1px solid var(--line);border-radius:10px;padding:8px 10px;font-size:13.5px;color:var(--txt);outline:none;transition:.15s}
+textarea.inp{resize:vertical;line-height:1.55;min-height:44px}
+.inp:focus{border-color:rgba(90,209,255,.7);box-shadow:0 0 0 3px rgba(90,209,255,.12)}
+.row{display:grid;grid-template-columns:1fr 1fr;gap:9px}
+.hint{font-size:11.5px;color:var(--txt3);line-height:1.5}
+.hint b{color:var(--txt2)}
+.lib{display:flex;flex-direction:column;gap:7px;max-height:190px;overflow:auto}
+.lib-item{border:1px solid var(--line);background:#0a1019;border-radius:10px;padding:7px 9px;display:flex;align-items:center;gap:8px;min-width:0}
+.lib-item .lm{min-width:0;flex:1}
+.lib-item .lm b{display:block;font-size:12.5px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.lib-item .lm span{font-size:11px;color:var(--txt3)}
+/* ---------- 提词器 ---------- */
+.tele{position:relative;overflow:hidden}
+.tele::before{content:"";position:absolute;inset:0;background:radial-gradient(720px 300px at 50% 0%,rgba(90,209,255,.10),transparent 70%);pointer-events:none}
+.tele-head{display:flex;align-items:center;gap:8px;flex-wrap:wrap;position:relative}
+.tele-stage{font-size:13px;font-weight:900;color:var(--cyan);letter-spacing:1px}
+.tele-count{margin-left:auto;font-size:13px;color:var(--txt2);font-variant-numeric:tabular-nums}
+.prompt{position:relative;flex:1 1 auto;display:flex;flex-direction:column;justify-content:center;gap:12px;
+  min-height:330px;padding:26px 22px;border-radius:14px;border:1px solid rgba(90,209,255,.18);
+  background:linear-gradient(180deg,rgba(10,20,32,.86),rgba(8,14,23,.92))}
+.prompt .ptitle{font-size:14px;font-weight:900;color:var(--violet);letter-spacing:.5px}
+.prompt .ptext{font-size:clamp(27px,3.15vw,56px);line-height:1.5;font-weight:900;letter-spacing:1px;color:#f6fbff;text-shadow:0 4px 30px rgba(90,209,255,.16);word-break:break-word}
+.prompt .ptext.dim{color:var(--txt2);font-size:clamp(17px,1.5vw,22px);font-weight:700;letter-spacing:0}
+.tele-foot{display:flex;flex-direction:column;gap:8px;position:relative}
+.bar{height:8px;border-radius:999px;background:#0a1019;border:1px solid var(--line);overflow:hidden}
+.bar > i{display:block;height:100%;width:0;background:linear-gradient(90deg,var(--cyan),var(--violet));border-radius:999px;transition:width .25s linear}
+.bar.seg{height:5px;border:0;background:#0a1019}
+.bar.seg > i{background:linear-gradient(90deg,var(--green),var(--cyan));transition:none}
+.ctrls{display:flex;align-items:center;gap:8px;flex-wrap:wrap}
+.ctrls .grow{flex:1 1 auto}
+.switch{display:inline-flex;align-items:center;gap:7px;font-size:12.5px;color:var(--txt2);cursor:pointer;user-select:none}
+.switch input{width:16px;height:16px;accent-color:var(--cyan)}
+.keys{font-size:11.5px;color:var(--txt3)}
+.keys kbd{background:#0a1019;border:1px solid var(--line);border-bottom-width:2px;border-radius:5px;padding:1px 6px;font-size:11px;color:var(--txt2);font-family:inherit}
+.flags{display:flex;gap:6px;flex-wrap:wrap;min-height:20px}
+/* ---------- 右栏 ---------- */
+.heat{display:flex;flex-direction:column;gap:6px;border:1px solid var(--line);border-radius:12px;padding:9px 11px;background:#0a1019}
+.heat-top{display:flex;align-items:baseline;gap:8px}
+.heat-top b{font-size:26px;font-weight:900;color:var(--green);font-variant-numeric:tabular-nums;line-height:1}
+.heat-top span{font-size:12px;color:var(--txt2)}
+.heat .bar > i{background:linear-gradient(90deg,var(--green),var(--amber),var(--red))}
+.danmu{display:flex;flex-direction:column;gap:6px;max-height:180px;overflow:auto;min-height:64px}
+.dm{font-size:13px;border-left:2px solid rgba(90,209,255,.55);padding:3px 0 3px 9px;color:var(--txt2);word-break:break-word}
+.dm b{color:var(--txt);font-weight:700}
+.dm small{color:var(--txt3);font-size:10.5px;margin-left:6px}
+.replies{display:flex;flex-direction:column;gap:8px}
+.reply{border:1px solid rgba(167,139,250,.3);background:rgba(167,139,250,.07);border-radius:11px;padding:9px 11px;display:flex;flex-direction:column;gap:7px}
+.reply .rt{font-size:15px;font-weight:800;color:#eef4ff;line-height:1.55;word-break:break-word}
+.reply .ra{display:flex;align-items:center;gap:7px;flex-wrap:wrap}
+.reply.done{opacity:.55}
+.reply .intent{font-size:11px;font-weight:900;color:#0b0817;background:var(--violet);border-radius:999px;padding:1px 8px}
+.reply .warn{font-size:11px;color:var(--amber)}
+.reply-empty{border:1px dashed var(--line);border-radius:11px;padding:14px;font-size:12.5px;color:var(--txt3);text-align:center}
+.chips{display:flex;gap:6px;flex-wrap:wrap}
+.chip{border:1px solid var(--line);background:#0a1019;color:var(--txt2);border-radius:999px;padding:4px 11px;font-size:12px}
+.chip:hover{border-color:var(--cyan);color:var(--cyan)}
+/* ---------- 底部 ---------- */
+.voice .notice, .compliance .notice{font-size:11.5px;color:var(--txt3);line-height:1.55}
+.tts-status{font-size:12px;color:var(--txt2);min-height:18px}
+.tts-status.err{color:var(--amber)}
+audio{width:100%;height:34px;filter:invert(.92) hue-rotate(180deg);display:none}
+audio[src]{display:block;margin-top:2px}
+.rhythm{display:flex;flex-direction:column;gap:8px}
+.rtime{font-size:44px;font-weight:900;letter-spacing:2px;font-variant-numeric:tabular-nums;line-height:1;color:var(--cyan);text-shadow:0 0 26px rgba(90,209,255,.25)}
+.rtime.flash{color:var(--amber);animation:blink .6s ease-in-out 4}
+@keyframes blink{50%{opacity:.35}}
+.rbtns{display:flex;gap:7px;flex-wrap:wrap}
+.compliance .ci{display:flex;gap:8px;font-size:12.5px;color:var(--txt2);line-height:1.5}
+.compliance .ci .badge{flex:0 0 auto;width:20px;height:20px;border-radius:6px;display:grid;place-items:center;font-size:11px;font-weight:900;margin-top:1px}
+.badge.amber{background:rgba(245,185,66,.16);color:var(--amber)}
+.badge.red{background:rgba(255,122,122,.16);color:var(--red)}
+.badge.green{background:rgba(84,217,140,.16);color:var(--green)}
+.badge.cyan{background:rgba(90,209,255,.16);color:var(--cyan)}
+.compliance .ci b{color:var(--txt)}
+.bwords{display:flex;gap:5px;flex-wrap:wrap}
+.bwords span{font-size:11px;color:var(--red);border:1px solid rgba(255,122,122,.35);background:rgba(255,122,122,.08);border-radius:999px;padding:1px 8px}
+/* ---------- 模态 / toast ---------- */
+.modal{position:fixed;inset:0;z-index:200;background:rgba(3,6,10,.72);display:none;align-items:center;justify-content:center;padding:20px}
+.modal.open{display:flex}
+.modal-card{max-width:660px;width:100%;background:var(--panel2);border:1px solid var(--line);border-radius:18px;padding:20px;max-height:88vh;overflow:auto;box-shadow:0 30px 80px rgba(0,0,0,.6)}
+.modal-card h3{margin:0 0 10px;font-size:18px}
+.modal-card p,.modal-card li{font-size:13.5px;color:var(--txt2);line-height:1.7}
+.modal-card li b{color:var(--txt)}
+.modal-card .mfoot{display:flex;gap:8px;justify-content:flex-end;margin-top:14px}
+#toast{position:fixed;left:50%;bottom:26px;transform:translateX(-50%) translateY(18px);z-index:300;background:#0c1624;border:1px solid rgba(90,209,255,.5);color:var(--txt);padding:9px 16px;border-radius:12px;font-size:13px;opacity:0;pointer-events:none;transition:.25s;max-width:88vw;text-align:center;box-shadow:0 16px 44px rgba(0,0,0,.6)}
+#toast.show{opacity:1;transform:translateX(-50%) translateY(0)}
+footer{max-width:1720px;margin:16px auto 0;padding:0 18px;font-size:11.5px;color:var(--txt3);line-height:1.7}
+footer b{color:var(--txt2)}
+/* ---------- 响应式 ---------- */
+@media (max-width:1280px){
+  .grid{grid-template-columns:300px minmax(0,1fr) 330px}
+}
+@media (max-width:1080px){
+  .grid{grid-template-columns:minmax(0,1fr) minmax(0,1fr)}
+  .tele{grid-column:1 / -1;order:-1}
+  .bottom{grid-template-columns:1fr 1fr}
+  .bottom .rhythm{grid-column:1 / -1}
+}
+@media (max-width:760px){
+  body{font-size:14px}
+  .wrap{padding:10px 10px 22px}
+  .cf-in{padding:8px 12px;font-size:12px;gap:8px}
+  .top-in{padding:8px 12px;gap:9px}
+  .title{font-size:16px;width:100%;order:3;flex:1 1 100%}
+  .grid{grid-template-columns:1fr;gap:10px}
+  .bottom{grid-template-columns:1fr;gap:10px}
+  .tele{order:-1}
+  .prompt{min-height:250px;padding:18px 14px}
+  .prompt .ptext{font-size:clamp(22px,6.4vw,34px);line-height:1.5}
+  .rtime{font-size:36px}
+  .row{grid-template-columns:1fr}
+  .heat-top b{font-size:22px}
+  .pill{padding:4px 9px;font-size:11.5px}
+  .brand small{display:none}
+  footer{padding:0 12px}
+}
+</style>
+</head>
+<body>
+<!-- 顶部固定合规提示（不可关闭） -->
+<div class="cf" id="cfBanner" role="alert">
+  <div class="cf-in">
+    <span class="cf-badge">合规</span>
+    <span><b>真人主播在场 + AI 实时助播</b>（合规版）｜需真人主播在场 · AI 生成内容需按平台规则标识 · 不得用于无人直播或冒充真人 · <b class="cf-warn">违者风险自负</b></span>
+  </div>
+</div>
+
+<header class="top">
+  <div class="top-in">
+    <a class="brand" href="../"><span class="mark">星</span><span>星籁 AI<small>STELLARA AI</small></span></a>
+    <div class="title">AI 直播助播 <em>合规版</em></div>
+    <span class="pill"><span class="dot" id="apiDot"></span><span id="apiText">AI 服务检测中…</span></span>
+    <span class="pill">直播 <b id="liveClock">00:00:00</b></span>
+    <button class="btn ghost sm" id="btnGuide" type="button">合规说明</button>
+    <button class="btn ghost sm" id="btnSettings" type="button">接口设置</button>
+  </div>
+</header>
+
+<div class="wrap">
+  <main class="grid">
+    <!-- ============ 左：商品/活动信息 + 话术库 ============ -->
+    <section class="panel" aria-label="商品与活动信息">
+      <div class="ph"><h2>① 商品 / 活动信息</h2><span class="sub">主播手里正在讲的这件</span></div>
+      <div class="field"><label for="pName">商品/活动名称</label><input class="inp" id="pName" placeholder="例如：云端护颈枕"></div>
+      <div class="row">
+        <div class="field"><label for="pPrice">价格（口径）</label><input class="inp" id="pPrice" placeholder="例如：直播间到手 129 元"></div>
+        <div class="field"><label for="pStyle">话术风格</label>
+          <select class="inp" id="pStyle">
+            <option value="专业">专业讲解</option>
+            <option value="亲切">亲切陪聊</option>
+            <option value="促销">促销节奏</option>
+            <option value="憋单">憋单节奏</option>
+          </select>
+        </div>
+      </div>
+      <div class="field"><label for="pPoints">卖点（每行一条）</label><textarea class="inp" id="pPoints" rows="3" placeholder="慢回弹记忆棉&#10;可拆洗针织枕套&#10;30 天试睡"></textarea></div>
+      <div class="row">
+        <div class="field"><label for="pOffers">优惠信息</label><input class="inp" id="pOffers" placeholder="下单送收纳袋，规则以页面为准"></div>
+        <div class="field"><label for="pIndustry">行业</label><input class="inp" id="pIndustry" placeholder="家居"></div>
+      </div>
+      <div class="field"><label for="pBanned">禁说词（逗号/顿号分隔，AI 会过滤）</label><textarea class="inp" id="pBanned" rows="2"></textarea></div>
+      <div style="display:flex;gap:8px;flex-wrap:wrap">
+        <button class="btn primary" id="genBtn" type="button">生成话术池（≥20 段）</button>
+        <button class="btn ghost" id="demoBtn" type="button">载入示例</button>
+      </div>
+      <div class="hint" id="genStatus">填写商品信息后生成，每段 ≤80 字，可直接提词。</div>
+      <div class="ph" style="margin-top:2px"><h2>话术库 · 保存/复用</h2><span class="sub">本机浏览器保存</span></div>
+      <div class="hint">按行业/商品存在本机（localStorage），下次开播直接「载入」，无需重新生成。</div>
+      <div style="display:flex;gap:8px;flex-wrap:wrap">
+        <button class="btn" id="saveLibBtn" type="button">保存当前话术</button>
+        <span class="hint" id="libCount" style="align-self:center">已保存 0 套</span>
+      </div>
+      <div class="lib" id="libList"></div>
+    </section>
+
+    <!-- ============ 中：实时提词器 ============ -->
+    <section class="panel tele" aria-label="实时提词器">
+      <div class="tele-head">
+        <span class="tele-stage" id="segStage">等待生成</span>
+        <span class="tag" id="enginePill">未生成</span>
+        <span class="tag green" id="safePill">合规检查 · 待生成</span>
+        <span class="tele-count" id="segCount">第 0 / 0 段</span>
+      </div>
+      <div class="prompt" id="promptBox">
+        <div class="ptitle" id="segTitle">主播提词</div>
+        <div class="ptext dim" id="bigText">在左侧填写商品/活动信息，点「生成话术池（≥20 段）」。<br>生成后可空格暂停、→ 下一段、← 上一段，也可自动轮播。</div>
+      </div>
+      <div class="bar seg" id="segTimerBar"><i style="width:0%"></i></div>
+      <div class="bar" id="segProgressBar"><i style="width:0%"></i></div>
+      <div class="ctrls">
+        <button class="btn" id="prevBtn" type="button">← 上一段</button>
+        <button class="btn primary" id="playBtn" type="button">▶ 开始提词</button>
+        <button class="btn" id="nextBtn" type="button">下一段 →</button>
+        <span class="grow"></span>
+        <label class="switch"><input type="checkbox" id="autoChk" checked>自动轮播</label>
+        <select class="inp" id="speedSel" style="width:auto" aria-label="轮播速度">
+          <option value="1.25">慢速</option>
+          <option value="1" selected>正常</option>
+          <option value="0.8">快速</option>
+        </select>
+      </div>
+      <div class="keys">快捷键：<kbd>空格</kbd> 暂停/继续 · <kbd>→</kbd> 下一段 · <kbd>←</kbd> 上一段 · <kbd>A</kbd> 自动轮播开关 · 当前段建议停留 <b id="segSec">—</b> 秒</div>
+      <div class="flags" id="segFlags"></div>
+    </section>
+
+    <!-- ============ 右：弹幕 + AI 建议回复 + 热度 ============ -->
+    <section class="panel inter" aria-label="弹幕与建议回复">
+      <div class="ph"><h2>② 弹幕 / AI 建议回复</h2><span class="tag cyan">真人主播亲口念</span></div>
+      <div class="heat">
+        <div class="heat-top"><b id="heatNum">40</b><span id="heatLevel">互动热度 · 平缓</span></div>
+        <div class="bar" id="heatBar"><i style="width:40%"></i></div>
+      </div>
+      <div class="field">
+        <label for="danmuInput">粘贴/输入弹幕（回车提交）</label>
+        <textarea class="inp" id="danmuInput" rows="2" placeholder="例如：这个多少钱？能便宜点吗"></textarea>
+      </div>
+      <div style="display:flex;gap:8px;flex-wrap:wrap;align-items:center">
+        <button class="btn primary" id="askBtn" type="button">获取建议回复</button>
+        <span class="hint" id="replyStatus">AI 给 1–3 条可直接念的回复</span>
+      </div>
+      <div class="chips">
+        <button class="chip" type="button" data-danmu="这个多少钱">这个多少钱</button>
+        <button class="chip" type="button" data-danmu="能便宜吗">能便宜吗</button>
+        <button class="chip" type="button" data-danmu="什么时候发货">什么时候发货</button>
+      </div>
+      <div class="danmu" id="danmuList"><div class="hint">还没有弹幕。可以从左侧手动粘贴，或点上面的快捷弹幕。</div></div>
+      <div class="ph"><h2>AI 建议回复</h2><span class="sub" id="intentPill"></span></div>
+      <div class="replies" id="replyList"><div class="reply-empty">提交一条弹幕后，这里会出现 1–3 条建议回复。</div></div>
+      <div class="hint" id="replyTip">AI 建议仅供参考：价格、库存、时效以平台页面为准，主播确认后再念，AI 不代主播承诺。</div>
+    </section>
+  </main>
+
+  <!-- ============ 底部三块 ============ -->
+  <section class="bottom">
+    <div class="panel voice" aria-label="声音试听">
+      <div class="ph"><h2>③ 声音试听（TTS）</h2><span class="tag amber">仅本人授权音色</span></div>
+      <div class="row">
+        <div class="field"><label for="voiceSel">音色</label>
+          <select class="inp" id="voiceSel">
+            <option value="zh-CN-XiaoxiaoNeural">女声 · 温柔</option>
+            <option value="zh-CN-XiaoyiNeural">女声 · 活泼</option>
+            <option value="zh-CN-YunxiNeural">男声 · 青年</option>
+            <option value="zh-CN-YunjianNeural">男声 · 沉稳</option>
+          </select>
+        </div>
+        <div class="field"><label>&nbsp;</label><button class="btn" id="ttsFillBtn" type="button">填入当前提词</button></div>
+      </div>
+      <div class="field"><label for="ttsText">试听文本（≤120 字）</label><textarea class="inp" id="ttsText" rows="2" placeholder="输入要试听的一句话"></textarea></div>
+      <div style="display:flex;gap:8px;align-items:center;flex-wrap:wrap">
+        <button class="btn violet" id="ttsBtn" type="button">试听</button>
+        <span class="tts-status" id="ttsStatus">edge-tts 实时合成</span>
+      </div>
+      <audio id="ttsAudio" controls preload="none"></audio>
+      <div class="notice" id="ttsNotice">AI 合成音仅供试听/内部提词；<b>仅可使用本人已授权音色</b>，不得用于无人直播、冒充真人或规避平台检测，对外使用须按平台规则标识。</div>
+    </div>
+
+    <div class="panel rhythm" aria-label="节奏计时">
+      <div class="ph"><h2>④ 节奏计时</h2><span class="tag green">每 5 分钟提醒</span></div>
+      <div class="rtime" id="rhythmTime">05:00</div>
+      <div class="bar"><i id="rhythmBar" style="width:100%"></i></div>
+      <div class="hint" id="rhythmNote">提醒节奏：每 5 分钟引导一次互动（提问/扣 1）或准备换品；只做提醒，不自动操作。</div>
+      <div class="rbtns">
+        <button class="btn" id="rhythmPause" type="button">暂停</button>
+        <button class="btn ghost" id="rhythmReset" type="button">重置 5:00</button>
+        <span class="hint" id="rhythmCount" style="align-self:center">已提醒 0 次</span>
+      </div>
+    </div>
+
+    <div class="panel compliance" aria-label="合规提醒">
+      <div class="ph"><h2>⑤ 合规提醒</h2><span class="tag red">风险自负</span></div>
+      <div class="ci"><span class="badge cyan">AI</span><span><b>AI 标识：</b>提词、建议回复、合成语音均属 AI 生成内容，按平台规则显著标识，不得隐瞒。</span></div>
+      <div class="ci"><span class="badge amber">价</span><span><b>价格承诺：</b>不承诺最低价、买贵退差、库存/发货时效；一律引导「以直播间页面实时显示为准」。</span></div>
+      <div class="ci"><span class="badge red">禁</span><span><b>禁用词过滤：</b>极限词与绝对化用语会自动替换或标红，请人工再确认。</span></div>
+      <div class="bwords" id="bannedChips"></div>
+      <div class="ci"><span class="badge green">真</span><span><b>真人主播：</b>需真人主播在场并亲口讲解；本页不提供无人直播、自动挂机、虚拟声卡推流或任何规避检测能力。</span></div>
+      <div class="hint" id="complianceDetail">生成话术后这里显示极限词过滤结果与价格承诺风险提示。</div>
+    </div>
+  </section>
+
+  <footer>
+    <b>AI 直播助播（合规版）</b> · 定位「真人主播在场 + AI 实时助播」：提词 / 话术补充 / 弹幕摘要与建议回复 / 节奏提醒 / 复盘素材。 ·
+    明确不提供：无人直播、自动挂机、规避平台检测、虚拟声卡自动推流、伪造真人。 ·
+    需真人主播在场，AI 生成内容需按平台规则标识，违者风险自负。 · 内测免费，成本仅记录不扣积分。
+  </footer>
+</div>
+
+<!-- 合规说明 -->
+<div class="modal" id="guideModal" role="dialog" aria-modal="true" aria-labelledby="guideTitle">
+  <div class="modal-card">
+    <h3 id="guideTitle">AI 直播助播（合规版）· 使用须知</h3>
+    <p><b>产品定位：真人主播在场 + AI 实时助播。</b>AI 只做提词、话术补充、弹幕摘要与建议回复、节奏提醒与复盘，直播由真人主播本人完成。</p>
+    <ul>
+      <li><b>必须做到：</b>真人主播在场并亲口讲解；AI 生成的话术/建议/语音按平台规则显著标识「AI 生成」；价格、库存、优惠、时效以平台页面实时显示为准。</li>
+      <li><b>明令不做：</b>无人直播、自动挂机、规避平台检测、虚拟声卡自动推流、伪造真人（画面/声音）。本页与后端均不提供这些能力。</li>
+      <li><b>声音授权：</b>试听合成音仅限本人已授权音色，不得用于对外冒充真人。</li>
+      <li><b>风险自负：</b>使用 AI 生成内容发布前须人工复核，因违规使用产生的平台处罚与法律责任由使用方自行承担。</li>
+    </ul>
+    <div class="mfoot"><button class="btn primary" data-close="guideModal" type="button">我知道了</button></div>
+  </div>
+</div>
+
+<!-- 接口设置 -->
+<div class="modal" id="settingsModal" role="dialog" aria-modal="true" aria-labelledby="settingsTitle">
+  <div class="modal-card">
+    <h3 id="settingsTitle">接口设置</h3>
+    <p>默认同源访问 <code id="apiDefault">/ai-nav/api/live</code>。本地预览/调试时可临时填写完整地址。</p>
+    <div class="field"><label for="apiInput">API 基础地址</label><input class="inp" id="apiInput" placeholder="https://xinglaiai.com/ai-nav/api/live"></div>
+    <p class="hint" style="margin-top:8px">留空 = 使用默认同源地址；保存后重新检测 AI 服务。</p>
+    <div class="mfoot">
+      <button class="btn ghost" id="apiResetBtn" type="button">恢复默认</button>
+      <button class="btn primary" data-close="settingsModal" id="apiSaveBtn" type="button">保存并检测</button>
+    </div>
+  </div>
+</div>
+
+<div id="toast" role="status" aria-live="polite"></div>
+
+<script>
+(function () {
+  'use strict';
+  window.__LIVE_ERRORS__ = [];
+  window.addEventListener('error', function (e) { try { window.__LIVE_ERRORS__.push(String((e && (e.message || e.error)) || 'error')); } catch (x) {} });
+  window.addEventListener('unhandledrejection', function (e) { try { window.__LIVE_ERRORS__.push('rejection:' + String((e && e.reason) || 'rejection')); } catch (x) {} });
+
+  var $ = function (id) { return document.getElementById(id); };
+  var LS = { product: 'live_copilot_product_v1', lib: 'live_copilot_library_v1', api: 'live_copilot_api_v1' };
+  var DEFAULT_PRODUCT = {
+    pName: '云端护颈枕',
+    pPrice: '直播间到手 129 元',
+    pPoints: '慢回弹记忆棉\n可拆洗针织枕套\n30 天试睡',
+    pOffers: '下单送旅行收纳袋，规则以直播间页面为准',
+    pIndustry: '家居',
+    pStyle: '专业'
+  };
+  var DEFAULT_BANNED = ['最', '第一', '100%', '绝对', '顶级', '国家级', '唯一', '永久', '万能', '秒杀', '全网最低'];
+  var VOICE_NAMES = {
+    'zh-CN-XiaoxiaoNeural': '女声 · 温柔', 'zh-CN-XiaoyiNeural': '女声 · 活泼',
+    'zh-CN-YunxiNeural': '男声 · 青年', 'zh-CN-YunjianNeural': '男声 · 沉稳'
+  };
+  var DEMO_SEGMENTS = [
+    { stage: '开场', title: '开场留人', text: '欢迎来到直播间，真人主播全程在线，今天这场是云端护颈枕专场，有问题直接打在公屏上。', sec: 20 },
+    { stage: '开场', title: '本场说明', text: '今天不做无人直播，所有介绍都由主播本人完成，AI 只帮我提词和整理问题。', sec: 18 },
+    { stage: '产品介绍', title: '一句话卖点', text: '云端护颈枕先一句话说清楚：慢回弹记忆棉，托住脖子不塌陷，久坐也能放松。', sec: 30 },
+    { stage: '产品介绍', title: '核心卖点一', text: '第一点看慢回弹记忆棉，按下去慢慢回弹，靠上去是托住的感觉，不是硬顶。', sec: 30 },
+    { stage: '产品介绍', title: '核心卖点二', text: '第二点看可拆洗针织枕套，贴脸的部分能拆下来洗，日常打理省心。', sec: 28 },
+    { stage: '产品介绍', title: '价格说明', text: '价格这块，直播间的到手价是 129 元，最终以直播间页面实时显示为准。', sec: 25 },
+    { stage: '答疑', title: '欢迎提问', text: '接下来集中答疑，弹幕里的问题我一条条看到，没念到的可以再发一次。', sec: 20 },
+    { stage: '答疑', title: '发货答疑', text: '发货时效以商品页面公示为准，拍下后按订单顺序安排，急用的先看详情页说明。', sec: 25 },
+    { stage: '逼单', title: '理性引导', text: '觉得合适的现在可以拍，不确定就先收藏，别冲动，按需下单最稳妥。', sec: 22 },
+    { stage: '换品', title: '换品预告', text: '这款先讲到这，下一款我们换个方向，同样是真人主播讲解，稍等两分钟。', sec: 20 },
+    { stage: '结束', title: '合规收尾', text: '本场由真人主播完成，AI 提供提词辅助，内容按平台规则标识；我们下次直播见。', sec: 18 }
+  ];
+
+  var state = {
+    segments: [], idx: 0, playing: false, auto: true,
+    segElapsed: 0, tickTimer: null, startedAt: Date.now(),
+    replyBusy: false, heat: 40, danmuCount: 0, currentScript: null,
+    rhythmLeft: 300, rhythmPaused: false, rhythmCount: 0
+  };
+
+  /* ---------------- 工具 ---------------- */
+  function toast(msg) {
+    var t = $('toast'); if (!t) { return; }
+    t.textContent = msg; t.classList.add('show');
+    clearTimeout(toast._t);
+    toast._t = setTimeout(function () { t.classList.remove('show'); }, 2600);
+  }
+  function esc(s) {
+    return String(s == null ? '' : s).replace(/[&<>"']/g, function (c) {
+      return { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c];
+    });
+  }
+  function pad(n) { return (n < 10 ? '0' : '') + n; }
+  function fmtClock(sec) {
+    sec = Math.max(0, Math.floor(sec));
+    return pad(Math.floor(sec / 3600)) + ':' + pad(Math.floor(sec % 3600 / 60)) + ':' + pad(sec % 60);
+  }
+  function fmtMMSS(sec) { sec = Math.max(0, Math.floor(sec)); return pad(Math.floor(sec / 60)) + ':' + pad(sec % 60); }
+  function safeGet(k) { try { return localStorage.getItem(k); } catch (e) { return null; } }
+  function safeSet(k, v) { try { localStorage.setItem(k, v); } catch (e) {} }
+  function warn(msg) { try { console.warn('[live-copilot]', msg); } catch (e) {} }
+
+  function apiBase() {
+    try {
+      var q = new URLSearchParams(location.search).get('api');
+      if (q) { return q.replace(/\/+$/, ''); }
+      var saved = safeGet(LS.api);
+      if (saved) { return saved.replace(/\/+$/, ''); }
+    } catch (e) {}
+    var p = '/';
+    try { p = location.pathname; } catch (e) {}
+    var mark = p.indexOf('/ai-nav/');
+    if (mark >= 0) { return p.slice(0, mark + 8) + 'api/live'; }
+    return '/api/live';
+  }
+
+  function api(path, opt) {
+    opt = opt || {};
+    var ctl = new AbortController();
+    var timer = setTimeout(function () { ctl.abort(); }, opt.timeout || 120000);
+    var p = fetch(apiBase() + path, {
+      method: opt.method || 'GET',
+      headers: { 'Content-Type': 'application/json' },
+      body: opt.body ? JSON.stringify(opt.body) : undefined,
+      signal: ctl.signal,
+      cache: 'no-store'
+    }).then(function (r) {
+      return r.json().catch(function () { return null; }).then(function (j) {
+        if (!r.ok) {
+          var msg = (j && (j.hint || j.error)) || ('HTTP ' + r.status);
+          var err = new Error(msg); err.payload = j; throw err;
+        }
+        return j;
+      });
+    });
+    return p.finally(function () { clearTimeout(timer); });
+  }
+
+  /* ---------------- 商品信息持久化 ---------------- */
+  var FIELDS = ['pName', 'pPrice', 'pPoints', 'pOffers', 'pIndustry', 'pBanned', 'pStyle'];
+  function productForm() {
+    var out = {};
+    FIELDS.forEach(function (id) { var el = $(id); if (el) { out[id] = el.value; } });
+    return out;
+  }
+  function saveProduct() {
+    try { safeSet(LS.product, JSON.stringify(productForm())); } catch (e) {}
+  }
+  function restoreProduct() {
+    var raw = safeGet(LS.product), d = null, first = false;
+    try { d = raw ? JSON.parse(raw) : null; } catch (e) { d = null; }
+    if (!d || typeof d !== 'object') { d = DEFAULT_PRODUCT; first = true; }
+    FIELDS.forEach(function (id) {
+      var el = $(id); if (!el) { return; }
+      if (d && typeof d[id] === 'string' && d[id].trim()) { el.value = d[id]; }
+    });
+    if (first) { saveProduct(); }
+    if (!($('pBanned').value || '').trim()) { $('pBanned').value = DEFAULT_BANNED.join('、'); }
+  }
+  function productPayload() {
+    var points = ($('pPoints').value || '').split(/\n+/).map(function (s) { return s.trim(); }).filter(Boolean);
+    var banned = ($('pBanned').value || '').split(/[、,，;；\s]+/).map(function (s) { return s.trim(); }).filter(Boolean);
+    return {
+      name: ($('pName').value || '').trim(),
+      price: ($('pPrice').value || '').trim(),
+      selling_points: points,
+      offers: ($('pOffers').value || '').trim(),
+      banned_words: banned
+    };
+  }
+
+  /* ---------------- 提词器 ---------------- */
+  function renderSeg() {
+    var segs = state.segments, n = segs.length;
+    var countEl = $('segCount'), stageEl = $('segStage'), titleEl = $('segTitle'),
+      textEl = $('bigText'), progEl = $('segProgressBar').firstElementChild,
+      timerEl = $('segTimerBar').firstElementChild, flagsEl = $('segFlags'),
+      secEl = $('segSec');
+    if (!n) {
+      stageEl.textContent = '等待生成'; titleEl.textContent = '主播提词';
+      textEl.className = 'ptext dim';
+      textEl.innerHTML = '在左侧填写商品/活动信息，点「生成话术池（≥20 段）」。<br>生成后可空格暂停、→ 下一段、← 上一段，也可自动轮播。';
+      countEl.textContent = '第 0 / 0 段'; progEl.style.width = '0%'; timerEl.style.width = '0%';
+      flagsEl.innerHTML = ''; secEl.textContent = '—'; return;
+    }
+    if (state.idx < 0) { state.idx = 0; }
+    if (state.idx >= n) { state.idx = n - 1; }
+    var seg = segs[state.idx];
+    stageEl.textContent = seg.stage || '提词';
+    titleEl.textContent = seg.title || '提词';
+    textEl.className = 'ptext';
+    textEl.textContent = seg.text || '';
+    countEl.textContent = '第 ' + (state.idx + 1) + ' / ' + n + ' 段';
+    progEl.style.width = (((state.idx + 1) / n) * 100).toFixed(1) + '%';
+    timerEl.style.width = Math.min(100, (state.segElapsed / Math.max(1, seg.sec || 25)) * 100).toFixed(1) + '%';
+    secEl.textContent = String(seg.sec || 25);
+    var flags = [];
+    if (seg.price_risk && seg.price_risk.length) {
+      flags.push('<span class="tag amber">价格承诺风险：' + esc(seg.price_risk.join('、')) + '（主播人工确认）</span>');
+    }
+    if (seg.compliance && seg.compliance.count) {
+      flags.push('<span class="tag amber">已过滤极限词 ' + seg.compliance.count + ' 处</span>');
+    }
+    if (seg.compliance && seg.compliance.safe === false) {
+      flags.push('<span class="tag red">仍有极限词，请修改</span>');
+    }
+    flagsEl.innerHTML = flags.join('') || '<span class="tag green">合规提词</span>';
+  }
+  function tickSeg() {
+    if (!state.playing || !state.segments.length) { return; }
+    state.segElapsed += 1;
+    var seg = state.segments[state.idx] || { sec: 25 };
+    var dur = Math.max(5, (seg.sec || 25) / state.speedFactor());
+    if (state.segElapsed >= dur) {
+      if (state.auto) { nextSeg(); } else { setPlaying(false); }
+      return;
+    }
+    var pct = Math.min(100, state.segElapsed / dur * 100);
+    var tEl = $('segTimerBar').firstElementChild;
+    if (tEl) { tEl.style.width = pct.toFixed(1) + '%'; }
+  }
+  state.speedFactor = function () {
+    var v = parseFloat(($('speedSel') || {}).value || '1');
+    return isFinite(v) && v > 0 ? v : 1;
+  };
+  function setPlaying(on) {
+    state.playing = !!on;
+    var b = $('playBtn');
+    if (b) { b.textContent = state.playing ? '⏸ 暂停提词' : '▶ 开始提词'; }
+    if (state.playing) { state.segElapsed = 0; } else { state.segElapsed = 0; }
+    renderSeg();
+  }
+  function nextSeg() {
+    if (!state.segments.length) { return; }
+    state.idx = (state.idx + 1) % state.segments.length;
+    state.segElapsed = 0;
+    renderSeg();
+  }
+  function prevSeg() {
+    if (!state.segments.length) { return; }
+    state.idx = (state.idx - 1 + state.segments.length) % state.segments.length;
+    state.segElapsed = 0;
+    renderSeg();
+  }
+  function setSegments(segs, meta) {
+    state.segments = Array.isArray(segs) ? segs.slice(0, 40) : [];
+    state.idx = 0; state.segElapsed = 0;
+    if (meta) { state.currentScript = meta; }
+    if (state.segments.length) { setPlaying(true); }
+    renderSeg();
+  }
+
+  /* ---------------- 生成话术 ---------------- */
+  function genStatus(msg, cls) {
+    var el = $('genStatus'); if (!el) { return; }
+    el.innerHTML = msg;
+    el.style.color = cls === 'err' ? 'var(--amber)' : '';
+  }
+  function markEngine(badge) {
+    var el = $('enginePill'); if (el) { el.textContent = badge; el.className = 'tag ' + (badge === 'DeepSeek' ? 'violet' : 'cyan'); }
+  }
+  function genScript() {
+    var p = productPayload();
+    if (!p.name) { genStatus('请先填写商品/活动名称。', 'err'); ($('pName') || {}).focus && $('pName').focus(); return; }
+    var btn = $('genBtn');
+    if (btn.disabled) { return; }
+    btn.disabled = true;
+    genStatus('生成中…（约 10–30 秒，AI 正在写 ≥20 段合规话术）');
+    api('/script', {
+      method: 'POST', timeout: 150000,
+      body: { product: p, style: ($('pStyle').value || '专业'), industry: ($('pIndustry').value || '').trim() }
+    }).then(function (j) {
+      var sc = j && j.script; if (!sc || !sc.segments || !sc.segments.length) { throw new Error('AI 未返回话术'); }
+      setSegments(sc.segments, { script_id: j.script_id, product: sc.product, style: sc.style, count: j.count, engine: sc.engine, at: Date.now() });
+      markEngine(sc.engine === 'deepseek' ? 'DeepSeek' : '合规模板');
+      var comp = sc.compliance || {};
+      var safePill = $('safePill');
+      if (safePill) {
+        safePill.textContent = comp.safe ? '合规检查 · 通过' : '合规检查 · 有风险';
+        safePill.className = 'tag ' + (comp.safe ? 'green' : 'red');
+      }
+      var det = $('complianceDetail');
+      if (det) {
+        det.innerHTML = '<b>生成结果：</b>' + esc(comp.verdict || '') +
+          '；已过滤极限词 <b>' + (comp.fixed_count || 0) + '</b> 处；价格承诺风险 <b>' + (comp.price_risk_count || 0) + '</b> 处' +
+          (comp.price_risk_count ? '（请主播人工确认，不要照念承诺）' : '') +
+          (sc.note ? '；' + esc(sc.note) : '');
+      }
+      genStatus('已生成 <b>' + j.count + '</b> 段话术 · 引擎 ' + esc(sc.engine) + ' · 已开始提词');
+      toast('话术池已生成：' + j.count + ' 段');
+      renderBannedChips();
+    }).catch(function (err) {
+      genStatus('生成失败：' + esc(err.message || '网络异常') + '。可先点「载入示例」体验，或检查接口设置。', 'err');
+      warn(err);
+    }).finally(function () { btn.disabled = false; });
+  }
+  function loadDemo() {
+    var p = productPayload();
+    setSegments(DEMO_SEGMENTS.map(function (s) { return Object.assign({}, s, { compliance: { safe: true, count: 0, hits: [] }, price_risk: [] }); }),
+      { product: p.name || '示例商品', style: $('pStyle').value, count: DEMO_SEGMENTS.length, engine: 'demo', at: Date.now() });
+    markEngine('示例数据');
+    genStatus('已载入示例提词（' + DEMO_SEGMENTS.length + ' 段）。接好接口后点「生成话术池」可用 AI 实时生成。');
+    toast('已载入示例提词');
+  }
+
+  /* ---------------- 弹幕 / 建议回复 ---------------- */
+  function localIntent(text) {
+    var s = String(text || '');
+    if (/(发货|快递|物流|什么时候发|多久到|几天到|包邮|运费|顺丰)/.test(s)) { return '发货'; }
+    if (/(多少钱|价格|啥价|几块|怎么卖|什么价|贵)/.test(s)) { return '问价'; }
+    if (/(优惠|券|折扣|满减|活动|赠品|便宜点|少点)/.test(s)) { return '优惠'; }
+    if (/(质量|材质|用料|做工|正品|真假|保修|售后|退换|耐用|效果|好用)/.test(s)) { return '质量'; }
+    return '其他';
+  }
+  function localReplies(danmu) {
+    var p = productPayload();
+    var intent = localIntent(danmu);
+    var price = p.price || '以直播间页面实时显示为准';
+    var pts = (p.selling_points || []).slice(0, 2).join('、') || '用料与做工';
+    var offers = p.offers || '以直播间页面实时显示为准';
+    var replies;
+    if (intent === '问价') { replies = ['这款直播间到手价 ' + price + '，最终以直播间页面实时显示为准。', '价格和优惠都在下单页面写清楚，拍之前可以再核对一遍，按需下单就好。']; }
+    else if (intent === '优惠') { replies = ['优惠信息是' + offers + '，规则以直播间页面为准。', '想确认具体能减多少，我把页面活动再念一遍，大家对着看。']; }
+    else if (intent === '质量') { replies = ['质量重点看' + pts + '，具体细节我拿在手上给大家看。', '你关心哪个部分，具体打在公屏，我一条条拆开讲。']; }
+    else if (intent === '发货') { replies = ['发货时效以商品页面公示为准，拍下后按订单顺序安排。', '急用的朋友先看详情页物流说明，有异常我帮你去问客服确认。']; }
+    else { replies = ['收到，这个问题主播记下了，稍后统一回答；先说说' + (p.name || '这款商品') + '的核心卖点。', '没听清的话可以再发一条关键词，我按顺序一条条回。']; }
+    return { intent: intent, replies: replies.map(function (t) { return { text: t, local: true }; }), heat: 52, tip: '接口未连通，本条为本地合规规则话术。', engine: 'local-rules' };
+  }
+  function addDanmu(text) {
+    state.danmuCount += 1;
+    var list = $('danmuList');
+    var empty = list.querySelector('.hint');
+    if (empty) { list.innerHTML = ''; }
+    var time = new Date();
+    var item = document.createElement('div');
+    item.className = 'dm';
+    item.innerHTML = '<b>' + esc(text) + '</b><small>' + pad(time.getHours()) + ':' + pad(time.getMinutes()) + ':' + pad(time.getSeconds()) + '</small>';
+    list.appendChild(item);
+    while (list.children.length > 12) { list.removeChild(list.firstElementChild); }
+    list.scrollTop = list.scrollHeight;
+    bumpHeat(4);
+  }
+  function bumpHeat(delta) {
+    state.heat = Math.max(0, Math.min(100, state.heat + delta));
+    paintHeat();
+  }
+  function paintHeat() {
+    var n = Math.round(state.heat);
+    var num = $('heatNum'), bar = $('heatBar').firstElementChild, lv = $('heatLevel');
+    if (!num) { return; }
+    num.textContent = n; bar.style.width = n + '%';
+    var label = n >= 80 ? '互动热度 · 火爆' : n >= 60 ? '互动热度 · 活跃' : n >= 40 ? '互动热度 · 平稳' : '互动热度 · 平缓';
+    lv.textContent = label;
+    num.style.color = n >= 80 ? 'var(--red)' : n >= 60 ? 'var(--amber)' : 'var(--green)';
+  }
+  function renderReplies(data, offline) {
+    var box = $('replyList');
+    box.innerHTML = '';
+    var intent = data.intent || '其他';
+    var replies = data.replies || [];
+    var ip = $('intentPill');
+    if (ip) { ip.innerHTML = '<span class="tag violet">意图：' + esc(intent) + '</span>' + (offline ? ' <span class="tag amber">本地规则</span>' : ' <span class="tag cyan">AI 建议</span>'); }
+    replies.forEach(function (r) {
+      var text = typeof r === 'string' ? r : (r.text || '');
+      var card = document.createElement('div');
+      card.className = 'reply';
+      var warnHtml = '';
+      if (r && r.price_risk && r.price_risk.length) {
+        warnHtml = '<span class="warn">价格承诺风险，请人工确认</span>';
+      }
+      card.innerHTML =
+        '<div class="rt">' + esc(text) + '</div>' +
+        '<div class="ra"><span class="intent">' + esc(intent) + '</span>' + warnHtml +
+        '<span class="grow" style="flex:1"></span>' +
+        '<button class="btn sm ghost" data-act="copy" type="button">复制</button>' +
+        '<button class="btn sm ghost" data-act="done" type="button">已念</button></div>';
+      card.querySelector('[data-act="copy"]').addEventListener('click', function () { copyText(text); });
+      card.querySelector('[data-act="done"]').addEventListener('click', function () {
+        card.classList.toggle('done');
+        toast(card.classList.contains('done') ? '已标记为已念' : '已取消标记');
+      });
+      box.appendChild(card);
+    });
+    if (!replies.length) { box.innerHTML = '<div class="reply-empty">暂无建议回复，请再试一次。</div>'; }
+    var tip = $('replyTip');
+    if (tip) {
+      tip.innerHTML = (data.tip ? '主播小提示：' + esc(data.tip) + '。' : '') +
+        'AI 建议仅供参考：价格、库存、时效以平台页面为准，主播确认后再念，AI 不代主播承诺。';
+    }
+    if (typeof data.heat === 'number') {
+      state.heat = Math.max(state.heat, Math.min(100, Math.round(data.heat * 0.7 + state.heat * 0.3)));
+      paintHeat();
+    }
+  }
+  function askReply(text) {
+    var danmu = String(text == null ? ($('danmuInput').value || '') : text).trim();
+    if (!danmu) { toast('请先输入或粘贴一条弹幕'); return; }
+    if (state.replyBusy) { return; }
+    state.replyBusy = true;
+    addDanmu(danmu);
+    $('danmuInput').value = '';
+    var st = $('replyStatus'); if (st) { st.textContent = 'AI 正在整理建议回复…'; }
+    var list = $('replyList');
+    list.innerHTML = '<div class="reply-empty">AI 正在想 1–3 条可直接念的回复…</div>';
+    var p = productPayload();
+    api('/reply', {
+      method: 'POST', timeout: 60000,
+      body: { danmu: danmu, product: p, history: [] }
+    }).then(function (j) {
+      renderReplies(j, false);
+      if (st) { st.textContent = '意图：' + (j.intent || '其他') + ' · 建议 ' + (j.replies || []).length + ' 条'; }
+      bumpHeat(6);
+    }).catch(function (err) {
+      var fb = localReplies(danmu);
+      renderReplies(fb, true);
+      if (st) { st.textContent = 'AI 接口未连通，已给本地规则话术'; }
+      warn(err);
+    }).finally(function () { state.replyBusy = false; });
+  }
+  function copyText(text) {
+    try {
+      if (navigator.clipboard && navigator.clipboard.writeText) {
+        navigator.clipboard.writeText(text).then(function () { toast('已复制，可直接念'); }, function () { legacyCopy(text); });
+        return;
+      }
+    } catch (e) {}
+    legacyCopy(text);
+  }
+  function legacyCopy(text) {
+    try {
+      var ta = document.createElement('textarea');
+      ta.value = text; ta.style.position = 'fixed'; ta.style.opacity = '0';
+      document.body.appendChild(ta); ta.select(); document.execCommand('copy');
+      document.body.removeChild(ta); toast('已复制，可直接念');
+    } catch (e) { toast('复制失败，请手动选择文本'); }
+  }
+
+  /* ---------------- TTS ---------------- */
+  function ttsStatus(msg, isErr) {
+    var el = $('ttsStatus'); if (!el) { return; }
+    el.textContent = msg;
+    el.className = 'tts-status' + (isErr ? ' err' : '');
+  }
+  function ttsPreview() {
+    var text = ($('ttsText').value || '').trim();
+    if (!text) { ttsStatus('请先填写或点「填入当前提词」。', true); return; }
+    if (text.length > 120) { text = text.slice(0, 120); $('ttsText').value = text; }
+    var btn = $('ttsBtn'); if (btn.disabled) { return; }
+    btn.disabled = true; ttsStatus('合成中…');
+    api('/tts', { method: 'POST', timeout: 90000, body: { text: text, voice: $('voiceSel').value } })
+      .then(function (j) {
+        var audio = $('ttsAudio');
+        var url = j.url || '';
+        if (url && url.indexOf('http') !== 0 && apiBase().indexOf('http') === 0) {
+          try { url = new URL(apiBase()).origin + url; } catch (e) {}
+        }
+        audio.src = url;
+        audio.play().catch(function () { warn('audio autoplay blocked'); });
+        ttsStatus('已合成：' + (VOICE_NAMES[j.voice] || j.voice) + ' · ' + (j.size_kb || '?') + ' KB · AI 合成音需标识');
+      }).catch(function (err) {
+        ttsStatus('语音合成失败（' + esc(err.message || '网络异常') + '），可稍后重试。', true);
+        warn(err);
+      }).finally(function () { btn.disabled = false; });
+  }
+
+  /* ---------------- 话术库 ---------------- */
+  function libList() {
+    var raw = safeGet(LS.lib), arr = [];
+    try { arr = raw ? JSON.parse(raw) : []; } catch (e) { arr = []; }
+    if (!Array.isArray(arr)) { arr = []; }
+    return arr;
+  }
+  function renderLib() {
+    var arr = libList(), box = $('libList'), cnt = $('libCount');
+    if (cnt) { cnt.textContent = '已保存 ' + arr.length + ' 套'; }
+    if (!box) { return; }
+    if (!arr.length) { box.innerHTML = '<div class="hint">还没有保存的话术。生成后可点「保存当前话术」，按行业/商品复用。</div>'; return; }
+    box.innerHTML = '';
+    arr.slice(0, 12).forEach(function (it) {
+      var div = document.createElement('div');
+      div.className = 'lib-item';
+      div.innerHTML = '<div class="lm"><b>' + esc(it.product || '未命名') + '</b><span>' +
+        esc(it.style || '') + ' · ' + (it.count || 0) + ' 段 · ' + esc((it.savedAt || '').replace('T', ' ').slice(0, 16)) + '</span></div>' +
+        '<button class="btn sm" data-act="load" type="button">载入</button>' +
+        '<button class="btn sm ghost" data-act="del" type="button">删</button>';
+      div.querySelector('[data-act="load"]').addEventListener('click', function () {
+        setSegments(it.segments || [], { product: it.product, style: it.style, count: it.count, engine: 'library', at: Date.now() });
+        markEngine('话术库');
+        fillProductFromLib(it);
+        toast('已载入话术库：' + (it.product || '未命名'));
+      });
+      div.querySelector('[data-act="del"]').addEventListener('click', function () {
+        var next = libList().filter(function (x) { return x.id !== it.id; });
+        safeSet(LS.lib, JSON.stringify(next)); renderLib(); toast('已删除该套话术');
+      });
+      box.appendChild(div);
+    });
+  }
+  function fillProductFromLib(it) {
+    if (it.product && !($('pName').value || '').trim()) { $('pName').value = it.product; }
+    if (it.style) { $('pStyle').value = it.style; }
+    saveProduct();
+  }
+  function saveCurrentLib() {
+    if (!state.segments.length) { toast('还没有话术可保存，请先生成或载入'); return; }
+    var p = productPayload();
+    var arr = libList();
+    arr.unshift({
+      id: 'lib-' + Date.now(),
+      product: p.name || (state.currentScript && state.currentScript.product) || '未命名商品',
+      industry: p.industry || '', style: $('pStyle').value,
+      count: state.segments.length,
+      savedAt: new Date().toISOString(),
+      segments: state.segments
+    });
+    safeSet(LS.lib, JSON.stringify(arr.slice(0, 20)));
+    renderLib();
+    toast('已保存到本机话术库（' + p.name + '）');
+  }
+
+  /* ---------------- 节奏计时 ---------------- */
+  function paintRhythm() {
+    var t = $('rhythmTime'), bar = $('rhythmBar'), cnt = $('rhythmCount');
+    if (!t) { return; }
+    t.textContent = fmtMMSS(state.rhythmLeft);
+    if (bar) { bar.style.width = (state.rhythmLeft / 300 * 100).toFixed(1) + '%'; }
+    if (cnt) { cnt.textContent = '已提醒 ' + state.rhythmCount + ' 次'; }
+  }
+  function rhythmTick() {
+    if (state.rhythmPaused) { return; }
+    state.rhythmLeft -= 1;
+    if (state.rhythmLeft <= 0) {
+      state.rhythmCount += 1;
+      state.rhythmLeft = 300;
+      var t = $('rhythmTime');
+      if (t) { t.classList.add('flash'); setTimeout(function () { t.classList.remove('flash'); }, 3000); }
+      toast('节奏提醒：该引导一次互动（提问/扣 1）或准备换品了');
+      try { if (window.Notification && Notification.permission === 'granted') { new Notification('AI 直播助播 · 节奏提醒', { body: '该引导互动或准备换品了' }); } } catch (e) {}
+      bumpHeat(2);
+    }
+    paintRhythm();
+  }
+  function toggleRhythm() {
+    state.rhythmPaused = !state.rhythmPaused;
+    var b = $('rhythmPause'); if (b) { b.textContent = state.rhythmPaused ? '继续' : '暂停'; }
+    toast(state.rhythmPaused ? '节奏计时已暂停' : '节奏计时继续');
+  }
+  function resetRhythm() {
+    state.rhythmLeft = 300; state.rhythmPaused = false;
+    var b = $('rhythmPause'); if (b) { b.textContent = '暂停'; }
+    paintRhythm(); toast('节奏计时已重置为 5:00');
+  }
+
+  /* ---------------- 禁用词 chips / 合规 ---------------- */
+  function renderBannedChips() {
+    var box = $('bannedChips'); if (!box) { return; }
+    var words = ($('pBanned').value || '').split(/[、,，;；\s]+/).map(function (s) { return s.trim(); }).filter(Boolean).slice(0, 14);
+    box.innerHTML = words.map(function (w) { return '<span>' + esc(w) + '</span>'; }).join('');
+  }
+
+  /* ---------------- 顶栏时钟 / 健康检查 ---------------- */
+  function clockTick() {
+    var el = $('liveClock');
+    if (el) { el.textContent = fmtClock((Date.now() - state.startedAt) / 1000); }
+  }
+  function checkApi() {
+    var dot = $('apiDot'), txt = $('apiText');
+    if (dot) { dot.className = 'dot'; }
+    if (txt) { txt.textContent = 'AI 服务检测中…'; }
+    api('/health', { timeout: 9000 }).then(function (j) {
+      if (dot) { dot.className = 'dot ok'; }
+      if (txt) {
+        txt.textContent = 'AI 已连通 · ' + (j.llm ? '模型就绪' : '模型未配置') + ' · ' + (j.tts ? 'TTS 就绪' : 'TTS 不可用');
+      }
+    }).catch(function (err) {
+      if (dot) { dot.className = 'dot bad'; }
+      if (txt) { txt.textContent = 'AI 未连通（可先用示例体验）'; }
+      warn(err);
+    });
+  }
+
+  /* ---------------- 模态 ---------------- */
+  function openModal(id) { var m = $(id); if (m) { m.classList.add('open'); } }
+  function closeModal(id) { var m = $(id); if (m) { m.classList.remove('open'); } }
+
+  /* ---------------- 初始化 ---------------- */
+  function bind() {
+    restoreProduct();
+    renderBannedChips(); paintHeat(); paintRhythm(); renderSeg(); renderLib();
+
+    FIELDS.forEach(function (id) { var el = $(id); if (el) { el.addEventListener('input', saveProduct); el.addEventListener('change', saveProduct); } });
+    $('pBanned').addEventListener('input', renderBannedChips);
+    $('genBtn').addEventListener('click', genScript);
+    $('demoBtn').addEventListener('click', loadDemo);
+
+    $('prevBtn').addEventListener('click', function () { prevSeg(); });
+    $('nextBtn').addEventListener('click', function () { nextSeg(); });
+    $('playBtn').addEventListener('click', function () { setPlaying(!state.playing); });
+    $('autoChk').addEventListener('change', function () { state.auto = !!$('autoChk').checked; toast(state.auto ? '自动轮播已开启' : '自动轮播已关闭'); });
+    $('speedSel').addEventListener('change', function () { state.segElapsed = 0; });
+
+    $('askBtn').addEventListener('click', function () { askReply(); });
+    $('danmuInput').addEventListener('keydown', function (e) {
+      if (e.key === 'Enter' && !e.shiftKey) { e.preventDefault(); askReply(); }
+    });
+    Array.prototype.forEach.call(document.querySelectorAll('.chip[data-danmu]'), function (c) {
+      c.addEventListener('click', function () { askReply(c.getAttribute('data-danmu')); });
+    });
+
+    $('ttsBtn').addEventListener('click', ttsPreview);
+    $('ttsFillBtn').addEventListener('click', function () {
+      var seg = state.segments[state.idx];
+      if (!seg) { toast('还没有提词内容'); return; }
+      $('ttsText').value = (seg.text || '').slice(0, 120);
+      toast('已填入当前提词');
+    });
+    $('ttsAudio').addEventListener('error', function () {
+      if ($('ttsAudio').getAttribute('src')) { ttsStatus('试听文件已生成；本地预览地址不可直接播放，生产环境正常。', true); }
+    });
+
+    $('saveLibBtn').addEventListener('click', saveCurrentLib);
+    $('rhythmPause').addEventListener('click', toggleRhythm);
+    $('rhythmReset').addEventListener('click', resetRhythm);
+
+    $('btnGuide').addEventListener('click', function () { openModal('guideModal'); });
+    $('btnSettings').addEventListener('click', function () {
+      $('apiInput').value = safeGet(LS.api) || '';
+      $('apiDefault').textContent = apiBase();
+      openModal('settingsModal');
+    });
+    $('apiSaveBtn').addEventListener('click', function () {
+      var v = ($('apiInput').value || '').trim();
+      if (v) { safeSet(LS.api, v.replace(/\/+$/, '')); } else { try { localStorage.removeItem(LS.api); } catch (e) {} }
+      closeModal('settingsModal'); checkApi(); toast('接口设置已保存');
+    });
+    $('apiResetBtn').addEventListener('click', function () {
+      try { localStorage.removeItem(LS.api); } catch (e) {}
+      $('apiInput').value = ''; closeModal('settingsModal'); checkApi(); toast('已恢复默认接口');
+    });
+    Array.prototype.forEach.call(document.querySelectorAll('[data-close]'), function (b) {
+      b.addEventListener('click', function () { closeModal(b.getAttribute('data-close')); });
+    });
+    Array.prototype.forEach.call(document.querySelectorAll('.modal'), function (m) {
+      m.addEventListener('click', function (e) { if (e.target === m) { m.classList.remove('open'); } });
+    });
+
+    document.addEventListener('keydown', function (e) {
+      var tag = (e.target && e.target.tagName) || '';
+      if (tag === 'INPUT' || tag === 'TEXTAREA' || tag === 'SELECT' || (e.target && e.target.isContentEditable)) { return; }
+      if (e.code === 'Space') { e.preventDefault(); setPlaying(!state.playing); }
+      else if (e.key === 'ArrowRight' || e.key === 'ArrowDown') { e.preventDefault(); nextSeg(); }
+      else if (e.key === 'ArrowLeft' || e.key === 'ArrowUp') { e.preventDefault(); prevSeg(); }
+      else if (e.key === 'a' || e.key === 'A') {
+        state.auto = !state.auto; var c = $('autoChk'); if (c) { c.checked = state.auto; }
+        toast(state.auto ? '自动轮播已开启' : '自动轮播已关闭');
+      }
+    });
+
+    window.addEventListener('beforeunload', function () {
+      if (state.tickTimer) { clearInterval(state.tickTimer); }
+    });
+
+    renderBannedChips();
+    checkApi();
+    state.tickTimer = setInterval(function () { tickSeg(); rhythmTick(); clockTick(); }, 1000);
+    clockTick();
+    window.__LIVE_READY__ = true;
+  }
+
+  function measureBanner() {
+    var b = $('cfBanner'), top = document.querySelector('.top');
+    if (!b) { return; }
+    var apply = function () {
+      try {
+        document.documentElement.style.setProperty('--cfh', b.offsetHeight + 'px');
+        if (top) { document.documentElement.style.setProperty('--hh', top.offsetHeight + 'px'); }
+      } catch (e) {}
+    };
+    apply();
+    if (window.ResizeObserver) {
+      try { var ro = new ResizeObserver(apply); ro.observe(b); if (top) { ro.observe(top); } } catch (e) {}
+    }
+    window.addEventListener('resize', apply);
+    window.addEventListener('load', apply);
+  }
+
+  try {
+    if (document.readyState === 'loading') {
+      document.addEventListener('DOMContentLoaded', function () { measureBanner(); bind(); });
+    } else {
+      measureBanner(); bind();
+    }
+  } catch (err) {
+    console.warn('[live-copilot] init failed', err);
+    window.__LIVE_ERRORS__.push('init:' + String(err));
+  }
+})();
+</script>
+</body>
+</html>
