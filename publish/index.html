@@ -1,0 +1,3155 @@
+<!DOCTYPE html>
+<html lang="zh-CN" data-page="publish">
+<head><meta name="robots" content="noindex,nofollow"><meta name="googlebot" content="noindex,nofollow">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="color-scheme" content="dark">
+<meta name="theme-color" content="#070b12">
+<title>短剧发行中心 · 发行向导/平台规格/海外字幕 · 星籁 AI</title>
+<meta name="description" content="星籁短剧发行中心：短剧列表、分步发行向导、6 大平台发布清单、发行包下载、多语言字幕与配音、发行数据看板与全流程 SOP。不做自动发布与爬虫，所有平台发布由人工完成。">
+<link rel="canonical" href="https://xinglaiai.com/ai-nav/publish/">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='15' fill='%23070a10'/%3E%3Ctext x='32' y='45' font-size='34' text-anchor='middle' fill='%2338bdf8'%3E%E2%9C%A6%3C/text%3E%3C/svg%3E">
+<style>
+:root{
+  --bg:#070b12;--bg2:#0a101b;--panel:#0d1420;--panel2:#111b2b;--panel3:#0b1220;
+  --line:rgba(148,163,184,.16);--line2:rgba(148,163,184,.3);
+  --txt:#e6eef8;--txt2:#9fb0c6;--txt3:#6b7d96;--txt4:#4d6079;
+  --cyan:#38bdf8;--cyan2:#22d3ee;--violet:#a78bfa;--green:#34d399;--amber:#fbbf24;--pink:#f472b6;--red:#fb7185;
+  --radius:14px;--shadow:0 22px 50px -34px rgba(0,0,0,.9);
+}
+*{box-sizing:border-box}
+html,body{margin:0;padding:0}
+body{
+  background:radial-gradient(1100px 560px at 82% -8%,rgba(56,189,248,.10),transparent 60%),
+    radial-gradient(900px 480px at 6% 2%,rgba(167,139,250,.09),transparent 58%),var(--bg);
+  color:var(--txt);font-family:-apple-system,BlinkMacSystemFont,"Segoe UI","PingFang SC","Hiragino Sans GB","Microsoft YaHei",sans-serif;
+  font-size:14.5px;line-height:1.6;-webkit-font-smoothing:antialiased;min-height:100vh;
+}
+a{color:var(--cyan);text-decoration:none}
+a:hover{text-decoration:underline}
+button,input,select,textarea{font-family:inherit}
+[hidden]{display:none!important}
+::selection{background:rgba(56,189,248,.28)}
+:focus-visible{outline:2px solid rgba(56,189,248,.65);outline-offset:2px}
+.wrap{max-width:1280px;margin:0 auto;padding:0 20px}
+.skip{position:absolute;left:-9999px;top:0;background:#0d1420;color:#fff;padding:8px 12px;z-index:99}
+.skip:focus{left:8px;top:8px}
+/* ---------- header ---------- */
+.top{position:sticky;top:0;z-index:80;backdrop-filter:blur(14px);background:rgba(7,11,18,.9);border-bottom:1px solid var(--line)}
+.top-in{max-width:1280px;margin:0 auto;padding:10px 20px;display:flex;align-items:center;gap:12px;min-height:54px}
+.logo{display:flex;align-items:center;gap:9px;font-weight:800;font-size:17px;color:var(--txt);letter-spacing:.4px;white-space:nowrap}
+.logo:hover{text-decoration:none}
+.logo .mark{width:30px;height:30px;border-radius:9px;background:linear-gradient(135deg,#0ea5e9,#6366f1);display:grid;place-items:center;color:#04121c;font-size:16px;font-weight:900;flex:0 0 auto}
+.logo em{font-style:normal;color:var(--txt3);font-weight:600;font-size:13px}
+.logo em b{color:var(--txt);font-weight:700}
+.top-right{margin-left:auto;display:flex;align-items:center;gap:10px;flex-wrap:wrap;justify-content:flex-end}
+.top-link{font-size:13px;color:var(--txt2);white-space:nowrap}
+.top-link:hover{color:var(--cyan);text-decoration:none}
+.badge-ver{font-size:11.5px;padding:3px 9px;border:1px solid rgba(56,189,248,.4);color:var(--cyan);border-radius:999px;background:rgba(56,189,248,.08);white-space:nowrap;display:inline-flex;align-items:center;gap:5px}
+.badge-ver.mock{border-color:rgba(251,191,36,.45);color:var(--amber);background:rgba(251,191,36,.09)}
+.badge-ver.live{border-color:rgba(52,211,153,.45);color:var(--green);background:rgba(52,211,153,.09)}
+.badge-ver .dot{width:6px;height:6px;border-radius:50%;background:currentColor;box-shadow:0 0 0 3px rgba(255,255,255,.06)}
+/* ---------- tabs ---------- */
+.tabs-wrap{position:sticky;top:54px;z-index:70;background:rgba(7,11,18,.82);backdrop-filter:blur(12px);border-bottom:1px solid var(--line)}
+.tabs{display:flex;gap:4px;overflow-x:auto;padding:8px 0;scrollbar-width:none;-webkit-overflow-scrolling:touch}
+.tabs::-webkit-scrollbar{display:none}
+.tab{appearance:none;border:1px solid transparent;background:transparent;color:var(--txt2);border-radius:10px;padding:7px 13px;font-size:13.5px;cursor:pointer;white-space:nowrap;display:inline-flex;align-items:center;gap:7px;transition:.14s}
+.tab:hover{color:var(--txt);background:rgba(148,163,184,.08)}
+.tab.on{color:#05121c;background:linear-gradient(135deg,var(--cyan),#818cf8);font-weight:700;box-shadow:0 8px 20px -14px rgba(56,189,248,.9)}
+.tab .n{font-size:11px;padding:0 6px;border-radius:999px;background:rgba(148,163,184,.2);color:var(--txt2);font-variant-numeric:tabular-nums}
+.tab.on .n{background:rgba(4,18,28,.18);color:#05121c}
+/* ---------- hero ---------- */
+.hero{padding:26px 0 6px}
+.hero-grid{display:grid;grid-template-columns:1.7fr .8fr;gap:20px;align-items:start}
+.eyebrow{display:inline-flex;align-items:center;gap:8px;font-size:11.5px;letter-spacing:2px;color:var(--txt3);text-transform:uppercase;margin-bottom:10px}
+.eyebrow .dot{width:6px;height:6px;border-radius:50%;background:var(--cyan);box-shadow:0 0 10px var(--cyan)}
+.hero h1{font-size:clamp(27px,4.4vw,40px);line-height:1.18;margin:0 0 6px;letter-spacing:.5px;font-weight:800}
+.hero h1 .sub{display:block;font-size:clamp(14px,1.9vw,19px);font-weight:600;color:var(--txt2);letter-spacing:.2px;margin-top:8px}
+.hero h1 em{display:block;font-style:normal;font-size:clamp(15px,2.1vw,21px);font-weight:650;letter-spacing:.4px;margin-top:7px;background:linear-gradient(92deg,#38bdf8,#a78bfa 62%,#f472b6);-webkit-background-clip:text;background-clip:text;color:transparent}
+.hero p{color:var(--txt2);max-width:780px;margin:10px 0 0;font-size:14px}
+.hero p b{color:var(--txt)}
+.hero-tags{display:flex;flex-wrap:wrap;gap:8px;margin-top:14px}
+.hero-tags span{font-size:12px;color:#bae6fd;border:1px solid rgba(56,189,248,.28);background:rgba(56,189,248,.07);border-radius:999px;padding:4px 10px}
+.hero-side{display:flex;flex-direction:column;gap:12px}
+.hero-card{border:1px solid var(--line);border-radius:var(--radius);background:linear-gradient(180deg,rgba(17,27,43,.92),rgba(11,18,32,.95));padding:14px 16px}
+.hero-card .hc-title{font-size:12.5px;color:var(--amber);font-weight:700;margin-bottom:6px}
+.hero-card ul{margin:0;padding-left:17px;color:var(--txt2);font-size:12.5px}
+.hero-card li{margin:2px 0}
+.statrow{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:10px;margin:18px 0 6px}
+.stat{position:relative;border:1px solid var(--line);border-radius:var(--radius);background:linear-gradient(180deg,rgba(17,27,43,.88),rgba(13,20,32,.9));padding:12px 15px;overflow:hidden}
+.stat::after{content:"";position:absolute;right:-18px;top:-24px;width:70px;height:70px;border-radius:50%;background:radial-gradient(circle,rgba(56,189,248,.18),transparent 70%)}
+.stat b{display:block;font-size:23px;color:var(--cyan);font-variant-numeric:tabular-nums;line-height:1.25}
+.stat span{color:var(--txt3);font-size:12.5px}
+.stat.amber b{color:var(--amber)}.stat.green b{color:var(--green)}.stat.violet b{color:var(--violet)}
+/* ---------- banner ---------- */
+.banner{display:flex;gap:10px;align-items:flex-start;border-radius:12px;padding:10px 14px;margin:14px 0 4px;font-size:13px;border:1px solid var(--line)}
+.banner.warn{background:rgba(251,191,36,.07);border-color:rgba(251,191,36,.3);color:#fde68a}
+.banner.ok{background:rgba(52,211,153,.07);border-color:rgba(52,211,153,.28);color:#a7f3d0}
+.banner.info{background:rgba(56,189,248,.07);border-color:rgba(56,189,248,.26);color:#bae6fd}
+.banner.err{background:rgba(251,113,133,.08);border-color:rgba(251,113,133,.3);color:#fecdd3}
+.banner b{color:inherit}
+.banner .bb{margin-left:auto;display:flex;gap:8px;align-items:center;flex:0 0 auto}
+/* ---------- generic ---------- */
+.view{padding:14px 0 34px}
+.panel{border:1px solid var(--line);border-radius:var(--radius);background:linear-gradient(180deg,rgba(15,23,37,.92),rgba(10,16,27,.95));box-shadow:var(--shadow);padding:18px;margin-bottom:16px;min-width:0}
+.panel-h{display:flex;align-items:flex-start;gap:12px;flex-wrap:wrap;margin-bottom:14px}
+.panel-h h2{font-size:17.5px;margin:0;letter-spacing:.2px}
+.panel-h h2 small{font-size:12px;color:var(--txt3);font-weight:500;margin-left:8px;letter-spacing:0}
+.panel-h .ph-right{margin-left:auto;display:flex;gap:8px;align-items:center;flex-wrap:wrap}
+.panel-sub{color:var(--txt3);font-size:12.5px;margin:-8px 0 14px}
+.btn{appearance:none;border:1px solid transparent;border-radius:10px;padding:9px 16px;font-size:13.5px;font-weight:650;cursor:pointer;background:linear-gradient(135deg,var(--cyan),#818cf8);color:#04121a;display:inline-flex;align-items:center;gap:7px;transition:.15s;line-height:1.25}
+.btn:hover{filter:brightness(1.08);text-decoration:none}
+.btn:active{transform:translateY(1px)}
+.btn[disabled]{opacity:.45;cursor:not-allowed;filter:none}
+.btn.ghost{background:rgba(148,163,184,.08);border-color:var(--line2);color:var(--txt);font-weight:600}
+.btn.ghost:hover{background:rgba(148,163,184,.14)}
+.btn.sm{padding:6px 11px;font-size:12.5px;border-radius:8px}
+.btn.amber{background:linear-gradient(135deg,#fbbf24,#f59e0b);color:#241a02}
+.btn.danger{background:transparent;border-color:rgba(251,113,133,.4);color:var(--red)}
+.btn .ico{font-size:14px;line-height:1}
+.field{display:flex;flex-direction:column;gap:6px;min-width:0}
+.field>label{font-size:12.5px;color:var(--txt2);font-weight:600}
+.field .hint{font-size:11.5px;color:var(--txt3)}
+.inp,select.inp,textarea.inp{width:100%;background:var(--panel3);border:1px solid var(--line);border-radius:10px;color:var(--txt);padding:9px 11px;font-size:13.5px;outline:none;transition:.14s;min-width:0}
+.inp:focus{border-color:rgba(56,189,248,.55);box-shadow:0 0 0 3px rgba(56,189,248,.1)}
+textarea.inp{resize:vertical;font-size:12.5px;line-height:1.6;font-family:ui-monospace,SFMono-Regular,Consolas,monospace}
+select.inp{appearance:none;background-image:linear-gradient(45deg,transparent 50%,var(--txt3) 50%),linear-gradient(135deg,var(--txt3) 50%,transparent 50%);background-position:calc(100% - 16px) calc(50% - 2px),calc(100% - 11px) calc(50% - 2px);background-size:5px 5px,5px 5px;background-repeat:no-repeat;padding-right:32px}
+.toolbar{display:flex;gap:10px;flex-wrap:wrap;align-items:center;margin-bottom:14px}
+.toolbar .grow{flex:1 1 220px;min-width:180px}
+.toolbar .sp{flex:0 0 auto}
+.search{position:relative}
+.search .inp{padding-left:32px}
+.search .ico{position:absolute;left:11px;top:50%;transform:translateY(-50%);color:var(--txt3);font-size:13px;pointer-events:none}
+.chip{appearance:none;border:1px solid var(--line);background:rgba(148,163,184,.05);color:var(--txt2);border-radius:999px;padding:6px 12px;font-size:12.5px;cursor:pointer;transition:.14s;white-space:nowrap}
+.chip:hover{color:var(--txt);border-color:var(--line2)}
+.chip.on{border-color:rgba(56,189,248,.6);color:var(--cyan);background:rgba(56,189,248,.14);font-weight:700}
+.chip .flag{font-size:11px;color:var(--txt3);margin-left:4px}
+.chips{display:flex;gap:8px;flex-wrap:wrap}
+.tag{display:inline-flex;align-items:center;gap:5px;font-size:11.5px;border-radius:999px;padding:2px 9px;border:1px solid var(--line);color:var(--txt2);background:rgba(148,163,184,.06);white-space:nowrap}
+.tag.cyan{color:var(--cyan);border-color:rgba(56,189,248,.35);background:rgba(56,189,248,.08)}
+.tag.green{color:#a7f3d0;border-color:rgba(52,211,153,.35);background:rgba(52,211,153,.08)}
+.tag.amber{color:#fde68a;border-color:rgba(251,191,36,.35);background:rgba(251,191,36,.08)}
+.tag.red{color:#fecdd3;border-color:rgba(251,113,133,.38);background:rgba(251,113,133,.08)}
+.tag.violet{color:#ddd6fe;border-color:rgba(167,139,250,.38);background:rgba(167,139,250,.09)}
+.sep{height:1px;background:var(--line);margin:14px 0}
+.notice{display:flex;gap:9px;align-items:flex-start;border-radius:11px;padding:10px 13px;font-size:12.5px;border:1px solid;margin:10px 0}
+.notice.amber{background:rgba(251,191,36,.06);border-color:rgba(251,191,36,.28);color:#fde68a}
+.notice.cyan{background:rgba(56,189,248,.06);border-color:rgba(56,189,248,.26);color:#bae6fd}
+.notice.red{background:rgba(251,113,133,.07);border-color:rgba(251,113,133,.3);color:#fecdd3}
+.notice b{color:inherit;font-weight:700}
+.muted{color:var(--txt3)}
+.mono{font-family:ui-monospace,SFMono-Regular,Consolas,monospace}
+.num{font-variant-numeric:tabular-nums}
+/* ---------- dramas ---------- */
+.dgrid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:14px}
+.dcard{border:1px solid var(--line);border-radius:var(--radius);overflow:hidden;background:linear-gradient(180deg,rgba(17,27,43,.94),rgba(11,18,32,.96));display:flex;flex-direction:column;min-width:0;transition:.16s}
+.dcard:hover{border-color:rgba(56,189,248,.4);box-shadow:0 22px 40px -32px rgba(56,189,248,.55);transform:translateY(-2px)}
+.dcover{position:relative;aspect-ratio:9/16;max-height:280px;overflow:hidden;background:linear-gradient(150deg,#12203a,#0a1220)}
+.dcover img{width:100%;height:100%;object-fit:cover;display:block}
+.dcover .badge-ep{position:absolute;left:9px;bottom:9px;font-size:11px;background:rgba(4,12,22,.78);border:1px solid rgba(255,255,255,.18);border-radius:999px;padding:2px 9px;backdrop-filter:blur(4px)}
+.dcover .badge-status{position:absolute;right:9px;top:9px}
+.dbody{padding:12px 13px 13px;display:flex;flex-direction:column;gap:8px;flex:1;min-width:0}
+.dbody h3{margin:0;font-size:15px;line-height:1.35;display:flex;align-items:center;gap:6px;flex-wrap:wrap}
+.dbody .meta{display:flex;flex-wrap:wrap;gap:6px;font-size:11.5px;color:var(--txt3)}
+.dbody .logline{font-size:12.5px;color:var(--txt2);display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden;min-height:38px}
+.dbody .acts{margin-top:auto;display:flex;gap:8px;flex-wrap:wrap}
+.dbody .acts .btn{flex:1 1 auto;justify-content:center}
+/* ---------- wizard ---------- */
+.stepper{display:flex;gap:0;border:1px solid var(--line);border-radius:var(--radius);background:rgba(13,20,32,.85);padding:6px;margin-bottom:16px;overflow:hidden}
+.step{flex:1 1 0;display:flex;align-items:center;gap:9px;padding:9px 12px;border-radius:10px;cursor:pointer;color:var(--txt3);min-width:0;transition:.14s;user-select:none}
+.step:hover{background:rgba(148,163,184,.07)}
+.step .no{width:25px;height:25px;border-radius:50%;display:grid;place-items:center;font-size:12.5px;font-weight:800;border:1px solid var(--line2);background:rgba(148,163,184,.08);flex:0 0 auto}
+.step .tx{min-width:0}
+.step .tx b{display:block;font-size:13px;color:var(--txt2);font-weight:650;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.step .tx span{display:block;font-size:11px;color:var(--txt4);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.step.active{background:rgba(56,189,248,.1);outline:1px solid rgba(56,189,248,.32)}
+.step.active .no{background:linear-gradient(135deg,var(--cyan),#818cf8);color:#04121a;border-color:transparent}
+.step.active .tx b{color:var(--txt)}
+.step.done .no{background:rgba(52,211,153,.16);border-color:rgba(52,211,153,.45);color:var(--green)}
+.step.done .tx b{color:var(--txt2)}
+.step.locked{cursor:not-allowed;opacity:.55}
+.step.locked:hover{background:transparent}
+.wiz-grid{display:grid;grid-template-columns:minmax(0,1fr);gap:14px}
+.pick-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:10px}
+.pick{appearance:none;text-align:left;border:1px solid var(--line);border-radius:12px;background:rgba(11,18,32,.8);padding:11px 12px;cursor:pointer;display:flex;gap:10px;align-items:center;color:var(--txt);min-width:0;transition:.14s}
+.pick:hover{border-color:var(--line2);background:rgba(20,31,49,.85)}
+.pick.on{border-color:rgba(56,189,248,.62);background:rgba(56,189,248,.1);box-shadow:0 0 0 1px rgba(56,189,248,.22) inset}
+.pick .pico{width:32px;height:32px;border-radius:9px;display:grid;place-items:center;font-size:13px;font-weight:800;color:#04121a;flex:0 0 auto}
+.pick .ptx{min-width:0}
+.pick .ptx b{display:block;font-size:13.5px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.pick .ptx span{display:block;font-size:11px;color:var(--txt3);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.pick .chk{margin-left:auto;color:var(--cyan);font-size:15px;opacity:0;flex:0 0 auto}
+.pick.on .chk{opacity:1}
+.dsel{display:flex;gap:8px;flex-wrap:wrap;max-height:224px;overflow:auto;padding:2px}
+.dsel .pick{flex:1 1 210px}
+.pick .dc-mini{width:34px;height:52px;border-radius:6px;object-fit:cover;flex:0 0 auto;border:1px solid var(--line)}
+.wiz-summary{display:flex;gap:8px;flex-wrap:wrap;align-items:center;border:1px dashed var(--line2);border-radius:11px;padding:10px 12px;margin-top:12px;background:rgba(56,189,248,.04);font-size:12.5px;color:var(--txt2)}
+.wiz-summary b{color:var(--txt)}
+.wiz-nav{display:flex;gap:10px;align-items:center;justify-content:space-between;margin-top:16px;flex-wrap:wrap}
+.wiz-nav .right{display:flex;gap:9px;flex-wrap:wrap}
+.field-row{display:grid;grid-template-columns:repeat(auto-fit,minmax(190px,1fr));gap:12px}
+.subcard{border:1px solid var(--line);border-radius:12px;padding:13px 14px;background:rgba(10,17,28,.7);min-width:0}
+.subcard h4{margin:0 0 8px;font-size:13.5px;color:var(--txt)}
+.kv{display:grid;grid-template-columns:88px minmax(0,1fr);gap:6px 10px;font-size:12.5px}
+.kv dt{color:var(--txt3)}
+.kv dd{margin:0;color:var(--txt2);word-break:break-word}
+.filetypes{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:9px}
+.ft{border:1px solid var(--line);border-radius:11px;background:rgba(11,18,32,.72);padding:11px 10px;text-align:center;min-width:0}
+.ft .fi{font-size:19px}
+.ft b{display:block;font-size:12.5px;margin-top:3px}
+.ft span{display:block;font-size:10.5px;color:var(--txt3);line-height:1.4;margin-top:2px}
+.prog{height:8px;background:rgba(148,163,184,.12);border-radius:99px;overflow:hidden;margin:10px 0 6px;border:1px solid var(--line)}
+.prog>i{display:block;height:100%;width:0;background:linear-gradient(90deg,var(--cyan),var(--violet));transition:width .35s ease}
+.prog.indet>i{width:38%!important;animation:indet 1.25s ease-in-out infinite}
+@keyframes indet{0%{margin-left:-38%}100%{margin-left:100%}}
+.prog-meta{display:flex;justify-content:space-between;font-size:12px;color:var(--txt3);gap:10px;flex-wrap:wrap}
+.stages{list-style:none;margin:12px 0 0;padding:0;display:grid;gap:6px}
+.stages li{display:flex;gap:9px;align-items:center;font-size:12.5px;color:var(--txt3);border:1px solid transparent;border-radius:9px;padding:6px 9px}
+.stages li .si{width:18px;height:18px;border-radius:50%;border:1px solid var(--line2);display:grid;place-items:center;font-size:10px;flex:0 0 auto}
+.stages li.cur{color:var(--txt);background:rgba(56,189,248,.07);border-color:rgba(56,189,248,.24)}
+.stages li.cur .si{border-color:var(--cyan);color:var(--cyan);animation:pulse 1.2s infinite}
+.stages li.ok{color:var(--txt2)}
+.stages li.ok .si{background:rgba(52,211,153,.16);border-color:rgba(52,211,153,.4);color:var(--green)}
+@keyframes pulse{0%,100%{box-shadow:0 0 0 0 rgba(56,189,248,.35)}50%{box-shadow:0 0 0 5px rgba(56,189,248,0)}}
+.mtable{width:100%;border-collapse:collapse;font-size:12.5px}
+.mtable th,.mtable td{text-align:left;padding:8px 9px;border-bottom:1px solid var(--line);vertical-align:top}
+.mtable th{color:var(--txt3);font-weight:600;font-size:11.5px;white-space:nowrap}
+.mtable td:first-child{color:var(--txt);font-family:ui-monospace,SFMono-Regular,Consolas,monospace;font-size:11.5px;word-break:break-all}
+.mtable tr:last-child td{border-bottom:0}
+.mtable .ftype{white-space:nowrap}
+/* ---------- metadata copy ---------- */
+.meta-block{display:grid;gap:10px}
+.meta-row{border:1px solid var(--line);border-radius:11px;background:rgba(10,17,28,.72);padding:10px 12px}
+.meta-row .mh{display:flex;align-items:center;gap:8px;font-size:12px;color:var(--txt3);margin-bottom:5px}
+.meta-row .mh .lim{margin-left:auto;font-size:11px;color:var(--txt4);font-variant-numeric:tabular-nums}
+.meta-row .mv{font-size:13px;color:var(--txt);white-space:pre-wrap;word-break:break-word;line-height:1.65}
+.meta-row .mv.tags{color:#bae6fd}
+/* ---------- checklist ---------- */
+.cl{counter-reset:cli;display:grid;gap:8px;margin:0;padding:0;list-style:none}
+.cl li{counter-increment:cli;border:1px solid var(--line);border-radius:11px;background:rgba(10,17,28,.72);padding:10px 12px;transition:.14s}
+.cl li.done{border-color:rgba(52,211,153,.3);background:rgba(52,211,153,.05)}
+.cl label{display:flex;gap:10px;align-items:flex-start;cursor:pointer}
+.cl .cb{appearance:none;width:19px;height:19px;border-radius:6px;border:1px solid var(--line2);background:rgba(11,18,32,.9);flex:0 0 auto;margin-top:2px;cursor:pointer;display:grid;place-items:center;transition:.14s}
+.cl .cb:checked{background:linear-gradient(135deg,var(--green),#10b981);border-color:transparent}
+.cl .cb:checked::after{content:"✓";color:#04120b;font-size:12px;font-weight:900}
+.cl .ct{min-width:0;flex:1}
+.cl .ct b{font-size:13px;color:var(--txt);font-weight:650}
+.cl .ct b::before{content:counter(cli) ". ";color:var(--cyan);font-weight:800;font-variant-numeric:tabular-nums}
+.cl li.done .ct b{color:var(--txt2)}
+.cl .ct p{margin:3px 0 0;font-size:12px;color:var(--txt2);line-height:1.6}
+.cl .ct .tips{margin-top:4px;font-size:11.5px;color:var(--txt3)}
+.cl .ct .tips em{font-style:normal;color:var(--amber)}
+/* ---------- dashboard ---------- */
+.sum-grid{display:grid;grid-template-columns:repeat(6,minmax(0,1fr));gap:10px;margin-bottom:14px}
+.sum{border:1px solid var(--line);border-radius:12px;background:linear-gradient(180deg,rgba(17,27,43,.9),rgba(11,18,32,.94));padding:11px 13px;min-width:0}
+.sum b{display:block;font-size:20px;color:var(--cyan);font-variant-numeric:tabular-nums;line-height:1.3}
+.sum span{font-size:11.5px;color:var(--txt3)}
+.sum.green b{color:var(--green)}.sum.violet b{color:var(--violet)}.sum.amber b{color:var(--amber)}.sum.pink b{color:var(--pink)}
+.plat-sums{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:14px}
+.pstat{display:flex;align-items:center;gap:8px;border:1px solid var(--line);border-radius:10px;padding:6px 10px;font-size:12px;color:var(--txt2);background:rgba(11,18,32,.6)}
+.pstat .pdot{width:9px;height:9px;border-radius:3px}
+.pstat b{color:var(--txt);font-variant-numeric:tabular-nums}
+.table-wrap{overflow-x:auto;border:1px solid var(--line);border-radius:11px}
+.dtable{width:100%;border-collapse:collapse;font-size:12.5px;min-width:820px}
+.dtable th,.dtable td{text-align:left;padding:10px 11px;border-bottom:1px solid var(--line);white-space:nowrap;vertical-align:middle}
+.dtable th{color:var(--txt3);font-weight:600;font-size:11.5px;background:rgba(11,18,32,.8);position:sticky;top:0;z-index:1}
+.dtable tbody tr:hover{background:rgba(56,189,248,.04)}
+.dtable tbody tr:last-child td{border-bottom:0}
+.dtable td.n{font-variant-numeric:tabular-nums;color:var(--txt)}
+.dtable td.weak{color:var(--txt3)}
+.dtable .drama-cell{font-weight:600;color:var(--txt);max-width:220px;overflow:hidden;text-overflow:ellipsis}
+.dtable .op{display:flex;gap:6px;flex-wrap:wrap}
+.dtable .op a,.dtable .op button{font-size:11.5px;color:var(--cyan);background:none;border:0;padding:0;cursor:pointer}
+.dtable .op a:hover,.dtable .op button:hover{text-decoration:underline}
+/* ---------- translate ---------- */
+.cue-table{width:100%;border-collapse:collapse;font-size:12px;min-width:620px}
+.cue-table th,.cue-table td{text-align:left;padding:7px 9px;border-bottom:1px solid var(--line);vertical-align:top}
+.cue-table th{color:var(--txt3);font-size:11px;font-weight:600}
+.cue-table td.tc{font-family:ui-monospace,SFMono-Regular,Consolas,monospace;color:var(--txt3);white-space:nowrap;font-size:11px}
+.cue-table td.zh{color:var(--txt2);max-width:260px}
+.cue-table td.tr{color:var(--txt);max-width:420px}
+.cue-table tr:last-child td{border-bottom:0}
+.ep-list{display:grid;gap:7px}
+.ep-item{display:flex;align-items:center;gap:10px;border:1px solid var(--line);border-radius:10px;padding:8px 11px;background:rgba(11,18,32,.65);flex-wrap:wrap}
+.ep-item .epn{font-size:11.5px;color:var(--cyan);font-weight:700;white-space:nowrap}
+.ep-item .ept{flex:1 1 160px;min-width:0;font-size:12.5px;color:var(--txt2);overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.ep-item .dl{display:flex;gap:7px;margin-left:auto;flex-wrap:wrap}
+.dl-link{font-size:11.5px;border:1px solid rgba(56,189,248,.35);color:var(--cyan);background:rgba(56,189,248,.08);border-radius:7px;padding:3px 9px;white-space:nowrap}
+.dl-link:hover{background:rgba(56,189,248,.16);text-decoration:none}
+audio{max-width:100%;height:34px}
+/* ---------- specs ---------- */
+.spec-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}
+.spec-card{border:1px solid var(--line);border-radius:var(--radius);background:linear-gradient(180deg,rgba(15,23,37,.9),rgba(10,16,27,.94));overflow:hidden;min-width:0}
+.spec-card summary{list-style:none;cursor:pointer;padding:14px 16px;display:flex;align-items:center;gap:11px;user-select:none}
+.spec-card summary::-webkit-details-marker{display:none}
+.spec-card summary:hover{background:rgba(148,163,184,.04)}
+.spec-card .sico{width:34px;height:34px;border-radius:10px;display:grid;place-items:center;font-weight:800;color:#04121a;font-size:13px;flex:0 0 auto}
+.spec-card .sinfo{min-width:0;display:flex;flex-direction:column;gap:1px}
+.spec-card .sinfo b{font-size:14.5px}
+.spec-card .sinfo span{font-size:11.5px;color:var(--txt3)}
+.spec-card .sarrow{margin-left:auto;color:var(--txt3);transition:.18s;font-size:12px;flex:0 0 auto}
+.spec-card[open] .sarrow{transform:rotate(90deg)}
+.spec-card .sbody{padding:0 16px 15px;border-top:1px solid var(--line);padding-top:13px}
+.spec-list{display:grid;gap:7px;margin:0 0 12px}
+.spec-list .sr{display:grid;grid-template-columns:86px minmax(0,1fr);gap:8px;font-size:12.5px}
+.spec-list dt{color:var(--txt3)}
+.spec-list dd{margin:0;color:var(--txt2)}
+.spec-list dd b{color:var(--txt);font-weight:600}
+.spec-notes{font-size:11.5px;color:var(--txt3);line-height:1.65;border-top:1px dashed var(--line);padding-top:9px;margin-top:2px}
+.compare-wrap{overflow-x:auto;border:1px solid var(--line);border-radius:11px}
+.compare{width:100%;border-collapse:collapse;font-size:12px;min-width:900px}
+.compare th,.compare td{border-bottom:1px solid var(--line);padding:8px 10px;text-align:left;vertical-align:top}
+.compare th{background:rgba(11,18,32,.85);color:var(--txt3);font-weight:600;font-size:11px;white-space:nowrap}
+.compare td:first-child{color:var(--txt3);white-space:nowrap;background:rgba(11,18,32,.4)}
+.compare tr:last-child td{border-bottom:0}
+.compare td b{color:var(--txt)}
+/* ---------- SOP ---------- */
+.sop-layout{display:grid;grid-template-columns:minmax(0,1fr) 290px;gap:16px;align-items:start}
+.sop-side{position:sticky;top:112px}
+.sop-toc{list-style:none;margin:0;padding:0;display:grid;gap:3px}
+.sop-toc a{display:block;padding:6px 9px;border-radius:8px;font-size:12.5px;color:var(--txt2)}
+.sop-toc a:hover{background:rgba(148,163,184,.08);text-decoration:none;color:var(--txt)}
+.sop-toc .n{color:var(--txt4);font-variant-numeric:tabular-nums;margin-right:6px}
+.tl{position:relative;margin:0;padding:0 0 0 22px;list-style:none}
+.tl::before{content:"";position:absolute;left:7px;top:6px;bottom:14px;width:2px;background:linear-gradient(180deg,rgba(56,189,248,.5),rgba(167,139,250,.35),rgba(148,163,184,.08))}
+.tl>li{position:relative;margin:0 0 12px}
+.tl>li::before{content:"";position:absolute;left:-20px;top:17px;width:9px;height:9px;border-radius:50%;background:var(--bg);border:2px solid var(--cyan);box-shadow:0 0 0 3px rgba(56,189,248,.12)}
+.tl details{border:1px solid var(--line);border-radius:12px;background:rgba(15,23,37,.82);overflow:hidden}
+.tl details[open]{border-color:rgba(56,189,248,.3)}
+.tl summary{cursor:pointer;list-style:none;padding:12px 14px;display:flex;align-items:center;gap:10px;flex-wrap:wrap;user-select:none}
+.tl summary::-webkit-details-marker{display:none}
+.tl summary:hover{background:rgba(148,163,184,.04)}
+.tl .sno{font-size:11px;color:var(--cyan);font-weight:800;border:1px solid rgba(56,189,248,.3);border-radius:999px;padding:1px 8px;background:rgba(56,189,248,.07);white-space:nowrap}
+.tl .st{font-size:14px;font-weight:700;flex:1 1 160px;min-width:0}
+.tl .stime{font-size:11.5px;color:var(--amber);white-space:nowrap}
+.tl .sarrow{color:var(--txt3);font-size:11px;transition:.18s}
+.tl details[open] .sarrow{transform:rotate(90deg)}
+.tl .sbody{padding:0 14px 14px;border-top:1px solid var(--line);padding-top:12px;display:grid;gap:11px}
+.sop-sec h5{margin:0 0 5px;font-size:12px;color:var(--txt);display:flex;align-items:center;gap:6px}
+.sop-sec ul{margin:0;padding-left:17px;font-size:12.5px;color:var(--txt2);line-height:1.7}
+.sop-sec li{margin:1px 0}
+.sop-sec.rej ul{color:#fecdd3}
+.sop-sec.rej h5{color:var(--red)}
+.sop-sec.ok h5{color:var(--green)}
+.sop-mini{display:grid;gap:8px;font-size:12.5px;color:var(--txt2)}
+.sop-mini .row{display:flex;gap:8px;justify-content:space-between;border-bottom:1px dashed var(--line);padding-bottom:6px}
+.sop-mini .row span:last-child{color:var(--txt);text-align:right}
+/* ---------- states ---------- */
+.empty{border:1px dashed var(--line2);border-radius:var(--radius);padding:38px 20px;text-align:center;color:var(--txt2);background:rgba(11,18,32,.4)}
+.empty .ei{font-size:32px;opacity:.85}
+.empty h3{margin:8px 0 4px;font-size:15.5px;color:var(--txt)}
+.empty p{margin:0 auto;max-width:460px;font-size:12.5px;color:var(--txt3)}
+.empty .acts{margin-top:14px;display:flex;gap:9px;justify-content:center;flex-wrap:wrap}
+.skeleton{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:14px}
+.sk{border:1px solid var(--line);border-radius:var(--radius);height:300px;background:linear-gradient(100deg,rgba(148,163,184,.06) 30%,rgba(148,163,184,.12) 50%,rgba(148,163,184,.06) 70%);background-size:200% 100%;animation:sk 1.2s infinite}
+@keyframes sk{0%{background-position:100% 0}100%{background-position:-100% 0}}
+.loading-line{color:var(--txt3);font-size:12.5px;display:flex;align-items:center;gap:8px}
+.spin{width:13px;height:13px;border:2px solid rgba(56,189,248,.25);border-top-color:var(--cyan);border-radius:50%;animation:sp .8s linear infinite;display:inline-block}
+@keyframes sp{to{transform:rotate(360deg)}}
+/* ---------- footer/toast ---------- */
+.foot{border-top:1px solid var(--line);margin-top:20px;padding:22px 0 30px;color:var(--txt3);font-size:12px}
+.foot .foot-in{max-width:1280px;margin:0 auto;padding:0 20px;display:flex;gap:16px;flex-wrap:wrap;justify-content:space-between}
+.foot b{color:var(--txt2)}
+.foot .legal{max-width:700px;line-height:1.7}
+.toast{position:fixed;left:50%;bottom:26px;transform:translate(-50%,20px);z-index:120;background:rgba(13,20,32,.97);border:1px solid rgba(56,189,248,.35);color:var(--txt);border-radius:11px;padding:10px 16px;font-size:13px;box-shadow:0 20px 50px -20px rgba(0,0,0,.9);opacity:0;pointer-events:none;transition:.22s;max-width:min(92vw,560px);text-align:center}
+.toast.show{opacity:1;transform:translate(-50%,0)}
+.toast.err{border-color:rgba(251,113,133,.5)}
+.toast.ok{border-color:rgba(52,211,153,.45)}
+.modal{position:fixed;inset:0;z-index:130;background:rgba(2,6,12,.78);display:flex;align-items:center;justify-content:center;padding:18px;backdrop-filter:blur(3px)}
+.modal-panel{width:min(560px,94vw);border:1px solid var(--line2);border-radius:14px;background:var(--panel2);padding:16px;box-shadow:0 30px 70px -30px rgba(0,0,0,.95)}
+.modal-panel h4{margin:0 0 6px;font-size:15px}
+.modal-panel p{margin:0 0 10px;color:var(--txt3);font-size:12.5px}
+.modal-panel textarea{width:100%;height:180px;background:var(--panel3);border:1px solid var(--line);border-radius:10px;color:var(--txt);padding:10px;font:12px/1.6 ui-monospace,SFMono-Regular,Consolas,monospace;resize:vertical;outline:none}
+.modal-acts{display:flex;justify-content:flex-end;gap:8px;margin-top:10px}
+/* ---------- responsive ---------- */
+@media(max-width:1080px){
+  .dgrid{grid-template-columns:repeat(2,minmax(0,1fr))}
+  .spec-grid{grid-template-columns:1fr}
+  .sop-layout{grid-template-columns:1fr}
+  .sop-side{position:static;order:2}
+  .sum-grid{grid-template-columns:repeat(3,minmax(0,1fr))}
+  .pick-grid{grid-template-columns:repeat(2,minmax(0,1fr))}
+}
+@media(max-width:820px){
+  .hero-grid{grid-template-columns:1fr}
+  .hero-side{flex-direction:row;flex-wrap:wrap}
+  .hero-card{flex:1 1 260px}
+  .statrow{grid-template-columns:repeat(2,minmax(0,1fr))}
+  .filetypes{grid-template-columns:repeat(2,minmax(0,1fr))}
+  .step{padding:8px}
+  .step .tx span{display:none}
+}
+@media(max-width:640px){
+  .wrap{padding:0 13px}
+  .top-in{padding:9px 13px}
+  .logo{font-size:15.5px}
+  .logo em{display:none}
+  .top-link{display:none}
+  .tabs-wrap{top:53px}
+  .tab{padding:6px 11px;font-size:12.5px}
+  .hero{padding:20px 0 2px}
+  .hero h1{font-size:26px}
+  .hero-side{display:none}
+  .statrow{gap:8px}
+  .stat{padding:10px 12px}
+  .stat b{font-size:19px}
+  .panel{padding:14px 13px;border-radius:12px}
+  .dgrid{grid-template-columns:1fr}
+  .dcover{max-height:none;aspect-ratio:16/10}
+  .dcover img{object-position:center 30%}
+  .skeleton{grid-template-columns:1fr}
+  .sum-grid{grid-template-columns:repeat(2,minmax(0,1fr))}
+  .pick-grid{grid-template-columns:1fr}
+  .dsel{max-height:none}
+  .dsel .pick{flex:1 1 100%}
+  .filetypes{grid-template-columns:1fr 1fr}
+  .stepper{padding:4px;overflow-x:auto}
+  .step{flex:0 0 auto;padding:7px 9px}
+  .step .tx span{display:none}
+  .step .tx b{font-size:12px}
+  .step .no{width:22px;height:22px;font-size:11.5px}
+  .wiz-nav{flex-direction:column;align-items:stretch}
+  .wiz-nav .right{display:flex;flex-direction:column}
+  .wiz-nav .btn{width:100%;justify-content:center}
+  .field-row{grid-template-columns:1fr}
+  .mtable{font-size:11.5px}
+  .mtable th:nth-child(2),.mtable td:nth-child(2){display:none}
+  .dtable{min-width:0;display:block}
+  .dtable thead{display:none}
+  .dtable tbody{display:block}
+  .dtable tr{display:grid;grid-template-columns:1fr 1fr;gap:5px 10px;padding:11px 12px;border-bottom:1px solid var(--line)}
+  .dtable tbody tr:last-child{border-bottom:0}
+  .dtable td{border:0;padding:0;white-space:normal;font-size:12px}
+  .dtable td::before{content:attr(data-label) "：";color:var(--txt3);font-size:11px}
+  .dtable td.drama-cell{grid-column:1/-1;font-size:13.5px;max-width:none}
+  .dtable td.drama-cell::before{content:""}
+  .dtable td.n{font-size:12.5px}
+  .dtable td.op{grid-column:1/-1;padding-top:4px}
+  .dtable td.op::before{content:""}
+  .table-wrap{border:0;border-radius:0}
+  .btn{padding:9px 14px}
+  .toast{bottom:14px;font-size:12.5px}
+  .tl{padding-left:18px}
+  .tl>li::before{left:-16px}
+  .cue-table{min-width:0}
+  .cue-table th:nth-child(1),.cue-table td:nth-child(1){display:none}
+  .ep-item .dl{margin-left:0;width:100%}
+  .foot-in{padding:0 13px}
+}
+@media(prefers-reduced-motion:reduce){*{animation-duration:.001ms!important;transition-duration:.001ms!important}}
+</style>
+</head>
+<body>
+<a class="skip" href="#main">跳到主内容</a>
+
+<header class="top">
+  <div class="top-in">
+    <a class="logo" href="/ai-nav/" aria-label="返回星籁 AI 导航">
+      <span class="mark" aria-hidden="true">✦</span>
+      <span>星籁 <em>/ <b>短剧发行中心</b></em></span>
+    </a>
+    <div class="top-right">
+      <span class="badge-ver" id="modeBadge" title="数据来源"><span class="dot"></span><span id="modeBadgeTx">接口检测中</span></span>
+      <a class="top-link" href="/ai-nav/aidrama/">AI 短剧创作 →</a>
+      <a class="top-link" href="/ai-nav/studio/">剪辑工坊 →</a>
+    </div>
+  </div>
+</header>
+
+<div class="tabs-wrap">
+  <div class="wrap">
+    <nav class="tabs" id="tabbar" aria-label="发行中心导航">
+      <button type="button" class="tab" data-view="dramas">我的短剧 <span class="n" id="tabCountDramas">—</span></button>
+      <button type="button" class="tab" data-view="wizard">发行向导</button>
+      <button type="button" class="tab" data-view="dashboard">发行看板 <span class="n" id="tabCountDists">—</span></button>
+      <button type="button" class="tab" data-view="translate">多语言字幕</button>
+      <button type="button" class="tab" data-view="specs">平台规格</button>
+      <button type="button" class="tab" data-view="sop">发行 SOP</button>
+    </nav>
+  </div>
+</div>
+
+<main id="main" class="wrap">
+  <section class="hero" id="hero">
+    <div class="hero-grid">
+      <div class="hero-main">
+        <div class="eyebrow"><span class="dot"></span>STELLARA · AI DRAMA DISTRIBUTION</div>
+        <h1>短剧发行中心<em>发行端每一步，都有据可查</em></h1>
+        <p>一部短剧从成片到发出去，真正耗时的不是剪片子，而是<b>逐平台对规格、填标题标签、传字幕封面、回填数据</b>。这里把 6 大平台、5 种语言、4 步发行流程和一份可执行 SOP 收到一个页面：选剧 → 出包 → 按清单手动发布 → 回填看板。</p>
+        <div class="hero-tags">
+          <span>6 平台规格对照</span><span>5 语言字幕 / 配音</span><span>发行包一键打包</span><span>平台发布清单</span><span>数据回填看板</span>
+        </div>
+      </div>
+      <aside class="hero-side">
+        <div class="hero-card">
+          <div class="hc-title">⚠ 合规红线（本页硬约束）</div>
+          <ul>
+            <li>不做自动发布、不模拟登录、不爬取平台数据</li>
+            <li>平台发布必须人工操作，本页只给步骤与素材包</li>
+            <li>AI 生成画面/配音须标注「AI 生成」</li>
+            <li>付费短剧先完成备案与版权链核对</li>
+          </ul>
+        </div>
+      </aside>
+    </div>
+    <div class="statrow" id="heroStats" aria-live="polite">
+      <div class="stat"><b>—</b><span>已出片短剧</span></div>
+      <div class="stat amber"><b>—</b><span>发行记录</span></div>
+      <div class="stat green"><b>—</b><span>总播放量</span></div>
+      <div class="stat violet"><b>—</b><span>总转化</span></div>
+    </div>
+  </section>
+
+  <div id="mockBanner" class="banner warn" role="status" hidden></div>
+
+  <section id="view-dramas" class="view" hidden aria-label="我的短剧"></section>
+  <section id="view-wizard" class="view" hidden aria-label="发行向导"></section>
+  <section id="view-dashboard" class="view" hidden aria-label="发行记录看板"></section>
+  <section id="view-translate" class="view" hidden aria-label="多语言字幕与配音"></section>
+  <section id="view-specs" class="view" hidden aria-label="平台规格说明"></section>
+  <section id="view-sop" class="view" hidden aria-label="发行 SOP"></section>
+</main>
+
+<footer class="foot">
+  <div class="foot-in">
+    <div>
+      <b>星籁 AI · 短剧发行中心</b><br>
+      发行端内部效率工具 · 页面路径 <span class="mono">/ai-nav/publish/</span>
+    </div>
+    <div class="legal">
+      合规声明：本页仅提供发行步骤、素材包与数据记录，<b>不包含自动发布、自动登录、爬虫抓取或规避平台审核的功能</b>；所有平台发布由持号人手动完成并自行承担内容责任。AI 生成内容须按平台要求标注，付费短剧需完成备案与版权授权。平台规格随版本变化，发布前以平台官方后台为准。
+    </div>
+  </div>
+</footer>
+
+<div id="toast" class="toast" role="status" aria-live="polite"></div>
+
+<script>
+(function(){
+'use strict';
+/* ============================================================
+   工具函数
+   ============================================================ */
+function $(sel, root){ return (root || document).querySelector(sel); }
+function $$(sel, root){ return Array.prototype.slice.call((root || document).querySelectorAll(sel)); }
+function esc(v){
+  return String(v == null ? '' : v).replace(/[&<>"']/g, function(c){
+    return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c];
+  });
+}
+function num(n){
+  n = Number(n || 0);
+  if (!isFinite(n)) n = 0;
+  return String(Math.round(n)).replace(/\B(?=(\d{3})+(?!\d))/g, ',');
+}
+function nf(n){
+  n = Number(n || 0);
+  if (!isFinite(n)) n = 0;
+  if (n >= 1e8) return (n / 1e8).toFixed(2).replace(/\.?0+$/, '') + ' 亿';
+  if (n >= 1e4) return (n / 1e4).toFixed(1).replace(/\.0$/, '') + ' 万';
+  return num(n);
+}
+function fmtSize(bytes){
+  bytes = Number(bytes || 0);
+  if (!bytes) return '—';
+  if (bytes >= 1024 * 1024 * 1024) return (bytes / 1024 / 1024 / 1024).toFixed(2) + ' GB';
+  if (bytes >= 1024 * 1024) return (bytes / 1024 / 1024).toFixed(1) + ' MB';
+  if (bytes >= 1024) return (bytes / 1024).toFixed(0) + ' KB';
+  return bytes + ' B';
+}
+function clampPct(v){ v = Number(v || 0); return Math.max(0, Math.min(100, v)); }
+function pad2(n){ return (n < 10 ? '0' : '') + n; }
+function fmtClock(sec){
+  sec = Math.max(0, Math.floor(Number(sec || 0)));
+  return pad2(Math.floor(sec / 3600)) + ':' + pad2(Math.floor(sec / 60) % 60) + ':' + pad2(sec % 60);
+}
+function fmtDate(s){
+  if (!s) return '—';
+  return String(s).replace('T', ' ').replace(/\.\d+Z?$/, '').replace(/\+08:00$/, '').replace(/Z$/, '');
+}
+function validNum(v){
+  if (v === '' || v == null) return 0;
+  var n = Number(v);
+  if (!isFinite(n) || n < 0) return 0;
+  return Math.round(n);
+}
+function debounce(fn, wait){
+  var t = null;
+  return function(){
+    var args = arguments, self = this;
+    clearTimeout(t);
+    t = setTimeout(function(){ fn.apply(self, args); }, wait || 240);
+  };
+}
+var toastTimer = null;
+function toast(msg, type){
+  var box = $('#toast');
+  if (!box) return;
+  box.textContent = msg;
+  box.className = 'toast show' + (type ? ' ' + type : '');
+  clearTimeout(toastTimer);
+  toastTimer = setTimeout(function(){ box.className = 'toast'; }, 2800);
+}
+function copyText(text){
+  return new Promise(function(resolve, reject){
+    function fallback(){
+      try {
+        var ta = document.createElement('textarea');
+        ta.value = text;
+        ta.setAttribute('readonly', '');
+        ta.style.position = 'fixed';
+        ta.style.left = '-9999px';
+        ta.style.top = '0';
+        document.body.appendChild(ta);
+        ta.select();
+        ta.setSelectionRange(0, ta.value.length);
+        var ok = document.execCommand('copy');
+        document.body.removeChild(ta);
+        if (ok) resolve(); else reject(new Error('浏览器不支持复制'));
+      } catch (e) { reject(e); }
+    }
+    if (navigator.clipboard && window.isSecureContext) {
+      navigator.clipboard.writeText(text).then(resolve, fallback);
+    } else {
+      fallback();
+    }
+  });
+}
+function manualCopy(text){
+  var old = $('#copyModal');
+  if (old) old.remove();
+  var div = document.createElement('div');
+  div.id = 'copyModal';
+  div.className = 'modal';
+  div.setAttribute('role', 'dialog');
+  div.setAttribute('aria-label', '手动复制');
+  div.innerHTML = '<div class="modal-panel"><h4>手动复制</h4>' +
+    '<p>浏览器拒绝了自动复制（剪贴板权限受限）。内容已选中，请按 <b>Ctrl / Cmd + C</b> 复制。</p>' +
+    '<textarea readonly></textarea>' +
+    '<div class="modal-acts"><button type="button" class="btn ghost sm" data-close>关闭</button></div></div>';
+  document.body.appendChild(div);
+  var ta = div.querySelector('textarea');
+  ta.value = text;
+  ta.focus();
+  ta.select();
+  function onKey(ev){ if (ev.key === 'Escape') close(); }
+  function close(){ div.remove(); document.removeEventListener('keydown', onKey); }
+  div.addEventListener('click', function(ev){
+    if (ev.target === div || (ev.target.closest && ev.target.closest('[data-close]'))) close();
+  });
+  document.addEventListener('keydown', onKey);
+}
+function bindCopy(root){
+  $$('[data-copy]', root || document).forEach(function(btn){
+    if (btn.__bound) return;
+    btn.__bound = true;
+    btn.addEventListener('click', function(ev){
+      ev.preventDefault();
+      var key = btn.getAttribute('data-copy');
+      var text = null;
+      if (window.__PUBLISH_DEBUG__ && window.__PUBLISH_DEBUG__.copyValue) text = window.__PUBLISH_DEBUG__.copyValue(key);
+      if (text == null || text === '') text = btn.getAttribute('data-copy-text');
+      if (text == null) text = '';
+      copyText(text).then(function(){
+        toast('已复制到剪贴板', 'ok');
+        var old = btn.textContent;
+        btn.textContent = '✓ 已复制';
+        setTimeout(function(){ btn.textContent = old; }, 1400);
+      }).catch(function(){
+        manualCopy(text);
+        toast('浏览器限制了剪贴板，已弹出手动复制框', 'warn');
+      });
+    });
+  });
+}
+function downloadBlob(blob, filename){
+  var url = URL.createObjectURL(blob);
+  downloadUrl(url, filename);
+  setTimeout(function(){ URL.revokeObjectURL(url); }, 4000);
+}
+function downloadUrl(url, filename){
+  if (!url) { toast('下载地址为空', 'err'); return; }
+  var a = document.createElement('a');
+  a.href = url;
+  if (filename) a.download = filename;
+  a.rel = 'noopener';
+  document.body.appendChild(a);
+  a.click();
+  document.body.removeChild(a);
+}
+/* ---------- 动态封面（无外链，离线可用） ---------- */
+var POSTER_PALETTES = [
+  ['#102a43', '#7c3aed'], ['#1e1b4b', '#0ea5e9'], ['#3b0764', '#db2777'],
+  ['#0f172a', '#0d9488'], ['#2a0a18', '#e11d48'], ['#111827', '#c2410c'],
+  ['#0c1a2b', '#2563eb'], ['#1a1033', '#a855f7']
+];
+function hashStr(s){
+  var h = 0;
+  for (var i = 0; i < s.length; i++) h = ((h << 5) - h + s.charCodeAt(i)) | 0;
+  return Math.abs(h);
+}
+function wrapCJK(text, per){
+  text = String(text || '');
+  var lines = [];
+  for (var i = 0; i < text.length && lines.length < 3; i += per) lines.push(text.slice(i, i + per));
+  if (text.length > per * 3 && lines.length) lines[2] = lines[2].slice(0, per - 1) + '…';
+  return lines;
+}
+function poster(drama){
+  var title = (drama && drama.title) || '短剧';
+  var pal = POSTER_PALETTES[hashStr(title) % POSTER_PALETTES.length];
+  var lines = wrapCJK(title, 5);
+  var tspans = '';
+  for (var i = 0; i < lines.length; i++) {
+    tspans += '<tspan x="32" dy="' + (i ? 42 : 0) + '">' + esc(lines[i]) + '</tspan>';
+  }
+  var ep = drama && (drama.episodes || drama.episodes_n) ? (drama.episodes || drama.episodes_n) : '';
+  var svg = '<svg xmlns="http://www.w3.org/2000/svg" width="360" height="640" viewBox="0 0 360 640">' +
+    '<defs><linearGradient id="g" x1="0" y1="0" x2="1" y2="1">' +
+    '<stop offset="0" stop-color="' + pal[0] + '"/><stop offset=".55" stop-color="' + pal[1] + '"/>' +
+    '<stop offset="1" stop-color="#05080f"/></linearGradient>' +
+    '<pattern id="p" width="36" height="36" patternUnits="userSpaceOnUse">' +
+    '<path d="M0 36L36 0" stroke="rgba(255,255,255,.055)" stroke-width="1"/></pattern></defs>' +
+    '<rect width="360" height="640" fill="url(#g)"/><rect width="360" height="640" fill="url(#p)"/>' +
+    '<circle cx="298" cy="88" r="120" fill="rgba(56,189,248,.16)"/>' +
+    '<circle cx="60" cy="560" r="150" fill="rgba(167,139,250,.13)"/>' +
+    '<text x="32" y="236" fill="rgba(230,238,248,.72)" font-family="sans-serif" font-size="13" letter-spacing="2">STELLARA · AI SHORT DRAMA</text>' +
+    '<text x="30" y="300" fill="#ffffff" font-family="PingFang SC,Microsoft YaHei,sans-serif" font-size="34" font-weight="700">' + tspans + '</text>' +
+    '<text x="32" y="520" fill="rgba(230,238,248,.5)" font-family="sans-serif" font-size="14">' + esc((drama && drama.style) || (drama && drama.theme) || 'AI 短剧') + '</text>' +
+    '<rect x="32" y="570" width="94" height="30" rx="15" fill="rgba(4,18,28,.55)" stroke="rgba(56,189,248,.6)"/>' +
+    '<text x="79" y="590" text-anchor="middle" fill="#7dd3fc" font-family="sans-serif" font-size="13">' + (ep ? esc(String(ep)) + ' 集' : 'AI 生成') + '</text>' +
+    '<rect x="300" y="570" width="30" height="30" rx="8" fill="rgba(4,18,28,.55)"/>' +
+    '<text x="315" y="591" text-anchor="middle" fill="#7dd3fc" font-family="sans-serif" font-size="14">✦</text>' +
+    '</svg>';
+  return 'data:image/svg+xml;charset=utf-8,' + encodeURIComponent(svg);
+}
+function coverOf(drama){
+  if (!drama) return poster({});
+  var c = drama.cover || '';
+  if (c) return c;
+  if (drama.episodes && drama.episodes.length) {
+    for (var i = 0; i < drama.episodes.length; i++) {
+      if (drama.episodes[i] && drama.episodes[i].cover_url) return drama.episodes[i].cover_url;
+    }
+  }
+  return poster(drama);
+}
+/* ---------- ZIP（store，无依赖，UTF-8 文件名） ---------- */
+var CRC_TABLE = (function(){
+  var t = new Uint32Array(256);
+  for (var n = 0; n < 256; n++) {
+    var c = n;
+    for (var k = 0; k < 8; k++) c = (c & 1) ? (0xEDB88320 ^ (c >>> 1)) : (c >>> 1);
+    t[n] = c >>> 0;
+  }
+  return t;
+})();
+function crc32(u8){
+  var c = 0xFFFFFFFF;
+  for (var i = 0; i < u8.length; i++) c = CRC_TABLE[(c ^ u8[i]) & 0xFF] ^ (c >>> 8);
+  return (c ^ 0xFFFFFFFF) >>> 0;
+}
+function buildZip(files){
+  var enc = new TextEncoder();
+  var chunks = [], central = [], offset = 0, count = 0;
+  (files || []).forEach(function(f){
+    if (!f || !f.name) return;
+    var name = enc.encode(f.name);
+    var data = (typeof f.data === 'string') ? enc.encode(f.data) : (f.data || new Uint8Array(0));
+    if (!(data instanceof Uint8Array)) data = enc.encode(String(data));
+    var crc = crc32(data);
+    var lh = new Uint8Array(30 + name.length);
+    var lv = new DataView(lh.buffer);
+    lv.setUint32(0, 0x04034b50, true);
+    lv.setUint16(4, 20, true);
+    lv.setUint16(6, 0x0800, true);
+    lv.setUint16(8, 0, true);
+    lv.setUint16(10, 0, true);
+    lv.setUint16(12, 0, true);
+    lv.setUint32(14, crc, true);
+    lv.setUint32(18, data.length, true);
+    lv.setUint32(22, data.length, true);
+    lv.setUint16(26, name.length, true);
+    lv.setUint16(28, 0, true);
+    lh.set(name, 30);
+    chunks.push(lh, data);
+
+    var ch = new Uint8Array(46 + name.length);
+    var cv = new DataView(ch.buffer);
+    cv.setUint32(0, 0x02014b50, true);
+    cv.setUint16(4, 20, true);
+    cv.setUint16(6, 20, true);
+    cv.setUint16(8, 0x0800, true);
+    cv.setUint16(10, 0, true);
+    cv.setUint16(12, 0, true);
+    cv.setUint16(14, 0, true);
+    cv.setUint32(16, crc, true);
+    cv.setUint32(20, data.length, true);
+    cv.setUint32(24, data.length, true);
+    cv.setUint16(28, name.length, true);
+    cv.setUint16(30, 0, true);
+    cv.setUint16(32, 0, true);
+    cv.setUint16(34, 0, true);
+    cv.setUint16(36, 0, true);
+    cv.setUint32(38, 0, true);
+    cv.setUint32(42, offset, true);
+    ch.set(name, 46);
+    central.push(ch);
+    offset += lh.length + data.length;
+    count++;
+  });
+  var cdSize = 0;
+  central.forEach(function(c){ cdSize += c.length; });
+  var eocd = new Uint8Array(22);
+  var ev = new DataView(eocd.buffer);
+  ev.setUint32(0, 0x06054b50, true);
+  ev.setUint16(4, 0, true);
+  ev.setUint16(6, 0, true);
+  ev.setUint16(8, count, true);
+  ev.setUint16(10, count, true);
+  ev.setUint32(12, cdSize, true);
+  ev.setUint32(16, offset, true);
+  ev.setUint16(20, 0, true);
+  return new Blob(chunks.concat(central, [eocd]), { type: 'application/zip' });
+}
+/* ---------- 字幕 ---------- */
+function srtTime(sec){
+  sec = Math.max(0, Number(sec || 0));
+  var ms = Math.round((sec % 1) * 1000);
+  var s = Math.floor(sec);
+  return pad2(Math.floor(s / 3600)) + ':' + pad2(Math.floor(s / 60) % 60) + ':' + pad2(s % 60) + ',' + ('00' + ms).slice(-3);
+}
+function vttTime(sec){ return srtTime(sec).replace(',', '.'); }
+function toSrt(cues){
+  return (cues || []).map(function(c, i){
+    return (i + 1) + '\r\n' + srtTime(c.start) + ' --> ' + srtTime(c.end) + '\r\n' + c.text + '\r\n';
+  }).join('\r\n');
+}
+function toVtt(cues){
+  return 'WEBVTT\r\n\r\n' + (cues || []).map(function(c, i){
+    return (i + 1) + '\r\n' + vttTime(c.start) + ' --> ' + vttTime(c.end) + '\r\n' + c.text + '\r\n';
+  }).join('\r\n');
+}
+/* ============================================================
+   平台规格 / 语言 / 画幅
+   ============================================================ */
+var PLATFORMS = [
+  {
+    id: 'douyin', name: '抖音', short: '抖', color: '#fe2c55', market: '国内 · 竖屏',
+    ratio: ['9:16'],
+    spec: {
+      res: '1080×1920（竖屏；低于 720p 易限流）',
+      dur: '单集 60–120 秒；付费短剧按备案集数，整部建议 ≤ 60 分钟',
+      bitrate: 'H.264 6–8 Mbps / AAC 128 kbps / 30fps',
+      cover: '1080×1440（3:4，< 5 MB，勿压字）',
+      titleMax: 55, tagsMax: 5,
+      time: '12:00–13:00、18:00–22:00',
+      qual: '实名认证；付费短剧需《网络剧片发行许可证》或重点微短剧备案号 + 短剧类目权限'
+    },
+    upload: 'https://creator.douyin.com/creator-micro/content/upload',
+    acct: '抖音创作者账号，完成实名认证；企业号另需营业执照',
+    tips: ['标题/封面不写「最、第一、全网」等极限词', '封面禁止二维码、联系方式、外站导流', 'AI 生成画面须在简介与片头标注「AI 生成」'],
+    extra: { t: '备案与短剧类目权限', d: '付费/分账短剧上传前先在「重点网络影视剧信息备案系统」或平台报备取得备案号；在创作中心开通「短剧」类目并确认分账协议。无备案号的付费内容会被下架。', time: '1–3 个工作日' },
+    ratioHint: '抖音主站仅推荐 9:16 竖屏；横屏内容进不了短剧流量池。'
+  },
+  {
+    id: 'kuaishou', name: '快手', short: '快', color: '#ff6b00', market: '国内 · 竖屏',
+    ratio: ['9:16'],
+    spec: {
+      res: '1080×1920（竖屏）',
+      dur: '单集 60–120 秒；星芒/分账短剧按签约集数',
+      bitrate: 'H.264 5–8 Mbps / AAC 128 kbps / 30fps',
+      cover: '1080×1440（3:4，< 5 MB）',
+      titleMax: 50, tagsMax: 5,
+      time: '12:00–14:00、19:00–23:00',
+      qual: '实名认证；分账短剧需「星芒短剧」/磁力聚星签约与备案号'
+    },
+    upload: 'https://cp.kuaishou.com/article/publish/video',
+    acct: '快手创作者账号，完成实名认证；机构号需 MCN 资质',
+    tips: ['前 3 秒必须有钩子，否则完播率低', '标题少用生僻字，避免审核误判', '付费/分账内容先签约再发'],
+    extra: { t: '分账签约与版权归属', d: '在快手磁力聚星/星芒短剧后台提交剧本与版权证明，签约分账比例后再发布；自投流内容需单独走「粉条」并保留投放凭证。', time: '2–5 个工作日' },
+    ratioHint: '快手短剧仅支持 9:16 竖屏。'
+  },
+  {
+    id: 'tiktok', name: 'TikTok', short: 'T', color: '#25f4ee', market: '海外 · 竖屏',
+    ratio: ['9:16'],
+    spec: {
+      res: '1080×1920（竖屏；底部 15% 避开平台 UI）',
+      dur: '单集 60–90 秒；系列建议 3 集连发做追更',
+      bitrate: 'H.264 8–12 Mbps / AAC 192 kbps / 30fps',
+      cover: '1080×1440（3:4，安全区避开底部按钮）',
+      titleMax: 100, tagsMax: 5,
+      time: '受众当地 06:00–10:00、19:00–23:00',
+      qual: '账号+手机号即可发布；商业化需目标地区开通；AI 合成内容必须打 AIGC 标签'
+    },
+    upload: 'https://www.tiktok.com/tiktokstudio/upload',
+    acct: 'TikTok 个人/企业号，绑定手机号或邮箱；目标市场网络环境稳定',
+    tips: ['AI 生成内容必须开启「AI-generated content」标签', '禁止未成年人出镜与诱导下载', '英文标题优先，西语/阿语用本地化标题'],
+    extra: { t: 'AIGC 标签与地区限制', d: 'TikTok Studio 发布页勾选「AI-generated content」；部分地区对短剧付费/导流有限制，先确认目标国家政策与账号主体。禁止用 VPN 伪装地区规避审核。', time: '5 分钟' },
+    ratioHint: 'TikTok 仅支持 9:16 竖屏；横屏会落到普通视频流。'
+  },
+  {
+    id: 'youtube_shorts', name: 'YouTube Shorts', short: 'Y', color: '#ff0033', market: '海外 · 竖屏',
+    ratio: ['9:16'],
+    spec: {
+      res: '1080×1920（竖屏）',
+      dur: '≤ 60 秒最稳（支持更长，但 Shorts 流量优先 ≤ 60 秒）',
+      bitrate: 'H.264 12–15 Mbps / AAC 192 kbps / 30fps',
+      cover: '1280×720（封面取视频帧；Shorts 无独立封面）',
+      titleMax: 100, tagsMax: 8,
+      time: '受众当地 12:00–15:00、18:00–21:00',
+      qual: 'Google 账号 + 频道验证；AI/合成内容需披露；变现需满足 YPP 门槛'
+    },
+    upload: 'https://studio.youtube.com/',
+    acct: 'Google 账号，频道完成验证；建议开通两步验证',
+    tips: ['合成/AI 内容在发布时勾选「修改或合成内容」披露', 'Shorts 标题前 40 字符最关键', '儿童向内容需设「面向儿童」否则被限'],
+    extra: { t: 'AI 披露与频道设置', d: '发布页「观众 → 修改或合成内容」选择「是」；确认「面向儿童」设置；用播放列表把系列集数串起来，提高追更。', time: '5 分钟' },
+    ratioHint: 'Shorts 只能吃 9:16 竖屏流量；16:9 请走普通视频。'
+  },
+  {
+    id: 'reelshort', name: 'ReelShort', short: 'R', color: '#7c3aed', market: '海外 · 付费短剧',
+    ratio: ['9:16'],
+    spec: {
+      res: '1080×1920（最低 720×1280）',
+      dur: '单集 60–120 秒，一季 60–100 集',
+      bitrate: 'H.264 4–8 Mbps / AAC 128 kbps / 30fps',
+      cover: '1080×1920 海报（3:4 安全区，强情绪人脸）',
+      titleMax: 60, tagsMax: 5,
+      time: '美东 20:00–23:00（北美主力）',
+      qual: '公司主体 + 完整版权链 + 平台内容审核与商务签约；个人不能直接上架'
+    },
+    upload: 'https://www.reelshort.com/（版权方/创作者合作入口，需商务对接）',
+    acct: '公司主体、对公账户、版权授权链文件；通过商务邮箱提交样片',
+    tips: ['版权链文件（剧本/音乐/素材/演员授权）必须齐全', '付费节点设计在前 10 集，否则留存差', '英文标题与简介母语审校，不要机翻直出'],
+    extra: { t: '版权链与商务对接', d: '准备剧本版权声明、音乐授权、素材商用授权、演员肖像授权；通过 ReelShort 商务入口提交 3–5 集样片与整季大纲，审核通过后签分账协议再上架。', time: '1–4 周' },
+    ratioHint: 'ReelShort 仅接受 9:16 竖屏付费短剧。'
+  },
+  {
+    id: 'generic', name: '通用 / 私域', short: '通', color: '#38bdf8', market: '通用 · 多画幅',
+    ratio: ['9:16', '16:9', '1:1', '4:5'],
+    spec: {
+      res: '按目标渠道：竖屏 1080×1920 / 横屏 1920×1080',
+      dur: '单集 60–180 秒（私域可做合集）',
+      bitrate: 'H.264 8–10 Mbps / AAC 192 kbps / 30fps',
+      cover: '1080×1440（竖屏）/ 1280×720（横屏）',
+      titleMax: 55, tagsMax: 5,
+      time: '19:00–22:00（私域社群可按活跃时段调整）',
+      qual: '视目标平台而定；无备案不做付费分发；音乐/素材需商用授权'
+    },
+    upload: '站内或私域发布后台（公众号 / 视频号 / 官网 / 社群）',
+    acct: '对应渠道的管理员账号；私域需完成主体认证',
+    tips: ['无平台备案不要做付费解锁', '站外分发保留水印与 AI 标识', '素材音乐单独留存授权凭证'],
+    extra: { t: '渠道与授权复核', d: '确认目标渠道的内容规范（是否允许短剧、付费、导流）；复核 BGM、字体、素材授权是否覆盖该渠道；留存发布截图与链接。', time: '1–2 小时' },
+    ratioHint: '通用渠道可按投放位选择画幅，但短剧建议优先 9:16。'
+  }
+];
+function platformById(id){
+  for (var i = 0; i < PLATFORMS.length; i++) if (PLATFORMS[i].id === id) return PLATFORMS[i];
+  return PLATFORMS[PLATFORMS.length - 1];
+}
+var LANGS = [
+  { id: 'zh', name: '中文', short: '中', market: '中国大陆 / 港澳台 / 海外华人', note: '口语化、信息密度高；标题直给冲突' },
+  { id: 'en', name: 'English', short: 'EN', market: '北美 / 欧洲 / 东南亚', note: '短句 + 强钩子；避免机翻直出' },
+  { id: 'ja', name: '日本語', short: 'JA', market: '日本 / 韩国', note: '敬语分层；字幕单行 ≤ 13 字' },
+  { id: 'es', name: 'Español', short: 'ES', market: '拉美 / 西班牙 / 美国西语区', note: '拉美与西班牙用词不同，建议拉美西语' },
+  { id: 'ar', name: 'العربية', short: 'AR', market: '中东 / 北非', note: 'RTL 从右向左；字幕需阿拉伯字体' }
+];
+function langById(id){
+  for (var i = 0; i < LANGS.length; i++) if (LANGS[i].id === id) return LANGS[i];
+  return LANGS[0];
+}
+var LANG_TAGS = {
+  zh: ['短剧', '都市', '逆袭', 'AI短剧', '一口气看完', '新剧推荐', '情感', '复仇'],
+  en: ['cdrama', 'shortdrama', 'revenge', 'drama', 'series', 'asiandrama', 'mustwatch', 'episode'],
+  ja: ['ショートドラマ', '中国ドラマ', '逆襲', '恋愛ドラマ', 'スキマ時間', '続きが気になる'],
+  es: ['dramachino', 'drama', 'venganza', 'serie', 'amor', 'corto', 'imperdible'],
+  ar: ['دراما', 'دراما_قصيرة', 'انتقام', 'مسلسل', 'حب', 'مشاهدة']
+};
+var RATIOS = [
+  { id: '9:16', name: '9:16 竖屏', desc: '短剧主战场', platforms: ['douyin', 'kuaishou', 'tiktok', 'youtube_shorts', 'reelshort', 'generic'] },
+  { id: '16:9', name: '16:9 横屏', desc: 'YouTube / 合集', platforms: ['generic'] },
+  { id: '1:1', name: '1:1 方形', desc: '信息流投放', platforms: ['generic'] },
+  { id: '4:5', name: '4:5 竖版图文', desc: '小红书 / IG', platforms: ['generic'] }
+];
+function ratiosForPlatform(pid){
+  return RATIOS.filter(function(r){ return r.platforms.indexOf(pid) >= 0; });
+}
+/* ============================================================
+   演示数据（接口未就绪时使用）
+   ============================================================ */
+var MOCK_DRAMAS = [
+  {
+    id: 'md_1001', title: '被顶替的实习生', episodes: 8, duration: 75, style: '都市逆袭', ratio: '9:16', status: 'done',
+    logline: '入职第一天她发现名额被董事长千金顶替，三年后带着完整证据回到同一间会议室。',
+    hook: '她被顶替三年后，带着证据回来了', updated: '2026-11-22 18:40',
+    i18n: {
+      en: { title: 'The Intern Who Was Replaced', logline: 'Her offer was stolen on day one. Three years later she walks back into the same boardroom — with proof.', hook: 'She came back with the receipts.' },
+      ja: { title: 'すり替えられたインターン', hook: '3年後、証拠を持って戻ってきた。' },
+      es: { title: 'La becaria suplantada', hook: 'Volvió con las pruebas.' },
+      ar: { title: 'المتدربة المستبدلة', hook: 'عادت بالدليل بعد ثلاث سنوات.' }
+    }
+  },
+  {
+    id: 'md_1002', title: '消失的结婚证', episodes: 6, duration: 70, style: '悬疑', ratio: '9:16', status: 'done',
+    logline: '结婚证上的名字不是她，丈夫却说从未结过婚。她开始一场只剩 7 天的自证。',
+    hook: '结婚证上的名字不是她', updated: '2026-11-21 22:15',
+    i18n: {
+      en: { title: 'The Vanishing Marriage Certificate', logline: 'The name on the certificate is not hers. Her husband says he never married. She has seven days to prove it.', hook: 'Her name was never on it.' },
+      ja: { title: '消えた結婚証明書', hook: '結婚証明書に彼女の名前はなかった。' },
+      es: { title: 'El certificado que desapareció', hook: 'Su nombre no estaba en el certificado.' },
+      ar: { title: 'شهادة الزواج المفقودة', hook: 'اسمها لم يكن على الشهادة.' }
+    }
+  },
+  {
+    id: 'md_1003', title: '外卖箱里的秘密', episodes: 10, duration: 65, style: '家庭', ratio: '9:16', status: 'rendering',
+    logline: '外卖员每天多送一份没有地址的餐，直到他发现收件人是一直在找他的女儿。',
+    hook: '每天多送一份没有地址的餐', updated: '2026-11-23 09:05',
+    i18n: {
+      en: { title: 'The Secret in the Delivery Box', logline: 'A courier delivers one extra meal every day — to an address that does not exist.', hook: 'One extra meal every day.' },
+      ja: { title: 'デリバリーボックスの中の秘密', hook: '毎日、住所のない一食を届ける。' },
+      es: { title: 'El secreto de la caja de reparto', hook: 'Una comida extra cada día.' },
+      ar: { title: 'سر صندوق التوصيل', hook: 'وجبة إضافية كل يوم.' }
+    }
+  },
+  {
+    id: 'md_1004', title: '王爷的小厨娘', episodes: 12, duration: 80, style: '古风甜宠', ratio: '9:16', status: 'done',
+    logline: '一碗汤让冷面王爷破了戒，她却只想拿回母亲的菜谱。',
+    hook: '一碗汤让王爷破了戒', updated: '2026-11-20 16:30',
+    i18n: {
+      en: { title: 'The Prince\'s Little Cook', logline: 'One bowl of soup makes a cold-hearted prince break his vow. She only wants her mother\'s recipe back.', hook: 'One bowl of soup changed everything.' },
+      ja: { title: '王様の小さな料理人', hook: '一杯のスープが王様の誓いを破った。' },
+      es: { title: 'La pequeña cocinera del príncipe', hook: 'Un tazón de sopa lo cambió todo.' },
+      ar: { title: 'طاهية الأمير الصغيرة', hook: 'وعاء حساء غيّر كل شيء.' }
+    }
+  },
+  {
+    id: 'md_1005', title: '重启人生第一天', episodes: 9, duration: 72, style: '重生', ratio: '9:16', status: 'done',
+    logline: '她回到车祸前一小时，这一次要救下所有人，包括那个曾经背叛她的人。',
+    hook: '回到车祸前一小时', updated: '2026-11-19 12:20',
+    i18n: {
+      en: { title: 'Restart: Day One', logline: 'She wakes up one hour before the crash. This time she saves everyone — even the man who betrayed her.', hook: 'One hour before the crash.' },
+      ja: { title: '人生リスタート初日', hook: '事故の一時間前に戻った。' },
+      es: { title: 'Reinicio: el primer día', logline: 'Despierta una hora antes del accidente. Esta vez salvará a todos.', hook: 'Una hora antes del accidente.' },
+      ar: { title: 'إعادة البدء: اليوم الأول', hook: 'ساعة قبل الحادث.' }
+    }
+  },
+  {
+    id: 'md_1006', title: '豪门弃女的涅槃', episodes: 6, duration: 68, style: '都市', ratio: '9:16', status: 'draft',
+    logline: '被赶出家门那天，她带走一份足以让整个家族低头的合同。',
+    hook: '被赶出门那天她带走了合同', updated: '2026-11-18 10:00',
+    i18n: {
+      en: { title: 'The Heiress They Threw Away', logline: 'Cast out of the family, she leaves with a contract that will bring the whole empire to its knees.', hook: 'She left with one contract.' },
+      ja: { title: '捨てられた令嬢の逆襲', hook: '彼女は一枚の契約書を残した。' },
+      es: { title: 'La heredera desterrada', hook: 'Se fue con un contrato.' },
+      ar: { title: 'الوريثة المنبوذة', hook: 'غادرت بعقد واحد.' }
+    }
+  }
+];
+var MOCK_DISTS = [
+  { id: 'm_dist_101', drama_id: 'md_1001', drama_title: '被顶替的实习生', platform: 'douyin', lang: 'zh', ratio: '9:16', status: 'ready', views: 1286000, likes: 88200, comments: 4310, conversions: 1260, publish_url: 'https://www.douyin.com/video/demo', created_at: '2026-11-20 20:10', zip_size: 41200000, filename: '被顶替的实习生_20261120_douyin_zh.zip' },
+  { id: 'm_dist_102', drama_id: 'md_1001', drama_title: '被顶替的实习生', platform: 'tiktok', lang: 'en', ratio: '9:16', status: 'ready', views: 756000, likes: 52300, comments: 2180, conversions: 890, publish_url: 'https://www.tiktok.com/@demo/video/1', created_at: '2026-11-20 22:35', zip_size: 39800000, filename: 'The_Intern_EN_20261120.zip' },
+  { id: 'm_dist_103', drama_id: 'md_1002', drama_title: '消失的结婚证', platform: 'youtube_shorts', lang: 'en', ratio: '9:16', status: 'ready', views: 243000, likes: 18900, comments: 960, conversions: 210, publish_url: 'https://www.youtube.com/shorts/demo', created_at: '2026-11-21 09:12', zip_size: 45500000, filename: 'Vanishing_Certificate_EN.zip' },
+  { id: 'm_dist_104', drama_id: 'md_1004', drama_title: '王爷的小厨娘', platform: 'reelshort', lang: 'en', ratio: '9:16', status: 'ready', views: 982000, likes: 76100, comments: 5240, conversions: 4210, publish_url: 'https://www.reelshort.com/series/demo', created_at: '2026-11-21 14:00', zip_size: 98600000, filename: 'The_Princes_Little_Cook_EN_S1.zip' },
+  { id: 'm_dist_105', drama_id: 'md_1005', drama_title: '重启人生第一天', platform: 'kuaishou', lang: 'zh', ratio: '9:16', status: 'ready', views: 651000, likes: 41000, comments: 1890, conversions: 740, publish_url: 'https://www.kuaishou.com/short-video/demo', created_at: '2026-11-21 19:40', zip_size: 37600000, filename: '重启人生第一天_kuaishou_zh.zip' },
+  { id: 'm_dist_106', drama_id: 'md_1001', drama_title: '被顶替的实习生', platform: 'tiktok', lang: 'es', ratio: '9:16', status: 'ready', views: 188000, likes: 12400, comments: 640, conversions: 95, publish_url: '', created_at: '2026-11-22 08:05', zip_size: 40100000, filename: 'Becaria_ES_TikTok.zip' },
+  { id: 'm_dist_107', drama_id: 'md_1002', drama_title: '消失的结婚证', platform: 'reelshort', lang: 'es', ratio: '9:16', status: 'failed', views: 34000, likes: 2100, comments: 130, conversions: 18, publish_url: '', created_at: '2026-11-22 11:30', zip_size: 0, filename: 'Certificado_ES.zip' },
+  { id: 'm_dist_108', drama_id: 'md_1005', drama_title: '重启人生第一天', platform: 'youtube_shorts', lang: 'ja', ratio: '9:16', status: 'ready', views: 87000, likes: 6400, comments: 310, conversions: 46, publish_url: 'https://www.youtube.com/shorts/demo2', created_at: '2026-11-22 15:48', zip_size: 43900000, filename: 'Restart_JA_YT.zip' },
+  { id: 'm_dist_109', drama_id: 'md_1004', drama_title: '王爷的小厨娘', platform: 'douyin', lang: 'zh', ratio: '9:16', status: 'ready', views: 2110000, likes: 143000, comments: 8060, conversions: 2380, publish_url: 'https://www.douyin.com/video/demo2', created_at: '2026-11-19 20:20', zip_size: 42100000, filename: '王爷的小厨娘_douyin_zh.zip' },
+  { id: 'm_dist_110', drama_id: 'md_1003', drama_title: '外卖箱里的秘密', platform: 'generic', lang: 'ar', ratio: '9:16', status: 'ready', views: 12400, likes: 980, comments: 42, conversions: 7, publish_url: '', created_at: '2026-11-22 21:10', zip_size: 36800000, filename: 'Delivery_Box_AR_generic.zip' }
+];
+/* ============================================================
+   发行 SOP（页面与 docs/短剧发行SOP.md 同源）
+   ============================================================ */
+var SOP_STAGES = [
+  {
+    no: '01', title: '选题与剧本', time: '1–3 天',
+    details: [
+      '定题材：国内优先都市逆袭/重生/家庭伦理；海外优先复仇、豪门、狼人/霸总变体，ReelShort 偏好强冲突付费点。',
+      '定集数：国内 6–12 集、单集 60–120 秒；海外一季 60–100 集、单集 60–90 秒（付费卡点在前 10 集）。',
+      '写钩子：前 3 秒必须有冲突/反转；每集结尾留悬念（cliffhanger），标题即钩子。',
+      '整理剧本资产：分集标题、封面文案、一句话 logline、人物关系图，后续发行包与多语言都要用。'
+    ],
+    cautions: ['不写真实企业/人物影射', '避免低俗擦边、血腥、未成年恋爱', 'AI 原创剧本保留生成记录作为版权证据'],
+    rejects: ['题材踩红线被平台直接驳回', '剧本与已上线作品高度相似被判定抄袭', '付费卡点不清晰，平台要求重剪']
+  },
+  {
+    no: '02', title: '成片与质检', time: '2–4 小时（成片已有则跳过）',
+    details: [
+      '统一输出：9:16、1080×1920、H.264、30fps、单集 60–120 秒；音频 AAC 128–192 kbps。',
+      '画面质检：无黑帧/花屏/字幕遮挡；片头 3 秒内出现剧名与冲突；全片带「AI 生成」角标。',
+      '音频质检：人声 -14 LUFS 左右，BGM 不盖过人声；确认 BGM/字体/素材均可商用。',
+      '逐集命名规范：`剧名_EP01_9x16_1080p.mp4`，供发行包直接引用。'
+    ],
+    cautions: ['不要把成片二次压到 720p 以下', '不要带第三方平台水印', 'AI 生成素材保留授权与生成记录'],
+    rejects: ['画质低于 720p / 码率过低', '音画不同步、字幕乱码', '出现其他平台水印或二维码']
+  },
+  {
+    no: '03', title: '多语言字幕 / 配音', time: '1–2 小时 / 语言',
+    details: [
+      '先出中文 SRT 母版，校对时间轴与断句（单行 ≤ 18 字，双行 ≤ 36 字）。',
+      '翻译顺序：英 → 西 → 日 → 阿；阿语必须 RTL 排版并使用阿拉伯字体。',
+      '英文避免机翻直出，专有名词统一（人名/称谓/剧名）；西语用拉美版；日语注意敬语层级。',
+      '配音是二创：只用已授权音色，每个语言生成后人工试听，确认口型/情绪/时长；不得模仿真人声音。'
+    ],
+    cautions: ['AI 配音需在片尾或简介标注', '字幕不要压到画面关键信息（人物脸/文字）', '阿拉伯语字幕注意左右对齐'],
+    rejects: ['字幕时间轴错位/漏句', '机翻导致语义错乱被限流', '音色侵权投诉']
+  },
+  {
+    no: '04', title: '发行包打包', time: '10 分钟',
+    details: [
+      '在本页「发行向导」选剧、平台、语言、画幅，生成发行包（或走 /api/aidrama/distribute 接口）。',
+      '发行包目录：`video/` 成片、`cover/` 封面、`subtitles/` SRT+VTT、`metadata/` 元数据、`发行说明.md` 合规与上传指引。',
+      '校验清单：文件数、封面尺寸、字幕语言、metadata 里的标题/简介/标签是否已按平台限制截断。',
+      '包命名：`剧名_日期_平台_语言.zip`；同一剧多平台时分别打包，避免封面/标题混用。'
+    ],
+    cautions: ['一包一平台，不要一包通投', 'metadata 中的标题必须 ≤ 平台限制', '发行说明保留版权与 AI 声明'],
+    rejects: ['封面尺寸/比例不符', '缺少字幕或 metadata 字段为空', '包内文件命名混乱导致人工上传选错']
+  },
+  {
+    no: '05', title: '账号与资质准备（可并行）', time: '1–2 天（新号/备案更久）',
+    details: [
+      '国内：抖音/快手实名认证；付费短剧准备备案号、类目权限、分账协议。',
+      '海外：TikTok 账号绑定手机邮箱；YouTube 频道验证；ReelShort 准备公司主体与版权链、商务对接。',
+      '建立账号台账：账号、主体、地区、可发布类目、负责人、密码保管方式（不写在本页）。',
+      '首次发布前完成平台社区规范与短剧品类规则阅读，截图留存。'
+    ],
+    cautions: ['不要买号/借号发布，封号连带内容下架', '不要用 VPN 伪装地区规避审核', '付费短剧无备案不上线'],
+    rejects: ['实名信息与出镜/版权主体不一致', '新号无类目权限直接上传付费内容', '海外账号地区与内容语言不匹配被限流']
+  },
+  {
+    no: '06', title: '平台上传与发布（人工）', time: '30–60 分钟 / 平台',
+    details: [
+      '按本页第 3 步清单逐步操作：登录 → 上传视频 → 封面 → 标题/简介/标签（复制）→ 字幕 → 发布时间 → 合规声明。',
+      '上传后先「定时/稍后发布」，在预览页检查字幕、封面、标题是否截断，再点发布。',
+      '系列剧集用播放列表/合集串起来；首集发布后 2 小时内发布第 2 集形成追更。',
+      '发布完成后回填发布链接与时间，保留后台截图作为存证。'
+    ],
+    cautions: ['本页不自动发布，必须本人在平台后台操作', '发布前确认「AI 生成」声明已勾选', '不要批量重复上传同一视频'],
+    rejects: ['标题含极限词/导流信息', '封面带二维码或联系方式', '同一视频重复上传被判搬运']
+  },
+  {
+    no: '07', title: '审核与驳回处理', time: '2–48 小时',
+    details: [
+      '审核中：不重复提交；记录提交时间与审核状态。',
+      '被驳回：读驳回理由（版权/低质/违规/资质），对症修改后重新提交，不换号硬发。',
+      '版权申诉：准备剧本原创记录、素材授权、AI 生成记录，走平台申诉通道。',
+      '被限流：检查标题/封面/前 3 秒完播率，必要时重剪首集再发。'
+    ],
+    cautions: ['不要用「镜像/改 MD5」等方式规避审核', '被驳回内容先自查合规再申诉', '留存申诉编号与结果'],
+    rejects: ['版权投诉（BGM/素材/剧本）', '低质/重复内容', '资质缺失（付费短剧无备案）', '诱导付费/导流站外']
+  },
+  {
+    no: '08', title: '数据回填与复盘', time: '24h / 72h / 7d',
+    details: [
+      '回填时点：发布后 2 小时记录初始播放；24 小时回填播放/点赞/评论/转化；72 小时与 7 天再各回填一次。',
+      '口径：播放量取平台后台「播放/观看」；转化取付费解锁/小程序跳转/线索数，记录渠道与口径。',
+      '在国内平台后台与海外后台分别截图，数据存证，便于对账。',
+      '复盘：按平台×语言×题材拆分完播率、转化率，决定加投/换封面/换语言重发。'
+    ],
+    cautions: ['不把点赞当转化', '不重复回填同一时点导致汇总虚高', '接口数据仅供内部复盘，不对外承诺'],
+    rejects: ['数据口径不一致导致无法对比', '只回填播放不回填转化，无法算 ROI']
+  },
+  {
+    no: '09', title: '海外发行追加动作', time: '按市场排期',
+    details: [
+      '市场优先级：北美（ReelShort/TikTok/YouTube）→ 东南亚（TikTok）→ 拉美（TikTok/YouTube 西语）→ 中东（阿语字幕）。',
+      '本地化：标题/简介母语审校；西语用拉美版；阿语 RTL 字幕；日语敬语与称谓本地化。',
+      '发布时间按目标受众本地时区；不要用国内时间直接套海外。',
+      '合规：AI 内容标签（TikTok AIGC / YouTube 合成内容披露）、GDPR/COPPA 意识、音乐与素材的海外授权范围。'
+    ],
+    cautions: ['海外付费短剧需当地主体/税务与收款方案', '不要用国内素材授权默认覆盖海外', '宗教/文化敏感内容先审'],
+    rejects: ['未做 AIGC 披露被限流', '字幕语言与账号地区不匹配', '音乐版权仅限中国大陆']
+  }
+];
+/* ============================================================
+   状态 / 类型映射
+   ============================================================ */
+var DRAMA_STATUS = {
+  draft: { label: '草稿', cls: 'tag' },
+  queued: { label: '排队中', cls: 'tag amber' },
+  running: { label: '渲染中', cls: 'tag amber' },
+  rendering: { label: '渲染中', cls: 'tag amber' },
+  rendered: { label: '已出片', cls: 'tag green' },
+  done: { label: '已出片', cls: 'tag green' },
+  failed: { label: '生成失败', cls: 'tag red' }
+};
+var DIST_STATUS = {
+  ready: { label: '待发布', cls: 'tag cyan' },
+  processing: { label: '打包中', cls: 'tag amber' },
+  published: { label: '已发布', cls: 'tag green' },
+  failed: { label: '打包失败', cls: 'tag red' },
+  rejected: { label: '被驳回', cls: 'tag red' }
+};
+function dramaStatus(s){ return DRAMA_STATUS[s] || { label: s || '未知', cls: 'tag' }; }
+function distDisplayStatus(it){
+  if (it.status === 'failed') return { key: 'failed', label: '失败', cls: 'tag red' };
+  if (it.status === 'rejected') return { key: 'rejected', label: '被驳回', cls: 'tag red' };
+  if (Number(it.views || 0) > 0) return { key: 'backfilled', label: '已回填', cls: 'tag green' };
+  if (it.publish_url) return { key: 'published', label: '已发布', cls: 'tag violet' };
+  if (it.status === 'processing') return { key: 'processing', label: '打包中', cls: 'tag amber' };
+  return { key: 'ready', label: '待发布', cls: 'tag cyan' };
+}
+function fileType(name){
+  var n = String(name || '').toLowerCase();
+  if (/\.(mp4|mov|m4v|mkv|webm)$/.test(n)) return { key: 'video', label: '视频', icon: '🎬' };
+  if (/\.(jpg|jpeg|png|webp|svg|gif)$/.test(n)) return { key: 'cover', label: '封面', icon: '🖼' };
+  if (/\.(srt|vtt|ass|ssa)$/.test(n)) return { key: 'subtitle', label: '字幕', icon: '💬' };
+  if (/\.json$/.test(n)) return { key: 'meta', label: 'metadata', icon: '🧾' };
+  if (/\.(md|txt|pdf|docx?)$/.test(n)) return { key: 'readme', label: '发行说明', icon: '📘' };
+  if (/\.zip$/.test(n)) return { key: 'zip', label: '发行包', icon: '📦' };
+  return { key: 'other', label: '其他', icon: '📄' };
+}
+/* ============================================================
+   API 适配层（真实接口优先，未就绪自动降级演示数据）
+   ============================================================ */
+var API_BASE = (function(){
+  try {
+    var q = new URLSearchParams(location.search);
+    if (q.get('api')) return q.get('api').replace(/\/+$/, '');
+  } catch (e) {}
+  if (window.AIDRAMA_PUBLISH_API) return String(window.AIDRAMA_PUBLISH_API).replace(/\/+$/, '');
+  if (location.pathname.indexOf('/ai-nav/') === 0) return '/ai-nav/api/aidrama';
+  return '/api/aidrama';
+})();
+var FORCE_MOCK = (function(){
+  try { return new URLSearchParams(location.search).get('mock') === '1'; } catch (e) { return false; }
+})();
+var apiState = {
+  mode: FORCE_MOCK ? 'mock' : 'checking',
+  caps: { list: false, dists: false, distribute: false, stats: false, translate: false },
+  checkedAt: 0,
+  lastError: ''
+};
+var dramas = [];
+var dists = [];
+var mockDists = [];
+var MOCK_KEY = 'xl_publish_mock_dists_v1';
+var dramasLoaded = false;
+var distsLoaded = false;
+function dramaById(id){
+  for (var i = 0; i < dramas.length; i++) if (String(dramas[i].id) === String(id)) return dramas[i];
+  return null;
+}
+function dramaTitle(id){
+  var d = dramaById(id);
+  return d ? d.title : ('剧集 #' + id);
+}
+function normDrama(it){
+  it = it || {};
+  var eps = Array.isArray(it.episodes) ? it.episodes : [];
+  var cover = it.cover_url || '';
+  if (!cover) for (var i = 0; i < eps.length; i++) { if (eps[i] && eps[i].cover_url) { cover = eps[i].cover_url; break; } }
+  var logline = it.logline || '';
+  var rawStatus = it.status || 'draft';
+  if (rawStatus === 'rendered') rawStatus = 'done';
+  return {
+    id: String(it.drama_id != null ? it.drama_id : it.id),
+    title: it.title || '未命名短剧',
+    episodes: Number(it.episodes_n || it.episodes || eps.length || 0),
+    duration: Number(it.duration || 0),
+    style: it.style || it.theme || '',
+    ratio: it.ratio || '9:16',
+    status: rawStatus,
+    logline: logline,
+    hook: it.hook || logline.slice(0, 24),
+    updated: it.updated_at || it.created_at || '',
+    cover: cover,
+    episodesList: eps,
+    rendered_n: Number(it.rendered_n || 0),
+    download_url: it.download_url || '',
+    i18n: it.i18n || null,
+    script: it.script || null
+  };
+}
+function normMockDrama(it){
+  var d = normDrama({
+    drama_id: it.id, title: it.title, episodes_n: it.episodes, duration: it.duration,
+    style: it.style, ratio: it.ratio, status: it.status, logline: it.logline,
+    updated_at: it.updated, i18n: it.i18n
+  });
+  d.hook = it.hook || '';
+  return d;
+}
+function normDist(it){
+  it = it || {};
+  var id = it.id != null ? String(it.id) : ('d_' + Date.now());
+  return {
+    id: id,
+    drama_id: it.drama_id != null ? String(it.drama_id) : '',
+    drama_title: it.drama_title || (it.drama_id != null ? dramaTitle(it.drama_id) : '未命名短剧'),
+    platform: it.platform || 'generic',
+    lang: it.lang || it.language || 'zh',
+    ratio: it.ratio || '9:16',
+    status: it.status || 'ready',
+    views: Number(it.views != null ? it.views : (it.plays || 0)),
+    likes: Number(it.likes || 0),
+    comments: Number(it.comments || 0),
+    conversions: Number(it.conversions || 0),
+    publish_url: it.publish_url || '',
+    zip_url: it.zip_url || it.download_url || '',
+    zip_size: Number(it.zip_size || 0),
+    filename: it.filename || '',
+    files: Array.isArray(it.files) ? it.files : [],
+    created_at: it.created_at || it.updated_at || '',
+    updated_at: it.updated_at || it.created_at || '',
+    zip_demo: !!it.zip_demo
+  };
+}
+function initMockDists(){
+  try {
+    var raw = localStorage.getItem(MOCK_KEY);
+    if (raw) {
+      var arr = JSON.parse(raw);
+      if (Array.isArray(arr) && arr.length) { mockDists = arr; return; }
+    }
+  } catch (e) {}
+  mockDists = JSON.parse(JSON.stringify(MOCK_DISTS));
+  saveMockDists();
+}
+function saveMockDists(){
+  try { localStorage.setItem(MOCK_KEY, JSON.stringify(mockDists)); } catch (e) {}
+}
+function capCount(){
+  var n = 0;
+  for (var k in apiState.caps) if (apiState.caps[k]) n++;
+  return n;
+}
+function apiReq(method, path, body, timeoutMs){
+  var url = API_BASE + path;
+  var ctl = (typeof AbortController !== 'undefined') ? new AbortController() : null;
+  var to = setTimeout(function(){ if (ctl) { try { ctl.abort(); } catch (e) {} } }, timeoutMs || 9000);
+  var headers = { 'Accept': 'application/json' };
+  if (body) headers['Content-Type'] = 'application/json';
+  var token = '';
+  try { token = localStorage.getItem('xl_token') || sessionStorage.getItem('xl_token') || ''; } catch (e) {}
+  if (token) headers['Authorization'] = 'Bearer ' + token;
+  var init = { method: method, headers: headers, credentials: 'same-origin', cache: 'no-store' };
+  if (body) init.body = JSON.stringify(body);
+  if (ctl) init.signal = ctl.signal;
+  return fetch(url, init).then(function(r){
+    return r.text().then(function(txt){
+      var j = null;
+      try { j = txt ? JSON.parse(txt) : {}; } catch (e) {
+        var je = new Error('接口返回非 JSON（HTTP ' + r.status + '）');
+        je.code = 'bad_json'; je.status = r.status;
+        throw je;
+      }
+      if (!r.ok || (j && j.ok === false)) {
+        var e2 = new Error((j && (j.hint || j.error)) || ('HTTP ' + r.status));
+        e2.code = (j && j.error) || ('http_' + r.status);
+        e2.status = r.status;
+        e2.json = j;
+        throw e2;
+      }
+      return j || {};
+    });
+  }).then(function(j){
+    clearTimeout(to);
+    return j;
+  }, function(e){
+    clearTimeout(to);
+    if (e && e.name === 'AbortError') {
+      var te = new Error('接口超时（' + Math.round((timeoutMs || 9000) / 1000) + 's）');
+      te.code = 'timeout';
+      throw te;
+    }
+    throw e;
+  });
+}
+function loadDramas(opts){
+  opts = opts || {};
+  if (FORCE_MOCK) {
+    dramas = MOCK_DRAMAS.map(normMockDrama);
+    dramasLoaded = true;
+    apiState.mode = 'mock';
+    apiState.checkedAt = Date.now();
+    updateModeUI();
+    renderDramas();
+    return Promise.resolve(dramas);
+  }
+  renderDramasLoading();
+  return apiReq('GET', '/list?limit=100&page=1', null, 8000).then(function(j){
+    var items = j.items || (j.data && j.data.items) || [];
+    if (!Array.isArray(items)) throw new Error('list 接口缺少 items 数组');
+    dramas = items.map(normDrama);
+    dramasLoaded = true;
+    apiState.caps.list = true;
+    apiState.mode = 'live';
+    apiState.checkedAt = Date.now();
+    updateModeUI();
+    renderDramas();
+    renderHeroStats();
+    if (distsLoaded) {
+      var titleChanged = false;
+      dists.forEach(function(x){
+        if (!x.drama_title || x.drama_title === '未命名短剧' || x.drama_title.indexOf('剧集 #') === 0) {
+          x.drama_title = dramaTitle(x.drama_id);
+          titleChanged = true;
+        }
+      });
+      if (titleChanged) {
+        renderHeroStats();
+        if (!$('#view-dashboard').hidden) renderDashboard();
+      }
+    }
+    return dramas;
+  }).catch(function(e){
+    dramas = MOCK_DRAMAS.map(normMockDrama);
+    dramasLoaded = true;
+    apiState.caps.list = false;
+    apiState.mode = 'mock';
+    apiState.checkedAt = Date.now();
+    apiState.lastError = e && e.message ? e.message : '接口不可用';
+    updateModeUI();
+    renderDramas();
+    renderHeroStats();
+    if (opts.notify) toast('列表接口未就绪（' + apiState.lastError + '），已加载演示数据', 'warn');
+    return dramas;
+  });
+}
+function loadDists(opts){
+  opts = opts || {};
+  initMockDists();
+  if (FORCE_MOCK) {
+    dists = mockDists.map(normDist);
+    distsLoaded = true;
+    apiState.mode = 'mock';
+    updateModeUI();
+    renderDashboard();
+    renderHeroStats();
+    return Promise.resolve(dists);
+  }
+  if ($('#view-dashboard') && !$('#view-dashboard').hidden) renderDashboardLoading();
+  return apiReq('GET', '/distributions?limit=100&page=1', null, 9000).then(function(j){
+    var items = j.items || (j.data && j.data.items) || [];
+    if (!Array.isArray(items)) throw new Error('distributions 接口缺少 items 数组');
+    dists = items.map(normDist);
+    distsLoaded = true;
+    apiState.caps.dists = true;
+    if (apiState.mode !== 'mock') apiState.mode = 'live';
+    updateModeUI();
+    renderDashboard();
+    renderHeroStats();
+    return dists;
+  }).catch(function(e){
+    dists = mockDists.map(normDist);
+    distsLoaded = true;
+    apiState.caps.dists = false;
+    apiState.lastError = e && e.message ? e.message : '接口不可用';
+    updateModeUI();
+    renderDashboard();
+    renderHeroStats();
+    if (opts.notify) toast('发行记录接口未就绪（' + apiState.lastError + '），已加载演示数据', 'warn');
+    return dists;
+  });
+}
+/* ---------- 多语言字幕语料（演示） ---------- */
+var SUB_LINES = [
+  { zh: '三年了，我每天都在等这一天。', en: 'Three years. I have waited every single day for this moment.', ja: '三年間、私はこの日のために毎日待っていました。', es: 'Tres años. He esperado cada día por este momento.', ar: 'ثلاث سنوات، وانتظرت هذه اللحظة كل يوم.' },
+  { zh: '你以为我会一直沉默吗？', en: 'Did you think I would stay silent forever?', ja: '私がずっと黙っていると思ったの？', es: '¿Creías que me quedaría callada para siempre?', ar: 'هل ظننت أنني سأبقى صامتة إلى الأبد؟' },
+  { zh: '这份证据，我留了整整三年。', en: 'I have kept this proof for three whole years.', ja: 'この証拠を、まる三年も保管してきたの。', es: 'He guardado esta prueba durante tres años enteros.', ar: 'احتفظت بهذا الدليل لثلاث سنوات كاملة.' },
+  { zh: '今天，该把名字还给我了。', en: 'Today, it is time to give me back my name.', ja: '今日こそ、私の名前を返してもらう。', es: 'Hoy es el día de devolverme mi nombre.', ar: 'اليوم حان الوقت لإعادة اسمي إليّ.' },
+  { zh: '你们欠我的，一笔一笔都算清楚。', en: 'Every single thing you owe me — we settle it today.', ja: 'あなたたちが私に借りたもの、一つずつ清算しましょう。', es: 'Todo lo que me deben, lo ajustamos hoy.', ar: 'كل ما تدينون به لي، سنحاسبه اليوم.' },
+  { zh: '从今天起，我不会再退一步。', en: 'From today on, I will not take one step back.', ja: '今日から、私は一歩も引かない。', es: 'Desde hoy, no daré ni un paso atrás.', ar: 'من اليوم، لن أتراجع خطوة واحدة.' },
+  { zh: '你欠我的道歉，现在可以说了。', en: 'You owe me an apology. You can say it now.', ja: 'あなたが私に謝るべき言葉、今ここで言って。', es: 'Me debes una disculpa. Puedes decirla ahora.', ar: 'أنت تدين لي باعتذار. يمكنك أن تقوله الآن.' },
+  { zh: '别急，这才刚刚开始。', en: 'Not so fast. This is just the beginning.', ja: '慌てないで。これはまだ始まりに過ぎない。', es: 'No tan rápido. Esto es solo el comienzo.', ar: 'لا تستعجل. هذه مجرد البداية.' }
+];
+function cuesForLang(lang){
+  var out = [];
+  for (var i = 0; i < SUB_LINES.length; i++) {
+    out.push({ start: i * 2.4 + 0.4, end: i * 2.4 + 2.6, zh: SUB_LINES[i].zh, text: SUB_LINES[i][lang] || SUB_LINES[i].zh });
+  }
+  return out;
+}
+/* ---------- 真实接口动作 ---------- */
+function realDistribute(payload){
+  return apiReq('POST', '/distribute', {
+    drama_id: payload.drama_id,
+    platform: payload.platform,
+    lang: payload.lang,
+    ratio: payload.ratio,
+    auto_translate: true
+  }, 185000).then(function(j){
+    var raw = j.distribution || j.item || (j.id ? j : null);
+    if (!raw) throw new Error('distribute 接口返回缺少 distribution 字段');
+    var merged = {};
+    for (var k in raw) merged[k] = raw[k];
+    if (j.download_url && !merged.zip_url) merged.zip_url = j.download_url;
+    var d = normDist(merged);
+    d.drama_title = dramaTitle(d.drama_id);
+    d.drama_id = String(payload.drama_id);
+    apiState.caps.distribute = true;
+    updateModeUI();
+    return { distribution: d, zip_url: d.zip_url || j.download_url || '', files: d.files };
+  }).catch(function(e){
+    apiState.caps.distribute = false;
+    updateModeUI();
+    throw e;
+  });
+}
+function realStats(dist, stats){
+  return apiReq('POST', '/distributions/' + encodeURIComponent(dist.id) + '/stats', {
+    views: validNum(stats.views),
+    likes: validNum(stats.likes),
+    conversions: validNum(stats.conversions),
+    publish_url: stats.publish_url || '',
+    comments: validNum(stats.comments)
+  }, 15000).then(function(j){
+    var item = j.item || (j.distribution || null);
+    if (item) {
+      var d = normDist(item);
+      d.drama_title = d.drama_title || dist.drama_title;
+      if (item.comments == null) d.comments = validNum(stats.comments);
+      return d;
+    }
+    dist.views = validNum(stats.views);
+    dist.likes = validNum(stats.likes);
+    dist.conversions = validNum(stats.conversions);
+    dist.comments = validNum(stats.comments);
+    dist.publish_url = stats.publish_url || dist.publish_url;
+    return dist;
+  }).then(function(updated){
+    apiState.caps.stats = true;
+    updateModeUI();
+    return updated;
+  }).catch(function(e){
+    apiState.caps.stats = false;
+    updateModeUI();
+    throw e;
+  });
+}
+function realTranslate(dramaId, langs, voice){
+  return apiReq('POST', '/translate', { drama_id: dramaId, langs: langs, voice: !!voice }, 120000).then(function(j){
+    var items = j.items || [];
+    if (!Array.isArray(items)) throw new Error('translate 接口缺少 items');
+    apiState.caps.translate = true;
+    updateModeUI();
+    return items.map(function(it){
+      return {
+        lang: it.lang,
+        episodes: (it.episodes || []).map(function(ep){
+          return { no: ep.no, title: ep.title || ('第 ' + ep.no + ' 集'), srt_url: ep.srt_url || '', vtt_url: ep.vtt_url || '', dub_url: ep.dub_url || '' };
+        }),
+        zip_url: it.subtitle_zip_url || ''
+      };
+    });
+  }).catch(function(e){
+    apiState.caps.translate = false;
+    updateModeUI();
+    throw e;
+  });
+}
+function retryApi(){
+  apiState.mode = 'checking';
+  apiState.lastError = '';
+  updateModeUI();
+  toast('正在重试真实接口…');
+  Promise.all([loadDramas({ notify: true }), loadDists({ notify: true })]).then(function(){
+    var live = apiState.caps.list || apiState.caps.dists;
+    apiState.mode = live ? 'live' : 'mock';
+    updateModeUI();
+    toast(live ? ('已连接真实接口（' + capCount() + '/5 项就绪）') : '接口仍未就绪，继续使用演示数据', live ? 'ok' : 'warn');
+  });
+}
+/* ============================================================
+   路由 / 头部状态 / 我的短剧
+   ============================================================ */
+var VIEW_NAMES = ['dramas', 'wizard', 'dashboard', 'translate', 'specs', 'sop'];
+var currentView = 'dramas';
+var DRAMA_FILTER = { q: '', status: 'all' };
+function setView(name, opts){
+  if (VIEW_NAMES.indexOf(name) < 0) name = 'dramas';
+  currentView = name;
+  VIEW_NAMES.forEach(function(v){
+    var sec = $('#view-' + v);
+    if (sec) sec.hidden = (v !== name);
+  });
+  $$('.tab', $('#tabbar')).forEach(function(t){
+    var on = t.getAttribute('data-view') === name;
+    t.classList.toggle('on', on);
+    t.setAttribute('aria-current', on ? 'page' : 'false');
+  });
+  if (location.hash !== '#' + name) {
+    try { history.replaceState(null, '', '#' + name); } catch (e) { location.hash = name; }
+  }
+  if (!opts || !opts.noScroll) {
+    var top = $('#main');
+    if (top && window.scrollY > 40) window.scrollTo({ top: 0, behavior: 'auto' });
+  }
+  if (name === 'dramas') { if (!dramasLoaded) loadDramas({}); else renderDramas(); }
+  if (name === 'wizard') renderWizard();
+  if (name === 'dashboard') { if (!distsLoaded) loadDists({}); else renderDashboard(); }
+  if (name === 'translate') renderTranslate();
+  if (name === 'specs') renderSpecs();
+  if (name === 'sop') renderSop();
+}
+function updateModeUI(){
+  var badge = $('#modeBadge');
+  var tx = $('#modeBadgeTx');
+  var banner = $('#mockBanner');
+  if (!badge || !tx || !banner) return;
+  var liveCount = capCount();
+  if (apiState.mode === 'checking') {
+    badge.className = 'badge-ver';
+    tx.textContent = '接口检测中…';
+    banner.hidden = true;
+    return;
+  }
+  if (apiState.mode === 'live') {
+    badge.className = 'badge-ver live';
+    tx.textContent = '真实接口 ' + liveCount + '/5';
+    if (liveCount >= 5) {
+      banner.hidden = true;
+    } else {
+      banner.hidden = false;
+      banner.className = 'banner info';
+      banner.innerHTML = '<span>ℹ</span><span><b>部分接口联调中</b> · 已就绪 ' + liveCount + '/5 项，未就绪功能自动使用<b>演示数据</b>（不写入服务器）。</span>' +
+        '<span class="bb"><button type="button" class="btn ghost sm" data-act="retryApi">重试接口</button></span>';
+      bindCopy(banner);
+    }
+    return;
+  }
+  badge.className = 'badge-ver mock';
+  tx.textContent = '联调中 · 演示数据';
+  banner.hidden = false;
+  banner.className = 'banner warn';
+  banner.innerHTML = '<span>⚠</span><span><b>接口联调中</b> · <span class="mono">' + esc(API_BASE) + '/*</span> 尚未就绪（已就绪 ' + liveCount + '/5）。当前为<b>演示数据</b>，不会写入服务器；接口上线后自动切换，也可手动重试。' +
+    (apiState.lastError ? '<span class="muted"> 最近错误：' + esc(apiState.lastError) + '</span>' : '') +
+    '</span><span class="bb"><button type="button" class="btn ghost sm" data-act="retryApi">重试接口</button></span>';
+}
+function renderHeroStats(){
+  var box = $('#heroStats');
+  if (!box) return;
+  var doneN = dramas.filter(function(d){ return d.status === 'done'; }).length;
+  var views = 0, conv = 0;
+  dists.forEach(function(d){ views += d.views || 0; conv += d.conversions || 0; });
+  box.innerHTML =
+    '<div class="stat"><b>' + (dramasLoaded ? num(doneN) : '—') + '</b><span>已出片短剧</span></div>' +
+    '<div class="stat amber"><b>' + (distsLoaded ? num(dists.length) : '—') + '</b><span>发行记录</span></div>' +
+    '<div class="stat green"><b>' + (distsLoaded ? nf(views) : '—') + '</b><span>总播放量</span></div>' +
+    '<div class="stat violet"><b>' + (distsLoaded ? nf(conv) : '—') + '</b><span>总转化</span></div>';
+  var tc1 = $('#tabCountDramas'), tc2 = $('#tabCountDists');
+  if (tc1) tc1.textContent = dramasLoaded ? dramas.length : '—';
+  if (tc2) tc2.textContent = distsLoaded ? dists.length : '—';
+}
+function renderStatsTabs(){
+  var tc1 = $('#tabCountDramas'), tc2 = $('#tabCountDists');
+  if (tc1) tc1.textContent = dramasLoaded ? dramas.length : '—';
+  if (tc2) tc2.textContent = distsLoaded ? dists.length : '—';
+}
+function dramaCard(d){
+  var st = dramaStatus(d.status);
+  var cover = coverOf(d);
+  var meta = [];
+  if (d.episodes) meta.push(d.episodes + ' 集');
+  if (d.duration) meta.push('单集 ' + d.duration + ' 秒');
+  if (d.ratio) meta.push(d.ratio);
+  if (d.updated) meta.push('更新 ' + esc(fmtDate(d.updated)));
+  return '<article class="dcard" data-drama="' + esc(d.id) + '">' +
+    '<div class="dcover">' +
+      '<img src="' + cover.replace(/"/g, '&quot;') + '" alt="《' + esc(d.title) + '》封面" loading="lazy">' +
+      '<span class="badge-ep">' + esc(d.episodes || '—') + ' 集</span>' +
+      '<span class="badge-status"><span class="' + st.cls + '">' + esc(st.label) + '</span></span>' +
+    '</div>' +
+    '<div class="dbody">' +
+      '<h3>《' + esc(d.title) + '》 ' + (d.style ? '<span class="tag">' + esc(d.style) + '</span>' : '') + '</h3>' +
+      '<div class="meta">' + meta.map(function(m){ return '<span>' + m + '</span>'; }).join('') + '</div>' +
+      '<div class="logline">' + esc(d.logline || '暂无简介，可先去 AI 短剧页补充剧本信息。') + '</div>' +
+      '<div class="acts">' +
+        '<button type="button" class="btn sm" data-act="startDist" data-id="' + esc(d.id) + '">开始发行</button>' +
+        '<button type="button" class="btn ghost sm" data-act="goTranslate" data-id="' + esc(d.id) + '">多语言字幕</button>' +
+      '</div>' +
+    '</div>' +
+  '</article>';
+}
+function filteredDramas(){
+  var q = DRAMA_FILTER.q.trim().toLowerCase();
+  return dramas.filter(function(d){
+    if (DRAMA_FILTER.status !== 'all' && d.status !== DRAMA_FILTER.status) return false;
+    if (!q) return true;
+    var hay = (d.title + ' ' + d.style + ' ' + d.logline + ' ' + d.hook).toLowerCase();
+    return hay.indexOf(q) >= 0;
+  });
+}
+function renderDramaList(){
+  var box = $('#dramaList');
+  if (!box) return;
+  var list = filteredDramas();
+  if (!dramas.length) {
+    box.innerHTML = '<div class="empty"><div class="ei">🎬</div><h3>还没有可发行的短剧</h3>' +
+      '<p>先到「AI 短剧」创作中心生成剧本并渲染成片；成片完成后会自动出现在这里。接口联调期间展示的是演示数据。</p>' +
+      '<div class="acts"><a class="btn" href="/ai-nav/aidrama/">去创作短剧 →</a>' +
+      '<button type="button" class="btn ghost" data-act="retryApi">重试接口</button></div></div>';
+    return;
+  }
+  if (!list.length) {
+    box.innerHTML = '<div class="empty"><div class="ei">🔍</div><h3>没有匹配的短剧</h3><p>换个关键词或把状态筛选切回「全部」。</p>' +
+      '<div class="acts"><button type="button" class="btn ghost sm" data-act="clearDramaFilter">清除筛选</button></div></div>';
+    return;
+  }
+  box.innerHTML = '<div class="dgrid">' + list.map(dramaCard).join('') + '</div>';
+}
+function renderDramasLoading(){
+  var box = $('#dramaList');
+  if (box) box.innerHTML = '<div class="skeleton"><div class="sk"></div><div class="sk"></div><div class="sk"></div></div>';
+}
+function renderDramas(){
+  var root = $('#view-dramas');
+  if (!root) return;
+  if (!dramasLoaded) { renderDramasLoading(); return; }
+  var counts = { all: dramas.length, done: 0, running: 0, draft: 0 };
+  dramas.forEach(function(d){
+    if (d.status === 'done') counts.done++;
+    else if (d.status === 'running' || d.status === 'queued' || d.status === 'rendering') counts.running++;
+    else counts.draft++;
+  });
+  var chips = [['all', '全部'], ['done', '已出片'], ['running', '渲染中'], ['draft', '草稿']].map(function(x){
+    return '<button type="button" class="chip ' + (DRAMA_FILTER.status === x[0] ? 'on' : '') + '" data-st="' + x[0] + '">' + x[1] +
+      (x[0] === 'all' ? '' : ' <span class="muted">' + counts[x[0]] + '</span>') + '</button>';
+  }).join('');
+  root.innerHTML =
+    '<div class="panel">' +
+      '<div class="panel-h"><h2>我的短剧 <small>成片库 · 可发行状态一目了然</small></h2>' +
+        '<div class="ph-right">' + (!apiState.caps.list ? '<span class="tag amber">演示数据 · 联调中</span>' : '') +
+        '<button type="button" class="btn ghost sm" data-act="reloadDramas">↻ 刷新列表</button>' +
+        '<button type="button" class="btn sm" data-act="startDist">开始发行向导 →</button></div></div>' +
+      '<div class="panel-sub">从「AI 短剧」生成的成片自动同步；状态含草稿 / 渲染中 / 已出片。点击「开始发行」进入 4 步向导。</div>' +
+      '<div class="toolbar">' +
+        '<div class="search grow"><span class="ico">🔍</span><input class="inp" id="dramaSearch" type="search" placeholder="搜索剧名 / 题材 / 钩子" value="' + esc(DRAMA_FILTER.q) + '" autocomplete="off"></div>' +
+        '<div class="sp chips">' + chips + '</div>' +
+      '</div>' +
+      '<div id="dramaList"></div>' +
+    '</div>' +
+    '<div class="panel">' +
+      '<div class="panel-h"><h2>发行四步 <small>选剧 → 出包 → 按清单手动发布 → 回填数据</small></h2></div>' +
+      '<div class="pick-grid">' +
+        '<button type="button" class="pick" data-act="startDist"><span class="pico" style="background:linear-gradient(135deg,#38bdf8,#818cf8)">1</span><span class="ptx"><b>选剧 / 平台 / 语言</b><span>6 大平台、5 种语言、4 种画幅</span></span></button>' +
+        '<button type="button" class="pick" data-act="startDist"><span class="pico" style="background:linear-gradient(135deg,#22d3ee,#34d399)">2</span><span class="ptx"><b>生成发行包</b><span>视频/封面/字幕/metadata/发行说明</span></span></button>' +
+        '<button type="button" class="pick" data-act="startDist"><span class="pico" style="background:linear-gradient(135deg,#fbbf24,#f97316)">3</span><span class="ptx"><b>平台发布清单</b><span>8–12 步逐项勾选，复制标题标签</span></span></button>' +
+        '<button type="button" class="pick" data-act="startDist"><span class="pico" style="background:linear-gradient(135deg,#a78bfa,#f472b6)">4</span><span class="ptx"><b>回填数据</b><span>播放/点赞/评论/转化进看板</span></span></button>' +
+      '</div>' +
+    '</div>';
+  renderDramaList();
+  var input = $('#dramaSearch');
+  if (input) {
+    input.addEventListener('input', debounce(function(e){
+      DRAMA_FILTER.q = e.target.value || '';
+      renderDramaList();
+    }, 180));
+  }
+  $$('[data-st]', root).forEach(function(chip){
+    chip.addEventListener('click', function(){
+      DRAMA_FILTER.status = chip.getAttribute('data-st');
+      renderDramas();
+    });
+  });
+}
+/* ============================================================
+   发行向导
+   ============================================================ */
+var W = {
+  step: 1, maxStep: 1,
+  dramaId: '', platform: 'douyin', lang: 'zh', ratio: '9:16',
+  pkg: null, running: false, progress: null,
+  meta: null, statsDone: null, distId: '', _token: 0
+};
+var CHECKS_KEY = 'xl_publish_checklist_v1';
+var CHECK_STORE = {};
+try { CHECK_STORE = JSON.parse(localStorage.getItem(CHECKS_KEY) || '{}') || {}; } catch (e) { CHECK_STORE = {}; }
+function saveChecks(){
+  try { localStorage.setItem(CHECKS_KEY, JSON.stringify(CHECK_STORE)); } catch (e) {}
+}
+function gotoWizard(dramaId){
+  if (dramaId && String(dramaId) !== String(W.dramaId)) {
+    W.pkg = null; W.meta = null; W.step = 1; W.maxStep = 1; W.statsDone = null;
+  }
+  if (dramaId) W.dramaId = String(dramaId);
+  if (!W.dramaId && dramas.length) W.dramaId = String(dramas[0].id);
+  setView('wizard');
+  renderWizard();
+  if (!dramasLoaded) loadDramas({}).then(function(){ renderWizard(); });
+}
+function currentDrama(){
+  return dramaById(W.dramaId) || (dramas.length ? dramas[0] : null);
+}
+function styleTagText(style, lang){
+  var map = {
+    '都市逆袭': { zh: '逆袭', en: 'revenge', ja: '逆襲', es: 'venganza', ar: 'انتقام' },
+    '都市': { zh: '都市', en: 'urban', ja: '都市', es: 'urbano', ar: 'مدينة' },
+    '悬疑': { zh: '悬疑', en: 'suspense', ja: 'サスペンス', es: 'suspenso', ar: 'غموض' },
+    '家庭': { zh: '家庭', en: 'family', ja: '家族', es: 'familia', ar: 'عائلة' },
+    '古风甜宠': { zh: '古风甜宠', en: 'romance', ja: 'ロマンス', es: 'romance', ar: 'رومانسي' },
+    '重生': { zh: '重生', en: 'rebirth', ja: '転生', es: 'renacer', ar: 'بعث' }
+  };
+  var hit = map[style] || null;
+  return hit ? (hit[lang] || hit.zh) : (style || 'drama');
+}
+function defaultLogline(lang){
+  return {
+    zh: '一部 AI 辅助生成的竖屏短剧：一集一个反转，三分钟追完。',
+    en: 'An AI-assisted vertical short drama: one episode, one twist.',
+    ja: 'AI支援で制作された縦型ショートドラマ。1話ごとに衝撃の展開。',
+    es: 'Un drama corto vertical asistido por IA: un episodio, un giro.',
+    ar: 'دراما قصيرة عمودية بمساعدة الذكاء الاصطناعي: حلقة واحدة، مفاجأة واحدة.'
+  }[lang] || '';
+}
+function defaultHook(lang){
+  return {
+    zh: '第一集就反转', en: 'The twist hits in episode one.',
+    ja: '第1話から衝撃の展開。', es: 'El giro llega en el primer episodio.',
+    ar: 'المفاجأة في الحلقة الأولى.'
+  }[lang] || '';
+}
+function buildMeta(d, p, lang){
+  var i18n = d.i18n || {};
+  var tr = i18n[lang] || {};
+  var baseTitle = lang === 'zh' ? d.title : (tr.title || d.title);
+  var logline = (lang === 'zh' ? d.logline : tr.logline) || defaultLogline(lang);
+  var hook = (lang === 'zh' ? (d.hook || d.logline || '') : tr.hook) || defaultHook(lang);
+  if (lang !== 'zh') hook = (tr.hook || defaultHook(lang));
+  var ep = d.episodes || 1;
+  var dur = d.duration || 75;
+  var ratio = W.ratio || d.ratio || '9:16';
+  var lim = p.spec.titleMax || 55;
+  var title;
+  if (lang === 'zh') {
+    title = p.id === 'reelshort' ? ('《' + baseTitle + '》全' + ep + '集｜' + hook) : ('《' + baseTitle + '》第1集｜' + hook);
+  } else {
+    title = p.id === 'reelshort' ? (baseTitle + ' | EP1-' + ep + ' FULL') : (baseTitle + ' EP1 | ' + hook);
+  }
+  if (title.length > lim) title = title.slice(0, lim - 1) + '…';
+  var desc;
+  if (lang === 'zh') {
+    desc = logline + '\n\n共 ' + ep + ' 集 · 单集 ' + dur + ' 秒 · ' + ratio + ' 竖屏\nAI 辅助生成，画面含「AI 生成」标识，剧情为虚构。\n更新：每日更新，追更不迷路。';
+  } else if (lang === 'en') {
+    desc = logline + '\n\nEP1 of ' + ep + ' · ' + dur + 's each · vertical ' + ratio + '\nAI-assisted production. All characters and events are fictional.\nNew episode daily — follow for more.';
+  } else if (lang === 'ja') {
+    desc = logline + '\n\n全' + ep + '話・1話' + dur + '秒・縦型' + ratio + '\nAI支援制作。登場人物・出来事はフィクションです。\n毎日更新中。';
+  } else if (lang === 'es') {
+    desc = logline + '\n\nEP1 de ' + ep + ' · ' + dur + 's por episodio · vertical ' + ratio + '\nProducción asistida por IA. Personajes y hechos son ficticios.\nNuevo episodio cada día.';
+  } else {
+    desc = logline + '\n\nالحلقة 1 من ' + ep + ' · ' + dur + ' ثانية · ' + ratio + '\nإنتاج بمساعدة الذكاء الاصطناعي. الشخصيات والأحداث خيالية.\nحلقة جديدة يومياً.';
+  }
+  var platformTag = {
+    douyin: { zh: '抖音短剧', en: 'douyindrama' }, kuaishou: { zh: '快手短剧', en: 'kuaishoudrama' },
+    tiktok: { zh: 'TikTok短剧', en: 'tiktokdrama' }, youtube_shorts: { zh: 'Shorts', en: 'youtubeshorts' },
+    reelshort: { zh: 'ReelShort', en: 'reelshort' }, generic: { zh: '短剧发行', en: 'shortdrama' }
+  }[p.id] || { zh: '短剧', en: 'shortdrama' };
+  var pool = (LANG_TAGS[lang] || LANG_TAGS.zh).slice();
+  var tags = ['#' + (lang === 'zh' ? platformTag.zh : platformTag.en)];
+  tags.push('#' + styleTagText(d.style, lang));
+  tags.push('#' + (pool[0] || 'drama'));
+  tags.push('#' + (pool[2] || pool[0] || 'series'));
+  tags.push('#' + (pool[4] || pool[1] || 'shorts'));
+  var seen = {};
+  tags = tags.filter(function(t){ if (seen[t]) return false; seen[t] = 1; return true; }).slice(0, p.spec.tagsMax || 5);
+  return { title: title, desc: desc, tags: tags.join(' '), logline: logline, hook: hook, lang: lang, platform: p.id };
+}
+function checklistKey(p, d, lang, i){
+  return [p.id, d ? d.id : '-', lang, i].join('|');
+}
+function checklistFor(d, p, meta){
+  var spec = p.spec;
+  var items = [
+    { t: '账号与资质确认', d: p.acct + '。资质要求：' + spec.qual + '。首次发布前把主体资料、备案号/授权文件放在手边。', time: '首次 1–2 天' },
+    { t: '手动打开官方上传入口', d: '在电脑浏览器打开 ' + p.upload + '（本页不做自动登录、不做自动发布，必须本人在平台后台操作）。', time: '2 分钟', link: p.upload },
+    { t: '上传视频成片', d: '解压发行包后选择 video/ 内成片；规格 ' + spec.res + '，' + spec.bitrate + '。不要二次压缩、不要带第三方水印。', time: '3–10 分钟' },
+    { t: '选择封面', d: '使用发行包 cover/ 封面（' + spec.cover + '）；如平台支持自定义封面帧，选第 1–2 秒无字幕帧，人物情绪要强。', time: '2 分钟' },
+    { t: '粘贴标题', d: '点击「复制标题」粘贴，平台上限 ' + spec.titleMax + ' 字，本模板已按上限截断；不要堆叠关键词。', time: '1 分钟', copy: 'title' },
+    { t: '粘贴简介 / 描述', d: '首句放钩子，第二段写集数与更新频率，末尾保留 AI 生成声明与「剧情虚构」提示。', time: '2 分钟', copy: 'desc' },
+    { t: '粘贴标签', d: '控制在 ' + spec.tagsMax + ' 个以内（平台+题材+剧情钩子各 1 个即可），不要复制无关热门标签。', time: '1 分钟', copy: 'tags' },
+    { t: '上传字幕 / 选择语言', d: '从发行包 subtitles/ 上传 SRT 或 VTT；海外平台优先上传 ' + (meta.lang === 'zh' ? '中文' : '目标语言') + ' 字幕，可叠加上传多语言。', time: '2 分钟' },
+    { t: '设置发布时间', d: '建议时段：' + spec.time + '（按目标受众本地时区）。平台内定时发布由你在后台自行设置，本页不代发。', time: '1 分钟' },
+    { t: '合规与声明设置', d: p.tips.join('；') + '。AI 生成画面/配音必须按平台要求标注。', time: '2 分钟' },
+    p.extra ? { t: p.extra.t, d: p.extra.d, time: p.extra.time } : null,
+    { t: '发布后 24h 回填数据', d: '记录播放/点赞/评论/转化，回到本向导第 4 步或「发行看板 → 回填」提交；72h、7d 再各回填一次。', time: '3 分钟' }
+  ].filter(Boolean);
+  return items;
+}
+function renderWizardLoading(){
+  var root = $('#view-wizard');
+  if (!root) return;
+  root.innerHTML = '<div class="panel"><div class="loading-line"><span class="spin"></span>正在加载短剧列表…</div></div>';
+}
+function wrapTitle(t){
+  t = String(t || '');
+  return t.replace(/[\\/:*?"<>|]/g, '_').slice(0, 40);
+}
+function stampNow(){
+  var d = new Date();
+  return d.getFullYear() + '-' + pad2(d.getMonth() + 1) + '-' + pad2(d.getDate()) + ' ' + pad2(d.getHours()) + ':' + pad2(d.getMinutes());
+}
+function mockReadme(d, p, meta, dist){
+  return '# 发行说明（演示包）\n\n' +
+    '- 剧名：《' + d.title + '》\n- 平台：' + p.name + '（' + p.market + '）\n- 语言：' + langById(meta.lang).name + '\n- 画幅：' + (W.ratio || d.ratio) + '\n- 发行记录 ID：' + dist.id + '\n- 生成时间：' + dist.created_at + '\n\n' +
+    '## 包内文件\n- video/：成片（演示包为占位文件，接入真实接口后替换为转码成片）\n- cover/：平台封面\n- subtitles/：SRT + VTT 字幕\n- metadata/metadata.json：标题/简介/标签等元数据\n\n' +
+    '## 发布前检查\n1. 手动登录平台后台，按本页第 3 步清单逐项上传；\n2. AI 生成内容按平台要求标注；\n3. 付费短剧确认备案号/版权链；\n4. 发布后 24h 回填播放/点赞/评论/转化。\n\n' +
+    '## 合规红线\n本发行包仅用于人工上传；禁止使用自动化脚本发布、模拟登录或爬取平台数据。\n\n## 平台信息\n- 上传入口：' + p.upload + '\n- 分辨率：' + p.spec.res + '\n- 时长：' + p.spec.dur + '\n- 封面：' + p.spec.cover + '\n- 标题上限：' + p.spec.titleMax + ' 字 / 标签 ≤ ' + p.spec.tagsMax + ' 个\n- 发布时间建议：' + p.spec.time + '\n- 资质：' + p.spec.qual + '\n';
+}
+function buildMockPackage(){
+  var d = currentDrama();
+  if (!d) return null;
+  var p = platformById(W.platform);
+  var lang = W.lang;
+  var ratio = W.ratio;
+  var meta = buildMeta(d, p, lang);
+  var ep = d.episodes || 1;
+  var safe = wrapTitle(d.title);
+  var cues = cuesForLang(lang);
+  var entries = [];
+  entries.push({ name: 'video/' + safe + '_EP01-EP' + ep + '_' + ratio + '.mp4', data: '【演示占位文件】真实接口就绪后，这里为按 ' + p.name + ' 规格转码的成片。\n剧名：《' + d.title + '》\n集数：' + ep + '\n画幅：' + ratio + '\n' });
+  entries.push({ name: 'cover/' + safe + '_' + p.id + '_cover.svg', data: '<svg xmlns="http://www.w3.org/2000/svg" width="1080" height="1440"><rect width="1080" height="1440" fill="#101a2c"/><text x="60" y="200" fill="#7dd3fc" font-size="42" font-family="sans-serif">STELLARA · AI SHORT DRAMA</text><text x="60" y="700" fill="#ffffff" font-size="88" font-family="PingFang SC,Microsoft YaHei,sans-serif">' + esc(d.title) + '</text><text x="60" y="900" fill="#9fb0c6" font-size="44" font-family="sans-serif">' + esc(p.name) + ' · ' + esc(langById(lang).name) + ' · ' + ratio + '</text></svg>' });
+  entries.push({ name: 'subtitles/' + lang + '/EP01.srt', data: toSrt(cues) });
+  entries.push({ name: 'subtitles/' + lang + '/EP01.vtt', data: toVtt(cues) });
+  entries.push({ name: 'metadata/metadata.json', data: JSON.stringify({
+    drama_id: d.id, drama_title: d.title, platform: p.id, platform_name: p.name,
+    language: lang, ratio: ratio, title: meta.title, description: meta.desc, tags: meta.tags,
+    episodes: ep, duration_per_ep: d.duration || 75, resolution: p.spec.res,
+    cover_size: p.spec.cover, best_time: p.spec.time, qualification: p.spec.qual,
+    ai_generated: true, compliance: 'AI 生成内容需按平台要求标注；本包仅用于人工上传',
+    generated_at: stampNow()
+  }, null, 2) });
+  var dist = {
+    id: 'm_' + Date.now(), drama_id: d.id, drama_title: d.title, platform: p.id, lang: lang, ratio: ratio,
+    status: 'ready', views: 0, likes: 0, comments: 0, conversions: 0, publish_url: '',
+    created_at: stampNow(), zip_size: 0, filename: safe + '_' + new Date().getTime() + '_' + p.id + '_' + lang + '.zip',
+    files: entries.map(function(e){ return e.name; }), zip_demo: true
+  };
+  entries.push({ name: '发行说明.md', data: mockReadme(d, p, meta, dist) });
+  dist.files = entries.map(function(e){ return e.name; });
+  var blob = buildZip(entries);
+  dist.zip_size = blob.size;
+  mockDists.unshift(JSON.parse(JSON.stringify(dist)));
+  saveMockDists();
+  if (apiState.mode === 'mock') dists = mockDists.map(normDist);
+  else mergeDistToState(normDist(dist));
+  renderHeroStats();
+  if (!$('#view-dashboard').hidden) renderDashboard();
+  return { distribution: dist, entries: entries, zipBlob: blob, mock: true, meta: meta };
+}
+function mockFileNameSrt(d, lang, no){
+  return wrapTitle(d.title) + '_' + lang + '_EP' + pad2(no) + '.srt';
+}
+function mergeDistToState(dist){
+  var merged = false;
+  for (var i = 0; i < dists.length; i++) {
+    if (String(dists[i].id) === String(dist.id)) { dists[i] = dist; merged = true; break; }
+  }
+  if (!merged) dists.unshift(dist);
+  renderHeroStats();
+  if (!$('#view-dashboard').hidden) renderDashboard();
+}
+function setWizProgress(pct, stage, note){
+  W.progress = W.progress || {};
+  W.progress.pct = clampPct(pct);
+  W.progress.stage = stage;
+  W.progress.note = note || '';
+  updateWizProgressUI();
+}
+function updateWizProgressUI(){
+  var pr = W.progress || {};
+  var bar = $('#wizProg');
+  if (!bar) return;
+  bar.classList.toggle('indet', !!pr.indeterminate);
+  var fill = bar.querySelector('i');
+  if (fill) fill.style.width = clampPct(pr.pct) + '%';
+  var pct = $('#wizProgPct');
+  if (pct) pct.textContent = pr.indeterminate ? '处理中…' : (clampPct(pr.pct) + '%');
+  var note = $('#wizProgNote');
+  if (note) note.textContent = pr.note || '';
+  var list = $('#wizStages');
+  if (list) {
+    $$('li', list).forEach(function(li){
+      var i = Number(li.getAttribute('data-si'));
+      li.classList.toggle('cur', i === pr.stage);
+      li.classList.toggle('ok', i < pr.stage || pr.pct >= 100);
+      var ic = $('.si', li);
+      if (ic) ic.textContent = (i < pr.stage || pr.pct >= 100) ? '✓' : (i === pr.stage ? '…' : '');
+    });
+  }
+}
+var DIST_STAGES = ['校验成片与封面', '生成 / 匹配字幕', '按平台规格转码封装', '打包封面与 metadata', '生成发行说明', '压缩发行包 ZIP'];
+function runDistribute(){
+  if (W.running) return;
+  var d = currentDrama();
+  if (!d) { toast('请先在「我的短剧」里选择一部剧', 'err'); return; }
+  var p = platformById(W.platform);
+  W.running = true;
+  W.pkg = null;
+  W.meta = buildMeta(d, p, W.lang);
+  W.progress = { pct: 0, stage: 0, indeterminate: false, note: '准备中…' };
+  W.step = 2;
+  renderWizard();
+  var token = ++W._token;
+  var payload = { drama_id: d.id, platform: p.id, lang: W.lang, ratio: W.ratio };
+  function fallbackMock(reason){
+    if (token !== W._token) return;
+    toast(reason || '接口未就绪，已改用演示打包流程（联调中）', 'warn');
+    W.progress = { pct: 0, stage: 0, indeterminate: false, note: '演示模式：正在本地模拟打包…' };
+    renderWizard();
+    setTimeout(function(){ startMock(token); }, 200);
+  }
+  function startMock(tk){
+    var i = 0;
+    function tick(){
+      if (tk !== W._token) return;
+      if (i >= DIST_STAGES.length) {
+        finishMock(tk);
+        return;
+      }
+      setWizProgress(Math.round((i / DIST_STAGES.length) * 94), i, '正在' + DIST_STAGES[i] + '…');
+      i++;
+      setTimeout(tick, 430 + Math.random() * 360);
+    }
+    tick();
+  }
+  function finishMock(tk){
+    if (tk !== W._token) return;
+    var pkg = buildMockPackage();
+    W.running = false;
+    if (!pkg) { toast('演示包生成失败', 'err'); renderWizard(); return; }
+    W.pkg = pkg;
+    W.meta = pkg.meta;
+    W.statsDone = null;
+    W.maxStep = Math.max(W.maxStep, 3);
+    W.running = false;
+    setWizProgress(100, DIST_STAGES.length, '完成');
+    renderWizard();
+    toast('发行包已生成（演示包，可下载）', 'ok');
+  }
+  if (apiState.mode === 'mock' || FORCE_MOCK) {
+    setTimeout(function(){ startMock(token); }, 250);
+    return;
+  }
+  /* 真实接口：同步打包，最长 180s；期间展示不确定进度 */
+  W.progress = { pct: 8, stage: 0, indeterminate: true, note: '调用 POST /distribute，正在打包/转码（真实接口 20–90 秒）…' };
+  renderWizard();
+  var ping = null, pi = 0;
+  ping = setInterval(function(){
+    if (token !== W._token) { clearInterval(ping); return; }
+    pi = Math.min(4, pi + 1);
+    W.progress.stage = pi;
+    W.progress.pct = Math.min(90, 12 + pi * 16);
+    W.progress.note = '正在' + DIST_STAGES[pi] + '…（最长等待 180 秒）';
+    updateWizProgressUI();
+  }, 1400);
+  realDistribute(payload).then(function(res){
+    clearInterval(ping);
+    if (token !== W._token) return;
+    W.running = false;
+    W.pkg = { distribution: res.distribution, files: res.files, zip_url: res.zip_url, mock: false, entries: null, meta: W.meta };
+    W.statsDone = null;
+    W.maxStep = Math.max(W.maxStep, 3);
+    mergeDistToState(res.distribution);
+    setWizProgress(100, DIST_STAGES.length, '完成');
+    renderWizard();
+    toast('发行包已生成，可下载 ZIP', 'ok');
+  }).catch(function(e){
+    clearInterval(ping);
+    if (token !== W._token) return;
+    W.running = false;
+    fallbackMock('发行接口未就绪（' + (e && e.message ? e.message : '请求失败') + '），已改用演示打包流程');
+  });
+}
+function renderWizStepper(){
+  var names = [
+    ['选剧与平台', '剧 / 平台 / 语言 / 画幅'],
+    ['生成发行包', '打包 / 进度 / 下载'],
+    ['发布步骤清单', '逐项勾选，人工发布'],
+    ['回填数据', '播放 / 点赞 / 转化']
+  ];
+  return '<div class="stepper" role="tablist">' + names.map(function(n, i){
+    var idx = i + 1;
+    var cls = idx === W.step ? 'step active' : (idx < W.step ? 'step done' : 'step');
+    if (idx > W.maxStep) cls += ' locked';
+    return '<div class="' + cls + '" data-wiz-step="' + idx + '" role="tab" aria-selected="' + (idx === W.step) + '">' +
+      '<span class="no">' + (idx < W.step ? '✓' : idx) + '</span>' +
+      '<span class="tx"><b>' + n[0] + '</b><span>' + n[1] + '</span></span>' +
+    '</div>';
+  }).join('') + '</div>';
+}
+function renderWizard(){
+  var root = $('#view-wizard');
+  if (!root) return;
+  if (!dramasLoaded) {
+    renderWizardLoading();
+    return;
+  }
+  if (!dramas.length) {
+    root.innerHTML = '<div class="panel"><div class="empty"><div class="ei">🎬</div><h3>还没有可发行的短剧</h3><p>发行向导需要先有成片。先去「AI 短剧」生成并渲染一部，再回来打包发行。</p><div class="acts"><a class="btn" href="/ai-nav/aidrama/">去创作短剧 →</a><button type="button" class="btn ghost" data-act="retryApi">重试接口</button></div></div></div>';
+    return;
+  }
+  if (!W.dramaId) W.dramaId = String(dramas[0].id);
+  if (!currentDrama()) W.dramaId = String(dramas[0].id);
+  var html = renderWizStepper();
+  if (W.step === 1) html += renderWizardStep1();
+  else if (W.step === 2) html += renderWizardStep2();
+  else if (W.step === 3) html += renderWizardStep3();
+  else html += renderWizardStep4();
+  root.innerHTML = html;
+  if (W.step === 2 && W.running) updateWizProgressUI();
+  bindWizardEvents();
+}
+function renderWizardStep1(){
+  var d = currentDrama();
+  var p = platformById(W.platform);
+  var allowed = ratiosForPlatform(W.platform);
+  var allowedIds = allowed.map(function(r){ return r.id; });
+  if (allowedIds.indexOf(W.ratio) < 0) W.ratio = allowedIds[0] || '9:16';
+  var dramaPicks = dramas.map(function(x){
+    var st = dramaStatus(x.status);
+    return '<button type="button" class="pick ' + (String(x.id) === String(W.dramaId) ? 'on' : '') + '" data-pick-drama="' + esc(x.id) + '">' +
+      '<img class="dc-mini" src="' + coverOf(x).replace(/"/g, '&quot;') + '" alt="">' +
+      '<span class="ptx"><b>《' + esc(x.title) + '》</b><span>' + esc(x.episodes + ' 集 · ' + (x.style || '未标注') + ' · ' + st.label) + '</span></span>' +
+      '<span class="chk">✓</span></button>';
+  }).join('');
+  var platformPicks = PLATFORMS.map(function(x){
+    return '<button type="button" class="pick ' + (x.id === W.platform ? 'on' : '') + '" data-pick-platform="' + x.id + '">' +
+      '<span class="pico" style="background:' + x.color + ';color:#05121c">' + x.short + '</span>' +
+      '<span class="ptx"><b>' + x.name + '</b><span>' + esc(x.market + ' · ' + x.spec.res.split('（')[0]) + '</span></span>' +
+      '<span class="chk">✓</span></button>';
+  }).join('');
+  var langPicks = LANGS.map(function(x){
+    return '<button type="button" class="chip ' + (x.id === W.lang ? 'on' : '') + '" data-pick-lang="' + x.id + '" title="' + esc(x.market) + '">' + x.name + ' <span class="flag">' + x.short + '</span></button>';
+  }).join('');
+  var ratioPicks = RATIOS.map(function(r){
+    var ok = allowedIds.indexOf(r.id) >= 0;
+    return '<button type="button" class="chip ' + (r.id === W.ratio ? 'on' : '') + '" data-pick-ratio="' + r.id + '" ' + (ok ? '' : 'disabled style="opacity:.35;cursor:not-allowed" title="' + esc(p.name) + ' 不支持 ' + r.id + '"') + '>' + r.name + '</button>';
+  }).join('');
+  var st = d ? dramaStatus(d.status) : null;
+  return '<div class="panel">' +
+    '<div class="panel-h"><h2>第 1 步 · 选剧、平台、语言、画幅 <small>先定分发目标，后面每一步都按它生成</small></h2></div>' +
+    '<div class="wiz-grid">' +
+      '<div class="subcard"><h4>① 选一部短剧 <span class="muted">（' + dramas.length + ' 部可选）</span></h4><div class="dsel">' + dramaPicks + '</div>' +
+        (d && d.status !== 'done' ? '<div class="notice amber">⚠ <span>《' + esc(d.title) + '》当前状态为「' + esc(st.label) + '」，未完全出片；可继续生成演示包，真实打包可能因缺片失败。</span></div>' : '') +
+      '</div>' +
+      '<div class="subcard"><h4>② 选发布平台</h4><div class="pick-grid">' + platformPicks + '</div>' +
+        '<div class="notice cyan">ℹ <span>' + esc(p.ratioHint) + ' 平台规格详见「平台规格」页。</span></div>' +
+      '</div>' +
+      '<div class="subcard"><h4>③ 选语言 <span class="muted">（字幕 / 配音 / 标题本地化）</span></h4><div class="chips">' + langPicks + '</div>' +
+        '<div class="hint" style="margin-top:8px;font-size:11.5px;color:var(--txt3)">' + esc(langById(W.lang).market) + ' · ' + esc(langById(W.lang).note) + '</div>' +
+      '</div>' +
+      '<div class="subcard"><h4>④ 选画幅</h4><div class="chips">' + ratioPicks + '</div>' +
+        '<div class="hint" style="margin-top:8px;font-size:11.5px;color:var(--txt3)">当前平台仅支持：' + allowed.map(function(r){ return r.id; }).join(' / ') + '。短剧默认 9:16。</div>' +
+      '</div>' +
+    '</div>' +
+    '<div class="wiz-summary">' +
+      '<span>已选：</span><b>' + (d ? '《' + esc(d.title) + '》' : '未选剧') + '</b><span>·</span><b>' + esc(p.name) + '</b><span>·</span><b>' + esc(langById(W.lang).name) + '</b><span>·</span><b>' + esc(W.ratio) + '</b>' +
+      '<span class="muted">（生成后可在第 2 步下载发行包）</span>' +
+    '</div>' +
+    '<div class="wiz-nav"><span class="muted" style="font-size:12px">演示模式下打包约 3–5 秒；真实接口 20–90 秒。</span>' +
+      '<div class="right"><button type="button" class="btn" data-act="genPackage">下一步：生成发行包 →</button></div></div>' +
+  '</div>';
+}
+function renderWizardStep2(){
+  var root = $('#view-wizard');
+  if (!root) return;
+  var d = currentDrama();
+  var p = platformById(W.platform);
+  var ratio = W.ratio;
+  if (W.running) {
+    var stages = DIST_STAGES.map(function(s, i){
+      var cls = i === (W.progress ? W.progress.stage : 0) ? 'cur' : '';
+      return '<li class="' + cls + '" data-si="' + i + '"><span class="si"></span><span>' + (i + 1) + '. ' + s + '</span></li>';
+    }).join('');
+    return '<div class="panel">' +
+        '<div class="panel-h"><h2>第 2 步 · 正在生成发行包 <small>' + esc(p.name) + ' · ' + esc(langById(W.lang).name) + ' · ' + ratio + '</small></h2></div>' +
+        '<div class="subcard">' +
+          '<div class="prog' + (W.progress && W.progress.indeterminate ? ' indet' : '') + '" id="wizProg"><i style="width:' + clampPct(W.progress ? W.progress.pct : 0) + '%"></i></div>' +
+          '<div class="prog-meta"><span id="wizProgPct">' + (W.progress && W.progress.indeterminate ? '处理中…' : clampPct(W.progress ? W.progress.pct : 0) + '%') + '</span><span id="wizProgNote">' + esc(W.progress ? W.progress.note : '') + '</span></div>' +
+          '<div class="loading-line" style="margin-top:12px"><span class="spin"></span>正在打包视频/封面/字幕/metadata/发行说明，请勿关闭页面…</div>' +
+          '<ul class="stages" id="wizStages" style="margin-top:12px">' + stages + '</ul>' +
+          '<div class="notice amber">⚠ <span>真实接口最长等待 180 秒；若接口未就绪会自动降级为<b>演示包</b>并标注「联调中」，不影响继续走发布清单。</span></div>' +
+        '</div>' +
+      '</div>';
+  }
+  if (W.pkg) {
+    var dist = W.pkg.distribution;
+    var files = (W.pkg.entries || []).map(function(e){ return { name: e.name, size: new Blob([e.data]).size }; });
+    if (!files.length) files = (dist.files || []).map(function(n){ return { name: n, size: 0 }; });
+    var total = files.reduce(function(a, f){ return a + (f.size || 0); }, 0);
+    var rows = files.map(function(f){
+      var t = fileType(f.name);
+      return '<tr><td>' + esc(f.name) + '</td><td class="ftype">' + t.icon + ' ' + t.label + '</td><td class="num">' + (f.size ? fmtSize(f.size) : '—') + '</td></tr>';
+    }).join('');
+    var typeCounts = {};
+    files.forEach(function(f){ var t = fileType(f.name); typeCounts[t.label] = (typeCounts[t.label] || 0) + 1; });
+    var typeChips = Object.keys(typeCounts).map(function(k){ return '<span class="tag cyan">' + esc(k) + ' ×' + typeCounts[k] + '</span>'; }).join('');
+    return '<div class="panel">' +
+        '<div class="panel-h"><h2>第 2 步 · 发行包已生成 <small>' + esc(p.name) + ' · ' + esc(langById(W.lang).name) + ' · ' + ratio + '</small></h2>' +
+          '<div class="ph-right">' + (W.pkg.mock ? '<span class="tag amber">演示包 · 联调中</span>' : '<span class="tag green">真实打包</span>') + '</div></div>' +
+        '<div class="subcard" style="border-color:rgba(52,211,153,.35);background:rgba(52,211,153,.05)">' +
+          '<h4>✓ ' + esc(dist.filename || '发行包.zip') + '</h4>' +
+          '<div class="kv" style="margin-top:8px">' +
+            '<dt>发行记录</dt><dd class="mono">' + esc(dist.id) + '</dd>' +
+            '<dt>平台 / 语言</dt><dd>' + esc(p.name) + ' · ' + esc(langById(W.lang).name) + ' · ' + esc(ratio) + '</dd>' +
+            '<dt>包大小</dt><dd>' + (dist.zip_size ? fmtSize(dist.zip_size) : '—') + '（' + files.length + ' 个文件）</dd>' +
+            '<dt>生成时间</dt><dd>' + esc(fmtDate(dist.created_at)) + '</dd>' +
+          '</div>' +
+          '<div class="chips" style="margin-top:10px">' + typeChips + '</div>' +
+          '<div style="margin-top:12px;display:flex;gap:9px;flex-wrap:wrap">' +
+            '<button type="button" class="btn" data-act="downloadPkg">⬇ 下载发行包 ZIP</button>' +
+            '<button type="button" class="btn ghost" data-act="wizNext">下一步：平台发布清单 →</button>' +
+            '<button type="button" class="btn ghost" data-act="regenPkg">重新生成</button>' +
+          '</div>' +
+          '<div class="muted" style="font-size:11.5px;margin-top:8px">' + (W.pkg.mock ? '演示包内含占位视频与真实可用的 SRT/VTT、metadata、发行说明，ZIP 可正常解压。' : 'ZIP 为服务端生成的完整发行包，下载链接来自接口返回。') + '</div>' +
+        '</div>' +
+        '<div style="margin-top:14px"><h4 style="margin:0 0 8px;font-size:13.5px">文件清单</h4>' +
+          '<div class="table-wrap"><table class="mtable"><thead><tr><th>文件</th><th>类型</th><th>大小</th></tr></thead><tbody>' + rows + '</tbody></table></div>' +
+          '<div class="muted" style="font-size:11.5px;margin-top:6px">共 ' + files.length + ' 个文件 · 合计 ' + fmtSize(total || dist.zip_size) + ' · 解压后按目录上传</div>' +
+        '</div>' +
+        '<div class="wiz-nav"><button type="button" class="btn ghost" data-act="wizPrev">← 返回修改</button>' +
+          '<div class="right"><button type="button" class="btn" data-act="wizNext">下一步：发布步骤清单 →</button></div></div>' +
+    '</div>';
+  }
+  return '<div class="panel">' +
+      '<div class="panel-h"><h2>第 2 步 · 生成发行包 <small>一包一平台：视频 / 封面 / 字幕 / metadata / 发行说明</small></h2></div>' +
+      '<div class="subcard">' +
+        '<h4>本次打包配置</h4>' +
+        '<div class="kv" style="margin-top:8px">' +
+          '<dt>短剧</dt><dd>' + (d ? '《' + esc(d.title) + '》· ' + esc(d.episodes) + ' 集' : '—') + '</dd>' +
+          '<dt>平台</dt><dd>' + esc(p.name) + ' · ' + esc(p.market) + '</dd>' +
+          '<dt>语言</dt><dd>' + esc(langById(W.lang).name) + ' · ' + esc(langById(W.lang).market) + '</dd>' +
+          '<dt>画幅</dt><dd>' + esc(ratio) + ' · ' + esc(p.spec.res) + '</dd>' +
+          '<dt>字幕</dt><dd>' + (W.lang === 'zh' ? '中文 SRT + VTT' : '自动生成 ' + langById(W.lang).name + ' SRT + VTT（可后续替换）') + '</dd>' +
+        '</div>' +
+        '<div class="filetypes" style="margin-top:14px">' +
+          '<div class="ft"><div class="fi">🎬</div><b>视频</b><span>按平台规格转码</span></div>' +
+          '<div class="ft"><div class="fi">🖼</div><b>封面</b><span>' + esc(p.spec.cover.split('（')[0]) + '</span></div>' +
+          '<div class="ft"><div class="fi">💬</div><b>字幕</b><span>SRT + VTT</span></div>' +
+          '<div class="ft"><div class="fi">🧾</div><b>metadata</b><span>标题/简介/标签</span></div>' +
+          '<div class="ft"><div class="fi">📘</div><b>发行说明</b><span>合规 + 上传指引</span></div>' +
+        '</div>' +
+        (W.step > 2 ? '<div class="notice amber">⚠ <span>配置已变更或尚未生成：请重新生成发行包后再进入发布清单。</span></div>' : '') +
+      '</div>' +
+      '<div class="wiz-nav"><button type="button" class="btn ghost" data-act="wizPrev">← 上一步</button>' +
+        '<div class="right"><button type="button" class="btn" data-act="genPackage">生成发行包（' + (apiState.mode === 'mock' ? '演示约 3–5 秒' : '真实 20–90 秒') + '）→</button></div></div>' +
+    '</div>';
+}
+function renderWizardStep3(){
+  var root = $('#view-wizard');
+  if (!root) return;
+  var d = currentDrama();
+  var p = platformById(W.platform);
+  if (!W.pkg) {
+    return '<div class="panel"><div class="empty"><div class="ei">📦</div><h3>还没有发行包</h3><p>发布清单会用到发行包里的标题、简介、标签与封面，请先回到第 1 步生成。</p><div class="acts"><button type="button" class="btn" data-act="wizBack1">← 去生成发行包</button></div></div></div>';
+  }
+  var meta = W.meta || buildMeta(d, p, W.lang);
+  var items = checklistFor(d, p, meta);
+  var done = 0;
+  items.forEach(function(it, i){ if (CHECK_STORE[checklistKey(p, d, W.lang, i)]) done++; });
+  var list = items.map(function(it, i){
+    var key = checklistKey(p, d, W.lang, i);
+    var checked = !!CHECK_STORE[key];
+    return '<li class="' + (checked ? 'done' : '') + '">' +
+      '<label><input type="checkbox" class="cb" data-check="' + i + '" ' + (checked ? 'checked' : '') + '>' +
+        '<span class="ct"><b>' + esc(it.t) + '</b><p>' + esc(it.d) + '</p>' +
+        '<div class="tips">⏱ 预计 ' + esc(it.time || '—') + (it.copy ? ' · 可点击下方「复制」按钮' : '') + (it.link ? ' · <a href="' + esc(it.link) + '" target="_blank" rel="noopener">打开入口 ↗</a>' : '') + '</div>' +
+        '</span></label></li>';
+  }).join('');
+  var metaRows =
+    '<div class="meta-row"><div class="mh">标题 <span class="muted">（' + esc(p.spec.titleMax) + ' 字上限）</span><span class="lim">' + meta.title.length + ' / ' + p.spec.titleMax + '</span><button type="button" class="btn ghost sm" data-copy="title" data-copy-text="' + esc(meta.title) + '">复制标题</button></div><div class="mv">' + esc(meta.title) + '</div></div>' +
+    '<div class="meta-row"><div class="mh">简介 / 描述<button type="button" class="btn ghost sm" data-copy="desc" data-copy-text="' + esc(meta.desc) + '" style="margin-left:auto">复制简介</button></div><div class="mv">' + esc(meta.desc) + '</div></div>' +
+    '<div class="meta-row"><div class="mh">标签 <span class="muted">（' + esc(p.spec.tagsMax) + ' 个以内）</span><button type="button" class="btn ghost sm" data-copy="tags" data-copy-text="' + esc(meta.tags) + '" style="margin-left:auto">复制标签</button></div><div class="mv tags">' + esc(meta.tags) + '</div></div>';
+  return '<div class="panel">' +
+      '<div class="panel-h"><h2>第 3 步 · ' + esc(p.name) + ' 发布步骤清单 <small>每项都要人工完成，本页不做自动发布</small></h2>' +
+        '<div class="ph-right">' + (W.pkg.mock ? '<span class="tag amber">演示包 · 联调中</span>' : '<span class="tag green">真实发行包</span>') +
+        '<span class="tag cyan">已完成 <b id="clDone">' + done + '</b>/' + items.length + '</span></div></div>' +
+      '<div class="notice red">🚫 <b>合规红线：</b>平台发布必须由持号人在官方后台手动操作。本页只提供素材包、文案与步骤，<b>不自动登录、不自动上传、不自动发布</b>。</div>' +
+      '<div class="subcard"><h4>① 发布文案（一键复制）</h4><div class="meta-block">' + metaRows + '</div>' +
+        '<div style="margin-top:10px"><button type="button" class="btn ghost sm" data-copy="all" data-copy-text="' + esc('【标题】\n' + meta.title + '\n\n【简介】\n' + meta.desc + '\n\n【标签】\n' + meta.tags) + '">复制全部发布信息</button></div>' +
+      '</div>' +
+      '<div class="subcard" style="margin-top:12px"><h4>② 发布步骤（勾选记录进度）</h4><ol class="cl">' + list + '</ol>' +
+        '<div class="muted" style="font-size:11.5px;margin-top:8px">勾选状态自动保存在本机浏览器；换设备需重新勾选。全部完成后回到第 4 步回填数据。</div>' +
+      '</div>' +
+      '<div class="wiz-nav"><button type="button" class="btn ghost" data-act="wizPrev">← 上一步</button>' +
+        '<div class="right"><button type="button" class="btn" data-act="wizNext">下一步：回填数据 →</button></div></div>' +
+    '</div>';
+}
+function renderWizardStep4(){
+  var root = $('#view-wizard');
+  if (!root) return;
+  var options = dists.slice(0, 30).map(function(x){
+    var p = platformById(x.platform);
+    var st = distDisplayStatus(x);
+    return '<option value="' + esc(x.id) + '" ' + (String(x.id) === String(W.distId) ? 'selected' : '') + '>' +
+      esc(x.drama_title || dramaTitle(x.drama_id)) + ' · ' + esc(p.name) + ' · ' + esc(langById(x.lang).name) + ' · ' + esc(st.label) + '</option>';
+  }).join('');
+  if (!options && W.pkg) {
+    options = '<option value="' + esc(W.pkg.distribution.id) + '" selected>' + esc(W.pkg.distribution.drama_title) + ' · ' + esc(platformById(W.pkg.distribution.platform).name) + ' · ' + esc(langById(W.pkg.distribution.lang).name) + '</option>';
+  }
+  if (!W.distId && W.pkg) W.distId = String(W.pkg.distribution.id);
+  if (!W.distId && dists.length) W.distId = String(dists[0].id);
+  var sel = null;
+  for (var i = 0; i < dists.length; i++) if (String(dists[i].id) === String(W.distId)) { sel = dists[i]; break; }
+  var success = (W.statsDone && String(W.statsDone.distId) === String(W.distId)) ? W.statsDone : null;
+  return '<div class="panel">' +
+      '<div class="panel-h"><h2>第 4 步 · 回填发行数据 <small>发布后手动从平台后台读取，不自动抓取</small></h2></div>' +
+      (success ?
+        '<div class="subcard" style="border-color:rgba(52,211,153,.4);background:rgba(52,211,153,.06)">' +
+          '<h4>✓ 数据已回填</h4>' +
+          '<div class="kv" style="margin-top:8px"><dt>记录</dt><dd class="mono">' + esc(success.distId) + '</dd>' +
+          '<dt>回填数据</dt><dd>播放 ' + num(W.statsDone.views) + ' · 点赞 ' + num(W.statsDone.likes) + ' · 评论 ' + num(W.statsDone.comments) + ' · 转化 ' + num(W.statsDone.conversions) + '</dd>' +
+          '<dt>回填时间</dt><dd>' + esc(W.statsDone.at) + '</dd></div>' +
+          '<div class="chips" style="margin-top:12px"><button type="button" class="btn" data-act="goDashboard">查看发行看板 →</button>' +
+          '<button type="button" class="btn ghost" data-act="againStats">再填一条</button></div>' +
+          (W.statsDone.demo ? '<div class="muted" style="font-size:11.5px;margin-top:8px">接口未就绪，本条数据仅保存在本机演示记录（刷新后保留）。</div>' : '') +
+        '</div>' :
+        '<div class="subcard">' +
+          '<div class="field"><label>选择发行记录</label><select class="inp" id="statsDist">' + (options || '<option value="">暂无可回填记录</option>') + '</select></div>' +
+          '<div class="field-row" style="margin-top:12px">' +
+            '<div class="field"><label>播放量（views）</label><input class="inp num" id="stViews" type="number" min="0" step="1" inputmode="numeric" placeholder="平台后台「播放/观看」" value="' + (sel ? sel.views : '') + '"></div>' +
+            '<div class="field"><label>点赞数（likes）</label><input class="inp num" id="stLikes" type="number" min="0" step="1" inputmode="numeric" placeholder="0" value="' + (sel ? sel.likes : '') + '"></div>' +
+            '<div class="field"><label>评论数（comments）</label><input class="inp num" id="stComments" type="number" min="0" step="1" inputmode="numeric" placeholder="0" value="' + (sel ? sel.comments : '') + '"></div>' +
+            '<div class="field"><label>转化数（conversions）</label><input class="inp num" id="stConv" type="number" min="0" step="1" inputmode="numeric" placeholder="付费解锁 / 跳转 / 线索" value="' + (sel ? sel.conversions : '') + '"></div>' +
+          '</div>' +
+          '<div class="field" style="margin-top:12px"><label>发布链接（可选）</label><input class="inp" id="stUrl" type="url" placeholder="https:// 平台作品链接，方便回查" value="' + esc(sel ? sel.publish_url : '') + '"></div>' +
+          '<div class="notice cyan">ℹ <span>回填口径：播放量取平台后台「播放/观看」；转化取付费解锁、小程序跳转或线索数。建议发布后 2h / 24h / 72h / 7d 各回填一次。</span></div>' +
+          '<div style="margin-top:10px"><button type="button" class="btn" data-act="submitStats">提交回填 →</button> ' +
+          '<span class="muted" style="font-size:11.5px">提交到 ' + (apiState.mode === 'live' ? 'POST /api/aidrama/distributions/{id}/stats' : '本机演示记录（接口联调中）') + '</span></div>' +
+        '</div>') +
+      '<div class="wiz-nav"><button type="button" class="btn ghost" data-act="wizPrev">← 上一步</button>' +
+        '<div class="right"><button type="button" class="btn ghost" data-act="goDashboard">去发行看板 →</button></div></div>' +
+    '</div>';
+}
+function bindWizardEvents(){
+  var root = $('#view-wizard');
+  if (!root) return;
+  bindCopy(root);
+  $$('[data-pick-drama]', root).forEach(function(btn){
+    btn.addEventListener('click', function(){
+      var id = btn.getAttribute('data-pick-drama');
+      if (String(id) !== String(W.dramaId)) { W.pkg = null; W.meta = null; W.statsDone = null; W.maxStep = 1; }
+      W.dramaId = id;
+      renderWizard();
+    });
+  });
+  $$('[data-pick-platform]', root).forEach(function(btn){
+    btn.addEventListener('click', function(){
+      var id = btn.getAttribute('data-pick-platform');
+      if (id !== W.platform) { W.pkg = null; W.meta = null; W.statsDone = null; W.maxStep = 1; }
+      W.platform = id;
+      var allowed = ratiosForPlatform(id).map(function(r){ return r.id; });
+      if (allowed.indexOf(W.ratio) < 0) W.ratio = allowed[0] || '9:16';
+      renderWizard();
+    });
+  });
+  $$('[data-pick-lang]', root).forEach(function(btn){
+    btn.addEventListener('click', function(){
+      var id = btn.getAttribute('data-pick-lang');
+      if (id !== W.lang) { W.pkg = null; W.meta = null; W.statsDone = null; W.maxStep = 1; }
+      W.lang = id;
+      renderWizard();
+    });
+  });
+  $$('[data-pick-ratio]', root).forEach(function(btn){
+    btn.addEventListener('click', function(){
+      if (btn.disabled) return;
+      W.ratio = btn.getAttribute('data-pick-ratio');
+      if (W.pkg) { W.pkg = null; W.meta = null; W.maxStep = 1; W.step = 1; }
+      renderWizard();
+    });
+  });
+  $$('[data-wiz-step]', root).forEach(function(step){
+    step.addEventListener('click', function(){
+      var n = Number(step.getAttribute('data-wiz-step'));
+      if (n > W.maxStep) { toast('请先完成当前步骤', 'warn'); return; }
+      if (n >= 3 && !W.pkg) { toast('请先生成发行包', 'warn'); return; }
+      W.step = n;
+      renderWizard();
+    });
+  });
+  $$('.cb', root).forEach(function(cb){
+    cb.addEventListener('change', function(){
+      var d = currentDrama();
+      var p = platformById(W.platform);
+      var i = Number(cb.getAttribute('data-check'));
+      var key = checklistKey(p, d, W.lang, i);
+      if (cb.checked) CHECK_STORE[key] = 1; else delete CHECK_STORE[key];
+      saveChecks();
+      var li = cb.closest('li');
+      if (li) li.classList.toggle('done', cb.checked);
+      var counter = $('#clDone');
+      if (counter) {
+        var items = checklistFor(d, p, W.meta || buildMeta(d, p, W.lang));
+        var done = 0;
+        items.forEach(function(_, j){ if (CHECK_STORE[checklistKey(p, d, W.lang, j)]) done++; });
+        counter.textContent = done;
+      }
+      if (cb.checked) {
+        var newDone = $$('.cb:checked', root).length;
+        var total = $$('.cb', root).length;
+        if (newDone === total && total > 0) toast('发布清单已全部勾选，记得回填数据', 'ok');
+      }
+    });
+  });
+  var statsDist = $('#statsDist');
+  if (statsDist) {
+    statsDist.addEventListener('change', function(){
+      W.distId = statsDist.value;
+      var found = null;
+      for (var i = 0; i < dists.length; i++) if (String(dists[i].id) === String(W.distId)) { found = dists[i]; break; }
+      if (found) {
+        var map = { stViews: found.views, stLikes: found.likes, stComments: found.comments, stConv: found.conversions, stUrl: found.publish_url };
+        for (var id in map) { var el = $('#' + id); if (el) el.value = map[id] || ''; }
+      }
+    });
+  }
+}
+function wizNext(){
+  if (W.step === 1) {
+    W.step = 2;
+    renderWizard();
+    return;
+  }
+  if (W.step === 2) {
+    if (!W.pkg) { toast('请先生成发行包', 'warn'); return; }
+    W.step = 3;
+    W.maxStep = Math.max(W.maxStep, 3);
+    renderWizard();
+    return;
+  }
+  if (W.step === 3) {
+    W.step = 4;
+    W.maxStep = Math.max(W.maxStep, 4);
+    if (!W.distId && W.pkg) W.distId = String(W.pkg.distribution.id);
+    renderWizard();
+    return;
+  }
+}
+function wizPrev(){
+  if (W.step > 1) {
+    W.step--;
+    renderWizard();
+  }
+}
+function downloadPackage(){
+  var pkg = W.pkg;
+  if (!pkg) { toast('请先生成发行包', 'err'); return; }
+  if (pkg.mock && pkg.zipBlob) {
+    downloadBlob(pkg.zipBlob, pkg.distribution.filename || '发行包.zip');
+    return;
+  }
+  var url = pkg.zip_url || pkg.distribution.zip_url;
+  if (url) { downloadUrl(url, pkg.distribution.filename || ''); return; }
+  if (pkg.entries) { downloadBlob(buildZip(pkg.entries), pkg.distribution.filename || '发行包.zip'); return; }
+  toast('接口未返回下载地址，请重新生成', 'err');
+}
+function submitStats(){
+  var id = (($('#statsDist') || {}).value) || W.distId;
+  if (!id) { toast('请先选择一条发行记录', 'err'); return; }
+  var views = validNum(($('#stViews') || {}).value);
+  var likes = validNum(($('#stLikes') || {}).value);
+  var comments = validNum(($('#stComments') || {}).value);
+  var conversions = validNum(($('#stConv') || {}).value);
+  var url = ($('#stUrl') || {}).value || '';
+  if (views + likes + comments + conversions === 0) { toast('至少填写一项大于 0 的数据', 'err'); return; }
+  var btn = $('[data-act="submitStats"]');
+  if (btn) { btn.disabled = true; btn.textContent = '提交中…'; }
+  var dist = null;
+  for (var i = 0; i < dists.length; i++) if (String(dists[i].id) === String(id)) { dist = dists[i]; break; }
+  if (!dist) dist = { id: id, drama_id: '', drama_title: '未命名', platform: W.platform, lang: W.lang, ratio: W.ratio, status: 'ready', views: 0, likes: 0, comments: 0, conversions: 0, created_at: stampNow() };
+  var payload = { views: views, likes: likes, comments: comments, conversions: conversions, publish_url: url };
+  function done(item, demo){
+    var st = { distId: String(id), views: item.views, likes: item.likes, comments: item.comments, conversions: item.conversions, at: stampNow(), demo: !!demo };
+    W.statsDone = st;
+    if (dist.__mock || apiState.mode === 'mock') {
+      /* 更新演示记录 */
+      var hit = false;
+      for (var k = 0; k < mockDists.length; k++) {
+        if (String(mockDists[k].id) === String(id)) {
+          mockDists[k].views = item.views; mockDists[k].likes = item.likes; mockDists[k].comments = item.comments;
+          mockDists[k].conversions = item.conversions; mockDists[k].publish_url = item.publish_url || mockDists[k].publish_url || '';
+          hit = true; break;
+        }
+      }
+      if (!hit) {
+        mockDists.unshift({
+          id: id, drama_id: item.drama_id || W.dramaId, drama_title: item.drama_title || dramaTitle(W.dramaId),
+          platform: item.platform || W.platform, lang: item.lang || W.lang, ratio: item.ratio || W.ratio,
+          status: 'ready', views: views, likes: likes, comments: comments, conversions: conversions,
+          publish_url: url, created_at: stampNow(), zip_size: 0, filename: '', files: []
+        });
+      }
+      saveMockDists();
+      dists = mockDists.map(normDist);
+      renderHeroStats();
+      renderWizard();
+      if (!$('#view-dashboard').hidden) renderDashboard();
+      toast('已保存到演示记录（联调中）', 'ok');
+      return;
+    }
+    mergeDistToState(item);
+    renderWizard();
+    toast('数据已提交到后台', 'ok');
+  }
+  if (apiState.mode === 'mock' || FORCE_MOCK || dist.__mock) {
+    dist.views = views; dist.likes = likes; dist.comments = comments; dist.conversions = conversions; dist.publish_url = url;
+    setTimeout(function(){ done(dist, true); }, 420);
+    return;
+  }
+  realStats(dist, payload).then(function(item){
+    done(item, false);
+  }).catch(function(e){
+    var fallback = { id: id, drama_id: dist.drama_id, drama_title: dist.drama_title, platform: dist.platform, lang: dist.lang, ratio: dist.ratio, status: dist.status, views: views, likes: likes, comments: comments, conversions: conversions, publish_url: url, created_at: dist.created_at || stampNow() };
+    done(fallback, true);
+    toast('统计接口未就绪（' + (e && e.message ? e.message : '请求失败') + '），已暂存本机演示记录', 'warn');
+  }).then(function(){
+    var b = $('[data-act="submitStats"]');
+    if (b) { b.disabled = false; b.textContent = '提交回填 →'; }
+  });
+}
+/* ============================================================
+   发行记录看板
+   ============================================================ */
+var DASH_FILTER = { platform: 'all', lang: 'all', status: 'all', q: '' };
+function dashStatusKey(it){ return distDisplayStatus(it).key; }
+function filteredDists(){
+  var q = DASH_FILTER.q.trim().toLowerCase();
+  return dists.filter(function(d){
+    if (DASH_FILTER.platform !== 'all' && d.platform !== DASH_FILTER.platform) return false;
+    if (DASH_FILTER.lang !== 'all' && d.lang !== DASH_FILTER.lang) return false;
+    if (DASH_FILTER.status !== 'all' && dashStatusKey(d) !== DASH_FILTER.status) return false;
+    if (!q) return true;
+    return ((d.drama_title || '') + ' ' + (d.filename || '') + ' ' + d.platform + ' ' + d.lang).toLowerCase().indexOf(q) >= 0;
+  });
+}
+function dashSummary(){
+  var s = { n: dists.length, views: 0, likes: 0, comments: 0, conv: 0, published: 0 };
+  dists.forEach(function(d){
+    s.views += d.views || 0; s.likes += d.likes || 0; s.comments += d.comments || 0; s.conv += d.conversions || 0;
+    if (d.publish_url) s.published++;
+  });
+  s.cvr = s.views > 0 ? (s.conv / s.views * 100) : 0;
+  return s;
+}
+function renderDashboardLoading(){
+  var root = $('#view-dashboard');
+  if (!root) return;
+  root.innerHTML = '<div class="panel"><div class="loading-line"><span class="spin"></span>正在加载发行记录…</div></div>';
+}
+function rebuildDemoZip(dist){
+  var d = dramaById(dist.drama_id) || { title: dist.drama_title, episodes: 1, duration: 75, style: '' };
+  var p = platformById(dist.platform);
+  var lang = dist.lang || 'zh';
+  var ratio = dist.ratio || '9:16';
+  var meta = buildMeta(d, p, lang);
+  var safe = wrapTitle(d.title);
+  var cues = cuesForLang(lang);
+  var entries = [
+    { name: 'video/' + safe + '_' + ratio + '.mp4', data: '【演示占位文件】真实接口就绪后为转码成片。' },
+    { name: 'cover/' + safe + '_cover.svg', data: '<svg xmlns="http://www.w3.org/2000/svg" width="1080" height="1440"><rect width="1080" height="1440" fill="#101a2c"/><text x="60" y="700" fill="#fff" font-size="80" font-family="sans-serif">' + esc(d.title) + '</text></svg>' },
+    { name: 'subtitles/' + lang + '/EP01.srt', data: toSrt(cues) },
+    { name: 'subtitles/' + lang + '/EP01.vtt', data: toVtt(cues) },
+    { name: 'metadata/metadata.json', data: JSON.stringify({ drama_title: d.title, platform: p.id, language: lang, ratio: ratio, title: meta.title, description: meta.desc, tags: meta.tags, ai_generated: true }, null, 2) },
+    { name: '发行说明.md', data: mockReadme(d, p, meta, dist) }
+  ];
+  downloadBlob(buildZip(entries), dist.filename || (safe + '_发行包.zip'));
+}
+function downloadDist(id){
+  var dist = null;
+  for (var i = 0; i < dists.length; i++) if (String(dists[i].id) === String(id)) { dist = dists[i]; break; }
+  if (!dist) return;
+  if (dist.zip_url) { downloadUrl(dist.zip_url, dist.filename || ''); return; }
+  if (dist.zip_demo || dist.files && dist.files.length) { rebuildDemoZip(dist); return; }
+  toast('该记录没有可下载的发行包，请重新生成', 'warn');
+}
+function backfill(id){
+  W.distId = String(id);
+  W.step = 4;
+  W.maxStep = Math.max(W.maxStep, 4);
+  W.statsDone = null;
+  setView('wizard');
+  renderWizard();
+  toast('已定位到回填表单，填写平台后台数据后提交');
+}
+function renderPlatformSums(){
+  var by = {};
+  dists.forEach(function(d){
+    by[d.platform] = by[d.platform] || { n: 0, views: 0, conv: 0 };
+    by[d.platform].n++; by[d.platform].views += d.views || 0; by[d.platform].conv += d.conversions || 0;
+  });
+  return Object.keys(by).map(function(pid){
+    var p = platformById(pid);
+    var x = by[pid];
+    return '<span class="pstat"><span class="pdot" style="background:' + p.color + '"></span>' + esc(p.name) +
+      '<b>' + x.n + '</b>条 · 播放 <b>' + nf(x.views) + '</b> · 转化 <b>' + nf(x.conv) + '</b></span>';
+  }).join('');
+}
+function renderDashboardList(){
+  var box = $('#dashList');
+  if (!box) return;
+  var list = filteredDists();
+  if (!dists.length) {
+    box.innerHTML = '<div class="empty"><div class="ei">📊</div><h3>还没有发行记录</h3>' +
+      '<p>先去「发行向导」生成发行包并按清单发布，发布后把播放/点赞/评论/转化回填进来，这里就会汇总各平台数据。</p>' +
+      '<div class="acts"><button type="button" class="btn" data-act="startDist">去发行向导 →</button>' +
+      (apiState.mode === 'mock' ? '<button type="button" class="btn ghost" data-act="resetMockDists">重置演示数据</button>' : '') + '</div></div>';
+    return;
+  }
+  if (!list.length) {
+    box.innerHTML = '<div class="empty"><div class="ei">🔍</div><h3>没有匹配的发行记录</h3><p>调整平台/语言/状态筛选，或清空搜索关键词。</p>' +
+      '<div class="acts"><button type="button" class="btn ghost sm" data-act="clearDashFilter">清除筛选</button></div></div>';
+    return;
+  }
+  var rows = list.map(function(d){
+    var p = platformById(d.platform);
+    var st = distDisplayStatus(d);
+    var lang = langById(d.lang);
+    var cvr = d.views > 0 ? (d.conversions / d.views * 100).toFixed(2) + '%' : '—';
+    return '<tr data-dist="' + esc(d.id) + '">' +
+      '<td class="drama-cell" data-label="短剧" title="' + esc(d.drama_title) + '">' + esc(d.drama_title || dramaTitle(d.drama_id)) + '</td>' +
+      '<td data-label="平台"><span class="pdot" style="display:inline-block;width:8px;height:8px;border-radius:2px;margin-right:5px;background:' + p.color + '"></span>' + esc(p.name) + '</td>' +
+      '<td data-label="语言">' + esc(lang.name) + '</td>' +
+      '<td data-label="状态"><span class="' + st.cls + '">' + esc(st.label) + '</span></td>' +
+      '<td class="n" data-label="播放">' + num(d.views) + '</td>' +
+      '<td class="n" data-label="点赞">' + num(d.likes) + '</td>' +
+      '<td class="n" data-label="评论">' + num(d.comments) + '</td>' +
+      '<td class="n" data-label="转化">' + num(d.conversions) + '</td>' +
+      '<td class="n" data-label="转化率">' + cvr + '</td>' +
+      '<td class="weak" data-label="更新时间">' + esc(fmtDate(d.updated_at || d.created_at)) + '</td>' +
+      '<td class="op" data-label="操作">' +
+        '<button type="button" data-act="backfill" data-id="' + esc(d.id) + '">回填</button>' +
+        '<button type="button" data-act="downloadDist" data-id="' + esc(d.id) + '">下载包</button>' +
+        (d.publish_url ? '<a href="' + esc(d.publish_url) + '" target="_blank" rel="noopener">打开作品 ↗</a>' : '') +
+      '</td>' +
+    '</tr>';
+  }).join('');
+  box.innerHTML = '<div class="dtable-wrap table-wrap"><table class="dtable"><thead><tr>' +
+    '<th>短剧</th><th>平台</th><th>语言</th><th>状态</th><th>播放</th><th>点赞</th><th>评论</th><th>转化</th><th>转化率</th><th>更新时间</th><th>操作</th>' +
+    '</tr></thead><tbody>' + rows + '</tbody></table></div>';
+}
+function renderDashboard(){
+  var root = $('#view-dashboard');
+  if (!root) return;
+  if (!distsLoaded) { renderDashboardLoading(); return; }
+  var s = dashSummary();
+  var statusOpts = [['all', '全部状态'], ['ready', '待发布'], ['published', '已发布'], ['backfilled', '已回填'], ['failed', '失败']].map(function(x){
+    return '<option value="' + x[0] + '" ' + (DASH_FILTER.status === x[0] ? 'selected' : '') + '>' + x[1] + '</option>';
+  }).join('');
+  var platOpts = '<option value="all">全部平台</option>' + PLATFORMS.map(function(p){
+    return '<option value="' + p.id + '" ' + (DASH_FILTER.platform === p.id ? 'selected' : '') + '>' + p.name + '</option>';
+  }).join('');
+  var langOpts = '<option value="all">全部语言</option>' + LANGS.map(function(l){
+    return '<option value="' + l.id + '" ' + (DASH_FILTER.lang === l.id ? 'selected' : '') + '>' + l.name + '</option>';
+  }).join('');
+  root.innerHTML =
+    '<div class="panel">' +
+      '<div class="panel-h"><h2>发行记录看板 <small>各平台 / 语言 / 播放 / 状态 · 汇总</small></h2>' +
+        '<div class="ph-right">' + (!apiState.caps.dists ? '<span class="tag amber">演示数据 · 联调中</span>' : '') +
+        '<button type="button" class="btn ghost sm" data-act="exportCsv">导出 CSV</button>' +
+        '<button type="button" class="btn ghost sm" data-act="reloadDists">↻ 刷新</button>' +
+        '<button type="button" class="btn sm" data-act="startDist">新建发行 →</button></div></div>' +
+      '<div class="panel-sub">数据来自发行记录与人工回填，<b>不自动抓取平台数据</b>。转化口径：付费解锁 / 小程序跳转 / 线索数。</div>' +
+      '<div class="sum-grid">' +
+        '<div class="sum"><b>' + num(s.n) + '</b><span>发行记录</span></div>' +
+        '<div class="sum green"><b>' + nf(s.views) + '</b><span>总播放</span></div>' +
+        '<div class="sum violet"><b>' + nf(s.likes) + '</b><span>总点赞</span></div>' +
+        '<div class="sum amber"><b>' + nf(s.comments) + '</b><span>总评论</span></div>' +
+        '<div class="sum pink"><b>' + nf(s.conv) + '</b><span>总转化</span></div>' +
+        '<div class="sum"><b>' + (s.cvr ? s.cvr.toFixed(2) + '%' : '—') + '</b><span>整体转化率</span></div>' +
+      '</div>' +
+      '<div class="plat-sums">' + renderPlatformSums() + '</div>' +
+      '<div class="toolbar">' +
+        '<div class="search grow"><span class="ico">🔍</span><input class="inp" id="dashSearch" type="search" placeholder="搜索剧名 / 文件名 / 语言" value="' + esc(DASH_FILTER.q) + '" autocomplete="off"></div>' +
+        '<select class="inp" id="dashPlat" style="width:auto;min-width:130px">' + platOpts + '</select>' +
+        '<select class="inp" id="dashLang" style="width:auto;min-width:120px">' + langOpts + '</select>' +
+        '<select class="inp" id="dashStatus" style="width:auto;min-width:130px">' + statusOpts + '</select>' +
+        '<span class="muted sp" style="font-size:12px" id="dashCount"></span>' +
+      '</div>' +
+      '<div id="dashList"></div>' +
+      '<div class="notice cyan" style="margin-top:14px">ℹ <span>汇总 = 当前列表全部发行记录（含未回填 0 值）。建议每部剧至少回填 24h 与 72h 两个时点，别重复累加同一时点。</span></div>' +
+    '</div>';
+  renderDashboardList();
+  var search = $('#dashSearch');
+  if (search) search.addEventListener('input', debounce(function(e){
+    DASH_FILTER.q = e.target.value || '';
+    renderDashboardList();
+    updateDashCount();
+  }, 180));
+  ['dashPlat:platform', 'dashLang:lang', 'dashStatus:status'].forEach(function(pair){
+    var parts = pair.split(':');
+    var el = $('#' + parts[0]);
+    if (el) el.addEventListener('change', function(){
+      DASH_FILTER[parts[1]] = el.value;
+      renderDashboardList();
+      updateDashCount();
+    });
+  });
+  updateDashCount();
+  function updateDashCount(){
+    var c = $('#dashCount');
+    if (c) c.textContent = '显示 ' + filteredDists().length + ' / ' + dists.length + ' 条';
+  }
+}
+function exportCsv(){
+  var list = filteredDists();
+  var head = ['短剧', '剧ID', '平台', '语言', '画幅', '状态', '播放', '点赞', '评论', '转化', '转化率', '发布链接', '创建时间'];
+  var lines = [head.join(',')];
+  list.forEach(function(d){
+    var cvr = d.views > 0 ? (d.conversions / d.views * 100).toFixed(2) + '%' : '';
+    var row = [d.drama_title || dramaTitle(d.drama_id), d.drama_id, platformById(d.platform).name, langById(d.lang).name, d.ratio, distDisplayStatus(d).label, d.views, d.likes, d.comments, d.conversions, cvr, d.publish_url || '', d.created_at || ''];
+    lines.push(row.map(function(v){ return '"' + String(v == null ? '' : v).replace(/"/g, '""') + '"'; }).join(','));
+  });
+  downloadBlob(new Blob(['\ufeff' + lines.join('\r\n')], { type: 'text/csv;charset=utf-8' }), '星籁短剧发行数据_' + new Date().toISOString().slice(0, 10) + '.csv');
+  toast('CSV 已导出（' + list.length + ' 条）', 'ok');
+}
+/* ============================================================
+   多语言字幕 / 配音
+   ============================================================ */
+var TR = { dramaId: '', langs: ['en'], voice: false, result: null, running: false, mock: false, previewCues: null, error: '', _token: 0 };
+function gotoTranslate(dramaId){
+  if (dramaId) TR.dramaId = String(dramaId);
+  if (!TR.dramaId && dramas.length) TR.dramaId = String(dramas[0].id);
+  TR.result = null; TR.previewCues = null; TR.error = '';
+  setView('translate');
+  renderTranslate();
+  if (!dramasLoaded) loadDramas({}).then(function(){ renderTranslate(); });
+}
+function currentTransDrama(){
+  return dramaById(TR.dramaId) || (dramas.length ? dramas[0] : null);
+}
+function toggleLang(id){
+  var i = TR.langs.indexOf(id);
+  if (i >= 0) {
+    if (TR.langs.length === 1) { toast('至少保留一种目标语言', 'warn'); return; }
+    TR.langs.splice(i, 1);
+  } else {
+    TR.langs.push(id);
+  }
+  TR.result = null;
+  renderTranslate();
+}
+function renderTranslate(){
+  var root = $('#view-translate');
+  if (!root) return;
+  if (!dramasLoaded) {
+    root.innerHTML = '<div class="panel"><div class="loading-line"><span class="spin"></span>正在加载短剧列表…</div></div>';
+    return;
+  }
+  if (!dramas.length) {
+    root.innerHTML = '<div class="panel"><div class="empty"><div class="ei">🌐</div><h3>还没有可翻译的短剧</h3><p>先创作并渲染一部短剧，再生成多语言字幕 / 配音。</p><div class="acts"><a class="btn" href="/ai-nav/aidrama/">去创作短剧 →</a></div></div></div>';
+    return;
+  }
+  if (!TR.dramaId) TR.dramaId = String(dramas[0].id);
+  var d = currentTransDrama();
+  var opts = dramas.map(function(x){
+    return '<option value="' + esc(x.id) + '" ' + (String(x.id) === String(TR.dramaId) ? 'selected' : '') + '>《' + esc(x.title) + '》· ' + esc(x.episodes) + ' 集 · ' + esc(dramaStatus(x.status).label) + '</option>';
+  }).join('');
+  var langChips = LANGS.filter(function(l){ return l.id !== 'zh'; }).map(function(l){
+    return '<button type="button" class="chip ' + (TR.langs.indexOf(l.id) >= 0 ? 'on' : '') + '" data-tr-lang="' + l.id + '">' + l.name + ' <span class="flag">' + l.short + '</span></button>';
+  }).join('');
+  root.innerHTML =
+    '<div class="panel">' +
+      '<div class="panel-h"><h2>多语言字幕 / 配音 <small>选剧 + 语言 → 生成 SRT / VTT，可下载</small></h2></div>' +
+      '<div class="panel-sub">源语言为中文；目标语言支持 English / 日本語 / Español / العربية。字幕文件可随发行包上传到各平台，配音为二创需人工试听。</div>' +
+      '<div class="field-row">' +
+        '<div class="field"><label>选择短剧</label><select class="inp" id="trDrama">' + opts + '</select></div>' +
+        '<div class="field"><label>目标语言（可多选）</label><div class="chips">' + langChips + '</div></div>' +
+        '<div class="field"><label>生成选项</label>' +
+          '<label style="display:flex;align-items:center;gap:8px;color:var(--txt2);font-size:12.5px;font-weight:500;cursor:pointer"><input type="checkbox" id="trVoice" ' + (TR.voice ? 'checked' : '') + '> 同时生成配音（需人工试听/复核口型）</label>' +
+          '<div class="hint" style="font-size:11.5px;color:var(--txt3)">配音只用已授权音色；不得模仿真人声音。</div>' +
+        '</div>' +
+      '</div>' +
+      '<div class="notice cyan" style="margin-top:12px">ℹ <span>阿拉伯语为 RTL（从右向左），字幕需阿拉伯字体；西语默认拉美用词；日语注意敬语层级。字幕时间轴基于中文母版生成。</span></div>' +
+      '<div style="margin-top:12px"><button type="button" class="btn" data-act="runTranslate">' + (TR.running ? '生成中…' : '生成多语言字幕 →') + '</button> ' +
+        '<span class="muted" style="font-size:11.5px">' + (apiState.mode === 'live' ? '调用 POST /api/aidrama/translate' : '接口联调中：使用演示语料生成本地文件') + '</span></div>' +
+    '</div>' +
+    '<div id="trResult"></div>';
+  var sel = $('#trDrama');
+  if (sel) sel.addEventListener('change', function(){
+    TR.dramaId = sel.value;
+    TR.result = null; TR.previewCues = null;
+    renderTranslateResult();
+  });
+  $$('[data-tr-lang]', root).forEach(function(btn){
+    btn.addEventListener('click', function(){ toggleLang(btn.getAttribute('data-tr-lang')); });
+  });
+  var voice = $('#trVoice');
+  if (voice) voice.addEventListener('change', function(){ TR.voice = voice.checked; });
+  renderTranslateResult();
+}
+function renderTranslateResult(){
+  var box = $('#trResult');
+  if (!box) return;
+  if (TR.running) {
+    box.innerHTML = '<div class="panel"><div class="subcard"><h4>正在生成多语言字幕…</h4>' +
+      '<div class="prog' + (TR.mock ? '' : ' indet') + '" id="trProg"><i style="width:' + (TR.mock ? '40' : '30') + '%"></i></div>' +
+      '<div class="prog-meta"><span>' + (TR.mock ? '演示模式约 1–2 秒' : '真实接口生成中（最长 120 秒）') + '</span><span>目标语言：' + TR.langs.map(function(x){ return langById(x).name; }).join(' / ') + '</span></div>' +
+      '<div class="loading-line" style="margin-top:12px"><span class="spin"></span>生成 SRT / VTT 与配音建议…</div></div></div>';
+    return;
+  }
+  if (TR.error) {
+    box.innerHTML = '<div class="panel"><div class="notice red">✕ <span>' + esc(TR.error) + '</span></div></div>';
+    return;
+  }
+  if (!TR.result) {
+    box.innerHTML = '<div class="panel"><div class="empty"><div class="ei">🌐</div><h3>选择语言后生成字幕</h3><p>生成结果会列出每种语言、每一集的 SRT / VTT 下载；也可下载整包字幕 ZIP 放进发行包。</p></div></div>';
+    return;
+  }
+  var cards = TR.result.map(function(item){
+    var l = langById(item.lang);
+    var eps = item.episodes || [];
+    var epRows = eps.map(function(ep){
+      return '<div class="ep-item"><span class="epn">EP' + pad2(ep.no || 1) + '</span><span class="ept">' + esc(ep.title || '') + '</span>' +
+        '<span class="dl">' +
+          (ep.srt_url ? '<a class="dl-link" href="' + esc(ep.srt_url) + '" download="' + esc(wrapTitle(currentTransDrama() ? currentTransDrama().title : 'subtitle') + '_' + item.lang + '_EP' + pad2(ep.no || 1) + '.srt') + '">⬇ SRT</a>' : '') +
+          (ep.vtt_url ? '<a class="dl-link" href="' + esc(ep.vtt_url) + '" download="' + esc(wrapTitle(currentTransDrama() ? currentTransDrama().title : 'subtitle') + '_' + item.lang + '_EP' + pad2(ep.no || 1) + '.vtt') + '">⬇ VTT</a>' : '') +
+          (ep.dub_url ? '<audio controls preload="none" src="' + esc(ep.dub_url) + '"></audio>' : '') +
+        '</span></div>';
+    }).join('');
+    return '<div class="subcard" style="margin-bottom:12px">' +
+      '<div style="display:flex;align-items:center;gap:9px;flex-wrap:wrap;margin-bottom:9px"><h4 style="margin:0">' + esc(l.name) + ' <span class="muted" style="font-weight:400;font-size:12px">' + esc(l.market) + '</span></h4>' +
+        (TR.mock ? '<span class="tag amber">演示字幕 · 联调中</span>' : '<span class="tag green">接口生成</span>') +
+        (item.zip_url ? '<a class="btn ghost sm" style="margin-left:auto" href="' + esc(item.zip_url) + '" download="字幕包_' + esc(item.lang) + '.zip">⬇ 整包字幕 ZIP</a>' : '') +
+      '</div>' +
+      '<div class="ep-list">' + (epRows || '<div class="muted" style="font-size:12.5px">接口未返回分集字幕，请下载整包。</div>') + '</div>' +
+      '<div class="muted" style="font-size:11.5px;margin-top:8px">' + esc(l.note) + '</div>' +
+    '</div>';
+  }).join('');
+  var preview = '';
+  if (TR.previewCues && TR.previewCues.length) {
+    var first = langById(TR.result[0].lang);
+    preview = '<div class="panel"><div class="panel-h"><h2>字幕预览 <small>演示语料 · ' + esc(first.name) + ' · 第 1 集</small></h2></div>' +
+      '<div class="table-wrap" style="border:0"><table class="cue-table"><thead><tr><th>时间</th><th>中文原文</th><th>' + esc(first.name) + ' 译文</th></tr></thead><tbody>' +
+      TR.previewCues.map(function(c){
+        return '<tr><td class="tc">' + esc(fmtClock(c.start)).slice(3) + ' → ' + esc(fmtClock(c.end)).slice(3) + '</td><td class="zh">' + esc(c.zh) + '</td><td class="tr" dir="' + (first.id === 'ar' ? 'rtl' : 'ltr') + '">' + esc(c.text) + '</td></tr>';
+      }).join('') +
+      '</tbody></table></div><div class="muted" style="font-size:11.5px;margin-top:6px">演示语料为固定台词，用于验证时间轴/编码/下载链路；真实字幕以剧本翻译为准。</div></div>';
+  }
+  var dub = '';
+  if (TR.voice) {
+    dub = '<div class="panel"><div class="panel-h"><h2>配音建议 <small>二创需人工试听，不得模仿真人声音</small></h2></div>' +
+      '<div class="kv"><dt>音色</dt><dd>按市场选：北美偏自然女声/低音男声；日本偏清亮女声；拉美偏热情女声；阿语偏沉稳男声</dd>' +
+      '<dt>语速</dt><dd>0.95–1.05x，保证每集 60–90 秒内；钩子句单独提气</dd>' +
+      '<dt>情绪</dt><dd>跟随剧情钩子：压抑 → 爆发 → 留悬念，不要一条平到底</dd>' +
+      '<dt>质检</dt><dd>人工试听口型、断句、专有名词读音；片尾标注 AI 配音</dd></div>' +
+      (TR.mock ? '<div class="muted" style="font-size:11.5px;margin-top:8px">演示模式不生成音频文件；真实接口返回 dub_url 后可在线试听。</div>' : '') + '</div>';
+  }
+  box.innerHTML = cards + preview + dub;
+}
+function mockTranslateResult(d){
+  var langIds = TR.langs.slice();
+  return langIds.map(function(lid){
+    var lang = langById(lid);
+    var n = Math.min(Math.max(d.episodes || 1, 1), 5);
+    var episodes = [], entries = [];
+    for (var i = 1; i <= n; i++) {
+      var cues = cuesForLang(lid);
+      var srt = toSrt(cues), vtt = toVtt(cues);
+      var srtUrl = URL.createObjectURL(new Blob([srt], { type: 'application/x-subrip;charset=utf-8' }));
+      var vttUrl = URL.createObjectURL(new Blob([vtt], { type: 'text/vtt;charset=utf-8' }));
+      episodes.push({ no: i, title: '第 ' + i + ' 集（演示）', srt_url: srtUrl, vtt_url: vttUrl, dub_url: '' });
+      entries.push({ name: lid + '/EP' + pad2(i) + '.srt', data: srt });
+      entries.push({ name: lid + '/EP' + pad2(i) + '.vtt', data: vtt });
+    }
+    entries.push({ name: lid + '/README.txt', data: '演示字幕包：' + lang.name + '\n源语言：中文\n注意：正式发布前需人工校对翻译与时间轴。\n' });
+    return { lang: lid, episodes: episodes, zip_url: URL.createObjectURL(buildZip(entries)), mock: true };
+  });
+}
+function runTranslate(){
+  if (TR.running) return;
+  var d = currentTransDrama();
+  if (!d) { toast('请先选择一部短剧', 'err'); return; }
+  if (!TR.langs.length) { toast('请至少选择一种目标语言', 'err'); return; }
+  TR.running = true;
+  TR.mock = apiState.mode === 'mock' || FORCE_MOCK;
+  TR.result = null; TR.previewCues = null; TR.error = '';
+  renderTranslateResult();
+  var token = ++TR._token;
+  function mockRun(){
+    if (token !== TR._token) return;
+    var res = mockTranslateResult(d);
+    TR.running = false;
+    TR.result = res;
+    TR.previewCues = cuesForLang(res[0].lang);
+    renderTranslateResult();
+    toast('演示字幕已生成，可下载 SRT / VTT', 'ok');
+  }
+  if (TR.mock) {
+    setTimeout(mockRun, 1200);
+    return;
+  }
+  realTranslate(d.id, TR.langs, TR.voice).then(function(items){
+    if (token !== TR._token) return;
+    TR.running = false;
+    TR.result = items.map(function(it){ it.mock = false; return it; });
+    TR.previewCues = null;
+    renderTranslateResult();
+    toast('多语言字幕已生成', 'ok');
+  }).catch(function(e){
+    if (token !== TR._token) return;
+    TR.running = false;
+    TR.mock = true;
+    var res = mockTranslateResult(d);
+    TR.result = res;
+    TR.previewCues = cuesForLang(res[0].lang);
+    renderTranslateResult();
+    toast('翻译接口未就绪（' + (e && e.message ? e.message : '请求失败') + '），已用演示字幕继续', 'warn');
+  });
+}
+/* ============================================================
+   平台规格
+   ============================================================ */
+function renderSpecs(){
+  var root = $('#view-specs');
+  if (!root) return;
+  var cards = PLATFORMS.map(function(p){
+    var rows = [
+      ['分辨率', p.spec.res], ['推荐画幅', p.ratio.join(' / ')], ['单集时长', p.spec.dur],
+      ['码率 / 编码', p.spec.bitrate], ['封面尺寸', p.spec.cover],
+      ['标题上限', p.spec.titleMax + ' 字'], ['标签数量', p.spec.tagsMax + ' 个以内'],
+      ['最佳发布时间', p.spec.time], ['是否需要资质', p.spec.qual]
+    ].map(function(r){ return '<div class="sr"><dt>' + r[0] + '</dt><dd>' + esc(r[1]) + '</dd></div>'; }).join('');
+    return '<details class="spec-card">' +
+      '<summary><span class="sico" style="background:' + p.color + ';color:#05121c">' + p.short + '</span>' +
+        '<span class="sinfo"><b>' + esc(p.name) + '</b><span>' + esc(p.market) + ' · ' + esc(p.spec.res.split('（')[0]) + ' · ' + esc(p.spec.titleMax) + ' 字标题</span></span>' +
+        '<span class="sarrow">▸</span></summary>' +
+      '<div class="sbody"><dl class="spec-list">' + rows + '</dl>' +
+        '<div class="spec-notes"><b>上传入口：</b>' + esc(p.upload) + '<br><b>合规注意：</b>' + p.tips.map(esc).join('；') + '。</div>' +
+      '</div></details>';
+  }).join('');
+  var compareRows = [
+    ['推荐分辨率', function(p){ return p.spec.res.split('（')[0]; }],
+    ['推荐画幅', function(p){ return p.ratio.join(' / '); }],
+    ['单集时长', function(p){ return p.spec.dur; }],
+    ['码率', function(p){ return p.spec.bitrate.split(' / ')[0]; }],
+    ['封面尺寸', function(p){ return p.spec.cover.split('（')[0]; }],
+    ['标题字数', function(p){ return '≤ ' + p.spec.titleMax + ' 字'; }],
+    ['标签数', function(p){ return '≤ ' + p.spec.tagsMax + ' 个'; }],
+    ['最佳发布时间', function(p){ return p.spec.time; }],
+    ['需要资质', function(p){ return p.spec.qual; }]
+  ];
+  var compHead = '<tr><th>规格</th>' + PLATFORMS.map(function(p){ return '<th>' + esc(p.name) + '</th>'; }).join('') + '</tr>';
+  var compBody = compareRows.map(function(row){
+    return '<tr><td>' + row[0] + '</td>' + PLATFORMS.map(function(p){
+      var v = row[1](p);
+      return '<td>' + esc(v) + '</td>';
+    }).join('') + '</tr>';
+  }).join('');
+  var markets = [
+    ['en', '北美 / 欧洲 / 东南亚', '当地 19:00–23:00', '英文标题避免机翻；首句给钩子；AIGC 标签必开'],
+    ['es', '拉美 / 西班牙 / 美国西语区', '墨西哥城 20:00–23:00', '拉美西语；字幕用本地人称；付费渠道另谈'],
+    ['ja', '日本 / 韩国', '日本 20:00–23:00 JST', '敬语分层；单行字幕 ≤ 13 字；标题少用汉字堆叠'],
+    ['ar', '中东 / 北非', '利雅得 21:00–01:00', 'RTL 排版；阿拉伯字体；宗教/文化敏感先审'],
+    ['zh', '中国大陆 / 港澳台', '北京时间 19:00–22:00', '备案号前置；极限词禁用；AI 标识']
+  ];
+  var marketRows = markets.map(function(m){
+    return '<tr><td><b>' + esc(langById(m[0]).name) + '</b></td><td>' + esc(m[1]) + '</td><td>' + esc(m[2]) + '</td><td>' + esc(m[3]) + '</td></tr>';
+  }).join('');
+  root.innerHTML =
+    '<div class="panel">' +
+      '<div class="panel-h"><h2>平台规格说明 <small>6 大平台对照 · 可展开卡片</small></h2></div>' +
+      '<div class="panel-sub">规格为 2026-11 整理的发行参考值，平台可能随时调整，<b>发布前以官方后台为准</b>。点击卡片展开完整规格。</div>' +
+      '<div class="notice amber">⚠ <span>平台不会因为「素材做得好」就放宽合规：备案、版权链、AIGC 标签缺一项都可能被驳回或下架。</span></div>' +
+      '<div class="spec-grid">' + cards + '</div>' +
+    '</div>' +
+    '<div class="panel">' +
+      '<div class="panel-h"><h2>一图对照 <small>桌面端左右滑动查看</small></h2></div>' +
+      '<div class="compare-wrap"><table class="compare"><thead>' + compHead + '</thead><tbody>' + compBody + '</tbody></table></div>' +
+    '</div>' +
+    '<div class="panel">' +
+      '<div class="panel-h"><h2>海外市场排期与本地化 <small>按目标受众本地时区发布</small></h2></div>' +
+      '<div class="compare-wrap"><table class="compare" style="min-width:720px"><thead><tr><th>语言</th><th>主力市场</th><th>建议发布时间</th><th>本地化 / 合规注意</th></tr></thead><tbody>' + marketRows + '</tbody></table></div>' +
+      '<div class="notice cyan" style="margin-top:12px">ℹ <span>海外投放先做「一行字幕成本测试」：同一集用 2 个封面 × 3 个发布时间跑 48 小时，再决定加投语言。</span></div>' +
+    '</div>';
+}
+/* ============================================================
+   发行 SOP
+   ============================================================ */
+function renderSop(){
+  var root = $('#view-sop');
+  if (!root) return;
+  var toc = SOP_STAGES.map(function(s){
+    return '<li><a href="#sop-' + s.no + '"><span class="n">' + s.no + '</span>' + esc(s.title) + '</a></li>';
+  }).join('');
+  var stages = SOP_STAGES.map(function(s){
+    return '<li id="sop-' + s.no + '"><details ' + (s.no === '01' ? 'open' : '') + '>' +
+      '<summary><span class="sno">' + s.no + '</span><span class="st">' + esc(s.title) + '</span><span class="stime">⏱ ' + esc(s.time) + '</span><span class="sarrow">▸</span></summary>' +
+      '<div class="sbody">' +
+        '<div class="sop-sec ok"><h5>✓ 细节步骤</h5><ul>' + s.details.map(function(x){ return '<li>' + esc(x) + '</li>'; }).join('') + '</ul></div>' +
+        '<div class="sop-sec"><h5>⚠ 注意事项</h5><ul>' + s.cautions.map(function(x){ return '<li>' + esc(x) + '</li>'; }).join('') + '</ul></div>' +
+        '<div class="sop-sec rej"><h5>✕ 常见驳回原因</h5><ul>' + s.rejects.map(function(x){ return '<li>' + esc(x) + '</li>'; }).join('') + '</ul></div>' +
+      '</div></details></li>';
+  }).join('');
+  root.innerHTML =
+    '<div class="panel">' +
+      '<div class="panel-h"><h2>短剧发行 SOP <small>从剧本到数据回填，每一步的细节、用时、注意事项与常见驳回</small></h2>' +
+        '<div class="ph-right"><span class="tag cyan">9 个阶段</span><span class="tag green">含海外发行</span></div></div>' +
+      '<div class="panel-sub">本页 SOP 与仓库文档 <span class="mono">docs/短剧发行SOP.md</span> 同源；执行时以本页为准，遇到平台规则变化先更新文档再发布。</div>' +
+      '<div class="sop-layout">' +
+        '<div>' +
+          '<ol class="tl">' + stages + '</ol>' +
+          '<div class="panel" style="margin-top:16px"><div class="panel-h"><h2>执行清单（打印版）</h2></div>' +
+            '<div class="sop-mini">' +
+              '<div class="row"><span>① 剧本定稿 + 分集钩子</span><span>负责人</span></div>' +
+              '<div class="row"><span>② 成片质检（分辨率/音画/字幕）</span><span>负责人</span></div>' +
+              '<div class="row"><span>③ 字幕母版 + 目标语言</span><span>负责人</span></div>' +
+              '<div class="row"><span>④ 发行包（本页向导生成）</span><span>负责人</span></div>' +
+              '<div class="row"><span>⑤ 账号资质与备案</span><span>负责人</span></div>' +
+              '<div class="row"><span>⑥ 逐平台手动发布 + 勾选清单</span><span>负责人</span></div>' +
+              '<div class="row"><span>⑦ 审核/驳回处理</span><span>负责人</span></div>' +
+              '<div class="row"><span>⑧ 24h / 72h / 7d 回填</span><span>负责人</span></div>' +
+            '</div>' +
+            '<div class="muted" style="font-size:11.5px;margin-top:10px">打印后每列签负责人；红线：不自动发布、不爬数据、无备案不付费。</div>' +
+          '</div>' +
+        '</div>' +
+        '<aside class="sop-side"><div class="panel">' +
+          '<div class="panel-h" style="margin-bottom:8px"><h2 style="font-size:14px">目录</h2></div>' +
+          '<ul class="sop-toc">' + toc + '</ul>' +
+          '<div class="sep"></div>' +
+          '<div class="sop-mini">' +
+            '<div class="row"><span>整体周期</span><span>7–20 天 / 部</span></div>' +
+            '<div class="row"><span>发行端工时</span><span>2–4 小时 / 平台</span></div>' +
+            '<div class="row"><span>回填时点</span><span>2h / 24h / 72h / 7d</span></div>' +
+            '<div class="row"><span>多语言</span><span>1–2 小时 / 语言</span></div>' +
+          '</div>' +
+          '<div class="sep"></div>' +
+          '<div class="muted" style="font-size:11.5px;line-height:1.7">SOP 版本 v1.0 · 2026-11<br>维护：发行运营<br>更新触发：平台规则变化 / 大批驳回 / 新市场开通</div>' +
+        '</div></aside>' +
+      '</div>' +
+    '</div>';
+}
+/* ============================================================
+   启动 / 全局事件 / 调试钩子
+   ============================================================ */
+function copyValue(key){
+  if (!W.meta) return '';
+  if (key === 'title') return W.meta.title;
+  if (key === 'desc') return W.meta.desc;
+  if (key === 'tags') return W.meta.tags;
+  if (key === 'all') return '【标题】\n' + W.meta.title + '\n\n【简介】\n' + W.meta.desc + '\n\n【标签】\n' + W.meta.tags;
+  return '';
+}
+function resetMockData(){
+  try { localStorage.removeItem(MOCK_KEY); } catch (e) {}
+  mockDists = JSON.parse(JSON.stringify(MOCK_DISTS));
+  saveMockDists();
+  dists = mockDists.map(normDist);
+  renderHeroStats();
+  renderDashboard();
+  toast('演示数据已重置', 'ok');
+}
+function handleAction(act, id){
+  switch (act) {
+    case 'retryApi': retryApi(); break;
+    case 'reloadDramas': loadDramas({ notify: true }); break;
+    case 'reloadDists': loadDists({ notify: true }); break;
+    case 'startDist': gotoWizard(id || ''); break;
+    case 'goTranslate': gotoTranslate(id || ''); break;
+    case 'goDashboard': setView('dashboard'); break;
+    case 'clearDramaFilter': DRAMA_FILTER = { q: '', status: 'all' }; renderDramas(); break;
+    case 'clearDashFilter': DASH_FILTER = { platform: 'all', lang: 'all', status: 'all', q: '' }; renderDashboard(); break;
+    case 'wizNext': wizNext(); break;
+    case 'wizPrev': wizPrev(); break;
+    case 'wizBack1': W.step = 1; renderWizard(); break;
+    case 'genPackage': runDistribute(); break;
+    case 'regenPkg': W.pkg = null; W.meta = null; W.maxStep = 1; runDistribute(); break;
+    case 'downloadPkg': downloadPackage(); break;
+    case 'submitStats': submitStats(); break;
+    case 'againStats': W.statsDone = null; renderWizard(); break;
+    case 'backfill': backfill(id); break;
+    case 'downloadDist': downloadDist(id); break;
+    case 'exportCsv': exportCsv(); break;
+    case 'resetMockDists': resetMockData(); break;
+    case 'runTranslate': runTranslate(); break;
+    default: break;
+  }
+}
+function bindGlobalEvents(){
+  var tabbar = $('#tabbar');
+  if (tabbar) {
+    tabbar.addEventListener('click', function(ev){
+      var btn = ev.target.closest ? ev.target.closest('.tab') : null;
+      if (!btn) return;
+      setView(btn.getAttribute('data-view'));
+    });
+  }
+  document.addEventListener('click', function(ev){
+    var el = ev.target;
+    while (el && el !== document) {
+      if (el.getAttribute && el.getAttribute('data-act')) break;
+      el = el.parentNode;
+    }
+    if (!el || el === document) return;
+    var act = el.getAttribute('data-act');
+    if (!act) return;
+    ev.preventDefault();
+    handleAction(act, el.getAttribute('data-id'));
+  });
+  window.addEventListener('hashchange', function(){
+    var v = (location.hash || '').replace('#', '');
+    if (VIEW_NAMES.indexOf(v) >= 0) setView(v, { noScroll: true });
+  });
+}
+function boot(){
+  initMockDists();
+  bindGlobalEvents();
+  updateModeUI();
+  renderHeroStats();
+  var qView = '';
+  try { qView = new URLSearchParams(location.search).get('view') || ''; } catch (e) {}
+  var hash = (location.hash || '').replace('#', '');
+  var view = VIEW_NAMES.indexOf(hash) >= 0 ? hash : (VIEW_NAMES.indexOf(qView) >= 0 ? qView : 'dramas');
+  setView(view, { noScroll: true });
+  if (!distsLoaded) loadDists({});
+}
+window.__PUBLISH_DEBUG__ = {
+  copyValue: copyValue,
+  setView: setView,
+  gotoWizard: gotoWizard,
+  gotoTranslate: gotoTranslate,
+  state: function(){
+    return {
+      mode: apiState.mode, caps: apiState.caps,
+      dramas: dramas.length, dists: dists.length,
+      view: currentView, step: W.step, maxStep: W.maxStep,
+      pkg: W.pkg ? W.pkg.distribution.id : null, running: W.running,
+      trResult: TR.result ? TR.result.length : 0, trRunning: TR.running,
+      apiBase: API_BASE
+    };
+  },
+  select: function(kind, id){
+    if (kind === 'drama') W.dramaId = String(id);
+    if (kind === 'platform') W.platform = id;
+    if (kind === 'lang') W.lang = id;
+    if (kind === 'ratio') W.ratio = id;
+    if (kind === 'view') setView(id);
+    if (kind === 'trlangs') { TR.langs = id; TR.result = null; renderTranslate(); }
+    return this.state();
+  },
+  quickPackage: function(dramaId, platform, lang){
+    W.dramaId = String(dramaId || (dramas[0] && dramas[0].id));
+    W.platform = platform || 'douyin';
+    W.lang = lang || 'zh';
+    W.ratio = '9:16';
+    var pkg = buildMockPackage();
+    if (!pkg) return null;
+    W.pkg = pkg; W.meta = pkg.meta; W.step = 2; W.maxStep = 2; W.statsDone = null;
+    renderWizard();
+    return { id: pkg.distribution.id, files: pkg.distribution.files.length, size: pkg.distribution.zip_size };
+  },
+  json: function(){ return JSON.stringify(this.state()); },
+  pkgBase64: function(){
+    if (!W.pkg) return Promise.resolve(null);
+    var blob = W.pkg.zipBlob || (W.pkg.entries ? buildZip(W.pkg.entries) : null);
+    if (!blob) return Promise.resolve(null);
+    return new Promise(function(resolve){
+      var fr = new FileReader();
+      fr.onload = function(){ resolve(String(fr.result).split(',')[1] || ''); };
+      fr.onerror = function(){ resolve(null); };
+      fr.readAsDataURL(blob);
+    });
+  },
+  zipTest: function(){
+    var blob = buildZip([{ name: '字幕/说明.txt', data: 'hello 星籁 AI' }]);
+    return { size: blob.size, type: blob.type };
+  },
+  resetMockDists: resetMockData,
+  clipboard: function(){ return !!(navigator.clipboard); }
+};
+boot();
+})();
+</script>
+</body>
+</html>
