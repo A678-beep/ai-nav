@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>通用底座 P1 · 星籁企业智能体平台</title>
+<meta name="description" content="星籁企业智能体平台通用底座 P1：工作流引擎、集成适配器、权限中心、行业包机制（独立服务 8829，与已上线 8827 同一套租户/账号）。">
+<meta name="robots" content="noindex">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='8' fill='%23d9a85c'/%3E%3Ctext x='16' y='23' font-size='20' text-anchor='middle' fill='%23161006'%3E星%3C/text%3E%3C/svg%3E">
+<link rel="stylesheet" href="app.css">
+</head>
+<body>
+
+<!-- ============ 登录门 ============ -->
+<div id="gate" class="gate hidden">
+  <div class="gate-card">
+    <div class="logo">星</div>
+    <h2>企业智能体平台 · 通用底座 P1</h2>
+    <p class="lead">工作流引擎 / 集成适配器（mock）/ 权限中心 / 行业包机制 · 独立服务 8829，与已上线企业平台（8827）共用同一套租户与账号，数据按企业隔离。</p>
+    <div class="field">
+      <label for="codeInput">企业访问码 / 成员登录码（沿用 8827 企业平台账号）</label>
+      <input id="codeInput" type="text" placeholder="例如 XL-ADMIN-2026" autocomplete="off">
+    </div>
+    <button id="loginBtn" class="btn primary block" type="button">登录底座控制台</button>
+    <div class="err" id="loginErr"></div>
+    <div class="demo-accounts">
+      <div class="head">演示账号（点击填入；数据均为演示数据）</div>
+      <div class="acct-row" id="acctRow">
+        <span class="acct" data-code="XL-ADMIN-2026">企业管理员 · XL-ADMIN-2026</span>
+        <span class="acct" data-code="XL-CEO-2026">企业负责人 · XL-CEO-2026</span>
+        <span class="acct" data-code="XL-SALES-2026">销售部成员 · XL-SALES-2026</span>
+        <span class="acct" data-code="XINGLAI-ENT-2026">演示企业总码 · XINGLAI-ENT-2026</span>
+      </div>
+      <div class="login-hint">权限说明：admin 可管理组织/集成/行业包；manager 可运行与审批工作流、查看审计；member 仅本部门知识与流程。越权请求返回 403 并写入审计。<br>
+      合规提示：AI 生成内容需人工复核，不承诺准确率；集成适配器为 mock，未对接真实企业系统。</div>
+    </div>
+  </div>
+</div>
+
+<!-- ============ 顶栏 ============ -->
+<header class="topbar hidden" id="topbar">
+  <div class="topbar-in">
+    <div class="logo">星</div>
+    <div class="brand">
+      <h1>企业智能体平台 <span class="gold">通用底座 P1</span></h1>
+      <p>工作流 · 集成 · 权限 · 行业包 ｜ 独立服务 8829 ｜ AI 生成内容需人工复核</p>
+    </div>
+    <div class="topbar-right">
+      <a class="btn sm ghost" href="../" title="返回已上线企业平台（8827）">← 企业平台</a>
+      <div class="user-chip">
+        <span class="avatar" id="avatar">?</span>
+        <span id="userName">-</span>
+        <span class="tag gold role-txt" id="userRole">-</span>
+        <span class="tag" id="userDept">-</span>
+      </div>
+      <button class="btn sm ghost" id="logoutBtn" type="button" title="退出登录">退出</button>
+    </div>
+  </div>
+</header>
+
+<!-- ============ 主体 ============ -->
+<div class="wrap hidden" id="app">
+  <div class="app">
+    <nav class="side" id="sideNav">
+      <a data-view="overview" class="active">📊 概览</a>
+      <a data-view="workflows">🧩 工作流引擎</a>
+      <a data-view="integrations">🔌 集成适配器</a>
+      <a data-view="permission">🛡️ 权限中心</a>
+      <a data-view="packages">📦 行业包</a>
+      <a data-view="audit">🧾 审计日志</a>
+      <div class="sep"></div>
+      <div class="side-note">
+        底座 P1 · v1.0.0<br>
+        独立服务 <span class="mono">8829</span><br>
+        数据：独立 SQLite + 只读复用 8827 租户/智能体<br>
+        <span id="svcStatus" class="faint">连接中…</span>
+      </div>
+    </nav>
+
+    <main id="main">
+      <section id="view-overview" class="view">
+        <div class="metrics" id="ovMetrics"></div>
+        <div class="panel">
+          <div class="panel-h"><h3>待我审批</h3><span class="tag amber" id="ovPendCount">0</span>
+            <div class="right"><button class="btn sm" data-jump="workflows">前往工作流</button></div></div>
+          <div id="ovPending"><div class="muted tiny">暂无待审批任务</div></div>
+        </div>
+        <div class="grid2">
+          <div class="panel">
+            <div class="panel-h"><h3>最近运行</h3><div class="right"><span class="tag">工作流引擎</span></div></div>
+            <div id="ovRuns"><div class="muted tiny">暂无运行记录</div></div>
+          </div>
+          <div class="panel">
+            <div class="panel-h"><h3>底座能力地图</h3><div class="right"><span class="tag green">P1</span></div></div>
+            <div id="ovModules" class="tiny"></div>
+          </div>
+        </div>
+        <div class="panel">
+          <div class="panel-h"><h3>合规与边界</h3></div>
+          <div class="grid2" id="ovCompliance"></div>
+        </div>
+      </section>
+
+      <section id="view-workflows" class="view hidden">
+        <div class="panel">
+          <div class="panel-h"><h3>工作流引擎</h3>
+            <span class="tag blue" id="wfCount">0</span>
+            <div class="right">
+              <button class="btn sm" id="wfCreateBtn">＋ 新建自定义流程</button>
+              <button class="btn sm ghost" id="wfRefreshBtn">刷新</button>
+            </div></div>
+          <p class="sub">串行步骤 · 条件分支 · 人工审批（暂停→审批→继续）· 失败重试 · 幂等运行。智能体步骤调用已上线 8827 智能体 chat。</p>
+          <div class="grid2" id="wfList"></div>
+        </div>
+        <div class="panel">
+          <div class="panel-h"><h3>运行记录</h3><div class="right"><span class="tag">最近 20 条</span></div></div>
+          <div id="runList" class="tiny muted">暂无运行记录</div>
+        </div>
+      </section>
+
+      <section id="view-integrations" class="view hidden">
+        <div class="panel">
+          <div class="panel-h"><h3>集成适配器</h3><span class="tag teal">统一接口 send(msg) / fetch()</span>
+            <div class="right"><span class="tag amber">全部 mock · 无真实凭证</span></div></div>
+          <p class="sub">企业微信 / 钉钉 / 飞书 / 邮件 / Webhook / CSV 六个适配器，配置化；无真实凭证时测试返回示例数据并标注 <span class="mono">mock=true, delivered=false</span>。工作流「notify」步骤会调用对应适配器。</p>
+          <div class="grid3" id="intgList"></div>
+        </div>
+        <div class="panel hidden" id="intgResultPanel">
+          <div class="panel-h"><h3>适配器测试结果</h3><div class="right"><button class="btn sm ghost" id="intgClose">收起</button></div></div>
+          <pre class="json" id="intgResult"></pre>
+        </div>
+      </section>
+
+      <section id="view-permission" class="view hidden">
+        <div class="panel">
+          <div class="panel-h"><h3>组织与角色</h3><span class="tag gold" id="orgRole">-</span>
+            <div class="right"><span class="tag">admin / manager / member</span></div></div>
+          <div id="orgOverview"></div>
+        </div>
+        <div class="panel">
+          <div class="panel-h"><h3>成员与角色管理</h3><div class="right"><span class="tag tiny">仅管理员可变更</span></div></div>
+          <div id="orgMembers"></div>
+        </div>
+        <div class="grid2">
+          <div class="panel">
+            <div class="panel-h"><h3>部门知识库（隔离）</h3><div class="right"><span class="tag green">按部门隔离</span></div></div>
+            <div id="kbTree" class="tiny muted"></div>
+            <div class="divider"></div>
+            <div class="row">
+              <select id="kbDeptSel" style="max-width:220px"></select>
+              <input id="kbQuery" type="text" placeholder="检索本部门知识…" style="flex:1;min-width:150px">
+              <button class="btn sm primary" id="kbSearchBtn">检索</button>
+            </div>
+            <div class="err" id="kbErr"></div>
+            <div id="kbResults" class="tiny muted" style="margin-top:10px">输入关键词检索；跨部门请求将返回 403 并写入审计。</div>
+          </div>
+          <div class="panel">
+            <div class="panel-h"><h3>数据隔离策略</h3><div class="right"><span class="tag blue">租户 + 部门</span></div></div>
+            <div id="isoPolicy" class="tiny"></div>
+          </div>
+        </div>
+      </section>
+
+      <section id="view-packages" class="view hidden">
+        <div class="panel">
+          <div class="panel-h"><h3>行业包市场</h3><span class="tag violet">package.json</span>
+            <div class="right"><span class="tag">安装后注册：智能体 / 知识模板 / 工作流 / 合规 / ROI 预设</span></div></div>
+          <p class="sub">安装行业包后，其智能体出现在智能体目录、工作流出现在工作流列表；卸载后同步移除。数据按企业隔离。</p>
+          <div class="grid3" id="pkgAvailable"></div>
+        </div>
+        <div class="panel">
+          <div class="panel-h"><h3>本企业已安装</h3><span class="tag green" id="pkgCount">0</span></div>
+          <div id="pkgInstalled" class="tiny muted">暂无已安装行业包</div>
+        </div>
+      </section>
+
+      <section id="view-audit" class="view hidden">
+        <div class="panel">
+          <div class="panel-h"><h3>操作审计</h3><span class="tag" id="auditCount">0</span>
+            <div class="right">
+              <select id="auditStatus" class="sm" style="width:120px">
+                <option value="">全部状态</option><option value="ok">ok</option><option value="denied">denied</option>
+              </select>
+              <button class="btn sm" id="auditRefresh">刷新</button>
+            </div></div>
+          <p class="sub">审计表结构与已上线 8827 audit 表一致；越权（403）行为自动留痕。管理员/经理可查本企业审计。</p>
+          <div id="auditList" class="tiny muted">加载中…</div>
+        </div>
+      </section>
+    </main>
+  </div>
+</div>
+
+<div id="modalRoot"></div>
+<div class="toast" id="toast"></div>
+
+<script src="app.js"></script>
+</body>
+</html>

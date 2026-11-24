@@ -1,236 +1,148 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="zh-CN">
 <head>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width,initial-scale=1">
-<title>电影 · 剧集向导（15 步） · 星籁 AI 创作中心</title>
-<meta name="description" content="星籁 AI 电影/剧集 15 步制作向导：类型定位、AI 剧本、角色卡、场景服化道、分镜表、预演、档位预算、异步生成、审片、调色声音字幕、成片预览、工程包交付（EDL/OTIO/QC）、保存与发布。简单模式一句话出片，专业模式逐步可控。">
-<meta name="keywords" content="电影制作向导,AI 电影,剧集制作,分镜表,AI 编剧,AI 成片,工程包,EDL,OTIO,QC,电影模式">
-<link rel="canonical" href="https://xinglaiai.com/ai-nav/create/movie/">
-<meta name="robots" content="noindex,nofollow"><meta name="googlebot" content="noindex,nofollow">
-<meta property="og:type" content="website">
-<meta property="og:site_name" content="星籁 AI">
-<meta property="og:locale" content="zh_CN">
-<meta property="og:title" content="电影 · 剧集向导（15 步） · 星籁 AI">
-<meta property="og:description" content="一句话 → 剧本 → 分镜 → 生成 → 审片 → 工程包交付。简单模式一键出片，专业模式 15 步可改可回退。">
-<meta property="og:url" content="https://xinglaiai.com/ai-nav/create/movie/">
-<meta name="twitter:card" content="summary_large_image">
-<link rel="stylesheet" href="../../assets/site-shell.css">
-<link rel="stylesheet" href="../../assets/auth-gate.css">
-<script src="../../assets/auth-gate.js" data-mode="mask"></script>
-<link rel="stylesheet" href="../assets/console.css?v=20261124c">
-<link rel="icon" href="data:image/svg+xml,%3Csvg%20xmlns='http://www.w3.org/2000/svg'%20viewBox='0%200%2064%2064'%3E%3Crect%20width='64'%20height='64'%20rx='14'%20fill='%23070b13'/%3E%3Crect%20x='12'%20y='14'%20width='40'%20height='10'%20rx='2'%20transform='rotate(-8%2044%2019)'%20fill='%23f5b944'/%3E%3Crect%20x='14'%20y='27'%20width='36'%20height='23'%20rx='3'%20fill='%232dd4bf'/%3E%3C/svg%3E">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="robots" content="noindex">
+<title>电影 · 剧集向导 已升级到桌面版 · 星籁剪辑（影视专业版）</title>
+<meta name="description" content="电影 · 剧集向导 已升级到桌面版星籁剪辑：电影与剧集 15 步制作流程，从类型定位到拍摄准备、审片与交付，工序与版本在一个工程里管理。 网页端不再提供在线工具，安装包在下载中心登录后下载。">
+<script>(function(){try{var k="xl_theme",v=localStorage.getItem(k),m=(v==="dark"||v==="light"||v==="auto")?v:"auto",q=window.matchMedia?window.matchMedia("(prefers-color-scheme: light)"):null,t=(m==="auto")?((q&&q.matches)?"light":"dark"):m,d=document.documentElement;d.setAttribute("data-theme",t);d.setAttribute("data-theme-mode",m);d.style.colorScheme=t}catch(e){document.documentElement.setAttribute("data-theme","dark")}})();</script>
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%23070a10'/%3E%3Cpath d='M32 12l5.6 13.6L51 31l-13.4 5.4L32 50l-5.6-13.6L13 31l13.4-5.4z' fill='%23e8c15a'/%3E%3C/svg%3E">
+<link rel="stylesheet" href="../../assets/theme-light.css">
+<link rel="stylesheet" href="../../assets/site-shell.css?v=20261124e">
 <style>
-/* 向导页专属 */
-.wz-head{display:flex;gap:18px;justify-content:space-between;align-items:flex-end;flex-wrap:wrap;margin:0 0 12px}
-.wz-head h1{margin:0 0 6px;font-size:27px}
-.wz-head .lead{margin:0;color:var(--cc-sub);font-size:13px;max-width:820px}
-.wz-head .lead b{color:#f4e2bb}
-html[data-theme="light"] .wz-head .lead b{color:#8a5305}
-.wz-actions{display:flex;gap:8px;flex-wrap:wrap;align-items:center}
-.wz-summary{
-  display:flex;gap:8px;flex-wrap:wrap;align-items:center;margin:0 0 14px;padding:10px 12px;
-  border:1px solid var(--cc-line);border-radius:12px;background:rgba(148,163,184,.035);
-  position:sticky;top:calc(var(--cc-top) + 6px);z-index:6;backdrop-filter:blur(8px);
-}
-.wz-summary .k{font-size:11px;color:var(--cc-dim);margin-right:2px}
-.wz-summary .v{font-size:12px;color:#e7dcbf;font-weight:600;font-family:var(--cc-mono)}
-.wz-summary .sep{width:1px;height:16px;background:var(--cc-line);margin:0 2px}
-.wz-summary .sp{flex:1}
-.wz-summary .stale{color:#fbbf24;font-weight:600;font-size:11.5px}
-.wz-summary .fresh{color:#34d399;font-weight:600;font-size:11.5px}
-
-/* 简单模式 */
-.simple-hero{
-  border:1px solid rgba(245,185,68,.3);border-radius:16px;padding:20px;
-  background:radial-gradient(680px 300px at 8% 0%,rgba(245,185,68,.15),transparent 60%),
-             radial-gradient(600px 280px at 96% 8%,rgba(45,212,191,.1),transparent 60%),
-             linear-gradient(170deg,#101a2b,#0a111d 74%);
-  box-shadow:var(--cc-shadow);margin-bottom:14px;
-}
-html[data-theme="light"] .simple-hero{background:radial-gradient(680px 300px at 8% 0%,rgba(245,185,68,.26),transparent 60%),radial-gradient(600px 280px at 96% 8%,rgba(45,212,191,.16),transparent 60%),linear-gradient(170deg,#fff,#f7faff 74%)}
-.simple-hero h2{margin:0 0 6px;font-size:21px;font-weight:900}
-.simple-hero .sub{margin:0 0 14px;color:var(--cc-sub);font-size:12.8px;line-height:1.65;max-width:860px}
-.simple-grid{display:grid;grid-template-columns:minmax(0,2.4fr) minmax(210px,1fr);gap:13px}
-@media(max-width:880px){.simple-grid{grid-template-columns:minmax(0,1fr)}}
-.simple-side{display:flex;flex-direction:column;gap:10px}
-.simple-side .box{border:1px solid var(--cc-line);border-radius:11px;padding:11px 12px;background:rgba(148,163,184,.04)}
-.simple-side .box .t{font-size:11px;color:var(--cc-dim);letter-spacing:.06em;text-transform:uppercase;font-weight:700;margin-bottom:7px}
-.simple-side .chips{display:flex;gap:5px;flex-wrap:wrap}
-.simple-side .chips button{border:1px solid var(--cc-line);background:rgba(148,163,184,.06);color:var(--cc-sub);border-radius:999px;padding:3px 10px;font:inherit;font-size:11.5px;cursor:pointer}
-.simple-side .chips button.on{background:rgba(245,185,68,.17);border-color:rgba(245,185,68,.44);color:#ffe8b8;font-weight:700}
-html[data-theme="light"] .simple-side .chips button.on{color:#7c4a03}
-.simple-cta{display:flex;gap:10px;align-items:center;flex-wrap:wrap;margin-top:13px}
-.simple-cta .big{font-size:15px;padding:12px 22px;border-radius:11px}
-.simple-pipe{display:flex;flex-direction:column;gap:0;margin-top:12px}
-.simple-pipe .r{display:flex;align-items:center;gap:9px;padding:7px 0;font-size:12.5px;color:var(--cc-sub);border-bottom:1px dashed var(--cc-line2)}
-.simple-pipe .r:last-child{border-bottom:0}
-.simple-pipe .r .ic{width:20px;height:20px;border-radius:50%;border:1.5px solid var(--cc-line);display:grid;place-items:center;font-size:10px;flex:0 0 auto;font-family:var(--cc-mono);color:var(--cc-dim)}
-.simple-pipe .r.run .ic{border-color:rgba(245,185,68,.6);color:#ffe8b8;background:rgba(245,185,68,.12)}
-.simple-pipe .r.done .ic{border-color:rgba(52,211,153,.55);color:#6ee7b7;background:rgba(52,211,153,.12);font-size:11px}
-.simple-pipe .r .sp{flex:1}
-.simple-pipe .r .st{font-size:11px;color:var(--cc-dim);font-family:var(--cc-mono)}
-
-/* 方案摘要卡 */
-.plan-brief{border:1px solid var(--cc-line);border-radius:12px;padding:13px 14px;background:rgba(148,163,184,.035);margin:0 0 12px}
-.plan-brief .t{display:flex;gap:9px;align-items:center;flex-wrap:wrap;font-size:16px;font-weight:900;color:#f7e6bf;margin:0 0 4px}
-html[data-theme="light"] .plan-brief .t{color:#7c4a03}
-.plan-brief .l{font-size:12.5px;color:var(--cc-sub);line-height:1.65;margin:0 0 9px}
-.plan-brief .chips{display:flex;gap:6px;flex-wrap:wrap}
-.plan-brief .chips span{font-size:11px;color:#c8d6ea;border:1px solid var(--cc-line);background:rgba(148,163,184,.06);border-radius:6px;padding:1px 7px;font-family:var(--cc-mono)}
-.plan-brief .chips span.gold{border-color:rgba(245,185,68,.32);background:rgba(245,185,68,.09);color:#f3dfae}
-.plan-cost{border:1px solid rgba(245,185,68,.26);border-radius:12px;padding:12px 14px;background:linear-gradient(180deg,rgba(245,185,68,.07),rgba(245,185,68,.02))}
-.plan-cost .tot{display:flex;align-items:baseline;gap:8px;flex-wrap:wrap}
-.plan-cost .tot b{font-size:24px;font-weight:900;color:#ffe2a3;font-family:var(--cc-mono)}
-html[data-theme="light"] .plan-cost .tot b{color:#8a5305}
-.plan-cost .tot span{font-size:11.5px;color:var(--cc-dim)}
-.plan-cost .rows{display:flex;flex-direction:column;gap:3px;margin-top:8px;font-size:11.5px;color:var(--cc-sub)}
-.plan-cost .rows div{display:flex;justify-content:space-between;gap:10px;border-bottom:1px dashed var(--cc-line2);padding:2px 0}
-.plan-cost .rows div b{font-family:var(--cc-mono);color:#e6d7b4;font-weight:600}
-html[data-theme="light"] .plan-cost .rows div b{color:#6b3f03}
-.plan-cost .warn{margin-top:8px;color:#fbbf24;font-size:11.5px;line-height:1.5}
-
-/* 分镜表补充 */
-.shot-toolbar{display:flex;gap:8px;flex-wrap:wrap;align-items:center;margin:0 0 10px}
-.shot-toolbar .dur{font-size:12px;color:var(--cc-sub)}
-.shot-toolbar .dur b{font-family:var(--cc-mono);color:#f3dfae}
-.shot-toolbar .bad{color:#f87171;font-size:11.5px}
-.shot-toolbar .ok{color:#34d399;font-size:11.5px}
-.cc-table input.cc-input,.cc-table select.cc-select{padding:4px 7px;min-height:31px;font-size:12px}
-.cc-table .row-actions{display:flex;gap:3px}
-.cc-table .row-actions button{border:1px solid var(--cc-line);background:rgba(148,163,184,.07);color:var(--cc-sub);border-radius:6px;width:24px;height:24px;cursor:pointer;font-size:11px;line-height:1;padding:0}
-.cc-table .row-actions button:hover{border-color:rgba(245,185,68,.45);color:#ffe8b8}
-.cc-table .row-actions button.del:hover{border-color:rgba(248,113,113,.5);color:#fca5a5}
-
-/* 生成进度 */
-.render-box{border:1px solid var(--cc-line);border-radius:13px;padding:14px;background:rgba(148,163,184,.035)}
-.render-box .rb-head{display:flex;gap:10px;align-items:center;justify-content:space-between;flex-wrap:wrap;margin-bottom:10px}
-.render-box .rb-head .stage{font-size:14px;font-weight:800;color:#f2e7c9;display:flex;gap:8px;align-items:center}
-html[data-theme="light"] .render-box .rb-head .stage{color:#7c4a03}
-.render-box .rb-head .pct{font-family:var(--cc-mono);font-size:20px;font-weight:900;color:#ffe2a3}
-html[data-theme="light"] .render-box .rb-head .pct{color:#8a5305}
-.render-meta{display:flex;gap:8px;flex-wrap:wrap;margin-top:10px;font-size:11.5px;color:var(--cc-sub)}
-.render-meta span{display:inline-flex;gap:5px;align-items:center;border:1px solid var(--cc-line);border-radius:7px;padding:2px 8px;background:rgba(148,163,184,.04)}
-.render-meta b{font-family:var(--cc-mono);color:#e6d7b4;font-weight:600}
-html[data-theme="light"] .render-meta b{color:#6b3f03}
-.eta{font-size:11.5px;color:var(--cc-dim);margin-top:8px;line-height:1.6}
-
-/* QC */
-.qc-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(230px,1fr));gap:8px}
-.qc-item{border:1px solid var(--cc-line);border-radius:9px;padding:8px 10px;font-size:11.8px;display:flex;gap:8px;align-items:flex-start;background:rgba(148,163,184,.03)}
-.qc-item .s{width:16px;height:16px;border-radius:50%;display:grid;place-items:center;font-size:10px;flex:0 0 auto;margin-top:1px;font-weight:800}
-.qc-item .s.pass{background:rgba(52,211,153,.16);color:#6ee7b7;border:1px solid rgba(52,211,153,.4)}
-.qc-item .s.fail{background:rgba(248,113,113,.16);color:#fca5a5;border:1px solid rgba(248,113,113,.4)}
-.qc-item .s.warn{background:rgba(251,191,36,.16);color:#fde68a;border:1px solid rgba(251,191,36,.4)}
-.qc-item .t b{display:block;font-size:12px;color:#e6edf9}
-html[data-theme="light"] .qc-item .t b{color:#152238}
-.qc-item .t small{color:var(--cc-dim);font-size:10.5px;line-height:1.5;display:block;margin-top:1px}
-.qc-score{display:flex;align-items:baseline;gap:8px}
-.qc-score b{font-size:26px;font-weight:900;font-family:var(--cc-mono)}
-.qc-score.pass b{color:#34d399}.qc-score.fail b{color:#f87171}
-.qc-score span{font-size:11.5px;color:var(--cc-dim)}
-
-/* 后期卡 */
-.post-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:11px}
-@media(max-width:1080px){.post-grid{grid-template-columns:minmax(0,1fr)}}
-.post-card{border:1px solid var(--cc-line);border-radius:12px;padding:13px;background:rgba(148,163,184,.035)}
-.post-card h4{margin:0 0 8px;font-size:13.5px;display:flex;align-items:center;gap:7px}
-.post-card .kv{display:flex;justify-content:space-between;gap:8px;font-size:11.8px;color:var(--cc-sub);border-bottom:1px dashed var(--cc-line2);padding:4px 0}
-.post-card .kv:last-child{border-bottom:0}
-.post-card .kv b{font-family:var(--cc-mono);color:#e6d7b4;font-weight:600;text-align:right}
-html[data-theme="light"] .post-card .kv b{color:#6b3f03}
-.post-card .note{font-size:11px;color:var(--cc-dim);line-height:1.6;margin-top:8px}
-
-/* 保存/发布 */
-.save-grid{display:grid;grid-template-columns:minmax(0,1.25fr) minmax(0,1fr);gap:14px}
-@media(max-width:1000px){.save-grid{grid-template-columns:minmax(0,1fr)}}
-.checklist{display:flex;flex-direction:column;gap:7px}
-.checklist .ci{display:flex;gap:9px;align-items:flex-start;font-size:12.3px;color:var(--cc-sub);line-height:1.55}
-.checklist .ci .s{width:17px;height:17px;border-radius:50%;display:grid;place-items:center;flex:0 0 auto;font-size:10px;margin-top:1px}
-.checklist .ci .s.ok{background:rgba(52,211,153,.16);color:#6ee7b7;border:1px solid rgba(52,211,153,.4)}
-.checklist .ci .s.todo{background:rgba(148,163,184,.1);color:var(--cc-dim);border:1px solid var(--cc-line)}
-.checklist .ci .s.bad{background:rgba(248,113,113,.16);color:#fca5a5;border:1px solid rgba(248,113,113,.4)}
-
-/* 最近任务列表 */
-.recent-list{display:flex;flex-direction:column;gap:7px;max-height:420px;overflow:auto;padding-right:3px}
-.recent-item{display:flex;gap:10px;align-items:center;border:1px solid var(--cc-line);border-radius:10px;padding:9px 11px;background:rgba(148,163,184,.03);flex-wrap:wrap}
-.recent-item .rid{font-family:var(--cc-mono);font-size:11px;color:var(--cc-amber)}
-.recent-item .rstat{font-size:11px}
-.recent-item .rmeta{flex:1;min-width:120px;font-size:11px;color:var(--cc-dim)}
-.recent-item .rmeta b{color:#e6d7b4;font-family:var(--cc-mono)}
-html[data-theme="light"] .recent-item .rmeta b{color:#6b3f03}
-
-/* 档位卡 */
-.tier-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:11px}
-@media(max-width:1000px){.tier-grid{grid-template-columns:minmax(0,1fr)}}
-.tier-card{border:1px solid var(--cc-line);border-radius:13px;padding:14px;background:rgba(148,163,184,.035);cursor:pointer;position:relative;transition:border-color .15s,transform .1s}
-.tier-card:hover{transform:translateY(-1px);border-color:rgba(245,185,68,.4)}
-.tier-card.on{border-color:rgba(245,185,68,.65);background:linear-gradient(180deg,rgba(245,185,68,.13),rgba(245,185,68,.03));box-shadow:inset 0 0 0 1px rgba(245,185,68,.16)}
-.tier-card.on::after{content:"✓";position:absolute;right:11px;top:10px;width:18px;height:18px;border-radius:50%;background:var(--cc-amber);color:#1b1203;font-size:11px;font-weight:900;display:grid;place-items:center}
-.tier-card h4{margin:0 0 4px;font-size:15px}
-.tier-card .p{font-family:var(--cc-mono);font-size:19px;font-weight:900;color:#ffe2a3;margin:0 0 8px}
-html[data-theme="light"] .tier-card .p{color:#8a5305}
-.tier-card .p small{font-size:10.5px;color:var(--cc-dim);font-weight:500}
-.tier-card ul{margin:0;padding-left:15px;font-size:11.5px;color:var(--cc-sub);line-height:1.7}
-.tier-card .rec{position:absolute;right:10px;bottom:9px;font-size:10px;color:#1b1203;background:var(--cc-amber);border-radius:5px;padding:1px 6px;font-weight:800}
-
-/* 交付 */
-.sha{font-family:var(--cc-mono);font-size:10.5px;color:var(--cc-dim);word-break:break-all;line-height:1.5}
-.tl{display:flex;flex-direction:column;gap:0;margin-top:8px}
-.tl .ti{display:flex;gap:10px;font-size:11.8px;color:var(--cc-sub);padding:5px 0;border-bottom:1px dashed var(--cc-line2)}
-.tl .ti:last-child{border-bottom:0}
-.tl .ti .c{width:16px;height:16px;border-radius:50%;display:grid;place-items:center;font-size:9px;flex:0 0 auto;margin-top:1px}
-.tl .ti .c.ok{background:rgba(52,211,153,.16);color:#6ee7b7}
-.tl .ti .c.no{background:rgba(148,163,184,.1);color:var(--cc-dim)}
-.tl .ti .sp{flex:1}
-.tl .ti .tm{font-family:var(--cc-mono);font-size:10.5px;color:var(--cc-dim)}
-@media(max-width:760px){
-  .wz-head h1{font-size:22px}
-  .wz-summary{position:static}
-  .simple-hero{padding:15px}
-  .tier-grid{grid-template-columns:minmax(0,1fr)}
+:root{--mg-gold:#e8c15a;--mg-gold2:#f6dd9b;--mg-line:rgba(232,193,90,.2);--mg-line2:rgba(148,163,184,.14);--mg-txt:#ece7dc;--mg-txt2:#a9a294;--mg-txt3:#6f6a60;--mg-cyan:#38bdf8}
+html,body{background:#070a10}
+body{margin:0;color:var(--mg-txt);font:15px/1.75 -apple-system,"Segoe UI",Roboto,"Microsoft YaHei",sans-serif;-webkit-font-smoothing:antialiased;
+  background:radial-gradient(1000px 520px at 84% -12%,rgba(232,193,90,.10),transparent 62%),radial-gradient(760px 440px at 4% 0,rgba(56,189,248,.07),transparent 60%),#070a10}
+html[data-theme="light"] body{color:#1b2432;background:radial-gradient(1000px 520px at 84% -12%,rgba(232,193,90,.14),transparent 62%),radial-gradient(760px 440px at 4% 0,rgba(56,189,248,.10),transparent 60%),#f5f7fb}
+a{color:inherit;text-decoration:none}
+.mg-wrap{max-width:1060px;margin:0 auto;padding:34px 24px 66px}
+.mg-kicker{display:inline-flex;align-items:center;gap:8px;font-size:10.5px;letter-spacing:.2em;color:var(--mg-gold);text-transform:uppercase;border:1px solid var(--mg-line);background:rgba(232,193,90,.07);border-radius:999px;padding:6px 13px;margin-bottom:16px}
+html[data-theme="light"] .mg-kicker{color:#92400e}
+.mg-hero{display:grid;grid-template-columns:minmax(0,1.25fr) minmax(0,.75fr);gap:34px;align-items:start}
+h1{font-size:clamp(30px,3.6vw,46px);line-height:1.16;letter-spacing:-.02em;margin:0 0 6px;font-weight:900}
+h1 .mg-name{display:block}
+h1 em{font-style:normal;background:linear-gradient(110deg,#f6dd9b,#c9963f);-webkit-background-clip:text;background-clip:text;color:transparent}
+html[data-theme="light"] h1 em{background:linear-gradient(110deg,#a16207,#92400e);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent}
+.mg-banner{display:inline-flex;align-items:center;gap:8px;margin:12px 0 10px;padding:8px 14px;border-radius:10px;border:1px solid var(--mg-line);background:rgba(232,193,90,.08);color:var(--mg-gold2);font-size:14px;font-weight:800;line-height:1.5}
+html[data-theme="light"] .mg-banner{color:#92400e;background:#fffbeb;border-color:#fde68a}
+.mg-lead{color:var(--mg-txt2);font-size:14px;margin:0 0 20px;max-width:640px}
+html[data-theme="light"] .mg-lead{color:#43506a}
+.mg-lead b{color:var(--mg-txt)}html[data-theme="light"] .mg-lead b{color:#101827}
+.mg-actions{display:flex;gap:10px;flex-wrap:wrap;align-items:center}
+.mg-btn{display:inline-flex;align-items:center;justify-content:center;gap:7px;min-height:48px;padding:0 22px;border-radius:12px;font-size:14.5px;font-weight:800;border:1px solid transparent;transition:.16s}
+.mg-btn.gold{background:linear-gradient(135deg,#f6dd9b,#c9963f);color:#1a1202;box-shadow:0 14px 34px -18px rgba(232,193,90,.9)}
+.mg-btn.gold:hover{transform:translateY(-1px);filter:brightness(1.05)}
+.mg-btn.line{border-color:var(--mg-line);background:rgba(232,193,90,.05);color:var(--mg-gold2);font-weight:700}
+.mg-btn.line:hover{background:rgba(232,193,90,.12)}
+html[data-theme="light"] .mg-btn.line{color:#92400e;background:#fff}
+.mg-meta{display:flex;gap:8px;flex-wrap:wrap;margin-top:16px}
+.mg-meta span{font-size:11.5px;color:var(--mg-txt2);border:1px solid var(--mg-line2);background:rgba(255,255,255,.02);border-radius:999px;padding:5px 11px;white-space:nowrap}
+html[data-theme="light"] .mg-meta span{color:#475569;background:#fff}
+.mg-old{border:1px solid var(--mg-line2);border-radius:16px;padding:18px 18px 16px;background:linear-gradient(180deg,rgba(21,21,29,.72),rgba(11,11,16,.9))}
+html[data-theme="light"] .mg-old{background:linear-gradient(180deg,#fff,#f8fafc)}
+.mg-old h2{font-size:13px;margin:0 0 8px;letter-spacing:.04em;color:var(--mg-txt2)}
+.mg-old code{display:inline-block;font:11.5px/1.6 var(--mono,Consolas,monospace);color:var(--mg-gold2);background:rgba(232,193,90,.08);border:1px solid var(--mg-line);border-radius:8px;padding:4px 9px;word-break:break-all}
+html[data-theme="light"] .mg-old code{color:#92400e;background:#fffbeb;border-color:#fde68a}
+.mg-old p{margin:10px 0 0;font-size:12px;line-height:1.75;color:var(--mg-txt3)}
+html[data-theme="light"] .mg-old p{color:#64748b}
+.mg-sec{margin-top:48px}
+.mg-sec-head{display:flex;align-items:flex-end;justify-content:space-between;gap:16px;flex-wrap:wrap;margin-bottom:16px}
+.mg-sec h2{font-size:22px;margin:0;letter-spacing:-.01em}
+.mg-sec p{margin:6px 0 0;font-size:12.5px;color:var(--mg-txt2)}
+html[data-theme="light"] .mg-sec p{color:#475569}
+.mg-caps{list-style:none;margin:0;padding:0;display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px}
+.mg-cap{position:relative;display:flex;flex-direction:column;gap:7px;padding:20px 18px 18px;border:1px solid var(--mg-line2);border-radius:15px;background:linear-gradient(180deg,rgba(20,24,34,.72),rgba(10,13,20,.9))}
+html[data-theme="light"] .mg-cap{background:linear-gradient(180deg,#fff,#f8fafc)}
+.mg-cap:hover{border-color:rgba(232,193,90,.42);transform:translateY(-2px)}
+.mg-cap .no{font:10px/1 var(--mono,Consolas,monospace);letter-spacing:.14em;color:var(--mg-gold)}
+.mg-cap h3{margin:0;font-size:15px;font-weight:800;line-height:1.45}
+.mg-cap p{margin:0;font-size:12.5px;line-height:1.75;color:var(--mg-txt2)}
+html[data-theme="light"] .mg-cap p{color:#475569}
+.mg-collab{border:1px solid var(--mg-line2);border-radius:18px;padding:22px;background:linear-gradient(160deg,rgba(56,189,248,.06),rgba(232,193,90,.04))}
+html[data-theme="light"] .mg-collab{background:linear-gradient(160deg,#f0f9ff,#fffbeb)}
+.mg-collab h2{font-size:18px;margin:0 0 6px}
+.mg-links{display:flex;gap:8px;flex-wrap:wrap;margin-top:14px}
+.mg-links a{font-size:12.5px;border:1px solid var(--mg-line2);border-radius:999px;padding:7px 13px;color:var(--mg-txt2);background:rgba(255,255,255,.02)}
+.mg-links a:hover{color:var(--mg-gold2);border-color:rgba(232,193,90,.45)}
+html[data-theme="light"] .mg-links a{color:#334155;background:#fff}
+.mg-links a b{color:var(--mg-cyan);font-weight:700}
+.mg-foot{margin-top:52px;border-top:1px solid var(--mg-line2);padding-top:20px;font-size:12px;color:var(--mg-txt3);line-height:1.9}
+.mg-foot .links{display:flex;gap:14px;flex-wrap:wrap;margin-bottom:6px}
+.mg-foot a{color:var(--mg-txt2)}
+.mg-foot a:hover{color:var(--mg-gold2)}
+html[data-theme="light"] .mg-foot{color:#64748b}html[data-theme="light"] .mg-foot a{color:#475569}
+@media (max-width:900px){
+  .mg-hero{grid-template-columns:1fr;gap:22px}
+  .mg-caps{grid-template-columns:1fr}
+  .mg-wrap{padding:24px 16px 54px}
 }
 </style>
 </head>
-<body class="cc-body">
-<div class="cc-wrap">
-  <div id="ccTopbar"></div>
-
-  <header class="wz-head">
+<body>
+<main class="mg-wrap">
+  <div class="mg-kicker">影视专业能力 · 已迁入桌面端</div>
+  <div class="mg-hero">
     <div>
-      <div class="cc-kicker">Movie &amp; Series Wizard · 15 Steps</div>
-      <h1>电影 · 剧集向导</h1>
-      <p class="lead">按真实剧组流程走完 15 步：<b>立项 → 剧本 → 选角/勘景 → 分镜 → 预演 → 预算 → 生成 → 审片 → 后期 → 成片 → 交付 → 归档 → 发行</b>。<br class="cc-hide">每步都能改、能跳回；成片自动带 QC 报告与工程包（EDL / OTIO / LUT / SRT）。</p>
-    </div>
-    <div class="wz-actions">
-      <div class="cc-mode" id="modeSwitch" role="tablist" aria-label="创作模式">
-        <button type="button" data-mode="simple">⚡ 简单模式</button>
-        <button type="button" data-mode="pro" class="on" role="tab" aria-selected="true">🎬 专业模式</button>
+      <h1>电影 · 剧集向导<br><em>已升级到桌面版星籁剪辑</em></h1>
+      <div class="mg-banner" role="note">该功能已升级到桌面版星籁剪辑</div>
+      <p class="mg-lead">电影与剧集 15 步制作流程，从类型定位到拍摄准备、审片与交付，工序与版本在一个工程里管理。 网页端不再提供在线操作页；桌面版安装包在下载中心，用星籁账号登录后即可下载 Windows 版本。</p>
+      <div class="mg-actions">
+        <a class="mg-btn gold" href="../../download/">⬇ 前往下载中心</a>
+        <a class="mg-btn line" href="../../">← 返回首页</a>
       </div>
-      <button type="button" class="cc-btn ghost sm" id="btnRecent" title="加载最近的渲染任务">🕘 最近任务</button>
-      <button type="button" class="cc-btn ghost sm" id="btnHelp" title="向导说明与合规提示">? 说明</button>
-      <button type="button" class="cc-btn ghost sm" id="btnSaveTop" title="保存到本机">💾 保存</button>
-      <button type="button" class="cc-btn ghost sm" id="btnExportTop" title="导出项目 JSON">⤓ 导出</button>
+      <div class="mg-meta">
+        <span>Windows 10 / 11 x64</span>
+        <span>桌面版 0.3.7（内测）</span>
+        <span>本地运行 · 工程与素材可留存本地</span>
+        <span>企业协作链接免安装</span>
+      </div>
     </div>
-  </header>
-
-  <div class="wz-summary" id="summaryBar" aria-live="polite"></div>
-
-  <!-- 简单模式 -->
-  <div id="simplePane" class="cc-hide"></div>
-
-  <!-- 专业模式：15 步 -->
-  <div class="cc-wizard" id="proPane">
-    <aside class="cc-steps" id="stepRail" aria-label="15 步向导导航"></aside>
-    <div class="cc-panel">
-      <div class="cc-step-card" id="stepCard"></div>
-    </div>
+    <aside class="mg-old">
+      <h2>原网页入口</h2>
+      <code>/ai-nav/create/movie/</code>
+      <p>该页面原先的在线工具已下线，改为永久迁移引导页（返回 200，但已设 noindex）。请到桌面版继续使用；旧链接可继续访问本说明页。</p>
+    </aside>
   </div>
-</div>
 
-<!-- 全局模态由 console.js 管理；这里放任务列表/帮助等动态内容 -->
-<script src="../assets/console.js?v=20261124b"></script>
-<script src="wizard.js?v=20261124e"></script>
-<script defer src="../../assets/site-shell.js?v=20261124a"></script>
+  <section class="mg-sec" aria-labelledby="capHead">
+    <div class="mg-sec-head">
+      <div>
+        <h2 id="capHead">桌面版提供的能力</h2>
+        <p>在「星籁剪辑（影视专业版）」桌面端内完成，工程与素材可留在本地。</p>
+      </div>
+      <a class="mg-btn line" href="../../download/" style="min-height:38px;padding:0 14px;font-size:12.5px">下载后体验 →</a>
+    </div>
+    <ul class="mg-caps">
+      <li class="mg-cap"><span class="no">01</span><h3>电影 / 剧集 15 步流程</h3><p>类型定位、剧本拆解、角色卡、分镜表、预演、拍摄准备、审片、交付逐项推进。</p></li>
+      <li class="mg-cap"><span class="no">02</span><h3>长片工序与版本追踪</h3><p>场次、镜头、版本与交付物按工序归档，全组看到同一份最新工程。</p></li>
+      <li class="mg-cap"><span class="no">03</span><h3>审片与交付衔接</h3><p>审片链接、签收回执与交付包从工程直接生成，减少线下对表。</p></li>
+    </ul>
+  </section>
+
+  <section class="mg-sec">
+    <div class="mg-collab">
+      <h2>这些协作页仍在网页使用（客户 / 导演 / 片场免安装）</h2>
+      <p>审片签收、效果回传、授权护照查验、片场扫码继续在浏览器打开，由桌面端生成链接与权限。</p>
+      <div class="mg-links">
+        <a href="../../sign/"><b>/sign/</b> 审片签收</a>
+        <a href="../../outcome/"><b>/outcome/</b> 效果回传</a>
+        <a href="../../passport/"><b>/passport/</b> 授权护照查验</a>
+        <a href="../../shoot/"><b>/shoot/</b> 片场</a>
+        <a href="../../pro/"><b>/pro/</b> 专业版与企业协作</a>
+      </div>
+    </div>
+  </section>
+
+  <footer class="mg-foot">
+    <div class="links">
+      <a href="../../">返回首页</a><a href="../../download/">下载中心</a><a href="../../pro/">星籁剪辑（影视专业版）</a><a href="../../sitemap.xml">站点地图</a>
+    </div>
+    <div>© 2026 星籁 AI · xinglaiai.com · 本页为旧专业工具页的迁移引导页，已设 noindex；网页端 = 商家经营与协作，影视专业工具全部由桌面版提供。</div>
+  </footer>
+</main>
+<script defer src="../../assets/theme.js"></script>
+<script defer src="../../assets/site-shell.js?v=20261124e"></script>
 </body>
 </html>

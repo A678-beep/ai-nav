@@ -1,0 +1,405 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>星籁 · 企业 AI 智能体平台</title>
+<meta name="description" content="星籁企业 AI 智能体平台：12 个岗位智能体、企业知识库 RAG、ROI 降本增效看板、私有化部署。给企业一套 AI 员工编制。">
+<meta name="robots" content="noindex,nofollow">
+<meta name="theme-color" content="#070b12">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='8' fill='%23d9a85c'/%3E%3Ctext x='16' y='23' font-size='20' text-anchor='middle' fill='%23161006'%3E星%3C/text%3E%3C/svg%3E">
+<link rel="stylesheet" href="app.css">
+</head>
+<body>
+
+<!-- ======================= 登录引导（未登录） ======================= -->
+<div id="gate" class="gate">
+  <div class="gate-left">
+    <div class="gate-brand">
+      <span class="logo">星</span>
+      <span class="gate-brand-text">星籁 · 企业 AI 智能体平台</span>
+    </div>
+    <h1 class="gate-title">给企业一套<br><em>AI 员工编制</em></h1>
+    <p class="gate-sub">每个岗位一个智能体，接入企业知识库和业务系统，按 SOP 干活、可审计、可度量 ROI。</p>
+    <ul class="gate-points">
+      <li><span class="gp-ico">12</span><div><b>12 个岗位智能体</b><small>销售 / 客服 / 市场 / 数据 / 财务 / 法务 …</small></div></li>
+      <li><span class="gp-ico">RAG</span><div><b>企业知识库 + 引用溯源</b><small>文档入库，回答带来源，不编造制度</small></div></li>
+      <li><span class="gp-ico">ROI</span><div><b>降本增效可算账</b><small>节省工时 / 成本估算 / 按智能体与按天</small></div></li>
+      <li><span class="gp-ico">私</span><div><b>私有化 · 数据不出门</b><small>BYOK、租户隔离、不训练客户数据</small></div></li>
+    </ul>
+    <p class="gate-foot">星籁科技 · 企业 AI 化 · POC 演示环境　|　AI 生成内容标识 · 不承诺准确率 100%</p>
+  </div>
+  <div class="gate-right">
+    <div class="login-card">
+      <div class="login-badge">企业通道</div>
+      <h2>登录企业工作台</h2>
+      <p class="muted">输入企业访问码，进入所属企业的智能体、知识库与 ROI 看板。不同企业数据完全隔离。</p>
+      <form id="loginForm" autocomplete="off">
+        <label class="field">
+          <span>企业访问码</span>
+          <input id="accessCode" type="text" placeholder="例如 XINGLAI-ENT-2026" spellcheck="false" autocomplete="off">
+        </label>
+        <div id="loginError" class="form-error hidden"></div>
+        <button id="loginBtn" class="btn primary block" type="submit">进入企业工作台</button>
+      </form>
+      <button id="demoBtn" class="btn ghost block" type="button">使用演示企业进入（免输入）</button>
+      <div class="demo-hint">
+        <span class="dot-live"></span>
+        演示企业访问码：<code>XINGLAI-ENT-2026</code>
+      </div>
+      <div class="login-note">
+        未开通企业？正式版支持企业 SSO / OIDC 对接与私有化部署；本页为 POC 演示环境，演示数据不外泄。
+      </div>
+      <a class="gate-industry" href="solutions/" data-external-check="1">按行业看方案：选择你的行业 →</a>
+    </div>
+  </div>
+</div>
+
+<!-- ======================= 应用主体 ======================= -->
+<div id="app" class="app hidden">
+  <header class="topbar">
+    <a class="brand" href="#agents" data-view="agents">
+      <span class="logo sm">星</span>
+      <span class="brand-text"><b>企业 AI 智能体平台</b><small>Enterprise AI Workforce</small></span>
+    </a>
+    <nav id="mainNav" class="main-nav" aria-label="主导航">
+      <button class="nav-btn active" data-view="agents" type="button">智能体目录</button>
+      <button class="nav-btn" data-view="kb" type="button">企业知识库</button>
+      <button class="nav-btn" data-view="roi" type="button">ROI 看板</button>
+      <button class="nav-btn" data-view="intro" type="button">企业方案</button>
+      <a class="nav-link" href="solutions/" data-external-check="1">选择你的行业</a>
+      <a class="nav-link" href="p1/">通用底座 P1</a>
+    </nav>
+    <div class="topbar-right">
+      <span id="llmBadge" class="pill muted"><i class="dot"></i>LLM 检测中</span>
+      <span id="tenantChip" class="pill tenant">企业</span>
+      <button id="logoutBtn" class="btn icon-btn" type="button" title="退出登录">退出</button>
+    </div>
+  </header>
+
+  <main class="wrap">
+
+    <!-- ---------------- 智能体目录 ---------------- -->
+    <section id="view-agents" class="view">
+      <div class="hero">
+        <div class="hero-copy">
+          <div class="eyebrow"><span class="dot-live"></span>企业 AI 员工平台 · MVP</div>
+          <h1>不是聊天机器人，是<em>企业 AI 员工编制</em></h1>
+          <p>把岗位工作拆给智能体：每个岗位一个角色，接企业知识库，按 SOP 输出可执行结果，AI 生成可标注、过程可审计、ROI 可度量。</p>
+          <div class="hero-actions">
+            <button class="btn primary" data-jump-chat="sales_assistant" type="button">立即体验销售助理</button>
+            <button class="btn ghost" data-view="roi" type="button">查看 ROI 看板</button>
+            <a class="btn text" href="solutions/" data-external-check="1">选择你的行业 →</a>
+          </div>
+        </div>
+        <div class="hero-side">
+          <div class="hero-stat"><strong>12</strong><span>岗位智能体</span><small>首批编制，可增删停用</small></div>
+          <div class="hero-stat"><strong>7×24</strong><span>随叫随到</span><small>降低首响时长</small></div>
+          <div class="hero-stat"><strong>秒级</strong><span>知识库检索</span><small>回答带引用来源</small></div>
+          <div class="hero-stat"><strong>ROI</strong><span>可算账</span><small>工时 / 成本 / 节省</small></div>
+        </div>
+      </div>
+
+      <div class="compliance-bar">
+        <span class="ai-label">AI 生成</span>
+        <span>本平台回答为 <b>AI 生成的建议态内容</b>，不直接修改企业生产数据；合同 / 财务 / 人事等敏感事项须人工复核；不承诺准确率 100%。</span>
+      </div>
+
+      <div class="section-head">
+        <div>
+          <h2>岗位智能体编制</h2>
+          <p>12 个岗位各司其职：职责 / 工具白名单 / 输出模板 / 状态。点击卡片查看详情并直接对话。</p>
+        </div>
+        <div class="catalog-tools">
+          <input id="agentSearch" class="input search" type="search" placeholder="搜索智能体 / 职责 / 部门" aria-label="搜索智能体">
+          <select id="deptFilter" class="input select" aria-label="按部门筛选">
+            <option value="">全部部门</option>
+          </select>
+        </div>
+      </div>
+      <div id="agentGrid" class="agent-grid">
+        <div class="skeleton-card"></div><div class="skeleton-card"></div><div class="skeleton-card"></div><div class="skeleton-card"></div>
+      </div>
+      <div id="agentEmpty" class="empty-state hidden">没有匹配的智能体，换个关键词试试。</div>
+
+      <!-- 智能体详情 + 对话 -->
+      <div id="agentDetail" class="detail hidden">
+        <div class="detail-head">
+          <button id="detailBack" class="btn ghost sm" type="button">← 返回目录</button>
+          <div class="detail-title">
+            <span id="detailIcon" class="agent-icon lg">S</span>
+            <div><h2 id="detailName">智能体</h2><p id="detailMeta" class="muted">部门 · 状态</p></div>
+          </div>
+          <span id="detailStatus" class="pill ok">已上线</span>
+        </div>
+        <div class="detail-layout">
+          <aside class="agent-info panel">
+            <h3>岗位设定</h3>
+            <p id="detailResponsibility" class="lead">–</p>
+            <div class="info-block"><h4>职责与 KPI</h4><p id="detailKpi" class="muted">–</p></div>
+            <div class="info-block"><h4>工具白名单 <span id="detailToolCount" class="count">0</span></h4><div id="detailTools" class="chips"></div></div>
+            <div class="info-block"><h4>输出模板</h4><pre id="detailTemplate" class="code-block"></pre></div>
+            <details class="info-block"><summary><h4 style="display:inline">角色提示词（system prompt）</h4></summary><pre id="detailPrompt" class="code-block prompt"></pre></details>
+            <div class="info-block"><h4>计费口径</h4><p id="detailPricing" class="muted">–</p></div>
+            <div class="mini-note">AI 生成内容，需人工复核后使用；涉及对外承诺 / 合同 / 财务等敏感事项，以企业制度原文为准。</div>
+          </aside>
+          <section class="chat-panel panel">
+            <div class="chat-head">
+              <div><h3 id="chatTitle">与智能体对话</h3><p id="chatSub" class="muted">知识库检索 + LLM 生成，回答带引用来源</p></div>
+              <div class="chat-head-actions">
+                <span id="chatModeHint" class="pill muted">经济模式</span>
+                <button id="clearChatBtn" class="btn ghost sm" type="button">清空</button>
+              </div>
+            </div>
+            <div id="chatMessages" class="chat-messages">
+              <div class="chat-empty">
+                <div class="chat-empty-ico">AI</div>
+                <p>向岗位智能体提一个真实工作问题，它会先检索企业知识库，再给出带引用来源的行动建议。</p>
+                <div id="exampleChips" class="chips examples"></div>
+              </div>
+            </div>
+            <form id="chatForm" class="chat-input">
+              <textarea id="chatQuestion" rows="2" maxlength="2000" placeholder="例如：按知识库里的方案，大企业 POC 怎么报价？" aria-label="输入问题"></textarea>
+              <div class="chat-input-foot">
+                <span class="muted small">Enter 发送 · Shift+Enter 换行 · 单次输出 ≤1200 tokens</span>
+                <button id="sendBtn" class="btn primary" type="submit">发送</button>
+              </div>
+            </form>
+          </section>
+        </div>
+      </div>
+    </section>
+
+    <!-- ---------------- 企业知识库 ---------------- -->
+    <section id="view-kb" class="view hidden">
+      <div class="page-head">
+        <div><div class="eyebrow">Enterprise Knowledge</div><h1>企业知识库</h1>
+          <p>上传企业制度 / 产品资料 / 案例，自动切分入库；智能体回答时检索并给出引用来源。数据按企业租户隔离。</p></div>
+        <button id="kbRefreshBtn" class="btn ghost" type="button">刷新列表</button>
+      </div>
+      <div class="kb-layout">
+        <div class="panel upload-panel">
+          <h3>上传文档</h3>
+          <p class="muted">支持 PDF / DOCX / TXT / MD，单文件 ≤ 8MB；自动切分、建立关键词与简化向量索引。</p>
+          <div id="dropZone" class="drop-zone" tabindex="0" role="button" aria-label="上传文档">
+            <input id="fileInput" type="file" accept=".pdf,.docx,.txt,.md" hidden>
+            <div class="drop-ico">＋</div>
+            <b>点击选择或拖拽文件到此处</b>
+            <small>PDF · DOCX · TXT · MD</small>
+            <div id="filePicked" class="file-picked hidden"></div>
+          </div>
+          <label class="field"><span>文档标题（可选，默认取文件名）</span><input id="docTitle" class="input" type="text" placeholder="例如：客服标准作业流程 v2"></label>
+          <button id="uploadBtn" class="btn primary block" type="button">上传并入库</button>
+          <div id="uploadStatus" class="upload-status hidden"></div>
+          <div class="mini-note">入库耗时取决于文档大小；2C2G 环境已做轻量切分与检索优化。入库后可在对话中直接提问。</div>
+        </div>
+        <div class="panel kb-list-panel">
+          <div class="section-head compact">
+            <div><h3>知识文档 <span id="kbDocCount" class="count">0</span></h3><p class="muted">共 <span id="kbChunkCount">0</span> 个检索分块，全部属于当前企业。</p></div>
+          </div>
+          <div class="table-wrap">
+            <table class="table">
+              <thead><tr><th>文档</th><th>类型</th><th>字符</th><th>分块</th><th>上传时间</th></tr></thead>
+              <tbody id="kbDocRows"><tr><td colspan="5" class="muted">加载中…</td></tr></tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+      <div class="panel kb-search-panel">
+        <div class="section-head compact">
+          <div><h3>知识库检索</h3><p class="muted">轻量 RAG（关键词 + 简化向量）演示检索效果，可验证引用来源。</p></div>
+        </div>
+        <form id="kbSearchForm" class="kb-search-form">
+          <input id="kbSearchInput" class="input" type="search" placeholder="输入问题或关键词，例如：私有化部署的数据安全要求" aria-label="知识库检索">
+          <button class="btn primary" type="submit">检索</button>
+        </form>
+        <div id="kbSearchResults" class="search-results"></div>
+      </div>
+    </section>
+
+    <!-- ---------------- ROI 看板 ---------------- -->
+    <section id="view-roi" class="view hidden">
+      <div class="page-head">
+        <div><div class="eyebrow">ROI Dashboard</div><h1>降本增效看板</h1>
+          <p>每一次对话自动记账：任务数、节省工时、LLM 成本与 ROI 估算，按智能体 / 按天可查。数据实时来自本平台任务记录。</p></div>
+        <div class="page-actions">
+          <select id="roiDays" class="input select" aria-label="统计周期"><option value="7">近 7 天</option><option value="30" selected>近 30 天</option><option value="90">近 90 天</option></select>
+          <button id="roiRefreshBtn" class="btn ghost" type="button">刷新</button>
+        </div>
+      </div>
+      <div class="stat-grid" id="roiStats">
+        <div class="stat-card"><span class="stat-label">完成任务数</span><strong id="roiTasks">–</strong><small id="roiTasksSub">含 LLM / 缓存 / 降级</small></div>
+        <div class="stat-card"><span class="stat-label">节省工时</span><strong id="roiHours">–</strong><small>按规则估算</small></div>
+        <div class="stat-card"><span class="stat-label">节省成本</span><strong id="roiSaved">–</strong><small>工时 × 人力时薪</small></div>
+        <div class="stat-card"><span class="stat-label">LLM 成本</span><strong id="roiLlmCost">–</strong><small id="roiTokens">DeepSeek 经济模式</small></div>
+        <div class="stat-card" id="roiRatioCard"><span class="stat-label">AI 成本效率</span><strong id="roiRatio">–</strong><small id="roiNet">净节省</small></div>
+        <div class="stat-card"><span class="stat-label">知识文档</span><strong id="roiDocs">–</strong><small id="roiAgentsUsed">–</small></div>
+      </div>
+      <div class="chart-grid">
+        <div class="panel chart-panel">
+          <div class="section-head compact"><div><h3>按智能体任务数</h3><p class="muted">柱状图（纯前端渲染）</p></div></div>
+          <div id="chartAgents" class="chart-agents"></div>
+        </div>
+        <div class="panel chart-panel">
+          <div class="section-head compact"><div><h3>按天任务趋势</h3><p class="muted" id="chartDaysSub">近 30 天</p></div></div>
+          <div id="chartDays" class="chart-days-box"></div>
+        </div>
+      </div>
+      <div class="roi-layout">
+        <div class="panel">
+          <div class="section-head compact"><div><h3>最近任务</h3><p class="muted">可追溯到每次对话的智能体、模式、耗时与成本。</p></div></div>
+          <div class="table-wrap">
+            <table class="table"><thead><tr><th>时间</th><th>智能体</th><th>模式</th><th>问题</th><th>耗时</th><th>成本</th></tr></thead><tbody id="roiTaskRows"><tr><td colspan="6" class="muted">加载中…</td></tr></tbody></table>
+          </div>
+        </div>
+        <div class="panel rule-panel">
+          <div class="section-head compact"><div><h3>ROI 规则</h3><p class="muted">管理员可调整口径，看板即时重算。</p></div></div>
+          <div class="rule-form">
+            <label class="field"><span>单次对话节省分钟</span><input id="ruleMinutes" class="input" type="number" min="0.5" max="120" step="0.5" value="5"></label>
+            <label class="field"><span>自动化率（0–1）</span><input id="ruleAutomation" class="input" type="number" min="0.05" max="1" step="0.05" value="1"></label>
+            <label class="field"><span>人力时薪（¥/小时）</span><input id="ruleHourly" class="input" type="number" min="1" max="10000" step="1" value="60"></label>
+            <label class="field"><span>平台月费（¥，POC 假设）</span><input id="ruleFee" class="input" type="number" min="0" step="100" value="4999"></label>
+            <button id="saveRuleBtn" class="btn primary block" type="button">保存规则并重算</button>
+            <div id="ruleHint" class="mini-note">当前账号为管理员，可修改规则；修改会写入审计日志。</div>
+          </div>
+          <div class="formula-box">
+            <h4>ROI 算法（可给 CFO 看）</h4>
+            <pre class="code-block">节省工时 = 任务量 × 单次耗时 × 自动化率
+节省成本 = 节省工时 × 人力时薪
+LLM 成本 = Σ(prompt tokens×¥2/百万 + completion tokens×¥8/百万)
+净节省   = 节省成本 − LLM 成本 − 平台费用
+ROI      = 净节省 / (LLM 成本 + 平台费用)</pre>
+            <p class="muted small">ROI 为基于规则的估算，用于试点期决策参考，不构成财务承诺。缓存命中与降级回答不产生 LLM 成本。</p>
+            <p id="roiRatioNote" class="muted small" style="margin-top:6px"></p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ---------------- 企业方案 ---------------- -->
+    <section id="view-intro" class="view hidden">
+      <div class="page-head">
+        <div><div class="eyebrow">Enterprise Playbook</div><h1>企业 AI 化 · 降本增效方案</h1>
+          <p>不卖“聊天工具”，交付“AI 员工编制 + 企业知识库 + 可度量 ROI + 私有化”。2–4 周 POC，先算账再扩编。</p></div>
+      </div>
+
+      <div class="intro-grid">
+        <div class="panel">
+          <h3>企业为什么买：痛点 → 解法 → 可度量收益</h3>
+          <table class="table">
+            <thead><tr><th>痛点</th><th>星籁解法</th><th>可度量收益</th></tr></thead>
+            <tbody>
+              <tr><td>人少事多、重复劳动</td><td>岗位智能体接走重复工作</td><td>替代工时 / 人力成本</td></tr>
+              <tr><td>知识在个人脑子里</td><td>企业知识库 + RAG，人人可问</td><td>新人上手时间 ↓</td></tr>
+              <tr><td>客服 / 销售响应慢</td><td>AI 客服 / 销售助理 7×24</td><td>响应时间 ↓、转化 ↑</td></tr>
+              <tr><td>跨系统来回切</td><td>智能体调 CRM / 工单 / 内容系统</td><td>操作步骤 ↓</td></tr>
+              <tr><td>老板不知道 AI 值不值</td><td>ROI 看板：工时 / 成本 / 节省</td><td>可算账</td></tr>
+              <tr><td>数据安全不敢上云</td><td>私有化部署 + 数据不出门</td><td>采购门槛通过</td></tr>
+            </tbody>
+          </table>
+        </div>
+        <div class="panel">
+          <h3>12 岗位智能体矩阵（首批编制）</h3>
+          <div class="role-matrix">
+            <span><b>销售助理</b>线索筛选 / 话术 / 报价</span>
+            <span><b>客服专员</b>7×24 答疑 / 工单分类</span>
+            <span><b>市场文案</b>公众号 / 小红书 / SEO</span>
+            <span><b>短视频运营</b>选题 / 脚本 / 发布计划</span>
+            <span><b>招聘助理</b>JD / 简历筛选 / 面试题</span>
+            <span><b>培训师</b>文档转课件 / 考试题</span>
+            <span><b>数据分析师</b>报表解读 / 异常预警</span>
+            <span><b>财务助理</b>发票核对 / 报销合规</span>
+            <span><b>法务合同</b>条款审阅 / 风险提示</span>
+            <span><b>采购助理</b>询价对比 / 供应商资料</span>
+            <span><b>行政助理</b>会议纪要 / 日程 / 通知</span>
+            <span><b>知识管家</b>知识库维护 / 问答 / 权限</span>
+          </div>
+          <p class="muted small">每个智能体 = 角色提示词 + 工具白名单 + 知识库 + SOP + 输出模板 + 审计。</p>
+        </div>
+      </div>
+
+      <div class="card-row">
+        <div class="panel feature">
+          <div class="feature-ico">私</div>
+          <h3>私有化部署</h3>
+          <p>一键部署包交付到企业自有服务器 / 专有云；数据不出企业边界；支持客户自有模型 Key（BYOK）与内网模型。分部门权限、全量审计日志、可删除数据。</p>
+        </div>
+        <div class="panel feature">
+          <div class="feature-ico">经</div>
+          <h3>经济模式（成本可控）</h3>
+          <p>单次输出 ≤1200 tokens、相似问题缓存、每日总量上限；无模型 / 余额不足时自动降级为“知识库检索结果 + 模板回答”，保障演示与生产可用性。</p>
+        </div>
+        <div class="panel feature">
+          <div class="feature-ico">审</div>
+          <h3>合规与审计</h3>
+          <p>AI 生成标识、不训练客户数据、不承诺准确率 100%；合同 / 财务 / 人事等敏感事项强制人工复核；租户隔离、成员角色与操作审计。</p>
+        </div>
+      </div>
+
+      <div class="panel">
+        <h3>ROI 算法说明（可给 CFO 看）</h3>
+        <div class="intro-roi">
+          <pre class="code-block">节省工时 = 任务量 × 单次耗时 × 自动化率
+节省成本 = 节省工时 × 人力时薪
+LLM 成本 = Σ(prompt tokens×¥2/百万 + completion tokens×¥8/百万)
+净节省   = 节省成本 − LLM 成本 − 平台费用
+ROI      = 净节省 / (LLM 成本 + 平台费用)</pre>
+          <ul class="plain-list">
+            <li><b>默认口径</b>：单次对话节省 5 分钟、自动化率 100%、人力时薪 ¥60、平台月费按 POC 假设；管理员可在 ROI 看板按企业实际调整。</li>
+            <li><b>记账真实</b>：每次对话记录任务、tokens、耗时与成本；缓存命中与降级回答不产生 LLM 成本。</li>
+            <li><b>不承诺</b>：ROI 是规则估算，用于试点期对比与决策，不构成财务承诺；正式验收以双方确认的基线与口径为准。</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="panel">
+        <h3>2–4 周 POC 试点流程</h3>
+        <div class="poc-steps">
+          <div class="poc-step"><span>W1</span><div><b>调研与选场景</b><p>部门 / 流程 / 知识 / 系统盘点，选 1 个高价值场景（建议客服或销售）。</p></div></div>
+          <div class="poc-step"><span>W2</span><div><b>知识库 + 1 个智能体上线</b><p>导入企业文档，配置岗位提示词与 SOP，小范围试用。</p></div></div>
+          <div class="poc-step"><span>W3</span><div><b>调优 + 接 1 个系统</b><p>按真实问答调优，接 1 个业务系统（CRM / 工单 / 企微），建立 ROI 基线。</p></div></div>
+          <div class="poc-step"><span>W4</span><div><b>验收报告 + 推广计划</b><p>ROI 数据、使用报告、扩编与私有化落地计划。</p></div></div>
+        </div>
+      </div>
+
+      <div class="panel">
+        <h3>商业模式与报价</h3>
+        <table class="table">
+          <thead><tr><th>模式</th><th>参考价格</th><th>适用</th></tr></thead>
+          <tbody>
+            <tr><td>按坐席</td><td>¥99–299 / 人 / 月</td><td>中小企业</td></tr>
+            <tr><td>按智能体</td><td>¥999–4,999 / 个 / 月</td><td>部门级</td></tr>
+            <tr><td>项目制试点（POC）</td><td>¥2–5 万 / 2–4 周</td><td>大企业 POC</td></tr>
+            <tr><td>私有化</td><td>¥10–50 万 / 年起</td><td>大企业 / 国企</td></tr>
+            <tr><td>效果分成</td><td>议价</td><td>大客户可选</td></tr>
+          </tbody>
+        </table>
+        <p class="muted small">以上为演示口径，正式报价以商务合同为准；私有化含部署包、知识库导入、权限审计与培训。</p>
+      </div>
+
+      <div class="cta-panel">
+        <div><h2>先用一个部门，把 ROI 算出来</h2><p>2–4 周 POC：3 份文档、1 个岗位智能体、1 张 ROI 看板，验证“省多少、怎么接”。</p></div>
+        <div class="cta-actions">
+          <button class="btn primary" data-contact="poc" type="button">预约 POC 演示</button>
+          <button class="btn ghost" data-view="agents" type="button">回到智能体目录</button>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <footer class="footer">
+    <div class="wrap footer-inner">
+      <div><b>星籁科技 · 企业 AI 智能体平台</b><span class="muted">　MVP v0.1 · 独立服务 8827</span></div>
+      <div class="footer-tags">
+        <span class="tag">AI 生成标识</span><span class="tag">租户数据隔离</span><span class="tag">不训练客户数据</span><span class="tag">不承诺准确率 100%</span>
+      </div>
+    </div>
+  </footer>
+</div>
+
+<div id="toastBox" class="toast-box" aria-live="polite"></div>
+
+<script src="app.js"></script>
+</body>
+</html>

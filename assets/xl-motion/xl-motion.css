@@ -1,0 +1,431 @@
+/*!
+ * xl-motion.css · 星籁「科幻动效层」 v1.0.0
+ * ------------------------------------------------------------------
+ * 国潮墨黑赤金配色；统一变量 --xl-ink / --xl-gold / --xl-red。
+ * 所有选择器均以 .xlm- 前缀，不污染宿主页面；变量仅在 .xlm-scope 作用域内。
+ * 包含：星云兜底、错峰入场、卡片倾斜、SVG 流光、扫描线、呼吸灯、光晕。
+ * 与 xl-motion.js 配套；减少动态 / 页面隐藏 / 移动端的降级均在此收口。
+ * ------------------------------------------------------------------
+ */
+
+/* ================= 统一变量（仅在 .xlm-scope 内生效） ================= */
+
+.xlm-scope {
+  /* 主色：墨黑、赤金、朱砂（国潮，不采用赛博紫/绿） */
+  --xl-ink: #0a0908;
+  --xl-ink-2: #12100c;
+  --xl-ink-3: #1c1711;
+  --xl-gold: #e6c27a;
+  --xl-gold-2: #f4dfae;
+  --xl-gold-3: #b8892f;
+  --xl-red: #c53b32;
+  --xl-red-2: #e06351;
+  --xl-paper: #efe6d5;
+  --xl-muted: rgba(239, 230, 213, 0.62);
+  --xl-line: rgba(230, 194, 122, 0.18);
+  --xl-line-strong: rgba(230, 194, 122, 0.38);
+
+  /* 组件内部令牌 */
+  --xlm-gold-grad: linear-gradient(118deg, #f6e7c4 0%, #e6c27a 44%, #b8892f 100%);
+  --xlm-ease-out: cubic-bezier(0.22, 0.61, 0.36, 1);
+  --xlm-ease-io: cubic-bezier(0.45, 0.05, 0.55, 0.95);
+  --xlm-serif: "Songti SC", "STSong", "Noto Serif SC", "Source Han Serif SC", "SimSun", serif;
+  --xlm-sans: -apple-system, BlinkMacSystemFont, "Segoe UI", "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", sans-serif;
+  --xlm-num: "Bahnschrift", "DIN Alternate", "Arial Narrow", "Segoe UI", sans-serif;
+}
+
+/* ================= 3D 星云 / CSS 渐变兜底 ================= */
+
+.xlm-nebula-wrap {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  overflow: hidden;
+  pointer-events: none;
+  isolation: isolate;
+  background: var(--xl-ink, #0a0908);
+}
+
+.xlm-nebula {
+  position: absolute;
+  inset: 0;
+  display: block;
+  width: 100%;
+  height: 100%;
+  opacity: 0;
+  transition: opacity 1.6s var(--xlm-ease-out);
+}
+
+.xlm-nebula--live {
+  opacity: 1;
+}
+
+.xlm-nebula--off {
+  display: none;
+}
+
+/* CSS 兜底层：WebGL 不可用 / 低帧率降级 / prefers-reduced-motion 时显示 */
+.xlm-nebula__fallback {
+  position: absolute;
+  inset: 0;
+  display: none;
+  overflow: hidden;
+  background:
+    radial-gradient(ellipse 46% 34% at 72% 28%, rgba(230, 194, 122, 0.3), transparent 64%),
+    radial-gradient(ellipse 34% 28% at 22% 68%, rgba(197, 59, 50, 0.24), transparent 66%),
+    radial-gradient(ellipse 72% 54% at 48% 42%, rgba(184, 137, 47, 0.16), transparent 72%),
+    radial-gradient(ellipse 130% 105% at 50% 0%, #16110b 0%, #0a0908 56%, #070605 100%);
+}
+
+.xlm-nebula__fallback::before {
+  content: "";
+  position: absolute;
+  inset: -32%;
+  background: conic-gradient(
+    from 0deg at 62% 42%,
+    transparent 0 16%,
+    rgba(230, 194, 122, 0.1) 23%,
+    transparent 33%,
+    transparent 60%,
+    rgba(197, 59, 50, 0.1) 71%,
+    transparent 84%
+  );
+  filter: blur(42px);
+  animation: xlm-nebula-drift 52s linear infinite;
+}
+
+.xlm-nebula__fallback::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  opacity: 0.65;
+  background-image:
+    radial-gradient(1.1px 1.1px at 12% 22%, rgba(244, 223, 174, 0.9) 50%, transparent 51%),
+    radial-gradient(1px 1px at 28% 68%, rgba(244, 223, 174, 0.7) 50%, transparent 51%),
+    radial-gradient(1.3px 1.3px at 44% 16%, rgba(230, 194, 122, 0.8) 50%, transparent 51%),
+    radial-gradient(1px 1px at 63% 52%, rgba(244, 223, 174, 0.7) 50%, transparent 51%),
+    radial-gradient(1.2px 1.2px at 78% 22%, rgba(230, 194, 122, 0.85) 50%, transparent 51%),
+    radial-gradient(1px 1px at 88% 72%, rgba(224, 99, 81, 0.7) 50%, transparent 51%),
+    radial-gradient(1px 1px at 8% 84%, rgba(230, 194, 122, 0.6) 50%, transparent 51%),
+    radial-gradient(1.4px 1.4px at 52% 84%, rgba(244, 223, 174, 0.7) 50%, transparent 51%),
+    radial-gradient(1px 1px at 34% 38%, rgba(244, 223, 174, 0.55) 50%, transparent 51%),
+    radial-gradient(1px 1px at 70% 82%, rgba(230, 194, 122, 0.6) 50%, transparent 51%);
+}
+
+.xlm-nebula--fallback .xlm-nebula__fallback {
+  display: block;
+}
+
+.xlm-nebula--fallback .xlm-nebula {
+  display: none;
+}
+
+@keyframes xlm-nebula-drift {
+  from { transform: rotate(0deg) scale(1); }
+  to { transform: rotate(360deg) scale(1.06); }
+}
+
+/* ================= 滚动错峰入场（IntersectionObserver + stagger） ================= */
+
+.xlm-reveal {
+  opacity: 0;
+  translate: 0 22px;
+  transition:
+    opacity 0.8s var(--xlm-ease-out) var(--xlm-delay, 0ms),
+    translate 0.8s var(--xlm-ease-out) var(--xlm-delay, 0ms);
+}
+
+.xlm-reveal.xlm-in {
+  opacity: 1;
+  translate: 0 0;
+}
+
+/* ================= 卡片 3D 倾斜（鼠标跟随 ≤6°） ================= */
+
+.xlm-tilt {
+  position: relative;
+  transform: perspective(900px) rotateX(var(--xlm-rx, 0deg)) rotateY(var(--xlm-ry, 0deg));
+  transform-style: flat;
+  transition: transform 0.55s var(--xlm-ease-out);
+  will-change: transform;
+}
+
+.xlm-tilt.xlm-tilting {
+  transition: transform 0.1s linear;
+}
+
+/* 与入场动效同元素时，合并 transition，避免互相覆盖 */
+.xlm-reveal.xlm-tilt {
+  transition:
+    opacity 0.8s var(--xlm-ease-out) var(--xlm-delay, 0ms),
+    translate 0.8s var(--xlm-ease-out) var(--xlm-delay, 0ms),
+    transform 0.55s var(--xlm-ease-out);
+}
+
+.xlm-reveal.xlm-tilt.xlm-tilting {
+  transition:
+    opacity 0.8s var(--xlm-ease-out) var(--xlm-delay, 0ms),
+    translate 0.8s var(--xlm-ease-out) var(--xlm-delay, 0ms),
+    transform 0.1s linear;
+}
+
+.xlm-tilt__glare {
+  position: absolute;
+  inset: 0;
+  z-index: 2;
+  border-radius: inherit;
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity 0.45s var(--xlm-ease-out);
+  background: radial-gradient(
+    240px circle at var(--xlm-px, 50%) var(--xlm-py, 50%),
+    rgba(244, 223, 174, 0.16),
+    rgba(244, 223, 174, 0) 62%
+  );
+}
+
+.xlm-tilt.xlm-tilting .xlm-tilt__glare {
+  opacity: 1;
+}
+
+/* ================= SVG 流光虚线（data-flow） ================= */
+
+.xlm-flow-line {
+  stroke-dasharray: 4 9;
+  animation: xlm-flow-dash var(--xlm-flow-dur, 3.4s) linear infinite;
+  animation-delay: calc(var(--xlm-flow-index, 0) * -0.37s);
+}
+
+.xlm-flow-ready .xlm-flow-line {
+  will-change: stroke-dashoffset;
+}
+
+@keyframes xlm-flow-dash {
+  from { stroke-dashoffset: 0; }
+  to { stroke-dashoffset: -26; }
+}
+
+/* ================= 扫描线 / 呼吸灯 / 光晕（纯 CSS） ================= */
+
+/* 扫描线：细密横纹 + 缓慢下扫光带，容器自动裁剪溢出 */
+.xlm-scan {
+  position: relative;
+  overflow: hidden;
+}
+
+.xlm-scan::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: 3;
+  border-radius: inherit;
+  pointer-events: none;
+  opacity: 0.5;
+  background: repeating-linear-gradient(
+    to bottom,
+    rgba(230, 194, 122, 0.05) 0 1px,
+    transparent 1px 4px
+  );
+}
+
+.xlm-scan::after {
+  content: "";
+  position: absolute;
+  top: -40%;
+  left: 0;
+  right: 0;
+  z-index: 3;
+  height: 34%;
+  border-radius: inherit;
+  pointer-events: none;
+  opacity: 0;
+  background: linear-gradient(
+    to bottom,
+    rgba(230, 194, 122, 0) 0%,
+    rgba(230, 194, 122, 0.1) 46%,
+    rgba(230, 194, 122, 0.02) 58%,
+    rgba(230, 194, 122, 0) 100%
+  );
+  animation: xlm-scan-sweep 7.2s var(--xlm-ease-io) infinite;
+}
+
+@keyframes xlm-scan-sweep {
+  0% { transform: translateY(0); opacity: 0; }
+  6% { opacity: 0.9; }
+  48% { opacity: 0.9; }
+  62% { transform: translateY(420%); opacity: 0; }
+  100% { transform: translateY(420%); opacity: 0; }
+}
+
+/* 呼吸灯 */
+.xlm-dot {
+  display: inline-block;
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: var(--xl-gold, #e6c27a);
+  box-shadow: 0 0 10px rgba(230, 194, 122, 0.65);
+  vertical-align: middle;
+}
+
+.xlm-dot--red {
+  background: var(--xl-red, #c53b32);
+  box-shadow: 0 0 10px rgba(197, 59, 50, 0.7);
+}
+
+.xlm-breath {
+  animation: xlm-breath 2.8s var(--xlm-ease-io) infinite;
+}
+
+@keyframes xlm-breath {
+  0%, 100% { opacity: 0.42; }
+  50% { opacity: 1; }
+}
+
+/* 光晕（文字 / 容器） */
+.xlm-glow {
+  animation: xlm-glow 5.5s var(--xlm-ease-io) infinite;
+}
+
+@keyframes xlm-glow {
+  0%, 100% { text-shadow: 0 0 10px rgba(230, 194, 122, 0.18); }
+  50% { text-shadow: 0 0 18px rgba(230, 194, 122, 0.42), 0 0 44px rgba(184, 137, 47, 0.22); }
+}
+
+.xlm-glow-box {
+  animation: xlm-glow-box 5.2s var(--xlm-ease-io) infinite;
+}
+
+@keyframes xlm-glow-box {
+  0%, 100% { box-shadow: 0 0 0 1px rgba(230, 194, 122, 0.1), 0 0 24px rgba(230, 194, 122, 0.05); }
+  50% { box-shadow: 0 0 0 1px rgba(230, 194, 122, 0.28), 0 0 40px rgba(230, 194, 122, 0.12); }
+}
+
+/* ================= 通用装饰件 ================= */
+
+/* 回纹/取景角（只取对角两点，保持克制） */
+.xlm-corner-frame {
+  position: relative;
+}
+
+.xlm-corner-frame::before,
+.xlm-corner-frame::after {
+  content: "";
+  position: absolute;
+  width: 16px;
+  height: 16px;
+  pointer-events: none;
+  opacity: 0.62;
+  border-style: solid;
+  border-color: var(--xl-gold, #e6c27a);
+}
+
+.xlm-corner-frame::before {
+  top: 0;
+  left: 0;
+  border-width: 1px 0 0 1px;
+}
+
+.xlm-corner-frame::after {
+  right: 0;
+  bottom: 0;
+  border-width: 0 1px 1px 0;
+}
+
+/* 极淡网格底纹 */
+.xlm-grid {
+  background-image:
+    linear-gradient(rgba(230, 194, 122, 0.055) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(230, 194, 122, 0.055) 1px, transparent 1px);
+  background-size: 48px 48px;
+  background-position: center;
+}
+
+/* ================= 降级：页面隐藏 ================= */
+
+.xlm-page-hidden .xlm-breath,
+.xlm-page-hidden .xlm-glow,
+.xlm-page-hidden .xlm-glow-box,
+.xlm-page-hidden .xlm-scan::after,
+.xlm-page-hidden .xlm-flow-line,
+.xlm-page-hidden .xlm-nebula__fallback::before {
+  animation-play-state: paused !important;
+}
+
+/* ================= 降级：减少动态 ================= */
+
+@media (prefers-reduced-motion: reduce) {
+  .xlm-reveal,
+  .xlm-reveal.xlm-in {
+    opacity: 1 !important;
+    translate: none !important;
+    transition: none !important;
+  }
+
+  .xlm-tilt,
+  .xlm-tilt.xlm-tilting {
+    transform: none !important;
+    transition: none !important;
+  }
+
+  .xlm-tilt__glare {
+    display: none !important;
+  }
+
+  .xlm-scan::after,
+  .xlm-flow-line,
+  .xlm-breath,
+  .xlm-glow,
+  .xlm-glow-box,
+  .xlm-nebula__fallback::before {
+    animation: none !important;
+  }
+
+  .xlm-nebula {
+    display: none !important;
+  }
+
+  .xlm-nebula__fallback {
+    display: block !important;
+  }
+}
+
+/* ================= 移动端：关闭倾斜、减弱扫描 ================= */
+
+@media (max-width: 899px), (hover: none) {
+  .xlm-tilt,
+  .xlm-tilt.xlm-tilting {
+    transform: none !important;
+    transition: none !important;
+    will-change: auto;
+  }
+
+  .xlm-tilt__glare {
+    display: none !important;
+  }
+
+  .xlm-tilt {
+    will-change: auto;
+  }
+}
+
+@media (max-width: 767px) {
+  .xlm-scan::before {
+    opacity: 0.32;
+  }
+
+  .xlm-nebula-wrap {
+    /* 小屏降低星云存在感，保证文字可读 */
+    opacity: 0.92;
+  }
+
+  .xlm-desktop-only {
+    display: none !important;
+  }
+}
+
+@media (min-width: 768px) {
+  .xlm-mobile-only {
+    display: none !important;
+  }
+}

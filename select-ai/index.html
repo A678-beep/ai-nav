@@ -59,7 +59,7 @@ footer{border-top:1px solid var(--line);margin-top:44px;padding:24px 22px;text-a
 <link rel="stylesheet" href="../assets/theme-light.css">
 <script defer src="../assets/theme.js"></script>
 <!--xl-theme-end-->
-<link rel="stylesheet" href="../assets/site-shell.css?v=20261123">
+<link rel="stylesheet" href="../assets/site-shell.css?v=20261124e">
 <link rel="icon" href="data:image/svg+xml,%3Csvg%20xmlns='http://www.w3.org/2000/svg'%20viewBox='0%200%2064%2064'%3E%3Crect%20width='64'%20height='64'%20rx='14'%20fill='%23070a10'/%3E%3Cpath%20d='M32%2012l5.6%2013.6L51%2031l-13.4%205.4L32%2050l-5.6-13.6L13%2031l13.4-5.4z'%20fill='%2338bdf8'/%3E%3C/svg%3E">
 </head><body>
 <div class="top"><div class="top-in"><a class="brand" href="/ai-nav/"><span class="logo">✦</span>星籁 AI 导航</a>
@@ -121,7 +121,7 @@ function render(q,idx,task){
   html+='<div class="card"><h3>④ 校验与避坑</h3><ul>'+task.checks.map(function(s){return '<li class="check">'+s+'</li>'}).join('')+'</ul><p class="warn" style="margin-top:10px">备选方案：'+task.alt+'</p></div>';
   html+='<div class="card"><h3>方案可复制</h3><textarea style="min-height:120px">'+'【AI工具方案】'+q+'\n工具：'+task.tools.map(function(id){return TOOLS[id].name}).join(' / ')+'\n步骤：'+task.steps.join('；')+'</textarea></div>';
  } else {
-  html+='<div class="card"><h3>② 没匹配到现成方案</h3><p style="color:var(--txt2)">换个说法试试，或直接看 <a href="/ai-nav/" style="color:var(--xl-accent)">42 款工具库</a>／<a href="/ai-nav/articles" style="color:var(--xl-accent)">375 篇教程</a>。</p></div>';
+  html+='<div class="card"><h3>② 没匹配到现成方案</h3><p style="color:var(--txt2)">换个说法试试，或直接看 <a href="/ai-nav/" style="color:var(--xl-accent)">42 款工具库</a>／<a href="/ai-nav/articles" style="color:var(--xl-accent)">380+ 篇教程（截至 2026-11-24 实测 383 篇）</a>。</p></div>';
  }
  return html;
 }
@@ -170,7 +170,7 @@ async function go(){
 document.getElementById('go').addEventListener('click',go);
 qEl.addEventListener('keydown',function(e){if((e.ctrlKey||e.metaKey)&&e.key==='Enter')go();});
 </script>
-<script defer src="../assets/site-shell.js?v=20261124a"></script>
+<script defer src="../assets/site-shell.js?v=20261124e"></script>
 <script defer src="../assets/auth.js"></script><style id="WB_WIDE_UNIFY">
 /* WB_WIDE_UNIFY：满屏工作台（仅 ≥1180px 生效，移动端维持原样） */
 @media (min-width:1180px){

@@ -1,0 +1,1244 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head><meta name="robots" content="noindex,nofollow"><meta name="googlebot" content="noindex,nofollow">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>星籁 · 经营驾驶舱｜xl-motion 动效层演示</title>
+<meta name="description" content="星籁「科幻动效层」演示页：3D 星云、数字滚动、卡片倾斜、错峰入场、SVG 流光、扫描线。全部数据为示例。">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='10' fill='%230a0908'/%3E%3Ccircle cx='32' cy='32' r='19' fill='none' stroke='%23e6c27a' stroke-width='2'/%3E%3Cpath d='M32 9v46M9 32h46' stroke='%23b8892f' stroke-width='1' opacity='.45'/%3E%3Ccircle cx='32' cy='32' r='5' fill='%23c53b32'/%3E%3C/svg%3E">
+<link rel="stylesheet" href="xl-motion.css">
+<style>
+/* ==================================================================
+ * demo.html 页面级样式（仅演示页使用，不属于动效层交付物）
+ * 设计：墨黑赤金 / 国潮科幻 / 原创
+ * ================================================================== */
+
+*, *::before, *::after { box-sizing: border-box; }
+
+html { color-scheme: dark; scroll-behavior: smooth; }
+
+body.demo {
+  margin: 0;
+  min-height: 100vh;
+  overflow-x: hidden;
+  background: var(--xl-ink, #0a0908);
+  color: var(--xl-paper, #efe6d5);
+  font-family: var(--xlm-sans);
+  font-size: 15px;
+  line-height: 1.65;
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+
+a { color: inherit; text-decoration: none; }
+button { font: inherit; color: inherit; }
+
+::selection { background: rgba(197, 59, 50, 0.55); color: #fff3da; }
+
+/* ---------- 固定背景层 ---------- */
+.demo-nebula { position: fixed; inset: 0; z-index: 0; }
+
+.demo-film {
+  position: fixed;
+  inset: 0;
+  z-index: 1;
+  pointer-events: none;
+  opacity: 0.55;
+}
+
+.demo-film::after { animation-duration: 9s; }
+
+.demo-vignette {
+  position: fixed;
+  inset: 0;
+  z-index: 1;
+  pointer-events: none;
+  background:
+    radial-gradient(ellipse 90% 70% at 50% 0%, transparent 38%, rgba(7, 6, 5, 0.52) 100%),
+    linear-gradient(to bottom, rgba(10, 9, 8, 0.12) 0%, rgba(10, 9, 8, 0.35) 62%, var(--xl-ink) 100%);
+}
+
+.demo-top, main, .demo-footer { position: relative; z-index: 2; }
+
+/* ---------- 顶栏 ---------- */
+.demo-top {
+  max-width: 1288px;
+  margin: 0 auto;
+  padding: 20px clamp(18px, 4.2vw, 48px);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 18px;
+}
+
+.demo-brand { display: flex; align-items: center; gap: 13px; }
+
+.demo-seal {
+  display: inline-grid;
+  grid-template-columns: auto auto;
+  place-items: center;
+  width: 44px;
+  height: 44px;
+  padding: 5px;
+  font-family: var(--xlm-serif);
+  font-size: 15px;
+  line-height: 1;
+  letter-spacing: 0;
+  color: #fbebc9;
+  background: linear-gradient(150deg, #a52a24 0%, #c53b32 58%, #8c221d 100%);
+  border: 1px solid rgba(230, 194, 122, 0.55);
+  box-shadow: 0 0 0 3px rgba(197, 59, 50, 0.1), inset 0 0 14px rgba(0, 0, 0, 0.35);
+  transform: rotate(-2deg);
+}
+
+.demo-brand-text { display: flex; flex-direction: column; line-height: 1.25; }
+.demo-brand-text b {
+  font-family: var(--xlm-serif);
+  font-size: 19px;
+  font-weight: 600;
+  letter-spacing: 0.24em;
+  color: #f6e9cf;
+}
+.demo-brand-text em {
+  font-style: normal;
+  font-size: 9px;
+  letter-spacing: 0.26em;
+  color: rgba(239, 230, 213, 0.44);
+  text-transform: uppercase;
+}
+
+.demo-nav { display: flex; align-items: center; gap: 26px; font-size: 12.5px; letter-spacing: 0.14em; color: rgba(239, 230, 213, 0.55); }
+.demo-nav a { position: relative; padding-bottom: 4px; transition: color 0.3s ease; }
+.demo-nav a::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  width: 0;
+  height: 1px;
+  background: var(--xl-gold);
+  transition: width 0.35s var(--xlm-ease-out);
+}
+.demo-nav a:hover { color: var(--xl-gold); }
+.demo-nav a:hover::after { width: 100%; }
+
+.demo-top-meta { display: flex; align-items: center; gap: 14px; }
+
+.demo-demo-tag {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  padding: 5px 11px;
+  font-size: 10.5px;
+  letter-spacing: 0.16em;
+  color: #f3c9b8;
+  border: 1px solid rgba(197, 59, 50, 0.5);
+  background: rgba(197, 59, 50, 0.09);
+  border-radius: 2px;
+  white-space: nowrap;
+}
+.demo-demo-tag::before {
+  content: "";
+  width: 5px;
+  height: 5px;
+  border-radius: 50%;
+  background: var(--xl-red-2);
+  box-shadow: 0 0 8px rgba(224, 99, 81, 0.8);
+}
+
+.demo-live { display: inline-flex; align-items: center; gap: 8px; font-size: 11px; letter-spacing: 0.1em; color: rgba(239, 230, 213, 0.5); }
+.demo-live .xlm-dot { width: 5px; height: 5px; }
+
+/* ---------- 首屏 ---------- */
+.demo-hero { position: relative; }
+
+.demo-hero-inner {
+  max-width: 1288px;
+  margin: 0 auto;
+  padding: clamp(26px, 3.6vw, 46px) clamp(18px, 4.2vw, 48px) clamp(46px, 6vw, 80px);
+  min-height: calc(100svh - 88px);
+  display: grid;
+  grid-template-columns: 1.04fr 0.96fr;
+  gap: clamp(30px, 5vw, 76px);
+  align-items: center;
+}
+
+.demo-eyebrow {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin: 0 0 22px;
+  font-family: var(--xlm-num);
+  font-size: 11px;
+  letter-spacing: 0.32em;
+  text-transform: uppercase;
+  color: var(--xl-gold-3);
+}
+.demo-eyebrow::before {
+  content: "";
+  width: 34px;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, var(--xl-gold-3));
+}
+
+.demo-title {
+  margin: 0;
+  font-family: var(--xlm-serif);
+  font-weight: 600;
+  font-size: clamp(42px, 5.5vw, 76px);
+  line-height: 1.1;
+  letter-spacing: 0.06em;
+  color: #f4ead6;
+}
+.demo-title span { display: block; }
+.demo-title-gold {
+  background: var(--xlm-gold-grad);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  filter: drop-shadow(0 6px 30px rgba(230, 194, 122, 0.16));
+}
+
+.demo-sub {
+  max-width: 30em;
+  margin: 24px 0 0;
+  font-size: 14.5px;
+  line-height: 1.9;
+  color: rgba(239, 230, 213, 0.62);
+}
+
+.demo-tags { display: flex; flex-wrap: wrap; gap: 9px; margin-top: 28px; }
+
+.demo-tag {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 7px 13px;
+  font-size: 12px;
+  letter-spacing: 0.08em;
+  color: rgba(239, 230, 213, 0.76);
+  border: 1px solid var(--xl-line);
+  background: rgba(24, 20, 14, 0.45);
+  border-radius: 2px;
+}
+.demo-tag .xlm-dot { width: 4px; height: 4px; }
+
+.demo-scroll-cue {
+  display: inline-flex;
+  align-items: center;
+  gap: 12px;
+  margin-top: clamp(34px, 4vw, 52px);
+  font-family: var(--xlm-num);
+  font-size: 10.5px;
+  letter-spacing: 0.26em;
+  color: rgba(239, 230, 213, 0.36);
+  text-transform: uppercase;
+  transition: color 0.3s ease;
+}
+.demo-scroll-cue:hover { color: var(--xl-gold); }
+.demo-scroll-cue i {
+  position: relative;
+  display: inline-block;
+  width: 1px;
+  height: 34px;
+  background: linear-gradient(to bottom, rgba(230, 194, 122, 0.7), transparent);
+  overflow: hidden;
+}
+.demo-scroll-cue i::after {
+  content: "";
+  position: absolute;
+  left: -1px;
+  top: -12px;
+  width: 3px;
+  height: 12px;
+  background: var(--xl-gold);
+  animation: demo-cue 2.6s var(--xlm-ease-io) infinite;
+}
+@keyframes demo-cue {
+  0% { transform: translateY(0); opacity: 0; }
+  15% { opacity: 1; }
+  75% { transform: translateY(48px); opacity: 0.2; }
+  100% { transform: translateY(48px); opacity: 0; }
+}
+
+/* KPI 舞台 */
+.demo-kpi-stage { position: relative; }
+
+.demo-stage-head {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 16px;
+  padding-left: 2px;
+  font-family: var(--xlm-num);
+  font-size: 10.5px;
+  letter-spacing: 0.24em;
+  text-transform: uppercase;
+  color: rgba(239, 230, 213, 0.44);
+}
+.demo-stage-head .line { flex: 1; height: 1px; background: linear-gradient(90deg, var(--xl-line), transparent); }
+.demo-stage-head .xlm-dot { width: 5px; height: 5px; }
+
+.demo-constellation {
+  position: absolute;
+  inset: -14% -10% -12% -8%;
+  width: 118%;
+  height: 126%;
+  z-index: 0;
+  pointer-events: none;
+  opacity: 0.9;
+}
+.demo-const-line { stroke: rgba(230, 194, 122, 0.17); stroke-width: 1; fill: none; }
+.demo-const-flow { stroke: rgba(230, 194, 122, 0.66); stroke-width: 1.3; fill: none; }
+.demo-const-star { fill: #f4dfae; }
+.demo-const-star--red { fill: #e06351; filter: drop-shadow(0 0 4px rgba(224, 99, 81, 0.8)); }
+.demo-const-ring { fill: none; stroke: rgba(230, 194, 122, 0.16); stroke-width: 1; stroke-dasharray: 2 9; }
+.demo-const-ring-2 { fill: none; stroke: rgba(230, 194, 122, 0.09); stroke-width: 1; }
+
+.demo-kpi-grid {
+  position: relative;
+  z-index: 2;
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 14px;
+}
+
+.demo-kpi {
+  perspective: 900px;
+  min-height: 152px;
+  padding: 17px 18px 14px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  gap: 12px;
+  border: 1px solid var(--xl-line);
+  border-radius: 4px;
+  background:
+    linear-gradient(165deg, rgba(32, 26, 18, 0.86) 0%, rgba(16, 13, 10, 0.8) 58%, rgba(10, 9, 8, 0.78) 100%);
+  box-shadow: 0 28px 60px -42px #000, inset 0 1px 0 rgba(244, 223, 174, 0.06);
+  backdrop-filter: blur(9px);
+  -webkit-backdrop-filter: blur(9px);
+}
+
+.demo-kpi-head { display: flex; align-items: center; justify-content: space-between; gap: 8px; }
+.demo-kpi-label { font-size: 12.5px; letter-spacing: 0.14em; color: rgba(239, 230, 213, 0.62); }
+.demo-kpi-badge {
+  font-size: 8.5px;
+  letter-spacing: 0.2em;
+  color: rgba(239, 230, 213, 0.32);
+  border: 1px solid rgba(239, 230, 213, 0.12);
+  border-radius: 1px;
+  padding: 1px 5px;
+}
+.demo-kpi-idx {
+  position: absolute;
+  right: 14px;
+  bottom: 10px;
+  font-family: var(--xlm-num);
+  font-size: 30px;
+  line-height: 1;
+  letter-spacing: 0;
+  color: rgba(230, 194, 122, 0.07);
+  pointer-events: none;
+}
+
+.demo-kpi-value { display: flex; align-items: baseline; gap: 6px; }
+.demo-kpi-num {
+  font-family: var(--xlm-num);
+  font-size: clamp(30px, 2.9vw, 42px);
+  font-weight: 600;
+  line-height: 1;
+  letter-spacing: 0.01em;
+  color: #f7ecda;
+  font-variant-numeric: tabular-nums;
+}
+.demo-kpi-unit { font-style: normal; font-size: 12px; color: rgba(239, 230, 213, 0.44); letter-spacing: 0.06em; }
+
+.demo-kpi-foot { display: flex; align-items: center; justify-content: space-between; gap: 8px; font-size: 11px; }
+.demo-kpi-up { color: var(--xl-gold); letter-spacing: 0.04em; }
+.demo-kpi-note { color: rgba(239, 230, 213, 0.34); letter-spacing: 0.06em; font-size: 10.5px; }
+
+.demo-spark { width: 100%; height: 26px; display: block; opacity: 0.7; }
+
+.demo-stamp {
+  position: absolute;
+  top: -26px;
+  right: -16px;
+  z-index: 3;
+  padding: 6px 10px 5px;
+  font-family: var(--xlm-serif);
+  font-size: 11px;
+  letter-spacing: 0.3em;
+  color: rgba(224, 99, 81, 0.92);
+  border: 1px solid rgba(197, 59, 50, 0.6);
+  border-radius: 2px;
+  transform: rotate(-7deg);
+  background: rgba(20, 12, 10, 0.4);
+  pointer-events: none;
+}
+
+/* ---------- 区块通用 ---------- */
+.demo-section {
+  max-width: 1288px;
+  margin: 0 auto;
+  padding: clamp(48px, 7vw, 96px) clamp(18px, 4.2vw, 48px);
+}
+
+.demo-sec-head {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 22px;
+  padding-bottom: 18px;
+  margin-bottom: 24px;
+  border-bottom: 1px solid var(--xl-line);
+}
+
+.demo-sec-kicker {
+  margin: 0 0 6px;
+  font-family: var(--xlm-num);
+  font-size: 10.5px;
+  letter-spacing: 0.3em;
+  color: var(--xl-gold-3);
+  text-transform: uppercase;
+}
+
+.demo-sec-title {
+  margin: 0;
+  font-family: var(--xlm-serif);
+  font-weight: 600;
+  font-size: clamp(26px, 3vw, 38px);
+  letter-spacing: 0.07em;
+  color: #f2e7d3;
+}
+
+.demo-sec-note {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding-bottom: 4px;
+  font-size: 11px;
+  letter-spacing: 0.08em;
+  color: rgba(239, 230, 213, 0.38);
+  white-space: nowrap;
+}
+.demo-sec-note .xlm-dot { width: 4px; height: 4px; }
+
+.demo-overview-grid {
+  display: grid;
+  grid-template-columns: minmax(0, 1.62fr) minmax(0, 1fr);
+  gap: 18px;
+}
+
+.demo-panel {
+  position: relative;
+  padding: 20px 22px 22px;
+  border: 1px solid var(--xl-line);
+  border-radius: 4px;
+  background:
+    linear-gradient(168deg, rgba(28, 23, 16, 0.84) 0%, rgba(13, 11, 9, 0.8) 56%, rgba(10, 9, 8, 0.76) 100%);
+  box-shadow: 0 30px 70px -52px #000, inset 0 1px 0 rgba(244, 223, 174, 0.05);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+}
+
+.demo-panel-head {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 12px;
+  margin-bottom: 14px;
+}
+.demo-panel-title { margin: 0; font-size: 14px; font-weight: 600; letter-spacing: 0.1em; color: rgba(246, 235, 212, 0.92); }
+.demo-panel-sub { margin: 3px 0 0; font-size: 10.5px; letter-spacing: 0.08em; color: rgba(239, 230, 213, 0.34); }
+.demo-panel-tag {
+  flex: none;
+  font-size: 9.5px;
+  letter-spacing: 0.16em;
+  color: rgba(230, 194, 122, 0.6);
+  border: 1px solid rgba(230, 194, 122, 0.2);
+  border-radius: 1px;
+  padding: 2px 6px;
+}
+
+.demo-legend { display: flex; flex-wrap: wrap; align-items: center; gap: 14px; margin-top: 12px; font-size: 10.5px; color: rgba(239, 230, 213, 0.46); }
+.demo-legend span { display: inline-flex; align-items: center; gap: 6px; }
+.demo-legend i { width: 14px; height: 1px; display: inline-block; background: var(--xl-gold); }
+.demo-legend i.dash { background: repeating-linear-gradient(90deg, rgba(239, 230, 213, 0.4) 0 3px, transparent 3px 6px); }
+.demo-legend i.red { background: repeating-linear-gradient(90deg, rgba(224, 99, 81, 0.7) 0 3px, transparent 3px 6px); }
+
+.demo-trend { width: 100%; height: auto; display: block; overflow: visible; }
+.demo-trend-grid { stroke: rgba(239, 230, 213, 0.07); stroke-width: 1; }
+.demo-trend-line { fill: none; stroke: url(#trendLine); stroke-width: 2; }
+.demo-trend-flow { fill: none; stroke: rgba(244, 223, 174, 0.85); stroke-width: 2.2; }
+.demo-trend-prev { fill: none; stroke: rgba(239, 230, 213, 0.2); stroke-width: 1.2; stroke-dasharray: 4 6; }
+.demo-trend-target { stroke: rgba(224, 99, 81, 0.42); stroke-width: 1; stroke-dasharray: 3 7; }
+.demo-trend-label { fill: rgba(239, 230, 213, 0.32); font-size: 9.5px; font-family: var(--xlm-num); letter-spacing: 0.08em; }
+.demo-trend-target-label { fill: rgba(224, 99, 81, 0.55); font-size: 9.5px; font-family: var(--xlm-num); letter-spacing: 0.1em; }
+.demo-trend-dot { fill: #0f0d0a; stroke: var(--xl-gold); stroke-width: 1.6; }
+
+/* 渠道结构 */
+.demo-mix-body { display: flex; align-items: center; gap: 18px; }
+.demo-donut { width: 148px; height: 148px; flex: none; }
+.demo-donut-value { fill: #f7ecda; font-family: var(--xlm-num); font-size: 22px; font-weight: 600; text-anchor: middle; }
+.demo-donut-label { fill: rgba(239, 230, 213, 0.36); font-size: 8.5px; letter-spacing: 0.12em; text-anchor: middle; }
+.demo-mix-list { flex: 1; display: flex; flex-direction: column; gap: 11px; margin: 0; padding: 0; list-style: none; }
+.demo-mix-list li { display: flex; align-items: center; gap: 8px; font-size: 11px; color: rgba(239, 230, 213, 0.52); }
+.demo-mix-list .swatch { width: 6px; height: 6px; border-radius: 50%; flex: none; }
+.demo-mix-list b { margin-left: auto; font-family: var(--xlm-num); font-size: 12px; font-weight: 600; color: rgba(247, 236, 218, 0.86); }
+.demo-mix-list em { font-style: normal; width: 34px; text-align: right; color: rgba(239, 230, 213, 0.32); font-family: var(--xlm-num); }
+
+/* 风险雷达 */
+.demo-risk-list { display: flex; flex-direction: column; }
+.demo-risk-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 14px;
+  padding: 13px 0;
+  border-bottom: 1px dashed rgba(230, 194, 122, 0.1);
+}
+.demo-risk-row:last-child { border-bottom: 0; padding-bottom: 2px; }
+.demo-risk-name { display: flex; align-items: center; gap: 10px; font-size: 12px; color: rgba(239, 230, 213, 0.66); }
+.demo-risk-name .xlm-dot { width: 5px; height: 5px; flex: none; }
+.demo-risk-meta { display: flex; align-items: center; gap: 12px; }
+.demo-risk-value { font-family: var(--xlm-num); font-size: 13px; color: #f3e7d2; letter-spacing: 0.02em; }
+.demo-risk-state {
+  font-size: 9.5px;
+  letter-spacing: 0.12em;
+  padding: 2px 6px;
+  border-radius: 1px;
+  color: rgba(230, 194, 122, 0.8);
+  border: 1px solid rgba(230, 194, 122, 0.24);
+}
+.demo-risk-state--warn { color: rgba(224, 99, 81, 0.9); border-color: rgba(224, 99, 81, 0.36); }
+.demo-risk-state--good { color: rgba(148, 196, 156, 0.8); border-color: rgba(148, 196, 156, 0.24); }
+
+/* 经营节奏 */
+.demo-bars { display: flex; align-items: flex-end; gap: 8px; height: 116px; padding-top: 6px; }
+.demo-bar { flex: 1; display: flex; flex-direction: column; align-items: center; justify-content: flex-end; gap: 7px; height: 100%; }
+.demo-bar i {
+  display: block;
+  width: 100%;
+  height: var(--h, 40%);
+  border-radius: 1px 1px 0 0;
+  background: linear-gradient(to top, rgba(230, 194, 122, 0.08), rgba(230, 194, 122, 0.55));
+  box-shadow: inset 0 1px 0 rgba(244, 223, 174, 0.35);
+  transform-origin: bottom;
+  animation: demo-bar-grow 1.6s var(--xlm-ease-out) both;
+  animation-delay: var(--d, 0ms);
+}
+.demo-bar--red i { background: linear-gradient(to top, rgba(197, 59, 50, 0.08), rgba(197, 59, 50, 0.6)); box-shadow: inset 0 1px 0 rgba(224, 99, 81, 0.4); }
+.demo-bar span { font-size: 9.5px; color: rgba(239, 230, 213, 0.3); font-family: var(--xlm-num); }
+@keyframes demo-bar-grow { from { transform: scaleY(0.05); opacity: 0; } to { transform: scaleY(1); opacity: 1; } }
+
+/* ---------- 业务链路 ---------- */
+.demo-chain { padding: 26px clamp(18px, 3vw, 34px) 24px; }
+
+.demo-chain-svg { display: block; width: 100%; height: auto; }
+.demo-chain-halo { fill: none; stroke: rgba(230, 194, 122, 0.14); stroke-width: 1; stroke-dasharray: 2 8; }
+.demo-chain-ring { fill: rgba(15, 12, 9, 0.55); stroke: rgba(230, 194, 122, 0.42); stroke-width: 1; }
+.demo-chain-ring--hot { stroke: rgba(224, 99, 81, 0.6); }
+.demo-chain-core { fill: rgba(230, 194, 122, 0.16); }
+.demo-chain-core--hot { fill: rgba(197, 59, 50, 0.2); }
+.demo-chain-idx { fill: rgba(230, 194, 122, 0.34); font-family: var(--xlm-num); font-size: 10px; letter-spacing: 0.16em; text-anchor: middle; }
+.demo-chain-label { fill: #f2e7d3; font-family: var(--xlm-serif); font-size: 17px; letter-spacing: 0.12em; text-anchor: middle; }
+.demo-chain-sub { fill: rgba(239, 230, 213, 0.4); font-size: 10px; letter-spacing: 0.14em; text-anchor: middle; }
+.demo-chain-link { fill: none; stroke: rgba(230, 194, 122, 0.5); stroke-width: 1.2; }
+.demo-chain-orbit { fill: none; stroke: rgba(230, 194, 122, 0.08); stroke-width: 1; stroke-dasharray: 3 10; }
+.demo-chain-title { fill: rgba(239, 230, 213, 0.26); font-family: var(--xlm-num); font-size: 9px; letter-spacing: 0.24em; text-anchor: middle; }
+
+.demo-chain-legend {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 10px;
+  margin-top: 6px;
+  padding-top: 16px;
+  border-top: 1px solid rgba(230, 194, 122, 0.09);
+  font-size: 10.5px;
+  letter-spacing: 0.06em;
+  color: rgba(239, 230, 213, 0.36);
+}
+.demo-chain-legend b { color: rgba(230, 194, 122, 0.68); font-weight: 500; }
+.demo-chain-legend .sep { width: 1px; height: 10px; background: rgba(230, 194, 122, 0.16); }
+
+.demo-chain-mobile { display: none; margin: 12px 0 0; padding: 0; list-style: none; }
+.demo-chain-mobile li { list-style: none; }
+.demo-step { position: relative; padding: 0 0 22px 34px; }
+.demo-step:last-child { padding-bottom: 2px; }
+.demo-step::before {
+  content: "";
+  position: absolute;
+  left: 7px;
+  top: 4px;
+  bottom: -2px;
+  width: 1px;
+  background: repeating-linear-gradient(to bottom, rgba(230, 194, 122, 0.65) 0 4px, transparent 4px 10px);
+  background-size: 1px 10px;
+  animation: demo-rail 1.6s linear infinite;
+}
+.demo-step:last-child::before { display: none; }
+.demo-step::after {
+  content: "";
+  position: absolute;
+  left: 2px;
+  top: 6px;
+  width: 11px;
+  height: 11px;
+  border: 1px solid rgba(230, 194, 122, 0.6);
+  border-radius: 50%;
+  background: #100d09;
+  box-shadow: 0 0 10px rgba(230, 194, 122, 0.25);
+}
+.demo-step b { display: block; font-family: var(--xlm-serif); font-size: 15px; letter-spacing: 0.1em; color: #f2e7d3; }
+.demo-step span { font-size: 11px; color: rgba(239, 230, 213, 0.4); letter-spacing: 0.06em; }
+@keyframes demo-rail { from { background-position: 0 0; } to { background-position: 0 10px; } }
+
+/* ---------- 页脚 ---------- */
+.demo-footer {
+  max-width: 1288px;
+  margin: 0 auto;
+  padding: 40px clamp(18px, 4.2vw, 48px) 46px;
+  border-top: 1px solid var(--xl-line);
+}
+.demo-footer-inner { display: flex; flex-wrap: wrap; align-items: flex-start; justify-content: space-between; gap: 22px; }
+.demo-footer-brand { display: flex; align-items: center; gap: 12px; }
+.demo-footer-brand .demo-seal { width: 34px; height: 34px; font-size: 11px; }
+.demo-footer-brand b { font-family: var(--xlm-serif); font-size: 15px; letter-spacing: 0.24em; color: rgba(246, 235, 212, 0.8); font-weight: 500; }
+.demo-footer-brand em { display: block; font-style: normal; font-size: 9px; letter-spacing: 0.2em; color: rgba(239, 230, 213, 0.28); }
+.demo-footer-copy { max-width: 540px; font-size: 11px; line-height: 1.9; color: rgba(239, 230, 213, 0.34); }
+.demo-footer-copy b { color: rgba(224, 99, 81, 0.78); font-weight: 500; }
+.demo-footer-meta { margin-top: 4px; font-family: var(--xlm-num); font-size: 9.5px; letter-spacing: 0.14em; color: rgba(239, 230, 213, 0.2); }
+.demo-fx-tags { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 40px; }
+.demo-fx-tags span {
+  font-size: 9.5px;
+  letter-spacing: 0.12em;
+  color: rgba(239, 230, 213, 0.3);
+  border: 1px solid rgba(239, 230, 213, 0.09);
+  border-radius: 1px;
+  padding: 3px 8px;
+}
+
+/* ---------- 实时渲染 HUD ---------- */
+.demo-hud {
+  position: fixed;
+  right: 18px;
+  bottom: 18px;
+  z-index: 20;
+  display: grid;
+  gap: 5px;
+  min-width: 158px;
+  padding: 9px 12px;
+  font-family: var(--xlm-num);
+  font-size: 9.5px;
+  letter-spacing: 0.1em;
+  color: rgba(239, 230, 213, 0.42);
+  background: rgba(10, 9, 7, 0.68);
+  border: 1px solid rgba(230, 194, 122, 0.16);
+  border-radius: 2px;
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  pointer-events: none;
+}
+.demo-hud div { display: flex; align-items: center; justify-content: space-between; gap: 14px; }
+.demo-hud-k { color: rgba(239, 230, 213, 0.32); }
+.demo-hud-v { color: rgba(230, 194, 122, 0.78); font-weight: 500; }
+.demo-hud-v--warn { color: rgba(224, 99, 81, 0.9); }
+
+.demo-noscript {
+  position: fixed;
+  left: 50%;
+  bottom: 20px;
+  transform: translateX(-50%);
+  z-index: 30;
+  padding: 8px 14px;
+  font-size: 12px;
+  color: #f3c9b8;
+  border: 1px solid rgba(197, 59, 50, 0.5);
+  background: rgba(20, 12, 10, 0.9);
+}
+
+/* ---------- 响应式 ---------- */
+@media (max-width: 1023px) {
+  .demo-hero-inner { grid-template-columns: 1fr; gap: 48px; min-height: 0; padding-top: 30px; }
+  .demo-kpi-stage { max-width: 620px; }
+  .demo-overview-grid { grid-template-columns: 1fr; }
+  .demo-orbit-right { display: none; }
+}
+
+@media (max-width: 767px) {
+  body.demo { font-size: 14px; }
+  .demo-nav { display: none; }
+  .demo-live { display: none; }
+  .demo-top { padding-top: 16px; padding-bottom: 12px; }
+  .demo-seal { width: 38px; height: 38px; font-size: 13px; }
+  .demo-brand-text b { font-size: 16px; }
+  .demo-brand-text em { display: none; }
+  .demo-hero-inner { padding-top: 18px; gap: 36px; padding-bottom: 46px; }
+  .demo-title { font-size: clamp(38px, 11.5vw, 52px); letter-spacing: 0.04em; }
+  .demo-sub { font-size: 13px; line-height: 1.85; margin-top: 18px; }
+  .demo-tags { margin-top: 20px; gap: 7px; }
+  .demo-tag { padding: 5px 10px; font-size: 11px; }
+  .demo-scroll-cue { margin-top: 30px; }
+  .demo-kpi-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 10px; }
+  .demo-kpi { min-height: 124px; padding: 13px 13px 11px; backdrop-filter: none; -webkit-backdrop-filter: none; }
+  .demo-kpi-num { font-size: clamp(24px, 7.4vw, 32px); }
+  .demo-kpi-label { font-size: 11px; }
+  .demo-kpi-idx { font-size: 22px; right: 10px; bottom: 8px; }
+  .demo-spark { height: 20px; }
+  .demo-stamp { top: -18px; right: -2px; font-size: 9px; padding: 4px 7px 3px; }
+  .demo-section { padding-top: 46px; padding-bottom: 46px; }
+  .demo-sec-head { align-items: flex-start; flex-direction: column; gap: 8px; padding-bottom: 14px; margin-bottom: 18px; }
+  .demo-sec-note { padding-bottom: 0; }
+  .demo-panel { padding: 16px 14px 18px; backdrop-filter: none; -webkit-backdrop-filter: none; }
+  .demo-mix-body { gap: 12px; }
+  .demo-donut { width: 118px; height: 118px; }
+  .demo-mix-list li { font-size: 10.5px; }
+  .demo-hud { right: 10px; bottom: 10px; min-width: 0; padding: 7px 9px; font-size: 8.5px; }
+  .demo-chain-svg { display: none; }
+  .demo-chain-mobile { display: block; }
+  .demo-footer { padding-top: 30px; padding-bottom: 56px; }
+  .demo-fx-tags { margin-top: 26px; }
+}
+
+@media (max-width: 420px) {
+  .demo-kpi-num { font-size: 25px; }
+  .demo-kpi-unit { font-size: 10px; }
+  .demo-kpi-note { display: none; }
+  .demo-stage-head { letter-spacing: 0.16em; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  .demo-scroll-cue i::after,
+  .demo-bar i,
+  .demo-step::before { animation: none !important; }
+}
+</style>
+<link rel="icon" href="data:image/svg+xml,%3Csvg%20xmlns='http://www.w3.org/2000/svg'%20viewBox='0%200%2064%2064'%3E%3Crect%20width='64'%20height='64'%20rx='14'%20fill='%23070a10'/%3E%3Cpath%20d='M32%2012l5.6%2013.6L51%2031l-13.4%205.4L32%2050l-5.6-13.6L13%2031l13.4-5.4z'%20fill='%2338bdf8'/%3E%3C/svg%3E">
+</head>
+<body class="xlm-scope demo">
+
+<!-- 星云背景：canvas 由 xl-motion.js 驱动；.xlm-nebula__fallback 为 CSS 兜底层 -->
+<div class="xlm-nebula-wrap demo-nebula" data-xlm-nebula-wrap aria-hidden="true">
+  <canvas class="xlm-nebula" data-xlm-nebula data-particles="2200"></canvas>
+  <div class="xlm-nebula__fallback"></div>
+</div>
+
+<!-- 全页扫描线（纯 CSS） -->
+<div class="xlm-scan demo-film" aria-hidden="true"></div>
+<div class="demo-vignette" aria-hidden="true"></div>
+
+<header class="demo-top">
+  <a class="demo-brand" href="#top" aria-label="星籁 · 企业智能中枢 首页">
+    <span class="demo-seal" aria-hidden="true">星籁</span>
+    <span class="demo-brand-text">
+      <b>星籁</b>
+      <em>XINGLAI · Enterprise Intelligence</em>
+    </span>
+  </a>
+
+  <nav class="demo-nav" aria-label="页面导航">
+    <a href="#overview">经营总览</a>
+    <a href="#chain">业务链路</a>
+    <a href="#foot">关于演示</a>
+  </nav>
+
+  <div class="demo-top-meta">
+    <span class="demo-demo-tag">示例数据 · DEMO</span>
+    <span class="demo-live"><i class="xlm-dot xlm-breath" aria-hidden="true"></i> 实时渲染演示</span>
+  </div>
+</header>
+
+<main id="top">
+  <!-- ================= 首屏 ================= -->
+  <section class="demo-hero" aria-labelledby="hero-title">
+    <div class="demo-hero-inner">
+      <div class="demo-hero-copy" data-xlm-stagger="110">
+        <p class="demo-eyebrow" data-xlm-reveal>Operations Cockpit · 星籁经营中枢</p>
+        <h1 class="demo-title" id="hero-title" data-xlm-reveal>
+          <span>一屏观全局</span>
+          <span class="demo-title-gold">一念定经营</span>
+        </h1>
+        <p class="demo-sub" data-xlm-reveal>
+          星籁把增长、履约与风险收束到同一张星图。企业端与商家端共用一套「科幻动效层」，
+          让经营数据在墨黑与赤金之间自然呼吸。本页为动效组件演示，数据均为示例。
+        </p>
+        <div class="demo-tags" data-xlm-reveal>
+          <span class="demo-tag"><i class="xlm-dot" aria-hidden="true"></i>增长曲线</span>
+          <span class="demo-tag"><i class="xlm-dot xlm-dot--red" aria-hidden="true"></i>风险哨兵</span>
+          <span class="demo-tag">履约链路</span>
+          <span class="demo-tag">智能决策</span>
+        </div>
+        <a class="demo-scroll-cue" href="#overview" data-xlm-reveal>
+          <i aria-hidden="true"></i>
+          <span>Scroll · 探查经营全貌</span>
+        </a>
+      </div>
+
+      <div class="demo-kpi-stage" aria-label="经营核心指标（示例）">
+        <!-- 星图装饰：数据流虚线（data-flow 仅作用于 .demo-const-flow） -->
+        <svg class="demo-constellation" viewBox="0 0 560 520" data-flow="4.6s" data-flow-items=".demo-const-flow" aria-hidden="true">
+          <defs>
+            <radialGradient id="constGlow" cx="50%" cy="50%" r="50%">
+              <stop offset="0%" stop-color="rgba(244,223,174,0.30)"/>
+              <stop offset="100%" stop-color="rgba(244,223,174,0)"/>
+            </radialGradient>
+          </defs>
+          <circle class="demo-const-ring-2" cx="300" cy="250" r="238"/>
+          <circle class="demo-const-ring" cx="300" cy="250" r="196"/>
+          <ellipse class="demo-const-ring" cx="300" cy="250" rx="196" ry="128" transform="rotate(-14 300 250)"/>
+          <circle cx="248" cy="188" r="52" fill="url(#constGlow)"/>
+          <!-- 七点星线 -->
+          <path class="demo-const-line" d="M118,312 L176,268 L238,282 L300,240 L354,196 L420,164 L470,208 L512,178"/>
+          <path class="demo-const-flow" d="M118,312 L176,268 L238,282 L300,240 L354,196 L420,164 L470,208 L512,178"/>
+          <g class="demo-const-star">
+            <circle cx="118" cy="312" r="2.6"/>
+            <circle cx="176" cy="268" r="1.8"/>
+            <circle cx="238" cy="282" r="2.2"/>
+            <circle cx="300" cy="240" r="3.2"/>
+            <circle cx="354" cy="196" r="1.8"/>
+            <circle cx="420" cy="164" r="2.4"/>
+            <circle cx="470" cy="208" r="1.6"/>
+          </g>
+          <circle class="demo-const-star--red" cx="512" cy="178" r="2.6"/>
+          <g fill="rgba(244,223,174,0.28)">
+            <circle cx="86" cy="146" r="1.2"/><circle cx="454" cy="366" r="1.4"/><circle cx="388" cy="88" r="1"/>
+            <circle cx="180" cy="420" r="1.2"/><circle cx="526" cy="300" r="1.1"/><circle cx="96" cy="248" r="1"/>
+          </g>
+          <text x="300" y="466" class="demo-chain-title" aria-hidden="true">北斗 · 经营导航</text>
+        </svg>
+
+        <div class="demo-stage-head">
+          <i class="xlm-dot xlm-breath" aria-hidden="true"></i>
+          <span>经营脉搏 · 实时监测</span>
+          <span class="line" aria-hidden="true"></span>
+          <span>示例</span>
+        </div>
+
+        <div class="demo-stamp" aria-hidden="true">示例数据</div>
+
+        <div class="demo-kpi-grid" data-xlm-stagger="90">
+          <!-- 01 营业收入 -->
+          <article class="demo-kpi xlm-scan xlm-corner-frame xlm-tilt" data-xlm-reveal data-tilt>
+            <div class="xlm-tilt__glare" aria-hidden="true"></div>
+            <div class="demo-kpi-head">
+              <span class="demo-kpi-label">营业收入</span>
+              <span class="demo-kpi-badge">示例</span>
+            </div>
+            <div class="demo-kpi-value">
+              <span class="demo-kpi-num" data-count="8642.7" data-decimals="1" data-sep="," data-count-delay="80">8,642.7</span>
+              <i class="demo-kpi-unit">万元</i>
+            </div>
+            <div class="demo-kpi-foot">
+              <span class="demo-kpi-up">▲ 18.6%</span>
+              <span class="demo-kpi-note">同比 · 年初至今</span>
+            </div>
+            <svg class="demo-spark" viewBox="0 0 160 30" preserveAspectRatio="none" aria-hidden="true">
+              <path d="M2,25 L20,22 L38,24 L56,17 L74,19 L92,12 L110,14 L128,8 L146,10 L158,4" fill="none" stroke="rgba(230,194,122,0.55)" stroke-width="1.2"/>
+            </svg>
+            <span class="demo-kpi-idx" aria-hidden="true">01</span>
+          </article>
+
+          <!-- 02 经营利润 -->
+          <article class="demo-kpi xlm-scan xlm-corner-frame xlm-tilt" data-xlm-reveal data-tilt>
+            <div class="xlm-tilt__glare" aria-hidden="true"></div>
+            <div class="demo-kpi-head">
+              <span class="demo-kpi-label">经营利润</span>
+              <span class="demo-kpi-badge">示例</span>
+            </div>
+            <div class="demo-kpi-value">
+              <span class="demo-kpi-num" data-count="1203.4" data-decimals="1" data-sep="," data-count-delay="190">1,203.4</span>
+              <i class="demo-kpi-unit">万元</i>
+            </div>
+            <div class="demo-kpi-foot">
+              <span class="demo-kpi-up">▲ 12.4%</span>
+              <span class="demo-kpi-note">同比 · 年初至今</span>
+            </div>
+            <svg class="demo-spark" viewBox="0 0 160 30" preserveAspectRatio="none" aria-hidden="true">
+              <path d="M2,24 L20,25 L38,20 L56,22 L74,16 L92,18 L110,11 L128,13 L146,7 L158,8" fill="none" stroke="rgba(230,194,122,0.55)" stroke-width="1.2"/>
+            </svg>
+            <span class="demo-kpi-idx" aria-hidden="true">02</span>
+          </article>
+
+          <!-- 03 活跃客户 -->
+          <article class="demo-kpi xlm-scan xlm-corner-frame xlm-tilt" data-xlm-reveal data-tilt>
+            <div class="xlm-tilt__glare" aria-hidden="true"></div>
+            <div class="demo-kpi-head">
+              <span class="demo-kpi-label">活跃客户</span>
+              <span class="demo-kpi-badge">示例</span>
+            </div>
+            <div class="demo-kpi-value">
+              <span class="demo-kpi-num" data-count="3218" data-decimals="0" data-count-delay="300">3,218</span>
+              <i class="demo-kpi-unit">家</i>
+            </div>
+            <div class="demo-kpi-foot">
+              <span class="demo-kpi-up">▲ 9.8%</span>
+              <span class="demo-kpi-note">同比 · 近 12 月</span>
+            </div>
+            <svg class="demo-spark" viewBox="0 0 160 30" preserveAspectRatio="none" aria-hidden="true">
+              <path d="M2,26 L20,20 L38,23 L56,18 L74,20 L92,14 L110,16 L128,10 L146,12 L158,6" fill="none" stroke="rgba(230,194,122,0.55)" stroke-width="1.2"/>
+            </svg>
+            <span class="demo-kpi-idx" aria-hidden="true">03</span>
+          </article>
+
+          <!-- 04 订单准时率 -->
+          <article class="demo-kpi xlm-scan xlm-corner-frame xlm-tilt" data-xlm-reveal data-tilt>
+            <div class="xlm-tilt__glare" aria-hidden="true"></div>
+            <div class="demo-kpi-head">
+              <span class="demo-kpi-label">订单准时率</span>
+              <span class="demo-kpi-badge">示例</span>
+            </div>
+            <div class="demo-kpi-value">
+              <span class="demo-kpi-num" data-count="96.4" data-decimals="1" data-count-delay="410">96.4</span>
+              <i class="demo-kpi-unit">%</i>
+            </div>
+            <div class="demo-kpi-foot">
+              <span class="demo-kpi-up">▲ 1.2pt</span>
+              <span class="demo-kpi-note">近 30 日 · 履约口径</span>
+            </div>
+            <svg class="demo-spark" viewBox="0 0 160 30" preserveAspectRatio="none" aria-hidden="true">
+              <path d="M2,18 L20,16 L38,17 L56,13 L74,15 L92,11 L110,12 L128,9 L146,10 L158,7" fill="none" stroke="rgba(230,194,122,0.55)" stroke-width="1.2"/>
+            </svg>
+            <span class="demo-kpi-idx" aria-hidden="true">04</span>
+          </article>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ================= 经营总览 ================= -->
+  <section class="demo-section" id="overview" aria-labelledby="overview-title">
+    <div class="demo-sec-head">
+      <div>
+        <p class="demo-sec-kicker">01 / Overview · 经营总览</p>
+        <h2 class="demo-sec-title" id="overview-title">把趋势、结构与风险放在一屏</h2>
+      </div>
+      <span class="demo-sec-note"><i class="xlm-dot" aria-hidden="true"></i>示例数据 · 近 12 个月 · 金额单位：万元</span>
+    </div>
+
+    <div class="demo-overview-grid" data-xlm-stagger="120">
+      <!-- 营业趋势 -->
+      <article class="demo-panel xlm-scan xlm-corner-frame" data-xlm-reveal>
+        <div class="demo-panel-head">
+          <div>
+            <h3 class="demo-panel-title">营业趋势</h3>
+            <p class="demo-panel-sub">营业收入 · 本年 vs 上年 · 示例</p>
+          </div>
+          <span class="demo-panel-tag">TREND</span>
+        </div>
+        <svg class="demo-trend" viewBox="0 0 720 270" data-flow="3.2s" data-flow-items=".demo-trend-flow" role="img" aria-label="营业趋势折线图（示例）：本年收入整体上行，年末约 938 万元">
+          <defs>
+            <linearGradient id="trendArea" x1="0" y1="0" x2="0" y2="1">
+              <stop offset="0%" stop-color="rgba(230,194,122,0.26)"/>
+              <stop offset="70%" stop-color="rgba(230,194,122,0.05)"/>
+              <stop offset="100%" stop-color="rgba(230,194,122,0)"/>
+            </linearGradient>
+            <linearGradient id="trendLine" x1="0" y1="0" x2="1" y2="0">
+              <stop offset="0%" stop-color="#b8892f"/>
+              <stop offset="55%" stop-color="#e6c27a"/>
+              <stop offset="100%" stop-color="#f4dfae"/>
+            </linearGradient>
+          </defs>
+          <g>
+            <line class="demo-trend-grid" x1="30" y1="28" x2="690" y2="28"/>
+            <line class="demo-trend-grid" x1="30" y1="73" x2="690" y2="73"/>
+            <line class="demo-trend-grid" x1="30" y1="118" x2="690" y2="118"/>
+            <line class="demo-trend-grid" x1="30" y1="163" x2="690" y2="163"/>
+            <line class="demo-trend-grid" x1="30" y1="208" x2="690" y2="208"/>
+          </g>
+          <path d="M30.0,179.2C40.0,176.8 70.0,166.0 90.0,164.8C110.0,163.6 130.0,174.1 150.0,171.7C170.0,169.4 190.0,157.8 210.0,150.7C230.0,143.5 250.0,131.5 270.0,129.1C290.0,126.7 310.0,139.7 330.0,136.3C350.0,132.8 370.0,115.7 390.0,108.2C410.0,100.7 430.0,92.3 450.0,91.3C470.0,90.2 490.0,104.3 510.0,102.1C530.0,99.8 550.0,84.8 570.0,77.9C590.0,71.0 610.0,66.3 630.0,60.7C650.0,55.0 680.0,46.7 690.0,43.9L690.0,208.0L30.0,208.0Z" fill="url(#trendArea)"/>
+          <path class="demo-trend-prev" d="M30.0,202.3C40.0,201.1 70.0,195.8 90.0,194.9C110.0,193.9 130.0,198.8 150.0,196.7C170.0,194.5 190.0,186.7 210.0,182.0C230.0,177.4 250.0,170.5 270.0,168.9C290.0,167.4 310.0,175.2 330.0,172.8C350.0,170.4 370.0,159.5 390.0,154.5C410.0,149.5 430.0,143.9 450.0,142.9C470.0,142.0 490.0,150.2 510.0,148.6C530.0,147.0 550.0,138.1 570.0,133.4C590.0,128.7 610.0,124.3 630.0,120.3C650.0,116.3 680.0,111.1 690.0,109.3"/>
+          <path class="demo-trend-line" d="M30.0,179.2C40.0,176.8 70.0,166.0 90.0,164.8C110.0,163.6 130.0,174.1 150.0,171.7C170.0,169.4 190.0,157.8 210.0,150.7C230.0,143.5 250.0,131.5 270.0,129.1C290.0,126.7 310.0,139.7 330.0,136.3C350.0,132.8 370.0,115.7 390.0,108.2C410.0,100.7 430.0,92.3 450.0,91.3C470.0,90.2 490.0,104.3 510.0,102.1C530.0,99.8 550.0,84.8 570.0,77.9C590.0,71.0 610.0,66.3 630.0,60.7C650.0,55.0 680.0,46.7 690.0,43.9"/>
+          <path class="demo-trend-flow" d="M30.0,179.2C40.0,176.8 70.0,166.0 90.0,164.8C110.0,163.6 130.0,174.1 150.0,171.7C170.0,169.4 190.0,157.8 210.0,150.7C230.0,143.5 250.0,131.5 270.0,129.1C290.0,126.7 310.0,139.7 330.0,136.3C350.0,132.8 370.0,115.7 390.0,108.2C410.0,100.7 430.0,92.3 450.0,91.3C470.0,90.2 490.0,104.3 510.0,102.1C530.0,99.8 550.0,84.8 570.0,77.9C590.0,71.0 610.0,66.3 630.0,60.7C650.0,55.0 680.0,46.7 690.0,43.9"/>
+          <line class="demo-trend-target" x1="30" y1="74.3" x2="690" y2="74.3"/>
+          <text class="demo-trend-target-label" x="688" y="68" text-anchor="end">目标基线 820</text>
+          <g>
+            <circle class="demo-trend-dot" cx="150" cy="171.7" r="3.2"/>
+            <circle class="demo-trend-dot" cx="330" cy="136.3" r="3.2"/>
+            <circle class="demo-trend-dot" cx="510" cy="102.1" r="3.2"/>
+            <circle class="demo-trend-dot" cx="690" cy="43.9" r="3.6"/>
+          </g>
+          <g class="demo-trend-label">
+            <text x="30" y="252">1月</text><text x="90" y="252">2月</text><text x="150" y="252">3月</text>
+            <text x="210" y="252">4月</text><text x="270" y="252">5月</text><text x="330" y="252">6月</text>
+            <text x="390" y="252">7月</text><text x="450" y="252">8月</text><text x="510" y="252">9月</text>
+            <text x="570" y="252">10月</text><text x="630" y="252">11月</text><text x="690" y="252">12月</text>
+          </g>
+        </svg>
+        <div class="demo-legend">
+          <span><i></i>本年收入</span>
+          <span><i class="dash"></i>上年同期</span>
+          <span><i class="red"></i>目标基线</span>
+        </div>
+      </article>
+
+      <!-- 渠道结构 -->
+      <article class="demo-panel xlm-scan xlm-corner-frame" data-xlm-reveal>
+        <div class="demo-panel-head">
+          <div>
+            <h3 class="demo-panel-title">渠道结构</h3>
+            <p class="demo-panel-sub">活跃客户来源占比 · 示例</p>
+          </div>
+          <span class="demo-panel-tag">MIX</span>
+        </div>
+        <div class="demo-mix-body">
+          <svg class="demo-donut" viewBox="0 0 180 180" role="img" aria-label="渠道结构环形图（示例）：直营 38%，分销 27%，线上 21%，大客户 14%">
+            <circle cx="90" cy="90" r="62" fill="none" stroke="rgba(239,230,213,0.06)" stroke-width="16"/>
+            <g transform="rotate(-90 90 90)" fill="none" stroke-width="16">
+              <circle cx="90" cy="90" r="62" stroke="#f4dfae" stroke-dasharray="145.0 244.5" stroke-dashoffset="0"/>
+              <circle cx="90" cy="90" r="62" stroke="#c9a45a" stroke-dasharray="102.2 287.4" stroke-dashoffset="-148.0"/>
+              <circle cx="90" cy="90" r="62" stroke="#b8892f" stroke-dasharray="78.8 310.8" stroke-dashoffset="-253.2"/>
+              <circle cx="90" cy="90" r="62" stroke="#c53b32" stroke-dasharray="51.5 338.0" stroke-dashoffset="-335.0"/>
+            </g>
+            <text class="demo-donut-value" x="90" y="89">3,218</text>
+            <text class="demo-donut-label" x="90" y="107">活跃客户 · 示例</text>
+          </svg>
+          <ul class="demo-mix-list">
+            <li><i class="swatch" style="background:#f4dfae" aria-hidden="true"></i>直营网点<b>1,223</b><em>38%</em></li>
+            <li><i class="swatch" style="background:#c9a45a" aria-hidden="true"></i>区域分销<b>869</b><em>27%</em></li>
+            <li><i class="swatch" style="background:#b8892f" aria-hidden="true"></i>线上自营<b>676</b><em>21%</em></li>
+            <li><i class="swatch" style="background:#c53b32" aria-hidden="true"></i>大客户<b>450</b><em>14%</em></li>
+          </ul>
+        </div>
+        <div class="demo-legend" style="margin-top:18px">
+          <span><i></i>示例口径：近 90 日有交易客户</span>
+        </div>
+      </article>
+
+      <!-- 风险雷达 -->
+      <article class="demo-panel" data-xlm-reveal>
+        <div class="demo-panel-head">
+          <div>
+            <h3 class="demo-panel-title">风险雷达</h3>
+            <p class="demo-panel-sub">经营哨兵 · 实时扫描 · 示例</p>
+          </div>
+          <span class="demo-panel-tag">RISK</span>
+        </div>
+        <div class="demo-risk-list">
+          <div class="demo-risk-row">
+            <span class="demo-risk-name"><i class="xlm-dot xlm-breath" aria-hidden="true"></i>华东仓库存周转</span>
+            <span class="demo-risk-meta"><span class="demo-risk-value">18.4 天</span><span class="demo-risk-state demo-risk-state--warn">关注</span></span>
+          </div>
+          <div class="demo-risk-row">
+            <span class="demo-risk-name"><i class="xlm-dot xlm-breath" aria-hidden="true"></i>大客户续约进度</span>
+            <span class="demo-risk-meta"><span class="demo-risk-value">92.1%</span><span class="demo-risk-state demo-risk-state--good">正常</span></span>
+          </div>
+          <div class="demo-risk-row">
+            <span class="demo-risk-name"><i class="xlm-dot xlm-breath" aria-hidden="true"></i>供应链价格波动</span>
+            <span class="demo-risk-meta"><span class="demo-risk-value">+3.2%</span><span class="demo-risk-state">低</span></span>
+          </div>
+          <div class="demo-risk-row">
+            <span class="demo-risk-name"><i class="xlm-dot xlm-breath" aria-hidden="true"></i>履约投诉率</span>
+            <span class="demo-risk-meta"><span class="demo-risk-value">0.37%</span><span class="demo-risk-state demo-risk-state--good">正常</span></span>
+          </div>
+        </div>
+      </article>
+
+      <!-- 经营节奏 -->
+      <article class="demo-panel xlm-scan xlm-corner-frame" data-xlm-reveal>
+        <div class="demo-panel-head">
+          <div>
+            <h3 class="demo-panel-title">经营节奏</h3>
+            <p class="demo-panel-sub">近 7 日履约完成量 · 示例</p>
+          </div>
+          <span class="demo-panel-tag">RHYTHM</span>
+        </div>
+        <div class="demo-bars" role="img" aria-label="近 7 日履约完成量柱状图（示例），周四出现一次红色预警">
+          <div class="demo-bar" style="--h:54%;--d:0ms"><i></i><span>一</span></div>
+          <div class="demo-bar" style="--h:68%;--d:70ms"><i></i><span>二</span></div>
+          <div class="demo-bar" style="--h:47%;--d:140ms"><i></i><span>三</span></div>
+          <div class="demo-bar demo-bar--red" style="--h:34%;--d:210ms"><i></i><span>四</span></div>
+          <div class="demo-bar" style="--h:76%;--d:280ms"><i></i><span>五</span></div>
+          <div class="demo-bar" style="--h:58%;--d:350ms"><i></i><span>六</span></div>
+          <div class="demo-bar" style="--h:88%;--d:420ms"><i></i><span>日</span></div>
+        </div>
+        <div class="demo-legend">
+          <span><i></i>履约完成</span>
+          <span><i class="red"></i>低于基线（示例预警）</span>
+        </div>
+      </article>
+    </div>
+  </section>
+
+  <!-- ================= 业务链路 ================= -->
+  <section class="demo-section" id="chain" aria-labelledby="chain-title">
+    <div class="demo-sec-head">
+      <div>
+        <p class="demo-sec-kicker">02 / Chain · 业务链路</p>
+        <h2 class="demo-sec-title" id="chain-title">从供应商到客户成功，一路流光</h2>
+      </div>
+      <span class="demo-sec-note"><i class="xlm-dot" aria-hidden="true"></i>示例链路 · 仅用于展示动效</span>
+    </div>
+
+    <div class="demo-panel demo-chain xlm-scan xlm-corner-frame" data-xlm-reveal>
+      <div class="demo-panel-head">
+        <div>
+          <h3 class="demo-panel-title">经营链路总览</h3>
+          <p class="demo-panel-sub">采购 → 仓储 → 履约 → 客户成功 · 示例</p>
+        </div>
+        <span class="demo-panel-tag">FLOW</span>
+      </div>
+
+      <!-- 桌面链路图：虚线流光由 data-flow 驱动 -->
+      <svg class="demo-chain-svg xlm-desktop-only" viewBox="0 0 1120 300" data-flow="3.8s" data-flow-items=".demo-chain-link" role="img" aria-label="业务链路示意（示例）：供应商、智能仓、履约中台、客户成功四节点，虚线流动表示数据流转">
+        <defs>
+          <radialGradient id="chainGlow" cx="50%" cy="50%" r="50%">
+            <stop offset="0%" stop-color="rgba(230,194,122,0.22)"/>
+            <stop offset="100%" stop-color="rgba(230,194,122,0)"/>
+          </radialGradient>
+        </defs>
+
+        <ellipse class="demo-chain-orbit" cx="560" cy="150" rx="500" ry="104"/>
+        <text class="demo-chain-title" x="560" y="34">DATA FLOW · 数据流转示意</text>
+
+        <!-- 连线 -->
+        <path class="demo-chain-link" d="M176,150 C 238,92 322,92 384,150"/>
+        <path class="demo-chain-link" d="M476,150 C 538,92 622,92 684,150"/>
+        <path class="demo-chain-link" d="M776,150 C 838,92 922,92 984,150"/>
+
+        <!-- 01 供应商 -->
+        <g>
+          <circle class="demo-chain-halo xlm-breath" cx="130" cy="150" r="58"/>
+          <circle class="demo-chain-ring" cx="130" cy="150" r="46"/>
+          <circle cx="130" cy="150" r="30" fill="url(#chainGlow)"/>
+          <text class="demo-chain-idx" x="130" y="78">01 / 采购</text>
+          <text class="demo-chain-label" x="130" y="147">供应商</text>
+          <text class="demo-chain-sub" x="130" y="170">采购协同</text>
+        </g>
+
+        <!-- 02 智能仓 -->
+        <g>
+          <circle class="demo-chain-halo xlm-breath" cx="430" cy="150" r="58"/>
+          <circle class="demo-chain-ring" cx="430" cy="150" r="46"/>
+          <circle cx="430" cy="150" r="30" fill="url(#chainGlow)"/>
+          <text class="demo-chain-idx" x="430" y="78">02 / 仓储</text>
+          <text class="demo-chain-label" x="430" y="147">智能仓</text>
+          <text class="demo-chain-sub" x="430" y="170">库存周转</text>
+        </g>
+
+        <!-- 03 履约中台（强调） -->
+        <g>
+          <circle class="demo-chain-halo xlm-breath" cx="730" cy="150" r="62"/>
+          <circle class="demo-chain-ring demo-chain-ring--hot" cx="730" cy="150" r="49"/>
+          <circle class="demo-chain-core demo-chain-core--hot" cx="730" cy="150" r="35"/>
+          <text class="demo-chain-idx" x="730" y="76">03 / 履约</text>
+          <text class="demo-chain-label" x="730" y="147">履约中台</text>
+          <text class="demo-chain-sub" x="730" y="171">智能调度</text>
+        </g>
+
+        <!-- 04 客户成功 -->
+        <g>
+          <circle class="demo-chain-halo xlm-breath" cx="1030" cy="150" r="58"/>
+          <circle class="demo-chain-ring" cx="1030" cy="150" r="46"/>
+          <circle cx="1030" cy="150" r="30" fill="url(#chainGlow)"/>
+          <text class="demo-chain-idx" x="1030" y="78">04 / 客户</text>
+          <text class="demo-chain-label" x="1030" y="147">客户成功</text>
+          <text class="demo-chain-sub" x="1030" y="170">续约增长</text>
+        </g>
+
+        <circle cx="238" cy="108" r="2.4" fill="rgba(244,223,174,0.8)"/>
+        <circle cx="538" cy="108" r="2.4" fill="rgba(244,223,174,0.8)"/>
+        <circle cx="838" cy="108" r="2.4" fill="rgba(224,99,81,0.8)"/>
+      </svg>
+
+      <!-- 移动端链路：CSS 流动虚线 -->
+      <ol class="demo-chain-mobile" aria-label="业务链路示意（示例）">
+        <li class="demo-step"><b>供应商 · 采购协同</b><span>12 家核心供应商 / 示例</span></li>
+        <li class="demo-step"><b>智能仓 · 库存周转</b><span>华东仓周转 18.4 天 / 示例</span></li>
+        <li class="demo-step"><b>履约中台 · 智能调度</b><span>订单准时率 96.4% / 示例</span></li>
+        <li class="demo-step"><b>客户成功 · 续约增长</b><span>续约进度 92.1% / 示例</span></li>
+      </ol>
+
+      <div class="demo-chain-legend">
+        <span>链路节点 <b>4</b></span>
+        <span class="sep" aria-hidden="true"></span>
+        <span>数据延迟 <b>2.4 秒</b></span>
+        <span class="sep" aria-hidden="true"></span>
+        <span>示例接口 <b>12</b></span>
+        <span class="sep" aria-hidden="true"></span>
+        <span>全部指标均为示例数据，不代表星籁真实经营情况</span>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer class="demo-footer" id="foot">
+  <div class="demo-footer-inner">
+    <div class="demo-footer-brand">
+      <span class="demo-seal" aria-hidden="true">星籁</span>
+      <span>
+        <b>星籁 · 经营驾驶舱</b>
+        <em>XINGLAI · OPERATIONS COCKPIT</em>
+      </span>
+    </div>
+    <div class="demo-footer-copy">
+      <p style="margin:0 0 4px">本页是 <b>「星籁 · 科幻动效层」</b> 的演示页：3D 星云、数字滚动、卡片倾斜、错峰入场、SVG 流光与扫描线均由本地组件提供。<br>
+      页面内所有经营数字、客户、链路信息均为<b>示例数据</b>，仅用于展示动效与排版。</p>
+      <p class="demo-footer-meta">XL-MOTION v1.0.0 · 墨黑赤金 · 零依赖 · LOCAL THREE.JS r160.1 · MIT</p>
+    </div>
+  </div>
+  <div class="demo-fx-tags" aria-label="本页使用的动效">
+    <span>3D 星云</span><span>数字滚动</span><span>卡片 3D 倾斜</span><span>错峰入场</span>
+    <span>SVG 流光</span><span>扫描线</span><span>呼吸灯</span><span>光晕</span><span>FPS 守卫</span>
+  </div>
+</footer>
+
+<!-- 实时渲染状态 HUD（真机数据，非示例） -->
+<aside class="demo-hud" aria-label="渲染状态">
+  <div><span class="demo-hud-k">3D 星云</span><b class="demo-hud-v" id="hud3d">启动中</b></div>
+  <div><span class="demo-hud-k">实时 FPS</span><b class="demo-hud-v" id="hudFps">—</b></div>
+</aside>
+
+<noscript><div class="demo-noscript">启用 JavaScript 后即可查看完整动效（内容仍可正常阅读）</div></noscript>
+
+<!-- 调试参数：?fps_threshold=999&fps_samples=1&force_fallback=1&particles=800 等 -->
+<script>
+(function () {
+  var q = new URLSearchParams(window.location.search);
+  var keys = ['fpsThreshold', 'fpsSamples', 'particles', 'mobileParticles', 'pixelRatio', 'fpsWarmup', 'fpsGuard', 'forceFallback', 'debug'];
+  var cfg = {};
+  keys.forEach(function (key) {
+    var param = key.replace(/[A-Z]/g, function (m) { return '_' + m.toLowerCase(); });
+    if (!q.has(param)) return;
+    var raw = q.get(param);
+    cfg[key] = raw === '1' || raw === 'true' ? true
+      : raw === '0' || raw === 'false' ? false
+      : (isNaN(Number(raw)) ? raw : Number(raw));
+  });
+  window.XLMOTION_CONFIG = cfg;
+  // ?particles=800 同时覆盖画布上的 data-particles（便于调试/低端设备验证）
+  if (cfg.particles) {
+    var nebula = document.querySelector('[data-xlm-nebula]');
+    if (nebula) nebula.setAttribute('data-particles', String(cfg.particles));
+  }
+})();
+</script>
+<script type="module" src="xl-motion.js"></script>
+<script>
+(function () {
+  var hud3d = document.getElementById('hud3d');
+  var hudFps = document.getElementById('hudFps');
+  document.addEventListener('xlm:3d-ready', function (e) {
+    hud3d.textContent = '运行中 · ' + e.detail.particles + ' 粒子';
+    hud3d.className = 'demo-hud-v';
+  });
+  document.addEventListener('xlm:fps', function (e) {
+    hudFps.textContent = e.detail.fps.toFixed(0) + ' FPS';
+  });
+  document.addEventListener('xlm:fps-degraded', function (e) {
+    hud3d.textContent = '已降级 · CSS';
+    hud3d.className = 'demo-hud-v demo-hud-v--warn';
+    hudFps.textContent = e.detail.fps + ' FPS';
+  });
+  document.addEventListener('xlm:3d-fallback', function (e) {
+    if (e.detail.reason === 'fps') return;
+    hud3d.textContent = 'CSS 兜底';
+    hud3d.className = 'demo-hud-v demo-hud-v--warn';
+    hudFps.textContent = '—';
+  });
+})();
+</script>
+</body>
+</html>

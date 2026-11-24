@@ -797,3 +797,108 @@ html.xl-shell #xlSidebar .xl-sb-links {
   justify-content: flex-start !important;
   float: none !important;
 }
+
+/* ============================================================
+   2026-11-24 产品线分离：商家主导航 + 影视专业版入口
+   - 顶栏右侧：星籁剪辑（影视专业版）→ /pro/
+   - 侧栏底部：专业版卡片 + 企业协作链接 + 资源小链接
+   ============================================================ */
+.xl-topbar-pro {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  height: 32px;
+  padding: 0 12px;
+  border: 1px solid rgba(232, 193, 90, .36);
+  border-radius: 999px;
+  background: linear-gradient(135deg, rgba(232, 193, 90, .14), rgba(139, 92, 246, .12));
+  color: #f3da92;
+  font-size: 12.5px;
+  font-weight: 700;
+  letter-spacing: .01em;
+  white-space: nowrap;
+  text-decoration: none;
+  transition: background .15s, color .15s, border-color .15s;
+}
+.xl-topbar-pro:hover {
+  background: linear-gradient(135deg, rgba(232, 193, 90, .26), rgba(139, 92, 246, .2));
+  border-color: rgba(232, 193, 90, .6);
+  color: #ffeab0;
+}
+.xl-topbar-pro:focus-visible { outline: 2px solid var(--xl-focus); outline-offset: 2px; }
+.xl-tp-arrow { font-size: 11px; opacity: .85; }
+.xl-tp-short { display: none; }
+html.xl-shell[data-theme="light"] .xl-topbar-pro {
+  border-color: rgba(180, 116, 9, .35);
+  background: linear-gradient(135deg, rgba(251, 191, 36, .16), rgba(139, 92, 246, .1));
+  color: #92400e;
+}
+html.xl-shell[data-theme="light"] .xl-topbar-pro:hover { color: #78350f; border-color: rgba(180, 116, 9, .55); }
+
+.xl-sb-pro { display: flex; flex-direction: column; gap: 3px; }
+.xl-sb-procard {
+  display: flex;
+  align-items: center;
+  gap: 9px;
+  min-height: 42px;
+  padding: 5px 10px;
+  border: 1px solid rgba(232, 193, 90, .3);
+  border-radius: 10px;
+  background: linear-gradient(135deg, rgba(232, 193, 90, .12), rgba(139, 92, 246, .1));
+  color: #f3da92;
+  text-decoration: none;
+  transition: background .15s, border-color .15s;
+}
+.xl-sb-procard:hover {
+  background: linear-gradient(135deg, rgba(232, 193, 90, .22), rgba(139, 92, 246, .16));
+  border-color: rgba(232, 193, 90, .52);
+}
+.xl-sb-proico { flex: 0 0 auto; width: 20px; text-align: center; font-size: 14px; }
+.xl-sb-protext { display: flex; flex-direction: column; min-width: 0; line-height: 1.25; }
+.xl-sb-protext b { font-size: 12.5px; font-weight: 800; color: inherit; white-space: nowrap; }
+.xl-sb-protext small { font-size: 10px; font-weight: 600; color: rgba(243, 218, 146, .75); white-space: nowrap; }
+.xl-sb-proarrow { margin-left: auto; font-size: 12px; opacity: .75; }
+.xl-sb-collab {
+  display: block;
+  padding: 5px 11px 3px;
+  font-size: 10.5px;
+  line-height: 1.5;
+  color: var(--xl-sb-dim);
+  text-decoration: none;
+  border-radius: 7px;
+}
+.xl-sb-collab:hover { color: var(--xl-sb-txt); background: var(--xl-sb-hover); }
+.xl-sb-utils {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 4px 10px;
+  padding: 3px 11px 4px;
+}
+.xl-sb-utils a { font-size: 10.5px; color: var(--xl-sb-dim); text-decoration: none; }
+.xl-sb-utils a:hover { color: var(--xl-sb-active-line); text-decoration: underline; text-underline-offset: 2px; }
+html.xl-shell[data-theme="light"] .xl-sb-procard { color: #92400e; border-color: rgba(180, 116, 9, .3); }
+html.xl-shell[data-theme="light"] .xl-sb-protext small { color: rgba(146, 64, 14, .7); }
+
+/* 折叠态（64px 图标栏）：只留专业版图标 */
+html.xl-shell.xl-sb-collapsed .xl-sb-protext,
+html.xl-shell.xl-sb-collapsed .xl-sb-proarrow,
+html.xl-shell.xl-sb-collapsed .xl-sb-collab,
+html.xl-shell.xl-sb-collapsed .xl-sb-utils { display: none !important; }
+html.xl-shell.xl-sb-collapsed .xl-sb-procard { justify-content: center; padding: 0; gap: 0; min-height: 42px; }
+
+/* 移动端抽屉：始终展示完整文字（折叠偏好只影响桌面） */
+@media (max-width: 1099.98px) {
+  html.xl-shell.xl-sb-collapsed .xl-sb-protext { display: flex !important; }
+  html.xl-shell.xl-sb-collapsed .xl-sb-proarrow { display: inline !important; }
+  html.xl-shell.xl-sb-collapsed .xl-sb-collab { display: block !important; }
+  html.xl-shell.xl-sb-collapsed .xl-sb-utils { display: flex !important; }
+  .xl-topbar-pro { height: 30px; padding: 0 10px; font-size: 11.5px; }
+  .xl-tp-full { display: none; }
+  .xl-tp-short { display: inline; }
+  #xlTopbar .xl-crumb-now { max-width: calc(100vw - 220px); }
+}
+@media (max-width: 480px) {
+  .xl-topbar-pro { gap: 3px; padding: 0 8px; font-size: 11px; }
+  .xl-tp-arrow { display: none; }
+  #xlTopbar .xl-crumb-now { max-width: calc(100vw - 196px); }
+}

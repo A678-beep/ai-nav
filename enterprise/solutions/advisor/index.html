@@ -1,0 +1,208 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>企业顾问 · 30 秒出行业方案 · 星籁</title>
+<meta name="description" content="填行业、员工规模与最痛 3 点，自动生成推荐智能体、试点场景、ROI 区间与报价档。">
+<meta name="robots" content="noindex,nofollow">
+<meta name="theme-color" content="#070b12">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='8' fill='%23d9a85c'/%3E%3Ctext x='16' y='23' font-size='20' text-anchor='middle' fill='%23161006'%3E星%3C/text%3E%3C/svg%3E">
+<link rel="stylesheet" href="/enterprise/solutions/app.css">
+</head>
+<body>
+<header class="top"><div class="container top-inner">
+  <a class="brand" href="/enterprise/"><span class="logo">星</span><span><span class="tt">企业 AI 智能体平台</span><small>Enterprise AI Workforce</small></span></a>
+  <nav class="nav" aria-label="主导航">
+    <a href="/enterprise/">企业工作台</a>
+    <a href="/enterprise/solutions/" class="">全行业方案</a>
+    <a href="/enterprise/solutions/advisor/" class="active">企业顾问</a>
+  </nav>
+</div></header>
+
+<main class="container">
+  <div class="crumb"><a href="/enterprise/">企业工作台</a><span>/</span><a href="/enterprise/solutions/">全行业解决方案库</a><span>/</span><span>企业顾问</span></div>
+  <section class="hero" style="padding-top:18px">
+    <span class="eyebrow">企业顾问 · 30 秒出方案</span>
+    <h1>填 3 项，直接出 <em>行业方案 + 报价档</em></h1>
+    <p class="lead">选择行业、员工规模与最痛的 3 个问题，系统按行业知识模板匹配推荐智能体、试点场景、ROI 区间与报价档。数据为示例估算，非承诺。</p>
+  </section>
+
+  <div class="panel">
+    <form id="advisorForm" class="form" autocomplete="off">
+      <div class="field">
+        <label for="afIndustry">行业 <b>*</b></label>
+        <select id="afIndustry" required><option value="manufacturing">制造业</option><option value="retail-chain">零售连锁</option><option value="catering">餐饮</option><option value="ecommerce">电商</option><option value="foreign-trade">外贸</option><option value="fmcg">快消</option><option value="beauty">美妆</option><option value="apparel">服装</option><option value="home-furnishing">家居</option><option value="real-estate">地产</option><option value="property-management">物业</option><option value="construction">建筑</option><option value="logistics">物流</option><option value="automotive">汽车</option><option value="finance">金融</option><option value="education">教育</option><option value="healthcare">医疗健康</option><option value="law-firm">律所/法务</option><option value="accounting">财税代理</option><option value="hr-services">人力服务</option><option value="tourism">旅游</option><option value="hotel">酒店</option><option value="exhibition">会展</option><option value="media-film">传媒/影视</option><option value="gaming">游戏</option><option value="software-internet">软件/互联网</option><option value="agriculture">农业</option><option value="energy">能源</option><option value="government-soe">政府/国企</option><option value="environmental">环保</option><option value="telecom">通信</option></select>
+        <span class="hint">也可在行业方案页点「让顾问出方案」自动带入</span>
+      </div>
+      <div class="field">
+        <label for="afSize">员工规模（人数）<b>*</b></label>
+        <input id="afSize" type="number" min="10" max="2000000" step="10" placeholder="如 5000" required>
+        <span class="hint">用于匹配规模段与报价档（中型 / 大型 / 集团）</span>
+      </div>
+      <div class="field full">
+        <label>最痛的 3 点 <b>*</b>（从行业高频痛点里选，可改）</label>
+        <div class="pain-fields" id="afPains">
+          <select id="afPain0" aria-label="痛点 1"></select>
+          <select id="afPain1" aria-label="痛点 2"></select>
+          <select id="afPain2" aria-label="痛点 3"></select>
+        </div>
+        <span class="hint">选「其他」可手填一句；系统会按痛点匹配推荐智能体</span>
+        <input id="afCustom" type="text" placeholder="补充：其他最痛的问题（可留空）" style="margin-top:8px">
+      </div>
+      <div class="full" style="display:flex;gap:12px;flex-wrap:wrap;align-items:center">
+        <button class="btn primary" type="submit" id="afSubmit">生成推荐方案 →</button>
+        <a class="btn ghost" href="/enterprise/solutions/">先浏览 31 个行业方案</a>
+      </div>
+    </form>
+  </div>
+
+  <div id="afError" class="err-box hidden" role="alert"></div>
+  <div id="afLoading" class="loading hidden">正在生成方案…</div>
+  <div id="afResult" class="result hidden" aria-live="polite"></div>
+</main>
+<script>
+var IND_DATA = {"manufacturing": {"name": "制造业", "pains": ["工艺/图纸/作业指导书散落个人电脑与微信群，新人查不到最新版", "质检标准与缺陷案例靠老师傅口传，判级不一致", "设备故障排查依赖个别工程师，停机按分钟计损失", "供应商询价、比价、合同跟进靠 Excel 和邮件", "多基地培训资料版本不一，安全/工艺考核组织成本高"]}, "retail-chain": {"name": "零售连锁", "pains": ["店务规则/陈列标准/活动口径靠店长群转发，执行走样", "新人流动率高，培训与带教靠老人传帮带", "总部活动与私域内容产能不足，社群更新慢", "售后与投诉口径不一、升级慢", "门店销售数据靠 Excel 汇总，区域复盘滞后一周"]}, "catering": {"name": "餐饮", "pains": ["食安与操作 SOP 靠店长盯着执行，检查靠人跑店", "点评/外卖差评响应慢，口径不统一", "新品上新物料与话术反复改，门店执行慢", "排班靠 Excel+经验，人力成本与峰谷不匹配", "门店经营数据散落 POS/外卖平台，复盘靠手工汇总"]}, "ecommerce": {"name": "电商", "pains": ["客服重复问题占比高、大促响应不及时", "商品详情页/短视频素材产能不足，上新即缺内容", "退款/纠纷处理规则复杂，新人判不准", "投放数据复盘靠人工拉表，归因慢", "选品与竞品分析靠人工浏览，效率低"]}, "foreign-trade": {"name": "外贸", "pains": ["多语种询盘回复慢、话术不专业", "单证（PI/CI/PL/报关）反复核对，错单改单成本高", "客户跟进靠个人记忆，老客户流失", "市场/竞品信息收集靠人工浏览", "产品资料与认证文件版本多，客户要资料响应慢"]}, "fmcg": {"name": "快消", "pains": ["终端陈列与促销执行靠业务员跑店拍照，总部核验慢", "经销商政策与返利规则复杂，咨询重复", "新品上市物料产能不足、区域版本多", "市场费用核销单据多，人工审核易错", "消费者洞察靠人工看评论/问卷，周期长"]}, "beauty": {"name": "美妆", "pains": ["成分/功效话术不合规风险高，审核靠人盯", "客服咨询专业度不一，退换与肤质问题重复", "小红书/抖音内容产能不足，达人 Brief 写不完", "私域社群运营靠人工，用户分层粗", "竞品与成分趋势调研靠人工浏览"]}, "apparel": {"name": "服装", "pains": ["企划/设计参考资料散落图库与个人网盘，找版找料慢", "上新内容（详情页/短视频/种草）产能跟不上节奏", "退换货与尺码问题重复咨询多", "门店与电商库存/价格不一致，导购解释成本高", "加盟商订货与政策咨询靠人工回复"]}, "home-furnishing": {"name": "家居", "pains": ["门店导购专业度不一，方案讲解靠个人经验", "客户跟进周期长（3–12 个月），漏跟进多", "设计/报价/下单信息反复确认，改单率高", "安装与售后问题跨部门流转慢", "经销商政策与返利咨询重复"]}, "real-estate": {"name": "地产", "pains": ["楼盘卖点/政策/按揭口径散落，置业顾问口径不一", "渠道报备与佣金结算靠表格，纠纷多", "客户跟进周期长、流失高", "交付与售后问题跨部门，业主投诉升级", "市场与竞品数据靠人工收集"]}, "property-management": {"name": "物业", "pains": ["业主报修/投诉电话多、记录不规范", "工单派单靠人工判断，响应与闭环慢", "物业费催缴靠电话与上门，效率低", "通知/公告与法规口径不统一", "项目数据报表靠人工汇总"]}, "construction": {"name": "建筑", "pains": ["投标文件与施组方案编制耗人，废标风险高", "安全交底/规范查询靠纸质与经验", "项目资料（图纸/变更/验收）版本混乱", "成本/进度数据靠周报手工汇总", "分包与劳务合同条款审核靠法务排队"]}, "logistics": {"name": "物流", "pains": ["查件/催派电话占客服大头", "运输异常（延误/破损/丢件）处理慢，赔付争议多", "调度靠人工经验，空驶率高", "客户对账与开票流程长", "司机/网点政策咨询重复"]}, "automotive": {"name": "汽车", "pains": ["销售顾问产品知识不一，新能源参数讲解难", "售后工单/保修政策咨询重复", "线索跟进不及时，试驾转化低", "车主社群/保养提醒靠人工", "配件/保修/索赔政策查询慢"]}, "finance": {"name": "金融", "pains": ["客服与网点咨询量大、口径不一", "合规/制度文件检索慢，员工问政策靠人找", "信贷/投保材料人工审核，退回率高", "投研/行业信息收集整理耗时", "反洗钱/消保检查材料准备重复"]}, "education": {"name": "教育", "pains": ["课程顾问话术不一，线索跟进慢", "学员答疑重复且响应慢", "教研备课/讲义制作耗时", "家长沟通与续费提醒靠人工", "校区运营数据汇总滞后"]}, "healthcare": {"name": "医疗健康", "pains": ["预约/咨询电话多，挂号与就诊指引重复", "诊后随访与复诊提醒靠人工", "科普内容产量不足且审核严", "院内制度/流程检索慢，新员工培训重", "体检报告解读咨询重复"]}, "law-firm": {"name": "律所/法务", "pains": ["合同审查排队、重复条款反复看", "法规/判例检索靠人工，检索不全是风险", "文书模板与案卷资料找起来慢", "新律师培养周期长，知识沉淀在合伙人脑中", "客户咨询与案件进度同步耗时"]}, "accounting": {"name": "财税代理", "pains": ["票据识别与入账靠人工，申报期加班严重", "客户咨询政策/报税/发票问题重复", "申报前核对（税负/勾稽）靠人工，易错漏", "客户资料收取与催收靠微信，效率低", "新人培养慢，政策更新跟不上"]}, "hr-services": {"name": "人力服务", "pains": ["简历筛选与初筛沟通耗时", "候选人跟进与面试安排靠人工", "员工政策/社保公积金咨询重复", "客户用工合规咨询重复", "交付报表与客户汇报靠手工汇总"]}, "tourism": {"name": "旅游", "pains": ["行程咨询重复、定制方案耗时", "旺季客服爆量，退改咨询集中", "线路内容与种草素材产能不足", "导游/领队培训与应急口径不一", "客户评价与投诉处理慢"]}, "hotel": {"name": "酒店", "pains": ["预订/退改/发票咨询重复", "OTA 点评回复不及时，评分受影响", "前台新人培训慢、服务口径不一", "客诉与特殊需求处理跨部门慢", "门店经营数据汇总滞后"]}, "exhibition": {"name": "会展", "pains": ["展商招募与资料收集靠人工跟进", "观众邀约与报名转化低", "展会内容/公众号/短视频产能不足", "现场咨询与展位引导靠人海", "展后复盘与客户线索整理慢"]}, "media-film": {"name": "传媒/影视", "pains": ["策划/剧本/分镜初稿耗人，改稿多轮", "素材检索与版本管理混乱", "审片与合规检查靠人工逐帧看", "宣发物料与投放文案产能不足", "项目成本与进度汇总滞后"]}, "gaming": {"name": "游戏", "pains": ["玩家客服问题重复、跨语种响应慢", "版本公告/活动文案多语言产出慢", "测试用例与缺陷描述整理耗时", "社区舆情监测与回复靠人工", "项目知识与美术资产检索慢"]}, "software-internet": {"name": "软件/互联网", "pains": ["文档/接口/规范散落多系统，新人上手慢", "客服与售前技术问题重复，工单积压", "需求/会议纪要/周报整理耗时", "内容营销与案例产出不足", "数据分析取数靠分析师排队"]}, "agriculture": {"name": "农业", "pains": ["农技问题靠专家下乡，响应慢", "农资采购与供应商管理靠表格", "政策补贴申报材料多、口径不清", "种植/养殖档案与追溯记录不完整", "农产品品控与客户投诉处理慢"]}, "energy": {"name": "能源", "pains": ["设备台账/图纸/规程检索慢", "安全规程与两票三制查询靠纸质", "故障处理依赖老师傅，停机损失大", "政策与双碳数据报送材料多", "培训与持证管理复杂"]}, "government-soe": {"name": "政府/国企", "pains": ["公文起草与核稿耗时，格式规范多", "政策文件检索与解读慢", "会议纪要与督办事项整理耗时", "内部制度培训与考试组织成本高", "信访/热线答复口径不一"]}, "environmental": {"name": "环保", "pains": ["监测数据审核与异常研判靠人工", "环评/排污许可材料编制耗人", "法规标准更新快，执行口径难统一", "运营报表与上报材料重复编制", "应急事件处置流程复杂"]}, "telecom": {"name": "通信", "pains": ["套餐/资费/业务咨询量大且口径多", "宽带/故障报修处理链路长", "投诉处理与升级反复", "渠道/代理商政策咨询重复", "营销活动内容与话术产出慢"]}};
+(function () {
+  'use strict';
+  var sel = document.getElementById('afIndustry');
+  var sizeInput = document.getElementById('afSize');
+  var painSel = [document.getElementById('afPain0'), document.getElementById('afPain1'), document.getElementById('afPain2')];
+  var custom = document.getElementById('afCustom');
+  var form = document.getElementById('advisorForm');
+  var errBox = document.getElementById('afError');
+  var loading = document.getElementById('afLoading');
+  var result = document.getElementById('afResult');
+  var submitBtn = document.getElementById('afSubmit');
+
+  function esc(s) {
+    return String(s == null ? '' : s).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;').replace(/'/g, '&#39;');
+  }
+  function fillPains() {
+    var it = IND_DATA[sel.value];
+    if (!it) return;
+    for (var i = 0; i < painSel.length; i++) {
+      var ps = painSel[i];
+      if (!ps) continue;
+      var keep = ps.value;
+      ps.innerHTML = '';
+      var opts = ['<option value="">（不选）</option>'].concat(it.pains.map(function (p) { return '<option value="' + esc(p) + '">' + esc(p) + '</option>'; }));
+      opts.push('<option value="__custom">其他（手填在下方）</option>');
+      ps.innerHTML = opts.join('');
+      if (keep && (it.pains.indexOf(keep) >= 0 || keep === '__custom')) ps.value = keep;
+    }
+  }
+  function getPains() {
+    var out = [];
+    painSel.forEach(function (ps) {
+      if (!ps) return;
+      if (ps.value === '__custom') { if (custom && custom.value.trim()) out.push(custom.value.trim()); }
+      else if (ps.value) out.push(ps.value);
+    });
+    if (custom && custom.value.trim() && out.indexOf(custom.value.trim()) < 0) out.push(custom.value.trim());
+    return out.slice(0, 5);
+  }
+  function showError(msg) {
+    if (!errBox) return;
+    errBox.textContent = msg;
+    errBox.classList.remove('hidden');
+  }
+  function tierCard(t, recoKey) {
+    var isReco = t.key === recoKey;
+    return '<div class="tier ' + (isReco ? 'reco' : '') + '">' +
+      (isReco ? '<span class="reco-tag">推荐档</span>' : '') +
+      '<div class="tname">' + esc(t.name) + '</div>' +
+      '<div class="price">' + esc(t.price) + '</div>' +
+      '<p class="fit">' + esc(t.fit) + '</p>' +
+      '<p class="inc">含：' + esc(t.includes) + '</p></div>';
+  }
+  function render(rec) {
+    if (!rec || !rec.ok) { showError((rec && rec.message) || '生成失败，请稍后重试。'); return; }
+    var p = rec.pricing || {};
+    var agents = (rec.recommended_agents || []).map(function (a) {
+      return '<div class="agent-row"><span class="code">' + esc(a.id) + '</span><b>' + esc(a.name) + '</b><small>' + esc(a.reason) + '</small></div>';
+    }).join('');
+    var scenes = (rec.pilot_scenarios || []).map(function (s, i) {
+      return '<div class="scene"><h4>试点场景 ' + (i + 1) + '：' + esc(s.scene) + '</h4>' +
+        '<div class="row"><span><b>人工：</b>' + esc(s.manual) + '</span><span><b>自动化后：</b>' + esc(s.automated) + '</span></div>' +
+        '<div class="row" style="margin-top:6px"><span class="save">节省估算：' + esc(s.saving) + '</span></div>' +
+        '<div class="assume">假设说明：' + esc(s.assumption) + '</div></div>';
+    }).join('');
+    var steps = (rec.solution_steps || []).map(function (s, i) {
+      return '<div class="step"><span class="n">第 ' + (i + 1) + ' 步</span><h4>' + esc(s.step) + '</h4><p class="period">' + esc(s.period) + '</p><p class="out">' + esc(s.output) + '</p><p>' + esc(s.note) + '</p></div>';
+    }).join('');
+    var compliance = (rec.compliance_notes || []).map(function (c) { return '<li>' + esc(c) + '</li>'; }).join('');
+    var nextActions = (rec.next_actions || []).map(function (n) { return '<li>' + esc(n) + '</li>'; }).join('');
+    var tiers = (p.tiers || []).map(function (t) { return tierCard(t, p.recommended_tier); }).join('');
+    var objHtml = (rec.objections || []).map(function (o) {
+      return '<details><summary>' + esc(o.objection) + '</summary><p class="resp">' + esc(o.response) + '</p></details>';
+    }).join('');
+    result.innerHTML =
+      '<div class="result-head"><h2>给你的推荐方案</h2><span class="tag green">示例估算，非承诺</span><span class="tag">' + esc(rec.industry.name) + ' / ' + esc(rec.size_segment) + '</span></div>' +
+      '<div class="result-grid"><div>' +
+        '<section class="section" style="padding-top:0"><h2>推荐岗位智能体</h2><p class="sub">按行业默认组合 + 你选的痛点匹配，取前 5。</p><div class="agent-list">' + agents + '</div></section>' +
+        '<section class="section"><h2>建议先试的试点场景</h2><p class="sub">用 2–4 周 POC 先跑这两个场景，出 ROI 基线。</p>' + scenes + '</section>' +
+        '<section class="section"><h2>试点与推广路径</h2><p class="sub">调研 → 试点 → 扩展 → 私有化。</p><div class="steps">' + steps + '</div></section>' +
+        '<section class="section"><h2>报价档</h2><div class="tiers">' + tiers + '</div><p class="small-note">报价为参考区间，按场景与对接量最终确认；大企业通常先 POC 再转 SaaS 或私有化。</p></section>' +
+        '<section class="section"><h2>合规与风险提示</h2><div class="panel"><ul class="plain">' + compliance + '</ul></div></section>' +
+        '<section class="section faq"><h2>现场常见异议与回应</h2>' + objHtml + '</section>' +
+        '<section class="section"><h2>下一步</h2><div class="panel"><ul class="plain">' + nextActions + '</ul></div></section>' +
+      '</div><aside>' +
+        '<div class="roas-box"><div class="lbl">预估 ROI 区间（示例）</div><div class="big">' + esc(rec.roas_range) + '</div><div class="lbl">倍 · ' + esc(rec.industry.name) + '</div><div class="note">' + esc(rec.roas_note) + '</div></div>' +
+        '<div class="panel" style="margin-top:14px"><h3 style="margin:0 0 8px;font-size:16px">报价档建议</h3><div class="price" style="color:var(--gold2);font-size:18px">' + esc(p.recommended_tier_name || '') + '</div><p style="color:var(--muted);font-size:13px;margin:6px 0 0">' + esc((p.quote || {}).price || '') + '</p><p style="color:var(--muted);font-size:12px;margin:6px 0 0">' + esc((p.quote || {}).fit || '') + '</p></div>' +
+        '<div class="notice" style="margin-top:14px">' + esc(rec.disclaimer || '示例估算，非承诺。') + '</div>' +
+        '<div style="margin-top:12px"><a class="btn primary" href="/enterprise/solutions/' + esc(rec.industry.slug) + '/" target="_blank" rel="noopener">查看该行业完整方案 →</a></div>' +
+        '<div style="margin-top:10px"><a class="btn ghost" href="mailto:?subject=' + encodeURIComponent('企业 AI 试点咨询') + '">保存/转发方案</a></div>' +
+      '</aside></div>' +
+      '<div class="notice">估算口径：' + esc(rec.estimation_basis || '') + ' 本服务未接 RAG 知识库检索，推荐为行业知识模板 + 规则匹配。</div>';
+    result.classList.remove('hidden');
+    result.scrollIntoView({ behavior: 'smooth', block: 'start' });
+  }
+  function run() {
+    if (errBox) errBox.classList.add('hidden');
+    var industry = sel.value;
+    var size = sizeInput.value;
+    if (!size || Number(size) <= 0) { showError('请填写员工规模（人数），例如 5000。'); sizeInput.focus(); return; }
+    var pains = getPains();
+    if (pains.length < 1) { showError('请至少选择 1 个最痛的问题（最多 3 个）。'); return; }
+    if (loading) loading.classList.remove('hidden');
+    if (result) result.classList.add('hidden');
+    if (submitBtn) submitBtn.disabled = true;
+    fetch('/api/ent/solutions/recommend', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ industry: industry, size: size, top_pains: pains })
+    }).then(function (r) {
+      return r.json().then(function (j) { return { status: r.status, body: j }; });
+    }).then(function (res) {
+      if (res.status !== 200 || !res.body.ok) {
+        var msg = (res.body && (res.body.message || res.body.error)) || ('请求失败（' + res.status + '）');
+        if (res.body && res.body.suggestions && res.body.suggestions.length) msg += ' 可试：' + res.body.suggestions.join('、');
+        showError(msg);
+      } else {
+        render(res.body);
+      }
+    }).catch(function () {
+      showError('推荐服务暂时不可用，请稍后重试，或先浏览行业方案页。');
+    }).finally(function () {
+      if (loading) loading.classList.add('hidden');
+      if (submitBtn) submitBtn.disabled = false;
+    });
+  }
+  if (form) form.addEventListener('submit', function (e) { e.preventDefault(); run(); });
+  if (sel) sel.addEventListener('change', fillPains);
+  fillPains();
+  // 从详情页带入行业
+  try {
+    var m = /[?&]industry=([a-z0-9-]+)/.exec(location.search);
+    if (m && IND_DATA[m[1]]) { sel.value = m[1]; fillPains(); }
+  } catch (e) {}
+})();
+</script>
+<footer><div class="container">
+<div class="line"><span>星籁科技 · 企业 AI 化</span><span>全行业解决方案库 v1.0</span><span>共 31 个行业</span></div>
+<div>本库全部数据为示例估算，用于方案沟通与试点测算，非承诺值；实际效果以试点验收为准。 估算口径：节省工时=任务量×单次耗时×自动化率；节省成本=节省工时×人力时薪；ROI=(收益−平台费用)/平台费用；RAG 知识库未接入本库检索，方案为规则匹配与行业知识模板生成。</div>
+<div style="margin-top:6px">本库未接 RAG 知识库检索；内容为行业知识模板与规则匹配生成。AI 生成内容标识 · 不承诺准确率 100%。</div>
+</div></footer>
+<script src="/enterprise/solutions/solutions.js"></script>
+</body></html>

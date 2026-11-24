@@ -70,6 +70,43 @@
   }
   redirectLegacyHash();
 
+  /* ---------- 全站设计令牌 DS v1（ux-polish 交付，site-shell 统一注入） ----------
+     目的：所有页面都能拿到 assets/ds.css 的 --ds-* 令牌与组件外观，不依赖逐页手改。
+     - 页面已静态引用 ds.css/ds.js（如 15 个商家核心页）时跳过，避免重复引入；
+     - ds.css 追加到 head 末尾 = 位于页面内联样式之后，符合 ds.css 的覆盖顺序；
+     - ds.js 自带 window.XLDS.__installed 守卫，重复注入也只初始化一次。 */
+  var DS_VER = '20261124e';
+  function hasDsAsset(sel, re) {
+    var nodes = doc.querySelectorAll(sel);
+    for (var i = 0; i < nodes.length; i++) {
+      var a = nodes[i].getAttribute('href') || nodes[i].getAttribute('src') || '';
+      if (re.test(a)) return true;
+    }
+    return false;
+  }
+  function injectDesignSystem() {
+    try {
+      var head = doc.head || doc.getElementsByTagName('head')[0];
+      if (!head) return;
+      /* 兼容相对写法（如 /assets/ 页内是 ds.css）与带版本/绝对路径写法，避免重复引入 */
+      if (!hasDsAsset('link[rel="stylesheet"]', /(^|\/)ds\.css(\?|$)/)) {
+        var dsCss = doc.createElement('link');
+        dsCss.rel = 'stylesheet';
+        dsCss.href = ROOT + 'assets/ds.css?v=' + DS_VER;
+        dsCss.setAttribute('data-xl-ds', 'css');
+        head.appendChild(dsCss);
+      }
+      if (!hasDsAsset('script[src]', /(^|\/)ds\.js(\?|$)/)) {
+        var dsJs = doc.createElement('script');
+        dsJs.src = ROOT + 'assets/ds.js?v=' + DS_VER;
+        dsJs.defer = true;
+        dsJs.setAttribute('data-xl-ds', 'js');
+        head.appendChild(dsJs);
+      }
+    } catch (e) { /* 设计令牌属增强层，失败不影响导航与业务 */ }
+  }
+  injectDesignSystem();
+
   /* ---------- 图标 ---------- */
   function svg(inner) {
     return '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" ' +
@@ -106,65 +143,62 @@
     chevR: svg('<path d="m9.5 6 6 6-6 6"/>'),
     menu: svg('<path d="M4 7h16M4 12h16M4 17h16"/>'),
     x: svg('<path d="m6 6 12 12M18 6 6 18"/>'),
-    panel: svg('<rect x="3.5" y="4.5" width="17" height="15" rx="2.2"/><path d="M9.5 4.5v15"/>')
+    panel: svg('<rect x="3.5" y="4.5" width="17" height="15" rx="2.2"/><path d="M9.5 4.5v15"/>'),
+    download: svg('<path d="M12 3.6v11.2"/><path d="m7.6 10.6 4.4 4.4 4.4-4.4"/><path d="M4.4 18.2v1.2a1.2 1.2 0 0 0 1.2 1.2h12.8a1.2 1.2 0 0 0 1.2-1.2v-1.2"/>'),
+    user: svg('<circle cx="12" cy="8.2" r="3.6"/><path d="M5 20.4c.7-3.4 3.4-5.2 7-5.2s6.3 1.8 7 5.2"/>')
   };
 
+  /* 登录入口：带上当前页，登录后回到原页 */
+  function loginHref() {
+    var back = location.pathname + location.search;
+    return ROOT + 'account/index.html?next=' + encodeURIComponent(back);
+  }
+
+  /* ============================================================
+   * 产品线分离（2026-11-24）：网页 = 商家营销端
+   * - 主导航只保留商家经营功能，不再出现导演台/电影向导/工业流程等专业项；
+   * - 影视专业能力统一收进「星籁剪辑（影视专业版）」桌面产品，入口在
+   *   顶栏右侧 + 侧栏底部 → /pro/；企业协作（审片/回传/护照/片场）也在 /pro/。
+   * ============================================================ */
   var NAV = [
-    { key: 'home', label: 'AI 导航', href: ROOT, ico: ICO.home },
-    { key: 'create', label: '创作中心', href: ROOT + 'create/', ico: ICO.create },
-    { key: 'studio', label: '短视频工作台', href: ROOT + 'studio/', ico: ICO.studio },
+    { key: 'home', label: '首页', href: ROOT, ico: ICO.home },
+    { key: 'studio', label: 'AI工作台', href: ROOT + 'studio/', ico: ICO.studio },
+    { key: 'autoedit', label: '一键成片', href: ROOT + 'autoedit/', ico: ICO.autoedit },
+    { key: 'batch', label: '批量视频', href: ROOT + 'studio/#batchEdit', ico: ICO.replicate },
     { key: 'templates', label: '模板市场', href: ROOT + 'templates/', ico: ICO.templates },
     { key: 'assets', label: '素材库', href: ROOT + 'assets/', ico: ICO.assets },
-    { key: 'aidrama', label: 'AI 短剧', href: ROOT + 'aidrama/', ico: ICO.drama },
-    { key: 'docvideo', label: '文档转视频', href: ROOT + 'docvideo/', ico: ICO.docvideo },
-    { key: 'smartcut', label: '智能粗剪', href: ROOT + 'smartcut/', ico: ICO.smartcut },
-    { key: 'explainer', label: '动态解说', href: ROOT + 'explainer/', ico: ICO.explainer },
-    { key: 'replicate', label: '爆款复刻', href: ROOT + 'replicate/', ico: ICO.replicate },
-    { key: 'live', label: 'AI 直播助播', href: ROOT + 'live/', ico: ICO.live },
-    { key: 'sandbox', label: '合规沙盘', href: ROOT + 'sandbox/', ico: ICO.sandbox },
-    { key: 'publish', label: '发行中心', href: ROOT + 'publish/', ico: ICO.publish },
-    { key: 'passport', label: '授权护照', href: ROOT + 'passport/', ico: ICO.passport },
-    { key: 'director', label: '导演编排器', href: ROOT + 'director/', ico: ICO.director },
-    { key: 'monitor', label: '导演监视器', href: ROOT + 'monitor/', ico: ICO.monitor },
-    { key: 'ads', label: 'AI 投放优化获客', href: ROOT + 'ads/', ico: ICO.ads },
-    { key: 'leadgen', label: '线索台账', href: ROOT + 'leadgen/', ico: ICO.leadgen },
-    { key: 'geo', label: 'GEO 推广', href: ROOT + 'geo3/', ico: ICO.geo },
-    { key: 'travel', label: '出行导航', href: ROOT + 'travel/', ico: ICO.travel },
-    { key: 'select-ai', label: '智能选型', href: ROOT + 'select-ai/', ico: ICO.select },
-    { key: 'radar', label: '工具雷达', href: ROOT + 'radar/', ico: ICO.radar }
+    { key: 'live', label: '直播助播', href: ROOT + 'live/', ico: ICO.live },
+    { key: 'download', label: '下载', href: ROOT + 'download/', ico: ICO.download },
+    { key: 'pricing', label: '定价', href: ROOT + 'pricing/', ico: ICO.pricing },
+    { key: 'login', label: '登录', href: loginHref(), ico: ICO.user }
   ];
-  var RES = [
-    /* 教程文章改为真实静态列表页 /articles/；旧 hash 入口 #/articles 在下方统一重定向 */
-    { key: 'articles', label: '教程文章', href: ROOT + 'articles/', ico: ICO.articles },
-    { key: 'tools', label: '工具库', href: ROOT + 'tools/', ico: ICO.tools },
-    { key: 'pricing', label: '套餐定价', href: ROOT + 'pricing/', ico: ICO.pricing }
+  /* 资源入口下沉到侧栏底部，不占主导航（主导航只放商家项） */
+  var UTIL = [
+    { label: '教程文章', href: ROOT + 'articles/' },
+    { label: '工具库', href: ROOT + 'tools/' },
+    { label: '站点地图', href: ROOT + 'sitemap.xml' }
   ];
+
+  /* 旧专业页 URL 保留可访问（企业/内部使用），这里只做高亮兜底、不再进导航 */
+  var LEGACY_PRO_SEG = { director: 1, monitor: 1, create: 1, editscript: 1, publish: 1, passport: 1, sandbox: 1, aidrama: 1 };
 
   function activeKey() {
     var rel = relPath();
     var seg = rel.split('/')[0].replace(/\.html$/, '');
-    if (seg === 'account' || seg === 'admin' || seg === 'store') return null;
-    if (seg === 'geo2') return 'geo';
+    if (rel === '' || rel === 'index.html') return 'home';
+    /* 商家主导航映射 */
+    if (seg === 'studio') return location.hash === '#batchEdit' ? 'batch' : 'studio';
+    if (seg === 'autoedit') return 'autoedit';
     if (seg === 'templates') return 'templates';
     if (seg === 'assets') return 'assets';
-    /* 入口合并：自动剪辑已并入短视频工作台，进入 autoedit 时高亮「短视频工作台」 */
-    if (seg === 'autoedit') return 'studio';
-    if (seg === 'studio' || seg === 'leadgen' || seg === 'ads' || seg === 'geo' || seg === 'travel' ||
-        seg === 'select-ai' || seg === 'radar' || seg === 'live' ||
-        seg === 'aidrama' || seg === 'docvideo' || seg === 'smartcut' || seg === 'explainer' ||
-        seg === 'replicate' || seg === 'publish' || seg === 'create' ||
-        seg === 'passport' || seg === 'sandbox' ||
-        seg === 'director' || seg === 'monitor') return seg;
+    if (seg === 'live') return 'live';
     if (seg === 'pricing') return 'pricing';
-    if (seg === 'tools' || seg === 'tool') return 'tools';
-    if (seg === 'articles') return 'articles';
-    if (seg === 'a' || seg === 't' || seg === 'faq' || seg === 'glossary' ||
-        seg === 'prompts' || seg === 'selector' || seg === 'vs' ||
-        seg === 'chat' || seg === 'image' || seg === 'code' || seg === 'write' ||
-        seg === 'video' || seg === 'biz' || seg === 'util') return 'articles';
-    if (location.hash === '#/articles') return 'articles';
-    if (location.hash === '#/tools') return 'tools';
-    return 'home';
+    if (seg === 'download') return 'download';
+    if (seg === 'account') return 'login';
+    /* 旧专业页/协作页：保留访问但不参与主导航高亮 */
+    if (LEGACY_PRO_SEG[seg]) return null;
+    /* 内容页（文章/教程/工具）也不占主导航 */
+    return null;
   }
 
   function el(tag, cls, inner) {
@@ -190,13 +224,21 @@
   if (!body) return;
 
   var topbar = el('header', 'xl-topbar');
+  topbar.id = 'xlTopbar';
   topbar.setAttribute('aria-label', '页面顶部栏');
   topbar.innerHTML =
     '<button type="button" class="xl-hamburger" id="xlHamburger" aria-label="打开全站导航" aria-expanded="false" aria-controls="xlSidebar">' + ICO.menu + '</button>' +
     '<div class="xl-crumb"><a class="xl-crumb-home" href="' + ROOT + '">星籁 AI</a>' +
     '<span class="xl-crumb-sep" aria-hidden="true">/</span>' +
     '<span class="xl-crumb-now" id="xlCrumbNow">工作台</span></div>' +
-    '<div class="xl-topbar-actions"><button type="button" class="xl-topbar-collapse" id="xlTopCollapse" title="折叠侧栏（[）" aria-label="折叠侧栏">' + ICO.panel + '</button></div>';
+    '<div class="xl-topbar-actions">' +
+      '<a class="xl-topbar-pro" href="' + ROOT + 'pro/" title="星籁剪辑 · 影视专业版（Windows 桌面端）">' +
+        '<span class="xl-tp-full">星籁剪辑 · 影视专业版</span>' +
+        '<span class="xl-tp-short">影视专业版</span>' +
+        '<span class="xl-tp-arrow" aria-hidden="true">→</span>' +
+      '</a>' +
+      '<button type="button" class="xl-topbar-collapse" id="xlTopCollapse" title="折叠侧栏（[）" aria-label="折叠侧栏">' + ICO.panel + '</button>' +
+    '</div>';
 
   var aside = el('aside', 'xl-sb');
   aside.id = 'xlSidebar';
@@ -215,17 +257,24 @@
     '<div class="xl-sb-top">' +
       '<a class="xl-sb-brand" href="' + ROOT + '">' +
         '<span class="xl-sb-mark" aria-hidden="true">✦</span>' +
-        '<span class="xl-sb-brandtext"><b>星籁 AI</b><small>AI Workspace</small></span>' +
+        '<span class="xl-sb-brandtext"><b>星籁 AI</b><small>商家营销平台</small></span>' +
       '</a>' +
       '<button type="button" class="xl-sb-close-mobile" id="xlSbClose" aria-label="关闭全站导航">' + ICO.x + '</button>' +
     '</div>' +
-    '<nav class="xl-sb-nav" aria-label="主导航">' +
-      '<div class="xl-sb-group">工作台</div>' +
+    '<nav class="xl-sb-nav" aria-label="商家主导航">' +
+      '<div class="xl-sb-group">商家经营</div>' +
       '<div class="xl-sb-links" data-group="nav"></div>' +
-      '<div class="xl-sb-group">资源</div>' +
-      '<div class="xl-sb-links" data-group="res"></div>' +
     '</nav>' +
     '<div class="xl-sb-foot">' +
+      '<div class="xl-sb-pro">' +
+        '<a class="xl-sb-procard" href="' + ROOT + 'pro/" title="星籁剪辑 · 影视专业版（桌面端）">' +
+          '<span class="xl-sb-proico" aria-hidden="true">✦</span>' +
+          '<span class="xl-sb-protext"><b>星籁剪辑</b><small>影视专业版 · 桌面</small></span>' +
+          '<span class="xl-sb-proarrow" aria-hidden="true">→</span>' +
+        '</a>' +
+        '<a class="xl-sb-collab" href="' + ROOT + 'pro/#collab" title="企业协作：审片 / 效果回传 / 授权护照 / 片场扫码">企业协作：审片 · 回传 · 护照 · 片场</a>' +
+      '</div>' +
+      '<div class="xl-sb-utils" data-utils></div>' +
       '<div class="xl-sb-auth" data-auth-wrap></div>' +
       '<div class="xl-sb-theme" data-theme-wrap></div>' +
       '<button type="button" class="xl-sb-collapse" id="xlCollapse" title="收起侧栏（[）">' + ICO.chevL +
@@ -247,9 +296,30 @@
   body.appendChild(aside);
 
   var navHost = aside.querySelector('[data-group="nav"]');
-  var resHost = aside.querySelector('[data-group="res"]');
   for (var i = 0; i < NAV.length; i++) navHost.appendChild(linkItem(NAV[i]));
-  for (var j = 0; j < RES.length; j++) resHost.appendChild(linkItem(RES[j]));
+
+  /* 资源小链接（教程/工具库/站点地图）：放在侧栏底部，不占主导航 */
+  var utilsHost = aside.querySelector('[data-utils]');
+  for (var u = 0; u < UTIL.length; u++) {
+    var ua = el('a');
+    ua.href = UTIL[u].href;
+    ua.textContent = UTIL[u].label;
+    utilsHost.appendChild(ua);
+  }
+
+  /* 登录项按登录态显示「登录 / 我的」 */
+  var loginLink = aside.querySelector('.xl-sb-link[data-nav="login"]');
+  if (loginLink) {
+    var hasToken = false;
+    try { hasToken = !!(localStorage.getItem('xl_token') || sessionStorage.getItem('xl_token')); } catch (e) {}
+    if (hasToken) {
+      loginLink.setAttribute('data-label', '我的');
+      loginLink.title = '我的';
+      var loginLabel = loginLink.querySelector('.xl-sb-label');
+      if (loginLabel) loginLabel.textContent = '我的';
+      loginLink.href = ROOT + 'account/dashboard.html';
+    }
+  }
 
   /* ---------- 「教程文章」入口 ----------
      - 其它页面（含 /a/ 文章详情页）：普通跳转到 /articles/;

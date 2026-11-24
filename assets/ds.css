@@ -1,0 +1,518 @@
+/* ============================================================================
+   星籁 AI · 网页端设计系统（DS v1）· 2026-11-24
+   只做一件事：用令牌 + 关键组件覆盖，把 19 个核心页的视觉/状态/移动端体验拉齐。
+   引用方式：在 site-shell.css 之后、页面内联样式之后引入（ds.js 负责给存量组件打类）。
+   原则：不重写页面结构；只统一主行动色、按钮/输入/徽标/表格/弹层/状态与移动端规则。
+   ============================================================================ */
+
+/* ---------- 1. 设计令牌 ---------- */
+:root {
+  /* 间距：4 的倍数 */
+  --ds-s1: 4px; --ds-s2: 8px; --ds-s3: 12px; --ds-s4: 16px; --ds-s5: 24px; --ds-s6: 32px;
+  /* 字号层级 12–40 */
+  --ds-t12: 12px; --ds-t13: 13px; --ds-t14: 14px; --ds-t16: 16px;
+  --ds-t18: 18px; --ds-t22: 22px; --ds-t26: 26px; --ds-t32: 32px; --ds-t40: 40px;
+  /* 圆角 */
+  --ds-r8: 8px; --ds-r12: 12px; --ds-r16: 16px; --ds-r-pill: 999px;
+  /* 底 / 面 / 线 */
+  --ds-bg: #070a10; --ds-bg-soft: #0a0f18;
+  --ds-surface: #0e1521; --ds-surface-2: #121b29; --ds-surface-3: #172233;
+  --ds-line: rgba(148, 163, 184, .16); --ds-line-2: rgba(148, 163, 184, .10);
+  --ds-line-strong: rgba(148, 163, 184, .30);
+  /* 文字层级（深色底对比度：主 15:1 / 次 9:1 / 弱 6:1） */
+  --ds-text: #eef3fa; --ds-text-2: #c3cfe0; --ds-text-3: #94a3b8; --ds-text-dim: #6b7c93;
+  /* 主色（品牌金）/ 错误红 / 成功绿 */
+  --ds-gold: #f5c451; --ds-gold-bright: #ffd97a; --ds-gold-deep: #d9a531; --ds-gold-ink: #1a1405;
+  --ds-gold-soft: rgba(245, 196, 81, .12); --ds-gold-line: rgba(245, 196, 81, .40);
+  --ds-red: #f87171; --ds-red-ink: #fecaca; --ds-red-soft: rgba(248, 113, 113, .11); --ds-red-line: rgba(248, 113, 113, .38);
+  --ds-green: #34d399; --ds-green-ink: #d1fae5; --ds-green-soft: rgba(52, 211, 153, .11); --ds-green-line: rgba(52, 211, 153, .36);
+  --ds-orange: #fb923c; --ds-cyan: #38bdf8; /* 青色保留为「信息/科技」辅助色，金为主行动色 */
+  /* 阴影 */
+  --ds-shadow-1: 0 1px 2px rgba(0, 0, 0, .28), 0 8px 20px -10px rgba(0, 0, 0, .55);
+  --ds-shadow-2: 0 20px 52px -20px rgba(0, 0, 0, .70);
+  --ds-shadow-gold: 0 8px 28px -12px rgba(245, 196, 81, .55);
+  /* 动效时长 */
+  --ds-dur-1: 140ms; --ds-dur-2: 200ms; --ds-dur-3: 320ms;
+  --ds-ease: cubic-bezier(.4, 0, .2, 1);
+  /* 字体 / 安全区 */
+  --ds-font: -apple-system, BlinkMacSystemFont, "Segoe UI", "PingFang SC", "HarmonyOS Sans SC",
+             "Hiragino Sans GB", "Microsoft YaHei", sans-serif;
+  --ds-mono: ui-monospace, SFMono-Regular, Menlo, Consolas, "Liberation Mono", monospace;
+  --ds-safe-b: env(safe-area-inset-bottom, 0px);
+  --ds-toast-bg: rgba(14, 21, 33, .97);
+  --ds-mask: rgba(4, 8, 14, .66);
+  --ds-skel-a: #101826; --ds-skel-b: #1a2638;
+  --ds-hit: #f5c451;
+}
+
+html[data-theme="light"] {
+  --ds-bg: #f5f7fb; --ds-bg-soft: #eef2f8;
+  --ds-surface: #ffffff; --ds-surface-2: #ffffff; --ds-surface-3: #eef2f8;
+  --ds-line: rgba(15, 23, 42, .12); --ds-line-2: rgba(15, 23, 42, .07); --ds-line-strong: rgba(15, 23, 42, .22);
+  --ds-text: #0f172a; --ds-text-2: #3f4c61; --ds-text-3: #5b6b80; --ds-text-dim: #74839a;
+  --ds-gold-soft: rgba(245, 196, 81, .18); --ds-gold-line: rgba(176, 124, 0, .38);
+  --ds-red-ink: #b91c1c; --ds-red-soft: rgba(220, 38, 38, .07); --ds-red-line: rgba(220, 38, 38, .30);
+  --ds-green-ink: #047857; --ds-green-soft: rgba(5, 150, 105, .08); --ds-green-line: rgba(5, 150, 105, .28);
+  --ds-shadow-1: 0 1px 2px rgba(15, 23, 42, .06), 0 8px 20px -12px rgba(15, 23, 42, .18);
+  --ds-shadow-2: 0 24px 60px -24px rgba(15, 23, 42, .35);
+  --ds-shadow-gold: 0 8px 26px -12px rgba(176, 124, 0, .35);
+  --ds-toast-bg: rgba(255, 255, 255, .98);
+  --ds-mask: rgba(15, 23, 42, .38);
+  --ds-skel-a: #e9eef5; --ds-skel-b: #f6f8fb;
+}
+
+/* ---------- 2. 基础排版与可达性（只统一字体栈 / 渲染 / 焦点，不改版式尺寸） ---------- */
+html.xl-shell body {
+  font-family: var(--ds-font);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-rendering: optimizeLegibility;
+  font-synthesis: none;
+}
+html.xl-shell body :is(a, button, input, select, textarea, summary, [tabindex]):focus-visible {
+  outline: 2px solid var(--ds-gold) !important;
+  outline-offset: 2px !important;
+  border-radius: 3px;
+}
+html.xl-shell body ::selection { background: var(--ds-gold-soft); color: var(--ds-text); }
+html.xl-shell body input[type="checkbox"],
+html.xl-shell body input[type="radio"],
+html.xl-shell body input[type="range"] { accent-color: var(--ds-gold); }
+html.xl-shell body img { max-width: 100%; }
+html.xl-shell body :is(h1, h2, h3) { text-wrap: balance; }
+
+/* 品牌主色接入站壳：当前页高亮、焦点、登录按钮、品牌标 */
+html.xl-shell {
+  --xl-sb-active-line: var(--ds-gold);
+  --xl-sb-active-bg: var(--ds-gold-soft);
+  --xl-sb-active-txt: #ffe6a8;
+  --xl-focus: rgba(245, 196, 81, .5);
+}
+html[data-theme="light"].xl-shell {
+  --xl-sb-active-line: #b07c00;
+  --xl-sb-active-bg: rgba(245, 196, 81, .20);
+  --xl-sb-active-txt: #5c4000;
+  --xl-focus: rgba(176, 124, 0, .45);
+}
+html.xl-shell #xlSidebar .xl-sb-mark {
+  background: linear-gradient(135deg, var(--ds-gold-bright), var(--ds-gold-deep)) !important;
+  color: var(--ds-gold-ink) !important;
+  box-shadow: 0 6px 18px -6px rgba(245, 196, 81, .5) !important;
+}
+html.xl-shell #xlSidebar .xl-sb-auth .auth-link {
+  border-color: var(--ds-gold-line) !important;
+  background: var(--ds-gold-soft) !important;
+  color: var(--ds-gold) !important;
+}
+html[data-theme="light"].xl-shell #xlSidebar .xl-sb-auth .auth-link { color: #7a5500 !important; }
+html.xl-shell #xlSidebar .xl-sb-auth .auth-link:hover { border-color: var(--ds-gold) !important; }
+
+/* ---------- 3. 按钮：主 / 次 / 危险 / 幽灵（由 ds.js 打类，覆盖存量按钮） ---------- */
+html.xl-shell body .ds-btn {
+  display: inline-flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  gap: 6px !important;
+  min-height: 40px !important;
+  padding: 0 15px !important;
+  border-radius: var(--ds-r12) !important;
+  border: 1px solid var(--ds-line-strong) !important;
+  background: var(--ds-surface-2) !important;
+  color: var(--ds-text) !important;
+  font-family: var(--ds-font) !important;
+  font-size: var(--ds-t13) !important;
+  font-weight: 600 !important;
+  line-height: 1.2 !important;
+  letter-spacing: 0 !important;
+  cursor: pointer !important;
+  white-space: nowrap !important;
+  text-decoration: none !important;
+  vertical-align: middle;
+  transition: background var(--ds-dur-1) var(--ds-ease), border-color var(--ds-dur-1) var(--ds-ease),
+              box-shadow var(--ds-dur-2) var(--ds-ease), transform var(--ds-dur-1) var(--ds-ease) !important;
+}
+html.xl-shell body .ds-btn:hover {
+  border-color: var(--ds-gold-line) !important;
+  background: var(--ds-surface-3) !important;
+  box-shadow: var(--ds-shadow-1) !important;
+}
+html.xl-shell body .ds-btn:active { transform: translateY(1px); }
+html.xl-shell body .ds-btn:disabled,
+html.xl-shell body .ds-btn[aria-disabled="true"] {
+  opacity: .48 !important;
+  cursor: not-allowed !important;
+  transform: none !important;
+  box-shadow: none !important;
+}
+/* 主按钮：品牌金 + 深字（对比度约 11:1） */
+html.xl-shell body .ds-btn-primary {
+  border-color: rgba(245, 196, 81, .85) !important;
+  background: linear-gradient(180deg, var(--ds-gold-bright), var(--ds-gold) 52%, var(--ds-gold-deep)) !important;
+  color: var(--ds-gold-ink) !important;
+  font-weight: 700 !important;
+  box-shadow: var(--ds-shadow-gold) !important;
+}
+html.xl-shell body .ds-btn-primary:hover {
+  background: linear-gradient(180deg, #ffe293, var(--ds-gold-bright) 52%, var(--ds-gold)) !important;
+  border-color: var(--ds-gold-bright) !important;
+  box-shadow: 0 10px 32px -12px rgba(245, 196, 81, .7) !important;
+}
+/* 次按钮：深色面 + 描边 */
+html.xl-shell body .ds-btn-ghost {
+  background: transparent !important;
+  border-color: var(--ds-line-strong) !important;
+  color: var(--ds-text-2) !important;
+  font-weight: 600 !important;
+}
+html.xl-shell body .ds-btn-ghost:hover {
+  color: var(--ds-text) !important;
+  border-color: var(--ds-gold-line) !important;
+  background: var(--ds-gold-soft) !important;
+}
+/* 危险按钮 */
+html.xl-shell body .ds-btn-danger {
+  background: var(--ds-red-soft) !important;
+  border-color: var(--ds-red-line) !important;
+  color: var(--ds-red-ink) !important;
+}
+html.xl-shell body .ds-btn-danger:hover {
+  background: rgba(248, 113, 113, .18) !important;
+  border-color: var(--ds-red) !important;
+  color: var(--ds-red-ink) !important;
+  box-shadow: none !important;
+}
+/* 尺寸 */
+html.xl-shell body .ds-btn-sm { min-height: 32px !important; padding: 0 10px !important; font-size: var(--ds-t12) !important; border-radius: var(--ds-r8) !important; }
+html.xl-shell body .ds-btn-lg { min-height: 46px !important; padding: 0 22px !important; font-size: 14.5px !important; border-radius: var(--ds-r12) !important; }
+html.xl-shell body .ds-btn-block { width: 100% !important; }
+/* 按钮内加载态（ds.js 插入 .ds-spin） */
+html.xl-shell body .ds-btn .ds-spin { margin-left: 2px; }
+html.xl-shell body .ds-btn.ds-btn-busy { opacity: .82 !important; pointer-events: none !important; }
+
+/* ---------- 4. 表单控件 ---------- */
+html.xl-shell body .ds-input {
+  min-height: 40px !important;
+  padding: 8px 12px !important;
+  border-radius: var(--ds-r8) !important;
+  border: 1px solid var(--ds-line-strong) !important;
+  background: var(--ds-surface) !important;
+  color: var(--ds-text) !important;
+  font-family: var(--ds-font) !important;
+  font-size: var(--ds-t13) !important;
+  line-height: 1.45 !important;
+  outline: none !important;
+  transition: border-color var(--ds-dur-1) var(--ds-ease), box-shadow var(--ds-dur-1) var(--ds-ease) !important;
+}
+html.xl-shell body .ds-input::placeholder { color: var(--ds-text-dim) !important; opacity: 1; }
+html.xl-shell body .ds-input:focus {
+  border-color: var(--ds-gold) !important;
+  box-shadow: 0 0 0 3px var(--ds-gold-soft) !important;
+}
+html.xl-shell body .ds-input:disabled,
+html.xl-shell body .ds-input[readonly] { opacity: .6 !important; cursor: not-allowed !important; }
+html.xl-shell body select.ds-input {
+  appearance: none !important; -webkit-appearance: none !important;
+  padding-right: 32px !important;
+  background-color: var(--ds-surface) !important;
+  background-image: linear-gradient(45deg, transparent 50%, var(--ds-text-3) 50%),
+                    linear-gradient(135deg, var(--ds-text-3) 50%, transparent 50%) !important;
+  background-position: calc(100% - 17px) calc(50% - 2px), calc(100% - 12px) calc(50% - 2px) !important;
+  background-size: 5px 5px, 5px 5px !important;
+  background-repeat: no-repeat !important;
+}
+html.xl-shell body textarea.ds-input { min-height: 88px; resize: vertical; }
+html.xl-shell body input[type="file"].ds-input { padding: 7px 10px !important; color: var(--ds-text-3) !important; }
+html.xl-shell body input[type="file"]::file-selector-button {
+  margin-right: 10px; padding: 4px 10px; border-radius: 7px; cursor: pointer;
+  border: 1px solid var(--ds-gold-line); background: var(--ds-gold-soft); color: var(--ds-gold); font-weight: 600;
+}
+html[data-theme="light"].xl-shell body input[type="file"]::file-selector-button { color: #7a5500; }
+
+/* ---------- 5. 徽标 / 标签 / AI 标识 ---------- */
+html.xl-shell body :is(.ds-badge, .ds-tag) {
+  display: inline-flex; align-items: center; gap: 5px;
+  padding: 2px 9px; border-radius: var(--ds-r-pill);
+  border: 1px solid var(--ds-line-strong); color: var(--ds-text-2);
+  font-size: 11.5px; font-weight: 600; line-height: 1.35; white-space: nowrap;
+}
+/* AI 标识统一为金描边胶囊（不改变语义色块） */
+html.xl-shell body .ds-ai-badge {
+  display: inline-flex; align-items: center; gap: 4px;
+  padding: 1px 8px; border-radius: var(--ds-r-pill);
+  border: 1px solid var(--ds-gold-line); background: var(--ds-gold-soft);
+  color: var(--ds-gold); font-size: 11px; font-weight: 700; line-height: 1.4;
+  white-space: nowrap; letter-spacing: .02em;
+}
+html[data-theme="light"].xl-shell body .ds-ai-badge { color: #7a5500; }
+
+/* ---------- 6. 卡片 / 表格 ---------- */
+html.xl-shell body .ds-card { border-radius: var(--ds-r16) !important; min-width: 0; }
+html.xl-shell body :is(.ds-table, table.data) { font-variant-numeric: tabular-nums; }
+html.xl-shell body :is(.ds-table, table.data) th {
+  color: var(--ds-text-3) !important; font-size: 11.5px !important;
+  font-weight: 700 !important; letter-spacing: .03em;
+}
+html.xl-shell body :is(.ds-table, table.data) th,
+html.xl-shell body :is(.ds-table, table.data) td { border-color: var(--ds-line-2) !important; }
+html.xl-shell body :is(.ds-table, table.data) tbody tr:hover td { background: var(--ds-gold-soft) !important; }
+html.xl-shell body table { max-width: 100%; }
+
+/* ---------- 7. 数据更新时间（价格页 / 素材库 / 插件市场） ---------- */
+.ds-freshness {
+  display: inline-flex; align-items: center; gap: 6px; flex-wrap: wrap;
+  margin: var(--ds-s3) 0 0; padding: 0;
+  font-size: 11.5px; line-height: 1.5; color: var(--ds-text-dim);
+}
+.ds-freshness b { color: var(--ds-text-3); font-weight: 600; }
+.ds-freshness .ds-dot { width: 5px; height: 5px; border-radius: 50%; background: var(--ds-green); box-shadow: 0 0 6px var(--ds-green); }
+
+/* ---------- 8. 加载 / 骨架 / 空态 / 错误 ---------- */
+html.xl-shell body .ds-loading { color: var(--ds-text-dim) !important; }
+html.xl-shell body .ds-loading::after {
+  content: ""; display: inline-block; width: 10px; height: 10px; margin-left: 7px;
+  border-radius: 50%; border: 2px solid var(--ds-line-strong); border-top-color: var(--ds-gold);
+  animation: ds-spin .8s linear infinite; vertical-align: -1px;
+}
+html.xl-shell body .ds-skel {
+  color: transparent !important; user-select: none;
+  border-radius: 6px; min-width: 26px; min-height: 12px;
+  background: linear-gradient(90deg, var(--ds-skel-a) 25%, var(--ds-skel-b) 37%, var(--ds-skel-a) 63%) !important;
+  background-size: 400% 100% !important;
+  animation: ds-shimmer 1.5s ease infinite;
+}
+html.xl-shell body .ds-empty {
+  display: flex !important; flex-direction: column; align-items: center; justify-content: center;
+  gap: 3px; min-height: 92px; padding: 20px 16px !important;
+  border: 1px dashed var(--ds-line-strong); border-radius: var(--ds-r12);
+  background: rgba(255, 255, 255, .015);
+  color: var(--ds-text-3) !important; font-size: 13px !important; text-align: center;
+}
+html.xl-shell body .ds-empty::before {
+  content: "◎"; display: block; font-size: 17px; line-height: 1; color: var(--ds-text-dim); margin-bottom: 4px;
+}
+html.xl-shell body .ds-empty::after {
+  content: "完成上方操作后，结果会自动显示在这里"; display: block;
+  font-size: 11.5px; color: var(--ds-text-dim); line-height: 1.5;
+}
+/* 接口/加载失败：中文原因 + 重试按钮（由 ds.js 识别错误文案后补充） */
+html.xl-shell body .ds-error-inline {
+  display: inline-flex !important; flex-wrap: wrap; align-items: center; gap: 8px;
+  padding: 8px 11px !important; border-radius: 10px;
+  border: 1px solid var(--ds-red-line) !important; background: var(--ds-red-soft) !important;
+  color: var(--ds-red-ink) !important; font-size: 12.5px !important; line-height: 1.55 !important;
+}
+.ds-retry {
+  flex: 0 0 auto; min-height: 28px; padding: 0 10px; border-radius: 7px;
+  border: 1px solid var(--ds-red-line); background: transparent; color: inherit;
+  font: 600 12px/1 var(--ds-font); cursor: pointer;
+}
+.ds-retry:hover { border-color: var(--ds-red); background: rgba(248, 113, 113, .12); }
+html[data-theme="light"].xl-shell body .ds-error-inline { color: #b91c1c !important; }
+
+/* 页面自身已有虚线/描边容器时，只补引导文案，不叠加边框 */html.xl-shell body .ds-empty-plain {
+  display: flex !important; flex-direction: column; align-items: center; justify-content: center;
+  gap: 3px; padding: 6px 8px !important; text-align: center;
+  color: var(--ds-text-3) !important; font-size: 13px !important;
+  border: 0 !important; background: transparent !important;
+}
+html.xl-shell body .ds-empty-plain::after {
+  content: "完成上方操作后，结果会自动显示在这里"; display: block;
+  font-size: 11.5px; color: var(--ds-text-dim); line-height: 1.5;
+}
+html[data-theme="light"].xl-shell body .ds-empty { background: rgba(15, 23, 42, .02); }
+
+@keyframes ds-spin { to { transform: rotate(360deg); } }
+@keyframes ds-shimmer { 0% { background-position: 100% 50%; } 100% { background-position: 0 50%; } }
+@keyframes ds-toast-in { from { opacity: 0; transform: translateY(8px) scale(.99); } to { opacity: 1; transform: none; } }
+@keyframes ds-fade { from { opacity: 0; } to { opacity: 1; } }
+@keyframes ds-modal-in { from { opacity: 0; transform: translateY(10px) scale(.985); } to { opacity: 1; transform: none; } }
+
+/* ---------- 9. 顶部进度条 ---------- */
+#dsTopProgress {
+  position: fixed; top: 0; left: var(--xl-sbw, 0); right: 0; height: 2px; z-index: 2147483600;
+  background: linear-gradient(90deg, var(--ds-gold-deep), var(--ds-gold-bright));
+  transform: scaleX(0); transform-origin: 0 50%; opacity: 0; pointer-events: none;
+  transition: transform .25s var(--ds-ease), opacity .25s var(--ds-ease);
+}
+#dsTopProgress.on { opacity: 1; }
+@media (max-width: 1099.98px) { #dsTopProgress { left: 0; } }
+
+/* ---------- 10. Toast ---------- */
+#dsToastBox {
+  position: fixed; left: 50%; bottom: calc(20px + var(--ds-safe-b)); transform: translateX(-50%);
+  z-index: 2147483000; display: flex; flex-direction: column; align-items: center; gap: 8px;
+  width: min(92vw, 560px); pointer-events: none;
+}
+.ds-toast {
+  pointer-events: auto; width: 100%; box-sizing: border-box;
+  display: flex; align-items: flex-start; gap: 10px;
+  padding: 11px 13px; border-radius: var(--ds-r12);
+  background: var(--ds-toast-bg); border: 1px solid var(--ds-line-strong);
+  border-left: 3px solid var(--ds-gold);
+  color: var(--ds-text); box-shadow: var(--ds-shadow-2);
+  font-family: var(--ds-font); font-size: 13px; line-height: 1.55;
+  backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px);
+  animation: ds-toast-in var(--ds-dur-2) var(--ds-ease);
+}
+.ds-toast.is-error { border-left-color: var(--ds-red); }
+.ds-toast.is-success { border-left-color: var(--ds-green); }
+.ds-toast.is-warn { border-left-color: var(--ds-orange); }
+.ds-toast-ico { flex: 0 0 18px; width: 18px; height: 18px; margin-top: 1px; display: grid; place-items: center; font-size: 13px; font-weight: 800; }
+.ds-toast.is-error .ds-toast-ico { color: var(--ds-red); }
+.ds-toast.is-success .ds-toast-ico { color: var(--ds-green); }
+.ds-toast.is-warn .ds-toast-ico { color: var(--ds-orange); }
+.ds-toast.is-info .ds-toast-ico { color: var(--ds-gold); }
+.ds-toast-main { flex: 1 1 auto; min-width: 0; }
+.ds-toast-main b { display: block; font-weight: 700; margin-bottom: 1px; }
+.ds-toast-main span { display: block; color: var(--ds-text-2); font-size: 12.5px; }
+.ds-toast-act {
+  flex: 0 0 auto; align-self: center; margin-left: 2px;
+  min-height: 30px; padding: 0 11px; border-radius: 8px;
+  border: 1px solid var(--ds-gold-line); background: var(--ds-gold-soft); color: var(--ds-gold);
+  font: 600 12px/1 var(--ds-font); cursor: pointer;
+}
+.ds-toast-act:hover { border-color: var(--ds-gold); }
+.ds-toast-x {
+  flex: 0 0 auto; width: 26px; height: 26px; margin: -2px -4px 0 0;
+  border: 0; background: transparent; color: var(--ds-text-dim); font-size: 16px; line-height: 1;
+  cursor: pointer; border-radius: 6px;
+}
+.ds-toast-x:hover { color: var(--ds-text); background: var(--ds-surface-3); }
+html[data-theme="light"].xl-shell .ds-toast-act { color: #7a5500; }
+
+/* ---------- 11. 确认弹层（危险操作 / 扣积分） ---------- */
+.ds-mask {
+  position: fixed; inset: 0; z-index: 2147482000; display: flex; align-items: center; justify-content: center;
+  padding: 20px; background: var(--ds-mask);
+  backdrop-filter: blur(6px); -webkit-backdrop-filter: blur(6px);
+  animation: ds-fade var(--ds-dur-2) var(--ds-ease);
+}
+.ds-modal {
+  width: min(420px, 100%); box-sizing: border-box;
+  padding: 22px; border-radius: var(--ds-r16);
+  background: var(--ds-surface); border: 1px solid var(--ds-line-strong);
+  box-shadow: var(--ds-shadow-2); color: var(--ds-text);
+  font-family: var(--ds-font);
+  animation: ds-modal-in var(--ds-dur-2) var(--ds-ease);
+}
+.ds-modal-head { display: flex; align-items: center; gap: 10px; margin-bottom: 8px; }
+.ds-modal-badge {
+  flex: 0 0 34px; width: 34px; height: 34px; border-radius: 10px; display: grid; place-items: center;
+  background: var(--ds-gold-soft); border: 1px solid var(--ds-gold-line); color: var(--ds-gold); font-size: 16px;
+}
+.ds-modal.is-danger .ds-modal-badge { background: var(--ds-red-soft); border-color: var(--ds-red-line); color: var(--ds-red); }
+.ds-modal h3 { margin: 0; font-size: 16px; font-weight: 800; line-height: 1.35; color: var(--ds-text); }
+.ds-modal-desc { margin: 0 0 4px; font-size: 13px; line-height: 1.65; color: var(--ds-text-2); }
+.ds-modal-desc em { font-style: normal; color: var(--ds-gold); font-weight: 700; }
+.ds-modal.is-danger .ds-modal-desc em { color: var(--ds-red); }
+.ds-modal-cost {
+  margin: 10px 0 0; padding: 9px 11px; border-radius: 9px;
+  background: var(--ds-gold-soft); border: 1px solid var(--ds-line-2);
+  font-size: 12.5px; color: var(--ds-text-2);
+}
+.ds-modal-cost b { color: var(--ds-gold); }
+.ds-modal-actions { display: flex; justify-content: flex-end; gap: 8px; margin-top: 18px; }
+.ds-modal-actions .ds-btn { min-height: 40px !important; }
+
+/* ---------- 12. 手机端：点击区域 / 安全区 / 溢出 ---------- */
+@media (max-width: 640px) {
+  html.xl-shell body { padding-bottom: calc(18px + var(--ds-safe-b)) !important; }
+  html.xl-shell body .ds-btn { min-height: 44px !important; padding: 0 15px !important; font-size: var(--ds-t14) !important; }
+  html.xl-shell body .ds-btn-sm { min-height: 44px !important; }
+  html.xl-shell body .ds-input { min-height: 44px !important; font-size: 16px !important; }
+  html.xl-shell body select.ds-input { font-size: 16px !important; }
+  #dsToastBox { bottom: calc(12px + var(--ds-safe-b)); width: min(94vw, 560px); }
+  .ds-mask { padding: calc(14px + var(--ds-safe-b)) 12px; align-items: flex-end; }
+  .ds-modal { width: 100%; padding: 20px 18px calc(16px + var(--ds-safe-b)); border-radius: var(--ds-r16); }
+  .ds-modal-actions .ds-btn { flex: 1 1 0; min-height: 46px !important; }
+  html.xl-shell .xl-hamburger,
+  html.xl-shell .xl-topbar .xl-hamburger,
+  html.xl-shell .xl-sb-close-mobile { min-width: 44px !important; min-height: 44px !important; }
+  html.xl-shell #xlSidebar .xl-sb-link { min-height: 44px; }
+  .ds-freshness { font-size: 11px; }
+  /* 触控区 ≥44px：内容区按钮/下拉/标签按钮统一放大；纯图标关闭按钮保持紧凑 */
+  html.xl-shell body :is(button, select) { min-height: 44px; }
+  html.xl-shell body button[class*="close"],
+  html.xl-shell body button[class*="icon"] { min-height: 36px; }
+  html.xl-shell body button { min-width: 44px; }
+  html.xl-shell body button[class*="close"],
+  html.xl-shell body button[class*="icon"] { min-width: 36px; }
+  html.xl-shell body input[type="checkbox"],
+  html.xl-shell body input[type="radio"] { min-height: 20px; min-width: 20px; }
+}
+
+/* ---------- 13. 登录门禁（auth-gate）统一为主行动色 ---------- */
+html.xl-shell .xl-gate-card {
+  border-radius: var(--ds-r16) !important;
+  border: 1px solid var(--ds-line-strong) !important;
+  box-shadow: var(--ds-shadow-2) !important;
+}
+html.xl-shell .xl-gate-ico {
+  background: var(--ds-gold-soft) !important;
+  border: 1px solid var(--ds-gold-line) !important;
+  color: var(--ds-gold) !important;
+}
+html.xl-shell .xl-gate-actions .xl-gate-btn {
+  min-height: 44px !important;
+  display: inline-flex; align-items: center; justify-content: center;
+  border-radius: var(--ds-r12) !important;
+  border: 1px solid var(--ds-line-strong) !important;
+  background: var(--ds-surface-2) !important;
+  color: var(--ds-text) !important;
+  font-family: var(--ds-font) !important;
+  font-size: 14px !important; font-weight: 600 !important;
+  padding: 0 20px !important;
+  transition: background var(--ds-dur-1) var(--ds-ease), border-color var(--ds-dur-1) var(--ds-ease) !important;
+}
+html.xl-shell .xl-gate-actions .xl-gate-btn:hover { border-color: var(--ds-gold-line) !important; background: var(--ds-surface-3) !important; }
+html.xl-shell .xl-gate-actions .xl-gate-btn.primary {
+  background: linear-gradient(180deg, var(--ds-gold-bright), var(--ds-gold) 52%, var(--ds-gold-deep)) !important;
+  border-color: rgba(245, 196, 81, .85) !important;
+  color: var(--ds-gold-ink) !important;
+  font-weight: 800 !important;
+  box-shadow: var(--ds-shadow-gold) !important;
+}
+html.xl-shell .xl-gate-actions .xl-gate-btn.ghost {
+  background: transparent !important;
+  color: var(--ds-text-2) !important;
+  border-color: var(--ds-line) !important;
+}
+html.xl-shell .xl-gate-actions .xl-gate-btn.ghost:hover { color: var(--ds-text) !important; border-color: var(--ds-gold-line) !important; }
+html[data-theme="light"].xl-shell .xl-gate-actions .xl-gate-btn.primary { color: #1a1405 !important; }
+
+/* ---------- 14. 页面级溢出修复（390 无横向滚动） ---------- */
+/* 定价页企业版双栏里的表格 min-content 会把栅格子项撑到 562px（实测 390 视口 scrollWidth=583） */
+html[data-page="pricing"] .ent-grid > *,
+html[data-page="pricing"] .ent-left,
+html[data-page="pricing"] .ent-right { min-width: 0 !important; }
+html[data-page="pricing"] .ent-left .table-wrap,
+html[data-page="pricing"] .ent-right .table-wrap { max-width: 100%; overflow-x: auto; }
+@media (max-width: 760px) {
+  html[data-page="pricing"] .ent-grid { grid-template-columns: minmax(0, 1fr) !important; }
+}
+
+/* 合规沙盘「历史复检」：grid 隐式列被长文本撑到 740px，导致 390 视口 scrollWidth=768 */
+html.xl-shell body .history-list { grid-template-columns: minmax(0, 1fr) !important; }
+html.xl-shell body .history-list > * { min-width: 0 !important; max-width: 100%; }
+@media (max-width: 640px) {
+  html.xl-shell body .history-list .h-item .ex { white-space: normal !important; overflow: visible !important; }
+}
+
+/* ---------- 15. 密集编辑器里的紧凑输入框：只统一色彩与焦点，不强行放大尺寸 ---------- */
+/* 密集编辑器里的紧凑输入框：只统一色彩与焦点，不强行放大尺寸 */
+html.xl-shell body .ds-input-compact {
+  min-height: 0 !important;
+  padding: 3px 8px !important;
+  font-size: 12.5px !important;
+  border-radius: 7px !important;
+}
+
+/* ---------- 16. 降低动效 / 打印 ---------- */
+@media (prefers-reduced-motion: reduce) {
+  html.xl-shell body .ds-btn,
+  .ds-toast, .ds-mask, .ds-modal, #dsTopProgress { transition: none !important; animation: none !important; }
+  html.xl-shell body .ds-skel { animation: none !important; background: var(--ds-skel-a) !important; }
+}
+@media print {
+  #dsToastBox, #dsTopProgress, .ds-mask { display: none !important; }
+}

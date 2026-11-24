@@ -269,7 +269,7 @@ html[data-theme="light"][data-page="autoedit"] .ae-prog-note.err{color:#9f1239}
 @keyframes aePulse{0%,100%{box-shadow:0 0 0 0 rgba(56,189,248,.32)}50%{box-shadow:0 0 0 7px rgba(56,189,248,0)}}
 @keyframes aeUp{from{opacity:0;transform:translateY(10px) scale(.985)}to{opacity:1;transform:none}}
 
-/* ---------- 第 2 步：导演板 ---------- */
+/* ---------- 第 2 步：编排板 ---------- */
 .ae-summary{display:flex;gap:7px;flex-wrap:wrap;margin:0 0 15px}
 .ae-sum-chip{display:inline-flex;align-items:center;gap:6px;font-size:12.3px;color:var(--ae-txt2);border:1px solid var(--ae-line);background:var(--ae-panel);border-radius:999px;padding:5px 11px;white-space:nowrap}
 .ae-sum-chip b{color:var(--ae-txt);font-weight:800}
@@ -898,7 +898,7 @@ html[data-theme="light"] .ae-cj-inline-note{color:#e0f2fe}
 <script defer src="../assets/theme.js"></script>
 <!--xl-theme-end-->
 <link rel="stylesheet" href="../assets/auth-nav.css">
-<link rel="stylesheet" href="../assets/site-shell.css?v=20261123">
+<link rel="stylesheet" href="../assets/site-shell.css?v=20261124e">
 
 <script id="xl-auth-fetch">
 /* 2026-11-19: 给所有 /ai-nav/api/ 请求自动带上登录 token，后台才能按账号套餐计额度（否则按匿名免费额度算） */
@@ -943,6 +943,11 @@ html[data-theme="light"] .ae-cj-inline-note{color:#e0f2fe}
   };
 })();
 </script>
+
+<!-- ds-design-system:start (2026-11-24 UX 统一：令牌/组件/状态/移动端) -->
+<link rel="stylesheet" href="../assets/ds.css?v=20261124e">
+<script src="../assets/ds.js?v=20261124e"></script>
+<!-- ds-design-system:end -->
 </head>
 <body>
 <script>
@@ -1070,7 +1075,7 @@ html[data-theme="light"] .ae-cj-inline-note{color:#e0f2fe}
   <nav class="ae-steps" id="aeSteps" aria-label="制作步骤">
     <button type="button" class="ae-step-btn on" data-goto="1" aria-current="step"><b>1</b><span><strong>输入内容</strong><i>把文案或录音交给 AI</i></span></button>
     <span class="ae-step-sep" aria-hidden="true">→</span>
-    <button type="button" class="ae-step-btn" data-goto="2"><b>2</b><span><strong>AI 智能编排</strong><i>看导演板，一句话改片</i></span></button>
+    <button type="button" class="ae-step-btn" data-goto="2"><b>2</b><span><strong>AI 智能编排</strong><i>看编排板，一句话改片</i></span></button>
     <span class="ae-step-sep" aria-hidden="true">→</span>
     <button type="button" class="ae-step-btn" data-goto="3"><b>3</b><span><strong>预览与导出</strong><i>试看、选清晰度、去发布</i></span></button>
   </nav>
@@ -1387,19 +1392,19 @@ html[data-theme="light"] .ae-cj-inline-note{color:#e0f2fe}
 
       <div class="ae-cta-row">
         <button type="button" class="ae-btn primary big" id="btnGenerate">✨ 开始生成视频</button>
-        <p class="ae-cta-note" id="ctaNote">约 30 秒出「AI 导演板」。生成后可以继续用一句话调整，不满意随时重来。</p>
+        <p class="ae-cta-note" id="ctaNote">约 30 秒出「AI 编排板」。生成后可以继续用一句话调整，不满意随时重来。</p>
       </div>
       <div class="ae-quick-tip"><span>💡</span><div><b>不会写文案？</b>点上面的「用一段除甲醛示例」试试；换成你的行业后，示例也会跟着变。</div></div>
       <div class="ae-fail" id="genFail" hidden><div class="fx" id="genFailMsg">生成失败，请重试</div><button type="button" class="ae-btn sm" id="btnGenRetry">重试</button></div>
     </div>
   </section>
 
-  <!-- ================= 第 2 步：AI 导演板 ================= -->
+  <!-- ================= 第 2 步：AI 编排板 ================= -->
   <section class="ae-step" data-step="2" id="step2" hidden>
     <div class="ae-sec-head">
       <div>
         <span class="ae-kicker">第 2 步 · AI 智能编排</span>
-        <h2>你的 AI 导演板</h2>
+        <h2>你的 AI 编排板</h2>
         <p class="ae-sec-lead"><b>这一步会做什么：</b>AI 把文案拆成一个个镜头。先看镜头顺序，不满意就直接说人话让 AI 改。</p>
       </div>
       <div class="ae-board-actions">
@@ -1519,7 +1524,7 @@ html[data-theme="light"] .ae-cj-inline-note{color:#e0f2fe}
         <div class="ae-audio-warn" id="aeAudioWarn" hidden></div>
         <div class="ae-avatar-shotlist" id="aeAvatarShotList" hidden></div>
         <div class="ae-player-meta" id="aePlayerMeta"></div>
-        <p class="ae-note" id="aePlayNote" style="margin-top:9px">当前为演示占位预览（AI 会按导演板自动播放镜头效果）；上传数字人照片后这里会显示数字人，导出成片后切换为带声音的真实视频。</p>
+        <p class="ae-note" id="aePlayNote" style="margin-top:9px">当前为演示占位预览（AI 会按编排板自动播放镜头效果）；上传数字人照片后这里会显示数字人，导出成片后切换为带声音的真实视频。</p>
       </div>
       <div class="ae-side-stack">
         <div class="ae-card ae-side-card">
@@ -4749,7 +4754,7 @@ function retryAvatar() {
     state.project.avatar = clip;
     renderAvatarCard();
     if (state.step === 3) prepareStep3();
-    toast('数字人出镜样片已生成，可在导演板预览', 'ok', 2800);
+    toast('数字人出镜样片已生成，可在编排板预览', 'ok', 2800);
   }).catch(function (e) {
     state.avatarGenerating = false;
     renderAvatarCard((e && e.message) || '请稍后重试');
@@ -4800,7 +4805,7 @@ function updatePlanChip() {
   var chip = $('planChip');
   if (chip) chip.title = left > 0 ? '免费版今日还可生成 ' + left + ' 条，点击查看升级' : '今日免费次数已用完，点击查看升级';
   var note = $('ctaNote');
-  if (note) note.textContent = left > 0 ? '约 30 秒出「AI 导演板」。生成后可以继续用一句话调整，不满意随时重来。' : '今天的免费次数已用完，点「开始生成」可查看升级方案。';
+  if (note) note.textContent = left > 0 ? '约 30 秒出「AI 编排板」。生成后可以继续用一句话调整，不满意随时重来。' : '今天的免费次数已用完，点「开始生成」可查看升级方案。';
 }
 function addQuota() { state.quota.used++; persistQuota(); updatePlanChip(); }
 
@@ -5333,7 +5338,7 @@ function currentInput(override) {
 }
 
 /* ==================================================================
-   导演板展示
+   编排板展示
    ================================================================== */
 function aspectLabel(a) {
   return a === '16:9' ? '16:9 横屏' : a === '1:1' ? '1:1 方形' : '9:16 竖屏';
@@ -5996,7 +6001,7 @@ function startGenerate(opts) {
     var avatarResult = avatarSlot != null ? (arr[avatarSlot] || null) : null;
     var result = apiResult || mockResult;
     if (result && result.__source === 'live') setMode('live');
-    updateProgress(100, 3, avatarWanted ? '完成！导演板与数字人片段都已排好。' : '完成！导演板已经排好了。');
+    updateProgress(100, 3, avatarWanted ? '完成！编排板与数字人片段都已排好。' : '完成！编排板已经排好了。');
     if (state.genTimer) { clearInterval(state.genTimer); state.genTimer = null; }
     return delay(360).then(function () {
       if (token !== state.genToken || state.genCancel) return;
@@ -6013,16 +6018,16 @@ function startGenerate(opts) {
       if (!ok) { toast('生成结果为空，请重试', 'err'); return; }
       if (avatarWanted) {
         if (avatarResult && avatarResult.error) {
-          toast('数字人出镜样片生成失败：' + avatarResult.error + '（可稍后在导演板重试）', 'warn', 5600);
+          toast('数字人出镜样片生成失败：' + avatarResult.error + '（可稍后在编排板重试）', 'warn', 5600);
         } else if (avatarResult) {
-          toast('已排好 ' + state.project.segments.length + ' 个镜头 + 数字人出镜，去导演板看看', 'ok', 2800);
+          toast('已排好 ' + state.project.segments.length + ' 个镜头 + 数字人出镜，去编排板看看', 'ok', 2800);
         } else {
-          toast('已排好 ' + state.project.segments.length + ' 个镜头，去导演板看看', 'ok', 2400);
+          toast('已排好 ' + state.project.segments.length + ' 个镜头，去编排板看看', 'ok', 2400);
         }
       } else if (mediaNote) {
         toast('已用行业示例文字模拟听写，排好 ' + state.project.segments.length + ' 个镜头', 'warn', 3400);
       } else {
-        toast('已排好 ' + state.project.segments.length + ' 个镜头，去导演板看看', 'ok', 2400);
+        toast('已排好 ' + state.project.segments.length + ' 个镜头，去编排板看看', 'ok', 2400);
       }
       goStep(opts.jumpStep || 2);
     });
@@ -6163,7 +6168,7 @@ function drawCoverCanvas() {
 }
 
 /* ==================================================================
-   第 3 步：播发器（演示版按导演板实时绘制）
+   第 3 步：播发器（演示版按编排板实时绘制）
    ================================================================== */
 var PLAYER_PALETTES = {
   voiceover: ['#071b2b', '#0e7490', '#38bdf8'],
@@ -6771,7 +6776,7 @@ function refreshDhPreviewChrome() {
       $('aePlayNote').textContent = '已选数字人出镜（' + (presLayout === 'pip' ? '右下画中画' : '铺满背景') +
         '）：请先上传照片 / 视频，上传后这里会显示数字人预览；点「开始导出」后成片会真实合成数字人。';
     } else {
-      $('aePlayNote').textContent = '当前为演示占位预览（AI 会按导演板自动播放镜头效果）；导出成片后这里会切换为带声音的真实视频。';
+      $('aePlayNote').textContent = '当前为演示占位预览（AI 会按编排板自动播放镜头效果）；导出成片后这里会切换为带声音的真实视频。';
     }
   }
   sizeCanvas();
@@ -6872,7 +6877,7 @@ function prepareStep3() {
       $('aePlayNote').textContent = composited
         ? '真实成片已就绪：数字人已直接合成进成片（' + (presLayout === 'pip' ? '右下画中画' : '铺满背景') + '），带配音与背景音乐；导出 / 下载的就是最终合成版。'
         : (avatar
-          ? '真实成片已就绪：带配音与背景音乐，可直接拖动进度、调音量。数字人样片可在导演板单独预览 / 下载。'
+          ? '真实成片已就绪：带配音与背景音乐，可直接拖动进度、调音量。数字人样片可在编排板单独预览 / 下载。'
           : '真实成片已就绪：带配音与背景音乐，可直接拖动进度、调音量；导出卡片可下载或复制链接。');
     }
   } else if (avatar) {
@@ -8123,7 +8128,7 @@ else boot();
   else boot();
 })();
 </script>
-<script defer src="../assets/site-shell.js?v=20261124a"></script>
+<script defer src="../assets/site-shell.js?v=20261124e"></script>
 <script defer src="../assets/auth.js"></script>
 <script>window.XL_CREDITS_AUTOEDIT = true;</script>
 <script defer src="../assets/credits-autoedit.js"></script>
