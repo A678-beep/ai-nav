@@ -1,5 +1,5 @@
-/*!
- * xl-motion.iife.js · 星籁「科幻动效层」IIFE 入口 v1.0.0
+﻿/*!
+ * xl-motion.iife.js · 星籁「科幻动效层」IIFE 入口 v1.1.0
  * ------------------------------------------------------------------
  * 供传统 <script defer src="xl-motion.iife.js"></script> 使用：
  * 内部以动态 import() 加载同目录 ES Module，自动初始化后把 API 挂到

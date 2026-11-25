@@ -1,0 +1,1702 @@
+<!doctype html>
+<html lang="zh-CN">
+<head><meta name="robots" content="noindex,nofollow"><meta name="googlebot" content="noindex,nofollow">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>星籁企业智脑 · CEO 经营作战室</title>
+<meta name="description" content="星籁企业智脑 CEO 驾驶舱原型：今日战报时间轴、Agent 值班表、经营健康度。真实接口优先，示例数据明确标注，原创国潮科技布局。">
+<meta name="theme-color" content="#070605">
+<meta name="color-scheme" content="dark">
+<meta name="format-detection" content="telephone=no">
+<link rel="stylesheet" href="/ai-nav/assets/xl-motion/xl-motion.css">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='9' fill='%230d0a06'/%3E%3Ccircle cx='16' cy='16' r='8.4' fill='none' stroke='%23d6b36a' stroke-width='1.4'/%3E%3Cpath d='M16 7.4l2 5.4 5.6.6-4.3 3.8 1.2 5.5L16 19.8l-4.5 2.9 1.2-5.5-4.3-3.8 5.6-.6z' fill='%23c2452d'/%3E%3C/svg%3E">
+<style>
+*{box-sizing:border-box}
+html,body{margin:0;padding:0}
+html{background:#070605}
+body{
+  font-family:"Inter","HarmonyOS Sans SC","PingFang SC","Microsoft YaHei",system-ui,-apple-system,"Segoe UI",sans-serif;
+  color:#efe7d7;background:#070605;-webkit-font-smoothing:antialiased;text-rendering:optimizeLegibility;
+  overflow-x:hidden;min-height:100vh;
+}
+:root{
+  --ink:#070605;--ink-2:#0b0906;--panel:rgba(20,16,11,.86);--panel-2:rgba(30,24,16,.72);
+  --line:rgba(214,179,106,.14);--line-2:rgba(214,179,106,.32);
+  --gold:#d6b36a;--gold-2:#a87c3a;--gold-3:#f2d9a4;--red:#c2452d;--cyan:#6fd7e8;
+  --text:#efe7d7;--muted:#a79c88;--dim:#7d7465;--ok:#8fd6b0;--warn:#e0a15a;
+  --r:16px;
+}
+a{color:inherit}
+button{font-family:inherit}
+.hidden{display:none !important}
+.mono{font-family:"SFMono-Regular",Consolas,"Cascadia Mono",monospace}
+
+/* ---------- 背景层（xl-motion v1.1 动态背景：默认星云粒子 + 右上角切换器 + 深浅主题同步） ---------- */
+.xlm-bg{z-index:0}
+.xlm-bg-switcher{top:16px;right:18px}
+body .hud{padding-right:132px}
+.vignette{position:fixed;inset:0;z-index:2;pointer-events:none;
+  background:
+    radial-gradient(ellipse 78% 60% at 50% 30%,transparent 40%,rgba(4,3,2,.30) 100%),
+    linear-gradient(180deg,rgba(7,6,5,.08),rgba(7,6,5,.26) 60%,rgba(7,6,5,.46) 100%)}
+
+/* ---------- 版心 ---------- */
+.app{position:relative;z-index:3;max-width:1560px;margin:0 auto;padding:16px 22px 40px}
+
+/* ---------- 顶栏 ---------- */
+.hud{display:flex;align-items:center;gap:16px;padding:11px 16px;border:1px solid var(--line);border-radius:var(--r);
+  background:linear-gradient(180deg,rgba(28,23,15,.82),rgba(11,9,6,.72));position:sticky;top:10px;z-index:30;
+  box-shadow:0 10px 32px rgba(0,0,0,.38),inset 0 1px 0 rgba(242,217,164,.06)}
+.brand{display:flex;align-items:center;gap:12px;text-decoration:none;min-width:0}
+.brand-mark{width:42px;height:42px;flex:none;border-radius:13px;display:grid;place-items:center;
+  background:radial-gradient(circle at 34% 28%,rgba(214,179,106,.35),rgba(20,15,8,.9) 70%);
+  border:1px solid var(--line-2);box-shadow:0 0 22px rgba(214,179,106,.16),inset 0 0 14px rgba(214,179,106,.10)}
+.brand-mark svg{width:24px;height:24px}
+.brand-txt{min-width:0}
+.brand-txt b{display:block;font-size:17px;letter-spacing:2px;color:var(--gold-3);
+  background:linear-gradient(180deg,#f7e3b8,#c99f52);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent}
+.brand-txt small{display:block;font-size:10.5px;letter-spacing:2.6px;color:var(--dim);margin-top:3px;white-space:nowrap}
+.hud-mid{display:flex;align-items:center;gap:8px;margin-left:auto;flex-wrap:wrap;justify-content:flex-end}
+.chip{display:inline-flex;align-items:center;gap:6px;height:27px;padding:0 10px;border-radius:999px;border:1px solid var(--line);
+  background:rgba(214,179,106,.05);font-size:11.5px;color:var(--muted);white-space:nowrap}
+.chip .dot{width:6px;height:6px;border-radius:50%;background:var(--ok);box-shadow:0 0 8px rgba(143,214,176,.9);animation:breathe 2.6s ease-in-out infinite}
+.chip.warn .dot{background:var(--warn);box-shadow:0 0 8px rgba(224,161,90,.9)}
+.chip.gold{color:var(--gold-3);border-color:var(--line-2);background:rgba(214,179,106,.09)}
+#clockChip{font-variant-numeric:tabular-nums;letter-spacing:.6px;color:var(--gold)}
+.hud-actions{display:flex;align-items:center;gap:8px;flex:none}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:7px;height:33px;padding:0 13px;border-radius:10px;
+  border:1px solid var(--line-2);background:rgba(214,179,106,.06);color:var(--gold-3);font-size:12px;letter-spacing:.5px;
+  cursor:pointer;text-decoration:none;transition:background .2s,border-color .2s,transform .15s,box-shadow .2s;white-space:nowrap}
+.btn:hover{background:rgba(214,179,106,.14);border-color:rgba(214,179,106,.55);box-shadow:0 0 18px rgba(214,179,106,.16)}
+.btn:active{transform:translateY(1px)}
+.btn.gold{background:linear-gradient(180deg,rgba(214,179,106,.24),rgba(168,124,58,.16));color:#f8e9c6}
+.btn.ghost{background:transparent;color:var(--muted);border-color:var(--line)}
+.btn.icon{width:33px;padding:0}
+.btn svg{width:14px;height:14px}
+.btn.spin svg{animation:spin 1s linear infinite}
+@keyframes spin{to{transform:rotate(360deg)}}
+
+/* ---------- KPI 带 ---------- */
+.kpi-band{position:relative;margin-top:14px;display:grid;grid-template-columns:repeat(5,minmax(0,1fr));border:1px solid var(--line-2);
+  border-radius:var(--r);overflow:hidden;
+  background:linear-gradient(118deg,rgba(56,42,20,.62),rgba(28,22,13,.66) 38%,rgba(16,13,9,.72) 100%);
+  box-shadow:0 14px 40px rgba(0,0,0,.34),inset 0 1px 0 rgba(242,217,164,.08)}
+.kpi-band::before{content:"";position:absolute;top:0;left:0;right:0;height:1px;
+  background:linear-gradient(90deg,transparent,rgba(242,217,164,.6),transparent)}
+.kpi-band::after{content:"";position:absolute;top:0;bottom:0;left:0;width:160px;pointer-events:none;
+  background:linear-gradient(90deg,transparent,rgba(242,217,164,.11),transparent);
+  animation:scan 7.5s linear infinite;will-change:transform}
+@keyframes scan{0%{transform:translateX(-180px)}100%{transform:translateX(calc(100vw + 180px))}}
+.kpi{position:relative;padding:15px 18px 13px;border-right:1px solid var(--line);min-width:0}
+.kpi:last-child{border-right:0}
+.kpi .k-label{display:flex;align-items:center;gap:7px;font-size:11.5px;color:var(--muted);letter-spacing:1.2px;white-space:nowrap}
+.kpi .k-val{display:flex;align-items:baseline;gap:5px;margin-top:3px;font-size:34px;line-height:1.12;font-weight:600;
+  letter-spacing:.5px;color:var(--gold-3);font-variant-numeric:tabular-nums;
+  text-shadow:0 0 22px rgba(214,179,106,.28)}
+.kpi .k-val small{font-size:13px;font-weight:400;color:var(--muted);letter-spacing:.5px}
+.kpi .k-sub{font-size:10.5px;color:var(--dim);margin-top:3px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.kpi.pending{cursor:pointer;transition:background .2s}
+.kpi.pending:hover{background:rgba(194,69,45,.09)}
+.kpi.pending .k-val{color:#f2b9a3;text-shadow:0 0 22px rgba(194,69,45,.35)}
+.src{font-style:normal;font-size:9.5px;line-height:1.5;padding:1px 6px;border-radius:999px;border:1px solid;letter-spacing:.8px;white-space:nowrap;vertical-align:middle}
+.src.real{color:#8fd6b0;border-color:rgba(143,214,176,.34);background:rgba(143,214,176,.07)}
+.src.demo{color:#e6b06a;border-color:rgba(230,176,106,.42);background:rgba(230,176,106,.08)}
+
+/* ---------- 工作区 ---------- */
+.workspace{display:grid;grid-template-columns:208px minmax(0,1fr) 342px;gap:14px;margin-top:14px;align-items:start}
+
+/* 左侧业务导航 */
+.sidenav{border:1px solid var(--line);border-radius:var(--r);padding:12px;background:var(--panel);position:sticky;top:76px;
+  box-shadow:0 12px 32px rgba(0,0,0,.26),inset 0 1px 0 rgba(242,217,164,.05)}
+.side-head{font-size:10.5px;letter-spacing:2.4px;color:var(--dim);padding:2px 8px 10px}
+.side-item{display:flex;align-items:center;gap:10px;width:100%;height:43px;padding:0 10px;margin:2px 0;border:1px solid transparent;border-radius:11px;
+  background:none;color:var(--muted);font-size:13px;letter-spacing:.8px;cursor:pointer;position:relative;transition:all .18s;text-align:left}
+.side-item svg{width:17px;height:17px;flex:none;opacity:.8}
+.side-item:hover{background:rgba(214,179,106,.07);color:var(--text)}
+.side-item.active{background:linear-gradient(90deg,rgba(214,179,106,.17),rgba(214,179,106,.03));
+  border-color:rgba(214,179,106,.34);color:var(--gold-3)}
+.side-item.active::before{content:"";position:absolute;left:-1px;top:10px;bottom:10px;width:2px;border-radius:2px;
+  background:linear-gradient(180deg,var(--gold-3),var(--red));box-shadow:0 0 10px rgba(214,179,106,.8)}
+.side-item .badge{margin-left:auto;min-width:19px;height:18px;padding:0 5px;border-radius:9px;display:inline-flex;align-items:center;justify-content:center;
+  font-size:10.5px;color:var(--gold-3);background:rgba(214,179,106,.10);border:1px solid var(--line)}
+.side-item .badge.alert{color:#ffd9c9;background:rgba(194,69,45,.30);border-color:rgba(194,69,45,.55);animation:breathe 2.8s ease-in-out infinite}
+.side-foot{margin-top:12px;padding:10px 8px 2px;border-top:1px dashed var(--line);font-size:10.5px;line-height:1.8;color:var(--dim)}
+.side-foot b{color:var(--muted);font-weight:500}
+
+/* 中间主区 */
+.main{min-width:0}
+.main-head{display:flex;align-items:flex-end;gap:12px;flex-wrap:wrap;margin:2px 2px 12px}
+.main-head h1{margin:0;font-size:21px;letter-spacing:2px;color:var(--gold-3);font-weight:600}
+.main-head .sub{margin:5px 0 0;font-size:11.5px;color:var(--dim);letter-spacing:.4px;line-height:1.6}
+.seg{margin-left:auto;display:inline-flex;padding:3px;border:1px solid var(--line);border-radius:11px;background:rgba(10,8,6,.5);gap:2px}
+.seg button{border:0;background:none;color:var(--muted);font-size:11.5px;letter-spacing:.6px;padding:6px 12px;border-radius:8px;cursor:pointer;transition:all .18s;white-space:nowrap}
+.seg button:hover{color:var(--text)}
+.seg button.active{background:rgba(214,179,106,.16);color:var(--gold-3);box-shadow:inset 0 0 0 1px rgba(214,179,106,.28)}
+.seg button .n{display:inline-block;margin-left:4px;font-size:9.5px;padding:0 5px;border-radius:8px;background:rgba(194,69,45,.4);color:#ffd9c9}
+.seg.small button{font-size:10.5px;padding:5px 9px}
+
+.notice{display:flex;gap:10px;align-items:flex-start;margin:0 0 12px;padding:10px 14px;border:1px dashed rgba(224,161,90,.42);border-radius:12px;
+  background:rgba(224,161,90,.055);font-size:11.5px;line-height:1.7;color:#dcc39b}
+.notice b{color:#f0d6a8;font-weight:600;letter-spacing:.5px}
+.notice svg{width:15px;height:15px;flex:none;margin-top:1px;color:var(--warn)}
+
+/* 时间轴 */
+.timeline{position:relative;padding-left:78px}
+.timeline::before{content:"";position:absolute;left:57px;top:10px;bottom:6px;width:1px;
+  background:linear-gradient(180deg,transparent,rgba(214,179,106,.5) 6%,rgba(214,179,106,.16) 94%,transparent)}
+.tl-group{margin-bottom:16px}
+.tl-group-head{display:flex;align-items:center;gap:9px;margin:0 0 9px 2px;font-size:10.5px;letter-spacing:2px;color:var(--dim)}
+.tl-group-head .note{font-size:9.5px;letter-spacing:.2px;color:var(--dim);opacity:.9}
+.tl-group-head .line{flex:1;height:1px;background:linear-gradient(90deg,var(--line),transparent)}
+.event{position:relative;margin:0 0 11px;border:1px solid var(--line);border-radius:var(--r);
+  background:linear-gradient(140deg,rgba(30,24,16,.82),rgba(13,10,7,.88));
+  box-shadow:0 8px 26px rgba(0,0,0,.22),inset 0 1px 0 rgba(242,217,164,.04);
+  cursor:pointer;transition:border-color .2s,box-shadow .2s,background .2s;outline:none}
+.event::before{content:"";position:absolute;left:-26px;top:21px;width:9px;height:9px;border-radius:50%;
+  background:radial-gradient(circle at 36% 32%,#fbe9c2,#c99f52 55%,#7c5a22);box-shadow:0 0 0 4px rgba(214,179,106,.09),0 0 14px rgba(214,179,106,.55)}
+.event.pending::before{background:radial-gradient(circle at 36% 32%,#ffd6c6,#c2452d 60%,#6d1f12);box-shadow:0 0 0 4px rgba(194,69,45,.13),0 0 16px rgba(194,69,45,.6)}
+.event .t{position:absolute;left:-78px;top:17px;width:48px;text-align:right;font-size:11.5px;color:var(--gold);font-variant-numeric:tabular-nums;letter-spacing:.5px}
+.event .t em{display:block;font-style:normal;font-size:9px;color:var(--dim);margin-top:2px;letter-spacing:.4px}
+.event:hover{border-color:rgba(214,179,106,.4);box-shadow:0 12px 32px rgba(0,0,0,.34),0 0 0 1px rgba(214,179,106,.12)}
+.ev-inner{padding:13px 15px 12px}
+.ev-head{display:flex;align-items:center;gap:9px;flex-wrap:wrap}
+.ev-avatar{width:27px;height:27px;flex:none;border-radius:9px;display:grid;place-items:center;font-size:12px;font-weight:600;color:var(--gold-3);
+  background:linear-gradient(150deg,rgba(214,179,106,.3),rgba(214,179,106,.06));border:1px solid rgba(214,179,106,.4)}
+.ev-title{font-size:13px;font-weight:600;color:var(--text);letter-spacing:.3px;min-width:0}
+.ev-agent{font-size:10.5px;color:var(--dim);letter-spacing:.4px}
+.ev-tag{margin-left:auto;display:flex;gap:6px;align-items:center;flex-wrap:wrap}
+.wait-badge{font-size:9.5px;padding:2px 7px;border-radius:999px;color:#ffd9c9;background:rgba(194,69,45,.28);border:1px solid rgba(194,69,45,.55);white-space:nowrap;
+  animation:glowPulse 3.2s ease-in-out infinite}
+.ev-desc{margin:8px 0 0;font-size:11.5px;line-height:1.75;color:var(--muted);display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
+.ev-metrics{display:flex;flex-wrap:wrap;gap:6px;margin-top:9px}
+.ev-metrics span{font-size:10.5px;color:var(--dim);padding:3px 8px;border-radius:8px;background:rgba(214,179,106,.045);border:1px solid rgba(214,179,106,.10)}
+.ev-metrics span b{color:var(--gold-3);font-weight:600;margin-left:4px;font-variant-numeric:tabular-nums}
+.ev-detail{max-height:0;overflow:hidden;transition:max-height .32s ease,opacity .25s ease;opacity:0}
+.ev-detail .d-body{padding:10px 0 2px;border-top:1px dashed var(--line);margin-top:10px;font-size:11.5px;line-height:1.8;color:var(--muted)}
+.ev-detail .d-row{display:flex;flex-wrap:wrap;gap:14px;margin-top:8px;font-size:10.5px;color:var(--dim)}
+.ev-detail .d-row b{color:var(--text);font-weight:500}
+.event.open{border-color:rgba(214,179,106,.46);background:linear-gradient(140deg,rgba(38,30,18,.9),rgba(15,12,8,.94))}
+.event.open .ev-desc{-webkit-line-clamp:unset;display:block}
+.event.open .ev-detail{max-height:360px;opacity:1}
+.agent-link{display:inline-flex;align-items:center;gap:6px;margin-top:10px;font-size:11.5px;color:var(--gold-3);text-decoration:none;
+  border-bottom:1px dashed rgba(214,179,106,.5);padding-bottom:2px}
+.agent-link:hover{color:#fff}
+.agent-link svg{width:12px;height:12px}
+
+/* 空状态 */
+.empty{padding:26px 18px;text-align:center;border:1px dashed var(--line);border-radius:var(--r);color:var(--dim);font-size:12px;line-height:1.8}
+.empty b{display:block;color:var(--muted);font-size:13px;margin-bottom:4px;letter-spacing:1px}
+
+/* 待办视图 */
+.todo-list{display:flex;flex-direction:column;gap:11px}
+.todo-card{border:1px solid rgba(194,69,45,.34);border-radius:var(--r);padding:14px 16px;
+  background:linear-gradient(140deg,rgba(46,26,18,.82),rgba(16,11,8,.9));position:relative;overflow:hidden}
+.todo-card::before{content:"";position:absolute;left:0;top:0;bottom:0;width:2px;background:linear-gradient(180deg,var(--red),transparent)}
+.todo-top{display:flex;align-items:center;gap:9px;flex-wrap:wrap}
+.pri{font-size:9.5px;padding:2px 7px;border-radius:999px;letter-spacing:.6px}
+.pri.high{color:#ffcdbd;background:rgba(194,69,45,.32);border:1px solid rgba(194,69,45,.6)}
+.pri.mid{color:#f1d2a4;background:rgba(224,161,90,.16);border:1px solid rgba(224,161,90,.4)}
+.todo-title{font-size:13.5px;font-weight:600;color:var(--text)}
+.todo-agent{margin-left:auto;font-size:10.5px;color:var(--dim)}
+.todo-detail{margin:8px 0 0;font-size:11.5px;line-height:1.8;color:var(--muted)}
+.todo-actions{display:flex;gap:8px;flex-wrap:wrap;margin-top:11px}
+.btn.tiny{height:29px;padding:0 11px;font-size:11px;border-radius:9px}
+.todo-note{margin-top:12px;font-size:10.5px;color:var(--dim);line-height:1.8}
+
+/* API 状态条 */
+.api-strip{margin-top:14px;border:1px solid var(--line);border-radius:12px;background:rgba(12,10,7,.5);padding:10px 13px;
+  display:grid;grid-template-columns:repeat(auto-fit,minmax(215px,1fr));gap:7px 14px}
+.api-item{display:flex;align-items:center;gap:7px;font-size:10.5px;color:var(--dim);min-width:0}
+.api-item .p{color:var(--muted);overflow:hidden;text-overflow:ellipsis;white-space:nowrap;font-family:"SFMono-Regular",Consolas,monospace}
+.api-item .code{font-size:9.5px;padding:1px 6px;border-radius:6px;border:1px solid;margin-left:auto;flex:none;font-variant-numeric:tabular-nums}
+.api-item .code.ok{color:var(--ok);border-color:rgba(143,214,176,.36);background:rgba(143,214,176,.07)}
+.api-item .code.bad{color:var(--warn);border-color:rgba(224,161,90,.4);background:rgba(224,161,90,.08)}
+
+/* 右侧值班表 */
+.roster{border:1px solid var(--line);border-radius:var(--r);background:var(--panel);padding:13px;position:sticky;top:76px;
+  box-shadow:0 12px 32px rgba(0,0,0,.26),inset 0 1px 0 rgba(242,217,164,.05)}
+.roster-head{display:flex;align-items:center;gap:8px;margin-bottom:4px}
+.roster-head h2{margin:0;font-size:13px;letter-spacing:1.6px;color:var(--gold-3);font-weight:600}
+.roster-head .seg{margin-left:auto}
+.roster-sub{font-size:10px;color:var(--dim);margin:0 0 9px;letter-spacing:.3px}
+.roster-wrap{position:relative}
+.roster-flow{position:absolute;left:8px;top:8px;bottom:8px;width:12px;pointer-events:none;opacity:.7}
+.roster-flow path{fill:none;stroke:rgba(214,179,106,.5);stroke-width:1.1;stroke-dasharray:3 7}
+.roster-list{position:relative;max-height:596px;overflow-y:auto;overflow-x:hidden;padding-left:19px;
+  scrollbar-width:thin;scrollbar-color:rgba(214,179,106,.35) transparent}
+.roster-list::-webkit-scrollbar{width:5px}
+.roster-list::-webkit-scrollbar-thumb{background:rgba(214,179,106,.3);border-radius:3px}
+.agent-card{display:flex;gap:9px;align-items:flex-start;padding:10px 10px 10px 11px;margin-bottom:8px;border:1px solid var(--line);border-radius:14px;
+  background:linear-gradient(140deg,rgba(28,23,15,.82),rgba(12,10,7,.82));position:relative;transition:border-color .2s,transform .2s,box-shadow .2s;will-change:transform}
+.agent-card::before{content:"";position:absolute;left:-12px;top:24px;width:7px;height:7px;border-radius:50%;background:var(--ok);box-shadow:0 0 8px rgba(143,214,176,.9);animation:breathe 2.8s ease-in-out infinite}
+.agent-card.off::before{background:var(--dim);box-shadow:none;animation:none}
+.agent-card:hover{border-color:rgba(214,179,106,.4);box-shadow:0 10px 26px rgba(0,0,0,.3),0 0 0 1px rgba(214,179,106,.1)}
+.avatar{width:31px;height:31px;flex:none;border-radius:10px;display:grid;place-items:center;font-size:12.5px;font-weight:600;color:var(--gold-3);
+  background:linear-gradient(150deg,rgba(214,179,106,.28),rgba(214,179,106,.05));border:1px solid rgba(214,179,106,.34)}
+.agent-main{min-width:0;flex:1}
+.agent-top{display:flex;align-items:center;gap:6px;min-width:0}
+.agent-name{font-size:12.5px;font-weight:600;color:var(--text);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.agent-code{font-size:9px;color:var(--dim);letter-spacing:.5px;flex:none}
+.agent-dept{font-size:10px;color:var(--dim);margin-top:1px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.agent-task{font-size:10.5px;color:var(--muted);margin-top:4px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.agent-last{display:flex;gap:6px;flex-wrap:wrap;font-size:9.5px;color:var(--dim);margin-top:3px}
+.agent-last .k{color:var(--gold)}
+.agent-open{position:absolute;right:9px;top:9px;width:22px;height:22px;border-radius:7px;display:grid;place-items:center;
+  color:var(--dim);border:1px solid transparent;text-decoration:none;transition:all .18s;font-size:12px}
+.agent-open:hover{color:var(--gold-3);border-color:var(--line-2);background:rgba(214,179,106,.1)}
+.roster-foot{margin-top:9px;padding-top:9px;border-top:1px dashed var(--line);font-size:9.5px;color:var(--dim);line-height:1.7}
+
+/* 经营健康度 */
+.health{margin-top:14px;border:1px solid var(--line);border-radius:var(--r);background:var(--panel);padding:14px 16px;
+  box-shadow:0 12px 32px rgba(0,0,0,.22),inset 0 1px 0 rgba(242,217,164,.05)}
+.health-head{display:flex;align-items:baseline;gap:10px;margin-bottom:11px;flex-wrap:wrap}
+.health-head h2{margin:0;font-size:13px;letter-spacing:1.8px;color:var(--gold-3);font-weight:600}
+.health-head .muted{font-size:10px;color:var(--dim);letter-spacing:.5px}
+.health-grid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:11px}
+.gauge-card{display:flex;align-items:center;gap:13px;padding:12px 13px;border:1px solid var(--line);border-radius:14px;
+  background:linear-gradient(140deg,rgba(26,21,14,.6),rgba(11,9,6,.55));min-width:0}
+.gauge{--p:70;--g:var(--gold);width:66px;height:66px;flex:none;border-radius:50%;position:relative;display:grid;place-items:center;
+  background:conic-gradient(from -90deg,var(--g) calc(var(--p)*1%),rgba(214,179,106,.09) 0);
+  box-shadow:0 0 18px rgba(214,179,106,.12)}
+.gauge::before{content:"";position:absolute;inset:6px;border-radius:50%;background:#0b0906;border:1px solid rgba(214,179,106,.10)}
+.gauge b{position:relative;font-size:19px;color:var(--gold-3);font-variant-numeric:tabular-nums;line-height:1}
+.gauge b small{font-size:9px;color:var(--dim);font-weight:400;margin-left:1px}
+.gauge-card.low .gauge{--g:var(--red)}
+.gauge-card .g-info{min-width:0}
+.gauge-card .g-title{display:flex;align-items:center;gap:6px;font-size:12px;color:var(--text);letter-spacing:.5px;white-space:nowrap}
+.gauge-card .g-desc{font-size:10px;color:var(--dim);margin-top:4px;line-height:1.55}
+
+/* 页脚 */
+.page-foot{display:flex;justify-content:space-between;gap:12px;margin-top:14px;font-size:10px;color:var(--dim);line-height:1.8;flex-wrap:wrap}
+.page-foot .l{max-width:900px}
+.page-foot b{color:var(--muted);font-weight:500}
+#fpsChip{color:var(--gold)}
+
+/* 移动端底部 tab */
+.mobile-tabs{display:none;position:fixed;left:0;right:0;bottom:0;z-index:60;
+  padding:6px 6px calc(6px + env(safe-area-inset-bottom));gap:1px;
+  background:rgba(9,8,6,.94);border-top:1px solid var(--line-2);box-shadow:0 -12px 30px rgba(0,0,0,.5)}
+.mobile-tabs button{flex:1;min-width:0;display:flex;flex-direction:column;align-items:center;gap:3px;
+  background:none;border:0;color:var(--dim);font-size:9.5px;letter-spacing:.5px;padding:5px 1px;border-radius:10px;cursor:pointer;position:relative}
+.mobile-tabs button svg{width:17px;height:17px;opacity:.85}
+.mobile-tabs button.active{color:var(--gold-3);background:rgba(214,179,106,.09)}
+.mobile-tabs button .mb{position:absolute;top:1px;right:calc(50% - 17px);min-width:14px;height:13px;padding:0 3px;border-radius:7px;
+  font-size:8.5px;line-height:13px;color:#ffd9c9;background:rgba(194,69,45,.8)}
+
+/* toast */
+.toast{position:fixed;left:50%;bottom:26px;transform:translate(-50%,16px);z-index:120;display:flex;flex-direction:column;gap:8px;align-items:center;pointer-events:none;opacity:0;transition:opacity .25s,transform .25s}
+.toast.show{opacity:1;transform:translate(-50%,0)}
+.toast .t{max-width:min(88vw,460px);padding:9px 15px;border-radius:11px;font-size:11.5px;line-height:1.6;
+  color:#f3e7cf;background:rgba(24,19,12,.96);border:1px solid var(--line-2);box-shadow:0 14px 34px rgba(0,0,0,.5)}
+
+/* 动画 */
+@keyframes breathe{0%,100%{opacity:1;transform:scale(1)}50%{opacity:.55;transform:scale(.86)}}
+@keyframes glowPulse{0%,100%{box-shadow:0 0 0 rgba(194,69,45,0)}50%{box-shadow:0 0 12px rgba(194,69,45,.45)}}
+.reveal{opacity:0;transform:translateY(10px);animation:revealIn .56s cubic-bezier(.2,.72,.22,1) forwards;animation-delay:calc(var(--i,0)*80ms)}
+@keyframes revealIn{to{opacity:1;transform:translateY(0)}}
+
+/* ---------- 响应式 ---------- */
+@media (max-width:1180px){
+  .workspace{grid-template-columns:190px minmax(0,1fr) 312px}
+  .hud-mid .chip:nth-child(2){display:none}
+}
+@media (max-width:980px){
+  .app{padding:10px 12px 96px}
+  .hud{position:sticky;top:6px;gap:8px;padding:9px 11px;flex-wrap:wrap}
+  .brand{order:1;flex:1 1 55%}
+  .hud-actions{order:2;margin-left:auto}
+  .hud-mid{order:3;flex:1 0 100%;justify-content:flex-start;flex-wrap:nowrap;overflow-x:auto;scrollbar-width:none;margin-left:0}
+  .hud-mid::-webkit-scrollbar{display:none}
+  .hud-mid .chip{flex:none}
+  .brand-mark{width:36px;height:36px;border-radius:11px}
+  .brand-mark svg{width:20px;height:20px}
+  .brand-txt b{font-size:15px;letter-spacing:1.4px}
+  .brand-txt small{font-size:9px;letter-spacing:1.6px}
+  .hud-mid{margin-left:auto;gap:6px}
+  .hud-mid .chip{height:24px;font-size:10.5px;padding:0 8px}
+  .hud-mid .chip.hide-m{display:none}
+  .hud-actions .btn{height:30px;padding:0 9px;font-size:11px;border-radius:9px}
+  .hud-actions .desktop-only{display:none}
+  .kpi-band{display:flex;overflow-x:auto;overflow-y:hidden;scroll-snap-type:x mandatory;-webkit-overflow-scrolling:touch;border-radius:14px;scrollbar-width:none}
+  .kpi-band::-webkit-scrollbar{display:none}
+  .kpi{min-width:168px;flex:0 0 auto;padding:12px 14px 11px;scroll-snap-align:start}
+  .kpi .k-val{font-size:27px}
+  .workspace{grid-template-columns:minmax(0,1fr);gap:12px}
+  .sidenav{display:none}
+  .main-head{margin-bottom:10px}
+  .main-head h1{font-size:18px}
+  .main-head .sub{font-size:10.5px}
+  .seg{margin-left:0;width:100%}
+  .seg button{flex:1;text-align:center;padding:6px 8px;font-size:11px}
+  .roster{position:static;margin-top:2px;padding:11px}
+  .roster-head h2{font-size:12px}
+  .roster-list{display:flex;gap:9px;max-height:none;overflow-x:auto;overflow-y:hidden;padding:2px 2px 8px 6px;
+    scroll-snap-type:x mandatory;-webkit-overflow-scrolling:touch;scrollbar-width:none}
+  .roster-list::-webkit-scrollbar{display:none}
+  .agent-card{flex:0 0 auto;min-width:238px;max-width:262px;scroll-snap-align:start;margin-bottom:0;padding-right:26px}
+  .agent-card::before{left:-8px;top:22px}
+  .roster-flow{display:none}
+  .health-grid{grid-template-columns:repeat(2,minmax(0,1fr));gap:9px}
+  .health{padding:12px}
+  .gauge-card{gap:9px;padding:10px}
+  .gauge{width:54px;height:54px}
+  .gauge b{font-size:16px}
+  .gauge-card .g-title{font-size:11px}
+  .gauge-card .g-desc{font-size:9.5px}
+  .timeline{padding-left:58px}
+  .timeline::before{left:41px}
+  .event .t{left:-58px;width:38px;font-size:10.5px}
+  .event::before{left:-21px;width:8px;height:8px}
+  .ev-inner{padding:11px 12px 11px}
+  .ev-title{font-size:12px}
+  .ev-desc{font-size:11px}
+  .mobile-tabs{display:flex}
+  .toast{bottom:86px}
+  .page-foot{font-size:9.5px}
+  .api-strip{grid-template-columns:1fr 1fr;padding:9px 11px}
+  .api-item .p{font-size:9.5px}
+  .page-foot .l{max-width:100%}
+}
+@media (max-width:420px){
+  .hud-mid .chip.clock{display:none}
+  .brand-txt small{display:none}
+  .api-strip{grid-template-columns:1fr}
+  .kpi{min-width:158px}
+  .agent-card{min-width:224px}
+}
+
+/* ================= 浅色主题（xl-motion v1.1 data-xlm-theme="light" 同步） ================= */
+html[data-xlm-theme="light"]{background:#f4eee2;color-scheme:light}
+html[data-xlm-theme="light"] body.xlm-scope{
+  --ink:#f4eee2;--ink-2:#faf5ec;--panel:rgba(255,250,241,.82);--panel-2:rgba(255,250,241,.62);
+  --line:rgba(140,100,40,.20);--line-2:rgba(140,100,40,.38);
+  --gold:#a5761f;--gold-2:#8a5f16;--gold-3:#5f3f0c;--red:#a92c24;
+  --text:#241d14;--muted:rgba(36,29,20,.66);--dim:rgba(36,29,20,.48);
+  --ok:#2f7a56;--warn:#9a5f14;background:#f4eee2;color:#241d14;
+}
+html[data-xlm-theme="light"] .vignette{
+  background:
+    radial-gradient(ellipse 80% 62% at 50% 28%,transparent 42%,rgba(244,238,226,.22) 100%),
+    linear-gradient(180deg,rgba(255,252,246,.10),rgba(244,238,226,.24) 60%,rgba(240,232,218,.42) 100%);
+}
+html[data-xlm-theme="light"] .hud{
+  background:linear-gradient(180deg,rgba(255,250,241,.92),rgba(250,244,233,.86));
+  border-color:rgba(140,100,40,.26);box-shadow:0 10px 30px rgba(90,68,30,.12),inset 0 1px 0 rgba(255,255,255,.7);
+}
+html[data-xlm-theme="light"] .brand-mark{background:radial-gradient(circle at 34% 28%,rgba(230,194,122,.5),rgba(255,249,238,.9) 70%);border-color:rgba(140,100,40,.4)}
+html[data-xlm-theme="light"] .brand-txt b{background:linear-gradient(180deg,#6f4b10,#a5761f);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent}
+html[data-xlm-theme="light"] .brand-txt small{color:rgba(36,29,20,.5)}
+html[data-xlm-theme="light"] .chip{background:rgba(255,250,241,.6);border-color:rgba(140,100,40,.24);color:rgba(36,29,20,.7)}
+html[data-xlm-theme="light"] .chip.gold{color:#7a5312;border-color:rgba(140,100,40,.4);background:rgba(230,194,122,.18)}
+html[data-xlm-theme="light"] .chip .dot{background:#2f7a56;box-shadow:0 0 8px rgba(47,122,86,.6)}
+html[data-xlm-theme="light"] #clockChip{color:#7a5312}
+html[data-xlm-theme="light"] .btn{background:rgba(255,250,241,.66);border-color:rgba(140,100,40,.34);color:#5f3f0c}
+html[data-xlm-theme="light"] .btn:hover{background:rgba(230,194,122,.22);border-color:rgba(140,100,40,.55);box-shadow:0 0 16px rgba(165,118,31,.18)}
+html[data-xlm-theme="light"] .btn.gold{background:linear-gradient(180deg,rgba(230,194,122,.5),rgba(213,170,88,.34));color:#4a3008}
+html[data-xlm-theme="light"] .btn.ghost{background:transparent;color:rgba(36,29,20,.62);border-color:rgba(140,100,40,.26)}
+html[data-xlm-theme="light"] .kpi-band{
+  background:linear-gradient(118deg,rgba(250,238,214,.9),rgba(255,250,241,.88) 42%,rgba(250,243,231,.86));
+  border-color:rgba(140,100,40,.34);box-shadow:0 14px 36px rgba(120,90,40,.12),inset 0 1px 0 rgba(255,255,255,.8);
+}
+html[data-xlm-theme="light"] .kpi{border-right-color:rgba(140,100,40,.18)}
+html[data-xlm-theme="light"] .kpi .k-label{color:rgba(36,29,20,.62)}
+html[data-xlm-theme="light"] .kpi .k-val{color:#4a3008;text-shadow:0 0 18px rgba(230,194,122,.35)}
+html[data-xlm-theme="light"] .kpi .k-val small{color:rgba(36,29,20,.5)}
+html[data-xlm-theme="light"] .kpi .k-sub{color:rgba(36,29,20,.44)}
+html[data-xlm-theme="light"] .kpi.pending:hover{background:rgba(169,44,36,.06)}
+html[data-xlm-theme="light"] .kpi.pending .k-val{color:#93261f;text-shadow:0 0 16px rgba(169,44,36,.18)}
+html[data-xlm-theme="light"] .src.real{color:#2f7a56;border-color:rgba(47,122,86,.4);background:rgba(47,122,86,.08)}
+html[data-xlm-theme="light"] .src.demo{color:#8a5f16;border-color:rgba(138,95,22,.42);background:rgba(230,194,122,.16)}
+html[data-xlm-theme="light"] .sidenav,html[data-xlm-theme="light"] .roster,html[data-xlm-theme="light"] .health{
+  background:rgba(255,250,241,.84);border-color:rgba(140,100,40,.22);
+  box-shadow:0 12px 30px rgba(120,90,40,.10),inset 0 1px 0 rgba(255,255,255,.8);
+}
+html[data-xlm-theme="light"] .side-head,html[data-xlm-theme="light"] .roster-sub,html[data-xlm-theme="light"] .side-foot{color:rgba(36,29,20,.5)}
+html[data-xlm-theme="light"] .side-item{color:rgba(36,29,20,.68)}
+html[data-xlm-theme="light"] .side-item:hover{background:rgba(230,194,122,.18);color:#241d14}
+html[data-xlm-theme="light"] .side-item.active{background:linear-gradient(90deg,rgba(230,194,122,.36),rgba(230,194,122,.1));border-color:rgba(140,100,40,.42);color:#5f3f0c}
+html[data-xlm-theme="light"] .side-item .badge{color:#7a5312;background:rgba(230,194,122,.2);border-color:rgba(140,100,40,.26)}
+html[data-xlm-theme="light"] .side-item .badge.alert{color:#8c221d;background:rgba(197,59,50,.16);border-color:rgba(169,44,36,.4)}
+html[data-xlm-theme="light"] .side-foot{border-top-color:rgba(140,100,40,.2)}
+html[data-xlm-theme="light"] .main-head h1{color:#4a3008}
+html[data-xlm-theme="light"] .main-head .sub{color:rgba(36,29,20,.56)}
+html[data-xlm-theme="light"] .seg{background:rgba(255,250,241,.55);border-color:rgba(140,100,40,.24)}
+html[data-xlm-theme="light"] .seg button{color:rgba(36,29,20,.62)}
+html[data-xlm-theme="light"] .seg button:hover{color:#241d14}
+html[data-xlm-theme="light"] .seg button.active{background:rgba(230,194,122,.3);color:#5f3f0c;box-shadow:inset 0 0 0 1px rgba(140,100,40,.35)}
+html[data-xlm-theme="light"] .seg button .n{background:rgba(169,44,36,.16);color:#8c221d}
+html[data-xlm-theme="light"] .notice{background:rgba(230,194,122,.12);border-color:rgba(140,100,40,.36);color:#6b5220}
+html[data-xlm-theme="light"] .notice b{color:#5f3f0c}
+html[data-xlm-theme="light"] .tl-group-head{color:rgba(36,29,20,.5)}
+html[data-xlm-theme="light"] .tl-group-head .line{background:linear-gradient(90deg,rgba(140,100,40,.24),transparent)}
+html[data-xlm-theme="light"] .timeline::before{background:linear-gradient(180deg,transparent,rgba(140,100,40,.42) 6%,rgba(140,100,40,.16) 94%,transparent)}
+html[data-xlm-theme="light"] .event{background:linear-gradient(140deg,rgba(255,250,241,.9),rgba(250,243,231,.86));border-color:rgba(140,100,40,.24);box-shadow:0 8px 22px rgba(120,90,40,.10),inset 0 1px 0 rgba(255,255,255,.7)}
+html[data-xlm-theme="light"] .event:hover{border-color:rgba(140,100,40,.46);box-shadow:0 12px 26px rgba(120,90,40,.14)}
+html[data-xlm-theme="light"] .event.open{background:linear-gradient(140deg,rgba(255,252,246,.96),rgba(250,241,226,.92))}
+html[data-xlm-theme="light"] .event::before{background:radial-gradient(circle at 36% 32%,#fbe9c2,#c99f52 55%,#7c5a22);box-shadow:0 0 0 4px rgba(214,179,106,.14),0 0 12px rgba(165,118,31,.4)}
+html[data-xlm-theme="light"] .event.pending::before{background:radial-gradient(circle at 36% 32%,#ffd6c6,#c2452d 60%,#6d1f12);box-shadow:0 0 0 4px rgba(194,69,45,.12),0 0 12px rgba(194,69,45,.4)}
+html[data-xlm-theme="light"] .event .t{color:#8a5f16}
+html[data-xlm-theme="light"] .event .t em{color:rgba(36,29,20,.42)}
+html[data-xlm-theme="light"] .ev-title{color:#241d14}
+html[data-xlm-theme="light"] .ev-agent{color:rgba(36,29,20,.5)}
+html[data-xlm-theme="light"] .ev-desc{color:rgba(36,29,20,.72)}
+html[data-xlm-theme="light"] .ev-metrics span{color:rgba(36,29,20,.55);background:rgba(230,194,122,.14);border-color:rgba(140,100,40,.16)}
+html[data-xlm-theme="light"] .ev-metrics span b{color:#5f3f0c}
+html[data-xlm-theme="light"] .ev-detail .d-body{border-top-color:rgba(140,100,40,.22);color:rgba(36,29,20,.7)}
+html[data-xlm-theme="light"] .ev-detail .d-row{color:rgba(36,29,20,.5)}
+html[data-xlm-theme="light"] .ev-detail .d-row b{color:#241d14}
+html[data-xlm-theme="light"] .agent-link{color:#8a5f16;border-bottom-color:rgba(140,100,40,.5)}
+html[data-xlm-theme="light"] .agent-link:hover{color:#5f3f0c}
+html[data-xlm-theme="light"] .wait-badge{color:#8c221d;background:rgba(197,59,50,.14);border-color:rgba(169,44,36,.4)}
+html[data-xlm-theme="light"] .roster-head h2,html[data-xlm-theme="light"] .health-head h2{color:#4a3008}
+html[data-xlm-theme="light"] .agent-card{background:linear-gradient(140deg,rgba(255,250,241,.9),rgba(250,243,231,.84));border-color:rgba(140,100,40,.22)}
+html[data-xlm-theme="light"] .agent-card:hover{border-color:rgba(140,100,40,.42);box-shadow:0 10px 22px rgba(120,90,40,.12)}
+html[data-xlm-theme="light"] .agent-name{color:#241d14}
+html[data-xlm-theme="light"] .agent-code,html[data-xlm-theme="light"] .agent-dept{color:rgba(36,29,20,.46)}
+html[data-xlm-theme="light"] .agent-task{color:rgba(36,29,20,.64)}
+html[data-xlm-theme="light"] .agent-last{color:rgba(36,29,20,.46)}
+html[data-xlm-theme="light"] .agent-last .k{color:#8a5f16}
+html[data-xlm-theme="light"] .agent-open{color:rgba(36,29,20,.4)}
+html[data-xlm-theme="light"] .avatar{color:#5f3f0c;background:linear-gradient(150deg,rgba(230,194,122,.5),rgba(255,250,241,.7));border-color:rgba(140,100,40,.32)}
+html[data-xlm-theme="light"] .roster-flow path{stroke:rgba(140,100,40,.45)}
+html[data-xlm-theme="light"] .roster-foot,html[data-xlm-theme="light"] .roster-foot .src{color:rgba(36,29,20,.46)}
+html[data-xlm-theme="light"] .roster-foot{border-top-color:rgba(140,100,40,.2)}
+html[data-xlm-theme="light"] .gauge-card{background:linear-gradient(140deg,rgba(255,250,241,.88),rgba(250,243,231,.8));border-color:rgba(140,100,40,.22)}
+html[data-xlm-theme="light"] .gauge{box-shadow:0 0 16px rgba(165,118,31,.12)}
+html[data-xlm-theme="light"] .gauge::before{background:#faf5ec;border-color:rgba(140,100,40,.16)}
+html[data-xlm-theme="light"] .gauge b{color:#4a3008}
+html[data-xlm-theme="light"] .gauge b small{color:rgba(36,29,20,.45)}
+html[data-xlm-theme="light"] .gauge-card .g-title{color:#241d14}
+html[data-xlm-theme="light"] .gauge-card .g-desc{color:rgba(36,29,20,.5)}
+html[data-xlm-theme="light"] .api-strip{background:rgba(255,250,241,.72);border-color:rgba(140,100,40,.22)}
+html[data-xlm-theme="light"] .api-item{color:rgba(36,29,20,.52)}
+html[data-xlm-theme="light"] .api-item .p{color:rgba(36,29,20,.6)}
+html[data-xlm-theme="light"] .api-item .code.ok{color:#2f7a56;border-color:rgba(47,122,86,.4);background:rgba(47,122,86,.08)}
+html[data-xlm-theme="light"] .api-item .code.bad{color:#8a5f16;border-color:rgba(138,95,22,.4);background:rgba(230,194,122,.16)}
+html[data-xlm-theme="light"] .empty{color:rgba(36,29,20,.5)}
+html[data-xlm-theme="light"] .empty b{color:rgba(36,29,20,.7)}
+html[data-xlm-theme="light"] .page-foot{color:rgba(36,29,20,.48)}
+html[data-xlm-theme="light"] .page-foot b{color:rgba(36,29,20,.66)}
+html[data-xlm-theme="light"] #fpsChip{color:#8a5f16}
+html[data-xlm-theme="light"] .mobile-tabs{background:rgba(252,247,238,.95);border-top-color:rgba(140,100,40,.3);box-shadow:0 -10px 26px rgba(120,90,40,.14)}
+html[data-xlm-theme="light"] .mobile-tabs button{color:rgba(36,29,20,.46)}
+html[data-xlm-theme="light"] .mobile-tabs button.active{color:#5f3f0c;background:rgba(230,194,122,.28)}
+html[data-xlm-theme="light"] .mobile-tabs button .mb{color:#8c221d;background:rgba(197,59,50,.55)}
+html[data-xlm-theme="light"] .todo-card{background:linear-gradient(140deg,rgba(255,248,238,.92),rgba(250,240,226,.9));border-color:rgba(169,44,36,.28)}
+html[data-xlm-theme="light"] .todo-title{color:#241d14}
+html[data-xlm-theme="light"] .todo-detail{color:rgba(36,29,20,.68)}
+html[data-xlm-theme="light"] .todo-note{color:rgba(36,29,20,.46)}
+html[data-xlm-theme="light"] .toast .t{background:rgba(252,247,238,.98);border-color:rgba(140,100,40,.32);color:#241d14;box-shadow:0 14px 30px rgba(120,90,40,.2)}
+html[data-xlm-theme="light"] .pri.high{color:#8c221d;background:rgba(197,59,50,.14);border-color:rgba(169,44,36,.4)}
+html[data-xlm-theme="light"] .pri.mid{color:#7a5312;background:rgba(230,194,122,.2);border-color:rgba(140,100,40,.36)}
+@media (max-width:980px){
+  .xlm-bg-switcher{top:auto;bottom:84px;right:12px}
+  .xlm-bg-switcher__panel{top:auto;bottom:46px;left:auto;right:0;width:min(90vw,354px)}
+  body .hud{padding-right:11px}
+  html[data-xlm-theme="light"] .hud{background:linear-gradient(180deg,rgba(255,250,241,.96),rgba(250,244,233,.92))}
+}
+
+@media (prefers-reduced-motion:reduce){
+  *,*::before,*::after{animation-duration:.001ms !important;animation-iteration-count:1 !important;transition-duration:.001ms !important}
+  .reveal{opacity:1;transform:none;animation:none}
+}
+</style>
+</head>
+<body class="xlm-scope">
+<div class="xlm-bg" data-xlm-bg="nebula" data-xlm-bg-switcher data-xlm-bg-theme-sync aria-hidden="true"></div>
+<div class="vignette" aria-hidden="true"></div>
+
+<div class="app">
+
+  <!-- ================= 顶栏 ================= -->
+  <header class="hud reveal" style="--i:0">
+    <a class="brand" href="./" aria-label="星籁企业智脑 · CEO 经营作战室">
+      <span class="brand-mark">
+        <svg viewBox="0 0 32 32" fill="none" aria-hidden="true">
+          <circle cx="16" cy="16" r="9.2" stroke="#d6b36a" stroke-width="1.1" opacity=".85"/>
+          <circle cx="16" cy="16" r="13.4" stroke="#d6b36a" stroke-width=".6" opacity=".28" stroke-dasharray="2 4"/>
+          <path d="M16 6.6l2.3 6.1 6.4.7-4.9 4.3 1.4 6.3L16 20.6l-5.2 3.4 1.4-6.3-4.9-4.3 6.4-.7z" fill="#c2452d"/>
+          <circle cx="16" cy="16" r="2.1" fill="#f2d9a4"/>
+        </svg>
+      </span>
+      <span class="brand-txt">
+        <b>星籁企业智脑</b>
+        <small>CEO 经营作战室 · 企业 AI 员工编制</small>
+      </span>
+    </a>
+    <div class="hud-mid">
+      <span class="chip gold" id="envChip" title="未登录时自动使用演示企业会话"><i class="dot"></i>演示企业 · 真实接口</span>
+      <span class="chip" id="agentChip"><i class="dot"></i>Agent 在岗检测中</span>
+      <span class="chip hide-m" id="llmChip">模型状态检测中</span>
+      <span class="chip clock" id="clockChip">--:--:--</span>
+    </div>
+    <div class="hud-actions">
+      <button class="btn icon" id="refreshBtn" type="button" title="刷新真实接口数据" aria-label="刷新数据">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M20 11a8 8 0 10-2.3 6.3"/><path d="M20 5v6h-6"/></svg>
+      </button>
+      <a class="btn ghost desktop-only" href="/enterprise/solutions/" target="_blank" rel="noopener">行业方案</a>
+      <a class="btn gold" href="/enterprise/">企业工作台 <span aria-hidden="true">↗</span></a>
+    </div>
+  </header>
+
+  <!-- ================= 金色 KPI 带 ================= -->
+  <section class="kpi-band reveal" style="--i:1" aria-label="关键经营指标">
+    <div class="kpi" data-kpi="hours">
+      <div class="k-label">本月节省工时 <em class="src real" id="srcHours">真实</em></div>
+      <div class="k-val"><b class="num" id="numHours">0</b><small>h</small></div>
+      <div class="k-sub" id="subHours">近 30 天 · /api/ent/roi</div>
+    </div>
+    <div class="kpi" data-kpi="cost">
+      <div class="k-label">节省成本 <em class="src real" id="srcCost">真实</em></div>
+      <div class="k-val"><small>¥</small><b class="num" id="numCost">0</b></div>
+      <div class="k-sub" id="subCost">人力成本估算 · 规则可配</div>
+    </div>
+    <div class="kpi" data-kpi="output">
+      <div class="k-label">产出件数 <em class="src real" id="srcOutput">真实</em></div>
+      <div class="k-val"><b class="num" id="numOutput">0</b><small>件</small></div>
+      <div class="k-sub" id="subOutput">任务产出 · /api/ent/tasks</div>
+    </div>
+    <div class="kpi" data-kpi="flows">
+      <div class="k-label">在跑工作流 <em class="src demo" id="srcFlows">示例</em></div>
+      <div class="k-val"><b class="num" id="numFlows">0</b><small>条</small></div>
+      <div class="k-sub" id="subFlows">workflows 接口 404 · 示例占位</div>
+    </div>
+    <div class="kpi pending" data-kpi="pending" id="kpiPending" role="button" tabindex="0" aria-label="查看等你拍板的事项">
+      <div class="k-label">等你拍板 <em class="src demo" id="srcPending">示例</em></div>
+      <div class="k-val"><b class="num" id="numPending">0</b><small>件</small></div>
+      <div class="k-sub" id="subPending">点击进入待办 · 示例数据</div>
+    </div>
+  </section>
+
+  <!-- ================= 工作区 ================= -->
+  <div class="workspace">
+
+    <!-- 左：业务导航 -->
+    <aside class="sidenav reveal" style="--i:2" aria-label="业务分区导航">
+      <div class="side-head">业务分区</div>
+      <div id="sideNav"></div>
+      <div class="side-foot">
+        <b>数据口径</b><br>
+        真实接口优先；接口失败或未上线时，以「示例」角标明确标注，不冒充真实经营数据。
+      </div>
+    </aside>
+
+    <!-- 中：今日战报 / 待办 -->
+    <main class="main reveal" style="--i:3">
+      <div class="main-head">
+        <div>
+          <h1 id="viewTitle">今日战报</h1>
+          <p class="sub" id="viewSub">正在接入真实接口…</p>
+        </div>
+        <div class="seg" id="viewSeg" role="tablist" aria-label="视图切换">
+          <button type="button" data-view="timeline" class="active" role="tab" aria-selected="true">战报时间轴</button>
+          <button type="button" data-view="todo" role="tab" aria-selected="false">待办<span class="n" id="segTodoCount">0</span></button>
+        </div>
+      </div>
+
+      <div class="notice hidden" id="notice">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3l9.5 16.5h-19z"/><path d="M12 9.5v4.5"/><path d="M12 17h.01"/></svg>
+        <div id="noticeText">部分接口不可用，已回退示例数据并标注。</div>
+      </div>
+
+      <section id="timelineView">
+        <div class="timeline" id="timeline"></div>
+      </section>
+
+      <section id="todoView" class="hidden" aria-label="待办列表">
+        <div class="todo-list" id="todoList"></div>
+      </section>
+
+      <section class="api-strip" id="apiStrip" aria-label="接口状态"></section>
+    </main>
+
+    <!-- 右：Agent 值班表 -->
+    <aside class="roster reveal" style="--i:4" aria-label="Agent 值班表">
+      <div class="roster-head">
+        <h2>Agent 值班表</h2>
+        <div class="seg small" id="rosterFilter" role="tablist" aria-label="值班筛选">
+          <button type="button" data-status="active" class="active">在岗</button>
+          <button type="button" data-status="rest">休息</button>
+          <button type="button" data-status="all">全部</button>
+        </div>
+      </div>
+      <p class="roster-sub" id="rosterSub">正在载入 · 真实接口 /api/ent/agents</p>
+      <div class="roster-wrap">
+        <svg class="roster-flow" viewBox="0 0 12 600" preserveAspectRatio="none" data-flow="3.6s" data-flow-items=".rf-path" aria-hidden="true">
+          <path class="rf-path" d="M6 0V600"></path>
+          <path class="rf-path" d="M6 0V600" opacity=".45" stroke-dasharray="1 13"></path>
+        </svg>
+        <div class="roster-list" id="rosterList"></div>
+      </div>
+      <div class="roster-foot" id="rosterFoot">状态来源 /api/ent/agents；最近执行 /api/ent/tasks</div>
+    </aside>
+  </div>
+
+  <!-- ================= 经营健康度 ================= -->
+  <section class="health reveal" style="--i:5" aria-label="经营健康度">
+    <div class="health-head">
+      <h2>经营健康度</h2>
+      <span class="muted">四项仪表 · 纯 CSS 绘制 · 每项标注数据来源</span>
+    </div>
+    <div class="health-grid" id="healthGrid"></div>
+  </section>
+
+  <footer class="page-foot">
+    <div class="l">
+      <b>数据来源</b>：/api/ent/agents、/api/ent/roi、/api/ent/tasks 为真实接口（演示企业租户）；
+      /api/ent/workflows/tasks 暂未上线（404），待办与在跑工作流为示例数据并标注「示例」。
+      ROI 为基于规则的估算，用于试点对比，不构成财务承诺。
+    </div>
+    <div><span id="fpsChip">动效引擎检测中…</span> · <span id="lastUpdated">--</span></div>
+  </footer>
+</div>
+
+<nav class="mobile-tabs" id="mobileTabs" aria-label="移动端业务导航"></nav>
+<div class="toast" id="toast" role="status" aria-live="polite"></div>
+
+<script defer src="/ai-nav/assets/xl-motion/xl-motion.iife.js"></script>
+<script>
+/* =====================================================================
+   星籁企业智脑 · CEO 经营作战室（原创布局 · 静态原型）
+   真实接口优先：/api/ent/agents、/api/ent/roi、/api/ent/tasks
+   待办来源：/api/ent/workflows/tasks（404 时用示例 2 件并标注「示例」）
+   无 CDN、无外部字体、无第三方运行时依赖（three.js 为本地文件）
+   ===================================================================== */
+(function () {
+  'use strict';
+
+  var API = '/api/ent';
+  var DEMO_CODE = 'XINGLAI-ENT-2026';
+  var LS_KEY = 'ent_session_v1';
+  var $ = function (id) { return document.getElementById(id); };
+  var state = {
+    token: '', tenant: null,
+    agents: [], agentsDemo: false,
+    roi: null, roiDemo: true,
+    tasks: [], tasksDemo: true,
+    pending: [], pendingDemo: true,
+    health: null,
+    api: {
+      agents: { code: null, real: false },
+      roi: { code: null, real: false },
+      tasks: { code: null, real: false },
+      pending: { code: null, real: false },
+      health: { code: null, real: false }
+    },
+    filter: 'all',
+    view: 'timeline',
+    rosterStatus: 'active',
+    reduced: false,
+    degraded: false,
+    fps: 0,
+    errors: [],
+    reloadTried: false,
+    lastUpdated: ''
+  };
+
+  var CATS = [
+    { id: 'all', label: '总览', icon: 'grid', agents: null },
+    { id: 'sales', label: '销售', icon: 'trend', agents: ['sales_assistant'] },
+    { id: 'content', label: '内容', icon: 'pen', agents: ['marketing_copy', 'short_video_ops'] },
+    { id: 'service', label: '客服', icon: 'chat', agents: ['customer_service'] },
+    { id: 'finance', label: '财务', icon: 'coin', agents: ['finance_assistant', 'procurement_assistant'] },
+    { id: 'knowledge', label: '知识', icon: 'book', agents: ['knowledge_steward', 'legal_contract'] },
+    { id: 'dispatch', label: '调度', icon: 'flow', agents: ['data_analyst', 'admin_assistant', 'recruiting_assistant', 'trainer'] }
+  ];
+
+  /* ---------------- 示例数据（仅在真实接口失败/未上线时使用，界面必须标注「示例」） ---------------- */
+  var SAMPLE_AGENTS = [
+    { id: 'sales_assistant', code: 'ENT-01', name: '销售助理', dept: '销售部', icon: 'S', status: 'active' },
+    { id: 'customer_service', code: 'ENT-02', name: '客服专员', dept: '客户成功部', icon: 'C', status: 'active' },
+    { id: 'marketing_copy', code: 'ENT-03', name: '市场文案', dept: '市场部', icon: 'M', status: 'active' },
+    { id: 'finance_assistant', code: 'ENT-08', name: '财务助理', dept: '财务部', icon: 'F', status: 'active' },
+    { id: 'knowledge_steward', code: 'ENT-12', name: '知识管家', dept: '知识管理部', icon: 'K', status: 'active' },
+    { id: 'data_analyst', code: 'ENT-07', name: '数据分析师', dept: '数据部', icon: 'D', status: 'active' }
+  ];
+  var SAMPLE_ROI = {
+    tasks_total: 86, saved_hours: 12.4, labor_cost_saved_cny: 744, platform_fee_period_cny: 4999,
+    llm_cost_cny: 0.42, net_saving_cny: -4255.4, roi_ratio: -0.85,
+    rule: { minutes_per_task: 5, automation_rate: 1, hourly_cost: 60 },
+    usage: { avg_latency_ms: 4200, tokens_in: 58000, tokens_out: 24000 },
+    tasks_by_agent: []
+  };
+  var SAMPLE_TASKS = [
+    { id: 'demo_t1', agent_id: 'sales_assistant', agent_name: '销售助理', created_at: '2026-11-25 06:58:10', question: '3 条高意向线索待分配：华东 2 条、华南 1 条，请按销售二组排班给出分配建议。', mode: 'llm', latency_ms: 3658, cost_cny: 0.0068, tokens_in: 1320, tokens_out: 486, _demo: true },
+    { id: 'demo_t2', agent_id: 'finance_assistant', agent_name: '财务助理', created_at: '2026-11-25 07:05:22', question: '本月差旅报销异常：住宿超标 1 笔、重复报销 1 笔，请按制度给出复核与退回建议。', mode: 'llm', latency_ms: 4120, cost_cny: 0.0072, tokens_in: 1188, tokens_out: 502, _demo: true },
+    { id: 'demo_t3', agent_id: 'knowledge_steward', agent_name: '知识管家', created_at: '2026-11-25 07:10:05', question: '汇总昨日经营数据，生成今日早报：执行量、成本、待拍板事项。', mode: 'cached', latency_ms: 82, cost_cny: 0, tokens_in: 0, tokens_out: 0, _demo: true }
+  ];
+  var SAMPLE_PENDING = [
+    { id: 'demo_p1', agent_id: 'sales_assistant', agent: '销售助理', time: '06:58', priority: '高', title: '3 条高意向线索待分配',
+      detail: '华东 2 条、华南 1 条，意向评分 92 / 88 / 85；建议分配华东销售二组，确认分配规则后 Agent 自动创建跟进任务。' },
+    { id: 'demo_p2', agent_id: 'finance_assistant', agent: '财务助理', time: '07:05', priority: '中', title: '2 笔报销异常待复核',
+      detail: '住宿超标 1 笔（¥1,240）、重复报销 1 笔（¥620）；是否退回重提？涉及本月报销截止日。' }
+  ];
+  var SAMPLE_EVENTS = [
+    { time: '06:50', agent_id: 'knowledge_steward', agent: '知识管家', dept: '知识管理部', title: '经营早报已生成',
+      desc: '汇总昨日真实执行记录、3 个业务线动态与今日待办；今日待你拍板 2 件（线索分配 / 报销复核）。',
+      metrics: [{ k: '昨日执行', v: '16 条' }, { k: 'LLM 成本', v: '¥0.06' }, { k: '在岗', v: '12/12' }], waiting: false },
+    { time: '06:58', agent_id: 'sales_assistant', agent: '销售助理', dept: '销售部', title: '3 条高意向线索待分配',
+      desc: '华东 2 条、华南 1 条，意向评分 92 / 88 / 85；建议分配华东销售二组，等你确认分配规则。',
+      metrics: [{ k: '线索', v: '3 条' }, { k: '最高评分', v: '92' }, { k: '预计产值', v: '¥18.6 万' }], waiting: true },
+    { time: '07:05', agent_id: 'finance_assistant', agent: '财务助理', dept: '财务部', title: '2 笔报销异常待复核',
+      desc: '住宿超标 1 笔（¥1,240）、重复报销 1 笔（¥620）；建议退回重提，等你拍板。',
+      metrics: [{ k: '异常', v: '2 笔' }, { k: '涉及金额', v: '¥1,860' }, { k: '影响', v: '本月报销' }], waiting: true },
+    { time: '07:10', agent_id: 'marketing_copy', agent: '市场文案', dept: '市场部', title: '3 条选题通过初筛',
+      desc: '短视频脚本 2 条 + 公众号 1 篇；行业词命中率 82%，建议今日上午定稿排期。',
+      metrics: [{ k: '产出', v: '3 条' }, { k: '关键词命中', v: '82%' }, { k: '排期', v: '今日' }], waiting: false }
+  ];
+
+  /* ---------------- 工具 ---------------- */
+  function esc(s) {
+    return String(s == null ? '' : s)
+      .replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;')
+      .replace(/"/g, '&quot;').replace(/'/g, '&#39;');
+  }
+  function fmtNum(v, dec) {
+    if (v == null || !isFinite(Number(v))) { return '—'; }
+    var n = Number(v);
+    return dec ? n.toFixed(dec) : Math.round(n).toLocaleString('zh-CN');
+  }
+  function pad2(n) { return (n < 10 ? '0' : '') + n; }
+  function todayStr() {
+    var d = new Date();
+    return d.getFullYear() + '-' + pad2(d.getMonth() + 1) + '-' + pad2(d.getDate());
+  }
+  function timeStr(d) { return pad2(d.getHours()) + ':' + pad2(d.getMinutes()) + ':' + pad2(d.getSeconds()); }
+  function shortText(s, n) { s = String(s || ''); return s.length > n ? s.slice(0, n) + '…' : s; }
+  function relDate(dstr) {
+    if (!dstr) { return '—'; }
+    var datePart = String(dstr).slice(0, 10);
+    var hm = String(dstr).slice(11, 16);
+    if (datePart === todayStr()) { return '今日 ' + hm; }
+    return datePart.slice(5) + ' ' + hm;
+  }
+  function parseTaskTime(s) {
+    if (!s) { return 0; }
+    try {
+      var d = new Date(String(s).replace(' ', 'T') + '+08:00');
+      return isNaN(d.getTime()) ? 0 : d.getTime();
+    } catch (e) { return 0; }
+  }
+  function apiErrText(e) {
+    if (!e) { return '接口异常'; }
+    if (e.status === 404) { return '接口未上线（404）'; }
+    if (e.status === 401) { return '未授权（401）'; }
+    return e.message || '接口异常';
+  }
+  function toast(msg) {
+    var box = $('toast');
+    if (!box) { return; }
+    box.innerHTML = '<div class="t">' + esc(msg) + '</div>';
+    box.classList.add('show');
+    clearTimeout(toast._t);
+    toast._t = setTimeout(function () { box.classList.remove('show'); }, 3600);
+  }
+  function icon(name) {
+    var paths = {
+      grid: '<rect x="3.5" y="3.5" width="7" height="7" rx="1.6"/><rect x="13.5" y="3.5" width="7" height="7" rx="1.6"/><rect x="3.5" y="13.5" width="7" height="7" rx="1.6"/><rect x="13.5" y="13.5" width="7" height="7" rx="1.6"/>',
+      trend: '<path d="M3.5 17.5l5.2-5.4 3.6 3.4 6.2-6.6"/><path d="M14.5 8.9h4v4"/>',
+      pen: '<path d="M4 19.5l.9-4.2L16.4 3.8a2 2 0 012.8 0l1 1a2 2 0 010 2.8L8.2 18.6z"/><path d="M14.5 6.2l3.3 3.3"/>',
+      chat: '<path d="M20 12.2c0 3.5-3.6 6.3-8 6.3-.9 0-1.8-.1-2.6-.4L5 20l1.1-3.2A6 6 0 014 12.2C4 8.7 7.6 5.9 12 5.9s8 2.8 8 6.3z"/><path d="M8.6 12h.01M12 12h.01M15.4 12h.01"/>',
+      coin: '<ellipse cx="12" cy="6.5" rx="7.5" ry="3"/><path d="M4.5 6.5v5c0 1.7 3.4 3 7.5 3s7.5-1.3 7.5-3v-5"/><path d="M4.5 11.5v5c0 1.7 3.4 3 7.5 3s7.5-1.3 7.5-3v-5"/>',
+      book: '<path d="M4.5 5.5A2 2 0 016.5 3.5H20v16H6.5a2 2 0 00-2 2z"/><path d="M4.5 19.5a2 2 0 012-2H20"/><path d="M9 7.5h6M9 10.5h4"/>',
+      flow: '<rect x="3" y="3.5" width="6" height="5" rx="1.4"/><rect x="15" y="15.5" width="6" height="5" rx="1.4"/><rect x="3" y="15.5" width="6" height="5" rx="1.4"/><path d="M9 6h3.5v12H9"/><path d="M12.5 18h2.5"/>',
+      arrow: '<path d="M5 12h14"/><path d="M13.5 6.5L20 12l-6.5 5.5"/>',
+      external: '<path d="M14 4h6v6"/><path d="M20 4l-8.5 8.5"/><path d="M18 14v5a1.5 1.5 0 01-1.5 1.5h-11A1.5 1.5 0 014 19V8a1.5 1.5 0 011.5-1.5H10"/>'
+    };
+    return '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">' + (paths[name] || paths.grid) + '</svg>';
+  }
+
+  /* ---------------- 接口 ---------------- */
+  function readSession() {
+    try {
+      var raw = localStorage.getItem(LS_KEY);
+      if (!raw) { return null; }
+      var s = JSON.parse(raw);
+      return (s && s.token) ? s : null;
+    } catch (e) { return null; }
+  }
+  function writeSession(token, tenant) {
+    try {
+      localStorage.setItem(LS_KEY, JSON.stringify({ token: token, tenant: tenant || null, member: null, role: 'owner', permissions: [] }));
+    } catch (e) { /* ignore */ }
+  }
+  function fetchJson(path, opts) {
+    opts = opts || {};
+    var base = opts.base || API;
+    var headers = { 'Accept': 'application/json' };
+    if (opts.headers) { for (var h in opts.headers) { if (Object.prototype.hasOwnProperty.call(opts.headers, h)) { headers[h] = opts.headers[h]; } } }
+    if (state.token && opts.auth !== false) { headers['Authorization'] = 'Bearer ' + state.token; }
+    var ctrl = null;
+    if (typeof AbortController === 'function') { ctrl = new AbortController(); }
+    var timer = setTimeout(function () { if (ctrl) { ctrl.abort(); } }, opts.timeout || 9000);
+    return fetch(base + path, {
+      method: opts.method || 'GET',
+      headers: headers,
+      body: opts.body || undefined,
+      signal: ctrl ? ctrl.signal : undefined
+    }).then(function (res) {
+      clearTimeout(timer);
+      return res.text().then(function (txt) {
+        var data = {};
+        try { data = JSON.parse(txt) || {}; } catch (e) { data = {}; }
+        if (!res.ok || data.ok === false) {
+          var err = new Error(data.hint || data.error || ('HTTP ' + res.status));
+          err.status = res.status;
+          throw err;
+        }
+        return data;
+      });
+    }, function (e) {
+      clearTimeout(timer);
+      var err = new Error(e && e.name === 'AbortError' ? '接口超时' : '网络不可用');
+      err.status = 0;
+      throw err;
+    });
+  }
+  function ensureAuth() {
+    var s = readSession();
+    if (s && s.token) { state.token = s.token; state.tenant = s.tenant; return Promise.resolve(true); }
+    return fetchJson('/auth/login', {
+      method: 'POST', auth: false, headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ access_code: DEMO_CODE })
+    }).then(function (d) {
+      state.token = d.token || '';
+      state.tenant = d.tenant || null;
+      if (state.token) { writeSession(state.token, state.tenant); }
+      return !!state.token;
+    }).catch(function () { return false; });
+  }
+
+  function loadAgents() {
+    // /api/ent/agents 在企业底座 P1 上线期可能被 301 到后端不支持的前缀；
+    // 这里用 redirect:'manual' 探测，命中重定向则走同服务的旧前缀别名（/ai-nav/api/ent），避免控制台 404 噪音。
+    return fetch(API + '/agents', { headers: { 'Accept': 'application/json' }, redirect: 'manual' })
+      .then(function (res) {
+        if (res.status === 200) {
+          return res.text().then(function (txt) {
+            var d = {};
+            try { d = JSON.parse(txt) || {}; } catch (e) { d = {}; }
+            return d;
+          });
+        }
+        if (res.type === 'opaqueredirect' || res.status === 301 || res.status === 302 || res.status === 303 || res.status === 308 || res.status === 0) {
+          return fetchJson('/agents', { base: '/ai-nav/api/ent' });
+        }
+        return res.text().then(function (txt) {
+          var d = {};
+          try { d = JSON.parse(txt) || {}; } catch (e) { d = {}; }
+          var err = new Error(d.hint || d.error || ('HTTP ' + res.status));
+          err.status = res.status;
+          throw err;
+        });
+      })
+      .then(function (d) {
+        var list = (d && d.agents) || [];
+        if (!list.length) { throw new Error('智能体列表为空'); }
+        state.agents = list;
+        state.agentsDemo = false;
+        state.api.agents = { code: 200, real: true };
+      }).catch(function (e) {
+        state.agents = SAMPLE_AGENTS;
+        state.agentsDemo = true;
+        state.api.agents = { code: e.status || 0, real: false };
+        state.errors.push('智能体接口不可用（' + apiErrText(e) + '），已用示例数据');
+      });
+  }
+  function loadRoi() {
+    return fetchJson('/roi').then(function (d) {
+      if (!d || typeof d.saved_hours === 'undefined') { throw new Error('ROI 数据格式异常'); }
+      state.roi = d;
+      state.roiDemo = false;
+      state.api.roi = { code: 200, real: true };
+    }).catch(function (e) {
+      if (e.status === 401 && !state.reloadTried && state.token) {
+        state.reloadTried = true;
+        return relogin().then(function (ok) { if (ok) { return loadRoi(); } });
+      }
+      state.roi = SAMPLE_ROI;
+      state.roiDemo = true;
+      state.api.roi = { code: e.status || 0, real: false };
+      state.errors.push('ROI 接口不可用（' + apiErrText(e) + '），已用示例数据');
+    });
+  }
+  function loadTasks() {
+    return fetchJson('/tasks').then(function (d) {
+      state.tasks = (d && d.tasks) || [];
+      state.tasksDemo = false;
+      state.api.tasks = { code: 200, real: true };
+    }).catch(function (e) {
+      state.tasks = SAMPLE_TASKS;
+      state.tasksDemo = true;
+      state.api.tasks = { code: e.status || 0, real: false };
+      state.errors.push('任务接口不可用（' + apiErrText(e) + '），已用示例数据');
+    });
+  }
+  function loadPending() {
+    return fetchJson('/workflows/tasks').then(function (d) {
+      var list = [];
+      if (Array.isArray(d)) { list = d; }
+      else if (Array.isArray(d.tasks)) { list = d.tasks; }
+      else if (Array.isArray(d.items)) { list = d.items; }
+      else if (Array.isArray(d.pending)) { list = d.pending; }
+      if (!list.length && d && (d.count || d.total)) {
+        list = [{ id: 'pending_count', title: '待拍板事项 ' + (d.count || d.total) + ' 件', agent: 'CEO Agent', detail: '工作流接口返回数量但无明细', priority: '中', time: '—' }];
+      }
+      state.pending = list.map(function (p, i) {
+        return {
+          id: p.id || ('wf_' + i),
+          agent_id: p.agent_id || p.agentId || '',
+          agent: p.agent_name || p.agent || p.name || 'Agent',
+          title: p.title || p.subject || p.name || p.question || ('待拍板事项 ' + (i + 1)),
+          detail: p.detail || p.desc || p.summary || p.question || '',
+          priority: p.priority || p.level || '中',
+          time: (String(p.created_at || p.time || '').slice(11, 16)) || '—',
+          _demo: false
+        };
+      });
+      state.pendingDemo = false;
+      state.api.pending = { code: 200, real: true };
+    }).catch(function (e) {
+      state.pending = SAMPLE_PENDING.map(function (p) {
+        return { id: p.id, agent_id: p.agent_id, agent: p.agent, title: p.title, detail: p.detail, priority: p.priority, time: p.time, _demo: true };
+      });
+      state.pendingDemo = true;
+      state.api.pending = { code: e.status || 0, real: false };
+    });
+  }
+  function loadHealth() {
+    return fetchJson('/health').then(function (d) {
+      state.health = d;
+      state.api.health = { code: 200, real: true };
+    }).catch(function (e) {
+      state.health = null;
+      state.api.health = { code: e.status || 0, real: false };
+    });
+  }
+  function relogin() {
+    state.token = '';
+    try { localStorage.removeItem(LS_KEY); } catch (e) { /* ignore */ }
+    return fetchJson('/auth/login', {
+      method: 'POST', auth: false, headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ access_code: DEMO_CODE })
+    }).then(function (d) {
+      state.token = d.token || '';
+      state.tenant = d.tenant || null;
+      if (state.token) { writeSession(state.token, state.tenant); }
+      return !!state.token;
+    }).catch(function () { return false; });
+  }
+
+  function loadAll(silent) {
+    state.errors = [];
+    return ensureAuth().then(function () {
+      return Promise.all([loadAgents(), loadRoi(), loadTasks(), loadPending(), loadHealth()]);
+    }).then(function () {
+      state.lastUpdated = timeStr(new Date());
+      renderAll();
+      if (!silent) { afterFirstRender(); }
+    });
+  }
+
+  /* ---------------- 业务映射 ---------------- */
+  function agentsById() {
+    var map = {};
+    (state.agents || []).forEach(function (a) { map[a.id] = a; });
+    return map;
+  }
+  function catOf(agentId) {
+    for (var i = 0; i < CATS.length; i++) {
+      var c = CATS[i];
+      if (c.id !== 'all' && c.agents && c.agents.indexOf(agentId) >= 0) { return c.id; }
+    }
+    return 'all';
+  }
+  function catAgents(catId) {
+    var c = null;
+    for (var i = 0; i < CATS.length; i++) { if (CATS[i].id === catId) { c = CATS[i]; break; } }
+    return (c && c.agents) ? c.agents : null;
+  }
+  function agentCount() {
+    var active = (state.agents || []).filter(function (a) { return !a.status || a.status === 'active'; }).length;
+    return { active: active, total: (state.agents || []).length };
+  }
+  function roiAgentStat(agentId) {
+    var list = (state.roi && state.roi.tasks_by_agent) || [];
+    for (var i = 0; i < list.length; i++) { if (list[i].agent_id === agentId) { return list[i]; } }
+    return null;
+  }
+  function latestTask(agentId) {
+    var list = (state.tasks || []).filter(function (t) { return t.agent_id === agentId && !isTestTask(t); });
+    return list.length ? list[0] : null;
+  }
+  function isTestTask(t) {
+    var q = String((t && t.question) || '');
+    return /幂等测试|幂等验证|重试验证|idem[\s_-]*\d|测试任务|测试用例|smoke[\s_-]?test|test[-_ ]?case/i.test(q);
+  }
+  function visibleTasks() {
+    return (state.tasks || []).filter(function (t) { return !isTestTask(t); });
+  }
+  function noiseTaskCount() {
+    return (state.tasks || []).length - visibleTasks().length;
+  }
+  function taskCountForCat(catId) {
+    var agents = catAgents(catId);
+    var by = {};
+    ((state.roi && state.roi.tasks_by_agent) || []).forEach(function (a) { by[a.agent_id] = a.count; });
+    if (catId === 'all') {
+      var total = (state.roi && state.roi.tasks_total) || (state.tasks || []).length;
+      return total;
+    }
+    var n = 0;
+    (agents || []).forEach(function (id) { n += by[id] || 0; });
+    if (!n) {
+      (state.tasks || []).forEach(function (t) { if ((agents || []).indexOf(t.agent_id) >= 0) { n++; } });
+    }
+    return n;
+  }
+
+  /* ---------------- 渲染：左导航 / 移动 tab ---------------- */
+  function renderSidenav() {
+    var box = $('sideNav');
+    if (!box) { return; }
+    var html = '';
+    CATS.forEach(function (c) {
+      var badge = '';
+      if (c.id === 'all') {
+        if (state.pending.length) { badge = '<span class="badge alert" title="等你拍板（' + (state.pendingDemo ? '示例' : '真实') + '）">' + state.pending.length + '</span>'; }
+      } else {
+        var n = taskCountForCat(c.id);
+        if (n > 0) { badge = '<span class="badge" title="近 30 天任务数">' + n + '</span>'; }
+      }
+      html += '<button type="button" class="side-item' + (state.filter === c.id ? ' active' : '') + '" data-cat="' + c.id + '" aria-pressed="' + (state.filter === c.id) + '">' +
+        icon(c.icon) + '<span>' + esc(c.label) + '</span>' + badge + '</button>';
+    });
+    box.innerHTML = html;
+  }
+  function renderMobileTabs() {
+    var box = $('mobileTabs');
+    if (!box) { return; }
+    var html = '';
+    CATS.forEach(function (c) {
+      var badge = '';
+      if (c.id === 'all' && state.pending.length) { badge = '<span class="mb">' + state.pending.length + '</span>'; }
+      html += '<button type="button" class="' + (state.filter === c.id ? 'active' : '') + '" data-cat="' + c.id + '" aria-label="' + esc(c.label) + '">' +
+        icon(c.icon) + '<span>' + esc(c.label) + '</span>' + badge + '</button>';
+    });
+    box.innerHTML = html;
+  }
+
+  /* ---------------- 渲染：KPI ---------------- */
+  function countUp(el, to, dec) {
+    if (!el) { return; }
+    if (state.reduced || !isFinite(Number(to))) { el.textContent = fmtNum(to, dec); return; }
+    var from = 0, t0 = 0, dur = 900;
+    function step(t) {
+      if (!t0) { t0 = t; }
+      var p = Math.min(1, (t - t0) / dur);
+      var eased = 1 - Math.pow(1 - p, 3);
+      el.textContent = fmtNum(from + (Number(to) - from) * eased, dec);
+      if (p < 1) { requestAnimationFrame(step); }
+    }
+    requestAnimationFrame(step);
+  }
+  function renderKpis() {
+    var roi = state.roi || SAMPLE_ROI;
+    var real = !state.roiDemo;
+    var pendingN = state.pending.length;
+    // 真实接口
+    $('numHours').setAttribute('data-target', roi.saved_hours);
+    countUp($('numHours'), roi.saved_hours, 2);
+    setSrc('srcHours', real);
+    $('subHours').textContent = real ? ('近 30 天 · 规则 ' + (roi.rule ? roi.rule.minutes_per_task : 5) + ' 分钟/任务') : 'ROI 接口不可用 · 示例数据';
+    countUp($('numCost'), roi.labor_cost_saved_cny, 0);
+    setSrc('srcCost', real);
+    $('subCost').textContent = real ? ('人力成本估算 · 时薪 ¥' + (roi.rule ? roi.rule.hourly_cost : 60)) : 'ROI 接口不可用 · 示例数据';
+    countUp($('numOutput'), roi.tasks_total, 0);
+    setSrc('srcOutput', real && !state.tasksDemo);
+    $('subOutput').textContent = (real ? '任务产出 · /api/ent/tasks' : '任务接口不可用 · 示例数据');
+    // 在跑工作流：接口未上线 → 示例
+    countUp($('numFlows'), state.pendingDemo ? 3 : 1, 0);
+    setSrc('srcFlows', false);
+    $('subFlows').textContent = state.pendingDemo ? 'workflows 接口 404 · 示例占位' : '来自 workflows 接口';
+    // 等你拍板
+    countUp($('numPending'), pendingN, 0);
+    setSrc('srcPending', !state.pendingDemo);
+    $('subPending').textContent = (state.pendingDemo ? '示例数据 · ' : '真实接口 · ') + '点击进入待办';
+    var segN = $('segTodoCount');
+    if (segN) { segN.textContent = pendingN; }
+  }
+  function setSrc(id, real) {
+    var el = $(id);
+    if (!el) { return; }
+    el.className = 'src ' + (real ? 'real' : 'demo');
+    el.textContent = real ? '真实' : '示例';
+    el.title = real ? '来自真实接口' : '真实接口不可用或未上线，此为示例数据';
+  }
+
+  /* ---------------- 渲染：时间轴 ---------------- */
+  function taskToEvent(t) {
+    var modeMap = { llm: 'LLM 生成', cached: '缓存命中', degraded: '降级模板' };
+    var lat = Number(t.latency_ms) || 0;
+    var agent = agentsById()[t.agent_id] || {};
+    return {
+      id: t.id || ('task_' + Math.random()),
+      time: String(t.created_at || '').slice(11, 16) || '--:--',
+      day: String(t.created_at || '').slice(5, 10),
+      agent_id: t.agent_id || '',
+      agent: t.agent_name || agent.name || 'Agent',
+      dept: agent.dept || '',
+      title: shortText(t.question || '执行任务', 30),
+      desc: t.question || '',
+      metrics: [
+        { k: '耗时', v: lat >= 1000 ? (lat / 1000).toFixed(1) + 's' : lat + 'ms' },
+        { k: '成本', v: '¥' + (Number(t.cost_cny) || 0).toFixed(4) },
+        { k: '模式', v: modeMap[t.mode] || (t.mode || '—') },
+        { k: 'Token', v: (t.tokens_in || 0) + '/' + (t.tokens_out || 0) }
+      ],
+      waiting: false,
+      source: t._demo ? 'demo' : 'real',
+      detail: '执行问题：' + (t.question || '—')
+    };
+  }
+  function sampleEventToEvent(e) {
+    return {
+      id: 'sample_' + e.time, time: e.time, day: todayStr().slice(5), agent_id: e.agent_id, agent: e.agent, dept: e.dept,
+      title: e.title, desc: e.desc, metrics: e.metrics, waiting: !!e.waiting, source: 'demo',
+      detail: '示例战报，用于展示版式；真实接口恢复后会自动替换。'
+    };
+  }
+  function pendingToEvent(p) {
+    return {
+      id: p.id, time: p.time || '--:--', day: todayStr().slice(5), agent_id: p.agent_id || '', agent: p.agent || 'Agent', dept: '',
+      title: p.title, desc: p.detail, waiting: true, source: p._demo ? 'demo' : 'real',
+      metrics: [{ k: '优先级', v: p.priority || '中' }, { k: '状态', v: '等待拍板' }],
+      detail: p.detail || '待你确认后，Agent 会继续执行后续动作。'
+    };
+  }
+  function filterItems(items) {
+    if (state.filter === 'all') { return items; }
+    return items.filter(function (it) { return catOf(it.agent_id) === state.filter; });
+  }
+  function eventHtml(ev) {
+    var srcReal = ev.source === 'real';
+    var metrics = (ev.metrics || []).map(function (m) { return '<span>' + esc(m.k) + '<b>' + esc(m.v) + '</b></span>'; }).join('');
+    var wait = ev.waiting ? '<span class="wait-badge">等你拍板</span>' : '';
+    var link = ev.agent_id ? '<a class="agent-link" href="/enterprise/?agent=' + encodeURIComponent(ev.agent_id) + '#agents" title="打开对应智能体对话">打开「' + esc(ev.agent) + '」对话' + icon('arrow') + '</a>' : '';
+    return '<article class="event xlm-tilt' + (ev.waiting ? ' pending' : '') + '" data-tilt data-tilt-max="6" data-id="' + esc(ev.id) + '" tabindex="0" role="button" aria-expanded="false">' +
+      '<span class="t">' + esc(ev.time) + '<em>' + esc(ev.day || '') + '</em></span>' +
+      '<div class="ev-inner">' +
+        '<div class="ev-head">' +
+          '<span class="ev-avatar">' + esc(String(ev.agent || 'A').slice(0, 1)) + '</span>' +
+          '<div><div class="ev-title">' + esc(ev.title) + '</div><div class="ev-agent">' + esc(ev.agent) + (ev.dept ? ' · ' + esc(ev.dept) : '') + '</div></div>' +
+          '<span class="ev-tag"><em class="src ' + (srcReal ? 'real' : 'demo') + '">' + (srcReal ? '真实' : '示例') + '</em>' + wait + '</span>' +
+        '</div>' +
+        '<p class="ev-desc">' + esc(ev.desc) + '</p>' +
+        '<div class="ev-metrics">' + metrics + '</div>' +
+        '<div class="ev-detail"><div class="d-body">' + esc(ev.detail || ev.desc) + '<div class="d-row">' +
+          '<span>数据来源 <b>' + (srcReal ? '真实接口' : '示例数据') + '</b></span>' +
+          '<span>时间 <b>' + esc(ev.day || '') + ' ' + esc(ev.time) + '</b></span>' +
+          (ev.waiting ? '<span>状态 <b style="color:#e6a08a">等待老板拍板</b></span>' : '') +
+        '</div>' + link + '</div></div>' +
+      '</div>' +
+    '</article>';
+  }
+  function groupHtml(title, subSrcReal, items, note) {
+    if (!items.length) { return ''; }
+    return '<div class="tl-group"><div class="tl-group-head"><span>' + esc(title) + '</span>' +
+      '<em class="src ' + (subSrcReal ? 'real' : 'demo') + '">' + (subSrcReal ? '真实' : '示例') + '</em>' +
+      (note ? '<span class="note">' + esc(note) + '</span>' : '') + '<span class="line"></span></div>' +
+      items.map(eventHtml).join('') + '</div>';
+  }
+  function renderTimeline() {
+    var box = $('timeline');
+    if (!box) { return; }
+    var pendingEv = filterItems((state.pending || []).map(pendingToEvent));
+    var visTasks = visibleTasks();
+    var noiseN = noiseTaskCount();
+    var todayReal = visTasks.filter(function (t) {
+      return String(t.created_at || '').slice(0, 10) === todayStr();
+    });
+    var recentReal = visTasks.filter(function (t) {
+      return String(t.created_at || '').slice(0, 10) !== todayStr();
+    });
+    var noiseNote = noiseN ? ('已隐藏系统自测 ' + noiseN + ' 条') : '';
+
+    var groups = [];
+    groups.push(groupHtml('待你拍板', !state.pendingDemo, pendingEv,
+      state.pendingDemo ? '接口 404 · 示例占位' : '来自 /api/ent/workflows/tasks'));
+    if (todayReal.length) {
+      groups.push(groupHtml('今日战报', !state.tasksDemo, filterItems(todayReal.slice(0, 5).map(taskToEvent)),
+        (todayReal.length > 5 ? ('共 ' + todayReal.length + ' 条 · 显示最新 5 条') : '') + (noiseNote ? ' · ' + noiseNote : '')));
+    } else {
+      groups.push(groupHtml('今日战报（示例占位）', false, filterItems(SAMPLE_EVENTS.map(sampleEventToEvent)),
+        '今日真实任务 0 条' + (noiseNote ? ' · ' + noiseNote : '')));
+    }
+    if (recentReal.length) {
+      groups.push(groupHtml('最近真实执行', true, filterItems(recentReal.slice(0, 4).map(taskToEvent)),
+        (recentReal.length > 4 ? ('共 ' + recentReal.length + ' 条 · 显示最近 4 条') : '') + (noiseNote ? ' · ' + noiseNote : '')));
+    } else if (state.tasksDemo) {
+      groups.push(groupHtml('最近执行（示例）', false, filterItems(SAMPLE_TASKS.slice(0, 3).map(taskToEvent)), '任务接口不可用'));
+    }
+    var html = groups.filter(Boolean).join('');
+    if (!html) {
+      html = '<div class="empty"><b>该分区暂无战报</b>切换到「总览」查看全部动态，或等待下一个执行周期。</div>';
+    }
+    box.innerHTML = html;
+    bindEvents();
+  }
+
+  /* ---------------- 渲染：待办 ---------------- */
+  function renderTodo() {
+    var box = $('todoList');
+    if (!box) { return; }
+    var items = filterItems(state.pending);
+    if (!items.length) {
+      box.innerHTML = '<div class="empty"><b>该分区暂无待拍板事项</b>所有事项已处理完毕，或切换分区查看。</div>';
+    } else {
+      box.innerHTML = items.map(function (p) {
+        var demo = state.pendingDemo || p._demo;
+        var priCls = (p.priority === '高' ? 'high' : 'mid');
+        return '<article class="todo-card xlm-tilt" data-tilt data-tilt-max="6">' +
+          '<div class="todo-top">' +
+            '<span class="pri ' + priCls + '">优先级 ' + esc(p.priority || '中') + '</span>' +
+            '<span class="todo-title">' + esc(p.title) + '</span>' +
+            '<em class="src ' + (demo ? 'demo' : 'real') + '">' + (demo ? '示例' : '真实') + '</em>' +
+            '<span class="todo-agent">' + esc(p.agent || 'Agent') + ' · ' + esc(p.time || '--:--') + '</span>' +
+          '</div>' +
+          '<p class="todo-detail">' + esc(p.detail || '—') + '</p>' +
+          '<div class="todo-actions">' +
+            '<a class="btn tiny gold" href="/enterprise/?agent=' + encodeURIComponent(p.agent_id || 'sales_assistant') + '#agents">去处理 / 打开对话</a>' +
+            '<button type="button" class="btn tiny ghost" data-todo-later="1">稍后处理</button>' +
+          '</div>' +
+        '</article>';
+      }).join('');
+    }
+    box.innerHTML += '<p class="todo-note">' + (state.pendingDemo
+      ? '当前待办为示例数据（接口 /api/ent/workflows/tasks 返回 404，工作流引擎建设中）。接口上线后本页自动展示真实待办，示例标记随之消失。'
+      : '待办来自真实接口 /api/ent/workflows/tasks。') + '</p>';
+    var laterBtns = box.querySelectorAll('[data-todo-later]');
+    Array.prototype.forEach.call(laterBtns, function (b) {
+      b.addEventListener('click', function () { toast('已标记「稍后处理」（本页演示，不写入服务端）'); });
+    });
+  }
+
+  /* ---------------- 渲染：值班表 ---------------- */
+  function renderRoster() {
+    var box = $('rosterList');
+    if (!box) { return; }
+    var list = (state.agents || []).slice();
+    var catAgentsList = catAgents(state.filter);
+    if (catAgentsList) { list = list.filter(function (a) { return catAgentsList.indexOf(a.id) >= 0; }); }
+    if (state.rosterStatus === 'active') { list = list.filter(function (a) { return !a.status || a.status === 'active'; }); }
+    else if (state.rosterStatus === 'rest') { list = list.filter(function (a) { return a.status && a.status !== 'active'; }); }
+    // 有执行记录的Agent优先
+    list.sort(function (a, b) {
+      var ca = roiAgentStat(a.id), cb = roiAgentStat(b.id);
+      return ((cb && cb.count) || 0) - ((ca && ca.count) || 0);
+    });
+    if (!list.length) {
+      box.innerHTML = '<div class="empty" style="margin:0;width:100%"><b>' +
+        (state.rosterStatus === 'rest' ? '全部 Agent 在岗中' : '该分区暂无 Agent') + '</b>' +
+        (state.rosterStatus === 'rest' ? '没有休息中的 Agent，切换「全部」查看编制。' : '切换「总览」查看全部值班 Agent。') + '</div>';
+    } else {
+      box.innerHTML = list.map(function (a) {
+        var st = roiAgentStat(a.id);
+        var last = latestTask(a.id);
+        var active = !a.status || a.status === 'active';
+        var isLive = last && (Date.now() - parseTaskTime(last.created_at) < 10 * 60 * 1000);
+        var taskLine = last ? ((isLive ? '执行中：' : '最近任务：') + shortText(last.question, 22)) : '待命 · 当前无排队任务';
+        var lastLine = last ? (relDate(last.created_at)) : '—';
+        var countLine = st ? ('近30天 ' + st.count + ' 条') : ('今日 ' + (last ? 1 : 0) + ' 条');
+        return '<article class="agent-card xlm-tilt' + (active ? '' : ' off') + '" data-tilt data-tilt-max="6">' +
+          '<span class="avatar">' + esc(a.icon || String(a.name || 'A').slice(0, 1)) + '</span>' +
+          '<div class="agent-main">' +
+            '<div class="agent-top"><span class="agent-name">' + esc(a.name) + '</span><span class="agent-code">' + esc(a.code || '') + '</span></div>' +
+            '<div class="agent-dept">' + esc(a.dept || '') + ' · ' + (active ? '在岗' : '休息') + '</div>' +
+            '<div class="agent-task">' + esc(taskLine) + '</div>' +
+            '<div class="agent-last"><span>上次执行 <span class="k">' + esc(lastLine) + '</span></span><span>·</span><span>' + esc(countLine) + '</span></div>' +
+          '</div>' +
+          '<a class="agent-open" href="/enterprise/?agent=' + encodeURIComponent(a.id) + '#agents" title="打开「' + esc(a.name) + '」对话" aria-label="打开对话">↗</a>' +
+        '</article>';
+      }).join('');
+    }
+    var n = agentCount();
+    $('rosterSub').textContent = (state.agentsDemo ? '示例数据 · ' : '真实接口 /api/ent/agents · ') + n.active + '/' + n.total + ' 在岗';
+    $('rosterFoot').innerHTML = '状态来源 ' + (state.agentsDemo ? '<em class="src demo">示例</em>' : '<em class="src real">真实</em> /api/ent/agents') +
+      '；最近执行 ' + (state.tasksDemo ? '<em class="src demo">示例</em>' : '<em class="src real">真实</em> /api/ent/tasks');
+    // 更新筛选按钮计数
+    var btns = document.querySelectorAll('#rosterFilter button');
+    var restCount = (state.agents || []).filter(function (a) { return a.status && a.status !== 'active'; }).length;
+    Array.prototype.forEach.call(btns, function (b) {
+      var s = b.getAttribute('data-status');
+      if (s === 'active') { b.textContent = '在岗 ' + n.active; }
+      if (s === 'rest') { b.textContent = '休息 ' + restCount; }
+      if (s === 'all') { b.textContent = '全部 ' + n.total; }
+      b.classList.toggle('active', state.rosterStatus === s);
+    });
+  }
+
+  /* ---------------- 渲染：健康度 ---------------- */
+  function renderHealth() {
+    var box = $('healthGrid');
+    if (!box) { return; }
+    var roi = state.roi || SAMPLE_ROI;
+    var costReal = !state.roiDemo;
+    var effReal = !state.roiDemo;
+    var costSave = Number(roi.labor_cost_saved_cny) || 0;
+    var fee = Number(roi.platform_fee_period_cny) || 0;
+    var llm = Number(roi.llm_cost_cny) || 0;
+    var costScore = fee > 0 ? Math.max(0, Math.min(100, Math.round(100 * costSave / (fee + llm)))) : 50;
+    var effScore = Math.round(((roi.rule && roi.rule.automation_rate) || 1) * 100);
+    var avgLat = roi.usage && roi.usage.avg_latency_ms ? (roi.usage.avg_latency_ms / 1000).toFixed(1) + 's' : '—';
+    var riskScore = state.pendingDemo ? 80 : Math.max(0, 100 - state.pending.length * 12);
+    var items = [
+      { key: 'revenue', title: '收入健康', score: 68, real: false, desc: '暂无收入接口 · 示例口径 68',
+        tip: '暂无收入类接口，示例口径仅用于展示仪表版式，不构成经营数据。' },
+      { key: 'cost', title: '成本健康', score: costScore, real: costReal,
+        desc: costReal ? ('节省 ¥' + fmtNum(costSave, 0) + ' / 平台费 ¥' + fmtNum(fee, 0) + (costScore < 20 ? ' · POC 未摊薄' : '')) : ('ROI 接口不可用 · 示例 ' + costScore),
+        tip: '公式：节省成本 ÷ (平台费 + LLM 成本) × 100；POC 平台费按月摊销，未摊薄时分数偏低属真实口径。' },
+      { key: 'eff', title: '效率健康', score: effScore, real: effReal,
+        desc: effReal ? ('自动化率 ' + effScore + '% · 平均响应 ' + avgLat) : ('ROI 接口不可用 · 示例 ' + effScore),
+        tip: '公式：自动化率 × 100；单任务默认节省 5 分钟为 ROI 规则可配项。' },
+      { key: 'risk', title: '风险健康', score: riskScore, real: !state.pendingDemo,
+        desc: (!state.pendingDemo ? ('待拍板 ' + state.pending.length + ' 件已纳入风险') : ('待办接口未上线 · 示例 ' + riskScore)),
+        tip: '公式：100 − 待拍板件数 × 12；待办接口未上线时用示例待办占位。' }
+    ];
+    box.innerHTML = items.map(function (it) {
+      return '<div class="gauge-card xlm-tilt' + (it.score < 30 ? ' low' : '') + '" data-tilt data-tilt-max="6" title="' + esc(it.tip) + '">' +
+        '<div class="gauge" style="--p:' + Math.max(0, Math.min(100, it.score)) + '"><b>' + it.score + '<small>/100</small></b></div>' +
+        '<div class="g-info"><div class="g-title">' + esc(it.title) + ' <em class="src ' + (it.real ? 'real' : 'demo') + '">' + (it.real ? '真实' : '示例') + '</em></div>' +
+        '<div class="g-desc">' + esc(it.desc) + '</div></div>' +
+      '</div>';
+    }).join('');
+  }
+
+  /* ---------------- 渲染：接口状态 ---------------- */
+  function renderApiStrip() {
+    var box = $('apiStrip');
+    if (!box) { return; }
+    var defs = [
+      { key: 'agents', path: '/api/ent/agents', label: '智能体编制' },
+      { key: 'roi', path: '/api/ent/roi', label: 'ROI 看板' },
+      { key: 'tasks', path: '/api/ent/tasks', label: '执行记录' },
+      { key: 'pending', path: '/api/ent/workflows/tasks', label: '待办/工作流' },
+      { key: 'health', path: '/api/ent/health', label: '健康检查' }
+    ];
+    box.innerHTML = defs.map(function (d) {
+      var st = state.api[d.key] || { code: null, real: false };
+      var code = st.real ? '200' : (st.code ? String(st.code) : 'ERR');
+      return '<div class="api-item"><span class="p">' + esc(d.path) + '</span>' +
+        '<span class="code ' + (st.real ? 'ok' : 'bad') + '">' + esc(code) + '</span>' +
+        '<em class="src ' + (st.real ? 'real' : 'demo') + '">' + (st.real ? '真实' : '示例') + '</em></div>';
+    }).join('');
+  }
+
+  /* ---------------- 渲染：通知 / 头部 / 页脚 ---------------- */
+  function renderNotice() {
+    var box = $('notice');
+    if (!box) { return; }
+    var msgs = [];
+    if (state.pendingDemo) {
+      msgs.push('待办接口 /api/ent/workflows/tasks 返回 ' + (state.api.pending.code || '404') + '（平台底座建设中），「等你拍板」为示例 2 件并已标注「示例」；接口上线后自动切换真实数据。');
+    }
+    if (state.roiDemo) { msgs.push('ROI 接口未接通，ROI 相关数字使用示例数据并标注「示例」。'); }
+    if (state.tasksDemo) { msgs.push('任务接口未接通，时间轴真实执行记录暂缺。'); }
+    else {
+      var todayCount = (state.tasks || []).filter(function (t) { return String(t.created_at || '').slice(0, 10) === todayStr(); }).length;
+      if (todayCount === 0) { msgs.push('今日真实任务 0 条：战报区上方为版式示例（已标注「示例」），下方展示最近真实执行记录。'); }
+    }
+    if (!msgs.length) {
+      box.classList.add('hidden');
+      return;
+    }
+    box.classList.remove('hidden');
+    $('noticeText').innerHTML = '<b>数据提示</b>：' + msgs.map(esc).join(' ');
+  }
+  function renderHeader() {
+    var n = agentCount();
+    $('agentChip').innerHTML = '<i class="dot"></i>' + n.active + '/' + n.total + ' Agent 在岗';
+    var tenantName = state.tenant && state.tenant.name ? state.tenant.name : '演示企业';
+    var env = $('envChip');
+    env.innerHTML = '<i class="dot' + (state.agentsDemo ? ' warn' : '') + '"></i>' + esc(tenantName.length > 14 ? tenantName.slice(0, 14) + '…' : tenantName) + ' · 真实接口';
+    env.title = tenantName + '（演示租户；登录态与 /enterprise/ 工作台共用）';
+    var llm = state.health && state.health.llm;
+    var llmChip = $('llmChip');
+    if (llm && llm.configured) {
+      llmChip.innerHTML = '<i class="dot"></i>LLM 就绪 · ' + esc(llm.model || 'DeepSeek');
+    } else if (state.health) {
+      llmChip.innerHTML = '<i class="dot warn"></i>降级模式 · 无外部模型';
+    } else {
+      llmChip.innerHTML = '<i class="dot warn"></i>模型状态未知';
+    }
+    $('lastUpdated').textContent = '数据更新 ' + (state.lastUpdated || '--:--:--');
+    var viewSub = $('viewSub');
+    var today = todayStr();
+    var todayCount = visibleTasks().filter(function (t) { return String(t.created_at || '').slice(0, 10) === today; }).length;
+    var agentN = agentCount();
+    viewSub.textContent = today.slice(5).replace('-', '月') + '日 · ' + agentN.active + '/' + agentN.total + ' 个岗位 Agent 在岗 · 今日真实任务 ' +
+      todayCount + ' 条 · 执行记录 ' + visibleTasks().length + ' 条 · 数据每 90 秒自动刷新';
+  }
+
+  /* ---------------- 视图切换 / 筛选 ---------------- */
+  function setView(v) {
+    state.view = v;
+    var isTodo = v === 'todo';
+    $('timelineView').classList.toggle('hidden', isTodo);
+    $('todoView').classList.toggle('hidden', !isTodo);
+    $('viewTitle').textContent = isTodo ? '待你拍板' : '今日战报';
+    var btns = document.querySelectorAll('#viewSeg button');
+    Array.prototype.forEach.call(btns, function (b) {
+      var active = b.getAttribute('data-view') === v;
+      b.classList.toggle('active', active);
+      b.setAttribute('aria-selected', active ? 'true' : 'false');
+    });
+    if (isTodo) { renderTodo(); }
+    refreshMotion();
+  }
+  function setFilter(cat) {
+    state.filter = cat;
+    renderSidenav();
+    renderMobileTabs();
+    renderTimeline();
+    renderRoster();
+    renderTodo();
+    renderHeader();
+    refreshMotion();
+    var label = '总览';
+    CATS.forEach(function (c) { if (c.id === cat) { label = c.label; } });
+    if (state.view === 'timeline') { toast('已切换到「' + label + '」业务分区'); }
+  }
+  function setRosterStatus(s) {
+    state.rosterStatus = s;
+    renderRoster();
+    refreshMotion();
+  }
+
+  /* ---------------- 交互绑定 ---------------- */
+  function bindEvents() {
+    var cards = document.querySelectorAll('#timeline .event');
+    Array.prototype.forEach.call(cards, function (card) {
+      if (card._bound) { return; }
+      card._bound = true;
+      card.addEventListener('click', function () {
+        var wasOpen = card.classList.contains('open');
+        var all = document.querySelectorAll('#timeline .event.open');
+        Array.prototype.forEach.call(all, function (c) { c.classList.remove('open'); c.setAttribute('aria-expanded', 'false'); });
+        if (!wasOpen) { card.classList.add('open'); card.setAttribute('aria-expanded', 'true'); }
+      });
+      card.addEventListener('keydown', function (e) {
+        if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); card.click(); }
+      });
+    });
+  }
+  /* 动效层（xl-motion）：动态渲染后重新扫描 data-tilt / data-flow / data-count */
+  function refreshMotion() {
+    try {
+      if (window.XLMotion && typeof window.XLMotion.init === 'function') {
+        window.XLMotion.init(document);
+      }
+    } catch (e) { /* 动效层不可用时静默降级，不影响业务渲染 */ }
+  }
+  function bindStaticEvents() {
+    var sideNav = $('sideNav');
+    sideNav.addEventListener('click', function (e) {
+      var btn = e.target.closest ? e.target.closest('[data-cat]') : null;
+      if (btn) { setFilter(btn.getAttribute('data-cat')); }
+    });
+    $('mobileTabs').addEventListener('click', function (e) {
+      var btn = e.target.closest ? e.target.closest('[data-cat]') : null;
+      if (btn) {
+        setFilter(btn.getAttribute('data-cat'));
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+      }
+    });
+    $('viewSeg').addEventListener('click', function (e) {
+      var btn = e.target.closest ? e.target.closest('[data-view]') : null;
+      if (btn) { setView(btn.getAttribute('data-view')); }
+    });
+    $('rosterFilter').addEventListener('click', function (e) {
+      var btn = e.target.closest ? e.target.closest('[data-status]') : null;
+      if (btn) { setRosterStatus(btn.getAttribute('data-status')); }
+    });
+    $('kpiPending').addEventListener('click', function () { setView('todo'); scrollToMain(); });
+    $('kpiPending').addEventListener('keydown', function (e) {
+      if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); setView('todo'); scrollToMain(); }
+    });
+    $('refreshBtn').addEventListener('click', function () {
+      var btn = $('refreshBtn');
+      btn.classList.add('spin');
+      loadAll(false).then(function () { btn.classList.remove('spin'); toast('已刷新真实接口数据'); })
+        .catch(function () { btn.classList.remove('spin'); toast('刷新失败：接口暂不可用'); });
+    });
+    document.addEventListener('visibilitychange', function () {
+      if (!document.hidden && state.lastUpdated) { /* 预留：回到前台静默刷新 */ }
+    });
+  }
+  function scrollToMain() {
+    var el = $('timelineView');
+    if (!el) { return; }
+    if (window.innerWidth <= 980) { window.scrollTo({ top: 0, behavior: 'smooth' }); }
+  }
+
+  /* ---------------- 时钟 ---------------- */
+  function startClock() {
+    function tick() {
+      var el = $('clockChip');
+      if (el) {
+        var d = new Date();
+        el.textContent = pad2(d.getHours()) + ':' + pad2(d.getMinutes()) + ':' + pad2(d.getSeconds());
+        el.title = d.getFullYear() + '-' + pad2(d.getMonth() + 1) + '-' + pad2(d.getDate()) + ' ' + timeStr(d);
+      }
+    }
+    tick();
+    setInterval(tick, 1000);
+  }
+
+  /* ---------------- 首次渲染后：动效层 / 自动刷新 ---------------- */
+  function afterFirstRender() {
+    window.__COCKPIT_READY__ = true;
+    initMotionLayer();
+    setInterval(function () {
+      if (document.hidden) { return; }
+      loadAll(true).catch(function () { /* 静默失败 */ });
+    }, 90000);
+  }
+
+  /* ---------------- 动效层（xl-motion v1.1，本地资源 /ai-nav/assets/xl-motion/） ----------------
+   * 7 套动态背景 + 右上角切换器 + 深浅主题同步由动效层统一驱动（默认 nebula 星云粒子）；
+   * 本页只监听背景状态事件更新角标，并在浅色背景下通过 [data-xlm-theme="light"] 切换正文主题。
+   */
+  function setBgStatus(text) {
+    var el = $('fpsChip');
+    if (el) { el.textContent = text; }
+  }
+  function bgChipFor(st) {
+    if (!st) { return '背景检测中…'; }
+    if (st.static) {
+      return st.theme === 'light' ? '静态背景 · 已降级（浅色主题）' : '静态背景 · 已降级';
+    }
+    if (st.id === 'nebula') {
+      return '3D 星云粒子 · ' + (st.fps ? (Math.round(st.fps * 10) / 10) + ' fps' : '渲染中');
+    }
+    var names = { matrix: '数据矩阵', city: '城市夜巡', ink: '水墨金晕', dawn: '晨光云海', silk: '金丝纸纹', lineflow: '细线流光' };
+    return '动态背景 · ' + (names[st.id] || st.id) + ' · ' + (st.theme === 'light' ? '浅色' : '深色') + '主题';
+  }
+  function readBgState() {
+    try {
+      if (window.XLMotion && window.XLMotion.backgrounds) { return window.XLMotion.backgrounds.getState(); }
+    } catch (e) { /* ignore */ }
+    return null;
+  }
+  function applyBgState(st) {
+    if (!st) { return; }
+    state.bg = st;
+    state.fps = st.fps || 0;
+    state.degraded = !!st.static;
+    window.__CC_SCENE_READY__ = st.id === 'nebula' && !st.static;
+    setBgStatus(bgChipFor(st));
+  }
+  function bindMotionEvents() {
+    if (window.__CC_MOTION_BOUND__) { return; }
+    window.__CC_MOTION_BOUND__ = true;
+    document.addEventListener('xlm:ready', function () {
+      window.__CC_MOTION_READY__ = true;
+      refreshMotion();
+      applyBgState(readBgState());
+    });
+    document.addEventListener('xlm:bg-ready', function (e) { applyBgState(e.detail); });
+    document.addEventListener('xlm:bg-change', function (e) { applyBgState(e.detail); });
+    document.addEventListener('xlm:bg-fps', function (e) {
+      var d = e.detail || {};
+      state.fps = d.fps || 0;
+      var st = readBgState();
+      if (st && st.id === d.id && !st.static) { setBgStatus(bgChipFor(st)); }
+    });
+    document.addEventListener('xlm:bg-static', function (e) {
+      state.degraded = true;
+      setBgStatus('静态背景 · 帧率不足已自动降级（' + ((e.detail && e.detail.fps) || '') + ' fps）');
+    });
+    document.addEventListener('xlm:bg-theme', function () {
+      // 浅/深主题由 html[data-xlm-theme] 驱动，页面 CSS 自动切换；这里只同步角标
+      applyBgState(readBgState());
+    });
+    window.__CC_MOTION_STATE__ = function () {
+      try {
+        var core = window.XLMotion ? window.XLMotion.getState() : null;
+        var bg = readBgState();
+        return {
+          core: core,
+          background: bg,
+          id: bg ? bg.id : (core && core.backgrounds ? core.backgrounds.id : null),
+          theme: bg ? bg.theme : (document.documentElement.getAttribute('data-xlm-theme') || 'dark'),
+          static: bg ? !!bg.static : false
+        };
+      } catch (e) { return null; }
+    };
+  }
+  function initMotionLayer() {
+    bindMotionEvents();
+    refreshMotion();
+    var st = readBgState();
+    if (window.XLMotion) { window.__CC_MOTION_READY__ = true; }
+    applyBgState(st);
+    setTimeout(function () {
+      if (!window.XLMotion && !window.__CC_SCENE_READY__) { setBgStatus('静态背景 · 动效层未加载'); }
+      else if (window.XLMotion) { applyBgState(readBgState()); }
+    }, 3500);
+  }
+
+  /* ---------------- 启动 ---------------- */
+  function boot() {
+    state.reduced = !!(window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches);
+    bindMotionEvents();
+    startClock();
+    renderSidenav();
+    renderMobileTabs();
+    bindStaticEvents();
+    loadAll(false).then(function () {
+      refreshMotion();
+    }).catch(function (e) {
+      // 兜底：即使数据加载链路异常也渲染示例态，避免白屏
+      state.errors.push('启动异常：' + (e && e.message ? e.message : '未知错误'));
+      renderAll();
+      afterFirstRender();
+      refreshMotion();
+    });
+    window.__CC_REPLAY__ = function () {
+      var els = document.querySelectorAll('.reveal');
+      Array.prototype.forEach.call(els, function (el) { el.style.animation = 'none'; });
+      void document.body.offsetWidth;
+      Array.prototype.forEach.call(els, function (el) { el.style.animation = ''; });
+      renderKpis();
+    };
+  }
+
+  function renderAll() {
+    renderSidenav();
+    renderMobileTabs();
+    renderKpis();
+    renderTimeline();
+    renderTodo();
+    renderRoster();
+    renderHealth();
+    renderApiStrip();
+    renderNotice();
+    renderHeader();
+    setView(state.view);
+    refreshMotion();
+  }
+
+  // 调试/验收钩子（不影响正常渲染）
+  window.__CC_STATE__ = state;
+
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', boot);
+  } else {
+    boot();
+  }
+})();
+</script>
+</body>
+</html>

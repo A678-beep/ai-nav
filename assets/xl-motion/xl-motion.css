@@ -429,3 +429,826 @@
     display: none !important;
   }
 }
+
+/* ==================================================================
+ * 动态背景系统（7 套可切换背景）
+ * 深色：nebula / matrix / city / ink
+ * 浅色：dawn / silk / lineflow
+ * ================================================================== */
+
+.xlm-bg {
+  position: fixed;
+  inset: 0;
+  z-index: 0;
+  overflow: hidden;
+  pointer-events: none;
+  background: #0a0908;
+  isolation: isolate;
+}
+
+.xlm-bg__scene {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  overflow: hidden;
+  animation: xlm-bg-in 1.1s var(--xlm-ease-out) both;
+}
+
+@keyframes xlm-bg-in {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+.xlm-bg__scene > * {
+  position: absolute;
+  inset: 0;
+}
+
+.xlm-bg__grain {
+  position: absolute;
+  inset: 0;
+  z-index: 4;
+  pointer-events: none;
+  opacity: 0.15;
+  mix-blend-mode: soft-light;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='180' height='180'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='180' height='180' filter='url(%23n)' opacity='0.5'/%3E%3C/svg%3E");
+  background-size: 180px 180px;
+}
+
+.xlm-bg--dark::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: 3;
+  pointer-events: none;
+  background:
+    radial-gradient(ellipse 105% 90% at 50% 38%, transparent 30%, rgba(7, 6, 5, 0.55) 100%),
+    linear-gradient(180deg, rgba(10, 9, 8, 0.08) 0%, rgba(10, 9, 8, 0.42) 100%);
+}
+
+.xlm-bg--light::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: 3;
+  pointer-events: none;
+  background:
+    linear-gradient(180deg, rgba(255, 252, 246, 0.3) 0%, rgba(255, 250, 241, 0.04) 34%, rgba(245, 236, 220, 0.18) 100%),
+    radial-gradient(ellipse 120% 90% at 50% 0%, rgba(255, 253, 248, 0.35), transparent 60%);
+}
+
+/* ---------- ① 星云粒子（3D） ---------- */
+
+.xlm-bg--nebula { background: radial-gradient(ellipse 100% 80% at 55% 40%, #14100b, #0a0908 62%, #070605 100%); }
+.xlm-bg__nebula { position: absolute; inset: 0; }
+
+/* ---------- ② 数据矩阵（Canvas 2D） ---------- */
+
+.xlm-bg--matrix { background: radial-gradient(ellipse 90% 70% at 50% 22%, #12100c, #0a0908 62%, #070605 100%); }
+.xlm-matrix__glow {
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(ellipse 46% 38% at 52% 32%, rgba(184, 137, 47, 0.12), transparent 72%);
+}
+.xlm-bg--matrix .xlm-bg-canvas { mix-blend-mode: screen; opacity: 0.92; }
+.xlm-bg-canvas { position: absolute; inset: 0; display: block; width: 100%; height: 100%; }
+
+/* ---------- ③ 城市夜巡（2D 分层视差） ---------- */
+
+.xlm-bg--city { background: linear-gradient(180deg, #0d0b09 0%, #17110b 44%, #2a1c0f 70%, #0b0906 100%); }
+.xlm-city { position: absolute; inset: 0; overflow: hidden; }
+.xlm-city__sky {
+  position: absolute;
+  inset: 0;
+  background:
+    radial-gradient(ellipse 42% 24% at 70% 66%, rgba(230, 194, 122, 0.24), transparent 72%),
+    radial-gradient(ellipse 30% 18% at 26% 72%, rgba(197, 59, 50, 0.16), transparent 72%),
+    radial-gradient(ellipse 70% 40% at 50% 100%, rgba(120, 80, 34, 0.2), transparent 70%);
+}
+.xlm-city__horizon {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 12%;
+  height: 42%;
+  background: radial-gradient(ellipse 58% 100% at 62% 100%, rgba(230, 194, 122, 0.2), transparent 72%);
+  filter: blur(20px);
+}
+.xlm-city__world { position: absolute; inset: 0; animation: xlm-city-pan 52s ease-in-out infinite alternate; }
+.xlm-city__layer { position: absolute; left: -2%; bottom: 0; width: 104%; height: 100%; display: block; will-change: transform; }
+.xlm-city__layer--far { transform: translate3d(calc(var(--xlm-bg-px, 0) * -7px), calc(var(--xlm-bg-py, 0) * -3px), 0); opacity: 0.85; }
+.xlm-city__layer--mid { transform: translate3d(calc(var(--xlm-bg-px, 0) * -17px), calc(var(--xlm-bg-py, 0) * -7px), 0); }
+.xlm-city__layer--near { transform: translate3d(calc(var(--xlm-bg-px, 0) * -30px), calc(var(--xlm-bg-py, 0) * -12px), 0); }
+.xlm-city__bldg { animation: xlm-city-twinkle 6.5s ease-in-out infinite; }
+.xlm-city__pagoda { filter: drop-shadow(0 0 10px rgba(197, 59, 50, 0.12)); }
+.xlm-city__embers i {
+  position: absolute;
+  left: var(--x);
+  bottom: -3%;
+  width: var(--s, 2px);
+  height: var(--s, 2px);
+  border-radius: 50%;
+  background: rgba(244, 223, 174, 0.85);
+  box-shadow: 0 0 8px rgba(230, 194, 122, 0.6);
+  opacity: 0;
+  animation: xlm-city-ember var(--d, 16s) linear infinite;
+  animation-delay: var(--delay, 0s);
+}
+.xlm-city__streaks i {
+  position: absolute;
+  left: -12%;
+  width: 52%;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, rgba(230, 194, 122, 0.4), transparent);
+  opacity: 0.25;
+  animation: xlm-city-streak 9s ease-in-out infinite;
+}
+.xlm-city__streaks i:nth-child(1) { top: 58%; animation-delay: -2s; }
+.xlm-city__streaks i:nth-child(2) { top: 70%; width: 38%; animation-delay: -5.5s; }
+.xlm-city__streaks i:nth-child(3) { top: 78%; width: 60%; animation-delay: -8s; background: linear-gradient(90deg, transparent, rgba(197, 59, 50, 0.34), transparent); }
+
+@keyframes xlm-city-pan {
+  from { transform: translate3d(-1.1%, 0, 0); }
+  to { transform: translate3d(1.1%, 0, 0); }
+}
+@keyframes xlm-city-twinkle {
+  0%, 100% { opacity: 0.72; }
+  50% { opacity: 1; }
+}
+@keyframes xlm-city-ember {
+  0% { transform: translate3d(0, 0, 0); opacity: 0; }
+  10% { opacity: 0.9; }
+  70% { opacity: 0.45; }
+  100% { transform: translate3d(6vw, -72vh, 0); opacity: 0; }
+}
+@keyframes xlm-city-streak {
+  0%, 100% { transform: translate3d(0, 0, 0); opacity: 0.12; }
+  50% { transform: translate3d(34%, 0, 0); opacity: 0.55; }
+}
+
+/* ---------- ④ 水墨金晕（CSS） ---------- */
+
+.xlm-bg--ink { background: radial-gradient(ellipse 85% 72% at 52% 62%, #17120c, #0b0908 58%, #070605 100%); }
+.xlm-ink { position: absolute; inset: 0; overflow: hidden; }
+.xlm-ink__blob {
+  position: absolute;
+  left: var(--x);
+  top: var(--y);
+  width: var(--s);
+  height: var(--s);
+  margin: calc(var(--s) / -2) 0 0 calc(var(--s) / -2);
+  border-radius: 50%;
+  filter: blur(48px);
+  opacity: 0.72;
+  animation: xlm-ink-drift var(--d) ease-in-out infinite alternate;
+  animation-delay: var(--delay);
+}
+.xlm-ink__blob:nth-child(3n + 1) { background: radial-gradient(circle, rgba(230, 194, 122, 0.32), rgba(184, 137, 47, 0.1) 46%, transparent 70%); }
+.xlm-ink__blob:nth-child(3n + 2) { background: radial-gradient(circle, rgba(197, 59, 50, 0.22), rgba(140, 34, 29, 0.08) 52%, transparent 72%); mix-blend-mode: screen; }
+.xlm-ink__blob:nth-child(3n) { background: radial-gradient(circle, rgba(96, 82, 60, 0.5), rgba(40, 34, 26, 0.18) 55%, transparent 76%); mix-blend-mode: screen; }
+.xlm-ink__halo {
+  position: absolute;
+  left: 54%;
+  top: 58%;
+  width: 46vmax;
+  height: 46vmax;
+  margin: -23vmax 0 0 -23vmax;
+  border-radius: 50%;
+  border: 1px solid rgba(230, 194, 122, 0.12);
+  box-shadow: inset 0 0 120px rgba(230, 194, 122, 0.08), 0 0 140px rgba(197, 59, 50, 0.06);
+  animation: xlm-ink-halo 17s ease-in-out infinite;
+}
+@keyframes xlm-ink-drift {
+  from { transform: translate3d(-2%, -1.4%, 0) scale(1); }
+  to { transform: translate3d(2%, 2%, 0) scale(1.08); }
+}
+@keyframes xlm-ink-halo {
+  0%, 100% { opacity: 0.45; transform: scale(0.96); }
+  50% { opacity: 1; transform: scale(1.04); }
+}
+
+/* ---------- ⑤ 晨光云海（浅色 CSS） ---------- */
+
+.xlm-bg--dawn { background: linear-gradient(180deg, #f8f2e6 0%, #f3e9d6 38%, #eddfc8 68%, #e7d6b9 100%); }
+.xlm-dawn { position: absolute; inset: 0; overflow: hidden; }
+.xlm-dawn__sun {
+  position: absolute;
+  left: 70%;
+  top: 17%;
+  width: 38vmax;
+  height: 38vmax;
+  margin: -19vmax 0 0 -19vmax;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(255, 246, 218, 0.92) 0%, rgba(255, 233, 184, 0.52) 30%, rgba(240, 205, 140, 0.18) 58%, transparent 72%);
+  animation: xlm-dawn-sun 20s ease-in-out infinite;
+}
+.xlm-dawn__haze {
+  position: absolute;
+  inset: 0;
+  background:
+    radial-gradient(ellipse 60% 40% at 28% 82%, rgba(255, 251, 242, 0.5), transparent 70%),
+    radial-gradient(ellipse 50% 40% at 82% 70%, rgba(255, 240, 208, 0.38), transparent 70%);
+}
+.xlm-dawn__cloud {
+  position: absolute;
+  left: var(--x);
+  top: var(--y);
+  width: var(--w);
+  height: var(--h);
+  border-radius: 50%;
+  background: radial-gradient(ellipse at 50% 55%, rgba(255, 253, 248, 0.92), rgba(250, 243, 231, 0.64) 52%, rgba(245, 236, 221, 0) 78%);
+  filter: blur(20px);
+  opacity: 0.85;
+  animation: xlm-cloud-drift var(--d) ease-in-out infinite alternate;
+  animation-delay: var(--delay);
+}
+.xlm-dawn__veil {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(165deg, rgba(255, 252, 246, 0.34), rgba(255, 250, 242, 0.04) 42%, rgba(233, 218, 192, 0.14));
+}
+@keyframes xlm-cloud-drift {
+  from { transform: translate3d(-3.2vw, 0, 0) scale(1); }
+  to { transform: translate3d(3.8vw, -1.4vh, 0) scale(1.05); }
+}
+@keyframes xlm-dawn-sun {
+  0%, 100% { opacity: 0.8; transform: scale(1); }
+  50% { opacity: 1; transform: scale(1.05); }
+}
+
+/* ---------- ⑥ 金丝纸纹（浅色 CSS） ---------- */
+
+.xlm-bg--silk { background: linear-gradient(115deg, #f8f2e7 0%, #f1e7d5 34%, #f7f1e5 58%, #eee2cd 100%); }
+.xlm-silk { position: absolute; inset: 0; overflow: hidden; }
+.xlm-silk::before {
+  content: "";
+  position: absolute;
+  inset: -20%;
+  background: repeating-linear-gradient(
+    102deg,
+    rgba(184, 137, 47, 0.055) 0 1px,
+    transparent 1px 9px,
+    rgba(255, 255, 255, 0.28) 9px 10px,
+    transparent 10px 19px
+  );
+  animation: xlm-silk-threads 46s linear infinite;
+}
+.xlm-silk__sheen {
+  position: absolute;
+  inset: -40%;
+  background: linear-gradient(105deg, transparent 30%, rgba(255, 255, 255, 0.5) 45%, rgba(230, 194, 122, 0.14) 52%, transparent 66%);
+  animation: xlm-silk-sheen 34s ease-in-out infinite;
+}
+.xlm-silk__fold {
+  position: absolute;
+  inset: 0;
+  background:
+    radial-gradient(ellipse 60% 50% at 22% 20%, rgba(255, 255, 255, 0.42), transparent 60%),
+    radial-gradient(ellipse 70% 60% at 80% 85%, rgba(184, 137, 47, 0.08), transparent 60%),
+    linear-gradient(180deg, rgba(255, 252, 246, 0.16), rgba(238, 226, 205, 0.18));
+  animation: xlm-silk-breath 26s ease-in-out infinite;
+}
+@keyframes xlm-silk-threads {
+  from { transform: translate3d(0, 0, 0); }
+  to { transform: translate3d(-2%, 0, 0); }
+}
+@keyframes xlm-silk-sheen {
+  0%, 100% { transform: translate3d(-16%, 0, 0) rotate(2deg); opacity: 0.5; }
+  50% { transform: translate3d(16%, 0, 0) rotate(2deg); opacity: 0.92; }
+}
+@keyframes xlm-silk-breath {
+  0%, 100% { opacity: 0.85; }
+  50% { opacity: 1; }
+}
+
+/* ---------- ⑦ 细线流光（浅色 Canvas 2D） ---------- */
+
+.xlm-bg--lineflow { background: radial-gradient(ellipse 82% 70% at 50% 30%, #fbf7ee, #f4ecdd 62%, #efe5d3 100%); }
+.xlm-lineflow { position: absolute; inset: 0; overflow: hidden; }
+.xlm-lineflow__rules {
+  position: absolute;
+  inset: 0;
+  opacity: 0.55;
+  background-image:
+    linear-gradient(90deg, rgba(27, 23, 18, 0.055) 1px, transparent 1px),
+    linear-gradient(rgba(27, 23, 18, 0.04) 1px, transparent 1px);
+  background-size: 120px 100%, 100% 160px;
+  -webkit-mask-image: radial-gradient(ellipse at 50% 42%, #000 30%, transparent 86%);
+  mask-image: radial-gradient(ellipse at 50% 42%, #000 30%, transparent 86%);
+}
+.xlm-bg--lineflow .xlm-bg-canvas { z-index: 1; }
+
+/* ---------- 性能守卫：静态图降级 ---------- */
+
+.xlm-bg--static .xlm-bg-canvas { display: none !important; }
+.xlm-bg--static .xlm-bg__scene *,
+.xlm-bg--static .xlm-bg__scene::before,
+.xlm-bg--static .xlm-bg__scene::after {
+  animation-play-state: paused !important;
+}
+.xlm-bg--static .xlm-city__world { animation: none; }
+.xlm-bg--static .xlm-city__layer { transform: none; }
+.xlm-bg--static::after { opacity: 0.85; }
+
+/* ==================================================================
+ * xl-bg-switcher 切换器（右上角按钮 + 3×3 面板）
+ * ================================================================== */
+
+.xlm-bg-switcher {
+  position: fixed;
+  top: 18px;
+  right: 18px;
+  z-index: 90;
+  color-scheme: dark;
+  font-family: var(--xlm-sans, -apple-system, BlinkMacSystemFont, "Segoe UI", "PingFang SC", "Microsoft YaHei", sans-serif);
+}
+
+.xlm-bg-switcher__toggle {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  height: 38px;
+  padding: 0 12px;
+  margin: 0;
+  background: rgba(12, 10, 8, 0.72);
+  border: 1px solid rgba(230, 194, 122, 0.28);
+  border-radius: 2px;
+  color: rgba(239, 230, 213, 0.82);
+  font: inherit;
+  font-size: 10.5px;
+  letter-spacing: 0.18em;
+  cursor: pointer;
+  -webkit-backdrop-filter: blur(12px);
+  backdrop-filter: blur(12px);
+  transition: border-color 0.3s ease, color 0.3s ease, background 0.3s ease;
+}
+
+.xlm-bg-switcher__toggle:hover,
+.xlm-bg-switcher.is-open .xlm-bg-switcher__toggle {
+  color: #f4dfae;
+  border-color: rgba(230, 194, 122, 0.62);
+  background: rgba(16, 13, 9, 0.86);
+}
+
+.xlm-bg-switcher__grid {
+  display: grid;
+  grid-template-columns: repeat(2, 4px);
+  gap: 2px;
+}
+
+.xlm-bg-switcher__grid i {
+  width: 4px;
+  height: 4px;
+  background: currentColor;
+  opacity: 0.72;
+}
+
+.xlm-bg-switcher__panel {
+  position: absolute;
+  top: 46px;
+  right: 0;
+  width: 354px;
+  padding: 14px;
+  border: 1px solid rgba(230, 194, 122, 0.28);
+  border-radius: 3px;
+  background: linear-gradient(165deg, rgba(21, 17, 12, 0.98), rgba(10, 9, 7, 0.99));
+  box-shadow: 0 34px 90px -34px #000, inset 0 1px 0 rgba(244, 223, 174, 0.06);
+  -webkit-backdrop-filter: blur(18px);
+  backdrop-filter: blur(18px);
+}
+
+.xlm-bg-switcher__panel[hidden] { display: none; }
+
+.xlm-bg-panel__head {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  margin-bottom: 10px;
+  padding-bottom: 10px;
+  border-bottom: 1px solid rgba(230, 194, 122, 0.14);
+}
+.xlm-bg-panel__head b {
+  display: block;
+  font-family: var(--xlm-serif, "Songti SC", serif);
+  font-size: 14px;
+  font-weight: 600;
+  letter-spacing: 0.16em;
+  color: #f2e7d3;
+}
+.xlm-bg-panel__head em {
+  display: block;
+  margin-top: 2px;
+  font-style: normal;
+  font-size: 8px;
+  letter-spacing: 0.28em;
+  color: rgba(239, 230, 213, 0.32);
+}
+.xlm-bg-panel__hint {
+  padding-top: 2px;
+  font-size: 8.5px;
+  letter-spacing: 0.08em;
+  color: rgba(239, 230, 213, 0.34);
+}
+
+.xlm-bg-panel__grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 7px;
+}
+
+.xlm-bg-option {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  padding: 5px;
+  margin: 0;
+  border: 1px solid rgba(239, 230, 213, 0.08);
+  border-radius: 2px;
+  background: rgba(255, 255, 255, 0.02);
+  color: inherit;
+  font: inherit;
+  text-align: left;
+  cursor: pointer;
+  transition: border-color 0.25s ease, background 0.25s ease, box-shadow 0.25s ease;
+}
+.xlm-bg-option:hover { border-color: rgba(230, 194, 122, 0.4); background: rgba(230, 194, 122, 0.05); }
+.xlm-bg-option.is-active {
+  border-color: rgba(230, 194, 122, 0.72);
+  background: rgba(230, 194, 122, 0.09);
+  box-shadow: inset 0 0 0 1px rgba(230, 194, 122, 0.16);
+}
+.xlm-bg-option:focus-visible { outline: 1px solid rgba(230, 194, 122, 0.8); outline-offset: 2px; }
+
+.xlm-bg-thumb {
+  position: relative;
+  display: block;
+  width: 100%;
+  height: 42px;
+  overflow: hidden;
+  border-radius: 1px;
+  background: #0a0908;
+}
+.xlm-bg-thumb::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  box-shadow: inset 0 0 0 1px rgba(239, 230, 213, 0.08);
+}
+.xlm-bg-thumb i { position: absolute; display: block; }
+
+.xlm-bg-thumb--nebula {
+  background:
+    radial-gradient(1.5px 1.5px at 22% 32%, rgba(244, 223, 174, 0.9) 50%, transparent 51%),
+    radial-gradient(1.5px 1.5px at 64% 62%, rgba(230, 194, 122, 0.8) 50%, transparent 51%),
+    radial-gradient(2px 2px at 82% 26%, rgba(224, 99, 81, 0.8) 50%, transparent 51%),
+    radial-gradient(1px 1px at 44% 76%, rgba(244, 223, 174, 0.7) 50%, transparent 51%),
+    radial-gradient(ellipse 55% 46% at 55% 52%, rgba(230, 194, 122, 0.2), transparent 70%),
+    #0a0908;
+}
+.xlm-bg-thumb--matrix {
+  background:
+    repeating-linear-gradient(90deg, rgba(230, 194, 122, 0.35) 0 1px, transparent 1px 7px),
+    repeating-linear-gradient(0deg, rgba(230, 194, 122, 0.14) 0 1px, transparent 1px 9px),
+    linear-gradient(180deg, #17130d, #0a0908);
+}
+.xlm-bg-thumb--city {
+  background:
+    radial-gradient(ellipse 60% 24% at 66% 70%, rgba(230, 194, 122, 0.42), transparent 72%),
+    repeating-linear-gradient(90deg, transparent 0 2px, rgba(230, 194, 122, 0.22) 2px 3px, transparent 3px 10px),
+    linear-gradient(0deg, #050403 0 34%, #2a1a0d 34% 100%);
+}
+.xlm-bg-thumb--ink {
+  background:
+    radial-gradient(circle at 62% 46%, rgba(230, 194, 122, 0.5), rgba(184, 137, 47, 0.16) 34%, transparent 68%),
+    radial-gradient(circle at 28% 66%, rgba(197, 59, 50, 0.28), transparent 62%),
+    #0b0908;
+}
+.xlm-bg-thumb--dawn {
+  background:
+    radial-gradient(circle at 70% 28%, rgba(255, 247, 222, 0.98), rgba(255, 233, 184, 0.4) 30%, transparent 62%),
+    radial-gradient(ellipse 55% 32% at 34% 62%, rgba(255, 255, 255, 0.9), transparent 72%),
+    linear-gradient(180deg, #f8f2e6, #e7d6b9);
+}
+.xlm-bg-thumb--silk {
+  background:
+    repeating-linear-gradient(102deg, rgba(184, 137, 47, 0.16) 0 1px, transparent 1px 6px),
+    linear-gradient(105deg, transparent 24%, rgba(255, 255, 255, 0.85) 46%, rgba(230, 194, 122, 0.22) 54%, transparent 70%),
+    linear-gradient(115deg, #f8f2e7, #eee2cd);
+}
+.xlm-bg-thumb--lineflow {
+  background:
+    repeating-linear-gradient(0deg, transparent 0 7px, rgba(184, 137, 47, 0.3) 7px 8px, transparent 8px 16px),
+    linear-gradient(180deg, #fbf7ee, #efe5d3);
+}
+.xlm-bg-thumb--auto {
+  background:
+    linear-gradient(90deg, rgba(10, 9, 8, 0.96) 0 50%, rgba(247, 240, 229, 0.96) 50% 100%);
+}
+.xlm-bg-thumb--auto::before {
+  content: "";
+  position: absolute;
+  left: 25%;
+  top: 50%;
+  width: 6px;
+  height: 6px;
+  transform: translate(-50%, -50%);
+  border-radius: 50%;
+  background: #e6c27a;
+  box-shadow: 0 0 8px rgba(230, 194, 122, 0.8);
+}
+.xlm-bg-thumb--auto::after {
+  box-shadow: inset 0 0 0 1px rgba(239, 230, 213, 0.08);
+  background: radial-gradient(circle at 75% 50%, rgba(184, 137, 47, 0.3), transparent 58%);
+}
+.xlm-bg-thumb--theme {
+  background: linear-gradient(90deg, #0a0908 0 52%, #f7f0e5 52% 100%);
+}
+.xlm-bg-thumb--theme::before {
+  content: "";
+  position: absolute;
+  left: 26%;
+  top: 50%;
+  width: 7px;
+  height: 7px;
+  transform: translate(-50%, -50%) rotate(45deg);
+  background: #e6c27a;
+  clip-path: polygon(50% 0, 100% 50%, 50% 100%, 0 50%);
+}
+.xlm-bg-thumb--theme::after {
+  content: "";
+  position: absolute;
+  left: 78%;
+  top: 50%;
+  width: 10px;
+  height: 10px;
+  transform: translate(-50%, -50%);
+  border-radius: 50%;
+  background: #b8892f;
+  box-shadow: 0 0 10px rgba(184, 137, 47, 0.4);
+}
+
+.xlm-bg-option__meta { display: block; min-width: 0; }
+.xlm-bg-option__meta b {
+  display: block;
+  overflow: hidden;
+  font-size: 10.5px;
+  font-weight: 500;
+  letter-spacing: 0.02em;
+  color: rgba(246, 235, 212, 0.88);
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+.xlm-bg-option__meta em {
+  display: block;
+  overflow: hidden;
+  margin-top: 1px;
+  font-style: normal;
+  font-size: 7.5px;
+  letter-spacing: 0.08em;
+  color: rgba(239, 230, 213, 0.3);
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+.xlm-bg-option.is-active .xlm-bg-option__meta b { color: #f4dfae; }
+
+.xlm-bg-panel__foot {
+  margin: 10px 0 0;
+  font-size: 8.5px;
+  letter-spacing: 0.08em;
+  color: rgba(239, 230, 213, 0.26);
+  text-align: center;
+}
+
+/* 浅色主题下的切换器（跟随页面 data-xlm-theme） */
+html[data-xlm-theme="light"] .xlm-bg-switcher { color-scheme: light; }
+html[data-xlm-theme="light"] .xlm-bg-switcher__toggle {
+  background: rgba(251, 247, 240, 0.85);
+  border-color: rgba(140, 105, 45, 0.34);
+  color: #4a3c2a;
+}
+html[data-xlm-theme="light"] .xlm-bg-switcher__toggle:hover,
+html[data-xlm-theme="light"] .xlm-bg-switcher.is-open .xlm-bg-switcher__toggle {
+  background: #fbf7f0;
+  border-color: rgba(140, 105, 45, 0.6);
+  color: #2a2118;
+}
+html[data-xlm-theme="light"] .xlm-bg-switcher__panel {
+  background: linear-gradient(165deg, rgba(251, 247, 240, 0.99), rgba(244, 236, 223, 0.99));
+  border-color: rgba(140, 105, 45, 0.34);
+  color: #2a2219;
+  box-shadow: 0 34px 90px -40px rgba(90, 68, 30, 0.35), inset 0 1px 0 rgba(255, 255, 255, 0.7);
+}
+html[data-xlm-theme="light"] .xlm-bg-panel__head { border-bottom-color: rgba(140, 105, 45, 0.16); }
+html[data-xlm-theme="light"] .xlm-bg-panel__head b { color: #2a2118; }
+html[data-xlm-theme="light"] .xlm-bg-panel__head em,
+html[data-xlm-theme="light"] .xlm-bg-panel__hint,
+html[data-xlm-theme="light"] .xlm-bg-panel__foot { color: rgba(60, 48, 32, 0.42); }
+html[data-xlm-theme="light"] .xlm-bg-option { border-color: rgba(60, 48, 32, 0.12); background: rgba(255, 255, 255, 0.28); }
+html[data-xlm-theme="light"] .xlm-bg-option:hover { border-color: rgba(140, 105, 45, 0.42); background: rgba(230, 194, 122, 0.12); }
+html[data-xlm-theme="light"] .xlm-bg-option.is-active { border-color: rgba(140, 105, 45, 0.7); background: rgba(230, 194, 122, 0.18); box-shadow: inset 0 0 0 1px rgba(140, 105, 45, 0.14); }
+html[data-xlm-theme="light"] .xlm-bg-option__meta b { color: #3a2f22; }
+html[data-xlm-theme="light"] .xlm-bg-option__meta em { color: rgba(60, 48, 32, 0.38); }
+html[data-xlm-theme="light"] .xlm-bg-option.is-active .xlm-bg-option__meta b { color: #7c5a18; }
+html[data-xlm-theme="light"] .xlm-bg-thumb { box-shadow: inset 0 0 0 1px rgba(60, 48, 32, 0.1); }
+
+@media (max-width: 767px) {
+  .xlm-bg-switcher { top: 10px; right: 10px; }
+  .xlm-bg-switcher__toggle { height: 34px; padding: 0 10px; }
+  .xlm-bg-switcher__txt { display: none; }
+  .xlm-bg-switcher__panel { top: 42px; width: min(90vw, 342px); padding: 12px; }
+  .xlm-bg-thumb { height: 34px; }
+  .xlm-bg-option__meta em { display: none; }
+  .xlm-bg-option__meta b { font-size: 10px; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .xlm-bg__scene,
+  .xlm-bg__scene *,
+  .xlm-bg__scene::before,
+  .xlm-bg__scene::after {
+    animation: none !important;
+  }
+  .xlm-bg-canvas { display: none !important; }
+}
+
+/* ==================================================================
+ * 背景质感微调（v1.1：提高可读性与层次，保持浅色不刺眼）
+ * ================================================================== */
+
+/* ② 数据矩阵：更清晰的数据流 */
+.xlm-bg--matrix .xlm-bg-canvas { opacity: 1; }
+.xlm-matrix__glow {
+  background: radial-gradient(ellipse 60% 44% at 50% 26%, rgba(184, 137, 47, 0.18), transparent 72%);
+}
+
+/* ③ 城市夜巡：加亮灯火与霓虹，加入月亮 */
+.xlm-bg--city { background: linear-gradient(180deg, #0e0b08 0%, #1c140c 42%, #332112 72%, #0d0a07 100%); }
+.xlm-city__sky {
+  background:
+    radial-gradient(ellipse 46% 26% at 70% 64%, rgba(240, 204, 132, 0.36), transparent 72%),
+    radial-gradient(ellipse 32% 20% at 24% 72%, rgba(214, 72, 58, 0.22), transparent 72%),
+    radial-gradient(ellipse 75% 40% at 52% 100%, rgba(150, 100, 42, 0.28), transparent 70%);
+}
+.xlm-city__horizon {
+  background: radial-gradient(ellipse 60% 100% at 62% 100%, rgba(240, 204, 132, 0.34), transparent 72%);
+}
+.xlm-city__moon {
+  position: absolute;
+  left: 17%;
+  top: 14%;
+  width: 74px;
+  height: 74px;
+  border-radius: 50%;
+  background: radial-gradient(circle at 40% 38%, #f8efd8, #e6ca93 56%, #b8892f 100%);
+  box-shadow: 0 0 42px rgba(240, 215, 160, 0.45), 0 0 130px rgba(230, 194, 122, 0.2);
+  opacity: 0.82;
+}
+.xlm-city__streaks i { opacity: 0.35; }
+
+/* ④ 水墨金晕：加强金晕与朱砂层次 */
+.xlm-bg--ink {
+  background:
+    radial-gradient(ellipse 50% 38% at 38% 34%, rgba(184, 137, 47, 0.16), transparent 68%),
+    radial-gradient(ellipse 44% 34% at 72% 66%, rgba(197, 59, 50, 0.12), transparent 70%),
+    radial-gradient(ellipse 85% 72% at 52% 62%, #1b150e, #0b0908 58%, #070605 100%);
+}
+.xlm-ink__blob { opacity: 0.86; filter: blur(42px); }
+.xlm-ink__blob:nth-child(3n + 1) { background: radial-gradient(circle, rgba(240, 214, 160, 0.42), rgba(184, 137, 47, 0.16) 48%, transparent 72%); }
+.xlm-ink__blob:nth-child(3n + 2) { background: radial-gradient(circle, rgba(214, 72, 58, 0.3), rgba(140, 34, 29, 0.1) 52%, transparent 72%); }
+.xlm-ink__blob:nth-child(3n) { background: radial-gradient(circle, rgba(116, 99, 72, 0.62), rgba(48, 40, 30, 0.22) 55%, transparent 76%); }
+.xlm-ink__halo {
+  border-color: rgba(230, 194, 122, 0.2);
+  box-shadow: inset 0 0 140px rgba(230, 194, 122, 0.12), 0 0 160px rgba(197, 59, 50, 0.08);
+}
+
+/* ⑤ 晨光云海：云层更可辨，暖而不刺眼 */
+.xlm-bg--dawn { background: linear-gradient(180deg, #f6efe0 0%, #f2e7d3 36%, #eadbc0 68%, #e0cbaa 100%); }
+.xlm-dawn__sun {
+  opacity: 0.95;
+  background: radial-gradient(circle, rgba(255, 247, 220, 0.98) 0%, rgba(255, 236, 190, 0.6) 26%, rgba(238, 201, 134, 0.22) 56%, transparent 72%);
+}
+.xlm-dawn__cloud {
+  opacity: 0.92;
+  filter: blur(16px);
+  background: radial-gradient(ellipse at 50% 55%, rgba(255, 254, 250, 0.98), rgba(252, 246, 235, 0.72) 52%, rgba(245, 236, 221, 0) 78%);
+}
+.xlm-dawn__haze {
+  background:
+    radial-gradient(ellipse 62% 42% at 26% 84%, rgba(255, 251, 242, 0.68), transparent 70%),
+    radial-gradient(ellipse 52% 42% at 82% 66%, rgba(255, 240, 208, 0.55), transparent 70%),
+    radial-gradient(ellipse 80% 24% at 50% 96%, rgba(224, 198, 157, 0.32), transparent 72%);
+}
+.xlm-dawn__veil {
+  background: linear-gradient(165deg, rgba(255, 252, 246, 0.22), rgba(255, 250, 242, 0.02) 42%, rgba(226, 207, 178, 0.18));
+}
+
+/* ⑥ 金丝纸纹：丝绸纹理与高光更明确 */
+.xlm-silk::before {
+  background: repeating-linear-gradient(
+    102deg,
+    rgba(176, 132, 54, 0.1) 0 1px,
+    transparent 1px 9px,
+    rgba(255, 255, 255, 0.4) 9px 10px,
+    transparent 10px 19px
+  );
+}
+.xlm-silk__sheen {
+  background: linear-gradient(105deg, transparent 28%, rgba(255, 255, 255, 0.72) 44%, rgba(230, 194, 122, 0.2) 52%, transparent 66%);
+}
+.xlm-silk__fold {
+  background:
+    radial-gradient(ellipse 55% 45% at 22% 18%, rgba(255, 255, 255, 0.5), transparent 60%),
+    radial-gradient(ellipse 65% 55% at 82% 88%, rgba(170, 130, 55, 0.12), transparent 62%),
+    linear-gradient(180deg, rgba(255, 252, 246, 0.12), rgba(226, 211, 186, 0.26));
+}
+
+/* v1.2 对比度微调 */
+.xlm-city__layer--mid { filter: brightness(1.55) saturate(1.08); }
+.xlm-city__layer--far { filter: brightness(1.2); }
+.xlm-city__layer--near { filter: brightness(0.95); }
+.xlm-city__horizon { opacity: 1.15; }
+
+.xlm-ink__blob { filter: blur(30px); opacity: 0.92; }
+.xlm-ink__blob:nth-child(3n + 1) { background: radial-gradient(circle, rgba(246, 223, 174, 0.5), rgba(184, 137, 47, 0.2) 44%, transparent 70%); }
+.xlm-ink__blob:nth-child(3n + 2) { background: radial-gradient(circle, rgba(226, 90, 72, 0.36), rgba(140, 34, 29, 0.12) 50%, transparent 72%); }
+.xlm-ink::after {
+  content: "";
+  position: absolute;
+  left: 60%;
+  top: 44%;
+  width: 30vmax;
+  height: 30vmax;
+  margin: -15vmax 0 0 -15vmax;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(246, 223, 174, 0.3), rgba(184, 137, 47, 0.12) 40%, transparent 70%);
+  filter: blur(18px);
+  animation: xlm-ink-halo 13s ease-in-out infinite;
+}
+
+.xlm-dawn__cloud {
+  opacity: 1;
+  filter: blur(18px);
+  background: radial-gradient(ellipse at 50% 52%, rgba(255, 255, 252, 1) 0%, rgba(252, 246, 234, 0.92) 52%, rgba(228, 207, 176, 0.24) 74%, rgba(228, 207, 176, 0) 82%);
+}
+.xlm-dawn__veil {
+  background: linear-gradient(165deg, rgba(255, 252, 246, 0.14), rgba(255, 250, 242, 0.01) 42%, rgba(222, 201, 170, 0.22));
+}
+.xlm-dawn__sun { opacity: 1; }
+
+/* v1.3 晨光云海：云层更立体 + 底部云海 */
+.xlm-dawn__cloud {
+  opacity: 1;
+  filter: blur(14px);
+  background: radial-gradient(
+    ellipse at 50% 52%,
+    rgba(255, 255, 253, 1) 0%,
+    rgba(253, 248, 238, 0.94) 44%,
+    rgba(231, 212, 182, 0.42) 66%,
+    rgba(231, 212, 182, 0) 82%
+  );
+}
+.xlm-dawn__sea {
+  position: absolute;
+  left: -8%;
+  right: -8%;
+  bottom: -10%;
+  height: 40%;
+  filter: blur(22px);
+  opacity: 0.95;
+  background:
+    radial-gradient(ellipse 24% 52% at 8% 88%, rgba(255, 255, 252, 0.98), transparent 70%),
+    radial-gradient(ellipse 30% 60% at 30% 96%, rgba(255, 254, 248, 0.95), transparent 72%),
+    radial-gradient(ellipse 26% 58% at 54% 90%, rgba(255, 252, 244, 0.9), transparent 72%),
+    radial-gradient(ellipse 32% 64% at 78% 98%, rgba(255, 255, 252, 0.95), transparent 72%),
+    radial-gradient(ellipse 24% 50% at 97% 90%, rgba(255, 253, 247, 0.9), transparent 72%);
+}
+.xlm-dawn__sun {
+  left: 68%;
+  top: 19%;
+  width: 30vmax;
+  height: 30vmax;
+  margin: -15vmax 0 0 -15vmax;
+  filter: none;
+  background: radial-gradient(
+    circle,
+    rgba(255, 251, 235, 0.99) 0%,
+    rgba(255, 243, 208, 0.92) 20%,
+    rgba(255, 228, 170, 0.5) 38%,
+    rgba(240, 205, 140, 0.16) 58%,
+    transparent 72%
+  );
+}
+.xlm-dawn__veil {
+  background: linear-gradient(165deg, rgba(255, 252, 246, 0.1), rgba(255, 250, 242, 0) 42%, rgba(222, 201, 170, 0.2));
+}
+
+/* v1.3 金丝纹理稍加强 */
+.xlm-silk::before {
+  background: repeating-linear-gradient(
+    102deg,
+    rgba(176, 132, 54, 0.13) 0 1px,
+    transparent 1px 9px,
+    rgba(255, 255, 255, 0.5) 9px 10px,
+    transparent 10px 19px
+  );
+}
