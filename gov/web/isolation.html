@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head><meta name="robots" content="noindex,nofollow"><meta name="googlebot" content="noindex,nofollow">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>曦沃·中枢 · 涉密隔离与数据边界说明</title>
+<style>
+:root{--bg:#0d0f12;--card:#161a20;--line:#2a3038;--gold:#d6ad60;--gold2:#f1d698;--txt:#e8e6e1;--dim:#9aa1ab;--ok:#4bbd7a;--warn:#e0a93a;--bad:#d9534f}
+*{box-sizing:border-box}
+body{margin:0;background:radial-gradient(1200px 600px at 20% -10%,#1b1f27 0,#0d0f12 60%);color:var(--txt);font:15px/1.7 -apple-system,"Segoe UI",system-ui,"Microsoft YaHei",sans-serif}
+a{color:var(--gold2)}
+.wrap{max-width:960px;margin:0 auto;padding:28px 20px 70px}
+h1{font-size:23px;margin:6px 0 4px}
+.sub{color:var(--dim);font-size:13px}
+.tag{display:inline-block;padding:2px 9px;border-radius:999px;font-size:12px;border:1px solid var(--line);color:var(--dim);margin-right:6px}
+.card{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:16px 18px;margin-top:16px}
+h2{font-size:16px;margin:0 0 10px;color:var(--gold2)}
+table{width:100%;border-collapse:collapse;font-size:13.5px;margin-top:6px}
+th,td{padding:9px 10px;text-align:left;border-bottom:1px solid var(--line);vertical-align:top}
+th{color:var(--dim);font-weight:500}
+.lv{font-weight:600}
+.lv-1{color:var(--ok)}.lv-2{color:var(--warn)}.lv-3{color:var(--bad)}
+ol{margin:6px 0 0 18px;padding:0}
+li{margin:5px 0}
+.note{border-left:3px solid var(--gold);padding:10px 14px;background:#171a1f;border-radius:8px;margin-top:12px;font-size:13.5px}
+footer{margin-top:30px;color:#5c636e;font-size:12px}
+</style>
+<link rel="icon" href="data:image/svg+xml,%3Csvg%20xmlns='http://www.w3.org/2000/svg'%20viewBox='0%200%2064%2064'%3E%3Crect%20width='64'%20height='64'%20rx='14'%20fill='%23070a10'/%3E%3Cpath%20d='M32%2012l5.6%2013.6L51%2031l-13.4%205.4L32%2050l-5.6-13.6L13%2031l13.4-5.4z'%20fill='%2338bdf8'/%3E%3C/svg%3E">
+</head>
+<body>
+<div class="wrap">
+  <a href="./" style="text-decoration:none">← 返回政务智能体</a>
+  <h1>涉密隔离与数据边界说明</h1>
+  <div class="sub">曦沃·中枢 · 政务垂类 v1.0 · 本页为可交付的合规说明（1 页）</div>
+  <div style="margin-top:10px">
+    <span class="tag">私有化部署</span><span class="tag">数据不出内网</span><span class="tag">涉密不入模型</span><span class="tag">审计留存 180 天</span>
+  </div>
+
+  <div class="card">
+    <h2>一、数据分级与处置</h2>
+    <table>
+      <thead><tr><th style="width:90px">级别</th><th style="width:190px">能否进入模型</th><th>典型内容</th></tr></thead>
+      <tbody>
+        <tr><td class="lv lv-1">公开</td><td>可以</td><td>对外发布的政策、办事指南、公告、常见问答</td></tr>
+        <tr><td class="lv lv-2">内部</td><td>脱敏后可进入</td><td>含个人信息、联系方式、内部地址、未公开数据——须先去标识</td></tr>
+        <tr><td class="lv lv-3">涉密</td><td>禁止进入</td><td>标注"绝密 / 机密 / 秘密"或涉密载体内容——一律人工流程处理</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="card">
+    <h2>二、五条硬控制（服务内自动执行）</h2>
+    <ol>
+      <li><b>前置拦截</b>：请求在调用模型<b>之前</b>做规则检查——命中涉密标记或身份证号 / 手机号 / 银行卡号即返回 <code>blocked</code>，<b>不产生任何 token 消耗</b>，并写入审计。</li>
+      <li><b>私有化部署</b>：模型可切换为客户自有 API Key 或本地开源模型，推理数据不出客户内网；本服务不向第三方回传输入内容。</li>
+      <li><b>输出不复述敏感信息</b>：涉密审查模板只按"第 N 句 / 第 N 段"定位问题，输出校验<b>禁止包含完整证件号与手机号</b>（作为 hard 规则参与 pass/fail）。</li>
+      <li><b>最小权限</b>：模板按岗位分配，越权请求返回 403（与版本分层授权同源），不做"全开放"。</li>
+      <li><b>全量审计</b>：每次运行记录 时间 / 模板 / 结论 / token 与成本 / 客户端，留存 <b>180 天</b>，可导出核查。</li>
+    </ol>
+  </div>
+
+  <div class="card">
+    <h2>三、验收标准（可现场复现）</h2>
+    <table>
+      <thead><tr><th style="width:120px">能力</th><th>判据</th></tr></thead>
+      <tbody>
+        <tr><td>模板可用</td><td>6 个模板各一键起任务，返回 <code>verdict + checks[]</code> 明细</td></tr>
+        <tr><td>自动判断</td><td>hard 任一不过 → fail；仅 soft 不过 → needs_human；全过 → pass</td></tr>
+        <tr><td>涉密拦截</td><td>输入含"机密"或身份证号 → <code>blocked</code>，tokens=0，审计有 <code>precheck_blocked</code></td></tr>
+        <tr><td>审计可查</td><td><code>GET /api/gov/runs</code> 返回真实记录；<code>GET /api/gov/runs/&lt;id&gt;</code> 可回看逐条 checks</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="note">
+    边界如实说明：本服务<b>不自建涉密网</b>（依赖客户既有保密网络与管理制度）；"前置拦截"是关键词与正则级别的技术兜底，<b>不能替代人工保密审查</b>；
+    若需国密算法 / 等保测评材料 / 三方渗透报告，属另行交付项（可提供设计与整改清单，不做无依据承诺）。
+  </div>
+
+  <footer>曦沃 XYVORA · 政务垂类 v1.0.0（服务 8841）· 判据与页面同源，避免文档与实现不一致</footer>
+</div>
+</body>
+</html>
